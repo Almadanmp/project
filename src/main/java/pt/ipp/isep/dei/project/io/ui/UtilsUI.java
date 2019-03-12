@@ -92,8 +92,8 @@ public class UtilsUI {
      * Old example: System.out.println("Line 1 blablabla \n Line 2 blablabla");
      * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
      *
-     * @param strings means the string to be adapted with printBox.
-     * @return same string but with box format.
+     * @param strings to know the max length
+     * @return string length
      */
 
     private static int getStringMaxLength(String... strings) {
@@ -103,6 +103,13 @@ public class UtilsUI {
         }
         return length;
     }
+
+    /**
+     * Method for padding spaces for printBox method
+     * @param str
+     * @param length
+     * @return
+     */
 
     private static String padString(String str, int length) {
         StringBuilder sBuilder =  new StringBuilder(str);
@@ -119,7 +126,7 @@ public class UtilsUI {
 
     public static void printBox(String... strings) {
         int maxBoxWidth = getStringMaxLength(strings);
-        String line = "+" + fill('-', maxBoxWidth + 2) + "+";
+        String line = " " + fill('-', maxBoxWidth + 2) + " ";
         System.out.println(line);
         for (String str : strings) {
             System.out.printf("| %s |%n", padString(str, maxBoxWidth));
