@@ -15,9 +15,11 @@ public class PortableElectricOilHeater implements Device, Metered {
     private String name;
     private double nominalPower;
     private PortableElectricOilHeaterSpec deviceSpecs;
+    private boolean active;
 
     public PortableElectricOilHeater(PortableElectricOilHeaterSpec portableElectricOilHeaterSpec) {
         this.deviceSpecs = portableElectricOilHeaterSpec;
+        this.active = true;
 
     }
 
@@ -42,11 +44,16 @@ public class PortableElectricOilHeater implements Device, Metered {
     }
 
     public boolean isActive() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.active;
     }
 
     public boolean deactivate() {
-        throw new UnsupportedOperationException(notSupported);
+        if (isActive()) {
+            this.active = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String buildString() {
@@ -68,7 +75,7 @@ public class PortableElectricOilHeater implements Device, Metered {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        throw new UnsupportedOperationException(notSupported);
+        return true;
     }
 
     /**

@@ -15,9 +15,11 @@ public class WallElectricHeater implements Device, Metered {
     private String name;
     private double nominalPower;
     private WallElectricHeaterSpec deviceSpecs;
+    private boolean active;
 
     public WallElectricHeater(WallElectricHeaterSpec wallElectricHeaterSpec) {
         this.deviceSpecs = wallElectricHeaterSpec;
+        this.active = true;
     }
 
     public String getName() {
@@ -41,14 +43,17 @@ public class WallElectricHeater implements Device, Metered {
     }
 
     public boolean isActive() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.active;
     }
 
     public boolean deactivate() {
-        throw new UnsupportedOperationException(notSupported);
+        if (isActive()) {
+            this.active = false;
+            return true;
+        } else {
+            return false;
+        }
     }
-
-
     public String buildString() {
         return "The device Name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
     }
@@ -68,7 +73,7 @@ public class WallElectricHeater implements Device, Metered {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        throw new UnsupportedOperationException(notSupported);
+        return true;
     }
 
     /**

@@ -198,7 +198,7 @@ public class ReadingList {
      * @return date with last second of given day
      * @author Daniela (US623)
      */
-    private Date getLastSecondOfDay(Date day) {
+    Date getLastSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
@@ -403,30 +403,60 @@ public class ReadingList {
      * @author Nuno (US631)
      */
 
-    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+    /*
+    Date getFirstHottestDayInGivenPeriod2(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available.");
         }
-        Date firstHottestDay = new Date();
+        Date firstHottestDay = daysWithReadings.get(0);
         double tempTemp = -1000;
-        Date tempDate = daysWithReadings.get(0);
         for (Date day : daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
             double maxTemp = Collections.max(listOfMaxReadings);
-            if ((tempTemp < maxTemp) && (day.before(tempDate))){
+            if ((tempTemp < maxTemp) || (day.before(firstHottestDay))) {
                 tempTemp = maxTemp;
                 firstHottestDay = day;
             }
         }
         return firstHottestDay;
     }
+    */
 
-    /**
-     * Getter (array of readings)
-     *
-     * @return array of readings
-     */
+    private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates) {
+        List<Date> daysWithTemperature = new ArrayList<>();
+        for (Date date : dates) {
+            if (getValuesOfSpecificDayReadings(date).contains(temperature)) {
+                daysWithTemperature.add(date);
+            }
+        }
+        return Collections.min(daysWithTemperature);
+    }
+
+    private double getMaxValue(List<Date> list){
+        ArrayList<Double> values = new ArrayList<>();
+        for(Date day : list){
+            values.addAll (getValuesOfSpecificDayReadings(day));
+        }
+        return Collections.max(values);
+    }
+
+    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: No temperature readings available.");
+        }
+        double maxTemperature = getMaxValue(daysWithReadings);
+        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
+    }
+
+
+
+        /**
+         * Getter (array of readings)
+         *
+         * @return array of readings
+         */
     Reading[] getElementsAsArray() {
         int sizeOfResultArray = size();
         Reading[] result = new Reading[sizeOfResultArray];
@@ -457,7 +487,7 @@ public class ReadingList {
      * US630
      * This method returns a Reading with a specific date from a given ReadingList.
      *
-     * @param date        is the Date of the reading we want to get.
+     * @param date is the Date of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
     Reading getReadingWithSpecificDate(Date date) {
@@ -485,7 +515,7 @@ public class ReadingList {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate,finalDate);
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
         if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
@@ -512,6 +542,7 @@ public class ReadingList {
             Date readingDate = getFirstSecondOfDay(r.getDate());
             if (readingDate.equals(auxDay) && r.getValue() > auxValue) {
                 result = r;
+                auxValue = result.getValue();
             }
         }
         return result;
@@ -519,17 +550,19 @@ public class ReadingList {
 
     /**
      * This method filters a ReadingList and returns the ReadingList but within an interval of given dates.
+     *
      * @param initialDate is the initial date of the interval.
-     * @param finalDate is the final date of the interval.
+     * @param finalDate   is the final date of the interval.
      * @return a ReadingList that represents the initial ReadingList but only with Readings within the given interval.
      */
     public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         ReadingList result = new ReadingList();
-        for (int i = 0; i < size(); i++ ){
-            if(isReadingDateBetweenTwoDates(this.readings.get(i).getDate(),initialDate,finalDate)){
-                result.addReading(this.readings.get(i));
+        for (Reading r : this.readings) {
+            if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
+                result.addReading(r);
             }
-        } return result;
+        }
+        return result;
     }
 
     /**
@@ -543,10 +576,10 @@ public class ReadingList {
     ReadingList getListOfMaxValuesForEachDay() {
         ReadingList result = new ReadingList();
         List<Date> dateList = new ArrayList<>();
-        for (int i = 0; i < size(); i++) {
-            Date aux = getFirstSecondOfDay(this.readings.get(i).getDate());
+        for (Reading r : this.readings) {
+            Date aux = getFirstSecondOfDay(r.getDate());
             if (!dateList.contains(aux)) {
-                Reading maxOfTheDay = getMaxValueOfTheDay(this.readings.get(i).getDate());
+                Reading maxOfTheDay = getMaxValueOfTheDay(r.getDate());
                 dateList.add(aux);
                 result.addReading(maxOfTheDay);
             }
@@ -556,15 +589,17 @@ public class ReadingList {
 
     /**
      * This method returns a double value that represents the minimum value in a ReadingList.
+     *
      * @return a double value that represents the minimum value in a ReadingList.
      */
-    public double getMinValueInReadingList(){
+    public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
-        for (int i=0;i < size();i++){
-            if (this.readings.get(i).getValue() < result){
-                result = this.readings.get(i).getValue();
+        for (Reading r : this.readings) {
+            if (r.getValue() < result) {
+                result = r.getValue();
             }
-        } return result;
+        }
+        return result;
     }
 
     @Override

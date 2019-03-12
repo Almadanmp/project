@@ -478,6 +478,38 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
+    void testGetFirstHottestDayInPeriod2() {
+        // Arrange
+        Reading r02 = new Reading(1, validDate02); // MaxAmplitude First Date
+        Reading r03 = new Reading(22, validDate03);
+        Reading r04 = new Reading(10, validDate04); // Cold First Date
+        Reading r05 = new Reading(40, validDate05);
+        Reading r07 = new Reading(10.2, validDate07);
+        Reading r08 = new Reading(12, validDate08);
+        Reading r06 = new Reading(40.2, validDate06); // Hottest First Date
+        Reading r09 = new Reading(40.2, validDate09); // Hottest Final Date ALSO MaxAmplitude Final Date
+        Reading r10 = new Reading(21.2, validDate10); // Cold Final Date ALSO MaxAmplitude Final Date
+        Reading r01 = new Reading(40, validDate01); // MaxAmplitude First Date
+
+        validTemperatureSensor.addReading(r02);
+        validTemperatureSensor.addReading(r03);
+        validTemperatureSensor.addReading(r04);
+        validTemperatureSensor.addReading(r05);
+        validTemperatureSensor.addReading(r07);
+        validTemperatureSensor.addReading(r08);
+        validTemperatureSensor.addReading(r06);
+        validTemperatureSensor.addReading(r09);
+        validTemperatureSensor.addReading(r10);
+        validTemperatureSensor.addReading(r01);
+        validHouseArea.setSensorList(validSensorList);
+        Date expectedResult = validDate06;
+        // Act
+        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10);
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void testGetFirstHottestDayInPeriodIfUnorganizedReadings() {
         // Arrange
         validHouseArea.setSensorList(validSensorList);
