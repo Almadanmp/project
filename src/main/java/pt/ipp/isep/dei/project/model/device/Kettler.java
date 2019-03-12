@@ -62,7 +62,8 @@ public class Kettler implements Device, Metered {
      **/
     @Override
     public void setNominalPower(double nominalPower) {
-        if (nominalPower > 0.0) {
+        int comp = Double.compare(nominalPower, 0.0);
+        if (comp > 0) {
             this.nominalPower = nominalPower;
         }
     }
