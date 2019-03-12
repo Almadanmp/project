@@ -414,10 +414,11 @@ public class ReadingList {
 
     /**
      * Auxiliary method for getFirstHottestDayInGivenPeriod
-     * @param temperature
-     * @param dates
-     * @return
+     * @param temperature given for finding first day in period with that temperature
+     * @param dates for selecting the first day with given temperature from date list
+     * @return first date where given temperature was registered
      */
+
     private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates) {
         List<Date> daysWithTemperature = new ArrayList<>();
         for (Date date : dates) {
@@ -430,8 +431,8 @@ public class ReadingList {
 
     /**
      * Auxiliary method for getFirstHottestDayInGivenPeriod
-     * @param list
-     * @return
+     * @param list of readings for getting highest value from
+     * @return highest value from list of readings
      */
 
     private double getMaxValue(List<Date> list){
