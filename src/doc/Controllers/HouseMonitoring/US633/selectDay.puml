@@ -1,0 +1,46 @@
+@startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+actor User
+
+activate ":HouseMonitoringUI"
+":HouseMonitoringUI" -> ":InputUtils": getInputTime()
+activate ":InputUtils"
+":InputUtils" --> User: request year input
+User -> ":InputUtils": insert year
+":InputUtils" --> User: request month input
+User -> ":InputUtils": insert month
+":InputUtils" --> User: request day input
+User -> ":InputUtils": insert day
+":InputUtils" --> User: request hour input
+User -> ":InputUtils": insert hour
+":InputUtils" -> User: request minute input
+User -> ":InputUtils": insert minute
+":InputUtils" -> ":InputUtils": createDate(year, month, day)
+":InputUtils" --> ":HouseMonitoringUI": return date
+deactivate ":InputUtils"
+deactivate User
+deactivate ":HouseMonitoringUI"
+@enduml
