@@ -26,6 +26,7 @@ House "1" -- "1" GeographicArea : has >
 GeographicArea "1" -- "1" SensorList : has >
 SensorList -- Sensor
 Sensor "n" -- "1" Location: is in >
+Sensor "n" -- "1" TypeSensor: has >
 Sensor -- ReadingList
 
 class HouseMonotoringUI {
@@ -77,6 +78,14 @@ getLinearDistanceBetweenLocalsInKm(Location)
 getDateHighestAmplitudeBetweenDates(Date, Date)
 }
 
+class TypeSensor{
+name;
+
+getName()
+}
+
+
+
 class Location{
 double latitude;
 double longitude;
@@ -95,6 +104,10 @@ getFirstSecondOfDay(Date)
 getLastSecondOfDay(Date)
 isReadingDateBetweenTwoDates(Date, Date, Date)
 getAmplitudeValueFromDate(Date)
+getValuesOfSpecificDayReadings(Date)
+compareDayMonthAndYearBetweenDates(Date, Date)
+
+
 }
 
 @enduml
