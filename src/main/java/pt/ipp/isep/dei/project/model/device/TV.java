@@ -37,7 +37,7 @@ public class TV implements Device, Metered {
 
     public void setNominalPower(double nominalPower) {
         if (nominalPower < 0) {
-            throw new IllegalArgumentException("Invalid nominal power. number should be positive");
+            throw new IllegalArgumentException("Invalid nominal power. Number should be positive");
         }
         this.nominalPower = nominalPower;
     }
@@ -107,6 +107,14 @@ public class TV implements Device, Metered {
         return logList.countLogsInInterval(initialTime, finalTime);
     }
 
+    /**
+     * This method receives an interval and gets the device's logs contained
+     * in that time period, returning them in a list.
+     *
+     * @param startDate the interval's starting date.
+     * @param endDate   the interval's end date.
+     * @return a LogList with every device log contained in the interval.
+     **/
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         return logList.getLogsInInterval(startDate, endDate);
     }
