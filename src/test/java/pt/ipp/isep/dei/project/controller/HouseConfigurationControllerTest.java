@@ -116,4 +116,25 @@ class HouseConfigurationControllerTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
     }
+
+    @Test
+    void seeIfSetHouseAddress() {
+        //Act
+
+        controller.setHouseAddress("Rua do ISEP","4400","City",validHouse);
+
+        // Assert
+
+        assertEquals(validHouse.getAddress(),new Address("Rua do ISEP","4400","City"));
+    }
+    @Test
+    void seeIfSetHouseLocal() {
+        //Act
+
+        controller.setHouseLocal(10,51,2,validHouse);
+
+        // Assert
+
+        assertEquals(validHouse.getLocation(),new Local(10,51,2));
+    }
 }

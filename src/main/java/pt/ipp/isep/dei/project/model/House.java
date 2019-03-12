@@ -90,7 +90,7 @@ public class House implements Metered {
         return deviceMeteringPeriod;
     }
 
-    Local getLocation() {
+    public Local getLocation() {
         return location;
     }
 
