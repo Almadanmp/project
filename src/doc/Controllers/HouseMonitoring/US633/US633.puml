@@ -1,0 +1,67 @@
+@startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title US633 \n I want to get the day with the highest temperature amplitude in the house area in a given period \n Success Case
+
+autonumber
+
+actor User
+
+User -> MainUI: start program
+activate MainUI
+
+MainUI --> User: show option menu
+User-> MainUI: Select House Monitoring opt
+MainUI -> ":HouseMonitoringUI": option6(house)
+":HouseMonitoringUI" --> User: show option menu
+User -> ":HouseMonitoringUI": Select opt
+":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS623(house)
+
+ref over ":HouseMonitoringUI"
+get input start
+and end date
+end ref
+
+":HouseMonitoringUI" -> ":HouseMonitoringUI": updateUS623(house, date, date)
+ref over ":HouseMonitoringUI"
+get closest sensor
+to house area
+end ref
+":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate(house, date, date)
+":HouseMonitoringController" -> ":Sensor": getDateHighestAmplitudeBetweenDates(date, date)
+":Sensor" -> ":ReadingList": getDateHighestAmplitudeBetweenDates (date, date)
+":ReadingList" --> ":Sensor": return date
+":Sensor" --> ":HouseMonitoringController": return date
+
+":HouseMonitoringController" --> ":HouseMonitoringUI": return date
+
+":HouseMonitoringUI" -> ":HouseMonitoringUI": build result string
+
+":HouseMonitoringUI" --> User: Show result string
+
+deactivate MainUI
+
+
+@enduml
