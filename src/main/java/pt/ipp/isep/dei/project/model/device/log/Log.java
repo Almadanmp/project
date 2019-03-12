@@ -47,11 +47,12 @@ public class Log {
         return this.finalDate;
     }
 
-    /**This method checks if log is contained in interval given as initial and final date.
+    /**
+     * This method checks if log is contained in interval given as initial and final date.
      *
      * @return true if log is contained in interval, false otherwise.
-     * **/
-    boolean isLogInInterval(Date initialDate, Date finalDate){
+     **/
+    boolean isLogInInterval(Date initialDate, Date finalDate) {
         return (this.initialDate.after(initialDate) || this.initialDate.equals(initialDate)) &&
                 ((this.finalDate.before(finalDate)) || this.finalDate.equals(finalDate));
     }
@@ -64,7 +65,7 @@ public class Log {
         if (!(testObject instanceof Log)) {
             return false;
         }
-        Log log = (Log)testObject;
+        Log log = (Log) testObject;
         return (log.getInitialDate().equals(this.initialDate) && log.getFinalDate().equals(this.finalDate));
     }
 
