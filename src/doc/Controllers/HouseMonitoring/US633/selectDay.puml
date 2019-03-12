@@ -23,21 +23,20 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
+title REF Date Selection
+
 actor User
 
 activate ":HouseMonitoringUI"
-":HouseMonitoringUI" -> ":InputUtils": getInputTime()
+":HouseMonitoringUI" -> ":HouseMonitoringUI": getStartDate()
+":HouseMonitoringUI" -> ":InputUtils": getInputYearMonthDay()
 activate ":InputUtils"
-":InputUtils" --> User: request year input
+":InputUtils" --> User: request year
 User -> ":InputUtils": insert year
-":InputUtils" --> User: request month input
+":InputUtils" --> User: request month
 User -> ":InputUtils": insert month
-":InputUtils" --> User: request day input
+":InputUtils" --> User: request day
 User -> ":InputUtils": insert day
-":InputUtils" --> User: request hour input
-User -> ":InputUtils": insert hour
-":InputUtils" -> User: request minute input
-User -> ":InputUtils": insert minute
 ":InputUtils" -> ":InputUtils": createDate(year, month, day)
 ":InputUtils" --> ":HouseMonitoringUI": return date
 deactivate ":InputUtils"
