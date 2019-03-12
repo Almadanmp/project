@@ -434,10 +434,10 @@ class HouseMonitoringControllerTest {
     @Test
     void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
         //Act
-        Throwable exception = assertThrows(IllegalStateException.class, () ->
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
 
-        assertEquals("Warning: Values could not be calculated - No readings available.",
+        assertEquals("No readings available.",
                 exception.getMessage());
     }
 
@@ -497,4 +497,6 @@ class HouseMonitoringControllerTest {
         assertEquals("Warning: No readings available to calculate first hottest day.",
                 exception.getMessage());
     }
+
+
 }
