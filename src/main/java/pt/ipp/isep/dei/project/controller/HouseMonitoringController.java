@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
 
@@ -117,9 +116,6 @@ public class HouseMonitoringController {
 
     public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
-        if (closestSensor.isReadingListEmpty()) {
-            throw new IllegalArgumentException("Warning: No readings available to calculate first hottest day.");
-        }
         return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 

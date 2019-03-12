@@ -1,25 +1,32 @@
 package pt.ipp.isep.dei.project.model.device;
 
 import pt.ipp.isep.dei.project.model.Metered;
+import pt.ipp.isep.dei.project.model.device.devicespecs.PortableElectricOilHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class PortableElectricOilHeater implements Device, Metered {
     private String notSupported = "At the moment, this operation is not supported.";
 
-    public PortableElectricOilHeater() {
-        //This class throws UnsupportedOperationException because it has no attributes, atm.
+    private String name;
+    private double nominalPower;
+    private PortableElectricOilHeaterSpec deviceSpecs;
+
+    public PortableElectricOilHeater(PortableElectricOilHeaterSpec portableElectricOilHeaterSpec) {
+        this.deviceSpecs = portableElectricOilHeaterSpec;
+
     }
 
     public String getName() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.name;
     }
 
     public void setName(String name) {
-        throw new UnsupportedOperationException(notSupported);
+        this.name = name;
     }
 
     public String getType() {
@@ -27,11 +34,11 @@ public class PortableElectricOilHeater implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        throw new UnsupportedOperationException(notSupported);
+        this.nominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        throw new UnsupportedOperationException(notSupported);
+        return this.nominalPower;
     }
 
     public boolean isActive() {
@@ -42,9 +49,8 @@ public class PortableElectricOilHeater implements Device, Metered {
         throw new UnsupportedOperationException(notSupported);
     }
 
-
     public String buildString() {
-        throw new UnsupportedOperationException(notSupported);
+        return "The device Name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
     }
 
     /**
@@ -114,18 +120,35 @@ public class PortableElectricOilHeater implements Device, Metered {
 
     // WRAPPER METHODS TO DEVICE SPECS
     public List<String> getAttributeNames() {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.getAttributeNames();
     }
 
     public Object getAttributeValue(String attributeName) {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.getAttributeValue(attributeName);
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
     public Object getAttributeUnit(String attributeName) {
-        throw new UnsupportedOperationException(notSupported);
+        return deviceSpecs.getAttributeUnit(attributeName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Device device = (Device) o;
+        return Objects.equals(name, device.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }
