@@ -100,7 +100,6 @@ public class Mapper {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-
         sensorObject.setUniqueID(sensorDTO.getUniqueID());
         return sensorObject;
     }
