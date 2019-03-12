@@ -46,7 +46,7 @@ class SensorTest {
         // Arrange
 
         TypeSensor expectedResult = new TypeSensor("Temperature", "Celsius");
-        validSensor = new Sensor("RF12345","SensOne", new TypeSensor("Temperature", "Celsius"),
+        validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(31, 15, 3), new Date());
 
         // Act
@@ -62,7 +62,7 @@ class SensorTest {
     void seeIfSecondConstructorSetsLocal() {
         // Arrange
 
-        validSensor = new Sensor("RF12345","SensOne", new TypeSensor("Temperature", "Celsius"),
+        validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(31, 15, 3), new Date());
         Local expectedResult = new Local(31, 15, 3);
 
@@ -188,7 +188,7 @@ class SensorTest {
     void seeIfEqualsWorksFalseDifferentSensor() {
         // Arrange
 
-        Sensor s2 = new Sensor("RF12345","Temperature Sensor XX56", new TypeSensor("Temperature", "Fahrenheit"),
+        Sensor s2 = new Sensor("RF12345", "Temperature Sensor XX56", new TypeSensor("Temperature", "Fahrenheit"),
                 new Local(21, 1, 12), new Date());
 
         // Act
@@ -237,7 +237,7 @@ class SensorTest {
 
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20, 30,
                 new Local(31, 15, 3));
-        validSensor = new Sensor("RF12345","SensOne", new TypeSensor("Temperature", "Celsius"),
+        validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(31, 15, 3), new Date());
 
         // Act
@@ -257,7 +257,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
                 30, testLocal);
         Local testLocal2 = new Local(10, 30, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), testLocal2,
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Rainfall", "l/m2"), testLocal2,
                 new Date());
 
         // Act
@@ -277,7 +277,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20, 30,
                 testLocal);
         Local upperRightVertex = new Local(30, 30, 5);
-        Sensor testSensor = new Sensor("RF12345","SensorOne", new TypeSensor("Pressure", "mm"),
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Pressure", "mm"),
                 upperRightVertex, new Date());
 
         // Act
@@ -297,7 +297,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 21,
                 30, testLocal);
         Local upperLeftVertex = new Local(10, 30, 5);
-        Sensor testSensor = new Sensor("RF12345","SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
                 new Date());
 
         // Act
@@ -317,7 +317,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 25,
                 35, testLocal);
         Local bottomLeftVertex = new Local(10, 10, 5);
-        Sensor testSensor = new Sensor("RF12345","SensorOne", new TypeSensor("Temperature", "Kelvin"), bottomLeftVertex,
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Temperature", "Kelvin"), bottomLeftVertex,
                 new Date());
 
         // Act
@@ -337,7 +337,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
                 23, testLocal);
         Local bottomRightVertex = new Local(30, 10, 5);
-        Sensor s1 = new Sensor("RF12345","XV56-LD1", new TypeSensor("Rainfall", "dm/m2"), bottomRightVertex,
+        Sensor s1 = new Sensor("RF12345", "XV56-LD1", new TypeSensor("Rainfall", "dm/m2"), bottomRightVertex,
                 new Date());
 
         // Act
@@ -357,7 +357,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
                 21, testLocal);
         Local wrongLatitude = new Local(35, 20, 5);
-        Sensor s1 = new Sensor("RF12345","XV56-LD1", new TypeSensor("Temperature", "Celsius"), wrongLatitude,
+        Sensor s1 = new Sensor("RF12345", "XV56-LD1", new TypeSensor("Temperature", "Celsius"), wrongLatitude,
                 new Date());
 
         // Act
@@ -377,7 +377,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 25,
                 20, testLocal);
         Local wrongLatitude = new Local(-35, 20, 5);
-        Sensor testSensor = new Sensor("RF12345","XV56-LD1", new TypeSensor("Rainfall", "l/m2"),
+        Sensor testSensor = new Sensor("RF12345", "XV56-LD1", new TypeSensor("Rainfall", "l/m2"),
                 wrongLatitude, new Date());
 
         // Act
@@ -397,7 +397,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
                 21, testLocal);
         Local wrongLatitude = new Local(35, 20, 5);
-        Sensor testSensor = new Sensor("RF123451","XV56-LD1", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF123451", "XV56-LD1", new TypeSensor("Temperature", "Celsius"),
                 wrongLatitude, new Date());
 
         // Act
@@ -417,7 +417,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 25,
                 20, testLocal);
         Local wrongLatitude = new Local(-35, 20, 5);
-        Sensor s1 = new Sensor("RF12345","XV56-LD1", new TypeSensor("Temperature", "Kelvin"),
+        Sensor s1 = new Sensor("RF12345", "XV56-LD1", new TypeSensor("Temperature", "Kelvin"),
                 wrongLatitude, new Date());
 
         // Act
@@ -437,7 +437,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
                 10, testLocal);
         Local wrongLongitude = new Local(100, 100, 5);
-        Sensor testSensor = new Sensor("RF123452","Sensor", new TypeSensor("Temperature", "Fahrenheit"),
+        Sensor testSensor = new Sensor("RF123452", "Sensor", new TypeSensor("Temperature", "Fahrenheit"),
                 wrongLongitude, new Date());
 
         // Act
@@ -457,7 +457,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 100,
                 100, testLocal);
         Local wrongLongitude = new Local(20, -35, 5);
-        Sensor testSensor = new Sensor("RF123453","Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+        Sensor testSensor = new Sensor("RF123453", "Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
                 new Date());
 
         // Act
@@ -477,7 +477,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
                 10, testLocal);
         Local wrongLongitude = new Local(100, 100, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
                 new Date());
 
         // Act
@@ -497,7 +497,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 100,
                 100, testLocal);
         Local wrongLongitude = new Local(20, -35, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
                 new Date());
         // Act
 
@@ -516,7 +516,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
                 10, testLocal);
         Local wrongLongitude = new Local(100, 20, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Rainfall", "l/m2"), wrongLongitude,
                 new Date());
 
         // Act
@@ -536,7 +536,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 50,
                 50, testLocal);
         Local negativeCoords = new Local(-5, -5, -5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), negativeCoords,
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Rainfall", "l/m2"), negativeCoords,
                 new Date());
 
         // Act
@@ -556,7 +556,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
                 30, testLocal);
         Local edge = new Local(10, 30, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Rainfall", "l/m2"), edge,
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Rainfall", "l/m2"), edge,
                 new Date());
 
         // Act
@@ -576,7 +576,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
                 30, testLocal);
         Local edge = new Local(10, 30, 5);
-        Sensor validSensor = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Celsius"), edge, new Date());
+        Sensor validSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"), edge, new Date());
 
         // Act
 
@@ -594,7 +594,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 20,
                 30, testLocal);
         Local upperRightVertex = new Local(30, 30, 5);
-        Sensor validSensor = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor validSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"),
                 upperRightVertex, new Date());
 
         // Act
@@ -614,7 +614,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 21,
                 30, testLocal);
         Local upperLeftVertex = new Local(10, 30, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"),
                 upperLeftVertex, new Date());
 
         // Act
@@ -634,7 +634,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 35,
                 25, testLocal);
         Local bottomLeftVertex = new Local(10, 10, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"),
                 bottomLeftVertex, new Date());
         // Act
 
@@ -653,7 +653,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 32,
                 23, testLocal);
         Local bottomRightVertex = new Local(30, 10, 5);
-        Sensor testSensor = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor testSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"),
                 bottomRightVertex, new Date());
 
         // Act
@@ -673,7 +673,7 @@ class SensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 50,
                 50, testLocal);
         Local testLocal2 = new Local(-5, -5, -5);
-        Sensor s1 = new Sensor("RF12345","Sensor", new TypeSensor("Temperature", "Celsius"),
+        Sensor s1 = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"),
                 testLocal2, new Date());
 
         // Act
@@ -706,7 +706,7 @@ class SensorTest {
     void seeIfPrintSensorWorksWithLocal() {
         // Arrange
 
-        validSensor = new Sensor("RF12345","SensOne", new TypeSensor("Temperature", "Kelvin"), new Local(21,
+        validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Kelvin"), new Local(21,
                 31, 15), new Date());
         String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long\n";
 
@@ -818,5 +818,57 @@ class SensorTest {
 
         assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
     }
+
+    @Test
+    void seeIfGetLastColdestDayInIntervalWorks() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime());
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime());
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime());
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime());
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime());
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime());
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime());
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime());
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime());
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime());
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime());
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime());
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime());
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime());
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        readingList.addReading(reading5);
+        readingList.addReading(reading6);
+        readingList.addReading(reading7);
+        readingList.addReading(reading8);
+        readingList.addReading(reading9);
+        readingList.addReading(reading10);
+        readingList.addReading(reading11);
+        readingList.addReading(reading12);
+        readingList.addReading(reading13);
+        readingList.addReading(reading14);
+        readingList.addReading(reading15);
+        readingList.addReading(reading16);
+        readingList.addReading(reading17);
+        readingList.addReading(reading18);
+        readingList.addReading(reading19);
+        readingList.addReading(reading20);
+        validSensor.setReadingList(readingList);
+        //Act
+        Date actualResult = validSensor.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        //Assert
+        assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
+    }
 }
+
 
