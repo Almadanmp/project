@@ -62,7 +62,9 @@ public class Kettler implements Device, Metered {
      **/
     @Override
     public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
+        if (nominalPower > 0.0) {
+            this.nominalPower = nominalPower;
+        }
     }
 
     /**
@@ -139,7 +141,10 @@ public class Kettler implements Device, Metered {
      **/
     @Override
     public boolean addLog(Log log) {
-        return this.logList.addLog(log);
+        if(this.active){
+            return this.logList.addLog(log);
+        }
+        return false;
     }
 
     /**

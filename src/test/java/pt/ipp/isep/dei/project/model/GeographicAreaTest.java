@@ -356,5 +356,24 @@ class GeographicAreaTest {
         assertEquals(10, actualLength);
         assertEquals(5,actualWidth);
     }
+
+    @Test
+    void seeIfEqualsParametersWorks() {
+        // Act
+
+        boolean actualResult1 = validArea.equalsParameters("Portugal", new TypeArea("Country"), new Local(50, 50, 10));
+        boolean actualResult2 = validArea.equalsParameters("Porto", new TypeArea("City"), new Local(20, 20, 20));
+        boolean actualResult3 = validArea.equalsParameters("Porto", new TypeArea("Country"), new Local(50, 50, 10));
+        boolean actualResult4 = validArea.equalsParameters("Portugal", new TypeArea("City"), new Local(50, 50, 10));
+        boolean actualResult5 = validArea.equalsParameters("Portugal", new TypeArea("Country"), new Local(20, 50, 10));
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
+        assertFalse(actualResult5);
+    }
 }
 
