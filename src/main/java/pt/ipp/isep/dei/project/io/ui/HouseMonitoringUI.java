@@ -218,13 +218,13 @@ public class HouseMonitoringUI {
         updateAndDisplayUS623(house, startDate, endDate);
     }
 
-    private Date getInputStartDate() {
+    private Date getStartDate() {
         InputUtils inputUtils = new InputUtils();
         System.out.println("Please enter the start date.");
         return inputUtils.getInputYearMonthDay();
     }
 
-    private Date getInputEndDate() {
+    private Date getEndDate() {
         InputUtils inputUtils = new InputUtils();
         System.out.println("Please enter the end date.");
         return inputUtils.getInputYearMonthDay();
@@ -253,8 +253,8 @@ public class HouseMonitoringUI {
             System.out.println(utils.invalidSensorList);
             return;
         }
-        Date startDate = getInputStartDate();
-        Date endDate = getInputEndDate();
+        Date startDate = getStartDate();
+        Date endDate = getEndDate();
         updateAndDisplayUS630(house, startDate, endDate);
     }
 
@@ -281,8 +281,8 @@ public class HouseMonitoringUI {
             System.out.print("\n" + utils.invalidSensorList);
             return;
         }
-        Date startDate = getInputStartDate();
-        Date endDate = getInputEndDate();
+        Date startDate = getStartDate();
+        Date endDate = getEndDate();
         updateAndDisplayUS631(house, startDate, endDate);
     }
 
@@ -307,8 +307,8 @@ public class HouseMonitoringUI {
             System.out.println(utils.invalidSensorList);
             return;
         }
-        Date startDate = getInputStartDate();
-        Date endDate = getInputEndDate();
+        Date startDate = getStartDate();
+        Date endDate = getEndDate();
         updateAndDisplayUS633(house, startDate, endDate);
     }
 
