@@ -22,48 +22,48 @@ public class CSVReader implements Reader {
 
 
     // TEST METHOD MOCK - Take out of comment to test
-//
-//    public static void main(String[] args) {
-//
-//        GeographicAreaList testGeoList = new GeographicAreaList();
-//        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("pais"), 34000, 300000,
-//                new Local(3, 3, 3));
-//        GeographicArea testArea2 = new GeographicArea("Espanha", new TypeArea("pais"), 340000, 3000000,
-//                new Local(30, 30, 30));
-//        testGeoList.addGeographicArea(testArea);
-//        testGeoList.addGeographicArea(testArea2);
-//        Date validDate1 = new Date();
-//        Date validDate2 = new Date();
-//        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-//        try {
-//            validDate1 = validSdf2.parse("2018-10-31T08:00:00+00:00");
-//            validDate2 = validSdf2.parse("2017-12-30T06:00:00+00:00");
-//        } catch (ParseException c) {
-//            c.printStackTrace();
-//        }
-//        Sensor testSensor1 = new Sensor("Sensor1", "Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
-//                validDate1);
-//        Sensor testSensor2 = new Sensor("Sensor2", "Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
-//                validDate2);
-//        SensorList testListPortugal = new SensorList();
-//        testListPortugal.add(testSensor1);
-//        testArea.setSensorList(testListPortugal);
-//        SensorList testListEspanha = new SensorList();
-//        testListEspanha.add(testSensor2);
-//        testArea2.setSensorList(testListEspanha);  //Portugal com sensor1 e Espanha com sensor2
-//
-//        CSVReader testRead = new CSVReader();
-//        testRead.readAndSet(testGeoList);
-//
-//        ReadingList test = testSensor1.getReadingList();
-//        ReadingList test2 = testSensor2.getReadingList();
-//        int cenas = test.size();
-//        int cenas2 = test2.size();
-//        System.out.println(cenas + cenas2);  // = 29
-//        //System.out.println(test.getMostRecentValue());
-//        //System.out.println(test2.getMostRecentValue());
-//    }
-//
+/*
+    public static void main(String[] args) {
+
+        GeographicAreaList testGeoList = new GeographicAreaList();
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("pais"), 34000, 300000,
+                new Local(3, 3, 3));
+        GeographicArea testArea2 = new GeographicArea("Espanha", new TypeArea("pais"), 340000, 3000000,
+                new Local(30, 30, 30));
+        testGeoList.addGeographicArea(testArea);
+        testGeoList.addGeographicArea(testArea2);
+        Date validDate1 = new Date();
+        Date validDate2 = new Date();
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate1 = validSdf2.parse("2018-10-31T08:00:00+00:00");
+            validDate2 = validSdf2.parse("2017-12-30T06:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+        Sensor testSensor1 = new Sensor("Sensor1", "Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
+                validDate1);
+        Sensor testSensor2 = new Sensor("Sensor2", "Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
+                validDate2);
+        SensorList testListPortugal = new SensorList();
+        testListPortugal.add(testSensor1);
+        testArea.setSensorList(testListPortugal);
+        SensorList testListEspanha = new SensorList();
+        testListEspanha.add(testSensor2);
+        testArea2.setSensorList(testListEspanha);  //Portugal com sensor1 e Espanha com sensor2
+
+        CSVReader testRead = new CSVReader();
+        testRead.readAndSet(testGeoList);
+
+        ReadingList test = testSensor1.getReadingList();
+        ReadingList test2 = testSensor2.getReadingList();
+        int cenas = test.size();
+        int cenas2 = test2.size();
+        System.out.println(cenas + cenas2);  // = 29
+        //System.out.println(test.getMostRecentValue());
+        //System.out.println(test2.getMostRecentValue());
+    }
+*/
 
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
@@ -80,8 +80,13 @@ public class CSVReader implements Reader {
         String cvsSplit = ",";
         String[] readings;
         SensorList fullSensorList = getSensorData(geographicAreaList);
+        if (fullSensorList.isEmpty() || geographicAreaList.isEmpty()) {
+            System.out.println("Please add a sensor first.");
+            return;
+        }
+        int iteration = 0;
         try {
-            fileReader = new FileReader(csvFileLocation);  //csvFileLocation : resources/csv/readings.csv (Or resources/csv/fakeCSV.csv)
+            fileReader = new FileReader(csvFileLocation);
             buffReader = new BufferedReader(fileReader);
             Logger logger = Logger.getLogger(CSVReader.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
@@ -90,6 +95,10 @@ public class CSVReader implements Reader {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             while ((line = buffReader.readLine()) != null) {
+                if (iteration == 0) {
+                    iteration++;
+                    continue;
+                }
                 readings = line.split(cvsSplit);
                 parseAndLog(readings, logger, fullSensorList);
             }
@@ -139,7 +148,13 @@ public class CSVReader implements Reader {
      */
     SensorList getSensorData(GeographicAreaList geographicAreaList) {
         SensorList fullSensorList = new SensorList();
+        if (geographicAreaList.isEmpty()) {
+            return fullSensorList;
+        }
         for (GeographicArea ga : geographicAreaList.getElementsAsArray()) {
+            if (ga.getSensorList().isEmpty()) {
+                return fullSensorList;
+            }
             for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
                 fullSensorList.add(sensor);
             }
@@ -186,6 +201,7 @@ public class CSVReader implements Reader {
 
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
+     *
      * @author Andre
      */
     void startAndPromptPath() {

@@ -101,9 +101,6 @@ class HouseConfigurationUI {
     private void runUS20(GeographicAreaList list){
         CSVReader reader = new CSVReader();
         reader.readAndSet(list);
-
-        // C:\Users\andre\OneDrive\Desktop\DataSet_sprint04_GA.json
-        // C:\Users\andre\IdeaProjects\project_g2\resources\csv\DataSet_sp04_SensorData.csv
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
