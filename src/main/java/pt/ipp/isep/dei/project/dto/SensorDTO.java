@@ -14,11 +14,11 @@ public class SensorDTO {
     private String dateStartedFunctioning;
     private UUID uniqueID;
 
-    public UUID getUniqueID() {
+    UUID getUniqueID() {
         return uniqueID;
     }
 
-    public void setUniqueID(UUID uniqueID) {
+    void setUniqueID(UUID uniqueID) {
         this.uniqueID = uniqueID;
     }
 
@@ -30,7 +30,7 @@ public class SensorDTO {
         this.id = id;
     }
 
-    public String getUnits() {
+    String getUnits() {
         return units;
     }
 
@@ -70,7 +70,7 @@ public class SensorDTO {
         this.name = name;
     }
 
-    public String getTypeSensor() {
+    String getTypeSensor() {
         return typeSensor;
     }
 
@@ -78,11 +78,28 @@ public class SensorDTO {
         this.typeSensor = typeSensor;
     }
 
-    public String getDateStartedFunctioning() {
+    String getDateStartedFunctioning() {
         return dateStartedFunctioning;
     }
 
     public void setDateStartedFunctioning(String dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
+    }
+
+    @Override
+    public boolean equals(Object testDTO) {
+        if (this == testDTO) {
+            return true;
+        }
+        if (!(testDTO instanceof SensorDTO)) {
+            return false;
+        }
+        SensorDTO localVariable = (SensorDTO) testDTO;
+        return (localVariable.getId().equals(this.id) && localVariable.getName().equals(this.name));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

@@ -18,7 +18,9 @@ public class GeographicAreaDTO {
     private String description;
     private UUID uniqueId;
 
-    void setUniqueId(UUID uniqueId){this.uniqueId = uniqueId;}
+    void setUniqueId(UUID uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 
     UUID getUniqueId() {
         return uniqueId;
@@ -28,7 +30,7 @@ public class GeographicAreaDTO {
         this.id = id;
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
@@ -80,7 +82,7 @@ public class GeographicAreaDTO {
         this.altitudeGeoAreaDTO = altitudeGeoAreaDTO;
     }
 
-    public void addSensorDTO(SensorDTO sensorToAdd){
+    public void addSensorDTO(SensorDTO sensorToAdd) {
         this.areaSensors.add(sensorToAdd);
     }
 
@@ -98,5 +100,25 @@ public class GeographicAreaDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object testDTO) {
+        if (this == testDTO) {
+            return true;
+        }
+        if (!(testDTO instanceof GeographicAreaDTO)) {
+            return false;
+        }
+        GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
+        return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getId().equals(this.id)
+                && localVariable.getLatitudeGeoAreaDTO() == this.latitudeGeoAreaDTO && localVariable.getLongitudeGeoAreaDTO()
+                == this.longitudeGeoAreaDTO && localVariable.getAltitudeGeoAreaDTO() == this.altitudeGeoAreaDTO &&
+                localVariable.getAreaSensors().equals(this.areaSensors));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

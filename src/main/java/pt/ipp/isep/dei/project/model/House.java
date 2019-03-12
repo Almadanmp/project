@@ -20,7 +20,7 @@ public class House implements Metered {
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
 
-    //CONSTRUCTOR
+    // Constructor
 
     public House(String id, Address address, Local mLocation, GeographicArea mMotherArea,
                  int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
