@@ -84,9 +84,8 @@ public class HouseConfigurationController {
      * @param height          is the height of the room we're going to create.
      * @return a new Room
      */
-    public RoomDTO createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        Room room = house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
-        return mapper.roomToDTO(room);
+    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+        return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
     }
 
     /**
@@ -96,9 +95,8 @@ public class HouseConfigurationController {
      * @param room  the DTO of a Room.
      * @return true if room was added, false otherwise.
      **/
-    public boolean addRoomToHouse(House house, RoomDTO room) {
-        Room newRoomToAdd = mapper.dtoToRoom(room, house);
-        return house.addRoom(newRoomToAdd);
+    public boolean addRoomToHouse(House house, Room room) {
+        return house.addRoom(room);
     }
 
 

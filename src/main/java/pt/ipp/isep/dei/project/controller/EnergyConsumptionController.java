@@ -147,15 +147,12 @@ public class EnergyConsumptionController {
     /**
      * Accesses model and returns a Room's Energy Consumption in a given interval.
      *
-     * @param roomDTO     the room we want to access.
+     * @param room     the room we want to access.
      * @param initialDate the start of the interval.
      * @param finalDate   the end of the interval.
-     * @param house       the project's house.
      * @return the energy consumption of all metered devices' logs that fall fully within the given interval.
      */
-    public double getRoomConsumptionInInterval(RoomDTO roomDTO, Date initialDate, Date finalDate, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO, house);
+    public double getRoomConsumptionInInterval(Room room, Date initialDate, Date finalDate) {
         return room.getConsumptionInInterval(initialDate, finalDate);
     }
 
