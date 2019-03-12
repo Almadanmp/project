@@ -198,7 +198,7 @@ public class ReadingList {
      * @return date with last second of given day
      * @author Daniela (US623)
      */
-    private Date getLastSecondOfDay(Date day) {
+    Date getLastSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
@@ -414,7 +414,7 @@ public class ReadingList {
         for (Date day : daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
             double maxTemp = Collections.max(listOfMaxReadings);
-            if ((tempTemp < maxTemp) && (day.before(tempDate))){
+            if ((tempTemp < maxTemp) && (day.before(tempDate))) {
                 tempTemp = maxTemp;
                 firstHottestDay = day;
             }
@@ -457,7 +457,7 @@ public class ReadingList {
      * US630
      * This method returns a Reading with a specific date from a given ReadingList.
      *
-     * @param date        is the Date of the reading we want to get.
+     * @param date is the Date of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
     Reading getReadingWithSpecificDate(Date date) {
@@ -485,7 +485,7 @@ public class ReadingList {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate,finalDate);
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
         if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
@@ -519,17 +519,19 @@ public class ReadingList {
 
     /**
      * This method filters a ReadingList and returns the ReadingList but within an interval of given dates.
+     *
      * @param initialDate is the initial date of the interval.
-     * @param finalDate is the final date of the interval.
+     * @param finalDate   is the final date of the interval.
      * @return a ReadingList that represents the initial ReadingList but only with Readings within the given interval.
      */
     public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         ReadingList result = new ReadingList();
-        for (int i = 0; i < size(); i++ ){
-            if(isReadingDateBetweenTwoDates(this.readings.get(i).getDate(),initialDate,finalDate)){
+        for (int i = 0; i < size(); i++) {
+            if (isReadingDateBetweenTwoDates(this.readings.get(i).getDate(), initialDate, finalDate)) {
                 result.addReading(this.readings.get(i));
             }
-        } return result;
+        }
+        return result;
     }
 
     /**
@@ -556,15 +558,17 @@ public class ReadingList {
 
     /**
      * This method returns a double value that represents the minimum value in a ReadingList.
+     *
      * @return a double value that represents the minimum value in a ReadingList.
      */
-    public double getMinValueInReadingList(){
+    public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
-        for (int i=0;i < size();i++){
-            if (this.readings.get(i).getValue() < result){
+        for (int i = 0; i < size(); i++) {
+            if (this.readings.get(i).getValue() < result) {
                 result = this.readings.get(i).getValue();
             }
-        } return result;
+        }
+        return result;
     }
 
     @Override

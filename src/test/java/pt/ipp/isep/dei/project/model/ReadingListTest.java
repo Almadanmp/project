@@ -513,6 +513,18 @@ class ReadingListTest {
         assertEquals(expectedResult, validReadingList.getFirstSecondOfDay(validDate14));
     }
 
+
+    @Test
+    void seeIfGetsLastSecondOfDay() {
+        // Arrange
+
+        Date expectedResult = new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59, 59).getTime();
+
+        // Assert
+
+        assertEquals(expectedResult, validReadingList.getLastSecondOfDay(validDate14));
+    }
+
     @Test
     void seeIfReadingDateWithinTwoDates() {
         //Arrange
@@ -854,7 +866,7 @@ class ReadingListTest {
         //Act
         ReadingList actualResult = validReadingList.getReadingListBetweenDates(new GregorianCalendar(2018, Calendar.JULY, 3, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 7, 10, 29).getTime());
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
