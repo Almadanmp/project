@@ -112,9 +112,9 @@ public class GeographicAreaDTO {
         }
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getId().equals(this.id)
-                && localVariable.getLatitudeGeoAreaDTO() == this.latitudeGeoAreaDTO && localVariable.getLongitudeGeoAreaDTO()
-                == this.longitudeGeoAreaDTO && localVariable.getAltitudeGeoAreaDTO() == this.altitudeGeoAreaDTO &&
-                localVariable.getAreaSensors().equals(this.areaSensors));
+                && Double.compare(localVariable.getLatitudeGeoAreaDTO(), this.latitudeGeoAreaDTO) == 0 && Double.compare
+                (localVariable.getLongitudeGeoAreaDTO(), this.longitudeGeoAreaDTO) == 0 && Double.compare(localVariable.
+                getAltitudeGeoAreaDTO(),this.altitudeGeoAreaDTO) == 0 && localVariable.getAreaSensors().equals(this.areaSensors));
     }
 
     @Override
