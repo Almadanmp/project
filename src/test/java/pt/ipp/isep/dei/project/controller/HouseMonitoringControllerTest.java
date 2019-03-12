@@ -489,14 +489,14 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void testGetFirstHottestDayInPeriodThrowsException() {
+    void testGetFirstHottestDayInPeriodThrowsExceptionMessage() {
+        // Arrange
+        validHouseArea.setSensorList(validSensorList);
         // Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                controller.getFirstHottestDayInPeriod(validHouse, validDate6, validDate1));
+                controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate02));
         // Assert
-        assertEquals("Warning: No readings available to calculate first hottest day.",
+        assertEquals("Warning: No temperature readings available.",
                 exception.getMessage());
     }
-
-
 }

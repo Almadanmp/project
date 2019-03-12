@@ -116,9 +116,6 @@ public class HouseMonitoringController {
 
     public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType("Temperature");
-        if (closestSensor.isReadingListEmpty()) {
-            throw new IllegalArgumentException("Warning: No readings available to calculate first hottest day.");
-        }
         return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
