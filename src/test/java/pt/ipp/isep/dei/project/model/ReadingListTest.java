@@ -854,7 +854,7 @@ class ReadingListTest {
         //Act
         ReadingList actualResult = validReadingList.getReadingListBetweenDates(new GregorianCalendar(2018, Calendar.JULY, 3, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 7, 10, 29).getTime());
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -924,5 +924,35 @@ class ReadingListTest {
         //Assert
 
         assertEquals("The reading list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetLastColdestDayInIntervalThrowsException() {
+        //Arrange
+        ReadingList emptyList = new ReadingList();
+        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
+        Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> emptyList.getLastColdestDayInGivenInterval(date1, date2));
+
+        //Assert
+        assertEquals("No readings available.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetLastColdestDayInIntervalThrowsExceptionWithReadingOutOfTheInterval() {
+        //Arrange
+        ReadingList emptyList = new ReadingList();
+        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
+        Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
+        Reading reading = new Reading(20,new GregorianCalendar(2017,Calendar.JANUARY,1).getTime());
+        emptyList.addReading(reading);
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> emptyList.getLastColdestDayInGivenInterval(date1, date2));
+
+        //Assert
+        assertEquals("No readings available in the chosen interval.", exception.getMessage());
     }
 }
