@@ -261,17 +261,14 @@ public class HouseMonitoringUI {
 
     private void updateAndDisplayUS630(House house, Date startDate, Date endDate) {
         Date dateResult630;
-        double valueResult630;
         try {
-            Reading reading = houseMonitoringcontroller.getLastColdestDayInInterval(house, startDate, endDate);
-            dateResult630 = houseMonitoringcontroller.getLastColdestDayInIntervalDate(reading);
-            valueResult630 = houseMonitoringcontroller.getLastColdestDayInIntervalValue(reading);
+            dateResult630 = houseMonitoringcontroller.getLastColdestDayInInterval(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
         System.out.println("The last coldest day between " + startDate + " and " + endDate + was
-                + dateResult630 + " and it's maximum temperature" + was + valueResult630 + "ºC.");
+                + dateResult630 + ".");
     }
 
     /**
@@ -300,7 +297,7 @@ public class HouseMonitoringUI {
         }
         Format simpleDateFinal = new SimpleDateFormat("EEEEEEE,' the 'dd' of 'MMMMM', ('dd/MM/yyyy')'", Locale.US);
         String formattedUS631Date = simpleDateFinal.format(dateUS631);
-        UtilsUI.printBox("The first day with the hottest temperature in the given" , "period was " + formattedUS631Date + ".");
+        UtilsUI.printBox("The first day with the hottest temperature in the given", "period was " + formattedUS631Date + ".");
     }
 
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a

@@ -457,15 +457,14 @@ public class ReadingList {
      * US630
      * This method returns a Reading with a specific date from a given ReadingList.
      *
-     * @param readingList is the ReadingList we want to get the Reading from.
      * @param date        is the Date of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
-    Reading getReadingWithSpecificDate(ReadingList readingList, Date date) {
+    Reading getReadingWithSpecificDate(Date date) {
         Reading result = null;
-        for (int i = 0; i < readingList.size(); i++) {
-            if (readingList.get(i).getDate().equals(date)) {
-                result = readingList.get(i);
+        for (int i = 0; i < this.readings.size(); i++) {
+            if (this.readings.get(i).getDate().equals(date)) {
+                result = this.readings.get(i);
             }
         }
         return result;
@@ -475,63 +474,97 @@ public class ReadingList {
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
      * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Reading within an interval from a ReadingList that represents the last coldest day in the
+     * it returns a Date within an interval from a ReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    Reading getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
-        List<Double> listOfMaxValuesForEachDay = getListOfMaxValuesForEachDay(initialDate, finalDate);
-        double minValueInList = Collections.min(listOfMaxValuesForEachDay);
-        ReadingList readingList = getReadingListOfReadingsWithSpecificValue(minValueInList);
-        Date mostRecentDate = readingList.getMostRecentReadingDate();
-        return getReadingWithSpecificDate(readingList, mostRecentDate);
+    Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
+        if (this.readings.isEmpty()) {
+            throw new IllegalArgumentException("No readings available.");
+        }
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate,finalDate);
+        if (readingListBetweenDates.isEmpty()) {
+            throw new IllegalArgumentException("No readings available in the chosen interval.");
+        }
+        ReadingList listOfMaxValuesForEachDay = readingListBetweenDates.getListOfMaxValuesForEachDay();
+        double minValueInList = listOfMaxValuesForEachDay.getMinValueInReadingList();
+        ReadingList readingListWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
+        return readingListWithSpecificValue.getMostRecentReadingDate();
     }
+
 
     /**
      * US630
-     * This method returns a double value that represents the maximum value of a Reading in a ReadingList
+     * This method returns a Reading that represents the maximum value of a Reading in a ReadingList
      * from a given day.
      *
      * @param day is the day we want to know the maximum value.
      * @return a double that represents the maximum value of the day.
      */
-    Double getMaxValueOfTheDay(Date day) {
-        double result = getValuesOfSpecificDayReadings(day).get(0);
-        day.setTime(getFirstSecondOfDay(day).getTime());
+    Reading getMaxValueOfTheDay(Date day) {
+        double auxValue = getValuesOfSpecificDayReadings(day).get(0);
+        Reading result = getReadingWithSpecificDate(day);
+        Date auxDay = getFirstSecondOfDay(day);
         for (Reading r : this.readings) {
-            r.getDate().setTime(getFirstSecondOfDay(r.getDate()).getTime());
-            if (r.getDate().equals(day) && r.getValue() > result) {
-                result = r.getValue();
+            Date readingDate = getFirstSecondOfDay(r.getDate());
+            if (readingDate.equals(auxDay) && r.getValue() > auxValue) {
+                result = r;
             }
         }
         return result;
     }
 
     /**
+     * This method filters a ReadingList and returns the ReadingList but within an interval of given dates.
+     * @param initialDate is the initial date of the interval.
+     * @param finalDate is the final date of the interval.
+     * @return a ReadingList that represents the initial ReadingList but only with Readings within the given interval.
+     */
+    public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
+        ReadingList result = new ReadingList();
+        for (int i = 0; i < size(); i++ ){
+            if(isReadingDateBetweenTwoDates(this.readings.get(i).getDate(),initialDate,finalDate)){
+                result.addReading(this.readings.get(i));
+            }
+        } return result;
+    }
+
+    /**
      * US630
-     * This method returns a List of Doubles that represents a List of maximum values of the ReadingList for each
+     * This method returns a ReadingList that represents a List of maximum values of the ReadingList for each
      * day within a given period.
      *
-     * @param initialDate is the initial date of the period.
-     * @param finalDate   is the final date of the period.
-     * @return a List of doubles that represents a List of maximum values of the ReadingList for each
+     * @return a ReadingList that represents a List of maximum values of the ReadingList for each
      * day within a given period.
      */
-    List<Double> getListOfMaxValuesForEachDay(Date initialDate, Date finalDate) {
-        List<Double> list = new ArrayList<>();
+    ReadingList getListOfMaxValuesForEachDay() {
+        ReadingList result = new ReadingList();
         List<Date> dateList = new ArrayList<>();
-        for (int listIndex = 0; listIndex < size(); listIndex++) {
-            if (!dateList.contains(this.readings.get(listIndex).getDate()) &&
-                    isReadingDateBetweenTwoDates(this.readings.get(listIndex).getDate(), initialDate, finalDate)) {
-                double maxOfTheDay = getMaxValueOfTheDay(this.readings.get(listIndex).getDate());
-                dateList.add(this.readings.get(listIndex).getDate());
-                list.add(maxOfTheDay);
+        for (int i = 0; i < size(); i++) {
+            Date aux = getFirstSecondOfDay(this.readings.get(i).getDate());
+            if (!dateList.contains(aux)) {
+                Reading maxOfTheDay = getMaxValueOfTheDay(this.readings.get(i).getDate());
+                dateList.add(aux);
+                result.addReading(maxOfTheDay);
             }
         }
-        return list;
+        return result;
+    }
+
+    /**
+     * This method returns a double value that represents the minimum value in a ReadingList.
+     * @return a double value that represents the minimum value in a ReadingList.
+     */
+    public double getMinValueInReadingList(){
+        double result = this.readings.get(0).getValue();
+        for (int i=0;i < size();i++){
+            if (this.readings.get(i).getValue() < result){
+                result = this.readings.get(i).getValue();
+            }
+        } return result;
     }
 
     @Override
