@@ -1,9 +1,10 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.testng.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * WallElectricHeaterSpec tests class.
@@ -11,28 +12,27 @@ import static org.testng.Assert.assertEquals;
 
 class WallElectricHeaterSpecTest {
 
+    private WallElectricHeaterSpec validWallElectricHeaterSpec = new WallElectricHeaterSpec();
+
     @Test
-    void seeIfAllMethodsThrowException() {
-        //Arrange
+    void seeAttributeMethods() {
+        // Arrange
 
-        WallElectricHeaterSpec wallElectricHeaterSpec = new WallElectricHeaterSpec();
+        Object expectedResult1 = 0;
+        List<String> expectedResult2 = new ArrayList<>();
 
-        //Act
+        // Act
 
-        Throwable exception1 = assertThrows(UnsupportedOperationException.class,
-                wallElectricHeaterSpec::getAttributeNames);
-        Throwable exception2 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeaterSpec.getAttributeValue("empty"));
-        Throwable exception3 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeaterSpec.getAttributeUnit("empty"));
-        Throwable exception4 = assertThrows(UnsupportedOperationException.class,
-                () -> wallElectricHeaterSpec.setAttributeValue("empty", new Object()));
+        Object actualResult1 = validWallElectricHeaterSpec.getAttributeValue("Nonexistent");
+        List<String> actualResult2 = validWallElectricHeaterSpec.getAttributeNames();
+        Object actualResult3 = validWallElectricHeaterSpec.getAttributeUnit("Nonexistent");
+        boolean actualResult4 = validWallElectricHeaterSpec.setAttributeValue("Nonexistent", 20D);
 
-        //Assert
+        // Assert
 
-        assertEquals("At the moment, this operation is not supported.", exception1.getMessage());
-        assertEquals("At the moment, this operation is not supported.", exception2.getMessage());
-        assertEquals("At the moment, this operation is not supported.", exception3.getMessage());
-        assertEquals("At the moment, this operation is not supported.", exception4.getMessage());
+        Assert.assertEquals(expectedResult1, actualResult1);
+        Assert.assertEquals(expectedResult2, actualResult2);
+        Assert.assertEquals(false, actualResult3);
+        Assert.assertFalse(actualResult4);
     }
 }

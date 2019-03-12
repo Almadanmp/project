@@ -1,9 +1,10 @@
 package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.testng.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * PortableElectricConvectionHeaterSpec tests class.
@@ -11,28 +12,27 @@ import static org.testng.Assert.assertEquals;
 
 class PortableElectricConvectionHeaterSpecTest {
 
+    private PortableElectricConvectionHeaterSpec validPortableElectricConvectionHeaterSpec = new PortableElectricConvectionHeaterSpec();
+
     @Test
-    void seeIfAllMethodsThrowException() {
-        //Arrange
+    void seeAttributeMethods() {
+        // Arrange
 
-        PortableElectricConvectionHeaterSpec portableElectricConvectionHeaterSpec = new PortableElectricConvectionHeaterSpec();
+        Object expectedResult1 = 0;
+        List<String> expectedResult2 = new ArrayList<>();
 
-        //Act
+        // Act
 
-        Throwable exception1 = assertThrows(UnsupportedOperationException.class,
-                portableElectricConvectionHeaterSpec::getAttributeNames);
-        Throwable exception2 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricConvectionHeaterSpec.getAttributeValue("empty"));
-        Throwable exception3 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricConvectionHeaterSpec.getAttributeUnit("empty"));
-        Throwable exception4 = assertThrows(UnsupportedOperationException.class,
-                () -> portableElectricConvectionHeaterSpec.setAttributeValue("empty", new Object()));
+        Object actualResult1 = validPortableElectricConvectionHeaterSpec.getAttributeValue("Nonexistent");
+        List<String> actualResult2 = validPortableElectricConvectionHeaterSpec.getAttributeNames();
+        Object actualResult3 = validPortableElectricConvectionHeaterSpec.getAttributeUnit("Nonexistent");
+        boolean actualResult4 = validPortableElectricConvectionHeaterSpec.setAttributeValue("Nonexistent", 20D);
 
-        //Assert
+        // Assert
 
-        assertEquals("At the moment, this operation is not supported.", exception1.getMessage());
-        assertEquals("At the moment, this operation is not supported.", exception2.getMessage());
-        assertEquals("At the moment, this operation is not supported.", exception3.getMessage());
-        assertEquals("At the moment, this operation is not supported.", exception4.getMessage());
+        Assert.assertEquals(expectedResult1, actualResult1);
+        Assert.assertEquals(expectedResult2, actualResult2);
+        Assert.assertEquals(false, actualResult3);
+        Assert.assertFalse(actualResult4);
     }
 }

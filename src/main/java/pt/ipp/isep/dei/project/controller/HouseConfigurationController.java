@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.Mapper;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
@@ -14,8 +13,6 @@ import pt.ipp.isep.dei.project.model.Room;
 
 
 public class HouseConfigurationController {
-
-    private Mapper mapper = new Mapper();
 
     // USER STORY 15 - As an Administrator, I want to import geographical areas and sensors from a JSON file.
 
