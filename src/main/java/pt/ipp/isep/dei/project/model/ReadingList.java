@@ -408,13 +408,12 @@ public class ReadingList {
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available.");
         }
-        Date firstHottestDay = new Date();
+        Date firstHottestDay = daysWithReadings.get(0);
         double tempTemp = -1000;
-        Date tempDate = daysWithReadings.get(0);
         for (Date day : daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
             double maxTemp = Collections.max(listOfMaxReadings);
-            if ((tempTemp < maxTemp) && (day.before(tempDate))){
+            if ((tempTemp < maxTemp) || (day.before(firstHottestDay))){
                 tempTemp = maxTemp;
                 firstHottestDay = day;
             }
