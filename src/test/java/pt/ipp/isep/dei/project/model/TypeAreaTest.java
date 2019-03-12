@@ -165,6 +165,15 @@ class TypeAreaTest {
     }
 
     @Test
+    void seeIfSetGetNameWorksInvalidNameNull() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            validType.setName(null);
+        });
+    }
+
+    @Test
     void seeIfSetNameWorksEmptyString() {
         // Assert
 

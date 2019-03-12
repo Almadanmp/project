@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import static org.testng.Assert.*;
 
@@ -55,17 +56,18 @@ public class MapperTest {
 //        //Assert
 //        assertTrue(resultDTO instanceof SensorDTO);
 //        assertTrue(result instanceof Sensor);
-//
 //    }
-
 
     @Test
     void seeIfSensorToDTOWorks() {
         //Act
         SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
 
+        sensorDTO.setUniqueID(UUID.randomUUID());
+
         //Assert
         assertTrue(sensorDTO instanceof SensorDTO);
+        assertTrue(sensorDTO.getUniqueID() instanceof UUID);
     }
 
     @Test

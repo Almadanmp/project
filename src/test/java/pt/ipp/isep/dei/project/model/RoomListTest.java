@@ -238,6 +238,17 @@ class RoomListTest {
     }
 
     @Test
+    void seeIfCreateRoomWorks(){
+        //Act
+        Room roomActual = validRoomList.createRoom("kitchen",0,15,10,2);
+        validRoomList.add(roomActual);
+        Room roomExpected = new Room("kitchen",0,15,10,2);
+
+        //Assert
+        assertEquals(roomExpected,roomActual);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 
