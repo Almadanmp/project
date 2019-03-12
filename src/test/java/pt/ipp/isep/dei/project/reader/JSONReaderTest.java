@@ -123,5 +123,4 @@ class JSONReaderTest {
 
         assertArrayEquals(expectedResult, actualResult);
     }
-
 }
