@@ -194,7 +194,7 @@ class SensorListTest {
     void seeIfGetReadingsWorksReadingsAtBeginning() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new Date());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018,Calendar.MARCH,1).getTime());
         validSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
@@ -213,7 +213,7 @@ class SensorListTest {
     void seeIfGetReadingsWorksReadingsAtEnd() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new Date());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018,Calendar.MARCH,1).getTime());
         validSensorList.add(secondValidSensor);
         secondValidSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
@@ -232,11 +232,11 @@ class SensorListTest {
     void seeIfGetReadingsWorksAllSensorsHaveReadings() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new Date());
-        Reading readingTwo = new Reading(20, new Date());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
+        Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
         validSensorList.add(secondValidSensor);
-        secondValidSensor.addReading(readingOne);
-        firstValidSensor.addReading(readingTwo);
+        firstValidSensor.addReading(readingOne);
+        secondValidSensor.addReading(readingTwo);
         ReadingList expectedResult = new ReadingList();
         expectedResult.addReading(readingOne);
         expectedResult.addReading(readingTwo);
@@ -361,7 +361,7 @@ class SensorListTest {
         SensorList emptyList = new SensorList();
         SensorList twoSensorsList = new SensorList();
 
-        Reading readingOne = new Reading(31, new Date());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018,Calendar.MARCH,1).getTime());
         secondValidSensor.addReading(readingOne);
 
         twoSensorsList.add(firstValidSensor);
