@@ -140,7 +140,7 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+        House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
                 new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)), 60,
@@ -746,6 +746,34 @@ class HouseTest {
     }
 
     @Test
+    void seeIfSetIDWorks(){
+        //Act
+        validHouse.setId("valid house");
+
+        //Assert
+        assertEquals(validHouse.getHouseId(),"valid house");
+    }
+
+    @Test
+    void seeIfSetMotherAreaWorks(){
+        //Act
+        GeographicArea geoArea = new GeographicArea("Porto",new TypeArea("City"),50,13,new Local(5,5,5));
+        validHouse.setMotherArea(geoArea);
+
+        //Assert
+        assertEquals(validHouse.getMotherArea(),geoArea);
+    }
+
+    @Test
+    void seeIfSetGetAddressWorks(){
+        //Act
+        validHouse.setAddress("Rua do ISEP","4400","Campus");
+
+        //Assert
+        assertEquals(validHouse.getAddress(),new Address("Rua do ISEP","4400","Campus"));
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 
@@ -759,4 +787,6 @@ class HouseTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+
 }

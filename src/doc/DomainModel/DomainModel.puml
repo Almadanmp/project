@@ -30,7 +30,9 @@ Location "1" -- "1" GeographicArea: is in >
 GeographicArea "0,n" -- "1" AreaType: is of >
 GeographicArea "1" -- "0,n" Sensor: may have>
 Sensor "n" -- "1" SensorType: is of >
-Device -- "1" DeviceType: implemented by >
+Device "1" .. "1" WaterHeater
+Device "1" .. "1" Fridge
+Device "1" .. "1" etc
 
 
 class Room {
@@ -84,8 +86,22 @@ name;
 }
 
 class SensorType{
-name;
-units;
-}
+ name;
+ units;
+ }
+
+ class WaterHeater{
+ nominal power;
+ volume;
+ hot water temperature;
+ efficiency coefficient;
+ }
+
+ class Fridge{
+ nominal power;
+ freezer capacity;
+ refrigerator capacity;
+ }
+
 
 @enduml

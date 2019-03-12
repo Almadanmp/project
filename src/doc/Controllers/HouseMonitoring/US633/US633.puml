@@ -23,18 +23,20 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-title US633 \n I want to get the day with the highest temperature amplitude in the house area in a given period \n Success Case
+title US633 \n I want to get the day with the highest temperature amplitude in the house area in a given period \n - Success Case -
 
 autonumber
 
 actor User
 
-User -> MainUI: start program
-activate MainUI
+User -> ":MainUI": start program
+activate ":MainUI"
 
-MainUI --> User: show option menu
-User-> MainUI: Select House Monitoring opt
-MainUI -> ":HouseMonitoringUI": option6(house)
+":MainUI" --> User: show option menu
+User-> ":MainUI": Select House Monitoring opt
+":MainUI" -> ":HouseMonitoringUI": option6(house)
+deactivate ":MainUI"
+activate ":HouseMonitoringUI"
 ":HouseMonitoringUI" --> User: show option menu
 User -> ":HouseMonitoringUI": Select opt
 ":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS623(house)
@@ -49,19 +51,47 @@ ref over ":HouseMonitoringUI"
 get closest sensor
 to house area
 end ref
+
 ":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate(house, date, date)
+deactivate ":HouseMonitoringUI"
+activate ":HouseMonitoringController"
 ":HouseMonitoringController" -> ":Sensor": getDateHighestAmplitudeBetweenDates(date, date)
+
+activate ":Sensor"
+
 ":Sensor" -> ":ReadingList": getDateHighestAmplitudeBetweenDates (date, date)
+activate ":ReadingList"
 ":ReadingList" --> ":Sensor": return date
+deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return date
+deactivate ":Sensor"
 
 ":HouseMonitoringController" --> ":HouseMonitoringUI": return date
+deactivate ":HouseMonitoringController"
+activate ":HouseMonitoringUI"
+":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeValue(house, date)
+deactivate ":HouseMonitoringUI"
+activate ":HouseMonitoringController"
+
+":HouseMonitoringController" -> ":Sensor": getHighestTempAmplitudeValue(date, date)
+activate ":Sensor"
+":Sensor" -> ":ReadingList": getHighestAmplitudeInDate (date, date)
+activate ":ReadingList"
+":ReadingList" --> ":Sensor": return double
+deactivate ":ReadingList"
+":Sensor" --> ":HouseMonitoringController": return double
+deactivate ":Sensor"
+
+":HouseMonitoringController" --> ":HouseMonitoringUI": return double
+deactivate ":HouseMonitoringController"
+activate ":HouseMonitoringUI"
 
 ":HouseMonitoringUI" -> ":HouseMonitoringUI": build result string
 
 ":HouseMonitoringUI" --> User: Show result string
+deactivate ":HouseMonitoringUI"
 
-deactivate MainUI
+deactivate ":MainUI"
 
 
 @enduml
