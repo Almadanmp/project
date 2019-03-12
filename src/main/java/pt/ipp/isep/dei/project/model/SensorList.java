@@ -17,15 +17,6 @@ public class SensorList {
         this.sensors = new ArrayList<>();
     }
 
-    /**
-     * Constructor to always create an Array of Sensors.
-     *
-     * @param sensorToAdd the selected sensor.
-     */
-    public SensorList(Sensor sensorToAdd) {
-        sensors = new ArrayList<>();
-        sensors.add(sensorToAdd);
-    }
 
     public List<Sensor> getSensors() {
         return sensors;
