@@ -414,12 +414,9 @@ public class ReadingList {
         for (Date day : daysWithReadings) {
             List<Double> listOfMaxReadings = getValuesOfSpecificDayReadings(day);
             double maxTemp = Collections.max(listOfMaxReadings);
-            if (tempTemp < maxTemp) {
+            if ((tempTemp < maxTemp) && (day.before(tempDate))){
                 tempTemp = maxTemp;
                 firstHottestDay = day;
-                if (day.before(tempDate)) {
-                    tempDate = day;
-                }
             }
         }
         return firstHottestDay;
