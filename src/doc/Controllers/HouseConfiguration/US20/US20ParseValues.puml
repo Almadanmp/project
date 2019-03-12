@@ -1,0 +1,63 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+
+
+
+-> CSVReader: startAndPromptPath()
+activate CSVReader
+CSVReader -->> Properties: props = new Properties()
+activate Properties
+
+alt try
+
+CSVReader -->> FileInputStream: input = new FileInputStream(file location)
+activate FileInputStream
+CSVReader -> Properties: load(input)
+CSVReader -> Properties: deviceMetering = props.getProperty("DeviceMeteringPeriod")
+CSVReader --x FileInputStream: input.close()
+deactivate FileInputStream
+deactivate Properties
+
+else catch
+CSVReader -> FileInputUtils: IOException
+
+end
+
+alt try
+FileInputUtils -> Integer: parseInt(deviceMeteringPeriod)
+activate Integer
+Integer --> CSVReader: return deviceMeteringPeriod
+deactivate Integer
+<-- CSVReader: return deviceMeteringPeriod
+
+
+else catch
+CSVReader -> CSVReader: NumberFormatException
+
+end
+
+
+@enduml

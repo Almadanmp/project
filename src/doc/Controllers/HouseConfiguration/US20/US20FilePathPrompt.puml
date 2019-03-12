@@ -1,0 +1,46 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+ }
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+
+
+
+-> CSVReader: startAndPromptPath()
+activate CSVReader
+CSVReader -->> Scanner: input = new Scanner()
+
+alt while
+
+CSVReader -->> CSVReader: filePath != filePath.endsWith(".csv")
+CSVReader -->> CSVReader: filePath != !new File(filePath).exists()
+deactivate Properties
+
+else
+CSVReader -> CSVReader: Loop
+
+end
+
+
+
+@enduml
