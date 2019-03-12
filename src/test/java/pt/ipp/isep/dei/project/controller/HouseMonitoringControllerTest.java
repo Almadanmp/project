@@ -476,7 +476,7 @@ class HouseMonitoringControllerTest {
         // Assert
         assertEquals(expectedResult, actualResult);
     }
-/*
+
     @Test
     void testGetFirstHottestDayInPeriodIfUnorganizedReadings() {
         // Arrange
@@ -486,7 +486,7 @@ class HouseMonitoringControllerTest {
         Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate4, validDate2);
         // Assert
         assertEquals(expectedResult, actualResult);
-    }*/
+    }
 
     @Test
     void testGetFirstHottestDayInPeriodThrowsException() {
