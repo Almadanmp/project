@@ -513,6 +513,18 @@ class ReadingListTest {
         assertEquals(expectedResult, validReadingList.getFirstSecondOfDay(validDate14));
     }
 
+
+    @Test
+    void seeIfGetsLastSecondOfDay() {
+        // Arrange
+
+        Date expectedResult = new GregorianCalendar(2018, Calendar.OCTOBER, 2, 23, 59, 59).getTime();
+
+        // Assert
+
+        assertEquals(expectedResult, validReadingList.getLastSecondOfDay(validDate14));
+    }
+
     @Test
     void seeIfReadingDateWithinTwoDates() {
         //Arrange
