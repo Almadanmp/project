@@ -660,11 +660,10 @@ class ReadingListTest {
         validReadingList.addReading(reading2);
         validReadingList.addReading(reading3);
         validReadingList.addReading(reading4);
-        double expectedResult = 25;
         //Act
-        double actualResult = validReadingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult = validReadingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(reading3, actualResult);
     }
 
     @Test
@@ -710,7 +709,7 @@ class ReadingListTest {
         validReadingList.addReading(r5);
         validReadingList.addReading(r6);
         //Act
-        Reading actualResult = validReadingList.getReadingWithSpecificDate(validReadingList, validDate2);
+        Reading actualResult = validReadingList.getReadingWithSpecificDate(validDate2);
         //Assert
         assertEquals(r3, actualResult);
     }
@@ -737,14 +736,14 @@ class ReadingListTest {
         validReadingList.addReading(r7);
         validReadingList.addReading(r8);
         validReadingList.addReading(r10);
-        List<Double> expectedResult = new ArrayList<>();
-        expectedResult.add(23.0);
-        expectedResult.add(26.0);
-        expectedResult.add(22.0);
-        expectedResult.add(21.0);
-        expectedResult.add(22.0);
+        ReadingList expectedResult = new ReadingList();
+        expectedResult.addReading(r6);
+        expectedResult.addReading(r7);
+        expectedResult.addReading(r3);
+        expectedResult.addReading(r4);
+        expectedResult.addReading(r10);
         //Act
-        List<Double> actualResult = validReadingList.getListOfMaxValuesForEachDay(validDate12, validDate5);
+        ReadingList actualResult = validReadingList.getListOfMaxValuesForEachDay();
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -794,9 +793,68 @@ class ReadingListTest {
         validReadingList.addReading(reading19);
         validReadingList.addReading(reading20);
         //Act
-        Reading actualResult = validReadingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        Date actualResult = validReadingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
         //Assert
-        assertEquals(reading10, actualResult);
+        assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
+    }
+
+    @Test
+    void seeIfWeGetReadingListBetweenDates() {
+        //Arrange
+        validReadingList = new ReadingList();
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime());
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime());
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime());
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime());
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime());
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime());
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime());
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime());
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime());
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime());
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime());
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime());
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime());
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime());
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
+        validReadingList.addReading(reading1);
+        validReadingList.addReading(reading2);
+        validReadingList.addReading(reading3);
+        validReadingList.addReading(reading4);
+        validReadingList.addReading(reading5);
+        validReadingList.addReading(reading6);
+        validReadingList.addReading(reading7);
+        validReadingList.addReading(reading8);
+        validReadingList.addReading(reading9);
+        validReadingList.addReading(reading10);
+        validReadingList.addReading(reading11);
+        validReadingList.addReading(reading12);
+        validReadingList.addReading(reading13);
+        validReadingList.addReading(reading14);
+        validReadingList.addReading(reading15);
+        validReadingList.addReading(reading16);
+        validReadingList.addReading(reading17);
+        validReadingList.addReading(reading18);
+        validReadingList.addReading(reading19);
+        validReadingList.addReading(reading20);
+        ReadingList expectedResult = new ReadingList();
+        expectedResult.addReading(reading5);
+        expectedResult.addReading(reading6);
+        expectedResult.addReading(reading7);
+        expectedResult.addReading(reading8);
+        expectedResult.addReading(reading9);
+        expectedResult.addReading(reading10);
+        expectedResult.addReading(reading11);
+        expectedResult.addReading(reading12);
+        //Act
+        ReadingList actualResult = validReadingList.getReadingListBetweenDates(new GregorianCalendar(2018, Calendar.JULY, 3, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 7, 10, 29).getTime());
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test
