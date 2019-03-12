@@ -141,7 +141,7 @@ public class Kettler implements Device, Metered {
      **/
     @Override
     public boolean addLog(Log log) {
-        if(this.active){
+        if (this.active) {
             return this.logList.addLog(log);
         }
         return false;
@@ -191,13 +191,13 @@ public class Kettler implements Device, Metered {
      *
      * @return a double of the device's estimated energy consumption.
      **/
-    //TODO este device não usa o tempo para o cálculo da estimativa do consumo
+    //TODO este device não usa o tempo para o cálculo da estimativa do consumo, que fazer?
     @Override
     public double getEnergyConsumption(float time) {
         double specificHeat = 1.163;
         double heatingVolume = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.VOLUME_WATER);
         double coldWaterT = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
-        if (coldWaterT > 100.0) { //ver se Jenkins está passado
+        if ((Math.min(coldWaterT, 100.0)) == 100.0) {
             return 0;
         }
         double dT = 100 - coldWaterT;

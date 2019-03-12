@@ -54,11 +54,20 @@ class KettlerTest {
         //Act
 
         kettler.setNominalPower(900D);
-        double actualResult = kettler.getNominalPower();
+        double actualResult1 = kettler.getNominalPower();
 
         //Assert
 
-        assertEquals(900D, actualResult);
+        assertEquals(900D, actualResult1);
+
+        //Act
+
+        kettler.setNominalPower(-10D);
+        double actualResult2 = kettler.getNominalPower();
+
+        //Assert
+
+        assertEquals(900D, actualResult2);
     }
 
     @Test
@@ -473,7 +482,7 @@ class KettlerTest {
     }
 
     @Test
-    void seeIfAddLogWorks(){
+    void seeIfAddLogWorks() {
 
         //Arrange
 
@@ -502,7 +511,7 @@ class KettlerTest {
     }
 
     @Test
-    void seeIfAddLogWorksWhenDeviceIsDeactivated(){
+    void seeIfAddLogWorksWhenDeviceIsDeactivated() {
 
         //Arrange
 
