@@ -71,6 +71,7 @@ class HouseMonitoringControllerTest {
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         try {
+            // Datas desorganizadas, para testar noção de first/last
             validDate1 = validSdf.parse("01/04/2018 15:00:00");
             validDate2 = validSdf.parse("01/04/2018 17:00:00");
             validDate3 = validSdf.parse("01/04/2018 16:00:00");
@@ -78,15 +79,7 @@ class HouseMonitoringControllerTest {
             validDate5 = validSdf.parse("08/12/2017 15:00:00");
             validDate6 = validSdf.parse("19/12/2017 15:00:00");
 
-            // Pessoal, não vou apagar estas datas porque estão a ser usadas em vários testes
-            // Mas tanto em readability como em lógica, estão aleatórias e complicam bastante
-            // para quem quer ler e perceber uma data de inicio e de fim.
-            // Também por terem datas aleatórias, seguem um padrão de instancializaçao errado
-            // visto que um sensor guardará sempre as datas pela ordem em que as regista e nunca registará
-            // um dia 5 depois de um dia 10, no mesmo mes (por exemplo).
-            // Acrescentei portanto 10 datas novas para quem quiser usar nos testes.
-            // O ideal seria mudarem os vossos testes para todos usarem estas e poder apagar as antigas.
-            // Nas datas já está previstas as US630, 631 e 633, min max e amplitude.
+            // Datas ordenadas, exemplo mais real
 
             validDate01 = validSdf.parse("02/02/2017 01:00:00");
             validDate02 = validSdf.parse("02/02/2017 22:30:00");
@@ -120,16 +113,18 @@ class HouseMonitoringControllerTest {
         validTemperatureSensor.addReading(fifthTempReading);
         validSensorList.add(validTemperatureSensor);
 
-        Reading r01 = new Reading(20, validDate01); // Max Amplitude First Date
-        Reading r02 = new Reading(1, validDate02); // Max Amplitude First Date
+        // Copy past to TEST for using the organized dates and readings
+        /*
+        Reading r01 = new Reading(20, validDate01); // MaxAmplitude First Date
+        Reading r02 = new Reading(1, validDate02); // MaxAmplitude First Date
         Reading r03 = new Reading(22, validDate03);
-        Reading r04 = new Reading(10, validDate04); // Min First Date
+        Reading r04 = new Reading(10, validDate04); // Cold First Date
         Reading r05 = new Reading(40, validDate05);
-        Reading r06 = new Reading(40.2, validDate06); // Max First Date
+        Reading r06 = new Reading(40.2, validDate06); // Hottest First Date
         Reading r07 = new Reading(10.2, validDate07);
         Reading r08 = new Reading(12, validDate08);
-        Reading r09 = new Reading(40.2, validDate09); // Max Final Date ALSO Max Amplitude Final Date
-        Reading r10 = new Reading(21.2, validDate10); // Min Final Date ALSO Max Amplitude Final Date
+        Reading r09 = new Reading(40.2, validDate09); // Hottest Final Date ALSO MaxAmplitude Final Date
+        Reading r10 = new Reading(21.2, validDate10); // Cold Final Date ALSO MaxAmplitude Final Date
 
         validTemperatureSensor.addReading(r01);
         validTemperatureSensor.addReading(r02);
@@ -141,6 +136,7 @@ class HouseMonitoringControllerTest {
         validTemperatureSensor.addReading(r08);
         validTemperatureSensor.addReading(r09);
         validTemperatureSensor.addReading(r10);
+        */
 
         // Sets up a valid rainfall sensor with valid readings.
 
@@ -162,7 +158,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetCurrentRoomTemperatureWorks() {
         // Arrange
 
-        double expectedResult = 21.2;
+        double expectedResult = 20.0;
 
         // Act
 
@@ -179,7 +175,7 @@ class HouseMonitoringControllerTest {
 
         validHouseArea.setSensorList(validSensorList);
         validHouse.setMotherArea(validHouseArea);
-        double expectedResult = 21.2;
+        double expectedResult = 20.0;
 
         // Act
 
@@ -452,6 +448,27 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayInPeriod() {
         // Arrange
+        Reading r01 = new Reading(20, validDate01); // MaxAmplitude First Date
+        Reading r02 = new Reading(1, validDate02); // MaxAmplitude First Date
+        Reading r03 = new Reading(22, validDate03);
+        Reading r04 = new Reading(10, validDate04); // Cold First Date
+        Reading r05 = new Reading(40, validDate05);
+        Reading r06 = new Reading(40.2, validDate06); // Hottest First Date
+        Reading r07 = new Reading(10.2, validDate07);
+        Reading r08 = new Reading(12, validDate08);
+        Reading r09 = new Reading(40.2, validDate09); // Hottest Final Date ALSO MaxAmplitude Final Date
+        Reading r10 = new Reading(21.2, validDate10); // Cold Final Date ALSO MaxAmplitude Final Date
+
+        validTemperatureSensor.addReading(r01);
+        validTemperatureSensor.addReading(r02);
+        validTemperatureSensor.addReading(r03);
+        validTemperatureSensor.addReading(r04);
+        validTemperatureSensor.addReading(r05);
+        validTemperatureSensor.addReading(r06);
+        validTemperatureSensor.addReading(r07);
+        validTemperatureSensor.addReading(r08);
+        validTemperatureSensor.addReading(r09);
+        validTemperatureSensor.addReading(r10);
         validHouseArea.setSensorList(validSensorList);
         Date expectedResult = validDate06;
         // Act
@@ -459,6 +476,17 @@ class HouseMonitoringControllerTest {
         // Assert
         assertEquals(expectedResult, actualResult);
     }
+/*
+    @Test
+    void testGetFirstHottestDayInPeriodIfUnorganizedReadings() {
+        // Arrange
+        validHouseArea.setSensorList(validSensorList);
+        Date expectedResult = validDate4;
+        // Act
+        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate4, validDate2);
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }*/
 
     @Test
     void testGetFirstHottestDayInPeriodThrowsException() {
