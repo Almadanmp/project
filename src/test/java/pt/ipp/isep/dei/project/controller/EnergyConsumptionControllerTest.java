@@ -302,34 +302,34 @@ class EnergyConsumptionControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-//
-//    @Test
-//    void seeIfGetRoomConsumptionInIntervalWorks() {
-//        //Arrange
-//        Date initialTime = new Date();
-//        try {
-//            initialTime = validSdf.parse("20/11/2018 10:02:00");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        Date finalTime = new Date();
-//        try {
-//            finalTime = validSdf.parse("20/11/2018 10:50:00");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        validDevice1.addLog(validLog1);
-//        validRoom1.addDevice(validDevice1);
-//        double expectedResult = 56;
-//
-//        //Act
-//        double actualResult = controller.getRoomConsumptionInInterval(validRoom1, initialTime, finalTime);
-//
-//
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
+
+    @Test
+    void seeIfGetRoomConsumptionInIntervalWorks() {
+        //Arrange
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf.parse("20/11/2018 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf.parse("20/11/2018 10:50:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        validDevice1.addLog(validLog1);
+        validRoom1.addDevice(validDevice1);
+        double expectedResult = 56;
+
+        //Act
+        double actualResult = controller.getRoomConsumptionInInterval(validRoom1, initialTime, finalTime);
+
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
 
     //US752 TESTS

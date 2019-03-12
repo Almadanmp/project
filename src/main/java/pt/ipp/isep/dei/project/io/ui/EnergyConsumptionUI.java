@@ -298,12 +298,12 @@ class EnergyConsumptionUI {
             System.out.print(utilsUI.invalidRoomList);
         }
         InputUtils inputs = new InputUtils();
-        RoomDTO room = inputs.getHouseRoomDTOByList(programHouse);
+        Room room = inputs.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = inputs.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
         Date finalDate = inputs.getInputYearMonthDayHourMin();
-        double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate, programHouse);
+        double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate);
         System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
 
