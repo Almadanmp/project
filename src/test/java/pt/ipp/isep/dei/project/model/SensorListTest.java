@@ -47,6 +47,17 @@ class SensorListTest {
     }
 
     @Test
+    void seeIfEqualsWorksOnDiffObject() {
+        //Act
+
+        boolean actualResult = validSensorList.equals(20D); // Required for Sonarqube testing purposes.
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfEqualsWorksOnSensorListWithSameContent() {
         // Arrange
 

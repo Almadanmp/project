@@ -14,6 +14,7 @@ public class MapperTest {
 
     private GeographicArea geoArea;
     private Mapper mapper;
+    private Sensor sensor;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @BeforeEach
@@ -27,7 +28,8 @@ public class MapperTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        sensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
+                new Local(31, 15, 3), date);
     }
 
     @Test
@@ -45,9 +47,6 @@ public class MapperTest {
 
 //    @Test
 //    public void seeIfCreateDTOFromSensor() {
-//        //Arrange
-//        Sensor sensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
-//                new Local(31, 15, 3), date);
 //
 //        //Act
 //        SensorDTO resultDTO = mapper.sensorToDTO(sensor);
@@ -59,5 +58,26 @@ public class MapperTest {
 //
 //    }
 
+
+    @Test
+    void seeIfSensorToDTOWorks() {
+        //Act
+        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
+
+        //Assert
+        assertTrue(sensorDTO instanceof SensorDTO);
+    }
+
+    @Test
+    void seeIfAddSensorDTOWorks(){
+        //Act
+        GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
+        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
+
+        resultDTO.addSensorDTO(sensorDTO);
+
+        //Assert
+        assertTrue(resultDTO instanceof GeographicAreaDTO);
+    }
 
 }

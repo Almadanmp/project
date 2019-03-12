@@ -15,11 +15,11 @@ import static java.lang.System.out;
 
 
 public class HouseMonitoringUI {
-    private HouseMonitoringController houseMonitoringcontroller;
+    private HouseMonitoringController houseMonitoringController;
     private String was = " was ";
 
     public HouseMonitoringUI() {
-        this.houseMonitoringcontroller = new HouseMonitoringController();
+        this.houseMonitoringController = new HouseMonitoringController();
     }
 
     void run(House programHouse) {
@@ -94,7 +94,7 @@ public class HouseMonitoringUI {
 
     private void updateModel600(House house) {
         try {
-            double currentTemp = houseMonitoringcontroller.getHouseAreaTemperature(house);
+            double currentTemp = houseMonitoringController.getHouseAreaTemperature(house);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -124,8 +124,8 @@ public class HouseMonitoringUI {
 
     private void updateModelDisplayState605(RoomDTO room, House house) {
         try {
-            double currentTemp = houseMonitoringcontroller.getCurrentRoomTemperature(room, house);
-            out.println("The current temperature in the room " + houseMonitoringcontroller.getRoomName(room, house) +
+            double currentTemp = houseMonitoringController.getCurrentRoomTemperature(room, house);
+            out.println("The current temperature in the room " + houseMonitoringController.getRoomName(room, house) +
                     " is " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -188,7 +188,7 @@ public class HouseMonitoringUI {
     private void updateAndDisplayModelUS620(House house, Date date) {
         double result;
         try {
-            result = houseMonitoringcontroller.getTotalRainfallOnGivenDay(house, date);
+            result = houseMonitoringController.getTotalRainfallOnGivenDay(house, date);
         } catch (IllegalStateException ex) {
             System.out.println(ex.getMessage());
             return;
@@ -234,7 +234,7 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
         double result623;
         try {
-            result623 = houseMonitoringcontroller.getAverageRainfallInterval(house, startDate, endDate);
+            result623 = houseMonitoringController.getAverageRainfallInterval(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
@@ -262,7 +262,7 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS630(House house, Date startDate, Date endDate) {
         Date dateResult630;
         try {
-            dateResult630 = houseMonitoringcontroller.getLastColdestDayInInterval(house, startDate, endDate);
+            dateResult630 = houseMonitoringController.getLastColdestDayInInterval(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
@@ -290,7 +290,7 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS631(House house, Date startDate, Date endDate) {
         Date dateUS631;
         try {
-            dateUS631 = houseMonitoringcontroller.getFirstHottestDayInPeriod(house, startDate, endDate);
+            dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(house, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
@@ -318,8 +318,8 @@ public class HouseMonitoringUI {
         double resultValue633;
 
         try {
-            resultDate633 = houseMonitoringcontroller.getHighestTempAmplitudeDate(house, startDate, endDate);
-            resultValue633 = houseMonitoringcontroller.getHighestTempAmplitudeValue(house, resultDate633);
+            resultDate633 = houseMonitoringController.getHighestTempAmplitudeDate(house, startDate, endDate);
+            resultValue633 = houseMonitoringController.getHighestTempAmplitudeValue(house, resultDate633);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
