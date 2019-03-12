@@ -63,7 +63,7 @@ class HouseConfigurationUI {
         }
     }
 
-    // USER STORY 15 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.M
+    // USER STORY 15 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
 
     /**
      * As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.

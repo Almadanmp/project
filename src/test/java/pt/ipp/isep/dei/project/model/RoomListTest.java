@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.testng.Assert.assertTrue;
@@ -238,15 +235,32 @@ class RoomListTest {
     }
 
     @Test
-    void seeIfCreateRoomWorks(){
+    void seeIfCreateRoomWorks() {
+        //Arrange
+
+        Room room = new Room("kitchen", 0, 15, 10, 2);
+        Room roomExpected = new Room("kitchen", 0, 15, 10, 2);
+
         //Act
-        Room roomActual = validRoomList.createRoom("kitchen",0,15,10,2);
-        validRoomList.add(roomActual);
-        Room roomExpected = new Room("kitchen",0,15,10,2);
+
+        Room roomActual1 = validRoomList.createRoom("kitchen", 0, 15, 10, 2);
 
         //Assert
-        assertEquals(roomExpected,roomActual);
+
+        assertEquals(roomExpected, roomActual1);
+
+        //Arrange to check if room is created when it already exists in list
+
+        validRoomList.add(room);
+
+        //Act
+
+        Room roomActual2 = validRoomList.createRoom("kitchen", 0, 15, 10, 2);
+
+        //Assert
+        assertEquals(roomExpected, roomActual2);
     }
+
 
     @Test
     void hashCodeDummyTest() {
