@@ -3,9 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -98,6 +96,21 @@ class TypeAreaListTest {
         // Act
 
         String actualResult = validList.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfBuildListIfEmpty() {
+        // Arrange
+        TypeAreaList emptyList = new TypeAreaList();
+        String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String actualResult = emptyList.buildString();
 
         // Assert
 
