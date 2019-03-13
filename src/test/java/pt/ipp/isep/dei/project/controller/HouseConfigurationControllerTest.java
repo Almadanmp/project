@@ -42,11 +42,6 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfGetHouseName() {
-        //Arrange
-
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-
         //Act
 
         String actualResult = controller.getHouseName(validHouse);
