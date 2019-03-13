@@ -805,8 +805,10 @@ class ReadingListTest {
         validReadingList.addReading(r5);
         validReadingList.addReading(r6);
         //Act
+        Reading actualResult2 = validReadingList.getAReadingWithSpecificDay(validDate7);
         Reading actualResult = validReadingList.getAReadingWithSpecificDay(validDate2);
         //Assert
+        assertNull(actualResult2);
         assertEquals(r3, actualResult);
     }
 

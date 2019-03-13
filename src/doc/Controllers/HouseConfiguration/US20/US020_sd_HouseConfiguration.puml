@@ -7,22 +7,23 @@ skinparam titleBackgroundColor ivory
 skinparam FontName quicksand
 
 skinparam actor {
- 	BorderColor indianred
- 	}
+  BorderColor indianred
+  }
 
- skinparam sequence {
- 	LifeLineBackgroundColor indianred
- 	ParticipantBackgroundColor ivory
- }
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
 
- skinparam roundcorner 10
+skinparam roundcorner 10
 
- skinparam component {
-   arrowThickness 1
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
- }
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
 title US020 \n  I want to import geographical area sensor readings into the application from a CSV file. \n Data outside the valid sensor operation period shouldn’t be imported but registered in the application log.
 
 
