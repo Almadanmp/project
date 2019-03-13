@@ -837,7 +837,7 @@ class EnergyConsumptionControllerTest {
         DeviceList dList = new DeviceList();
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
-        // Act
+        // Act0
 
         // Assert
 

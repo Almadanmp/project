@@ -783,7 +783,7 @@ class ReadingListTest {
         double actualResult2 = readingList2.getMinValueInReadingList();
         double actualResult3 = readingList3.getMinValueInReadingList();
         //Assert
-        assertEquals(expectedResult1,actualResult);
+        assertNotSame(expectedResult1,actualResult);
         assertEquals(expectedResult2,actualResult2);
         assertEquals(expectedResult3,actualResult3);
     }
@@ -805,8 +805,10 @@ class ReadingListTest {
         validReadingList.addReading(r5);
         validReadingList.addReading(r6);
         //Act
+        Reading actualResult2 = validReadingList.getAReadingWithSpecificDay(validDate7);
         Reading actualResult = validReadingList.getAReadingWithSpecificDay(validDate2);
         //Assert
+        assertNull(actualResult2);
         assertEquals(r3, actualResult);
     }
 

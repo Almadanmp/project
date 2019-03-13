@@ -483,9 +483,9 @@ public class ReadingList {
 
     /**
      * US630
-     * This method returns a Reading with a specific date from a given ReadingList.
+     * This method returns a Reading with a specific day from a given ReadingList.
      *
-     * @param date is the Date of the reading we want to get.
+     * @param date is the Day of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
     Reading getAReadingWithSpecificDay(Date date) {

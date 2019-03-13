@@ -115,18 +115,14 @@ public class House implements Metered {
         this.motherArea = motherArea;
     }
 
-    /**
-     * Method that gives the house room list.
-     *
-     * @return house RoomList
-     **/
+    public GeographicArea getMotherArea() {
+        return motherArea;
+    }
+
     public RoomList getRoomList() {
         return this.roomList;
     }
 
-    public GeographicArea getMotherArea() {
-        return motherArea;
-    }
 
     public EnergyGridList getGridList() {
         return this.energyGridList;
@@ -146,9 +142,10 @@ public class House implements Metered {
 
     /**
      * Checks if the attribute motherArea is null
+     *
      * @return true or false
      */
-    public boolean isMotherAreaNull(){
+    public boolean isMotherAreaNull() {
         return getMotherArea() == null;
     }
 
@@ -187,7 +184,7 @@ public class House implements Metered {
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
         SensorList minDistSensors = new SensorList();
-        Sensor sensorError = new Sensor("RF12345","EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+        Sensor sensorError = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorType);
@@ -270,7 +267,7 @@ public class House implements Metered {
 
     public double getEnergyConsumption(float time) {
         throw new UnsupportedOperationException("This operation is unsupported.");
-    } //TODO Make this method throw an UnsupportedOperationException.
+    }
 
     /**
      * This method receives room parameters, checks if room exists in house and
@@ -373,8 +370,9 @@ public class House implements Metered {
 
     /**
      * This method call EnergyGridList method which creates an EnergyGrid.
+     *
      * @param designation - EnergyGrid designation
-     * @param maxPower - EnergyGrid Maximum Power
+     * @param maxPower    - EnergyGrid Maximum Power
      * @return a new EnergyGrid or the EnergyGrid with the same designation
      */
     public EnergyGrid createEnergyGrid(String designation, double maxPower) {
