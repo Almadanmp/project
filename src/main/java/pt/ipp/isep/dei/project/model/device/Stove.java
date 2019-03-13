@@ -82,6 +82,7 @@ public class Stove implements Device, Metered, Programmable {
      *
      * @return Device LogList.
      */
+
     public LogList getLogList() {
         return logList;
     }
@@ -91,6 +92,7 @@ public class Stove implements Device, Metered, Programmable {
      *
      * @return true if LogList is empty, false otherwise
      */
+
     public boolean isLogListEmpty() {
         return this.logList.isEmpty();
     }
@@ -101,6 +103,7 @@ public class Stove implements Device, Metered, Programmable {
      * @param log - Parameter which will be used to add to the Device LogList.
      * @return true if log was added
      */
+
     public boolean addLog(Log log) {
         if (!(logList.getLogListAttribute().contains(log)) && this.active) {
             logList.getLogListAttribute().add(log);
@@ -117,6 +120,7 @@ public class Stove implements Device, Metered, Programmable {
      * @param finalTime   is the end time of the interval.
      * @return is the number of valid data logs in the given interval.
      */
+
     public int countLogsInInterval(Date initialTime, Date finalTime) {
         return logList.countLogsInInterval(initialTime, finalTime);
     }
@@ -132,6 +136,7 @@ public class Stove implements Device, Metered, Programmable {
      * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
+
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
         return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
@@ -142,6 +147,7 @@ public class Stove implements Device, Metered, Programmable {
      * @param time the desired time
      * @return the energy consumed in the given time
      */
+
     public double getEnergyConsumption(float time) {
         return nominalPower * time;
     }
@@ -153,7 +159,8 @@ public class Stove implements Device, Metered, Programmable {
      * @param program the desired program
      * @return the energy consumed in the given time
      */
-    public double getProgramConsumption(float time, VariableTimeProgram program) {
+
+    double getProgramConsumption(float time, VariableTimeProgram program) {
         return program.getNominalPower() * time;
     }
 
