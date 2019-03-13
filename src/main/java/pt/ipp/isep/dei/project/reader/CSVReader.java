@@ -133,7 +133,7 @@ public class CSVReader implements Reader {
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
 
-        for (SimpleDateFormat pattern : knownPatterns) { //TODO:  Runs both parses for all the lines, yet to find different approach.
+        for (SimpleDateFormat pattern : knownPatterns) {
 
             try {
                 Double readValue = Double.parseDouble(readings[2]);

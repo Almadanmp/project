@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class HouseMonitoringController {
 
-    private static String RAINFALL = "rainfall";
-    private static String TEMPERATURE = "Temperature";
+    private static final String RAINFALL = "rainfall";
+    private static final String TEMPERATURE = "Temperature";
 
     /**
      * Returns the current temperature in a given Room.

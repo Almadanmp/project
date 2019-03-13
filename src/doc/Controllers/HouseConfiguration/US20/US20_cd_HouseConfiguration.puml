@@ -1,0 +1,63 @@
+@startuml
+title US020 \n  I want to import geographical area sensor readings into the application from a CSV file. \n Data outside the valid sensor operation period shouldn’t be imported but registered in the application log.
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam class {
+ 	BorderColor indianred
+ 	BackgroundColor indianred
+ 	BackgroundColor ivory
+    roundcorner 10
+    ArrowFontName Verdana
+    ArrowColor indianred
+    ArrowFontColor darkslategrey
+ }
+
+
+MainUI -- HouseConfigurationUI : >
+
+HouseConfigurationUI -- CSVReader : >
+CSVReader -- Sensor : >
+CSVReader -- Logger : >
+Sensor -- Reading : >
+
+class HouseConfigurationUI{
+
+runUS20(GeographicAreaList)
+}
+
+class CSVReader{
+String csvFileLocation;
+
+readAndSet(GeographicAreaList geographicAreaList)
+setCSVReadings(Sensor sensor, Date date, Double value)
+getSensorData(GeographicAreaList geographicAreaList)
+parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+startAndPromptPath()
+}
+
+
+
+class Sensor{
+String id
+Date dateStartedFunctioning
+ReadingList readingList
+
+getId()
+addReading(Reading reading)
+}
+
+class Reading{
+double value
+Date date
+
+Reading(double value, Date date)
+}
+class Logger{
+getLogger(String name)
+}
+@enduml
