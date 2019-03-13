@@ -368,6 +368,46 @@ class KettlerTest {
     }
 
     @Test
+    void seeIfdTemperatureWorks() {
+
+        //Arrange Cold Temperature lower than boiling water
+
+        kettler.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 99D);
+
+        //Act
+
+        double actualResult1 = kettler.dTemperature();
+
+        //Assert
+
+        assertEquals(1D, actualResult1, 0.01);
+
+        //Arrange Cold Temperature same as boiling water
+
+        kettler.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 100D);
+
+        //Act
+
+        double actualResult2 = kettler.dTemperature();
+
+        //Assert
+
+        assertEquals(0D, actualResult2, 0.01);
+
+        //Arrange Cold Temperature bigger as boiling water
+
+        kettler.setAttributeValue(KettlerSpec.COLD_WATER_TEMP, 101D);
+
+        //Act
+
+        double actualResult3 = kettler.dTemperature();
+
+        //Assert
+
+        assertEquals(0D, actualResult3, 0.01);
+    }
+
+    @Test
     void seeIfGetAttributeNamesWorks() {
 
         //Arrange
@@ -435,7 +475,7 @@ class KettlerTest {
 
         assertEquals("ºC", actualResult1);
         assertEquals("L", actualResult2);
-        assertEquals("Performance ratio doesn't have a measurement unit.", actualResult3);
+        assertEquals("", actualResult3);
     }
 
     @Test
