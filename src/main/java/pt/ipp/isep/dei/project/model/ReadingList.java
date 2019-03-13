@@ -405,7 +405,7 @@ public class ReadingList {
     public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
-            throw new IllegalArgumentException("Warning: No temperature readings available.");
+            throw new IllegalArgumentException("Warning: No temperature readings available in given period.");
         }
         double maxTemperature = getMaxValue(daysWithReadings);
         return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);

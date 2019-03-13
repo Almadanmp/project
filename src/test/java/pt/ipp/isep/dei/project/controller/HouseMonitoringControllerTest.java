@@ -606,7 +606,7 @@ class HouseMonitoringControllerTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(house, validDate01, validDate02));
         // Assert
-        assertEquals("Warning: No temperature readings available.",
+        assertEquals("Warning: No temperature readings available in given period.",
                 exception.getMessage());
     }
 
@@ -623,7 +623,7 @@ class HouseMonitoringControllerTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate02));
         // Assert
-        assertEquals("Warning: No temperature readings available.",
+        assertEquals("Warning: No temperature readings available in given period.",
                 exception.getMessage());
     }
 
@@ -646,7 +646,7 @@ class HouseMonitoringControllerTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(validHouse, validDate22, validDate24));
         // Assert
-        assertEquals("Warning: No temperature readings available.",
+        assertEquals("Warning: No temperature readings available in given period.",
                 exception.getMessage());
     }
 }
