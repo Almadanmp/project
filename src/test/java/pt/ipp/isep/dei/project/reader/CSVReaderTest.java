@@ -128,6 +128,7 @@ class CSVReaderTest {
         System.setOut(systemOut);
     }
 
+/*
     @Test
     void seeIfReadAndSetterWorks() {
 
@@ -527,4 +528,5 @@ class CSVReaderTest {
 
         validReader.parseAndLog(readings, logger, validSensorList);
     }
+*/
 }
