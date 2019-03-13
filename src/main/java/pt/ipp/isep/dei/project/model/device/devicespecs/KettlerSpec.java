@@ -130,7 +130,7 @@ public class KettlerSpec implements DeviceSpecs {
             case VOLUME_WATER:
                 return "L";
             case PERFORMANCE_RATIO:
-                return "Performance ratio doesn't have a measurement unit.";
+                return "";
             default:
                 throw new IllegalArgumentException(invalidName);
         }
