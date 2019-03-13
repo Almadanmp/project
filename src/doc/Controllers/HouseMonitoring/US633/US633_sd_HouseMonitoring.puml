@@ -46,7 +46,7 @@ get input start
 and end date
 end ref
 
-":HouseMonitoringUI" -> ":HouseMonitoringUI": updateUS633(house, date, date)
+":HouseMonitoringUI" -> ":HouseMonitoringUI": updateUS633(house, startDate, endDate)
 ref over ":HouseMonitoringUI"
 Get closest sensor
 to house area
