@@ -11,10 +11,7 @@ import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.model.TypeArea;
 import pt.ipp.isep.dei.project.model.TypeSensor;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,12 +28,17 @@ class CSVReaderTest {
     // Common artifacts for testing in this class.
 
     private GeographicAreaList validGeographicAreaList;
+    private GeographicAreaList validGeographicAreaList2;
+    private GeographicAreaList emptyGeographicAreaList;
+    private GeographicAreaList emptyGeographicAreaList2;
     private GeographicArea validGeographicArea;
     private GeographicArea validGeographicArea2;
+    private GeographicArea emptyGeographicArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
+    private Date validDate5 = new Date();
     private CSVReader validReader;
     private Sensor validSensor1;
     private Sensor validSensor2;
@@ -56,11 +58,13 @@ class CSVReaderTest {
     void arrangeArtifacts() {
         validReader = new CSVReader();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         try {
             validDate1 = validSdf.parse("2016-11-15");
             validDate2 = validSdf.parse("2016-11-15");
             validDate3 = validSdf.parse("2017-11-15");
             validDate4 = validSdf.parse("2017-11-16");
+            validDate5 = validSdf2.parse("2020-12-30T02:00:00+00:00");
         } catch (ParseException c) {
             c.printStackTrace();
         }
@@ -68,6 +72,8 @@ class CSVReaderTest {
                 new Local(41.178553, -8.608035, 111));
         validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
+        emptyGeographicArea = new GeographicArea("Lisbon", new TypeArea("city"), 0.299, 0.291,
+                new Local(41.178553, 8.608035, 117));
         validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new TypeSensor("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
                 validDate1);
@@ -89,8 +95,13 @@ class CSVReaderTest {
         validGeographicArea.setSensorList(validSensorList);
         validGeographicArea2.setSensorList(validSensorList2);
         validGeographicAreaList = new GeographicAreaList();
+        validGeographicAreaList2 = new GeographicAreaList();
+        emptyGeographicAreaList = new GeographicAreaList();
+        emptyGeographicAreaList2 = new GeographicAreaList();
+        emptyGeographicAreaList2.addGeographicArea(emptyGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea2);
+        validGeographicAreaList2.addGeographicArea(validGeographicArea);
     }
 
     private final InputStream systemIn = System.in;
@@ -110,10 +121,6 @@ class CSVReaderTest {
         System.setIn(testIn);
     }
 
-    private String getOutput() {
-        return testOut.toString();
-    }
-
     @AfterEach
     void restoreSystemInputOutput() {
         System.setIn(systemIn);
@@ -130,6 +137,36 @@ class CSVReaderTest {
         // Act
 
         validReader.readAndSet(validGeographicAreaList);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterWorksEmptyGAList() {
+
+        //Arrange
+
+        provideInput(validLocation1);
+
+        // Act
+
+        validReader.readAndSet(emptyGeographicAreaList);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterWorksNoSensors() {
+
+        //Arrange
+
+        provideInput(validLocation1);
+
+        // Act
+
+        validReader.readAndSet(validGeographicAreaList2);
 
         //Assert
 
@@ -294,6 +331,55 @@ class CSVReaderTest {
     }
 
     @Test
+    void seeIfGetSensorDataEmptySensors() {
+
+        //Arrange
+
+        String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String actualResult = validReader.getSensorData(emptyGeographicAreaList2).toString();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetSensorDataEmptyGAList() {
+
+        //Arrange
+
+        SensorList expectedResult = new SensorList();
+
+        // Act
+
+        SensorList actualResult = validReader.getSensorData(emptyGeographicAreaList);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetSensorDataEmptySensorList() {
+
+        //Arrange
+
+        String expectedResult = "---------------\n0) Name: Meteo station ISEP - rainfall | Type: rain\n" +
+                "1) Name: Meteo station ISEP - temperature | Type: rain2\n---------------\n";
+
+        // Act
+
+        String actualResult = validReader.getSensorData(validGeographicAreaList2).toString();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
     void seeIfParseAndLogFailsOutOfBoundsArray() {
 
         //Arrange
@@ -329,47 +415,6 @@ class CSVReaderTest {
         });
     }
 
-
- /* TODO: FAILS ON JENKINS
-
-    @Test
-    void seeIfReadAndSetterFailsNonNumericValue() {
-
-        //Arrange
-
-        provideInput(validLocation2);
-
-        // Act
-
-        //Assert
-
-        Assertions.assertThrows(NumberFormatException.class, () -> {
-            validReader.readAndSet(validGeographicAreaList);
-        });
-    }
-
-
-    @Test
-    void seeIfParseAndLogFailsNonNumericValue() {
-
-        //Arrange
-
-        provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
-        String[] readings = new String[3];
-        readings[2] = "test";
-
-        // Act
-
-        //Assert
-
-        Assertions.assertThrows(NumberFormatException.class, () -> {
-            validReader.parseAndLog(readings, logger, validSensorList);
-        });
-    }
-
- TODO: FAILS ON JENKINS
-
     @Test
     void seeIfReadAndSetterWorksWithReadings() {
 
@@ -377,21 +422,18 @@ class CSVReaderTest {
 
         provideInput(validLocation5);
         ReadingList expectedResult = new ReadingList();
-        Reading reading = new Reading(14, validDate3);
+        Reading reading = new Reading(14.0, validDate5);
         expectedResult.addReading(reading);
-
 
         // Act
 
         validReader.readAndSet(validGeographicAreaList);
-        ReadingList actualResult = validSensor1.getReadingList();
+        ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
         assertEquals(expectedResult, actualResult);
 
     }
-
- TODO: FAILS ON JENKINS
 
     @Test
     void seeIfReadAndSetterFailsNonSetReadings() {
@@ -404,13 +446,69 @@ class CSVReaderTest {
         // Act
 
         validReader.readAndSet(validGeographicAreaList);
-        ReadingList actualResult = validSensor1.getReadingList();
+        ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
         assertNotEquals(expectedResult, actualResult);
 
     }
 
-     */
+    @Test
+    void seeIfParseAndLogCatchesNumberFormatException() {
 
+        //Arrange
+
+        provideInput(validLocation1);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[2] = "log";
+
+        // Act
+
+        //Assert
+
+        try {
+            validReader.parseAndLog(readings, logger, validSensorList);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesLogCondition() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "13.7";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesLogCondition2() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "test";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
 }
