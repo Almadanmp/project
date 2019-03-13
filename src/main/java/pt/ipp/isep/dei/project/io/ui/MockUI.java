@@ -88,7 +88,7 @@ class MockUI {
     }
 
     House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto"), new Local(41.177748, -8.607745, 112), this.geoAreaIsep, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida, 431", "4200-072", "Porto"), new Local(41.177748, -8.607745, 112), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         EnergyGrid mainGrid = new EnergyGrid("Main Grid", 0);
         EnergyGridList mockEGList = new EnergyGridList();
         mockEGList.addGrid(mainGrid);

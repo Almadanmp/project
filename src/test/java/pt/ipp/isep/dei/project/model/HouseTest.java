@@ -34,9 +34,10 @@ class HouseTest {
                 new Local(20, 12, 33));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         firstValidSensor = new Sensor("RF12345","tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
         Sensor secondValidSensor = new Sensor("RF17745","rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
@@ -110,9 +111,10 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
 
         // Act
 
@@ -142,9 +144,10 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
 
         // Act
 
@@ -430,9 +433,10 @@ class HouseTest {
         // Arrange
 
         House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock"),
-                new Local(4, 5, 50), new GeographicArea("Mock", new TypeArea("Mock"),
-                60, 180, new Local(30, 40, 30)), 20,
+                new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
+        testHouse.setMotherArea(new GeographicArea("Mock", new TypeArea("Mock"),
+                60, 180, new Local(30, 40, 30)));
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act

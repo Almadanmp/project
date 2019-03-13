@@ -22,12 +22,11 @@ public class House implements Metered {
 
     // Constructor
 
-    public House(String id, Address address, Local mLocation, GeographicArea mMotherArea,
-                 int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+    public House(String id, Address address, Local mLocation, int gridMeteringPeriod,
+                 int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.id = id;
         this.address = address;
         this.location = mLocation;
-        this.motherArea = mMotherArea;
         this.roomList = new RoomList();
         this.energyGridList = new EnergyGridList();
         this.gridMeteringPeriod = gridMeteringPeriod;

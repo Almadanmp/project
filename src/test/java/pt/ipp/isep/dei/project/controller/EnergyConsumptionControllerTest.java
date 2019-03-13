@@ -40,6 +40,7 @@ class EnergyConsumptionControllerTest {
     private Date validDate1; // Date 09/08/2018
     private Date validDate2; // Date 11/02/2014
     private Log validLog1;
+    private GeographicArea validArea;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
 
 
@@ -73,6 +74,8 @@ class EnergyConsumptionControllerTest {
             c.printStackTrace();
         }
         validLog1 = new Log(56, validDate1,validDate2);
+        validArea =  new GeographicArea("Porto",
+                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100));
     }
 
     //US705 TESTS
@@ -284,9 +287,9 @@ class EnergyConsumptionControllerTest {
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
 
         House house = new House("ISEP", address,
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60, 180,
+                new Local(20, 20, 20), 60, 180,
                 deviceTypeString);
+        house.setMotherArea(validArea);
         EnergyGrid testGrid = new EnergyGrid("GridOne", 300);
         EnergyGridList houseGrid = new EnergyGridList();
         houseGrid.addGrid(testGrid);
@@ -344,9 +347,9 @@ class EnergyConsumptionControllerTest {
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
 
         House house = new House("ISEP", address,
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60, 180,
+                new Local(20, 20, 20),  60, 180,
                 deviceTypeString);
+        house.setMotherArea(validArea);
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         validRoom2.addDevice(validDevice3);
@@ -372,9 +375,9 @@ class EnergyConsumptionControllerTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
         House house = new House("ISEP", address,
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60, 180,
+                new Local(20, 20, 20), 60, 180,
                 deviceTypeString);
+        house.setMotherArea(validArea);
         double expectedResult = 0;
 
         //Act
@@ -395,9 +398,9 @@ class EnergyConsumptionControllerTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
 
-        House house = new House("ISEP", address , new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
-                ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
+        House house = new House("ISEP", address , new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        house.setMotherArea(validArea);
         house.addRoom(validRoom1);
         house.addRoom(validRoom2);
         double expectedResult = 0;
@@ -419,9 +422,9 @@ class EnergyConsumptionControllerTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+        House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
+        house.setMotherArea(validArea);
         validRoom1.addDevice(validDevice1);
         validRoom2.addDevice(validDevice2);
         house.addRoom(validRoom1);
@@ -445,9 +448,9 @@ class EnergyConsumptionControllerTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+        House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
+        house.setMotherArea(validArea);
         RoomList roomList = new RoomList();
         validGrid.setRoomList(roomList);
         roomList.add(validRoom2);
@@ -473,9 +476,10 @@ class EnergyConsumptionControllerTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+        House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
+        house.setMotherArea(validArea);
+
         RoomList roomList = new RoomList();
         validGrid.setRoomList(roomList);
         house.addRoom(validRoom2);
@@ -498,9 +502,9 @@ class EnergyConsumptionControllerTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)),
+        House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
+        house.setMotherArea(validArea);
         validRoom1.addDevice(validDevice1);
         validRoom1.addDevice(validDevice2);
         house.addRoom(validRoom1);
@@ -771,9 +775,10 @@ class EnergyConsumptionControllerTest {
         Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20),  60,
                 180, new ArrayList<>());
+        validHouse.setMotherArea(validArea);
+
         validHouse.addRoom(validRoom1);
         RoomDTO roomDTO = mapper.roomToDTO(validRoom1);
         //Act

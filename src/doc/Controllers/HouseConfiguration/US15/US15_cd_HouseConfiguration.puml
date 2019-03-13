@@ -90,7 +90,7 @@ getDescription();
 setSensorList(List<SensorDTO>);
 getSensorList();
 setDateStartedFunctioning(String);
-getDateStartedFunctioning;
+getDateStartedFunctioning();
 }
 
 @enduml

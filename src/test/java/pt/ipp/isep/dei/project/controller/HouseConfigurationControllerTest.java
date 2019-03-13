@@ -30,9 +30,10 @@ class HouseConfigurationControllerTest {
         List<String> deviceTypeList = new ArrayList<>();
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
         validHouse = new House("ISEP", address,
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60, 180,
+                new Local(20, 20, 20),60, 180,
                 deviceTypeList);
+        validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
     }
 

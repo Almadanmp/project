@@ -63,7 +63,8 @@ public class UtilsUITest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), 60, 180, deviceTypeString);
+        house.setMotherArea(ga);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseRoomListIsValid(house);
@@ -79,7 +80,8 @@ public class UtilsUITest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), 60, 180, deviceTypeString);
+        house.setMotherArea(ga);
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -103,9 +105,10 @@ public class UtilsUITest {
         Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20),  60,
                 180, new ArrayList<>());
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = mapper.roomToDTO(room1);
 
@@ -128,9 +131,10 @@ public class UtilsUITest {
         Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = mapper.roomToDTO(room1);
         UtilsUI utilsUI = new UtilsUI();
@@ -302,7 +306,8 @@ public class UtilsUITest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), 60, 180, deviceTypeString);
+        house.setMotherArea(ga);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseMotherAreaIsValid(house);
@@ -316,7 +321,8 @@ public class UtilsUITest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), 60, 180, deviceTypeString);
+        house.setMotherArea(ga);
         GeographicArea ga1 = null;
         house.setMotherArea(ga1);
         UtilsUI utilsUI = new UtilsUI();

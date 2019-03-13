@@ -468,9 +468,10 @@ class SensorListTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
-        House house = new House("ISEP", address, new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea
-                ("Cidade"), 2, 3, new Local(4, 4, 100)), 60,
+        House house = new House("ISEP", address, new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        house.setMotherArea(new GeographicArea("Porto", new TypeArea
+                ("Cidade"), 2, 3, new Local(4, 4, 100)));
 
 
         SensorList expectedResult = new SensorList();
