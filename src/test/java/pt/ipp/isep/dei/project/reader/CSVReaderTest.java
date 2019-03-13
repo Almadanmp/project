@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -167,6 +168,21 @@ class CSVReaderTest {
         // Act
 
         validReader.readAndSet(validGeographicAreaList2);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterWorksNoSensorList() {
+
+        //Arrange
+
+        provideInput(validLocation1);
+
+        // Act
+
+        validReader.readAndSet(emptyGeographicAreaList2);
 
         //Assert
 

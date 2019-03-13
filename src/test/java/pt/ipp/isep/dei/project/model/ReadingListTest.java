@@ -709,19 +709,28 @@ class ReadingListTest {
     @Test
     void seeIfWeGetMaxValueOfTheDayWorks() {
         //Arrange
-        validReadingList = new ReadingList();
+        ReadingList readingList = new ReadingList();
+        ReadingList readingList2 = new ReadingList();
+        ReadingList readingList3 = new ReadingList();
         Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime());
         Reading reading2 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime());
         Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime());
         Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime());
-        validReadingList.addReading(reading1);
-        validReadingList.addReading(reading2);
-        validReadingList.addReading(reading3);
-        validReadingList.addReading(reading4);
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList2.addReading(reading2);
+        readingList2.addReading(reading3);
+        readingList3.addReading(reading3);
+        readingList3.addReading(reading4);
         //Act
-        Reading actualResult = validReadingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult = readingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult2 = readingList2.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult3 = readingList3.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+
         //Assert
-        assertEquals(reading3, actualResult);
+        assertEquals(reading1, actualResult);
+        assertEquals(reading3,actualResult2);
+        assertEquals(reading3,actualResult3);
     }
 
     @Test
@@ -754,19 +763,29 @@ class ReadingListTest {
     void seeIfWeGetMinValueInReadingListWorks() {
         //Arrange
         ReadingList readingList = new ReadingList();
+        ReadingList readingList2 = new ReadingList();
+        ReadingList readingList3 = new ReadingList();
         Reading reading1 = new Reading(20,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime());
         Reading reading2 = new Reading(20,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime());
         Reading reading3 = new Reading(19,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime());
         Reading reading4 = new Reading(21,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime());
         readingList.addReading(reading1);
         readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
-        double expectedResult = 19;
+        readingList2.addReading(reading2);
+        readingList2.addReading(reading3);
+        readingList3.addReading(reading3);
+        readingList3.addReading(reading4);
+        double expectedResult1 = 20;
+        double expectedResult2 = 19;
+        double expectedResult3 = 19;
         //Act
         double actualResult = readingList.getMinValueInReadingList();
+        double actualResult2 = readingList2.getMinValueInReadingList();
+        double actualResult3 = readingList3.getMinValueInReadingList();
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult1,actualResult);
+        assertEquals(expectedResult2,actualResult2);
+        assertEquals(expectedResult3,actualResult3);
     }
 
     @Test
@@ -786,7 +805,7 @@ class ReadingListTest {
         validReadingList.addReading(r5);
         validReadingList.addReading(r6);
         //Act
-        Reading actualResult = validReadingList.getReadingWithSpecificDate(validDate2);
+        Reading actualResult = validReadingList.getAReadingWithSpecificDay(validDate2);
         //Assert
         assertEquals(r3, actualResult);
     }

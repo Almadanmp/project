@@ -251,8 +251,12 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("The last coldest day between " + startDate + " and " + endDate + was
-                + dateResult630 + ".");
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateResultFormatted = formatter.format(dateResult630);
+        String dateStartDateFormatted = formatter.format(startDate);
+        String dateEndDateFormatted = formatter.format(endDate);
+        System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
+                + dateResultFormatted + ".");
     }
 
     /**
