@@ -826,4 +826,20 @@ class EnergyConsumptionControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    /**
+     * addRoomDevicesToDeviceListWorks missing test
+     * TODO
+     */
+    /*@Test
+    void seeIfAddRoomDevicesToDeviceListWorks() {
+        // Arrange
+        DeviceList dList = new DeviceList();
+        validRoom1.addDevice(validDevice1);
+        validRoom1.addDevice(validDevice2);
+        // Act
+
+        // Assert
+
+    }*/
 }
