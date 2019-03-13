@@ -169,7 +169,7 @@ public class HouseMonitoringController {
             System.out.println(utils.invalidMotherArea);
             return false;
         }
-        if (!house.getMotherArea().isSensorListValid()) {
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
             System.out.println(utils.invalidSensorList);
             return false;
         }

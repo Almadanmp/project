@@ -204,11 +204,11 @@ public class Sensor {
     boolean isContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
-        Local local = area.getLocal();
-        double latTopVert = local.getLatitude() + (area.getWidth() / 2);
-        double longTopVert = local.getLongitude() - (area.getLength() / 2);
-        double latBotVert = local.getLatitude() - (area.getWidth() / 2);
-        double longBotVert = local.getLongitude() + (area.getLength() / 2);
+        Local areaLocal = area.getLocal();
+        double latTopVert = areaLocal.getLatitude() + (area.getWidth() / 2);
+        double longTopVert = areaLocal.getLongitude() - (area.getLength() / 2);
+        double latBotVert = areaLocal.getLatitude() - (area.getWidth() / 2);
+        double longBotVert = areaLocal.getLongitude() + (area.getLength() / 2);
         return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
     }
 

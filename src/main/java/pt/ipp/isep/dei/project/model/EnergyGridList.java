@@ -45,8 +45,7 @@ public class EnergyGridList {
             String name = e.getName();
             if (name.equals(designation)) {
                 return e;
-            }
-        }
+            } }
         return new EnergyGrid(designation, maxPower);
     }
 
