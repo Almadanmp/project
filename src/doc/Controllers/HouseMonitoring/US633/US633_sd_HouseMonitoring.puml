@@ -68,6 +68,7 @@ activate ":ReadingList"
 ":ReadingList" --> ":Sensor": return date
 deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return date
+":HouseMonitoringController" --> ":HouseMonitoringUI": return date
 deactivate ":Sensor"
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
