@@ -79,6 +79,16 @@ class TVTest {
     }
 
     @Test
+    void seeIfSetNominalPowerWorksIfZero() {
+        validTV.setNominalPower(0D);
+        double expectedResult = 0.0;
+
+        double result = validTV.getNominalPower();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfIsActiveWorks() {
 
         boolean result = validTV.isActive();
@@ -143,6 +153,34 @@ class TVTest {
 
         assertTrue(actualResult1);
         assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfAddLogWorksWhenDeviceIsDeactivated() {
+
+        //Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date startInterval = new Date();
+        Date endInterval = new Date();
+
+        try {
+            startInterval = validSdf.parse("11/01/2018 10:00:00");
+            endInterval = validSdf.parse("11/02/2018 10:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log log1 = new Log(20D, startInterval, endInterval);
+        validTV.deactivate();
+
+        //Act
+
+        boolean actualResult1 = validTV.addLog(log1);
+
+        //Assert
+
+        assertFalse(actualResult1);
     }
 
     @Test

@@ -27,9 +27,11 @@ public class WineCoolerSpec implements DeviceSpecs {
         if (attributeName.equals(NUMBER_BOTTLES)) {
             return "bottles";
 
+
         }
         return false;
     }
+
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         if (attributeName == null) {

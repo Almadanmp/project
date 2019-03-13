@@ -62,39 +62,20 @@ activate ":Sensor"
 ":Sensor" -> ":ReadingList": getDateHighestAmplitudeBetweenDates\n                                    (Date, Date)
 activate ":ReadingList"
 
-":ReadingList"->":ReadingList": getDaysWithReadingsBetweenDates(Date, Date)
-":ReadingList"->":ReadingList": getFirstSecondOfDay(Date)
-":ReadingList"->":ReadingList": getLastSecondOfDay(Date)
+":ReadingList"->":ReadingList": getReadingListBetweenDates(Date, Date)
 ":ReadingList"->":ReadingList": isReadingBetweenTwoDates(Date, Date, Date)
-":ReadingList"->":ReadingList":getAmplitudeValueFromDate(Date)
-
+":ReadingList"->":ReadingList": getAmplitudeValueFromDate(Date)
 ":ReadingList" --> ":Sensor": return date
 deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return date
 deactivate ":Sensor"
-
-":HouseMonitoringController" --> ":HouseMonitoringUI": return date
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
-":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeValue\n                       (House, Date)
-deactivate ":HouseMonitoringUI"
-activate ":HouseMonitoringController"
 
-":HouseMonitoringController" -> ":Sensor": getHighestTempAmplitudeValue\n                                  (Date, Date)
-activate ":Sensor"
-":Sensor" -> ":ReadingList": getHighestAmplitudeInDate\n                                (Date, Date)
+ref over ":HouseMonitoringUI"
+get highest amplitude value
+end ref
 
-activate ":ReadingList"
-":ReadingList"->":ReadingList":getAmplitudeValueFromDate(date)
-":ReadingList"->":ReadingList": getValuesOfSpecificDayReadings(Date)
-":ReadingList"->":ReadingList": compareDayMonthAndYearBetweenDates(Date, Date)
-
-":ReadingList" --> ":Sensor": return double
-deactivate ":ReadingList"
-":Sensor" --> ":HouseMonitoringController": return double
-deactivate ":Sensor"
-
-":HouseMonitoringController" --> ":HouseMonitoringUI": return double
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
 

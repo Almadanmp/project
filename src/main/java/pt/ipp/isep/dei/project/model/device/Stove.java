@@ -41,6 +41,9 @@ public class Stove implements Device, Metered, Programmable {
     }
 
     public void setNominalPower(double nominalPower) {
+        if (nominalPower < 0) {
+            throw new IllegalArgumentException("Invalid nominal power. Number should be positive");
+        }
         this.nominalPower = nominalPower;
     }
 
@@ -105,8 +108,8 @@ public class Stove implements Device, Metered, Programmable {
      */
 
     public boolean addLog(Log log) {
-        if (!(logList.getLogListAttribute().contains(log)) && this.active) {
-            logList.getLogListAttribute().add(log);
+        if (!(logList.contains(log)) && this.active) {
+            logList.addLog(log);
             return true;
         } else {
             return false;

@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class HouseMonitoringController {
 
-    private String RAINFALL = "rainfall";
-    private String TEMPERATURE = "Temperature";
+    private static final String rainfall = "rainfall";
+    private static final String temperature = "Temperature";
 
     /**
      * Returns the current temperature in a given Room.
@@ -61,7 +61,7 @@ public class HouseMonitoringController {
 
 
     /* US 623 - Controller Methods
-    As a Regular User, I want to get the average daily RAINFALL in the house area for a given period (days),as it
+    As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),as it
     is needed to assess the garden’s watering needs. */
 
     /**
@@ -71,7 +71,7 @@ public class HouseMonitoringController {
      * @Author Daniela
      */
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(RAINFALL);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
@@ -81,11 +81,11 @@ public class HouseMonitoringController {
     /**
      * @param house is the house we want to get the total rainfall from.
      * @param day   is the date where we want to  measure total rainfall.
-     * @return is the total RAINFALL of the house, as measured by the closest sensor to the house.
+     * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      * @Author André
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(RAINFALL);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
@@ -98,7 +98,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(House house) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
         return closestSensor.getMostRecentValueReading();
     }
 
@@ -107,7 +107,7 @@ public class HouseMonitoringController {
      * in the house area in a given period.
      */
     public Date getLastColdestDayInInterval(House house, Date startDate, Date endDate) throws IllegalArgumentException {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
         return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
@@ -118,7 +118,7 @@ public class HouseMonitoringController {
      **/
 
     public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
         return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
@@ -136,7 +136,7 @@ public class HouseMonitoringController {
      * @Author Daniela
      */
     public Date getHighestTempAmplitudeDate(House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
 
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
@@ -147,7 +147,7 @@ public class HouseMonitoringController {
 
     public double getHighestTempAmplitudeValue(House house, Date dateInput) {
         Date date = dateInput;
-        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");

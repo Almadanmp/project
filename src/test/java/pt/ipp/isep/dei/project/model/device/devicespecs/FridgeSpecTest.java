@@ -26,18 +26,18 @@ class FridgeSpecTest {
     void seeIfGetAttributeNamesWorks() {
         // Arrange
 
-        List<String> expectedResult = new ArrayList<>();
-        expectedResult.add(FridgeSpec.FREEZER_CAPACITY);
-        expectedResult.add(FridgeSpec.REFRIGERATOR_CAPACITY);
-        expectedResult.add(FridgeSpec.ANNUAL_CONSUMPTION);
+        List<String> expectedResult1 = new ArrayList<>();
+        expectedResult1.add("Freezer Capacity");
+        expectedResult1.add("Refrigerator Capacity");
+        expectedResult1.add("Annual Energy Consumption");
 
         // Act
 
-        List<String> result = validFridgeSpec.getAttributeNames();
+        List<String> actualResult = validFridgeSpec.getAttributeNames();
 
         // Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult1, actualResult);
     }
 
     @Test
@@ -45,15 +45,21 @@ class FridgeSpecTest {
         // Arrange
 
         validFridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 1D);
+        validFridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 1D);
+        validFridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 1D);
         Double expectedResult = 1.0;
 
         // Act
 
         Object result = validFridgeSpec.getAttributeValue(FridgeSpec.FREEZER_CAPACITY);
+        Object result1 = validFridgeSpec.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY);
+        Object result2 = validFridgeSpec.getAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION);
 
         // Assert
 
         assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result1);
+        assertEquals(expectedResult, result2);
     }
 
     @Test
@@ -61,16 +67,20 @@ class FridgeSpecTest {
         // Arrange
 
         validFridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 1D);
-        int expectedResult = 0;
 
+        int expectedResult = 0;
 
         // Act
 
         Object actualResult = validFridgeSpec.getAttributeValue("Pressure");
+        boolean actualResult2 = validFridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 1D);
+        boolean actualResult3 = validFridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 1D);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+        assertTrue(actualResult2);
+        assertTrue(actualResult3);
     }
 
     @Test
@@ -78,10 +88,16 @@ class FridgeSpecTest {
         // Act
 
         boolean result = validFridgeSpec.setAttributeValue("Lisbon", 12);
+        boolean actualResult1 = this.validFridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, "invalid type");
+        boolean actualResult2 = this.validFridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, "invalid type");
+        boolean actualResult3 = this.validFridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, "invalid type");
 
         // Assert
 
         assertFalse(result);
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
     }
 
     @Test
@@ -126,10 +142,14 @@ class FridgeSpecTest {
         // Act
 
         Object result = validFridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5);
+        Object result1 = validFridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5);
+        Object result2 = validFridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 5);
 
         // Assert
 
         assertEquals(false, result);
+        assertEquals(false, result1);
+        assertEquals(false, result2);
     }
 
     @Test
@@ -137,10 +157,14 @@ class FridgeSpecTest {
         //Arrange
 
         String expectedResult = "Kg";
+        String expectedResult1 = "Kg";
+        String expectedResult2 = "kWh";
 
         // Happy case.
 
         assertEquals(expectedResult, validFridgeSpec.getAttributeUnit(FridgeSpec.FREEZER_CAPACITY));
+        assertEquals(expectedResult1, validFridgeSpec.getAttributeUnit(FridgeSpec.REFRIGERATOR_CAPACITY));
+        assertEquals(expectedResult2, validFridgeSpec.getAttributeUnit(FridgeSpec.ANNUAL_CONSUMPTION));
 
         // Wrong Attribute name.
 

@@ -76,7 +76,7 @@ class KettlerSpecTest {
 
         assertEquals("ºC", actualResult1);
         assertEquals("L", actualResult2);
-        assertEquals("Performance ratio doesn't have a measurement unit.", actualResult3);
+        assertEquals("", actualResult3);
     }
 
     @Test

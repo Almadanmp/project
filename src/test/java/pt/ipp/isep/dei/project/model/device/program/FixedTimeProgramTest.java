@@ -306,7 +306,16 @@ class FixedTimeProgramTest {
 
         assertEquals(false, validFixedTimeProgram.getAttributeUnit(""));
     }
+    @Test
+    void seeIfSetAttributeValueWorksFalseNotDouble() {
+        // Act
 
+        Object result = validFixedTimeProgram.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5);
+
+        // Assert
+
+        assertEquals(false, result);
+    }
     @Test
     void seeIfEqualsWorksTrue() {
         // Arrange

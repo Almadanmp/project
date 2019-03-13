@@ -1,26 +1,23 @@
 @startuml
-
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
-}
-
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
-
+actor User
+User -> MainUI: Get First Hottest Day in Given Period on House Area
+HouseMonitoringUI --> User: Request startDate
+User -> HouseMonitoringUI: insert startDate (Date(y-m-d))
+MainUI -> HouseMonitoringUI: create date (Date(y-m-d))
+HouseMonitoringUI -> HouseMonitoringUI: set date (year1, month1, day1)
+User -> HouseMonitoringUI: insert endDate (Date(y-m-d))
+MainUI -> HouseMonitoringUI: create date (Date(y-m-d))
+HouseMonitoringUI -> HouseMonitoringUI: set date (year2, month2, day2)
+HouseMonitoringUI -> HouseMonitoringController: createDate(year1, month1, day1)
+HouseMonitoringController --> HouseMonitoringUI: return startDate
+HouseMonitoringUI -> HouseMonitoringController: createDate (year2, month2, day2)
+HouseMonitoringController --> HouseMonitoringUI: return endDate
+HouseMonitoringUI -> HouseMonitoringController: getFirstHottestDayInPeriod(mHouse, startDate, endDate)
+HouseMonitoringController -> Sensor: getFirstHottestDayInGivenPeriod(startDate, endDate)
+Sensor --> ReadingList: getFirstHottestDayInGivenPeriod(minDate, maxDate)
+ReadingList --> Sensor: return FirstHottestDayInGivenPeriod
+Sensor --> HouseMonitoringController: return FirstHottestDayInGivenPeriod
+HouseMonitoringController --> HouseMonitoringUI: return FirstHottestDayInPeriod
+HouseMonitoringUI -> HouseMonitoringUI: Build result string
+HouseMonitoringUI --> User: Display result string
 @enduml

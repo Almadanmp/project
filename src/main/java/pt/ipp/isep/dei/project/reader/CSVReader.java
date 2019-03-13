@@ -20,51 +20,6 @@ public class CSVReader implements Reader {
 
     private String csvFileLocation;
 
-
-    // TEST METHOD MOCK - Take out of comment to test
-/*
-    public static void main(String[] args) {
-
-        GeographicAreaList testGeoList = new GeographicAreaList();
-        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("pais"), 34000, 300000,
-                new Local(3, 3, 3));
-        GeographicArea testArea2 = new GeographicArea("Espanha", new TypeArea("pais"), 340000, 3000000,
-                new Local(30, 30, 30));
-        testGeoList.addGeographicArea(testArea);
-        testGeoList.addGeographicArea(testArea2);
-        Date validDate1 = new Date();
-        Date validDate2 = new Date();
-        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-        try {
-            validDate1 = validSdf2.parse("2018-10-31T08:00:00+00:00");
-            validDate2 = validSdf2.parse("2017-12-30T06:00:00+00:00");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        Sensor testSensor1 = new Sensor("Sensor1", "Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
-                validDate1);
-        Sensor testSensor2 = new Sensor("Sensor2", "Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
-                validDate2);
-        SensorList testListPortugal = new SensorList();
-        testListPortugal.add(testSensor1);
-        testArea.setSensorList(testListPortugal);
-        SensorList testListEspanha = new SensorList();
-        testListEspanha.add(testSensor2);
-        testArea2.setSensorList(testListEspanha);  //Portugal com sensor1 e Espanha com sensor2
-
-        CSVReader testRead = new CSVReader();
-        testRead.readAndSet(testGeoList);
-
-        ReadingList test = testSensor1.getReadingList();
-        ReadingList test2 = testSensor2.getReadingList();
-        int cenas = test.size();
-        int cenas2 = test2.size();
-        System.out.println(cenas + cenas2);  // = 29
-        //System.out.println(test.getMostRecentValue());
-        //System.out.println(test2.getMostRecentValue());
-    }
-*/
-
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
      * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
@@ -178,7 +133,7 @@ public class CSVReader implements Reader {
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
 
-        for (SimpleDateFormat pattern : knownPatterns) { //TODO:  Runs both parses for all the lines, yet to find different approach.
+        for (SimpleDateFormat pattern : knownPatterns) {
 
             try {
                 Double readValue = Double.parseDouble(readings[2]);
@@ -196,7 +151,6 @@ public class CSVReader implements Reader {
                 // System.out.println("The date format is not valid.");
             }
         }
-
     }
 
     /**

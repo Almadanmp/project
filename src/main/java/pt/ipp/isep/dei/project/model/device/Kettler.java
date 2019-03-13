@@ -197,14 +197,28 @@ public class Kettler implements Device, Metered {
     public double getEnergyConsumption(float time) {
         double specificHeat = 1.163;
         double heatingVolume = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.VOLUME_WATER);
-        double coldWaterT = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
-        double dT = 100 - coldWaterT;
         double pRatio = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.PERFORMANCE_RATIO);
-        double comsumption = specificHeat * heatingVolume * dT * pRatio;
-        if(comsumption < 0){
+
+        double dT = dTemperature();
+
+        return specificHeat * heatingVolume * dT * pRatio;
+    }
+
+    /**
+     * This method returns the difference in temperature between the cold water
+     * and boiling water temperature. This method is used to calculate the kettler's
+     * energy comsuption, so it will return 0 in case the cold water temperature is
+     * bigger than boiling water temperature.
+     *
+     * @return cold water and boiling water temperature difference
+     ***/
+    double dTemperature() {
+        double coldWaterTemperature = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
+
+        if (coldWaterTemperature >= 100) {
             return 0;
         }
-        return comsumption;
+        return 100.0 - coldWaterTemperature;
     }
 
     /**
