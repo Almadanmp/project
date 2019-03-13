@@ -22,7 +22,7 @@ import java.util.Scanner;
  */
 public class InputUtils {
 
-    private static String SELECT_ROOMS = "You have chosen the following room: ";
+    private static final String SELECT_ROOMS = "You have chosen the following room: ";
 
     void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
