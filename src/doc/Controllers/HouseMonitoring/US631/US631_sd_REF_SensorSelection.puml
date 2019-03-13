@@ -26,7 +26,7 @@ skinparam component {
 title REF Closest Sensor Selection
 autonumber
 
-":HouseMonitoringController"->":House":getSensorWithTheMinimumDistanceToHouse(String)
+":HouseMonitoringController"->":House":getClosestSensorOfGivenType(String)
 activate ":House"
 alt if there is more \nthan one sensor closest\n to the house
 ":House"->":GeographicArea":getSensorList()
