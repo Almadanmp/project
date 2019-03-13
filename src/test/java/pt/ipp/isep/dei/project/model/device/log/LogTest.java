@@ -27,7 +27,6 @@ class LogTest {
     private Log validLog1;
 
     @BeforeEach
-
     void arrangeArtifacts() {
 
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -37,7 +36,7 @@ class LogTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validLog1 = new Log(300, validDate1,validDate2);
+        validLog1 = new Log(300, validDate1, validDate2);
     }
 
     @Test
@@ -153,5 +152,16 @@ class LogTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertFalse(actualResult4);
+    }
+
+    @Test
+    void hashcode() {
+        //Act
+
+        int actualResult = validLog1.hashCode();
+
+        //Assert
+
+        assertEquals(1, actualResult);
     }
 }
