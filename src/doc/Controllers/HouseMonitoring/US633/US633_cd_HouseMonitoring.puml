@@ -18,18 +18,19 @@ skinparam class {
  }
 
 class House
-MainUI -- HouseMonotoringUI : >
-HouseMonotoringUI -- InputUtils : >
-HouseMonotoringUI -- HouseMonotoringController : >
-HouseMonotoringController -- House : >
+MainUI -- HouseMonitoringUI : >
+HouseMonitoringUI -- InputUtils : >
+HouseMonitoringUI -- HouseMonitoringController : >
+HouseMonitoringController -- House : >
 House "1" -- "1" GeographicArea : has >
 GeographicArea "1" -- "1" SensorList : has >
-SensorList -- Sensor
-Sensor "n" -- "1" Location: is in >
-Sensor "n" -- "1" TypeSensor: has >
-Sensor -- ReadingList
+SensorList"1" -- "0.n" Sensor : may have >
+Sensor "0.n" -- "1" Location: is in >
+Sensor "0.n" -- "1" TypeSensor: has >
+Sensor "1" -- "1" ReadingList: has >
 
-class HouseMonotoringUI {
+
+class HouseMonitoringUI {
 runUS633(House)
 getStartDate()
 getEndDate()
@@ -40,7 +41,7 @@ class InputUtils{
 getInputYearMonthDay()
 }
 
-class HouseMonotoringController {
+class HouseMonitoringController {
 getHighestTempAmplitudeDate()
 getHighestTempAmplitudeValue()
 }
@@ -99,12 +100,12 @@ List<Reading> readings;
 getMostRecentReadingDate()
 getMostRecentReading()
 getDateHighestAmplitudeBetweenDates(Date, Date)
-getDaysWithReadingsBetweenDates(Date, Date)
-getFirstSecondOfDay(Date)
-getLastSecondOfDay(Date)
+getReadingListBetweenDates(Date, Date)
 isReadingDateBetweenTwoDates(Date, Date, Date)
 getAmplitudeValueFromDate(Date)
 getValuesOfSpecificDayReadings(Date)
+getFirstSecondOfDay(Date)
+getLastSecondOfDay(Date)
 compareDayMonthAndYearBetweenDates(Date, Date)
 
 

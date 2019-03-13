@@ -212,7 +212,7 @@ public class ReadingList {
      * @param dayMin start date given by user, will be the start of the  date interval;
      * @param dayMax end date given by user, will be the end of the date interval;
      * @return list of dates of readings between the given dates
-     * @author Daniela - US623
+     * @author Daniela - US623 & US633
      */
     List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
         List<Date> daysWithReadings = new ArrayList<>();
@@ -262,12 +262,13 @@ public class ReadingList {
      * @author Daniela (US623)
      */
     double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
-        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
-        if (daysWithReadings.isEmpty()) {
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
+        if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
-        for (Date day : daysWithReadings) {
+        for (int i = 0; i < readingListBetweenDates.size(); i++) {
+            Date day = readingListBetweenDates.get(i).getDate();
             List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
             double avgDay = getAvgFromList(specificDayValues);
             avgDailyValues.add(avgDay);
@@ -340,16 +341,18 @@ public class ReadingList {
      */
 
     Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
-        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
-        if (daysWithReadings.isEmpty()) {
+
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
+        if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
         }
 
-        Date dateAmplitude = daysWithReadings.get(0);
+        Date dateAmplitude = readingListBetweenDates.get(0).getDate();
 
         double amplitudeValue = -1000.0;
 
-        for (Date day : daysWithReadings) {
+        for (int i = 0; i < readingListBetweenDates.size(); i++) {
+            Date day = readingListBetweenDates.get(i).getDate();
             double amplitudeTemperature = getAmplitudeValueFromDate(day);
             if (amplitudeValue <= amplitudeTemperature) {
                 amplitudeValue = amplitudeTemperature;
@@ -403,9 +406,12 @@ public class ReadingList {
      */
 
     public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("No readings available.");
+        }
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
-            throw new IllegalArgumentException("Warning: No temperature readings available.");
+            throw new IllegalArgumentException("Warning: No temperature readings available in given period.");
         }
         double maxTemperature = getMaxValue(daysWithReadings);
         return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
@@ -413,8 +419,9 @@ public class ReadingList {
 
     /**
      * Auxiliary method for getFirstHottestDayInGivenPeriod
+     *
      * @param temperature given for finding first day in period with that temperature
-     * @param dates for selecting the first day with given temperature from date list
+     * @param dates       for selecting the first day with given temperature from date list
      * @return first date where given temperature was registered
      */
 
@@ -430,23 +437,24 @@ public class ReadingList {
 
     /**
      * Auxiliary method for getFirstHottestDayInGivenPeriod
+     *
      * @param list of readings for getting highest value from
      * @return highest value from list of readings
      */
 
-    private double getMaxValue(List<Date> list){
+    private double getMaxValue(List<Date> list) {
         ArrayList<Double> values = new ArrayList<>();
-        for(Date day : list){
-            values.addAll (getValuesOfSpecificDayReadings(day));
+        for (Date day : list) {
+            values.addAll(getValuesOfSpecificDayReadings(day));
         }
         return Collections.max(values);
     }
 
-        /**
-         * Getter (array of readings)
-         *
-         * @return array of readings
-         */
+    /**
+     * Getter (array of readings)
+     *
+     * @return array of readings
+     */
     Reading[] getElementsAsArray() {
         int sizeOfResultArray = size();
         Reading[] result = new Reading[sizeOfResultArray];
