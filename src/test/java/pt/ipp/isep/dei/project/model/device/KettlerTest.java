@@ -68,6 +68,15 @@ class KettlerTest {
         //Assert
 
         assertEquals(900D, actualResult2);
+
+        //Act
+
+        kettler.setNominalPower(0D);
+        double actualResult3 = kettler.getNominalPower();
+
+        //Assert
+
+        assertEquals(0D, actualResult3);
     }
 
     @Test

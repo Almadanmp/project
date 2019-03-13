@@ -63,7 +63,7 @@ public class Kettler implements Device, Metered {
     @Override
     public void setNominalPower(double nominalPower) {
         int comp = Double.compare(nominalPower, 0.0);
-        if (comp > 0) {
+        if (comp >= 0) {
             this.nominalPower = nominalPower;
         }
     }
@@ -198,15 +198,13 @@ public class Kettler implements Device, Metered {
         double specificHeat = 1.163;
         double heatingVolume = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.VOLUME_WATER);
         double coldWaterT = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
-        int comp = Double.compare(100.0, coldWaterT);
-        if (comp < 0) {
-            return 0;
-        }
         double dT = 100 - coldWaterT;
         double pRatio = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.PERFORMANCE_RATIO);
-
-
-        return specificHeat * heatingVolume * dT * pRatio;
+        double comsumption = specificHeat * heatingVolume * dT * pRatio;
+        if(comsumption < 0){
+            return 0;
+        }
+        return comsumption;
     }
 
     /**
