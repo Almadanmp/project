@@ -6,7 +6,9 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.devicespecs.PortableElectricConvectionHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -165,6 +167,28 @@ class PortableElectricConvectionHeaterTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeAttributeMethods() {
+        // Arrange
+
+        Object expectedResult1 = 0;
+        List<String> expectedResult2 = new ArrayList<>();
+
+        // Act
+
+        Object actualResult1 = validHeater.getAttributeValue("Nonexistent");
+        List<String> actualResult2 = validHeater.getAttributeNames();
+        Object actualResult3 = validHeater.getAttributeUnit("Nonexistent");
+        boolean actualResult4 = validHeater.setAttributeValue("Nonexistent", 20D);
+
+        // Assert
+
+        Assert.assertEquals(expectedResult1, actualResult1);
+        Assert.assertEquals(expectedResult2, actualResult2);
+        Assert.assertEquals(false, actualResult3);
+        Assert.assertFalse(actualResult4);
     }
 
     @Test
