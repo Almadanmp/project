@@ -5,7 +5,8 @@ HouseConfigurationUI -> InputUtils: getInputPath();
 ref over InputUtils
 getInputPath();
 end ref
-HouseConfigurationUI -> JSONReader: readFile(filePath)
+HouseConfigurationUI -> HouseConfigurationController: readFile(filePath)
+HouseConfigurationController -> JSONReader: readFile(filePath)
 JSONReader -> Mapper: createDTO();
 loop
 Mapper -> Mapper: createDTO

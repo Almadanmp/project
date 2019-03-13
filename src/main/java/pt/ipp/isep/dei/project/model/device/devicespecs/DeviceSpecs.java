@@ -15,6 +15,7 @@ public interface DeviceSpecs {
      *
      * @return a list with attribute names
      */
+
     List<String> getAttributeNames();
 
     /**
