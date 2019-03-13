@@ -32,157 +32,66 @@ class CSVReaderTest {
 
     private GeographicAreaList validGeographicAreaList;
     private GeographicArea validGeographicArea;
+    private GeographicArea validGeographicArea2;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
     private Date validDate3 = new Date();
+    private Date validDate4 = new Date();
     private CSVReader validReader;
     private Sensor validSensor1;
     private Sensor validSensor2;
+    private Sensor validSensor3;
+    private Sensor validSensor4;
     private SensorList validSensorList;
-    private static final String validLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV1.csv";
-    private static final String validLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV2.csv";
-    private static final String validLocation3 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV3.csv";
-    private static final String validLocation4 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV4.csv";
-    private static final String validLocation5 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV5.csv";
+    private SensorList validSensorList2;
+    private static final String validLocation1 = "src/test/resources/testCSV1.csv";
+    private static final String validLocation2 = "src/test/resources/testCSV2.csv";
+    private static final String validLocation3 = "src/test/resources/testCSV3.csv";
+    private static final String validLocation4 = "src/test/resources/testCSV4.csv";
+    private static final String validLocation5 = "src/test/resources/testCSV5.csv";
     private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV2.csa";
+    private static final String wrongLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV10.csv";
 
     @BeforeEach
     void arrangeArtifacts() {
         validReader = new CSVReader();
-        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            validDate1 = validSdf.parse("2019-10-31T08:00:00+00:00");
-            validDate2 = validSdf.parse("2019-12-30T06:00:00+00:00");
-            validDate3 = validSdf.parse("2020-12-30T02:00:00+00:00");
+            validDate1 = validSdf.parse("2016-11-15");
+            validDate2 = validSdf.parse("2016-11-15");
+            validDate3 = validSdf.parse("2017-11-15");
+            validDate4 = validSdf.parse("2017-11-16");
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validGeographicArea = new GeographicArea("Portugal", new TypeArea("Country"), 34000, 300000,
-                new Local(3, 3, 3));
-        validSensor1 = new Sensor("RF12345", "Sensor1", new TypeSensor("rain", "mm"), new Local(2, 3, 4),
+        validGeographicArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261,
+                new Local(41.178553, -8.608035, 111));
+        validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+                new Local(41.149935, -8.610857, 118));
+        validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new TypeSensor("rain", "mm"),
+                new Local(41.179230, -8.606409, 125),
                 validDate1);
-        validSensor2 = new Sensor("RF12666", "Sensor2", new TypeSensor("rain2", "mm2"), new Local(2, 2, 2),
+        validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new TypeSensor("rain2", "mm2"),
+                new Local(41.179230, -8.606409, 125),
                 validDate2);
+        validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new TypeSensor("rain2", "mm2"),
+                new Local(41.179230, -8.606409, 139),
+                validDate3);
+        validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new TypeSensor("rain2", "mm2"),
+                new Local(41.179230, -8.606409, 139),
+                validDate4);
         validSensorList = new SensorList();
+        validSensorList2 = new SensorList();
         validSensorList.add(validSensor1);
         validSensorList.add(validSensor2);
+        validSensorList2.add(validSensor3);
+        validSensorList2.add(validSensor4);
         validGeographicArea.setSensorList(validSensorList);
+        validGeographicArea2.setSensorList(validSensorList2);
         validGeographicAreaList = new GeographicAreaList();
         validGeographicAreaList.addGeographicArea(validGeographicArea);
+        validGeographicAreaList.addGeographicArea(validGeographicArea2);
     }
-
- /* Novo metodo
-    @Test
-    void seeIfReadAndSetterWorks() {
-
-        //Arrange
-
-        InputStream in = new ByteArrayInputStream(validLocation1.getBytes());
-        System.setIn(in);
-
-        // Act
-
-        validReader.readAndSet(validHouse);
-
-        //Assert
-
-    }
-
-    @Test
-    void seeIfReadAndSetterFailsWrongLocation() {
-
-        //Arrange
-
-        InputStream in = new ByteArrayInputStream(wrongLocation1.getBytes());
-        System.setIn(in);
-
-        // Act
-
-        //Assert
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            validReader.readAndSet(validHouse);
-        });
-
-    }
-
-    @Test
-    void seeIfReadAndSetterFailsNonNumericValue() {
-
-        //Arrange
-
-        InputStream in = new ByteArrayInputStream(validLocation2.getBytes());
-        System.setIn(in);
-
-        // Act
-
-        validReader.readAndSet(validHouse);
-
-        //Assert
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            validReader.readAndSet(validHouse);
-        });
-    }
-
-    @Test
-    void seeIfReadAndSetterFailsUnparseableDate() {
-
-        //Arrange
-
-        InputStream in = new ByteArrayInputStream(validLocation3.getBytes());
-        System.setIn(in);
-
-        // Act
-
-        validReader.readAndSet(validHouse);
-
-        //Assert
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            validReader.readAndSet(validHouse);
-        });
-    }
-
-    @Test
-    void seeIfReadAndSetterFailsUnreachableSensorName() {
-
-        //Arrange
-
-        InputStream in = new ByteArrayInputStream(validLocation4.getBytes());
-        System.setIn(in);
-
-        // Act
-
-        validReader.readAndSet(validHouse);
-
-        //Assert
-
-    }
-
-    @Test
-    void seeIfReadAndSetterFailsNonSetReadings() {
-
-        //Arrange
-
-        InputStream in = new ByteArrayInputStream(validLocation5.getBytes());
-        System.setIn(in);
-        ReadingList expectedResult = new ReadingList();
-
-
-        // Act
-
-        validReader.readAndSet(validHouse);
-        ReadingList actualResult = validSensor1.getReadingList();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-    */ //Novo metodo
-
-//-----------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------
 
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
@@ -227,7 +136,7 @@ class CSVReaderTest {
     }
 
     @Test
-    void seeIfReadAndSetterFailsWrongLocation() {
+    void seeIfReadAndSetterFailsWrongFileExtension() {
 
         //Arrange
 
@@ -242,24 +151,21 @@ class CSVReaderTest {
         });
     }
 
- /* TODO: FAILS ON JENKINS
- 
     @Test
-    void seeIfReadAndSetterFailsNonNumericValue() {
+    void seeIfReadAndSetterFailsWrongLocation() {
 
         //Arrange
 
-        provideInput(validLocation2);
+        provideInput(wrongLocation2);
 
         // Act
 
         //Assert
 
-        Assertions.assertThrows(NumberFormatException.class, () -> {
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
             validReader.readAndSet(validGeographicAreaList);
         });
     }
- */
 
     @Test
     void seeIfReadAndSetterFailsUnparseableDate() {
@@ -290,52 +196,6 @@ class CSVReaderTest {
         //Assert
 
     }
-
-    /* TODO: FAILS ON JENKINS
-
-    @Test
-    void seeIfReadAndSetterFailsNonSetReadings() {
-
-        //Arrange
-
-        provideInput(validLocation5);
-        ReadingList expectedResult = new ReadingList();
-
-        // Act
-
-        validReader.readAndSet(validGeographicAreaList);
-        ReadingList actualResult = validSensor1.getReadingList();
-
-        //Assert
-        assertNotEquals(expectedResult, actualResult);
-
-    }
-
-     */
-
-/* TODO: FAILS ON JENKINS
-
-    @Test
-    void seeIfReadAndSetterWorksWithReadings() {
-
-        //Arrange
-
-        provideInput(validLocation5);
-        ReadingList expectedResult = new ReadingList();
-        Reading reading = new Reading(14, validDate3);
-        expectedResult.addReading(reading);
-
-
-        // Act
-
-        validReader.readAndSet(validGeographicAreaList);
-        ReadingList actualResult = validSensor1.getReadingList();
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-
-    }
-*/
 
     @Test
     void seeIfSetCVSReadingsWorks() {
@@ -374,7 +234,7 @@ class CSVReaderTest {
 
         // Act
 
-        boolean actualResult = validReader.setCSVReadings(validSensor2, validDate1, 23.3);
+        boolean actualResult = validReader.setCSVReadings(validSensor4, validDate1, 23.3);
 
         //Assert
         assertFalse(actualResult);
@@ -389,6 +249,8 @@ class CSVReaderTest {
         SensorList expectedResult = new SensorList();
         expectedResult.add(validSensor1);
         expectedResult.add(validSensor2);
+        expectedResult.add(validSensor3);
+        expectedResult.add(validSensor4);
 
         // Act
 
@@ -416,11 +278,27 @@ class CSVReaderTest {
     }
 
     @Test
+    void seeIfGetSensorDataIsEmpty() {
+
+        //Arrange
+
+        SensorList expectedResult = new SensorList();
+
+        // Act
+
+        SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
+
+        //Assert
+        assertNotEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
     void seeIfParseAndLogFailsOutOfBoundsArray() {
 
         //Arrange
 
-        provideInput(validLocation2);
+        provideInput(validLocation1);
         Logger logger = Logger.getLogger(CSVReader.class.getName());
         String[] readings = new String[0];
 
@@ -433,7 +311,45 @@ class CSVReaderTest {
         });
     }
 
-    /*  @Test
+    @Test
+    void seeIfParseAndLogFailsNullPointerException() {
+
+        //Arrange
+
+        provideInput(validLocation1);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+
+        // Act
+
+        //Assert
+
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            validReader.parseAndLog(readings, logger, validSensorList);
+        });
+    }
+
+
+ /* TODO: FAILS ON JENKINS
+
+    @Test
+    void seeIfReadAndSetterFailsNonNumericValue() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+
+        // Act
+
+        //Assert
+
+        Assertions.assertThrows(NumberFormatException.class, () -> {
+            validReader.readAndSet(validGeographicAreaList);
+        });
+    }
+
+
+    @Test
     void seeIfParseAndLogFailsNonNumericValue() {
 
         //Arrange
@@ -451,23 +367,50 @@ class CSVReaderTest {
             validReader.parseAndLog(readings, logger, validSensorList);
         });
     }
-*/
+
+ TODO: FAILS ON JENKINS
+
     @Test
-    void seeIfParseAndLogFailsNullPointerException() {
+    void seeIfReadAndSetterWorksWithReadings() {
 
         //Arrange
 
-        provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
-        String[] readings = new String[3];
-        readings[1] = "test";
+        provideInput(validLocation5);
+        ReadingList expectedResult = new ReadingList();
+        Reading reading = new Reading(14, validDate3);
+        expectedResult.addReading(reading);
+
 
         // Act
 
-        //Assert
+        validReader.readAndSet(validGeographicAreaList);
+        ReadingList actualResult = validSensor1.getReadingList();
 
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            validReader.parseAndLog(readings, logger, validSensorList);
-        });
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
     }
+
+ TODO: FAILS ON JENKINS
+
+    @Test
+    void seeIfReadAndSetterFailsNonSetReadings() {
+
+        //Arrange
+
+        provideInput(validLocation5);
+        ReadingList expectedResult = new ReadingList();
+
+        // Act
+
+        validReader.readAndSet(validGeographicAreaList);
+        ReadingList actualResult = validSensor1.getReadingList();
+
+        //Assert
+        assertNotEquals(expectedResult, actualResult);
+
+    }
+
+     */
+
 }

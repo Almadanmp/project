@@ -3,8 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.Mapper;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +42,6 @@ class HouseConfigurationControllerTest {
 
     @Test
     void seeIfGetHouseName() {
-        //Arrange
-
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-
         //Act
 
         String actualResult = controller.getHouseName(validHouse);
@@ -96,7 +90,7 @@ class HouseConfigurationControllerTest {
 
         assertTrue(actualResult1 instanceof Room);
         assertTrue(actualResult2 instanceof Room);
-        assertTrue(actualResult3 instanceof Room);
+        assertTrue(actualResult3 instanceof Room); // TODO Cárina make tests fit test document parameters.
     }
 
     @Test
@@ -137,5 +131,61 @@ class HouseConfigurationControllerTest {
         // Assert
 
         assertEquals(validHouse.getLocation(),new Local(10,51,2));
+    }
+
+    @Test
+    void seeIfAddGeoAreasToListWorks(){
+        // Arrange
+
+        GeographicAreaDTO[] arrayToUse = new GeographicAreaDTO[2];
+        GeographicAreaList result = new GeographicAreaList();
+
+        // First Area
+
+        GeographicAreaDTO firstArea = new GeographicAreaDTO();
+        firstArea.setId("ISEP");
+        firstArea.setDescription("Campus do ISEP");
+        firstArea.setTypeArea("urban area");
+        firstArea.setWidth(0.261);
+        firstArea.setLength(0.249);
+        firstArea.setLatitudeGeoAreaDTO(41.178553);
+        firstArea.setLongitudeGeoAreaDTO(-8.608035);
+        firstArea.setAltitudeGeoAreaDTO(111);
+
+        // Second Area
+
+        GeographicAreaDTO secondArea = new GeographicAreaDTO();
+        secondArea.setId("Porto");
+        secondArea.setDescription("City of Porto");
+        secondArea.setTypeArea("city");
+        secondArea.setWidth(10.09);
+        secondArea.setLength(3.30);
+        secondArea.setLatitudeGeoAreaDTO(41.149935);
+        secondArea.setLongitudeGeoAreaDTO(-8.610857);
+        secondArea.setAltitudeGeoAreaDTO(118);
+
+        // Set up Expected Result
+
+        GeographicArea geoArea1 = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 111));
+        GeographicArea geoArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+                new Local(41.149935, -8.610857, 118));
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicArea(geoArea1);
+        expectedResult.addGeographicArea(geoArea2);
+
+        // Populate Array to Use
+
+        arrayToUse[0] = firstArea;
+        arrayToUse[1] = secondArea;
+
+        // Act
+
+        controller.addGeoAreasToList(arrayToUse, result);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
     }
 }

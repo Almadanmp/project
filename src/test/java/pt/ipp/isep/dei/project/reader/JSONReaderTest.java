@@ -136,4 +136,20 @@ class JSONReaderTest {
         assertEquals(expectedArea, actualArea);
         assertEquals(expectedSensors, firstAreaSensors);
     }
+
+    @Test
+    void seeIfReadFileWorksWrongPath(){
+        // Arrange
+
+        GeographicAreaDTO[] expectedResult = new GeographicAreaDTO[0];
+        String invalidPath = ("invalidfilepath");
+
+        // Act
+
+        GeographicAreaDTO[] actualResult = reader.readFile(invalidPath);
+
+        // Assert
+
+        assertArrayEquals(expectedResult, actualResult);
+    }
 }
