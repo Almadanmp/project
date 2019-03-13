@@ -25,7 +25,7 @@ import static org.testng.Assert.*;
 class EnergyGridTest {
 
     // Common artifacts for testing in this class.
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private House validHouse;
     private EnergyGrid validGrid;
     private Device validFridge;
@@ -38,9 +38,10 @@ class EnergyGridTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         validHouse.addGrid(validGrid);
         validGrid = new EnergyGrid("FirstGrid", 400);
         validFridge = new Fridge(new FridgeSpec());

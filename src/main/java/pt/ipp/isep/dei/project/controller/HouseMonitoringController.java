@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
@@ -15,8 +16,8 @@ import java.util.Date;
 
 public class HouseMonitoringController {
 
-    private static final String rainfall = "rainfall";
-    private static final String temperature = "Temperature";
+    private static final String RAINFALL = "rainfall";
+    private static final String TEMPERATURE = "Temperature";
 
     /**
      * Returns the current temperature in a given Room.
@@ -71,7 +72,7 @@ public class HouseMonitoringController {
      * @Author Daniela
      */
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(RAINFALL);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
@@ -85,7 +86,7 @@ public class HouseMonitoringController {
      * @Author André
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(RAINFALL);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
@@ -98,7 +99,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(House house) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getMostRecentValueReading();
     }
 
@@ -106,8 +107,8 @@ public class HouseMonitoringController {
      * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
      * in the house area in a given period.
      */
-    public Date getLastColdestDayInInterval(House house, Date startDate, Date endDate) throws IllegalArgumentException {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+    public Date getLastColdestDayInInterval(House house, Date startDate, Date endDate) {
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
@@ -118,7 +119,7 @@ public class HouseMonitoringController {
      **/
 
     public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
@@ -136,7 +137,7 @@ public class HouseMonitoringController {
      * @Author Daniela
      */
     public Date getHighestTempAmplitudeDate(House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
 
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
@@ -146,13 +147,34 @@ public class HouseMonitoringController {
     }
 
     public double getHighestTempAmplitudeValue(House house, Date dateInput) {
-        Date date = dateInput;
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return closestSensor.getHighestAmplitudeInDate(date);
+        return closestSensor.getHighestAmplitudeInDate(dateInput);
     }
+
+    /**
+     * This is a shared methods between many User stories and it checks
+     * if the House has its Mother Area defined and if that Mother Area has
+     * a valid SensorList
+     * @param house - house to get Mother Area from
+     * @return true in case both conditions are met
+     */
+
+    public boolean isMotherAreaValid(House house) {
+        UtilsUI utils = new UtilsUI();
+        if (house.isMotherAreaNull()) {
+            System.out.println(utils.invalidMotherArea);
+            return false;
+        }
+        if (!house.getMotherArea().isSensorListValid()) {
+            System.out.println(utils.invalidSensorList);
+            return false;
+        }
+        return true;
+    }
+
 }
 

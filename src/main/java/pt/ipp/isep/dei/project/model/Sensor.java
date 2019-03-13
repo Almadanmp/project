@@ -319,7 +319,7 @@ public class Sensor {
      * @param endDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) throws IllegalArgumentException {
+    public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
         return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
     }
 

@@ -740,9 +740,10 @@ class SensorTest {
         // Arrange
 
         House house = new House("House", new Address("Rua das Flores", "4512", "Porto"), new Local(
-                4, 6, 6), new GeographicArea("Porto", new TypeArea("City"),
-                2, 3, new Local(4, 4, 100)), 60, 180,
+                4, 6, 6), 60, 180,
                 new ArrayList<>());
+        house.setMotherArea(new GeographicArea("Porto", new TypeArea("City"),
+                2, 3, new Local(4, 4, 100)));
         Local testLocal = new Local(-5, -5, -5);
         validSensor.setLocal(testLocal);
         double expectedResult = 1579.3659688476016;

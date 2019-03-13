@@ -18,9 +18,9 @@ public class UtilsUI {
     String invalidDeviceList = "Invalid Device List - List is empty.\n" + returningToMainMenu;
     String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
     String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
-    String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
+    public String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
     String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + returningToMainMenu;
-    String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
+    public String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
     String invalidProgramList = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
@@ -79,10 +79,6 @@ public class UtilsUI {
 
     boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
         return geographicArea.getSensorList() != null && !geographicArea.isSensorListEmpty();
-    }
-
-    boolean houseMotherAreaIsValid(House house) {
-        return house.getMotherArea() != null;
     }
 
     /**

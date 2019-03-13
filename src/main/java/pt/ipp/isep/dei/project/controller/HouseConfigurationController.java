@@ -58,6 +58,14 @@ public class HouseConfigurationController {
     }
 
     /**
+     * This method receives a house and a geographic area and sets this as
+     * the house mother area.
+     *
+     * **/
+    public void setHouseMotherArea(House house, GeographicArea geographicArea){
+        house.setMotherArea(geographicArea);
+    }
+    /**
      * @param house is the house we want to get the name from.
      * @return is the name of the given house.
      */

@@ -39,20 +39,20 @@ deactivate ":MainUI"
 activate ":HouseMonitoringUI"
 ":HouseMonitoringUI" --> User: Show option menu
 User -> ":HouseMonitoringUI": Select opt
-":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS623(house)
+":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS633(house)
 
 ref over ":HouseMonitoringUI"
 get input start
 and end date
 end ref
 
-":HouseMonitoringUI" -> ":HouseMonitoringUI": updateUS623(house, date, date)
+":HouseMonitoringUI" -> ":HouseMonitoringUI": updateUS633(house, startDate, endDate)
 ref over ":HouseMonitoringUI"
 Get closest sensor
 to house area
 end ref
 
-":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate\n                 (Date, Date, Date)
+":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate\n                 (House, Date, Date)
 deactivate ":HouseMonitoringUI"
 activate ":HouseMonitoringController"
 ":HouseMonitoringController" -> ":Sensor": getDateHighestAmplitudeBetweenDates\n                                   (Date, Date)
@@ -68,6 +68,7 @@ activate ":ReadingList"
 ":ReadingList" --> ":Sensor": return date
 deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return date
+":HouseMonitoringController" --> ":HouseMonitoringUI": return date
 deactivate ":Sensor"
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"

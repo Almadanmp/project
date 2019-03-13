@@ -197,17 +197,17 @@ class ReadingListTest {
     void seeIfGetDatesWithReadingsBetweenTwoGivenDates() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3);
-        Reading r1 = new Reading(23, validDate4);
-        Reading r2 = new Reading(24, validDate5);
-        Reading r3 = new Reading(25, validDate6);
-        Reading r4 = new Reading(26, validDate7);
-        Reading r5 = new Reading(23, validDate8);
-        Reading r6 = new Reading(22, validDate9);
-        Reading r7 = new Reading(23, validDate10);
-        Reading r8 = new Reading(22, validDate11);
-        Reading r9 = new Reading(23, validDate18);
-        Reading r10 = new Reading(22, validDate19);
+        Reading r0 = new Reading(23, validDate3); //  01 Oct 23:59:59 (2018)
+        Reading r1 = new Reading(23, validDate4); //  07 Oct 00:00:00 "
+        Reading r2 = new Reading(24, validDate5); //  08 Oct 23:26:21 "
+        Reading r3 = new Reading(25, validDate6); //  09 Oct 08:21:22 "
+        Reading r4 = new Reading(26, validDate7); //  10 Oct 18:14:03 "
+        Reading r5 = new Reading(23, validDate8); //  23 Oct 12:14:23 "
+        Reading r6 = new Reading(22, validDate9); //  13 Oct 12:12:12 "
+        Reading r7 = new Reading(23, validDate10); // 30 Oct 23:59:59 "
+        Reading r8 = new Reading(22, validDate11); // 01 Nov 01:00:00 "
+        Reading r9 = new Reading(23, validDate18); // 13 Oct 12:12:12 (2019)
+        Reading r10 = new Reading(22, validDate19); // 13 Oct 23:59:59 "
         validReadingList.addReading(r0);
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
@@ -229,6 +229,52 @@ class ReadingListTest {
         expectedResult.add(validDate10);
         expectedResult.add(validDate11);
         expectedResult.add(validDate18);
+
+        // Act
+
+        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate19);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDatesWithReadingsBetweenTwoGivenDatesIfMostRecentReadingsAreIntroducedFirst() {
+        // Arrange
+
+        Reading r0 = new Reading(23, validDate3); //  01 Oct 23:59:59 (2018)
+        Reading r1 = new Reading(23, validDate4); //  07 Oct 00:00:00 "
+        Reading r2 = new Reading(24, validDate5); //  08 Oct 23:26:21 "
+        Reading r3 = new Reading(25, validDate6); //  09 Oct 08:21:22 "
+        Reading r4 = new Reading(26, validDate7); //  10 Oct 18:14:03 "
+        Reading r5 = new Reading(23, validDate8); //  23 Oct 12:14:23 "
+        Reading r6 = new Reading(22, validDate9); //  13 Oct 12:12:12 "
+        Reading r7 = new Reading(23, validDate10); // 30 Oct 23:59:59 "
+        Reading r8 = new Reading(22, validDate11); // 01 Nov 01:00:00 "
+        Reading r9 = new Reading(23, validDate18); // 13 Oct 12:12:12 (2019)
+        Reading r10 = new Reading(22, validDate19); // 13 Oct 23:59:59 "
+        validReadingList.addReading(r10);
+        validReadingList.addReading(r9);
+        validReadingList.addReading(r8);
+        validReadingList.addReading(r7);
+        validReadingList.addReading(r6);
+        validReadingList.addReading(r5);
+        validReadingList.addReading(r4);
+        validReadingList.addReading(r3);
+        validReadingList.addReading(r2);
+        validReadingList.addReading(r1);
+        validReadingList.addReading(r0);
+        List<Date> expectedResult = new ArrayList<>();
+        expectedResult.add(validDate19);
+        expectedResult.add(validDate11);
+        expectedResult.add(validDate10);
+        expectedResult.add(validDate9);
+        expectedResult.add(validDate8);
+        expectedResult.add(validDate7);
+        expectedResult.add(validDate6);
+        expectedResult.add(validDate5);
+        expectedResult.add(validDate4);
 
         // Act
 
@@ -664,8 +710,8 @@ class ReadingListTest {
     void seeIfWeGetMaxValueOfTheDayWorks() {
         //Arrange
         validReadingList = new ReadingList();
-        Reading reading1 = new Reading(24, validDate4);
-        Reading reading2 = new Reading(22, validDate5);
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime());
+        Reading reading2 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime());
         Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime());
         Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime());
         validReadingList.addReading(reading1);
@@ -702,6 +748,25 @@ class ReadingListTest {
         ReadingList actualResult = validReadingList.getReadingListOfReadingsWithSpecificValue(22.0);
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfWeGetMinValueInReadingListWorks() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(20,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime());
+        Reading reading2 = new Reading(20,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime());
+        Reading reading3 = new Reading(19,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime());
+        Reading reading4 = new Reading(21,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime());
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        double expectedResult = 19;
+        //Act
+        double actualResult = readingList.getMinValueInReadingList();
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
     @Test
