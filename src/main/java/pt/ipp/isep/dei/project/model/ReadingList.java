@@ -488,11 +488,12 @@ public class ReadingList {
      * @param date is the Date of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
-    Reading getReadingWithSpecificDate(Date date) {
+    Reading getAReadingWithSpecificDay(Date date) {
         Reading result = null;
-        for (int i = 0; i < this.readings.size(); i++) {
-            if (this.readings.get(i).getDate().equals(date)) {
-                result = this.readings.get(i);
+        for (Reading r : this.readings) {
+            if (compareDayMonthAndYearBetweenDates(r.getDate(),date)) {
+                result = r;
+                break;
             }
         }
         return result;
@@ -534,7 +535,7 @@ public class ReadingList {
      */
     Reading getMaxValueOfTheDay(Date day) {
         double auxValue = getValuesOfSpecificDayReadings(day).get(0);
-        Reading result = getReadingWithSpecificDate(day);
+        Reading result = getAReadingWithSpecificDay(day);
         Date auxDay = getFirstSecondOfDay(day);
         for (Reading r : this.readings) {
             Date readingDate = getFirstSecondOfDay(r.getDate());
