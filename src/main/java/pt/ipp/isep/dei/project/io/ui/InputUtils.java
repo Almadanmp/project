@@ -35,7 +35,7 @@ public class InputUtils {
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
-            System.out.println(geographicAreaList.toString());
+            System.out.println(geographicAreaList.buildString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < geographicAreaList.size()) {
                 GeographicArea result = geographicAreaList.get(aux);
