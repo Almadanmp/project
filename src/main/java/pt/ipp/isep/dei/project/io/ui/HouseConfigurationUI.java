@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.controller.CSVReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
@@ -103,8 +104,9 @@ class HouseConfigurationUI {
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
     private void runUS20(GeographicAreaList list) {
-        CSVReader reader = new CSVReader();
-        reader.readAndSet(list);
+        CSVReaderController ctrl = new CSVReaderController();
+        String path = ctrl.startAndPromptPath();
+        ctrl.readAndSet(list, path);
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
