@@ -443,6 +443,10 @@ class HouseMonitoringControllerTest {
 
     /**
      * Tests for getFirstHottestDayInPeriod
+     *
+     * Given a valid set of readings in tested period:
+     * Given a valid set of readings in tested period, multiple days have the highest temperature:
+     * -Should return the first day with highest temperature
      */
 
     @Test
@@ -476,6 +480,11 @@ class HouseMonitoringControllerTest {
         // Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    /**
+     *  Given a valid set of unorganized readings in tested period:
+     *  -Should return the first day with highest temperature
+     */
 
     @Test
     void testGetFirstHottestDayInPeriod2() {
@@ -520,6 +529,24 @@ class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    /**
+     * Given a valid set of readings in tested period, a given day has multiple readings and one of them is the highest
+     * temperature:
+     * -Should return the day with highest temperature
+     * TODO
+     */
+
+    /**
+     * Given a valid house without sensors on list:
+     * -Should return message to User
+     * TODO
+     */
+
+    /**
+     * Given a valid house with sensor without readings:
+     * -Should return message to User
+     */
+
     @Test
     void testGetFirstHottestDayInPeriodThrowsExceptionMessage() {
         // Arrange
@@ -531,4 +558,10 @@ class HouseMonitoringControllerTest {
         assertEquals("Warning: No temperature readings available.",
                 exception.getMessage());
     }
+
+    /**
+     * Given a valid set of readings not contained in period:
+     * -Should return message to User
+     * TODO
+     */
 }
