@@ -389,9 +389,8 @@ public class ReadingList {
         return this;
     }
 
-
     /**
-     * Method that gives the Date with the First Hottest Day Readings in given period
+     * Method that gives the Date with the First Hottest Day Reading in given period
      * It will throw an IllegalArgumentException if there are no available readings between the dates
      * This method runs the array of dates in the given period, storing the first hottest temperature Date,
      * only overwritting if there's a day with a higher temperature, ensuring the final return will be
