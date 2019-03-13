@@ -89,11 +89,11 @@ public class Mapper {
         return sensorDTO;
     }
 
-    public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
+    private Sensor sensorDTOToObject(SensorDTO sensorDTO) {
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());
-        SimpleDateFormat validDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = validDateFormat.parse(sensorDTO.getDateStartedFunctioning());
             sensorObject.setDateStartedFunctioning(date);
