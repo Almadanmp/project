@@ -78,16 +78,17 @@ class PortableElectricConvectionHeaterTest {
         // Act
 
         boolean actualResult1 = validHeater.isActive();
+        boolean actualResult2 = validHeater.deactivate();
         validHeater.deactivate();
-        boolean actualResult2 = validHeater.isActive();
-        validHeater.deactivate();
-        boolean actualResult3 = validHeater.isActive();
+        boolean actualResult3 = validHeater.deactivate();
+        boolean actualResult4 = validHeater.isActive();
 
         // Assert
 
         assertTrue(actualResult1);
-        assertFalse(actualResult2);
+        assertTrue(actualResult2);
         assertFalse(actualResult3);
+        assertFalse(actualResult4);
     }
 
     @Test
