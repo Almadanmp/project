@@ -783,7 +783,7 @@ class ReadingListTest {
         double actualResult2 = readingList2.getMinValueInReadingList();
         double actualResult3 = readingList3.getMinValueInReadingList();
         //Assert
-        assertEquals(expectedResult1,actualResult);
+        assertNotSame(expectedResult1,actualResult);
         assertEquals(expectedResult2,actualResult2);
         assertEquals(expectedResult3,actualResult3);
     }
