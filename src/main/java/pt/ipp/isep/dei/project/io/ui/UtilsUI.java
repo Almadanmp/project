@@ -91,7 +91,6 @@ public class UtilsUI {
      * Use a simple coma ',' in between lines to separate lines instead of '\n'.
      * Old example: System.out.println("Line 1 blablabla \n Line 2 blablabla");
      * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
-     *
      * @param strings to know the max length
      * @return string length
      */
@@ -105,7 +104,7 @@ public class UtilsUI {
     }
 
     /**
-     * Method for padding spaces for printBox method
+     * Auxiliary method for printBox for padding spaces for printBox method
      * @param str
      * @param length
      * @return
@@ -115,6 +114,13 @@ public class UtilsUI {
         StringBuilder sBuilder =  new StringBuilder(str);
         return sBuilder.append(fill(' ', length - str.length())).toString();
     }
+
+    /**
+     * Auxiliary printBox method for filling string
+     * @param ch
+     * @param length
+     * @return
+     */
 
     private static String fill(char ch, int length) {
         StringBuilder sBuilder = new StringBuilder(length);
