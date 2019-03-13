@@ -127,6 +127,27 @@ class WallTowelHeaterTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfEqualsWorks() {
+
+        WallTowelHeater wTH = new WallTowelHeater(new WallTowelHeaterSpec());
+        WallTowelHeater wTH2 = new WallTowelHeater(new WallTowelHeaterSpec());
+
+        wTH.setName("validWallTH");
+        wTH2.setName("WC WallTowerlHeater");
+
+        boolean actualResult1 = validWTHeater.equals(wTH);
+        boolean actualResult2 = validWTHeater.equals(wTH2);
+        boolean actualResult3 = validWTHeater.equals(20D);
+        boolean actualResult4 = validWTHeater.equals(validWTHeater);
+        boolean actualResult5 = validWTHeater.equals(null);
+
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertTrue(actualResult4);
+        assertFalse(actualResult5);
+    }
 
     @Test
     void seeIfSetGetAttributeValueWorkWrongAttributeName() {
