@@ -192,6 +192,5 @@ class HouseConfigurationControllerTest {
         // Assert
 
         assertEquals(expectedResult, result);
-
     }
 }
