@@ -24,10 +24,11 @@ HouseMonitoringUI -- HouseMonitoringController : >
 HouseMonitoringController -- House : >
 House "1" -- "1" GeographicArea : has >
 GeographicArea "1" -- "1" SensorList : has >
-SensorList -- Sensor
-Sensor "n" -- "1" Location: is in >
-Sensor "n" -- "1" TypeSensor: has >
-Sensor -- ReadingList
+SensorList"1" -- "0.n" Sensor : may have >
+Sensor "0.n" -- "1" Location: is in >
+Sensor "0.n" -- "1" TypeSensor: has >
+Sensor "1" -- "1" ReadingList: has >
+
 
 class HouseMonitoringUI {
 runUS633(House)
