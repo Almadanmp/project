@@ -147,13 +147,12 @@ public class HouseMonitoringController {
     }
 
     public double getHighestTempAmplitudeValue(House house, Date dateInput) {
-        Date date = dateInput;
         Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return closestSensor.getHighestAmplitudeInDate(date);
+        return closestSensor.getHighestAmplitudeInDate(dateInput);
     }
 
     /**

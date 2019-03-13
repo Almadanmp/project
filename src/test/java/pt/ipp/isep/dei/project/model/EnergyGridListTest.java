@@ -223,6 +223,29 @@ class EnergyGridListTest {
     }
 
     @Test
+    void seeIfCreateEnergyWorks() {
+        //Act
+
+        EnergyGrid actualResult1 = validGridList.createEnergyGrid("Primary Grid", 500);
+
+        //Assert Empty List
+
+        assertEquals(firstValidGrid, actualResult1);
+
+        //Arrange
+
+        validGridList.addGrid(firstValidGrid);
+
+        //Act
+
+        EnergyGrid actualResult2 = validGridList.createEnergyGrid("Primary Grid", 500);
+
+        //Assert One Grid
+
+        assertEquals(firstValidGrid, actualResult2);
+    }
+
+    @Test
     void hashCodeDummyTest() {
         // Arrange
 
