@@ -81,10 +81,6 @@ public class UtilsUI {
         return geographicArea.getSensorList() != null && !geographicArea.isSensorListEmpty();
     }
 
-    boolean houseMotherAreaIsValid(House house) {
-        return house.getMotherArea() != null;
-    }
-
     /**
      * Methods for display String results in pretty boxes in console for User.
      * Use method printBox instead of System.out.println for this effect.
