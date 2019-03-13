@@ -126,9 +126,6 @@ public class GeographicArea {
         return this.motherArea;
     }
 
-    public boolean isSensorListValid(){
-        return this.areaSensors == null;
-    }
 
     /**
      * This method is used to check if the current GeoArea is contained in the given area.
