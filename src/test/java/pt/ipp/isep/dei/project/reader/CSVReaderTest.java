@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -167,6 +168,21 @@ class CSVReaderTest {
         // Act
 
         validReader.readAndSet(validGeographicAreaList2);
+
+        //Assert
+
+    }
+
+    @Test
+    void seeIfReadAndSetterWorksNoSensorList() {
+
+        //Arrange
+
+        provideInput(validLocation1);
+
+        // Act
+
+        validReader.readAndSet(emptyGeographicAreaList2);
 
         //Assert
 
@@ -504,6 +520,122 @@ class CSVReaderTest {
         readings[0] = "RF12345";
         readings[1] = "2008-12-30T02:00:00+00:00";
         readings[2] = "test";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogDifferentLevel() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        logger.setLevel(Level.SEVERE);
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "13.7";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesSetCondition() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2020-12-30T02:00:00+00:00";
+        readings[2] = "13.7";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesSetCondition2() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        logger.setLevel(Level.SEVERE);
+        readings[0] = "RF12345";
+        readings[1] = "2020-12-30T02:00:00+00:00";
+        readings[2] = "13.7";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesIDCondition() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12";
+        readings[1] = "2020-12-30T02:00:00+00:00";
+        readings[2] = "13.7";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesIDCondition2() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12";
+        readings[1] = "2020-12-30T02:00:00+00:00";
+        readings[2] = "test";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogCatchesIDCondition3() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12";
+        readings[1] = "2000-12-30T02:00:00+00:00";
+        readings[2] = "13.7";
 
         // Act
 
