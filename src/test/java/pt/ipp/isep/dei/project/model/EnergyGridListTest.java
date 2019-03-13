@@ -243,6 +243,14 @@ class EnergyGridListTest {
         //Assert One Grid
 
         assertEquals(firstValidGrid, actualResult2);
+
+        //Act
+
+        EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100);
+
+        //Assert One Grid
+
+        assertEquals(secondValidGrid, actualResult3);
     }
 
     @Test
