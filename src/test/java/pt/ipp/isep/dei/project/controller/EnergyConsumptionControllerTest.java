@@ -41,7 +41,7 @@ class EnergyConsumptionControllerTest {
     private Date validDate2; // Date 11/02/2014
     private Log validLog1;
     private GeographicArea validArea;
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
 
     @BeforeEach

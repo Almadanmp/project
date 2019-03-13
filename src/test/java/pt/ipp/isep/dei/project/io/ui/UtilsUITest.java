@@ -21,7 +21,7 @@ import static org.testng.Assert.assertTrue;
 public class UtilsUITest {
 
     // Common artifacts for testing in this class.
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
 
     @Test
