@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.JSONReader;
 
 import java.util.Scanner;

@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.reader.CSVRead;
 import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
 
@@ -45,7 +44,7 @@ public class CSVReaderController {
      * @author Andre
      */
     public void readAndSet(GeographicAreaList geographicAreaList, String path) {
-        CSVRead csvRead = new CSVRead();
+        CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
         if (fullSensorList.isEmpty() || geographicAreaList.isEmpty()) {
@@ -53,7 +52,7 @@ public class CSVReaderController {
             return;
         }
         try {
-            Logger logger = Logger.getLogger(CSVReader.class.getName());
+            Logger logger = Logger.getLogger(CSVReaderController.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
             FileHandler fileHandler = new FileHandler("./resources/logs/logOut.log");
             logger.addHandler(fileHandler);
