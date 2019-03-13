@@ -48,6 +48,12 @@ class HouseMonitoringControllerTest {
     private Date validDate08;
     private Date validDate09;
     private Date validDate10;
+    private Date validDate20;
+    private Date validDate21;
+    private Date validDate22;
+    private Date validDate23;
+    private Date validDate24;
+    private Date validDate25;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -92,6 +98,13 @@ class HouseMonitoringControllerTest {
             validDate09 = validSdf.parse("05/02/2019 01:15:00");
             validDate10 = validSdf.parse("05/02/2019 20:00:00");
 
+            validDate20 = validSdf.parse("05/02/2020 18:00:00");
+            validDate21 = validSdf.parse("05/02/2020 20:00:00");
+            validDate22 = validSdf.parse("06/02/2020 16:00:00");
+            validDate23 = validSdf.parse("06/02/2020 18:00:00");
+            validDate24 = validSdf.parse("06/02/2020 20:00:00");
+            validDate25 = validSdf.parse("07/02/2020 20:00:00");
+
         } catch (ParseException c) {
             c.printStackTrace();
         }
@@ -125,6 +138,12 @@ class HouseMonitoringControllerTest {
         Reading r08 = new Reading(12, validDate08);
         Reading r09 = new Reading(40.2, validDate09); // Hottest Final Date ALSO MaxAmplitude Final Date
         Reading r10 = new Reading(21.2, validDate10); // Cold Final Date ALSO MaxAmplitude Final Date
+        Reading r20 = new Reading(20, validDate20);
+        Reading r21 = new Reading(22, validDate21);
+        Reading r22 = new Reading(20, validDate22);
+        Reading r23 = new Reading(25, validDate23);
+        Reading r24 = new Reading(21, validDate24);
+        Reading r25 = new Reading(20, validDate25);
 
         validTemperatureSensor.addReading(r01);
         validTemperatureSensor.addReading(r02);
@@ -136,6 +155,12 @@ class HouseMonitoringControllerTest {
         validTemperatureSensor.addReading(r08);
         validTemperatureSensor.addReading(r09);
         validTemperatureSensor.addReading(r10);
+        validTemperatureSensor.addReading(r20);
+        validTemperatureSensor.addReading(r21);
+        validTemperatureSensor.addReading(r22);
+        validTemperatureSensor.addReading(r23);
+        validTemperatureSensor.addReading(r24);
+        validTemperatureSensor.addReading(r25);
         */
 
         // Sets up a valid rainfall sensor with valid readings.
@@ -533,14 +558,57 @@ class HouseMonitoringControllerTest {
      * Given a valid set of readings in tested period, a given day has multiple readings and one of them is the highest
      * temperature:
      * -Should return the day with highest temperature
-     * TODO
      */
+
+    @Test
+    void testGetFirstHottestDayMultipleReadingsSameDay() {
+        // Arrange
+        Reading r20 = new Reading(20, validDate20);
+        Reading r21 = new Reading(22, validDate21);
+        Reading r22 = new Reading(30, validDate22);
+        Reading r23 = new Reading(25, validDate23);
+        Reading r24 = new Reading(21, validDate24);
+        Reading r25 = new Reading(20, validDate25);
+        validTemperatureSensor.addReading(r20);
+        validTemperatureSensor.addReading(r21);
+        validTemperatureSensor.addReading(r22);
+        validTemperatureSensor.addReading(r23);
+        validTemperatureSensor.addReading(r24);
+        validTemperatureSensor.addReading(r25);
+        validHouseArea.setSensorList(validSensorList);
+        // Act
+        Date expectedResult = validDate22;
+        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate20, validDate25);
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
     /**
      * Given a valid house without sensors on list:
      * -Should return message to User
-     * TODO
      */
+
+    @Test
+    void testGetFirstHottestDayHouseWithoutSensors() {
+        // Arrange
+        House house = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)), 60,
+                180, new ArrayList<>());
+        SensorList sList = new SensorList();
+        RoomList roomL = new RoomList();
+        house.setRoomList(roomL);
+        Room roomD = new Room("Bedroom", 2, 15, 15, 10);
+        roomL.add(roomD);
+        roomD.setSensorList(sList);
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getFirstHottestDayInPeriod(house, validDate01, validDate02));
+        // Assert
+        assertEquals("Warning: No temperature readings available.",
+                exception.getMessage());
+    }
 
     /**
      * Given a valid house with sensor without readings:
@@ -562,6 +630,23 @@ class HouseMonitoringControllerTest {
     /**
      * Given a valid set of readings not contained in period:
      * -Should return message to User
-     * TODO
      */
+
+    @Test
+    void testGetFirstHottestDayValidReadingsNotContained() {
+        // Arrange
+        Reading r20 = new Reading(20, validDate20);
+        Reading r21 = new Reading(22, validDate21);
+        Reading r25 = new Reading(20, validDate25);
+        validTemperatureSensor.addReading(r20);
+        validTemperatureSensor.addReading(r21);
+        validTemperatureSensor.addReading(r25);
+        validHouseArea.setSensorList(validSensorList);
+        // Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getFirstHottestDayInPeriod(validHouse, validDate22, validDate24));
+        // Assert
+        assertEquals("Warning: No temperature readings available.",
+                exception.getMessage());
+    }
 }

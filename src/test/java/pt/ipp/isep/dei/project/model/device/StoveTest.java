@@ -56,42 +56,25 @@ class StoveTest {
     }
 
     @Test
-    void seeIfEqualsWorksOnItself() {
-        // Assert
+    void seeIfEqualsWorks() {
 
-        assertEquals(validStove, validStove);
-    }
+        Stove validStove2 = new Stove(new StoveSpec());
+        Stove validStove3 = new Stove(new StoveSpec());
 
-    @Test
-    void seeIfEqualsWorksFalse() {
-        // Arrange
+        validStove2.setName("validStove2");
+        validStove3.setName("Kitchen Stove");
 
-        Device testStove = new Stove(new StoveSpec());
-        testStove.setName("Stove 1500");
-        testStove.setNominalPower(12.0);
+        boolean actualResult1 = validStove.equals(validStove2);
+        boolean actualResult2 = validStove.equals(validStove3);
+        boolean actualResult3 = validStove.equals(20D);
+        boolean actualResult4 = validStove.equals(validStove);
+        boolean actualResult5 = validStove.equals(null);
 
-        // Act
-
-        boolean actualResult = validStove.equals(testStove);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
-
-    @Test
-    void seeIfEqualsWorksNotAnInstance() {
-        // Assert
-
-        assertNotEquals(validStove, new RoomList()); // Needed for sonarqube testing purposes.
-    }
-
-    @Test
-    void seeIfEqualsWorksNull() {
-        // Assert
-
-        assertNotEquals(validStove, null);
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertTrue(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
@@ -138,6 +121,12 @@ class StoveTest {
         // Assert
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfSetNominalPowerWorksNegative() {
+        assertThrows(IllegalArgumentException.class,
+                () -> validStove.setNominalPower(-20));
     }
 
     @Test

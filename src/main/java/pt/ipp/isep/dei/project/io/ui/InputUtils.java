@@ -22,6 +22,8 @@ import java.util.Scanner;
  */
 public class InputUtils {
 
+    private static String SELECT_ROOMS = "You have chosen the following room: ";
+
     void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
@@ -56,7 +58,7 @@ public class InputUtils {
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.roomListSize()) {
                 Room result = house.getRoomByIndex(aux);
-                System.out.println("You have chosen the following room: ");
+                System.out.println(SELECT_ROOMS);
                 System.out.println(result.buildString() + "\n");
                 return mapper.roomToDTO(result);
             } else {
@@ -69,12 +71,12 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            System.out.println("Please select one of the existing rooms in the house: ");
+            System.out.println("Please select one of the existing rooms: ");
             System.out.println(house.buildRoomListString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < house.roomListSize()) {
                 Room result = house.getRoomByIndex(aux);
-                System.out.println("You have chosen the following room: ");
+                System.out.println(SELECT_ROOMS);
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
@@ -92,7 +94,7 @@ public class InputUtils {
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < grid.roomListSize()) {
                 Room result = grid.getRoom(aux);
-                System.out.println("You have chosen the following room: ");
+                System.out.println(SELECT_ROOMS);
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {

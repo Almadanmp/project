@@ -31,10 +31,6 @@ class MockUI {
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
     private GeographicArea geoAreaIsep;
 
-    private TypeArea urbanArea;
-    private TypeArea city;
-
-    private TypeSensor rainfallST;
     private TypeSensor temperatureST;
     private TypeSensor humidityST;
 
@@ -61,10 +57,10 @@ class MockUI {
 
     private TypeAreaList mockTypeAreaList() {
         TypeAreaList mockTypeAreaList = new TypeAreaList();
-        this.urbanArea = new TypeArea("Urban Area");
-        this.city = new TypeArea("City");
-        mockTypeAreaList.addTypeArea(this.urbanArea);
-        mockTypeAreaList.addTypeArea(this.city);
+        TypeArea urbanArea = new TypeArea("Urban Area");
+        TypeArea city = new TypeArea("City");
+        mockTypeAreaList.addTypeArea(urbanArea);
+        mockTypeAreaList.addTypeArea(city);
 
         return mockTypeAreaList;
     }
@@ -72,8 +68,8 @@ class MockUI {
     private TypeSensorList mockTypeSensorList() {
         TypeSensorList mockTypeSensorList = new TypeSensorList();
 
-        this.rainfallST = new TypeSensor("rainfall", "l/m2");
-        mockTypeSensorList.add(this.rainfallST);
+        TypeSensor rainfallST = new TypeSensor("rainfall", "l/m2");
+        mockTypeSensorList.add(rainfallST);
 
         this.temperatureST = new TypeSensor("Temperature", "º");
         mockTypeSensorList.add(this.temperatureST);

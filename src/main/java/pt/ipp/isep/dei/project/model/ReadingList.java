@@ -382,8 +382,8 @@ public class ReadingList {
      * @return A parallel deviceList with all the devices that could be added
      **/
     ReadingList appendListNoDuplicates(ReadingList readingList) {
-        Reading[] readings = readingList.getElementsAsArray();
-        for (Reading r : readings) {
+        Reading[] readingsArray = readingList.getElementsAsArray();
+        for (Reading r : readingsArray) {
             this.addReading(r);
         }
         return this;
