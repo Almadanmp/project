@@ -84,26 +84,6 @@ class MockUI {
     private GeographicAreaList mockGeographicAreaList() {
         GeographicAreaList mockGeographicAreaList = new GeographicAreaList();
 
-        /* Now created with JSON import
-
-        //ISEP GEOGRAPHIC AREA//
-        this.geoAreaIsep = new GeographicArea("ISEP", this.urbanArea, 0.249, 0.261, new Local(41.178553, -8.608035, 111));
-        mockGeographicAreaList.addGeographicArea(this.geoAreaIsep);
-        Sensor rainfallIsepSensor = new Sensor("Meteo Station Isep - Rainfall", this.rainfallST, new GregorianCalendar(2016, Calendar.NOVEMBER, 15).getTime());
-        rainfallIsepSensor.setLocal(new Local(41.179230, -8.606409, 125));
-        createRainfallIsepSensorReadings(rainfallIsepSensor);
-        geoAreaIsep.addSensor(rainfallIsepSensor);
-
-        Sensor temperatureIsepSensor = new Sensor("Meteo Station Isep - Temperature", this.temperatureST, new GregorianCalendar(2016, Calendar.NOVEMBER, 15).getTime());
-        temperatureIsepSensor.setLocal(new Local(41.179230, -8.606409, 125));
-        createTemperatureIsepSensorReadings(temperatureIsepSensor);
-        geoAreaIsep.addSensor(temperatureIsepSensor);
-
-        //PORTO GEOGRAPHIC AREA//
-        GeographicArea geoAreaPorto = new GeographicArea("City of Porto", this.city, 3.30, 10.09, new Local(41.164077, -8.620802, 118));
-        mockGeographicAreaList.addGeographicArea(geoAreaPorto);
-
-        */
         return mockGeographicAreaList;
     }
 
@@ -321,73 +301,4 @@ class MockUI {
 
     }
 
-    //METHODS TO CREATE READINGS ON SENSORS
-
-    /* Now created with CSV import.
-
-    private void createRainfallIsepSensorReadings(Sensor rainfallIsepSensor) {
-        rainfallIsepSensor.addReading(new Reading(0.5, new GregorianCalendar(2018, Calendar.DECEMBER, 29).getTime()));
-        rainfallIsepSensor.addReading(new Reading(1.2, new GregorianCalendar(2018, Calendar.DECEMBER, 30).getTime()));
-        rainfallIsepSensor.addReading(new Reading(1.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31).getTime()));
-        rainfallIsepSensor.addReading(new Reading(0.3, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime()));
-        rainfallIsepSensor.addReading(new Reading(0.0, new GregorianCalendar(2019, Calendar.JANUARY, 2).getTime()));
-        rainfallIsepSensor.addReading(new Reading(0.0, new GregorianCalendar(2019, Calendar.JANUARY, 2).getTime()));
-        rainfallIsepSensor.addReading(new Reading(0.0, new GregorianCalendar(2019, Calendar.JANUARY, 3).getTime()));
-    }
-
-    private void createTemperatureIsepSensorReadings(Sensor temperatureIsepSensor) {
-        temperatureIsepSensor.addReading(new Reading(8, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(11.2, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 20, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(7.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(5.3, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(15.1, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 14, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(9.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(6.5, new GregorianCalendar(2019, Calendar.JANUARY, 1, 2, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(4.3, new GregorianCalendar(2019, Calendar.JANUARY, 1, 8, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(14.8, new GregorianCalendar(2019, Calendar.JANUARY, 1, 14, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(8.9, new GregorianCalendar(2019, Calendar.JANUARY, 1, 20, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(6.1, new GregorianCalendar(2019, Calendar.JANUARY, 2, 2, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(3.2, new GregorianCalendar(2019, Calendar.JANUARY, 2, 8, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(14.1, new GregorianCalendar(2019, Calendar.JANUARY, 2, 14, 0).getTime()));
-        temperatureIsepSensor.addReading(new Reading(8.3, new GregorianCalendar(2019, Calendar.JANUARY, 2, 20, 0).getTime()));
-    }
-
-    private void createTemperatureSensorB109Readings(Sensor temperatureSensorB109) {
-        temperatureSensorB109.addReading(new Reading(14, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(13.7, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 8, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(16.5, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 14, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(15.1, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 20, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(13.8, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(13.3, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(15.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 14, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(14.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(12.5, new GregorianCalendar(2019, Calendar.JANUARY, 1, 2, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(12.4, new GregorianCalendar(2019, Calendar.JANUARY, 1, 8, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(13.8, new GregorianCalendar(2019, Calendar.JANUARY, 1, 14, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(12.9, new GregorianCalendar(2019, Calendar.JANUARY, 1, 20, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(11.5, new GregorianCalendar(2019, Calendar.JANUARY, 2, 2, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(11.2, new GregorianCalendar(2019, Calendar.JANUARY, 2, 8, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(13.5, new GregorianCalendar(2019, Calendar.JANUARY, 2, 14, 0).getTime()));
-        temperatureSensorB109.addReading(new Reading(12.8, new GregorianCalendar(2019, Calendar.JANUARY, 2, 20, 0).getTime()));
-    }
-
-    private void createHumiditySensorB109Readings(Sensor humiditySensorB109) {
-        humiditySensorB109.addReading(new Reading(84, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 2, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(85.7, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 8, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(76.5, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 14, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(78.1, new GregorianCalendar(2018, Calendar.DECEMBER, 30, 20, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(83.8, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 2, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(83.9, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 8, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(75.5, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 14, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(77.2, new GregorianCalendar(2018, Calendar.DECEMBER, 31, 20, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(82.5, new GregorianCalendar(2019, Calendar.JANUARY, 1, 2, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(82.4, new GregorianCalendar(2019, Calendar.JANUARY, 1, 8, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(73.8, new GregorianCalendar(2019, Calendar.JANUARY, 1, 14, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(72.9, new GregorianCalendar(2019, Calendar.JANUARY, 1, 20, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(80.5, new GregorianCalendar(2019, Calendar.JANUARY, 2, 2, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(79.2, new GregorianCalendar(2019, Calendar.JANUARY, 2, 8, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(71.5, new GregorianCalendar(2019, Calendar.JANUARY, 2, 14, 0).getTime()));
-        humiditySensorB109.addReading(new Reading(72.8, new GregorianCalendar(2019, Calendar.JANUARY, 2, 20, 0).getTime()));
-    }
-    */
 }
