@@ -91,7 +91,22 @@ public class UtilsUI {
      * Use a simple coma ',' in between lines to separate lines instead of '\n'.
      * Old example: System.out.println("Line 1 blablabla \n Line 2 blablabla");
      * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
-     * @param strings to know the max length
+     * @param strings for being printed
+     */
+
+    public static void printBox(String... strings) {
+        int maxBoxWidth = getStringMaxLength(strings);
+        String line = " " + fill('-', maxBoxWidth + 2) + " ";
+        System.out.println(line);
+        for (String str : strings) {
+            System.out.printf("| %s |%n", padString(str, maxBoxWidth));
+        }
+        System.out.println(line);
+    }
+
+    /**
+     * Auxiliary method for printBox for getting String length
+     * @param strings to know the length of
      * @return string length
      */
 
@@ -128,16 +143,6 @@ public class UtilsUI {
             sBuilder.append(ch);
         }
         return sBuilder.toString();
-    }
-
-    public static void printBox(String... strings) {
-        int maxBoxWidth = getStringMaxLength(strings);
-        String line = " " + fill('-', maxBoxWidth + 2) + " ";
-        System.out.println(line);
-        for (String str : strings) {
-            System.out.printf("| %s |%n", padString(str, maxBoxWidth));
-        }
-        System.out.println(line);
     }
     // End of methods for printBox
 }
