@@ -47,6 +47,7 @@ deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return Date
 deactivate ":Sensor"
 ":HouseMonitoringController" --> ":HouseMonitoringUI": return Date
+":HouseMonitoringUI" -> ":HouseMonitoringUI": build result string
 deactivate ":HouseMonitoringController"
 ":HouseMonitoringUI" --> User: Show result string
 deactivate ":HouseMonitoringUI"

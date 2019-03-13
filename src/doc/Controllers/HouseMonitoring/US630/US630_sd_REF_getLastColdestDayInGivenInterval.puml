@@ -29,10 +29,10 @@ activate ":Sensor"
 ":Sensor"->":ReadingList":getLastColdestDayInGivenInterval(Date, Date)
 activate ":ReadingList"
 ":ReadingList"->":ReadingList":getReadingListBetweenDates(Date, Date)
-":ReadingList"->":ReadingList":readingListBetweenDates.getListOfMaxValuesForEachDay()
-":ReadingList"->":ReadingList":listOfMaxValuesForEachDay.getMinValueInReadingList();
+":ReadingList"->":ReadingList":getListOfMaxValuesForEachDay()
+":ReadingList"->":ReadingList":getMinValueInReadingList();
 ":ReadingList"->":ReadingList": getReadingListOfReadingsWithSpecificValue(minValueInList);
-":ReadingList"->":ReadingList": readingListWithSpecificValue.getMostRecentReadingDate();
+":ReadingList"->":ReadingList": getMostRecentReadingDate();
 ":ReadingList"-->":ReadingList": return Date
 ":ReadingList"-->":Sensor": return Date
 deactivate ":ReadingList"
