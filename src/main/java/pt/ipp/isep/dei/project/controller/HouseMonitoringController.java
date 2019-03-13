@@ -106,7 +106,7 @@ public class HouseMonitoringController {
      * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
      * in the house area in a given period.
      */
-    public Date getLastColdestDayInInterval(House house, Date startDate, Date endDate) throws IllegalArgumentException {
+    public Date getLastColdestDayInInterval(House house, Date startDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
