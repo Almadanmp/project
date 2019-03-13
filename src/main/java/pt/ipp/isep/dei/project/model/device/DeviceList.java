@@ -137,8 +137,8 @@ public class DeviceList {
      * @return A parallel deviceList with all the devices that could be added
      **/
     public DeviceList appendListNoDuplicates(DeviceList deviceList) {
-        Device[] devices = deviceList.getElementsAsArray();
-        for (Device d : devices) {
+        Device[] deviceLNoDuplicates = deviceList.getElementsAsArray();
+        for (Device d : deviceLNoDuplicates) {
             this.add(d);
         }
         return this;
