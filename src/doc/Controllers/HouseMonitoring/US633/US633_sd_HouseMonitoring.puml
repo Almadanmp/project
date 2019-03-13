@@ -52,7 +52,7 @@ Get closest sensor
 to house area
 end ref
 
-":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate\n                 (Date, Date, Date)
+":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeDate\n                 (House, Date, Date)
 deactivate ":HouseMonitoringUI"
 activate ":HouseMonitoringController"
 ":HouseMonitoringController" -> ":Sensor": getDateHighestAmplitudeBetweenDates\n                                   (Date, Date)
