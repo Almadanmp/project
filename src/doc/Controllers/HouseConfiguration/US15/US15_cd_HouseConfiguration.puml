@@ -1,0 +1,96 @@
+@startuml
+
+class HouseConfigurationController
+class HouseConfigurationUI
+class JSONReader
+class Mapper
+class GeographicAreaDTO
+class GeographicAreaList
+class GeographicArea
+class Sensor
+class InputUtils
+
+MainUI -- HouseConfigurationUI : >
+HouseConfigurationUI -- JSONReader : >
+HouseConfigurationUI -- InputUtils : >
+JSONReader -- Mapper : >
+Mapper -- GeographicAreaDTO : >
+HouseConfigurationUI -- HouseConfigurationController : >
+HouseConfigurationController -- Mapper : >
+Mapper -- GeographicArea : >
+Mapper -- Sensor : >
+HouseConfigurationController -- GeographicAreaList : >
+Mapper -- SensorDTO : >
+
+class HouseConfigurationUI {
+runUS15(GeographicAreaList);
+updateModel();
+}
+
+class JSONReader {
+readFile(String filePath);
+readGeoAreas();
+readAreaSensors();
+}
+
+class HouseConfigurationController {
+addGeoAreasToList(GeographicAreaDTO[], GeographicAreaList)
+}
+
+class Mapper {
+geoAreaToDTO();
+geoAreaDTOToObject();
+sensorToDTO();
+sensorDTOToObject();
+}
+
+class GeographicAreaList{
+add();
+}
+
+class InputUtils{
+getInputPath();
+}
+
+
+class GeographicAreaDTO{
+setID(String);
+getID();
+setType(String);
+getType();
+setLength(Double);
+getLength();
+setWidth(Double);
+getWidth();
+setLatitude(Double);
+getLatitude();
+setLongitude(Double);
+getLongitude();
+setAltitude(Double);
+getAltitude();
+setDescription(String);
+getDescription();
+setSensorList(List<SensorDTO>);
+getSensorList();
+}
+
+class SensorDTO{
+setID(String);
+getID();
+setType(String);
+getType();
+setLatitude(Double);
+getLatitude();
+setLongitude(Double);
+getLongitude();
+setAltitude(Double);
+getAltitude();
+setDescription(String);
+getDescription();
+setSensorList(List<SensorDTO>);
+getSensorList();
+setDateStartedFunctioning(String);
+getDateStartedFunctioning;
+}
+
+@enduml

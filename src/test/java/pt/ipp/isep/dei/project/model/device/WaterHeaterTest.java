@@ -292,6 +292,9 @@ class WaterHeaterTest {
 
     @Test
     void seeIfAddLogWorksDuplicate() {
+        //Arrange
+
+
         // Act
 
         boolean result = validHeater.addLog(validLog);
