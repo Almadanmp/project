@@ -24,6 +24,7 @@ HouseConfigurationUI -- CSVReader : >
 CSVReader -- Sensor : >
 CSVReader -- Logger : >
 Sensor -- Reading : >
+Logger -- CustomFormatter : <
 
 class HouseConfigurationUI{
 
@@ -60,4 +61,13 @@ Reading(double value, Date date)
 class Logger{
 getLogger(String name)
 }
+
+class CustomFormatter{
+DateFormat df
+
+format(LogRecord record)
+getHead(Handler h)
+getTail(Handler h)
+}
+
 @enduml
