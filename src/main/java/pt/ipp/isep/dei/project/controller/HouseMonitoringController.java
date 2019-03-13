@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class HouseMonitoringController {
 
-    private static final String rainfall = "rainfall";
-    private static final String temperature = "Temperature";
+    private static final String RAINFALL = "rainfall";
+    private static final String TEMPERATURE = "Temperature";
 
     /**
      * Returns the current temperature in a given Room.
@@ -71,7 +71,7 @@ public class HouseMonitoringController {
      * @Author Daniela
      */
     public double getAverageRainfallInterval(House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(RAINFALL);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
@@ -85,7 +85,7 @@ public class HouseMonitoringController {
      * @Author André
      */
     public double getTotalRainfallOnGivenDay(House house, Date day) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(rainfall);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(RAINFALL);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
@@ -98,7 +98,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(House house) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getMostRecentValueReading();
     }
 
@@ -107,7 +107,7 @@ public class HouseMonitoringController {
      * in the house area in a given period.
      */
     public Date getLastColdestDayInInterval(House house, Date startDate, Date endDate) throws IllegalArgumentException {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
@@ -118,7 +118,7 @@ public class HouseMonitoringController {
      **/
 
     public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         return closestSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
@@ -136,7 +136,7 @@ public class HouseMonitoringController {
      * @Author Daniela
      */
     public Date getHighestTempAmplitudeDate(House house, Date initialDate, Date endDate) {
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
 
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
@@ -147,7 +147,7 @@ public class HouseMonitoringController {
 
     public double getHighestTempAmplitudeValue(House house, Date dateInput) {
         Date date = dateInput;
-        Sensor closestSensor = house.getClosestSensorOfGivenType(temperature);
+        Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
