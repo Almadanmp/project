@@ -29,7 +29,7 @@ class RoomTest {
     @BeforeEach
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom", 2, 30, 40, 10);
-        validSensor = new Sensor("tempOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        validSensor = new Sensor("tempOne", new TypeSensor("temperature", "Celsius"), new Date());
         validRoom.addSensor(validSensor);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
@@ -403,7 +403,7 @@ class RoomTest {
 
         // Act
 
-        SensorList actualResult = validRoom.getSensorsOfGivenType("Temperature");
+        SensorList actualResult = validRoom.getSensorsOfGivenType("temperature");
 
         // Assert
 
@@ -491,9 +491,9 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksMultipleSensors() {
         // Arrange
 
-        Sensor firstSensor = new Sensor("firstSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
-        Sensor secondSensor = new Sensor("secondSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
-        Sensor thirdSensor = new Sensor("secondSensor", new TypeSensor("Temperature", "Celsius"), new Date()); // Has no readings.
+        Sensor firstSensor = new Sensor("firstSensor", new TypeSensor("temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
+        Sensor secondSensor = new Sensor("secondSensor", new TypeSensor("temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
+        Sensor thirdSensor = new Sensor("secondSensor", new TypeSensor("temperature", "Celsius"), new Date()); // Has no readings.
         validRoom.addSensor(firstSensor);
         validRoom.addSensor(secondSensor);
         validRoom.addSensor(thirdSensor);

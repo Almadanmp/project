@@ -12,6 +12,8 @@ import java.util.*;
 
 public class Room implements Metered {
 
+    private static final String temperature = "temperature";
+
     private String roomName;
     private int houseFloor;
     private double roomWidth;
@@ -191,7 +193,7 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
-        SensorList tempSensors = getSensorsOfGivenType("Temperature");
+        SensorList tempSensors = getSensorsOfGivenType(temperature);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
@@ -252,7 +254,7 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        SensorList tempSensors = getSensorsOfGivenType("Temperature");
+        SensorList tempSensors = getSensorsOfGivenType(temperature);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }

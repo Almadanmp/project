@@ -12,6 +12,8 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
 import java.io.File;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -292,9 +294,8 @@ public class InputUtils {
     Double getInputAsDouble() {
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please type a valid number: ");
         while (!scanner.hasNextDouble()) {
-            System.out.println(utils.invalidOption);
+            System.out.println(utils.invalidNumber);
             scanner.next();
         }
         return scanner.nextDouble();
@@ -334,6 +335,12 @@ public class InputUtils {
      *
      * @return date introduced by user
      */
+    /**
+     * Method will read a group of values from user and return a date (year, month, day, hour and
+     * minute). It will only accept valid numbers.
+     *
+     * @return date introduced by user
+     */
     Date getInputYearMonthDay() {
         Scanner scan = new Scanner(System.in);
         int year = getInputYear();
@@ -341,7 +348,11 @@ public class InputUtils {
         int month = getInputMonth();
         int day = getInputDay(isLeapyear, month);
         Date date = new GregorianCalendar(year, month, day).getTime();
-        System.out.println(("You have chosen the following date:\n") + date.toString() + "\n");
+
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateResultFormatted = formatter.format(date);
+
+        System.out.println(("You have chosen the following date:\n") + dateResultFormatted + "\n");
         scan.nextLine();
         return date;
     }
@@ -545,6 +556,7 @@ public class InputUtils {
     /**
      * Gets input of a filepath. For now, this file is either a .csv file or a .json file, since those are the only kind
      * of files the program is ready to manipulate.
+     *
      * @return returns a filepath.
      */
 

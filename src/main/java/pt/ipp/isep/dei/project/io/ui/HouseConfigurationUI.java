@@ -145,7 +145,7 @@ class HouseConfigurationUI {
         controller.setHouseMotherArea(house, motherArea);
 
         String houseId = controller.getHouseName(house);
-        System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Street: " +
+        System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
                 street + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }
