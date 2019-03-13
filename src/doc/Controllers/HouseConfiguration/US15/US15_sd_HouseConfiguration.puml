@@ -1,0 +1,24 @@
+@startuml
+actor Administrator
+Administrator -> HouseConfigurationUI: Import data from .json file
+HouseConfigurationUI -> InputUtils: getInputPath();
+ref over InputUtils
+getInputPath();
+end ref
+HouseConfigurationUI -> JSONReader: readFile(filePath)
+JSONReader -> Mapper: createDTO();
+loop
+Mapper -> Mapper: createDTO
+end loop
+Mapper --> JSONReader: return GeographicAreaDTO[]
+JSONReader --> HouseConfigurationUI: return GeographicAreaDTO[]
+HouseConfigurationUI -> HouseConfigurationController: updateModel(GeographicAreaList, GeographicAreaDTO[])
+loop
+HouseConfigurationController -> Mapper: geoAreaDTOToObject
+Mapper --> HouseConfigurationController: return GeographicArea
+end loop
+loop
+HouseConfigurationController -> GeographicAreaList: add(GeographicArea)
+end loop
+HouseConfigurationUI -> Administrator: display feedback message.
+@enduml
