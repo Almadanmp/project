@@ -1,0 +1,15 @@
+@startuml
+actor Administrator
+
+--> HouseConfigurationUI: getInputPath
+HouseConfigurationUI -> InputUtils: getInputPath
+InputUtils -> Administrator: Ask user for input.
+Administrator -> InputUtils: Input path.
+alt if path is valid (ends with .json and exists)
+<-- InputUtils: return String path
+else if path is invalid
+loop
+InputUtils -> Administrator: Ask user for input.
+end loop
+end
+@enduml
