@@ -43,7 +43,7 @@ class DeviceTypeConfigTest {
         props.load(input);
         String key = "WaterHeater";
         String result = dtc.getPropertyValueFromKey(props, key);
-        String expectedResult = deviceTypePath + "WaterHeaterDT";
+        String expectedResult = deviceTypePath + "WaterHeaterType";
 
         // Assert
 
@@ -66,20 +66,20 @@ class DeviceTypeConfigTest {
         // Arrange
 
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add(deviceTypePath + "FridgeDT");
-        expectedResult.add(deviceTypePath + "DishwasherDT");
-        expectedResult.add(deviceTypePath + "WashingMachineDT");
-        expectedResult.add(deviceTypePath + "WaterHeaterDT");
-        expectedResult.add(deviceTypePath + "LampDT");
-        expectedResult.add(deviceTypePath + "WallTowelHeaterDT");
-        expectedResult.add(deviceTypePath + "PortableElectricConvectionHeaterDT");
-        expectedResult.add(deviceTypePath + "PortableElectricOilHeaterDT");
-        expectedResult.add(deviceTypePath + "WallElectricHeaterDT");
-        expectedResult.add(deviceTypePath + "StoveDT");
-        expectedResult.add(deviceTypePath + "WineCoolerDT");
-        expectedResult.add(deviceTypePath + "FreezerDT");
-        expectedResult.add(deviceTypePath + "ElectricOvenDT");
-        expectedResult.add(deviceTypePath + "TvDT");
+        expectedResult.add(deviceTypePath + "FridgeType");
+        expectedResult.add(deviceTypePath + "DishwasherType");
+        expectedResult.add(deviceTypePath + "WashingMachineType");
+        expectedResult.add(deviceTypePath + "WaterHeaterType");
+        expectedResult.add(deviceTypePath + "LampType");
+        expectedResult.add(deviceTypePath + "WallTowelHeaterType");
+        expectedResult.add(deviceTypePath + "PortableElectricConvectionHeaterType");
+        expectedResult.add(deviceTypePath + "PortableElectricOilHeaterType");
+        expectedResult.add(deviceTypePath + "WallElectricHeaterType");
+        expectedResult.add(deviceTypePath + "StoveType");
+        expectedResult.add(deviceTypePath + "WineCoolerType");
+        expectedResult.add(deviceTypePath + "FreezerType");
+        expectedResult.add(deviceTypePath + "ElectricOvenType");
+        expectedResult.add(deviceTypePath + "TvType");
 
         // Act
 
@@ -152,20 +152,20 @@ class DeviceTypeConfigTest {
         // Arrange
 
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add(deviceTypePath + "FridgeDT");
-        expectedResult.add(deviceTypePath + "DishwasherDT");
-        expectedResult.add(deviceTypePath + "WashingMachineDT");
-        expectedResult.add(deviceTypePath + "WaterHeaterDT");
-        expectedResult.add(deviceTypePath + "LampDT");
-        expectedResult.add(deviceTypePath + "WallTowelHeaterDT");
-        expectedResult.add(deviceTypePath + "PortableElectricConvectionHeaterDT");
-        expectedResult.add(deviceTypePath + "PortableElectricOilHeaterDT");
-        expectedResult.add(deviceTypePath + "WallElectricHeaterDT");
-        expectedResult.add(deviceTypePath + "StoveDT");
-        expectedResult.add(deviceTypePath + "WineCoolerDT");
-        expectedResult.add(deviceTypePath + "FreezerDT");
-        expectedResult.add(deviceTypePath + "ElectricOvenDT");
-        expectedResult.add(deviceTypePath + "TvDT");
+        expectedResult.add(deviceTypePath + "FridgeType");
+        expectedResult.add(deviceTypePath + "DishwasherType");
+        expectedResult.add(deviceTypePath + "WashingMachineType");
+        expectedResult.add(deviceTypePath + "WaterHeaterType");
+        expectedResult.add(deviceTypePath + "LampType");
+        expectedResult.add(deviceTypePath + "WallTowelHeaterType");
+        expectedResult.add(deviceTypePath + "PortableElectricConvectionHeaterType");
+        expectedResult.add(deviceTypePath + "PortableElectricOilHeaterType");
+        expectedResult.add(deviceTypePath + "WallElectricHeaterType");
+        expectedResult.add(deviceTypePath + "StoveType");
+        expectedResult.add(deviceTypePath + "WineCoolerType");
+        expectedResult.add(deviceTypePath + "FreezerType");
+        expectedResult.add(deviceTypePath + "ElectricOvenType");
+        expectedResult.add(deviceTypePath + "TvType");
 
 
         // Act

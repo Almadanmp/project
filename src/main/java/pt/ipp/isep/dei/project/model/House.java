@@ -145,6 +145,14 @@ public class House implements Metered {
     }
 
     /**
+     * Checks if the attribute motherArea is null
+     * @return true or false
+     */
+    public boolean isMotherAreaNull(){
+        return getMotherArea() == null;
+    }
+
+    /**
      * calculates distance from the house to the sensor.
      *
      * @param sensor sensor from where to calculate the distance

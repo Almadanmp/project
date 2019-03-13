@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
+
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
@@ -21,7 +22,7 @@ class HouseTest {
 
     // Common artifacts for testing in this class.
 
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private House validHouse;
     private GeographicArea validArea;
     private Sensor firstValidSensor;
@@ -453,8 +454,8 @@ class HouseTest {
         // Arrange
 
         List<String> deviceTypePaths = new ArrayList<>();
-        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
-        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
+        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType");
+        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType");
 
         // Act
 
@@ -464,8 +465,8 @@ class HouseTest {
         // Assert
 
         assertEquals(deviceTypeList.size(), 2);
-        assertTrue(deviceTypeList.get(0) instanceof DishwasherDT);
-        assertTrue(deviceTypeList.get(1) instanceof WaterHeaterDT);
+        assertTrue(deviceTypeList.get(0) instanceof DishwasherType);
+        assertTrue(deviceTypeList.get(1) instanceof WaterHeaterType);
     }
 
     @Test
