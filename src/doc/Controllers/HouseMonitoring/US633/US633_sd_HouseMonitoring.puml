@@ -39,7 +39,7 @@ deactivate ":MainUI"
 activate ":HouseMonitoringUI"
 ":HouseMonitoringUI" --> User: Show option menu
 User -> ":HouseMonitoringUI": Select opt
-":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS623(house)
+":HouseMonitoringUI" -> ":HouseMonitoringUI": runUS633(house)
 
 ref over ":HouseMonitoringUI"
 get input start
