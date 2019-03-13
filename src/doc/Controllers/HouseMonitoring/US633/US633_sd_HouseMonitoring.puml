@@ -72,29 +72,13 @@ activate ":ReadingList"
 deactivate ":ReadingList"
 ":Sensor" --> ":HouseMonitoringController": return date
 deactivate ":Sensor"
-
-":HouseMonitoringController" --> ":HouseMonitoringUI": return date
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
-":HouseMonitoringUI" -> ":HouseMonitoringController": getHighestTempAmplitudeValue\n                       (House, Date)
-deactivate ":HouseMonitoringUI"
-activate ":HouseMonitoringController"
 
-":HouseMonitoringController" -> ":Sensor": getHighestTempAmplitudeValue\n                                  (Date, Date)
-activate ":Sensor"
-":Sensor" -> ":ReadingList": getHighestAmplitudeInDate\n                                (Date, Date)
+ref over ":HouseMonitoringUI"
+get highest amplitude value
+end ref
 
-activate ":ReadingList"
-":ReadingList"->":ReadingList":getAmplitudeValueFromDate(date)
-":ReadingList"->":ReadingList": getValuesOfSpecificDayReadings(Date)
-":ReadingList"->":ReadingList": compareDayMonthAndYearBetweenDates(Date, Date)
-
-":ReadingList" --> ":Sensor": return double
-deactivate ":ReadingList"
-":Sensor" --> ":HouseMonitoringController": return double
-deactivate ":Sensor"
-
-":HouseMonitoringController" --> ":HouseMonitoringUI": return double
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
 
