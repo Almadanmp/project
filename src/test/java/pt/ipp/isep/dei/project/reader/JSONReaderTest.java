@@ -2,29 +2,22 @@ package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.SensorList;
+import pt.ipp.isep.dei.project.model.TypeArea;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JSONReaderTest {
     // Common testing artifacts for testing in this class.
 
     private JSONReader reader = new JSONReader();
-
-    /*
-    @Test
-    void seeIfReadFileWorksFileNotFound(){
-        // Arrange
-
-        String invalidFilePath = "invalidfilepath";
-
-        // Act and Assert
-
-        assertThrows(FileNotFoundException.class, () -> {
-            reader.readFile(invalidFilePath);});
-    }*/
 
     @Test
     void seeIfReadFileWorks(){
@@ -122,5 +115,25 @@ class JSONReaderTest {
         // Assert
 
         assertArrayEquals(expectedResult, actualResult);
+
+        // Get one of the areas to  check its contents.
+
+        Mapper mapper = new Mapper();
+        GeographicArea actualArea = mapper.createGeographicAreaFromDTO(actualResult[0]);
+        SensorList firstAreaSensors = actualArea.getSensorList();
+
+        // Declare expected area / sensors.
+
+        SensorList expectedSensors = new SensorList();
+        expectedSensors.add(actualArea.getSensorList().get(0));
+        expectedSensors.add(actualArea.getSensorList().get(1));
+
+        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 139));
+
+        // Assert
+
+        assertEquals(expectedArea, actualArea);
+        assertEquals(expectedSensors, firstAreaSensors);
     }
 }
