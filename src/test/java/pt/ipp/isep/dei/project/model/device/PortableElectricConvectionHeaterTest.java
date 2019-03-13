@@ -6,11 +6,12 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.devicespecs.PortableElectricConvectionHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Lamp Device tests class.
@@ -167,25 +168,25 @@ class PortableElectricConvectionHeaterTest {
     }
 
     @Test
-    void seeAttributeMethods() {
-        // Arrange
+    void seeIfEqualsWorks() {
 
-        Object expectedResult1 = 0;
-        List<String> expectedResult2 = new ArrayList<>();
+        PortableElectricConvectionHeater portableElectricConvectionHeater = new PortableElectricConvectionHeater(new PortableElectricConvectionHeaterSpec());
+        PortableElectricConvectionHeater portableElectricConvectionHeater1 = new PortableElectricConvectionHeater(new PortableElectricConvectionHeaterSpec());
 
-        // Act
+        portableElectricConvectionHeater.setName("PortableElectricConvectionHeater1");
+        portableElectricConvectionHeater1.setName("PortableElectricConvectionHeater2");
 
-        Object actualResult1 = validHeater.getAttributeValue("Nonexistent");
-        List<String> actualResult2 = validHeater.getAttributeNames();
-        Object actualResult3 = validHeater.getAttributeUnit("Nonexistent");
-        boolean actualResult4 = validHeater.setAttributeValue("Nonexistent", 20D);
+        boolean actualResult1 = validHeater.equals(portableElectricConvectionHeater);
+        boolean actualResult2 = validHeater.equals(portableElectricConvectionHeater1);
+        boolean actualResult3 = validHeater.equals(20D); // Necessary for Sonarqube testing
+        boolean actualResult4 = validHeater.equals(validHeater); // Necessary for Sonarqube testing
+        boolean actualResult5 = validHeater.equals(null); // Necessary for Sonarqube testing
 
-        // Assert
-
-        Assert.assertEquals(expectedResult1, actualResult1);
-        Assert.assertEquals(expectedResult2, actualResult2);
-        Assert.assertEquals(false, actualResult3);
-        Assert.assertFalse(actualResult4);
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertTrue(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test

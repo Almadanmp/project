@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
@@ -154,5 +155,27 @@ public class HouseMonitoringController {
         }
         return closestSensor.getHighestAmplitudeInDate(date);
     }
+
+    /**
+     * This is a shared methods between many User stories and it checks
+     * if the House has its Mother Area defined and if that Mother Area has
+     * a valid SensorList
+     * @param house - house to get Mother Area from
+     * @return true in case both conditions are met
+     */
+
+    public boolean isMotherAreaValid(House house) {
+        UtilsUI utils = new UtilsUI();
+        if (house.isMotherAreaNull()) {
+            System.out.println(utils.invalidMotherArea);
+            return false;
+        }
+        if (!house.getMotherArea().isSensorListValid()) {
+            System.out.println(utils.invalidSensorList);
+            return false;
+        }
+        return true;
+    }
+
 }
 
