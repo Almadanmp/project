@@ -127,6 +127,7 @@ class HouseConfigurationControllerTest {
 
         assertEquals(validHouse.getAddress(),new Address("Rua do ISEP","4400","City"));
     }
+
     @Test
     void seeIfSetHouseLocal() {
         //Act

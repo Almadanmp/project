@@ -1,10 +1,8 @@
 package pt.ipp.isep.dei.project.model.device;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.EnergyGridList;
-import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -30,8 +28,8 @@ class FridgeTest {
         validFridge.setName("FridgeOne");
         validFridge.setNominalPower(12.0);
         validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 34);
-        validLog = new Log(1, new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime(),
-                new GregorianCalendar(2019, Calendar.FEBRUARY, 1).getTime());
+        validLog = new Log(1, new GregorianCalendar(2018, Calendar.FEBRUARY, 1).getTime(),
+                new GregorianCalendar(2018, Calendar.FEBRUARY, 1).getTime());
         validFridge.addLog(validLog);
     }
 
@@ -361,9 +359,9 @@ class FridgeTest {
 
         // Interval
 
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+        Date initialTime = new GregorianCalendar(2018, Calendar.JANUARY, 20, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+        Date finalTime = new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 11, 0,
                 0).getTime();
 
         // Act
@@ -414,9 +412,9 @@ class FridgeTest {
 
         // Interval
 
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+        Date initialTime = new GregorianCalendar(2018, Calendar.JANUARY, 20, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+        Date finalTime = new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 11, 0,
                 0).getTime();
 
         // Act
