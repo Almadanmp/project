@@ -6,11 +6,16 @@ import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * WaterHeater device tests class.
@@ -82,6 +87,31 @@ class WaterHeaterTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfSetNominalPowerWorksHappyCase() {
+        validHeater.setNominalPower(12D);
+        double expectedResult = 12;
+
+        double result = validHeater.getNominalPower();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfSetNominalPowerWorksNegative() {
+        assertThrows(IllegalArgumentException.class,
+                () -> validHeater.setNominalPower(-20));
+    }
+
+    @Test
+    void seeIfSetNominalPowerWorksIfZero() {
+        validHeater.setNominalPower(0D);
+        double expectedResult = 0.0;
+
+        double result = validHeater.getNominalPower();
+
+        assertEquals(expectedResult, result);
+    }
 
     @Test
     void seeIfGetConsumptionWorksZero() {
@@ -290,6 +320,50 @@ class WaterHeaterTest {
         assertEquals(expectedResult, result);
     }
 
+
+    @Test
+    void seeIfDeactivateWorks() {
+        // Act
+
+        boolean actualResult1 = validHeater.deactivate(); // Deactivates device.
+        boolean actualResult2 = validHeater.deactivate(); // Fails to deactivate because device was already deactivated.
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
+
+    @Test
+    void seeIfAddLogWorks() {
+
+        //Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date startInterval = new Date();
+        Date endInterval = new Date();
+
+        try {
+            startInterval = validSdf.parse("11/01/2018 10:00:00");
+            endInterval = validSdf.parse("11/02/2018 10:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log log1 = new Log(20D, startInterval, endInterval);
+
+        //Act
+
+        boolean actualResult1 = validHeater.addLog(log1);
+        boolean actualResult2 = validHeater.addLog(log1);
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+    }
+
     @Test
     void seeIfAddLogWorksDuplicate() {
         //Arrange
@@ -305,44 +379,31 @@ class WaterHeaterTest {
     }
 
     @Test
-    void seeIfDeactivateWorks() {
-        // Act
+    void seeIfAddLogWorksWhenDeviceIsDeactivated() {
 
-        boolean actualResult1 = validHeater.deactivate(); // Deactivates device.
-        boolean actualResult2 = validHeater.deactivate(); // Fails to deactivate because device was already deactivated.
+        //Arrange
 
-        // Assert
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date startInterval = new Date();
+        Date endInterval = new Date();
 
-        assertTrue(actualResult1);
-        assertFalse(actualResult2);
-    }
+        try {
+            startInterval = validSdf.parse("11/01/2018 10:00:00");
+            endInterval = validSdf.parse("11/02/2018 10:00:00");
 
-    @Test
-    void seeIfAddLogWorksDeactivatedDevice() {
-        // Act
-
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log log1 = new Log(20D, startInterval, endInterval);
         validHeater.deactivate();
-        boolean result = validHeater.addLog(validLog);
+
+        //Act
+
+        boolean actualResult1 = validHeater.addLog(log1);
 
         //Assert
 
-        assertFalse(result);
-    }
-
-
-    @Test
-    void seeIfAddLogWorks() {
-        // Arrange
-
-        validHeater = new WaterHeater(new WaterHeaterSpec());
-
-        // Act
-
-        boolean result = validHeater.addLog(validLog);
-
-        // Assert
-
-        assertTrue(result);
+        assertFalse(actualResult1);
     }
 
     @Test

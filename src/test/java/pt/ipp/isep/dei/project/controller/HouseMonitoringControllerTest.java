@@ -64,9 +64,10 @@ class HouseMonitoringControllerTest {
                 200, new Local(45, 30, 30));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
         Room validRoom1 = new Room("Bedroom", 2, 15, 15, 10);
         RoomList validRoomList = new RoomList();
@@ -593,9 +594,10 @@ class HouseMonitoringControllerTest {
         // Arrange
         House house = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
+        house.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         SensorList sList = new SensorList();
         RoomList roomL = new RoomList();
         house.setRoomList(roomL);

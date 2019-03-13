@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
@@ -43,7 +44,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS101(house);
+                    runUS101(house, list);
                     activeInput = false;
                     break;
                 case 4:
@@ -67,10 +68,11 @@ class HouseConfigurationUI {
 
     /**
      * As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
+     *
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15(GeographicAreaList list){
+    private void runUS15(GeographicAreaList list) {
         InputUtils input = new InputUtils();
         String filePath = input.getInputPath();
         JSONReader reader = new JSONReader();
@@ -81,11 +83,12 @@ class HouseConfigurationUI {
     /**
      * Transfer changes from the US to model: Calls the controller to add
      * geographic areas from reading the file to program's list of geographic areas.
+     *
      * @param fileAreas is an array of all the Geographic Area DTOs created upon reading the .json file.
-     * @param list is the static list of the program's Geographic Areas.
+     * @param list      is the static list of the program's Geographic Areas.
      */
 
-    private void updateModel(GeographicAreaDTO[] fileAreas, GeographicAreaList list){
+    private void updateModel(GeographicAreaDTO[] fileAreas, GeographicAreaList list) {
         controller.addGeoAreasToList(fileAreas, list);
     }
 
@@ -95,19 +98,23 @@ class HouseConfigurationUI {
 
     /**
      * As an Administrator, I want to import geographical areas sensors’ readings into the application
-     *      from a CSV file.
+     * from a CSV file.
+     *
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
-    private void runUS20(GeographicAreaList list){
+    private void runUS20(GeographicAreaList list) {
         CSVReader reader = new CSVReader();
         reader.readAndSet(list);
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 
-      private void runUS101(House house) {
+    private void runUS101(House house, GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("First select the geographic area where this house is located.");
+        GeographicArea motherArea = inputUtils.getGeographicAreaByList(geographicAreaList);
 
         // get house address
         System.out.print("Please, type the street where the house is located: ");
@@ -123,18 +130,19 @@ class HouseConfigurationUI {
 
         //get latitude
         System.out.print("Please, type the latitude: ");
-          double houseLat = inputUtils.getInputAsDouble();
+        double houseLat = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the longitude: ");
-          double houseLon = inputUtils.getInputAsDouble();
+        double houseLon = inputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-          double houseAlt = inputUtils.getInputAsDouble();
+        double houseAlt = inputUtils.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
         controller.setHouseAddress(street, zip, town, house);
+        controller.setHouseMotherArea(house, motherArea);
 
         String houseId = controller.getHouseName(house);
         System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Street: " +

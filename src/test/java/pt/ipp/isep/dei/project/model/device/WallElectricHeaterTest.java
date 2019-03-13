@@ -11,6 +11,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Lamp Device tests class.
@@ -154,24 +156,25 @@ class WallElectricHeaterTest {
     }
 
     @Test
-    void seeEqualsConditions(){
-        // Arrange
+    void seeIfEqualsWorks() {
 
-        WallElectricHeater sameObject = validHeater;
-        WallElectricHeater differentHeater = new WallElectricHeater(new WallElectricHeaterSpec());
-        differentHeater.setName("Different Heater");
+        WallElectricHeater wEH = new WallElectricHeater(new WallElectricHeaterSpec());
+        WallElectricHeater wEH2 = new WallElectricHeater(new WallElectricHeaterSpec());
 
-        // Act
+        wEH.setName("WallElectricHeater1");
+        wEH2.setName("WallElectricHeater2");
 
-        boolean actualResult1 = validHeater.equals(sameObject); // Necessary for Sonarqube testing purposes
-        boolean actualResult2 = validHeater.equals(null); // Necessary for Sonarqube testing purposes
-        boolean actualResult3 = validHeater.equals(differentHeater);
+        boolean actualResult1 = validHeater.equals(wEH);
+        boolean actualResult2 = validHeater.equals(wEH2);
+        boolean actualResult3 = validHeater.equals(20D); // Necessary for Sonarqube testing
+        boolean actualResult4 = validHeater.equals(validHeater); // Necessary for Sonarqube testing
+        boolean actualResult5 = validHeater.equals(null); // Necessary for Sonarqube testing
 
-        // Assert
-
-        assertTrue(actualResult1);
+        assertFalse(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);
+        assertTrue(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test

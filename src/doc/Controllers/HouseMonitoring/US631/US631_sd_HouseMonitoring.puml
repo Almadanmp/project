@@ -71,7 +71,7 @@ deactivate ":ReadingList"
 deactivate ":Sensor"
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
-
+":HouseMonitoringController" --> ":HouseMonitoringUI": return date
 deactivate ":HouseMonitoringController"
 activate ":HouseMonitoringUI"
 

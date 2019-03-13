@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
-import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT;
+import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
@@ -307,7 +307,7 @@ class RoomConfigurationControllerTest {
     void createDevice() {
         // Act
 
-        Device actualResult = controller.createDevice(new FridgeDT());
+        Device actualResult = controller.createDevice(new FridgeType());
 
         // Assert
 
@@ -425,14 +425,15 @@ class RoomConfigurationControllerTest {
     @Test
     void deviceListSize() {
         //Arrange
-        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
         validHouse.addRoom(emptyDeviceList);
         Mapper mapper = new Mapper();
@@ -447,14 +448,15 @@ class RoomConfigurationControllerTest {
 
     @Test
     void see(){
-        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         Room validRoom = new Room("Bedroom", 2, 30, 40, 10);
         Device validDevice = new WaterHeater(new WaterHeaterSpec());
         validRoom.addDevice(validDevice);

@@ -215,7 +215,7 @@ public class Kettler implements Device, Metered {
     double dTemperature() {
         double coldWaterTemperature = (double) this.kettlerSpec.getAttributeValue(KettlerSpec.COLD_WATER_TEMP);
 
-        if (coldWaterTemperature >= 100) {
+        if (coldWaterTemperature > 99.0) {
             return 0;
         }
         return 100.0 - coldWaterTemperature;

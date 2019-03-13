@@ -21,7 +21,7 @@ import static org.testng.Assert.assertTrue;
 public class UtilsUITest {
 
     // Common artifacts for testing in this class.
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
 
     @Test
@@ -63,7 +63,8 @@ public class UtilsUITest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), 60, 180, deviceTypeString);
+        house.setMotherArea(ga);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.houseRoomListIsValid(house);
@@ -79,7 +80,8 @@ public class UtilsUITest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
+        House house = new House("Casa de praia", address, new Local(4, 6, 5), 60, 180, deviceTypeString);
+        house.setMotherArea(ga);
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -103,9 +105,10 @@ public class UtilsUITest {
         Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20),  60,
                 180, new ArrayList<>());
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = mapper.roomToDTO(room1);
 
@@ -128,9 +131,10 @@ public class UtilsUITest {
         Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = mapper.roomToDTO(room1);
         UtilsUI utilsUI = new UtilsUI();
@@ -292,36 +296,6 @@ public class UtilsUITest {
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.geographicAreaSensorListIsValid(geographicArea);
-        //ASSERT
-        assertFalse(result1);
-    }
-
-    @Test
-    public void houseMotherAreaIsValid() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.houseMotherAreaIsValid(house);
-        //ASSERT
-        assertTrue(result1);
-    }
-
-    @Test
-    public void houseMotherAreaIsInvalid() {
-        GeographicArea ga = new GeographicArea("Portugal", new TypeArea("País"), 10, 20, new Local(16, 17, 18));
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
-        House house = new House("Casa de praia", address, new Local(4, 6, 5), ga, 60, 180, deviceTypeString);
-        GeographicArea ga1 = null;
-        house.setMotherArea(ga1);
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.houseMotherAreaIsValid(house);
         //ASSERT
         assertFalse(result1);
     }

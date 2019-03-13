@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT;
-import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
+
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
@@ -21,7 +22,7 @@ class HouseTest {
 
     // Common artifacts for testing in this class.
 
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeDT";
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private House validHouse;
     private GeographicArea validArea;
     private Sensor firstValidSensor;
@@ -34,9 +35,10 @@ class HouseTest {
                 new Local(20, 12, 33));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
         firstValidSensor = new Sensor("RF12345","tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
         Sensor secondValidSensor = new Sensor("RF17745","rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
@@ -110,9 +112,10 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
 
         // Act
 
@@ -142,9 +145,10 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20), new GeographicArea("Porto", new TypeArea("Cidade"),
-                2, 3, new Local(4, 4, 100)), 60,
+                new Local(20, 20, 20), 60,
                 180, deviceTypeString);
+        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
 
         // Act
 
@@ -430,9 +434,10 @@ class HouseTest {
         // Arrange
 
         House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock"),
-                new Local(4, 5, 50), new GeographicArea("Mock", new TypeArea("Mock"),
-                60, 180, new Local(30, 40, 30)), 20,
+                new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
+        testHouse.setMotherArea(new GeographicArea("Mock", new TypeArea("Mock"),
+                60, 180, new Local(30, 40, 30)));
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -449,8 +454,8 @@ class HouseTest {
         // Arrange
 
         List<String> deviceTypePaths = new ArrayList<>();
-        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherDT");
-        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterDT");
+        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType");
+        deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType");
 
         // Act
 
@@ -460,8 +465,8 @@ class HouseTest {
         // Assert
 
         assertEquals(deviceTypeList.size(), 2);
-        assertTrue(deviceTypeList.get(0) instanceof DishwasherDT);
-        assertTrue(deviceTypeList.get(1) instanceof WaterHeaterDT);
+        assertTrue(deviceTypeList.get(0) instanceof DishwasherType);
+        assertTrue(deviceTypeList.get(1) instanceof WaterHeaterType);
     }
 
     @Test

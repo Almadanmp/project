@@ -53,6 +53,14 @@ class TvSpecTest {
     }
 
     @Test
+    void seeIfSetAttributeValueWorksWithInvalidAttributeName() {
+        boolean actualResult1 = tvSpec.setAttributeValue("FakeAttribute", 22D);
+
+        assertFalse(actualResult1);
+    }
+
+
+    @Test
     void seeIfGetAttributeUnitWorks() {
 
         Object actualResult1 = tvSpec.getAttributeUnit(TvSpec.STANDBY_POWER);
