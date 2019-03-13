@@ -606,7 +606,7 @@ class HouseMonitoringControllerTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(house, validDate01, validDate02));
         // Assert
-        assertEquals("Warning: No temperature readings available in given period.",
+        assertEquals("No readings available.",
                 exception.getMessage());
     }
 
