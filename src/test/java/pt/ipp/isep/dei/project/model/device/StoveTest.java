@@ -109,16 +109,11 @@ class StoveTest {
     }
 
     @Test
-    void seeIfGetNominalPowerWorks() {
-        // Arrange
-
-        double expectedResult = 150;
-
-        // Act
+    void seeIfSetNominalPowerWorksHappyCase() {
+        validStove.setNominalPower(12D);
+        double expectedResult = 12;
 
         double result = validStove.getNominalPower();
-
-        // Assert
 
         assertEquals(expectedResult, result);
     }
@@ -127,6 +122,16 @@ class StoveTest {
     void seeIfSetNominalPowerWorksNegative() {
         assertThrows(IllegalArgumentException.class,
                 () -> validStove.setNominalPower(-20));
+    }
+
+    @Test
+    void seeIfSetNominalPowerWorksIfZero() {
+        validStove.setNominalPower(0D);
+        double expectedResult = 0.0;
+
+        double result = validStove.getNominalPower();
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
