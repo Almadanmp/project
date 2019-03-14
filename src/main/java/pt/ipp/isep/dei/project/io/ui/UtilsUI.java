@@ -149,7 +149,8 @@ public class UtilsUI {
     }
     // End of methods for printBox
 
-    public static void printMessage(String string){
+    public static String printMessage(String string) {
         System.out.println(string);
+        return string;
     }
 }

@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class UtilsUITest {
 
@@ -298,5 +297,37 @@ public class UtilsUITest {
         boolean result1 = utilsUI.geographicAreaSensorListIsValid(geographicArea);
         //ASSERT
         assertFalse(result1);
+    }
+
+    @Test
+    void seeIfPrintMessageWorks() {
+
+        //Arrange
+
+        String expectedResult = "test";
+
+        // Act
+
+        String actualResult = UtilsUI.printMessage("test");
+
+        //Assert
+
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfPrintMessageFails() {
+
+        //Arrange
+
+        String expectedResult = "test";
+
+        // Act
+
+        String actualResult = UtilsUI.printMessage("test2");
+
+        //Assert
+
+        assertNotEquals(expectedResult,actualResult);
     }
 }
