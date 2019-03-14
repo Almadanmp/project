@@ -174,25 +174,18 @@ class FridgeSpecTest {
 
         assertEquals(0, validFridgeSpec.getAttributeUnit(""));
     }
+
     @Test
-    void seeIfGetAttributeValueUnitWorks() {
+    void seeIfGetAttributeValueUnitWorks1() {
         // Happy Cases
 
         validFridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 5D);
         validFridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 5D);
         validFridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 5D);
 
-        validFridgeSpec.setAttributeValue("Freezer Capacity", 5D);
-        validFridgeSpec.setAttributeValue("Refrigerator Capacity", 5D);
-        validFridgeSpec.setAttributeValue("Annual Energy Consumption", 5D);
-
         assertEquals(5.0, validFridgeSpec.getAttributeValue(FridgeSpec.FREEZER_CAPACITY));
         assertEquals(5.0, validFridgeSpec.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY));
         assertEquals(5.0, validFridgeSpec.getAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION));
-
-        assertEquals(5.0, validFridgeSpec.getAttributeValue("Freezer Capacity"));
-        assertEquals(5.0, validFridgeSpec.getAttributeValue("Refrigerator Capacity"));
-        assertEquals(5.0, validFridgeSpec.getAttributeValue("Annual Energy Consumption"));
 
         assertEquals("Kg", validFridgeSpec.getAttributeUnit("Freezer Capacity"));
         assertEquals("Kg", validFridgeSpec.getAttributeUnit("Refrigerator Capacity"));
@@ -235,4 +228,30 @@ class FridgeSpecTest {
         assertFalse(validFridgeSpec.setAttributeValue("\0" + FridgeSpec.ANNUAL_CONSUMPTION, 5D));
 
     }
+
+    @Test
+    void seeIfGetAttributeValueUnitWorks() {
+        //Arrange
+
+        validFridgeSpec.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 10D);
+        validFridgeSpec.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 10D);
+        validFridgeSpec.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 10D);
+
+        // Assert
+
+        assertEquals(10D, validFridgeSpec.getAttributeValue(FridgeSpec.FREEZER_CAPACITY));
+        assertEquals(10D, validFridgeSpec.getAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY));
+        assertEquals(10D, validFridgeSpec.getAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION));
+    }
+
+    @Test
+    void seeIfGetAttributeValueUnitWorksWithWrongStrings() {
+        // Assert
+
+        assertEquals(0, validFridgeSpec.getAttributeValue(""));
+        assertEquals(0, validFridgeSpec.getAttributeValue("\0" + FridgeSpec.FREEZER_CAPACITY));
+        assertEquals(0, validFridgeSpec.getAttributeValue("\0" + FridgeSpec.REFRIGERATOR_CAPACITY));
+        assertEquals(0, validFridgeSpec.getAttributeValue("\0" + FridgeSpec.ANNUAL_CONSUMPTION));
+    }
+
 }
