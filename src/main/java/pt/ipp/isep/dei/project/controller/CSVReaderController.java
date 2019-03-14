@@ -29,22 +29,21 @@ public class CSVReaderController {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
-        if (fullSensorList.isEmpty() || geographicAreaList.isEmpty()) {
-            UtilsUI.printMessage("Please add a sensor first.");
-            return;
-        }
-        try {
-            Logger logger = Logger.getLogger(CSVReaderController.class.getName());
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler("./resources/logs/logOut.log");
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(myFormat);
-            for (String[] readings : list) {
-                parseAndLog(readings, logger, fullSensorList);
+        if (!fullSensorList.isEmpty() &&  !geographicAreaList.isEmpty()) {
+            try {
+                Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+                CustomFormatter myFormat = new CustomFormatter();
+                FileHandler fileHandler = new FileHandler("./resources/logs/logOut.log");
+                logger.addHandler(fileHandler);
+                fileHandler.setFormatter(myFormat);
+                for (String[] readings : list) {
+                    parseAndLog(readings, logger, fullSensorList);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        UtilsUI.printMessage("Please add a sensor first.");
     }
 
     // ACCESSORY METHODS
