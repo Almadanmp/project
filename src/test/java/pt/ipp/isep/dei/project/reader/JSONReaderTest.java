@@ -34,9 +34,9 @@ class JSONReaderTest {
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLatitudeGeoAreaDTO(41.178553);
-        firstArea.setLongitudeGeoAreaDTO(-8.608035);
-        firstArea.setAltitudeGeoAreaDTO(111);
+        firstArea.setLatitude(41.178553);
+        firstArea.setLongitude(-8.608035);
+        firstArea.setAltitude(111);
 
         // First Sensor in First Area
 
@@ -72,9 +72,9 @@ class JSONReaderTest {
         secondArea.setTypeArea("city");
         secondArea.setWidth(10.09);
         secondArea.setLength(3.30);
-        secondArea.setLatitudeGeoAreaDTO(41.149935);
-        secondArea.setLongitudeGeoAreaDTO(-8.610857);
-        secondArea.setAltitudeGeoAreaDTO(118);
+        secondArea.setLatitude(41.149935);
+        secondArea.setLongitude(-8.610857);
+        secondArea.setAltitude(118);
 
         // First Sensor in Second Area
 
