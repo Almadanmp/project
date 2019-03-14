@@ -133,7 +133,7 @@ public class WaterHeater implements Device, Metered {
         double coldWaterTemperature = (double) deviceSpecs.getAttributeValue("Cold Water Temperature");
         double hotWaterTemperature = (double) deviceSpecs.getAttributeValue("Hot Water Temperature");
         double dTQuotient = hotWaterTemperature - coldWaterTemperature;
-        if (dTQuotient < 1) {
+        if (dTQuotient <= 0) {
             return 0;
         }
         return dTQuotient;
