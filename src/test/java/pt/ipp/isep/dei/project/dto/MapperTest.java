@@ -97,18 +97,44 @@ import static org.testng.Assert.*;
          assertTrue(resultDTO instanceof GeographicAreaDTO);
      }
 
-    @Test
-    void seeIfUpdateHouseRoom(){
-        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
-                new Local(20, 20, 20), 60,
-                180, deviceTypeString);
-        Room result = mapper.updateHouseRoom(null,validHouse);
+     @Test
+     void seeIfAddSensorDTOWorksWithoutSensors(){
+         //Act
+         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
 
-        assertNull(result);
-    }
+         //Assert
+         assertTrue(resultDTO instanceof GeographicAreaDTO);
+     }
+
+     @Test
+     void seeIfUpdateHouseRoom(){
+         String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+         List<String> deviceTypeString = new ArrayList<>();
+         deviceTypeString.add(PATH_TO_FRIDGE);
+         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                 "4455-125", "Porto"),
+                 new Local(20, 20, 20), 60,
+                 180, deviceTypeString);
+         Room result = mapper.updateHouseRoom(null,validHouse);
+
+         assertNull(result);
+     }
+
+     @Test
+     void seeIfUpdateHouseRoomWorks(){
+         String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+         List<String> deviceTypeString = new ArrayList<>();
+         deviceTypeString.add(PATH_TO_FRIDGE);
+         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                 "4455-125", "Porto"),
+                 new Local(20, 20, 20), 60,
+                 180, deviceTypeString);
+         Room room1 = new Room("quarto da maria",2,50,50,2);
+         validHouse.addRoom(room1);
+         RoomDTO roomDTO = mapper.roomToDTO(room1);
+         Room result = mapper.updateHouseRoom(roomDTO,validHouse);
+
+         assertEquals(room1,result);
+     }
 
 }
