@@ -153,8 +153,8 @@ class GASettingsUI {
         double geoAreaLat = readInputNumber("Latitude");
         double geoAreaLong = readInputNumber("Longitude");
         double geoAreaAlt = readInputNumber("Altitude");
-        double geoAreaLength = readInputNumber("Length"); //TODO Daniela: para Length e Width o getInput deverá apenas aceitar valores >0 (método existe em InputUtils)
-        double geoAreaWidth = readInputNumber("Width");
+        double geoAreaLength = readInputPositiveNumber("Length");
+        double geoAreaWidth = readInputPositiveNumber("Width");
         String geoAreDescription = null;
         if (inputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
@@ -201,6 +201,12 @@ class GASettingsUI {
         InputUtils inputUtils = new InputUtils();
         System.out.print(createInputMsg(inputType));
         return inputUtils.getInputAsDouble();
+    }
+
+    private double readInputPositiveNumber(String inputType) {
+        InputUtils inputUtils = new InputUtils();
+        System.out.print(createInputMsg(inputType));
+        return inputUtils.getInputAsDoublePositive();
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
