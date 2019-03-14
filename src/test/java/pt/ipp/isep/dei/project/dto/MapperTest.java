@@ -13,15 +13,17 @@ import java.util.UUID;
 
 import static org.testng.Assert.*;
 
-public class MapperTest {
+ class MapperTest {
 
-    private GeographicArea geoArea;
+     private GeographicArea geoArea;
+     private GeographicArea geoAreaWithSensors;
     private Mapper mapper;
     private Sensor sensor;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @BeforeEach
     void arrangeArtifacts() {
+
         geoArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
                 new Local(50, 50, 10));
         mapper = new Mapper();
@@ -33,11 +35,13 @@ public class MapperTest {
         }
         sensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(31, 15, 3), date);
-
+        geoAreaWithSensors = new GeographicArea("Espanha", new TypeArea("Country"), 300, 200,
+                new Local(50, 50, 10));
+        geoAreaWithSensors.addSensor(sensor);
     }
 
     @Test
-    public void seeIfCreateDTOFromGA() {
+     void seeIfCreateDTOFromGA() {
         // Act
         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
         GeographicArea result = mapper.geographicAreaDTOToObject(resultDTO);
@@ -46,12 +50,10 @@ public class MapperTest {
         // Assert
         assertTrue(resultDTO instanceof GeographicAreaDTO);
         assertTrue(result instanceof GeographicArea);
-
-
     }
 
     @Test
-    public void seeIfCreateDTOFromSensor() {
+     void seeIfCreateDTOFromSensor() {
 
         //Act
         SensorDTO resultDTO = mapper.sensorToDTO(sensor);
@@ -74,17 +76,26 @@ public class MapperTest {
         assertTrue(sensorDTO.getUniqueID() instanceof UUID);
     }
 
-    @Test
-    void seeIfAddSensorDTOWorks(){
-        //Act
-        GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
-        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
+     @Test
+     void seeIfAddSensorDTOWorks(){
+         //Act
+         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
+         SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
 
-        resultDTO.addSensorDTO(sensorDTO);
+         resultDTO.addSensorDTO(sensorDTO);
 
-        //Assert
-        assertTrue(resultDTO instanceof GeographicAreaDTO);
-    }
+         //Assert
+         assertTrue(resultDTO instanceof GeographicAreaDTO);
+     }
+
+     @Test
+     void seeIfAddSensorDTOWorksWithSensors(){
+         //Act
+         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoAreaWithSensors);
+
+         //Assert
+         assertTrue(resultDTO instanceof GeographicAreaDTO);
+     }
 
     @Test
     void seeIfUpdateHouseRoom(){
