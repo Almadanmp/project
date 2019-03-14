@@ -249,9 +249,9 @@ class WaterHeaterSpecTest {
 
         assertEquals(5.0, validHeaterSpec.getAttributeValue("Volume Of Water"));
         assertEquals(5.0, validHeaterSpec.getAttributeValue("Hot Water Temperature"));
-        assertEquals(0.0, validHeaterSpec.getAttributeValue("Cold Water Temperature"));
+        assertEquals(5.0, validHeaterSpec.getAttributeValue("Cold Water Temperature"));
         assertEquals(5.0, validHeaterSpec.getAttributeValue("Performance Ratio"));
-        assertEquals(0.0, validHeaterSpec.getAttributeValue("Volume Of Water To Heat"));
+        assertEquals(5.0, validHeaterSpec.getAttributeValue("Volume Of Water To Heat"));
 
         // Wrong attribute Names.
 
