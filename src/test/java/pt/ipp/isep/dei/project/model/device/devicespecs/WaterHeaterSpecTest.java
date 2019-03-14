@@ -296,12 +296,21 @@ class WaterHeaterSpecTest {
     void seeIfGetAttributeUnitWorkFails() {
 
         // Wrong attribute Names
-        Object result1 = validHeaterSpec.getAttributeUnit("Fake");
-        Object result2 = validHeaterSpec.getAttributeUnit("");
-        Object result3 = validHeaterSpec.getAttributeUnit(" ");
+        Object result1 = validHeaterSpec.getAttributeUnit("\0" + WaterHeaterSpec.HOT_WATER_TEMP);
+        Object result2 = validHeaterSpec.getAttributeUnit("\0" + WaterHeaterSpec.PERFORMANCE_RATIO);
+        Object result3 = validHeaterSpec.getAttributeUnit("\0" + WaterHeaterSpec.VOLUME_OF_WATER);
+        Object result4 = validHeaterSpec.getAttributeUnit("\0" + WaterHeaterSpec.COLD_WATER_TEMP);
+        Object result5 = validHeaterSpec.getAttributeUnit("\0" + WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
+        Object result6 = validHeaterSpec.getAttributeUnit("");
+        Object result7 = validHeaterSpec.getAttributeUnit(" ");
 
         assertEquals(false, result1);
         assertEquals(false, result2);
         assertEquals(false, result3);
+        assertEquals(false, result4);
+        assertEquals(false, result5);
+        assertEquals(false, result6);
+        assertEquals(false, result7);
+
     }
 }
