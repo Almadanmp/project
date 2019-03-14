@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
@@ -22,7 +23,8 @@ class JSONReaderTest {
     void seeIfReadFileWorks(){
         // Arrange
 
-        GeographicAreaDTO[] expectedResult = new GeographicAreaDTO[2];
+        GeographicArea[] expectedResult = new GeographicArea[2];
+        Mapper mapper = new Mapper();
 
         // First Area
 
@@ -102,8 +104,10 @@ class JSONReaderTest {
 
         // Populate expectedResult array
 
-        expectedResult[0] = firstArea;
-        expectedResult[1] = secondArea;
+        GeographicArea areaOne = mapper.createGeographicAreaFromDTO(firstArea);
+        GeographicArea areaTwo = mapper.createGeographicAreaFromDTO(secondArea);
+        expectedResult[0] = areaOne;
+        expectedResult[1] = areaTwo;
 
         // Act
 
