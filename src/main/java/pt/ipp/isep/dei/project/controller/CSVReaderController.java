@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
@@ -25,10 +26,10 @@ public class CSVReaderController {
      */
     public String startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please insert the location of the CSV file");
+        UtilsUI.printMessage("Please insert the location of the CSV file");
         String csvFileLocation = scanner.next();
         while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
-            System.out.println("Please enter a valid location");
+            UtilsUI.printMessage("Please enter a valid location");
             csvFileLocation = scanner.next();
 
         }
@@ -48,7 +49,7 @@ public class CSVReaderController {
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
         if (fullSensorList.isEmpty() || geographicAreaList.isEmpty()) {
-            System.out.println("Please add a sensor first.");
+            UtilsUI.printMessage("Please add a sensor first.");
             return;
         }
         try {
@@ -117,7 +118,7 @@ public class CSVReaderController {
                     }
                 }
             } catch (NumberFormatException nfe) {
-                System.out.println("The reading values are not numeric.");
+                UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
             } catch (ParseException c) {
                 // System.out.println("The date format is not valid.");

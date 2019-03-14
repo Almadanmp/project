@@ -34,7 +34,7 @@ public class JSONReader {
             geographicAreasArray = readGeoAreas(geoAreas);
             return geographicAreasArray;
         } catch (FileNotFoundException e) {
-            System.out.println("The file wasn't found.");
+            UtilsUI.printMessage("The file wasn't found.");
         }
         return new GeographicArea[0];
     }

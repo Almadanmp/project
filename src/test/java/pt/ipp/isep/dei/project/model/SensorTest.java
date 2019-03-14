@@ -888,6 +888,86 @@ class SensorTest {
         //Assert
         assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
     }
+
+    @Test
+    void seeIfSensorIsContainedConditionBotVertex() {
+        // Arrange
+
+        Local testLocal = new Local(20, 10, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
+                10, testLocal);
+        Local upperLeftVertex = new Local(25, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsContainedLatBotVertex() {
+        // Arrange
+
+        Local testLocal = new Local(20, 29, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
+                3, testLocal);
+        Local upperLeftVertex = new Local(18, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsContainedLatBotVertexLong() {
+        // Arrange
+
+        Local testLocal = new Local(20, 29, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 6,
+                3, testLocal);
+        Local upperLeftVertex = new Local(18, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsContainedLatBotVertexBotLong() {
+        // Arrange
+
+        Local testLocal = new Local(20, 29, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
+                3, testLocal);
+        Local upperLeftVertex = new Local(18, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
 }
 
 

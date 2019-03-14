@@ -148,4 +148,8 @@ public class UtilsUI {
         return sBuilder.toString();
     }
     // End of methods for printBox
+
+    public static void printMessage(String string){
+        System.out.println(string);
+    }
 }
