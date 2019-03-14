@@ -339,7 +339,6 @@ public class ReadingList {
      * if there is more than one day with the same temperature amplitude, the return will be the most recent day
      * @author Daniela (US633)
      */
-
     Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
 
         ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
@@ -349,9 +348,9 @@ public class ReadingList {
 
         Date dateAmplitude = readingListBetweenDates.get(0).getDate();
 
-        double amplitudeValue = -1000.0;
+        double amplitudeValue = getAmplitudeValueFromDate(dateAmplitude);
 
-        for (int i = 0; i < readingListBetweenDates.size(); i++) {
+        for (int i = 1; i < readingListBetweenDates.size(); i++) {
             Date day = readingListBetweenDates.get(i).getDate();
             double amplitudeTemperature = getAmplitudeValueFromDate(day);
             if (amplitudeValue <= amplitudeTemperature) {
@@ -396,7 +395,7 @@ public class ReadingList {
      * Method that gives the Date with the First Hottest Day Reading in given period
      * It will throw an IllegalArgumentException if there are no available readings between the dates
      * This method runs the array of dates in the given period, storing the first hottest temperature Date,
-     * only overwritting if there's a day with a higher temperature, ensuring the final return will be
+     * only overwriting if there's a day with a higher temperature, ensuring the final return will be
      * the first hottest day in period.
      *
      * @param minDate the lower (min) date for interval comparison
@@ -405,7 +404,7 @@ public class ReadingList {
      * @author Nuno (US631)
      */
 
-    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
@@ -491,7 +490,7 @@ public class ReadingList {
     Reading getAReadingWithSpecificDay(Date date) {
         Reading result = null;
         for (Reading r : this.readings) {
-            if (compareDayMonthAndYearBetweenDates(r.getDate(),date)) {
+            if (compareDayMonthAndYearBetweenDates(r.getDate(), date)) {
                 result = r;
                 break;
             }
@@ -554,7 +553,7 @@ public class ReadingList {
      * @param finalDate   is the final date of the interval.
      * @return a ReadingList that represents the initial ReadingList but only with Readings within the given interval.
      */
-    public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
+    ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
@@ -591,7 +590,7 @@ public class ReadingList {
      *
      * @return a double value that represents the minimum value in a ReadingList.
      */
-    public double getMinValueInReadingList() {
+    double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
         for (Reading r : this.readings) {
             result = Math.min(r.getValue(), result);

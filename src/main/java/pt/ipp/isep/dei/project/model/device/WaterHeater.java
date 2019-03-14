@@ -35,7 +35,7 @@ public class WaterHeater implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        if (nominalPower < 0) {
+        if (nominalPower <=-1) {
             throw new IllegalArgumentException("Invalid nominal power. Number should be positive");
         }
         this.nominalPower = nominalPower;
