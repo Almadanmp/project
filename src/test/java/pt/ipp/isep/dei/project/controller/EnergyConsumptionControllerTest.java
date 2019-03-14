@@ -121,6 +121,28 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
+    void seeIfAddRoomDevicesToDeviceList(){
+        // Arrange
+
+        Room room = new Room("quarto", 10, 2, 5, 4);
+        room.addDevice(validDevice1);
+        room.addDevice(validDevice2);
+        DeviceList actualResult = new DeviceList();
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.add(validDevice1);
+        expectedResult.add(validDevice2);
+
+        // Act
+
+        controller.addRoomDevicesToDeviceList(room, actualResult);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
     void seeIfAddRoomToListWorks() {
 
         //Arrange
