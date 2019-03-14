@@ -90,7 +90,7 @@ public class HouseMonitoringController {
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
-        return Math.floor(closestSensor.getTotalValueReadingsOnGivenDay(day) * 1) / 1;
+        return closestSensor.getTotalValueReadingsOnGivenDay(day);
     }
 
     /**
@@ -152,7 +152,7 @@ public class HouseMonitoringController {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return closestSensor.getHighestAmplitudeInDate(dateInput);
+        return Math.floor(closestSensor.getHighestAmplitudeInDate(dateInput)*10)/10;
     }
 
     /**
