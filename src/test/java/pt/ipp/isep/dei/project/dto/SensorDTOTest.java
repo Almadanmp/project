@@ -1,13 +1,15 @@
 package pt.ipp.isep.dei.project.dto;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 
 public class SensorDTOTest {
 
     @Test
-    public void testEquals() {
+    public void seeIfEqualsWorks() {
         //Arrange
 
         SensorDTO sensorDTO1 = new SensorDTO();
@@ -31,7 +33,7 @@ public class SensorDTOTest {
     }
 
     @Test
-    public void testHashCode() {
+    public void seeIfHashCodeWorks() {
         //Arrange
 
         SensorDTO sensorDTO = new SensorDTO();
