@@ -230,5 +230,9 @@ class FridgeSpecTest {
         assertFalse(validFridgeSpec.setAttributeValue(" ", 5D));
         assertFalse(validFridgeSpec.setAttributeValue(" ", 5D));
 
+        assertFalse(validFridgeSpec.setAttributeValue("\0" + FridgeSpec.FREEZER_CAPACITY, 5D));
+        assertFalse(validFridgeSpec.setAttributeValue("\0" + FridgeSpec.REFRIGERATOR_CAPACITY, 5D));
+        assertFalse(validFridgeSpec.setAttributeValue("\0" + FridgeSpec.ANNUAL_CONSUMPTION, 5D));
+
     }
 }
