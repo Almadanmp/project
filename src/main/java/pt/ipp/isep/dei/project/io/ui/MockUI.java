@@ -29,7 +29,6 @@ class MockUI {
     private GeographicAreaList geoAreaList;
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
-
     private TypeSensor temperatureST;
     private TypeSensor humidityST;
 
@@ -81,9 +80,8 @@ class MockUI {
     }
 
     private GeographicAreaList mockGeographicAreaList() {
-        GeographicAreaList mockGeographicAreaList = new GeographicAreaList();
 
-        return mockGeographicAreaList;
+        return new GeographicAreaList();
     }
 
     House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
