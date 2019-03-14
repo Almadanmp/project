@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Mapper {
     private RoomDTO roomDTO = new RoomDTO();
     private GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
     private SensorDTO sensorDTO = new SensorDTO();
+    private LocalDTO localDTO = new LocalDTO();
 
     /**
      * Method that transforms a model instantiation of Room into a DTO fit to be handled by the UIs.
@@ -139,5 +141,24 @@ public class Mapper {
         }
         sensorObject.setUniqueID(sensorDTO.getUniqueID());
         return sensorObject;
+    }
+
+    public LocalDTO localToDTO(Local local) {
+        localDTO.setLatitude(local.getLatitude());
+        localDTO.setLongitude(local.getLongitude());
+        localDTO.setAltitude(local.getAltitude());
+        localDTO.setId(local.getUniqueId());
+        return localDTO;
+    }
+
+
+    public Local dtoToLocal(LocalDTO localDTO) {
+        double localAltitude = localDTO.getAltitude();
+        double localLatitude = localDTO.getLatitude();
+        double localLongitude = localDTO.getLongitude();
+        UUID localUUID = localDTO.getId();
+        Local local = new Local(localLatitude, localLongitude, localAltitude);
+        local.setUniqueId(localUUID);
+        return local;
     }
 }

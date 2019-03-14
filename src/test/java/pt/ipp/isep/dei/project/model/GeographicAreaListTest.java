@@ -227,8 +227,8 @@ class GeographicAreaListTest {
     void seeIfContainsGAByParametersFalse() {
         // Act
 
-        boolean actualResult = validList.containsObjectMatchesParameters("Lisboa", new TypeArea("City"), 21,
-                30, 40);
+        boolean actualResult = validList.containsObjectMatchesParameters("Lisboa", new TypeArea("City"), new Local(21,
+                30, 40));
 
 
         // Assert
@@ -240,8 +240,8 @@ class GeographicAreaListTest {
     void seeIfContainsGAByParametersTrue() {
         // Act
 
-        boolean actualResult = validList.containsObjectMatchesParameters("Portugal", new TypeArea("Country"), 50,
-                50, 10);
+        boolean actualResult = validList.containsObjectMatchesParameters("Portugal", new TypeArea("Country"), new Local(50,
+                50, 10));
 
 
         // Assert
@@ -257,8 +257,8 @@ class GeographicAreaListTest {
 
         // Act
 
-        boolean actualResult = testList.containsObjectMatchesParameters("Lisboa", new TypeArea("City"), 21,
-                30, 40);
+        boolean actualResult = testList.containsObjectMatchesParameters("Lisboa", new TypeArea("City"), new Local(21,
+                30, 40));
 
 
         // Assert

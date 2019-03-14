@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.model.*;
 
 /**
@@ -66,18 +68,23 @@ public class GASettingsController {
      * @param typeArea   input string for type area
      * @param width      the length of the GA
      * @param length     the length of the GA
-     * @param longitude  the longitude of the GA
-     * @param latitude   the latitude of the GA
-     * @param altitude   the altitude of the GA
+     * @param localDTO  the latitude, longitude and altitude of the GA
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, double latitude, double longitude, double altitude, double length, double width) {
-        if (!(newGeoList.containsObjectMatchesParameters(newName, typeArea, latitude, longitude, altitude))) {
-            GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, latitude, longitude, altitude);
+    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, String newName, TypeArea typeArea, LocalDTO localDTO, double length, double width) {
+        Mapper mapper = new Mapper();
+        if (!(newGeoList.containsObjectMatchesParameters(newName, typeArea, mapper.dtoToLocal(localDTO)))) {
+            GeographicArea geoToAdd = newGeoList.createGA(newName, typeArea, length, width, mapper.dtoToLocal(localDTO));
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
             return false;
         }
+    }
+
+    public LocalDTO createLocal(double latitude, double longitude, double altitude){
+        Local local = new Local(latitude, longitude, altitude);
+        Mapper mapper = new Mapper();
+        return mapper.localToDTO(local);
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
