@@ -13,8 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * House Monitoring - controller Tests
@@ -722,5 +721,24 @@ class HouseMonitoringControllerTest {
         // Assert
         assertEquals("Warning: No temperature readings available in given period.",
                 exception.getMessage());
+    }
+
+    @Test
+    void seeIfIsMotherAreaValidHappyCase(){
+        validHouseArea.setSensorList(validSensorList);
+        assertTrue(controller.isMotherAreaValid(validHouse));
+    }
+
+    @Test
+    void seeIfIsMotherAreaValidNoSensorList(){
+        assertFalse(controller.isMotherAreaValid(validHouse));
+    }
+
+    @Test
+    void seeIfIsMotherAreaValidNoMotherArea(){
+        House invalidHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"), new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+        assertFalse(controller.isMotherAreaValid(invalidHouse));
     }
 }

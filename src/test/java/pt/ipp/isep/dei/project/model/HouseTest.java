@@ -261,6 +261,22 @@ class HouseTest {
     }
 
     @Test
+    void seeIfGetSetHouseLocationWorksAltitude() {
+        // Arrange
+
+        double expectedResult = 70;
+
+        // Act
+
+        validHouse.setLocation(7, 78, 70);
+        double actualResult = validHouse.getAltitude();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetNominalPowerWorks() {
         //Arrange
 
@@ -324,6 +340,19 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfIsMotherAreaNullBothConditions(){
+        // Act
+
+        boolean actualResult1 = validHouse.isMotherAreaNull();
+        validHouse.setMotherArea(null);
+        boolean actualResult2 = validHouse.isMotherAreaNull();
+
+        // Assert
+
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+    }
 
     @Test
     void getHouseDevicesOfGivenType() {
@@ -548,6 +577,23 @@ class HouseTest {
         RoomList expectedResult = new RoomList();
         expectedResult.add(testRoom);
         validHouse.setRoomList(roomList);
+
+        // Act
+
+        RoomList actualResult = validHouse.getRoomList();
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomListWorksNull() {
+        // Arrange
+
+        RoomList expectedResult = new RoomList();
+        validHouse.setRoomList(null);
 
         // Act
 
@@ -796,6 +842,4 @@ class HouseTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-
 }

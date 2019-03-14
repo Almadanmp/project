@@ -35,7 +35,7 @@ public class LampSpec implements DeviceSpecs {
         if (attributeName == null) {
             return false;
         }
-        if (attributeName == FLUX && attributeValue instanceof Double) {
+        if (attributeName.equals(FLUX) && attributeValue instanceof Double) {
             this.luminousFlux = (Double) attributeValue;
             return true;
         }

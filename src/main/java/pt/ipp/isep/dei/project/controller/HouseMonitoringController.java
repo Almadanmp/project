@@ -29,7 +29,7 @@ public class HouseMonitoringController {
 
     public double getCurrentRoomTemperature(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO, house);
+        Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getCurrentRoomTemperature();
     }
 
@@ -42,7 +42,7 @@ public class HouseMonitoringController {
 
     public double getDayMaxTemperature(RoomDTO roomDTO, Date day, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO, house);
+        Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -55,7 +55,7 @@ public class HouseMonitoringController {
      **/
     public String getRoomName(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO, house);
+        Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getRoomName();
     }
 
@@ -90,7 +90,7 @@ public class HouseMonitoringController {
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
-        return Math.floor(closestSensor.getTotalValueReadingsOnGivenDay(day) * 1) / 1;
+        return closestSensor.getTotalValueReadingsOnGivenDay(day);
     }
 
     /**
@@ -152,7 +152,7 @@ public class HouseMonitoringController {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return closestSensor.getHighestAmplitudeInDate(dateInput);
+        return Math.floor(closestSensor.getHighestAmplitudeInDate(dateInput)*10)/10;
     }
 
     /**

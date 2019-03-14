@@ -35,7 +35,7 @@ public class DishwasherSpec implements DeviceSpecs {
         if (attributeName == null) {
             return false;
         }
-        if (attributeName.equals(DW_CAPACITY) && attributeValue instanceof Double) { // TODO see if it can change to equalsIgnoreCase.
+        if (attributeName.equals(DW_CAPACITY) && attributeValue instanceof Double) {
             this.dWCapacity = (Double) attributeValue;
             return true;
         }

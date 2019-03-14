@@ -1,6 +1,6 @@
 @startuml
 
-title Read and Seat
+title Read CSV
 
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3

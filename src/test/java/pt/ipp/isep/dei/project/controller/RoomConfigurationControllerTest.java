@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
+import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.text.ParseException;
@@ -32,6 +33,7 @@ class RoomConfigurationControllerTest {
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
+    private Object attributeUnit;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -42,6 +44,41 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
+    }
+
+    @Test
+    void seeIfGetProgramList() {
+        // Arrange
+        ProgramList pList = new ProgramList();
+        FixedTimeProgram fTProgram = new FixedTimeProgram();
+        pList.add(fTProgram);
+        Dishwasher dish = new Dishwasher(new DishwasherSpec());
+        dish.setProgramList(pList);
+        ProgramList expectedResult = pList;
+        // Act
+        ProgramList actualResult = controller.getProgramList(dish);
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetAttributeUnit() {
+        // Arrange
+        Object expectedResult = "Kg";
+        // Act
+        Object actualResult = controller.getAttributeUnit(validDeviceFridge, 1);
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetAttributeValue() {
+        // Arrange
+        Object expectedResult = 4.0;
+        // Act
+        Object actualResult = controller.getAttributeValue(validDeviceFridge, 1);
+        // Assert
+        assertEquals(actualResult, expectedResult);
     }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total

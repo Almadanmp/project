@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import java.util.UUID;
+
 /**
  * Class that represents the Local of an Object .
  */
@@ -8,6 +10,15 @@ public class Local {
     private double latitude;
     private double longitude;
     private double altitude;
+    private UUID uniqueId;
+
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(UUID uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 
     /**
      * Builder Local(), with all the parameters to define a local.

@@ -126,6 +126,17 @@ class VariableProgramTest {
     }
 
     @Test
+    void seeIfSetAttributeValueWorksWrongNameAndNotDouble() {
+        // Act
+
+        boolean result = validProgramOne.setAttributeValue("Lisbbon", "kjsjjd");
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
     void seeIfSetAttributeValueWorksNotDouble() {
         // Act
 
@@ -173,43 +184,43 @@ class VariableProgramTest {
     }
 
     @Test
-    void seeIfEqualsWorks() {
+    void seeIfEqualsWorksTrue() {
         // Arrange
 
-        Program variableProgram = new VariableTimeProgram("Program", 1.2);
-        variableProgram.setProgramName("Medium Power");
+        Program var = new VariableTimeProgram("Program", 30);
+        var.setProgramName("Medium Power");
 
-        // Assert
-        assertEquals(variableProgram, validVariableTimeProgram);
+        //Assert
+
+        assertEquals(var, validVariableTimeProgram);
     }
 
     @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        Program variableProgram = new VariableTimeProgram("Program", 1.2);
-        variableProgram.setProgramName("Medium Power 2");
+        Program fixedProgram = new FixedTimeProgram("Program", 30, 1.2);
+        fixedProgram.setProgramName("Medium Power 2");
 
         // Assert
 
-        assertNotEquals(variableProgram, validVariableTimeProgram);
+        assertNotEquals(fixedProgram, validVariableTimeProgram);
     }
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(null, validVariableTimeProgram);
+        assertNotEquals(validVariableTimeProgram, null);
     }
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-       assertNotEquals(validVariableTimeProgram, new RoomList());
+        assertNotEquals(validVariableTimeProgram, new RoomList());
     }
 
     @Test
     void seeIfEqualsWorksOnItself() {
         assertEquals(validVariableTimeProgram, validVariableTimeProgram);
     }
-
     @Test
     void hashCodeDummyTest() {
         //Arrange

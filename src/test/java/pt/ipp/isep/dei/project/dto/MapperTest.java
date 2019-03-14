@@ -37,7 +37,7 @@ public class MapperTest {
     public void seeIfCreateDTOFromGA() {
         // Act
         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
-        GeographicArea result = mapper.createGeographicAreaFromDTO(resultDTO);
+        GeographicArea result = mapper.geographicAreaDTOToObject(resultDTO);
 
         // Assert
         assertTrue(resultDTO instanceof GeographicAreaDTO);
