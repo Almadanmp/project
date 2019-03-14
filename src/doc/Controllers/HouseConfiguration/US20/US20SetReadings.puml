@@ -28,13 +28,13 @@ skinparam actor {
 
 
 
--> CSVReader: setCSVReadings(Sensor sensor, Date date, Double value)
-activate CSVReader
-CSVReader -->> Sensor: Date startingDate = sensor.getDateStartedFunctioning();
+-> CSVReaderController: setCSVReadings(Sensor sensor, Date date, Double value)
+activate CSVReaderController
+CSVReaderController -->> Sensor: Date startingDate = sensor.getDateStartedFunctioning();
 alt IF date.after(startingDate) OR date == startingDate
 
-CSVReader -->> Reading: Reading reading = new Reading(value, date);
-CSVReader -> Sensor: addReading(reading);
+CSVReaderController -->> Reading: Reading reading = new Reading(value, date);
+CSVReaderController -> Sensor: addReading(reading);
 
 
 end

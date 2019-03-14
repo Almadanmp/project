@@ -23,28 +23,29 @@ skinparam class {
 
 MainUI -- HouseConfigurationUI : >
 
-HouseConfigurationUI -- CSVReader : >
-CSVReader -- Sensor : >
-CSVReader -- Logger : >
+HouseConfigurationUI -- CSVReaderController : >
+CSVReaderController -- CSVReader : >
+CSVReaderController -- Sensor : >
+CSVReaderController -- Logger : >
 Sensor -- Reading : >
-Logger -- CustomFormatter : <
+Logger -- CustomFormatter : >
 
 class HouseConfigurationUI{
 
 runUS20(GeographicAreaList)
 }
 
-class CSVReader{
-String csvFileLocation;
-
-readAndSet(GeographicAreaList geographicAreaList)
+class CSVReaderController{
+startAndPromptPath()
+readAndSet(GeographicAreaList geographicAreaList, String path)
 setCSVReadings(Sensor sensor, Date date, Double value)
 getSensorData(GeographicAreaList geographicAreaList)
 parseAndLog(String[] readings, Logger logger, SensorList sensorList)
-startAndPromptPath()
 }
 
-
+class CSVReader{
+readCSV(String csvFileLocation)
+}
 
 class Sensor{
 String id

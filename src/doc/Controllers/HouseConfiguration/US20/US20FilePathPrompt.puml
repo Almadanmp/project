@@ -28,14 +28,14 @@ skinparam component {
 
 
 
--> CSVReader: startAndPromptPath()
-activate CSVReader
-CSVReader -->> Scanner: input = new Scanner()
+-> CSVReaderController: startAndPromptPath()
+activate CSVReaderController
+CSVReaderController -->> Scanner: input = new Scanner()
 
 loop While
 
-CSVReader -->> CSVReader: filePath != input.endsWith(".csv")
-CSVReader -->> CSVReader: filePath != !new File(filePath).exists()
+CSVReaderController -->> CSVReaderController: filePath != input.endsWith(".csv")
+CSVReaderController -->> CSVReaderController: filePath != !new File(filePath).exists()
 
 
 end
