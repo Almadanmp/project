@@ -154,20 +154,38 @@ class SensorTest {
     @Test
     void seeIfSeTAndGetReadingList() {
         // Arrange
-
+        ReadingList expectedResult1 = new ReadingList();
+        ReadingList expectedResult2 = new ReadingList();
+        ReadingList emptyList = new ReadingList();
         ReadingList readingList = new ReadingList();
+
         Reading reading1 = new Reading(15, new Date());
+
+        Sensor sensor1 = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor sensor2 = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+
         readingList.addReading(reading1);
+        expectedResult2.addReading(reading1);
+
 
         // Act
 
         validSensor.setReadingList(readingList);
+        sensor1.setReadingList(null);
+        sensor2.setReadingList(emptyList);
+
+
         ReadingList actualResult = validSensor.getReadingList();
+        ReadingList actualResultNull = sensor1.getReadingList();
+        ReadingList actualResultEmpty = sensor2.getReadingList();
 
         // Assert
 
         assertEquals(readingList, actualResult);
+        assertEquals(expectedResult1, actualResultNull);
+        assertEquals(expectedResult1, actualResultEmpty);
     }
+
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {

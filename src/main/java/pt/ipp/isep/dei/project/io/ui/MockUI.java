@@ -29,7 +29,6 @@ class MockUI {
     private GeographicAreaList geoAreaList;
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
-    private GeographicArea geoAreaIsep;
 
     private TypeSensor temperatureST;
     private TypeSensor humidityST;

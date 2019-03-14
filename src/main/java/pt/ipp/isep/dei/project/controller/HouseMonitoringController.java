@@ -17,7 +17,7 @@ import java.util.Date;
 public class HouseMonitoringController {
 
     private static final String RAINFALL = "rainfall";
-    private static final String TEMPERATURE = "Temperature";
+    private static final String TEMPERATURE = "temperature";
 
     /**
      * Returns the current temperature in a given Room.
@@ -90,7 +90,7 @@ public class HouseMonitoringController {
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
         }
-        return closestSensor.getTotalValueReadingsOnGivenDay(day);
+        return Math.floor(closestSensor.getTotalValueReadingsOnGivenDay(day) * 1) / 1;
     }
 
     /**
@@ -159,6 +159,7 @@ public class HouseMonitoringController {
      * This is a shared methods between many User stories and it checks
      * if the House has its Mother Area defined and if that Mother Area has
      * a valid SensorList
+     *
      * @param house - house to get Mother Area from
      * @return true in case both conditions are met
      */
@@ -166,11 +167,11 @@ public class HouseMonitoringController {
     public boolean isMotherAreaValid(House house) {
         UtilsUI utils = new UtilsUI();
         if (house.isMotherAreaNull()) {
-            System.out.println(utils.invalidMotherArea);
+            System.out.println(UtilsUI.INVALID_MOTHER_AREA);
             return false;
         }
-        if (!house.getMotherArea().isSensorListValid()) {
-            System.out.println(utils.invalidSensorList);
+        if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
+            System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return false;
         }
         return true;

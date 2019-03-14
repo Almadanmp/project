@@ -1,29 +1,27 @@
-package pt.ipp.isep.dei.project.reader;
+package pt.ipp.isep.dei.project.controller;
 
-import org.junit.jupiter.api.*;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingList;
-import pt.ipp.isep.dei.project.model.Sensor;
-import pt.ipp.isep.dei.project.model.SensorList;
-import pt.ipp.isep.dei.project.model.TypeArea;
-import pt.ipp.isep.dei.project.model.TypeSensor;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * CSVReader test class.
+ * CSVReaderController test class.
  */
-class CSVReaderTest {
+
+public class CSVReaderControllerTest {
 
     // Common artifacts for testing in this class.
 
@@ -39,7 +37,7 @@ class CSVReaderTest {
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
     private Date validDate5 = new Date();
-    private CSVReader validReader;
+    private CSVReaderController validReader;
     private Sensor validSensor1;
     private Sensor validSensor2;
     private Sensor validSensor3;
@@ -56,7 +54,7 @@ class CSVReaderTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReader = new CSVReader();
+        validReader = new CSVReaderController();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         try {
@@ -136,7 +134,7 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList);
+        validReader.readAndSet(validGeographicAreaList, validLocation1);
 
         //Assert
 
@@ -151,7 +149,7 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(emptyGeographicAreaList);
+        validReader.readAndSet(emptyGeographicAreaList, validLocation1);
 
         //Assert
 
@@ -166,42 +164,25 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList2);
+        validReader.readAndSet(validGeographicAreaList2, validLocation1);
 
         //Assert
 
     }
 
     @Test
-    void seeIfReadAndSetterFailsWrongFileExtension() {
+    void seeIfReadAndSetterWorksNoSensorList() {
 
         //Arrange
 
-        provideInput(wrongLocation1);
+        provideInput(validLocation1);
 
         // Act
 
-        //Assert
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            validReader.readAndSet(validGeographicAreaList);
-        });
-    }
-
-    @Test
-    void seeIfReadAndSetterFailsWrongLocation() {
-
-        //Arrange
-
-        provideInput(wrongLocation2);
-
-        // Act
+        validReader.readAndSet(emptyGeographicAreaList2, validLocation1);
 
         //Assert
 
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            validReader.readAndSet(validGeographicAreaList);
-        });
     }
 
     @Test
@@ -213,7 +194,7 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList);
+        validReader.readAndSet(validGeographicAreaList, validLocation1);
 
         //Assert
 
@@ -228,7 +209,7 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList);
+        validReader.readAndSet(validGeographicAreaList, validLocation1);
 
         //Assert
 
@@ -385,7 +366,7 @@ class CSVReaderTest {
         //Arrange
 
         provideInput(validLocation1);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
         String[] readings = new String[0];
 
         // Act
@@ -403,7 +384,7 @@ class CSVReaderTest {
         //Arrange
 
         provideInput(validLocation1);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
         String[] readings = new String[3];
 
         // Act
@@ -427,7 +408,7 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList);
+        validReader.readAndSet(validGeographicAreaList, validLocation5);
         ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
@@ -445,7 +426,7 @@ class CSVReaderTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList);
+        validReader.readAndSet(validGeographicAreaList, validLocation5);
         ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
@@ -459,7 +440,7 @@ class CSVReaderTest {
         //Arrange
 
         provideInput(validLocation1);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
         String[] readings = new String[3];
         readings[2] = "log";
 
@@ -480,7 +461,7 @@ class CSVReaderTest {
         //Arrange
 
         provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
         String[] readings = new String[3];
         readings[0] = "RF12345";
         readings[1] = "2008-12-30T02:00:00+00:00";
@@ -499,7 +480,7 @@ class CSVReaderTest {
         //Arrange
 
         provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReader.class.getName());
+        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
         String[] readings = new String[3];
         readings[0] = "RF12345";
         readings[1] = "2008-12-30T02:00:00+00:00";

@@ -81,7 +81,7 @@ public class HouseMonitoringUI {
      * should be used.
      */
     private void runUS600(House house) {
-        if(!houseMonitoringController.isMotherAreaValid(house)){
+        if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         updateModel600(house);
@@ -110,7 +110,7 @@ public class HouseMonitoringUI {
         InputUtils inputUtils = new InputUtils();
         RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTOSensorListIsValid(room, house)) {
-            System.out.println(utilsUI.invalidSensorList);
+            System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
         updateModelDisplayState605(room, house);
@@ -141,7 +141,7 @@ public class HouseMonitoringUI {
         InputUtils inputUtils = new InputUtils();
         RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
         if (!(utilsUI.roomDTOSensorListIsValid(room, house))) {
-            System.out.println(utilsUI.invalidSensorList);
+            System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
         Date date = inputUtils.getInputYearMonthDay();
@@ -165,7 +165,7 @@ public class HouseMonitoringUI {
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
     private void runUS620(House house) {
-        if(!houseMonitoringController.isMotherAreaValid(house)){
+        if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         InputUtils inputUtils = new InputUtils();
@@ -194,7 +194,7 @@ public class HouseMonitoringUI {
       given period (days), as it is needed to assess the garden’s watering needs.*/
 
     private void runUS623(House house) {
-        if(!houseMonitoringController.isMotherAreaValid(house)){
+        if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         InputUtils inputUtils = new InputUtils();
@@ -235,7 +235,7 @@ public class HouseMonitoringUI {
      */
 
     private void runUS630(House house) {
-        if(!houseMonitoringController.isMotherAreaValid(house)){
+        if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();
@@ -251,8 +251,12 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("The last coldest day between " + startDate + " and " + endDate + was
-                + dateResult630 + ".");
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateResultFormatted = formatter.format(dateResult630);
+        String dateStartDateFormatted = formatter.format(startDate);
+        String dateEndDateFormatted = formatter.format(endDate);
+        System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
+                + dateResultFormatted + ".");
     }
 
     /**
@@ -261,7 +265,7 @@ public class HouseMonitoringUI {
      */
 
     private void runUS631(House house) {
-        if(!houseMonitoringController.isMotherAreaValid(house)){
+        if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();
@@ -277,7 +281,7 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        Format simpleDateFinal = new SimpleDateFormat("EEEEEEE,' the 'dd' of 'MMMMM', ('dd/MM/yyyy')'", Locale.US);
+        Format simpleDateFinal = new SimpleDateFormat("EEEEEEE,' the 'dd' of 'MMMMM', ('dd/MM/yyyy')'", Locale.ENGLISH);
         String formattedUS631Date = simpleDateFinal.format(dateUS631);
         UtilsUI.printBox("The first day with the hottest temperature in the given", "period was " + formattedUS631Date + ".");
     }
@@ -285,7 +289,7 @@ public class HouseMonitoringUI {
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
     given period. */
     private void runUS633(House house) {
-        if (!houseMonitoringController.isMotherAreaValid(house)){
+        if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();

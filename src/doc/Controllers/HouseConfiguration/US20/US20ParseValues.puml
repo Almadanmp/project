@@ -1,5 +1,7 @@
 @startuml
 
+title Parse Values
+
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
@@ -26,23 +28,22 @@ skinparam actor {
 
 
 
--> CSVReader: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
-activate CSVReader
+-> CSVReaderController: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+activate CSVReaderController
 
-CSVReader -->> SimpleDateFormat: sdf 1 = new SimpleDateFormat("dd/MM/yyyy")
-CSVReader -->> SimpleDateFormat: sdf 2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'")
-CSVReader -->> SimpleDateFormat: sdf N = new SimpleDateFormat("...")
+CSVReaderController -->> SimpleDateFormat: sdf 1 = new SimpleDateFormat("dd/MM/yyyy")
+CSVReaderController -->> SimpleDateFormat: sdf 2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'")
+CSVReaderController -->> SimpleDateFormat: sdf N = new SimpleDateFormat("...")
 
 alt try
 
-CSVReader -->> Double: Double readValue = Double.parseDouble(readings[2]);
-CSVReader -->> String:String readID = readings[0];
-CSVReader -->> Date:Date readDate = sdf N.parse(readings[1]);
-CSVReader -> CSVReader: setCSVReadings(sensor, readDate, readValue)
+CSVReaderController -->> Double: Double readValue = Double.parseDouble(readings[2]);
+CSVReaderController -->> String:String readID = readings[0];
+CSVReaderController -> CSVReaderController: setCSVReadings(sensor, readDate, readValue)
 
 else catch
-CSVReader -> CSVReader: NumberFormatException
-CSVReader -> CSVReader: ParseException
+CSVReaderController -> CSVReaderController: NumberFormatException
+CSVReaderController -> CSVReaderController: ParseException
 
 end
 

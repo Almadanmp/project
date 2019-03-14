@@ -12,16 +12,17 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 public class UtilsUI {
 
     String invalidOption = "Please enter a valid option.";
-    private String returningToMainMenu = "-- Returning to main menu -- \n";
-    String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;
-    String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
-    String invalidDeviceList = "Invalid Device List - List is empty.\n" + returningToMainMenu;
-    String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
-    String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
-    public String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
-    String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + returningToMainMenu;
-    public String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
-    String invalidProgramList = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + returningToMainMenu;
+    String invalidNumber = "Please enter a valid number.";
+    static final String RETURNING_TO_MAIN_MENU = "-- Returning to main menu -- \n";
+    String invalidRoomList = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    String invalidGridList = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    String invalidDeviceList = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_SENSOR_LIST = "Invalid Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_MOTHER_AREA = "The selected House does not have a Geographical Area defined.\n" + RETURNING_TO_MAIN_MENU;
+    String invalidProgramList = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
         return geographicAreaList != null && !geographicAreaList.isEmpty();
@@ -36,9 +37,11 @@ public class UtilsUI {
         Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
-    boolean roomSensorListIsValid(Room room){
+
+    boolean roomSensorListIsValid(Room room) {
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
+
     boolean houseGridListIsValid(House house) {
         return house.getGridList() != null && !house.isEnergyGridListEmpty();
     }
@@ -61,7 +64,7 @@ public class UtilsUI {
 
     boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO,house);
+        Room room = mapper.dtoToRoom(roomDTO, house);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
@@ -77,7 +80,7 @@ public class UtilsUI {
         return typeSensorList != null && !typeSensorList.isEmpty();
     }
 
-    boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
+    public boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
         return geographicArea.getSensorList() != null && !geographicArea.isSensorListEmpty();
     }
 
@@ -87,6 +90,7 @@ public class UtilsUI {
      * Use a simple coma ',' in between lines to separate lines instead of '\n'.
      * Old example: System.out.println("Line 1 blablabla \n Line 2 blablabla");
      * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
+     *
      * @param strings for being printed
      */
 
@@ -102,6 +106,7 @@ public class UtilsUI {
 
     /**
      * Auxiliary method for printBox for getting String length
+     *
      * @param strings to know the length of
      * @return string length
      */
@@ -116,18 +121,20 @@ public class UtilsUI {
 
     /**
      * Auxiliary method for printBox for padding spaces for printBox method
+     *
      * @param str
      * @param length
      * @return
      */
 
     private static String padString(String str, int length) {
-        StringBuilder sBuilder =  new StringBuilder(str);
+        StringBuilder sBuilder = new StringBuilder(str);
         return sBuilder.append(fill(' ', length - str.length())).toString();
     }
 
     /**
      * Auxiliary printBox method for filling string
+     *
      * @param ch
      * @param length
      * @return
@@ -135,7 +142,7 @@ public class UtilsUI {
 
     private static String fill(char ch, int length) {
         StringBuilder sBuilder = new StringBuilder(length);
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             sBuilder.append(ch);
         }
         return sBuilder.toString();

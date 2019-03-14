@@ -140,7 +140,6 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      */
     public double getEnergyConsumption(float time) {
         return nominalPower * time;
-        //TODO: Add some method validations
     }
 
     /**
@@ -152,7 +151,6 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      */
     public double getProgramConsumption(float time, VariableTimeProgram program) {
         return program.getNominalPower() * time;
-        //TODO: Add some method validations
     }
 
 

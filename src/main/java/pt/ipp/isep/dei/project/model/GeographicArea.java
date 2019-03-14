@@ -19,7 +19,6 @@ public class GeographicArea {
     private UUID uniqueId;
 
 
-
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
 
@@ -126,9 +125,6 @@ public class GeographicArea {
         return this.motherArea;
     }
 
-    public boolean isSensorListValid(){
-        return this.areaSensors == null;
-    }
 
     /**
      * This method is used to check if the current GeoArea is contained in the given area.

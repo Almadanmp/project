@@ -187,6 +187,7 @@ class EnergyGridListTest {
         assertEquals(firstValidGrid, actualResult1);
         assertEquals(secondValidGrid, actualResult2);
     }
+
     @Test
     void getByIndexEmptyGridList() {
 
@@ -236,19 +237,19 @@ class EnergyGridListTest {
 
         validGridList.addGrid(firstValidGrid);
 
-        //Act
+        //Act When Grid Exists
 
         EnergyGrid actualResult2 = validGridList.createEnergyGrid("Primary Grid", 500);
 
-        //Assert One Grid
+        //Assert
 
         assertEquals(firstValidGrid, actualResult2);
 
-        //Act
+        //Act When Grid Doesn't Exist
 
         EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100);
 
-        //Assert One Grid
+        //Assert
 
         assertEquals(secondValidGrid, actualResult3);
     }

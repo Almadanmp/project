@@ -1,5 +1,7 @@
 @startuml
 
+title Get Sensor Data
+
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
@@ -26,14 +28,14 @@ skinparam actor {
 
 
 
--> CSVReader: getSensorData(GeographicAreaList geographicAreaList)
-activate CSVReader
-CSVReader -->> SensorList: fullSensorList = new SensorList()
+-> CSVReaderController: getSensorData(GeographicAreaList geographicAreaList)
+activate CSVReaderController
+CSVReaderController -->> SensorList: fullSensorList = new SensorList()
 
 loop All Sensors IN GeographicAreaList
 
 
-CSVReader -->> SensorList: fullSensorList.add(sensor);
+CSVReaderController -->> SensorList: fullSensorList.add(sensor);
 end
 
 

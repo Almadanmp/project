@@ -1,12 +1,12 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.controller.CSVReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.JSONReader;
 
 import java.util.Scanner;
@@ -103,8 +103,9 @@ class HouseConfigurationUI {
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
     private void runUS20(GeographicAreaList list) {
-        CSVReader reader = new CSVReader();
-        reader.readAndSet(list);
+        CSVReaderController ctrl = new CSVReaderController();
+        String path = ctrl.startAndPromptPath();
+        ctrl.readAndSet(list, path);
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
@@ -145,7 +146,7 @@ class HouseConfigurationUI {
         controller.setHouseMotherArea(house, motherArea);
 
         String houseId = controller.getHouseName(house);
-        System.out.println("You have successfully changed the location of the house " + houseId + ". \n" + "Street: " +
+        System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
                 street + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }

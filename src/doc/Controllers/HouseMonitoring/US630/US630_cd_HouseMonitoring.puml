@@ -106,7 +106,8 @@ getFirstSecondOfDay(Date)
 getLastSecondOfDay(Date)
 isReadingDateBetweenTwoDates(Date, Date, Date)
 compareDayMonthAndYearBetweenDates(Date, Date)
-
+getValuesOfSpecificDayReadings(Date)
+getAReadingWithSpecificDay(Date)
 
 }
 

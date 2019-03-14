@@ -1,5 +1,25 @@
 @startuml
 
+title US015 \n As an Administrator, I want to import geographical areas and sensors from a JSON file.
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 2
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName verdana
+skinparam titleFontSize 10
+
+
+skinparam class {
+  BorderColor indianred
+  BackgroundColor indianred
+  BackgroundColor ivory
+   roundcorner 10
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+   FontSize 12
+}
+
 class HouseConfigurationController
 class HouseConfigurationUI
 class JSONReader
