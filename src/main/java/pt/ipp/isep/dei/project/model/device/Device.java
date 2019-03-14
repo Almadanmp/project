@@ -22,6 +22,7 @@ public interface Device {
      *
      * @return a device type
      */
+
     String getType();
 
     void setNominalPower(double nominalPower);
@@ -33,6 +34,7 @@ public interface Device {
      *
      * @return true if device is active
      */
+
     boolean isActive();
 
     /**
@@ -40,6 +42,7 @@ public interface Device {
      *
      * @return true if deactivated
      */
+
     boolean deactivate();
 
 
@@ -48,6 +51,7 @@ public interface Device {
      *
      * @return String
      */
+
     String buildString();
 
 
