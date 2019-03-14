@@ -980,10 +980,10 @@ class SensorTest {
     void seeIfSensorIsContainedLatBotVertexBotLong() {
         // Arrange
 
-        Local testLocal = new Local(20, 29, 5);
-        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 1,
-                3, testLocal);
-        Local upperVertex = new Local(20, 28, 5);
+        Local testLocal = new Local(10, 29, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 10,
+                20, testLocal);
+        Local upperVertex = new Local(20, 23, 5);
         Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperVertex,
                 new Date());
 
