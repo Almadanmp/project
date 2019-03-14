@@ -116,36 +116,25 @@ class TypeAreaTest {
     @Test
     void seeIfIsValidWorksFalse() {
         // Assert
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isValid("123");
-        });
+        assertFalse(validType.isValid("123"));
     }
 
     @Test
     void seeIfIsValidWorksEmpty() {
         // Assert
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isValid("");
-        });
+        assertFalse(validType.isValid(""));
     }
 
     @Test
     void seeIfIsValidWorksFalseNumbers() {
         // Assert
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isValid("Country1");
-        });
+        assertFalse(validType.isValid("Country1"));
     }
 
     @Test
     void seeIfIsValidWorksNull() {
         // Assert
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.isValid(null);
-        });
+        assertFalse(validType.isValid(null));
     }
 
     @Test
