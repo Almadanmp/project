@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +33,7 @@ public class JSONReader {
             geographicAreasArray = readGeoAreas(geoAreas);
             return geographicAreasArray;
         } catch (FileNotFoundException e) {
-            System.out.println("The file wasn't found.");
+            UtilsUI.printMessage("The file wasn't found.");
         }
         return new GeographicAreaDTO[0];
     }
