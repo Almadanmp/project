@@ -6,7 +6,9 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.*;
@@ -31,6 +33,7 @@ public class MapperTest {
         }
         sensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(31, 15, 3), date);
+
     }
 
     @Test
@@ -38,6 +41,7 @@ public class MapperTest {
         // Act
         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
         GeographicArea result = mapper.geographicAreaDTOToObject(resultDTO);
+        geoArea.addSensor(sensor);
 
         // Assert
         assertTrue(resultDTO instanceof GeographicAreaDTO);
@@ -46,17 +50,17 @@ public class MapperTest {
 
     }
 
-//    @Test
-//    public void seeIfCreateDTOFromSensor() {
-//
-//        //Act
-//        SensorDTO resultDTO = mapper.sensorToDTO(sensor);
-//        Sensor result = mapper.sensorDTOToObject(resultDTO);
-//
-//        //Assert
-//        assertTrue(resultDTO instanceof SensorDTO);
-//        assertTrue(result instanceof Sensor);
-//    }
+    @Test
+    public void seeIfCreateDTOFromSensor() {
+
+        //Act
+        SensorDTO resultDTO = mapper.sensorToDTO(sensor);
+        Sensor result = mapper.sensorDTOToObject(resultDTO);
+
+        //Assert
+        assertTrue(resultDTO instanceof SensorDTO);
+        assertTrue(result instanceof Sensor);
+    }
 
     @Test
     void seeIfSensorToDTOWorks() {
@@ -80,6 +84,20 @@ public class MapperTest {
 
         //Assert
         assertTrue(resultDTO instanceof GeographicAreaDTO);
+    }
+
+    @Test
+    void seeIfUpdateHouseRoom(){
+        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), 60,
+                180, deviceTypeString);
+        Room result = mapper.updateHouseRoom(null,validHouse);
+
+        assertNull(result);
     }
 
 }

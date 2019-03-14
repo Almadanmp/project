@@ -128,7 +128,7 @@ public class Mapper {
      * @return is the newly created Sensor.
      */
 
-    private Sensor sensorDTOToObject(SensorDTO sensorDTO) {
+   Sensor sensorDTOToObject(SensorDTO sensorDTO) {
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());
