@@ -888,6 +888,26 @@ class SensorTest {
         //Assert
         assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
     }
+
+    @Test
+    void seeIfSensorIsContainedConditionBotVertex() {
+        // Arrange
+
+        Local testLocal = new Local(20, 10, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
+                10, testLocal);
+        Local upperLeftVertex = new Local(10, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
 }
 
 
