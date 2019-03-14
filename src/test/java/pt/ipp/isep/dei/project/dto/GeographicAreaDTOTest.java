@@ -81,11 +81,11 @@ class GeographicAreaDTOTest {
 
         assertEquals(geographicAreaDTO1, geographicAreaDTO1);
         assertEquals(geographicAreaDTO1, geographicAreaDTO6);
-        assertNotEquals(sensorDTO1, geographicAreaDTO2);
-        assertNotEquals(sensorDTO1, geographicAreaDTO3);
-        assertNotEquals(sensorDTO1, geographicAreaDTO4);
-        assertNotEquals(sensorDTO1, geographicAreaDTO5);
-        assertNotEquals(sensorDTO1, 3D);
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO2);
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO3);
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO4);
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO5);
+        assertNotEquals(geographicAreaDTO1, 3D);
     }
 
     @Test
