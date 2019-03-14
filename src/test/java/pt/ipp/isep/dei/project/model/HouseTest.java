@@ -340,6 +340,19 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfIsMotherAreaNullBothConditions(){
+        // Act
+
+        boolean actualResult1 = validHouse.isMotherAreaNull();
+        validHouse.setMotherArea(null);
+        boolean actualResult2 = validHouse.isMotherAreaNull();
+
+        // Assert
+
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+    }
 
     @Test
     void getHouseDevicesOfGivenType() {
