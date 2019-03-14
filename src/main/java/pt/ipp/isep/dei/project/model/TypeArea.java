@@ -35,8 +35,11 @@ public class TypeArea {
     void setName(String name) {
         if (isValid(name)) {
             this.name = name;
+            return;
         }
+        throw new IllegalArgumentException("Please Insert Valid Name");
     }
+
 
     /**
      * Method to check if the present type area is valid, that is, if its name is within acceptable parameters.
@@ -49,7 +52,7 @@ public class TypeArea {
         if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
             return true;
         }
-        throw new IllegalArgumentException("Please Insert Valid Name");
+        return false;
     }
 
     /**

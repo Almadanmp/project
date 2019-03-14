@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * WaterHeaterSpec tests class.
@@ -268,33 +269,39 @@ class WaterHeaterSpecTest {
 
     @Test
     void seeIfGetAttributeUnitWorks() {
-        // Happy Case
+        // Arrange
 
-        assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water"));
-        assertEquals("ºC", validHeaterSpec.getAttributeUnit("Hot Water Temperature"));
-        assertEquals("ºC", validHeaterSpec.getAttributeUnit("Cold Water Temperature"));
-        assertEquals("", validHeaterSpec.getAttributeUnit("Performance Ratio"));
-        assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water To Heat"));
+        String expectedResult1 = "L";
+        String expectedResult2 = "ºC";
+        String expectedResult3 = "";
 
-        assertEquals("L", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER));
-        assertEquals("ºC", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP));
-        assertEquals("ºC", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP));
-        assertEquals("", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO));
-        assertEquals("L", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT));
+        // Act
 
-        // Wrong Attribute Names.
+        Object result1 = validHeaterSpec.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP);
+        Object result2 = validHeaterSpec.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO);
+        Object result3 = validHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER);
+        Object result4 = validHeaterSpec.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP);
+        Object result5 = validHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER_HEAT);
 
-        assertEquals(false, validHeaterSpec.getAttributeUnit("\0VolumeOfWater"));
-        assertEquals(false, validHeaterSpec.getAttributeUnit("\0HotWaterTemperature"));
-        assertEquals(false, validHeaterSpec.getAttributeUnit("\0ColdWaterTemperature"));
-        assertEquals(false, validHeaterSpec.getAttributeUnit("\0PerformanceRatio"));
-        assertEquals(false, validHeaterSpec.getAttributeUnit("\0VolumeOfWaterToHeat"));
+        // Assert
 
-        // Empty Attribute Name.
+        assertEquals(expectedResult2, result1);
+        assertEquals(expectedResult3, result2);
+        assertEquals(expectedResult1, result3);
+        assertEquals(expectedResult2, result4);
+        assertEquals(expectedResult1, result5);
+    }
 
-        assertEquals(false, validHeaterSpec.getAttributeUnit(""));
-        assertEquals(false, validHeaterSpec.getAttributeUnit(" "));
+    @Test
+    void seeIfGetAttributeUnitWorkFails() {
 
+        // Wrong attribute Names
+        Object result1 = validHeaterSpec.getAttributeUnit("Fake");
+        Object result2 = validHeaterSpec.getAttributeUnit("");
+        Object result3 = validHeaterSpec.getAttributeUnit(" ");
 
+        assertEquals(false, result1);
+        assertEquals(false, result2);
+        assertEquals(false, result3);
     }
 }
