@@ -948,6 +948,26 @@ class SensorTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void seeIfSensorIsContainedLatBotVertexBotLong() {
+        // Arrange
+
+        Local testLocal = new Local(20, 29, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
+                3, testLocal);
+        Local upperLeftVertex = new Local(18, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
 }
 
 
