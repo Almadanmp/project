@@ -99,7 +99,7 @@ public class EnergyGridSettingsController {
 
     public boolean addRoomToGrid(EnergyGrid grid, RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO, house);
+        Room room = mapper.updateHouseRoom(roomDTO, house);
         return grid.addRoom(room);
     }
 

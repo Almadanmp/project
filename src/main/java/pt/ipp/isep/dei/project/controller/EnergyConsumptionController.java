@@ -193,7 +193,7 @@ public class EnergyConsumptionController {
 
     public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, House house) {
         Mapper mapper = new Mapper();
-        Room room = mapper.dtoToRoom(roomDTO, house);
+        Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getLogsInInterval(startDate, endDate);
     }
 
