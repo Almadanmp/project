@@ -4,6 +4,8 @@ package pt.ipp.isep.dei.project.model.device.program;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -253,10 +255,15 @@ class FixedTimeProgramTest {
         validFixedTimeProgram.setAttributeValue(FixedTimeProgram.DURATION, 5D);
         validFixedTimeProgram.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5D);
 
+        validFixedTimeProgram.setAttributeValue("Duration", 5D);
+        validFixedTimeProgram.setAttributeValue("Energy Consumption", 5D);
+
         // Correct attribute names.
 
         assertEquals(5.0, validFixedTimeProgram.getAttributeValue(FixedTimeProgram.DURATION));
         assertEquals(5.0, validFixedTimeProgram.getAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION));
+        assertEquals(5.0, validFixedTimeProgram.getAttributeValue("Duration"));
+        assertEquals(5.0, validFixedTimeProgram.getAttributeValue("Energy Consumption"));
 
         // Wrong attribute names.
 
@@ -296,6 +303,8 @@ class FixedTimeProgramTest {
 
         assertEquals(attributeKW, validFixedTimeProgram.getAttributeUnit(FixedTimeProgram.ENERGY_CONSUMPTION));
         assertEquals(attributeKg, validFixedTimeProgram.getAttributeUnit(FixedTimeProgram.DURATION));
+        assertEquals(attributeKW, validFixedTimeProgram.getAttributeUnit("Energy Consumption"));
+        assertEquals(attributeKg, validFixedTimeProgram.getAttributeUnit("Duration"));
 
         // Incorrect attribute names.
 
