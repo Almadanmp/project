@@ -313,6 +313,11 @@ public class HouseMonitoringUI {
 
     //SHARED METHODS
 
+    /**
+     * Method thar will remove the hours, minutes and seconds from a Date
+     * @param date input date to format
+     * @return string that represents the input date but without hour, min. sec
+     */
     private String formatDateNoTime(Date date) {
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
