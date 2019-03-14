@@ -97,7 +97,16 @@ import static org.testng.Assert.*;
          assertTrue(resultDTO instanceof GeographicAreaDTO);
      }
 
-    @Test
+     @Test
+     void seeIfAddSensorDTOWorksWithoutSensors(){
+         //Act
+         GeographicAreaDTO resultDTO = mapper.geographicAreaToDTO(geoArea);
+
+         //Assert
+         assertTrue(resultDTO instanceof GeographicAreaDTO);
+     }
+
+     @Test
     void seeIfUpdateHouseRoom(){
         String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
         List<String> deviceTypeString = new ArrayList<>();
