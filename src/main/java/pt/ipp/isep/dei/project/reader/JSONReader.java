@@ -12,7 +12,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class JSONReader {
 
@@ -64,8 +66,8 @@ public class JSONReader {
             areaObject.setDescription(areaDescription);
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            Sensor[] areaSensorsArray = readAreaSensors(areaSensors);
-            addSensorsToArea(areaSensorsArray, areaObject);
+            List<Sensor> areaSensorsList = readAreaSensors(areaSensors);
+            addSensorsToArea(areaSensorsList, areaObject);
         }
         return geographicAreasArray;
     }
@@ -77,20 +79,22 @@ public class JSONReader {
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private Sensor[] readAreaSensors(JSONArray areaSensors) {
-        Sensor[] result = new Sensor[areaSensors.length()];
-        for (int k = 0; k < areaSensors.length(); k++) {
-            JSONObject areaSensor = areaSensors.getJSONObject(k);
+    private List<Sensor> readAreaSensors(JSONArray areaSensors) {
+        List<Sensor> result = new ArrayList<>();
+        int entriesChecked = 0;
+        while (entriesChecked < areaSensors.length()) {
+            JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
             JSONObject sensor = areaSensor.getJSONObject("sensor");
             String sensorId = sensor.getString("id");
             String sensorName = sensor.getString("name");
             String sensorDate = sensor.getString("start_date");
             SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = null;
+            Date date;
             try {
                 date = validDateFormat.parse(sensorDate);
             } catch (ParseException c) {
-                c.printStackTrace();
+                entriesChecked++;
+                continue;
             }
             String sensorType = sensor.getString("type");
             String sensorUnits = sensor.getString("units");
@@ -100,7 +104,8 @@ public class JSONReader {
             double sensorAltitude = sensorLocal.getDouble("altitude");
             Sensor sensorObject = new Sensor(sensorId, sensorName, new TypeSensor(sensorType, sensorUnits), new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude), date);
-            result[k] = sensorObject;
+            result.add(sensorObject);
+            entriesChecked++;
         }
         return result;
     }
@@ -111,7 +116,7 @@ public class JSONReader {
      * @param area is the area to which we want to add the sensors.
      */
 
-    private void addSensorsToArea(Sensor[] sensorsToAdd, GeographicArea area) {
+    private void addSensorsToArea(List<Sensor> sensorsToAdd, GeographicArea area) {
         for (Sensor sensor : sensorsToAdd) {
             area.addSensor(sensor);
         }
