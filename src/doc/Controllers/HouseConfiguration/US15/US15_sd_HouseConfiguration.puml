@@ -7,17 +7,11 @@ getInputPath();
 end ref
 HouseConfigurationUI -> HouseConfigurationController: readFile(filePath)
 HouseConfigurationController -> JSONReader: readFile(filePath)
-JSONReader -> Mapper: createDTO();
 loop
-Mapper -> Mapper: createDTO
+JSONReader -> GeographicArea: create();
 end loop
-Mapper --> JSONReader: return GeographicAreaDTO[]
-JSONReader --> HouseConfigurationUI: return GeographicAreaDTO[]
-HouseConfigurationUI -> HouseConfigurationController: updateModel(GeographicAreaList, GeographicAreaDTO[])
-loop
-HouseConfigurationController -> Mapper: geoAreaDTOToObject
-Mapper --> HouseConfigurationController: return GeographicArea
-end loop
+GeographicArea --> JSONReader: return GeographicArea[]
+JSONReader -> HouseConfigurationController: return GeographicArea[]
 loop
 HouseConfigurationController -> GeographicAreaList: add(GeographicArea)
 end loop
