@@ -46,10 +46,10 @@ public class Mapper {
 
     public GeographicArea createGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = new GeographicArea(geographicAreaDTO.getId(), new TypeArea(geographicAreaDTO.getTypeArea()), geographicAreaDTO.getLength(),
-                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitudeGeoAreaDTO(), geographicAreaDTO.getLongitudeGeoAreaDTO(),
-                geographicAreaDTO.getAltitudeGeoAreaDTO()));
+                geographicAreaDTO.getWidth(), new Local(geographicAreaDTO.getLatitude(), geographicAreaDTO.getLongitude(),
+                geographicAreaDTO.getAltitude()));
         SensorList sensorList = new SensorList();
-        for (SensorDTO sensorsDTO : geographicAreaDTO.getAreaSensors()) {
+        for (SensorDTO sensorsDTO : geographicAreaDTO.getSensorDTOList()) {
             Sensor sensor = sensorDTOToObject(sensorsDTO);
             sensorList.add(sensor);
         }
@@ -65,14 +65,14 @@ public class Mapper {
         geographicAreaDTO.setTypeArea(geographicArea.getTypeArea().getName());
         geographicAreaDTO.setLength(geographicArea.getLength());
         geographicAreaDTO.setWidth(geographicArea.getWidth());
-        geographicAreaDTO.setLatitudeGeoAreaDTO(geographicArea.getLocation().getLatitude());
-        geographicAreaDTO.setLongitudeGeoAreaDTO(geographicArea.getLocation().getLongitude());
-        geographicAreaDTO.setAltitudeGeoAreaDTO(geographicArea.getLocation().getAltitude());
+        geographicAreaDTO.setLatitude(geographicArea.getLocation().getLatitude());
+        geographicAreaDTO.setLongitude(geographicArea.getLocation().getLongitude());
+        geographicAreaDTO.setAltitude(geographicArea.getLocation().getAltitude());
         for (Sensor s : geographicArea.getAreaSensors().getSensors()) {
             SensorDTO sensorsDTO = sensorToDTO(s);
             listSensorDTO.add(sensorsDTO);
         }
-        geographicAreaDTO.setAreaSensors(listSensorDTO);
+        geographicAreaDTO.setSensorDTOList(listSensorDTO);
         geographicAreaDTO.setDescription(geographicArea.getDescription());
         geographicAreaDTO.setUniqueId(geographicArea.getUniqueID());
         return geographicAreaDTO;
