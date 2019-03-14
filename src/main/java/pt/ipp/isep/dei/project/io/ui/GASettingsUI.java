@@ -1,7 +1,11 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.TypeArea;
+import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 import java.util.Scanner;
 
@@ -162,7 +166,8 @@ class GASettingsUI {
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
         }
-        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, geoAreaLat, geoAreaLong, geoAreaAlt, geoAreaLength, geoAreaWidth);
+        LocalDTO localDTO = controller.createLocal(geoAreaLat, geoAreaLong, geoAreaAlt);
+        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, localDTO, geoAreaLength, geoAreaWidth);
     }
 
     private void generateResultUS03(boolean created) {

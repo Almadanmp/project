@@ -77,14 +77,12 @@ public class GeographicAreaList {
      *
      * @param newName   the name of the GA
      * @param typeArea  the type of the GA
-     * @param latitude  the latitude of the GA
-     * @param longitude the longitude of the GA
-     * @param altitude  the altitude of the GA.
+     * @param local  the latitude, longitude and altitude of the GA
      * @return will return true if a Geographic Area matching given parameters already
      * exists, false if it doesn't.
      */
-    public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, double latitude, double longitude, double altitude) {
-        Local newLocal = new Local(latitude, longitude, altitude);
+    public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, Local local) {
+        Local newLocal = new Local(local.getLatitude(), local.getLongitude(), local.getAltitude());
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsParameters(newName, typeArea, newLocal)) {
                 return true;
@@ -100,14 +98,12 @@ public class GeographicAreaList {
      * @param typeArea  input string for type area for the new geographic area
      * @param length    input number for length for the new geographic area
      * @param width     input number for width for the new geographic area
-     * @param altitude  input number for altitude of the new geographic area
-     * @param latitude  input number for latitude of the new geographic area
-     * @param longitude input number for longitude of the new geographic area
+     * @param local  input number for latitude, longitude and altitude of the new geographic area
      * @return a new geographic area.
      */
-    public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, double latitude, double longitude, double altitude) {
-        Local local = new Local(latitude, longitude, altitude);
-        return new GeographicArea(newName, typeArea, length, width, local);
+    public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
+        Local newLocal = new Local(local.getLatitude(), local.getLongitude(), local.getAltitude());
+        return new GeographicArea(newName, typeArea, length, width, newLocal);
     }
 
     /**
