@@ -291,6 +291,7 @@ class WaterHeaterSpecTest {
         // Empty Attribute Name.
 
         assertEquals(false, validHeaterSpec.getAttributeUnit(""));
+        assertEquals(false, validHeaterSpec.getAttributeUnit(" "));
 
 
     }
