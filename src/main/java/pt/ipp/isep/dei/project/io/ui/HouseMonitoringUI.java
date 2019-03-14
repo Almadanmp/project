@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.House;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import static java.lang.System.out;
 
@@ -251,10 +250,9 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateResultFormatted = formatter.format(dateResult630);
-        String dateStartDateFormatted = formatter.format(startDate);
-        String dateEndDateFormatted = formatter.format(endDate);
+        String dateResultFormatted = formatDateNoTime(dateResult630);
+        String dateStartDateFormatted = formatDateNoTime(startDate);
+        String dateEndDateFormatted = formatDateNoTime(endDate);
         System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
                 + dateResultFormatted + ".");
     }
@@ -281,8 +279,8 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        Format simpleDateFinal = new SimpleDateFormat("EEEEEEE,' the 'dd' of 'MMMMM', ('dd/MM/yyyy')'", Locale.ENGLISH);
-        String formattedUS631Date = simpleDateFinal.format(dateUS631);
+
+        String formattedUS631Date = formatDateNoTime(dateUS631);
         UtilsUI.printBox("The first day with the hottest temperature in the given", "period was " + formattedUS631Date + ".");
     }
 
@@ -308,10 +306,16 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateResultFormatted = formatter.format(resultDate633);
+        String dateResultFormatted = formatDateNoTime(resultDate633);
         System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
                 " temperature amplitude of " + resultValue633 + "ºC.");
+    }
+
+    //SHARED METHODS
+
+    private String formatDateNoTime(Date date) {
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
     }
 
     /**
