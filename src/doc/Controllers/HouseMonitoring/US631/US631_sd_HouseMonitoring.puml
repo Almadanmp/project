@@ -34,7 +34,7 @@ activate ":MainUI"
 
 ":MainUI" --> User: Show option menu
 User -> ":MainUI": Select House Monitoring opt
-":MainUI" -> ":HouseMonitoringUI": option7(house)
+":MainUI" -> ":HouseMonitoringUI": option6(house)
 deactivate ":MainUI"
 activate ":HouseMonitoringUI"
 ":HouseMonitoringUI" --> User: Show option menu
