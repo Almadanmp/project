@@ -11,92 +11,197 @@ public class GeographicAreaDTO {
     private String typeArea;
     private double length;
     private double width;
-    private double latitudeGeoAreaDTO;
-    private double longitudeGeoAreaDTO;
-    private double altitudeGeoAreaDTO;
-    private List<SensorDTO> areaSensors = new ArrayList<>();
+    private double latitude;
+    private double longitude;
+    private double altitude;
+    private List<SensorDTO> sensorDTOList = new ArrayList<>();
     private String description;
     private UUID uniqueId;
+
+    /**
+     * Method to determine the unique id of the object the stored data belongs to.
+     * @param uniqueId is a Unique ID - UUID is a standard java class.
+     */
 
     void setUniqueId(UUID uniqueId) {
         this.uniqueId = uniqueId;
     }
 
+    /**
+     * Method to retrieve the unique ID of the object the stored data belongs to.
+     * @return is an unique ID object.
+     */
+
     UUID getUniqueId() {
         return uniqueId;
     }
+
+    /**
+     * Method to determine the ID of the object.
+     * @param id is a String that corresponds to the ID we want to store.
+     */
 
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Method to retrieve the ID of the object.
+     * @return is a string that corresponds to the ID we want.
+     */
+
     public String getId() {
         return this.id;
     }
+
+    /**
+     * Method to retrieve the String that corresponds to the the name of the Type of the area.
+     * @return is a string that corresponds to the name of the type of the geographic area.
+     */
 
     String getTypeArea() {
         return typeArea;
     }
 
+    /**
+     * Method to store a String that corresponds to the name of the Type of the area.
+     * @param typeArea is a string that corresponds to the name of the type of the geographic area.
+     */
+
     public void setTypeArea(String typeArea) {
         this.typeArea = typeArea;
     }
+
+    /**
+     * Method that retrieves the length of a geographic area DTO.
+     * @return is the length of the object.
+     */
 
     public double getLength() {
         return length;
     }
 
+    /**
+     * Method that stores the length of a geographic area DTO.
+     * @param length is the length of the object.
+     */
+
     public void setLength(double length) {
         this.length = length;
     }
+
+    /**
+     * Method that retrieves the width of a geographic area DTO.
+     * @return is the width of the object.
+     */
 
     public double getWidth() {
         return width;
     }
 
+    /**
+     * Method that stores the width of a geographic area DTO.
+     * @param width is the width of the object.
+     */
+
     public void setWidth(double width) {
         this.width = width;
     }
 
-    public double getLatitudeGeoAreaDTO() {
-        return latitudeGeoAreaDTO;
+    /**
+     * Method that retrieves the latitude of a geographic area DTO.
+     * @return is the latitude of the object.
+     */
+
+    double getLatitude() {
+        return latitude;
     }
 
-    public void setLatitudeGeoAreaDTO(double latitudeGeoAreaDTO) {
-        this.latitudeGeoAreaDTO = latitudeGeoAreaDTO;
+    /**
+     * Method that stores the latitude of a geographic area DTO.
+     * @param latitude is the latitude of the object.
+     */
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public double getLongitudeGeoAreaDTO() {
-        return longitudeGeoAreaDTO;
+    /**
+     * Method that retrieves the longitude of a geographic area DTO.
+     * @return is the longitude of the object.
+     */
+
+    double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitudeGeoAreaDTO(double longitudeGeoAreaDTO) {
-        this.longitudeGeoAreaDTO = longitudeGeoAreaDTO;
+    /**
+     * Method that stores the longitude of a geographic area DTO.
+     * @param longitude is the longitude of the object.
+     */
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public double getAltitudeGeoAreaDTO() {
-        return altitudeGeoAreaDTO;
+    /**
+     * Method that retrieves the altitude of a geographic area DTO.
+     * @return is the altitude of the object.
+     */
+
+    double getAltitude() {
+        return altitude;
     }
 
-    public void setAltitudeGeoAreaDTO(double altitudeGeoAreaDTO) {
-        this.altitudeGeoAreaDTO = altitudeGeoAreaDTO;
+    /**
+     * Method that stores the altitude of a geographic area DTO.
+     * @param altitude is the altitude of the object.
+     */
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 
-    public void addSensorDTO(SensorDTO sensorToAdd) {
-        this.areaSensors.add(sensorToAdd);
+    /**
+     * Method that stores a particular sensor DTO in the Geographic Area DTO's list of sensors.
+     * @param sensorDTOToAdd is the sensor we want to add.
+     */
+
+    public void addSensorDTO(SensorDTO sensorDTOToAdd) {
+        this.sensorDTOList.add(sensorDTOToAdd);
     }
 
-    List<SensorDTO> getAreaSensors() {
-        return areaSensors;
+    /**
+     * Method that retrieves the object's list of sensor DTOs.
+     * @return is a list of sensorDTOs.
+     */
+
+    List<SensorDTO> getSensorDTOList() {
+        return sensorDTOList;
     }
 
-    void setAreaSensors(List<SensorDTO> areaSensors) {
-        this.areaSensors = areaSensors;
+    /**
+     * Method that stores a specific list as the object's list of Sensor DTOs.
+     * @param listToStore is the list we want to store.
+     */
+
+    void setSensorDTOList(List<SensorDTO> listToStore) {
+        this.sensorDTOList = listToStore;
     }
+
+    /**
+     * Method that retrieves the object's description.
+     * @return is the object's description.
+     */
 
     String getDescription() {
         return description;
     }
+
+    /**
+     * Method that stores a particular string as an object's description.
+     * @param description is the description we want to store.
+     */
 
     public void setDescription(String description) {
         this.description = description;
@@ -112,9 +217,9 @@ public class GeographicAreaDTO {
         }
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getId().equals(this.id)
-                && Double.compare(localVariable.getLatitudeGeoAreaDTO(), this.latitudeGeoAreaDTO) == 0 && Double.compare
-                (localVariable.getLongitudeGeoAreaDTO(), this.longitudeGeoAreaDTO) == 0 && Double.compare(localVariable.
-                getAltitudeGeoAreaDTO(),this.altitudeGeoAreaDTO) == 0 && localVariable.getAreaSensors().equals(this.areaSensors));
+                && Double.compare(localVariable.getLatitude(), this.latitude) == 0 && Double.compare
+                (localVariable.getLongitude(), this.longitude) == 0 && Double.compare(localVariable.
+                getAltitude(),this.altitude) == 0 && localVariable.getSensorDTOList().equals(this.sensorDTOList));
     }
 
     @Override

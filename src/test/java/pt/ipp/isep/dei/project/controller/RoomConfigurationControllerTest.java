@@ -33,6 +33,7 @@ class RoomConfigurationControllerTest {
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
+    private Object attributeUnit;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -56,6 +57,26 @@ class RoomConfigurationControllerTest {
         ProgramList expectedResult = pList;
         // Act
         ProgramList actualResult = dish.getProgramList();
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetAttributeUnit() {
+        // Arrange
+        Object expectedResult = "Kg";
+        // Act
+        Object actualResult = controller.getAttributeUnit(validDeviceFridge, 1);
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetAttributeValue() {
+        // Arrange
+        Object expectedResult = 4.0;
+        // Act
+        Object actualResult = controller.getAttributeValue(validDeviceFridge, 1);
         // Assert
         assertEquals(actualResult, expectedResult);
     }

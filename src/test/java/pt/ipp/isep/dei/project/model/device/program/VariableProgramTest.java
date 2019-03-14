@@ -182,34 +182,32 @@ class VariableProgramTest {
 
         assertEquals(false, validProgramOne.getAttributeUnit(""));
     }
-
     @Test
-    void seeIfEqualsWorksTrue() {
+    void seeIfEqualsWorks() {
         // Arrange
 
-        Program variableProgram = new VariableTimeProgram("Medium Power", 1.2);
+        Program variableProgram = new VariableTimeProgram("Program", 1.2);
         variableProgram.setProgramName("Medium Power");
 
-        //Assert
-
-        assertEquals(validVariableTimeProgram, validVariableTimeProgram);
+        // Assert
+        assertEquals(variableProgram, validVariableTimeProgram);
     }
 
     @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        Program fixedProgram = new FixedTimeProgram("Program", 30, 1.2);
-        fixedProgram.setProgramName("Medium Power 2");
+        Program variableProgram = new VariableTimeProgram("Program", 1.2);
+        variableProgram.setProgramName("Medium Power 2");
 
         // Assert
 
-        assertNotEquals(fixedProgram, validVariableTimeProgram);
+        assertNotEquals(variableProgram, validVariableTimeProgram);
     }
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(validVariableTimeProgram, null);
+        assertNotEquals(null, validVariableTimeProgram);
     }
 
     @Test
