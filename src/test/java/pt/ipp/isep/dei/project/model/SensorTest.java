@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +25,31 @@ class SensorTest {
     @BeforeEach
     void arrangeArtifacts() {
         validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+    }
+
+    @Test
+    void seeIfConstructorSetsDate() {
+        // Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date startDate = new Date();
+
+        try {
+            startDate = validSdf.parse("11/01/2018 10:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Sensor sensor = new Sensor("Sensor", new TypeSensor("Temperature", "Celsius"), startDate);
+
+        // Act
+
+        Date actualResult = sensor.getDateStartedFunctioning();
+
+        // Assert
+
+        assertEquals(startDate, actualResult);
     }
 
 
