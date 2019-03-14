@@ -43,10 +43,12 @@ class LampSpecTest {
         // Act
 
         boolean result = validLampSpec.setAttributeValue("Lisbon", 12);
+        boolean result1 = validLampSpec.setAttributeValue(null, 12);
 
         // Assert
 
         assertFalse(result);
+        assertFalse(result1);
     }
 
     @Test
