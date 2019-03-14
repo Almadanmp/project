@@ -279,7 +279,7 @@ class WaterHeaterSpecTest {
 
         assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water"));
         assertEquals("ºC", validHeaterSpec.getAttributeUnit("Hot Water Temperature"));
-        assertEquals("shit", validHeaterSpec.getAttributeUnit("Performance Ratio"));
+        assertEquals("", validHeaterSpec.getAttributeUnit("Performance Ratio"));
         assertEquals("ºC", validHeaterSpec.getAttributeUnit("Cold Water Temperature"));
         assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water To Heat"));
 
