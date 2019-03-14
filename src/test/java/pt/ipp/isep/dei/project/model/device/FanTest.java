@@ -105,9 +105,11 @@ class FanTest {
         // Act
 
         actualResult =  validFan.isActive();
+        boolean actualResultDeactivateAgain = validFan.deactivate();
 
         // Assert
 
+        assertFalse(actualResultDeactivateAgain);
         assertFalse(actualResult);
     }
 
