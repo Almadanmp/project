@@ -216,10 +216,12 @@ public class GeographicAreaDTO {
             return false;
         }
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
-        return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getId().equals(this.id)
-                && Double.compare(localVariable.getLatitude(), this.latitude) == 0 && Double.compare
-                (localVariable.getLongitude(), this.longitude) == 0 && Double.compare(localVariable.
-                getAltitude(),this.altitude) == 0 && localVariable.getSensorDTOList().equals(this.sensorDTOList));
+        return (localVariable.getTypeArea().equals(this.typeArea)
+                && localVariable.getId().equals(this.id)
+                && Double.compare(localVariable.getLatitude(), this.latitude) == 0
+                && Double.compare(localVariable.getLongitude(), this.longitude) == 0
+                && Double.compare(localVariable.getAltitude(),this.altitude) == 0
+                && localVariable.getSensorDTOList().equals(this.sensorDTOList));
     }
 
     @Override
