@@ -330,37 +330,40 @@ public class ReadingList {
     }
 
     /**
-     * Method that gives the Date with the Highest Amplitude of Readings between two dates (given days)
-     * It will throw an IllegalArgumentException if there are no readings between the selected dates
+     * Method that gives the Date with the Highest Amplitude of Readings between two dates (given days).
+     * If there is more than one day with the same temperature amplitude, the return will be the most recent day.
+     * It will throw an IllegalArgumentException if there are no readings between the selected dates.
      *
      * @param minDate the lower (min) date for interval comparison
      * @param maxDate the upper (max) date for interval comparison
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
-     * if there is more than one day with the same temperature amplitude, the return will be the most recent day
      * @author Daniela (US633)
      */
     Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
 
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
-        if (readingListBetweenDates.isEmpty()) {
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
         }
 
-        Date dateAmplitude = readingListBetweenDates.get(0).getDate();
+        Date dateMaxAmplitude = daysWithReadings.get(0);
 
-        double amplitudeValue = getAmplitudeValueFromDate(dateAmplitude);
+        double maxAmplitude = getAmplitudeValueFromDate(dateMaxAmplitude);
 
-        for (int i = 1; i < readingListBetweenDates.size(); i++) {
-            Date day = readingListBetweenDates.get(i).getDate();
+        for (int i = 1; i < daysWithReadings.size(); i++) {
+            Date day = daysWithReadings.get(i);
             double amplitudeTemperature = getAmplitudeValueFromDate(day);
-            if (amplitudeValue <= amplitudeTemperature) {
-                amplitudeValue = amplitudeTemperature;
-                if (day.after(dateAmplitude)) {
-                    dateAmplitude = day;
+
+            if (maxAmplitude < amplitudeTemperature) {
+                maxAmplitude = amplitudeTemperature;
+                dateMaxAmplitude = day;
+            } else if (maxAmplitude == amplitudeTemperature) {
+                if (day.after(dateMaxAmplitude)) {
+                    dateMaxAmplitude = day;
                 }
             }
         }
-        return dateAmplitude;
+        return dateMaxAmplitude;
     }
 
     /**
@@ -374,7 +377,7 @@ public class ReadingList {
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
-        return maxTemp - (lowestTemp);
+        return maxTemp - lowestTemp;
     }
 
     /**

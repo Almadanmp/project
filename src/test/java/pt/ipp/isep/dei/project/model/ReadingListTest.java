@@ -962,7 +962,7 @@ class ReadingListTest {
         validReadingList.addReading(new Reading(30, validDate16));
         validReadingList.addReading(new Reading(5, validDate18));
         validReadingList.addReading(new Reading(50, validDate19));
-        Date expectedResult = validDate19;
+        Date expectedResult = validDate18;
 
         Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
 
@@ -975,7 +975,7 @@ class ReadingListTest {
         validReadingList.addReading(new Reading(22, validDate16));
         validReadingList.addReading(new Reading(22, validDate18));
         validReadingList.addReading(new Reading(22, validDate19));
-        Date expectedResult = validDate19;
+        Date expectedResult = validDate18;
 
         Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
 
