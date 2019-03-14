@@ -594,9 +594,7 @@ public class ReadingList {
     public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
         for (Reading r : this.readings) {
-            if (r.getValue() < result) {
-                result = r.getValue();
-            }
+            result = Math.min(r.getValue(), result);
         }
         return result;
     }
