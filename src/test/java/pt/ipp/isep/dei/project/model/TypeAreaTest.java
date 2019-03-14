@@ -106,7 +106,7 @@ class TypeAreaTest {
     void seeIfIsValidWorks() {
         // Act
 
-        boolean result = validType.isValid("City");
+        boolean result = validType.nameIsValid("City");
 
         // Assert
 
@@ -116,25 +116,25 @@ class TypeAreaTest {
     @Test
     void seeIfIsValidWorksFalse() {
         // Assert
-        assertFalse(validType.isValid("123"));
+        assertFalse(validType.nameIsValid("123"));
     }
 
     @Test
     void seeIfIsValidWorksEmpty() {
         // Assert
-        assertFalse(validType.isValid(""));
+        assertFalse(validType.nameIsValid(""));
     }
 
     @Test
     void seeIfIsValidWorksFalseNumbers() {
         // Assert
-        assertFalse(validType.isValid("Country1"));
+        assertFalse(validType.nameIsValid("Country1"));
     }
 
     @Test
     void seeIfIsValidWorksNull() {
         // Assert
-        assertFalse(validType.isValid(null));
+        assertFalse(validType.nameIsValid(null));
     }
 
     @Test
