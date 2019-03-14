@@ -110,7 +110,7 @@ public class HouseMonitoringUI {
         InputUtils inputUtils = new InputUtils();
         RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTOSensorListIsValid(room, house)) {
-            System.out.println(utilsUI.invalidSensorList);
+            System.out.println(UtilsUI.invalidSensorList);
             return;
         }
         updateModelDisplayState605(room, house);
@@ -141,7 +141,7 @@ public class HouseMonitoringUI {
         InputUtils inputUtils = new InputUtils();
         RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
         if (!(utilsUI.roomDTOSensorListIsValid(room, house))) {
-            System.out.println(utilsUI.invalidSensorList);
+            System.out.println(UtilsUI.invalidSensorList);
             return;
         }
         Date date = inputUtils.getInputYearMonthDay();

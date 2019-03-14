@@ -372,7 +372,7 @@ class RoomConfigurationUI {
     private void displaySensorListUS250(Room room) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.roomSensorListIsValid(room)) {
-            System.out.println(utilsUI.invalidSensorList);
+            System.out.println(UtilsUI.invalidSensorList);
             return;
         }
         SensorList sensorList = room.getSensorList();
