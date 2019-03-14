@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
@@ -28,7 +29,7 @@ public class CSVReaderController {
         System.out.println("Please insert the location of the CSV file");
         String csvFileLocation = scanner.next();
         while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
-            System.out.println("Please enter a valid location");
+            UtilsUI.printMessage("Please enter a valid location");
             csvFileLocation = scanner.next();
 
         }
