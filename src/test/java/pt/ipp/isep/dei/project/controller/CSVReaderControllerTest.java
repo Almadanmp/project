@@ -49,6 +49,7 @@ public class CSVReaderControllerTest {
     private static final String validLocation3 = "src/test/resources/testCSV3.csv";
     private static final String validLocation4 = "src/test/resources/testCSV4.csv";
     private static final String validLocation5 = "src/test/resources/testCSV5.csv";
+    private static final String validLocation6 = "src/test/resources/testCSV6.csv";
     private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV2.csa";
     private static final String wrongLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV10.csv";
 
@@ -492,4 +493,5 @@ public class CSVReaderControllerTest {
 
         validReader.parseAndLog(readings, logger, validSensorList);
     }
+
 }
