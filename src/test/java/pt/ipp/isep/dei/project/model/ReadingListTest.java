@@ -770,6 +770,7 @@ class ReadingListTest {
         Reading reading3 = new Reading(19,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime());
         Reading reading4 = new Reading(21,new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime());
         readingList.addReading(reading1);
+        readingList.addReading(reading4);
         readingList.addReading(reading2);
         readingList2.addReading(reading2);
         readingList2.addReading(reading3);
