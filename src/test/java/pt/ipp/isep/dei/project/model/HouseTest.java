@@ -560,6 +560,23 @@ class HouseTest {
     }
 
     @Test
+    void seeIfGetRoomListWorksNull() {
+        // Arrange
+
+        RoomList expectedResult = new RoomList();
+        validHouse.setRoomList(null);
+
+        // Act
+
+        RoomList actualResult = validHouse.getRoomList();
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetRoomListWorksEmpty() {
         // Arrange
 
