@@ -893,10 +893,30 @@ class SensorTest {
     void seeIfSensorIsContainedConditionBotVertex() {
         // Arrange
 
-        Local testLocal = new Local(20, 10, 5);//19 21, 15 5
+        Local testLocal = new Local(20, 10, 5);
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
                 10, testLocal);
-        Local upperLeftVertex = new Local(20, 30, 5);
+        Local upperLeftVertex = new Local(25, 30, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+                new Date());
+
+        // Act
+
+        boolean result = testSensor.isContainedInArea(testArea);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfSensorIsContainedLatBotVertex() {
+        // Arrange
+
+        Local testLocal = new Local(20, 29, 5);
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
+                3, testLocal);
+        Local upperLeftVertex = new Local(18, 30, 5);
         Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
                 new Date());
 
