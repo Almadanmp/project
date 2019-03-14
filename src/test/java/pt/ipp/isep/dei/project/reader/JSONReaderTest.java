@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
@@ -110,7 +109,7 @@ class JSONReaderTest {
 
         File fileToRead = new File("src/test/resources/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        GeographicAreaDTO[] actualResult = reader.readFile(absolutePath);
+        GeographicArea[] actualResult = reader.readFile(absolutePath);
 
         // Assert
 
@@ -118,8 +117,7 @@ class JSONReaderTest {
 
         // Get one of the areas to  check its contents.
 
-        Mapper mapper = new Mapper();
-        GeographicArea actualArea = mapper.createGeographicAreaFromDTO(actualResult[0]);
+        GeographicArea actualArea = actualResult[0];
         SensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
@@ -146,7 +144,7 @@ class JSONReaderTest {
 
         // Act
 
-        GeographicAreaDTO[] actualResult = reader.readFile(invalidPath);
+        GeographicArea[] actualResult = reader.readFile(invalidPath);
 
         // Assert
 

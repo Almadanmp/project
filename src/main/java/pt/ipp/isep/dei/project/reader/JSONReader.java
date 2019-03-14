@@ -3,13 +3,15 @@ package pt.ipp.isep.dei.project.reader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JSONReader {
 
@@ -20,7 +22,7 @@ public class JSONReader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public GeographicAreaDTO[] readFile(String filePath) {
+    public GeographicArea[] readFile(String filePath) {
         try {
             File file = new File(filePath);
             InputStream stream = new FileInputStream(file);
@@ -28,13 +30,13 @@ public class JSONReader {
             JSONObject object = new JSONObject(tokener);
             JSONObject areaList = object.getJSONObject("geographical_area_list");
             JSONArray geoAreas = areaList.getJSONArray("geographical_area");
-            GeographicAreaDTO[] geographicAreasArray;
+            GeographicArea[] geographicAreasArray;
             geographicAreasArray = readGeoAreas(geoAreas);
             return geographicAreasArray;
         } catch (FileNotFoundException e) {
             System.out.println("The file wasn't found.");
         }
-        return new GeographicAreaDTO[0];
+        return new GeographicArea[0];
     }
 
     /**
@@ -43,24 +45,26 @@ public class JSONReader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private GeographicAreaDTO[] readGeoAreas(JSONArray geoAreas) {
-        GeographicAreaDTO[] geographicAreasArray = new GeographicAreaDTO[geoAreas.length()];
+    private GeographicArea[] readGeoAreas(JSONArray geoAreas) {
+        GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
         for (int i = 0; i < geoAreas.length(); i++) {
             JSONObject area = geoAreas.getJSONObject(i);
             JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
-            GeographicAreaDTO areaDTO = new GeographicAreaDTO();
-            areaDTO.setId(area.getString("id"));
-            areaDTO.setDescription(area.getString("description"));
-            areaDTO.setTypeArea(area.getString("type"));
-            areaDTO.setWidth(area.getDouble("width"));
-            areaDTO.setLength(area.getDouble("length"));
-            areaDTO.setLatitudeGeoAreaDTO(local.getDouble("latitude"));
-            areaDTO.setLongitudeGeoAreaDTO(local.getDouble("longitude"));
-            areaDTO.setAltitudeGeoAreaDTO(local.getDouble("altitude"));
-            geographicAreasArray[i] = areaDTO;
+            String areaID = area.getString("id");
+            String areaDescription = area.getString("description");
+            TypeArea areaType = new TypeArea(area.getString("type"));
+            double areaWidth = area.getDouble("width");
+            double areaLength = (area.getDouble("length"));
+            double areaLatitude = local.getDouble("latitude");
+            double areaLongitude = local.getDouble("longitude");
+            double areaAltitude = local.getDouble("altitude");
+            GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, new Local(areaLatitude,
+                    areaLongitude, areaAltitude));
+            areaObject.setDescription(areaDescription);
+            geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            SensorDTO[] areaSensorsArray = readAreaSensors(areaSensors);
-            addSensorDTOStoAreaDTO(areaSensorsArray, areaDTO);
+            Sensor[] areaSensorsArray = readAreaSensors(areaSensors);
+            addSensorsToArea(areaSensorsArray, areaObject);
         }
         return geographicAreasArray;
     }
@@ -72,30 +76,30 @@ public class JSONReader {
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private SensorDTO[] readAreaSensors(JSONArray areaSensors) {
-        SensorDTO[] result = new SensorDTO[areaSensors.length()];
+    private Sensor[] readAreaSensors(JSONArray areaSensors) {
+        Sensor[] result = new Sensor[areaSensors.length()];
         for (int k = 0; k < areaSensors.length(); k++) {
             JSONObject areaSensor = areaSensors.getJSONObject(k);
             JSONObject sensor = areaSensor.getJSONObject("sensor");
             String sensorId = sensor.getString("id");
             String sensorName = sensor.getString("name");
             String sensorDate = sensor.getString("start_date");
+            SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = null;
+            try {
+                date = validDateFormat.parse(sensorDate);
+            } catch (ParseException c) {
+                c.printStackTrace();
+            }
             String sensorType = sensor.getString("type");
             String sensorUnits = sensor.getString("units");
             JSONObject sensorLocal = areaSensor.getJSONObject("location");
             double sensorLatitude = sensorLocal.getDouble("latitude");
             double sensorLongitude = sensorLocal.getDouble("longitude");
             double sensorAltitude = sensorLocal.getDouble("altitude");
-            SensorDTO sensorDTO = new SensorDTO();
-            sensorDTO.setId(sensorId);
-            sensorDTO.setName(sensorName);
-            sensorDTO.setDateStartedFunctioning(sensorDate);
-            sensorDTO.setTypeSensor(sensorType);
-            sensorDTO.setUnits(sensorUnits);
-            sensorDTO.setLatitude(sensorLatitude);
-            sensorDTO.setLongitude(sensorLongitude);
-            sensorDTO.setAltitude(sensorAltitude);
-            result[k] = sensorDTO;
+            Sensor sensorObject = new Sensor(sensorId, sensorName, new TypeSensor(sensorType, sensorUnits), new Local(sensorLatitude,
+                    sensorLongitude, sensorAltitude), date);
+            result[k] = sensorObject;
         }
         return result;
     }
@@ -106,9 +110,9 @@ public class JSONReader {
      * @param area is the area to which we want to add the sensors.
      */
 
-    private void addSensorDTOStoAreaDTO(SensorDTO[] sensorsToAdd, GeographicAreaDTO area) {
-        for (SensorDTO sensor : sensorsToAdd) {
-            area.addSensorDTO(sensor);
+    private void addSensorsToArea(Sensor[] sensorsToAdd, GeographicArea area) {
+        for (Sensor sensor : sensorsToAdd) {
+            area.addSensor(sensor);
         }
     }
 }
