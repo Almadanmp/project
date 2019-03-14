@@ -983,8 +983,8 @@ class SensorTest {
         Local testLocal = new Local(20, 29, 5);
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 2,
                 3, testLocal);
-        Local upperLeftVertex = new Local(20, 27, 5);
-        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperLeftVertex,
+        Local upperVertex = new Local(20, 28, 5);
+        Sensor testSensor = new Sensor("RF12345", "SensorOne", new TypeSensor("Movement", "cm"), upperVertex,
                 new Date());
 
         // Act
@@ -993,7 +993,7 @@ class SensorTest {
 
         // Assert
 
-        assertFalse(result);
+        assertTrue(result);
     }
 }
 
