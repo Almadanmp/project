@@ -22,7 +22,7 @@ public class CSVReaderController {
      * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
      *
      * @param geographicAreaList is the Geographic Area List of the application.
-     * @param  path is the path to the CSV File.
+     * @param path               is the path to the CSV File.
      * @author Andre
      */
     public void readAndSet(GeographicAreaList geographicAreaList, String path) {
@@ -40,10 +40,9 @@ public class CSVReaderController {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             for (String[] readings : list) {
-                parseAndLog(readings,logger,fullSensorList);
+                parseAndLog(readings, logger, fullSensorList);
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
