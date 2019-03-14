@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,9 @@ class HouseConfigurationControllerTest {
         List<String> deviceTypeList = new ArrayList<>();
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
         validHouse = new House("ISEP", address,
-                new Local(20, 20, 20),60, 180,
+                new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
-        validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
     }
@@ -116,26 +117,26 @@ class HouseConfigurationControllerTest {
     void seeIfSetHouseAddress() {
         //Act
 
-        controller.setHouseAddress("Rua do ISEP","4400","City",validHouse);
+        controller.setHouseAddress("Rua do ISEP", "4400", "City", validHouse);
 
         // Assert
 
-        assertEquals(validHouse.getAddress(),new Address("Rua do ISEP","4400","City"));
+        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "4400", "City"));
     }
 
     @Test
     void seeIfSetHouseLocal() {
         //Act
 
-        controller.setHouseLocal(10,51,2,validHouse);
+        controller.setHouseLocal(10, 51, 2, validHouse);
 
         // Assert
 
-        assertEquals(validHouse.getLocation(),new Local(10,51,2));
+        assertEquals(validHouse.getLocation(), new Local(10, 51, 2));
     }
 
     @Test
-    void seeIfAddGeoAreasToListWorks(){
+    void seeIfAddGeoAreasToListWorks() {
         // Arrange
 
         GeographicArea[] arrayToUse = new GeographicArea[2];
@@ -164,5 +165,18 @@ class HouseConfigurationControllerTest {
         // Assert
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void seeIfSetAndGetHouseMotherAreaWorks() {
+        //Arrange
+        controller.setHouseMotherArea(validHouse,new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
+        GeographicArea expected = new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100));
+        //Act
+        GeographicArea actualResult = validHouse.getMotherArea();
+        //Assert
+        assertEquals(expected,actualResult);
     }
 }
