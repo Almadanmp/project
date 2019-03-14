@@ -179,4 +179,16 @@ class HouseConfigurationControllerTest {
         //Assert
         assertEquals(expected,actualResult);
     }
+
+    @Test
+    void seeIfIsMotherAreaNullBothConditions(){
+        // Act
+        boolean actualResult1 = validHouse.isMotherAreaNull();
+        controller.setHouseMotherArea(validHouse,null);
+        boolean actualResult2 = validHouse.isMotherAreaNull();
+        // Assert
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+    }
+
 }
