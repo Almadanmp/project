@@ -167,11 +167,11 @@ public class HouseMonitoringController {
     public boolean isMotherAreaValid(House house) {
         UtilsUI utils = new UtilsUI();
         if (house.isMotherAreaNull()) {
-            System.out.println(utils.invalidMotherArea);
+            System.out.println(UtilsUI.invalidMotherArea);
             return false;
         }
         if (!utils.geographicAreaSensorListIsValid(house.getMotherArea())) {
-            System.out.println(utils.invalidSensorList);
+            System.out.println(UtilsUI.invalidSensorList);
             return false;
         }
         return true;

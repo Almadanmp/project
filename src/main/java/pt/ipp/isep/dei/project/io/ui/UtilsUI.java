@@ -13,15 +13,15 @@ public class UtilsUI {
 
     String invalidOption = "Please enter a valid option.";
     String invalidNumber = "Please enter a valid number.";
-    private String returningToMainMenu = "-- Returning to main menu -- \n";
+    static final String returningToMainMenu = "-- Returning to main menu -- \n";
     String invalidRoomList = "Invalid Room List - List is empty.\n" + returningToMainMenu;
     String invalidGridList = "Invalid Grid List - List is empty.\n" + returningToMainMenu;
     String invalidDeviceList = "Invalid Device List - List is empty.\n" + returningToMainMenu;
     String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + returningToMainMenu;
     String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + returningToMainMenu;
-    public String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
+    public static final String invalidSensorList = "Invalid Sensor List - List is empty.\n" + returningToMainMenu;
     String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + returningToMainMenu;
-    public String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
+    public static final String invalidMotherArea = "The selected House does not have a Geographical Area defined.\n" + returningToMainMenu;
     String invalidProgramList = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + returningToMainMenu;
 
     boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
