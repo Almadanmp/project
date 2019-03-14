@@ -5,36 +5,17 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CSVReaderController {
-
-    /**
-     * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
-     *
-     * @author Andre
-     */
-    public String startAndPromptPath() {
-        Scanner scanner = new Scanner(System.in);
-        UtilsUI.printMessage("Please insert the location of the CSV file");
-        String csvFileLocation = scanner.next();
-        while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
-            UtilsUI.printMessage("Please enter a valid location");
-            csvFileLocation = scanner.next();
-
-        }
-        return csvFileLocation;
-    }
 
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
