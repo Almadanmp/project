@@ -56,7 +56,7 @@ class RoomConfigurationControllerTest {
         dish.setProgramList(pList);
         ProgramList expectedResult = pList;
         // Act
-        ProgramList actualResult = dish.getProgramList();
+        ProgramList actualResult = controller.getProgramList(dish);
         // Assert
         assertEquals(actualResult, expectedResult);
     }
