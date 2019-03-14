@@ -22,13 +22,13 @@ public class Mapper {
      */
 
     public RoomDTO roomToDTO(Room room) {
-        roomDTO.setRoomName(room.getRoomName());
-        roomDTO.setHouseFloor(room.getHouseFloor());
-        roomDTO.setRoomHeight(room.getRoomHeight());
-        roomDTO.setRoomLength(room.getRoomLength());
-        roomDTO.setRoomWidth(room.getRoomWidth());
+        roomDTO.setName(room.getRoomName());
+        roomDTO.setFloor(room.getHouseFloor());
+        roomDTO.setHeight(room.getRoomHeight());
+        roomDTO.setLength(room.getRoomLength());
+        roomDTO.setWidth(room.getRoomWidth());
         roomDTO.setId(room.getUniqueID());
-        roomDTO.setRoomSensorList(room.getSensorList());
+        roomDTO.setSensorList(room.getSensorList());
         roomDTO.setDeviceList(room.getDeviceList());
         return roomDTO;
     }
@@ -46,12 +46,12 @@ public class Mapper {
         RoomList roomlist = house.getRoomList();
         for (Room r : roomlist.getRooms()) {
             if (roomDTO.getId().compareTo(r.getUniqueID()) == 0) {
-                r.setRoomName(roomDTO.getRoomName());
-                r.setHouseFloor(roomDTO.getHouseFloor());
-                r.setRoomWidth(roomDTO.getRoomWidth());
-                r.setRoomLength(roomDTO.getRoomLength());
-                r.setRoomHeight(roomDTO.getRoomHeight());
-                r.setSensorList(roomDTO.getRoomSensorList());
+                r.setRoomName(roomDTO.getName());
+                r.setHouseFloor(roomDTO.getFloor());
+                r.setRoomWidth(roomDTO.getWidth());
+                r.setRoomLength(roomDTO.getLength());
+                r.setRoomHeight(roomDTO.getHeight());
+                r.setSensorList(roomDTO.getSensorList());
                 r.setDeviceList(roomDTO.getDeviceList());
                 room = r;
             }
