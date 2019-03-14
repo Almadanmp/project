@@ -138,32 +138,8 @@ class HouseConfigurationControllerTest {
     void seeIfAddGeoAreasToListWorks(){
         // Arrange
 
-        GeographicAreaDTO[] arrayToUse = new GeographicAreaDTO[2];
+        GeographicArea[] arrayToUse = new GeographicArea[2];
         GeographicAreaList result = new GeographicAreaList();
-
-        // First Area
-
-        GeographicAreaDTO firstArea = new GeographicAreaDTO();
-        firstArea.setId("ISEP");
-        firstArea.setDescription("Campus do ISEP");
-        firstArea.setTypeArea("urban area");
-        firstArea.setWidth(0.261);
-        firstArea.setLength(0.249);
-        firstArea.setLatitudeGeoAreaDTO(41.178553);
-        firstArea.setLongitudeGeoAreaDTO(-8.608035);
-        firstArea.setAltitudeGeoAreaDTO(111);
-
-        // Second Area
-
-        GeographicAreaDTO secondArea = new GeographicAreaDTO();
-        secondArea.setId("Porto");
-        secondArea.setDescription("City of Porto");
-        secondArea.setTypeArea("city");
-        secondArea.setWidth(10.09);
-        secondArea.setLength(3.30);
-        secondArea.setLatitudeGeoAreaDTO(41.149935);
-        secondArea.setLongitudeGeoAreaDTO(-8.610857);
-        secondArea.setAltitudeGeoAreaDTO(118);
 
         // Set up Expected Result
 
@@ -178,8 +154,8 @@ class HouseConfigurationControllerTest {
 
         // Populate Array to Use
 
-        arrayToUse[0] = firstArea;
-        arrayToUse[1] = secondArea;
+        arrayToUse[0] = geoArea1;
+        arrayToUse[1] = geoArea2;
 
         // Act
 

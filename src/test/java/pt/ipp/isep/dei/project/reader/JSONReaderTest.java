@@ -23,7 +23,8 @@ class JSONReaderTest {
     void seeIfReadFileWorks(){
         // Arrange
 
-        GeographicAreaDTO[] expectedResult = new GeographicAreaDTO[2];
+        GeographicArea[] expectedResult = new GeographicArea[2];
+        Mapper mapper = new Mapper();
 
         // First Area
 
@@ -103,14 +104,16 @@ class JSONReaderTest {
 
         // Populate expectedResult array
 
-        expectedResult[0] = firstArea;
-        expectedResult[1] = secondArea;
+        GeographicArea areaOne = mapper.createGeographicAreaFromDTO(firstArea);
+        GeographicArea areaTwo = mapper.createGeographicAreaFromDTO(secondArea);
+        expectedResult[0] = areaOne;
+        expectedResult[1] = areaTwo;
 
         // Act
 
         File fileToRead = new File("src/test/resources/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        GeographicAreaDTO[] actualResult = reader.readFile(absolutePath);
+        GeographicArea[] actualResult = reader.readFile(absolutePath);
 
         // Assert
 
@@ -118,8 +121,7 @@ class JSONReaderTest {
 
         // Get one of the areas to  check its contents.
 
-        Mapper mapper = new Mapper();
-        GeographicArea actualArea = mapper.createGeographicAreaFromDTO(actualResult[0]);
+        GeographicArea actualArea = actualResult[0];
         SensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
@@ -146,7 +148,7 @@ class JSONReaderTest {
 
         // Act
 
-        GeographicAreaDTO[] actualResult = reader.readFile(invalidPath);
+        GeographicArea[] actualResult = reader.readFile(invalidPath);
 
         // Assert
 

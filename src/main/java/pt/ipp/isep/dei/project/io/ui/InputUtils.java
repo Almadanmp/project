@@ -560,11 +560,11 @@ public class InputUtils {
      * @return returns a filepath.
      */
 
-    String getInputPath() {
+    String getInputJSONPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the file you want to import:");
         String result = scanner.next();
-        while (!(result.endsWith(".csv") || result.endsWith(".json")) || !new File(result).exists()) {
+        while (!(result.endsWith(".json")) || !new File(result).exists()) {
             System.out.println("Please enter a valid location");
             result = scanner.next();
         }

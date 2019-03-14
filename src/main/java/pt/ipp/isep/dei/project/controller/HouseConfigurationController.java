@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
@@ -23,10 +21,8 @@ public class HouseConfigurationController {
      * @param list comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
      */
 
-    public void addGeoAreasToList(GeographicAreaDTO[] fileAreas, GeographicAreaList list){
-        for (GeographicAreaDTO fileArea : fileAreas) {
-            Mapper mapper = new Mapper();
-            GeographicArea area = mapper.createGeographicAreaFromDTO(fileArea);
+    public void addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list){
+        for (GeographicArea area: fileAreas) {
             list.addGeographicArea(area);
         }
     }

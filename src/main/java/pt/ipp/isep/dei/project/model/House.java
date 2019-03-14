@@ -168,9 +168,8 @@ public class House implements Metered {
      * @return is the value of the distance of the house to sensor of the given type closest to it.
      */
 
-    double getMinDistanceToSensorOfGivenType(String type) {
-        SensorList workingList = this.motherArea.getSensorsOfGivenType(type);
-        List<Double> arrayList = workingList.getSensorsDistanceToHouse(this);
+    double getMinDistanceToSensorOfGivenType(SensorList type) {
+        List<Double> arrayList = type.getSensorsDistanceToHouse(this);
         return Collections.min(arrayList);
     }
 
@@ -183,20 +182,20 @@ public class House implements Metered {
      */
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
-        SensorList minDistSensors = new SensorList();
+        SensorList minDistSensor = new SensorList();
         Sensor sensorError = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
         SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
-            double minDist = this.getMinDistanceToSensorOfGivenType(sensorType);
-            minDistSensors = sensorsType.getSensorsByDistanceToHouse(this, minDist);
+            double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);
+            minDistSensor = sensorsType.getSensorsByDistanceToHouse(this, minDist);
         }
-        if (minDistSensors.isEmpty()) {
+        if (minDistSensor.isEmpty()) {
             return sensorError;
         }
-        if (minDistSensors.size() >= 2) {
-            sensor = minDistSensors.getMostRecentlyUsedSensor();
+        if (minDistSensor.size() >= 2) {
+            sensor = minDistSensor.getMostRecentlyUsedSensor();
         } else {
-            sensor = minDistSensors.get(0);
+            sensor = minDistSensor.get(0);
         }
         return sensor;
     }

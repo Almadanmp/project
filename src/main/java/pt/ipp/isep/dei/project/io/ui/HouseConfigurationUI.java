@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.CSVReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
@@ -74,9 +73,9 @@ class HouseConfigurationUI {
 
     private void runUS15(GeographicAreaList list) {
         InputUtils input = new InputUtils();
-        String filePath = input.getInputPath();
+        String filePath = input.getInputJSONPath();
         JSONReader reader = new JSONReader();
-        GeographicAreaDTO[] fileAreas = reader.readFile(filePath);
+        GeographicArea[] fileAreas = reader.readFile(filePath);
         updateModel(fileAreas, list);
     }
 
@@ -88,7 +87,7 @@ class HouseConfigurationUI {
      * @param list      is the static list of the program's Geographic Areas.
      */
 
-    private void updateModel(GeographicAreaDTO[] fileAreas, GeographicAreaList list) {
+    private void updateModel(GeographicArea[] fileAreas, GeographicAreaList list) {
         controller.addGeoAreasToList(fileAreas, list);
     }
 

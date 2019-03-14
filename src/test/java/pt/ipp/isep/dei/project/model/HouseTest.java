@@ -4,13 +4,16 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.device.*;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
 
 import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
 
@@ -39,9 +42,9 @@ class HouseTest {
                 180, deviceTypeString);
         validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        firstValidSensor = new Sensor("RF12345","tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
+        firstValidSensor = new Sensor("RF12345", "tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        Sensor secondValidSensor = new Sensor("RF17745","rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
+        Sensor secondValidSensor = new Sensor("RF17745", "rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
                 40, 15), new Date());
         validArea.addSensor(firstValidSensor);
         validArea.addSensor(secondValidSensor);
@@ -76,10 +79,11 @@ class HouseTest {
         // Arrange
 
         double expectedResult = 1111.9492664455872;
-
+        SensorList validSensorList = new SensorList();
+        validSensorList.add(firstValidSensor);
         // Act
 
-        double actualResult = validHouse.getMinDistanceToSensorOfGivenType("Temperature");
+        double actualResult = validHouse.getMinDistanceToSensorOfGivenType(validSensorList);
 
         // Assert
 
@@ -90,14 +94,14 @@ class HouseTest {
     void getMinDistanceToSensorOfGivenTypeSamePosition() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12666","tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(20,
+        Sensor testSensor = new Sensor("RF12666", "tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(20,
                 20, 20), new Date());
         validArea.addSensor(testSensor);
         double expectedResult = 0;
 
         // Act
 
-        double actualResult = validHouse.getMinDistanceToSensorOfGivenType("Temperature");
+        double actualResult = validHouse.getMinDistanceToSensorOfGivenType(validArea.getSensorList());
 
         // Assert
 
@@ -368,7 +372,7 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksByDistance() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345","rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(20,
+        Sensor testSensor = new Sensor("RF12345", "rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(20,
                 21, 20), new Date());
         validArea.addSensor(testSensor);
 
@@ -386,7 +390,7 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksNoSensor() {
         // Arrange
 
-        Sensor expectedResult = new Sensor("RF12345","EmptyList", new TypeSensor("temperature", ""),
+        Sensor expectedResult = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", ""),
                 new Local(0, 0, 0), new Date());
 
         // Act
@@ -751,31 +755,31 @@ class HouseTest {
     }
 
     @Test
-    void seeIfSetIDWorks(){
+    void seeIfSetIDWorks() {
         //Act
         validHouse.setId("valid house");
 
         //Assert
-        assertEquals(validHouse.getHouseId(),"valid house");
+        assertEquals(validHouse.getHouseId(), "valid house");
     }
 
     @Test
-    void seeIfSetMotherAreaWorks(){
+    void seeIfSetMotherAreaWorks() {
         //Act
-        GeographicArea geoArea = new GeographicArea("Porto",new TypeArea("City"),50,13,new Local(5,5,5));
+        GeographicArea geoArea = new GeographicArea("Porto", new TypeArea("City"), 50, 13, new Local(5, 5, 5));
         validHouse.setMotherArea(geoArea);
 
         //Assert
-        assertEquals(validHouse.getMotherArea(),geoArea);
+        assertEquals(validHouse.getMotherArea(), geoArea);
     }
 
     @Test
-    void seeIfSetGetAddressWorks(){
+    void seeIfSetGetAddressWorks() {
         //Act
-        validHouse.setAddress("Rua do ISEP","4400","Campus");
+        validHouse.setAddress("Rua do ISEP", "4400", "Campus");
 
         //Assert
-        assertEquals(validHouse.getAddress(),new Address("Rua do ISEP","4400","Campus"));
+        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "4400", "Campus"));
     }
 
     @Test

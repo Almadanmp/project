@@ -53,7 +53,7 @@ public class GeographicArea {
         this.id = id;
     }
 
-    public void setTypeArea(TypeArea typeArea) {
+    void setTypeArea(TypeArea typeArea) {
         this.typeArea = typeArea;
     }
 
@@ -121,7 +121,7 @@ public class GeographicArea {
         }
     }
 
-    public GeographicArea getMotherArea() {
+    GeographicArea getMotherArea() {
         return this.motherArea;
     }
 
@@ -219,7 +219,8 @@ public class GeographicArea {
      * @param geographicArea the GA to be tested.
      * @return true if is equal to geographic area given, false otherwise.
      **/
-    public boolean isMotherAreaEqual(GeographicArea geographicArea) {
+
+    private boolean isMotherAreaEqual(GeographicArea geographicArea) {
         return this.motherArea.equals(geographicArea);
     }
 
@@ -231,7 +232,8 @@ public class GeographicArea {
      * @param typeArea the type of Geographic Area
      * @return true if it matches, false if it does not.
      **/
-    public boolean equalsParameters(String name, TypeArea typeArea, Local local) {
+
+    boolean equalsParameters(String name, TypeArea typeArea, Local local) {
         return (this.id.equals(name) && (this.typeArea.equals(typeArea) && (this.location.equals(local))));
     }
 
@@ -241,7 +243,8 @@ public class GeographicArea {
      * @param typeArea the type of Area
      * @return true if it matches, false if it does not.
      **/
-    public boolean equalsTypeArea(TypeArea typeArea) {
+
+    boolean equalsTypeArea(TypeArea typeArea) {
         return (this.typeArea.equals(typeArea));
     }
 
@@ -252,7 +255,8 @@ public class GeographicArea {
      * @param type the type of Sensor to test.
      * @return SensorList of given type
      **/
-    public SensorList getSensorsOfGivenType(String type) {
+
+    SensorList getSensorsOfGivenType(String type) {
         return this.areaSensors.getSensorListByType(type);
     }
 
