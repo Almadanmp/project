@@ -138,4 +138,22 @@ import static org.testng.Assert.*;
          assertEquals(room1,result);
      }
 
+     @Test
+     void seeIfUpdateHouseRoomDoesNotWorks(){
+         String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+         List<String> deviceTypeString = new ArrayList<>();
+         deviceTypeString.add(PATH_TO_FRIDGE);
+         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                 "4455-125", "Porto"),
+                 new Local(20, 20, 20), 60,
+                 180, deviceTypeString);
+         Room room1 = new Room("quarto1",2,50,50,2);
+         Room room2 = new Room("quarto2",3,50,50,2);
+         validHouse.addRoom(room1);
+         RoomDTO roomDTO = mapper.roomToDTO(room1);
+         Room result = mapper.updateHouseRoom(roomDTO,validHouse);
+
+         assertNotEquals(room2,result);
+     }
+
 }
