@@ -12,6 +12,8 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -409,6 +411,40 @@ class HouseTest {
         readingList.addReading(firstReading);
         readingList.addReading(secondReading);
         firstValidSensor.setReadingList(readingList);
+
+        // Act
+
+        Sensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
+
+        // Assert
+
+        assertEquals(firstValidSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetClosestSensorOfTypeWorksWithTwoSensors() {
+        // Arrange
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date earlierDate = new Date();
+        Date laterDate = new Date();
+
+        try {
+            earlierDate = validSdf.parse("21/02/2018 10:02:00");
+            laterDate = validSdf.parse("21/03/2018 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ReadingList readingList = new ReadingList();
+        Reading firstReading = new Reading(15, laterDate);
+        Reading secondReading = new Reading(12, earlierDate);
+        readingList.addReading(firstReading);
+        readingList.addReading(secondReading);
+        firstValidSensor.setReadingList(readingList);
+
+        Sensor secondSensor = new Sensor("RF4321", "tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(
+                30, 20, 10), new Date());
+        secondSensor.addReading(new Reading(15, earlierDate));
+        validArea.addSensor(secondSensor);
 
         // Act
 

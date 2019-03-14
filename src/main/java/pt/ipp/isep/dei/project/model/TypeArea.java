@@ -33,7 +33,7 @@ public class TypeArea {
      * @param name input name to be set as the type area name
      */
     void setName(String name) {
-        if (isValid(name)) {
+        if (nameIsValid(name)) {
             this.name = name;
             return;
         }
@@ -48,11 +48,8 @@ public class TypeArea {
      * @return is true if the name of the Type is valid, throws an exception if not.
      */
 
-    boolean isValid(String name) {
-        if (name != null && !name.isEmpty() && !name.matches(".*\\d+.*")) {
-            return true;
-        }
-        return false;
+    boolean nameIsValid(String name) {
+        return (name != null && !name.isEmpty() && !name.matches(".*\\d+.*"));
     }
 
     /**

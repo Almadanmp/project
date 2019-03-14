@@ -25,6 +25,7 @@ import java.util.Scanner;
 public class InputUtils {
 
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
+    private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";
 
     void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
@@ -109,7 +110,7 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            System.out.println("Please select one of the existing devices in the selected room: ");
+            System.out.println(SELECT_DEVICES);
             System.out.println(grid.buildDeviceListString());
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < grid.getNumberOfDevices()) {
@@ -148,7 +149,7 @@ public class InputUtils {
         Mapper mapper = new Mapper();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            System.out.println("Please select one of the existing devices in the selected room: ");
+            System.out.println(SELECT_DEVICES);
             System.out.println(controller.buildDeviceListString(mapper.updateHouseRoom(room, house)));
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < controller.getDeviceListSize(room, house)) {
@@ -167,7 +168,7 @@ public class InputUtils {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
-            System.out.println("Please select one of the existing devices in the selected room: ");
+            System.out.println(SELECT_DEVICES);
             System.out.println(controller.buildDeviceListString(room));
             int aux = inputUtils.getInputAsInt();
             if (aux >= 0 && aux < room.getDeviceListSize()) {
