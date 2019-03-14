@@ -22,19 +22,12 @@ public class SensorDTOTest {
         sensorDTO2.setId("01");
         sensorDTO3.setId("02");
 
-        //Act
-
-        boolean actualResult1 = sensorDTO1.equals(sensorDTO1);
-        boolean actualResult2 = sensorDTO1.equals(sensorDTO2);
-        boolean actualResult3 = sensorDTO1.equals(sensorDTO3);
-        boolean actualResult4 = sensorDTO1.equals(2D);
-
         //Assert
 
-        assertTrue(actualResult1);
-        assertTrue(actualResult2);
-        assertFalse(actualResult3);
-        assertFalse(actualResult4);
+        assertEquals(sensorDTO1, sensorDTO1);
+        assertEquals(sensorDTO1, sensorDTO2);
+        assertNotEquals(sensorDTO1, sensorDTO3);
+        assertNotEquals(sensorDTO1, 3D);
     }
 
     @Test
