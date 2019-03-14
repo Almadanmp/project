@@ -467,6 +467,57 @@ class HouseMonitoringControllerTest {
                 exception.getMessage());
     }
 
+    @Test
+    void seeIfGetLastColdestDayInIntervalWorks() {
+        //Arrange
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime());
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime());
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime());
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime());
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime());
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime());
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime());
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime());
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime());
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime());
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime());
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime());
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime());
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime());
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
+        readingList.addReading(reading1);
+        readingList.addReading(reading2);
+        readingList.addReading(reading3);
+        readingList.addReading(reading4);
+        readingList.addReading(reading5);
+        readingList.addReading(reading6);
+        readingList.addReading(reading7);
+        readingList.addReading(reading8);
+        readingList.addReading(reading9);
+        readingList.addReading(reading10);
+        readingList.addReading(reading11);
+        readingList.addReading(reading12);
+        readingList.addReading(reading13);
+        readingList.addReading(reading14);
+        readingList.addReading(reading15);
+        readingList.addReading(reading16);
+        readingList.addReading(reading17);
+        readingList.addReading(reading18);
+        readingList.addReading(reading19);
+        readingList.addReading(reading20);
+        validTemperatureSensor.setReadingList(readingList);
+        //Act
+        Date actualResult = validTemperatureSensor.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        //Assert
+        assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
+    }
+
     /**
      * Tests for getFirstHottestDayInPeriod
      *
