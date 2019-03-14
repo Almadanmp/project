@@ -13,16 +13,12 @@ import java.util.List;
 public class CSVReader {
 
     public List<String[]> readCSV(String csvFileLocation) {
-        BufferedReader buffReader = null;
-        FileReader fileReader = null;
         String line = "";
         String cvsSplit = ",";
         String[] readings;
         List<String[]> listReads = new ArrayList<>();
         int iteration = 0;
-        try {
-            fileReader = new FileReader(csvFileLocation);
-            buffReader = new BufferedReader(fileReader);
+        try (BufferedReader buffReader = new BufferedReader(new FileReader(csvFileLocation))){
             while ((line = buffReader.readLine()) != null) {
                 if (iteration == 0) {
                     iteration++;
@@ -33,16 +29,6 @@ public class CSVReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (buffReader != null)
-                    buffReader.close();
-                if (fileReader != null)
-                    fileReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
         return listReads;
     }
