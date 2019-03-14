@@ -104,8 +104,8 @@ class JSONReaderTest {
 
         // Populate expectedResult array
 
-        GeographicArea areaOne = mapper.createGeographicAreaFromDTO(firstArea);
-        GeographicArea areaTwo = mapper.createGeographicAreaFromDTO(secondArea);
+        GeographicArea areaOne = mapper.geographicAreaDTOToObject(firstArea);
+        GeographicArea areaTwo = mapper.geographicAreaDTOToObject(secondArea);
         expectedResult[0] = areaOne;
         expectedResult[1] = areaTwo;
 
