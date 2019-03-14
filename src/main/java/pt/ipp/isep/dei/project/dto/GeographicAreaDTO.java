@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.dto;
 
 
+import pt.ipp.isep.dei.project.model.Local;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -216,10 +218,11 @@ public class GeographicAreaDTO {
             return false;
         }
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
+        Local testDTOLocal = new Local(localVariable.getLatitude(), localVariable.getLongitude(), localVariable.
+                getAltitude());
+        Local geographicAreaDTOLocal = new Local(this.latitude, this.longitude, this.altitude);
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getId().equals(this.id)
-                && Double.compare(localVariable.getLatitude(), this.latitude) == 0 && Double.compare
-                (localVariable.getLongitude(), this.longitude) == 0 && Double.compare(localVariable.
-                getAltitude(),this.altitude) == 0 && localVariable.getSensorDTOList().equals(this.sensorDTOList));
+                && testDTOLocal.equals(geographicAreaDTOLocal) && localVariable.getSensorDTOList().equals(this.sensorDTOList));
     }
 
     @Override
