@@ -51,37 +51,32 @@ public class VariableTimeProgram implements Program {
     }
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        switch (attributeName) {
-            case NOMINAL_POWER:
-                if (attributeValue instanceof Double) {
-                    this.programNominalPower = (Double) attributeValue;
-                    return true;
-                }
-                return false;
-
-
-            default:
-                return false;
+        if (attributeName.equals(NOMINAL_POWER)) {
+            if (attributeValue instanceof Double) {
+                this.programNominalPower = (Double) attributeValue;
+                return true;
+            }
+            return false;
         }
+        return false;
+
     }
 
     public Object getAttributeUnit(String attributeName) {
-        switch (attributeName) {
-            case NOMINAL_POWER:
-                return "kW";
-            default:
-                return false;
+        if (attributeName.equals(NOMINAL_POWER)) {
+            return "kW";
         }
+        return false;
+
     }
 
 
     public Object getAttributeValue(String attributeName) {
-        switch (attributeName) {
-            case NOMINAL_POWER:
-                return programNominalPower;
-            default:
-                return 0;
+        if (attributeName.equals(NOMINAL_POWER)) {
+            return programNominalPower;
         }
+        return 0;
+
     }
 
     @Override
