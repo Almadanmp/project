@@ -22,7 +22,7 @@ class FixedTimeProgramTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validFixedTimeProgram = new FixedTimeProgram("Medium Power", 30, 1.2);
+        validFixedTimeProgram = new FixedTimeProgram("Medium Power", 30D, 1.2D);
     }
 
     @Test
@@ -325,6 +325,58 @@ class FixedTimeProgramTest {
 
         assertEquals(false, result);
     }
+    @Test
+    void seeIfSetAttributeValuesWorksJustNames() {
+        // Happy Cases
+
+        assertTrue(validFixedTimeProgram.setAttributeValue("Duration", 6D));
+        assertTrue(validFixedTimeProgram.setAttributeValue("Energy Consumption", 6D));
+
+        // Wrong Attribute Names
+
+        assertFalse(validFixedTimeProgram.setAttributeValue("\0Duration", 5D));
+        assertFalse(validFixedTimeProgram.setAttributeValue("\0Energy Consumption", 5D));
+
+        // Empty Attribute Name
+
+        assertFalse(validFixedTimeProgram.setAttributeValue("", 6D));
+    }
+    @Test
+    void seeIfGetAttributeValueUnitWorks() {
+        // Happy Cases
+
+        validFixedTimeProgram.setAttributeValue(FixedTimeProgram.DURATION, 5D);
+        validFixedTimeProgram.setAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION, 5D);
+
+        validFixedTimeProgram.setAttributeValue("Duration", 5D);
+        validFixedTimeProgram.setAttributeValue("Energy Consumption", 5D);
+
+        assertEquals(5.0, validFixedTimeProgram.getAttributeValue(FixedTimeProgram.DURATION));
+        assertEquals(5.0, validFixedTimeProgram.getAttributeValue(FixedTimeProgram.ENERGY_CONSUMPTION));
+
+        assertEquals(5.0, validFixedTimeProgram.getAttributeValue("Duration"));
+        assertEquals(5.0, validFixedTimeProgram.getAttributeValue("Energy Consumption"));
+
+        assertEquals("min", validFixedTimeProgram.getAttributeUnit("Duration"));
+        assertEquals("kWh", validFixedTimeProgram.getAttributeUnit("Energy Consumption"));
+
+        // Wrong attribute Names.
+
+        assertEquals(0, validFixedTimeProgram.getAttributeValue("\0Duration"));
+        assertEquals(0, validFixedTimeProgram.getAttributeValue("\0Energy Consumption"));
+
+        assertEquals(false, validFixedTimeProgram.getAttributeUnit("\0Duration"));
+        assertEquals(false, validFixedTimeProgram.getAttributeUnit("\0Energy Consumption"));
+
+        // Empty attribute name.
+
+        assertEquals(0, validFixedTimeProgram.getAttributeValue(" "));
+        assertEquals(false, validFixedTimeProgram.getAttributeUnit(" "));
+        assertEquals(0, validFixedTimeProgram.getAttributeValue(""));
+        assertEquals(false, validFixedTimeProgram.getAttributeUnit(""));
+
+    }
+
     @Test
     void seeIfEqualsWorksTrue() {
         // Arrange

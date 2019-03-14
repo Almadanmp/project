@@ -63,7 +63,7 @@ class WaterHeaterSpecTest {
 
         // Assert
 
-        assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
+        assertTrue(result.contains("Volume Of Water"));
         assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
         assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
         assertEquals(result.size(), 3);
