@@ -458,7 +458,26 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException2(){
+        //Arrange
+        validHouse.setMotherArea(validHouseArea);
+        validHouseArea.setSensorList(validSensorList);
+        ReadingList readingList = new ReadingList();
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
+        readingList.addReading(reading1);
+        validTemperatureSensor.setReadingList(readingList);
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
+
+        assertEquals("No readings available in the chosen interval.",
+                exception.getMessage());
+    }
+
+
+    @Test
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException1() {
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
@@ -470,6 +489,8 @@ class HouseMonitoringControllerTest {
     @Test
     void seeIfGetLastColdestDayInIntervalWorks() {
         //Arrange
+        validHouse.setMotherArea(validHouseArea);
+        validHouseArea.setSensorList(validSensorList);
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
@@ -513,7 +534,7 @@ class HouseMonitoringControllerTest {
         readingList.addReading(reading20);
         validTemperatureSensor.setReadingList(readingList);
         //Act
-        Date actualResult = validTemperatureSensor.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        Date actualResult = controller.getLastColdestDayInInterval(validHouse,(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
         //Assert
         assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
     }
