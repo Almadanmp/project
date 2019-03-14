@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.device.devicespecs;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
 
 import java.util.List;
 
@@ -90,14 +91,11 @@ class WaterHeaterSpecTest {
 
         boolean setResult = validHeaterSpec.setAttributeValue("Volume Of Water", 2.0);
         Object getResult = validHeaterSpec.getAttributeValue("Volume Of Water");
-        Object resultValue = validHeaterSpec.getAttributeUnit("Volume Of Water");
-
 
         // Assert
 
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
-        assertEquals("L", resultValue);
 
         // Arrange
 
@@ -107,13 +105,11 @@ class WaterHeaterSpecTest {
 
         setResult = validHeaterSpec.setAttributeValue("Hot Water Temperature", 3D);
         getResult = validHeaterSpec.getAttributeValue("Hot Water Temperature");
-        Object resultValue2 = validHeaterSpec.getAttributeUnit("Hot Water Temperature");
 
         // Assert
 
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
-        assertEquals("ºC", resultValue2);
 
         // Arrange
 
@@ -123,13 +119,12 @@ class WaterHeaterSpecTest {
 
         setResult = validHeaterSpec.setAttributeValue("Cold Water Temperature", 4D);
         getResult = validHeaterSpec.getAttributeValue("Cold Water Temperature");
-        Object resultValue3 = validHeaterSpec.getAttributeUnit("Cold Water Temperature");
 
         // Assert
 
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
-        assertEquals("ºC", resultValue3);
+
 
         // Arrange
 
@@ -139,26 +134,22 @@ class WaterHeaterSpecTest {
 
         setResult = validHeaterSpec.setAttributeValue("Performance Ratio", 5D);
         getResult = validHeaterSpec.getAttributeValue("Performance Ratio");
-        Object resultValue4 = validHeaterSpec.getAttributeUnit("Performance Ratio");
 
         // Assert
 
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
-        assertEquals("", resultValue4);
 
         // Arrange
 
         expectedResult = 10.0;
         setResult = validHeaterSpec.setAttributeValue("Volume Of Water To Heat", 10D);
         getResult = validHeaterSpec.getAttributeValue("Volume Of Water To Heat");
-        Object resultValue5 = validHeaterSpec.getAttributeUnit("Volume Of Water To Heat");
 
         // Assert
 
         assertEquals(expectedResult, getResult);
         assertTrue(setResult);
-        assertEquals("L", resultValue5);
     }
 
     @Test
@@ -283,6 +274,12 @@ class WaterHeaterSpecTest {
         assertEquals("", validHeaterSpec.getAttributeUnit("Performance Ratio"));
         assertEquals("L", validHeaterSpec.getAttributeUnit("Volume Of Water To Heat"));
 
+        assertEquals("L", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER));
+        assertEquals("ºC", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.HOT_WATER_TEMP));
+        assertEquals("ºC", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.COLD_WATER_TEMP));
+        assertEquals("", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.PERFORMANCE_RATIO));
+        assertEquals("L", validHeaterSpec.getAttributeUnit(WaterHeaterSpec.VOLUME_OF_WATER));
+
         // Wrong Attribute Names.
 
         assertEquals(false, validHeaterSpec.getAttributeUnit("\0VolumeOfWater"));
@@ -296,6 +293,5 @@ class WaterHeaterSpecTest {
         assertEquals(false, validHeaterSpec.getAttributeUnit(""));
 
 
-        assertEquals(false, validHeaterSpec.getAttributeUnit("No Water"));
     }
 }
