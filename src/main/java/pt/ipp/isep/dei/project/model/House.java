@@ -111,6 +111,10 @@ public class House implements Metered {
         }
     }
 
+    public double getAltitude(){
+        return this.location.getAltitude();
+    }
+
     public void setMotherArea(GeographicArea motherArea) {
         this.motherArea = motherArea;
     }
@@ -192,7 +196,7 @@ public class House implements Metered {
         if (minDistSensor.isEmpty()) {
             return sensorError;
         }
-        if (minDistSensor.size() >= 2) {
+        if (minDistSensor.size() > 1) {
             sensor = minDistSensor.getMostRecentlyUsedSensor();
         } else {
             sensor = minDistSensor.get(0);

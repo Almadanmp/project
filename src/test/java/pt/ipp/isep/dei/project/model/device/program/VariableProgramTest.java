@@ -126,6 +126,17 @@ class VariableProgramTest {
     }
 
     @Test
+    void seeIfSetAttributeValueWorksWrongNameAndNotDouble() {
+        // Act
+
+        boolean result = validProgramOne.setAttributeValue("Lisbbon", "kjsjjd");
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
     void seeIfSetAttributeValueWorksNotDouble() {
         // Act
 
@@ -171,7 +182,6 @@ class VariableProgramTest {
 
         assertEquals(false, validProgramOne.getAttributeUnit(""));
     }
-
     @Test
     void seeIfEqualsWorks() {
         // Arrange
@@ -202,7 +212,7 @@ class VariableProgramTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-       assertNotEquals(validVariableTimeProgram, new RoomList());
+        assertNotEquals(validVariableTimeProgram, new RoomList());
     }
 
     @Test

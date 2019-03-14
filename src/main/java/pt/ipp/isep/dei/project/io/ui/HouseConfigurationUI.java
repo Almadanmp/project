@@ -102,8 +102,9 @@ class HouseConfigurationUI {
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
     private void runUS20(GeographicAreaList list) {
+        InputUtils utils = new InputUtils();
         CSVReaderController ctrl = new CSVReaderController();
-        String path = ctrl.startAndPromptPath();
+        String path = utils.startAndPromptPath();
         ctrl.readAndSet(list, path);
     }
 

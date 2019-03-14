@@ -192,7 +192,6 @@ public class Kettler implements Device, Metered {
      *
      * @return a double of the device's estimated energy consumption.
      **/
-    //TODO este device não usa o tempo para o cálculo da estimativa do consumo, que fazer?
     @Override
     public double getEnergyConsumption(float time) {
         double specificHeat = 1.163;
