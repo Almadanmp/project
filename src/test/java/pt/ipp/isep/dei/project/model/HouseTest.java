@@ -261,6 +261,22 @@ class HouseTest {
     }
 
     @Test
+    void seeIfGetSetHouseLocationWorksAltitude() {
+        // Arrange
+
+        double expectedResult = 70;
+
+        // Act
+
+        validHouse.setLocation(7, 78, 70);
+        double actualResult = validHouse.getAltitude();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetNominalPowerWorks() {
         //Arrange
 
@@ -813,6 +829,4 @@ class HouseTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-
 }

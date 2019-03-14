@@ -111,6 +111,10 @@ public class House implements Metered {
         }
     }
 
+    public double getAltitude(){
+        return this.location.getAltitude();
+    }
+
     public void setMotherArea(GeographicArea motherArea) {
         this.motherArea = motherArea;
     }
