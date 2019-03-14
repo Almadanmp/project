@@ -12,14 +12,6 @@ public class Local {
     private double altitude;
     private UUID uniqueId;
 
-    public UUID getUniqueId() {
-        return uniqueId;
-    }
-
-    public void setUniqueId(UUID uniqueId) {
-        this.uniqueId = uniqueId;
-    }
-
     /**
      * Builder Local(), with all the parameters to define a local.
      *
@@ -31,6 +23,14 @@ public class Local {
         setLatitude(latitude);
         setLongitude(longitude);
         setAltitude(altitude);
+    }
+
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(UUID uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     /**

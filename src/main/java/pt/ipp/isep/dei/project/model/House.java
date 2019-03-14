@@ -245,7 +245,7 @@ public class House implements Metered {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < deviceTypeList.size(); i++) {
-            result.append(i).append(") DeviceType: ").append(deviceTypeList.get(i).getDeviceType()).append("\n");//TODO como encapsular este método?
+            result.append(i).append(") DeviceType: ").append(deviceTypeList.get(i).getDeviceType()).append("\n");
 
         }
         return result.toString();
