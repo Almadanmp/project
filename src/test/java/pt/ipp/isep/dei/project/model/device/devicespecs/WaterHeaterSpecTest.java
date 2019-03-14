@@ -21,6 +21,8 @@ class WaterHeaterSpecTest {
         validHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 5D);
         validHeaterSpec.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 5D);
         validHeaterSpec.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 5D);
+        validHeaterSpec.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 5D);
+        validHeaterSpec.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 5D);
     }
 
     //Test Attributes
