@@ -109,6 +109,28 @@ class HouseTest {
     }
 
     @Test
+    void seeIfEqualWorksWithNull() {
+        // Arrange
+
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+                "4455-125", "Porto"),
+                new Local(20, 20, 20), 60,
+                180, deviceTypeString);
+        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+                2, 3, new Local(4, 4, 100)));
+
+        // Act
+
+        boolean actualResult = validHouse.equals(null);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfEqualWorksEqualObject() {
         // Arrange
 
@@ -624,6 +646,23 @@ class HouseTest {
     }
 
     @Test
+    void seeIfSetRoomListWorksNull() {
+        // Arrange
+
+        RoomList expectedResult = new RoomList();
+        validHouse.setRoomList(null);
+
+        // Act
+
+        RoomList actualResult = validHouse.getRoomList();
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetRoomByIndexWorks() {
         //Arrange
 
@@ -826,6 +865,29 @@ class HouseTest {
 
         //Assert
         assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "4400", "Campus"));
+    }
+
+    @Test
+    void seeIfIsMotherAreaNullWorks() {
+        //Act
+
+        boolean actualResult1 = validHouse.isMotherAreaNull();
+
+        //Assert
+
+        assertFalse(actualResult1);
+
+        //Arrange As Null
+
+        validHouse.setMotherArea(null);
+
+        //Act
+
+        boolean actualResult2 = validHouse.isMotherAreaNull();
+
+        //Assert
+
+        assertTrue(actualResult2);
     }
 
     @Test

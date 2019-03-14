@@ -17,6 +17,24 @@ class LocalTest {
         validLocal = new Local(30, -8.6109900, 97);
     }
 
+    @Test
+    void seeIfConstructorWorks() {
+        // Arrange
+
+        Local local = new Local(2, 2, 5);
+
+        // Act
+
+        double actualResult1 = local.getLatitude();
+        double actualResult2 = local.getLongitude();
+        double actualResult3 = local.getAltitude();
+
+        // Assert
+
+        assertEquals(2, actualResult1, 0.001);
+        assertEquals(2, actualResult2, 0.001);
+        assertEquals(5, actualResult3, 0.001);
+    }
 
     @Test
     void seeIfGetLatitudeWorks() {
