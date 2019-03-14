@@ -215,5 +215,20 @@ class FridgeSpecTest {
         assertEquals(0, validFridgeSpec.getAttributeValue(""));
         assertEquals(0, validFridgeSpec.getAttributeUnit(""));
 
+
+        // Wrong sets
+
+        assertFalse(validFridgeSpec.setAttributeValue("Freezer Capacity", ""));
+        assertFalse(validFridgeSpec.setAttributeValue("Refrigerator Capacity", ""));
+        assertFalse(validFridgeSpec.setAttributeValue("Annual Energy Consumption", ""));
+
+        assertFalse(validFridgeSpec.setAttributeValue(" ", ""));
+        assertFalse(validFridgeSpec.setAttributeValue(" ", ""));
+        assertFalse(validFridgeSpec.setAttributeValue(" ", ""));
+
+        assertFalse(validFridgeSpec.setAttributeValue(" ", 5D));
+        assertFalse(validFridgeSpec.setAttributeValue(" ", 5D));
+        assertFalse(validFridgeSpec.setAttributeValue(" ", 5D));
+
     }
 }
