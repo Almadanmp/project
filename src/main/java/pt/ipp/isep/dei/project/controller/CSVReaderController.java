@@ -25,15 +25,15 @@ public class CSVReaderController {
      * @param path               is the path to the CSV File.
      * @author Andre
      */
-    public boolean readAndSet(GeographicAreaList geographicAreaList, String path) {
+    public boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
-        if (!fullSensorList.isEmpty() &&  !geographicAreaList.isEmpty()) {
+        if (!fullSensorList.isEmpty() && !geographicAreaList.isEmpty()) {
             try {
                 Logger logger = Logger.getLogger(CSVReaderController.class.getName());
                 CustomFormatter myFormat = new CustomFormatter();
-                FileHandler fileHandler = new FileHandler("./resources/logs/logOut.log");
+                FileHandler fileHandler = new FileHandler(logPath);
                 logger.addHandler(fileHandler);
                 fileHandler.setFormatter(myFormat);
                 for (String[] readings : list) {
@@ -45,6 +45,10 @@ public class CSVReaderController {
             }
         }
         return true;
+    }
+
+    public boolean readAndSet(GeographicAreaList geographicAreaList, String path) {
+        return readAndSetInternal(geographicAreaList, path, "./resources/logs/logOut.log");
     }
 
     // ACCESSORY METHODS

@@ -35,7 +35,7 @@ public class WaterHeater implements Device, Metered {
     }
 
     public void setNominalPower(double nominalPower) {
-        if (nominalPower <=-1) {
+        if (nominalPower <= -1) {
             throw new IllegalArgumentException("Invalid nominal power. Number should be positive");
         }
         this.nominalPower = nominalPower;
@@ -155,7 +155,6 @@ public class WaterHeater implements Device, Metered {
      */
 
     public double getEnergyConsumption(float time) {
-
         double volumeOfWaterToHeat = (double) deviceSpecs.getAttributeValue("Volume Of Water To Heat");
         double performanceRatio = (double) deviceSpecs.getAttributeValue("Performance Ratio");
         double dT = dTQuotient();

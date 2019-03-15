@@ -6,16 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * CSVReaderController test class.
@@ -49,6 +49,8 @@ public class CSVReaderControllerTest {
     private static final String validLocation6 = "src/test/resources/testCSV6.csv";
     private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV2.csa";
     private static final String wrongLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV10.csv";
+    private static final String validLogPath = "./resources/logs/logOut.log";
+    private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -129,7 +131,7 @@ public class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList, validLocation1);
+        validReader.readAndSetInternal(validGeographicAreaList, validLocation1, validLogPath);
 
         //Assert
 
@@ -144,7 +146,7 @@ public class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(emptyGeographicAreaList, validLocation1);
+        validReader.readAndSetInternal(emptyGeographicAreaList, validLocation1, validLogPath);
 
         //Assert
 
@@ -159,7 +161,7 @@ public class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList2, validLocation1);
+        validReader.readAndSetInternal(validGeographicAreaList2, validLocation1, validLogPath);
 
         //Assert
 
@@ -174,7 +176,7 @@ public class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(emptyGeographicAreaList2, validLocation1);
+        validReader.readAndSetInternal(emptyGeographicAreaList2, validLocation1, validLogPath);
 
         //Assert
 
@@ -189,7 +191,7 @@ public class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList, validLocation1);
+        validReader.readAndSetInternal(validGeographicAreaList, validLocation1, validLogPath);
 
         //Assert
 
@@ -204,11 +206,24 @@ public class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList, validLocation1);
+        validReader.readAndSetInternal(validGeographicAreaList, validLocation1, validLogPath);
 
         //Assert
 
     }
+
+
+    @Test
+    void seeIfReadAndSetterFailsWrongPath() {
+
+        //Arrange
+
+        provideInput(validLocation4);
+
+        // Act
+       assertFalse(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
+    }
+
 
     @Test
     void seeIfSetCVSReadingsWorks() {
