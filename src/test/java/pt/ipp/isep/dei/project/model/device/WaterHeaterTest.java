@@ -114,6 +114,12 @@ class WaterHeaterTest {
     }
 
     @Test
+    void seeIfSetNominalPowerWorksNegativeOne() {
+        assertThrows(IllegalArgumentException.class,
+                () -> validHeater.setNominalPower(-1));
+    }
+
+    @Test
     void seeIfGetConsumptionWorksZero() {
         // Arrange
 
