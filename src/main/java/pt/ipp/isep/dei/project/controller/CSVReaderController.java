@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.io.ui.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.reader.CSVReader;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
 
@@ -47,7 +50,7 @@ public class CSVReaderController {
         return true;
     }
 
-    public boolean readAndSet(GeographicAreaList geographicAreaList, String csvPath,  String logPath) {
+    public boolean readAndSet(GeographicAreaList geographicAreaList, String csvPath, String logPath) {
         return readAndSetInternal(geographicAreaList, csvPath, logPath);
     }
 
@@ -103,6 +106,7 @@ public class CSVReaderController {
                 UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
             } catch (ParseException ignored) {
+                ignored.getErrorOffset();
             }
         }
     }
