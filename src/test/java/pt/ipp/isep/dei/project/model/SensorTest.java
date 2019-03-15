@@ -1035,6 +1035,29 @@ class SensorTest {
         Assertions.assertTrue(actualResult);
         assertFalse(actualResultFailed);
     }
+
+    @Test
+    void seeIfAddReadingsWorksValueDate() {
+        // Arrange
+
+        validSensor.setDateStartedFunctioning(new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
+
+        // Act
+
+        boolean addValidReading = validSensor.addReading(new GregorianCalendar(2019, Calendar.JANUARY,
+                1).getTime(), 20D);
+        boolean addOutOfBoundsReading = validSensor.addReading(new GregorianCalendar(2017, Calendar.FEBRUARY,
+                3).getTime(), 12D);
+        boolean addOnBoundsReading = validSensor.addReading(new GregorianCalendar(2018, Calendar.JANUARY,
+                2).getTime(),15D );
+
+
+        // Assert
+
+        assertTrue(addValidReading);
+        assertFalse(addOutOfBoundsReading);
+        assertTrue(addOnBoundsReading);
+    }
 }
 
 

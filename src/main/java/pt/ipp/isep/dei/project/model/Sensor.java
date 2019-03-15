@@ -197,7 +197,7 @@ public class Sensor {
      */
     public boolean addReading(Date date, Double value) {
         Date startingDate = this.getDateStartedFunctioning();
-        if (date.after(startingDate) || date == startingDate) {
+        if (date.after(startingDate) || date.equals(startingDate)) {
             Reading reading = new Reading(value, date);
             this.addReading(reading);
             return true;
