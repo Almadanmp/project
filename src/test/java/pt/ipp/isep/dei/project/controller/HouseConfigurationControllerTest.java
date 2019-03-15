@@ -192,4 +192,37 @@ class HouseConfigurationControllerTest {
         assertTrue(actualResult2);
     }
 
+    @Test
+    void seeIfAddGeoAreasToListWorksSkippingOne() {
+        // Arrange
+
+        GeographicArea[] arrayToUse = new GeographicArea[3];
+        GeographicAreaList result = new GeographicAreaList();
+
+        // Set up Expected Result
+
+        GeographicArea geoArea1 = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 111));
+        GeographicArea geoArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+                new Local(41.149935, -8.610857, 118));
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicArea(geoArea1);
+        expectedResult.addGeographicArea(geoArea2);
+
+        // Populate Array to Use
+
+        arrayToUse[0] = geoArea1;
+        arrayToUse[1] = geoArea2;
+        arrayToUse[2] = geoArea1;
+
+        // Act
+
+        double addedAreas = controller.addGeoAreasToList(arrayToUse, result);
+
+        // Assert
+
+        assertEquals(2, addedAreas);
+        assertEquals(expectedResult, result);
+    }
 }
