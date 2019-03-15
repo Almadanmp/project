@@ -560,13 +560,12 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-
     String getInputJSONPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the file you want to import:");
         String result = scanner.next();
         while (!(result.endsWith(".json")) || !new File(result).exists()) {
-            System.out.println("Please enter a valid location");
+            System.out.println("Please enter a valid json path");
             result = scanner.next();
         }
         return result;
@@ -575,14 +574,14 @@ public class InputUtils {
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
      *
-     * @author Andre
+     * @author Andre (US20)
      */
     String startAndPromptPath() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the CSV file");
         String csvFileLocation = scanner.next();
         while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
-            UtilsUI.printMessage("Please enter a valid location");
+            UtilsUI.printMessage("Please enter a valid  CSV path");
             csvFileLocation = scanner.next();
 
         }

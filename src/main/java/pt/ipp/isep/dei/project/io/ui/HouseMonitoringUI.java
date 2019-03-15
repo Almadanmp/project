@@ -326,7 +326,6 @@ public class HouseMonitoringUI {
     /**
      * String Options Display in Menu
      */
-
     private void printOptionMessage() {
         System.out.println("House Monitoring Options:\n");
         System.out.println("1) Get Max Temperature in a room in a specific day (US610).");
