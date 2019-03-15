@@ -41,15 +41,14 @@ public class CSVReaderController {
                     parseAndLog(readings, logger, fullSensorList);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
                 return false;
             }
         }
         return true;
     }
 
-    public boolean readAndSet(GeographicAreaList geographicAreaList, String path) {
-        return readAndSetInternal(geographicAreaList, path, "./resources/logs/logOut.log");
+    public boolean readAndSet(GeographicAreaList geographicAreaList, String csvPath,  String logPath) {
+        return readAndSetInternal(geographicAreaList, csvPath, logPath);
     }
 
     // ACCESSORY METHODS
@@ -104,7 +103,7 @@ public class CSVReaderController {
                 UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
             } catch (ParseException c) {
-                // System.out.println("The date format is not valid.");
+                UtilsUI.printMessage("The date format is not valid.");
             }
         }
     }

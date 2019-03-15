@@ -221,9 +221,8 @@ class CSVReaderControllerTest {
         provideInput(validLocation4);
 
         // Act
-       assertFalse(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
+        assertFalse(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
     }
-
 
 
     @Test
@@ -371,7 +370,7 @@ class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList, validLocation5);
+        validReader.readAndSet(validGeographicAreaList, validLocation5, validLogPath);
         ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
@@ -389,7 +388,7 @@ class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSet(validGeographicAreaList, validLocation5);
+        validReader.readAndSet(validGeographicAreaList, validLocation5, validLogPath);
         ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
@@ -454,6 +453,28 @@ class CSVReaderControllerTest {
         //Assert
 
         validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfReadAndSetWorksIOExceptionFileHandler() {
+        // Act
+
+        boolean result = validReader.readAndSet(validGeographicAreaList, validLocation1, invalidLogPath);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfReadAndSetWorks() {
+        // Act
+
+        boolean result = validReader.readAndSet(validGeographicAreaList, validLocation1, validLogPath);
+
+        // Assert
+
+        assertTrue(result);
     }
 
 }

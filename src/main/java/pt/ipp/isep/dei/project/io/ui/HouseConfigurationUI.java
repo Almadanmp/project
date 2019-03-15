@@ -105,7 +105,7 @@ class HouseConfigurationUI {
         InputUtils utils = new InputUtils();
         CSVReaderController ctrl = new CSVReaderController();
         String path = utils.startAndPromptPath();
-        boolean result = ctrl.readAndSet(list, path);
+        boolean result = ctrl.readAndSet(list, path, "resources/logs/logOut.log");
         if (!result) {
             UtilsUI.printMessage("Please add a sensor first.");
         }
