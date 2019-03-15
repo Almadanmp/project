@@ -160,15 +160,16 @@ class HouseConfigurationControllerTest {
 
         // Act
 
-        controller.addGeoAreasToList(arrayToUse, result);
+        double addedAreas = controller.addGeoAreasToList(arrayToUse, result);
 
         // Assert
 
+        assertEquals(2, addedAreas);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void seeIfSetAndGetHouseMotherAreaWorks() {
+    void seeIfSetAndGetHouseMotherAreaWorks() {
         //Arrange
         controller.setHouseMotherArea(validHouse,new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)));
