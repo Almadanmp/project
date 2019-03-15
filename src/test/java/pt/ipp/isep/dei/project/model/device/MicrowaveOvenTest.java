@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.TypeSensor;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
@@ -580,19 +581,25 @@ class MicrowaveOvenTest {
     }
 
     @Test
-    void seeIfGetAttributeValuesWorks() {
+    void seeAttributeMethods() {
         // Arrange
 
-        int expectedResult = 0;
-        validMicrowaveOven.setAttributeValue("Weight", 2);
+        Object expectedResult1 = 0;
+        List<String> expectedResult2 = new ArrayList<>();
 
         // Act
 
-        Object result = validMicrowaveOven.getAttributeValue("Weight");
+        Object actualResult1 = validMicrowaveOven.getAttributeValue("Non-existent");
+        List<String> actualResult2 = validMicrowaveOven.getAttributeNames();
+        Object actualResult3 = validMicrowaveOven.getAttributeUnit("Non-existent");
+        boolean actualResult4 = validMicrowaveOven.setAttributeValue("Non-existent", 20D);
 
         // Assert
 
-        assertEquals(expectedResult, result);
+        Assert.assertEquals(expectedResult1, actualResult1);
+        Assert.assertEquals(expectedResult2, actualResult2);
+        Assert.assertEquals(false, actualResult3);
+        Assert.assertFalse(actualResult4);
     }
 
     @Test

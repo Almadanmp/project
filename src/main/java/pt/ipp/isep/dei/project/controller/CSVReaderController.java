@@ -25,7 +25,7 @@ public class CSVReaderController {
      * @param path               is the path to the CSV File.
      * @author Andre
      */
-    public void readAndSet(GeographicAreaList geographicAreaList, String path) {
+    public boolean readAndSet(GeographicAreaList geographicAreaList, String path) {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
@@ -41,9 +41,10 @@ public class CSVReaderController {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
         }
-        UtilsUI.printMessage("Please add a sensor first.");
+        return true;
     }
 
     // ACCESSORY METHODS
