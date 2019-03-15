@@ -219,7 +219,7 @@ public class Fan implements Device {
      */
 
     public Object getAttributeValue(String attributeName) {
-        return deviceSpecs.getAttributeValue(attributeName);
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -230,7 +230,7 @@ public class Fan implements Device {
      */
 
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
-        return deviceSpecs.setAttributeValue(attributeName, attributeValue);
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -240,7 +240,7 @@ public class Fan implements Device {
      */
 
     public Object getAttributeUnit(String attributeName) {
-        return deviceSpecs.getAttributeUnit(attributeName);
+        throw new UnsupportedOperationException();
     }
 
 }
