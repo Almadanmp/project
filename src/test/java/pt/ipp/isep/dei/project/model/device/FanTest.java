@@ -393,7 +393,7 @@ class FanTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
+    
     @Test
     void seeIfGetAttributeValueWorks() {
         assertThrows(UnsupportedOperationException.class, () -> validFan.getAttributeValue("Attribute"));

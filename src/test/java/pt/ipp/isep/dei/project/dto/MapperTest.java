@@ -165,12 +165,9 @@ import static org.testng.Assert.*;
                  new Local(20, 20, 20), 60,
                  180, deviceTypeString);
          Room room1 = new Room("quarto1",2,50,50,2);
-         Room room2 = null;
-         validHouse.addRoom(room1);
          RoomDTO roomDTO = mapper.roomToDTO(room1);
          Room result = mapper.updateHouseRoom(roomDTO,validHouse);
-
-         assertNotEquals(room2,result);
+         assertNull(result);
      }
 
 }
