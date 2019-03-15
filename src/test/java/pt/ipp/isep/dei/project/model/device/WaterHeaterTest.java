@@ -435,7 +435,7 @@ class WaterHeaterTest {
 
         validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
         validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
-        double expectedResultColdWater = -288.0;
+        double expectedResultColdWater = 0.0;
 
         // Act
 
@@ -472,6 +472,18 @@ class WaterHeaterTest {
         // Assert
 
         assertEquals(expectedResultHotWater, resultHotWater);
+
+        validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 300D);
+        validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 301D);
+        double expectedResultColdWaterOne = 0.0;
+
+        // Act
+
+        double ResultColdWaterOne = validHeater.dTQuotient();
+
+        // Assert
+
+        assertEquals(expectedResultColdWaterOne, ResultColdWaterOne);
     }
 
     @Test
