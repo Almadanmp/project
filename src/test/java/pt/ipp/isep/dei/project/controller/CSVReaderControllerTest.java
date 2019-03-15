@@ -176,7 +176,7 @@ class CSVReaderControllerTest {
 
         // Act
 
-        validReader.readAndSetInternal(emptyGeographicAreaList2, validLocation1, validLogPath);
+        validReader.readAndSetInternal(emptyGeographicAreaList, validLocation1, validLogPath);
 
         //Assert
 
@@ -330,7 +330,7 @@ class CSVReaderControllerTest {
 
         // Act
 
-        String actualResult = validReader.getSensorData(emptyGeographicAreaList2).toString();
+        String actualResult = validReader.getSensorData(emptyGeographicAreaList).toString();
 
         //Assert
         assertEquals(expectedResult, actualResult);
