@@ -246,6 +246,22 @@ class CSVReaderControllerTest {
     }
 
     @Test
+    void seeIfGetSensorDataWorksEmptyList() {
+
+        //Arrange
+
+        SensorList expectedResult = new SensorList();
+
+        // Act
+
+        SensorList actualResult = validReader.getSensorData(new GeographicAreaList());
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetSensorDataFails() {
 
         //Arrange
