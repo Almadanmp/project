@@ -87,7 +87,7 @@ public class VariableTimeProgram implements Program {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Program program = (Program) o;
+        VariableTimeProgram program = (VariableTimeProgram) o;
         return Objects.equals(programName, program.getProgramName());
     }
 

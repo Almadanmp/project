@@ -113,7 +113,7 @@ public class FixedTimeProgram implements Program {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Program program = (Program) o;
+        FixedTimeProgram program = (FixedTimeProgram) o;
         return Objects.equals(programName, program.getProgramName());
     }
 

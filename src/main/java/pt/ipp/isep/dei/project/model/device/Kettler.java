@@ -275,7 +275,7 @@ public class Kettler implements Device, Metered {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Device device = (Device) o;
+        Kettler device = (Kettler) o;
         return Objects.equals(name, device.getName());
     }
 
