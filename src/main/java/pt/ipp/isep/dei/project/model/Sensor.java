@@ -91,7 +91,7 @@ public class Sensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    public void setTypeSensor(TypeSensor sensor) {
+    void setTypeSensor(TypeSensor sensor) {
         this.typeSensor = sensor;
     }
 
@@ -180,9 +180,31 @@ public class Sensor {
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/
+
     public boolean addReading(Reading reading) {
         return readingList.addReading(reading);
     }
+
+    /**
+     * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
+     * to the date when the sensor was activated.
+     *
+     *
+     * @param value  is the value read on the reading.
+     * @param date   is the read date of the reading.
+     * @return returns true if the reading was successfully added.
+     * @author André
+     */
+    public boolean addReading(Date date, Double value) {
+        Date startingDate = this.getDateStartedFunctioning();
+        if (date.after(startingDate) || date == startingDate) {
+            Reading reading = new Reading(value, date);
+            this.addReading(reading);
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * Method to restrain input name so they cant be null or empty.
@@ -357,6 +379,7 @@ public class Sensor {
     public double getMostRecentValueReading() {
         return this.readingList.getMostRecentValue();
     }
+
 
     @Override
     public boolean equals(Object testObject) {

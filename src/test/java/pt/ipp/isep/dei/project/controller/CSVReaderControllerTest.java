@@ -225,49 +225,6 @@ class CSVReaderControllerTest {
     }
 
 
-    @Test
-    void seeIfSetCVSReadingsWorks() {
-
-        //Arrange
-
-        // Act
-
-        boolean actualResult = validReader.setCSVReadings(validSensor1, validDate3, 23.3);
-
-        //Assert
-        assertTrue(actualResult);
-
-    }
-
-    @Test
-    void seeIfSetCVSReadingsWorksExactlySameDateAsSensorCreation() {
-
-        //Arrange
-
-
-        // Act
-
-        boolean actualResult = validReader.setCSVReadings(validSensor1, validDate1, 23.3);
-
-        //Assert
-        assertTrue(actualResult);
-
-    }
-
-    @Test
-    void seeIfSetCVSReadingsFails() {
-
-        //Arrange
-
-
-        // Act
-
-        boolean actualResult = validReader.setCSVReadings(validSensor4, validDate1, 23.3);
-
-        //Assert
-        assertFalse(actualResult);
-
-    }
 
     @Test
     void seeIfGetSensorDataWorks() {

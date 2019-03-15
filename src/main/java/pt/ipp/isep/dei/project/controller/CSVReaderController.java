@@ -25,7 +25,8 @@ public class CSVReaderController {
      * @param path               is the path to the CSV File.
      * @author Andre
      */
-    public boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
+
+    boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
@@ -96,10 +97,8 @@ public class CSVReaderController {
                 Double readValue = Double.parseDouble(readings[2]);
                 String readID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
-                for (Sensor sensor : sensorList.getElementsAsArray()) {
-                    if (sensorIDMatchesAndLoggerIsLoggable(sensor, readID, logger) && !setCSVReadings(sensor, readDate, readValue)) {
-                        logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
-                    }
+                if (logger.isLoggable(Level.WARNING)) {
+                    sensorList.addReadingToMatchingSensor(logger, readID, readValue, readDate);
                 }
             } catch (NumberFormatException nfe) {
                 UtilsUI.printMessage("The reading values are not numeric.");
@@ -109,35 +108,4 @@ public class CSVReaderController {
             }
         }
     }
-
-    /**
-     * This method receives a sensor, a string ID and a logger and checks if the sensor's ID
-     * matches the ID given, and if the logger is loggable.
-     *
-     * @return true in case both conditions apply, false otherwise.
-     * **/
-    private boolean sensorIDMatchesAndLoggerIsLoggable(Sensor sensor, String readID, Logger logger){
-        return (sensor.getId().equals(readID)) && (logger.isLoggable(Level.WARNING));
-    }
-
-    /**
-     * Adds a new Reading to a sensor with the date and value read from the CSV file, but only if that date is posterior
-     * to the date when the sensor was activated.
-     *
-     * @param sensor is the sensor we want to add the reading to.
-     * @param value  is the value read on the reading.
-     * @param date   is the read date of the reading.
-     * @return returns true if the reading was successfully added.
-     * @author Andre
-     */
-    boolean setCSVReadings(Sensor sensor, Date date, Double value) {
-        Date startingDate = sensor.getDateStartedFunctioning();
-        if (date.after(startingDate) || date == startingDate) {
-            Reading reading = new Reading(value, date);
-            sensor.addReading(reading);
-            return true;
-        }
-        return false;
-    }
-
 }

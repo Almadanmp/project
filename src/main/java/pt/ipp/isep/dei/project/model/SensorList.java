@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Sensors.
@@ -49,7 +50,7 @@ public class SensorList {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
         SensorList sensorList = getSensorsWithReadings();
-        if(sensorList.isEmpty()){
+        if (sensorList.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
         Sensor mostRecent = sensorList.get(0);
@@ -71,13 +72,13 @@ public class SensorList {
      * @return SensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    SensorList getSensorsWithReadings(){
+    SensorList getSensorsWithReadings() {
         SensorList finalList = new SensorList();
-        if(this.sensors.isEmpty()) {
+        if (this.sensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
         }
-        for(Sensor s : this.sensors){
-            if(!s.isReadingListEmpty()){
+        for (Sensor s : this.sensors) {
+            if (!s.isReadingListEmpty()) {
                 finalList.add(s);
             }
         }
@@ -157,11 +158,12 @@ public class SensorList {
     /**
      * This method receives a house and the distance of the sensor closest to it,
      * goes through the sensor list and returns the sensors closest to house.
-     * @param house the House of the project
+     *
+     * @param house   the House of the project
      * @param minDist the distance to the sensor
      * @return SensorList with sensors closest to house.
      **/
-    public SensorList getSensorsByDistanceToHouse(House house, double minDist) {
+    SensorList getSensorsByDistanceToHouse(House house, double minDist) {
         SensorList finalList = new SensorList();
         for (Sensor s : this.sensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -196,7 +198,7 @@ public class SensorList {
      * @return returns sensor that corresponds to index.
      */
     public Sensor get(int index) {
-        if(this.sensors.isEmpty()){
+        if (this.sensors.isEmpty()) {
             throw new IndexOutOfBoundsException("The sensor list is empty.");
         }
         return this.sensors.get(index);
@@ -217,10 +219,10 @@ public class SensorList {
      * This method goes through every sensor reading list and returns the
      * reading values of a given day. This day is given to method as parameter.
      *
-     * @return returns value readings from every sensor from given day
      * @param day date of day the method will use to get reading values
+     * @return returns value readings from every sensor from given day
      **/
-    public List<Double> getValuesOfSpecificDayReadings(Date day) {
+    List<Double> getValuesOfSpecificDayReadings(Date day) {
         ReadingList readingList = getReadings();
         return readingList.getValuesOfSpecificDayReadings(day);
     }
@@ -237,6 +239,25 @@ public class SensorList {
             result[i] = sensors.get(i);
         }
         return result;
+    }
+
+    /**
+     * Adds a reading made up by the received date and received value to the sensor whose ID matches a received ID.
+     * If a reading can't be added to a sensor that matches the received ID (because it's a duplicate, for instance,
+     * or because its date is before the date that the sensor started functioning), an error message is saved into a log
+     * file.
+     * @param logger is the logger used to log error messages for when readings aren't added to sensors.
+     * @param sensorID is the id of the sensor we want to add readings to.
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate is the date of the reading we want to add.
+     */
+
+    public void addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate) {
+        for (Sensor sensor : this.getElementsAsArray()) {
+            if (sensor.getId().equals(sensorID) && !sensor.addReading(readingDate, readingValue)) {
+                logger.warning("The reading with value " + readingValue + " and date " + readingDate + " could not be added to the sensor.");
+            }
+        }
     }
 
     /**
