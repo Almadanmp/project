@@ -983,6 +983,20 @@ class ReadingListTest {
     }
 
     @Test
+    void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChangeInverted() {
+        validReadingList.addReading(new Reading(22, validDate18));
+        validReadingList.addReading(new Reading(22, validDate19));
+        validReadingList.addReading(new Reading(22, validDate9));
+        validReadingList.addReading(new Reading(22, validDate16));
+
+        Date expectedResult = validDate18;
+
+        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesThrowsException() {
         //Test if it throws exception when there is no readings available for the period requested
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
