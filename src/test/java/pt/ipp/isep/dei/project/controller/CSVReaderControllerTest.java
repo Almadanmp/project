@@ -13,6 +13,7 @@ import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -477,6 +478,26 @@ class CSVReaderControllerTest {
 
         provideInput(validLocation2);
         Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "test";
+
+        // Act
+
+        //Assert
+
+        validReader.parseAndLog(readings, logger, validSensorList);
+    }
+
+    @Test
+    void seeIfParseAndLogWorksLogNotLoggable() {
+
+        //Arrange
+
+        provideInput(validLocation2);
+        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        logger.setLevel(Level.INFO);
         String[] readings = new String[3];
         readings[0] = "RF12345";
         readings[1] = "2008-12-30T02:00:00+00:00";
