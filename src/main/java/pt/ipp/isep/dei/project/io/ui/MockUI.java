@@ -29,6 +29,7 @@ class MockUI {
     private GeographicAreaList geoAreaList;
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
+
     private TypeSensor temperatureST;
     private TypeSensor humidityST;
 
@@ -157,14 +158,8 @@ class MockUI {
 
         Sensor temperatureSensorB109 = new Sensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
         roomB109.addSensor(temperatureSensorB109);
-
-        //      createTemperatureSensorB109Readings(temperatureSensorB109);
-
         Sensor humiditySensorB109 = new Sensor("Humidity B109", this.humidityST, new GregorianCalendar(2018, Calendar.NOVEMBER, 22).getTime());
         roomB109.addSensor(humiditySensorB109);
-
-        //      createHumiditySensorB109Readings(humiditySensorB109);
-
         WaterHeater wH109 = new WaterHeater(new WaterHeaterSpec());
         wH109.setName("EHW B109");
         wH109.setNominalPower(2);

@@ -21,14 +21,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * CSVReaderController test class.
  */
 
-public class CSVReaderControllerTest {
+class CSVReaderControllerTest {
 
     // Common artifacts for testing in this class.
 
     private GeographicAreaList validGeographicAreaList;
     private GeographicAreaList validGeographicAreaList2;
     private GeographicAreaList emptyGeographicAreaList;
-    private GeographicAreaList emptyGeographicAreaList2;
+    private GeographicAreaList validGeographicAreaListNoSensors;
     private GeographicArea validGeographicArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
@@ -95,8 +95,8 @@ public class CSVReaderControllerTest {
         validGeographicAreaList = new GeographicAreaList();
         validGeographicAreaList2 = new GeographicAreaList();
         emptyGeographicAreaList = new GeographicAreaList();
-        emptyGeographicAreaList2 = new GeographicAreaList();
-        emptyGeographicAreaList2.addGeographicArea(emptyGeographicArea);
+        validGeographicAreaListNoSensors = new GeographicAreaList();
+        validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea2);
         validGeographicAreaList2.addGeographicArea(validGeographicArea);
@@ -383,9 +383,7 @@ public class CSVReaderControllerTest {
 
         //Assert
 
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            validReader.parseAndLog(readings, logger, validSensorList);
-        });
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> validReader.parseAndLog(readings, logger, validSensorList));
     }
 
     @Test
@@ -401,9 +399,7 @@ public class CSVReaderControllerTest {
 
         //Assert
 
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            validReader.parseAndLog(readings, logger, validSensorList);
-        });
+        Assertions.assertThrows(NullPointerException.class, () -> validReader.parseAndLog(readings, logger, validSensorList));
     }
 
     @Test
