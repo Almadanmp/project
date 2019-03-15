@@ -184,6 +184,24 @@ class CSVReaderControllerTest {
     }
 
     @Test
+    void seeIfReadAndSetterWorksNoSensorListGeoList() {
+
+        //Arrange
+        GeographicAreaList geoListEmptySensor = new GeographicAreaList();
+        GeographicArea geographicArea = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+                new Local(41.149935, -8.610857, 118));
+        geoListEmptySensor.addGeographicArea(geographicArea);
+        provideInput(validLocation1);
+
+        // Act
+
+        validReader.readAndSetInternal(geoListEmptySensor, validLocation1, validLogPath);
+
+        //Assert
+
+    }
+
+    @Test
     void seeIfReadAndSetterFailsUnparseableDate() {
 
         //Arrange
