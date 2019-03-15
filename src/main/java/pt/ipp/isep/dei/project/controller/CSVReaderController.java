@@ -93,7 +93,7 @@ public class CSVReaderController {
                 String readID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
                 for (Sensor sensor : sensorList.getElementsAsArray()) {
-                    if (sensor.getId().equals(readID) && !setCSVReadings(sensor, readDate, readValue) && logger.isLoggable(Level.WARNING)) {
+                    if (sensorIDMatchesAndLoggerIsLoggable(sensor, readID, logger) && !setCSVReadings(sensor, readDate, readValue)) {
                         logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
                     }
                 }
@@ -104,6 +104,16 @@ public class CSVReaderController {
                 // System.out.println("The date format is not valid.");
             }
         }
+    }
+
+    /**
+     * This method receives a sensor, a string ID and a logger and checks if the sensor's ID
+     * matches the ID given, and if the logger is loggable.
+     *
+     * @return true in case both conditions apply, false otherwise.
+     * **/
+    private boolean sensorIDMatchesAndLoggerIsLoggable(Sensor sensor, String readID, Logger logger){
+        return (sensor.getId().equals(readID)) && (logger.isLoggable(Level.WARNING));
     }
 
     /**
