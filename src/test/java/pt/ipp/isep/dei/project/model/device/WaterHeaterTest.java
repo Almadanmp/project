@@ -435,7 +435,7 @@ class WaterHeaterTest {
 
         validHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
         validHeater.setAttributeValue(WaterHeaterSpec.COLD_WATER_TEMP, 300D);
-        double expectedResultColdWater = 0;
+        double expectedResultColdWater = -288.0;
 
         // Act
 
