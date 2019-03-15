@@ -357,7 +357,7 @@ public class ReadingList {
             if (maxAmplitude < amplitudeTemperature) {
                 maxAmplitude = amplitudeTemperature;
                 dateMaxAmplitude = day;
-            } else if (maxAmplitude == amplitudeTemperature) {
+            } else if (Double.compare(maxAmplitude, amplitudeTemperature) == 0) {
                 if (day.after(dateMaxAmplitude)) {
                     dateMaxAmplitude = day;
                 }
