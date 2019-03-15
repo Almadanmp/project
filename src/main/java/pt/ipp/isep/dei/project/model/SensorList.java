@@ -252,12 +252,13 @@ public class SensorList {
      * @param readingDate is the date of the reading we want to add.
      */
 
-    public void addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate) {
+    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {
         for (Sensor sensor : this.getElementsAsArray()) {
             if (sensor.getId().equals(sensorID) && !sensor.addReading(readingDate, readingValue)) {
-                logger.warning("The reading with value " + readingValue + " and date " + readingDate + " could not be added to the sensor.");
+                return false;
             }
         }
+        return true;
     }
 
     /**

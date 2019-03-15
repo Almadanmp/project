@@ -97,8 +97,8 @@ public class CSVReaderController {
                 Double readValue = Double.parseDouble(readings[2]);
                 String readID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
-                if (logger.isLoggable(Level.WARNING)) {
-                    sensorList.addReadingToMatchingSensor(logger, readID, readValue, readDate);
+                if (logger.isLoggable(Level.WARNING) && !sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
+                    logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
                 }
             } catch (NumberFormatException nfe) {
                 UtilsUI.printMessage("The reading values are not numeric.");
