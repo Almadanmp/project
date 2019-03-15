@@ -105,7 +105,10 @@ class HouseConfigurationUI {
         InputUtils utils = new InputUtils();
         CSVReaderController ctrl = new CSVReaderController();
         String path = utils.startAndPromptPath();
-        ctrl.readAndSet(list, path);
+        boolean result = ctrl.readAndSet(list, path);
+        if (!result) {
+            UtilsUI.printMessage("Please add a sensor first.");
+        }
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */

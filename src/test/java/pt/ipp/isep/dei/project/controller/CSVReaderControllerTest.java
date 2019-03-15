@@ -30,8 +30,6 @@ public class CSVReaderControllerTest {
     private GeographicAreaList emptyGeographicAreaList;
     private GeographicAreaList emptyGeographicAreaList2;
     private GeographicArea validGeographicArea;
-    private GeographicArea validGeographicArea2;
-    private GeographicArea emptyGeographicArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
     private Date validDate3 = new Date();
@@ -43,7 +41,6 @@ public class CSVReaderControllerTest {
     private Sensor validSensor3;
     private Sensor validSensor4;
     private SensorList validSensorList;
-    private SensorList validSensorList2;
     private static final String validLocation1 = "src/test/resources/testCSV1.csv";
     private static final String validLocation2 = "src/test/resources/testCSV2.csv";
     private static final String validLocation3 = "src/test/resources/testCSV3.csv";
@@ -69,9 +66,9 @@ public class CSVReaderControllerTest {
         }
         validGeographicArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261,
                 new Local(41.178553, -8.608035, 111));
-        validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
-        emptyGeographicArea = new GeographicArea("Lisbon", new TypeArea("city"), 0.299, 0.291,
+        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new TypeArea("city"), 0.299, 0.291,
                 new Local(41.178553, 8.608035, 117));
         validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new TypeSensor("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
@@ -86,7 +83,7 @@ public class CSVReaderControllerTest {
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
         validSensorList = new SensorList();
-        validSensorList2 = new SensorList();
+        SensorList validSensorList2 = new SensorList();
         validSensorList.add(validSensor1);
         validSensorList.add(validSensor2);
         validSensorList2.add(validSensor3);
@@ -106,17 +103,14 @@ public class CSVReaderControllerTest {
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
 
-    private ByteArrayInputStream testIn;
-    private ByteArrayOutputStream testOut;
-
     @BeforeEach
     void setUpOutput() {
-        testOut = new ByteArrayOutputStream();
+        ByteArrayOutputStream testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
     }
 
     private void provideInput(String data) {
-        testIn = new ByteArrayInputStream(data.getBytes());
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
         System.setIn(testIn);
     }
 
