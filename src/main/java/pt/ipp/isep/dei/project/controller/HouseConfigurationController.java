@@ -17,14 +17,19 @@ public class HouseConfigurationController {
     /**
      * The given method receives a list of geographic areas and calls mapper to convert every DTO created upon reading
      * the json file, before adding the newly created Geographic Areas (and their sensors) to the list.
+     *
      * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
-     * @param list comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
+     * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
      */
 
-    public void addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list){
-        for (GeographicArea area: fileAreas) {
-            list.addGeographicArea(area);
+    public int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
+        int result = 0;
+        for (GeographicArea area : fileAreas) {
+            if (list.addGeographicArea(area)) {
+                result++;
+            }
         }
+        return result;
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
@@ -56,11 +61,11 @@ public class HouseConfigurationController {
     /**
      * This method receives a house and a geographic area and sets this as
      * the house mother area.
-     *
-     * **/
-    public void setHouseMotherArea(House house, GeographicArea geographicArea){
+     **/
+    public void setHouseMotherArea(House house, GeographicArea geographicArea) {
         house.setMotherArea(geographicArea);
     }
+
     /**
      * @param house is the house we want to get the name from.
      * @return is the name of the given house.

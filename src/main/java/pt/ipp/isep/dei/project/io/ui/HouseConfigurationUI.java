@@ -75,20 +75,8 @@ class HouseConfigurationUI {
         InputUtils input = new InputUtils();
         String filePath = input.getInputJSONPath();
         JSONReader reader = new JSONReader();
-        GeographicArea[] fileAreas = reader.readFile(filePath);
-        updateModel(fileAreas, list);
-    }
-
-    /**
-     * Transfer changes from the US to model: Calls the controller to add
-     * geographic areas from reading the file to program's list of geographic areas.
-     *
-     * @param fileAreas is an array of all the Geographic Area DTOs created upon reading the .json file.
-     * @param list      is the static list of the program's Geographic Areas.
-     */
-
-    private void updateModel(GeographicArea[] fileAreas, GeographicAreaList list) {
-        controller.addGeoAreasToList(fileAreas, list);
+        int areasRead = reader.readFile(filePath, list);
+        System.out.println(areasRead + " Geographic Areas have been successfully imported.");
     }
 
     /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application

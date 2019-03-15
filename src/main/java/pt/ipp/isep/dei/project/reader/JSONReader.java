@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.reader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.io.ui.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -22,10 +23,13 @@ public class JSONReader {
      * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
      * from the data in the file.
      * @param filePath is the absolute filepath of the .json file in the system.
+     * @param list is the list of Geographic areas that comes from Main, since we still don't have a database, to which
+     *             we want to add the imported geographic areas.
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public GeographicArea[] readFile(String filePath) {
+    public int readFile(String filePath, GeographicAreaList list) {
+        HouseConfigurationController controller = new HouseConfigurationController();
         try {
             File file = new File(filePath);
             InputStream stream = new FileInputStream(file);
@@ -35,11 +39,11 @@ public class JSONReader {
             JSONArray geoAreas = areaList.getJSONArray("geographical_area");
             GeographicArea[] geographicAreasArray;
             geographicAreasArray = readGeoAreas(geoAreas);
-            return geographicAreasArray;
+            return controller.addGeoAreasToList(geographicAreasArray, list);
         } catch (FileNotFoundException e) {
             UtilsUI.printMessage("The file wasn't found.");
         }
-        return new GeographicArea[0];
+        return 0;
     }
 
     /**

@@ -20,8 +20,9 @@ class JSONReaderTest {
     void seeIfReadFileWorks(){
         // Arrange
 
-        GeographicArea[] expectedResult = new GeographicArea[2];
+        GeographicAreaList expectedResult = new GeographicAreaList();
         Mapper mapper = new Mapper();
+        GeographicAreaList actualResult = new GeographicAreaList();
 
         // First Area
 
@@ -103,22 +104,23 @@ class JSONReaderTest {
 
         GeographicArea areaOne = mapper.geographicAreaDTOToObject(firstArea);
         GeographicArea areaTwo = mapper.geographicAreaDTOToObject(secondArea);
-        expectedResult[0] = areaOne;
-        expectedResult[1] = areaTwo;
+        expectedResult.addGeographicArea(areaOne);
+        expectedResult.addGeographicArea(areaTwo);
 
         // Act
 
         File fileToRead = new File("src/test/resources/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        GeographicArea[] actualResult = reader.readFile(absolutePath);
+        double areasAdded = reader.readFile(absolutePath, actualResult);
 
         // Assert
 
-        assertArrayEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
+        assertEquals(2, areasAdded);
 
         // Get one of the areas to  check its contents.
 
-        GeographicArea actualArea = actualResult[0];
+        GeographicArea actualArea = actualResult.get(0);
         SensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
@@ -140,23 +142,23 @@ class JSONReaderTest {
     void seeIfReadFileWorksWrongPath(){
         // Arrange
 
-        GeographicAreaDTO[] expectedResult = new GeographicAreaDTO[0];
         String invalidPath = ("invalidfilepath");
 
         // Act
 
-        GeographicArea[] actualResult = reader.readFile(invalidPath);
+        double actualResult = reader.readFile(invalidPath, new GeographicAreaList());
 
         // Assert
 
-        assertArrayEquals(expectedResult, actualResult);
+        assertEquals(0, actualResult);
     }
 
     @Test
     void seeIfReadFileWorksAndSkipsSensorsWithWrongDateFormat(){
         // Arrange
 
-        GeographicArea[] expectedResult = new GeographicArea[2];
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList actualResult = new GeographicAreaList();
         Mapper mapper = new Mapper();
 
         // First Area
@@ -226,22 +228,23 @@ class JSONReaderTest {
 
         GeographicArea areaOne = mapper.geographicAreaDTOToObject(firstArea);
         GeographicArea areaTwo = mapper.geographicAreaDTOToObject(secondArea);
-        expectedResult[0] = areaOne;
-        expectedResult[1] = areaTwo;
+        expectedResult.addGeographicArea(areaOne);
+        expectedResult.addGeographicArea(areaTwo);
 
         // Act
 
         File fileToRead = new File("src/test/resources/InvalidJSONWrongDates.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        GeographicArea[] actualResult = reader.readFile(absolutePath);
+        double areasAdded = reader.readFile(absolutePath, actualResult);
 
         // Assert
 
-        assertArrayEquals(expectedResult, actualResult);
+        assertEquals(2, areasAdded);
+        assertEquals(expectedResult, actualResult);
 
         // Get one of the areas to  check its contents.
 
-        GeographicArea actualArea = actualResult[0];
+        GeographicArea actualArea = actualResult.get(0);
         SensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.

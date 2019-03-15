@@ -102,8 +102,7 @@ public class CSVReaderController {
             } catch (NumberFormatException nfe) {
                 UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
-            } catch (ParseException c) {
-                UtilsUI.printMessage("The date format is not valid.");
+            } catch (ParseException ignored) {
             }
         }
     }
