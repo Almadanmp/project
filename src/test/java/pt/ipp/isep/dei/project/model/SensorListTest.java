@@ -25,8 +25,8 @@ class SensorListTest {
     @BeforeEach
     void arrangeArtifacts() {
         validSensorList = new SensorList();
-        firstValidSensor = new Sensor("SensorOne", new TypeSensor("Temperature", "Celsius"),
-                new Date());
+        firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
+                31, 1, 2), new Date());
         secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
                 new Date());
         thirdValidSensor = new Sensor("SensorThree", new TypeSensor("Rainfall", "l/m2"),
@@ -529,4 +529,26 @@ class SensorListTest {
         assertFalse(actualResult3);
     }
 
+    @Test
+    void seeIfAddReadingToMatchingSensorWorks(){
+        // Arrange
+
+        Date dateSensorStartedFunctioning = new GregorianCalendar(2017, Calendar.FEBRUARY, 3).getTime();
+        firstValidSensor.setDateStartedFunctioning(dateSensorStartedFunctioning);
+
+        // Act for reading within bounds.
+
+        boolean result = validSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
+                2017, Calendar.FEBRUARY, 5).getTime());
+
+        // Act for reading outside bounds.
+
+        boolean failedResult = validSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
+                2015, Calendar.FEBRUARY, 1).getTime());
+
+        // Assert
+
+        assertTrue(result);
+        assertFalse(failedResult);
+    }
 }

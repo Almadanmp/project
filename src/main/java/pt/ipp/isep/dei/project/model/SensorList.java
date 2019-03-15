@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Sensors.
@@ -246,7 +245,6 @@ public class SensorList {
      * If a reading can't be added to a sensor that matches the received ID (because it's a duplicate, for instance,
      * or because its date is before the date that the sensor started functioning), an error message is saved into a log
      * file.
-     * @param logger is the logger used to log error messages for when readings aren't added to sensors.
      * @param sensorID is the id of the sensor we want to add readings to.
      * @param readingValue is the value of the reading we want to add.
      * @param readingDate is the date of the reading we want to add.
