@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.utils.DateUtils;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -266,22 +267,21 @@ class EnergyConsumptionUI {
      */
 
     private void runUS720(House house) {
-        InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
-        if (!utilsUI.roomDTODeviceListIsValid(room,house)) {
+        if (!utilsUI.roomDTODeviceListIsValid(room, house)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = InputUtils.getInputRoomDTODevicesByList(room,house);
+        Device device = InputUtils.getInputRoomDTODevicesByList(room, house);
         if (!utilsUI.deviceLogListIsValid(device)) {
             System.out.println("This device has no energy consumption logs.");
             return;
         }
         System.out.println("Insert the Date in which you want your consumption data gathering to begin: ");
-        Date initialTime = inputUtils.getInputYearMonthDayHourMin();
+        Date initialTime = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
-        Date finalTime = inputUtils.getInputYearMonthDayHourMin();
+        Date finalTime = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Device : " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
                 "\n" + "");
         controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
@@ -297,12 +297,11 @@ class EnergyConsumptionUI {
         if (!utilsUI.houseRoomListIsValid(programHouse)) {
             System.out.print(utilsUI.invalidRoomList);
         }
-        InputUtils inputs = new InputUtils();
         Room room = InputUtils.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
-        Date initialDate = inputs.getInputYearMonthDayHourMin();
+        Date initialDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
-        Date finalDate = inputs.getInputYearMonthDayHourMin();
+        Date finalDate = DateUtils.getInputYearMonthDayHourMin();
         double result = controller.getRoomConsumptionInInterval(room, initialDate, finalDate);
         System.out.println("The total energy consumption of the selected room in the selected interval is: " + result);
     }
@@ -312,7 +311,6 @@ class EnergyConsumptionUI {
     interval.*/
 
     private void runUS722(House programHouse) {
-        InputUtils inputs = new InputUtils();
         EnergyGridList gridList = controller.getHouseGridList(programHouse);
         if (gridList.isEmpty()) {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
@@ -322,9 +320,9 @@ class EnergyConsumptionUI {
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
         System.out.println("Please insert the date at which you want to start the interval.");
-        Date initialDate = inputs.getInputYearMonthDayHourMin();
+        Date initialDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
-        Date finalDate = inputs.getInputYearMonthDayHourMin();
+        Date finalDate = DateUtils.getInputYearMonthDayHourMin();
         double result = controller.getGridConsumptionInInterval(eGrid, initialDate, finalDate);
         System.out.println("\n" + "Between " + initialDate + " and " + finalDate +
                 "\n" + "The total energy consumption of the " + eGrid.getName() + " in the selected interval is: " + df.format(result) + " kW");
@@ -355,20 +353,19 @@ class EnergyConsumptionUI {
 
         }
     }
+
     private void setGridData(House programHouse) {
-        InputUtils inputs = new InputUtils();
         EnergyGrid grid = InputUtils.getInputGridByList(programHouse);
         System.out.println(INSERT_START_DATE);
-        Date startDate = inputs.getInputYearMonthDayHourMin();
+        Date startDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println(INSERT_END_DATE);
-        Date endDate = inputs.getInputYearMonthDayHourMin();
+        Date endDate = DateUtils.getInputYearMonthDayHourMin();
         LogList gridLogs = controller.getGridLogsInInterval(grid, startDate, endDate);
         System.out.println(controller.buildLogListString(gridLogs));
 
     }
 
     private void setRoomData(House programHouse) {
-        //InputUtils inputs = new InputUtils();
         RoomDTO case2Room = InputUtils.getHouseRoomDTOByList(programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
@@ -386,16 +383,14 @@ class EnergyConsumptionUI {
         System.out.println(controller.buildLogListString(deviceLogs));
     }
 
-    private Date requestStartDate(){
-        InputUtils inputs = new InputUtils();
+    private Date requestStartDate() {
         System.out.println(INSERT_START_DATE);
-        return inputs.getInputYearMonthDayHourMin();
+        return DateUtils.getInputYearMonthDayHourMin();
     }
 
-    private Date requestEndDate(){
-        InputUtils inputs = new InputUtils();
+    private Date requestEndDate() {
         System.out.println(INSERT_END_DATE);
-        return inputs.getInputYearMonthDayHourMin();
+        return DateUtils.getInputYearMonthDayHourMin();
     }
 
     /*
@@ -405,7 +400,6 @@ class EnergyConsumptionUI {
      */
 
     private void runUS752(House house) {
-        //InputUtils inputUtils = new InputUtils();
         List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house).getList();
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");

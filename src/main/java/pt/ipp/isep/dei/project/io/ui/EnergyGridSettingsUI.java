@@ -71,20 +71,18 @@ class EnergyGridSettingsUI {
 
     private EnergyGrid getInputUS130(House programHouse) {
         Scanner scanner = new Scanner(System.in);
-        InputUtils inputUtils = new InputUtils();
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
-        double power = inputUtils.getInputAsDoubleZeroOrPositive();
+        double power = InputUtils.getInputAsDoubleZeroOrPositive();
         return controller.createEnergyGrid(programHouse, name, power);
     }
 
 
     private void updateHouse(House house, EnergyGrid energyGrid) {
-        if(controller.addEnergyGridToHouse(house, energyGrid)){
+        if (controller.addEnergyGridToHouse(house, energyGrid)) {
             System.out.println("The energy grid was successfully created and added to the house.");
-        }
-        else {
+        } else {
             System.out.println("The energy grid wasn't added to the house. There is already an energy grid with " +
                     "that name.");
         }
@@ -94,30 +92,26 @@ class EnergyGridSettingsUI {
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
     private void runUS135(House house) {
-        //InputUtils inputs = new InputUtils();
         UtilsUI check = new UtilsUI();
         if (check.houseGridListIsValid(house)) {
             EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
             PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
             updateGridAndDisplayState(energyGrid, powerSource);
-        }
-        else {
+        } else {
             System.out.println(check.invalidGridList);
         }
     }
 
     private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid) {
         Scanner scanner = new Scanner(System.in);
-        InputUtils inputUtils = new InputUtils();
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum power output of this power source.");
-        double maxPowerOutput = inputUtils.getInputAsDoubleZeroOrPositive();
+        double maxPowerOutput = InputUtils.getInputAsDoubleZeroOrPositive();
         System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
                 "power source can't storage any energy).");
-        double maxEnergyStorage = inputUtils.getInputAsDoubleZeroOrPositive();
+        double maxEnergyStorage = InputUtils.getInputAsDoubleZeroOrPositive();
         return controller.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
-
     }
 
     private void updateGridAndDisplayState(EnergyGrid energyGrid, PowerSource powerSource) {
@@ -134,11 +128,10 @@ class EnergyGridSettingsUI {
     // can attach/detach rooms from it - JOAO CACHADA.
     private void runUS145(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseGridListIsValid(house)){
+        if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        //InputUtils inputs = new InputUtils();
         EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
         displayRoomList(energyGrid);
 
@@ -178,13 +171,13 @@ class EnergyGridSettingsUI {
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
     private void runUS149(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        if(!utilsUI.houseGridListIsValid(house)){
+        if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
         //InputUtils inputs = new InputUtils();
         EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
-        if(!utilsUI.gridRoomListIsValid(energyGrid)){
+        if (!utilsUI.gridRoomListIsValid(energyGrid)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }

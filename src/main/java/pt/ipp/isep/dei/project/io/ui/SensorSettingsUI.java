@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.utils.DateUtils;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -60,23 +61,22 @@ class SensorSettingsUI {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
-            System.out.println(controller.buildSensorTypesString(list));
-        }
+        System.out.println(controller.buildSensorTypesString(list));
+    }
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
-    private void runUS05(TypeSensorList typeList){
+    private void runUS05(TypeSensorList typeList) {
         TypeSensor typeSensor = getInput05();
         boolean added = updateModel05(typeSensor, typeList);
         displayState05(added);
     }
 
     private TypeSensor getInput05() {
-        InputUtils inputUtils = new InputUtils();
         System.out.print("Enter the sensor type's name: ");
-        String name = inputUtils.getInputStringAlphabetCharOnly();
+        String name = InputUtils.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
-        String unit = inputUtils.getInputStringAlphabetCharOnly();
+        String unit = InputUtils.getInputStringAlphabetCharOnly();
         return controller.createType(name, unit);
     }
 
@@ -85,7 +85,7 @@ class SensorSettingsUI {
     }
 
     private void displayState05(boolean added) {
-        if(added){
+        if (added) {
             System.out.print("The sensor type has been successfully created.");
         } else {
             System.out.print("The sensor type you are trying to create already exists. Please try again.");
@@ -94,18 +94,18 @@ class SensorSettingsUI {
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-    private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList){
+    private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList) {
         UtilsUI utilsUI = new UtilsUI();
         if (geographicAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
-        if(typeSensorList.isEmpty()){
+        if (typeSensorList.isEmpty()) {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
         Sensor sensor = createSensor();
-        if(!getConfirmation(sensor)){
+        if (!getConfirmation(sensor)) {
             return;
         }
         addSensor(sensor, geographicAreaList);
@@ -132,12 +132,11 @@ class SensorSettingsUI {
         return input.nextLine();
     }
 
-    private TypeSensor getInputTypeSensor(){
-        InputUtils inputUtils = new InputUtils();
+    private TypeSensor getInputTypeSensor() {
         Scanner input = new Scanner(System.in);
 
         System.out.println("\nEnter the sensor type's name:\t");
-        String name = inputUtils.getInputStringAlphabetCharOnly();
+        String name = InputUtils.getInputStringAlphabetCharOnly();
 
         System.out.println("\nEnter the sensor type's unit of measurement:\t");
         String unit = input.nextLine();
@@ -145,8 +144,7 @@ class SensorSettingsUI {
         return controller.createType(name, unit);
     }
 
-    private Local getInputSensorLocal(){
-        //InputUtils inputUtils = new InputUtils();
+    private Local getInputSensorLocal() {
         System.out.println("\nNow let's set its GPS localization\n");
         System.out.println("\nEnter the latitude:\t");
         double latitude = InputUtils.getInputAsDouble();
@@ -160,10 +158,9 @@ class SensorSettingsUI {
         return controller.createLocal(latitude, longitude, altitude);
     }
 
-    private Date getInputStartDate(){
-        InputUtils inputUtils = new InputUtils();
+    private Date getInputStartDate() {
         System.out.println("\nEnter the sensor's starting date:\t");
-        return inputUtils.getInputYearMonthDay();
+        return DateUtils.getInputYearMonthDay();
     }
 
     private boolean getConfirmation(Sensor sensor) {
@@ -175,8 +172,7 @@ class SensorSettingsUI {
     }
 
     private void addSensor(Sensor sensor, GeographicAreaList geographicAreaList) {
-        InputUtils inputUtils = new InputUtils();
-        GeographicArea geographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+        GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
         if (controller.addSensorToGeographicArea(sensor, geographicArea)) {
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {

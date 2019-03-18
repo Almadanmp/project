@@ -28,7 +28,6 @@ class RoomConfigurationUI {
             System.out.println(utils.invalidRoomList);
             return;
         }
-        //InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -84,7 +83,6 @@ class RoomConfigurationUI {
      * Prints device List in that room.
      */
     private void runUS201(House house) {
-        //InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
@@ -106,11 +104,11 @@ class RoomConfigurationUI {
 
     /**
      * US210 As an Administrator, I want to add a new device to a room from the list of available device types, so that I can configure it.
+     *
      * @param house
      */
 
     private void runUS210(House house) {
-        InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
@@ -123,7 +121,6 @@ class RoomConfigurationUI {
 
 
     private void createDevice(Room room, DeviceType deviceType) {
-        InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         // get device name
         System.out.print("Please, type the name of the device: ");
@@ -135,11 +132,11 @@ class RoomConfigurationUI {
         List<String> deviceAttributes = controller.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));
-            Double value = inputUtils.getInputAsDoublePositive();
+            Double value = InputUtils.getInputAsDoublePositive();
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
-        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
+        controller.setNominalPowerDevice(device, InputUtils.getInputAsDoubleZeroOrPositive());
 
         createProgram(device);
         if (controller.addDevice(room, device)) {
@@ -191,10 +188,9 @@ class RoomConfigurationUI {
         // get device name
         System.out.print("Please, type the new name of the device: ");
         String deviceName = scanner.nextLine();
-        controller.setDeviceName(deviceName,device);
+        controller.setDeviceName(deviceName, device);
         //get room
         controller.removeDevice(room, device);
-        InputUtils inputUtils = new InputUtils();
         Room room1;
         room1 = InputUtils.getHouseRoomByList(house);
         controller.addDevice(room1, device);
@@ -202,20 +198,20 @@ class RoomConfigurationUI {
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
                     + " (" + controller.getAttributeUnit(device, i) + ")");
-            Double value = inputUtils.getInputAsDoublePositive();
+            Double value = InputUtils.getInputAsDoublePositive();
             controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
-        controller.setNominalPowerDevice(device,inputUtils.getInputAsDoubleZeroOrPositive());
+        controller.setNominalPowerDevice(device, InputUtils.getInputAsDoubleZeroOrPositive());
         if (device instanceof Programmable) {
             UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");
             ProgramList programList = controller.getProgramList((Programmable) device);
-            if(!utilsUI.programListIsValid(programList)){
+            if (!utilsUI.programListIsValid(programList)) {
                 System.out.println(utilsUI.invalidProgramList);
                 return;
             }
-            FixedTimeProgram program = inputUtils.getSelectedProgramFromDevice((Programmable) device);
+            FixedTimeProgram program = InputUtils.getSelectedProgramFromDevice((Programmable) device);
             configureAProgrammableDevice(program, programList, (Programmable) device);
             controller.configureDeviceProgramList(device, programList);
         }
@@ -259,18 +255,16 @@ class RoomConfigurationUI {
 
     // enters a loop if the user chooses to edit another program of the existing programs in the list. (us215)
     private void loopForEditingProgram(String message, Programmable device) {
-        InputUtils inputUtils = new InputUtils();
         FixedTimeProgram program;
         while (InputUtils.yesOrNo(message)) {
-            program = inputUtils.getSelectedProgramFromDevice(device);
+            program = InputUtils.getSelectedProgramFromDevice(device);
             loopForPrograms(program);
         }
     }
 
     // enters a loop if the user chooses to add another program. (us210)
     private void loopForCreatingProgram(String message, ProgramList programList) {
-        InputUtils inputUtils = new InputUtils();
-        while (InputUtils.yesOrNo (message)) {
+        while (InputUtils.yesOrNo(message)) {
             loopForCreatingPrograms(programList);
         }
     }
@@ -288,11 +282,10 @@ class RoomConfigurationUI {
 
     //loop that sets all the attributes of the chosen program to configure it.
     private void loopToSetAttributeValuesProgram(FixedTimeProgram program2, List<String> programAttributeNames) {
-        InputUtils inputUtils = new InputUtils();
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
                     + " (" + controller.getProgramAttributeUnit(program2, i) + ")");
-            Double value = inputUtils.getInputAsDoublePositive();
+            Double value = InputUtils.getInputAsDoublePositive();
             controller.setProgramAttributeValue(program2, i, value);
         }
     }
@@ -325,7 +318,6 @@ class RoomConfigurationUI {
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
     private void runUS222(House house) {
-        //InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
         if (!utilsUI.roomDeviceListIsValid(room)) {
@@ -356,7 +348,7 @@ class RoomConfigurationUI {
     }
 
     private void getRoomNominalPower(Room room) {
-        double roomNominalPower =controller.getRoomNominalPower(room);
+        double roomNominalPower = controller.getRoomNominalPower(room);
         System.out.println("This room has a total nominal power of " + roomNominalPower + " kW.\nThis results " +
                 "from the sum of the nominal power of all devices in the room.");
     }
@@ -435,7 +427,7 @@ class RoomConfigurationUI {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
         Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, typeSensor, mDate);
-        if (controller.addSensorToRoom(mSensor,room)) {
+        if (controller.addSensorToRoom(mSensor, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
         } else System.out.println("\nSensor already exists in the room.");
     }

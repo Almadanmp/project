@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.utils.DateUtils;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -137,13 +138,12 @@ public class HouseMonitoringUI {
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        InputUtils inputUtils = new InputUtils();
         RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
         if (!(utilsUI.roomDTOSensorListIsValid(room, house))) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        Date date = inputUtils.getInputYearMonthDay();
+        Date date = DateUtils.getInputYearMonthDay();
         updateModel610(room, date, house);
     }
 
@@ -167,9 +167,8 @@ public class HouseMonitoringUI {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
-        InputUtils inputUtils = new InputUtils();
         System.out.println("Please enter the desired date.");
-        Date date = inputUtils.getInputYearMonthDay();
+        Date date = DateUtils.getInputYearMonthDay();
         updateAndDisplayModelUS620(house, date);
     }
 
@@ -196,24 +195,21 @@ public class HouseMonitoringUI {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
-        InputUtils inputUtils = new InputUtils();
         System.out.println("Please enter the start date.");
-        Date startDate = inputUtils.getInputYearMonthDay();
-        Date endDate = inputUtils.getInputYearMonthDay();
+        Date startDate = DateUtils.getInputYearMonthDay();
+        Date endDate = DateUtils.getInputYearMonthDay();
         System.out.println("Please enter the end date.");
         updateAndDisplayUS623(house, startDate, endDate);
     }
 
     private Date getStartDate() {
-        InputUtils inputUtils = new InputUtils();
         System.out.println("Please enter the start date.");
-        return inputUtils.getInputYearMonthDay();
+        return DateUtils.getInputYearMonthDay();
     }
 
     private Date getEndDate() {
-        InputUtils inputUtils = new InputUtils();
         System.out.println("Please enter the end date.");
-        return inputUtils.getInputYearMonthDay();
+        return DateUtils.getInputYearMonthDay();
     }
 
     private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
@@ -315,6 +311,7 @@ public class HouseMonitoringUI {
 
     /**
      * Method thar will remove the hours, minutes and seconds from a Date
+     *
      * @param date input date to format
      * @return string that represents the input date but without hour, min. sec
      */

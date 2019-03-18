@@ -146,7 +146,6 @@ class GASettingsUI {
     }
 
     private boolean getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
-        InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
         TypeArea geoTypeArea = getInputTypeAreaByList(typeAreaList);
         String gaTypeAreaName = controller.getTypeAreaName(geoTypeArea);
@@ -199,7 +198,6 @@ class GASettingsUI {
     }
 
     private double readInputNumber(String inputType) {
-        //InputUtils inputUtils = new InputUtils();
         System.out.print(createInputMsg(inputType));
         return InputUtils.getInputAsDouble();
     }
@@ -207,7 +205,7 @@ class GASettingsUI {
     private double readInputPositiveNumber(String inputType) {
         InputUtils inputUtils = new InputUtils();
         System.out.print(createInputMsg(inputType));
-        return inputUtils.getInputAsDoublePositive();
+        return InputUtils.getInputAsDoublePositive();
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
@@ -252,13 +250,13 @@ class GASettingsUI {
     private GeographicArea getInputMotherGeographicArea(GeographicAreaList programGAList) {
         System.out.println("First you need to select the geographic area you wish to set as container.");
         InputUtils inputUtils = new InputUtils();
-        return inputUtils.getGeographicAreaByList(programGAList);
+        return InputUtils.getGeographicAreaByList(programGAList);
     }
 
     private GeographicArea getInputDaughterGeographicArea(GeographicAreaList programGAList) {
         System.out.println("Second you need to select the geographic area you wish to set as contained.");
         InputUtils inputUtils = new InputUtils();
-        return inputUtils.getGeographicAreaByList(programGAList);
+        return InputUtils.getGeographicAreaByList(programGAList);
     }
 
     private void updateStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {
@@ -291,8 +289,7 @@ class GASettingsUI {
      */
     private GeographicArea getMotherArea(GeographicAreaList geographicAreaList) {
         System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
-        InputUtils inputUtils = new InputUtils();
-        return inputUtils.getGeographicAreaByList(geographicAreaList);
+        return InputUtils.getGeographicAreaByList(geographicAreaList);
     }
 
     /**
@@ -301,8 +298,7 @@ class GASettingsUI {
      */
     private GeographicArea getDaughterArea(GeographicAreaList geographicAreaList) {
         System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
-        InputUtils inputUtils = new InputUtils();
-        return inputUtils.getGeographicAreaByList(geographicAreaList);
+        return InputUtils.getGeographicAreaByList(geographicAreaList);
     }
 
     /**
@@ -318,23 +314,21 @@ class GASettingsUI {
     }
 
     private void runUS10(GeographicAreaList geographicAreaList) {
-        InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        GeographicArea geographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
-        if (!utilsUI.geographicAreaSensorListIsValid(geographicArea)){
+        GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
+        if (!utilsUI.geographicAreaSensorListIsValid(geographicArea)) {
             UtilsUI.printMessage(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        Sensor sensor = inputUtils.getInputSensorByList(geographicArea.getSensorList());
+        Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
         controller.activateOrDeactivateSensor(sensor);
         updateStateUS10(sensor);
     }
 
-    private void updateStateUS10 (Sensor sensor){
+    private void updateStateUS10(Sensor sensor) {
         if (sensor.isActive()) {
             System.out.println("Sensor successfully activated!");
-        }
-        else {
+        } else {
             System.out.println("Sensor successfully deactivated!");
         }
     }

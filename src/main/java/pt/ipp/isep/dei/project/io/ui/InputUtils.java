@@ -12,10 +12,6 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 
 import java.io.File;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,8 +29,7 @@ public class InputUtils {
         scanner.nextLine();
     }
 
-    GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
-        //InputUtils inputUtils = new InputUtils();
+    public static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
@@ -124,7 +119,7 @@ public class InputUtils {
         }
     }
 
-    FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
+    public static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
         //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
@@ -218,18 +213,18 @@ public class InputUtils {
         }
     }
 
-    Sensor getInputSensorByList (SensorList sensorList){
-        while(true){
+    public static Sensor getInputSensorByList(SensorList sensorList) {
+        while (true) {
             UtilsUI utils = new UtilsUI();
             System.out.println("Please select a sensor from the list:");
             System.out.println(sensorList.toString());
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < sensorList.size()){
+            if (aux >= 0 && aux < sensorList.size()) {
                 Sensor result = sensorList.get(aux);
                 System.out.println("You have chosen the following sensor:");
                 System.out.println(result.buildString() + "\n");
                 return result;
-            }else {
+            } else {
                 System.out.println(utils.invalidOption);
             }
         }
@@ -270,13 +265,14 @@ public class InputUtils {
         } else return !"n".equalsIgnoreCase(answer);
     }
 
+
     /**
      * Method that asks user for string input
      * If user character input isn't alphabetic, the user is asked to type again.
      *
      * @return String with user input
      */
-    String getInputStringAlphabetCharOnly() {
+    public static String getInputStringAlphabetCharOnly() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNext("[a-zA-Z_]+")) {
             System.out.println("That's not a valid option. Please enter alphabetic characters only.");
@@ -325,7 +321,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    Double getInputAsDoublePositive() {
+    public static Double getInputAsDoublePositive() {
         double input = -1.0;
         while (input < 0) {
             input = getInputAsDouble();
@@ -339,236 +335,12 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    Double getInputAsDoubleZeroOrPositive() {
+    public static Double getInputAsDoubleZeroOrPositive() {
         double input = -1.0;
         while (input <= 0) {
             input = getInputAsDouble();
         }
         return input;
-    }
-
-    /**
-     * Method will read a group of values from user and return a date (year, month, day, hour and
-     * minute). It will only accept valid numbers.
-     *
-     * @return date introduced by user
-     */
-    /**
-     * Method will read a group of values from user and return a date (year, month, day, hour and
-     * minute). It will only accept valid numbers.
-     *
-     * @return date introduced by user
-     */
-    Date getInputYearMonthDay() {
-        Scanner scan = new Scanner(System.in);
-        int year = getInputYear();
-        boolean isLeapyear = new GregorianCalendar().isLeapYear(year);
-        int month = getInputMonth();
-        int day = getInputDay(isLeapyear, month);
-        Date date = new GregorianCalendar(year, month, day).getTime();
-
-        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateResultFormatted = formatter.format(date);
-
-        System.out.println(("You have chosen the following date:\n") + dateResultFormatted + "\n");
-        scan.nextLine();
-        return date;
-    }
-
-    /**
-     * Method will read a group of values from user and return a date (year, month, day, hour and
-     * minute). It will only accept valid numbers.
-     *
-     * @return date introduced by user
-     */
-    Date getInputYearMonthDayHourMin() {
-        int year = getInputYear();
-        boolean isLeapYear = new GregorianCalendar().isLeapYear(year);
-        int month = getInputMonth();
-        int day = getInputDay(isLeapYear, month);
-        int hour = getInputHour();
-        int minute = getInputMinute();
-        Date date = new GregorianCalendar(year, month, day, hour, minute).getTime();
-        System.out.println(("You have chosen the following date:\n") + date.toString() + "\n");
-        return date;
-    }
-
-    /**
-     * Method will ask the user to introduce a year and will return an int
-     * that corresponds to the number introduced by user. User can only introduce
-     * values from the gregorian calendar
-     *
-     * @return int of the year introduced by user
-     */
-    private int getInputYear() {
-        Scanner scan = new Scanner(System.in);
-        int year = -1;
-        while (year <= 1581) { //Gregorian Calendar was introduced in 1582, so was the concept of leap year
-            year = getInputDateParameter(scan, "year");
-            scan.nextLine();
-        }
-        return year;
-    }
-
-    /**
-     * Method will ask the user for a month and will return an int of that value subtracted by one
-     *
-     * @return int of the month introduced by user
-     */
-    private int getInputMonth() {
-        Scanner scan = new Scanner(System.in);
-        int month = -1;
-        while (month <= -1 || month > 11) { // -1 e 11 porque depois se subtrai um valor
-            month = getInputDateParameter(scan, "month") - 1;
-            scan.nextLine();
-        }
-        return month;
-    }
-
-    /**
-     * Method will ask the user to introduce a day and will return an int
-     * that corresponds to the number introduced by user. User can only introduce
-     * valid values
-     *
-     * @return int of the day introduced by user
-     */
-    private int getInputDay(boolean isLeapyear, int month) {
-        if (month == 1) {
-            return getInputFebruaryDay(isLeapyear);
-        } else {
-            return getInputNotFebruaryDay(month);
-        }
-    }
-
-    /**
-     * Method will receive a boolean and ask the user for a day and will return an int
-     * that corresponds to the number introduced by user. The boolean is true in case of leap
-     * year and the user can only introduce a number from 1 to 29. Otherwise, it can only a number
-     * from 0 to 28.
-     *
-     * @return int of the day introduced by user
-     */
-    private int getInputFebruaryDay(boolean isLeapyear) {
-        Scanner scan = new Scanner(System.in);
-        int day = -1;
-        if (isLeapyear) {
-            while (day < 1 || day > 29) {
-                day = getInputDateParameter(scan, "day");
-                scan.nextLine();
-            }
-            return day;
-        }
-        while (day < 1 || day > 28) {
-            day = getInputDateParameter(scan, "day");
-            scan.nextLine();
-        }
-        return day;
-    }
-
-    /**
-     * Method will receive an int of a month and ask the user for a day. It will return an int
-     * that corresponds to the number introduced by user. The user can only introduce valid days
-     * for that month (January - 0 to 31, April - 0 to 30).
-     *
-     * @return int of the day introduced by user
-     */
-    private int getInputNotFebruaryDay(int month) {
-        Scanner scan = new Scanner(System.in);
-        int day = -1;
-        if (isJanuaryMarchMay(month) || isJulyAugust(month) || isOctoberDecember(month)) {
-            while (day < 1 || day > 31) {
-                day = getInputDateParameter(scan, "day");
-                scan.nextLine();
-            }
-            return day;
-        }
-        while (day < 1 || day > 30) {
-            day = getInputDateParameter(scan, "day");
-            scan.nextLine();
-        }
-        return day;
-    }
-
-    //The next three methods were created because of a code smell
-
-    /**
-     * Method that checks if the month given is January, March or May, returning
-     * true in case it is, false in case it is not.
-     *
-     * @param month month to test
-     */
-    private boolean isJanuaryMarchMay(int month) {
-        return month == 0 || month == 2 || month == 4;
-    }
-
-    /**
-     * Method that checks if the month given is July or August, returning
-     * true in case it is, false in case it is not.
-     *
-     * @param month month to test
-     */
-    private boolean isJulyAugust(int month) {
-        return month == 6 || month == 7;
-    }
-
-    /**
-     * Method that checks if the month given is October or December, returning
-     * true in case it is, false in case it is not.
-     *
-     * @param month month to test
-     */
-    private boolean isOctoberDecember(int month) {
-        return month == 9 || month == 11;
-    }
-
-    /**
-     * Method will ask the user for an hour and will return an int
-     * that corresponds to the number introduced by user. User can only introduce
-     * valid values (0 to 23).
-     *
-     * @return int of the hour introduced by user
-     */
-    private int getInputHour() {
-        Scanner scan = new Scanner(System.in);
-        int hour = -1;
-        while (hour < 0 || hour > 23) {
-            hour = getInputDateParameter(scan, "hour");
-            scan.nextLine();
-        }
-        return hour;
-    }
-
-    /**
-     * Method will ask the user to introduce a minute and will return an int
-     * that corresponds to the number introduced by user. User can only introduce
-     * valid values (0 to 59).
-     *
-     * @return int of the minute introduced by user
-     */
-    private int getInputMinute() {
-        Scanner scan = new Scanner(System.in);
-        int minute = -1;
-        while (minute < 0 || minute > 59) {
-            minute = getInputDateParameter(scan, "minute");
-            scan.nextLine();
-        }
-        return minute;
-    }
-
-    /**
-     * Method to get a date as an int.
-     *
-     * @param scan     the scanner to read input
-     * @param dataType the type of date to read (year, month or day)
-     * @return value read from the user
-     */
-    private int getInputDateParameter(Scanner scan, String dataType) {
-        System.out.println("Enter a " + dataType + ":");
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println("Not a valid " + dataType + ". Try again");
-        }
-        return scan.nextInt();
     }
 
     /**

@@ -2,7 +2,10 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
@@ -13,7 +16,7 @@ public class UtilsUI {
 
     String invalidOption = "Please enter a valid option.";
     String invalidNumber = "Please enter a valid number.";
-    static final String RETURNING_TO_MAIN_MENU = "-- Returning to main menu -- \n";
+    private static final String RETURNING_TO_MAIN_MENU = "-- Returning to main menu -- \n";
     String invalidRoomList = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     String invalidGridList = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     String invalidDeviceList = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
@@ -82,7 +85,6 @@ public class UtilsUI {
      *
      * @param strings for being printed
      */
-
     public static void printBox(String... strings) {
         int maxBoxWidth = getStringMaxLength(strings);
         String line = " " + fill('-', maxBoxWidth + 2) + " ";

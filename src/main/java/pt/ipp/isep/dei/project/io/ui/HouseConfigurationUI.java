@@ -107,11 +107,10 @@ class HouseConfigurationUI {
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 
     private void runUS101(House house, GeographicAreaList geographicAreaList) {
-        InputUtils inputUtils = new InputUtils();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("First select the geographic area where this house is located.");
-        GeographicArea motherArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+        GeographicArea motherArea = InputUtils.getGeographicAreaByList(geographicAreaList);
 
         // get house address
         System.out.print("Please, type the street where the house is located: ");
@@ -164,7 +163,6 @@ class HouseConfigurationUI {
      */
     private void getInputRoomCharacteristics() {
         Scanner scanner = new Scanner(System.in);
-        InputUtils inputUtils = new InputUtils();
 
         //GET ROOM DESIGNATION
         System.out.println("Please insert the room's name: ");
@@ -176,13 +174,13 @@ class HouseConfigurationUI {
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        this.roomWidth = inputUtils.getInputAsDoublePositive();
+        this.roomWidth = InputUtils.getInputAsDoublePositive();
 
         System.out.println("Please insert your room's length in meters: ");
-        this.roomLength = inputUtils.getInputAsDoublePositive();
+        this.roomLength = InputUtils.getInputAsDoublePositive();
 
         System.out.println("Please insert your room's height in meters: ");
-        this.roomHeight = inputUtils.getInputAsDoublePositive();
+        this.roomHeight = InputUtils.getInputAsDoublePositive();
     }
 
     private Room createNewRoom(House house) {
