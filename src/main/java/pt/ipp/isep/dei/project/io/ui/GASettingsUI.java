@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.TypeArea;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Scanner;
 
@@ -48,6 +45,10 @@ class GASettingsUI {
                     break;
                 case 6:
                     runUS08(programGAList);
+                    activeInput = false;
+                    break;
+                case 7:
+                    runUS10(programGAList);
                     activeInput = false;
                     break;
                 case 0:
@@ -316,6 +317,27 @@ class GASettingsUI {
         }
     }
 
+    private void runUS10(GeographicAreaList geographicAreaList) {
+        InputUtils inputUtils = new InputUtils();
+        UtilsUI utilsUI = new UtilsUI();
+        GeographicArea geographicArea = inputUtils.getGeographicAreaByList(geographicAreaList);
+        if (!utilsUI.geographicAreaSensorListIsValid(geographicArea)){
+            UtilsUI.printMessage(UtilsUI.INVALID_SENSOR_LIST);
+            return;
+        }
+        Sensor sensor = inputUtils.getInputSensorByList(geographicArea.getSensorList());
+        controller.activateOrDeactivateSensor(sensor);
+        updateStateUS10(sensor);
+    }
+
+    private void updateStateUS10 (Sensor sensor){
+        if (sensor.isActive()) {
+            System.out.println("Sensor successfully activated!");
+        }
+        else {
+            System.out.println("Sensor successfully deactivated!");
+        }
+    }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printOptionMessage() {
@@ -326,6 +348,7 @@ class GASettingsUI {
         System.out.println("4) List of existing geographical areas of a given type. (US004)");
         System.out.println("5) Add an existing geographical area to another one. (US007)");
         System.out.println("6) See if a geographical area is included, directly or indirectly, in another one. (US008)");
+        System.out.println("7) Deactivate or activate a sensor (US010) \n");
         System.out.println("0) (Return to main menu)\n");
     }
 }

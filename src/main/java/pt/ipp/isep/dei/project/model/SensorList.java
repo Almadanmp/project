@@ -133,7 +133,8 @@ public class SensorList {
         for (int i = 0; i < sensors.size(); i++) {
             Sensor aux = sensors.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
-            result.append("Type: ").append(aux.getSensorTypeName()).append("\n");
+            result.append("Type: ").append(aux.getSensorTypeName()).append(" | ")
+                    .append(aux.printActive()).append("\n");
         }
         result.append("---------------\n");
         return result.toString();

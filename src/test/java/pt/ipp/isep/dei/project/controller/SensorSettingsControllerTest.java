@@ -252,7 +252,7 @@ class SensorSettingsControllerTest {
 
         Sensor sensor = new Sensor("RF12345","Sensor", new TypeSensor("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
-        String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long\n";
+        String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long \n";
 
 
         // Act

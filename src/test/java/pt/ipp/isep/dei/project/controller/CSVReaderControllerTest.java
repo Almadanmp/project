@@ -367,8 +367,8 @@ class CSVReaderControllerTest {
 
         //Arrange
 
-        String expectedResult = "---------------\n0) Name: Meteo station ISEP - rainfall | Type: rain\n" +
-                "1) Name: Meteo station ISEP - temperature | Type: rain2\n---------------\n";
+        String expectedResult = "---------------\n0) Name: Meteo station ISEP - rainfall | Type: rain | Active\n" +
+                "1) Name: Meteo station ISEP - temperature | Type: rain2 | Active\n---------------\n";
 
         // Act
 

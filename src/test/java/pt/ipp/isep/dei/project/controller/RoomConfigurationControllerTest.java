@@ -158,8 +158,8 @@ class RoomConfigurationControllerTest {
         sensorList.add(s1);
         sensorList.add(s2);
         String expectedResult = "---------------\n" +
-                "0) Name: SensorOne | Type: Wind\n" +
-                "1) Name: SensorTwo | Type: Rain\n" +
+                "0) Name: SensorOne | Type: Wind | Active\n" +
+                "1) Name: SensorTwo | Type: Rain | Active\n" +
                 "---------------\n";
 
         //Act
