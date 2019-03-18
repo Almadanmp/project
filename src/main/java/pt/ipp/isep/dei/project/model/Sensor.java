@@ -17,6 +17,7 @@ public class Sensor {
     private Date dateStartedFunctioning;
     private ReadingList readingList;
     private UUID uniqueID;
+    private boolean active;
 
 
     /**
@@ -36,6 +37,7 @@ public class Sensor {
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
         this.uniqueID = UUID.randomUUID();
+        this.active = true;
 
     }
 
@@ -172,6 +174,22 @@ public class Sensor {
         this.uniqueID = uniqueID;
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive() {
+        this.active = true;
+    }
+
+    public boolean activateOrDeactivate() {
+        if (isActive()) {
+            return this.active = false;
+        } else {
+            return this.active = true;
+        }
+    }
+
     /**
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list.
@@ -189,9 +207,8 @@ public class Sensor {
      * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
      * to the date when the sensor was activated.
      *
-     *
-     * @param value  is the value read on the reading.
-     * @param date   is the read date of the reading.
+     * @param value is the value read on the reading.
+     * @param date  is the read date of the reading.
      * @return returns true if the reading was successfully added.
      * @author André
      */
@@ -252,13 +269,22 @@ public class Sensor {
      * @return returns a string with Sensor Parameters
      */
     public String buildString() {
+
         if (this.getLocal() == null) {
             return this.name + ", " + this.typeSensor.getName() + ". ";
         }
         String result;
+
         result = this.name + ", " + this.typeSensor.getName() + ", " +
-                this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long\n";
+                this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long \n";
         return result;
+    }
+
+    String printActive() {
+        if (!this.active) {
+            return "Deactivated";
+        }
+        return "Active";
     }
 
     /**
@@ -338,7 +364,7 @@ public class Sensor {
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.
-     * @param endDate   is the Final Date of the period.
+     * @param endDate     is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {

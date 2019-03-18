@@ -217,6 +217,7 @@ public class GeographicAreaDTO {
         if (!(testDTO instanceof GeographicAreaDTO)) {
             return false;
         }
+
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         Local testDTOLocal = new Local(localVariable.getLatitude(), localVariable.getLongitude(), localVariable.
                 getAltitude());

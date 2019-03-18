@@ -25,6 +25,7 @@ class SensorTest {
     @BeforeEach
     void arrangeArtifacts() {
         validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        validSensor.setActive();
     }
 
     @Test
@@ -753,7 +754,7 @@ class SensorTest {
 
         validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Kelvin"), new Local(21,
                 31, 15), new Date());
-        String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long\n";
+        String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long \n";
 
         // Act
 
@@ -765,7 +766,53 @@ class SensorTest {
     }
 
     @Test
-    void seeIfSecondConstructorSetsTypeSensorCorretly() {
+    void seeIfPrintDeactivated() {
+        // Arrange
+
+        String expectedResult = "Active";
+        // Act
+
+        String result = validSensor.printActive();
+
+        // Assert
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfActivate() {
+        // Arrange
+        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+
+
+        // Act
+
+       boolean result = sensor.activateOrDeactivate();
+
+        // Assert
+
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    void seeIfPrintActive() {
+        // Arrange
+
+        String expectedResult = "Deactivated";
+        validSensor.activateOrDeactivate();
+
+        // Act
+
+        String result = validSensor.printActive();
+
+        // Assert
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+
+    @Test
+    void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
         validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Kelvin"), new Date());

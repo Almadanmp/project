@@ -25,7 +25,7 @@ class EnergyConsumptionUI {
     }
 
     void run(House programHouse) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         boolean activeInput = true;
         int option;
@@ -34,7 +34,7 @@ class EnergyConsumptionUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = inputUtils.getInputAsInt();
+            option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS172(programHouse);
@@ -78,13 +78,13 @@ class EnergyConsumptionUI {
     //in the grid.
 
     private void runUS172(House house) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseGridListIsValid(house)) {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        EnergyGrid mEnergyGrid = inputUtils.getInputGridByList(house);
+        EnergyGrid mEnergyGrid = InputUtils.getInputGridByList(house);
         if (!utilsUI.gridRoomListIsValid(mEnergyGrid)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
@@ -99,9 +99,9 @@ class EnergyConsumptionUI {
     }
 
     private void displayUS172(Double nomPower) {
-        InputUtils inputs = new InputUtils();
+        //InputUtils inputs = new InputUtils();
         System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
-        inputs.returnToMenu(returnToConsole);
+        InputUtils.returnToMenu(returnToConsole);
     }
 
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
@@ -113,8 +113,8 @@ class EnergyConsumptionUI {
             System.out.println(utils.invalidGridList);
             return;
         }
-        InputUtils inputs = new InputUtils();
-        EnergyGrid grid = inputs.getInputGridByList(programHouse);
+        //InputUtils inputs = new InputUtils();
+        EnergyGrid grid = InputUtils.getInputGridByList(programHouse);
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
@@ -123,7 +123,7 @@ class EnergyConsumptionUI {
                     "\n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; " +
                     "\n 4) Return to main menu;\n ");
             int option;
-            option = inputs.getInputAsInt();
+            option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     allRoomDevicesSelection(grid, selectedRooms, selectedDevices);
@@ -134,7 +134,7 @@ class EnergyConsumptionUI {
                 case 3:
                     printSelection(selectedDevices, selectedRooms);
                     printSelectionNominalPower(selectedDevices);
-                    inputs.returnToMenu(returnToConsole);
+                    InputUtils.returnToMenu(returnToConsole);
                     break;
                 case 4:
                     return;
@@ -187,12 +187,12 @@ class EnergyConsumptionUI {
      */
 
     private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
-        InputUtils inputs = new InputUtils();
-        Room r1 = inputs.getGridRoomByList(grid);
+        //InputUtils inputs = new InputUtils();
+        Room r1 = InputUtils.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to remove it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
-            if (inputs.yesOrNo(duplicateRoom)) {
+            if (InputUtils.yesOrNo(duplicateRoom)) {
                 controller.removeRoomFromList(r1, selectedRooms);
                 controller.removeRoomDevicesFromDeviceList(r1, selectedDevices);
                 System.out.println("The room and its devices have been deselected.");
@@ -212,12 +212,12 @@ class EnergyConsumptionUI {
      */
 
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
-        InputUtils inputs = new InputUtils();
-        Device d1 = inputs.getGridDevicesByList(grid);
+        //InputUtils inputs = new InputUtils();
+        Device d1 = InputUtils.getGridDevicesByList(grid);
         if (selectedDevices.containsDevice(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
             System.out.println(duplicateDevice);
-            if (inputs.yesOrNo(duplicateDevice)) {
+            if (InputUtils.yesOrNo(duplicateDevice)) {
                 controller.removeDeviceFromList(d1, selectedDevices);
                 System.out.println("The device has been deselected.");
             }
@@ -237,8 +237,8 @@ class EnergyConsumptionUI {
     private boolean continuePrompt() {
         String prompt = "Would you like to continue choosing? (y/n)";
         System.out.println(prompt);
-        InputUtils inputs = new InputUtils();
-        return inputs.yesOrNo(prompt);
+        //InputUtils inputs = new InputUtils();
+        return InputUtils.yesOrNo(prompt);
     }
 
     /**
@@ -268,12 +268,12 @@ class EnergyConsumptionUI {
     private void runUS720(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
+        RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTODeviceListIsValid(room,house)) {
             System.out.println(utilsUI.invalidDeviceList);
             return;
         }
-        Device device = inputUtils.getInputRoomDTODevicesByList(room,house);
+        Device device = InputUtils.getInputRoomDTODevicesByList(room,house);
         if (!utilsUI.deviceLogListIsValid(device)) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -298,7 +298,7 @@ class EnergyConsumptionUI {
             System.out.print(utilsUI.invalidRoomList);
         }
         InputUtils inputs = new InputUtils();
-        Room room = inputs.getHouseRoomByList(programHouse);
+        Room room = InputUtils.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = inputs.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
@@ -318,7 +318,7 @@ class EnergyConsumptionUI {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
             return;
         }
-        EnergyGrid eGrid = inputs.getInputGridByList(programHouse);
+        EnergyGrid eGrid = InputUtils.getInputGridByList(programHouse);
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
         System.out.println("Please insert the date at which you want to start the interval.");
@@ -336,9 +336,9 @@ class EnergyConsumptionUI {
      */
 
     private void runUS730(House programHouse) {
-        InputUtils inputs = new InputUtils();
+        //InputUtils inputs = new InputUtils();
         this.printUS730Menu();
-        int option = inputs.getInputAsInt();
+        int option = InputUtils.getInputAsInt();
         switch (option) {
             case 1:
                 setGridData(programHouse);
@@ -357,7 +357,7 @@ class EnergyConsumptionUI {
     }
     private void setGridData(House programHouse) {
         InputUtils inputs = new InputUtils();
-        EnergyGrid grid = inputs.getInputGridByList(programHouse);
+        EnergyGrid grid = InputUtils.getInputGridByList(programHouse);
         System.out.println(INSERT_START_DATE);
         Date startDate = inputs.getInputYearMonthDayHourMin();
         System.out.println(INSERT_END_DATE);
@@ -368,8 +368,8 @@ class EnergyConsumptionUI {
     }
 
     private void setRoomData(House programHouse) {
-        InputUtils inputs = new InputUtils();
-        RoomDTO case2Room = inputs.getHouseRoomDTOByList(programHouse);
+        //InputUtils inputs = new InputUtils();
+        RoomDTO case2Room = InputUtils.getHouseRoomDTOByList(programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, programHouse);
@@ -377,9 +377,9 @@ class EnergyConsumptionUI {
     }
 
     private void setDeviceData(House programHouse) {
-        InputUtils inputs = new InputUtils();
-        RoomDTO case3Room = inputs.getHouseRoomDTOByList(programHouse);
-        Device device = inputs.getInputRoomDTODevicesByList(case3Room, programHouse);
+        //InputUtils inputs = new InputUtils();
+        RoomDTO case3Room = InputUtils.getHouseRoomDTOByList(programHouse);
+        Device device = InputUtils.getInputRoomDTODevicesByList(case3Room, programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
@@ -405,7 +405,7 @@ class EnergyConsumptionUI {
      */
 
     private void runUS752(House house) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house).getList();
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
@@ -415,9 +415,9 @@ class EnergyConsumptionUI {
         for (Device d : waterHeaters) {
             System.out.println("Water Heater name: " + controller.getWHName(d) + ".\n");
             System.out.println("Please insert the cold water temperature for Water Heater " + controller.getWHName(d) + ":");
-            double coldWaterTemperature = inputUtils.getInputAsDouble();
+            double coldWaterTemperature = InputUtils.getInputAsDouble();
             System.out.println("Please insert the volume of water to heat for Water Heater " + d.getName() + ":");
-            double volumeWaterToHeat = inputUtils.getInputAsDouble();
+            double volumeWaterToHeat = InputUtils.getInputAsDouble();
             boolean configResult = controller.configureWH(d, coldWaterTemperature, volumeWaterToHeat);
             if (!configResult) {
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");

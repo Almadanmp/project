@@ -27,8 +27,10 @@ class SensorListTest {
         validSensorList = new SensorList();
         firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
+        firstValidSensor.setActive();
         secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
                 new Date());
+        secondValidSensor.setActive();
         thirdValidSensor = new Sensor("SensorThree", new TypeSensor("Rainfall", "l/m2"),
                 new Date());
         validSensorList.add(firstValidSensor);
@@ -145,9 +147,9 @@ class SensorListTest {
         validSensorList.add(secondValidSensor);
         validSensorList.add(thirdValidSensor);
         String expectedResult = "---------------\n" +
-                "0) Name: SensorOne | Type: Temperature\n" +
-                "1) Name: SensorTwo | Type: Temperature\n" +
-                "2) Name: SensorThree | Type: Rainfall\n" +
+                "0) Name: SensorOne | Type: Temperature | Active\n" +
+                "1) Name: SensorTwo | Type: Temperature | Active\n" +
+                "2) Name: SensorThree | Type: Rainfall | Deactivated\n" +
                 "---------------\n";
 
         // Act

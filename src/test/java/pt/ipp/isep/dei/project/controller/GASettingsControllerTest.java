@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.Date;
+
 import static org.testng.Assert.*;
 
 /**
@@ -410,6 +412,34 @@ class GASettingsControllerTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfActivateSensor() {
+
+        //Arrange
+        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+
+
+        //Act
+        boolean actualResult = controller.activateOrDeactivateSensor(sensor);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+    @Test
+    void seeIfDeactivateSensor() {
+
+        //Arrange
+        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        sensor.setActive();
+
+        //Act
+        boolean actualResult = controller.activateOrDeactivateSensor(sensor);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
 
 
     //
