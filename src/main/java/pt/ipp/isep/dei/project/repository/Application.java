@@ -8,21 +8,32 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
 
 @SpringBootApplication
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+    private static final GeographicAreaList list = new GeographicAreaList();
 
-    public static void main(String[] args) {
+    public static void main(String[] args, GeographicAreaList list) {
+        for (GeographicArea geographicArea : list.getElementsAsArray()){
+            Application.list.addGeographicArea(geographicArea);
+        }
         SpringApplication.run(Application.class);
     }
 
     @Bean
     public CommandLineRunner dataPersisting(GeographicAreaRepository repository){
         return (args) -> {
+            // save Geographic Areas from file
 
-            // fetch all customers
+            for (GeographicArea geographicArea : list.getElementsAsArray() ){
+                repository.save(geographicArea);
+            }
+
+            // fetch all Geographic Areas
+
             log.info("Geographic Areas found with findAll():");
             log.info("--------------------------------------");
             for (GeographicArea geographicArea : repository.findAll()) {

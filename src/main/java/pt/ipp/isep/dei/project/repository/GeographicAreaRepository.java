@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface GeographicAreaRepository extends CrudRepository<GeographicArea, UUID>{
+
+
 }
