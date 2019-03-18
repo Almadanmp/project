@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
 /**
  * Class that represents a Geographical Area.
  */
 
+@Entity
 public class GeographicArea {
 
     private String id;
@@ -16,6 +19,7 @@ public class GeographicArea {
     private Local location;
     private SensorList areaSensors;
     private String description;
+    @Id
     private UUID uniqueId;
 
 
@@ -274,6 +278,13 @@ public class GeographicArea {
         }
         GeographicArea gA = (GeographicArea) testObject;
         return (this.getLocal().equals(gA.getLocal()) && (this.getId().equals(gA.getId()) && (this.getTypeArea().getName().equals(gA.getTypeArea().getName()))));
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "GeographicArea[id=%s, typeArea='%s', length='%s, width='%s', motherArea='%s, location='%s', areaSensors='%s, description='%s', uniqueId='%s']",
+                id, typeArea, length, width, motherArea, location, areaSensors, description, uniqueId);
     }
 
     @Override
