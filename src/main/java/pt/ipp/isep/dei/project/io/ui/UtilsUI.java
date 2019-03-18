@@ -24,9 +24,6 @@ public class UtilsUI {
     public static final String INVALID_MOTHER_AREA = "The selected House does not have a Geographical Area defined.\n" + RETURNING_TO_MAIN_MENU;
     String invalidProgramList = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
-    boolean geographicAreaListIsValid(GeographicAreaList geographicAreaList) {
-        return geographicAreaList != null && !geographicAreaList.isEmpty();
-    }
 
     boolean houseRoomListIsValid(House house) {
         return !house.isRoomListEmpty();
@@ -54,10 +51,6 @@ public class UtilsUI {
         return energyGrid.getRoomList() != null && !energyGrid.isRoomListEmpty();
     }
 
-    boolean typeAreaListIsValid(TypeAreaList list) {
-        return list != null && !list.isEmpty();
-    }
-
     boolean programListIsValid(ProgramList programList) {
         return programList != null && !programList.isEmpty();
     }
@@ -74,10 +67,6 @@ public class UtilsUI {
 
     boolean deviceLogListIsValid(Device device) {
         return (!device.isLogListEmpty());
-    }
-
-    boolean typeSensorListIsValid(TypeSensorList typeSensorList) {
-        return typeSensorList != null && !typeSensorList.isEmpty();
     }
 
     public boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {

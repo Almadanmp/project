@@ -15,7 +15,7 @@ class SensorSettingsUI {
 
     void run(GeographicAreaList geographicAreaList, TypeSensorList typeList) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (geographicAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
@@ -56,7 +56,7 @@ class SensorSettingsUI {
 
     private void displayList(TypeSensorList list) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.typeSensorListIsValid(list)) {
+        if (list.isEmpty()) {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
@@ -96,11 +96,11 @@ class SensorSettingsUI {
      one can get measurements of that type in that area */
     private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList){
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (geographicAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
-        if(!utilsUI.typeSensorListIsValid(typeSensorList)){
+        if(typeSensorList.isEmpty()){
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }
