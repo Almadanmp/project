@@ -389,7 +389,7 @@ class RoomConfigurationUI {
     private void runUS253(TypeSensorList typeSensorList, House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.typeSensorListIsValid(typeSensorList)) {
+        if (typeSensorList.isEmpty()) {
             System.out.println(utilsUI.invalidTypeSensorList);
             return;
         }

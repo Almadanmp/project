@@ -125,7 +125,7 @@ class GASettingsUI {
 
     private void updateAndDisplayUS02(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if (utils.typeAreaListIsValid(typeAreaList)) {
+        if (!typeAreaList.isEmpty()) {
             System.out.println(controller.getTypeAreaList(typeAreaList));
             System.out.println("\nList finished.");
         } else {
@@ -136,7 +136,7 @@ class GASettingsUI {
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
     private void runUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        if (!utils.typeAreaListIsValid(typeAreaList)) {
+        if (typeAreaList.isEmpty()) {
             System.out.println(utils.invalidGATypeList);
             return;
         }
@@ -212,11 +212,11 @@ class GASettingsUI {
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
     private void runUS04(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.typeAreaListIsValid(typeAreaList)) {
+        if (typeAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGATypeList);
             return;
         }
-        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (geographicAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
@@ -238,7 +238,7 @@ class GASettingsUI {
     /* USER STORY 07 -  Add an existing geographical area to another one. */
     private void runUS07(GeographicAreaList geographicAreaList) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (geographicAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
@@ -275,7 +275,7 @@ class GASettingsUI {
     or indirectly, in another one. */
     private void runUS08(GeographicAreaList geographicAreaList) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.geographicAreaListIsValid(geographicAreaList)) {
+        if (geographicAreaList.isEmpty()) {
             System.out.println(utilsUI.invalidGAList);
             return;
         }
