@@ -221,10 +221,9 @@ public class InputUtils {
     Sensor getInputSensorByList (SensorList sensorList){
         while(true){
             UtilsUI utils = new UtilsUI();
-            InputUtils inputUtils = new InputUtils();
             System.out.println("Please select a sensor from the list:");
             System.out.println(sensorList.toString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < sensorList.size()){
                 Sensor result = sensorList.get(aux);
                 System.out.println("You have chosen the following sensor:");
