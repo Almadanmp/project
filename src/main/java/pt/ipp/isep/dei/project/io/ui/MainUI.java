@@ -110,9 +110,9 @@ public class MainUI {
             boolean activeInput = true;
 
             while (activeInput) {
-                InputUtils inputUtils = new InputUtils();
+                //InputUtils inputUtils = new InputUtils();
                 UtilsUI utilsUI = new UtilsUI();
-                option = inputUtils.getInputAsInt();
+                option = InputUtils.getInputAsInt();
                 switch (option) {
                     case 0:
                         return;

@@ -27,19 +27,19 @@ public class InputUtils {
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
     private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";
 
-    void returnToMenu(Scanner scanner) {
+    public static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
     }
 
     GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.buildString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < geographicAreaList.size()) {
                 GeographicArea result = geographicAreaList.get(aux);
                 System.out.println("You have chosen the following geographic area: ");
@@ -51,14 +51,14 @@ public class InputUtils {
         }
     }
 
-    RoomDTO getHouseRoomDTOByList(House house) {
+    public static RoomDTO getHouseRoomDTOByList(House house) {
         Mapper mapper = new Mapper();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < house.roomListSize()) {
                 Room result = house.getRoomByIndex(aux);
                 System.out.println(SELECT_ROOMS);
@@ -70,13 +70,13 @@ public class InputUtils {
         }
     }
 
-    Room getHouseRoomByList(House house) {
+    public static Room getHouseRoomByList(House house) {
         InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing rooms: ");
             System.out.println(house.buildRoomListString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < house.roomListSize()) {
                 Room result = house.getRoomByIndex(aux);
                 System.out.println(SELECT_ROOMS);
@@ -88,13 +88,13 @@ public class InputUtils {
         }
     }
 
-    Room getGridRoomByList(EnergyGrid grid) {
-        InputUtils inputUtils = new InputUtils();
+    public static Room getGridRoomByList(EnergyGrid grid) {
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < grid.roomListSize()) {
                 Room result = grid.getRoom(aux);
                 System.out.println(SELECT_ROOMS);
@@ -106,13 +106,13 @@ public class InputUtils {
         }
     }
 
-    Device getGridDevicesByList(EnergyGrid grid) {
-        InputUtils inputUtils = new InputUtils();
+    public static Device getGridDevicesByList(EnergyGrid grid) {
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(grid.buildDeviceListString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < grid.getNumberOfDevices()) {
                 Device result = grid.getDeviceByIndex(aux);
                 System.out.println("You have chosen the following device: ");
@@ -125,13 +125,13 @@ public class InputUtils {
     }
 
     FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing program in the selected program List: ");
             System.out.println(deviceProgramList.buildString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < deviceProgramList.size()) {
                 FixedTimeProgram result = (FixedTimeProgram) deviceProgramList.get(aux);
                 System.out.println("You have chosen the following program: ");
@@ -143,15 +143,15 @@ public class InputUtils {
         }
     }
 
-    Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
+    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         Mapper mapper = new Mapper();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(controller.buildDeviceListString(mapper.updateHouseRoom(room, house)));
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < controller.getDeviceListSize(room, house)) {
                 Device result = controller.getDeviceByIndex(room, house, aux);
                 System.out.println("You have chosen the following device:");
@@ -163,14 +163,14 @@ public class InputUtils {
         }
     }
 
-    Device getInputRoomDevicesByList(Room room) {
+    public static Device getInputRoomDevicesByList(Room room) {
         RoomConfigurationController controller = new RoomConfigurationController();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(controller.buildDeviceListString(room));
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < room.getDeviceListSize()) {
                 Device result = room.getDeviceByIndex(aux);
                 System.out.println("You have chosen the following device:");
@@ -182,13 +182,13 @@ public class InputUtils {
         }
     }
 
-    EnergyGrid getInputGridByList(House house) {
+    public static EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         UtilsUI utilsUI = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
             System.out.println(controller.buildGridListString(house));
-            int aux = this.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < house.energyGridListSize()) {
                 EnergyGrid result = house.getEnergyGridByIndex(aux);
                 System.out.println("You have chosen the following grid:");
@@ -200,13 +200,13 @@ public class InputUtils {
         }
     }
 
-    TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
+    public static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
         while (true) {
             UtilsUI utils = new UtilsUI();
-            InputUtils inputUtils = new InputUtils();
+            //InputUtils inputUtils = new InputUtils();
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(typeSensorList.buildString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < typeSensorList.size()) {
                 TypeSensor result = typeSensorList.get(aux);
                 System.out.println("You have chosen the following sensor type:");
@@ -237,14 +237,14 @@ public class InputUtils {
     }
 
 
-    DeviceType getInputDeviceTypeByList(House house) {
-        InputUtils inputUtils = new InputUtils();
+    public static DeviceType getInputDeviceTypeByList(House house) {
+        //InputUtils inputUtils = new InputUtils();
         UtilsUI utils = new UtilsUI();
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
             System.out.println(house.buildDeviceTypeString());
-            int aux = inputUtils.getInputAsInt();
+            int aux = getInputAsInt();
             if (aux >= 0 && aux < house.deviceTypeListSize()) {
                 DeviceType result = deviceTypeList.get(aux);
                 System.out.println("You have chosen the following device type:");
@@ -257,7 +257,7 @@ public class InputUtils {
         }
     }
 
-    boolean yesOrNo(String question) {
+    public static boolean yesOrNo(String question) {
         String answer = "";
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
@@ -293,7 +293,7 @@ public class InputUtils {
      *
      * @return value read from the user
      */
-    int getInputAsInt() {
+    public static int getInputAsInt() {
         UtilsUI utils = new UtilsUI();
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
@@ -310,7 +310,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    Double getInputAsDouble() {
+    public static Double getInputAsDouble() {
         UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
@@ -594,7 +594,7 @@ public class InputUtils {
      *
      * @author Andre (US20)
      */
-    String startAndPromptPath() {
+    String getInputCSVPath() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the CSV file");
         String csvFileLocation = scanner.next();

@@ -23,38 +23,6 @@ public class UtilsUITest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
 
-    @Test
-    public void geographicAreaListIsInvalid() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicAreaList geographicAreaList1 = null;
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.geographicAreaListIsValid(geographicAreaList);
-        boolean result2 = utilsUI.geographicAreaListIsValid(geographicAreaList1);
-        //ASSERT
-        assertFalse(result1);
-        assertFalse(result2);
-    }
-
-    @Test
-    public void geographicAreaListIsValid() {
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
-        GeographicAreaList geographicAreaList1 = new GeographicAreaList();
-        GeographicArea geographicArea = new GeographicArea("Porto", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
-        GeographicArea geographicArea1 = new GeographicArea("Lisboa", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
-
-        geographicAreaList.addGeographicArea(geographicArea);
-        geographicAreaList1.addGeographicArea(geographicArea);
-        geographicAreaList1.addGeographicArea(geographicArea1);
-
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.geographicAreaListIsValid(geographicAreaList);
-        boolean result2 = utilsUI.geographicAreaListIsValid(geographicAreaList1);
-        //ASSERT
-        assertTrue(result1);
-        assertTrue(result2);
-    }
 
     @Test
     public void houseListsAreInvalid() {
@@ -178,32 +146,6 @@ public class UtilsUITest {
     }
 
     @Test
-    public void typeAreaListIsInvalid() {
-        TypeAreaList typeAreaList = new TypeAreaList();
-        TypeAreaList typeAreaList1 = null;
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.typeAreaListIsValid(typeAreaList);
-        boolean result2 = utilsUI.typeAreaListIsValid(typeAreaList1);
-
-        //ASSERT
-        assertFalse(result1);
-        assertFalse(result2);
-    }
-
-    @Test
-    public void typeAreaListIsValid() {
-        TypeAreaList typeAreaList = new TypeAreaList();
-        TypeArea typeArea = new TypeArea("Cidade");
-        typeAreaList.addTypeArea(typeArea);
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.typeAreaListIsValid(typeAreaList);
-        //ASSERT
-        assertTrue(result1);
-    }
-
-    @Test
     public void testProgramListIsInvalid() {
         ProgramList programList = new ProgramList();
         ProgramList programList1 = null;
@@ -250,28 +192,6 @@ public class UtilsUITest {
         UtilsUI utilsUI = new UtilsUI();
         //ACT
         boolean result1 = utilsUI.deviceLogListIsValid(device);
-        //ASSERT
-        assertTrue(result1);
-    }
-
-    @Test
-    public void typeSensorListIsInvalid() {
-        TypeSensorList typeSensors = new TypeSensorList();
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.typeSensorListIsValid(typeSensors);
-        //ASSERT
-        assertFalse(result1);
-    }
-
-    @Test
-    public void typeSensorListIsValid() {
-        TypeSensorList typeSensors = new TypeSensorList();
-        TypeSensor typeSensor = new TypeSensor("typeSensor", "celsius");
-        typeSensors.add(typeSensor);
-        UtilsUI utilsUI = new UtilsUI();
-        //ACT
-        boolean result1 = utilsUI.typeSensorListIsValid(typeSensors);
         //ASSERT
         assertTrue(result1);
     }

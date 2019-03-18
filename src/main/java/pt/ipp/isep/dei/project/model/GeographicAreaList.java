@@ -151,6 +151,27 @@ public class GeographicAreaList {
         return this.geographicAreas.get(index);
     }
 
+    /**
+     * Gets the list of sensors that exist in a Geographic Area List.
+     *
+     * @return returns a SensorList of the geographical areas of the geographical area list.
+     * @author Andre
+     */
+    public SensorList getAreaListSensors() {
+        SensorList fullSensorList = new SensorList();
+        if (this.geographicAreas.isEmpty()) {
+            return fullSensorList;
+        }
+        for (GeographicArea ga : this.geographicAreas) {
+            if (ga.getSensorList().isEmpty()) {
+                return fullSensorList;
+            }
+            for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
+                fullSensorList.add(sensor);
+            }
+        }
+        return fullSensorList;
+    }
 
     /**
      * Getter (array of geographic area)
