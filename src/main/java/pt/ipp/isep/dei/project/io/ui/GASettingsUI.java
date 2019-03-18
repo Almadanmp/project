@@ -18,13 +18,13 @@ class GASettingsUI {
 
     void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
         UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = inputUtils.getInputAsInt();
+            option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS01(programTypeAreaList);
@@ -64,11 +64,11 @@ class GASettingsUI {
 
     private TypeArea getInputTypeAreaByList(TypeAreaList typeAreaList) {
         UtilsUI utils = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(controller.buildGATypeListString(typeAreaList));
-            int aux = inputUtils.getInputAsInt();
+            int aux = InputUtils.getInputAsInt();
             if (aux >= 0 && aux < typeAreaList.size()) {
                 TypeArea typeArea = typeAreaList.get(aux);
                 System.out.println("You have chosen the following Geographic Area Type:");
@@ -156,7 +156,7 @@ class GASettingsUI {
         double geoAreaLength = readInputPositiveNumber("Length");
         double geoAreaWidth = readInputPositiveNumber("Width");
         String geoAreDescription = null;
-        if (inputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
+        if (InputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
         }
@@ -198,9 +198,9 @@ class GASettingsUI {
     }
 
     private double readInputNumber(String inputType) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         System.out.print(createInputMsg(inputType));
-        return inputUtils.getInputAsDouble();
+        return InputUtils.getInputAsDouble();
     }
 
     private double readInputPositiveNumber(String inputType) {

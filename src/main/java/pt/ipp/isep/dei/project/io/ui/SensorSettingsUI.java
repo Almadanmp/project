@@ -27,9 +27,9 @@ class SensorSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            InputUtils inputUtils = new InputUtils();
+            //InputUtils inputUtils = new InputUtils();
             UtilsUI utils = new UtilsUI();
-            option = inputUtils.getInputAsInt();
+            option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS05(typeList);
@@ -146,16 +146,16 @@ class SensorSettingsUI {
     }
 
     private Local getInputSensorLocal(){
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         System.out.println("\nNow let's set its GPS localization\n");
         System.out.println("\nEnter the latitude:\t");
-        double latitude = inputUtils.getInputAsDouble();
+        double latitude = InputUtils.getInputAsDouble();
 
         System.out.println("\nEnter Longitude:\t");
-        double longitude = inputUtils.getInputAsDouble();
+        double longitude = InputUtils.getInputAsDouble();
 
         System.out.println("\nEnter Altitude:\t");
-        double altitude = inputUtils.getInputAsDouble();
+        double altitude = InputUtils.getInputAsDouble();
 
         return controller.createLocal(latitude, longitude, altitude);
     }

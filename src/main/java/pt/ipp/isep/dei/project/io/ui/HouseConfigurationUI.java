@@ -24,7 +24,7 @@ class HouseConfigurationUI {
     }
 
     void run(House house, GeographicAreaList list) {
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -32,7 +32,7 @@ class HouseConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printHouseConfigMenu();
-            option = inputUtils.getInputAsInt();
+            option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS15(list);
@@ -127,15 +127,15 @@ class HouseConfigurationUI {
 
         //get latitude
         System.out.print("Please, type the latitude: ");
-        double houseLat = inputUtils.getInputAsDouble();
+        double houseLat = InputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the longitude: ");
-        double houseLon = inputUtils.getInputAsDouble();
+        double houseLon = InputUtils.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-        double houseAlt = inputUtils.getInputAsDouble();
+        double houseAlt = InputUtils.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
         controller.setHouseAddress(street, zip, town, house);
@@ -172,7 +172,7 @@ class HouseConfigurationUI {
 
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
-        this.roomHouseFloor = inputUtils.getInputAsInt();
+        this.roomHouseFloor = InputUtils.getInputAsInt();
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");

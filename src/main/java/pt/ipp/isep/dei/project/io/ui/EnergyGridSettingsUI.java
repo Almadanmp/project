@@ -18,7 +18,7 @@ class EnergyGridSettingsUI {
 
     void run(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -26,7 +26,7 @@ class EnergyGridSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printEnergyGridMenu();
-            option = inputUtils.getInputAsInt();
+            option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1: //US130
                     runUS130(house);
@@ -94,10 +94,10 @@ class EnergyGridSettingsUI {
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
     private void runUS135(House house) {
-        InputUtils inputs = new InputUtils();
+        //InputUtils inputs = new InputUtils();
         UtilsUI check = new UtilsUI();
         if (check.houseGridListIsValid(house)) {
-            EnergyGrid energyGrid = inputs.getInputGridByList(house);
+            EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
             PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
             updateGridAndDisplayState(energyGrid, powerSource);
         }
@@ -138,8 +138,8 @@ class EnergyGridSettingsUI {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        //InputUtils inputs = new InputUtils();
+        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
         displayRoomList(energyGrid);
 
     }
@@ -152,7 +152,7 @@ class EnergyGridSettingsUI {
     // energy consumption is included in that grid. MIGUEL ORTIGAO
     private void runUS147(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        InputUtils inputUtils = new InputUtils();
+        //InputUtils inputUtils = new InputUtils();
         if (!utilsUI.houseRoomListIsValid(house)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
@@ -161,8 +161,8 @@ class EnergyGridSettingsUI {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        RoomDTO room = inputUtils.getHouseRoomDTOByList(house);
-        EnergyGrid energyGrid = inputUtils.getInputGridByList(house);
+        RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
+        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
         updateGridUS147(energyGrid, room, house);
     }
 
@@ -182,13 +182,13 @@ class EnergyGridSettingsUI {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        //InputUtils inputs = new InputUtils();
+        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
         if(!utilsUI.gridRoomListIsValid(energyGrid)){
             System.out.println(utilsUI.invalidRoomList);
             return;
         }
-        Room room = inputs.getGridRoomByList(energyGrid);
+        Room room = InputUtils.getGridRoomByList(energyGrid);
         updateGridUS149(energyGrid, room);
     }
 
@@ -210,8 +210,8 @@ class EnergyGridSettingsUI {
             System.out.println(utilsUI.invalidGridList);
             return;
         }
-        InputUtils inputs = new InputUtils();
-        EnergyGrid energyGrid = inputs.getInputGridByList(house);
+        //InputUtils inputs = new InputUtils();
+        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
         if (!utilsUI.gridRoomListIsValid(energyGrid)) {
             System.out.println(utilsUI.invalidRoomList);
             return;
