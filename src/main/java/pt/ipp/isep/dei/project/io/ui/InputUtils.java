@@ -23,14 +23,13 @@ public class InputUtils {
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
     private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";
 
-    public static void returnToMenu(Scanner scanner) {
+    static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
     }
 
-    public static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
-        UtilsUI utils = new UtilsUI();
+    static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.buildString());
@@ -41,15 +40,13 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static RoomDTO getHouseRoomDTOByList(House house) {
+    static RoomDTO getHouseRoomDTOByList(House house) {
         Mapper mapper = new Mapper();
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
@@ -60,14 +57,12 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return mapper.roomToDTO(result);
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static Room getHouseRoomByList(House house) {
-        InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
+    static Room getHouseRoomByList(House house) {
         while (true) {
             System.out.println("Please select one of the existing rooms: ");
             System.out.println(house.buildRoomListString());
@@ -78,14 +73,12 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static Room getGridRoomByList(EnergyGrid grid) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
+    static Room getGridRoomByList(EnergyGrid grid) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
@@ -96,14 +89,12 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static Device getGridDevicesByList(EnergyGrid grid) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
+    static Device getGridDevicesByList(EnergyGrid grid) {
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(grid.buildDeviceListString());
@@ -114,14 +105,12 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
+    static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing program in the selected program List: ");
@@ -133,16 +122,14 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
+    static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
-        //InputUtils inputUtils = new InputUtils();
         Mapper mapper = new Mapper();
-        UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(controller.buildDeviceListString(mapper.updateHouseRoom(room, house)));
@@ -153,15 +140,13 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static Device getInputRoomDevicesByList(Room room) {
+    static Device getInputRoomDevicesByList(Room room) {
         RoomConfigurationController controller = new RoomConfigurationController();
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(controller.buildDeviceListString(room));
@@ -172,14 +157,13 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static EnergyGrid getInputGridByList(House house) {
+    static EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
-        UtilsUI utilsUI = new UtilsUI();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
             System.out.println(controller.buildGridListString(house));
@@ -190,15 +174,13 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utilsUI.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
+    static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
         while (true) {
-            UtilsUI utils = new UtilsUI();
-            //InputUtils inputUtils = new InputUtils();
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(typeSensorList.buildString());
             int aux = getInputAsInt();
@@ -208,14 +190,13 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static Sensor getInputSensorByList(SensorList sensorList) {
+    static Sensor getInputSensorByList(SensorList sensorList) {
         while (true) {
-            UtilsUI utils = new UtilsUI();
             System.out.println("Please select a sensor from the list:");
             System.out.println(sensorList.toString());
             int aux = getInputAsInt();
@@ -225,15 +206,13 @@ public class InputUtils {
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
 
-    public static DeviceType getInputDeviceTypeByList(House house) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
+    static DeviceType getInputDeviceTypeByList(House house) {
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
@@ -246,17 +225,16 @@ public class InputUtils {
                 return result;
 
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
 
-    public static boolean yesOrNo(String question) {
+    static boolean yesOrNo(String question) {
         String answer = "";
-        UtilsUI utils = new UtilsUI();
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {
-            System.out.println(utils.invalidOption);
+            System.out.println(UtilsUI.INVALID_OPTION);
             System.out.println(question);
             answer = scanner.nextLine();
         }
@@ -272,7 +250,7 @@ public class InputUtils {
      *
      * @return String with user input
      */
-    public static String getInputStringAlphabetCharOnly() {
+    static String getInputStringAlphabetCharOnly() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNext("[a-zA-Z_]+")) {
             System.out.println("That's not a valid option. Please enter alphabetic characters only.");
@@ -288,11 +266,10 @@ public class InputUtils {
      *
      * @return value read from the user
      */
-    public static int getInputAsInt() {
-        UtilsUI utils = new UtilsUI();
+    static int getInputAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
-            System.out.println(utils.invalidOption);
+            System.out.println(UtilsUI.INVALID_OPTION);
             scan.next();
         }
         Double option = scan.nextDouble();
@@ -305,11 +282,10 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    public static Double getInputAsDouble() {
-        UtilsUI utils = new UtilsUI();
+    static Double getInputAsDouble() {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
-            System.out.println(utils.invalidNumber);
+            System.out.println(UtilsUI.INVALID_NUMBER);
             scanner.next();
         }
         return scanner.nextDouble();
@@ -321,7 +297,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    public static Double getInputAsDoublePositive() {
+    static Double getInputAsDoublePositive() {
         double input = -1.0;
         while (input < 0) {
             input = getInputAsDouble();
@@ -335,7 +311,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    public static Double getInputAsDoubleZeroOrPositive() {
+    static Double getInputAsDoubleZeroOrPositive() {
         double input = -1.0;
         while (input <= 0) {
             input = getInputAsDouble();

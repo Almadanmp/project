@@ -25,7 +25,7 @@ class RoomConfigurationUI {
     void run(House house, TypeSensorList typeSensorList) {
         UtilsUI utils = new UtilsUI();
         if (!utils.houseRoomListIsValid(house)) {
-            System.out.println(utils.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
         boolean activeInput = true;
@@ -72,7 +72,7 @@ class RoomConfigurationUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.invalidOption);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -85,12 +85,12 @@ class RoomConfigurationUI {
     private void runUS201(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseRoomListIsValid(house)) {
-            System.out.println(utilsUI.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
         Room room = InputUtils.getHouseRoomByList(house);
         if (!utilsUI.roomDeviceListIsValid(room)) {
-            System.out.println(utilsUI.invalidDeviceList);
+            System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
         printRoomDeviceList(room);
@@ -111,7 +111,7 @@ class RoomConfigurationUI {
     private void runUS210(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseRoomListIsValid(house)) {
-            System.out.println(utilsUI.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
         Room room = InputUtils.getHouseRoomByList(house);
@@ -169,11 +169,10 @@ class RoomConfigurationUI {
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
     private void runUS215(House house) {
-        //InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
         if (!utilsUI.roomDeviceListIsValid(room)) {
-            System.out.println(utilsUI.invalidDeviceList);
+            System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
         Device device = InputUtils.getInputRoomDevicesByList(room);
@@ -208,7 +207,7 @@ class RoomConfigurationUI {
             System.out.println("This device is programmable.");
             ProgramList programList = controller.getProgramList((Programmable) device);
             if (!utilsUI.programListIsValid(programList)) {
-                System.out.println(utilsUI.invalidProgramList);
+                System.out.println(UtilsUI.INVALID_PROGRAM_LIST);
                 return;
             }
             FixedTimeProgram program = InputUtils.getSelectedProgramFromDevice((Programmable) device);
@@ -321,7 +320,7 @@ class RoomConfigurationUI {
         UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
         if (!utilsUI.roomDeviceListIsValid(room)) {
-            System.out.println(utilsUI.invalidDeviceList);
+            System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
         Device device = InputUtils.getInputRoomDevicesByList(room);
@@ -342,7 +341,6 @@ class RoomConfigurationUI {
      * room.
      **/
     private void runUS230(House house) {
-        //InputUtils inputUtils = new InputUtils();
         Room room = InputUtils.getHouseRoomByList(house);
         getRoomNominalPower(room);
     }
@@ -356,7 +354,6 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
     private void runUS250(House house) {
-        //InputUtils inputUtils = new InputUtils();
         Room room = InputUtils.getHouseRoomByList(house);
         displaySensorListUS250(room);
     }
@@ -379,10 +376,8 @@ class RoomConfigurationUI {
      * @param typeSensorList is
      */
     private void runUS253(TypeSensorList typeSensorList, House house) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
         if (typeSensorList.isEmpty()) {
-            System.out.println(utilsUI.invalidTypeSensorList);
+            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
         Room room = InputUtils.getHouseRoomByList(house);
@@ -437,11 +432,10 @@ class RoomConfigurationUI {
     Its activity log is also removed.
     MARIA MEIRELES*/
     private void runUS220(House house) {
-        //InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
         if (!utilsUI.roomDeviceListIsValid(room)) {
-            System.out.println(utilsUI.invalidDeviceList);
+            System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
         Device device = InputUtils.getInputRoomDevicesByList(room);

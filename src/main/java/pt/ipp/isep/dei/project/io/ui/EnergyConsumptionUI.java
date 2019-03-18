@@ -26,8 +26,6 @@ class EnergyConsumptionUI {
     }
 
     void run(House programHouse) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utils = new UtilsUI();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -68,7 +66,7 @@ class EnergyConsumptionUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.invalidOption);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -79,15 +77,14 @@ class EnergyConsumptionUI {
     //in the grid.
 
     private void runUS172(House house) {
-        //InputUtils inputUtils = new InputUtils();
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseGridListIsValid(house)) {
-            System.out.println(utilsUI.invalidGridList);
+            System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
         EnergyGrid mEnergyGrid = InputUtils.getInputGridByList(house);
         if (!utilsUI.gridRoomListIsValid(mEnergyGrid)) {
-            System.out.println(utilsUI.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
         double nominalPower = updateUS172(mEnergyGrid);
@@ -100,7 +97,6 @@ class EnergyConsumptionUI {
     }
 
     private void displayUS172(Double nomPower) {
-        //InputUtils inputs = new InputUtils();
         System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
         InputUtils.returnToMenu(returnToConsole);
     }
@@ -111,10 +107,9 @@ class EnergyConsumptionUI {
     private void runUS705(House programHouse) {
         UtilsUI utils = new UtilsUI();
         if (!utils.houseGridListIsValid(programHouse)) {
-            System.out.println(utils.invalidGridList);
+            System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        //InputUtils inputs = new InputUtils();
         EnergyGrid grid = InputUtils.getInputGridByList(programHouse);
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
@@ -140,7 +135,7 @@ class EnergyConsumptionUI {
                 case 4:
                     return;
                 default:
-                    System.out.println(utils.invalidOption);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -188,7 +183,6 @@ class EnergyConsumptionUI {
      */
 
     private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
-        //InputUtils inputs = new InputUtils();
         Room r1 = InputUtils.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to remove it from the list? (Y/N)\n";
@@ -213,7 +207,6 @@ class EnergyConsumptionUI {
      */
 
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
-        //InputUtils inputs = new InputUtils();
         Device d1 = InputUtils.getGridDevicesByList(grid);
         if (selectedDevices.containsDevice(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
@@ -238,7 +231,6 @@ class EnergyConsumptionUI {
     private boolean continuePrompt() {
         String prompt = "Would you like to continue choosing? (y/n)";
         System.out.println(prompt);
-        //InputUtils inputs = new InputUtils();
         return InputUtils.yesOrNo(prompt);
     }
 
@@ -270,7 +262,7 @@ class EnergyConsumptionUI {
         UtilsUI utilsUI = new UtilsUI();
         RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTODeviceListIsValid(room, house)) {
-            System.out.println(utilsUI.invalidDeviceList);
+            System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
         Device device = InputUtils.getInputRoomDTODevicesByList(room, house);
@@ -295,7 +287,7 @@ class EnergyConsumptionUI {
     private void runUS721(House programHouse) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseRoomListIsValid(programHouse)) {
-            System.out.print(utilsUI.invalidRoomList);
+            System.out.print(UtilsUI.INVALID_ROOM_LIST);
         }
         Room room = InputUtils.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
@@ -334,7 +326,6 @@ class EnergyConsumptionUI {
      */
 
     private void runUS730(House programHouse) {
-        //InputUtils inputs = new InputUtils();
         this.printUS730Menu();
         int option = InputUtils.getInputAsInt();
         switch (option) {
@@ -374,7 +365,6 @@ class EnergyConsumptionUI {
     }
 
     private void setDeviceData(House programHouse) {
-        //InputUtils inputs = new InputUtils();
         RoomDTO case3Room = InputUtils.getHouseRoomDTOByList(programHouse);
         Device device = InputUtils.getInputRoomDTODevicesByList(case3Room, programHouse);
         Date startDate = requestStartDate();

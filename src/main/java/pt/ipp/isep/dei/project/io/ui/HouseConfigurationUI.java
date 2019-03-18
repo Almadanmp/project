@@ -24,7 +24,6 @@ class HouseConfigurationUI {
     }
 
     void run(House house, GeographicAreaList list) {
-        //InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -229,7 +228,7 @@ class HouseConfigurationUI {
         if (utilsUI.houseRoomListIsValid(house)) {
             printRoomList(house);
         } else {
-            System.out.println(utilsUI.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
         }
     }
 

@@ -15,9 +15,8 @@ class SensorSettingsUI {
     }
 
     void run(GeographicAreaList geographicAreaList, TypeSensorList typeList) {
-        UtilsUI utilsUI = new UtilsUI();
         if (geographicAreaList.isEmpty()) {
-            System.out.println(utilsUI.invalidGAList);
+            System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
 
@@ -28,8 +27,6 @@ class SensorSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            //InputUtils inputUtils = new InputUtils();
-            UtilsUI utils = new UtilsUI();
             option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
@@ -47,7 +44,7 @@ class SensorSettingsUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.invalidOption);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -56,9 +53,8 @@ class SensorSettingsUI {
     /* LIST DISPLAY */
 
     private void displayList(TypeSensorList list) {
-        UtilsUI utilsUI = new UtilsUI();
         if (list.isEmpty()) {
-            System.out.println(utilsUI.invalidTypeSensorList);
+            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
         System.out.println(controller.buildSensorTypesString(list));
@@ -95,13 +91,12 @@ class SensorSettingsUI {
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
     private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList) {
-        UtilsUI utilsUI = new UtilsUI();
         if (geographicAreaList.isEmpty()) {
-            System.out.println(utilsUI.invalidGAList);
+            System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
         if (typeSensorList.isEmpty()) {
-            System.out.println(utilsUI.invalidTypeSensorList);
+            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
         Sensor sensor = createSensor();

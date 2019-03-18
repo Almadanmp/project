@@ -14,18 +14,18 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
  */
 public class UtilsUI {
 
-    String invalidOption = "Please enter a valid option.";
-    String invalidNumber = "Please enter a valid number.";
+    static final String INVALID_OPTION = "Please enter a valid option.";
+    static final String INVALID_NUMBER = "Please enter a valid number.";
     private static final String RETURNING_TO_MAIN_MENU = "-- Returning to main menu -- \n";
-    String invalidRoomList = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    String invalidGridList = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    String invalidDeviceList = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    String invalidGAList = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    String invalidGATypeList = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_ROOM_LIST = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_GRID_LIST = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_DEVICE_LIST = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_GA_LIST = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_GA_TYPE_LIST = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_SENSOR_LIST = "Invalid Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    String invalidTypeSensorList = "Invalid Type Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_TYPE_SENSOR_LIST = "Invalid Type Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_MOTHER_AREA = "The selected House does not have a Geographical Area defined.\n" + RETURNING_TO_MAIN_MENU;
-    String invalidProgramList = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
+    static final String INVALID_PROGRAM_LIST = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
 
     boolean houseRoomListIsValid(House house) {
@@ -84,8 +84,9 @@ public class UtilsUI {
      * New example: printBox("Line 1 blablabla" , "Line 2 blablabla");
      *
      * @param strings for being printed
+     * @author Nuno
      */
-    public static void printBox(String... strings) {
+     static void printBox(String... strings) {
         int maxBoxWidth = getStringMaxLength(strings);
         String line = " " + fill('-', maxBoxWidth + 2) + " ";
         System.out.println(line);
@@ -100,8 +101,8 @@ public class UtilsUI {
      *
      * @param strings to know the length of
      * @return string length
+     * @author Nuno
      */
-
     private static int getStringMaxLength(String... strings) {
         int length = Integer.MIN_VALUE;
         for (String str : strings) {
@@ -116,11 +117,11 @@ public class UtilsUI {
      * @param str
      * @param length
      * @return
+     * @author Nuno
      */
-
     private static String padString(String str, int length) {
-        StringBuilder sBuilder = new StringBuilder(str);
-        return sBuilder.append(fill(' ', length - str.length())).toString();
+        StringBuilder string = new StringBuilder(str);
+        return string.append(fill(' ', length - str.length())).toString();
     }
 
     /**
@@ -129,8 +130,8 @@ public class UtilsUI {
      * @param ch
      * @param length
      * @return
+     * @author Nuno
      */
-
     private static String fill(char ch, int length) {
         StringBuilder sBuilder = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -140,6 +141,12 @@ public class UtilsUI {
     }
     // End of methods for printBox
 
+    /**
+     *
+     * @param string
+     * @return
+     * @author André Rua
+     */
     public static String printMessage(String string) {
         System.out.println(string);
         return string;

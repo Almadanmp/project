@@ -14,8 +14,6 @@ class GASettingsUI {
     }
 
     void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
-        UtilsUI utils = new UtilsUI();
-        //InputUtils inputUtils = new InputUtils();
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -54,7 +52,7 @@ class GASettingsUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utils.invalidOption);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -64,8 +62,6 @@ class GASettingsUI {
     // SHARED METHODS //
 
     private TypeArea getInputTypeAreaByList(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
-        //InputUtils inputUtils = new InputUtils();
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(controller.buildGATypeListString(typeAreaList));
@@ -76,7 +72,7 @@ class GASettingsUI {
                 System.out.println("TypeArea: " + controller.getTypeAreaName(typeArea));
                 return typeArea;
             } else {
-                System.out.println(utils.invalidOption);
+                System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
@@ -85,9 +81,8 @@ class GASettingsUI {
     /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
         if (typeAreaList == null) {
-            System.out.println(utils.invalidGATypeList);
+            System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
         String typeAreaName = getInputUS01();
@@ -125,20 +120,18 @@ class GASettingsUI {
     }
 
     private void updateAndDisplayUS02(TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
         if (!typeAreaList.isEmpty()) {
             System.out.println(controller.getTypeAreaList(typeAreaList));
             System.out.println("\nList finished.");
         } else {
-            System.out.println(utils.invalidGATypeList);
+            System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
         }
     }
 
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
     private void runUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
-        UtilsUI utils = new UtilsUI();
         if (typeAreaList.isEmpty()) {
-            System.out.println(utils.invalidGATypeList);
+            System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
         boolean created = getAreaInputUS03(geographicAreaList, typeAreaList);
@@ -203,20 +196,18 @@ class GASettingsUI {
     }
 
     private double readInputPositiveNumber(String inputType) {
-        InputUtils inputUtils = new InputUtils();
         System.out.print(createInputMsg(inputType));
         return InputUtils.getInputAsDoublePositive();
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
     private void runUS04(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
-        UtilsUI utilsUI = new UtilsUI();
         if (typeAreaList.isEmpty()) {
-            System.out.println(utilsUI.invalidGATypeList);
+            System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
         if (geographicAreaList.isEmpty()) {
-            System.out.println(utilsUI.invalidGAList);
+            System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
         TypeArea typeArea = getInputTypeAreaByList(typeAreaList);
@@ -236,9 +227,8 @@ class GASettingsUI {
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
     private void runUS07(GeographicAreaList geographicAreaList) {
-        UtilsUI utilsUI = new UtilsUI();
         if (geographicAreaList.isEmpty()) {
-            System.out.println(utilsUI.invalidGAList);
+            System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
         GeographicArea motherGA = getInputMotherGeographicArea(geographicAreaList);
@@ -249,13 +239,11 @@ class GASettingsUI {
 
     private GeographicArea getInputMotherGeographicArea(GeographicAreaList programGAList) {
         System.out.println("First you need to select the geographic area you wish to set as container.");
-        InputUtils inputUtils = new InputUtils();
         return InputUtils.getGeographicAreaByList(programGAList);
     }
 
     private GeographicArea getInputDaughterGeographicArea(GeographicAreaList programGAList) {
         System.out.println("Second you need to select the geographic area you wish to set as contained.");
-        InputUtils inputUtils = new InputUtils();
         return InputUtils.getGeographicAreaByList(programGAList);
     }
 
@@ -273,9 +261,8 @@ class GASettingsUI {
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
     private void runUS08(GeographicAreaList geographicAreaList) {
-        UtilsUI utilsUI = new UtilsUI();
         if (geographicAreaList.isEmpty()) {
-            System.out.println(utilsUI.invalidGAList);
+            System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
         GeographicArea motherGA = getMotherArea(geographicAreaList);

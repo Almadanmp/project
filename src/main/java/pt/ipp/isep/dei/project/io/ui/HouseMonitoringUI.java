@@ -21,8 +21,6 @@ public class HouseMonitoringUI {
     }
 
     void run(House programHouse) {
-        //InputUtils inputUtils = new InputUtils();
-        UtilsUI utilsUI = new UtilsUI();
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -67,7 +65,7 @@ public class HouseMonitoringUI {
                 case 0:
                     return;
                 default:
-                    System.out.println(utilsUI.invalidOption);
+                    System.out.println(UtilsUI.INVALID_OPTION);
                     break;
             }
         }
@@ -104,10 +102,9 @@ public class HouseMonitoringUI {
     private void runUS605(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (!utilsUI.houseRoomListIsValid(house)) {
-            System.out.println(utilsUI.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        //InputUtils inputUtils = new InputUtils();
         RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTOSensorListIsValid(room, house)) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
@@ -135,7 +132,7 @@ public class HouseMonitoringUI {
     private void runUS610(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (!(utilsUI.houseRoomListIsValid(house))) {
-            System.out.println(utilsUI.invalidRoomList);
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
         RoomDTO room = InputUtils.getHouseRoomDTOByList(house);

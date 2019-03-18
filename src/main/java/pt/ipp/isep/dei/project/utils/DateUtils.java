@@ -11,12 +11,9 @@ import java.util.Scanner;
  */
 public class DateUtils {
 
-    /**
-     * Method will read a group of values from user and return a date (year, month, day, hour and
-     * minute). It will only accept valid numbers.
-     *
-     * @return date introduced by user
-     */
+    private DateUtils() {
+    }
+
     /**
      * Method will read a group of values from user and return a date (year, month, day, hour and
      * minute). It will only accept valid numbers.
@@ -153,38 +150,6 @@ public class DateUtils {
         return day;
     }
 
-    //The next three methods were created because of a code smell
-
-    /**
-     * Method that checks if the month given is January, March or May, returning
-     * true in case it is, false in case it is not.
-     *
-     * @param month month to test
-     */
-    private static boolean isJanuaryMarchMay(int month) {
-        return month == 0 || month == 2 || month == 4;
-    }
-
-    /**
-     * Method that checks if the month given is July or August, returning
-     * true in case it is, false in case it is not.
-     *
-     * @param month month to test
-     */
-    private static boolean isJulyAugust(int month) {
-        return month == 6 || month == 7;
-    }
-
-    /**
-     * Method that checks if the month given is October or December, returning
-     * true in case it is, false in case it is not.
-     *
-     * @param month month to test
-     */
-    private static boolean isOctoberDecember(int month) {
-        return month == 9 || month == 11;
-    }
-
     /**
      * Method will ask the user for an hour and will return an int
      * that corresponds to the number introduced by user. User can only introduce
@@ -233,6 +198,38 @@ public class DateUtils {
             System.out.println("Not a valid " + dataType + ". Try again");
         }
         return scan.nextInt();
+    }
+
+    //The next three methods were created because of a code smell
+
+    /**
+     * Method that checks if the month given is January, March or May, returning
+     * true in case it is, false in case it is not.
+     *
+     * @param month month to test
+     */
+    private static boolean isJanuaryMarchMay(int month) {
+        return month == 0 || month == 2 || month == 4;
+    }
+
+    /**
+     * Method that checks if the month given is July or August, returning
+     * true in case it is, false in case it is not.
+     *
+     * @param month month to test
+     */
+    private static boolean isJulyAugust(int month) {
+        return month == 6 || month == 7;
+    }
+
+    /**
+     * Method that checks if the month given is October or December, returning
+     * true in case it is, false in case it is not.
+     *
+     * @param month month to test
+     */
+    private static boolean isOctoberDecember(int month) {
+        return month == 9 || month == 11;
     }
 
 }
