@@ -26,14 +26,14 @@ public class CSVReaderController {
      *
      * @param geographicAreaList is the Geographic Area List of the application.
      * @param path               is the path to the CSV File.
+     * @return true if was able to read and set, false otherwise
      * @author Andre
      */
-
     boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = getSensorData(geographicAreaList);
-        if (!fullSensorList.isEmpty() && !geographicAreaList.isEmpty()) {
+        if (!fullSensorList.isEmpty() && !geographicAreaList.isEmpty()) { //TODO Remove check on geographicAreaList. Not Necessary
             try {
                 Logger logger = Logger.getLogger(CSVReaderController.class.getName());
                 CustomFormatter myFormat = new CustomFormatter();
@@ -50,6 +50,15 @@ public class CSVReaderController {
         return true;
     }
 
+    /**
+     * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
+     * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
+     * This method is separated from the above so we can test with different logPaths (wrong etc).
+     * @param geographicAreaList is the Geographic Area List of the application.
+     * @param csvPath is the path to the CSV File.
+     * @param logPath is the path to the log File.
+     * @return true if was able to read and set, false otherwise
+     */
     public boolean readAndSet(GeographicAreaList geographicAreaList, String csvPath, String logPath) {
         return readAndSetInternal(geographicAreaList, csvPath, logPath);
     }
