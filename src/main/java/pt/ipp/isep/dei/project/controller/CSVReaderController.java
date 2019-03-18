@@ -32,8 +32,8 @@ public class CSVReaderController {
     boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
-        SensorList fullSensorList = getSensorData(geographicAreaList);
-        if (!fullSensorList.isEmpty() && !geographicAreaList.isEmpty()) {
+        SensorList fullSensorList = geographicAreaList.getAreaListSensors();
+        if (!fullSensorList.isEmpty()) {
             try {
                 Logger logger = Logger.getLogger(CSVReaderController.class.getName());
                 CustomFormatter myFormat = new CustomFormatter();
@@ -55,29 +55,6 @@ public class CSVReaderController {
     }
 
     // ACCESSORY METHODS
-
-    /**
-     * Gets the list of sensors that exist in the Geographic Area where the house is contained
-     *
-     * @param geographicAreaList is the application Geographic Area List.
-     * @return returns a SensorList of the geographical area of the house.
-     * @author Andre
-     */
-    SensorList getSensorData(GeographicAreaList geographicAreaList) {
-        SensorList fullSensorList = new SensorList();
-        if (geographicAreaList.isEmpty()) {
-            return fullSensorList;
-        }
-        for (GeographicArea ga : geographicAreaList.getElementsAsArray()) {
-            if (ga.getSensorList().isEmpty()) {
-                return fullSensorList;
-            }
-            for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
-                fullSensorList.add(sensor);
-            }
-        }
-        return fullSensorList;
-    }
 
     /**
      * After reading a single line of the file, tries to parse the value, the date and the name to double, Date and

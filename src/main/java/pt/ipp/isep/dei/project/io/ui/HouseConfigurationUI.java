@@ -92,11 +92,16 @@ class HouseConfigurationUI {
     private void runUS20(GeographicAreaList list) {
         InputUtils utils = new InputUtils();
         CSVReaderController ctrl = new CSVReaderController();
-        String path = utils.startAndPromptPath();
+        String path = utils.getInputCSVPath();
         boolean result = ctrl.readAndSet(list, path, "resources/logs/logOut.log");
         if (!result) {
             UtilsUI.printMessage("Please add a sensor first.");
         }
+        int size = list.get(0).getSensorList().get(0).getReadingList().size() +
+                list.get(0).getSensorList().get(1).getReadingList().size() +
+                list.get(1).getSensorList().get(0).getReadingList().size() +
+                list.get(1).getSensorList().get(1).getReadingList().size();
+        System.out.println(size + " Readings have been successfully imported.");
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */

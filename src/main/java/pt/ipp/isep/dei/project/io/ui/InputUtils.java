@@ -576,7 +576,7 @@ public class InputUtils {
      *
      * @author Andre (US20)
      */
-    String startAndPromptPath() {
+    String getInputCSVPath() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the CSV file");
         String csvFileLocation = scanner.next();

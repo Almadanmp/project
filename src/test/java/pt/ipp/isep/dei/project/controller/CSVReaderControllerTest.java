@@ -243,7 +243,7 @@ class CSVReaderControllerTest {
         assertFalse(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
     }
 
-
+/*
     @Test
     void seeIfGetSensorDataWorks() {
 
@@ -378,7 +378,7 @@ class CSVReaderControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
-
+*/
     @Test
     void seeIfParseAndLogFailsOutOfBoundsArray() {
 
