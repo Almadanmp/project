@@ -27,7 +27,12 @@ public class GeographicArea {
     // They can be made with or without a sensor list.
 
     /**
-     * Empty constructor to use on UIs
+     * Empty Constructor to use when importing Geographic Areas from XML files.
+     */
+    public GeographicArea(){}
+
+    /**
+     * Constructor
      *
      * @param id       the Id of the Area
      * @param typeArea the type of the area.

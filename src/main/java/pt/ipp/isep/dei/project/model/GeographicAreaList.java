@@ -29,6 +29,10 @@ public class GeographicAreaList {
         geographicAreas = new ArrayList<>();
     }
 
+    public List<GeographicArea> getGeographicAreas() {
+        return geographicAreas;
+    }
+
     /**
      * Method that receives a geographic area as a parameter and adds that
      * GA to the list in case it is not contained in that list already.

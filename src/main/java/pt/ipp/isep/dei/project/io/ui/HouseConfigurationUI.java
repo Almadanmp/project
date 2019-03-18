@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.reader.JSONReader;
+import pt.ipp.isep.dei.project.reader.XMLReader;
 
 import java.util.Scanner;
 
@@ -53,6 +54,10 @@ class HouseConfigurationUI {
                     runUS108(house);
                     activeInput = false;
                     break;
+                case 6:
+                    runUS15v2(list);
+                    activeInput = false;
+                    break;
                 case 0:
                     return;
                 default:
@@ -76,6 +81,14 @@ class HouseConfigurationUI {
         JSONReader reader = new JSONReader();
         int areasRead = reader.readFile(filePath, list);
         System.out.println(areasRead + " Geographic Areas have been successfully imported.");
+    }
+
+    //to be added to runUS15()
+    private void runUS15v2(GeographicAreaList list) {
+        InputUtils input = new InputUtils();
+        String filePath = input.getInputXMLPath();
+        XMLReader reader = new XMLReader();
+        reader.readFileXML(filePath, list);
     }
 
     /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application

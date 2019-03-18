@@ -335,6 +335,22 @@ public class InputUtils {
         }
         return result;
     }
+    /**
+     * Gets input of a filepath. For now, this file is either a .csv file, a .xml file or a .json file, since those are
+     * the only kind of files the program is ready to manipulate.
+     *
+     * @return returns a filepath.
+     */
+    String getInputXMLPath() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please insert the location of the file you want to import:");
+        String result = scanner.next();
+        while (!(result.endsWith(".xml")) || !new File(result).exists()) {
+            System.out.println("Please enter a valid XML path");
+            result = scanner.next();
+        }
+        return result;
+    }
 
     /**
      * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
