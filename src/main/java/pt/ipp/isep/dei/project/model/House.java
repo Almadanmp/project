@@ -30,7 +30,6 @@ public class House implements Metered {
      * @param deviceMeteringPeriod is the metering period of devices contained in the house.
      * @param deviceTypeConfig is the list of possible device types that the house supports.
      */
-
     public House(String id, Address address, Local mLocation, int gridMeteringPeriod,
                  int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.id = id;
