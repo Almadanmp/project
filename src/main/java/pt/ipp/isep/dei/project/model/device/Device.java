@@ -18,11 +18,10 @@ public interface Device {
     void setName(String name);
 
     /**
-     * Method to get a device type from a device spec
+     * Method to get a device type Description from a device spec
      *
-     * @return a device type
+     * @return a device type Description
      */
-
     String getType();
 
     void setNominalPower(double nominalPower);
@@ -34,7 +33,6 @@ public interface Device {
      *
      * @return true if device is active
      */
-
     boolean isActive();
 
     /**
@@ -42,7 +40,6 @@ public interface Device {
      *
      * @return true if deactivated
      */
-
     boolean deactivate();
 
 
@@ -51,7 +48,6 @@ public interface Device {
      *
      * @return String
      */
-
     String buildString();
 
 
@@ -85,7 +81,6 @@ public interface Device {
      * @param finalTime   is the end time of the interval.
      * @return is the number of valid data logs in the given interval.
      */
-
     int countLogsInInterval(Date initialTime, Date finalTime);
 
 
@@ -98,17 +93,25 @@ public interface Device {
      * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
-
     double getConsumptionInInterval(Date initialTime, Date finalTime);
 
 
 // Wrapper Methods to Metered
 
+    /**
+     * Energy Consumption for a certain time
+     * @param time time for each we want to know the energy consumption of the device
+     * @return energy consumption
+     */
     double getEnergyConsumption(float time);
 
 
 // Wrapper Methods to DeviceSpecs
 
+    /**
+     * get the attribute names
+     * @return will return a list of string with all the attribute names of a specific devie
+     */
     List<String> getAttributeNames();
 
     /**

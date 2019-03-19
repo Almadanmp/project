@@ -22,6 +22,7 @@ public class WaterHeater implements Device, Metered {
         logList = new LogList();
     }
 
+    //Getters and Setters
     public String getName() {
         return this.name;
     }
@@ -45,10 +46,22 @@ public class WaterHeater implements Device, Metered {
         return this.nominalPower;
     }
 
+
+    /**
+     * This method shows if the device is activated or
+     * deactivated.
+     *
+     * @return true if the device is active, false otherwise.
+     **/
     public boolean isActive() {
         return this.active;
     }
 
+    /**
+     * This method deactivates the device.
+     *
+     * @return true if the device is deactivated, false otherwise.
+     **/
     public boolean deactivate() {
         if (isActive()) {
             this.active = false;
@@ -58,7 +71,12 @@ public class WaterHeater implements Device, Metered {
         }
     }
 
-
+    /**
+     * This builds a string containing information about the device
+     * (device name and nominal power).
+     *
+     * @return A string with the device's name and nominal power.
+     **/
     public String buildString() {
         String result;
         result = "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
@@ -109,6 +127,14 @@ public class WaterHeater implements Device, Metered {
         return logList.countLogsInInterval(initialTime, finalTime);
     }
 
+    /**
+     * This method receives an interval and gets the device's logs contained
+     * in that time period, returning them in a list.
+     *
+     * @param startDate the interval's starting date.
+     * @param endDate   the interval's end date.
+     * @return a LogList with every device log contained in the interval.
+     **/
     public LogList getLogsInInterval(Date startDate, Date endDate) {
         return logList.getLogsInInterval(startDate, endDate);
     }
@@ -163,18 +189,44 @@ public class WaterHeater implements Device, Metered {
     }
 
     // WRAPPER METHODS TO DEVICE SPECS
+    /**
+     * This method returns a list of every attributes names.
+     *
+     * @return list of strings containing all attributes names.
+     **/
     public List<String> getAttributeNames() {
         return deviceSpecs.getAttributeNames();
     }
 
+    /**
+     * This method receives a string of an attribute name
+     * and returns the attribute value correspondent to that name.
+     *
+     * @param attributeName a string of a class attribute's name.
+     * @return attribute value object.
+     **/
     public Object getAttributeValue(String attributeName) {
         return deviceSpecs.getAttributeValue(attributeName);
     }
 
+    /**
+     * This method receives an attribute name and an object, and sets the value object as a class parameter (which
+     * name corresponds to the name given).
+     *
+     * @param attributeName a string of a class attribute's name.
+     * @return true in case the value is set as parameter, false otherwise.
+     **/
     public boolean setAttributeValue(String attributeName, Object attributeValue) {
         return deviceSpecs.setAttributeValue(attributeName, attributeValue);
     }
 
+    /**
+     * This method receives an attribute name and gets the attribute's with the given name
+     * measurement unit.
+     *
+     * @param attributeName a string of a class attribute's name.
+     * @return a string with the attribute's measurement unit.
+     **/
     public Object getAttributeUnit(String attributeName) {
         return deviceSpecs.getAttributeUnit(attributeName);
     }

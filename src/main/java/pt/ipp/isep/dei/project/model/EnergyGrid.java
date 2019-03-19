@@ -30,7 +30,6 @@ public class EnergyGrid implements Metered {
      *
      * @return returns attribute name of the energy grid.
      */
-
     public String getName() {
         return name;
     }
@@ -40,7 +39,6 @@ public class EnergyGrid implements Metered {
      *
      * @return returns a list with all the rooms contained in this energy grid.
      */
-
     public RoomList getRoomList() {
         return roomList;
     }
@@ -54,7 +52,6 @@ public class EnergyGrid implements Metered {
      *
      * @return is the sum of nominal powers of all rooms and devices connected to a grid.
      */
-
     public double getNominalPower() {
         return roomList.getNominalPower();
     }
@@ -131,7 +128,6 @@ public class EnergyGrid implements Metered {
         }
         return this.roomList.get(index);
     }
-
 
     /**
      * Method gets all devices associated to energy grid

@@ -19,11 +19,10 @@ public class DeviceList {
         this.devices = new ArrayList<>();
     }
 
-    /*******************************************************************
-     ***** ESTE MÉTODO É PARA SER APAGADO. NÃO USAR! ENCAPSULAR! *******
-     ******************************************************************
-     * @return - */
-
+    /**
+     * Method to get the device list
+     * @return device list
+     */
     public List<Device> getList() {
         return this.devices;
     }
@@ -52,6 +51,11 @@ public class DeviceList {
         return false;
     }
 
+    /**
+     * Energy Consumption for a certain time of a the device list
+     * @param time time for each we want to know the energy consumption of all devices on device list
+     * @return energy consumption of all devices on device list
+     */
     public double getEnergyConsumption(float time) {
         double result = 0;
         for (Device d : this.devices) {
@@ -218,7 +222,6 @@ public class DeviceList {
      *
      * @param list is the list we want to add the room's devices to.
      */
-
     public void addDevicesToDeviceList(DeviceList list) {
         for (Device d : this.devices) {
             if (!(list.containsDevice(d))) {
@@ -233,7 +236,6 @@ public class DeviceList {
      * @param list is the list we want to remove devices from.
      * @return false if the list is invalid (null), true otherwise.
      */
-
     public boolean removeDevicesFromGivenList(DeviceList list) {
         if (list == null) {
             return false;

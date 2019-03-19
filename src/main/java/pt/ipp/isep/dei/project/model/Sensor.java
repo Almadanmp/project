@@ -187,7 +187,6 @@ public class Sensor {
     /**
      * Settter: sets the sensor active
      */
-
     public void setActive() {
         this.active = true;
     }
@@ -197,7 +196,6 @@ public class Sensor {
      *
      * @return active or not
      */
-
     public boolean activateOrDeactivate() {
         if (!isActive()) {
             return this.active = true;
