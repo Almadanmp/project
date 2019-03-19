@@ -18,6 +18,12 @@ import java.util.List;
 
 public class XMLReader {
 
+    /**
+     * reads a XML file from a certain path and imports geographic areas and sensors from the file
+     *
+     * @param filePath path to the xml file
+     * @param list geographic area list to add the imported geographic areas
+     */
     public void readFileXML(String filePath, GeographicAreaList list) {
         try {
             File inputFile = new File(filePath);
@@ -37,9 +43,7 @@ public class XMLReader {
                 for (int j = 0; j < sensorList.size(); j++) {
                     sensorList.add(getSensors(nListSensor.item(j)));
                 }
-
             }
-
             // just an example of how we can print attributes from XML file
 //            for (int temp = 0; temp < nList.getLength(); temp++) {
 //                Node nNode = nList.item(temp);
@@ -76,7 +80,7 @@ public class XMLReader {
         }
     }
 
-    private static GeographicArea getGeographicAreas(Node node) {
+    private GeographicArea getGeographicAreas(Node node) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -90,7 +94,7 @@ public class XMLReader {
         return geoArea;
     }
 
-    private static Sensor getSensors(Node node) {
+    private Sensor getSensors(Node node) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         Sensor sensor = new Sensor();
 
@@ -112,7 +116,7 @@ public class XMLReader {
         return sensor;
     }
 
-    private static String getTagValue(String tag, Element element) {
+    private String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
         return node.getNodeValue();
