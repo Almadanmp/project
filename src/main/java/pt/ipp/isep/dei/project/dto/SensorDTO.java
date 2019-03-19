@@ -13,9 +13,11 @@ public class SensorDTO {
     private double altitude;
     private String dateStartedFunctioning;
     private UUID uniqueID;
+    private boolean active;
 
     /**
      * Method that retrieves the DTO's unique ID. This is useful to match it with a model object.
+     *
      * @return is a UUID. UUID is a java class.
      */
 
@@ -25,6 +27,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a UUID as the object's UUID. This is useful to match the DTO with a model object.
+     *
      * @param uniqueID is the UUID we want to store.
      */
 
@@ -34,6 +37,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the DTO's id.
+     *
      * @return is the DTO's id.
      */
 
@@ -43,6 +47,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a String as the DTO's id.
+     *
      * @param id is the string we want to store.
      */
 
@@ -52,6 +57,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the units the Sensor stores readings in, as a String.
+     *
      * @return is the unit the Sensor stores readings in.
      */
 
@@ -61,6 +67,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the DTO's altitude as a double.
+     *
      * @return is the DTO's altitude.
      */
 
@@ -70,6 +77,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the DTO's latitude as a double.
+     *
      * @return is the DTO's latitude.
      */
 
@@ -79,6 +87,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the DTO's longitude as a double.
+     *
      * @return is the DTO's longitude.
      */
 
@@ -88,6 +97,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a double as the DTO's altitude.
+     *
      * @param altitude is the value we want to store.
      */
 
@@ -97,6 +107,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a double as the DTO's latitude.
+     *
      * @param latitude is the value we want to store.
      */
 
@@ -106,6 +117,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a double as the DTO's longitude.
+     *
      * @param longitude is the value we want to store.
      */
 
@@ -115,6 +127,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a String as the DTO's unit.
+     *
      * @param units is string we want to store.
      */
 
@@ -124,6 +137,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the DTO's name as a string.
+     *
      * @return is the DTO's name.
      */
 
@@ -133,6 +147,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a String as the DTO's name.
+     *
      * @param name is the string we want to store.
      */
 
@@ -142,6 +157,7 @@ public class SensorDTO {
 
     /**
      * Method that retrieves the DTO's type's name as a string.
+     *
      * @return is a string that corresponds to the name of the type of the DTO.
      */
 
@@ -151,15 +167,24 @@ public class SensorDTO {
 
     /**
      * Method that stores a String as the DTO's type.
+     *
      * @param typeSensor is the string we want to store.
      */
-
     public void setTypeSensor(String typeSensor) {
         this.typeSensor = typeSensor;
     }
 
+    public boolean getActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     /**
      * Method that retrieves the date at which the sensorDTO started functioning, as a string.
+     *
      * @return the date at which the sensor started functioning, as a string.
      */
 
@@ -169,6 +194,7 @@ public class SensorDTO {
 
     /**
      * Method that stores a string as the date at which the DTO started functioning.
+     *
      * @param dateStartedFunctioning is the date that we want to store.
      */
 

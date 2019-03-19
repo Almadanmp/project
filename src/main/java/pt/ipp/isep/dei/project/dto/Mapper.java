@@ -111,7 +111,7 @@ public class Mapper {
      * @return is the newly created DTO.
      */
 
-    SensorDTO sensorToDTO(Sensor sensor) {
+    public SensorDTO sensorToDTO(Sensor sensor) {
         sensorDTO.setName(sensor.getName());
         sensorDTO.setDateStartedFunctioning(sensor.getDateStartedFunctioning().toString());
         sensorDTO.setAltitude(sensor.getLocal().getAltitude());
@@ -119,6 +119,7 @@ public class Mapper {
         sensorDTO.setLatitude(sensor.getLocal().getLatitude());
         sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
         sensorDTO.setUniqueID(sensor.getUniqueID());
+        sensorDTO.setActive(sensor.getActive());
         return sensorDTO;
     }
 
@@ -128,17 +129,21 @@ public class Mapper {
      * @return is the newly created Sensor.
      */
 
-   Sensor sensorDTOToObject(SensorDTO sensorDTO) {
+   public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());
-        SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        sensorObject.setterActive(sensorDTO.getActive());
+       List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+       knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+       knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"));
+       for (SimpleDateFormat pattern : knownPatterns) {
         try {
-            Date date = validDateFormat.parse(sensorDTO.getDateStartedFunctioning());
+            Date date = pattern.parse(sensorDTO.getDateStartedFunctioning());
             sensorObject.setDateStartedFunctioning(date);
         } catch (ParseException c) {
             c.printStackTrace();
-        }
+        }}
         sensorObject.setUniqueID(sensorDTO.getUniqueID());
         return sensorObject;
     }

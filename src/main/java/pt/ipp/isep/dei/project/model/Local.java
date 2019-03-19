@@ -119,12 +119,10 @@ public class Local {
     }
 
     /**
-     * Specific Method
-     *
-     * @param testLocal -
-     * @return -
+     * Method to check if an instance of this class is equal to another object.
+     * @param testLocal is the object we want to check for equality.
+     * @return is true if the object is a local with the same latitude and longitude.
      */
-
     @Override
     public boolean equals(Object testLocal) {
         if (this == testLocal) {
@@ -135,7 +133,6 @@ public class Local {
         }
         Local localVariable = (Local) testLocal;
         return (java.lang.Double.compare(this.latitude, localVariable.getLatitude()) == 0 && java.lang.Double.compare(this.longitude, localVariable.getLongitude()) == 0);
-
     }
 
     /**
