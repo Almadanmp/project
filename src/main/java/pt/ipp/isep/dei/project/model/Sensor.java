@@ -204,7 +204,10 @@ public class Sensor {
      **/
 
     public boolean addReading(Reading reading) {
-        return readingList.addReading(reading);
+        if (this.active) {
+            return readingList.addReading(reading);
+        }
+        return false;
     }
 
     /**
@@ -217,11 +220,13 @@ public class Sensor {
      * @author André
      */
     public boolean addReading(Date date, Double value) {
-        Date startingDate = this.getDateStartedFunctioning();
-        if (date.after(startingDate) || date.equals(startingDate)) {
-            Reading reading = new Reading(value, date);
-            this.addReading(reading);
-            return true;
+        if (this.active) {
+            Date startingDate = this.getDateStartedFunctioning();
+            if (date.after(startingDate) || date.equals(startingDate)) {
+                Reading reading = new Reading(value, date);
+                this.addReading(reading);
+                return true;
+            }
         }
         return false;
     }

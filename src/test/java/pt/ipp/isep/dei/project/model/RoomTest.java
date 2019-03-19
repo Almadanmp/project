@@ -30,6 +30,7 @@ class RoomTest {
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom", 2, 30, 40, 10);
         validSensor = new Sensor("tempOne", new TypeSensor("temperature", "Celsius"), new Date());
+       validSensor.setActive();
         validRoom.addSensor(validSensor);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
@@ -494,6 +495,9 @@ class RoomTest {
         Sensor firstSensor = new Sensor("firstSensor", new TypeSensor("temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
         Sensor secondSensor = new Sensor("secondSensor", new TypeSensor("temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
         Sensor thirdSensor = new Sensor("secondSensor", new TypeSensor("temperature", "Celsius"), new Date()); // Has no readings.
+        firstSensor.setActive();
+        secondSensor.setActive();
+        thirdSensor.setActive();
         validRoom.addSensor(firstSensor);
         validRoom.addSensor(secondSensor);
         validRoom.addSensor(thirdSensor);
