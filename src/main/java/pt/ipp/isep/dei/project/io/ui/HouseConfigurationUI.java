@@ -71,7 +71,6 @@ class HouseConfigurationUI {
      *
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
-
     private void runUS15(GeographicAreaList list) {
         InputUtils input = new InputUtils();
         System.out.println("Please insert the location of the file you want to import:");
