@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.model.*;
 
 /**
@@ -147,12 +149,29 @@ public class GASettingsController {
     }
 
     /**
-     *
-     * @param sensor sensor to activate or deactivate
-     * @return sensor activated (is deactivated before) and vice versa
+     * Select sensor from sensorList and convert it to DTO
+     * @param geographicArea with the sensor list
+     * @return sensorDTO
      */
-    public boolean activateOrDeactivateSensor(Sensor sensor) {
-        return sensor.activateOrDeactivate();
+    public SensorDTO selectSensorDTOfFromGeoArea (GeographicArea geographicArea){
+        Mapper mapper = new Mapper();
+        Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
+        sensor.activateOrDeactivate();
+        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
+        return sensorDTO;
+
     }
+
+
+    public void isSensorActive (SensorDTO sensorDTO){
+        Mapper mapper = new Mapper();
+        Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
+        if (sensor.getActive()) {
+            System.out.println("Sensor successfully activated!");
+        } else {
+            System.out.println("Sensor successfully deactivated!");
+        }
+    }
+
 
 }
