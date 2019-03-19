@@ -180,9 +180,10 @@ public class Sensor {
         this.uniqueID = uniqueID;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return this.active;
     }
+
 
     /**
      * Settter: sets the sensor active
@@ -191,13 +192,17 @@ public class Sensor {
         this.active = true;
     }
 
+    public void setterActive(boolean active) {
+        this.active = active;
+    }
+
     /**
      * Method to activate an deactivated sensor, and vice versa
      *
      * @return active or not
      */
     public boolean activateOrDeactivate() {
-        if (!isActive()) {
+        if (!getActive()) {
             this.active = true;
             return true;
         }

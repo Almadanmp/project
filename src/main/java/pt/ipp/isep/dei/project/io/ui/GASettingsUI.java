@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
@@ -304,6 +306,7 @@ class GASettingsUI {
 
     /**
      * This method activates or deactivates a sensor selected from a list of sensor of an selected geographic area
+     *
      * @param geographicAreaList geographic area list
      */
     private void runUS10(GeographicAreaList geographicAreaList) {
@@ -312,18 +315,11 @@ class GASettingsUI {
             UtilsUI.printMessage(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
-        controller.activateOrDeactivateSensor(sensor);
-        updateStateUS10(sensor);
+        SensorDTO sensorDTO = controller.selectSensorDTOfFromGeoArea(geographicArea);
+        controller.isSensorActive(sensorDTO);
     }
 
-    private void updateStateUS10(Sensor sensor) {
-        if (sensor.isActive()) {
-            System.out.println("Sensor successfully activated!");
-        } else {
-            System.out.println("Sensor successfully deactivated!");
-        }
-    }
+
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printOptionMessage() {
