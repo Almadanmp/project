@@ -129,12 +129,13 @@ public class HouseMonitoringController {
        period. */
 
     /**
+     * method to get the date with the highest amplitude in the house area between two dates
      * @param house       is the house we want to get the highest temperature amplitude on its area
      * @param initialDate is the date where we want to start measuring temperature (lower limit).
      * @param endDate     is the date where we want to stop measuring temperature(upper limit).
      * @return is the highest temperature amplitude in the house area, in given period, as measured by the closest
      * sensor to the house.
-     * @Author Daniela
+     * @Author Daniela (US633)
      */
     public Date getHighestTempAmplitudeDate(House house, Date initialDate, Date endDate) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
@@ -146,6 +147,13 @@ public class HouseMonitoringController {
         return closestSensor.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
+    /**
+     * method to get the temperature amplitude value in a given day
+     * @param house is the house we want to get the highest temperature amplitude on its area
+     * @param dateInput date for each we want to know the highest temperature amplitude value
+     * @return temperature amplitude value
+     * @author Daniela (US633)
+     */
     public double getHighestTempAmplitudeValue(House house, Date dateInput) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         if (closestSensor.isReadingListEmpty()) {
@@ -156,14 +164,11 @@ public class HouseMonitoringController {
     }
 
     /**
-     * This is a shared methods between many User stories and it checks
-     * if the House has its Mother Area defined and if that Mother Area has
-     * a valid SensorList
-     *
+     * This is a shared methods between many User stories and it checks if the House has its Mother Area defined and
+     * if that Mother Area has a valid SensorList
      * @param house - house to get Mother Area from
      * @return true in case both conditions are met
      */
-
     public boolean isMotherAreaValid(House house) {
         if (house.isMotherAreaNull()) {
             UtilsUI.printMessage(UtilsUI.INVALID_MOTHER_AREA);

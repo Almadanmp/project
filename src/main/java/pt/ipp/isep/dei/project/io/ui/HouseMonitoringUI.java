@@ -199,11 +199,19 @@ public class HouseMonitoringUI {
         updateAndDisplayUS623(house, startDate, endDate);
     }
 
+    /**
+     * method to get the start date
+     * @return date
+     */
     private Date getStartDate() {
         System.out.println("Please enter the start date.");
         return DateUtils.getInputYearMonthDay();
     }
 
+    /**
+     * Method to get the end date
+     * @return date
+     */
     private Date getEndDate() {
         System.out.println("Please enter the end date.");
         return DateUtils.getInputYearMonthDay();
