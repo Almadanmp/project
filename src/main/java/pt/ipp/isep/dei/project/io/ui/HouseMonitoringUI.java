@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import com.sun.corba.se.impl.logging.UtilSystemException;
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
@@ -245,9 +246,9 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        String dateResultFormatted = formatDateNoTime(dateResult630);
-        String dateStartDateFormatted = formatDateNoTime(startDate);
-        String dateEndDateFormatted = formatDateNoTime(endDate);
+        String dateResultFormatted = DateUtils.formatDateNoTime(dateResult630);
+        String dateStartDateFormatted = DateUtils.formatDateNoTime(startDate);
+        String dateEndDateFormatted = DateUtils.formatDateNoTime(endDate);
         System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
                 + dateResultFormatted + ".");
     }
@@ -275,7 +276,7 @@ public class HouseMonitoringUI {
             return;
         }
 
-        String formattedUS631Date = formatDateNoTime(dateUS631);
+        String formattedUS631Date = DateUtils.formatDateNoTime(dateUS631);
         UtilsUI.printBox("The first day with the hottest temperature in the given", "period was " + formattedUS631Date + ".");
     }
 
@@ -301,22 +302,9 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        String dateResultFormatted = formatDateNoTime(resultDate633);
+        String dateResultFormatted = DateUtils.formatDateNoTime(resultDate633);
         System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
                 " temperature amplitude of " + resultValue633 + "ºC.");
-    }
-
-    //SHARED METHODS
-
-    /**
-     * Method thar will remove the hours, minutes and seconds from a Date
-     *
-     * @param date input date to format
-     * @return string that represents the input date but without hour, min. sec
-     */
-    private String formatDateNoTime(Date date) {
-        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.format(date);
     }
 
     /**

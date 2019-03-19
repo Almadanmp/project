@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.io.ui;
+package pt.ipp.isep.dei.project.io.ui.utils;
 
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.project.dto.Mapper;

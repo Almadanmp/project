@@ -26,12 +26,22 @@ public class DateUtils {
         int day = getInputDay(isLeapyear, month);
         Date date = new GregorianCalendar(year, month, day).getTime();
 
-        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateResultFormatted = formatter.format(date);
+        String dateResultFormatted = formatDateNoTime(date);
 
         System.out.println(("You have chosen the following date:\n") + dateResultFormatted + "\n");
         scan.nextLine();
         return date;
+    }
+
+    /**
+     * Method thar will remove the hours, minutes and seconds from a Date
+     *
+     * @param date input date to format
+     * @return string that represents the input date but without hour, min. sec
+     */
+     public static String formatDateNoTime(Date date) {
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
     }
 
     /**
@@ -189,7 +199,7 @@ public class DateUtils {
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-     private static int getInputDateAsInt(Scanner scan, String dataType) {
+    private static int getInputDateAsInt(Scanner scan, String dataType) {
         System.out.println("Enter a " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
@@ -206,7 +216,7 @@ public class DateUtils {
      *
      * @param month month to test
      */
-    public static boolean isJanuaryMarchMay(int month) {
+    static boolean isJanuaryMarchMay(int month) {
         return month == 0 || month == 2 || month == 4;
     }
 
@@ -216,7 +226,7 @@ public class DateUtils {
      *
      * @param month month to test
      */
-    public static boolean isJulyAugust(int month) {
+    static boolean isJulyAugust(int month) {
         return month == 6 || month == 7;
     }
 
@@ -226,7 +236,7 @@ public class DateUtils {
      *
      * @param month month to test
      */
-    public static boolean isOctoberDecember(int month) {
+    static boolean isOctoberDecember(int month) {
         return month == 9 || month == 11;
     }
 
