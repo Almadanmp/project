@@ -15,7 +15,7 @@ public class PowerSourceList {
     }
 
     /**
-     * Checks if a PowerSource is inside the PowerSource List
+     * Checks if a PowerSource is inside the PowerSourceList.
      *
      * @param powerSource power source received
      * @return true if contains false if not
@@ -24,6 +24,11 @@ public class PowerSourceList {
         return powerSources.contains(powerSource);
     }
 
+    /**
+     * Adds a power source to the list. Duplicates are rejected.
+     * @param powerSource is the power source we want to add.
+     * @return is true if the power source was added, false if it wasn't.
+     */
     boolean add(PowerSource powerSource) {
         if (!(powerSources.contains(powerSource))) {
             powerSources.add(powerSource);
@@ -48,8 +53,15 @@ public class PowerSourceList {
         return result;
     }
 
-
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
+    /**
+     * Method to create a new power source object from given input. If the power source already exists, return the
+     * already existing one.
+     * @param name is the name we want to give the power source.
+     * @param maxPowerOutput is the maximum power the source can output.
+     * @param maxEnergyStorage is the maximum energy the source can store.
+     * @return is the newly created power source, or the already existing power source.
+     */
+    PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
         for(PowerSource p : this.powerSources){
             String testName = p.getPowerSourceName();
             if(testName.equals(name)){
@@ -59,7 +71,11 @@ public class PowerSourceList {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     * @param testObject is the object we want to check for equality.
+     * @return is true if the object is a power source list with the same contents.
+     */
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {
@@ -76,5 +92,4 @@ public class PowerSourceList {
     public int hashCode() {
         return 1;
     }
-
 }
