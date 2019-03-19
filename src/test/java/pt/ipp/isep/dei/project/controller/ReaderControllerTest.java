@@ -240,7 +240,7 @@ class ReaderControllerTest {
         provideInput(validLocation4);
 
         // Act
-        assertFalse(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
+        assertTrue(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
     }
 
 /*
@@ -536,7 +536,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test
