@@ -28,7 +28,6 @@ public class InputUtils {
      * ENTER to continue.
      * @param scanner is a generic stdin scanner.
      */
-
     public  static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
@@ -84,7 +83,6 @@ public class InputUtils {
      * @param house is the program's house.
      * @return is the chosen room.
      */
-
     public static Room getHouseRoomByList(House house) {
         while (true) {
             System.out.println("Please select one of the existing rooms: ");
@@ -107,7 +105,6 @@ public class InputUtils {
      * @param grid is the grid we want to choose rooms from.
      * @return is the chosen room.
      */
-
     public static Room getGridRoomByList(EnergyGrid grid) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
@@ -130,7 +127,6 @@ public class InputUtils {
      * @param grid is the grid we want to choose a device from.
      * @return is the chosen device.
      */
-
     public   static Device getGridDevicesByList(EnergyGrid grid) {
         while (true) {
             System.out.println(SELECT_DEVICES);
@@ -153,7 +149,6 @@ public class InputUtils {
      * @param device is the programmable device we want to choose a program from.
      * @return is the chosen program.
      */
-
     public static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
@@ -178,7 +173,6 @@ public class InputUtils {
      * @param house is the program's house.
      * @return is the selected Device.
      */
-
    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
         Mapper mapper = new Mapper();
@@ -203,7 +197,6 @@ public class InputUtils {
      * @param room is the room DTO we want to get the list from.
      * @return is the selected Device.
      */
-
     public static Device getInputRoomDevicesByList(Room room) {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
@@ -227,7 +220,6 @@ public class InputUtils {
      * @param house is the program's house.
      * @return is the chosen energy grid.
      */
-
     public static EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         while (true) {
@@ -251,7 +243,6 @@ public class InputUtils {
      * @param typeSensorList is the list of available types of sensor.
      * @return is the chosen type of sensor.
      */
-
     public static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
         while (true) {
             System.out.println("Please select a type of sensor from the list:");
@@ -273,7 +264,6 @@ public class InputUtils {
      * @param sensorList is the sensor list we want to choose a sensor from.
      * @return is the chosen sensor.
      */
-
     public static Sensor getInputSensorByList(SensorList sensorList) {
         while (true) {
             System.out.println("Please select a sensor from the list:");
@@ -296,7 +286,6 @@ public class InputUtils {
      * @param house is the program's house.
      * @return is the chosen device type.
      */
-
     public static DeviceType getInputDeviceTypeByList(House house) {
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
@@ -320,7 +309,6 @@ public class InputUtils {
      * @param question is the question we want to ask the user.
      * @return true if user answers yes, false if user answers no.
      */
-
     public static boolean yesOrNo(String question) {
         String answer = "";
         Scanner scanner = new Scanner(System.in);
