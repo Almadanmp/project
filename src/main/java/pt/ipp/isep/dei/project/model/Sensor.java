@@ -71,9 +71,6 @@ public class Sensor {
         this.uniqueID = UUID.randomUUID();
     }
 
-    protected Sensor() {
-    }
-
     /**
      * Setter: Id
      *
