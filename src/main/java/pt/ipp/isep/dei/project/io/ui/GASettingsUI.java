@@ -302,6 +302,10 @@ class GASettingsUI {
         }
     }
 
+    /**
+     * This method activates or deactivates a sensor selected from a list of sensor of an selected geographic area
+     * @param geographicAreaList geographic area list
+     */
     private void runUS10(GeographicAreaList geographicAreaList) {
         GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
         if (geographicArea.isSensorListEmpty()) {

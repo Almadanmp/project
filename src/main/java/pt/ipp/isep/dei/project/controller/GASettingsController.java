@@ -146,6 +146,11 @@ public class GASettingsController {
         return daughterGA.isContainedInArea(motherGA);
     }
 
+    /**
+     *
+     * @param sensor sensor to activate or deactivate
+     * @return sensor activated (is deactivated before) and vice versa
+     */
     public boolean activateOrDeactivateSensor(Sensor sensor) {
         return sensor.activateOrDeactivate();
     }

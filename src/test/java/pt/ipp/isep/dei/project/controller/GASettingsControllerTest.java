@@ -419,22 +419,22 @@ class GASettingsControllerTest {
         //Arrange
         Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
 
-
         //Act
-        boolean actualResult = controller.activateOrDeactivateSensor(sensor);
+        boolean actualResult = sensor.activateOrDeactivate();
 
         //Assert
-        assertTrue(actualResult);
+        assertTrue( actualResult);
     }
     @Test
     void seeIfDeactivateSensor() {
 
         //Arrange
         Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
-        sensor.setActive();
 
         //Act
-        boolean actualResult = controller.activateOrDeactivateSensor(sensor);
+        sensor.setActive();
+       boolean actualResult = sensor.activateOrDeactivate();
+
 
         //Assert
         assertFalse(actualResult);
