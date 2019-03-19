@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import com.sun.corba.se.impl.logging.UtilSystemException;
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
@@ -8,8 +7,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static java.lang.System.out;
