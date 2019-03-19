@@ -9,33 +9,39 @@ public class Address {
     private String zip;
     private String town;
 
+    /**
+     * Standard address constructor, used for creating addresses.
+     * @param street is the street.
+     * @param zip is the zip-code.
+     * @param town is the town.
+     */
     public Address(String street, String zip, String town) {
         this.street = street;
         this.zip = zip;
         this.town = town;
     }
 
-    public String getStreet() {
+    String getStreet() {
         return this.street;
     }
 
-    public String getZip() {
+    String getZip() {
         return this.zip;
     }
 
-    public String getTown() {
+    String getTown() {
         return this.town;
     }
 
-    public void setStreet(String street) {
+    void setStreet(String street) {
         this.street = street;
     }
 
-    public void setZip(String zip) {
+    void setZip(String zip) {
         this.zip = zip;
     }
 
-    public void setTown(String town) {
+    void setTown(String town) {
         this.town = town;
     }
 

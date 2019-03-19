@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.reader.JSONReader;
 
 
 import java.util.Scanner;
@@ -64,30 +63,23 @@ class HouseConfigurationUI {
             }
         }
     }
-
-    // USER STORY 15 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
+    // USER STORY 15v.2 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file and a XML file.
 
     /**
-     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
+     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
      *
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
 
     private void runUS15(GeographicAreaList list) {
         InputUtils input = new InputUtils();
-        String filePath = input.getInputJSONPath();
-        JSONReader reader = new JSONReader();
-        int areasRead = reader.readFile(filePath, list);
-        System.out.println(areasRead + " Geographic Areas have been successfully imported.");
+        System.out.println("Please insert the location of the file you want to import:");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = input.getInputJSONOrXMLPath(result);
+        input.readJsonOrXMLFile(result,filePath,list);
     }
 
-    //to be added to runUS15()
-    private void runUS15v2(GeographicAreaList list) {
-        InputUtils input = new InputUtils();
-        String filePath = input.getInputXMLPath();
-        ReaderController controller = new ReaderController();
-        controller.readFileXML(filePath, list);
-    }
 
     /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application
      from a CSV file. Data outside the valid sensor operation period shouldn’t be imported but registered in the
@@ -246,7 +238,7 @@ class HouseConfigurationUI {
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
-        System.out.println("1) Import Geographic Areas and Sensors from a JSON file.");
+        System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
         System.out.println("2) Import Geographic Area Sensor Readings from a CSV file.");
         System.out.println("3) Configure the location of the house. (US101)");
         System.out.println("4) Add a new room to the house. (US105)");

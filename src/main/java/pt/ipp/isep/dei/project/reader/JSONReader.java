@@ -71,7 +71,7 @@ public class JSONReader {
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
             List<Sensor> areaSensorsList = readAreaSensors(areaSensors);
-            addSensorsToArea(areaSensorsList, areaObject);
+            areaObject.addSensors(areaSensorsList);
         }
         return geographicAreasArray;
     }
@@ -112,17 +112,5 @@ public class JSONReader {
             entriesChecked++;
         }
         return result;
-    }
-
-    /**
-     * Method that adds all the sensorDTOs in an array to a GeographicAreaDTO.
-     * @param sensorsToAdd is the array containing all the sensor DTOs that we want to add somewhere.
-     * @param area is the area to which we want to add the sensors.
-     */
-
-    private void addSensorsToArea(List<Sensor> sensorsToAdd, GeographicArea area) {
-        for (Sensor sensor : sensorsToAdd) {
-            area.addSensor(sensor);
-        }
     }
 }

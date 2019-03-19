@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -267,6 +268,17 @@ public class GeographicArea {
 
     SensorList getSensorsOfGivenType(String type) {
         return this.areaSensors.getSensorListByType(type);
+    }
+
+    /**
+     * Method that adds all the sensorDTOs in an array to a GeographicAreaDTO.
+     * @param sensorsToAdd is the array containing all the sensor DTOs that we want to add somewhere.
+     */
+
+    public void addSensors(List<Sensor> sensorsToAdd) {
+        for (Sensor sensor : sensorsToAdd) {
+            this.addSensor(sensor);
+        }
     }
 
     /**

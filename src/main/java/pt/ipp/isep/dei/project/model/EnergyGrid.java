@@ -271,7 +271,6 @@ public class EnergyGrid implements Metered {
      * @param maxPowerOutput   the maximum power for the power source
      * @return creates a new power source.
      **/
-
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return this.listPowerSources.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }

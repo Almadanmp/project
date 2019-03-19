@@ -198,9 +198,11 @@ public class Sensor {
      */
     public boolean activateOrDeactivate() {
         if (!isActive()) {
-            return this.active = true;
+            this.active = true;
+            return true;
         }
-        return this.active = false;
+        this.active = false;
+        return false;
     }
 
     /**
@@ -211,7 +213,6 @@ public class Sensor {
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/
-
     public boolean addReading(Reading reading) {
         if (this.active) {
             return readingList.addReading(reading);

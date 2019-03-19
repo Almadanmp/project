@@ -566,5 +566,35 @@ class GASettingsControllerTest {
         assertEquals(actualResult, "Portugal");
     }
 
+    @Test
+    void seeIfActivate() {
+        // Arrange
+        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+
+
+        // Act
+
+        boolean actualResult = controller.activateOrDeactivateSensor(sensor);
+
+        // Assert
+
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivate() {
+        // Arrange
+        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        sensor.setActive();
+
+        // Act
+
+        boolean actualResult = controller.activateOrDeactivateSensor(sensor);
+
+        // Assert
+
+        Assertions.assertFalse(actualResult);
+    }
+
 
 }
