@@ -114,9 +114,9 @@ public class UtilsUI {
     /**
      * Auxiliary method for printBox for padding spaces for printBox method
      *
-     * @param str
-     * @param length
-     * @return
+     * @param str string
+     * @param length for padding
+     * @return padded string
      * @author Nuno
      */
     private static String padString(String str, int length) {
@@ -127,9 +127,9 @@ public class UtilsUI {
     /**
      * Auxiliary printBox method for filling string
      *
-     * @param ch
-     * @param length
-     * @return
+     * @param ch for filling/drawing box
+     * @param length for filling
+     * @return filled string with char
      * @author Nuno
      */
     private static String fill(char ch, int length) {
@@ -144,7 +144,7 @@ public class UtilsUI {
     /**
      *
      * @param string
-     * @return
+     * @return string
      * @author André Rua
      */
     public static String printMessage(String string) {
