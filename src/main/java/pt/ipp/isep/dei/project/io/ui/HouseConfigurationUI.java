@@ -8,10 +8,8 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.reader.JSONReader;
 
 
-import java.io.File;
 import java.util.Scanner;
 
 class HouseConfigurationUI {
@@ -66,10 +64,10 @@ class HouseConfigurationUI {
         }
     }
 
-    // USER STORY 15v.2 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file and a XML file.
+    // USER STORY 15 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
 
     /**
-     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
+     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON file.
      *
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
@@ -81,8 +79,7 @@ class HouseConfigurationUI {
         String result = scanner.next();
         if (result.endsWith(".json")) {
             String filePath = input.getInputJSONPath(result);
-            JSONReader reader = new JSONReader();
-            int areasRead = reader.readFile(filePath, list);
+            int areasRead = controller.readFile(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
         }
         if (result.endsWith(".xml")) {
@@ -91,7 +88,6 @@ class HouseConfigurationUI {
             controller.readFileXML(filePath, list);
         }
     }
-
 
     /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application
      from a CSV file. Data outside the valid sensor operation period shouldn’t be imported but registered in the
