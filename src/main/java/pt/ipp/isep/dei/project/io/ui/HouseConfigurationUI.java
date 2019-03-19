@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.CSVReaderController;
+import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.reader.JSONReader;
-import pt.ipp.isep.dei.project.reader.XMLReader;
+
 
 import java.util.Scanner;
 
@@ -85,8 +85,8 @@ class HouseConfigurationUI {
     private void runUS15v2(GeographicAreaList list) {
         InputUtils input = new InputUtils();
         String filePath = input.getInputXMLPath();
-        XMLReader reader = new XMLReader();
-        reader.readFileXML(filePath, list);
+        ReaderController controller = new ReaderController();
+        controller.readFileXML(filePath, list);
     }
 
     /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application
@@ -101,7 +101,7 @@ class HouseConfigurationUI {
      */
     private void runUS20(GeographicAreaList list) {
         InputUtils utils = new InputUtils();
-        CSVReaderController ctrl = new CSVReaderController();
+        ReaderController ctrl = new ReaderController();
         String path = utils.getInputCSVPath();
         boolean result = ctrl.readAndSet(list, path, "resources/logs/logOut.log");
         if (!result) {

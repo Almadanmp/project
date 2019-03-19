@@ -19,10 +19,10 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * CSVReaderController test class.
+ * ReaderController test class.
  */
 
-class CSVReaderControllerTest {
+class ReaderControllerTest {
 
     // Common artifacts for testing in this class.
 
@@ -36,7 +36,7 @@ class CSVReaderControllerTest {
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
     private Date validDate5 = new Date();
-    private CSVReaderController validReader;
+    private ReaderController validReader;
     private Sensor validSensor1;
     private Sensor validSensor2;
     private Sensor validSensor3;
@@ -55,7 +55,7 @@ class CSVReaderControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReader = new CSVReaderController();
+        validReader = new ReaderController();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         try {
@@ -385,7 +385,7 @@ class CSVReaderControllerTest {
         //Arrange
 
         provideInput(validLocation1);
-        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[0];
 
         // Act
@@ -401,7 +401,7 @@ class CSVReaderControllerTest {
         //Arrange
 
         provideInput(validLocation1);
-        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[3];
 
         // Act
@@ -455,7 +455,7 @@ class CSVReaderControllerTest {
         //Arrange
 
         provideInput(validLocation1);
-        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[3];
         readings[2] = "log";
 
@@ -476,7 +476,7 @@ class CSVReaderControllerTest {
         //Arrange
 
         provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[3];
         readings[0] = "RF12345";
         readings[1] = "2008-12-30T02:00:00+00:00";
@@ -495,7 +495,7 @@ class CSVReaderControllerTest {
         //Arrange
 
         provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[3];
         readings[0] = "RF12345";
         readings[1] = "2008-12-30T02:00:00+00:00";
@@ -514,7 +514,7 @@ class CSVReaderControllerTest {
         //Arrange
 
         provideInput(validLocation2);
-        Logger logger = Logger.getLogger(CSVReaderController.class.getName());
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
         logger.setLevel(Level.INFO);
         String[] readings = new String[3];
         readings[0] = "RF12345";

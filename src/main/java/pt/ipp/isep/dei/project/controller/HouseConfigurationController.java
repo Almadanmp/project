@@ -32,6 +32,7 @@ public class HouseConfigurationController {
         return result;
     }
 
+
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
     /**
