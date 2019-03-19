@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 
 public class CSVReaderController {
 
+    int counter;
+
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
      * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
@@ -31,6 +33,7 @@ public class CSVReaderController {
         CSVReader csvRead = new CSVReader();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = geographicAreaList.getAreaListSensors();
+        this.counter = list.size();
         if (!fullSensorList.isEmpty()) {
             try {
                 Logger logger = Logger.getLogger(CSVReaderController.class.getName());
@@ -45,6 +48,7 @@ public class CSVReaderController {
                 return false;
             }
         }
+        System.out.println(this.counter + " Readings have been successfully imported.");
         return true;
     }
 
@@ -85,6 +89,7 @@ public class CSVReaderController {
                 String readID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
                 if (logger.isLoggable(Level.WARNING) && !sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
+                    this.counter--;
                     logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
                 }
             } catch (NumberFormatException nfe) {
