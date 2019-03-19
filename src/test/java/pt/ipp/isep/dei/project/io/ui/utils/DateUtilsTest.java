@@ -2,10 +2,24 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static org.testng.Assert.*;
 
 class DateUtilsTest {
+
+    @Test
+    void formatDateNoTime(){
+        GregorianCalendar cal = new GregorianCalendar(2018, Calendar.JANUARY,12);
+        Date date = cal.getTime();
+        String expectedResult = "12/01/2018";
+
+        String result = DateUtils.formatDateNoTime(date);
+
+        assertEquals(expectedResult,result);
+    }
 
     @Test
     void isJanuaryMarchMay() {

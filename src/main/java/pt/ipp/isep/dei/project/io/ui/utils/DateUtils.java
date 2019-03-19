@@ -39,7 +39,7 @@ public class DateUtils {
      * @param date input date to format
      * @return string that represents the input date but without hour, min. sec
      */
-     public static String formatDateNoTime(Date date) {
+    public static String formatDateNoTime(Date date) {
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
     }
