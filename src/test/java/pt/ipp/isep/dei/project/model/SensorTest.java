@@ -1122,6 +1122,23 @@ class SensorTest {
         assertFalse(addOutOfBoundsReading);
         assertTrue(addOnBoundsReading);
     }
+
+    @Test
+    void seeIfAddReadingsWorksDeactivatedDevice() {
+        // Arrange
+
+        validSensor.setDateStartedFunctioning(new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
+        validSensor.activateOrDeactivate();
+        // Act
+
+        boolean addValidReading = validSensor.addReading(new GregorianCalendar(2019, Calendar.JANUARY,
+                1).getTime(), 20D);
+
+
+        // Assert
+
+        assertFalse(addValidReading);
+    }
 }
 
 
