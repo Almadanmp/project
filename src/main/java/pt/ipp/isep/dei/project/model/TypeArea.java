@@ -1,12 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * The TypeArea class.
  * A TypeArea is has a name (designation).
  * We cannot create two TypeAreas with the same name.
  */
-
+@Entity
 public class TypeArea {
+
+    @Id
     private String name;
 
     /**
@@ -16,6 +21,9 @@ public class TypeArea {
      */
     public TypeArea(String nameGiven) {
         this.name = nameGiven;
+    }
+
+    protected TypeArea() {
     }
 
     /**

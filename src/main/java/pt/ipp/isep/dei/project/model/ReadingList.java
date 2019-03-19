@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.*;
 import java.util.*;
 
 import static java.lang.Double.NaN;
@@ -7,10 +8,15 @@ import static java.lang.Double.NaN;
 /**
  * This is the ReadingList Class, a List of Readings that the Sensor receives.
  */
-
+@Entity
 public class ReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long Id;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reading> readings;
 
     /**

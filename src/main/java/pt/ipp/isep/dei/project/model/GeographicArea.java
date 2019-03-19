@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,11 +12,16 @@ import java.util.UUID;
 public class GeographicArea {
 
     private String id;
+    @ManyToOne
     private TypeArea typeArea;
     private double length;
     private double width;
+    @ManyToOne
     private GeographicArea motherArea;
+    @ManyToOne
     private Local location;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private SensorList areaSensors;
     private String description;
     @Id

@@ -16,10 +16,7 @@ public class Application {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     private static final GeographicAreaList list = new GeographicAreaList();
 
-    public static void main(String[] args, GeographicAreaList list) {
-        for (GeographicArea geographicArea : list.getElementsAsArray()){
-            Application.list.addGeographicArea(geographicArea);
-        }
+    public static void main(String[] args) {
         SpringApplication.run(Application.class);
     }
 
@@ -28,9 +25,6 @@ public class Application {
         return (args) -> {
             // save Geographic Areas from file
 
-            for (GeographicArea geographicArea : list.getElementsAsArray() ){
-                repository.save(geographicArea);
-            }
 
             // fetch all Geographic Areas
 
