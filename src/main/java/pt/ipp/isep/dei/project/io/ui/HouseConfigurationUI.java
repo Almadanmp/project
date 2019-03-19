@@ -56,10 +56,6 @@ class HouseConfigurationUI {
                     runUS108(house);
                     activeInput = false;
                     break;
-                case 6:
-                    runUS15v2(list);
-                    activeInput = false;
-                    break;
                 case 0:
                     return;
                 default:
