@@ -402,6 +402,11 @@ public class House implements Metered {
         return this.energyGridList.createEnergyGrid(designation, maxPower);
     }
 
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     * @param o is the object we want to check for equality.
+     * @return is true if the object is a house with the same address.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
