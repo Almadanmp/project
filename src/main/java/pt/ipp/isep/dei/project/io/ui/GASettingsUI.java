@@ -303,9 +303,8 @@ class GASettingsUI {
     }
 
     private void runUS10(GeographicAreaList geographicAreaList) {
-        UtilsUI utilsUI = new UtilsUI();
         GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
-        if (!utilsUI.geographicAreaSensorListIsValid(geographicArea)) {
+        if (geographicArea.isSensorListEmpty()) {
             UtilsUI.printMessage(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }

@@ -25,8 +25,7 @@ class RoomConfigurationUI {
     }
 
     void run(House house, TypeSensorList typeSensorList) {
-        UtilsUI utils = new UtilsUI();
-        if (!utils.houseRoomListIsValid(house)) {
+        if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -85,13 +84,12 @@ class RoomConfigurationUI {
      * Prints device List in that room.
      */
     private void runUS201(House house) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(house)) {
+        if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
         Room room = InputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room)) {
+        if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
@@ -111,8 +109,7 @@ class RoomConfigurationUI {
      */
 
     private void runUS210(House house) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(house)) {
+        if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -171,9 +168,8 @@ class RoomConfigurationUI {
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
     private void runUS215(House house) {
-        UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room)) {
+        if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
@@ -205,10 +201,9 @@ class RoomConfigurationUI {
         System.out.println("Please insert the value for: Nominal Power (kW)");
         controller.setNominalPowerDevice(device, InputUtils.getInputAsDoubleZeroOrPositive());
         if (device instanceof Programmable) {
-            UtilsUI utilsUI = new UtilsUI();
             System.out.println("This device is programmable.");
             ProgramList programList = controller.getProgramList((Programmable) device);
-            if (!utilsUI.programListIsValid(programList)) {
+            if (programList.isEmpty()) {
                 System.out.println(UtilsUI.INVALID_PROGRAM_LIST);
                 return;
             }
@@ -319,9 +314,8 @@ class RoomConfigurationUI {
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
     private void runUS222(House house) {
-        UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room)) {
+        if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
@@ -361,8 +355,7 @@ class RoomConfigurationUI {
     }
 
     private void displaySensorListUS250(Room room) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.roomSensorListIsValid(room)) {
+        if (room.isSensorListEmpty()) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
@@ -434,9 +427,8 @@ class RoomConfigurationUI {
     Its activity log is also removed.
     MARIA MEIRELES*/
     private void runUS220(House house) {
-        UtilsUI utilsUI = new UtilsUI();
         Room room = InputUtils.getHouseRoomByList(house);
-        if (!utilsUI.roomDeviceListIsValid(room)) {
+        if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }

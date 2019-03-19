@@ -79,13 +79,12 @@ class EnergyConsumptionUI {
     //in the grid.
 
     private void runUS172(House house) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseGridListIsValid(house)) {
+        if (house.isEnergyGridListEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
         EnergyGrid mEnergyGrid = InputUtils.getInputGridByList(house);
-        if (!utilsUI.gridRoomListIsValid(mEnergyGrid)) {
+        if (mEnergyGrid.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -107,8 +106,7 @@ class EnergyConsumptionUI {
     // and/or devices of my choosing connected to a grid.
 
     private void runUS705(House programHouse) {
-        UtilsUI utils = new UtilsUI();
-        if (!utils.houseGridListIsValid(programHouse)) {
+        if (programHouse.isEnergyGridListEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
@@ -268,7 +266,7 @@ class EnergyConsumptionUI {
             return;
         }
         Device device = InputUtils.getInputRoomDTODevicesByList(room, house);
-        if (!utilsUI.deviceLogListIsValid(device)) {
+        if (device.isLogListEmpty()) {
             System.out.println("This device has no energy consumption logs.");
             return;
         }
@@ -287,8 +285,7 @@ class EnergyConsumptionUI {
      */
 
     private void runUS721(House programHouse) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(programHouse)) {
+        if (programHouse.isRoomListEmpty()) {
             System.out.print(UtilsUI.INVALID_ROOM_LIST);
         }
         Room room = InputUtils.getHouseRoomByList(programHouse);
