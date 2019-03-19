@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
@@ -10,6 +11,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.reader.JSONReader;
 
 import java.io.File;
 import java.util.List;
@@ -26,9 +28,10 @@ public class InputUtils {
     /**
      * Method used to introduce a pause, usually after information is displayed to the user. Prompts user to press
      * ENTER to continue.
+     *
      * @param scanner is a generic stdin scanner.
      */
-    public  static void returnToMenu(Scanner scanner) {
+    public static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
@@ -36,10 +39,11 @@ public class InputUtils {
 
     /**
      * Method to select a particular geographic area from the list of geographic areas available to the program.
+     *
      * @param geographicAreaList is the list of geographic areas available to the program.
      * @return is the selected geographic area.
      */
-    public  static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
+    public static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.buildString());
@@ -58,6 +62,7 @@ public class InputUtils {
     /**
      * Method that returns a particular Room from a list of the program's house available rooms, according to the user's
      * choice by index.
+     *
      * @param house is the program's house.
      * @return is the chosen room.
      */
@@ -80,6 +85,7 @@ public class InputUtils {
 
     /**
      * Method that shows the user a list of the house's available rooms, then prompts him to choose one by index.
+     *
      * @param house is the program's house.
      * @return is the chosen room.
      */
@@ -102,6 +108,7 @@ public class InputUtils {
     /**
      * Method that shows the user a list of the rooms connected to a particular grid, then prompts him to choose one by
      * index.
+     *
      * @param grid is the grid we want to choose rooms from.
      * @return is the chosen room.
      */
@@ -124,10 +131,11 @@ public class InputUtils {
     /**
      * Method that shows the user a list of the devices connected to all the rooms in a particular grid, then prompts him
      * to choose one by index.
+     *
      * @param grid is the grid we want to choose a device from.
      * @return is the chosen device.
      */
-    public   static Device getGridDevicesByList(EnergyGrid grid) {
+    public static Device getGridDevicesByList(EnergyGrid grid) {
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(grid.buildDeviceListString());
@@ -146,6 +154,7 @@ public class InputUtils {
     /**
      * Method that shows the user the list of programs available in a given programmable device, then asks the user
      * to choose one by index.
+     *
      * @param device is the programmable device we want to choose a program from.
      * @return is the chosen program.
      */
@@ -169,11 +178,12 @@ public class InputUtils {
     /**
      * Method that shows the user a list of all the devices included in a given room DTO, and then prompts the user
      * to choose one by index.
-     * @param room is the room DTO we want to get the list from.
+     *
+     * @param room  is the room DTO we want to get the list from.
      * @param house is the program's house.
      * @return is the selected Device.
      */
-   public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
+    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
         Mapper mapper = new Mapper();
         while (true) {
@@ -194,6 +204,7 @@ public class InputUtils {
     /**
      * Method that shows the user a list of all the devices included in a given room, and then prompts the user
      * to choose one by index.
+     *
      * @param room is the room DTO we want to get the list from.
      * @return is the selected Device.
      */
@@ -217,6 +228,7 @@ public class InputUtils {
     /**
      * Method that shows the user a list of all the grids that exist in the program's house, and then prompts him
      * to choose based on index.
+     *
      * @param house is the program's house.
      * @return is the chosen energy grid.
      */
@@ -240,6 +252,7 @@ public class InputUtils {
     /**
      * Method that shows the user a list of all the available types of sensor the program has, then prompts him to choose
      * one based on index.
+     *
      * @param typeSensorList is the list of available types of sensor.
      * @return is the chosen type of sensor.
      */
@@ -261,6 +274,7 @@ public class InputUtils {
 
     /**
      * Method that shows the user a given sensor list, then prompts him to choose one of the sensors by index.
+     *
      * @param sensorList is the sensor list we want to choose a sensor from.
      * @return is the chosen sensor.
      */
@@ -283,6 +297,7 @@ public class InputUtils {
     /**
      * Method that shows the user the list of available device types in the program, then prompts him to choose one by
      * index.
+     *
      * @param house is the program's house.
      * @return is the chosen device type.
      */
@@ -306,6 +321,7 @@ public class InputUtils {
 
     /**
      * Method that asks the user a question, then loops getting input from the user until he replies with yes or no.
+     *
      * @param question is the question we want to ask the user.
      * @return true if user answers yes, false if user answers no.
      */
@@ -345,7 +361,7 @@ public class InputUtils {
      *
      * @return value read from the user
      */
-   public static int getInputAsInt() {
+    public static int getInputAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
             System.out.println(UtilsUI.INVALID_OPTION);
@@ -361,7 +377,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-  public  static Double getInputAsDouble() {
+    public static Double getInputAsDouble() {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
             System.out.println(UtilsUI.INVALID_NUMBER);
@@ -376,7 +392,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-   public static Double getInputAsDoublePositive() {
+    public static Double getInputAsDoublePositive() {
         double input = -1.0;
         while (input < 0) {
             input = getInputAsDouble();
@@ -390,7 +406,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-  public  static Double getInputAsDoubleZeroOrPositive() {
+    public static Double getInputAsDoubleZeroOrPositive() {
         double input = -1.0;
         while (input <= 0) {
             input = getInputAsDouble();
@@ -398,34 +414,38 @@ public class InputUtils {
         return input;
     }
 
+
     /**
-     * Gets input of a filepath. For now, this file is either a .csv file or a .json file, since those are the only kind
-     * of files the program is ready to manipulate.
+     * Gets input of a filepath for an XML or JSON file.
      *
      * @return returns a filepath.
      */
-    public  String getInputJSONPath(String result) {
+    public String getInputJSONOrXMLPath(String result) {
         Scanner scanner = new Scanner(System.in);
-
-        while (!(result.endsWith(".json")) || !new File(result).exists()) {
-            System.out.println("Please enter a valid json path");
+        while (!new File(result).exists()) {
+            System.out.println("Please enter a valid path");
             result = scanner.next();
         }
         return result;
     }
 
     /**
-     * Gets input of a filepath for an XML file.
+     * Reads either a .json ou a .xml path
      *
-     * @return returns a filepath.
+     * @param input   - input of user
+     * @param filePath - the path to the file
+     * @param list     - the GeographicAreaList provided
      */
-    public String getInputXMLPath(String result) {
-        Scanner scanner = new Scanner(System.in);
-        while (!(result.endsWith(".xml")) || !new File(result).exists()) {
-            System.out.println("Please enter a valid XML path");
-            result = scanner.next();
+    public void readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
+        if (input.endsWith(".json")) {
+            JSONReader reader = new JSONReader();
+            int areasRead = reader.readFile(filePath, list);
+            System.out.println(areasRead + " Geographic Areas have been successfully imported.");
         }
-        return result;
+        if (input.endsWith(".xml")) {
+            ReaderController controller = new ReaderController();
+            controller.readFileXML(filePath, list);
+        }
     }
 
     /**
