@@ -92,5 +92,4 @@ public class PowerSourceList {
     public int hashCode() {
         return 1;
     }
-
 }
