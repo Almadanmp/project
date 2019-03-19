@@ -20,7 +20,16 @@ public class House implements Metered {
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
 
-    // Constructor
+    /**
+     * Standard constructor for a house object.
+     * @param id is the id of the house.
+     * @param address is the address of the house. An address is made up of several pieces of data, like the street and
+     *                the zip code the house is in.
+     * @param mLocation is the location of the central point of the house, in latitude, longitude and altitude coordinates.
+     * @param gridMeteringPeriod is the metering period of grids contained in the house.
+     * @param deviceMeteringPeriod is the metering period of devices contained in the house.
+     * @param deviceTypeConfig is the list of possible device types that the house supports.
+     */
 
     public House(String id, Address address, Local mLocation, int gridMeteringPeriod,
                  int deviceMeteringPeriod, List<String> deviceTypeConfig) {
@@ -187,7 +196,9 @@ public class House implements Metered {
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
         SensorList minDistSensor = new SensorList();
-        Sensor sensorError = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", " "), new Local(0, 0, 0), new GregorianCalendar(1900, 1, 1).getTime());
+        Sensor sensorError = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", " " +
+                ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+                1).getTime());
         SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);

@@ -94,6 +94,11 @@ public class EnergyGridList {
         return result;
     }
 
+    /**
+     * Method that builds a string of every grid contained in the grid list, using their name and maximum contracted power,
+     * and assigning an index to each one of them.
+     * @return a string that is the list of all grids present in the grid list.
+     */
     public String buildString() {
         String mStringEnhancer = "---------------\n";
         StringBuilder result = new StringBuilder(mStringEnhancer);
