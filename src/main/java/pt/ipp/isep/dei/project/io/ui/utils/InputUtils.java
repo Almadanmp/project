@@ -23,12 +23,23 @@ public class InputUtils {
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
     private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";
 
+    /**
+     * Method used to introduce a pause, usually after information is displayed to the user. Prompts user to press
+     * ENTER to continue.
+     * @param scanner is a generic stdin scanner.
+     */
+
     public  static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
     }
 
+    /**
+     * Method to select a particular geographic area from the list of geographic areas available to the program.
+     * @param geographicAreaList is the list of geographic areas available to the program.
+     * @return is the selected geographic area.
+     */
     public  static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
@@ -45,7 +56,13 @@ public class InputUtils {
         }
     }
 
-    public  static RoomDTO getHouseRoomDTOByList(House house) {
+    /**
+     * Method that returns a particular Room from a list of the program's house available rooms, according to the user's
+     * choice by index.
+     * @param house is the program's house.
+     * @return is the chosen room.
+     */
+    public static RoomDTO getHouseRoomDTOByList(House house) {
         Mapper mapper = new Mapper();
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
@@ -61,6 +78,12 @@ public class InputUtils {
             }
         }
     }
+
+    /**
+     * Method that shows the user a list of the house's available rooms, then prompts him to choose one by index.
+     * @param house is the program's house.
+     * @return is the chosen room.
+     */
 
     public static Room getHouseRoomByList(House house) {
         while (true) {
@@ -78,6 +101,13 @@ public class InputUtils {
         }
     }
 
+    /**
+     * Method that shows the user a list of the rooms connected to a particular grid, then prompts him to choose one by
+     * index.
+     * @param grid is the grid we want to choose rooms from.
+     * @return is the chosen room.
+     */
+
     public static Room getGridRoomByList(EnergyGrid grid) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
@@ -93,6 +123,13 @@ public class InputUtils {
             }
         }
     }
+
+    /**
+     * Method that shows the user a list of the devices connected to all the rooms in a particular grid, then prompts him
+     * to choose one by index.
+     * @param grid is the grid we want to choose a device from.
+     * @return is the chosen device.
+     */
 
     public   static Device getGridDevicesByList(EnergyGrid grid) {
         while (true) {
@@ -110,6 +147,13 @@ public class InputUtils {
         }
     }
 
+    /**
+     * Method that shows the user the list of programs available in a given programmable device, then asks the user
+     * to choose one by index.
+     * @param device is the programmable device we want to choose a program from.
+     * @return is the chosen program.
+     */
+
     public static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
@@ -126,6 +170,14 @@ public class InputUtils {
             }
         }
     }
+
+    /**
+     * Method that shows the user a list of all the devices included in a given room DTO, and then prompts the user
+     * to choose one by index.
+     * @param room is the room DTO we want to get the list from.
+     * @param house is the program's house.
+     * @return is the selected Device.
+     */
 
    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
@@ -145,7 +197,14 @@ public class InputUtils {
         }
     }
 
-    public    static Device getInputRoomDevicesByList(Room room) {
+    /**
+     * Method that shows the user a list of all the devices included in a given room, and then prompts the user
+     * to choose one by index.
+     * @param room is the room DTO we want to get the list from.
+     * @return is the selected Device.
+     */
+
+    public static Device getInputRoomDevicesByList(Room room) {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
@@ -161,6 +220,13 @@ public class InputUtils {
             }
         }
     }
+
+    /**
+     * Method that shows the user a list of all the grids that exist in the program's house, and then prompts him
+     * to choose based on index.
+     * @param house is the program's house.
+     * @return is the chosen energy grid.
+     */
 
     public static EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
@@ -179,6 +245,13 @@ public class InputUtils {
         }
     }
 
+    /**
+     * Method that shows the user a list of all the available types of sensor the program has, then prompts him to choose
+     * one based on index.
+     * @param typeSensorList is the list of available types of sensor.
+     * @return is the chosen type of sensor.
+     */
+
     public static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
         while (true) {
             System.out.println("Please select a type of sensor from the list:");
@@ -195,7 +268,13 @@ public class InputUtils {
         }
     }
 
-    public  static Sensor getInputSensorByList(SensorList sensorList) {
+    /**
+     * Method that shows the user a given sensor list, then prompts him to choose one of the sensors by index.
+     * @param sensorList is the sensor list we want to choose a sensor from.
+     * @return is the chosen sensor.
+     */
+
+    public static Sensor getInputSensorByList(SensorList sensorList) {
         while (true) {
             System.out.println("Please select a sensor from the list:");
             System.out.println(sensorList.toString());
@@ -211,6 +290,12 @@ public class InputUtils {
         }
     }
 
+    /**
+     * Method that shows the user the list of available device types in the program, then prompts him to choose one by
+     * index.
+     * @param house is the program's house.
+     * @return is the chosen device type.
+     */
 
     public static DeviceType getInputDeviceTypeByList(House house) {
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
@@ -229,6 +314,12 @@ public class InputUtils {
             }
         }
     }
+
+    /**
+     * Method that asks the user a question, then loops getting input from the user until he replies with yes or no.
+     * @param question is the question we want to ask the user.
+     * @return true if user answers yes, false if user answers no.
+     */
 
     public static boolean yesOrNo(String question) {
         String answer = "";
