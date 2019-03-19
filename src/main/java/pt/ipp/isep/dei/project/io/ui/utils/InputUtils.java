@@ -443,7 +443,6 @@ public class InputUtils {
         while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
             UtilsUI.printMessage("Please enter a valid  CSV path");
             csvFileLocation = scanner.next();
-
         }
         return csvFileLocation;
     }
