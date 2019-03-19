@@ -21,6 +21,10 @@ public class Sensor {
 
 
     /**
+     * Empty constructor to import Sensors from a XML file.
+     */
+    public Sensor(){};
+    /**
      * Sensor() constructor with 5 parameters.
      *
      * @param id                     is the id we want to set to the Sensor.

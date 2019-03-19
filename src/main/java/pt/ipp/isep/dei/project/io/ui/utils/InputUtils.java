@@ -335,9 +335,9 @@ public class InputUtils {
         }
         return result;
     }
+
     /**
-     * Gets input of a filepath. For now, this file is either a .csv file, a .xml file or a .json file, since those are
-     * the only kind of files the program is ready to manipulate.
+     * Gets input of a filepath for an XML file.
      *
      * @return returns a filepath.
      */

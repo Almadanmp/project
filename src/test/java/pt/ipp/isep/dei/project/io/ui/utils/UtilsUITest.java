@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
@@ -22,7 +21,6 @@ public class UtilsUITest {
 
     // Common artifacts for testing in this class.
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-
 
 
     @Test
@@ -73,15 +71,15 @@ public class UtilsUITest {
         Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
-                new Local(20, 20, 20),  60,
+                new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = mapper.roomToDTO(room1);
 
-        boolean result1 = utilsUI.roomDTOSensorListIsValid(roomDTO,validHouse);
-        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO,validHouse);
+        boolean result1 = utilsUI.roomDTOSensorListIsValid(roomDTO, validHouse);
+        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO, validHouse);
 
         //ASSERT
         assertFalse(result1);
@@ -92,7 +90,7 @@ public class UtilsUITest {
     public void roomListsAreValid() {
         Room room1 = new Room("room1", 19, 23456789, 5, 3);
         GregorianCalendar date = new GregorianCalendar(2010, 11, 2, 12, 12);
-        Sensor sensor1 = new Sensor("RF12345","sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
+        Sensor sensor1 = new Sensor("RF12345", "sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         room1.addSensor(sensor1);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -107,8 +105,8 @@ public class UtilsUITest {
         RoomDTO roomDTO = mapper.roomToDTO(room1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
-        boolean result1 = utilsUI.roomDTOSensorListIsValid(roomDTO,validHouse);
-        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO,validHouse);
+        boolean result1 = utilsUI.roomDTOSensorListIsValid(roomDTO, validHouse);
+        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO, validHouse);
 
         //ASSERT
         assertTrue(result1);
@@ -201,7 +199,7 @@ public class UtilsUITest {
     public void geographicAreaSensorListIsValid() {
         GeographicArea geographicArea = new GeographicArea("Porto", new TypeArea("Cidade"), 20, 20, new Local(20, 20, 20));
         GregorianCalendar date = new GregorianCalendar(2010, 11, 2, 12, 12);
-        Sensor sensor1 = new Sensor("RF12345","sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
+        Sensor sensor1 = new Sensor("RF12345", "sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         geographicArea.addSensor(sensor1);
         UtilsUI utilsUI = new UtilsUI();
         //ACT
@@ -233,7 +231,7 @@ public class UtilsUITest {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -249,6 +247,6 @@ public class UtilsUITest {
 
         //Assert
 
-        assertNotEquals(expectedResult,actualResult);
+        assertNotEquals(expectedResult, actualResult);
     }
 }
