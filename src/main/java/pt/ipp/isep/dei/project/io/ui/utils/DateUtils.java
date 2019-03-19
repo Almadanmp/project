@@ -189,7 +189,7 @@ public class DateUtils {
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-      static int getInputDateAsInt(Scanner scan, String dataType) {
+     private static int getInputDateAsInt(Scanner scan, String dataType) {
         System.out.println("Enter a " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
