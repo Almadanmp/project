@@ -111,7 +111,7 @@ public class House implements Metered {
         }
     }
 
-    public double getAltitude(){
+    public double getAltitude() {
         return this.location.getAltitude();
     }
 
@@ -267,9 +267,19 @@ public class House implements Metered {
         return this.energyGridList.addGrid(energyGrid);
     }
 
-
+    /**
+     * Method to get the energy consumption of the house
+     *
+     * @param time the consumption will be calculated for the input time
+     * @return energy consumption on all house devices on a given time.
+     */
     public double getEnergyConsumption(float time) {
-        throw new UnsupportedOperationException("This operation is unsupported.");
+        DeviceList deviceList = getDeviceList();
+        double result = 0.0;
+        for (int i = 0; i < deviceList.size(); i++) {
+            result += deviceList.get(i).getEnergyConsumption(time);
+        }
+        return result;
     }
 
     /**

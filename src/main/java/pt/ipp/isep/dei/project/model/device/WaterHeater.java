@@ -99,7 +99,7 @@ public class WaterHeater implements Device, Metered {
     }
 
     /**
-     * Method determines the amount of data logs that fall within a given time interval.
+     * Method determines the amount of data logs that fall within a given time interval.getDeviceList
      *
      * @param initialTime is the start time of the interval.
      * @param finalTime   is the end time of the interval.
@@ -153,7 +153,6 @@ public class WaterHeater implements Device, Metered {
      * @param time time in minutes
      * @return an estimate energy consumption for a water heater
      */
-
     public double getEnergyConsumption(float time) {
         double volumeOfWaterToHeat = (double) deviceSpecs.getAttributeValue("Volume Of Water To Heat");
         double performanceRatio = (double) deviceSpecs.getAttributeValue("Performance Ratio");

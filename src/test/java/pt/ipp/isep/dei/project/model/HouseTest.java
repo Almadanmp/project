@@ -365,7 +365,7 @@ class HouseTest {
     }
 
     @Test
-    void seeIfIsMotherAreaNullBothConditions(){
+    void seeIfIsMotherAreaNullBothConditions() {
         // Act
 
         boolean actualResult1 = validHouse.isMotherAreaNull();
@@ -762,14 +762,11 @@ class HouseTest {
     }
 
     @Test
-    void seeIfGetEnergyConsumptionThrowsException() {
-        //Act
+    void seeIfGetEnergyConsumption() {
+        double expectedResult = 0.0;
 
-        Throwable exception = assertThrows(UnsupportedOperationException.class, () -> validHouse.getEnergyConsumption(0));
-
-        //Assert
-
-        Assertions.assertEquals("This operation is unsupported.", exception.getMessage());
+        double result = validHouse.getEnergyConsumption(10);
+        assertEquals(expectedResult, result);
     }
 
     @Test

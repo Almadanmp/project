@@ -2,12 +2,8 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 /**
  * Utility class that aggregates common methods used by the UI classes.
@@ -28,52 +24,16 @@ public class UtilsUI {
     public static final String INVALID_PROGRAM_LIST = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
 
-    public boolean houseRoomListIsValid(House house) {
-        return !house.isRoomListEmpty();
-    }
-
     public  boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
-    public boolean roomSensorListIsValid(Room room) {
-        return room.getSensorList() != null && !room.isSensorListEmpty();
-    }
-
-    public   boolean houseGridListIsValid(House house) {
-        return house.getGridList() != null && !house.isEnergyGridListEmpty();
-    }
-
-    public    boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getDeviceList() != null && !energyGrid.isDeviceListEmpty();
-    }
-
-    public    boolean gridRoomListIsValid(EnergyGrid energyGrid) {
-        return energyGrid.getRoomList() != null && !energyGrid.isRoomListEmpty();
-    }
-
-    public   boolean programListIsValid(ProgramList programList) {
-        return programList != null && !programList.isEmpty();
-    }
-
     public   boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
-    }
-
-    public  boolean roomDeviceListIsValid(Room room) {
-        return room.getDeviceList() != null && !room.isDeviceListEmpty();
-    }
-
-    public  boolean deviceLogListIsValid(Device device) {
-        return (!device.isLogListEmpty());
-    }
-
-    public boolean geographicAreaSensorListIsValid(GeographicArea geographicArea) {
-        return geographicArea.getSensorList() != null && !geographicArea.isSensorListEmpty();
     }
 
     /**

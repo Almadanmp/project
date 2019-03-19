@@ -787,11 +787,11 @@ class SensorTest {
 
         // Act
 
-       boolean result = sensor.activateOrDeactivate();
+       boolean actualResult = sensor.activateOrDeactivate();
 
         // Assert
 
-        Assertions.assertTrue(result);
+        Assertions.assertTrue(actualResult);
     }
 
     @Test
@@ -861,6 +861,23 @@ class SensorTest {
         // Assert
 
         assertTrue(actualResult1);
+        assertFalse(actualResult3);
+    }
+
+    @Test
+    void seeIfAddReadingsWorksNotActiveResult() {
+        // Arrange
+
+        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        validSensor.activateOrDeactivate();
+        // Act
+
+        boolean actualResult1 = validSensor.addReading(reading1);
+        boolean actualResult3 = validSensor.addReading(reading1);
+
+        // Assert
+
+        assertFalse(actualResult1);
         assertFalse(actualResult3);
     }
 

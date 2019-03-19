@@ -23,7 +23,9 @@ public class Sensor {
     /**
      * Empty constructor to import Sensors from a XML file.
      */
-    public Sensor(){};
+    public Sensor() {
+    }
+
     /**
      * Sensor() constructor with 5 parameters.
      *
@@ -182,21 +184,30 @@ public class Sensor {
         return this.active;
     }
 
+    /**
+     * Settter: sets the sensor active
+     */
+
     public void setActive() {
         this.active = true;
     }
 
+    /**
+     * Method to activate an deactivated sensor, and vice versa
+     *
+     * @return active or not
+     */
+
     public boolean activateOrDeactivate() {
-        if (isActive()) {
-            return this.active = false;
-        } else {
+        if (!isActive()) {
             return this.active = true;
         }
+        return this.active = false;
     }
 
     /**
      * Checks if reading already exists in reading list and in case the
-     * reading is new, adds it to the reading list.
+     * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
      *
      * @param reading the reading to be added to the list
      * @return true in case the reading is new and it is added
@@ -204,7 +215,10 @@ public class Sensor {
      **/
 
     public boolean addReading(Reading reading) {
-        return readingList.addReading(reading);
+        if (this.active) {
+            return readingList.addReading(reading);
+        }
+        return false;
     }
 
     /**
@@ -217,11 +231,13 @@ public class Sensor {
      * @author André
      */
     public boolean addReading(Date date, Double value) {
-        Date startingDate = this.getDateStartedFunctioning();
-        if (date.after(startingDate) || date.equals(startingDate)) {
-            Reading reading = new Reading(value, date);
-            this.addReading(reading);
-            return true;
+        if (this.active) {
+            Date startingDate = this.getDateStartedFunctioning();
+            if (date.after(startingDate) || date.equals(startingDate)) {
+                Reading reading = new Reading(value, date);
+                this.addReading(reading);
+                return true;
+            }
         }
         return false;
     }
@@ -284,6 +300,9 @@ public class Sensor {
         return result;
     }
 
+    /**
+     * Method to print info if a sensor is active or not.
+     */
     String printActive() {
         if (!this.active) {
             return "Deactivated";

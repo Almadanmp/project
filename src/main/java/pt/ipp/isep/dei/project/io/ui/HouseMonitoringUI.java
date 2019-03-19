@@ -101,7 +101,7 @@ public class HouseMonitoringUI {
      */
     private void runUS605(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!utilsUI.houseRoomListIsValid(house)) {
+        if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -131,7 +131,7 @@ public class HouseMonitoringUI {
      */
     private void runUS610(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        if (!(utilsUI.houseRoomListIsValid(house))) {
+        if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
