@@ -404,10 +404,9 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-    public  String getInputJSONPath() {
+    public  String getInputJSONPath(String result) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please insert the location of the file you want to import:");
-        String result = scanner.next();
+
         while (!(result.endsWith(".json")) || !new File(result).exists()) {
             System.out.println("Please enter a valid json path");
             result = scanner.next();
@@ -420,10 +419,8 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-    public String getInputXMLPath() {
+    public String getInputXMLPath(String result) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please insert the location of the file you want to import:");
-        String result = scanner.next();
         while (!(result.endsWith(".xml")) || !new File(result).exists()) {
             System.out.println("Please enter a valid XML path");
             result = scanner.next();
