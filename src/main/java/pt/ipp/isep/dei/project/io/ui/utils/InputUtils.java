@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.io.ui;
+package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
@@ -23,13 +23,13 @@ public class InputUtils {
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
     private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";
 
-    static void returnToMenu(Scanner scanner) {
+    public  static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
     }
 
-    static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
+    public  static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaList.buildString());
@@ -45,7 +45,7 @@ public class InputUtils {
         }
     }
 
-    static RoomDTO getHouseRoomDTOByList(House house) {
+    public  static RoomDTO getHouseRoomDTOByList(House house) {
         Mapper mapper = new Mapper();
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
@@ -62,7 +62,7 @@ public class InputUtils {
         }
     }
 
-    static Room getHouseRoomByList(House house) {
+    public static Room getHouseRoomByList(House house) {
         while (true) {
             System.out.println("Please select one of the existing rooms: ");
             System.out.println(house.buildRoomListString());
@@ -78,7 +78,7 @@ public class InputUtils {
         }
     }
 
-    static Room getGridRoomByList(EnergyGrid grid) {
+    public static Room getGridRoomByList(EnergyGrid grid) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(grid.buildRoomListString());
@@ -94,7 +94,7 @@ public class InputUtils {
         }
     }
 
-    static Device getGridDevicesByList(EnergyGrid grid) {
+    public   static Device getGridDevicesByList(EnergyGrid grid) {
         while (true) {
             System.out.println(SELECT_DEVICES);
             System.out.println(grid.buildDeviceListString());
@@ -110,7 +110,7 @@ public class InputUtils {
         }
     }
 
-    static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
+    public static FixedTimeProgram getSelectedProgramFromDevice(Programmable device) {
         while (true) {
             ProgramList deviceProgramList = device.getProgramList();
             System.out.println("Please select one of the existing program in the selected program List: ");
@@ -127,7 +127,7 @@ public class InputUtils {
         }
     }
 
-    static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
+   public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
         Mapper mapper = new Mapper();
         while (true) {
@@ -145,7 +145,7 @@ public class InputUtils {
         }
     }
 
-    static Device getInputRoomDevicesByList(Room room) {
+    public    static Device getInputRoomDevicesByList(Room room) {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
@@ -162,7 +162,7 @@ public class InputUtils {
         }
     }
 
-    static EnergyGrid getInputGridByList(House house) {
+    public static EnergyGrid getInputGridByList(House house) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
@@ -179,7 +179,7 @@ public class InputUtils {
         }
     }
 
-    static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
+    public static TypeSensor getInputSensorTypeByList(TypeSensorList typeSensorList) {
         while (true) {
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(typeSensorList.buildString());
@@ -195,7 +195,7 @@ public class InputUtils {
         }
     }
 
-    static Sensor getInputSensorByList(SensorList sensorList) {
+    public  static Sensor getInputSensorByList(SensorList sensorList) {
         while (true) {
             System.out.println("Please select a sensor from the list:");
             System.out.println(sensorList.toString());
@@ -212,7 +212,7 @@ public class InputUtils {
     }
 
 
-    static DeviceType getInputDeviceTypeByList(House house) {
+    public static DeviceType getInputDeviceTypeByList(House house) {
         List<DeviceType> deviceTypeList = house.getDeviceTypeList();
         while (true) {
             System.out.println("Please select one of the device types: ");
@@ -230,7 +230,7 @@ public class InputUtils {
         }
     }
 
-    static boolean yesOrNo(String question) {
+    public static boolean yesOrNo(String question) {
         String answer = "";
         Scanner scanner = new Scanner(System.in);
         while (!("y".equalsIgnoreCase(answer)) && !("n".equalsIgnoreCase(answer))) {
@@ -250,7 +250,7 @@ public class InputUtils {
      *
      * @return String with user input
      */
-    static String getInputStringAlphabetCharOnly() {
+    public static String getInputStringAlphabetCharOnly() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNext("[a-zA-Z_]+")) {
             System.out.println("That's not a valid option. Please enter alphabetic characters only.");
@@ -266,7 +266,7 @@ public class InputUtils {
      *
      * @return value read from the user
      */
-    static int getInputAsInt() {
+   public static int getInputAsInt() {
         Scanner scan = new Scanner(System.in);
         while (!scan.hasNextDouble()) {
             System.out.println(UtilsUI.INVALID_OPTION);
@@ -282,7 +282,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    static Double getInputAsDouble() {
+  public  static Double getInputAsDouble() {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextDouble()) {
             System.out.println(UtilsUI.INVALID_NUMBER);
@@ -297,7 +297,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    static Double getInputAsDoublePositive() {
+   public static Double getInputAsDoublePositive() {
         double input = -1.0;
         while (input < 0) {
             input = getInputAsDouble();
@@ -311,7 +311,7 @@ public class InputUtils {
      *
      * @return value read from user
      */
-    static Double getInputAsDoubleZeroOrPositive() {
+  public  static Double getInputAsDoubleZeroOrPositive() {
         double input = -1.0;
         while (input <= 0) {
             input = getInputAsDouble();
@@ -325,7 +325,7 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-    String getInputJSONPath() {
+    public  String getInputJSONPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the file you want to import:");
         String result = scanner.next();
@@ -341,7 +341,7 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-    String getInputXMLPath() {
+    public String getInputXMLPath() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert the location of the file you want to import:");
         String result = scanner.next();
@@ -357,7 +357,7 @@ public class InputUtils {
      *
      * @author Andre (US20)
      */
-    String getInputCSVPath() {
+    public String getInputCSVPath() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the CSV file");
         String csvFileLocation = scanner.next();

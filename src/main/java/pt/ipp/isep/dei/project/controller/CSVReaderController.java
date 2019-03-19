@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.io.ui.UtilsUI;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.reader.CSVReader;

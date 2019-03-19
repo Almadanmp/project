@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import org.testng.annotations.Test;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;

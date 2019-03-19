@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.utils;
+package pt.ipp.isep.dei.project.io.ui.utils;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -11,8 +11,6 @@ import java.util.Scanner;
  */
 public class DateUtils {
 
-    private DateUtils() {
-    }
 
     /**
      * Method will read a group of values from user and return a date (year, month, day, hour and
@@ -191,7 +189,7 @@ public class DateUtils {
      * @param dataType the type of date to read (year, month or day)
      * @return value read from the user
      */
-    private static int getInputDateAsInt(Scanner scan, String dataType) {
+      static int getInputDateAsInt(Scanner scan, String dataType) {
         System.out.println("Enter a " + dataType + ":");
         while (!scan.hasNextInt()) {
             scan.next();
@@ -208,7 +206,7 @@ public class DateUtils {
      *
      * @param month month to test
      */
-    private static boolean isJanuaryMarchMay(int month) {
+    public static boolean isJanuaryMarchMay(int month) {
         return month == 0 || month == 2 || month == 4;
     }
 
@@ -218,7 +216,7 @@ public class DateUtils {
      *
      * @param month month to test
      */
-    private static boolean isJulyAugust(int month) {
+    public static boolean isJulyAugust(int month) {
         return month == 6 || month == 7;
     }
 
@@ -228,7 +226,7 @@ public class DateUtils {
      *
      * @param month month to test
      */
-    private static boolean isOctoberDecember(int month) {
+    public static boolean isOctoberDecember(int month) {
         return month == 9 || month == 11;
     }
 

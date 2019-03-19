@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.TypeAreaList;

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.io.ui;
+package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
@@ -14,61 +14,61 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
  */
 public class UtilsUI {
 
-    static final String INVALID_OPTION = "Please enter a valid option.";
-    static final String INVALID_NUMBER = "Please enter a valid number.";
+    public static final String INVALID_OPTION = "Please enter a valid option.";
+    public static final String INVALID_NUMBER = "Please enter a valid number.";
     private static final String RETURNING_TO_MAIN_MENU = "-- Returning to main menu -- \n";
-    static final String INVALID_ROOM_LIST = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    static final String INVALID_GRID_LIST = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    static final String INVALID_DEVICE_LIST = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    static final String INVALID_GA_LIST = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    static final String INVALID_GA_TYPE_LIST = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_ROOM_LIST = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_GRID_LIST = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_DEVICE_LIST = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public  static final String INVALID_GA_LIST = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public  static final String INVALID_GA_TYPE_LIST = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_SENSOR_LIST = "Invalid Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    static final String INVALID_TYPE_SENSOR_LIST = "Invalid Type Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_TYPE_SENSOR_LIST = "Invalid Type Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_MOTHER_AREA = "The selected House does not have a Geographical Area defined.\n" + RETURNING_TO_MAIN_MENU;
-    static final String INVALID_PROGRAM_LIST = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_PROGRAM_LIST = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
 
-    boolean houseRoomListIsValid(House house) {
+    public boolean houseRoomListIsValid(House house) {
         return !house.isRoomListEmpty();
     }
 
-    boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
+    public  boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
-    boolean roomSensorListIsValid(Room room) {
+    public boolean roomSensorListIsValid(Room room) {
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
-    boolean houseGridListIsValid(House house) {
+    public   boolean houseGridListIsValid(House house) {
         return house.getGridList() != null && !house.isEnergyGridListEmpty();
     }
 
-    boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
+    public    boolean gridDeviceListIsValid(EnergyGrid energyGrid) {
         return energyGrid.getDeviceList() != null && !energyGrid.isDeviceListEmpty();
     }
 
-    boolean gridRoomListIsValid(EnergyGrid energyGrid) {
+    public    boolean gridRoomListIsValid(EnergyGrid energyGrid) {
         return energyGrid.getRoomList() != null && !energyGrid.isRoomListEmpty();
     }
 
-    boolean programListIsValid(ProgramList programList) {
+    public   boolean programListIsValid(ProgramList programList) {
         return programList != null && !programList.isEmpty();
     }
 
-    boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
+    public   boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
-    boolean roomDeviceListIsValid(Room room) {
+    public  boolean roomDeviceListIsValid(Room room) {
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
-    boolean deviceLogListIsValid(Device device) {
+    public  boolean deviceLogListIsValid(Device device) {
         return (!device.isLogListEmpty());
     }
 
@@ -86,7 +86,7 @@ public class UtilsUI {
      * @param strings for being printed
      * @author Nuno
      */
-     static void printBox(String... strings) {
+    public  static void printBox(String... strings) {
         int maxBoxWidth = getStringMaxLength(strings);
         String line = " " + fill('-', maxBoxWidth + 2) + " ";
         System.out.println(line);

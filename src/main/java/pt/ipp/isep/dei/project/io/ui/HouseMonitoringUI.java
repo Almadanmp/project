@@ -2,8 +2,10 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.utils.DateUtils;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
