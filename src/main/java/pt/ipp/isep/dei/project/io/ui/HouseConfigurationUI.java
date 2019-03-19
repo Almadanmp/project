@@ -103,10 +103,11 @@ class HouseConfigurationUI {
         InputUtils utils = new InputUtils();
         ReaderController ctrl = new ReaderController();
         String path = utils.getInputCSVPath();
-        boolean result = ctrl.readAndSet(list, path, "resources/logs/logOut.log");
-        if (!result) {
+        if (!ctrl.readAndSet(list, path, "resources/logs/logOut.log")) {
             UtilsUI.printMessage("Please add a sensor first.");
+            return;
         }
+        UtilsUI.printMessage(ctrl.counter + " Readings have been successfully imported.");
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */

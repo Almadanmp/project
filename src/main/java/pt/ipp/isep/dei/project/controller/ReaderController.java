@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class ReaderController {
 
-    int counter;
+    public int counter;
 
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
@@ -46,11 +46,11 @@ public class ReaderController {
                     parseAndLog(readings, logger, fullSensorList);
                 }
             } catch (IOException e) {
-                return false;
+                return true;
             }
+            return true;
         }
-        System.out.println(this.counter + " Readings have been successfully imported.");
-        return true;
+        return false;
     }
 
     /**
@@ -71,7 +71,7 @@ public class ReaderController {
     /**
      * Reads a XLM file from any path the User chooses from. Imports geographic areas and sensors from said file.
      *
-     * @param list is the Geographic Area List of the application.
+     * @param list     is the Geographic Area List of the application.
      * @param filePath is the path to the XML file
      */
     public void readFileXML(String filePath, GeographicAreaList list) {
@@ -103,7 +103,6 @@ public class ReaderController {
                 String readID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
                 if (logger.isLoggable(Level.WARNING) && !sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
-                    this.counter--;
                     logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
                 }
             } catch (NumberFormatException nfe) {
