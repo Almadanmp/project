@@ -4,9 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,9 +20,10 @@ public class XMLReader {
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
      *
      * @param filePath path to the xml file
-     * @param list geographic area list to add the imported geographic areas
+     * @param list     geographic area list to add the imported geographic areas
      */
-    public void readFileXML(String filePath, GeographicAreaList list) {
+    public int readFileXML(String filePath, GeographicAreaList list) {
+        int result = 0;
         try {
             File inputFile = new File(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -32,52 +31,24 @@ public class XMLReader {
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-            NodeList nListGeoArea = doc.getElementsByTagName("tagNameForGeoArea");
-            List<GeographicArea> empList = list.getGeographicAreas();
+            NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
             for (int i = 0; i < nListGeoArea.getLength(); i++) {
-                empList.add(getGeographicAreas(nListGeoArea.item(i)));
+                if(list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i)))){
+                    result++;
+                }
             }
-            NodeList nListSensor = doc.getElementsByTagName("tagNameForSensor");
-            for (GeographicArea ga : empList) {
+            NodeList nListSensor = doc.getElementsByTagName("area_sensor");
+            for (GeographicArea ga : list.getGeographicAreas()) {
                 List<Sensor> sensorList = ga.getSensorList().getSensors();
-                for (int j = 0; j < sensorList.size(); j++) {
+                for (int j = 0; j < nListSensor.getLength(); j++) {
                     sensorList.add(getSensors(nListSensor.item(j)));
                 }
             }
-            // just an example of how we can print attributes from XML file
-//            for (int temp = 0; temp < nList.getLength(); temp++) {
-//                Node nNode = nList.item(temp);
-//                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-//
-//                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-//                    Element eElement = (Element) nNode;
-//                    System.out.println("Student roll no : "
-//                            + eElement.getAttribute("rollno"));
-//                    System.out.println("First Name : "
-//                            + eElement
-//                            .getElementsByTagName("firstname")
-//                            .item(0)
-//                            .getTextContent());
-//                    System.out.println("Last Name : "
-//                            + eElement
-//                            .getElementsByTagName("lastname")
-//                            .item(0)
-//                            .getTextContent());
-//                    System.out.println("Nick Name : "
-//                            + eElement
-//                            .getElementsByTagName("nickname")
-//                            .item(0)
-//                            .getTextContent());
-//                    System.out.println("Marks : "
-//                            + eElement
-//                            .getElementsByTagName("marks")
-//                            .item(0)
-//                            .getTextContent());
-//                }
-//            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     private GeographicArea getGeographicAreas(Node node) {
@@ -85,11 +56,15 @@ public class XMLReader {
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            geoArea.setId(getTagValue("tagID", element)); //just an example, alter the tags when we have the correct
-            // XML file
-            geoArea.setDescription(getTagValue("tag", element));
-            geoArea.setWidth(Double.parseDouble(getTagValue("tagWIDTH", element)));
-            geoArea.setLength(Double.parseDouble(getTagValue("tagLENGTH", element)));
+            geoArea.setDescription(getTagValue("description", element));
+            geoArea.setId(getTagValue("id", element));
+            geoArea.setLength(Double.parseDouble(getTagValue("length", element)));
+            geoArea.setWidth(Double.parseDouble(getTagValue("width", element)));
+            geoArea.setLocation(new Local(Double.parseDouble(getTagValue("latitude", element)),
+                    Double.parseDouble(getTagValue("longitude", element)),
+                    Double.parseDouble(getTagValue("altitude", element))));
+            geoArea.setTypeArea(new TypeArea(getTagValue("type", element)));
+            geoArea.setSensorList(new SensorList());
         }
         return geoArea;
     }
@@ -97,12 +72,11 @@ public class XMLReader {
     private Sensor getSensors(Node node) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         Sensor sensor = new Sensor();
-
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            sensor.setId(getTagValue("tagID", element)); //just an example, alter the tags when we have the correct
-            // XML file
-            String sensorDate = getTagValue("tagSensorDate", element);
+            sensor.setId(getTagValue("id", element));
+            sensor.setName(getTagValue("name", element));
+            String sensorDate = getTagValue("start_date", element);
             SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             try {
@@ -110,8 +84,11 @@ public class XMLReader {
             } catch (ParseException c) {
             }
             sensor.setDateStartedFunctioning(date);
-            sensor.setName(getTagValue("tagName", element));
+            sensor.setTypeSensor(new TypeSensor(getTagValue("type", element), getTagValue("units", element)));
             sensor.setActive();
+            sensor.setLocal(new Local(Double.parseDouble(getTagValue("latitude", element)),
+                    Double.parseDouble(getTagValue("longitude", element)),
+                    Double.parseDouble(getTagValue("altitude", element))));
         }
         return sensor;
     }

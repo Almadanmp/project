@@ -67,7 +67,7 @@ public class GeographicArea {
         this.id = id;
     }
 
-    void setTypeArea(TypeArea typeArea) {
+    public void setTypeArea(TypeArea typeArea) {
         this.typeArea = typeArea;
     }
 
@@ -167,6 +167,7 @@ public class GeographicArea {
     public TypeArea getTypeArea() {
         return this.typeArea;
     }
+
 
     /**
      * Getter for Geographic Area localization.

@@ -76,7 +76,7 @@ class HouseConfigurationUI {
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        String filePath = input.getInputJSONOrXMLPath(result);
+        String filePath = input.getInputPath(result);
         input.readJsonOrXMLFile(result,filePath,list);
     }
 

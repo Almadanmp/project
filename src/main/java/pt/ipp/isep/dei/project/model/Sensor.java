@@ -107,7 +107,7 @@ public class Sensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    void setTypeSensor(TypeSensor sensor) {
+    public void setTypeSensor(TypeSensor sensor) {
         this.typeSensor = sensor;
     }
 

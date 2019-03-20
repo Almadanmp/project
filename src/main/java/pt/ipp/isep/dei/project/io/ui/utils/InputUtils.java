@@ -420,7 +420,7 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-    public String getInputJSONOrXMLPath(String result) {
+    public String getInputPath(String result) {
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
             System.out.println("Please enter a valid path");
