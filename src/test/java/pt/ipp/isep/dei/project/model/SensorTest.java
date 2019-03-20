@@ -791,7 +791,7 @@ class SensorTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        Assertions.assertFalse(actualResult);
     }
 
     @Test

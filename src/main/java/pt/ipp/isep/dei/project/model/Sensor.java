@@ -52,7 +52,6 @@ public class Sensor {
         readingList = new ReadingList();
         this.uniqueID = UUID.randomUUID();
         this.active = true;
-
     }
 
     /**
@@ -69,6 +68,7 @@ public class Sensor {
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
         this.uniqueID = UUID.randomUUID();
+        this.active = true;
     }
 
     /**
@@ -188,7 +188,7 @@ public class Sensor {
         this.uniqueID = uniqueID;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return this.active;
     }
 
@@ -210,7 +210,7 @@ public class Sensor {
      * @return active or not
      */
     public boolean activateOrDeactivate() {
-        if (!getActive()) {
+        if (!isActive()) {
             this.active = true;
             return true;
         }

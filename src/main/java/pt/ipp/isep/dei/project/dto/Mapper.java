@@ -125,7 +125,7 @@ public class Mapper {
         sensorDTO.setLatitude(sensor.getLocal().getLatitude());
         sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
         sensorDTO.setUniqueID(sensor.getUniqueID());
-        sensorDTO.setActive(sensor.getActive());
+        sensorDTO.setActive(sensor.isActive());
         return sensorDTO;
     }
 

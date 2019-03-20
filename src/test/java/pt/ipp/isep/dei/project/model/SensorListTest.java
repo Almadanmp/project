@@ -149,7 +149,7 @@ class SensorListTest {
         String expectedResult = "---------------\n" +
                 "0) Name: SensorOne | Type: Temperature | Active\n" +
                 "1) Name: SensorTwo | Type: Temperature | Active\n" +
-                "2) Name: SensorThree | Type: Rainfall | Deactivated\n" +
+                "2) Name: SensorThree | Type: Rainfall | Active\n" +
                 "---------------\n";
 
         // Act

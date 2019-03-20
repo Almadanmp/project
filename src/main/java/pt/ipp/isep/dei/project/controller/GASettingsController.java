@@ -186,7 +186,7 @@ public class GASettingsController {
     public void isSensorActive(SensorDTO sensorDTO) {
         Mapper mapper = new Mapper();
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
-        if (sensor.getActive()) {
+        if (sensor.isActive()) {
             System.out.println("Sensor successfully activated!");
         } else {
             System.out.println("Sensor successfully deactivated!");
