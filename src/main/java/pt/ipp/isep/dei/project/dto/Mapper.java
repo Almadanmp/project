@@ -15,6 +15,7 @@ public class Mapper {
     private GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
     private SensorDTO sensorDTO = new SensorDTO();
     private LocalDTO localDTO = new LocalDTO();
+    private TypeAreaDTO typeAreaDTO = new TypeAreaDTO();
 
     /**
      * Method that transforms a model instantiation of Room into a DTO fit to be handled by the UIs.
@@ -174,5 +175,19 @@ public class Mapper {
         Local local = new Local(localLatitude, localLongitude, localAltitude);
         local.setUniqueId(localUUID);
         return local;
+    }
+
+    public TypeAreaDTO typeAreaToDTO(TypeArea typeArea) {
+        typeAreaDTO.setName(typeArea.getName());
+        typeAreaDTO.setUniqueID(typeArea.getUniqueID());
+        return typeAreaDTO;
+    }
+
+    public TypeArea dtoToTypeArea(TypeAreaDTO typeAreaDTO) {
+        String typeAreaName = typeAreaDTO.getName();
+        UUID typeAreaUUID = typeAreaDTO.getUniqueID();
+        TypeArea typeArea = new TypeArea(typeAreaName);
+        typeArea.setUniqueID(typeAreaUUID);
+        return typeArea;
     }
 }

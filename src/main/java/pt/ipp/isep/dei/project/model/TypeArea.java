@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.UUID;
 
 /**
  * The TypeArea class.
@@ -13,6 +14,7 @@ public class TypeArea {
 
     @Id
     private String name;
+    private UUID uniqueID;
 
     /**
      * Main and only Area Type Constructor
@@ -58,6 +60,14 @@ public class TypeArea {
 
     boolean nameIsValid(String name) {
         return (name != null && !name.isEmpty() && !name.matches(".*\\d+.*"));
+    }
+
+    public UUID getUniqueID() {
+        return uniqueID;
+    }
+
+    public void setUniqueID(UUID uniqueID) {
+        this.uniqueID = uniqueID;
     }
 
     /**

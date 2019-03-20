@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.Mapper;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -87,16 +84,16 @@ public class GASettingsController {
     /**
      * Method to create a DTO of Geographic Area
      *
-     * @param newName  name of the Geographic Area
-     * @param typeArea Type area of the Geographic Area
-     * @param localDTO Localization of the Geographic Area
-     * @param length   Length of the Geographic Area
-     * @param width    width of the Geographic Area
+     * @param newName     name of the Geographic Area
+     * @param typeAreaDTO Type area of the Geographic Area
+     * @param localDTO    Localization of the Geographic Area
+     * @param length      Length of the Geographic Area
+     * @param width       width of the Geographic Area
      * @return Geographic Area DTO
      */
-    public GeographicAreaDTO createGeoAreaDTO(String newName, TypeArea typeArea, LocalDTO localDTO, double length, double width) {
+    public GeographicAreaDTO createGeoAreaDTO(String newName, TypeAreaDTO typeAreaDTO, LocalDTO localDTO, double length, double width) {
         Mapper mapper = new Mapper();
-        GeographicArea geoArea = new GeographicArea(newName, typeArea, length, width, mapper.dtoToLocal(localDTO));
+        GeographicArea geoArea = new GeographicArea(newName, mapper.dtoToTypeArea(typeAreaDTO), length, width, mapper.dtoToLocal(localDTO));
         return mapper.geographicAreaToDTO(geoArea);
     }
 
@@ -121,17 +118,17 @@ public class GASettingsController {
      * @param typeArea           is the type that we want to look for.
      * @return is a list of all the objects in the original list with a type that matches the given type.
      */
-    public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
+    public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeAreaDTO typeArea) {
         String typeAreaName = typeArea.getName();
         return geographicAreaList.getGeoAreasByType(typeAreaName);
     }
 
     /**
-     * @param typeArea is the Type of Area we want to get the name of.
+     * @param typeAreaDTO is the Type of Area we want to get the name of.
      * @return is the name of the given type of area.
      */
-    public String getTypeAreaName(TypeArea typeArea) {
-        return typeArea.getName();
+    public String getTypeAreaName(TypeAreaDTO typeAreaDTO) {
+        return typeAreaDTO.getName();
     }
 
     /*USER STORY 07 - As an Administrator, I want to add an existing geographical area to another one (e.g. add city of
