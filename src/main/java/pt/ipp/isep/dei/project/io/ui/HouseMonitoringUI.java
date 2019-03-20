@@ -148,8 +148,9 @@ public class HouseMonitoringUI {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         try {
             double temperature = ctrl.getDayMaxTemperature(room, date, house);
+            String dateFormatted = DateUtils.formatDateNoTime(date);
             String message = "The maximum temperature in the room " + ctrl.getRoomName(room, house) +
-                    " on the day " + date + was + temperature + "°C.";
+                    " on the day " + dateFormatted + was + temperature + "°C.";
             System.out.println(message);
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -181,7 +182,8 @@ public class HouseMonitoringUI {
     }
 
     private void printResultMessageUS620(Date date, double result) {
-        System.out.println("The average rainfall on " + date + was + result + "%.");
+        String dateFormatted = DateUtils.formatDateNoTime(date);
+        System.out.println("The average rainfall on " + dateFormatted + was + result + "%.");
     }
 
 
@@ -201,6 +203,7 @@ public class HouseMonitoringUI {
 
     /**
      * method to get the start date
+     *
      * @return date
      */
     private Date getStartDate() {
@@ -210,6 +213,7 @@ public class HouseMonitoringUI {
 
     /**
      * Method to get the end date
+     *
      * @return date
      */
     private Date getEndDate() {
@@ -225,7 +229,9 @@ public class HouseMonitoringUI {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.println("The average rainfall between " + startDate + " and " + endDate + was
+        String starDateFormatted = DateUtils.formatDateNoTime(startDate);
+        String endDateFormatted = DateUtils.formatDateNoTime(endDate);
+        System.out.println("The average rainfall between " + starDateFormatted + " and " + endDateFormatted + was
                 + result623 + "%.");
     }
 
