@@ -104,8 +104,7 @@ public class GeographicAreaList {
      * @return a new geographic area.
      */
     public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
-        Local newLocal = new Local(local.getLatitude(), local.getLongitude(), local.getAltitude());
-        return new GeographicArea(newName, typeArea, length, width, newLocal);
+        return new GeographicArea(newName, typeArea, length, width, local);
     }
 
     /**

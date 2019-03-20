@@ -379,4 +379,16 @@ class GeographicAreaListTest {
         assertFalse(emptyList.removeGeographicArea(firstValidArea));
     }
 
+    @Test
+    void createGA(){
+        String iD = "Coimbra";
+        TypeArea typeArea = new TypeArea("Distrito");
+        Local local = new Local(12,12,12);
+        GeographicArea expectedResult = new GeographicArea(iD, typeArea, 12,12,local);
+
+        GeographicArea actualResult = validList.createGA(iD, typeArea, 12,12,local);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 }
