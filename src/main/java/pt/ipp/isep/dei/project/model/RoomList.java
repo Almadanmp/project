@@ -268,6 +268,13 @@ public class RoomList {
         }
         return result;
     }
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     * Necessary for adding rooms to list.
+     *
+     * @param testObject is the object we want to check for equality.
+     * @return is true if the object is a power source list with the same contents.
+     */
 
     @Override
     public boolean equals(Object testObject) {
