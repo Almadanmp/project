@@ -238,6 +238,13 @@ public class RoomList {
         return sum;
     }
 
+    /**
+     * Method for building string to be displayed to user so he can see Devices of a certain type listed
+     *
+     * @param deviceType type of device user wants to list
+     * @return list of devices of that type param
+     */
+
     StringBuilder buildDeviceListByType(String deviceType) {
         StringBuilder result = new StringBuilder();
         for (Room r : this.rooms) {
