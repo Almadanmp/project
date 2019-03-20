@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.Mapper;
@@ -312,7 +313,6 @@ public class InputUtils {
                 System.out.println("You have chosen the following device type:");
                 System.out.println(result.getDeviceType() + "\n");
                 return result;
-
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
@@ -438,8 +438,8 @@ public class InputUtils {
      */
     public void readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
         if (input.endsWith(".json")) {
-            ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
-            int areasRead = reader.readFile(filePath, list);
+            HouseConfigurationController ctrl = new HouseConfigurationController();
+            int areasRead = ctrl.readFile(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
         }
         if (input.endsWith(".xml")) {

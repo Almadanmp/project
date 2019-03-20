@@ -41,7 +41,7 @@ public class HouseConfigurationController {
 
     public int readFile(String filePath, GeographicAreaList list){
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
-        return reader.readFile(filePath, list);
+        return reader.readFileAndAdd(filePath, list);
     }
 
 

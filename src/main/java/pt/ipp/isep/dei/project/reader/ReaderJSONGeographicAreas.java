@@ -17,8 +17,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ReaderJSONGeographicAreas implements Reader{
+public class ReaderJSONGeographicAreas implements Reader {
 
+
+    public JSONArray readFile(String filePath){
+        try {
+            File file = new File(filePath);
+            InputStream stream = new FileInputStream(file);
+            JSONTokener tokener = new JSONTokener(stream);
+            JSONObject object = new JSONObject(tokener);
+            JSONObject areaList = object.getJSONObject("geographical_area_list");
+            return areaList.getJSONArray("geographical_area");
+        } catch (FileNotFoundException e) {
+            UtilsUI.printMessage("The file wasn't found.");
+        }
+        return new JSONArray();
+    }
     /**
      * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
      * from the data in the file.
@@ -28,22 +42,12 @@ public class ReaderJSONGeographicAreas implements Reader{
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readFile(String filePath, GeographicAreaList list) {
+    public int readFileAndAdd(String filePath, GeographicAreaList list) {
         HouseConfigurationController controller = new HouseConfigurationController();
-        try {
-            File file = new File(filePath);
-            InputStream stream = new FileInputStream(file);
-            JSONTokener tokener = new JSONTokener(stream);
-            JSONObject object = new JSONObject(tokener);
-            JSONObject areaList = object.getJSONObject("geographical_area_list");
-            JSONArray geoAreas = areaList.getJSONArray("geographical_area");
+            JSONArray geoAreas = readFile(filePath);
             GeographicArea[] geographicAreasArray;
             geographicAreasArray = readGeoAreas(geoAreas);
             return controller.addGeoAreasToList(geographicAreasArray, list);
-        } catch (FileNotFoundException e) {
-            UtilsUI.printMessage("The file wasn't found.");
-        }
-        return 0;
     }
 
     /**

@@ -12,9 +12,21 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+
 
 public class ReaderXMLGeographicAreas implements Reader {
+
+    public Document readFile(String filePath) {
+        try {
+            File inputFile = new File(filePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            return dBuilder.parse(inputFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
@@ -22,36 +34,25 @@ public class ReaderXMLGeographicAreas implements Reader {
      * @param filePath path to the xml file
      * @param list     geographic area list to add the imported geographic areas
      */
-    public int readFileXML(String filePath, GeographicAreaList list) {
+    public int readFileAndAdd(String filePath, GeographicAreaList list) {
         int result = 0;
-        try {
-            File inputFile = new File(filePath);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-            NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
-            for (int i = 0; i < nListGeoArea.getLength(); i++) {
-                if(list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i)))){
-                    result++;
-                }
+        Document doc = readFile(filePath);
+        doc.getDocumentElement().normalize();
+        //  System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+        NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
+        for (int i = 0; i < nListGeoArea.getLength(); i++) {
+            if (list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i),doc))) {
+                result++;
             }
-            NodeList nListSensor = doc.getElementsByTagName("area_sensor");
-            for (GeographicArea ga : list.getGeographicAreas()) {
-                List<Sensor> sensorList = ga.getSensorList().getSensors();
-                for (int j = 0; j < nListSensor.getLength(); j++) {
-                    sensorList.add(getSensors(nListSensor.item(j)));
-                }
-            }
+        }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (GeographicArea emp : list.getGeographicAreas()) {
+            System.out.println(emp.toString());
         }
         return result;
     }
 
-    private GeographicArea getGeographicAreas(Node node) {
+    private GeographicArea getGeographicAreas(Node node, Document doc) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -64,7 +65,12 @@ public class ReaderXMLGeographicAreas implements Reader {
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element))));
             geoArea.setTypeArea(new TypeArea(getTagValue("type", element)));
-            geoArea.setSensorList(new SensorList());
+            NodeList nListSensor = doc.getElementsByTagName("area_sensors");
+            SensorList sensorList = new SensorList();
+            for (int j = 0; j < nListSensor.getLength(); j++) {
+                sensorList.add(getSensors(nListSensor.item(j)));
+            }
+            geoArea.setSensorList(sensorList);
         }
         return geoArea;
     }
@@ -89,6 +95,7 @@ public class ReaderXMLGeographicAreas implements Reader {
             sensor.setLocal(new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element))));
+            System.out.println(sensor.toString());
         }
         return sensor;
     }

@@ -32,7 +32,7 @@ public class ReaderController {
      */
     boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
         ReaderCSVReadings csvRead = new ReaderCSVReadings();
-        List<String[]> list = csvRead.readCSV(path);
+        List<String[]> list = csvRead.readFile(path);
         SensorList fullSensorList = geographicAreaList.getAreaListSensors();
         this.counter = list.size();
         if (!fullSensorList.isEmpty()) {
@@ -76,7 +76,7 @@ public class ReaderController {
      */
     public void readFileXML(String filePath, GeographicAreaList list) {
         ReaderXMLGeographicAreas reader = new ReaderXMLGeographicAreas();
-        reader.readFileXML(filePath, list);
+        reader.readFileAndAdd(filePath, list);
     }
 
 
@@ -129,7 +129,7 @@ public class ReaderController {
             return counter;
         }
         ReaderCSVReadings csvRead = new ReaderCSVReadings();
-        List<String[]> list = csvRead.readCSV(path);
+        List<String[]> list = csvRead.readFile(path);
         try {
             Logger logger = Logger.getLogger(ReaderController.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
