@@ -427,7 +427,7 @@ class GASettingsControllerTest {
         boolean actualResult = sensor.activateOrDeactivate();
 
         //Assert
-        assertTrue( actualResult);
+        assertFalse( actualResult);
     }
     @Test
     void seeIfDeactivateSensor() {
