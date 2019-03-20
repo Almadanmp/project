@@ -741,10 +741,9 @@ class ReaderControllerTest {
         assertEquals(9, actualResult);
     }
 
+
     @Test
     void seeIfReadReadingsFromCSVWorksWhenFileIsEmpty() {
-        //Arrange
-
 
         // Act
 
