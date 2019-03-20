@@ -3,15 +3,14 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 /**
@@ -171,58 +170,25 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfSetAndGetHouseMotherAreaWorks() {
         //Arrange
-        controller.setHouseMotherArea(validHouse,new GeographicArea("Porto", new TypeArea("Cidade"),
+        controller.setHouseMotherArea(validHouse, new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         GeographicArea expected = new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100));
         //Act
         GeographicArea actualResult = validHouse.getMotherArea();
         //Assert
-        assertEquals(expected,actualResult);
+        assertEquals(expected, actualResult);
     }
 
     @Test
-    void seeIfIsMotherAreaNullBothConditions(){
+    void seeIfIsMotherAreaNullBothConditions() {
         // Act
         boolean actualResult1 = validHouse.isMotherAreaNull();
-        controller.setHouseMotherArea(validHouse,null);
+        controller.setHouseMotherArea(validHouse, null);
         boolean actualResult2 = validHouse.isMotherAreaNull();
         // Assert
         assertFalse(actualResult1);
         assertTrue(actualResult2);
     }
 
-    @Test
-    void seeIfAddGeoAreasToListWorksSkippingOne() {
-        // Arrange
-
-        GeographicArea[] arrayToUse = new GeographicArea[3];
-        GeographicAreaList result = new GeographicAreaList();
-
-        // Set up Expected Result
-
-        GeographicArea geoArea1 = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
-                0.261, new Local(41.178553, -8.608035, 111));
-        GeographicArea geoArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
-                new Local(41.149935, -8.610857, 118));
-
-        GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.addGeographicArea(geoArea1);
-        expectedResult.addGeographicArea(geoArea2);
-
-        // Populate Array to Use
-
-        arrayToUse[0] = geoArea1;
-        arrayToUse[1] = geoArea2;
-        arrayToUse[2] = geoArea1;
-
-        // Act
-
-        double addedAreas = controller.addGeoAreasToList(arrayToUse, result);
-
-        // Assert
-
-        assertEquals(2, addedAreas);
-        assertEquals(expectedResult, result);
-    }
 }

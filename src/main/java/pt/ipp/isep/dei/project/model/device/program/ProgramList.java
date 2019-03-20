@@ -61,7 +61,7 @@ public class ProgramList {
     /**
      * Method that removes a Program from the ProgramList.
      *
-     * @param program you want to remove from the ProgramList.
+     * @param program you want to removeGeographicArea from the ProgramList.
      * @return true if program was successfully removed, false otherwise.
      */
     boolean removeProgram(Program program) {
@@ -98,7 +98,7 @@ public class ProgramList {
      * @return returns program that corresponds to index.
      */
     public Program get(int index) {
-        if(this.programs.isEmpty()){
+        if (this.programs.isEmpty()) {
             throw new IndexOutOfBoundsException("The program list is empty.");
         }
         return this.programs.get(index);

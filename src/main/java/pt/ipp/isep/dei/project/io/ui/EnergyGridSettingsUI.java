@@ -183,7 +183,7 @@ class EnergyGridSettingsUI {
         if (controller.removeRoomFromGrid(grid, room)) {
             System.out.println("Room successfully removed from grid!");
         } else {
-            System.out.println("It wasn't possible to remove the room. Please try again.");
+            System.out.println("It wasn't possible to removeGeographicArea the room. Please try again.");
         }
     }
 

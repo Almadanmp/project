@@ -55,11 +55,11 @@ public class RoomConfigurationController {
      * @param room is the room to be tested
      * @return room's total nominal power (double)
      */
-    public double getRoomNominalPower(Room room){
+    public double getRoomNominalPower(Room room) {
         return room.getNominalPower();
     }
 
-    public SensorList getRoomSensorList(Room room){
+    public SensorList getRoomSensorList(Room room) {
         return room.getSensorList();
     }
 
@@ -80,7 +80,7 @@ public class RoomConfigurationController {
      * @param room the room we want to print the list of devices from.
      * @return string with all the devices in the given room.
      */
-    public String buildDeviceListString(Room room){
+    public String buildDeviceListString(Room room) {
         return room.buildDeviceListString();
     }
 
@@ -107,8 +107,8 @@ public class RoomConfigurationController {
     /**
      * removes device from a given room
      *
-     * @param room - room we want to remove the device from
-     * @param device  - device we want to remove from the room
+     * @param room   - room we want to removeGeographicArea the device from
+     * @param device - device we want to removeGeographicArea from the room
      * @return - boolean
      */
     public boolean removeDevice(Room room, Device device) {
@@ -118,8 +118,8 @@ public class RoomConfigurationController {
     /**
      * adds device to a given room
      *
-     * @param room - room we want to add the device to
-     * @param device  - device we want to add to the room
+     * @param room   - room we want to add the device to
+     * @param device - device we want to add to the room
      * @return - boolean
      */
     public boolean addDevice(Room room, Device device) {
@@ -287,7 +287,7 @@ public class RoomConfigurationController {
         device.setName(name);
     }
 
-    public boolean addSensorToRoom(Sensor sensor,Room room){
+    public boolean addSensorToRoom(Sensor sensor, Room room) {
         return (room.addSensor(sensor));
     }
 }

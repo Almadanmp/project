@@ -423,7 +423,7 @@ class RoomConfigurationUI {
     }
 
 
-    /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
+    /*US220 - As an Administrator, I want to removeGeographicArea a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
     private void runUS220(House house) {

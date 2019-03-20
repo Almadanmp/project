@@ -34,7 +34,8 @@ public class GeographicArea {
     /**
      * Empty Constructor to use when importing Geographic Areas from XML files.
      */
-    public GeographicArea(){}
+    public GeographicArea() {
+    }
 
     /**
      * Constructor
@@ -54,7 +55,6 @@ public class GeographicArea {
         this.location = location;
         this.areaSensors = new SensorList();
         this.uniqueId = UUID.randomUUID();
-
     }
 
     // Setters and Getters for all the parameters.
@@ -276,6 +276,7 @@ public class GeographicArea {
 
     /**
      * Method that adds all the sensorDTOs in an array to a GeographicAreaDTO.
+     *
      * @param sensorsToAdd is the array containing all the sensor DTOs that we want to add somewhere.
      */
 

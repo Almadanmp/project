@@ -163,9 +163,9 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     * Method to remove a room from the energy grid.
+     * Method to removeGeographicArea a room from the energy grid.
      *
-     * @param room the room we want to remove from the energy grid.
+     * @param room the room we want to removeGeographicArea from the energy grid.
      * @return returns true if the room is successfully removed from the energy grid.
      */
     public boolean removeRoom(Room room) {

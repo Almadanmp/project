@@ -11,6 +11,8 @@ import java.util.Scanner;
  */
 public class DateUtils {
 
+    private DateUtils() {
+    }
 
     /**
      * Method will read a group of values from user and return a date (year, month, day, hour and
@@ -34,7 +36,7 @@ public class DateUtils {
     }
 
     /**
-     * Method thar will remove the hours, minutes and seconds from a Date
+     * Method thar will removeGeographicArea the hours, minutes and seconds from a Date
      *
      * @param date input date to format
      * @return string that represents the input date but without hour, min. sec

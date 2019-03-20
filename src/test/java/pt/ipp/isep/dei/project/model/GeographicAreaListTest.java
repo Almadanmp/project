@@ -47,7 +47,6 @@ class GeographicAreaListTest {
         //Act
 
         boolean actualResult = validList.addGeographicArea(firstValidArea);
-
         //Assert
 
         assertFalse(actualResult);
@@ -368,6 +367,16 @@ class GeographicAreaListTest {
         assertArrayEquals(expectedResult1, actualResult1);
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
+    }
+
+    @Test
+    void remove() {
+        assertTrue(validList.removeGeographicArea(firstValidArea));
+
+        assertFalse(validList.removeGeographicArea(secondValidArea));
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+        assertFalse(emptyList.removeGeographicArea(firstValidArea));
     }
 
 }

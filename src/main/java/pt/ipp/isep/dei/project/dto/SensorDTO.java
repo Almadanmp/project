@@ -20,7 +20,6 @@ public class SensorDTO {
      *
      * @return is a UUID. UUID is a java class.
      */
-
     UUID getUniqueID() {
         return uniqueID;
     }
@@ -30,7 +29,6 @@ public class SensorDTO {
      *
      * @param uniqueID is the UUID we want to store.
      */
-
     void setUniqueID(UUID uniqueID) {
         this.uniqueID = uniqueID;
     }
