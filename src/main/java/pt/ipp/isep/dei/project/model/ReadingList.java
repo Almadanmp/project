@@ -15,7 +15,7 @@ public class ReadingList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
+    private long iD;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reading> readings;
 
@@ -364,7 +364,7 @@ public class ReadingList {
                 maxAmplitude = amplitudeTemperature;
                 dateMaxAmplitude = day;
             } else if ((Double.compare(maxAmplitude, amplitudeTemperature) == 0) && (day.after(dateMaxAmplitude))) {
-                    dateMaxAmplitude = day;
+                dateMaxAmplitude = day;
             }
         }
         return dateMaxAmplitude;

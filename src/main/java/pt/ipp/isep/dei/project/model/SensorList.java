@@ -14,7 +14,7 @@ public class SensorList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
+    private long iD;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn
     private List<Sensor> sensors;
@@ -255,9 +255,10 @@ public class SensorList {
      * If a reading can't be added to a sensor that matches the received ID (because it's a duplicate, for instance,
      * or because its date is before the date that the sensor started functioning), an error message is saved into a log
      * file.
-     * @param sensorID is the id of the sensor we want to add readings to.
+     *
+     * @param sensorID     is the id of the sensor we want to add readings to.
      * @param readingValue is the value of the reading we want to add.
-     * @param readingDate is the date of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
      */
 
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {
