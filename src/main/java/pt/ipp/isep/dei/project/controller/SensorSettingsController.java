@@ -92,6 +92,13 @@ public class SensorSettingsController {
         return sensor.buildString();
     }
 
+    /**
+     * Method that creates and returns a Sensor with 3 parameters.
+     * @param name
+     * @param type
+     * @param date
+     * @return a created Sensor
+     */
     public Sensor createRoomSensor(String name, TypeSensor type, Date date) {
         return new Sensor(name, type, date);
     }
