@@ -384,7 +384,6 @@ class ReaderControllerTest {
 
         //Arrange
 
-        provideInput(validLocation1);
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[0];
 
@@ -400,7 +399,6 @@ class ReaderControllerTest {
 
         //Arrange
 
-        provideInput(validLocation1);
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         String[] readings = new String[3];
 
@@ -532,22 +530,22 @@ class ReaderControllerTest {
     void seeIfReadAndSetWorksIOExceptionFileHandler() {
         // Act
 
-        boolean result = validReader.readAndSet(validGeographicAreaList, validLocation1, invalidLogPath);
+        boolean actualResult = validReader.readAndSet(validGeographicAreaList, validLocation1, invalidLogPath);
 
         // Assert
 
-        assertTrue(result);
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfReadAndSetWorks() {
         // Act
 
-        boolean result = validReader.readAndSet(validGeographicAreaList, validLocation1, validLogPath);
+        boolean actualResult = validReader.readAndSet(validGeographicAreaList, validLocation1, validLogPath);
 
         // Assert
 
-        assertTrue(result);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -562,11 +560,11 @@ class ReaderControllerTest {
 
         // Act
 
-        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
 
         // Assert
 
-        assertEquals(1, result);
+        assertEquals(1, actualResult);
     }
 
     @Test
@@ -582,11 +580,11 @@ class ReaderControllerTest {
 
         // Act
 
-        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
 
         // Assert
 
-        assertEquals(1, result);
+        assertEquals(1, actualResult);
     }
 
     @Test
@@ -601,11 +599,11 @@ class ReaderControllerTest {
 
         // Act
 
-        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
 
         // Assert
 
-        assertEquals(0, result);
+        assertEquals(0, actualResult);
     }
 
     @Test
@@ -629,11 +627,11 @@ class ReaderControllerTest {
 
         // Act
 
-        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
 
         // Assert
 
-        assertEquals(0, result);
+        assertEquals(0, actualResult);
     }
 
     @Test
@@ -650,11 +648,11 @@ class ReaderControllerTest {
 
         // Act
 
-        int result = validReader.parseAndLogReading(readings, logger, emptyList);
+        int actualResult = validReader.parseAndLogReading(readings, logger, emptyList);
 
         // Assert
 
-        assertEquals(0, result);
+        assertEquals(0, actualResult);
     }
 
     @Test
@@ -671,11 +669,53 @@ class ReaderControllerTest {
 
         // Act
 
-        int result = validReader.parseAndLogReading(readings, logger, emptyList);
+        int actualResult = validReader.parseAndLogReading(readings, logger, emptyList);
 
         // Assert
 
-        assertEquals(0, result);
+        assertEquals(0, actualResult);
     }
+
+    @Test
+    void seeIfParseAndLogReadingsWorksLogNotLoggable() {
+
+        //Arrange
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        logger.setLevel(Level.INFO);
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "test";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+
+        //Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithInvalidValue() {
+        // Arrange
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "invalid value";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+
 
 }

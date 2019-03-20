@@ -145,6 +145,13 @@ public class ReaderController {
         return counter;
     }
 
+    /**
+     * This method receives a logger, a sensor list and an array of strings, tries to add a reading
+     * to a sensor in list and returns the number of readings added to sensor. The array of strings
+     * contains the reading's attributes.
+     *
+     * @return 0 in case the reading was not added, 1 in case of success.
+     ***/
     int parseAndLogReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
