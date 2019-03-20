@@ -3,9 +3,9 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.SensorList;
-import pt.ipp.isep.dei.project.reader.CSVReader;
+import pt.ipp.isep.dei.project.reader.ReaderCSVReadings;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
-import pt.ipp.isep.dei.project.reader.XMLReader;
+import pt.ipp.isep.dei.project.reader.ReaderXMLGeographicAreas;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -31,7 +31,7 @@ public class ReaderController {
      * @author Andre
      */
     boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
-        CSVReader csvRead = new CSVReader();
+        ReaderCSVReadings csvRead = new ReaderCSVReadings();
         List<String[]> list = csvRead.readCSV(path);
         SensorList fullSensorList = geographicAreaList.getAreaListSensors();
         this.counter = list.size();
@@ -75,7 +75,7 @@ public class ReaderController {
      * @param filePath is the path to the XML file
      */
     public void readFileXML(String filePath, GeographicAreaList list) {
-        XMLReader reader = new XMLReader();
+        ReaderXMLGeographicAreas reader = new ReaderXMLGeographicAreas();
         reader.readFileXML(filePath, list);
     }
 

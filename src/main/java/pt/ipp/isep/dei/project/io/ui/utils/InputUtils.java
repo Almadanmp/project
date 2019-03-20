@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.reader.JSONReader;
+import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
 
 import java.io.File;
 import java.util.List;
@@ -438,7 +438,7 @@ public class InputUtils {
      */
     public void readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
         if (input.endsWith(".json")) {
-            JSONReader reader = new JSONReader();
+            ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
             int areasRead = reader.readFile(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
         }

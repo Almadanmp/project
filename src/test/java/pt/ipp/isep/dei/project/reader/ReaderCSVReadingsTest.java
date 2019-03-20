@@ -9,20 +9,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * CSVReader test class.
+ * ReaderCSVReadings test class.
  */
 
-public class CSVReaderTest {
+public class ReaderCSVReadingsTest {
 
     // Common artifacts for testing in this class.
-    private CSVReader validReader;
+    private ReaderCSVReadings validReader;
     private static final String validLocation1 = "src/test/resources/testCSV3.csv";
     private static final String wrongLocation1 = "src/test/resources";
     private List<String[]> validList;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReader = new CSVReader();
+        validReader = new ReaderCSVReadings();
         validList = new ArrayList<>();
 
     }
