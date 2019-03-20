@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.TypeArea;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 import java.util.Scanner;
@@ -73,8 +72,7 @@ class GASettingsUI {
             System.out.print(controller.buildGATypeListString(typeAreaList));
             int aux = InputUtils.getInputAsInt();
             if (aux >= 0 && aux < typeAreaList.size()) {
-                TypeArea typeArea = typeAreaList.get(aux);
-                TypeAreaDTO typeAreaDTO = mapper.typeAreaToDTO(typeArea);
+                TypeAreaDTO typeAreaDTO = mapper.typeAreaToDTO(typeAreaList.get(aux));
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println("TypeArea: " + controller.getTypeAreaName(typeAreaDTO));
                 return typeAreaDTO;
