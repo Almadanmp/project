@@ -716,6 +716,42 @@ class ReaderControllerTest {
         assertEquals(0, actualResult);
     }
 
+    @Test
+    void seeIfReadReadingsFromCSVWorksWithEmptySensorList() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaListNoSensors, " ", " ");
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromCSVWorks() {
+        //Arrange
 
 
+        // Act
+
+        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaList, validLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(9, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromCSVWorksWhenFileIsEmpty() {
+        //Arrange
+
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaList, validLocation3, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 }
