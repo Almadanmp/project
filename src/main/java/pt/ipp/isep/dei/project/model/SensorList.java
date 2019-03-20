@@ -270,6 +270,14 @@ public class SensorList {
         return false;
     }
 
+    public boolean remove(Sensor sensor) {
+        if (this.contains(sensor)) {
+            sensors.remove(sensor);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Method 'equals' for comparison between objects of the same class
      *

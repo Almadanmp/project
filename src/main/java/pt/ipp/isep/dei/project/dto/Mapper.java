@@ -126,6 +126,7 @@ public class Mapper {
         sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
         sensorDTO.setUniqueID(sensor.getUniqueID());
         sensorDTO.setActive(sensor.isActive());
+        sensorDTO.setUnits(sensor.getTypeSensor().getUnits());
         return sensorDTO;
     }
 
@@ -137,7 +138,6 @@ public class Mapper {
      */
 
     public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
-
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());

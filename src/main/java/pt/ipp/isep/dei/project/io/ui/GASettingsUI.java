@@ -56,6 +56,10 @@ class GASettingsUI {
                     runUS10(programGAList);
                     activeInput = false;
                     break;
+                case 8:
+                    runUS11(programGAList);
+                    activeInput = false;
+                    break;
                 case 0:
                     return;
                 default:
@@ -318,6 +322,27 @@ class GASettingsUI {
     }
 
 
+    /* USER STORY US011 - As an Administrator, I want to remove a sensor from a geographical area, so that it will no
+    longer be used.*/
+
+    /**
+     * This method removes a sensor selected from a list of sensors of a previously selected geographic area
+     *
+     * @param geographicAreaList geographic area list
+     */
+    private void runUS11(GeographicAreaList geographicAreaList) {
+        GeographicAreaDTO geographicAreaDTO = controller.inputAreaUS11(geographicAreaList);
+        SensorDTO sensorDTO = controller.inputSensorUS11(geographicAreaDTO);
+
+        updateUS11(sensorDTO,geographicAreaDTO);
+    }
+
+    private void updateUS11(SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
+        controller.removeSensor(sensorDTO,geographicAreaDTO);
+        System.out.println("The sensor " + sensorDTO.getName() + " on the Geographical Area " +
+                geographicAreaDTO.getId() + " has ceased to be.");
+    }
+
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printOptionMessage() {
         System.out.println("Geographic Settings Options:\n");
@@ -327,7 +352,8 @@ class GASettingsUI {
         System.out.println("4) List of existing geographical areas of a given type. (US004)");
         System.out.println("5) Add an existing geographical area to another one. (US007)");
         System.out.println("6) See if a geographical area is included, directly or indirectly, in another one. (US008)");
-        System.out.println("7) Deactivate or activate a sensor (US010) \n");
+        System.out.println("7) Deactivate or activate a sensor (US010)");
+        System.out.println("8) Remove a sensor from the Geographical Area. (US011) \n");
         System.out.println("0) (Return to main menu)\n");
     }
 }

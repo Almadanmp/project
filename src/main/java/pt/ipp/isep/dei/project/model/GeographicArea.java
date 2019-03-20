@@ -264,6 +264,16 @@ public class GeographicArea {
     }
 
     /**
+     * Method that removes a Sensor from the Geographical Area.
+     *
+     * @param sensor is the sensor we want to remove.
+     * @return true if the sensor was successfully removed from the geographical area, false otherwise.
+     */
+    public boolean removeSensor(Sensor sensor) {
+        return areaSensors.remove(sensor);
+    }
+
+    /**
      * This method receives the string type name and returns a list of sensors
      * from geographic area of that type.
      *
