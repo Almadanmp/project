@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -9,24 +7,22 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 import pt.ipp.isep.dei.project.model.TypeSensorList;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class MainUI {
 
-    private static GeographicAreaRepository repository;
+    //private static GeographicAreaRepository repository;
 
 
     public static void main(String[] args) {
-        SpringApplication.run(MainUI.class, args);
+        //SpringApplication.run(MainUI.class, args);
         List<String> deviceTypeConfig;
         FileInputUtils fileUtils = new FileInputUtils();
-
 
         int gridMeteringPeriod;
         String fixConfigFile = "Please fix Configuration File before continuing.";
