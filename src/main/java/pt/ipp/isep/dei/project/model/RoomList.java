@@ -54,6 +54,18 @@ public class RoomList {
         return finalList;
     }
 
+    /**
+     * Method for creating a new room with all it's parameters,
+     * the method checks the room name to see if it already exists before creating it
+     *
+     * @param roomDesignation room name
+     * @param roomHouseFloor floor of the house where room is located
+     * @param width from room size
+     * @param length from room size
+     * @param height from room size
+     * @return new created room
+     */
+
     Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         for (Room r : this.rooms) {
             String designation = r.getRoomName();
