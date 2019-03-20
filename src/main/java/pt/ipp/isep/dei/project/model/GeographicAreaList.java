@@ -117,7 +117,11 @@ public class GeographicAreaList {
         return geographicAreas.contains(geoArea);
     }
 
-
+    /**
+     * Method that returns a GeographicAreaList with a given type.
+     * @param typeAreaName is the type of the area we want to get all the geographicAreas.
+     * @return a GeographicAreaList with a given type.
+     */
     public GeographicAreaList getGeoAreasByType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
