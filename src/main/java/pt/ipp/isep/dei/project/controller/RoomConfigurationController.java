@@ -59,6 +59,12 @@ public class RoomConfigurationController {
         return room.getNominalPower();
     }
 
+    /**
+     * Method that returns the SensorList of the room.
+     *
+     * @param room is the room we want to choose.
+     * @return SensorList of the Room.
+     */
     public SensorList getRoomSensorList(Room room) {
         return room.getSensorList();
     }
@@ -126,12 +132,25 @@ public class RoomConfigurationController {
         return room.addDevice(device);
     }
 
+    /**
+     *This method returns a int that represents the size of the deviceList.
+     * @param roomDTO is the room we want to get the device list size.
+     * @param house is the house we want to get the device list size.
+     * @return a int that represents the size of the deviceList.
+     */
     public int getDeviceListSize(RoomDTO roomDTO, House house) {
         Mapper mapper = new Mapper();
         Room room = mapper.updateHouseRoom(roomDTO, house);
         return room.getDeviceListSize();
     }
 
+    /**
+     * Method that returns a device by it's index.
+     * @param roomDTO is the room we want to get the device from.
+     * @param house is the house we want to get the device from.
+     * @param index is the index of the device in the device list
+     * @return
+     */
     public Device getDeviceByIndex(RoomDTO roomDTO, House house, int index) {
         Mapper mapper = new Mapper();
         Room room = mapper.updateHouseRoom(roomDTO, house);
@@ -287,6 +306,13 @@ public class RoomConfigurationController {
         device.setName(name);
     }
 
+    /**
+     * /**
+     * Method to add a Sensor to the Room.
+     * @param sensor is the sensor we want to add.
+     * @param room is the room we want to add the sensor to.
+     * @return if sensor was successfully added to the room, false otherwise.
+     */
     public boolean addSensorToRoom(Sensor sensor, Room room) {
         return (room.addSensor(sensor));
     }
