@@ -463,4 +463,32 @@ public class InputUtils {
         }
         return csvFileLocation;
     }
+
+    /**
+     * This method will ask for a file location from the user and return it in case the file is
+     * a .csv, .xml or .json.
+     *
+     * @return the file path as a String
+     *
+     * **/
+    public String getInputFileLocation() {
+        Scanner scanner = new Scanner(System.in);
+        UtilsUI.printMessage("Please insert the location of the file you want to import: ");
+        String result = scanner.next();
+        while (!pathIsValid(result) || !new File(result).exists()) {
+            System.out.println("Please enter a valid path.");
+            result = scanner.next();
+        }
+        return result;
+    }
+
+    /**
+     * This method receives a string of a path and checks if the path is valid
+     * (i.e. is either a .xml, .csv, .json file)
+     *
+     * @return true if the path is valid, false otherwise
+     * **/
+    private boolean pathIsValid(String path) {
+        return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
+    }
 }

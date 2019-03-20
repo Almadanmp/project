@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ReaderJSONGeographicAreas {
+public class ReaderJSONGeographicAreas implements Reader{
 
     /**
      * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed

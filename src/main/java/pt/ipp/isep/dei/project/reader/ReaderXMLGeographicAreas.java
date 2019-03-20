@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ReaderXMLGeographicAreas {
+public class ReaderXMLGeographicAreas implements Reader {
 
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file

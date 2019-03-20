@@ -548,9 +548,16 @@ class SensorListTest {
         boolean failedResult = validSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
                 2015, Calendar.FEBRUARY, 1).getTime());
 
+        // Act for not existing sensor
+
+        boolean failedResult2 = validSensorList.addReadingToMatchingSensor("xxxxxxx", 32D, new GregorianCalendar(
+                2018, Calendar.FEBRUARY, 1).getTime());
+
+
         // Assert
 
         assertTrue(result);
         assertFalse(failedResult);
+        assertFalse(failedResult2);
     }
 }

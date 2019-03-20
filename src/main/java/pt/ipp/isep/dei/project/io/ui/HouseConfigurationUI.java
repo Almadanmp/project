@@ -55,6 +55,10 @@ class HouseConfigurationUI {
                     runUS108(house);
                     activeInput = false;
                     break;
+                case 6:
+                    runUS20v2(list);
+                    activeInput = false;
+                    break;
                 case 0:
                     return;
                 default:
@@ -100,6 +104,36 @@ class HouseConfigurationUI {
             return;
         }
         UtilsUI.printMessage(ctrl.counter + " Readings have been successfully imported.");
+    }
+
+    /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
+     from a either a CSV, JSON or XML file.
+     Data outside the valid sensor operation period should not be imported but registered in the
+     application log. */
+
+    /**
+     * As an Administrator, I want to import geographic area sensor readings into the application
+     * from a a CSV, JSON and XML file and display a message to the user of how many readings were
+     * successfully imported.
+     *
+     * @param geographicAreaList is the static, program list of geographic areas that comes from mainUI.
+     */
+    private void runUS20v2(GeographicAreaList geographicAreaList) {
+        InputUtils inputUtils = new InputUtils();
+        ReaderController ctrl = new ReaderController();
+        String path = inputUtils.getInputFileLocation();
+        if (path.endsWith(".csv")) {
+            int result = ctrl.readReadingsFromCSV(geographicAreaList, path, "resources/logs/logOut.log");
+            System.out.println(result + " readings have been successfully imported.");
+        }
+        else if (path.endsWith(".json")) {
+            int result = ctrl.readReadingsFromJSON(geographicAreaList, path, "resources/logs/logOut.log");
+            System.out.println(result + " readings have been successfully imported.");
+        }
+        else if (path.endsWith(".xml")){
+            int result = ctrl.readReadingsFromXML(geographicAreaList, path, "resources/logs/logOut.log");
+            System.out.println(result + " readings have been successfully imported.");
+        }
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
@@ -243,6 +277,7 @@ class HouseConfigurationUI {
         System.out.println("3) Configure the location of the house. (US101)");
         System.out.println("4) Add a new room to the house. (US105)");
         System.out.println("5) List the existing rooms. (US108)");
+        System.out.println("6) Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v2)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

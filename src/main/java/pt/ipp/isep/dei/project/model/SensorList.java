@@ -263,11 +263,11 @@ public class SensorList {
 
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {
         for (Sensor sensor : this.getElementsAsArray()) {
-            if (sensor.getId().equals(sensorID) && !sensor.addReading(readingDate, readingValue)) {
-                return false;
+            if (sensor.getId().equals(sensorID) && sensor.addReading(readingDate, readingValue)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

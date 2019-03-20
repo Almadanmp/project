@@ -104,6 +104,7 @@ public class ReaderController {
                 Date readDate = pattern.parse(readings[1]);
                 if (logger.isLoggable(Level.WARNING) && !sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
                     logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
+                    this.counter--;
                 }
             } catch (NumberFormatException nfe) {
                 UtilsUI.printMessage("The reading values are not numeric.");
@@ -114,5 +115,73 @@ public class ReaderController {
         }
     }
 
+    /**
+     * This method goes receives a geographic area list, a string with a path to a CSV file and
+     * a path to a logger. The CSV file contains readings that will be added to the corresponding
+     * geographic area sensors. The readings that fail to be added will be added to log.
+     *
+     * @return the number of readings added to the geographic area sensors
+     **/
+    public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
+        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        int counter = 0;
+        if (sensorList.isEmpty()) {
+            return counter;
+        }
+        ReaderCSVReadings csvRead = new ReaderCSVReadings();
+        List<String[]> list = csvRead.readCSV(path);
+        try {
+            Logger logger = Logger.getLogger(ReaderController.class.getName());
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            for (String[] readings : list) {
+                counter += parseAndLogReading(readings, logger, sensorList);
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
+        return counter;
+    }
 
+    int parseAndLogReading(String[] readings, Logger logger, SensorList sensorList) {
+        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
+        for (SimpleDateFormat pattern : knownPatterns) {
+            try {
+                Double readValue = Double.parseDouble(readings[2]);
+                String readID = readings[0];
+                Date readDate = pattern.parse(readings[1]);
+                if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
+                    return 1;
+                }
+                logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
+            } catch (NumberFormatException nfe) {
+                UtilsUI.printMessage("The reading values are not numeric.");
+                logger.warning("The reading values are not numeric.");
+                return 0;
+            } catch (ParseException ignored) {
+                ignored.getErrorOffset();
+            }
+        }
+        return 0;
+    }
+
+    public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
+        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        if (sensorList.isEmpty()) {
+            return 0;
+        }
+        return 1;
+    }
+
+    public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
+        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        if (sensorList.isEmpty()) {
+            return 0;
+        }
+        return 1;
+    }
 }

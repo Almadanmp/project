@@ -70,7 +70,7 @@ public class MainUI {
         // ******* < MOCK DATA FOR TESTING PURPOSES >*******
         // *************************
         MockUI mockUI = new MockUI();
-        mockUI.initializeMockUI();
+            mockUI.initializeMockUI();
         TypeAreaList mockTypeAreaList = mockUI.getTypeAreaList();
         GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
         TypeSensorList mockTypeSensorList = mockUI.getTypeSensorList();

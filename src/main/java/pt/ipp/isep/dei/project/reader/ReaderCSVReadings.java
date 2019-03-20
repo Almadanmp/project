@@ -10,7 +10,7 @@ import java.util.List;
  * CVSReader Class. Reads .cvs files
  */
 
-public class ReaderCSVReadings {
+public class ReaderCSVReadings implements Reader{
 
     public List<String[]> readCSV(String csvFileLocation) {
         String line = "";
