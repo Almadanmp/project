@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
@@ -68,16 +66,18 @@ class GASettingsUI {
 
     // SHARED METHODS //
 
-    private TypeArea getInputTypeAreaByList(TypeAreaList typeAreaList) {
+    private TypeAreaDTO getInputTypeAreaDTOByList(TypeAreaList typeAreaList) {
         while (true) {
+            Mapper mapper = new Mapper();
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(controller.buildGATypeListString(typeAreaList));
             int aux = InputUtils.getInputAsInt();
             if (aux >= 0 && aux < typeAreaList.size()) {
                 TypeArea typeArea = typeAreaList.get(aux);
+                TypeAreaDTO typeAreaDTO = mapper.typeAreaToDTO(typeArea);
                 System.out.println("You have chosen the following Geographic Area Type:");
-                System.out.println("TypeArea: " + controller.getTypeAreaName(typeArea));
-                return typeArea;
+                System.out.println("TypeArea: " + controller.getTypeAreaName(typeAreaDTO));
+                return typeAreaDTO;
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
@@ -146,8 +146,8 @@ class GASettingsUI {
 
     private void getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         Scanner scanner = new Scanner(System.in);
-        TypeArea geoTypeArea = getInputTypeAreaByList(typeAreaList);
-        String gaTypeAreaName = controller.getTypeAreaName(geoTypeArea);
+        TypeAreaDTO geoTypeAreaDTO = getInputTypeAreaDTOByList(typeAreaList);
+        String gaTypeAreaName = controller.getTypeAreaName(geoTypeAreaDTO);
         String nameOfGeoArea = readInputString("Name");
         double geoAreaLat = readInputNumber("Latitude");
         double geoAreaLong = readInputNumber("Longitude");
@@ -156,7 +156,7 @@ class GASettingsUI {
         double geoAreaWidth = readInputPositiveNumber("Width");
         String geoAreDescription = null;
         LocalDTO localDTO = controller.createLocalDTO(geoAreaLat, geoAreaLong, geoAreaAlt);
-        GeographicAreaDTO geoAreaDTO = controller.createGeoAreaDTO(nameOfGeoArea, geoTypeArea, localDTO, geoAreaLength, geoAreaWidth);
+        GeographicAreaDTO geoAreaDTO = controller.createGeoAreaDTO(nameOfGeoArea, geoTypeAreaDTO, localDTO, geoAreaLength, geoAreaWidth);
         if (InputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
@@ -212,16 +212,16 @@ class GASettingsUI {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        TypeArea typeArea = getInputTypeAreaByList(typeAreaList);
-        GeographicAreaList gaFinalList = matchGAByTypeArea(geographicAreaList, typeArea);
-        displayGAListByTypeArea(gaFinalList, typeArea);
+        TypeAreaDTO typeAreaDTO = getInputTypeAreaDTOByList(typeAreaList);
+        GeographicAreaList gaFinalList = matchGAByTypeArea(geographicAreaList, typeAreaDTO);
+        displayGAListByTypeArea(gaFinalList, typeAreaDTO);
     }
 
-    private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeArea typeArea) {
+    private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeAreaDTO typeArea) {
         return controller.matchGAByTypeArea(geographicAreaList, typeArea);
     }
 
-    private void displayGAListByTypeArea(GeographicAreaList gaFinalList, TypeArea typeArea) {
+    private void displayGAListByTypeArea(GeographicAreaList gaFinalList, TypeAreaDTO typeArea) {
         String taName = controller.getTypeAreaName(typeArea);
         System.out.println("Geographic Areas of the type " + taName + ":\n");
         System.out.println(controller.buildGAListString(gaFinalList));
