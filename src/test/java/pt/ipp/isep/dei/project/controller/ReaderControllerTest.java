@@ -243,142 +243,142 @@ class ReaderControllerTest {
         assertTrue(validReader.readAndSetInternal(validGeographicAreaList, validLocation1, invalidLogPath));
     }
 
-/*
-    @Test
-    void seeIfGetSensorDataWorks() {
+    /*
+        @Test
+        void seeIfGetSensorDataWorks() {
 
-        //Arrange
+            //Arrange
 
-        SensorList expectedResult = new SensorList();
-        expectedResult.add(validSensor1);
-        expectedResult.add(validSensor2);
-        expectedResult.add(validSensor3);
-        expectedResult.add(validSensor4);
+            SensorList expectedResult = new SensorList();
+            expectedResult.add(validSensor1);
+            expectedResult.add(validSensor2);
+            expectedResult.add(validSensor3);
+            expectedResult.add(validSensor4);
 
-        // Act
+            // Act
 
-        SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
+            SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
+            //Assert
+            assertEquals(expectedResult, actualResult);
 
-    }
+        }
 
-    @Test
-    void seeIfGetSensorDataWorksEmptyList() {
+        @Test
+        void seeIfGetSensorDataWorksEmptyList() {
 
-        //Arrange
+            //Arrange
 
-        SensorList expectedResult = new SensorList();
+            SensorList expectedResult = new SensorList();
 
-        // Act
+            // Act
 
-        SensorList actualResult = validReader.getSensorData(new GeographicAreaList());
+            SensorList actualResult = validReader.getSensorData(new GeographicAreaList());
 
-        //Assert
+            //Assert
 
-        assertEquals(expectedResult, actualResult);
-    }
+            assertEquals(expectedResult, actualResult);
+        }
 
-    @Test
-    void seeIfGetSensorDataWorksEmptySensorList() {
+        @Test
+        void seeIfGetSensorDataWorksEmptySensorList() {
 
-        //Arrange
+            //Arrange
 
-        SensorList expectedResult = new SensorList();
-        validGeographicArea.setSensorList(new SensorList());
-        emptyGeographicAreaList.addGeographicArea(validGeographicArea);
+            SensorList expectedResult = new SensorList();
+            validGeographicArea.setSensorList(new SensorList());
+            emptyGeographicAreaList.addGeographicArea(validGeographicArea);
 
-        // Act
+            // Act
 
-        SensorList actualResult = validReader.getSensorData(emptyGeographicAreaList);
+            SensorList actualResult = validReader.getSensorData(emptyGeographicAreaList);
 
-        //Assert
+            //Assert
 
-        assertEquals(expectedResult, actualResult);
-    }
+            assertEquals(expectedResult, actualResult);
+        }
 
-    @Test
-    void seeIfGetSensorDataFails() {
+        @Test
+        void seeIfGetSensorDataFails() {
 
-        //Arrange
+            //Arrange
 
-        SensorList expectedResult = new SensorList();
+            SensorList expectedResult = new SensorList();
 
-        // Act
+            // Act
 
-        SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
+            SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
 
-        //Assert
-        assertNotEquals(expectedResult, actualResult);
+            //Assert
+            assertNotEquals(expectedResult, actualResult);
 
-    }
+        }
 
-    @Test
-    void seeIfGetSensorDataIsEmpty() {
+        @Test
+        void seeIfGetSensorDataIsEmpty() {
 
-        //Arrange
+            //Arrange
 
-        SensorList expectedResult = new SensorList();
+            SensorList expectedResult = new SensorList();
 
-        // Act
+            // Act
 
-        SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
+            SensorList actualResult = validReader.getSensorData(validGeographicAreaList);
 
-        //Assert
-        assertNotEquals(expectedResult, actualResult);
+            //Assert
+            assertNotEquals(expectedResult, actualResult);
 
-    }
+        }
 
-    @Test
-    void seeIfGetSensorDataEmptySensors() {
+        @Test
+        void seeIfGetSensorDataEmptySensors() {
 
-        //Arrange
+            //Arrange
 
-        String expectedResult = "Invalid List - List is Empty\n";
+            String expectedResult = "Invalid List - List is Empty\n";
 
-        // Act
+            // Act
 
-        String actualResult = validReader.getSensorData(emptyGeographicAreaList).toString();
+            String actualResult = validReader.getSensorData(emptyGeographicAreaList).toString();
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
+            //Assert
+            assertEquals(expectedResult, actualResult);
 
-    }
+        }
 
-    @Test
-    void seeIfGetSensorDataEmptyGAList() {
+        @Test
+        void seeIfGetSensorDataEmptyGAList() {
 
-        //Arrange
+            //Arrange
 
-        SensorList expectedResult = new SensorList();
+            SensorList expectedResult = new SensorList();
 
-        // Act
+            // Act
 
-        SensorList actualResult = validReader.getSensorData(emptyGeographicAreaList);
+            SensorList actualResult = validReader.getSensorData(emptyGeographicAreaList);
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
+            //Assert
+            assertEquals(expectedResult, actualResult);
 
-    }
+        }
 
-    @Test
-    void seeIfGetSensorDataEmptySensorList() {
+        @Test
+        void seeIfGetSensorDataEmptySensorList() {
 
-        //Arrange
+            //Arrange
 
-        String expectedResult = "---------------\n0) Name: Meteo station ISEP - rainfall | Type: rain | Active\n" +
-                "1) Name: Meteo station ISEP - temperature | Type: rain2 | Active\n---------------\n";
+            String expectedResult = "---------------\n0) Name: Meteo station ISEP - rainfall | Type: rain | Active\n" +
+                    "1) Name: Meteo station ISEP - temperature | Type: rain2 | Active\n---------------\n";
 
-        // Act
+            // Act
 
-        String actualResult = validReader.getSensorData(validGeographicAreaList2).toString();
+            String actualResult = validReader.getSensorData(validGeographicAreaList2).toString();
 
-        //Assert
-        assertEquals(expectedResult, actualResult);
+            //Assert
+            assertEquals(expectedResult, actualResult);
 
-    }
-*/
+        }
+    */
     @Test
     void seeIfParseAndLogFailsOutOfBoundsArray() {
 
@@ -548,6 +548,134 @@ class ReaderControllerTest {
         // Assert
 
         assertTrue(result);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingWorks() {
+        // Arrange
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(1, result);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingWorksWithExtraParameter() {
+        // Arrange
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[4];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+        readings[3] = "12";
+
+        // Act
+
+        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(1, result);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithWrongSensor() {
+        // Arrange
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "wrong sensor";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(0, result);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithRepeatedReading() {
+        // Arrange
+        Date validDate = new Date();
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate = validSdf2.parse("2019-12-30T02:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        validSensor1.addReading(new Reading(32, validDate));
+
+        // Act
+
+        int result = validReader.parseAndLogReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(0, result);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithEmptySensorList() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int result = validReader.parseAndLogReading(readings, logger, emptyList);
+
+        // Assert
+
+        assertEquals(0, result);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithInvalidDateFormat() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "invalid date";
+        readings[2] = "23";
+
+        // Act
+
+        int result = validReader.parseAndLogReading(readings, logger, emptyList);
+
+        // Assert
+
+        assertEquals(0, result);
     }
 
 }

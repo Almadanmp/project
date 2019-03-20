@@ -10,10 +10,10 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class JSONReaderTest {
+class ReaderJSONGeographicAreasTest {
     // Common testing artifacts for testing in this class.
 
-    private JSONReader reader = new JSONReader();
+    private ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
 
     @Test
     void seeIfReadFileWorks(){

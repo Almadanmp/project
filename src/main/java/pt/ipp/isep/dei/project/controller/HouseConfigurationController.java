@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.reader.JSONReader;
+import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
 
 /**
  * Controller class for House Configuration UI
@@ -33,14 +33,14 @@ public class HouseConfigurationController {
     }
 
     /**
-     * Method calls upon a JSONReader class to read a given filepath.
+     * Method calls upon a ReaderJSONGeographicAreas class to read a given filepath.
      * @param filePath is the filepath where the file we want to read is.
      * @param list is the list we want to import the data into.
      * @return is the number of areas imported.
      */
 
     public int readFile(String filePath, GeographicAreaList list){
-        JSONReader reader = new JSONReader();
+        ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         return reader.readFile(filePath, list);
     }
 

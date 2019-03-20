@@ -196,7 +196,7 @@ public class GeographicAreaDTO {
      * @return is a list of sensorDTOs.
      */
 
-    List<SensorDTO> getSensorDTOList() {
+    public List<SensorDTO> getSensorDTOList() {
         return sensorDTOList;
     }
 

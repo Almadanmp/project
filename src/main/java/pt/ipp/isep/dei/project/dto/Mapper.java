@@ -138,6 +138,7 @@ public class Mapper {
      */
 
     public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
+
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());
@@ -150,7 +151,7 @@ public class Mapper {
                 Date date = pattern.parse(sensorDTO.getDateStartedFunctioning());
                 sensorObject.setDateStartedFunctioning(date);
             } catch (ParseException c) {
-                c.printStackTrace();
+                c.getErrorOffset();
             }
         }
         sensorObject.setUniqueID(sensorDTO.getUniqueID());

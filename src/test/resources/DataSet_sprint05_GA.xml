@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <geographical_area_list>
+      <geographical_area>
+         <element>
+            <area_sensor>
+               <element>
+                  <location>
+                     <altitude>125</altitude>
+                     <latitude>41.17923</latitude>
+                     <longitude>-8.606409</longitude>
+                  </location>
+                  <sensor>
+                     <id>RF12345</id>
+                     <name>Meteo station ISEP - rainfall</name>
+                     <start_date>2016-11-15</start_date>
+                     <type>rainfall</type>
+                     <units>l/m2</units>
+                  </sensor>
+               </element>
+               <element>
+                  <location>
+                     <altitude>125</altitude>
+                     <latitude>41.17923</latitude>
+                     <longitude>-8.606409</longitude>
+                  </location>
+                  <sensor>
+                     <id>TT12346</id>
+                     <name>Meteo station ISEP - temperature</name>
+                     <start_date>2016-11-15</start_date>
+                     <type>temperature</type>
+                     <units>C</units>
+                  </sensor>
+               </element>
+            </area_sensor>
+            <description>Campus do ISEP</description>
+            <id>ISEP</id>
+            <length>0.249</length>
+            <location>
+               <altitude>111</altitude>
+               <latitude>41.178555</latitude>
+               <longitude>-8.608035</longitude>
+            </location>
+            <type>urban area</type>
+            <width>0.261</width>
+         </element>
+         <element>
+            <area_sensor>
+               <element>
+                  <location>
+                     <altitude>139</altitude>
+                     <latitude>41.17923</latitude>
+                     <longitude>-8.606409</longitude>
+                  </location>
+                  <sensor>
+                     <id>RF12334</id>
+                     <name>Meteo station CMP - rainfall</name>
+                     <start_date>2017-11-15</start_date>
+                     <type>rainfall</type>
+                     <units>l/m2</units>
+                  </sensor>
+               </element>
+               <element>
+                  <location>
+                     <altitude>139</altitude>
+                     <latitude>41.17923</latitude>
+                     <longitude>-8.606409</longitude>
+                  </location>
+                  <sensor>
+                     <id>TT1236A</id>
+                     <name>Meteo station CMP - temperature</name>
+                     <start_date>2017-11-16</start_date>
+                     <type>temperature</type>
+                     <units>C</units>
+                  </sensor>
+               </element>
+            </area_sensor>
+            <description>City of Porto</description>
+            <id>Porto</id>
+            <length>3.3</length>
+            <location>
+               <altitude>118</altitude>
+               <latitude>41.149937</latitude>
+               <longitude>-8.610857</longitude>
+            </location>
+            <type>city</type>
+            <width>10.09</width>
+         </element>
+      </geographical_area>
+   </geographical_area_list>

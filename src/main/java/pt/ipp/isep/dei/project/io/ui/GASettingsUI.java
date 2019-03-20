@@ -314,7 +314,7 @@ class GASettingsUI {
             return;
         }
         SensorDTO sensorDTO = controller.selectSensorDTOfFromGeoArea(geographicArea);
-        controller.isSensorActive(sensorDTO);
+        controller.displayIfSensorActive(sensorDTO);
     }
 
 

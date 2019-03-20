@@ -10,6 +10,8 @@ import pt.ipp.isep.dei.project.model.*;
 
 public class GASettingsController {
 
+    private static final String ACTIVE = "Sensor successfully activated!";
+    private static final String NOT_ACTIVE = "Sensor successfully deactivated!";
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     /**
@@ -166,7 +168,7 @@ public class GASettingsController {
     }
 
     /**
-     * Select sensor from sensorList and convert it to DTO
+     * Select sensor from sensorList and convert it to DTO,
      *
      * @param geographicArea with the sensor list
      * @return sensorDTO
@@ -176,19 +178,16 @@ public class GASettingsController {
         Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
         sensor.activateOrDeactivate();
         return mapper.sensorToDTO(sensor);
-
     }
 
 
-    public void isSensorActive(SensorDTO sensorDTO) {
+    public void displayIfSensorActive(SensorDTO sensorDTO) {
         Mapper mapper = new Mapper();
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
         if (sensor.isActive()) {
-            System.out.println("Sensor successfully activated!");
+            System.out.println(ACTIVE);
         } else {
-            System.out.println("Sensor successfully deactivated!");
+            System.out.println(NOT_ACTIVE);
         }
     }
-
-
 }

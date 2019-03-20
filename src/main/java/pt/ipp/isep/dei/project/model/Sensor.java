@@ -107,7 +107,7 @@ public class Sensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    void setTypeSensor(TypeSensor sensor) {
+    public void setTypeSensor(TypeSensor sensor) {
         this.typeSensor = sensor;
     }
 
@@ -247,8 +247,7 @@ public class Sensor {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
                 Reading reading = new Reading(value, date);
-                this.addReading(reading);
-                return true;
+                return this.addReading(reading);
             }
         }
         return false;

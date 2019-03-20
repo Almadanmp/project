@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.reader.JSONReader;
+import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
 
 import java.io.File;
 import java.util.List;
@@ -420,7 +420,7 @@ public class InputUtils {
      *
      * @return returns a filepath.
      */
-    public String getInputJSONOrXMLPath(String result) {
+    public String getInputPath(String result) {
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
             System.out.println("Please enter a valid path");
@@ -438,7 +438,7 @@ public class InputUtils {
      */
     public void readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
         if (input.endsWith(".json")) {
-            JSONReader reader = new JSONReader();
+            ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
             int areasRead = reader.readFile(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
         }
@@ -462,5 +462,33 @@ public class InputUtils {
             csvFileLocation = scanner.next();
         }
         return csvFileLocation;
+    }
+
+    /**
+     * This method will ask for a file location from the user and return it in case the file is
+     * a .csv, .xml or .json.
+     *
+     * @return the file path as a String
+     *
+     * **/
+    public String getInputFileLocation() {
+        Scanner scanner = new Scanner(System.in);
+        UtilsUI.printMessage("Please insert the location of the file you want to import: ");
+        String result = scanner.next();
+        while (!pathIsValid(result) || !new File(result).exists()) {
+            System.out.println("Please enter a valid path.");
+            result = scanner.next();
+        }
+        return result;
+    }
+
+    /**
+     * This method receives a string of a path and checks if the path is valid
+     * (i.e. is either a .xml, .csv, .json file)
+     *
+     * @return true if the path is valid, false otherwise
+     * **/
+    private boolean pathIsValid(String path) {
+        return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
     }
 }
