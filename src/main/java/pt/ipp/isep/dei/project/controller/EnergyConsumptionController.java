@@ -69,10 +69,10 @@ public class EnergyConsumptionController {
     }
 
     /**
-     * Calls for the room's method in the model to remove all of its devices from a given list.
+     * Calls for the room's method in the model to removeGeographicArea all of its devices from a given list.
      *
-     * @param room       is the room that contains the devices we want to remove.
-     * @param deviceList is the list we want to remove the devices from.
+     * @param room       is the room that contains the devices we want to removeGeographicArea.
+     * @param deviceList is the list we want to removeGeographicArea the devices from.
      * @return true if the devices were successfully removed, false if they were not on the list.
      */
 
@@ -81,10 +81,10 @@ public class EnergyConsumptionController {
     }
 
     /**
-     * Calls for the roomList's method in the model to remove a given room from itself.
+     * Calls for the roomList's method in the model to removeGeographicArea a given room from itself.
      *
-     * @param room     is the room we want to remove.
-     * @param roomList is the list we want to remove it from.
+     * @param room     is the room we want to removeGeographicArea.
+     * @param roomList is the list we want to removeGeographicArea it from.
      * @return true if the room was removed, false if it wasn't on the list.
      */
 
@@ -93,10 +93,10 @@ public class EnergyConsumptionController {
     }
 
     /**
-     * Calls for the deviceList's method in the model to remove a given device from itself.
+     * Calls for the deviceList's method in the model to removeGeographicArea a given device from itself.
      *
-     * @param d          is the device we want to remove.
-     * @param deviceList is the list we want to remove the device from.
+     * @param d          is the device we want to removeGeographicArea.
+     * @param deviceList is the list we want to removeGeographicArea the device from.
      * @return true if the device was removed, false if it wasn't on the list.
      */
 

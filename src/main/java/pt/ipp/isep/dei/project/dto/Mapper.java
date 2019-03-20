@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.dto;
 
 import pt.ipp.isep.dei.project.model.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Mapper {
 
     /**
      * Method that transforms a model instantiation of Room into a DTO fit to be handled by the UIs.
+     *
      * @param room is the room we want to convert into a DTO.
      * @return is a DTO whose stored data matches the one of the given room.
      */
@@ -36,8 +38,9 @@ public class Mapper {
     /**
      * Method that updates a room contained in a given house with the data contained in a given DTO. It matches the
      * DTO to the object through UUID.
+     *
      * @param roomDTO is the DTO that contains the data we want to use to update the model object.
-     * @param house is the house that contains the room we want to update.
+     * @param house   is the house that contains the room we want to update.
      * @return is the updated room if the update was successful, is null if it wasn't.
      */
 
@@ -61,6 +64,7 @@ public class Mapper {
 
     /**
      * Method that converts a given Geographic Area DTO into a model object with the same data.
+     *
      * @param geographicAreaDTO is the DTO that has the information we want to use for the conversion.
      * @return returns the geographic area created with the conversion.
      */
@@ -82,11 +86,12 @@ public class Mapper {
 
     /**
      * Method that converts a given Geographic Area into a DTO object with the same data.
+     *
      * @param geographicArea is the area we want to convert into a DTO.
      * @return is the newly created DTO object.
      */
 
-    GeographicAreaDTO geographicAreaToDTO(GeographicArea geographicArea) {
+    public GeographicAreaDTO geographicAreaToDTO(GeographicArea geographicArea) {
         List<SensorDTO> listSensorDTO = new ArrayList<>();
         geographicAreaDTO.setId(geographicArea.getId());
         geographicAreaDTO.setTypeArea(geographicArea.getTypeArea().getName());
@@ -107,6 +112,7 @@ public class Mapper {
 
     /**
      * Method that converts a given Sensor into a DTO with the same data.
+     *
      * @param sensor is the Sensor we want to convert into a DTO.
      * @return is the newly created DTO.
      */
@@ -125,25 +131,27 @@ public class Mapper {
 
     /**
      * Method that converts a given Sensor DTO into a model object with the same data.
+     *
      * @param sensorDTO is the DTO we want to convert.
      * @return is the newly created Sensor.
      */
 
-   public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
+    public Sensor sensorDTOToObject(SensorDTO sensorDTO) {
         Sensor sensorObject = new Sensor(sensorDTO.getId(), sensorDTO.getName(), new TypeSensor(sensorDTO.getTypeSensor()
                 , sensorDTO.getUnits()), new Local(sensorDTO.getLatitude(), sensorDTO.getLongitude(), sensorDTO.getAltitude())
                 , new Date());
         sensorObject.setterActive(sensorDTO.getActive());
-       List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-       knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
-       knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"));
-       for (SimpleDateFormat pattern : knownPatterns) {
-        try {
-            Date date = pattern.parse(sensorDTO.getDateStartedFunctioning());
-            sensorObject.setDateStartedFunctioning(date);
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }}
+        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"));
+        for (SimpleDateFormat pattern : knownPatterns) {
+            try {
+                Date date = pattern.parse(sensorDTO.getDateStartedFunctioning());
+                sensorObject.setDateStartedFunctioning(date);
+            } catch (ParseException c) {
+                c.printStackTrace();
+            }
+        }
         sensorObject.setUniqueID(sensorDTO.getUniqueID());
         return sensorObject;
     }

@@ -6,7 +6,10 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.TypeArea;
+import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 import java.util.Scanner;
 
@@ -138,41 +141,36 @@ class GASettingsUI {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
-        boolean created = getAreaInputUS03(geographicAreaList, typeAreaList);
-        generateResultUS03(created);
+        getAreaInputUS03(geographicAreaList, typeAreaList);
     }
 
-    private boolean getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
+    private void getAreaInputUS03(GeographicAreaList geographicAreaList, TypeAreaList typeAreaList) {
         Scanner scanner = new Scanner(System.in);
         TypeArea geoTypeArea = getInputTypeAreaByList(typeAreaList);
         String gaTypeAreaName = controller.getTypeAreaName(geoTypeArea);
-        String nameOfGeoArea = readInputString("name");
+        String nameOfGeoArea = readInputString("Name");
         double geoAreaLat = readInputNumber("Latitude");
         double geoAreaLong = readInputNumber("Longitude");
         double geoAreaAlt = readInputNumber("Altitude");
         double geoAreaLength = readInputPositiveNumber("Length");
         double geoAreaWidth = readInputPositiveNumber("Width");
         String geoAreDescription = null;
+        LocalDTO localDTO = controller.createLocalDTO(geoAreaLat, geoAreaLong, geoAreaAlt);
+        GeographicAreaDTO geoAreaDTO = controller.createGeoAreaDTO(nameOfGeoArea, geoTypeArea, localDTO, geoAreaLength, geoAreaWidth);
         if (InputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
+            geoAreaDTO.setDescription(geoAreDescription);
         }
-        System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + gaTypeAreaName +
+
+        System.out.print("The Geographic Area you want to created is " + nameOfGeoArea + " from the type " + gaTypeAreaName +
                 " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area size" +
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
-        }
-        LocalDTO localDTO = controller.createLocal(geoAreaLat, geoAreaLong, geoAreaAlt);
-        return controller.addNewGeoAreaToList(geographicAreaList, nameOfGeoArea, geoTypeArea, localDTO, geoAreaLength, geoAreaWidth);
-    }
+            controller.addNewGeoAreaToList(geographicAreaList, geoAreaDTO, localDTO);
 
-    private void generateResultUS03(boolean created) {
-        if (created) {
-            System.out.print("The Geographic Area has been successfully added.");
-        } else
-            System.out.print("The Geographic Area hasn't been added to the list. " +
-                    "There is already an area with those input values.");
+        }
     }
 
     private String createInputMsg(String inputType) {
@@ -318,7 +316,6 @@ class GASettingsUI {
         SensorDTO sensorDTO = controller.selectSensorDTOfFromGeoArea(geographicArea);
         controller.isSensorActive(sensorDTO);
     }
-
 
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

@@ -107,8 +107,8 @@ public class EnergyGridSettingsController {
     energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed. */
 
     /**
-     * @param grid is the grid we're going to remove a room from.
-     * @param room is the room we're going to remove from the grid.
+     * @param grid is the grid we're going to removeGeographicArea a room from.
+     * @param room is the room we're going to removeGeographicArea from the grid.
      * @return is true if the room is removed from the grid successfully, false if it isn't.
      */
 

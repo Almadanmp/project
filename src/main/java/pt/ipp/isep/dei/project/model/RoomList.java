@@ -100,7 +100,7 @@ public class RoomList {
     /**
      * Method that removes a Room from the RoomList.
      *
-     * @param room is the room we want to remove from the roomList.
+     * @param room is the room we want to removeGeographicArea from the roomList.
      * @return true if room was successfully removed from the roomList, false otherwise.
      */
     public boolean removeRoom(Room room) {
@@ -159,8 +159,9 @@ public class RoomList {
 
     /**
      * This method goes through every room in list and returns logs contained in interval given.
-     * @param initialDate  the date of the beginning of the interval
-     * @param finalDate  the date of the emd of the interval
+     *
+     * @param initialDate the date of the beginning of the interval
+     * @param finalDate   the date of the emd of the interval
      * @return log list with every log contained in interval given.
      */
     public LogList getLogsInInterval(Date initialDate, Date finalDate) {
@@ -197,7 +198,7 @@ public class RoomList {
      * @return returns room that corresponds to index.
      */
     public Room get(int index) {
-        if(this.rooms.isEmpty()){
+        if (this.rooms.isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
         return this.rooms.get(index);

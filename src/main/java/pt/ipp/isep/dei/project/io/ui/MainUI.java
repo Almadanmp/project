@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
 @SpringBootApplication
 public class MainUI {
 
@@ -110,9 +111,9 @@ public class MainUI {
             System.out.println("Select the task you want to do:");
 
             String formattedString = Arrays.toString(menu)
-                    .replace(",", "")  //remove the commas
-                    .replace("[", "")  //remove the right bracket
-                    .replace("]", "");  //remove the left bracket
+                    .replace(",", "")  //removeGeographicArea the commas
+                    .replace("[", "")  //removeGeographicArea the right bracket
+                    .replace("]", "");  //removeGeographicArea the left bracket
 
             System.out.print(formattedString);
             System.out.print("\nEnter option number:\n");

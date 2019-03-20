@@ -65,9 +65,9 @@ public class DeviceList {
     }
 
     /**
-     * Method to remove a Device from the DeviceList.
+     * Method to removeGeographicArea a Device from the DeviceList.
      *
-     * @param device is the device that we want to remove.
+     * @param device is the device that we want to removeGeographicArea.
      * @return true if it was successfully removed, false otherwise(it doesn't exists on the list already).
      */
     public boolean removeDevice(Device device) {
@@ -233,7 +233,7 @@ public class DeviceList {
     /**
      * Removes all devices in list from the list given.
      *
-     * @param list is the list we want to remove devices from.
+     * @param list is the list we want to removeGeographicArea devices from.
      * @return false if the list is invalid (null), true otherwise.
      */
     public boolean removeDevicesFromGivenList(DeviceList list) {

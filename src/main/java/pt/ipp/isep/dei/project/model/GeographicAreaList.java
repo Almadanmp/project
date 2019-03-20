@@ -55,8 +55,6 @@ public class GeographicAreaList {
      *
      * @return a string with the names of the geographic areas
      */
-
-
     public String buildString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
@@ -79,9 +77,9 @@ public class GeographicAreaList {
      * Method to check if a GA not exists and can be Created (if it has at least a different attribute from the following (name,
      * typearea or local)
      *
-     * @param newName   the name of the GA
-     * @param typeArea  the type of the GA
-     * @param local  the latitude, longitude and altitude of the GA
+     * @param newName  the name of the GA
+     * @param typeArea the type of the GA
+     * @param local    the latitude, longitude and altitude of the GA
      * @return will return true if a Geographic Area matching given parameters already
      * exists, false if it doesn't.
      */
@@ -98,11 +96,11 @@ public class GeographicAreaList {
     /**
      * Method to create a new geographic area before adding it to a GA List.
      *
-     * @param newName   input string for geographic area name for the new geographic area
-     * @param typeArea  input string for type area for the new geographic area
-     * @param length    input number for length for the new geographic area
-     * @param width     input number for width for the new geographic area
-     * @param local  input number for latitude, longitude and altitude of the new geographic area
+     * @param newName  input string for geographic area name for the new geographic area
+     * @param typeArea input string for type area for the new geographic area
+     * @param length   input number for length for the new geographic area
+     * @param width    input number for width for the new geographic area
+     * @param local    input number for latitude, longitude and altitude of the new geographic area
      * @return a new geographic area.
      */
     public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
@@ -133,6 +131,22 @@ public class GeographicAreaList {
     }
 
     /**
+     * Method to removeGeographicArea a geographic area if it is equal to another area (same id, type area and localization)
+     *
+     * @param geoArea geo area we want to removeGeographicArea
+     * @return true if removed, false if failed
+     */
+    public boolean removeGeographicArea(GeographicArea geoArea) {
+        for (GeographicArea gA : this.geographicAreas) {
+            if (gA.equalsParameters(geoArea.getId(), geoArea.getTypeArea(), geoArea.getLocal())) {
+                this.geographicAreas.remove(gA);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks the geographic area list size and returns the size as int.\
      *
      * @return GeographicAreaList size as int
@@ -149,7 +163,7 @@ public class GeographicAreaList {
      * @return returns geographic area that corresponds to index.
      */
     public GeographicArea get(int index) {
-        if(this.geographicAreas.isEmpty()){
+        if (this.geographicAreas.isEmpty()) {
             throw new IndexOutOfBoundsException("The geographic area list is empty.");
         }
         return this.geographicAreas.get(index);

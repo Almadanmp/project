@@ -185,7 +185,7 @@ class EnergyConsumptionUI {
     private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
         Room r1 = InputUtils.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
-            String duplicateRoom = "That room is already selected. Would you like to remove it from the list? (Y/N)\n";
+            String duplicateRoom = "That room is already selected. Would you like to removeGeographicArea it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
             if (InputUtils.yesOrNo(duplicateRoom)) {
                 controller.removeRoomFromList(r1, selectedRooms);

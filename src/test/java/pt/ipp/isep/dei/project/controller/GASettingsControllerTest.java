@@ -3,12 +3,11 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.Mapper;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.testng.Assert.*;
@@ -23,6 +22,8 @@ class GASettingsControllerTest {
     private GeographicArea secondValidArea;
     private TypeArea typeCountry;
     private TypeArea typeCity;
+    private GeographicAreaDTO validGeographicAreaDTO;
+    private Mapper mapper;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -32,6 +33,8 @@ class GASettingsControllerTest {
                 2, 5, new Local(21, 33, 5));
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
+        mapper = new Mapper();
+        validGeographicAreaDTO = mapper.geographicAreaToDTO(firstValidArea);
     }
 
     //SHARED METHODS
@@ -271,75 +274,15 @@ class GASettingsControllerTest {
         // Arrange
 
         GeographicAreaList geoList = new GeographicAreaList();
-        double latitude = 38;
-        double longitude = 7;
-        double altitude = 5;
-        double length = 2;
-        double width = 4;
 
         // Act
 
-        boolean result = controller.addNewGeoAreaToList(geoList, "Porto", typeCity, controller.createLocal(latitude, longitude, altitude), length, width);
+        boolean result = controller.addNewGeoAreaToList(geoList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
 
         // Assert
 
         assertTrue(result);
         assertEquals(1, geoList.size());
-    }
-
-    @Test
-    void seeIfCreatingExistingGeographicAreaFails() {
-
-        // Arrange
-
-        String name = "Porto";
-        GeographicAreaList geoList = new GeographicAreaList();
-        double latitude = 38;
-        double longitude = 7;
-        double altitude = 5;
-        double length = 2;
-        double width = 4;
-        GeographicArea geoFail = new GeographicArea(name, typeCity, length, width, new Local(latitude, longitude, altitude));
-
-        // Act
-
-        boolean result1 = controller.addNewGeoAreaToList(geoList, name, typeCity, controller.createLocal(latitude, longitude, altitude), length, width);
-        boolean result2 = controller.addNewGeoAreaToList(geoList, name, typeCity, controller.createLocal(latitude, longitude, altitude), length, width);
-        geoList.addGeographicArea(geoFail);
-        boolean result3 = controller.addNewGeoAreaToList(geoList, name, typeCity, controller.createLocal(latitude, longitude, altitude), length, width);
-
-        // Assert
-
-        assertTrue(result1); //safety check (already covered on previous test)
-        Assertions.assertFalse(result2);
-        assertFalse(result3);
-        assertEquals(1, geoList.size());
-    }
-
-    @Test
-    void seeIfCreatesTwoDifferentGeographicAreas() {
-
-        // Arrange
-
-        GeographicAreaList geoList = new GeographicAreaList();
-        String name1 = "Porto";
-        double latitude = 38;
-        double longitude = 7;
-        double altitude = 5;
-        double length = 2;
-        double width = 4;
-        String name2 = "Lisboa";
-
-        // Act
-
-        boolean result1 = controller.addNewGeoAreaToList(geoList, name1, typeCity, controller.createLocal(latitude, longitude, altitude), length, width);
-        boolean result2 = controller.addNewGeoAreaToList(geoList, name2, typeCity, controller.createLocal(latitude, longitude, altitude), length, width);
-
-        // Assert
-
-        assertTrue(result1); //safety check (already covered on previous test)
-        assertTrue(result2);
-        assertEquals(2, geoList.size());
     }
 
     //USER STORY 004 TESTS
@@ -427,8 +370,9 @@ class GASettingsControllerTest {
         boolean actualResult = sensor.activateOrDeactivate();
 
         //Assert
-        assertTrue( actualResult);
+        assertTrue(actualResult);
     }
+
     @Test
     void seeIfDeactivateSensor() {
 
@@ -437,13 +381,12 @@ class GASettingsControllerTest {
 
         //Act
         sensor.setActive();
-       boolean actualResult = sensor.activateOrDeactivate();
+        boolean actualResult = sensor.activateOrDeactivate();
 
 
         //Assert
         assertFalse(actualResult);
     }
-
 
 
     //
@@ -622,5 +565,26 @@ class GASettingsControllerTest {
 //        Assertions.assertFalse(actualResult);
 //    }
 
+    @Test
+    void seeIfCreateGeoAreaDTO() {
+        GeographicAreaDTO expectedResult = new GeographicAreaDTO();
+        expectedResult.setId("Joana");
+        expectedResult.setLatitude(12);
+        expectedResult.setLongitude(13);
+        expectedResult.setAltitude(13);
+        expectedResult.setTypeArea(typeCity.getName());
+
+        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", typeCity, controller.createLocalDTO(12, 13, 13), 12, 13);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfCreateLocalDTO() {
+
+        LocalDTO result = controller.createLocalDTO(12, 13, 14);
+
+        assertTrue(result instanceof LocalDTO);
+    }
 
 }

@@ -218,7 +218,7 @@ public class Room implements Metered {
     /**
      * Method that removes a Device from the Room.
      *
-     * @param device is the device we want to remove.
+     * @param device is the device we want to removeGeographicArea.
      * @return true if device was successfully removed from the room, false otherwise.
      */
     public boolean removeDevice(Device device) {
@@ -311,7 +311,7 @@ public class Room implements Metered {
     /**
      * Removes all of the room's devices from a given list.
      *
-     * @param list is the list we want to remove devices from.
+     * @param list is the list we want to removeGeographicArea devices from.
      * @return false if the list is invalid (null), true otherwise.
      */
 
@@ -355,7 +355,7 @@ public class Room implements Metered {
      * @return returns device that corresponds to index.
      */
     public Device getDeviceByIndex(int index) {
-        if(this.deviceList.isEmpty()){
+        if (this.deviceList.isEmpty()) {
             throw new IndexOutOfBoundsException("The device list is empty.");
         }
         return this.deviceList.get(index);
@@ -406,8 +406,6 @@ public class Room implements Metered {
         Room room = (Room) o;
         return Objects.equals(roomName, room.roomName);
     }
-
-
 
 
     @Override
