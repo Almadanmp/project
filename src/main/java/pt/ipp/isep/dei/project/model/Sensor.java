@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.UUID;
 
@@ -8,13 +12,17 @@ import java.util.UUID;
  * It is defined by a name, type of sensor, localization and the date it started functioning.
  * It contains a list with one or more weather readings.
  */
-
+@Entity
 public class Sensor {
+    @Id
     private String id;
     private String name;
+    @ManyToOne
     private TypeSensor typeSensor;
+    @ManyToOne
     private Local local;
     private Date dateStartedFunctioning;
+    @OneToOne
     private ReadingList readingList;
     private UUID uniqueID;
     private boolean active;

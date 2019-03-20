@@ -1,12 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Defines the Type of the Sensor.
  * A Type of Sensor is characterized by a name and a measure unit
  * Different Sensor Types cannot share the same Type Name
  */
-
+@Entity
 public class TypeSensor {
+
+    @Id
     private String name;
     private String units;
 
@@ -21,6 +26,9 @@ public class TypeSensor {
     public TypeSensor(String name, String units) {
         this.name = name;
         this.units = units;
+    }
+
+    protected TypeSensor() {
     }
 
     //GETTER METHODS

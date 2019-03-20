@@ -1,15 +1,19 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
 /**
  * Class that represents the Local of an Object .
  */
-
+@Entity
 public class Local {
+
     private double latitude;
     private double longitude;
     private double altitude;
+    @Id
     private UUID uniqueId;
 
     /**
@@ -23,6 +27,9 @@ public class Local {
         setLatitude(latitude);
         setLongitude(longitude);
         setAltitude(altitude);
+    }
+
+    protected Local() {
     }
 
     public UUID getUniqueId() {

@@ -50,7 +50,7 @@ class ReaderControllerTest {
     private static final String validLocation6 = "src/test/resources/testCSV6.csv";
     private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV2.csa";
     private static final String wrongLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV10.csv";
-    private static final String validLogPath = "./resources/logs/logOut.log";
+    private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
 
     @BeforeEach

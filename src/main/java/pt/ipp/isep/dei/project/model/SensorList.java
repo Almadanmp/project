@@ -1,13 +1,22 @@
 package pt.ipp.isep.dei.project.model;
 
-import java.util.*;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Class that groups a number of Sensors.
  */
-
+@Entity
 public class SensorList {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long Id;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn
     private List<Sensor> sensors;
 
     /**
