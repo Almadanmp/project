@@ -124,9 +124,9 @@ public class ReaderController {
      **/
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
         SensorList sensorList = geographicAreaList.getAreaListSensors();
-        int counter = 0;
+        int addedReadings = 0;
         if (sensorList.isEmpty()) {
-            return counter;
+            return addedReadings;
         }
         ReaderCSVReadings csvRead = new ReaderCSVReadings();
         List<String[]> list = csvRead.readFile(path);
@@ -137,12 +137,12 @@ public class ReaderController {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             for (String[] readings : list) {
-                counter += parseAndLogReading(readings, logger, sensorList);
+                addedReadings += parseAndLogReading(readings, logger, sensorList);
             }
         } catch (IOException e) {
             throw new IllegalArgumentException();
         }
-        return counter;
+        return addedReadings;
     }
 
     /**
