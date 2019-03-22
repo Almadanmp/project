@@ -9,7 +9,7 @@ actor Admin
 Admin -> MainUI: start program
 MainUI --> Admin: Show Menu
 Admin -> MainUI: Select Option GeographicAreaSettings
-":GeographicAreaSettingsUI" --> MainUI: Show Menu
+":GeographicAreaSettingsUI" --> Admin: Show Menu
 Admin ->  ":GeographicAreaSettingsUI": Select Option Create Geographic Area
 Ref over  ":GeographicAreaSettingsUI"
 get Geographic Area Types: US02

@@ -32,7 +32,7 @@ public class ReaderController {
      */
     boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
         ReaderCSVReadings csvRead = new ReaderCSVReadings();
-        List<String[]> list = csvRead.readCSV(path);
+        List<String[]> list = csvRead.readFile(path);
         SensorList fullSensorList = geographicAreaList.getAreaListSensors();
         this.counter = list.size();
         if (!fullSensorList.isEmpty()) {
@@ -76,7 +76,7 @@ public class ReaderController {
      */
     public void readFileXML(String filePath, GeographicAreaList list) {
         ReaderXMLGeographicAreas reader = new ReaderXMLGeographicAreas();
-        reader.readFileXML(filePath, list);
+        reader.readFileAndAdd(filePath, list);
     }
 
 
@@ -124,12 +124,12 @@ public class ReaderController {
      **/
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
         SensorList sensorList = geographicAreaList.getAreaListSensors();
-        int counter = 0;
+        int addedReadings = 0;
         if (sensorList.isEmpty()) {
-            return counter;
+            return addedReadings;
         }
         ReaderCSVReadings csvRead = new ReaderCSVReadings();
-        List<String[]> list = csvRead.readCSV(path);
+        List<String[]> list = csvRead.readFile(path);
         try {
             Logger logger = Logger.getLogger(ReaderController.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
@@ -137,14 +137,21 @@ public class ReaderController {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             for (String[] readings : list) {
-                counter += parseAndLogReading(readings, logger, sensorList);
+                addedReadings += parseAndLogReading(readings, logger, sensorList);
             }
         } catch (IOException e) {
             throw new IllegalArgumentException();
         }
-        return counter;
+        return addedReadings;
     }
 
+    /**
+     * This method receives a logger, a sensor list and an array of strings, tries to add a reading
+     * to a sensor in list and returns the number of readings added to sensor. The array of strings
+     * contains the reading's attributes.
+     *
+     * @return 0 in case the reading was not added, 1 in case of success.
+     ***/
     int parseAndLogReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));

@@ -17,37 +17,44 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ReaderJSONGeographicAreas implements Reader{
+public class ReaderJSONGeographicAreas implements Reader {
 
-    /**
-     * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
-     * from the data in the file.
-     * @param filePath is the absolute filepath of the .json file in the system.
-     * @param list is the list of Geographic areas that comes from Main, since we still don't have a database, to which
-     *             we want to add the imported geographic areas.
-     * @return is an array of data transfer geographic area objects created with the data in the .json file.
-     */
 
-    public int readFile(String filePath, GeographicAreaList list) {
-        HouseConfigurationController controller = new HouseConfigurationController();
+    public JSONArray readFile(String filePath) {
         try {
             File file = new File(filePath);
             InputStream stream = new FileInputStream(file);
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             JSONObject areaList = object.getJSONObject("geographical_area_list");
-            JSONArray geoAreas = areaList.getJSONArray("geographical_area");
-            GeographicArea[] geographicAreasArray;
-            geographicAreasArray = readGeoAreas(geoAreas);
-            return controller.addGeoAreasToList(geographicAreasArray, list);
+            return areaList.getJSONArray("geographical_area");
         } catch (FileNotFoundException e) {
             UtilsUI.printMessage("The file wasn't found.");
         }
-        return 0;
+        return new JSONArray();
+    }
+
+    /**
+     * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
+     * from the data in the file.
+     *
+     * @param filePath is the absolute filepath of the .json file in the system.
+     * @param list     is the list of Geographic areas that comes from Main, since we still don't have a database, to which
+     *                 we want to add the imported geographic areas.
+     * @return is an array of data transfer geographic area objects created with the data in the .json file.
+     */
+
+    public int readFileAndAdd(String filePath, GeographicAreaList list) {
+        HouseConfigurationController controller = new HouseConfigurationController();
+        JSONArray geoAreas = readFile(filePath);
+        GeographicArea[] geographicAreasArray;
+        geographicAreasArray = readGeoAreas(geoAreas);
+        return controller.addGeoAreasToList(geographicAreasArray, list);
     }
 
     /**
      * Is the method that loads geographic areas from the .json file.
+     *
      * @param geoAreas is the JSONArray corresponding to the list of geographic areas in the .json file.
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
@@ -78,6 +85,7 @@ public class ReaderJSONGeographicAreas implements Reader{
 
     /**
      * Is the method that loads sensors from a list of sensors in the .json file.
+     *
      * @param areaSensors is the array of sensors contained in the .json file, usually the list of sensors
      *                    that belong to an area.
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.

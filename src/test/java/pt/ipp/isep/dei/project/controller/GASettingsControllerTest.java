@@ -73,7 +73,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(geographicAreaList, typeCity);
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(geographicAreaList, mapper.typeAreaToDTO(typeCity));
 
         // Assert
 
@@ -88,7 +88,7 @@ class GASettingsControllerTest {
         String expectedResult = "City";
 
         // Act
-        String actualResult = controller.getTypeAreaName(typeCity);
+        String actualResult = controller.getTypeAreaName(mapper.typeAreaToDTO(typeCity));
 
         // Assert
 
@@ -300,7 +300,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, typeCountry);
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCountry));
 
         //Assert
 
@@ -320,7 +320,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, typeCity);
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
 
         //Assert
 
@@ -338,7 +338,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, typeCity);
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
 
         //Assert
 
@@ -354,7 +354,7 @@ class GASettingsControllerTest {
         String actualResult;
 
         //Act
-        actualResult = controller.getTypeAreaName(typeCity);
+        actualResult = controller.getTypeAreaName(mapper.typeAreaToDTO(typeCity));
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -370,7 +370,7 @@ class GASettingsControllerTest {
         boolean actualResult = sensor.activateOrDeactivate();
 
         //Assert
-        assertFalse( actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -574,7 +574,7 @@ class GASettingsControllerTest {
         expectedResult.setAltitude(13);
         expectedResult.setTypeArea(typeCity.getName());
 
-        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", typeCity, controller.createLocalDTO(12, 13, 13), 12, 13);
+        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", mapper.typeAreaToDTO(typeCity), controller.createLocalDTO(12, 13, 13), 12, 13);
 
         assertEquals(expectedResult, result);
     }

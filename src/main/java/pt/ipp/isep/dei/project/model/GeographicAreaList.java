@@ -117,7 +117,11 @@ public class GeographicAreaList {
         return geographicAreas.contains(geoArea);
     }
 
-
+    /**
+     * Method that returns a GeographicAreaList with a given type.
+     * @param typeAreaName is the type of the area we want to get all the geographicAreas.
+     * @return a GeographicAreaList with a given type.
+     */
     public GeographicAreaList getGeoAreasByType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList();
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
@@ -212,6 +216,13 @@ public class GeographicAreaList {
     public boolean isEmpty() {
         return this.geographicAreas.isEmpty();
     }
+
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     *
+     * @param testObject is the object we want to check for equality.
+     * @return is true if the object is a power source list with the same contents.
+     */
 
     @Override
     public boolean equals(Object testObject) {

@@ -38,12 +38,12 @@ public class ReaderCSVReadingsTest {
 
         // Act
 
-        List<String[]> actualResult = validReader.readCSV(validLocation1);
+        List<String[]> actualResult = validReader.readFile(validLocation1);
 
         //Assert
         assertEquals(expectedResult,actualResult);
     }
-/*
+
     @Test
     void seeIfReadCSVWorks2() {
 
@@ -59,10 +59,9 @@ public class ReaderCSVReadingsTest {
 
         // Act
 
-        List<String[]> actualResult = validReader.readCSV(validLocation1);
+        List<String[]> actualResult = validReader.readFile(validLocation1);
 
         //Assert
         assertEquals(expectedResult,actualResult);
     }
-*/
 }

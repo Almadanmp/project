@@ -54,6 +54,18 @@ public class RoomList {
         return finalList;
     }
 
+    /**
+     * Method for creating a new room with all it's parameters,
+     * the method checks the room name to see if it already exists before creating it
+     *
+     * @param roomDesignation room name
+     * @param roomHouseFloor floor of the house where room is located
+     * @param width from room size
+     * @param length from room size
+     * @param height from room size
+     * @return new created room
+     */
+
     Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         for (Room r : this.rooms) {
             String designation = r.getRoomName();
@@ -226,6 +238,13 @@ public class RoomList {
         return sum;
     }
 
+    /**
+     * Method for building string to be displayed to user so he can see Devices of a certain type listed
+     *
+     * @param deviceType type of device user wants to list
+     * @return list of devices of that type param
+     */
+
     StringBuilder buildDeviceListByType(String deviceType) {
         StringBuilder result = new StringBuilder();
         for (Room r : this.rooms) {
@@ -249,6 +268,13 @@ public class RoomList {
         }
         return result;
     }
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     * Necessary for adding rooms to list.
+     *
+     * @param testObject is the object we want to check for equality.
+     * @return is true if the object is a power source list with the same contents.
+     */
 
     @Override
     public boolean equals(Object testObject) {

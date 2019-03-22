@@ -10,9 +10,9 @@ import java.util.List;
  * CVSReader Class. Reads .cvs files
  */
 
-public class ReaderCSVReadings implements Reader{
+public class ReaderCSVReadings implements Reader {
 
-    public List<String[]> readCSV(String csvFileLocation) {
+    public List<String[]> readFile(String csvFileLocation) {
         String line = "";
         String cvsSplit = ",";
         String[] readings;
