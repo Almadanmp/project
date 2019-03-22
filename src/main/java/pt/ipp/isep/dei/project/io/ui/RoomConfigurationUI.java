@@ -24,7 +24,7 @@ class RoomConfigurationUI {
         this.controller = new RoomConfigurationController();
     }
 
-    void run(House house, TypeSensorList typeSensorList) {
+    void run(House house) {
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -67,8 +67,8 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(typeSensorList, house);
-                    activeInput = false;
+                    //runUS253(typeSensorList, house);
+                    //activeInput = false;
                     break;
                 case 0:
                     return;
@@ -368,16 +368,16 @@ class RoomConfigurationUI {
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      * sensor types, in order to configure it.
      *
-     * @param typeSensorList is
+   //  * @param typeSensorList is
      */
-    private void runUS253(TypeSensorList typeSensorList, House house) {
-        if (typeSensorList.isEmpty()) {
-            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
-            return;
-        }
-        Room room = InputUtils.getHouseRoomByList(house);
-        TypeSensor typeSensor = InputUtils.getInputSensorTypeByList(typeSensorList);
-        getInput253(room, typeSensor);
+    private void runUS253(House house) {
+//        if (typeSensorList.isEmpty()) {
+//            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
+//            return;
+//        }
+       // Room room = InputUtils.getHouseRoomByList(house);
+       // TypeSensor typeSensor = InputUtils.getInputSensorTypeByList(typeSensorList);
+        //getInput253(room, typeSensor);
     }
 
     private void getInput253(Room room, TypeSensor typeSensor) {

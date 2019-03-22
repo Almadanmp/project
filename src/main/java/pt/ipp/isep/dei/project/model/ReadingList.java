@@ -8,15 +8,15 @@ import static java.lang.Double.NaN;
 /**
  * This is the ReadingList Class, a List of Readings that the Sensor receives.
  */
-@Entity
+//@Entity
 public class ReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+  //  @Id
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     private long iD;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reading> readings;
 
     /**

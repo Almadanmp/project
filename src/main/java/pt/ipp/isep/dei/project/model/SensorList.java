@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Class that groups a number of Sensors.
  */
-@Entity
+//@Entity
 public class SensorList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+  //  @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private long iD;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn
+    //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinColumn
     private List<Sensor> sensors;
 
     /**

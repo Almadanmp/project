@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Defines the Type of the Sensor.
@@ -12,26 +11,30 @@ import javax.persistence.Id;
 public class TypeSensor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     private String units;
+    //@ManyToOne(fetch = FetchType.LAZY)
+   // @JoinColumn(name = "type_sensor_list")
+   // private TypeSensorList typeSensorList;
 
-// CONSTRUCTOR
+    // CONSTRUCTOR
+    protected TypeSensor() {
+    }
 
     /**
      * @param name  The name of the type
      * @param units The type of units used in that type of sensor
      *              Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
      */
-
     public TypeSensor(String name, String units) {
         this.name = name;
         this.units = units;
     }
 
-    protected TypeSensor() {
-    }
-
     //GETTER METHODS
+
     /**
      * Getter Units of the Sensor.
      *
@@ -50,6 +53,15 @@ public class TypeSensor {
         return this.name;
     }
 
+ /*   public TypeSensorList getTypeSensorList() {
+        return typeSensorList;
+    }
+
+    public void setTypeSensorList(TypeSensorList typeSensorList) {
+        this.typeSensorList = typeSensorList;
+    }*/
+
+
     //SPECIFIC METHODS
 
     /**
@@ -61,6 +73,13 @@ public class TypeSensor {
         String result;
         result = "The type of the sensor is " + this.name + ", and the unit of measurement is " + this.units + ".";
         return result;
+    }
+
+    //TODO Testing, if it stays, do javadoc
+    public String toString() {
+        return String.format(
+                "TypeSensor[id=%d, name='%s', units='%s']",
+                id, name, units);
     }
 
     /**

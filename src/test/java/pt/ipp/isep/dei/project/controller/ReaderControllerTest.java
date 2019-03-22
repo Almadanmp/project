@@ -286,7 +286,7 @@ class ReaderControllerTest {
             //Arrange
 
             SensorList expectedResult = new SensorList();
-            validGeographicArea.setSensorList(new SensorList());
+            validGeographicArea.setTypeSensorList(new SensorList());
             emptyGeographicAreaList.addGeographicArea(validGeographicArea);
 
             // Act

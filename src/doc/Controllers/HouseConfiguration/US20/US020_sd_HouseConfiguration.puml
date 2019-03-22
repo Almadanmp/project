@@ -43,7 +43,7 @@ CSVReaderController -->> CSVReader: List<String[]> readCSV = readCSV(String csvF
 activate CSVReader
 deactivate CSVReader
 CSVReaderController -> CSVReaderController: getSensorData(GeographicAreaList geographicAreaList)
-CSVReaderController -> CSVReaderController: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+CSVReaderController -> CSVReaderController: parseAndLog(String[] readings, Logger logger, SensorList typeSensorList)
 
 alt Try
 CSVReaderController -> CSVReaderController: setCSVReadings(Sensor sensor, Date date, Double value)

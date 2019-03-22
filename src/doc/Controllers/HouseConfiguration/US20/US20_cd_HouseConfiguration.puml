@@ -40,7 +40,7 @@ startAndPromptPath()
 readAndSet(GeographicAreaList geographicAreaList, String path)
 setCSVReadings(Sensor sensor, Date date, Double value)
 getSensorData(GeographicAreaList geographicAreaList)
-parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+parseAndLog(String[] readings, Logger logger, SensorList typeSensorList)
 }
 
 class CSVReader{
