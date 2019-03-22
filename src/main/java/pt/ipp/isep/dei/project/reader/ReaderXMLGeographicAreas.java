@@ -45,7 +45,6 @@ public class ReaderXMLGeographicAreas implements Reader {
                 result++;
             }
         }
-
         for (GeographicArea emp : list.getGeographicAreas()) {
             System.out.println(emp.toString());
         }
@@ -65,7 +64,7 @@ public class ReaderXMLGeographicAreas implements Reader {
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element))));
             geoArea.setTypeArea(new TypeArea(getTagValue("type", element)));
-            NodeList nListSensor = doc.getElementsByTagName("area_sensors");
+            NodeList nListSensor = doc.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
             for (int j = 0; j < nListSensor.getLength(); j++) {
                 sensorList.add(getSensors(nListSensor.item(j)));
