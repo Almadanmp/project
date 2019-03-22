@@ -41,7 +41,7 @@ public class ReaderXMLGeographicAreas implements Reader {
         //  System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i),doc))) {
+            if (list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i)))) {
                 result++;
             }
         }
@@ -51,7 +51,7 @@ public class ReaderXMLGeographicAreas implements Reader {
         return result;
     }
 
-    private GeographicArea getGeographicAreas(Node node, Document doc) {
+    private GeographicArea getGeographicAreas(Node node) {
         //XMLReaderDOM domReader = new XMLReaderDOM();
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -64,7 +64,7 @@ public class ReaderXMLGeographicAreas implements Reader {
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element))));
             geoArea.setTypeArea(new TypeArea(getTagValue("type", element)));
-            NodeList nListSensor = doc.getElementsByTagName("sensor");
+            NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
             for (int j = 0; j < nListSensor.getLength(); j++) {
                 sensorList.add(getSensors(nListSensor.item(j)));
