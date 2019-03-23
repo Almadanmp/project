@@ -42,14 +42,14 @@ class ReaderControllerTest {
     private Sensor validSensor3;
     private Sensor validSensor4;
     private SensorList validSensorList;
-    private static final String validLocation1 = "src/test/resources/testCSV1.csv";
-    private static final String validLocation2 = "src/test/resources/testCSV2.csv";
-    private static final String validLocation3 = "src/test/resources/testCSV3.csv";
-    private static final String validLocation4 = "src/test/resources/testCSV4.csv";
-    private static final String validLocation5 = "src/test/resources/testCSV5.csv";
-    private static final String validLocation6 = "src/test/resources/testCSV6.csv";
-    private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV2.csa";
-    private static final String wrongLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/testCSV10.csv";
+    private static final String validLocation1 = "src/test/resources/test1CSVReadings.csv";
+    private static final String validLocation2 = "src/test/resources/test2CSVReadings.csv";
+    private static final String validLocation3 = "src/test/resources/test3CSVReadings.csv";
+    private static final String validLocation4 = "src/test/resources/test4CSVReadings.csv";
+    private static final String validLocation5 = "src/test/resources/test5CSVReadings.csv";
+    private static final String validLocation6 = "src/test/resources/test6CSVReadings.csv";
+    private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/test2CSVReadings.csa";
+    private static final String wrongLocation2 = "src/test/java/pt/ipp/isep/dei/project/reader/test10CSVReadings.csv";
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
 
