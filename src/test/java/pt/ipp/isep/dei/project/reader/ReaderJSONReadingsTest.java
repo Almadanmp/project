@@ -16,6 +16,7 @@ class ReaderJSONReadingsTest {
     private static final String invalidPath = "src/test/resources";
     private JSONArray validJSONArray;
 
+
     @BeforeEach
     void arrangeArtifacts() {
         validReader = new ReaderJSONReadings();
