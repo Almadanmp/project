@@ -842,6 +842,7 @@ class ReaderControllerTest {
 
     @Test
     void seeIfParseAndLogJSONReadingWorksWithInvalidLogger() {
+
         //Arrange
 
         JSONObject validJSONObj = new JSONObject();
