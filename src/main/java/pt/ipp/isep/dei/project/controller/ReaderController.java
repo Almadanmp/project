@@ -215,7 +215,7 @@ public class ReaderController {
      *
      * @return the number of readings added to geographic area sensors
      ***/
-    public int parseAndLogJSONReadings(SensorList sensorList, JSONArray readings, Logger logger) {
+    int parseAndLogJSONReadings(SensorList sensorList, JSONArray readings, Logger logger) {
         int added = 0;
         for (int i = 0; i < readings.length(); i++) {
             JSONObject readingObject = readings.getJSONObject(i);
@@ -230,7 +230,7 @@ public class ReaderController {
      *
      * @return returns 1 in case the reading is added, 0 otherwise
      ***/
-    public int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger){
+    int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger){
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
