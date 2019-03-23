@@ -2,13 +2,11 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.SensorList;
-import pt.ipp.isep.dei.project.reader.ReaderCSVReadings;
-import pt.ipp.isep.dei.project.reader.CustomFormatter;
-import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
-import pt.ipp.isep.dei.project.reader.ReaderXMLGeographicAreas;
+import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -273,10 +271,12 @@ public class ReaderController {
      * @return the total number of readings added
      ***/
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
+       int addedReadings = 0;
         SensorList sensorList = geographicAreaList.getAreaListSensors();
         if (sensorList.isEmpty()) {
-            return 0;
+            return addedReadings;
         }
-        return 1;
-    }
+        ReaderXMLReadings reader = new ReaderXMLReadings();
+        Document document = reader.readFile(path);
+        return addedReadings;    }
 }

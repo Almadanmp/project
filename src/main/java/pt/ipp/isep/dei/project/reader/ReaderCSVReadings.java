@@ -12,13 +12,13 @@ import java.util.List;
 
 public class ReaderCSVReadings implements Reader {
 
-    public List<String[]> readFile(String csvFileLocation) {
+    public List<String[]> readFile(String filePath) {
         String line = "";
         String cvsSplit = ",";
         String[] readings;
         List<String[]> listReads = new ArrayList<>();
         int iteration = 0;
-        try (BufferedReader buffReader = new BufferedReader(new FileReader(csvFileLocation))){
+        try (BufferedReader buffReader = new BufferedReader(new FileReader(filePath))){
             while ((line = buffReader.readLine()) != null) {
                 if (iteration == 0) {
                     iteration++;

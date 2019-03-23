@@ -13,9 +13,9 @@ import java.io.InputStream;
 public class ReaderJSONReadings implements Reader {
 
     @Override
-    public JSONArray readFile(String path) {
+    public JSONArray readFile(String filePath) {
         try {
-            File file = new File(path);
+            File file = new File(filePath);
             InputStream stream = new FileInputStream(file);
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);

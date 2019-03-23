@@ -40,9 +40,6 @@ class ReaderControllerTest {
     private Date validDate5 = new Date();
     private ReaderController validReader;
     private Sensor validSensor1;
-    private Sensor validSensor2;
-    private Sensor validSensor3;
-    private Sensor validSensor4;
     private SensorList validSensorList;
     private static final String validCSVLocation1 = "src/test/resources/test1CSVReadings.csv";
     private static final String validCSVLocation2 = "src/test/resources/test2CSVReadings.csv";
@@ -54,7 +51,6 @@ class ReaderControllerTest {
     private static final String validJSONLocation3 = "src/test/resources/test3JSONReadings.json";
     private static final String validJSONLocation4 = "src/test/resources/test4JSONReadings.json";
 
-    private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/test2CSVReadings.csa";
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
 
@@ -83,13 +79,13 @@ class ReaderControllerTest {
         validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new TypeSensor("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
                 validDate1);
-        validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new TypeSensor("rain2", "mm2"),
+        Sensor validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new TypeSensor("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 125),
                 validDate2);
-        validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new TypeSensor("rain2", "mm2"),
+        Sensor validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new TypeSensor("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate3);
-        validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new TypeSensor("rain2", "mm2"),
+        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new TypeSensor("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
         validSensorList = new SensorList();
