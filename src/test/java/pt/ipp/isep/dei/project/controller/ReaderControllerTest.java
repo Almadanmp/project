@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -48,10 +49,10 @@ class ReaderControllerTest {
     private static final String validCSVLocation3 = "src/test/resources/test3CSVReadings.csv";
     private static final String validCSVLocation4 = "src/test/resources/test4CSVReadings.csv";
     private static final String validCSVLocation5 = "src/test/resources/test5CSVReadings.csv";
-    private static final String validJSONLocation1 = "src/test/resources/test1JSONReadings.csv";
-    private static final String validJSONLocation2 = "src/test/resources/test2JSONReadings.csv";
-    private static final String validJSONLocation3 = "src/test/resources/test3JSONReadings.csv";
-    private static final String validJSONLocation4 = "src/test/resources/test4JSONReadings.csv";
+    private static final String validJSONLocation1 = "src/test/resources/test1JSONReadings.json";
+    private static final String validJSONLocation2 = "src/test/resources/test2JSONReadings.json";
+    private static final String validJSONLocation3 = "src/test/resources/test3JSONReadings.json";
+    private static final String validJSONLocation4 = "src/test/resources/test4JSONReadings.json";
 
     private static final String wrongLocation1 = "src/test/java/pt/ipp/isep/dei/project/reader/test2CSVReadings.csa";
     private static final String validLogPath = "resources/logs/logOut.log";
@@ -861,4 +862,122 @@ class ReaderControllerTest {
 
         assertEquals(0, actualResult);
     }
+
+    @Test
+    void seeIfParseAndLogJSONReadingsWorks() {
+
+        //Arrange
+
+        JSONObject validJSONObj1 = new JSONObject();
+        validJSONObj1.put("id", "TT12346");
+        validJSONObj1.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj1.put("value", "23.4");
+        validJSONObj1.put("unit", "F");
+
+        JSONObject validJSONObj2 = new JSONObject();
+        validJSONObj2.put("id", "TT12346");
+        validJSONObj2.put("timestamp/date", "2018-12-30T03:00:00+00:00");
+        validJSONObj2.put("value", "25.6");
+        validJSONObj2.put("unit", "F");
+
+        JSONArray validJSONArray = new JSONArray();
+        validJSONArray.put(validJSONObj1);
+        validJSONArray.put(validJSONObj2);
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReadings(validSensorList, validJSONArray, logger);
+
+        // Assert
+
+        assertEquals(2, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogJSONReadingsWorksWithInvalidField() {
+
+        //Arrange
+
+        JSONObject validJSONObj1 = new JSONObject();
+        validJSONObj1.put("id", "TT12346");
+        validJSONObj1.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj1.put("value", "invalidField");
+        validJSONObj1.put("unit", "F");
+
+        JSONArray validJSONArray = new JSONArray();
+        validJSONArray.put(validJSONObj1);
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReadings(validSensorList, validJSONArray, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWithEmptySensorList() {
+
+        //Arrange
+
+        GeographicAreaList noSensorsGA = new GeographicAreaList();
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(noSensorsGA, validJSONLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWhenFileHasNoReadings() {
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWhenOneReadingHasWrongSensorId() {
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation2, validLogPath);
+
+        // Assert
+
+        assertEquals(4, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWhenReadingsHaveSameDate() {
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation3, validLogPath);
+
+        // Assert
+
+        assertEquals(1, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWhenInputValuesAreWrong() {
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation4, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
 }
