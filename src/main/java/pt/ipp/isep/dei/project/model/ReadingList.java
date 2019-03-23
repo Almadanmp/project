@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.reader.Reader;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -34,11 +36,10 @@ public class ReadingList {
      * returns false if the input reading was rejected.
      */
     public boolean addReading(Reading reading) {
-        boolean result = false;
-        if (!(readings.contains(reading))) {
-            result = readings.add(reading);
+        if (contains(reading)) {
+            return false;
         }
-        return result;
+        return this.readings.add(reading);
     }
 
     /**
@@ -603,6 +604,20 @@ public class ReadingList {
             result = Math.min(r.getValue(), result);
         }
         return result;
+    }
+
+    /**
+     * This method checks if a reading exists in a given reading list.
+     *
+     * @return true if the reading already exists, false otherwise
+     */
+    boolean contains(Reading reading) {
+        for(Reading r : this.readings){
+            if(r.equals(reading)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

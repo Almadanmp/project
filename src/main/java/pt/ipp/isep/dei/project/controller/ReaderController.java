@@ -120,7 +120,7 @@ public class ReaderController {
 
     /**
      * This method goes receives a geographic area list, a string with a path to a CSV file and
-     * a path to a logger. The CSV file contains readings that will be added to the corresponding
+     * a string path to a logger. The CSV file contains readings that will be added to the corresponding
      * geographic area sensors. The readings that fail to be added will be added to log.
      *
      * @return the number of readings added to the geographic area sensors
@@ -161,13 +161,10 @@ public class ReaderController {
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
-                Double readValue = Double.parseDouble(readings[2]);
                 String sensorID = readings[0];
-                Date readDate = pattern.parse(readings[1]);
-                if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readValue, readDate)) {
-                    return 1;
-                }
-                logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
+                Date readingDate = pattern.parse(readings[1]);
+                Double readingValue = Double.parseDouble(readings[2]);
+                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
@@ -180,11 +177,12 @@ public class ReaderController {
     }
 
     /**
-     * This method receives a logger, a sensor list and an array of strings, tries to add a reading
-     * to a sensor in list and returns the number of readings added to sensor. The array of strings
-     * contains the reading's attributes.
+     * This method receives a geographic area list, a file path to JSON file and a file path to a log.
+     * The method will read the JSON file, try to parse every reading and try to add them to the
+     * corresponding sensor from its corresponding geographic area. The readings that fail to be added
+     * will be added to log.
      *
-     * @return 0 in case the reading was not added, 1 in case of success.
+     * @return the total number of readings added
      ***/
     public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
@@ -230,19 +228,17 @@ public class ReaderController {
      *
      * @return returns 1 in case the reading is added, 0 otherwise
      ***/
-    int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger){
+    int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd"));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 String sensorID = reading.getString("id");
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
-                if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
-                    return 1;
-                }
-                logger.warning("The reading with value " + readingValue + " and date " + readingDate + " could not be added to the sensor.");
+                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
@@ -254,6 +250,28 @@ public class ReaderController {
         return 0;
     }
 
+    /**
+     * This method receives a logger, a sensor list, and reading features (sensor Id, reading value, reading date)
+     * and tries to add the corresponding reading to the sensor list.
+     *
+     * @return 1 in case the reading is added, 0 in case the reading isn't added.
+     **/
+    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+        if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
+            return 1;
+        }
+        logger.warning("The reading with value " + readingValue + " and date " + readingDate + " could not be added to the sensor.");
+        return 0;
+    }
+
+    /**
+     * This method receives a geographic area list, a file path to XML file and a file path to a log.
+     * The method will read the XML file, try to parse every reading and try to add them to the
+     * corresponding sensor from its corresponding geographic area. The readings that fail to be added
+     * will be added to log.
+     *
+     * @return the total number of readings added
+     ***/
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
         SensorList sensorList = geographicAreaList.getAreaListSensors();
         if (sensorList.isEmpty()) {

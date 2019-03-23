@@ -979,5 +979,4 @@ class ReaderControllerTest {
 
         assertEquals(0, actualResult);
     }
-
 }

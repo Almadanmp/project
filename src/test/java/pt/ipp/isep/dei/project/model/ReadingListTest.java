@@ -4,6 +4,7 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.reader.Reader;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1067,5 +1068,48 @@ class ReadingListTest {
 
         //Assert
         assertEquals("No readings available in the chosen interval.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfContainsWorks() {
+        //Arrange
+
+        Reading validReading1 = new Reading(20.2, validDate1);
+        Reading validReading2 = new Reading(20.2, validDate1);
+
+        //Act
+
+        boolean actualResult1 = validReadingList.contains(validReading1);
+
+        //Arrange
+
+        validReadingList.addReading(validReading1);
+
+        //Act
+
+        boolean actualResult2 = validReadingList.contains(validReading2);
+
+        //Assert
+
+        assertFalse(actualResult1);
+        assertTrue(actualResult2);
+    }
+
+    @Test
+    void seeIfAddReadingWorks() {
+        //Arrange
+
+        Reading validReading1 = new Reading(20.2, validDate1);
+        Reading validReading2 = new Reading(20.2, validDate1);
+
+        //Act
+
+        boolean actualResult1 = validReadingList.addReading(validReading1);
+        boolean actualResult2 = validReadingList.addReading(validReading2);
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
     }
 }
