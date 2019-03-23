@@ -40,8 +40,7 @@ public class SensorList {
 
     public boolean add(Sensor sensorToAdd) {
         if (!(sensors.contains(sensorToAdd))) {
-            sensors.add(sensorToAdd);
-            return true;
+            return sensors.add(sensorToAdd);
         }
         return false;
     }
@@ -262,7 +261,7 @@ public class SensorList {
      */
 
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {
-        for (Sensor sensor : this.getElementsAsArray()) {
+        for (Sensor sensor : this.sensors) {
             if (sensor.getId().equals(sensorID) && sensor.addReading(readingDate, readingValue)) {
                 return true;
             }

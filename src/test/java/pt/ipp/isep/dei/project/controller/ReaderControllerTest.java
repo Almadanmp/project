@@ -560,7 +560,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
 
         // Assert
 
@@ -580,7 +580,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
 
         // Assert
 
@@ -599,7 +599,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
 
         // Assert
 
@@ -627,7 +627,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
 
         // Assert
 
@@ -648,7 +648,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, emptyList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, emptyList);
 
         // Assert
 
@@ -669,7 +669,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, emptyList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, emptyList);
 
         // Assert
 
@@ -690,7 +690,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
 
         //Assert
 
@@ -709,7 +709,7 @@ class ReaderControllerTest {
 
         // Act
 
-        int actualResult = validReader.parseAndLogReading(readings, logger, validSensorList);
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
 
         // Assert
 

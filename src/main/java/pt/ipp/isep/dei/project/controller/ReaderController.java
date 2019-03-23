@@ -1,10 +1,13 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.reader.ReaderCSVReadings;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
+import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeographicAreas;
 
 import java.io.IOException;
@@ -137,7 +140,7 @@ public class ReaderController {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             for (String[] readings : list) {
-                addedReadings += parseAndLogReading(readings, logger, sensorList);
+                addedReadings += parseAndLogCSVReading(readings, logger, sensorList);
             }
         } catch (IOException e) {
             throw new IllegalArgumentException();
@@ -152,16 +155,16 @@ public class ReaderController {
      *
      * @return 0 in case the reading was not added, 1 in case of success.
      ***/
-    int parseAndLogReading(String[] readings, Logger logger, SensorList sensorList) {
+    int parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 Double readValue = Double.parseDouble(readings[2]);
-                String readID = readings[0];
+                String sensorID = readings[0];
                 Date readDate = pattern.parse(readings[1]);
-                if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
+                if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readValue, readDate)) {
                     return 1;
                 }
                 logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
@@ -176,12 +179,79 @@ public class ReaderController {
         return 0;
     }
 
+    /**
+     * This method receives a logger, a sensor list and an array of strings, tries to add a reading
+     * to a sensor in list and returns the number of readings added to sensor. The array of strings
+     * contains the reading's attributes.
+     *
+     * @return 0 in case the reading was not added, 1 in case of success.
+     ***/
     public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
+        int addedReadings = 0;
         SensorList sensorList = geographicAreaList.getAreaListSensors();
         if (sensorList.isEmpty()) {
-            return 0;
+            return addedReadings;
         }
-        return 1;
+        ReaderJSONReadings reader = new ReaderJSONReadings();
+        JSONArray readings = reader.readFile(path);
+        try {
+            Logger logger = Logger.getLogger(ReaderController.class.getName());
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            addedReadings = parseAndLogJSONReadings(sensorList, readings, logger);
+
+        } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
+
+        return addedReadings;
+    }
+
+    /**
+     * This method receives a logger, a sensor list and an JSONArray, tries to parse every JSON Object
+     * into a reading and adding it to its corresponding sensor from geographic area.
+     *
+     * @return the number of readings added to geographic area sensors
+     ***/
+    public int parseAndLogJSONReadings(SensorList sensorList, JSONArray readings, Logger logger) {
+        int added = 0;
+        for (int i = 0; i < readings.length(); i++) {
+            JSONObject readingObject = readings.getJSONObject(i);
+            added += parseAndLogJSONReading(sensorList, readingObject, logger);
+        }
+        return added;
+    }
+
+    /**
+     * This method receives a logger, a sensor list and an JSON Object, tries to add the corresponding
+     * reading to the corresponding sensor.
+     *
+     * @return returns 1 in case the reading is added, 0 otherwise
+     ***/
+    public int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger){
+        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
+        for (SimpleDateFormat pattern : knownPatterns) {
+            try {
+                String sensorID = reading.getString("id");
+                Date readingDate = pattern.parse(reading.getString("timestamp/date"));
+                Double readingValue = Double.parseDouble(reading.getString("value"));
+                if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
+                    return 1;
+                }
+                logger.warning("The reading with value " + readingValue + " and date " + readingDate + " could not be added to the sensor.");
+            } catch (NumberFormatException nfe) {
+                UtilsUI.printMessage("The reading values are not numeric.");
+                logger.warning("The reading values are not numeric.");
+                return 0;
+            } catch (ParseException ignored) {
+                ignored.getErrorOffset();
+            }
+        }
+        return 0;
     }
 
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
