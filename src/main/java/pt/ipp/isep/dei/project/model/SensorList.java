@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -9,14 +8,8 @@ import java.util.List;
 /**
  * Class that groups a number of Sensors.
  */
-//@Entity
 public class SensorList {
 
-  //  @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    private long iD;
-    //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //@JoinColumn
     private List<Sensor> sensors;
 
     /**
@@ -155,10 +148,10 @@ public class SensorList {
      *
      * @return a list with all readings from sensor list
      **/
-    public ReadingList getReadings() {
-        ReadingList finalList = new ReadingList();
+    public List<Reading> getReadings() {
+        List<Reading> finalList = new ArrayList<>();
         for (Sensor s : this.sensors) {
-            finalList.appendListNoDuplicates(s.getReadingList());
+            finalList = s.appendListNoDuplicates(finalList);
         }
         return finalList;
     }
@@ -231,8 +224,8 @@ public class SensorList {
      * @return returns value readings from every sensor from given day
      **/
     List<Double> getValuesOfSpecificDayReadings(Date day) {
-        ReadingList readingList = getReadings();
-        return readingList.getValuesOfSpecificDayReadings(day);
+        List<Reading> readingList = getReadings();
+        return ReadingUtils.getValuesOfSpecificDayReadings(day, readingList);
     }
 
     /**

@@ -308,7 +308,7 @@ public class HouseMonitoringUI {
 
         try {
             resultDate633 = houseMonitoringController.getHighestTempAmplitudeDate(house, startDate, endDate);
-            resultValue633 = houseMonitoringController.getHighestTempAmplitudeValue(house, resultDate633);
+            resultValue633 = houseMonitoringController.getTempAmplitudeValueByDate(house, resultDate633);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;

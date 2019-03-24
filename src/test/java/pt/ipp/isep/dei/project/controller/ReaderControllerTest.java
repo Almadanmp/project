@@ -14,7 +14,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -423,14 +425,14 @@ class ReaderControllerTest {
         //Arrange
 
         provideInput(validCSVLocation5);
-        ReadingList expectedResult = new ReadingList();
+        List<Reading> expectedResult = new ArrayList<>();
         Reading reading = new Reading(14.0, validDate5);
-        expectedResult.addReading(reading);
+        expectedResult.add(reading);
 
         // Act
 
         validReader.readAndSet(validGeographicAreaList, validCSVLocation5, validLogPath);
-        ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
+        List<Reading> actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -443,12 +445,12 @@ class ReaderControllerTest {
         //Arrange
 
         provideInput(validCSVLocation5);
-        ReadingList expectedResult = new ReadingList();
+        List<Reading> expectedResult = new ArrayList<>();
 
         // Act
 
         validReader.readAndSet(validGeographicAreaList, validCSVLocation5, validLogPath);
-        ReadingList actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
+        List<Reading> actualResult = validGeographicArea.getSensorList().get(0).getReadingList();
 
         //Assert
         assertNotEquals(expectedResult, actualResult);

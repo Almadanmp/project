@@ -4,7 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.device.*;
+import pt.ipp.isep.dei.project.model.device.Device;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Kettler;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
@@ -30,7 +33,7 @@ class RoomTest {
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom", 2, 30, 40, 10);
         validSensor = new Sensor("tempOne", new TypeSensor("temperature", "Celsius"), new Date());
-       validSensor.setActive();
+        validSensor.setActive();
         validRoom.addSensor(validSensor);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
@@ -135,7 +138,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNoReadings() {
         // Arrange
 
-        validSensor.setReadingList(new ReadingList());
+        validSensor.setReadingList(new ArrayList<>());
 
         // Assert
 
@@ -458,7 +461,7 @@ class RoomTest {
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
         Room noSensorRoom = new Room("Mock", 1, 2, 3, 4);
-        validSensor.setReadingList(new ReadingList()); // validSensor has proper sensors, but they have no readings.
+        validSensor.setReadingList(new ArrayList<>()); // validSensor has proper sensors, but they have no readings.
 
 
         // Act and Assert
@@ -526,7 +529,7 @@ class RoomTest {
         //Arrange
 
         Room noSensorsRoom = new Room("Mock", 1, 2, 3, 4);
-        validSensor.setReadingList(new ReadingList()); // Valid Sensor now has sensors, but no readings.
+        validSensor.setReadingList(new ArrayList<>()); // Valid Sensor now has sensors, but no readings.
 
         //Act and Assert
 

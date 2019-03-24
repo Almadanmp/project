@@ -405,11 +405,11 @@ class HouseTest {
 
         Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
         Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
-        ReadingList readingList = new ReadingList();
+        List<Reading> readingList = new ArrayList<>();
         Reading firstReading = new Reading(15, laterDate);
         Reading secondReading = new Reading(12, earlierDate);
-        readingList.addReading(firstReading);
-        readingList.addReading(secondReading);
+        readingList.add(firstReading);
+        readingList.add(secondReading);
         firstValidSensor.setReadingList(readingList);
 
         // Act
@@ -434,11 +434,11 @@ class HouseTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        ReadingList readingList = new ReadingList();
+        List<Reading> readingList = new ArrayList<>();
         Reading firstReading = new Reading(15, laterDate);
         Reading secondReading = new Reading(12, earlierDate);
-        readingList.addReading(firstReading);
-        readingList.addReading(secondReading);
+        readingList.add(firstReading);
+        readingList.add(secondReading);
         firstValidSensor.setReadingList(readingList);
 
         Sensor secondSensor = new Sensor("RF4321", "tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(

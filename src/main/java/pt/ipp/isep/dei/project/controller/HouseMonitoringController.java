@@ -130,6 +130,7 @@ public class HouseMonitoringController {
 
     /**
      * method to get the date with the highest amplitude in the house area between two dates
+     *
      * @param house       is the house we want to get the highest temperature amplitude on its area
      * @param initialDate is the date where we want to start measuring temperature (lower limit).
      * @param endDate     is the date where we want to stop measuring temperature(upper limit).
@@ -149,23 +150,25 @@ public class HouseMonitoringController {
 
     /**
      * method to get the temperature amplitude value in a given day
-     * @param house is the house we want to get the highest temperature amplitude on its area
-     * @param dateInput date for each we want to know the highest temperature amplitude value
+     *
+     * @param house     is the house we want to get the temperature amplitude on its area
+     * @param dateInput date for each we want to know the temperature amplitude value
      * @return temperature amplitude value
      * @author Daniela (US633)
      */
-    public double getHighestTempAmplitudeValue(House house, Date dateInput) {
+    public double getTempAmplitudeValueByDate(House house, Date dateInput) {
         Sensor closestSensor = house.getClosestSensorOfGivenType(TEMPERATURE);
         if (closestSensor.isReadingListEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return Math.floor(closestSensor.getHighestAmplitudeInDate(dateInput)*10)/10;
+        return Math.floor(closestSensor.getAmplitudeValueFromDate(dateInput) * 10) / 10;
     }
 
     /**
      * This is a shared methods between many User stories and it checks if the House has its Mother Area defined and
      * if that Mother Area has a valid SensorList
+     *
      * @param house - house to get Mother Area from
      * @return true in case both conditions are met
      */
