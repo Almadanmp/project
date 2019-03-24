@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.reader;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,18 +68,8 @@ class ReaderCSVReadingsTest {
 
     @Test
     void seeIfReadCSVWorksWithInvalidPath() {
+        // Assert
 
-        //Arrange
-
-        String[] readings = new String[0];
-        validList.add(readings);
-        List<String[]> expectedResult = new ArrayList<>();
-
-        // Act
-
-        List<String[]> actualResult = validReader.readFile(wrongLocation1);
-
-        //Assert
-        assertEquals(expectedResult,actualResult);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readFile(wrongLocation1));
     }
 }

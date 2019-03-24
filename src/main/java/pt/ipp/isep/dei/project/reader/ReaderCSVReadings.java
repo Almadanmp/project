@@ -13,7 +13,7 @@ import java.util.List;
 public class ReaderCSVReadings implements Reader {
 
     public List<String[]> readFile(String filePath) {
-        String line = "";
+        String line;
         String cvsSplit = ",";
         String[] readings;
         List<String[]> listReads = new ArrayList<>();
@@ -28,7 +28,7 @@ public class ReaderCSVReadings implements Reader {
                 listReads.add(readings);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e.getMessage());
         }
         return listReads;
     }

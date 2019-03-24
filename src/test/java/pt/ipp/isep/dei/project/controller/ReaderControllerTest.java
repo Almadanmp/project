@@ -50,6 +50,11 @@ class ReaderControllerTest {
     private static final String validJSONLocation2 = "src/test/resources/test2JSONReadings.json";
     private static final String validJSONLocation3 = "src/test/resources/test3JSONReadings.json";
     private static final String validJSONLocation4 = "src/test/resources/test4JSONReadings.json";
+    private static final String validXMLocation1 = "src/test/resources/test1XMLReadings.xml";
+    private static final String validXMLocation2 = "src/test/resources/test2XMLReadings.xml";
+    private static final String validXMLocation3 = "src/test/resources/test3XMLReadings.xml";
+    private static final String validXMLocation4 = "src/test/resources/test4XMLReadings.xml";
+
 
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
@@ -758,6 +763,13 @@ class ReaderControllerTest {
     }
 
     @Test
+    void seeIfReadReadingsFromCSVThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromCSV(validGeographicAreaList, validCSVLocation1, invalidLogPath));
+    }
+
+    @Test
     void seeIfParseAndLogJSONReadingWorks() {
         //Arrange
 
@@ -914,14 +926,9 @@ class ReaderControllerTest {
 
     @Test
     void seeIfReadReadingsFromJSONWorksWithEmptySensorList() {
-
-        //Arrange
-
-        GeographicAreaList noSensorsGA = new GeographicAreaList();
-
         // Act
 
-        int actualResult = validReader.readReadingsFromJSON(noSensorsGA, validJSONLocation1, validLogPath);
+        int actualResult = validReader.readReadingsFromJSON(emptyGeographicAreaList, validJSONLocation1, validLogPath);
 
         // Assert
 
@@ -974,5 +981,74 @@ class ReaderControllerTest {
         // Assert
 
         assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation3, invalidLogPath));
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenSensorListIsEmpty() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(emptyGeographicAreaList, validXMLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenFileHasNoReadings() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenOneReadingHasWrongSensorId() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation2, validLogPath);
+
+        // Assert
+
+        assertEquals(4, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenReadingsHaveSameDate() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation3, validLogPath);
+
+        // Assert
+
+        assertEquals(1, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenInputValuesAreWrong() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation4, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation2, invalidLogPath));
     }
 }
