@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 public class ReaderController {
 
     public int counter;
+    private static final String INVALID_DATE = "The reading date format is invalid.";
+    private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
 
     /**
      * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
@@ -167,13 +169,13 @@ public class ReaderController {
                 Double readingValue = Double.parseDouble(readings[2]);
                 return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
-                logger.warning("The reading values are not numeric.");
+                logger.warning(INVALID_READING_VALUE);
                 return 0;
             } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+                ignored.printStackTrace();
             }
         }
-        logger.warning("The reading date format is invalid.");
+        logger.warning(INVALID_DATE);
         return 0;
     }
 
@@ -241,13 +243,13 @@ public class ReaderController {
                 Double readingValue = Double.parseDouble(reading.getString("value"));
                 return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
-                logger.warning("The reading values are not numeric.");
+                logger.warning(INVALID_READING_VALUE);
                 return 0;
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
         }
-        logger.warning("The reading date format is invalid.");
+        logger.warning(INVALID_DATE);
         return 0;
     }
 
@@ -257,11 +259,12 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+    private int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
         if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
             return 1;
         }
-        logger.warning("The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.");
+        String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
+        logger.warning(message);
         return 0;
     }
 
@@ -303,7 +306,7 @@ public class ReaderController {
      *
      * @return the number of readings added to geographic area sensors
      ***/
-    int parseAndLogXMLReadings(SensorList sensorList, Document doc, Logger logger) {
+    private int parseAndLogXMLReadings(SensorList sensorList, Document doc, Logger logger) {
         int added = 0;
         NodeList nodeReadings = doc.getElementsByTagName("reading");
         for (int i = 0; i < nodeReadings.getLength(); i++) {
@@ -323,7 +326,7 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int parseAndLogXMLReading(SensorList sensorList, Element element, Logger logger) {
+    private int parseAndLogXMLReading(SensorList sensorList, Element element, Logger logger) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
@@ -335,13 +338,13 @@ public class ReaderController {
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
                 return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
-                logger.warning("The reading values are not numeric.");
+                logger.warning(INVALID_READING_VALUE);
                 return 0;
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
         }
-        logger.warning("The reading date format is invalid.");
+        logger.warning(INVALID_DATE);
         return 0;
     }
 }
