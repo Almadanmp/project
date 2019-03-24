@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -13,8 +12,8 @@ import java.util.Scanner;
 class SensorSettingsUI {
     private SensorSettingsController controller;
 
-    SensorSettingsUI(TypeSensorRepository repository) {
-        this.controller = new SensorSettingsController(repository);
+    SensorSettingsUI(TypeSensorListService typeSensorListService) {
+        this.controller = new SensorSettingsController(typeSensorListService);
     }
 
     void run(GeographicAreaList geographicAreaList) {
@@ -109,6 +108,7 @@ class SensorSettingsUI {
         addSensor(sensor, geographicAreaList);
     }
 
+    //TODO esta US cria um typesensor novo e nao o guarda em lado nenhum(agora tem de guardar na DB) ou à luz das restantes US, deve listar os typesensors que ja existem e deixar o utilizador escolher
     private Sensor createSensor() {
         String id = getInputSensorId();
         String name = getInputSensorName();

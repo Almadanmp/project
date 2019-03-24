@@ -40,7 +40,7 @@ class MockUI {
     }
 
     TypeSensorList getTypeSensorList() {
-        return typeSensorList;
+        return mockTypeSensorList();
     }
 
     GeographicAreaList getGeoAreaList() {

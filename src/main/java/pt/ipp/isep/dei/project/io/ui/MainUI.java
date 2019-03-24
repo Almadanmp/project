@@ -10,11 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.TypeAreaListService;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,13 +26,15 @@ public class MainUI {
 
     @Autowired
     TypeAreaListService typeAreaListService;
+    @Autowired
+    TypeSensorListService typeSensorListService;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
     }
 
     @Bean
-    public CommandLineRunner mainRun(TypeSensorRepository typeSensorRepository) {
+    public CommandLineRunner mainRun() {
         return (args) -> {
 
             List<String> deviceTypeConfig;
@@ -100,7 +99,7 @@ public class MainUI {
 //            }
 //            TypeSensorList mockTypeSensorList = typeSensorListRepository.findAll().get(0);
 
-            // TypeSensorList mockTypeSensorList = mockUI.getTypeSensorList();
+            TypeSensorList mockTypeSensorList = mockUI.getTypeSensorList();
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //MAIN CODE
@@ -160,12 +159,12 @@ public class MainUI {
                             break;
                         case 3:
                             RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                            roomConfiguration.run(mockHouse);
+                            roomConfiguration.run(mockHouse, mockTypeSensorList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 4:
-                            SensorSettingsUI sensorSettings = new SensorSettingsUI(typeSensorRepository);
+                            SensorSettingsUI sensorSettings = new SensorSettingsUI(typeSensorListService);
                             sensorSettings.run(mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

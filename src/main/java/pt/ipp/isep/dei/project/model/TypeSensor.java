@@ -20,10 +20,11 @@ public class TypeSensor {
     private String name;
     private String units;
     //@ManyToOne(fetch = FetchType.LAZY)
-   // @JoinColumn(name = "type_sensor_list")
-   // private TypeSensorList typeSensorList;
+    // @JoinColumn(name = "type_sensor_list")
+    // private TypeSensorList typeSensorList;
 
-    public TypeSensor(){}
+    public TypeSensor() {
+    }
 
     /**
      * @param name  The name of the type
@@ -33,6 +34,10 @@ public class TypeSensor {
     public TypeSensor(String name, String units) {
         this.name = name;
         this.units = units;
+    }
+
+    public long getId() {
+        return id;
     }
 
     //GETTER METHODS

@@ -2,11 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.Sensor;
-import pt.ipp.isep.dei.project.model.TypeSensor;
-import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -17,20 +13,24 @@ import java.util.GregorianCalendar;
 @Controller
 public class SensorSettingsController {
 
-    private TypeSensorRepository typeSensorRepository;
-
+    private TypeSensorListService typeSensorListService;
 
 
     @Autowired
-    public SensorSettingsController(TypeSensorRepository typeSensorRepository) {
-        this.typeSensorRepository = typeSensorRepository;
+    public SensorSettingsController(TypeSensorListService typeSensorListService) {
+        this.typeSensorListService = typeSensorListService;
+    }
+
+    /**
+     * Empty constructor being used on RoomConfigurationUI
+     */
+    public SensorSettingsController() {
     }
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     public String buildSensorTypesString() {
-        return   typeSensorRepository.findAll().toString();
-        //return typeSensorList.buildString();
+        return typeSensorListService.getAllAsString();
     }
 
     //TODO review
@@ -44,7 +44,7 @@ public class SensorSettingsController {
      * @return true if the type of sensor was added to the list of type sensors.
      */
     public boolean addTypeSensorToList(TypeSensor typeSensor) {
-        return typeSensor != null;
+        return typeSensorListService.add(typeSensor);
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
@@ -82,8 +82,7 @@ public class SensorSettingsController {
      */
 
     public TypeSensor createType(String sensorType, String sensorUnits) {
-        TypeSensor newType = new TypeSensor(sensorType, sensorUnits);
-        typeSensorRepository.save(newType);
+        TypeSensor newType = typeSensorListService.createTypeSensor(sensorType, sensorUnits);
         return newType;
     }
 
