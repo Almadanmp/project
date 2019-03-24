@@ -763,6 +763,13 @@ class ReaderControllerTest {
     }
 
     @Test
+    void seeIfReadReadingsFromCSVThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromCSV(validGeographicAreaList, validCSVLocation1, invalidLogPath));
+    }
+
+    @Test
     void seeIfParseAndLogJSONReadingWorks() {
         //Arrange
 
@@ -977,6 +984,13 @@ class ReaderControllerTest {
     }
 
     @Test
+    void seeIfReadReadingsFromJSONThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation3, invalidLogPath));
+    }
+
+    @Test
     void seeIfReadReadingsFromXMLWorksWhenSensorListIsEmpty() {
         // Act
 
@@ -1029,5 +1043,12 @@ class ReaderControllerTest {
         // Assert
 
         assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation2, invalidLogPath));
     }
 }
