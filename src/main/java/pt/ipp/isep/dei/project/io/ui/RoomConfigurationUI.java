@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -380,7 +381,7 @@ class RoomConfigurationUI {
         //getInput253(room, typeSensor);
     }
 
-    private void getInput253(Room room, TypeSensor typeSensor) {
+    private void getInput253(Room room, TypeSensor typeSensor, TypeSensorRepository repository) {
         Scanner input = new Scanner(System.in);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
@@ -409,12 +410,12 @@ class RoomConfigurationUI {
         }
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
-        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName);
+        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName, repository);
 
     }
 
-    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
-        SensorSettingsController sensorSettingsController = new SensorSettingsController();
+    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName, TypeSensorRepository repository) {
+        SensorSettingsController sensorSettingsController = new SensorSettingsController(repository);
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
         Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, typeSensor, mDate);
         if (controller.addSensorToRoom(mSensor, room)) {

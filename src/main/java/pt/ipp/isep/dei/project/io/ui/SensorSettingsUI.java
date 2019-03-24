@@ -13,12 +13,8 @@ import java.util.Scanner;
 class SensorSettingsUI {
     private SensorSettingsController controller;
 
-    SensorSettingsUI() {
-        this.controller = new SensorSettingsController();
-    }
-
-    public SensorSettingsUI(TypeSensorRepository typeSensorRepository) {
-        this.controller = new SensorSettingsController(typeSensorRepository);
+    SensorSettingsUI(TypeSensorRepository repository) {
+        this.controller = new SensorSettingsController(repository);
     }
 
     void run(GeographicAreaList geographicAreaList) {

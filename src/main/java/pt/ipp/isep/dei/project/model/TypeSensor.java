@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Defines the Type of the Sensor.
@@ -9,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 public class TypeSensor {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +23,7 @@ public class TypeSensor {
    // @JoinColumn(name = "type_sensor_list")
    // private TypeSensorList typeSensorList;
 
-    // CONSTRUCTOR
-    protected TypeSensor() {
-    }
+    public TypeSensor(){}
 
     /**
      * @param name  The name of the type

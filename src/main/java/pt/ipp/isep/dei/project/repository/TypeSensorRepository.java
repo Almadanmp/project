@@ -6,7 +6,4 @@ import pt.ipp.isep.dei.project.model.TypeSensor;
 
 @Repository
 public interface TypeSensorRepository extends CrudRepository<TypeSensor, Long> {
-
-    TypeSensor findByname(String name);
-
 }

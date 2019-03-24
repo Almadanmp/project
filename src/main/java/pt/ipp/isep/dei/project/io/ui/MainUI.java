@@ -1,15 +1,20 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
+import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,12 +22,13 @@ import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
-//@EnableJpaRepositories(basePackages = "pt.ipp.isep.dei.project")
-//@EntityScan(basePackages = "pt.ipp.isep.dei.project")
+@EnableJpaRepositories(basePackages = "pt.ipp.isep.dei.project")
+@ComponentScan(basePackages = "pt.ipp.isep.dei.project")
+@EntityScan(basePackages = "pt.ipp.isep.dei.project")
 public class MainUI {
 
-    //@Autowired
-    //TypeSensorRepository typeSensorRepository2;
+    @Autowired
+    TypeSensorRepository repository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -159,7 +165,7 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 4:
-                            SensorSettingsUI sensorSettings = new SensorSettingsUI();
+                            SensorSettingsUI sensorSettings = new SensorSettingsUI(repository);
                             sensorSettings.run(mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
