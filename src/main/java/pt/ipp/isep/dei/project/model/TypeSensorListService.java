@@ -35,19 +35,6 @@ public class TypeSensorListService {
         return true;
     }
 
-    /**
-     * This method receives an index as parameter and gets a type sensor from Type Sensor list.
-     *
-     * @param id the type sensor index
-     * @return returns Type Sensor that corresponds to index.
-     */
-    public TypeSensor getById(int id) {
-        if (isEmpty()) {
-            throw new IndexOutOfBoundsException("The type sensor list is empty.");
-        }
-        return typeSensorRepository.findById(new Long(id)).get(); //TODO understand optional
-    }
-
     public List<TypeSensor> getAll() {
         return typeSensorRepository.findAll();
     }
