@@ -7,20 +7,20 @@ import pt.ipp.isep.dei.project.model.*;
 /**
  * Controller class for Geographical Area Settings UI
  */
-
 public class GASettingsController {
 
     private static final String ACTIVE = "Sensor successfully activated!";
     private static final String NOT_ACTIVE = "Sensor successfully deactivated!";
+
+    private TypeAreaListService typeAreaListService;
+
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
-    /**
-     * @param typeAreaList is the list of Geographic Area Types we want to print.
-     * @return builds a string with each individual member of the given list.
-     */
+    public GASettingsController(TypeAreaListService typeAreaListService) {
+        this.typeAreaListService = typeAreaListService;
+    }
 
-    public String buildGATypeListString(TypeAreaList typeAreaList) {
-        return typeAreaList.buildString();
+    GASettingsController() {
     }
 
     /**
@@ -32,8 +32,6 @@ public class GASettingsController {
         return geoAreaList.buildString();
     }
 
-
-
     /*
      * User Story 01
      * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
@@ -42,21 +40,30 @@ public class GASettingsController {
     /**
      * This method creates a new Type of Geographic Area and adds it to a List.
      *
-     * @param typeAreaList - the list of types of areas
-     * @param input        - the String name of the Type of Geographic Area.
+     * @param input - the String name of the Type of Geographic Area.
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(String input, TypeAreaList typeAreaList) {
-        return typeAreaList.createTypeArea(input);
+    public boolean createAndAddTypeAreaToListRepository(String input) {
+        TypeArea typeArea = typeAreaListService.createTypeAreaRepository(input); //TODO merge create and add
+        return typeAreaListService.addTypeArea(typeArea);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
+    public String getTypeAreaListRepository() {
+        return typeAreaListService.getAllAsString();
+    }
 
-    public String getTypeAreaList(TypeAreaList typeAreaList) {
-        return typeAreaList.buildString();
+    public int getTypeAreaListSize() {
+
+        return typeAreaListService.getSize();
+    }
+
+
+    public TypeArea getTypeAreaById(int id) {
+        return typeAreaListService.getTypeAreaById(id);
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */

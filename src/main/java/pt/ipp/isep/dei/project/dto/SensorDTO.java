@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
 
-import java.util.UUID;
-
 public class SensorDTO {
 
     private String id;
@@ -12,26 +10,7 @@ public class SensorDTO {
     private double longitude;
     private double altitude;
     private String dateStartedFunctioning;
-    private UUID uniqueID;
     private boolean active;
-
-    /**
-     * Method that retrieves the DTO's unique ID. This is useful to match it with a model object.
-     *
-     * @return is a UUID. UUID is a java class.
-     */
-    UUID getUniqueID() {
-        return uniqueID;
-    }
-
-    /**
-     * Method that stores a UUID as the object's UUID. This is useful to match the DTO with a model object.
-     *
-     * @param uniqueID is the UUID we want to store.
-     */
-    void setUniqueID(UUID uniqueID) {
-        this.uniqueID = uniqueID;
-    }
 
     /**
      * Method that retrieves the DTO's id.

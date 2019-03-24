@@ -1,32 +1,28 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 /**
  * Represents a Sensor.
  * It is defined by a name, type of sensor, localization and the date it started functioning.
  * It contains a list with one or more weather readings.
  */
-@Entity
+//@Entity
 public class Sensor {
-    @Id
+    //  @Id
     private String id;
     private String name;
-    @ManyToOne
+    //@ManyToOne
     private TypeSensor typeSensor;
-    @ManyToOne
+    //@ManyToOne
     private Local local;
     private Date dateStartedFunctioning;
-    @OneToOne
-    private ReadingList readingList;
-    private UUID uniqueID;
+    //@OneToOne
+    private List<Reading> readingList;
     private boolean active;
-
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -49,8 +45,7 @@ public class Sensor {
         setTypeSensor(typeSensor);
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
-        readingList = new ReadingList();
-        this.uniqueID = UUID.randomUUID();
+        this.readingList = new ArrayList<>();
         this.active = true;
     }
 
@@ -66,8 +61,7 @@ public class Sensor {
         setName(name);
         setTypeSensor(typeSensor);
         setDateStartedFunctioning(dateStartedFunctioning);
-        readingList = new ReadingList();
-        this.uniqueID = UUID.randomUUID();
+        this.readingList = new ArrayList<>();
         this.active = true;
     }
 
@@ -165,8 +159,8 @@ public class Sensor {
      *
      * @return the readingList of the sensor.
      */
-    public ReadingList getReadingList() {
-        return readingList;
+    public List<Reading> getReadingList() {
+        return this.readingList;
     }
 
     /**
@@ -174,18 +168,10 @@ public class Sensor {
      *
      * @param readingList is the readingList we want to set to the sensor.
      */
-    public void setReadingList(ReadingList readingList) {
+    public void setReadingList(List<Reading> readingList) {
         if (readingList != null) {
             this.readingList = readingList;
         }
-    }
-
-    public UUID getUniqueID() {
-        return uniqueID;
-    }
-
-    public void setUniqueID(UUID uniqueID) {
-        this.uniqueID = uniqueID;
     }
 
     public boolean isActive() {
@@ -227,8 +213,8 @@ public class Sensor {
      * or false in case the reading already exists
      **/
     public boolean addReading(Reading reading) {
-        if (this.active) {
-            return readingList.addReading(reading);
+        if (this.active && !readingList.contains(reading)) {
+            return this.readingList.add(reading);
         }
         return false;
     }
@@ -247,7 +233,7 @@ public class Sensor {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
                 Reading reading = new Reading(value, date);
-                return this.addReading(reading);
+                return !readingList.contains(reading) && this.readingList.add(reading);
             }
         }
         return false;
@@ -329,7 +315,8 @@ public class Sensor {
      **/
 
     Date getMostRecentReadingDate() {
-        return this.readingList.getMostRecentReadingDate();
+        return ReadingUtils.getMostRecentReading(this.readingList).getDate();
+
     }
 
     /**
@@ -351,95 +338,6 @@ public class Sensor {
         return this.readingList.isEmpty();
     }
 
-    /**
-     * This method receives an interval, goes through the sensor's reading list and returns the
-     * average reading values between the interval given.
-     *
-     * @param initialDate start of interval
-     * @param endDate     end of interval
-     * @return average reading value between interval
-     * @author Daniela - US623
-     ***/
-    public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
-    }
-
-    /**
-     * This method receives an interval, goes through the sensor's reading list and returns the date with the
-     * highest amplitude reading value between the interval given.
-     *
-     * @param initialDate start of interval
-     * @param endDate     end of interval
-     * @return date with the highest amplitude reading value between interval
-     * @author Daniela - US633
-     ***/
-    public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
-    }
-
-    /**
-     * This method receives a date, goes through the sensor's reading list and returns the highest amplitude reading
-     * value on that date.
-     *
-     * @param date start of interval
-     * @return highest amplitude reading value on date
-     * @author Daniela - US633
-     ***/
-    public double getHighestAmplitudeInDate(Date date) {
-        return this.readingList.getAmplitudeValueFromDate(date);
-    }
-
-
-    /**
-     * US630
-     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
-     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Reading within an interval from a ReadingList that represents the last coldest day in the
-     * given period (lower maximum temperature).
-     *
-     * @param initialDate is the Initial Date of the period.
-     * @param endDate     is the Final Date of the period.
-     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
-     */
-    public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
-    }
-
-    /**
-     * US631
-     * This method returns a DATE for the first hottest day (higher maximum temperature) in the house area in a given period
-     * (higher maximum temperature).
-     *
-     * @param startDate is the Initial Date of the period.
-     * @param endDate   is the Final Date of the period.
-     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
-     */
-
-    public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
-        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
-    }
-
-    /**
-     * This method receives a date of a given day, goes through the sensor's reading list and
-     * returns the total reading values of that day.
-     *
-     * @param day date of day
-     * @return total reading values of that day
-     ***/
-    public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.readingList.getValueReadingsInDay(day);
-    }
-
-    /**
-     * This method goes through the sensor's reading list and
-     * returns the most recent reading value.
-     *
-     * @return sensor's most recent reading value.
-     ***/
-    public double getMostRecentValueReading() {
-        return this.readingList.getMostRecentValue();
-    }
-
 
     @Override
     public boolean equals(Object testObject) {
@@ -457,4 +355,303 @@ public class Sensor {
     public int hashCode() {
         return 1;
     }
+
+
+    /**
+     * Method to Add a reading only if it's not contained in the list already.
+     *
+     * @param reading receives a reading.
+     * @return returns true if the input reading was added successfully.
+     * returns false if the input reading was rejected.
+     */
+    public boolean addReading(Reading reading, List<Reading> list) {
+        if (list.contains(reading)) {
+            return false;
+        }
+        return list.add(reading);
+    }
+
+    /**
+     * This method goes through the sensor's reading list and
+     * returns the most recent reading value.
+     *
+     * @return sensor's most recent reading value.
+     ***/
+    public double getMostRecentValueReading() {
+        return ReadingUtils.getMostRecentValue(this.readingList);
+    }
+
+
+    /**
+     * This method receives a date of a given day, goes through the sensor's reading list and
+     * returns the total reading values of that day.
+     *
+     * @param day date of day
+     * @return total reading values of that day
+     * @author André (US620)
+     */
+    public double getTotalValueReadingsOnGivenDay(Date day) {
+        List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
+        List<Double> valueReadingsThatMatchDay = ReadingUtils.getValuesOfSpecificDayReadings(day, this.readingList);
+        if (valueReadingsThatMatchDay.isEmpty()) {
+            throw new IllegalStateException("Warning: Total value was not calculated - No readings were available.");
+        }
+        double givenD;
+        givenD = getListSum(valueReadingsThatMatchDay);
+        totalValuesFromDaysWithReadings.add(givenD);
+        return getListSum(totalValuesFromDaysWithReadings);
+    }
+
+
+    /**
+     * Method that gives the Average of Readings between two dates (given days)
+     * It calculates the average of all days, considering the average of each day.
+     * It will throw an IllegalArgumentException if there are no readings between the selected dates
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the average of all values in the reading list between the two given dates
+     * @author Daniela (US623)
+     */
+    public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
+        List<Reading> readingListBetweenDates = ReadingUtils.getReadingListBetweenDates(minDate, maxDate, this.readingList);
+        if (readingListBetweenDates.isEmpty()) {
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+        }
+        List<Double> avgDailyValues = new ArrayList<>();
+        for (int i = 0; i < readingListBetweenDates.size(); i++) {
+            Date day = readingListBetweenDates.get(i).getDate();
+            List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(day, this.readingList);
+            double avgDay = getAvgFromList(specificDayValues);
+            avgDailyValues.add(avgDay);
+        }
+        return getAvgFromList(avgDailyValues);
+    }
+
+
+    /**
+     * Method that gives the Date with the Highest Amplitude of Readings between two dates (given days).
+     * If there is more than one day with the same temperature amplitude, the return will be the most recent day.
+     * It will throw an IllegalArgumentException if there are no readings between the selected dates.
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
+     * @author Daniela (US633)
+     */
+    public Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
+        }
+
+        Date dateMaxAmplitude = daysWithReadings.get(0);
+
+        double maxAmplitude = getAmplitudeValueFromDate(dateMaxAmplitude);
+
+        for (int i = 1; i < daysWithReadings.size(); i++) {
+            Date day = daysWithReadings.get(i);
+            double amplitudeTemperature = getAmplitudeValueFromDate(day);
+
+            if (maxAmplitude < amplitudeTemperature) {
+                maxAmplitude = amplitudeTemperature;
+                dateMaxAmplitude = day;
+            } else if ((Double.compare(maxAmplitude, amplitudeTemperature) == 0) && (day.after(dateMaxAmplitude))) {
+                dateMaxAmplitude = day;
+            }
+        }
+        return dateMaxAmplitude;
+    }
+
+    /**
+     * Method that gives the highest amplitude value on a given date
+     *
+     * @param date for each we want the amplitude value
+     * @return highest amplitude value
+     * @author Daniela (US633)
+     */
+    public double getAmplitudeValueFromDate(Date date) {
+        List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(date, this.readingList);
+        double maxTemp = Collections.max(specificDayValues);
+        double lowestTemp = Collections.min(specificDayValues);
+        return maxTemp - lowestTemp;
+    }
+
+    /**
+     * Adds all readings of a given ReadingList to target list, rejecting duplicates.
+     *
+     * @param finalList The list to be added to the target list
+     * @return A parallel deviceList with all the devices that could be added
+     **/
+    public List<Reading> appendListNoDuplicates(List<Reading> finalList) {
+        Reading[] readingsArray = getElementsAsArray();
+        for (Reading r : readingsArray) {
+            finalList.add(r);
+        }
+        return finalList;
+    }
+
+
+    /**
+     * Method that gives the Date with the First Hottest Day Reading in given period
+     * It will throw an IllegalArgumentException if there are no available readings between the dates
+     * This method runs the array of dates in the given period, storing the first hottest temperature Date,
+     * only overwriting if there's a day with a higher temperature, ensuring the final return will be
+     * the first hottest day in period.
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the Date with First Hottest Day in given period.
+     * @author Nuno (US631)
+     */
+
+    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+        if (this.readingList.isEmpty()) {
+            throw new IllegalArgumentException("No readings available.");
+        }
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: No temperature readings available in given period.");
+        }
+        double maxTemperature = getMaxValue(daysWithReadings);
+        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
+    }
+
+    /**
+     * US630
+     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
+     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * it returns a Date within an interval from a ReadingList that represents the last coldest day in the
+     * given period (lower maximum temperature).
+     *
+     * @param initialDate is the Initial Date of the period.
+     * @param finalDate   is the Final Date of the period.
+     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
+     */
+    public Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
+        if (this.readingList.isEmpty()) {
+            throw new IllegalArgumentException("No readings available.");
+        }
+        List<Reading> readingListBetweenDates = ReadingUtils.getReadingListBetweenDates(initialDate, finalDate, this.readingList);
+        if (readingListBetweenDates.isEmpty()) {
+            throw new IllegalArgumentException("No readings available in the chosen interval.");
+        }
+        List<Reading> listOfMaxValuesForEachDay = ReadingUtils.getListOfMaxValuesForEachDay(readingListBetweenDates);
+        double minValueInList = ReadingUtils.getMinValueInReadingList(listOfMaxValuesForEachDay);
+        List<Reading> readingListWithSpecificValue = ReadingUtils.getReadingListOfReadingsWithSpecificValue(minValueInList, this.readingList);
+
+        return ReadingUtils.getMostRecentReading(readingListWithSpecificValue).getDate();
+    }
+
+
+    /* Sensor class - internal auxiliary methods */
+
+    /**
+     * Auxiliary method for getFirstHottestDayInGivenPeriod
+     *
+     * @param listDates of readings for getting highest value from
+     * @return highest value from list of readings
+     */
+
+    private double getMaxValue(List<Date> listDates) {
+        ArrayList<Double> values = new ArrayList<>();
+        for (Date day : listDates) {
+            values.addAll(ReadingUtils.getValuesOfSpecificDayReadings(day, this.readingList));
+        }
+        return Collections.max(values);
+    }
+
+    /**
+     * Auxiliary method for getFirstHottestDayInGivenPeriod
+     *
+     * @param temperature given for finding first day in period with that temperature
+     * @param dates       for selecting the first day with given temperature from date list
+     * @return first date where given temperature was registered
+     */
+
+    private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates) {
+        List<Date> daysWithTemperature = new ArrayList<>();
+        for (Date date : dates) {
+            if (ReadingUtils.getValuesOfSpecificDayReadings(date, this.readingList).contains(temperature)) {
+                daysWithTemperature.add(date);
+            }
+        }
+        return Collections.min(daysWithTemperature);
+    }
+
+    /**
+     * Getter (array of readings)
+     *
+     * @return array of readings
+     */
+    private Reading[] getElementsAsArray() {
+        int sizeOfResultArray = this.readingList.size();
+        Reading[] result = new Reading[sizeOfResultArray];
+        for (int i = 0; i < this.readingList.size(); i++) {
+            result[i] = this.readingList.get(i);
+        }
+        return result;
+    }
+
+    /**
+     * This method receives a list of doubles that correspond to value readings and
+     * will return the average value on that list.
+     *
+     * @return returns the average of all values contained within that List. If List is empty it will return 0.
+     */
+    private double getAvgFromList(List<Double> valueList) {
+        if (valueList.isEmpty()) {
+            return 0;
+        }
+        double sum = getListSum(valueList);
+        return (sum / valueList.size());
+    }
+
+    /**
+     * Returns return a list with every day with readings between two given dates.
+     * Returns the date of the first reading for each day (no duplicated days - same day, month, year).
+     *
+     * @param dayMin start date given by user, will be the start of the  date interval;
+     * @param dayMax end date given by user, will be the end of the date interval;
+     * @return list of dates of readings between the given dates
+     * @author Daniela - US623 & US633
+     */
+    private List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
+        List<Date> daysWithReadings = new ArrayList<>();
+        List<Date> daysProcessed = new ArrayList<>();
+
+        Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
+        Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
+
+        for (int i = 0; i < this.readingList.size(); i++) {
+            Date currentReadingDate = ReadingUtils.getValueDate(i, this.readingList);
+            if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
+
+                Date readingDay = ReadingUtils.getFirstSecondOfDay(currentReadingDate);
+
+                if (!daysProcessed.contains(readingDay)) {
+                    daysProcessed.add(readingDay);
+                    daysWithReadings.add(currentReadingDate);
+                }
+            }
+        }
+        return daysWithReadings;
+    }
+
+    /**
+     * This method receives a list of doubles that correspond to value readings and
+     * will return the sum of their values.
+     *
+     * @return returns the sum of all values contained within that List
+     */
+    private double getListSum(List<Double> valueList) {
+        double sum = 0;
+        for (Double aValueList : valueList) {
+            sum = sum + aValueList;
+        }
+        return sum;
+    }
+
+
 }

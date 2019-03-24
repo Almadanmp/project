@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.UUID;
 
@@ -13,8 +15,13 @@ import java.util.UUID;
 public class TypeArea {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     private UUID uniqueID;
+
+    protected TypeArea() {
+    }
 
     /**
      * Main and only Area Type Constructor
@@ -23,9 +30,6 @@ public class TypeArea {
      */
     public TypeArea(String nameGiven) {
         this.name = nameGiven;
-    }
-
-    protected TypeArea() {
     }
 
     /**
@@ -50,6 +54,13 @@ public class TypeArea {
         throw new IllegalArgumentException("Please Insert Valid Name");
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Method to check if the present type area is valid, that is, if its name is within acceptable parameters.
@@ -62,13 +73,6 @@ public class TypeArea {
         return (name != null && !name.isEmpty() && !name.matches(".*\\d+.*"));
     }
 
-    public UUID getUniqueID() {
-        return uniqueID;
-    }
-
-    public void setUniqueID(UUID uniqueID) {
-        this.uniqueID = uniqueID;
-    }
 
     /**
      * Method 'equals' is required so that each 'Area Type' can be added to a 'Geographic Area'.

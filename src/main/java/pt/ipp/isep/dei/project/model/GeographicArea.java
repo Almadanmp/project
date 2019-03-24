@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,23 +7,23 @@ import java.util.UUID;
  * Class that represents a Geographical Area.
  */
 
-@Entity
+//@Entity
 public class GeographicArea {
 
     private String id;
-    @ManyToOne
+    //  @ManyToOne
     private TypeArea typeArea;
     private double length;
     private double width;
-    @ManyToOne
+    //  @ManyToOne
     private GeographicArea motherArea;
-    @ManyToOne
+    //@ManyToOne
     private Local location;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn
     private SensorList areaSensors;
     private String description;
-    @Id
+    //@Id
     private UUID uniqueId;
 
 

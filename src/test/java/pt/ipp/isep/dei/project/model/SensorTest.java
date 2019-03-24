@@ -182,18 +182,18 @@ class SensorTest {
     @Test
     void seeIfSeTAndGetReadingList() {
         // Arrange
-        ReadingList expectedResult1 = new ReadingList();
-        ReadingList expectedResult2 = new ReadingList();
-        ReadingList emptyList = new ReadingList();
-        ReadingList readingList = new ReadingList();
+        List<Reading> expectedResult1 = new ArrayList<>();
+        List<Reading> expectedResult2 = new ArrayList<>();
+        List<Reading> emptyList = new ArrayList<>();
+        List<Reading> readingList = new ArrayList<>();
 
         Reading reading1 = new Reading(15, new Date());
 
         Sensor sensor1 = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
         Sensor sensor2 = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
 
-        readingList.addReading(reading1);
-        expectedResult2.addReading(reading1);
+        readingList.add(reading1);
+        expectedResult2.add(reading1);
 
 
         // Act
@@ -203,9 +203,9 @@ class SensorTest {
         sensor2.setReadingList(emptyList);
 
 
-        ReadingList actualResult = validSensor.getReadingList();
-        ReadingList actualResultNull = sensor1.getReadingList();
-        ReadingList actualResultEmpty = sensor2.getReadingList();
+        List<Reading> actualResult = validSensor.getReadingList();
+        List<Reading> actualResultNull = sensor1.getReadingList();
+        List<Reading> actualResultEmpty = sensor2.getReadingList();
 
         // Assert
 
@@ -787,7 +787,7 @@ class SensorTest {
 
         // Act
 
-       boolean actualResult = sensor.activateOrDeactivate();
+        boolean actualResult = sensor.activateOrDeactivate();
 
         // Assert
 
@@ -915,24 +915,9 @@ class SensorTest {
     }
 
     @Test
-    void seeIfGetId() {
-        // Arrange
-
-        validSensor.setUniqueID(UUID.randomUUID());
-
-        // Act
-
-        UUID uuid = validSensor.getUniqueID();
-
-        // Assert
-
-        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
-    }
-
-    @Test
     void seeIfGetLastColdestDayInIntervalWorks() {
         //Arrange
-        ReadingList readingList = new ReadingList();
+        List<Reading> readingList = new ArrayList<>();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
@@ -953,26 +938,26 @@ class SensorTest {
         Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
         Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
         Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
-        readingList.addReading(reading5);
-        readingList.addReading(reading6);
-        readingList.addReading(reading7);
-        readingList.addReading(reading8);
-        readingList.addReading(reading9);
-        readingList.addReading(reading10);
-        readingList.addReading(reading11);
-        readingList.addReading(reading12);
-        readingList.addReading(reading13);
-        readingList.addReading(reading14);
-        readingList.addReading(reading15);
-        readingList.addReading(reading16);
-        readingList.addReading(reading17);
-        readingList.addReading(reading18);
-        readingList.addReading(reading19);
-        readingList.addReading(reading20);
+        readingList.add(reading1);
+        readingList.add(reading2);
+        readingList.add(reading3);
+        readingList.add(reading4);
+        readingList.add(reading5);
+        readingList.add(reading6);
+        readingList.add(reading7);
+        readingList.add(reading8);
+        readingList.add(reading9);
+        readingList.add(reading10);
+        readingList.add(reading11);
+        readingList.add(reading12);
+        readingList.add(reading13);
+        readingList.add(reading14);
+        readingList.add(reading15);
+        readingList.add(reading16);
+        readingList.add(reading17);
+        readingList.add(reading18);
+        readingList.add(reading19);
+        readingList.add(reading20);
         validSensor.setReadingList(readingList);
         //Act
         Date actualResult = validSensor.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
@@ -1113,7 +1098,7 @@ class SensorTest {
         boolean addOutOfBoundsReading = validSensor.addReading(new GregorianCalendar(2017, Calendar.FEBRUARY,
                 3).getTime(), 12D);
         boolean addOnBoundsReading = validSensor.addReading(new GregorianCalendar(2018, Calendar.JANUARY,
-                2).getTime(),15D );
+                2).getTime(), 15D);
 
 
         // Assert

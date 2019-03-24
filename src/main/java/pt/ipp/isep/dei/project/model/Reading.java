@@ -1,19 +1,15 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Date;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
  */
-@Entity
+//@Entity
 public class Reading {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //  @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private long iD;
     private double value;
     private Date date;
@@ -22,7 +18,7 @@ public class Reading {
      * Builder with 'value' and 'date'
      *
      * @param value value received
-     * @param date date received
+     * @param date  date received
      */
     public Reading(double value, Date date) {
         setValue(value);
@@ -47,6 +43,7 @@ public class Reading {
 
     /**
      * getters e setters
+     *
      * @param date of the reading
      */
     public void setDate(Date date) {
@@ -60,6 +57,7 @@ public class Reading {
 
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
+     *
      * @param o object
      * @return boolean
      */

@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +13,18 @@ import java.util.List;
  */
 
 public class TypeSensorList {
+
+    // @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    //  @OneToMany(mappedBy = "typeSensorList")
     private List<TypeSensor> typeSensors;
+    //    @Autowired
+    TypeSensorRepository typeSensorRepository;
+
+    public TypeSensorList(TypeSensorRepository typeSensorRepository) {
+        this.typeSensorRepository = typeSensorRepository;
+    }
 
     //CONSTRUCTOR
     public TypeSensorList() {
@@ -28,7 +41,9 @@ public class TypeSensorList {
      **/
     public boolean add(TypeSensor typeSensor) {
         if (!typeSensors.contains(typeSensor)) {
-            typeSensors.add(typeSensor);
+            //typeSensor.setTypeSensorList(this);
+            //typeSensors.add(typeSensor);
+            //typeSensorRepository.save(typeSensor);
             return true;
         }
         return false;

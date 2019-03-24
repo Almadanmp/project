@@ -39,27 +39,27 @@ class GASettingsControllerTest {
 
     //SHARED METHODS
 
-    @Test
-    void seeIfPrintGATypeListWorks() {
-        // Arrange
-
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCountry);
-        list.addTypeArea(typeCity);
-        String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
-                "1) Name: City \n" +
-                "---------------\n";
-
-        // Act
-
-        String actualResult = controller.buildGATypeListString(list);
-
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
+//    @Test
+//    void seeIfPrintGATypeListWorks() {
+//        // Arrange
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCountry);
+//        list.addTypeArea(typeCity);
+//        String expectedResult = "---------------\n" +
+//                "0) Name: Country \n" +
+//                "1) Name: City \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.buildGATypeListString(list);
+//
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     @Test
     void seeIfMatchGAByTypeAreaWorks() {
@@ -97,174 +97,174 @@ class GASettingsControllerTest {
 
     //USER STORY 001 TESTS
 
-    @Test
-    void seeIfCreateTypeAreaWorksEmptyList() {
+//    @Test
+//    void seeIfCreateTypeAreaWorksEmptyList() {
+//
+//        // Arrange
+//
+//        TypeAreaList newList = new TypeAreaList();
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("City", newList);
+//
+//        // Assert
+//
+//        assertTrue(result);
+//    }
 
-        // Arrange
+//    @Test
+//    void seeIfCreateTypeAreaWorksListWithElements() {
+//
+//        // Arrange
+//
+//        TypeAreaList typeAreaList = new TypeAreaList();
+//        typeAreaList.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("City", typeAreaList);
+//
+//        // Assert
+//
+//        assertTrue(result);
+//    }
 
-        TypeAreaList newList = new TypeAreaList();
+//    @Test
+//    void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
+//
+//        // Arrange
+//
+//        TypeAreaList expectedResult = new TypeAreaList();
+//        expectedResult.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("Country", expectedResult);
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
 
-        // Act
+//    @Test
+//    void seeIfCreateTypeAreaDoesntWorkWhenNullIsAdded() {
+//
+//        // Arrange
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList(null, list);
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
 
-        boolean result = controller.createAndAddTypeAreaToList("City", newList);
+//    @Test
+//    void seeIfCreateTypeAreaDoesntWorkWhenNameIsEmpty() {
+//
+//        // Arrange
+//
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("", list);
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
 
-        // Assert
-
-        assertTrue(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaWorksListWithElements() {
-
-        // Arrange
-
-        TypeAreaList typeAreaList = new TypeAreaList();
-        typeAreaList.addTypeArea(typeCountry);
-
-        // Act
-
-        boolean result = controller.createAndAddTypeAreaToList("City", typeAreaList);
-
-        // Assert
-
-        assertTrue(result);
-    }
-
-    @Test
-    void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
-
-        // Arrange
-
-        TypeAreaList expectedResult = new TypeAreaList();
-        expectedResult.addTypeArea(typeCountry);
-
-        // Act
-
-        boolean result = controller.createAndAddTypeAreaToList("Country", expectedResult);
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaDoesntWorkWhenNullIsAdded() {
-
-        // Arrange
-
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCountry);
-
-        // Act
-
-        boolean result = controller.createAndAddTypeAreaToList(null, list);
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaDoesntWorkWhenNameIsEmpty() {
-
-        // Arrange
-
-
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCountry);
-
-        // Act
-
-        boolean result = controller.createAndAddTypeAreaToList("", list);
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaDoesntWorkWhenNumbersAreAdded() {
-
-        // Arrange
-
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCountry);
-
-        // Act
-
-        boolean result = controller.createAndAddTypeAreaToList("Country21", list);
-
-        // Assert
-
-        assertFalse(result);
-    }
+//    @Test
+//    void seeIfCreateTypeAreaDoesntWorkWhenNumbersAreAdded() {
+//
+//        // Arrange
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("Country21", list);
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
 
 
     //USER STORY 002 TESTS
 
-    @Test
-    void seeIfPrintTypeAreaListWorks() {
+//    @Test
+//    void seeIfPrintTypeAreaListWorks() {
+//
+//        // Arrange
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCountry);
+//        String expectedResult = "---------------\n" +
+//                "0) Name: Country \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.getTypeAreaList(list);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
-        // Arrange
+//    @Test
+//    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
+//
+//        // Arrange
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCountry);
+//        list.addTypeArea(typeCity);
+//        String expectedResult = "---------------\n" +
+//                "0) Name: Country \n" +
+//                "1) Name: City \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.getTypeAreaList(list);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCountry);
-        String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
-                "---------------\n";
-
-        // Act
-
-        String actualResult = controller.getTypeAreaList(list);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
-
-        // Arrange
-
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCountry);
-        list.addTypeArea(typeCity);
-        String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
-                "1) Name: City \n" +
-                "---------------\n";
-
-        // Act
-
-        String actualResult = controller.getTypeAreaList(list);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfPrintTypeAreaListWorksWithThreeTypes() {
-
-        // Arrange
-
-        TypeAreaList list = new TypeAreaList();
-        list.addTypeArea(typeCity);
-        list.addTypeArea(typeCountry);
-        String expectedResult = "---------------\n" +
-                "0) Name: City \n" +
-                "1) Name: Country \n" +
-                "---------------\n";
-
-        // Act
-
-        String actualResult = controller.getTypeAreaList(list);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
+//    @Test
+//    void seeIfPrintTypeAreaListWorksWithThreeTypes() {
+//
+//        // Arrange
+//
+//        TypeAreaList list = new TypeAreaList();
+//        list.addTypeArea(typeCity);
+//        list.addTypeArea(typeCountry);
+//        String expectedResult = "---------------\n" +
+//                "0) Name: City \n" +
+//                "1) Name: Country \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.getTypeAreaList(list);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     //USER STORY 003 TESTS
 

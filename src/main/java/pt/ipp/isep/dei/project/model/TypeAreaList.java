@@ -28,8 +28,8 @@ public class TypeAreaList {
         if (name == null || name.isEmpty() || name.matches(".*\\d+.*")) {
             return false;
         }
-        TypeArea tipo = new TypeArea(name);
-        return addTypeArea(tipo);
+        TypeArea type = new TypeArea(name);
+        return addTypeArea(type);
     }
 
     /**
@@ -59,7 +59,7 @@ public class TypeAreaList {
         }
         for (int i = 0; i < typeAreas.size(); i++) {
             TypeArea aux = typeAreas.get(i);
-            result.append(i).append(") Name: ").append(aux.getName()).append(" \n");
+            result.append(i).append(") Description: ").append(aux.getName()).append(" \n");
         }
         result.append("---------------\n");
         return result.toString();
@@ -90,7 +90,7 @@ public class TypeAreaList {
      * @return returns Type Area that corresponds to index.
      */
     public TypeArea get(int index) {
-        if(this.typeAreas.isEmpty()){
+        if (this.typeAreas.isEmpty()) {
             throw new IndexOutOfBoundsException("The type area list is empty.");
         }
         return this.typeAreas.get(index);

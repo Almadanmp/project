@@ -258,8 +258,8 @@ public class Room implements Metered {
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        ReadingList readingList = tempSensors.getReadings();
-        return readingList.getMostRecentValue();
+        List<Reading> readingList = tempSensors.getReadings();
+        return ReadingUtils.getMostRecentValue(readingList);
     }
 
     /**

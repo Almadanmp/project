@@ -8,10 +8,7 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -437,7 +434,7 @@ class HouseMonitoringControllerTest {
 
         double expectedResult = 15.0;
 
-        double actualResult = controller.getHighestTempAmplitudeValue(validHouse, validDate1);
+        double actualResult = controller.getTempAmplitudeValueByDate(validHouse, validDate1);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -450,20 +447,20 @@ class HouseMonitoringControllerTest {
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                controller.getHighestTempAmplitudeValue(validHouse, startDate.getTime()));
+                controller.getTempAmplitudeValueByDate(validHouse, startDate.getTime()));
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
     }
 
     @Test
-    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException2(){
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException2() {
         //Arrange
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validSensorList);
-        ReadingList readingList = new ReadingList();
+        List<Reading> readingList = new ArrayList<>();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
-        readingList.addReading(reading1);
+        readingList.add(reading1);
         validTemperatureSensor.setReadingList(readingList);
 
         //Act
@@ -490,7 +487,7 @@ class HouseMonitoringControllerTest {
         //Arrange
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validSensorList);
-        ReadingList readingList = new ReadingList();
+        List<Reading> readingList = new ArrayList<>();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
@@ -511,36 +508,36 @@ class HouseMonitoringControllerTest {
         Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
         Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
         Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
-        readingList.addReading(reading5);
-        readingList.addReading(reading6);
-        readingList.addReading(reading7);
-        readingList.addReading(reading8);
-        readingList.addReading(reading9);
-        readingList.addReading(reading10);
-        readingList.addReading(reading11);
-        readingList.addReading(reading12);
-        readingList.addReading(reading13);
-        readingList.addReading(reading14);
-        readingList.addReading(reading15);
-        readingList.addReading(reading16);
-        readingList.addReading(reading17);
-        readingList.addReading(reading18);
-        readingList.addReading(reading19);
-        readingList.addReading(reading20);
+        readingList.add(reading1);
+        readingList.add(reading2);
+        readingList.add(reading3);
+        readingList.add(reading4);
+        readingList.add(reading5);
+        readingList.add(reading6);
+        readingList.add(reading7);
+        readingList.add(reading8);
+        readingList.add(reading9);
+        readingList.add(reading10);
+        readingList.add(reading11);
+        readingList.add(reading12);
+        readingList.add(reading13);
+        readingList.add(reading14);
+        readingList.add(reading15);
+        readingList.add(reading16);
+        readingList.add(reading17);
+        readingList.add(reading18);
+        readingList.add(reading19);
+        readingList.add(reading20);
         validTemperatureSensor.setReadingList(readingList);
         //Act
-        Date actualResult = controller.getLastColdestDayInInterval(validHouse,(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        Date actualResult = controller.getLastColdestDayInInterval(validHouse, (new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
         //Assert
         assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
     }
 
     /**
      * Tests for getFirstHottestDayInPeriod
-     *
+     * <p>
      * Given a valid set of readings in tested period:
      * Given a valid set of readings in tested period, multiple days have the highest temperature:
      * -Should return the first day with highest temperature
@@ -579,8 +576,8 @@ class HouseMonitoringControllerTest {
     }
 
     /**
-     *  Given a valid set of unorganized readings in tested period:
-     *  -Should return the first day with highest temperature
+     * Given a valid set of unorganized readings in tested period:
+     * -Should return the first day with highest temperature
      */
 
     @Test
@@ -724,18 +721,18 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void seeIfIsMotherAreaValidHappyCase(){
+    void seeIfIsMotherAreaValidHappyCase() {
         validHouseArea.setSensorList(validSensorList);
         assertTrue(controller.isMotherAreaValid(validHouse));
     }
 
     @Test
-    void seeIfIsMotherAreaValidNoSensorList(){
+    void seeIfIsMotherAreaValidNoSensorList() {
         assertFalse(controller.isMotherAreaValid(validHouse));
     }
 
     @Test
-    void seeIfIsMotherAreaValidNoMotherArea(){
+    void seeIfIsMotherAreaValidNoMotherArea() {
         House invalidHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"), new Local(20, 20, 20), 60,
                 180, new ArrayList<>());

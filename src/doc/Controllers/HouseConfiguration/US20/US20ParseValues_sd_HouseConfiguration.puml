@@ -28,7 +28,7 @@ skinparam actor {
 
 
 
--> CSVReaderController: parseAndLog(String[] readings, Logger logger, SensorList sensorList)
+-> CSVReaderController: parseAndLog(String[] readings, Logger logger, SensorList typeSensorList)
 activate CSVReaderController
 
 CSVReaderController -->> SimpleDateFormat: sdf 1 = new SimpleDateFormat("dd/MM/yyyy")

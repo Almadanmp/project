@@ -89,8 +89,8 @@ class TypeAreaListTest {
         // Arrange
 
         String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
-                "1) Name: City \n" +
+                "0) Description: Country \n" +
+                "1) Description: City \n" +
                 "---------------\n";
 
         // Act

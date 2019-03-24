@@ -1,19 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.UUID;
 
 /**
  * Class that represents the Local of an Object .
  */
-@Entity
+//@Entity
 public class Local {
 
     private double latitude;
     private double longitude;
     private double altitude;
-    @Id
+    //  @Id
     private UUID uniqueId;
 
     /**
@@ -120,6 +118,7 @@ public class Local {
 
     /**
      * Method to check if an instance of this class is equal to another object.
+     *
      * @param testLocal is the object we want to check for equality.
      * @return is true if the object is a local with the same latitude and longitude.
      */

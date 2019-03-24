@@ -181,11 +181,11 @@ class SensorListTest {
     void seeIfGetReadingsWorksNoReadings() {
         // Arrange
 
-        ReadingList expectedResult = new ReadingList();
+        List<Reading> expectedResult = new ArrayList<>();
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        List<Reading> actualResult = validSensorList.getReadings();
 
         // Assert
 
@@ -196,15 +196,15 @@ class SensorListTest {
     void seeIfGetReadingsWorksReadingsAtBeginning() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018,Calendar.MARCH,1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
         validSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(readingOne);
+        List<Reading> expectedResult = new ArrayList<>();
+        expectedResult.add(readingOne);
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        List<Reading> actualResult = validSensorList.getReadings();
 
         // Assert
 
@@ -215,15 +215,15 @@ class SensorListTest {
     void seeIfGetReadingsWorksReadingsAtEnd() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018,Calendar.MARCH,1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
         validSensorList.add(secondValidSensor);
         secondValidSensor.addReading(readingOne);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(readingOne);
+        List<Reading> expectedResult = new ArrayList<>();
+        expectedResult.add(readingOne);
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        List<Reading> actualResult = validSensorList.getReadings();
 
         // Assert
 
@@ -239,13 +239,13 @@ class SensorListTest {
         validSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         secondValidSensor.addReading(readingTwo);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(readingOne);
-        expectedResult.addReading(readingTwo);
+        List<Reading> expectedResult = new ArrayList<>();
+        expectedResult.add(readingOne);
+        expectedResult.add(readingTwo);
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        List<Reading> actualResult = validSensorList.getReadings();
 
         // Assert
 
@@ -363,7 +363,7 @@ class SensorListTest {
         SensorList emptyList = new SensorList();
         SensorList twoSensorsList = new SensorList();
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018,Calendar.MARCH,1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
         secondValidSensor.addReading(readingOne);
 
         twoSensorsList.add(firstValidSensor);
@@ -532,7 +532,7 @@ class SensorListTest {
     }
 
     @Test
-    void seeIfAddReadingToMatchingSensorWorks(){
+    void seeIfAddReadingToMatchingSensorWorks() {
         // Arrange
 
         Date dateSensorStartedFunctioning = new GregorianCalendar(2017, Calendar.FEBRUARY, 3).getTime();

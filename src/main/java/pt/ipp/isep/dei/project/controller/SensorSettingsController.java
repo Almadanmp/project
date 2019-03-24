@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Date;
@@ -8,25 +10,41 @@ import java.util.GregorianCalendar;
 /**
  * Controller class for Sensor Settings UI
  */
-
+@Controller
 public class SensorSettingsController {
+
+    private TypeSensorListService typeSensorListService;
+
+
+    @Autowired
+    public SensorSettingsController(TypeSensorListService typeSensorListService) {
+        this.typeSensorListService = typeSensorListService;
+    }
+
+    /**
+     * Empty constructor being used on RoomConfigurationUI
+     */
+    public SensorSettingsController() {
+    }
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public String buildSensorTypesString(TypeSensorList typeSensorList) {
-        return typeSensorList.buildString();
+    public String buildSensorTypesString() {
+        return typeSensorListService.getAllAsString();
     }
+
+    //TODO review
 
     /**
      * This method receives a list and a type sensor and tries to add the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.
      *
-     * @param typeSensor     the type of sensor to be added
-     * @param typeSensorList the list of types of sensors
+     * @param typeSensor the type of sensor to be added
+     *                   // * @param typeSensorList the list of types of sensors
      * @return true if the type of sensor was added to the list of type sensors.
      */
-    public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList) {
-        return typeSensorList.add(typeSensor);
+    public boolean addTypeSensorToList(TypeSensor typeSensor) {
+        return typeSensorListService.add(typeSensor);
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
@@ -64,7 +82,8 @@ public class SensorSettingsController {
      */
 
     public TypeSensor createType(String sensorType, String sensorUnits) {
-        return new TypeSensor(sensorType, sensorUnits);
+        TypeSensor newType = typeSensorListService.createTypeSensor(sensorType, sensorUnits);
+        return newType;
     }
 
 
@@ -94,6 +113,7 @@ public class SensorSettingsController {
 
     /**
      * Method that creates and returns a Sensor with 3 parameters.
+     *
      * @param name
      * @param type
      * @param date
@@ -104,7 +124,7 @@ public class SensorSettingsController {
     }
 
     /**
-     * @param sensor the sensor we want to add to the geographic area.
+     * @param sensor  the sensor we want to add to the geographic area.
      * @param geoArea is the area we want to add the sensor to.
      * @return is true if successfully added, false if not.
      */
