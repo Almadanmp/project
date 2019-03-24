@@ -144,7 +144,7 @@ public class ReaderController {
                 addedReadings += parseAndLogCSVReading(readings, logger, sensorList);
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(e.getMessage());
         }
         return addedReadings;
     }
@@ -202,7 +202,7 @@ public class ReaderController {
             addedReadings = parseAndLogJSONReadings(sensorList, readings, logger);
 
         } catch (IOException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(e.getMessage());
         }
 
         return addedReadings;
@@ -291,7 +291,7 @@ public class ReaderController {
             addedReadings = parseAndLogXMLReadings(sensorList, doc, logger);
 
         } catch (IOException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(e.getMessage());
         }
 
         return addedReadings;
@@ -306,10 +306,10 @@ public class ReaderController {
     int parseAndLogXMLReadings(SensorList sensorList, Document doc, Logger logger) {
         int added = 0;
         NodeList nodeReadings = doc.getElementsByTagName("reading");
-        for(int i = 0; i < nodeReadings.getLength(); i++) {
+        for (int i = 0; i < nodeReadings.getLength(); i++) {
             Node node = nodeReadings.item(i);
-            if(node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element)node;
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
                 added += parseAndLogXMLReading(sensorList, element, logger);
             }
         }

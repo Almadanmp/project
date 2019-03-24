@@ -28,7 +28,7 @@ public class ReaderCSVReadings implements Reader {
                 listReads.add(readings);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e.getMessage());
         }
         return listReads;
     }

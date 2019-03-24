@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class ReaderJSONReadingsTest {
 
     // Common artifacts for testing in this class.
@@ -66,13 +68,24 @@ class ReaderJSONReadingsTest {
     }
 
     @Test
-    void seeIfReadFileWorksWithWrongPath() {
-        //Act
+    void seeIfReadFileThrowsExceptionWithWrongPath() {
+        //Assert
 
-        JSONArray actualResult1 = validReader.readFile(invalidPath);
+        assertThrows(IllegalArgumentException.class,
+                () -> validReader.readFile(invalidPath));
+
+    }
+
+    @Test
+    void seeIfGetJSONArrayFromFileThrowsException() {
+        //Arrange
+
+        JSONObject jsonObject = new JSONObject();
 
         //Assert
 
-        JSONAssert.assertEquals(validJSONArray, actualResult1, JSONCompareMode.LENIENT);
+        assertThrows(IllegalArgumentException.class,
+                () -> validReader.getJSONArrayFromFile(jsonObject));
+
     }
 }

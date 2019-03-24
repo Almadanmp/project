@@ -136,11 +136,10 @@ class HouseConfigurationUI {
         ReaderController ctrl = new ReaderController();
         try {
             result = ctrl.readReadingsFromCSV(geographicAreaList, filePath, logFilePath);
-        }
-        catch (IllegalArgumentException illegal){
+        } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid.");
         }
-        System.out.println(result + " readings have been successfully imported.");
+        System.out.println(result + " reading(s) successfully imported.");
     }
 
     private void readReadingsFromJSON(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
@@ -148,11 +147,10 @@ class HouseConfigurationUI {
         ReaderController ctrl = new ReaderController();
         try {
             result = ctrl.readReadingsFromJSON(geographicAreaList, filePath, logFilePath);
-        }
-        catch (IllegalArgumentException illegal){
+        } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid.");
         }
-        System.out.println(result + " readings have been successfully imported.");
+        System.out.println(result + " reading(s) successfully imported.");
     }
 
     private void readReadingsFromXML(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
@@ -160,11 +158,10 @@ class HouseConfigurationUI {
         ReaderController ctrl = new ReaderController();
         try {
             result = ctrl.readReadingsFromXML(geographicAreaList, filePath, logFilePath);
-        }
-        catch (IllegalArgumentException illegal){
+        } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid.");
         }
-        System.out.println(result + " readings have been successfully imported.");
+        System.out.println(result + " reading(s) successfully imported.");
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
