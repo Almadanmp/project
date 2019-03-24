@@ -10,27 +10,29 @@ public class TypeAreaListService {
     @Autowired
     private TypeAreaRepository typeAreaRepository;
 
-        /**
+    /**
      * This method creates a new Type of Geographic Area and adds it to a list.
      *
      * @param name String of the new Area Type that one wishes to create and add to a list.
      * @return true or false depending on if it adds the type to the list or not.
      */
     public TypeArea createTypeAreaRepository(String name) {
-        TypeArea typeArea = new TypeArea(name);
-        return typeArea;
+        return new TypeArea(name);
     }
 
     /**
-     * This method adds a previously stated Area Type to a List of Area Types.
+     * This method adds a previously created Area Type to a List of Area Types.
+     * If an equal area already exists (has the same name) it will be deleted and a new one will be created its place
+     * (immutable object approach).
      *
      * @param type Type of Geographic Area one wishes to add to a list.
-     * @return true or false depending on the list containing or not the type input already.
+     * @return true if the type area was successfully added, false otherwise.
      */
     public boolean addTypeArea(TypeArea type) {
-        // TypeArea typeArea = typeAreaRepository.findByName(type.getName());
-        //if (typeArea!=null) {
-        //  typeAreaRepository.delete(typeArea);
+        TypeArea typeArea = typeAreaRepository.findByName(type.getName());
+        if (typeArea != null) {
+            typeAreaRepository.delete(typeArea);
+        }
         typeAreaRepository.save(type);
         return true;
     }
@@ -40,43 +42,35 @@ public class TypeAreaListService {
      *
      * @return builds a string of all the individual members of the geoAreaType list.
      */
-    public String toString() {
+    public String getAllAsString() {
         StringBuilder result = new StringBuilder("---------------\n");
         Iterable<TypeArea> typeAreas = typeAreaRepository.findAll();
-
+        for (TypeArea ta : typeAreas) {
+            result.append(ta.getId()).append(") Name: ").append(ta.getName()).append(" \n");
+        }
         result.append("---------------\n");
-        return typeAreaRepository.toString();
+        return result.toString();
     }
 
-//
-//    /**
-//     * This method receives an index as parameter and gets a type area from Type Area list.
-//     *
-//     * @param index the index of the type area
-//     * @return returns Type Area that corresponds to index.
-//     */
-//    public TypeArea get(int index) {
-//        if (this.typeAreas.isEmpty()) {
-//            throw new IndexOutOfBoundsException("The type area list is empty.");
-//        }
-//        return this.typeAreas.get(index);
-//    }
+    /**
+     * Method to get the TypeArea Repository Size
+     *
+     * @return repository size
+     */
+    public int getSize() {
+        return typeAreaRepository.findAll().size();
+    }
 
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param id selected id
+     * @return Type Area corresponding to the given id
+     */
+    public TypeArea getTypeAreaById(int id) {
 
-//    @Override
-//    public boolean equals(Object testObject) {
-//        if (this == testObject) {
-//            return true;
-//        }
-//        if (!(testObject instanceof TypeAreaListService)) {
-//            return false;
-//        }
-//        TypeAreaListService list = (TypeAreaListService) testObject;
-//        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return 1;
-//    }
+        return typeAreaRepository.findById(new Long(id)).get(); // TODO understand optional(Daniela)
+
+    }
+
 }

@@ -12,7 +12,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
 import pt.ipp.isep.dei.project.model.TypeAreaListService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
@@ -89,7 +88,7 @@ public class MainUI {
             // *************************
             MockUI mockUI = new MockUI();
             mockUI.initializeMockUI();
-            TypeAreaList mockTypeAreaList = mockUI.getTypeAreaList();
+            // TypeAreaList mockTypeAreaList = mockUI.getTypeAreaList();
             //TODO
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
 
@@ -149,7 +148,7 @@ public class MainUI {
                             return;
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(typeAreaListService);
-                            view1.runGASettings(mockGeographicAreaList, mockTypeAreaList);
+                            view1.runGASettings(mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
