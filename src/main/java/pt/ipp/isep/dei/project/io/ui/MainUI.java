@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,15 +26,12 @@ import java.util.Scanner;
 @EntityScan(basePackages = "pt.ipp.isep.dei.project")
 public class MainUI {
 
-    @Autowired
-    TypeSensorRepository repository;
-
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
     }
 
     @Bean
-    public CommandLineRunner mainRun() {
+    public CommandLineRunner mainRun(TypeSensorRepository repository) {
         return (args) -> {
 
             List<String> deviceTypeConfig;
