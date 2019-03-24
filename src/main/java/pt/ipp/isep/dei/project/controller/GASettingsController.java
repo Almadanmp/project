@@ -7,12 +7,21 @@ import pt.ipp.isep.dei.project.model.*;
 /**
  * Controller class for Geographical Area Settings UI
  */
-
 public class GASettingsController {
 
     private static final String ACTIVE = "Sensor successfully activated!";
     private static final String NOT_ACTIVE = "Sensor successfully deactivated!";
+
+    private TypeAreaListService typeAreaListService;
+
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
+
+    public GASettingsController(TypeAreaListService typeAreaListService) {
+        this.typeAreaListService = typeAreaListService;
+    }
+
+    public GASettingsController() {
+    }
 
     /**
      * @param typeAreaList is the list of Geographic Area Types we want to print.
@@ -49,6 +58,12 @@ public class GASettingsController {
      */
     public boolean createAndAddTypeAreaToList(String input, TypeAreaList typeAreaList) {
         return typeAreaList.createTypeArea(input);
+    }
+
+    //REPOSITORY APPROACH
+    public boolean createAndAddTypeAreaToListRepository(String input) {
+        TypeArea typeArea = typeAreaListService.createTypeAreaRepository(input); //TODO merge create and add
+        return typeAreaListService.addTypeArea(typeArea);
     }
 
     /* User Story 02

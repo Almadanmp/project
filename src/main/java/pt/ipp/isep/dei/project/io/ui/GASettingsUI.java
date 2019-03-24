@@ -7,14 +7,15 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
+import pt.ipp.isep.dei.project.model.TypeAreaListService;
 
 import java.util.Scanner;
 
 class GASettingsUI {
     private GASettingsController controller;
 
-    GASettingsUI() {
-        this.controller = new GASettingsController();
+    GASettingsUI(TypeAreaListService typeAreaListService) {
+        this.controller = new GASettingsController(typeAreaListService);
     }
 
     void runGASettings(GeographicAreaList programGAList, TypeAreaList programTypeAreaList) {
@@ -51,6 +52,10 @@ class GASettingsUI {
                     break;
                 case 7:
                     runUS10(programGAList);
+                    activeInput = false;
+                    break;
+                case 8:
+                    runUS01Repository();
                     activeInput = false;
                     break;
                 case 0:
@@ -110,6 +115,35 @@ class GASettingsUI {
     }
 
     private void displayStateUS01(boolean created) {
+        if (created) {
+            System.out.println("Success, you have inserted a new Type of Geographic Area.");
+        } else {
+            System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
+        }
+
+    }
+
+    private void runUS01Repository() {
+        String typeAreaName = getInputUS01Repository();
+        boolean created = updateModelUS01Repository(typeAreaName);
+        displayStateUS01Repository(created);
+    }
+
+    private String getInputUS01Repository() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please insert the name of the new Geographic Area Type: ");
+        while (!scanner.hasNext("[a-zA-Z_]+")) {
+            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
+            scanner.next();
+        }
+        return scanner.next();
+    }
+
+    private boolean updateModelUS01Repository(String typeAreaName) {
+        return controller.createAndAddTypeAreaToListRepository(typeAreaName);
+    }
+
+    private void displayStateUS01Repository(boolean created) {
         if (created) {
             System.out.println("Success, you have inserted a new Type of Geographic Area.");
         } else {
@@ -326,6 +360,7 @@ class GASettingsUI {
         System.out.println("5) Add an existing geographical area to another one. (US007)");
         System.out.println("6) See if a geographical area is included, directly or indirectly, in another one. (US008)");
         System.out.println("7) Deactivate or activate a sensor (US010) \n");
+        System.out.println("8) Create a new type of Geographical Area - REPOSITORY APPROACH. (US001)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

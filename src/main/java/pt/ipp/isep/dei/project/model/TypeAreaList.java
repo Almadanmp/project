@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -92,7 +90,7 @@ public class TypeAreaList {
      * @return returns Type Area that corresponds to index.
      */
     public TypeArea get(int index) {
-        if(this.typeAreas.isEmpty()){
+        if (this.typeAreas.isEmpty()) {
             throw new IndexOutOfBoundsException("The type area list is empty.");
         }
         return this.typeAreas.get(index);

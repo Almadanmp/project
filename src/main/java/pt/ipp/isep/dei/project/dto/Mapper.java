@@ -179,15 +179,15 @@ public class Mapper {
 
     public TypeAreaDTO typeAreaToDTO(TypeArea typeArea) {
         typeAreaDTO.setName(typeArea.getName());
-        typeAreaDTO.setUniqueID(typeArea.getUniqueID());
+        typeAreaDTO.setID(typeArea.getId());
         return typeAreaDTO;
     }
 
     public TypeArea dtoToTypeArea(TypeAreaDTO typeAreaDTO) {
         String typeAreaName = typeAreaDTO.getName();
-        UUID typeAreaUUID = typeAreaDTO.getUniqueID();
+        Long typeAreaId = typeAreaDTO.getID();
         TypeArea typeArea = new TypeArea(typeAreaName);
-        typeArea.setUniqueID(typeAreaUUID);
+        typeArea.setId(typeAreaId);
         return typeArea;
     }
 }

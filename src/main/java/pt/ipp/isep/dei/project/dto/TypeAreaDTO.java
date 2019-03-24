@@ -1,11 +1,9 @@
 package pt.ipp.isep.dei.project.dto;
 
-import java.util.UUID;
-
 public class TypeAreaDTO {
 
     private String name;
-    private UUID uniqueID;
+    private Long id;
 
     public String getName() {
         return name;
@@ -15,12 +13,12 @@ public class TypeAreaDTO {
         this.name = name;
     }
 
-    public UUID getUniqueID() {
-        return uniqueID;
+    public Long getID() {
+        return id;
     }
 
-    public void setUniqueID(UUID uniqueID) {
-        this.uniqueID = uniqueID;
+    public void setID(Long id) {
+        this.id = id;
     }
 
     /**
