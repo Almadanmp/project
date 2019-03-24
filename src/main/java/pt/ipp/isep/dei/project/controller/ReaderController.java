@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.controller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.SensorList;
@@ -206,7 +209,7 @@ public class ReaderController {
     }
 
     /**
-     * This method receives a logger, a sensor list and an JSONArray, tries to parse every JSON Object
+     * This method receives a logger, a sensor list and a JSONArray, tries to parse every JSON Object
      * into a reading and adding it to its corresponding sensor from geographic area.
      *
      * @return the number of readings added to geographic area sensors
@@ -221,7 +224,7 @@ public class ReaderController {
     }
 
     /**
-     * This method receives a logger, a sensor list and an JSON Object, tries to add the corresponding
+     * This method receives a logger, a sensor list and a JSON Object, tries to add the corresponding
      * reading to the corresponding sensor.
      *
      * @return returns 1 in case the reading is added, 0 otherwise
@@ -271,12 +274,74 @@ public class ReaderController {
      * @return the total number of readings added
      ***/
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
-       int addedReadings = 0;
+        int addedReadings = 0;
         SensorList sensorList = geographicAreaList.getAreaListSensors();
         if (sensorList.isEmpty()) {
             return addedReadings;
         }
         ReaderXMLReadings reader = new ReaderXMLReadings();
-        Document document = reader.readFile(path);
-        return addedReadings;    }
+        Document doc = reader.readFile(path);
+        doc.getDocumentElement().normalize();
+        try {
+            Logger logger = Logger.getLogger(ReaderController.class.getName());
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            addedReadings = parseAndLogXMLReadings(sensorList, doc, logger);
+
+        } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
+
+        return addedReadings;
+    }
+
+    /**
+     * This method receives a logger, a sensor list and a Document, tries to parse every node
+     * into a reading and adding it to its corresponding sensor from geographic area.
+     *
+     * @return the number of readings added to geographic area sensors
+     ***/
+    int parseAndLogXMLReadings(SensorList sensorList, Document doc, Logger logger) {
+        int added = 0;
+        NodeList nodeReadings = doc.getElementsByTagName("reading");
+        for(int i = 0; i < nodeReadings.getLength(); i++) {
+            Node node = nodeReadings.item(i);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element)node;
+                added += parseAndLogXMLReading(sensorList, element, logger);
+            }
+        }
+        return added;
+    }
+
+    /**
+     * This method receives a logger, a sensor list, and an Element containing
+     * reading features (sensor Id, reading value, reading date)
+     * and tries to add the resulting reading into the corresponding sensor.
+     *
+     * @return 1 in case the reading is added, 0 in case the reading isn't added.
+     **/
+    int parseAndLogXMLReading(SensorList sensorList, Element element, Logger logger) {
+        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd"));
+        for (SimpleDateFormat pattern : knownPatterns) {
+            try {
+                String sensorID = element.getElementsByTagName("id").item(0).getTextContent();
+                Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
+                Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
+                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
+            } catch (NumberFormatException nfe) {
+                UtilsUI.printMessage("The reading values are not numeric.");
+                logger.warning("The reading values are not numeric.");
+                return 0;
+            } catch (ParseException ignored) {
+                ignored.getErrorOffset();
+            }
+        }
+        return 0;
+    }
 }
