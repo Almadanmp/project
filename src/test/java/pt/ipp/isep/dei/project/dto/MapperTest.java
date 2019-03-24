@@ -72,17 +72,6 @@ class MapperTest {
         assertTrue(result instanceof Sensor);
     }
 
-    @Test
-    void seeIfSensorToDTOWorks() {
-        //Act
-        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
-
-        sensorDTO.setUniqueID(UUID.randomUUID());
-
-        //Assert
-        assertTrue(sensorDTO instanceof SensorDTO);
-        assertTrue(sensorDTO.getUniqueID() instanceof UUID);
-    }
 
     @Test
     void seeIfAddSensorDTOWorks() {

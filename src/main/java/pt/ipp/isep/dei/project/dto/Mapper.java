@@ -125,7 +125,7 @@ public class Mapper {
         sensorDTO.setLongitude(sensor.getLocal().getLongitude());
         sensorDTO.setLatitude(sensor.getLocal().getLatitude());
         sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
-        sensorDTO.setUniqueID(sensor.getUniqueID());
+        sensorDTO.setId(sensor.getId());
         sensorDTO.setActive(sensor.isActive());
         return sensorDTO;
     }
@@ -154,7 +154,7 @@ public class Mapper {
                 c.getErrorOffset();
             }
         }
-        sensorObject.setUniqueID(sensorDTO.getUniqueID());
+        sensorObject.setId(sensorDTO.getId());
         return sensorObject;
     }
 

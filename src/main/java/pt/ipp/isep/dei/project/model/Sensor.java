@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Represents a Sensor.
@@ -20,7 +19,6 @@ public class Sensor {
     private Date dateStartedFunctioning;
     //@OneToOne
     private ReadingList readingList;
-    private UUID uniqueID;
     private boolean active;
 
 
@@ -46,7 +44,6 @@ public class Sensor {
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
-        this.uniqueID = UUID.randomUUID();
         this.active = true;
     }
 
@@ -63,7 +60,6 @@ public class Sensor {
         setTypeSensor(typeSensor);
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
-        this.uniqueID = UUID.randomUUID();
         this.active = true;
     }
 
@@ -174,14 +170,6 @@ public class Sensor {
         if (readingList != null) {
             this.readingList = readingList;
         }
-    }
-
-    public UUID getUniqueID() {
-        return uniqueID;
-    }
-
-    public void setUniqueID(UUID uniqueID) {
-        this.uniqueID = uniqueID;
     }
 
     public boolean isActive() {

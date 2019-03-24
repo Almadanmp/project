@@ -915,21 +915,6 @@ class SensorTest {
     }
 
     @Test
-    void seeIfGetId() {
-        // Arrange
-
-        validSensor.setUniqueID(UUID.randomUUID());
-
-        // Act
-
-        UUID uuid = validSensor.getUniqueID();
-
-        // Assert
-
-        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
-    }
-
-    @Test
     void seeIfGetLastColdestDayInIntervalWorks() {
         //Arrange
         ReadingList readingList = new ReadingList();
