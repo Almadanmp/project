@@ -20,6 +20,7 @@ class HouseConfigurationUI {
     private double roomLength;
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
+    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
 
     HouseConfigurationUI() {
         this.controller = new HouseConfigurationController();
@@ -81,7 +82,7 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPath(result);
-        input.readJsonOrXMLFile(result,filePath,list);
+        input.readJsonOrXMLFile(result, filePath, list);
     }
 
 
@@ -120,20 +121,50 @@ class HouseConfigurationUI {
      */
     private void runUS20v2(GeographicAreaList geographicAreaList) {
         InputUtils inputUtils = new InputUtils();
-        ReaderController ctrl = new ReaderController();
         String path = inputUtils.getInputFileLocation();
         if (path.endsWith(".csv")) {
-            int result = ctrl.readReadingsFromCSV(geographicAreaList, path, "resources/logs/logOut.log");
-            System.out.println(result + " readings have been successfully imported.");
+            readReadingsFromCSV(geographicAreaList, path, VALID_LOG_PATH);
+        } else if (path.endsWith(".json")) {
+            readReadingsFromJSON(geographicAreaList, path, VALID_LOG_PATH);
+        } else if (path.endsWith(".xml")) {
+            readReadingsFromXML(geographicAreaList, path, VALID_LOG_PATH);
         }
-        else if (path.endsWith(".json")) {
-            int result = ctrl.readReadingsFromJSON(geographicAreaList, path, "resources/logs/logOut.log");
-            System.out.println(result + " readings have been successfully imported.");
+    }
+
+    private void readReadingsFromCSV(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
+        int result = 0;
+        ReaderController ctrl = new ReaderController();
+        try {
+            result = ctrl.readReadingsFromCSV(geographicAreaList, filePath, logFilePath);
         }
-        else if (path.endsWith(".xml")){
-            int result = ctrl.readReadingsFromXML(geographicAreaList, path, "resources/logs/logOut.log");
-            System.out.println(result + " readings have been successfully imported.");
+        catch (IllegalArgumentException illegal){
+            System.out.println("The CSV file is invalid.");
         }
+        System.out.println(result + " readings have been successfully imported.");
+    }
+
+    private void readReadingsFromJSON(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
+        int result = 0;
+        ReaderController ctrl = new ReaderController();
+        try {
+            result = ctrl.readReadingsFromJSON(geographicAreaList, filePath, logFilePath);
+        }
+        catch (IllegalArgumentException illegal){
+            System.out.println("The JSON file is invalid.");
+        }
+        System.out.println(result + " readings have been successfully imported.");
+    }
+
+    private void readReadingsFromXML(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
+        int result = 0;
+        ReaderController ctrl = new ReaderController();
+        try {
+            result = ctrl.readReadingsFromXML(geographicAreaList, filePath, logFilePath);
+        }
+        catch (IllegalArgumentException illegal){
+            System.out.println("The XML file is invalid.");
+        }
+        System.out.println(result + " readings have been successfully imported.");
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */

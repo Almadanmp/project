@@ -167,13 +167,13 @@ public class ReaderController {
                 Double readingValue = Double.parseDouble(readings[2]);
                 return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
-                UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
                 return 0;
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
         }
+        logger.warning("The reading date format is invalid.");
         return 0;
     }
 
@@ -241,13 +241,13 @@ public class ReaderController {
                 Double readingValue = Double.parseDouble(reading.getString("value"));
                 return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
-                UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
                 return 0;
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
         }
+        logger.warning("The reading date format is invalid.");
         return 0;
     }
 
@@ -261,7 +261,7 @@ public class ReaderController {
         if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
             return 1;
         }
-        logger.warning("The reading with value " + readingValue + " and date " + readingDate + " could not be added to the sensor.");
+        logger.warning("The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.");
         return 0;
     }
 
@@ -335,13 +335,13 @@ public class ReaderController {
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
                 return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
-                UtilsUI.printMessage("The reading values are not numeric.");
                 logger.warning("The reading values are not numeric.");
                 return 0;
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
         }
+        logger.warning("The reading date format is invalid.");
         return 0;
     }
 }
