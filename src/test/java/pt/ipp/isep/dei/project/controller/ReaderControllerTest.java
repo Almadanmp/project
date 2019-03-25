@@ -113,6 +113,7 @@ class ReaderControllerTest {
     void setUpOutput() {
         ByteArrayOutputStream testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
+    logger.setLevel(Level.WARNING);
     }
 
     @AfterEach
@@ -637,8 +638,46 @@ class ReaderControllerTest {
     void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreInvalid() {
         //Arrange
 
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.SEVERE);
 
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreValid() {
+        //Act
+
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "TT12346", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 1);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsInvalidAndReadingAreValid() {
+        //Arrange
+
+        logger.setLevel(Level.SEVERE);
+
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "TT12346", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
         //Act
 
         int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
@@ -787,4 +826,40 @@ class ReaderControllerTest {
 
         assertEquals(0, areasAdded);
     }
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithoutDescription(){
+        // Arrange
+        GeographicAreaList actualResult = new GeographicAreaList();
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_no_description.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+
+        // Assert
+
+        assertEquals(2, areasAdded);
+
+        // Get one of the areas to  check its contents.
+
+        GeographicArea actualArea = actualResult.get(0);
+        SensorList firstAreaSensors = actualArea.getSensorList();
+
+        // Declare expected area / sensors.
+
+        SensorList expectedSensors = new SensorList();
+        expectedSensors.add(actualArea.getSensorList().get(0));
+        expectedSensors.add(actualArea.getSensorList().get(1));
+
+        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 139));
+
+        // Assert
+
+        assertEquals(expectedArea, actualArea);
+        assertEquals(expectedSensors, firstAreaSensors);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
@@ -309,13 +310,13 @@ class GASettingsUI {
     private void runUS10(GeographicAreaList geographicAreaList) {
         GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
         SensorDTO sensorDTO = controller.inputSensor(geographicAreaDTO);
-        updateUS10(geographicAreaList, sensorDTO, geographicAreaDTO);
+        if (!controller.deactivateSensor(geographicAreaList,sensorDTO,geographicAreaDTO)){
+            System.out.println("Sensor already deactivated.");
+        }
+        else {
+            System.out.println("Sensor successfully deactivated!");
+        }
 
-
-    }
-
-    private void updateUS10 (GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO){
-        controller.deactivateSensor(geographicAreaList,sensorDTO,geographicAreaDTO);
     }
 
 
@@ -330,7 +331,6 @@ class GASettingsUI {
     private void runUS11(GeographicAreaList geographicAreaList) {
         GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
         SensorDTO sensorDTO = controller.inputSensor(geographicAreaDTO);
-
         updateUS11(geographicAreaList, sensorDTO, geographicAreaDTO);
     }
 

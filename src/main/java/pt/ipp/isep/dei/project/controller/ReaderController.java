@@ -23,6 +23,9 @@ public class ReaderController {
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
+    private static final String VALID_DATE_FORMAT1 = "yyyy-MM-dd'T'HH:mm:ss'+00:00'";
+    private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
+    private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
@@ -87,18 +90,17 @@ public class ReaderController {
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
             TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
-            SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
-            } catch (ParseException c) {
-                c.getMessage();
+            } catch (ParseException ignored) {
+                ignored.getErrorOffset();
             }
             sensor = new Sensor(id,name,typeSensor,local,date);
-            sensor.setActive();
         }
         return sensor;
     }
@@ -147,15 +149,16 @@ public class ReaderController {
 
     /**
      * This method receives a logger, a sensor list and an array of strings, tries to add a reading
-     * to a sensor in list and returns the number of readings added to sensor. The array of strings
+     * to a sensor in list and returns the number of readings added toM sensor. The array of strings
      * contains the reading's attributes.
      *
      * @return 0 in case the reading was not added, 1 in case of success.
      ***/
     int parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
-        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT2));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT3));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 String sensorID = readings[0];
@@ -227,9 +230,9 @@ public class ReaderController {
      ***/
     int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
-        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd"));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT2));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT3));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 String sensorID = reading.getString("id");
@@ -322,9 +325,9 @@ public class ReaderController {
      **/
     private int parseAndLogXMLReading(SensorList sensorList, Element element, Logger logger) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
-        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd"));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT2));
+        knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT3));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 String sensorID = element.getElementsByTagName("id").item(0).getTextContent();
