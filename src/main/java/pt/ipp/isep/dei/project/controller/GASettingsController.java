@@ -9,9 +9,6 @@ import pt.ipp.isep.dei.project.model.*;
  */
 public class GASettingsController {
 
-    private static final String ACTIVE = "Sensor successfully activated!";
-    private static final String NOT_ACTIVE = "Sensor successfully deactivated!";
-
     private TypeAreaService typeAreaService;
 
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
@@ -177,18 +174,23 @@ public class GASettingsController {
     /**
      * Deactivate sensor
      */
-    public void deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
+    public boolean deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
         Mapper mapper = new Mapper();
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
-        sensor.deactivateSensor();
-        geographicAreaList.get(0).addSensor(sensor);
-        geographicAreaList.get(0).removeSensor(sensor);
-        for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
-            if (g.getName().equals(geographicAreaDTO.getName())) {
-                g.addSensor(sensor);
+        if (sensor.isActive()) {
+            sensor.deactivateSensor();
+            geographicAreaList.get(0).addSensor(sensor);
+            geographicAreaList.get(0).removeSensor(sensor);
+            for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
+                if (g.getName().equals(geographicAreaDTO.getName())) {
+                    g.addSensor(sensor);
+                }
             }
+            return true;
         }
+        return false;
     }
+
 
 
 
