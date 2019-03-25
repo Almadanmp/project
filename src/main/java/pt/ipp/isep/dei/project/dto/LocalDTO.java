@@ -1,14 +1,12 @@
 package pt.ipp.isep.dei.project.dto;
 
 
-import java.util.UUID;
-
 public class LocalDTO {
 
     private double latitude;
     private double longitude;
     private double altitude;
-    private UUID id;
+    private long id;
 
     public double getLatitude() {
         return latitude;
@@ -34,11 +32,11 @@ public class LocalDTO {
         this.altitude = altitude;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
