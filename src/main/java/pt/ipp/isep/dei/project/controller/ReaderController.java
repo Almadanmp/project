@@ -101,7 +101,6 @@ public class ReaderController {
                 ignored.getErrorOffset();
             }
             sensor = new Sensor(id,name,typeSensor,local,date);
-            sensor.setActive();
         }
         return sensor;
     }
