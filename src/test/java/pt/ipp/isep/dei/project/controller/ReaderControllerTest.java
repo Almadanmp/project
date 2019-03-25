@@ -113,6 +113,7 @@ class ReaderControllerTest {
     void setUpOutput() {
         ByteArrayOutputStream testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
+    logger.setLevel(Level.WARNING);
     }
 
     @AfterEach
@@ -637,8 +638,46 @@ class ReaderControllerTest {
     void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreInvalid() {
         //Arrange
 
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.SEVERE);
 
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreValid() {
+        //Act
+
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "TT12346", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 1);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsInvalidAndReadingAreValid() {
+        //Arrange
+
+        logger.setLevel(Level.SEVERE);
+
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "TT12346", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
         //Act
 
         int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
