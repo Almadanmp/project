@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 public class Mapper {
@@ -164,7 +163,7 @@ public class Mapper {
         localDTO.setLatitude(local.getLatitude());
         localDTO.setLongitude(local.getLongitude());
         localDTO.setAltitude(local.getAltitude());
-        localDTO.setId(local.getUniqueId());
+        localDTO.setId(local.getId());
         return localDTO;
     }
 
@@ -173,9 +172,9 @@ public class Mapper {
         double localAltitude = localDTO.getAltitude();
         double localLatitude = localDTO.getLatitude();
         double localLongitude = localDTO.getLongitude();
-        UUID localUUID = localDTO.getId();
+        long localID = localDTO.getId();
         Local local = new Local(localLatitude, localLongitude, localAltitude);
-        local.setUniqueId(localUUID);
+        local.setId(localID);
         return local;
     }
 

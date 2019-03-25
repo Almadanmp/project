@@ -7,7 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 
 
-public class ReaderXMLReadings implements Reader {
+public class ReaderXML implements Reader {
 
     @Override
     public Document readFile(String filePath) {

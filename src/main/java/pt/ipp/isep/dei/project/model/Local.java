@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.UUID;
 
+
 /**
  * Class that represents the Local of an Object .
  */
@@ -38,12 +39,12 @@ public class Local {
     protected Local() {
     }
 
-    public UUID getUniqueId() {
-        return uniqueId;
+    public long getId() {
+        return id;
     }
 
-    public void setUniqueId(UUID uniqueId) {
-        this.uniqueId = uniqueId;
+    public void setId(long id){
+        this.id = id;
     }
 
     /**
@@ -122,6 +123,13 @@ public class Local {
                 Math.cos(latitude1) * Math.cos(latitude2) * (Math.sin(dLon / 2) * Math.sin(dLon / 2));
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadiusInKm * c;
+    }
+
+    //TODO Testing, if it stays, do javadoc
+    public String toString() {
+        return String.format(
+                "Local[id=%d, latitude='%s', longitude='%s', altitude='%s']",
+                id, latitude, longitude, altitude);
     }
 
     /**

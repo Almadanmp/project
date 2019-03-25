@@ -7,8 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.SensorList;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
@@ -75,16 +74,81 @@ public class ReaderController {
 
 
     /**
-     * Reads a XLM file from any path the User chooses from. Imports geographic areas and sensors from said file.
+     * reads a XML file from a certain path and imports geographic areas and sensors from the file
      *
-     * @param list     is the Geographic Area List of the application.
-     * @param filePath is the path to the XML file
+     * @param filePath path to the xml file
+     * @param list     geographic area list to add the imported geographic areas
      */
     public int readGeoAreasFromFileXML(String filePath, GeographicAreaList list) {
-        ReaderXMLGeographicAreas reader = new ReaderXMLGeographicAreas();
-        return reader.readFileAndAdd(filePath, list);
+        ReaderXML reader = new ReaderXML();
+        int result = 0;
+        Document doc = reader.readFile(filePath);
+        doc.getDocumentElement().normalize();
+        NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
+        for (int i = 0; i < nListGeoArea.getLength(); i++) {
+            if (list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i)))) {
+                result++;
+            }
+        }
+        return result;
     }
 
+    /**
+     * Method to import a Geographic Area from a certain node
+     * @param node - node of the XML file
+     * @return - Geographic Area that exists in the node
+     */
+    private GeographicArea getGeographicAreas(Node node) {
+        GeographicArea geoArea = new GeographicArea();
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            geoArea.setDescription(getTagValue("description", element));
+            geoArea.setId(getTagValue("id", element));
+            geoArea.setLength(Double.parseDouble(getTagValue("length", element)));
+            geoArea.setWidth(Double.parseDouble(getTagValue("width", element)));
+            geoArea.setLocation(new Local(Double.parseDouble(getTagValue("latitude", element)),
+                    Double.parseDouble(getTagValue("longitude", element)),
+                    Double.parseDouble(getTagValue("altitude", element))));
+            geoArea.setTypeArea(new TypeArea(getTagValue("type", element)));
+            NodeList nListSensor = element.getElementsByTagName("sensor");
+            SensorList sensorList = new SensorList();
+            for (int j = 0; j < nListSensor.getLength(); j++) {
+                sensorList.add(getSensors(nListSensor.item(j)));
+            }
+            geoArea.setSensorList(sensorList);
+        }
+        return geoArea;
+    }
+
+    private Sensor getSensors(Node node) {
+        Sensor sensor = new Sensor();
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            sensor.setId(getTagValue("id", element));
+            sensor.setName(getTagValue("name", element));
+            String sensorDate = getTagValue("start_date", element);
+            SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            try {
+                date = validDateFormat.parse(sensorDate);
+            } catch (ParseException c) {
+                c.getMessage();
+            }
+            sensor.setDateStartedFunctioning(date);
+            sensor.setTypeSensor(new TypeSensor(getTagValue("type", element), getTagValue("units", element)));
+            sensor.setActive();
+            sensor.setLocal(new Local(Double.parseDouble(getTagValue("latitude", element)),
+                    Double.parseDouble(getTagValue("longitude", element)),
+                    Double.parseDouble(getTagValue("altitude", element))));
+        }
+        return sensor;
+    }
+
+    private String getTagValue(String tag, Element element) {
+        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node node = nodeList.item(0);
+        return node.getNodeValue();
+    }
 
     // ACCESSORY METHODS
 
@@ -282,7 +346,7 @@ public class ReaderController {
         if (sensorList.isEmpty()) {
             return addedReadings;
         }
-        ReaderXMLReadings reader = new ReaderXMLReadings();
+        ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(path);
         doc.getDocumentElement().normalize();
         try {
@@ -347,4 +411,6 @@ public class ReaderController {
         logger.warning(INVALID_DATE);
         return 0;
     }
+
+
 }

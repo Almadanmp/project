@@ -42,6 +42,8 @@ public class Sensor {
      * Empty constructor to import Sensors from a XML file.
      */
     public Sensor() {
+        readingList = new ArrayList<>();
+        this.active = true;
     }
 
     /**
