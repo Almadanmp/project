@@ -827,13 +827,13 @@ class ReaderControllerTest {
         assertEquals(0, areasAdded);
     }
     @Test
-    void seeIfReadFileXMLGeoAreaWorksWithoutDescription(){
+    void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat(){
         // Arrange
         GeographicAreaList actualResult = new GeographicAreaList();
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_no_description.xml");
+        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
 
@@ -860,6 +860,54 @@ class ReaderControllerTest {
         assertEquals(expectedArea, actualArea);
         assertEquals(expectedSensors, firstAreaSensors);
     }
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate(){
+        // Arrange
+        GeographicAreaList actualResult = new GeographicAreaList();
 
+        // Act
+
+        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+
+        // Assert
+
+        assertEquals(2, areasAdded);
+
+        // Get one of the areas to  check its contents.
+
+        GeographicArea actualArea = actualResult.get(0);
+        SensorList firstAreaSensors = actualArea.getSensorList();
+
+        // Declare expected area / sensors.
+
+        SensorList expectedSensors = new SensorList();
+        expectedSensors.add(actualArea.getSensorList().get(0));
+        expectedSensors.add(actualArea.getSensorList().get(1));
+
+        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 139));
+
+        // Assert
+
+        assertEquals(expectedArea, actualArea);
+        assertEquals(expectedSensors, firstAreaSensors);
+    }
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithoutGeoAreas(){
+        // Arrange
+        GeographicAreaList actualResult = new GeographicAreaList();
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_no_GAs.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+
+        // Assert
+
+        assertEquals(0, areasAdded);
+    }
 
 }
