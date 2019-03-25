@@ -82,8 +82,7 @@ public class SensorSettingsController {
      */
 
     public TypeSensor createType(String sensorType, String sensorUnits) {
-        TypeSensor newType = typeSensorListService.createTypeSensor(sensorType, sensorUnits);
-        return newType;
+        return typeSensorListService.createTypeSensor(sensorType, sensorUnits);
     }
 
 
