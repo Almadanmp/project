@@ -80,9 +80,9 @@ public class ReaderController {
      * @param list     is the Geographic Area List of the application.
      * @param filePath is the path to the XML file
      */
-    public void readFileXML(String filePath, GeographicAreaList list) {
+    public int readGeoAreasFromFileXML(String filePath, GeographicAreaList list) {
         ReaderXMLGeographicAreas reader = new ReaderXMLGeographicAreas();
-        reader.readFileAndAdd(filePath, list);
+        return reader.readFileAndAdd(filePath, list);
     }
 
 
@@ -113,8 +113,8 @@ public class ReaderController {
                     this.counter--;
                 }
             } catch (NumberFormatException nfe) {
-                UtilsUI.printMessage("The reading values are not numeric.");
-                logger.warning("The reading values are not numeric.");
+                UtilsUI.printMessage(INVALID_READING_VALUE);
+                logger.warning(INVALID_READING_VALUE);
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
@@ -259,7 +259,7 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    private int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
         if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
             return 1;
         }

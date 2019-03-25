@@ -34,6 +34,7 @@ public class GeographicArea {
      * Empty Constructor to use when importing Geographic Areas from XML files.
      */
     public GeographicArea() {
+        this.areaSensors = new SensorList();
     }
 
     /**
