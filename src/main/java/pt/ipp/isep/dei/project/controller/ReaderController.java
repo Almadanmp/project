@@ -90,15 +90,15 @@ public class ReaderController {
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
             TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
-            SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
-            } catch (ParseException c) {
-                c.getMessage();
+            } catch (ParseException ignored) {
+                ignored.getErrorOffset();
             }
             sensor = new Sensor(id,name,typeSensor,local,date);
             sensor.setActive();
