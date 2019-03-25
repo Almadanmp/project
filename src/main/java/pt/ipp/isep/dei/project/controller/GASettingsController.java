@@ -198,5 +198,30 @@ public class GASettingsController {
         }
     }
 
+    /* USER STORY 11 */
+
+    public GeographicAreaDTO inputAreaUS11(GeographicAreaList geographicAreaList) {
+        Mapper mapper = new Mapper();
+        GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
+        return mapper.geographicAreaToDTO(geographicArea);
+    }
+
+    public SensorDTO inputSensorUS11(GeographicAreaDTO geographicAreaDTO) {
+        Mapper mapper = new Mapper();
+        GeographicArea geographicArea = mapper.geographicAreaDTOToObject(geographicAreaDTO);
+        Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
+        return mapper.sensorToDTO(sensor);
+    }
+
+    public void removeSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
+        Mapper mapper = new Mapper();
+        Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
+        geographicAreaList.get(0).removeSensor(sensor);
+        for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
+            if (g.getId().equals(geographicAreaDTO.getId())) {
+                g.removeSensor(sensor);
+            }
+        }
+    }
 
 }

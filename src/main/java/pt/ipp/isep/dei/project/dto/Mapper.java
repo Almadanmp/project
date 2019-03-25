@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Mapper {
     private RoomDTO roomDTO = new RoomDTO();
     private GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-    private SensorDTO sensorDTO = new SensorDTO();
+    private List<SensorDTO> listSensorDTO = new ArrayList<>();
     private LocalDTO localDTO = new LocalDTO();
     private TypeAreaDTO typeAreaDTO = new TypeAreaDTO();
 
@@ -93,7 +93,6 @@ public class Mapper {
      */
 
     public GeographicAreaDTO geographicAreaToDTO(GeographicArea geographicArea) {
-        List<SensorDTO> listSensorDTO = new ArrayList<>();
         geographicAreaDTO.setId(geographicArea.getId());
         geographicAreaDTO.setTypeArea(geographicArea.getTypeArea().getName());
         geographicAreaDTO.setLength(geographicArea.getLength());
@@ -101,7 +100,8 @@ public class Mapper {
         geographicAreaDTO.setLatitude(geographicArea.getLocation().getLatitude());
         geographicAreaDTO.setLongitude(geographicArea.getLocation().getLongitude());
         geographicAreaDTO.setAltitude(geographicArea.getLocation().getAltitude());
-        for (Sensor s : geographicArea.getAreaSensors().getSensors()) {
+
+        for (Sensor s : geographicArea.getSensorList().getSensors()) {
             SensorDTO sensorsDTO = sensorToDTO(s);
             listSensorDTO.add(sensorsDTO);
         }
@@ -119,13 +119,14 @@ public class Mapper {
      */
 
     public SensorDTO sensorToDTO(Sensor sensor) {
+        SensorDTO sensorDTO = new SensorDTO();
+        sensorDTO.setId(sensor.getId());
         sensorDTO.setName(sensor.getName());
         sensorDTO.setDateStartedFunctioning(sensor.getDateStartedFunctioning().toString());
         sensorDTO.setAltitude(sensor.getLocal().getAltitude());
         sensorDTO.setLongitude(sensor.getLocal().getLongitude());
         sensorDTO.setLatitude(sensor.getLocal().getLatitude());
         sensorDTO.setTypeSensor(sensor.getTypeSensor().getName());
-        sensorDTO.setId(sensor.getId());
         sensorDTO.setActive(sensor.isActive());
         sensorDTO.setUnits(sensor.getTypeSensor().getUnits());
         return sensorDTO;
@@ -145,6 +146,7 @@ public class Mapper {
         sensorObject.setterActive(sensorDTO.getActive());
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy"));
         knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
