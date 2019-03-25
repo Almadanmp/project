@@ -657,7 +657,7 @@ class ReaderControllerTest {
         // First Area
 
         GeographicArea firstArea = new GeographicArea();
-        firstArea.setId("ISEP");
+        firstArea.setName("ISEP");
         firstArea.setDescription("Campus do ISEP");
         firstArea.setTypeArea(new TypeArea("urban area"));
         firstArea.setWidth(0.261);
@@ -695,7 +695,7 @@ class ReaderControllerTest {
         // Second Area
 
         GeographicArea secondArea = new GeographicArea();
-        secondArea.setId("Porto");
+        secondArea.setName("Porto");
         secondArea.setDescription("City of Porto");
         secondArea.setTypeArea(new TypeArea("city"));
         secondArea.setWidth(10.09);
@@ -769,5 +769,22 @@ class ReaderControllerTest {
 
         assertEquals(expectedArea, actualArea);
         assertEquals(expectedSensors, firstAreaSensors);
+    }
+
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksZeroAreas(){
+        // Arrange
+
+        GeographicAreaList actualResult = new GeographicAreaList();
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/test1XMLReadings.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+
+        // Assert
+
+        assertEquals(0, areasAdded);
     }
 }

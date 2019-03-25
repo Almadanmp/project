@@ -54,14 +54,16 @@ public class ReaderController {
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            geoArea.setDescription(getTagValue("description", element));
-            geoArea.setId(getTagValue("id", element));
-            geoArea.setLength(Double.parseDouble(getTagValue("length", element)));
-            geoArea.setWidth(Double.parseDouble(getTagValue("width", element)));
-            geoArea.setLocation(new Local(Double.parseDouble(getTagValue("latitude", element)),
+            String description = getTagValue("description", element);
+            String id = getTagValue("id", element);
+            double length = Double.parseDouble(getTagValue("length", element));
+            double width = Double.parseDouble(getTagValue("width", element));
+            Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
-                    Double.parseDouble(getTagValue("altitude", element))));
-            geoArea.setTypeArea(new TypeArea(getTagValue("type", element)));
+                    Double.parseDouble(getTagValue("altitude", element)));
+            TypeArea typeArea = new TypeArea(getTagValue("type", element));
+            geoArea = new GeographicArea(id,typeArea,length,width,local);
+            geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
             for (int j = 0; j < nListSensor.getLength(); j++) {
@@ -72,30 +74,41 @@ public class ReaderController {
         return geoArea;
     }
 
+    /**
+     * Method to import a Sensor from a certain node
+     * @param node - node of the XML file.
+     * @return - Sensor that exists in the node
+     */
     private Sensor getSensors(Node node) {
         Sensor sensor = new Sensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            sensor.setId(getTagValue("id", element));
-            sensor.setName(getTagValue("name", element));
+            String id =getTagValue("id", element);
+            String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
+            TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
             SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
+                    Double.parseDouble(getTagValue("longitude", element)),
+                    Double.parseDouble(getTagValue("altitude", element)));
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
             } catch (ParseException c) {
                 c.getMessage();
             }
-            sensor.setDateStartedFunctioning(date);
-            sensor.setTypeSensor(new TypeSensor(getTagValue("type", element), getTagValue("units", element)));
+            sensor = new Sensor(id,name,typeSensor,local,date);
             sensor.setActive();
-            sensor.setLocal(new Local(Double.parseDouble(getTagValue("latitude", element)),
-                    Double.parseDouble(getTagValue("longitude", element)),
-                    Double.parseDouble(getTagValue("altitude", element))));
         }
         return sensor;
     }
 
+    /**
+     * Gets the value of the tag correspondent to the String and the Element from the same Node
+     * @param tag - String of the tag correspondent to the node
+     * @param element - element correspondent to the nod
+     * @return - returns the value in string
+     */
     private String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
