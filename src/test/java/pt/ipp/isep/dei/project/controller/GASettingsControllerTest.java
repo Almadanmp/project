@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.testng.Assert.*;
@@ -23,19 +27,37 @@ class GASettingsControllerTest {
     private TypeArea typeCountry;
     private TypeArea typeCity;
     private GeographicAreaDTO validGeographicAreaDTO;
+    private SensorDTO validSensorDTO;
+    private Sensor validSensor;
     private Mapper mapper;
+    private GeographicAreaList validGeographicAreaList;
+    private Date date; // Wed Nov 21 05:12:00 WET 2018
+
 
     @BeforeEach
     void arrangeArtifacts() {
+        SimpleDateFormat day = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            date = day.parse("12-12-2018");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         typeCountry = new TypeArea("Country");
         typeCity = new TypeArea("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
                 2, 5, new Local(21, 33, 5));
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
+        validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
+                new Local(31, 15, 3), date);
+        firstValidArea.addSensor(validSensor);
         mapper = new Mapper();
         validGeographicAreaDTO = mapper.geographicAreaToDTO(firstValidArea);
+        validSensorDTO = mapper.sensorToDTO(validSensor);
+        validGeographicAreaList = new GeographicAreaList();
+        validGeographicAreaList.addGeographicArea(firstValidArea);
     }
+
 
     //SHARED METHODS
 
@@ -585,6 +607,79 @@ class GASettingsControllerTest {
         LocalDTO result = controller.createLocalDTO(12, 13, 14);
 
         assertTrue(result instanceof LocalDTO);
+    }
+
+    //USER STORY 011 Tests
+
+    @Test
+    void seeIfInputAreaWorks() {
+
+        //Arrange
+
+        InputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+        GeographicAreaDTO expectedResult = validGeographicAreaDTO;
+
+        //Act
+
+        GeographicAreaDTO actualResult = controller.inputArea(validGeographicAreaList);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfInputSensorWorks() {
+
+        //Arrange
+
+        InputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+        SensorDTO expectedResult = validSensorDTO;
+
+        //Act
+
+        SensorDTO actualResult = controller.inputSensor(validGeographicAreaDTO);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfRemoveSensorWorks() {
+
+        //Arrange
+
+        GeographicAreaList expectedResult = validGeographicAreaList;
+        expectedResult.get(0).removeSensor(validSensor);
+
+        //Act
+
+        controller.removeSensor(validGeographicAreaList, validSensorDTO, validGeographicAreaDTO);
+        GeographicAreaList actualResult = validGeographicAreaList;
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfRemoveSensorFails() {
+
+        //Arrange
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+
+        //Act
+
+        controller.removeSensor(validGeographicAreaList, validSensorDTO, validGeographicAreaDTO);
+        GeographicAreaList actualResult = validGeographicAreaList;
+
+        //Assert
+
+        assertNotEquals(expectedResult, actualResult);
     }
 
 }
