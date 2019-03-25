@@ -1053,4 +1053,19 @@ class ReaderControllerTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation2, invalidLogPath));
     }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreInvalid() {
+        //Arrange
+
+        logger.setLevel(Level.INFO);
+
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
 }

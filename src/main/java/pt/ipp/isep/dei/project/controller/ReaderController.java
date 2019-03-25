@@ -113,8 +113,8 @@ public class ReaderController {
                     this.counter--;
                 }
             } catch (NumberFormatException nfe) {
-                UtilsUI.printMessage("The reading values are not numeric.");
-                logger.warning("The reading values are not numeric.");
+                UtilsUI.printMessage(INVALID_READING_VALUE);
+                logger.warning(INVALID_READING_VALUE);
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
@@ -259,7 +259,7 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    private int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
         if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
             return 1;
         }
