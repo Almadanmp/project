@@ -780,26 +780,11 @@ class SensorTest {
     }
 
     @Test
-    void seeIfActivate() {
-        // Arrange
-        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
-
-
-        // Act
-
-        boolean actualResult = sensor.activateOrDeactivate();
-
-        // Assert
-
-        Assertions.assertFalse(actualResult);
-    }
-
-    @Test
     void seeIfPrintActive() {
         // Arrange
 
         String expectedResult = "Deactivated";
-        validSensor.activateOrDeactivate();
+        validSensor.deactivateSensor();
 
         // Act
 
@@ -869,7 +854,7 @@ class SensorTest {
         // Arrange
 
         Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-        validSensor.activateOrDeactivate();
+        validSensor.deactivateSensor();
         // Act
 
         boolean actualResult1 = validSensor.addReading(reading1);
@@ -1113,7 +1098,7 @@ class SensorTest {
         // Arrange
 
         validSensor.setDateStartedFunctioning(new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
-        validSensor.activateOrDeactivate();
+        validSensor.deactivateSensor();
         // Act
 
         boolean addValidReading = validSensor.addReading(new GregorianCalendar(2019, Calendar.JANUARY,

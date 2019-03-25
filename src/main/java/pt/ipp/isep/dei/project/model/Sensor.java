@@ -214,13 +214,13 @@ public class Sensor {
      *
      * @return active or not
      */
-    public boolean activateOrDeactivate() {
-        if (!isActive()) {
-            this.active = true;
+    public boolean deactivateSensor() {
+        if (isActive()) {
+            this.active = false;
             return true;
+        } else {
+            return false;
         }
-        this.active = false;
-        return false;
     }
 
     //TODO now as double adds (save to list and save to repository)

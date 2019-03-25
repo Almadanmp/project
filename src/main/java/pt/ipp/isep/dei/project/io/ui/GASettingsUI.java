@@ -307,13 +307,15 @@ class GASettingsUI {
      * @param geographicAreaList geographic area list
      */
     private void runUS10(GeographicAreaList geographicAreaList) {
-        GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
-        if (geographicArea.isSensorListEmpty()) {
-            UtilsUI.printMessage(UtilsUI.INVALID_SENSOR_LIST);
-            return;
-        }
-        SensorDTO sensorDTO = controller.selectSensorDTOfFromGeoArea(geographicArea);
-        controller.displayIfSensorActive(sensorDTO);
+        GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
+        SensorDTO sensorDTO = controller.inputSensor(geographicAreaDTO);
+        updateUS10(geographicAreaList, sensorDTO, geographicAreaDTO);
+
+
+    }
+
+    private void updateUS10 (GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO){
+        controller.deactivateSensor(geographicAreaList,sensorDTO,geographicAreaDTO);
     }
 
 
@@ -326,8 +328,8 @@ class GASettingsUI {
      * @param geographicAreaList geographic area list
      */
     private void runUS11(GeographicAreaList geographicAreaList) {
-        GeographicAreaDTO geographicAreaDTO = controller.inputAreaUS11(geographicAreaList);
-        SensorDTO sensorDTO = controller.inputSensorUS11(geographicAreaDTO);
+        GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
+        SensorDTO sensorDTO = controller.inputSensor(geographicAreaDTO);
 
         updateUS11(geographicAreaList, sensorDTO, geographicAreaDTO);
     }

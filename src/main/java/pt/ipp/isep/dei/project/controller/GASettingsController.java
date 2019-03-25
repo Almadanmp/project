@@ -175,38 +175,32 @@ public class GASettingsController {
     }
 
     /**
-     * Select sensor from sensorList and convert it to DTO,
-     *
-     * @param geographicArea with the sensor list
-     * @return sensorDTO
+     * Deactivate sensor
      */
-    public SensorDTO selectSensorDTOfFromGeoArea(GeographicArea geographicArea) {
-        Mapper mapper = new Mapper();
-        Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
-        sensor.activateOrDeactivate();
-        return mapper.sensorToDTO(sensor);
-    }
-
-
-    public void displayIfSensorActive(SensorDTO sensorDTO) {
+    public void deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
         Mapper mapper = new Mapper();
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
-        if (sensor.isActive()) {
-            System.out.println(ACTIVE);
-        } else {
-            System.out.println(NOT_ACTIVE);
+        sensor.deactivateSensor();
+        geographicAreaList.get(0).addSensor(sensor);
+        geographicAreaList.get(0).removeSensor(sensor);
+        for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
+            if (g.getName().equals(geographicAreaDTO.getName())) {
+                g.addSensor(sensor);
+            }
         }
     }
 
+
+
     /* USER STORY 11 */
 
-    public GeographicAreaDTO inputAreaUS11(GeographicAreaList geographicAreaList) {
+    public GeographicAreaDTO inputArea(GeographicAreaList geographicAreaList) {
         Mapper mapper = new Mapper();
         GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
         return mapper.geographicAreaToDTO(geographicArea);
     }
 
-    public SensorDTO inputSensorUS11(GeographicAreaDTO geographicAreaDTO) {
+    public SensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO) {
         Mapper mapper = new Mapper();
         GeographicArea geographicArea = mapper.geographicAreaDTOToObject(geographicAreaDTO);
         Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
