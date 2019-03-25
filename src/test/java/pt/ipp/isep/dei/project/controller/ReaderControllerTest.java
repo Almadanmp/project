@@ -56,7 +56,7 @@ class ReaderControllerTest {
     private static final String validXMLocation2 = "src/test/resources/test2XMLReadings.xml";
     private static final String validXMLocation3 = "src/test/resources/test3XMLReadings.xml";
     private static final String validXMLocation4 = "src/test/resources/test4XMLReadings.xml";
-
+    private static final String validXMLocation5 = "src/test/resources/test5XMLReadings.xml";
 
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
@@ -1048,10 +1048,27 @@ class ReaderControllerTest {
     }
 
     @Test
+    void seeIfReadReadingsFromXMLWorksWhenFileHasNoElements() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation5, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
     void seeIfReadReadingsFromXMLThrowsExceptionWithInvalidLogPath() {
         // Assert
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation2, invalidLogPath));
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLThrowsExceptionWithInvalidXMLPath() {
+        // Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, "src/test/resources/wrongPath.xml", validLogPath));
     }
 
     @Test
