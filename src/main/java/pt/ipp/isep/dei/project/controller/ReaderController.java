@@ -80,9 +80,9 @@ public class ReaderController {
      * @param list     is the Geographic Area List of the application.
      * @param filePath is the path to the XML file
      */
-    public void readFileXML(String filePath, GeographicAreaList list) {
+    public int readGeoAreasFromFileXML(String filePath, GeographicAreaList list) {
         ReaderXMLGeographicAreas reader = new ReaderXMLGeographicAreas();
-        reader.readFileAndAdd(filePath, list);
+        return reader.readFileAndAdd(filePath, list);
     }
 
 

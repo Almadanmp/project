@@ -82,7 +82,9 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPath(result);
-        input.readJsonOrXMLFile(result, filePath, list);
+        if (!input.readJsonOrXMLFile(result,filePath,list)){
+            System.out.println("The file isn't a JSON nor a XML file.");
+        }
     }
 
 

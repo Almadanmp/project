@@ -12,7 +12,6 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
 
 import java.io.File;
 import java.util.List;
@@ -436,16 +435,20 @@ public class InputUtils {
      * @param filePath - the path to the file
      * @param list     - the GeographicAreaList provided
      */
-    public void readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
+    public boolean readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
         if (input.endsWith(".json")) {
             HouseConfigurationController ctrl = new HouseConfigurationController();
             int areasRead = ctrl.readFile(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
+            return true;
         }
         if (input.endsWith(".xml")) {
             ReaderController controller = new ReaderController();
-            controller.readFileXML(filePath, list);
+            int areas = controller.readGeoAreasFromFileXML(filePath, list);
+            System.out.println(areas + " Geographic Areas have been successfully imported.");
+            return true;
         }
+        return false;
     }
 
     /**
