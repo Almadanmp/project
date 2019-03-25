@@ -172,7 +172,7 @@ public class ReaderController {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
             } catch (ParseException ignored) {
-                ignored.printStackTrace();
+                ignored.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);

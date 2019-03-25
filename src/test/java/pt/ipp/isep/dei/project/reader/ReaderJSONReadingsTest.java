@@ -9,6 +9,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 class ReaderJSONReadingsTest {
 
     // Common artifacts for testing in this class.
