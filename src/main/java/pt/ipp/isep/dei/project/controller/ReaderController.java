@@ -6,7 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.*;
 
@@ -22,56 +21,8 @@ import java.util.logging.Logger;
 
 public class ReaderController {
 
-    public int counter;
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
-
-    /**
-     * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
-     * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
-     *
-     * @param geographicAreaList is the Geographic Area List of the application.
-     * @param path               is the path to the CSV File.
-     * @return true if was able to read and set, false otherwise
-     * @author Andre
-     */
-    boolean readAndSetInternal(GeographicAreaList geographicAreaList, String path, String logPath) {
-        ReaderCSVReadings csvRead = new ReaderCSVReadings();
-        List<String[]> list = csvRead.readFile(path);
-        SensorList fullSensorList = geographicAreaList.getAreaListSensors();
-        this.counter = list.size();
-        if (!fullSensorList.isEmpty()) {
-            try {
-                Logger logger = Logger.getLogger(ReaderController.class.getName());
-                CustomFormatter myFormat = new CustomFormatter();
-                FileHandler fileHandler = new FileHandler(logPath);
-                logger.addHandler(fileHandler);
-                fileHandler.setFormatter(myFormat);
-                for (String[] readings : list) {
-                    parseAndLog(readings, logger, fullSensorList);
-                }
-            } catch (IOException e) {
-                return true;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Reads a CSV file from any path the User chooses from. Adds readings that were made withing the active period of
-     * a sensor to that same sensor ReadingList. Readings that are not possible to be added are displayed in a log file.
-     * This method is separated from the above so we can test with different logPaths (wrong etc).
-     *
-     * @param geographicAreaList is the Geographic Area List of the application.
-     * @param csvPath            is the path to the CSV File.
-     * @param logPath            is the path to the log File.
-     * @return true if was able to read and set, false otherwise
-     */
-    public boolean readAndSet(GeographicAreaList geographicAreaList, String csvPath, String logPath) {
-        return readAndSetInternal(geographicAreaList, csvPath, logPath);
-    }
-
 
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
@@ -95,6 +46,7 @@ public class ReaderController {
 
     /**
      * Method to import a Geographic Area from a certain node
+     *
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
@@ -148,41 +100,6 @@ public class ReaderController {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
         return node.getNodeValue();
-    }
-
-    // ACCESSORY METHODS
-
-    /**
-     * After reading a single line of the file, tries to parse the value, the date and the name to double, Date and
-     * string respectively, and sees if the name of the sensor matches, and the reading is possible to add, else the
-     * adding process fails and a log of the type 'warning' is generated.
-     *
-     * @param logger     is an instance of a logger.
-     * @param readings   is an array of strings of all the parameters (each parameter separated by a comma),
-     *                   in each line of the CSV file.
-     * @param sensorList is the Sensor List containing all sensors from all the geographic areas in the Geographic Area List.
-     * @author Andre
-     */
-    void parseAndLog(String[] readings, Logger logger, SensorList sensorList) {
-        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
-        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'"));
-        for (SimpleDateFormat pattern : knownPatterns) {
-            try {
-                Double readValue = Double.parseDouble(readings[2]);
-                String readID = readings[0];
-                Date readDate = pattern.parse(readings[1]);
-                if (logger.isLoggable(Level.WARNING) && !sensorList.addReadingToMatchingSensor(readID, readValue, readDate)) {
-                    logger.warning("The reading with value " + readValue + " and date " + readDate + " could not be added to the sensor.");
-                    this.counter--;
-                }
-            } catch (NumberFormatException nfe) {
-                UtilsUI.printMessage(INVALID_READING_VALUE);
-                logger.warning(INVALID_READING_VALUE);
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
-            }
-        }
     }
 
     /**
@@ -411,6 +328,4 @@ public class ReaderController {
         logger.warning(INVALID_DATE);
         return 0;
     }
-
-
 }

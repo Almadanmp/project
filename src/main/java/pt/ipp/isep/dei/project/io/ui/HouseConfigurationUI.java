@@ -41,7 +41,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS20(list);
+                    runUS20v2(list);
                     activeInput = false;
                     break;
                 case 3:
@@ -54,10 +54,6 @@ class HouseConfigurationUI {
                     break;
                 case 5:
                     runUS108(house);
-                    activeInput = false;
-                    break;
-                case 6:
-                    runUS20v2(list);
                     activeInput = false;
                     break;
                 case 0:
@@ -85,28 +81,6 @@ class HouseConfigurationUI {
         if (!input.readJsonOrXMLFile(result,filePath,list)){
             System.out.println("The file isn't a JSON nor a XML file.");
         }
-    }
-
-
-    /* USER STORY 20 - As an Administrator,want to import geographical areas sensors’ readings into the application
-     from a CSV file. Data outside the valid sensor operation period shouldn’t be imported but registered in the
-     application log. */
-
-    /**
-     * As an Administrator, I want to import geographical areas sensors’ readings into the application
-     * from a CSV file.
-     *
-     * @param list is the static, program list of geographic areas that comes from mainUI.
-     */
-    private void runUS20(GeographicAreaList list) {
-        InputUtils utils = new InputUtils();
-        ReaderController ctrl = new ReaderController();
-        String path = utils.getInputCSVPath();
-        if (!ctrl.readAndSet(list, path, "resources/logs/logOut.log")) {
-            UtilsUI.printMessage("Please add a sensor first.");
-            return;
-        }
-        UtilsUI.printMessage(ctrl.counter + " Readings have been successfully imported.");
     }
 
     /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
@@ -303,11 +277,10 @@ class HouseConfigurationUI {
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
-        System.out.println("2) Import Geographic Area Sensor Readings from a CSV file.");
+        System.out.println("2) Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v2)");
         System.out.println("3) Configure the location of the house. (US101)");
         System.out.println("4) Add a new room to the house. (US105)");
         System.out.println("5) List the existing rooms. (US108)");
-        System.out.println("6) Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v2)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
