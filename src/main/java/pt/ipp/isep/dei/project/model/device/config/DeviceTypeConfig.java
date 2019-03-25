@@ -11,8 +11,7 @@ import java.util.Properties;
 public class DeviceTypeConfig {
 
     /**
-     *
-     * @param p - properties file
+     * @param p   - properties file
      * @param key - key to the value we want to get
      * @return - string "value" from the key
      * @throws IOException - will throw an IOException if we cannot read the input key
@@ -28,6 +27,7 @@ public class DeviceTypeConfig {
     /**
      * Method to get a List of Strings with all the Paths contained on configuration file to the different device types
      * available
+     *
      * @param propFileName - the properties configuration file where the device types are
      * @return - list of strings with device paths
      * @throws IOException - will be thrown if there is any error with the configuration file
@@ -56,6 +56,7 @@ public class DeviceTypeConfig {
      * Method to get a List of Strings with all the Paths contained on configuration file to the different device types
      * available
      * This method is separated from the above so we can test with different propfilenames (wrong etc).
+     *
      * @return list of strings with device paths
      * @throws IOException the exception to the method
      */

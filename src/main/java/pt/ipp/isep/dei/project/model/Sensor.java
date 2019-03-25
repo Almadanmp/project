@@ -31,9 +31,9 @@ public class Sensor {
     @OneToMany(mappedBy = "sensor")
     private List<Reading> readingList;
 
-    @ManyToOne
-    @JoinColumn(name = "geographic_area_id")
-    private GeographicArea geographicArea;
+//    @ManyToOne
+//    @JoinColumn(name = "geographic_area_id")
+//    private GeographicArea geographicArea;
 
     private boolean active;
 

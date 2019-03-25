@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,14 +9,16 @@ import java.util.List;
 /**
  * Class that groups a number of Sensors.
  */
-@Service
+@Entity
 public class SensorList {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @OneToMany
     private List<Sensor> sensors;
 
-
-    @Autowired
-    private SensorRepository sensorRepository;
 
     /**
      * SensorList() empty constructor that initializes an ArrayList of Sensors.

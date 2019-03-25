@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Class that represents a Geographical Area.
@@ -31,16 +30,10 @@ public class GeographicArea {
     @JoinColumn(name = "local_id")
     private Local location;
 
-    @Transient
+    @OneToOne
     private SensorList areaSensors;
 
-//    @OneToMany(mappedBy = "geographicArea")
-//    private List<Sensor> sensors;
-
-
     private String description;
-    //@Id
-    private UUID uniqueId;
 
 
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
@@ -331,8 +324,8 @@ public class GeographicArea {
     @Override
     public String toString() {
         return String.format(
-                "GeographicArea[id=%s, typeArea='%s', length='%s, width='%s', motherArea='%s, location='%s', description='%s', uniqueId='%s']",
-                name, typeArea, length, width, motherArea, location, description, uniqueId);
+                "GeographicArea[id=%s, typeArea='%s', length='%s, width='%s', motherArea='%s, location='%s', description='%s']",
+                name, typeArea, length, width, motherArea, location, description);
     }
 
     @Override

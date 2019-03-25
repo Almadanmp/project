@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,9 +11,13 @@ import java.util.List;
 /**
  * Class that groups a number of Geographical Areas.
  */
-
+@Component
 public class GeographicAreaList {
+
     private List<GeographicArea> geographicAreas;
+
+    @Autowired
+    private GeographicAreaRepository geographicAreaRepository;
 
     /**
      * GeographicAreaList constructor that receives a Geographic Area as a parameter and
@@ -29,10 +37,6 @@ public class GeographicAreaList {
         geographicAreas = new ArrayList<>();
     }
 
-    public List<GeographicArea> getGeographicAreas() {
-        return geographicAreas;
-    }
-
     /**
      * Method that receives a geographic area as a parameter and adds that
      * GA to the list in case it is not contained in that list already.
@@ -41,8 +45,10 @@ public class GeographicAreaList {
      * @return returns true in case the geographic area is added and false if not
      **/
     public boolean addGeographicArea(GeographicArea geographicAreaToAdd) {
+        // geographicAreaRepository.save(geographicAreaToAdd);
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
+
             return true;
         }
         return false;
