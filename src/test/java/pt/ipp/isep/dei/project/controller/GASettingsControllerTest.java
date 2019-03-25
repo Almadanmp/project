@@ -383,31 +383,27 @@ class GASettingsControllerTest {
     }
 
     @Test
-    void seeIfActivateSensor() {
-
-        //Arrange
-        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+    void seeIfDeactivateSensor() {
 
         //Act
-        boolean actualResult = sensor.deactivateSensor();
+        boolean actualResult = controller.deactivateSensor(validGeographicAreaList, validSensorDTO, validGeographicAreaDTO);
 
         //Assert
         assertTrue(actualResult);
     }
 
     @Test
-    void seeIfDeactivateSensor() {
+    void seeIfDeactivatedSensorDoenstChange() {
 
         //Arrange
-        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        validSensor.deactivateSensor();
+        SensorDTO sensorDTO =  mapper.sensorToDTO(validSensor);
 
         //Act
-        sensor.setActive();
-        boolean actualResult = sensor.deactivateSensor();
-
+        boolean actualResult = controller.deactivateSensor(validGeographicAreaList, sensorDTO, validGeographicAreaDTO);
 
         //Assert
-        assertTrue(actualResult);
+        assertFalse(actualResult);
     }
 
 
