@@ -6,15 +6,15 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.TypeAreaListService;
+import pt.ipp.isep.dei.project.model.TypeAreaService;
 
 import java.util.Scanner;
 
 class GASettingsUI {
     private GASettingsController controller;
 
-    GASettingsUI(TypeAreaListService typeAreaListService) {
-        this.controller = new GASettingsController(typeAreaListService);
+    GASettingsUI(TypeAreaService typeAreaService) {
+        this.controller = new GASettingsController(typeAreaService);
     }
 
     void runGASettings(GeographicAreaList programGAList) {
@@ -329,11 +329,11 @@ class GASettingsUI {
         GeographicAreaDTO geographicAreaDTO = controller.inputAreaUS11(geographicAreaList);
         SensorDTO sensorDTO = controller.inputSensorUS11(geographicAreaDTO);
 
-        updateUS11(geographicAreaList,sensorDTO,geographicAreaDTO);
+        updateUS11(geographicAreaList, sensorDTO, geographicAreaDTO);
     }
 
     private void updateUS11(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        controller.removeSensor(geographicAreaList,sensorDTO,geographicAreaDTO);
+        controller.removeSensor(geographicAreaList, sensorDTO, geographicAreaDTO);
         System.out.println("The sensor " + sensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getId() + " has ceased to be.");
     }

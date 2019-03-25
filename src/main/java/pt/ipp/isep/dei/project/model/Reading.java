@@ -1,18 +1,24 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
  */
-//@Entity
+@Entity
 public class Reading {
 
-    //  @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long iD;
     private double value;
     private Date date;
+
+    //TODO verificar relacao
+    @ManyToOne
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
 
     /**
      * Builder with 'value' and 'date'

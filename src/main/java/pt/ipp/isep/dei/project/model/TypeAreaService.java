@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 @Service
-public class TypeAreaListService {
+public class TypeAreaService {
 
     @Autowired
     private TypeAreaRepository typeAreaRepository;

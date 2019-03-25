@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,19 +11,32 @@ import java.util.List;
  * It is defined by a name, type of sensor, localization and the date it started functioning.
  * It contains a list with one or more weather readings.
  */
-//@Entity
+@Entity
 public class Sensor {
-    //  @Id
+
+    @Id
     private String id;
     private String name;
-    //@ManyToOne
+
+    @ManyToOne
+    @JoinColumn(name = "type_sensor_id")
     private TypeSensor typeSensor;
-    //@ManyToOne
+
+    @ManyToOne
+    @JoinColumn(name = "local_id")
     private Local local;
+
     private Date dateStartedFunctioning;
-    //@OneToOne
+
+    @OneToMany(mappedBy = "sensor")
     private List<Reading> readingList;
+
+    @ManyToOne
+    @JoinColumn(name = "geographic_area_id")
+    private GeographicArea geographicArea;
+
     private boolean active;
+
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -48,6 +62,9 @@ public class Sensor {
         this.readingList = new ArrayList<>();
         this.active = true;
     }
+
+
+    //TODO on house sensors the id has to be autogenarated
 
     /**
      * Sensor() constructor with 3 parameters (Used When A Sensor is in a Room already. So the Location is the same as
@@ -204,6 +221,8 @@ public class Sensor {
         return false;
     }
 
+    //TODO now as double adds (save to list and save to repository)
+
     /**
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
@@ -214,6 +233,7 @@ public class Sensor {
      **/
     public boolean addReading(Reading reading) {
         if (this.active && !readingList.contains(reading)) {
+            // readingRepository.save(reading);
             return this.readingList.add(reading);
         }
         return false;

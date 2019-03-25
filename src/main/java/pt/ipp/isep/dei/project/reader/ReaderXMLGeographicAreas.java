@@ -57,7 +57,7 @@ public class ReaderXMLGeographicAreas implements Reader {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             geoArea.setDescription(getTagValue("description", element));
-            geoArea.setId(getTagValue("id", element));
+            geoArea.setName(getTagValue("id", element));
             geoArea.setLength(Double.parseDouble(getTagValue("length", element)));
             geoArea.setWidth(Double.parseDouble(getTagValue("width", element)));
             geoArea.setLocation(new Local(Double.parseDouble(getTagValue("latitude", element)),

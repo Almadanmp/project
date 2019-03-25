@@ -5,11 +5,11 @@ import pt.ipp.isep.dei.project.model.Local;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class GeographicAreaDTO {
 
-    private String id;
+    private Long id;
+    private String name;
     private String typeArea;
     private double length;
     private double width;
@@ -18,36 +18,24 @@ public class GeographicAreaDTO {
     private double altitude;
     private List<SensorDTO> sensorDTOList = new ArrayList<>();
     private String description;
-    private UUID uniqueId;
 
-    /**
-     * Method to determine the unique id of the object the stored data belongs to.
-     *
-     * @param uniqueId is a Unique ID - UUID is a standard java class.
-     */
 
-    void setUniqueId(UUID uniqueId) {
-        this.uniqueId = uniqueId;
+    public Long getId() {
+        return id;
     }
 
-    /**
-     * Method to retrieve the unique ID of the object the stored data belongs to.
-     *
-     * @return is an unique ID object.
-     */
-
-    UUID getUniqueId() {
-        return uniqueId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
      * Method to determine the ID of the object.
      *
-     * @param id is a String that corresponds to the ID we want to store.
+     * @param name is a String that corresponds to the ID we want to store.
      */
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -56,8 +44,8 @@ public class GeographicAreaDTO {
      * @return is a string that corresponds to the ID we want.
      */
 
-    public String getId() {
-        return this.id;
+    public String getName() {
+        return this.name;
     }
 
     /**
@@ -243,7 +231,7 @@ public class GeographicAreaDTO {
         Local testDTOLocal = new Local(localVariable.getLatitude(), localVariable.getLongitude(), localVariable.
                 getAltitude());
         Local geographicAreaDTOLocal = new Local(this.latitude, this.longitude, this.altitude);
-        return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getId().equals(this.id)
+        return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
                 && testDTOLocal.equals(geographicAreaDTOLocal) && localVariable.getSensorDTOList().equals(this.sensorDTOList));
     }
 

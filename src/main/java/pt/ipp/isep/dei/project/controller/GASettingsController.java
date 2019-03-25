@@ -12,12 +12,12 @@ public class GASettingsController {
     private static final String ACTIVE = "Sensor successfully activated!";
     private static final String NOT_ACTIVE = "Sensor successfully deactivated!";
 
-    private TypeAreaListService typeAreaListService;
+    private TypeAreaService typeAreaService;
 
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
-    public GASettingsController(TypeAreaListService typeAreaListService) {
-        this.typeAreaListService = typeAreaListService;
+    public GASettingsController(TypeAreaService typeAreaService) {
+        this.typeAreaService = typeAreaService;
     }
 
     GASettingsController() {
@@ -45,25 +45,25 @@ public class GASettingsController {
      * null.
      */
     public boolean createAndAddTypeAreaToListRepository(String input) {
-        TypeArea typeArea = typeAreaListService.createTypeAreaRepository(input); //TODO merge create and add
-        return typeAreaListService.addTypeArea(typeArea);
+        TypeArea typeArea = typeAreaService.createTypeAreaRepository(input); //TODO merge create and add
+        return typeAreaService.addTypeArea(typeArea);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
     public String getTypeAreaListRepository() {
-        return typeAreaListService.getAllAsString();
+        return typeAreaService.getAllAsString();
     }
 
     public int getTypeAreaListSize() {
 
-        return typeAreaListService.getSize();
+        return typeAreaService.getSize();
     }
 
 
     public TypeArea getTypeAreaById(int id) {
-        return typeAreaListService.getTypeAreaById(id);
+        return typeAreaService.getTypeAreaById(id);
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
@@ -77,9 +77,9 @@ public class GASettingsController {
      */
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
         Mapper mapper = new Mapper();
-        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getId(), new TypeArea(geoAreaDTO.getTypeArea()),
+        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), mapper.dtoToLocal(localDTO));
-        if (!(newGeoList.containsObjectMatchesParameters(geoAreaDTO.getId(), new TypeArea(geoAreaDTO.getTypeArea()),
+        if (!(newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
                 mapper.dtoToLocal(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
             return newGeoList.addGeographicArea(geoToAdd);
@@ -149,7 +149,7 @@ public class GASettingsController {
      * @return geographic area id as a string
      */
     public String getGeographicAreaId(GeographicArea geographicArea) {
-        return geographicArea.getId();
+        return geographicArea.getName();
     }
 
     /**
@@ -218,7 +218,7 @@ public class GASettingsController {
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
         geographicAreaList.get(0).removeSensor(sensor);
         for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
-            if (g.getId().equals(geographicAreaDTO.getId())) {
+            if (g.getName().equals(geographicAreaDTO.getName())) {
                 g.removeSensor(sensor);
             }
         }

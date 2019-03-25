@@ -12,8 +12,8 @@ import java.util.Scanner;
 class SensorSettingsUI {
     private SensorSettingsController controller;
 
-    SensorSettingsUI(TypeSensorListService typeSensorListService) {
-        this.controller = new SensorSettingsController(typeSensorListService);
+    SensorSettingsUI(TypeSensorsService typeSensorsService) {
+        this.controller = new SensorSettingsController(typeSensorsService);
     }
 
     void run(GeographicAreaList geographicAreaList) {

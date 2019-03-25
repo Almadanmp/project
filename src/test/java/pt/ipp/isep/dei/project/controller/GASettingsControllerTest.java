@@ -568,7 +568,7 @@ class GASettingsControllerTest {
     @Test
     void seeIfCreateGeoAreaDTO() {
         GeographicAreaDTO expectedResult = new GeographicAreaDTO();
-        expectedResult.setId("Joana");
+        expectedResult.setName("Joana");
         expectedResult.setLatitude(12);
         expectedResult.setLongitude(13);
         expectedResult.setAltitude(13);

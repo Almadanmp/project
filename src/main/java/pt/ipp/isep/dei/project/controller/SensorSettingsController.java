@@ -13,12 +13,12 @@ import java.util.GregorianCalendar;
 @Controller
 public class SensorSettingsController {
 
-    private TypeSensorListService typeSensorListService;
+    private TypeSensorsService typeSensorsService;
 
 
     @Autowired
-    public SensorSettingsController(TypeSensorListService typeSensorListService) {
-        this.typeSensorListService = typeSensorListService;
+    public SensorSettingsController(TypeSensorsService typeSensorsService) {
+        this.typeSensorsService = typeSensorsService;
     }
 
     /**
@@ -30,7 +30,7 @@ public class SensorSettingsController {
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     public String buildSensorTypesString() {
-        return typeSensorListService.getAllAsString();
+        return typeSensorsService.getAllAsString();
     }
 
     //TODO review
@@ -44,7 +44,7 @@ public class SensorSettingsController {
      * @return true if the type of sensor was added to the list of type sensors.
      */
     public boolean addTypeSensorToList(TypeSensor typeSensor) {
-        return typeSensorListService.add(typeSensor);
+        return typeSensorsService.add(typeSensor);
     }
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
@@ -82,7 +82,7 @@ public class SensorSettingsController {
      */
 
     public TypeSensor createType(String sensorType, String sensorUnits) {
-        return typeSensorListService.createTypeSensor(sensorType, sensorUnits);
+        return typeSensorsService.createTypeSensor(sensorType, sensorUnits);
     }
 
 

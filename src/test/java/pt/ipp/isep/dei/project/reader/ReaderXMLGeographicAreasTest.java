@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.io.File;
@@ -17,7 +16,7 @@ class ReaderXMLGeographicAreasTest {
     private ReaderXMLGeographicAreas validReader = new ReaderXMLGeographicAreas();
 
     @Test
-    void seeIfReadFileWorks(){
+    void seeIfReadFileWorks() {
         // Arrange
 
         GeographicAreaList expectedResult = new GeographicAreaList();
@@ -26,12 +25,12 @@ class ReaderXMLGeographicAreasTest {
         // First Area
 
         GeographicArea firstArea = new GeographicArea();
-        firstArea.setId("ISEP");
+        firstArea.setName("ISEP");
         firstArea.setDescription("Campus do ISEP");
         firstArea.setTypeArea(new TypeArea("urban area"));
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLocation(new Local(41.178553,-8.608035,111));
+        firstArea.setLocation(new Local(41.178553, -8.608035, 111));
         // First Sensor in First Area
 
         Sensor firstAreaFirstSensor = new Sensor();
@@ -47,8 +46,8 @@ class ReaderXMLGeographicAreasTest {
             e.printStackTrace();
         }
         firstAreaFirstSensor.setDateStartedFunctioning(date);
-        firstAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall","l/m2"));
-        firstAreaFirstSensor.setLocal(new Local(41.179230,-8.606409,125));
+        firstAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall", "l/m2"));
+        firstAreaFirstSensor.setLocal(new Local(41.179230, -8.606409, 125));
         firstArea.addSensor(firstAreaFirstSensor);
 
         // Second sensor in First Area
@@ -57,19 +56,19 @@ class ReaderXMLGeographicAreasTest {
         firstAreaSecondSensor.setId("TT12346");
         firstAreaSecondSensor.setName("Meteo station ISEP - temperature");
         firstAreaSecondSensor.setDateStartedFunctioning(date);
-        firstAreaSecondSensor.setTypeSensor(new TypeSensor("temperature","C"));
-        firstAreaSecondSensor.setLocal(new Local(41.179230,-8.606409,125));
+        firstAreaSecondSensor.setTypeSensor(new TypeSensor("temperature", "C"));
+        firstAreaSecondSensor.setLocal(new Local(41.179230, -8.606409, 125));
         firstArea.addSensor(firstAreaSecondSensor);
 
         // Second Area
 
         GeographicArea secondArea = new GeographicArea();
-        secondArea.setId("Porto");
+        secondArea.setName("Porto");
         secondArea.setDescription("City of Porto");
         secondArea.setTypeArea(new TypeArea("city"));
         secondArea.setWidth(10.09);
         secondArea.setLength(3.30);
-        secondArea.setLocation(new Local(41.149935,-8.610857,118));
+        secondArea.setLocation(new Local(41.149935, -8.610857, 118));
 
         // First Sensor in Second Area
 
@@ -84,8 +83,8 @@ class ReaderXMLGeographicAreasTest {
             e.printStackTrace();
         }
         secondAreaFirstSensor.setDateStartedFunctioning(date2);
-        secondAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall","l/m2"));
-        secondAreaFirstSensor.setLocal(new Local(41.179230,-8.606409,139));
+        secondAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall", "l/m2"));
+        secondAreaFirstSensor.setLocal(new Local(41.179230, -8.606409, 139));
         secondArea.addSensor(secondAreaFirstSensor);
 
         // Second Sensor in Second Area
@@ -101,8 +100,8 @@ class ReaderXMLGeographicAreasTest {
             e.printStackTrace();
         }
         secondAreaSecondSensor.setDateStartedFunctioning(date3);
-        secondAreaSecondSensor.setTypeSensor(new TypeSensor("temperature","C"));
-        secondAreaSecondSensor.setLocal(new Local(41.179230,-8.606409,139));
+        secondAreaSecondSensor.setTypeSensor(new TypeSensor("temperature", "C"));
+        secondAreaSecondSensor.setLocal(new Local(41.179230, -8.606409, 139));
         secondArea.addSensor(secondAreaSecondSensor);
 
         // Populate expectedResult array

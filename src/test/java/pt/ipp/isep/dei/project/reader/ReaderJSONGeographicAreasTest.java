@@ -16,7 +16,7 @@ class ReaderJSONGeographicAreasTest {
     private ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
 
     @Test
-    void seeIfReadFileWorks(){
+    void seeIfReadFileWorks() {
         // Arrange
 
         GeographicAreaList expectedResult = new GeographicAreaList();
@@ -26,7 +26,7 @@ class ReaderJSONGeographicAreasTest {
         // First Area
 
         GeographicAreaDTO firstArea = new GeographicAreaDTO();
-        firstArea.setId("ISEP");
+        firstArea.setName("ISEP");
         firstArea.setDescription("Campus do ISEP");
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
@@ -64,7 +64,7 @@ class ReaderJSONGeographicAreasTest {
         // Second Area
 
         GeographicAreaDTO secondArea = new GeographicAreaDTO();
-        secondArea.setId("Porto");
+        secondArea.setName("Porto");
         secondArea.setDescription("City of Porto");
         secondArea.setTypeArea("city");
         secondArea.setWidth(10.09);
@@ -138,7 +138,7 @@ class ReaderJSONGeographicAreasTest {
     }
 
     @Test
-    void seeIfReadFileWorksWrongPath(){
+    void seeIfReadFileWorksWrongPath() {
         // Arrange
 
         String invalidPath = ("invalidfilepath");
@@ -153,7 +153,7 @@ class ReaderJSONGeographicAreasTest {
     }
 
     @Test
-    void seeIfReadFileWorksAndSkipsSensorsWithWrongDateFormat(){
+    void seeIfReadFileWorksAndSkipsSensorsWithWrongDateFormat() {
         // Arrange
 
         GeographicAreaList expectedResult = new GeographicAreaList();
@@ -163,7 +163,7 @@ class ReaderJSONGeographicAreasTest {
         // First Area
 
         GeographicAreaDTO firstArea = new GeographicAreaDTO();
-        firstArea.setId("ISEP");
+        firstArea.setName("ISEP");
         firstArea.setDescription("Campus do ISEP");
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
@@ -188,7 +188,7 @@ class ReaderJSONGeographicAreasTest {
         // Second Area
 
         GeographicAreaDTO secondArea = new GeographicAreaDTO();
-        secondArea.setId("Porto");
+        secondArea.setName("Porto");
         secondArea.setDescription("City of Porto");
         secondArea.setTypeArea("city");
         secondArea.setWidth(10.09);

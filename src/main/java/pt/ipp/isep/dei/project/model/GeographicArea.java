@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,21 +8,36 @@ import java.util.UUID;
  * Class that represents a Geographical Area.
  */
 
-//@Entity
+@Entity
 public class GeographicArea {
 
-    private String id;
-    //  @ManyToOne
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "type_area_id")
     private TypeArea typeArea;
+
     private double length;
     private double width;
-    //  @ManyToOne
+
+    @ManyToOne
+    @JoinColumn(name = "mother_area_id")
     private GeographicArea motherArea;
-    //@ManyToOne
+
+    @ManyToOne
+    @JoinColumn(name = "local_id")
     private Local location;
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn
+
+    @Transient
     private SensorList areaSensors;
+
+//    @OneToMany(mappedBy = "geographicArea")
+//    private List<Sensor> sensors;
+
+
     private String description;
     //@Id
     private UUID uniqueId;
@@ -40,31 +56,34 @@ public class GeographicArea {
     /**
      * Constructor
      *
-     * @param id       the Id of the Area
+     * @param name     the name of the Area
      * @param typeArea the type of the area.
      * @param length   the total length of the area.
      * @param width    the total width of the area.
      * @param location the location of the area,
      */
 
-    public GeographicArea(String id, TypeArea typeArea, double length, double width, Local location) {
-        this.id = id;
+    public GeographicArea(String name, TypeArea typeArea, double length, double width, Local location) {
+        this.name = name;
         this.typeArea = typeArea;
         this.length = length;
         this.width = width;
         this.location = location;
         this.areaSensors = new SensorList();
-        this.uniqueId = UUID.randomUUID();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     // Setters and Getters for all the parameters.
 
-    public void setUniqueId(UUID id) {
-        this.uniqueId = id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setTypeArea(TypeArea typeArea) {
@@ -95,12 +114,8 @@ public class GeographicArea {
         this.areaSensors = areaSensors;
     }
 
-    public UUID getUniqueID() {
-        return uniqueId;
-    }
-
-    public String getId() {
-        return this.id;
+    public String getName() {
+        return this.name;
     }
 
     /**
@@ -196,7 +211,7 @@ public class GeographicArea {
 
     public String buildString() {
         String result;
-        result = this.id + ", " + this.typeArea.getName() + ", " +
+        result = this.name + ", " + this.typeArea.getName() + ", " +
                 this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
@@ -249,7 +264,7 @@ public class GeographicArea {
      **/
 
     boolean equalsParameters(String name, TypeArea typeArea, Local local) {
-        return (this.id.equals(name) && (this.typeArea.equals(typeArea) && (this.location.equals(local))));
+        return (this.name.equals(name) && (this.typeArea.equals(typeArea) && (this.location.equals(local))));
     }
 
     /**
@@ -310,14 +325,14 @@ public class GeographicArea {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return (this.getLocal().equals(gA.getLocal()) && (this.getId().equals(gA.getId()) && (this.getTypeArea().getName().equals(gA.getTypeArea().getName()))));
+        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getTypeArea().getName().equals(gA.getTypeArea().getName()))));
     }
 
     @Override
     public String toString() {
         return String.format(
-                "GeographicArea[id=%s, typeArea='%s', length='%s, width='%s', motherArea='%s, location='%s', areaSensors='%s, description='%s', uniqueId='%s']",
-                id, typeArea, length, width, motherArea, location, areaSensors, description, uniqueId);
+                "GeographicArea[id=%s, typeArea='%s', length='%s, width='%s', motherArea='%s, location='%s', description='%s', uniqueId='%s']",
+                name, typeArea, length, width, motherArea, location, description, uniqueId);
     }
 
     @Override

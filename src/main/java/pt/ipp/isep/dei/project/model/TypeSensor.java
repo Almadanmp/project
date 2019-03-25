@@ -19,9 +19,6 @@ public class TypeSensor {
     private long id;
     private String name;
     private String units;
-    //@ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "type_sensor_list")
-    // private TypeSensorList typeSensorList;
 
     public TypeSensor() {
     }
@@ -59,15 +56,6 @@ public class TypeSensor {
     public String getName() {
         return this.name;
     }
-
- /*   public TypeSensorList getTypeSensorList() {
-        return typeSensorList;
-    }
-
-    public void setTypeSensorList(TypeSensorList typeSensorList) {
-        this.typeSensorList = typeSensorList;
-    }*/
-
 
     //SPECIFIC METHODS
 

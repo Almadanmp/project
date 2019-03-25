@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 import java.util.ArrayList;

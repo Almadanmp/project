@@ -1,12 +1,20 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.UUID;
 
 /**
  * Class that represents the Local of an Object .
  */
-//@Entity
+@Entity
 public class Local {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private double latitude;
     private double longitude;

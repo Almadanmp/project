@@ -64,7 +64,7 @@ public class GeographicAreaList {
 
         for (int i = 0; i < this.size(); i++) {
             GeographicArea aux = this.get(i);
-            result.append(i).append(") Name: ").append(aux.getId()).append(" | ");
+            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Type: ").append(aux.getTypeArea().getName()).append(" | ");
             result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
             result.append("Longitude: ").append(aux.getLocal().getLongitude()).append("\n");
@@ -119,6 +119,7 @@ public class GeographicAreaList {
 
     /**
      * Method that returns a GeographicAreaList with a given type.
+     *
      * @param typeAreaName is the type of the area we want to get all the geographicAreas.
      * @return a GeographicAreaList with a given type.
      */
@@ -141,7 +142,7 @@ public class GeographicAreaList {
      */
     public boolean removeGeographicArea(GeographicArea geoArea) {
         for (GeographicArea gA : this.geographicAreas) {
-            if (gA.equalsParameters(geoArea.getId(), geoArea.getTypeArea(), geoArea.getLocal())) {
+            if (gA.equalsParameters(geoArea.getName(), geoArea.getTypeArea(), geoArea.getLocal())) {
                 this.geographicAreas.remove(gA);
                 return true;
             }

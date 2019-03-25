@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Service
-public class TypeSensorListService {
+public class TypeSensorsService {
 
     @Autowired
     TypeSensorRepository typeSensorRepository;

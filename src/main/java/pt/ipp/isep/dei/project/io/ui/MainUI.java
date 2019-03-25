@@ -25,9 +25,9 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    TypeAreaListService typeAreaListService;
+    TypeAreaService typeAreaService;
     @Autowired
-    TypeSensorListService typeSensorListService;
+    TypeSensorsService typeSensorsService;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -146,7 +146,7 @@ public class MainUI {
                         case 0:
                             return;
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(typeAreaListService);
+                            GASettingsUI view1 = new GASettingsUI(typeAreaService);
                             view1.runGASettings(mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
@@ -164,7 +164,7 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 4:
-                            SensorSettingsUI sensorSettings = new SensorSettingsUI(typeSensorListService);
+                            SensorSettingsUI sensorSettings = new SensorSettingsUI(typeSensorsService);
                             sensorSettings.run(mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

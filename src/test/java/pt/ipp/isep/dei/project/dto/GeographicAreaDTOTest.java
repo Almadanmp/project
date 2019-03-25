@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class GeographicAreaDTOTest {
 
     @Test
-     void seeIfEqualsWorks() {
+    void seeIfEqualsWorks() {
         //Arrange
         SensorDTO sensorDTO1 = new SensorDTO();
 
@@ -26,9 +26,9 @@ class GeographicAreaDTOTest {
         GeographicAreaDTO geographicAreaDTO4 = new GeographicAreaDTO();
         GeographicAreaDTO geographicAreaDTO5 = new GeographicAreaDTO();
         GeographicAreaDTO geographicAreaDTO6 = new GeographicAreaDTO();
-       GeographicAreaDTO geographicAreaDTO7 = new GeographicAreaDTO();
-       GeographicAreaDTO geographicAreaDTO8 = new GeographicAreaDTO();
-       GeographicAreaDTO geographicAreaDTO9 = new GeographicAreaDTO();
+        GeographicAreaDTO geographicAreaDTO7 = new GeographicAreaDTO();
+        GeographicAreaDTO geographicAreaDTO8 = new GeographicAreaDTO();
+        GeographicAreaDTO geographicAreaDTO9 = new GeographicAreaDTO();
 
         geographicAreaDTO1.setDescription("geoAreaDTO1");
         geographicAreaDTO2.setDescription("geoAreaDTO2");
@@ -36,19 +36,19 @@ class GeographicAreaDTOTest {
         geographicAreaDTO4.setDescription("geoAreaDTO4");
         geographicAreaDTO5.setDescription("geoAreaDTO5");
         geographicAreaDTO6.setDescription("geoAreaDTO1");
-       geographicAreaDTO7.setDescription("geoAreaDTO1");
-       geographicAreaDTO8.setDescription("geoAreaDTO1");
-       geographicAreaDTO9.setDescription("geoAreaDTO1");
+        geographicAreaDTO7.setDescription("geoAreaDTO1");
+        geographicAreaDTO8.setDescription("geoAreaDTO1");
+        geographicAreaDTO9.setDescription("geoAreaDTO1");
 
-        geographicAreaDTO1.setId("01");
-        geographicAreaDTO2.setId("02");
-        geographicAreaDTO3.setId("03");
-        geographicAreaDTO4.setId("01");
-        geographicAreaDTO5.setId("01");
-        geographicAreaDTO6.setId("01");
-       geographicAreaDTO7.setId("01");
-       geographicAreaDTO8.setId("01");
-       geographicAreaDTO9.setId("01");
+        geographicAreaDTO1.setName("01");
+        geographicAreaDTO2.setName("02");
+        geographicAreaDTO3.setName("03");
+        geographicAreaDTO4.setName("01");
+        geographicAreaDTO5.setName("01");
+        geographicAreaDTO6.setName("01");
+        geographicAreaDTO7.setName("01");
+        geographicAreaDTO8.setName("01");
+        geographicAreaDTO9.setName("01");
 
         geographicAreaDTO1.setAltitude(1);
         geographicAreaDTO2.setAltitude(2);
@@ -56,9 +56,9 @@ class GeographicAreaDTOTest {
         geographicAreaDTO4.setAltitude(1);
         geographicAreaDTO5.setAltitude(4);
         geographicAreaDTO6.setAltitude(1);
-       geographicAreaDTO7.setAltitude(1);
-       geographicAreaDTO8.setAltitude(1);
-       geographicAreaDTO9.setAltitude(1);
+        geographicAreaDTO7.setAltitude(1);
+        geographicAreaDTO8.setAltitude(1);
+        geographicAreaDTO9.setAltitude(1);
 
         geographicAreaDTO1.setLongitude(1);
         geographicAreaDTO2.setLongitude(2);
@@ -66,9 +66,9 @@ class GeographicAreaDTOTest {
         geographicAreaDTO4.setLongitude(1);
         geographicAreaDTO5.setLongitude(1);
         geographicAreaDTO6.setLongitude(1);
-       geographicAreaDTO7.setLongitude(5);
-       geographicAreaDTO8.setLongitude(1);
-       geographicAreaDTO9.setLongitude(1);
+        geographicAreaDTO7.setLongitude(5);
+        geographicAreaDTO8.setLongitude(1);
+        geographicAreaDTO9.setLongitude(1);
 
         geographicAreaDTO1.setLatitude(1);
         geographicAreaDTO2.setLatitude(2);
@@ -76,9 +76,9 @@ class GeographicAreaDTOTest {
         geographicAreaDTO4.setLatitude(1);
         geographicAreaDTO5.setLatitude(1);
         geographicAreaDTO6.setLatitude(1);
-       geographicAreaDTO7.setLatitude(1);
-       geographicAreaDTO8.setLatitude(5);
-       geographicAreaDTO9.setLatitude(1);
+        geographicAreaDTO7.setLatitude(1);
+        geographicAreaDTO8.setLatitude(5);
+        geographicAreaDTO9.setLatitude(1);
 
         geographicAreaDTO1.setTypeArea("City");
         geographicAreaDTO2.setTypeArea("Town");
@@ -86,9 +86,9 @@ class GeographicAreaDTOTest {
         geographicAreaDTO4.setTypeArea("Country");
         geographicAreaDTO5.setTypeArea("City");
         geographicAreaDTO6.setTypeArea("City");
-       geographicAreaDTO7.setTypeArea("City");
-       geographicAreaDTO8.setTypeArea("City");
-       geographicAreaDTO9.setTypeArea("City");
+        geographicAreaDTO7.setTypeArea("City");
+        geographicAreaDTO8.setTypeArea("City");
+        geographicAreaDTO9.setTypeArea("City");
 
         geographicAreaDTO1.setSensorDTOList(dtoList);
         geographicAreaDTO2.setSensorDTOList(dtoListEmpty);
@@ -96,9 +96,9 @@ class GeographicAreaDTOTest {
         geographicAreaDTO4.setSensorDTOList(dtoList);
         geographicAreaDTO5.setSensorDTOList(dtoList);
         geographicAreaDTO6.setSensorDTOList(dtoList);
-       geographicAreaDTO7.setSensorDTOList(dtoList);
-       geographicAreaDTO8.setSensorDTOList(dtoList);
-       geographicAreaDTO9.setSensorDTOList(dtoListEmpty);
+        geographicAreaDTO7.setSensorDTOList(dtoList);
+        geographicAreaDTO8.setSensorDTOList(dtoList);
+        geographicAreaDTO9.setSensorDTOList(dtoListEmpty);
 
         //Assert
 
@@ -108,14 +108,14 @@ class GeographicAreaDTOTest {
         assertNotEquals(geographicAreaDTO1, geographicAreaDTO3); // id different
         assertNotEquals(geographicAreaDTO1, geographicAreaDTO4); // type area
         assertEquals(geographicAreaDTO1, geographicAreaDTO5); //altitude
-       assertNotEquals(geographicAreaDTO1,geographicAreaDTO7); //longitude
-       assertNotEquals(geographicAreaDTO1,geographicAreaDTO8); //latitude
-       assertNotEquals(geographicAreaDTO1,geographicAreaDTO9); //list
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO7); //longitude
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO8); //latitude
+        assertNotEquals(geographicAreaDTO1, geographicAreaDTO9); //list
         assertNotEquals(geographicAreaDTO1, 3D);
     }
 
     @Test
-     void seeIfHashCodeWorks() {
+    void seeIfHashCodeWorks() {
         //Arrange
 
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
