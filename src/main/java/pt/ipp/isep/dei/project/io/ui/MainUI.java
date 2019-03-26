@@ -25,9 +25,10 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    TypeAreaService typeAreaService;
-    @Autowired
     TypeSensorsService typeSensorsService;
+
+    @Autowired
+    TypeAreaList typeAreaList;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -90,14 +91,6 @@ public class MainUI {
             //TODO
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
 
-
-//            List<TypeSensorList> typeSensorLists = typeSensorListRepository.findAll();
-//            if (typeSensorLists.isEmpty()) {
-//                TypeSensorList temporary = new TypeSensorList(typeSensorRepository);
-//                typeSensorListRepository.save(temporary);
-//            }
-//            TypeSensorList mockTypeSensorList = typeSensorListRepository.findAll().get(0);
-
             TypeSensorList mockTypeSensorList = mockUI.getTypeSensorList();
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
@@ -145,7 +138,7 @@ public class MainUI {
                         case 0:
                             return;
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(typeAreaService);
+                            GASettingsUI view1 = new GASettingsUI(typeAreaList);
                             view1.runGASettings(mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

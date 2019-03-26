@@ -24,7 +24,6 @@ class MockUI {
     private static final String GLASSES = "Glasses";
     private static final String DISHES = "Dishes";
 
-    private TypeAreaList typeAreaList;
     private TypeSensorList typeSensorList;
     private GeographicAreaList geoAreaList;
 
@@ -35,9 +34,6 @@ class MockUI {
 
 //Getter Methods to use on MAINUI
 
-    TypeAreaList getTypeAreaList() {
-        return typeAreaList;
-    }
 
     TypeSensorList getTypeSensorList() {
         return mockTypeSensorList();
@@ -48,21 +44,10 @@ class MockUI {
     }
 
     void initializeMockUI() {
-        this.typeAreaList = mockTypeAreaList();
         this.typeSensorList = mockTypeSensorList();
         this.geoAreaList = mockGeographicAreaList();
     }
 
-
-    private TypeAreaList mockTypeAreaList() {
-        TypeAreaList mockTypeAreaList = new TypeAreaList();
-        TypeArea urbanArea = new TypeArea("Urban Area");
-        TypeArea city = new TypeArea("City");
-        mockTypeAreaList.addTypeArea(urbanArea);
-        mockTypeAreaList.addTypeArea(city);
-
-        return mockTypeAreaList;
-    }
 
     private TypeSensorList mockTypeSensorList() {
         TypeSensorList mockTypeSensorList = new TypeSensorList();

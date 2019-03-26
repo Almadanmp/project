@@ -29,62 +29,6 @@ class TypeAreaListTest {
 
 
     @Test
-    void seeIfCreateTypeAreaWorks() {
-        // Act
-
-        boolean result = validList.createTypeArea("Village");
-
-        // Assert
-
-        assertTrue(result);
-    }
-
-
-    @Test
-    void seeIfCreateTypeAreaWorksDuplicate() {
-        // Act
-
-        boolean result = validList.createTypeArea("City");
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaWorksNull() {
-        // Act
-
-        boolean result = validList.createTypeArea(null);
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaWorksEmpty() {
-        // Act
-
-        boolean result = validList.createTypeArea("");
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
-    void seeIfCreateTypeAreaWorkNumbers() {
-        // Act
-
-        boolean result = validList.createTypeArea("City1");
-
-        // Assert
-
-        assertFalse(result);
-    }
-
-    @Test
     void seeIfPrintGAWholeList() {
         // Arrange
 

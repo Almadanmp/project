@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,15 +11,20 @@ import java.util.List;
 /**
  * Class that groups a number of Types of Geographical Areas.
  */
-
+@Component
 public class TypeAreaList {
-    private List<TypeArea> typeAreas;
+
+    private List<TypeArea> typeAreas = new ArrayList<>();
+
+    @Autowired
+    TypeAreaRepository typeAreaRepository;
+
 
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
     public TypeAreaList() {
-        typeAreas = new ArrayList<>();
+
     }
 
     /**
@@ -24,12 +33,8 @@ public class TypeAreaList {
      * @param name String of the new Area Type that one wishes to create and add to a list.
      * @return true or false depending on if it adds the type to the list or not.
      */
-    public boolean createTypeArea(String name) {
-        if (name == null || name.isEmpty() || name.matches(".*\\d+.*")) {
-            return false;
-        }
-        TypeArea type = new TypeArea(name);
-        return addTypeArea(type);
+    public TypeArea createTypeArea(String name) {
+        return new TypeArea(name);
     }
 
     /**
@@ -39,13 +44,32 @@ public class TypeAreaList {
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {
+      //  TypeArea typeArea = typeAreaRepository.findByName(type.getName());
         if (!typeAreas.contains(type)) {
             typeAreas.add(type);
-            return true;
-        } else {
-            return false;
         }
+//        if (typeArea != null) {
+//            typeAreaRepository.delete(typeArea);
+//        }
+//        typeAreaRepository.save(type);
+        return true;
     }
+
+    /**
+     * This method builds a string of all the individual members of the geoAreaType list.
+     *
+     * @return builds a string of all the individual members of the geoAreaType list.
+     */
+    public String getAllAsString() {
+        StringBuilder result = new StringBuilder("---------------\n");
+        Iterable<TypeArea> typeAreas = typeAreaRepository.findAll();
+        for (TypeArea ta : typeAreas) {
+            result.append(ta.getId()).append(") Name: ").append(ta.getName()).append(" \n");
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+
 
     /**
      * This method builds a string of all the individual members of the geoAreaType list.
@@ -63,6 +87,27 @@ public class TypeAreaList {
         }
         result.append("---------------\n");
         return result.toString();
+    }
+
+    /**
+     * Method to get the TypeArea Repository Size
+     *
+     * @return repository size
+     */
+    public int getSizeRepository() {
+        return typeAreaRepository.findAll().size();
+    }
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param id selected id
+     * @return Type Area corresponding to the given id
+     */
+    public TypeArea getTypeAreaByIdRepository(int id) {
+
+        return typeAreaRepository.findById(new Long(id)).get(); // TODO understand optional(Daniela)
+
     }
 
     /**

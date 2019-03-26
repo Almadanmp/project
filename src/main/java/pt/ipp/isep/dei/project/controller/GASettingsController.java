@@ -9,12 +9,13 @@ import pt.ipp.isep.dei.project.model.*;
  */
 public class GASettingsController {
 
-    private TypeAreaService typeAreaService;
+
+    private TypeAreaList typeAreaList;
 
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
-    public GASettingsController(TypeAreaService typeAreaService) {
-        this.typeAreaService = typeAreaService;
+    public GASettingsController(TypeAreaList typeAreaList) {
+        this.typeAreaList = typeAreaList;
     }
 
     GASettingsController() {
@@ -42,25 +43,25 @@ public class GASettingsController {
      * null.
      */
     public boolean createAndAddTypeAreaToListRepository(String input) {
-        TypeArea typeArea = typeAreaService.createTypeAreaRepository(input); //TODO merge create and add
-        return typeAreaService.addTypeArea(typeArea);
+        TypeArea typeArea = typeAreaList.createTypeArea(input);
+        return typeAreaList.addTypeArea(typeArea);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
     public String getTypeAreaListRepository() {
-        return typeAreaService.getAllAsString();
+        return typeAreaList.getAllAsString();
     }
 
     public int getTypeAreaListSize() {
 
-        return typeAreaService.getSize();
+        return typeAreaList.getSizeRepository();
     }
 
 
     public TypeArea getTypeAreaById(int id) {
-        return typeAreaService.getTypeAreaById(id);
+        return typeAreaList.getTypeAreaByIdRepository(id);
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
