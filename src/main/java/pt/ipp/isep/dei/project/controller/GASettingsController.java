@@ -184,8 +184,6 @@ public class GASettingsController {
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
         if (sensor.isActive()) {
             sensor.deactivateSensor();
-            geographicAreaList.get(0).addSensor(sensor);
-            geographicAreaList.get(0).removeSensor(sensor);
             for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
                 if (g.getName().equals(geographicAreaDTO.getName())) {
                     g.addSensor(sensor);
@@ -217,7 +215,6 @@ public class GASettingsController {
     public void removeSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
         Mapper mapper = new Mapper();
         Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
-        geographicAreaList.get(0).removeSensor(sensor);
         for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
             if (g.getName().equals(geographicAreaDTO.getName())) {
                 g.removeSensor(sensor);

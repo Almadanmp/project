@@ -1,5 +1,5 @@
 @startuml
-title US222 As an Administrator, I want to deactivate a sensor in a geographical area, \n so that it will no longer be used. It can be reactivated later.
+title US010 As an Administrator, I want to deactivate a sensor in a geographical area, \n so that it will no longer be used. It can be reactivated later.
 actor Admin
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
