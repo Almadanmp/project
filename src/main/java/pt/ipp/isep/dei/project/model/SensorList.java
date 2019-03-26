@@ -12,11 +12,11 @@ import java.util.List;
 @Entity
 public class SensorList {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany
+
+    @OneToMany(mappedBy = "sensorList")
     private List<Sensor> sensors;
 
 

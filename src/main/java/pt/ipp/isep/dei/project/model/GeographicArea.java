@@ -99,14 +99,6 @@ public class GeographicArea {
         this.location = location;
     }
 
-    public SensorList getAreaSensors() {
-        return areaSensors;
-    }
-
-    public void setAreaSensors(SensorList areaSensors) {
-        this.areaSensors = areaSensors;
-    }
-
     public String getName() {
         return this.name;
     }

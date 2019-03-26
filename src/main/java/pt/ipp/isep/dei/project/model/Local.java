@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.UUID;
 
 
 /**
@@ -20,8 +19,6 @@ public class Local {
     private double latitude;
     private double longitude;
     private double altitude;
-    //  @Id
-    private UUID uniqueId;
 
     /**
      * Builder Local(), with all the parameters to define a local.
@@ -43,7 +40,7 @@ public class Local {
         return id;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
