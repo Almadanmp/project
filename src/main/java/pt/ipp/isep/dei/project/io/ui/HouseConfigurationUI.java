@@ -37,7 +37,7 @@ class HouseConfigurationUI {
             option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15(list);
+                    runUS15v2(list);
                     activeInput = false;
                     break;
                 case 2:
@@ -72,7 +72,7 @@ class HouseConfigurationUI {
      * @param list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15(GeographicAreaList list) {
+    private void runUS15v2(GeographicAreaList list) {
         InputUtils input = new InputUtils();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);

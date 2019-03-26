@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
+import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -45,7 +46,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      */
 
     public int readFileAndAdd(String filePath, GeographicAreaList list) {
-        HouseConfigurationController controller = new HouseConfigurationController();
+        ReaderController controller = new ReaderController();
         JSONArray geoAreas = readFile(filePath);
         GeographicArea[] geographicAreasArray;
         geographicAreasArray = readGeoAreas(geoAreas);

@@ -27,6 +27,38 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
+
+    // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
+
+    /**
+     * The given method receives a list of geographic areas and calls mapper to convert every DTO created upon reading
+     * the json file, before adding the newly created Geographic Areas (and their sensors) to the list.
+     *
+     * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
+     * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
+     */
+    public int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
+        int result = 0;
+        for (GeographicArea area : fileAreas) {
+            if (list.addGeographicArea(area)) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Method calls upon a ReaderJSONGeographicAreas class to read a given filepath.
+     * @param filePath is the filepath where the file we want to read is.
+     * @param list is the list we want to import the data into.
+     * @return is the number of areas imported.
+     */
+
+    public int readJSONGeographicAreasFile(String filePath, GeographicAreaList list){
+        ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
+        return reader.readFileAndAdd(filePath, list);
+    }
+
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
      *

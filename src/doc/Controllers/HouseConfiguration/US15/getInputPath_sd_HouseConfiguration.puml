@@ -32,7 +32,7 @@ actor Administrator
 HouseConfigurationUI -> InputUtils: getInputPath
 InputUtils -> Administrator: Ask user for input.
 Administrator -> InputUtils: Input path.
-alt if path is valid (ends with .json and exists)
+alt if path is valid (ends with .json or .xml and exists)
 <-- InputUtils: return String path
 else if path is invalid
 loop

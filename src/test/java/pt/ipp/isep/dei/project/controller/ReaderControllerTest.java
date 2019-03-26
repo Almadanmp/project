@@ -6,6 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.io.*;
@@ -16,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * ReaderController test class.
@@ -875,24 +878,6 @@ class ReaderControllerTest {
 
         assertEquals(2, areasAdded);
 
-        // Get one of the areas to  check its contents.
-
-        GeographicArea actualArea = actualResult.get(0);
-        SensorList firstAreaSensors = actualArea.getSensorList();
-
-        // Declare expected area / sensors.
-
-        SensorList expectedSensors = new SensorList();
-        expectedSensors.add(actualArea.getSensorList().get(0));
-        expectedSensors.add(actualArea.getSensorList().get(1));
-
-        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
-                0.261, new Local(41.178553, -8.608035, 139));
-
-        // Assert
-
-        assertEquals(expectedArea, actualArea);
-        assertEquals(expectedSensors, firstAreaSensors);
     }
     @Test
     void seeIfReadFileXMLGeoAreaWorksWithoutGeoAreas(){
@@ -909,5 +894,54 @@ class ReaderControllerTest {
 
         assertEquals(0, areasAdded);
     }
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea(){
+        // Arrange
+        GeographicAreaList actualResult = new GeographicAreaList();
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_one_GA.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+
+        // Assert
+
+        assertEquals(1, areasAdded);
+    }
+
+    @Test
+    void seeIfAddGeoAreasToListWorks() {
+        // Arrange
+
+        GeographicArea[] arrayToUse = new GeographicArea[2];
+        GeographicAreaList result = new GeographicAreaList();
+
+        // Set up Expected Result
+
+        GeographicArea geoArea1 = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 111));
+        GeographicArea geoArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+                new Local(41.149935, -8.610857, 118));
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicArea(geoArea1);
+        expectedResult.addGeographicArea(geoArea2);
+
+        // Populate Array to Use
+
+        arrayToUse[0] = geoArea1;
+        arrayToUse[1] = geoArea2;
+
+        // Act
+
+        double addedAreas = validReader.addGeoAreasToList(arrayToUse, result);
+
+        // Assert
+
+        assertEquals(2, addedAreas);
+        assertEquals(expectedResult, result);
+    }
+
 
 }

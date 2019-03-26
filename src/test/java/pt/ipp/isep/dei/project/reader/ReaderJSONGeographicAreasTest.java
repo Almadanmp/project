@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
@@ -14,7 +15,6 @@ class ReaderJSONGeographicAreasTest {
     // Common testing artifacts for testing in this class.
 
     private ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
-
     @Test
     void seeIfReadFileWorks() {
         // Arrange
@@ -111,11 +111,13 @@ class ReaderJSONGeographicAreasTest {
         File fileToRead = new File("src/test/resources/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = reader.readFileAndAdd(absolutePath, actualResult);
-
+        ReaderController readerController = new ReaderController();
+        double areas = readerController.readJSONGeographicAreasFile(absolutePath,new GeographicAreaList());
         // Assert
 
         assertEquals(expectedResult, actualResult);
         assertEquals(2, areasAdded);
+        assertEquals(2,areas);
 
         // Get one of the areas to  check its contents.
 

@@ -24,7 +24,6 @@ class HouseConfigurationController
 class HouseConfigurationUI
 class JSONReader
 class Mapper
-class GeographicAreaDTO
 class GeographicAreaList
 class GeographicArea
 class Sensor
@@ -34,13 +33,11 @@ MainUI -- HouseConfigurationUI : >
 HouseConfigurationUI -- JSONReader : >
 HouseConfigurationUI -- InputUtils : >
 JSONReader -- Mapper : >
-Mapper -- GeographicAreaDTO : >
 HouseConfigurationUI -- HouseConfigurationController : >
 HouseConfigurationController -- Mapper : >
 Mapper -- GeographicArea : >
 Mapper -- Sensor : >
 HouseConfigurationController -- GeographicAreaList : >
-Mapper -- SensorDTO : >
 
 class HouseConfigurationUI {
 runUS15(GeographicAreaList);
@@ -73,44 +70,5 @@ getInputPath();
 }
 
 
-class GeographicAreaDTO{
-setID(String);
-getID();
-setType(String);
-getType();
-setLength(Double);
-getLength();
-setWidth(Double);
-getWidth();
-setLatitude(Double);
-getLatitude();
-setLongitude(Double);
-getLongitude();
-setAltitude(Double);
-getAltitude();
-setDescription(String);
-getDescription();
-setSensorList(List<SensorDTO>);
-getSensorList();
-}
-
-class SensorDTO{
-setID(String);
-getID();
-setType(String);
-getType();
-setLatitude(Double);
-getLatitude();
-setLongitude(Double);
-getLongitude();
-setAltitude(Double);
-getAltitude();
-setDescription(String);
-getDescription();
-setSensorList(List<SensorDTO>);
-getSensorList();
-setDateStartedFunctioning(String);
-getDateStartedFunctioning();
-}
 
 @enduml
