@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
+import pt.ipp.isep.dei.project.Services.GeoAreaService;
+import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
@@ -433,7 +435,7 @@ public class InputUtils {
      * @param input   - input of user
      * @param list     - the GeographicAreaList provided
      */
-    public boolean getInputPathJsonOrXML(String input, GeographicAreaList list) {
+    public boolean getInputPathJsonOrXML(String input, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
         ReaderController controller = new ReaderController();
         String filePath = getInputPath(input);
         if (input.endsWith(".json")) {
@@ -442,7 +444,7 @@ public class InputUtils {
             return true;
         }
         if (input.endsWith(".xml")) {
-            int areas = controller.readFileXMLAndAddAreas(filePath, list);
+            int areas = controller.readFileXMLAndAddAreas(filePath, list, sensorService, geoAreaService);
             System.out.println(areas + " Geographic Areas have been successfully imported.");
             return true;
         }

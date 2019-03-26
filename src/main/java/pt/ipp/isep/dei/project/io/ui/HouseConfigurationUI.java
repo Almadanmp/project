@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.Services.GeoAreaService;
+import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
@@ -21,9 +23,15 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
+    private final SensorService sensorService;
+    private GeographicAreaList geographicAreaList;
+    private GeoAreaService geoAreaService;
 
-    HouseConfigurationUI() {
+    HouseConfigurationUI(SensorService sensorService, GeographicAreaList geographicAreaList, GeoAreaService geoAreaService) {
         this.controller = new HouseConfigurationController();
+        this.sensorService = sensorService;
+        this.geographicAreaList = geographicAreaList;
+        this.geoAreaService = geoAreaService;
     }
 
     void run(House house, GeographicAreaList list) {
@@ -37,7 +45,7 @@ class HouseConfigurationUI {
             option = InputUtils.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2(list);
+                    runUS15v2();
                     activeInput = false;
                     break;
                 case 2:
@@ -69,15 +77,15 @@ class HouseConfigurationUI {
     /**
      * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
      *
-     * @param list is the static, program list of geographic areas that comes from mainUI.
+     *  list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2(GeographicAreaList list) {
+    private void runUS15v2() {
         InputUtils input = new InputUtils();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        if (!input.getInputPathJsonOrXML(result,list)){
+        if (!input.getInputPathJsonOrXML(result,geographicAreaList, sensorService, geoAreaService)){
             System.out.println("The file isn't a JSON nor a XML file.");
         }
     }

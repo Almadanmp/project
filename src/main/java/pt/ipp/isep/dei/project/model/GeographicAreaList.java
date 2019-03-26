@@ -45,14 +45,14 @@ public class GeographicAreaList {
      * @return returns true in case the geographic area is added and false if not
      **/
     public boolean addGeographicArea(GeographicArea geographicAreaToAdd) {
-        // geographicAreaRepository.save(geographicAreaToAdd);
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
-
+            geographicAreaRepository.save(geographicAreaToAdd);
             return true;
         }
         return false;
     }
+
 
     /**
      * Method to print a Whole Geographic Area List.

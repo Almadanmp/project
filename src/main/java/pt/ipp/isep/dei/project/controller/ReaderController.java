@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import pt.ipp.isep.dei.project.Services.GeoAreaService;
+import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.*;
 
@@ -49,12 +51,13 @@ public class ReaderController {
 
     /**
      * Method calls upon a ReaderJSONGeographicAreas class to read a given filepath.
+     *
      * @param filePath is the filepath where the file we want to read is.
-     * @param list is the list we want to import the data into.
+     * @param list     is the list we want to import the data into.
      * @return is the number of areas imported.
      */
 
-    public int readJSONGeographicAreasFile(String filePath, GeographicAreaList list){
+    public int readJSONGeographicAreasFile(String filePath, GeographicAreaList list) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         return reader.readFileAndAdd(filePath, list);
     }
@@ -128,20 +131,21 @@ public class ReaderController {
         }
         return result;
     }
+
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
      *
      * @param filePath path to the xml file
      * @param list     geographic area list to add the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list) {
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
         ReaderXML reader = new ReaderXML();
         int result = 0;
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i)))) {
+            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i), sensorService, geoAreaService))) {
                 result++;
             }
         }
@@ -154,7 +158,7 @@ public class ReaderController {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    private GeographicArea readGeographicAreasXML(Node node) {
+    private GeographicArea readGeographicAreasXML(Node node, SensorService sensorService, GeoAreaService geoAreaService) {
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -165,13 +169,16 @@ public class ReaderController {
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
+            geoAreaService.addGeoAreaLocal(geoArea, local);
             TypeArea typeArea = new TypeArea(getTagValue("type", element));
-            geoArea = new GeographicArea(id,typeArea,length,width,local);
+            geoAreaService.setTypeArea(geoArea, typeArea);
+            geoArea = new GeographicArea(id, typeArea, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
+            sensorService.setSensorList(geoArea, sensorList);
             for (int j = 0; j < nListSensor.getLength(); j++) {
-                sensorList.add(readSensorsXML(nListSensor.item(j)));
+                sensorList.add(readSensorsXML(nListSensor.item(j), sensorService));
             }
             geoArea.setSensorList(sensorList);
         }
@@ -180,35 +187,40 @@ public class ReaderController {
 
     /**
      * Method to import a Sensor from a certain node
+     *
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private Sensor readSensorsXML(Node node) {
+    private Sensor readSensorsXML(Node node, SensorService sensorService) {
         Sensor sensor = new Sensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            String id =getTagValue("id", element);
+            String id = getTagValue("id", element);
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
             TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
+            sensorService.setSensorType(sensor, typeSensor);
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
+            sensorService.addSensorLocalization(sensor, local);
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
             } catch (ParseException ignored) {
                 ignored.getErrorOffset();
             }
-            sensor = new Sensor(id,name,typeSensor,local,date);
+            sensor = new Sensor(id, name, typeSensor, local, date);
+            sensorService.addSensor(sensor);
         }
         return sensor;
     }
 
     /**
      * Gets the value of the tag correspondent to the String and the Element from the same Node
-     * @param tag - String of the tag correspondent to the node
+     *
+     * @param tag     - String of the tag correspondent to the node
      * @param element - element correspondent to the nod
      * @return - returns the value in string
      */
