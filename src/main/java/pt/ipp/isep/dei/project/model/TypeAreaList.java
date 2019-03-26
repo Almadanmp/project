@@ -16,6 +16,10 @@ public class TypeAreaList {
 
     private List<TypeArea> typeAreas = new ArrayList<>();
 
+    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
+        this.typeAreaRepository = typeAreaRepository;
+    }
+
     @Autowired
     TypeAreaRepository typeAreaRepository;
 
@@ -25,6 +29,10 @@ public class TypeAreaList {
      */
     public TypeAreaList() {
 
+    }
+
+    public List<TypeArea> getTypeAreas() {
+        return typeAreas;
     }
 
     /**
@@ -44,14 +52,14 @@ public class TypeAreaList {
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {
-      //  TypeArea typeArea = typeAreaRepository.findByName(type.getName());
+       TypeArea typeArea = typeAreaRepository.findByName(type.getName());
         if (!typeAreas.contains(type)) {
             typeAreas.add(type);
         }
-//        if (typeArea != null) {
-//            typeAreaRepository.delete(typeArea);
-//        }
-//        typeAreaRepository.save(type);
+        if (typeArea != null) {
+            typeAreaRepository.delete(typeArea);
+        }
+        typeAreaRepository.save(type);
         return true;
     }
 

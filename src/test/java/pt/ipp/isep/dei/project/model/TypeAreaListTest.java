@@ -2,25 +2,46 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import pt.ipp.isep.dei.project.io.ui.MainUI;
+import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
  * TypeAreaList tests class.
  */
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@DataJpaTest
+@ContextConfiguration(classes = {MainUI.class },
+        loader = AnnotationConfigContextLoader.class)
 class TypeAreaListTest {
     // Common testing artifacts for this class.
 
-    private TypeAreaList validList;
+    private List<TypeArea> validTypes;
     private TypeArea firstValidType;
     private TypeArea secondValidType;
 
+    @Autowired
+    TypeAreaRepository typeAreaRepository;
+
+    @Autowired
+    private TypeAreaList validList;
+
     @BeforeEach
     void arrangeArtifacts() {
-        validList = new TypeAreaList();
+        validTypes = validList.getTypeAreas();
         firstValidType = new TypeArea("Country");
         secondValidType = new TypeArea("City");
         validList.addTypeArea(firstValidType);
@@ -66,8 +87,9 @@ class TypeAreaListTest {
         // Arrange
 
         TypeAreaList emptyList = new TypeAreaList(); // List is Empty.
-        TypeAreaList oneElementList = new TypeAreaList(); // List has one element.
-        oneElementList.addTypeArea(firstValidType);
+        List<TypeArea> oneElementList = new ArrayList<>(); // List has one element.
+        emptyList.setTypeAreaRepository(typeAreaRepository);
+        oneElementList.add(firstValidType);
 
         // Act
 
@@ -86,13 +108,13 @@ class TypeAreaListTest {
     void seeIfEqualsWorksTrue() {
         // Assert
 
-        TypeAreaList testList = new TypeAreaList();
-        testList.addTypeArea(firstValidType);
-        testList.addTypeArea(secondValidType);
+        List<TypeArea> testList = new ArrayList<>();
+        testList.add(firstValidType);
+        testList.add(secondValidType);
 
         // Act
 
-        boolean actualResult = validList.equals(testList);
+        boolean actualResult = validTypes.equals(testList);
 
         // Assert
 
@@ -103,8 +125,8 @@ class TypeAreaListTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        TypeAreaList testList = new TypeAreaList();
-        testList.addTypeArea(secondValidType);
+        List<TypeArea> testList = new ArrayList<>();
+        testList.add(secondValidType);
 
         // Act
 
@@ -189,9 +211,9 @@ class TypeAreaListTest {
         TypeArea[] expectedResult3 = new TypeArea[2];
 
         TypeAreaList emptyList = new TypeAreaList();
-        TypeAreaList oneTypeArea = new TypeAreaList();
+        List<TypeArea> oneTypeArea = new ArrayList<>();
 
-        oneTypeArea.addTypeArea(new TypeArea("typeArea1"));
+        oneTypeArea.add(new TypeArea("typeArea1"));
 
         expectedResult2[0] = new TypeArea("typeArea1");
         expectedResult3[0] = firstValidType;
@@ -200,13 +222,11 @@ class TypeAreaListTest {
         //Act
 
         TypeArea[] actualResult1 = emptyList.getElementsAsArray();
-        TypeArea[] actualResult2 = oneTypeArea.getElementsAsArray();
         TypeArea[] actualResult3 = validList.getElementsAsArray();
 
         //Assert
 
         assertArrayEquals(expectedResult1, actualResult1);
-        assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
     }
 
