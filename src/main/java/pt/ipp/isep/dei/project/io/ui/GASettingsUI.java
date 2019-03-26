@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.*;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -12,9 +12,11 @@ import java.util.Scanner;
 
 class GASettingsUI {
     private GASettingsController controller;
+    private GeographicAreaList geographicAreaList;
 
-    GASettingsUI(TypeAreaList typeAreaList) {
+    GASettingsUI(TypeAreaList typeAreaList, GeographicAreaList geographicAreaList) {
         this.controller = new GASettingsController(typeAreaList);
+        this.geographicAreaList = geographicAreaList;
     }
 
     void runGASettings(GeographicAreaList programGAList) {
@@ -54,7 +56,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 8:
-                    runUS11(programGAList);
+                    runUS11();
                     activeInput = false;
                     break;
                 case 0:
@@ -318,15 +320,14 @@ class GASettingsUI {
     /**
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      *
-     * @param geographicAreaList geographic area list
      */
-    private void runUS11(GeographicAreaList geographicAreaList) {
+    private void runUS11() {
         GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
         SensorDTO sensorDTO = controller.inputSensor(geographicAreaDTO);
-        updateUS11(geographicAreaList, sensorDTO, geographicAreaDTO);
+        updateUS11(sensorDTO, geographicAreaDTO);
     }
 
-    private void updateUS11(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
+    private void updateUS11(SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
         controller.removeSensor(geographicAreaList, sensorDTO, geographicAreaDTO);
         System.out.println("The sensor " + sensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getId() + " has ceased to be.");
