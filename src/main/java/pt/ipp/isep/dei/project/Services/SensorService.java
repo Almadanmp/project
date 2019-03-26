@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 @Service
 public class SensorService {
+
     @Autowired
     private SensorListRepository sensorListRepository;
 
@@ -18,10 +19,13 @@ public class SensorService {
 
     @Autowired
     private LocalRepository localRepository;
+
     @Autowired
     private TypeSensorRepository typeSensorRepository;
 
-    public void addSensor(Sensor sensorToAdd) {
+    public void addSensor(Sensor sensorToAdd, SensorList sensorList) {
+        sensorList.add(sensorToAdd);
+        sensorToAdd.setSensorList(sensorList);
         sensorRepository.save(sensorToAdd);
     }
 

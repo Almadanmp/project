@@ -78,7 +78,7 @@ public class Mapper {
             Sensor sensor = sensorDTOToObject(sensorsDTO);
             sensorList.add(sensor);
         }
-        geographicArea.setAreaSensors(sensorList);
+        geographicArea.setSensorList(sensorList);
         geographicArea.setDescription(geographicAreaDTO.getDescription());
         geographicArea.setId(geographicAreaDTO.getId());
         return geographicArea;

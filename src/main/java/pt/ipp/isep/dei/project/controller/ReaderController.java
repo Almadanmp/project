@@ -170,7 +170,7 @@ public class ReaderController {
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
             geoAreaService.addGeoAreaLocal(geoArea, local);
-            TypeArea typeArea = new TypeArea(getTagValue("type", element));
+            TypeArea typeArea = new TypeArea(getTagValue("type", element)); // TODO - type areas need to be added to the local list
             geoAreaService.setTypeArea(geoArea, typeArea);
             geoArea = new GeographicArea(id, typeArea, length, width, local);
             geoArea.setDescription(description);
@@ -178,9 +178,9 @@ public class ReaderController {
             SensorList sensorList = new SensorList();
             sensorService.setSensorList(geoArea, sensorList);
             for (int j = 0; j < nListSensor.getLength(); j++) {
-                sensorList.add(readSensorsXML(nListSensor.item(j), sensorService));
+                Sensor s = readSensorsXML(nListSensor.item(j), sensorService);
+                sensorService.addSensor(s, sensorList);
             }
-            geoArea.setSensorList(sensorList);
         }
         return geoArea;
     }
@@ -198,7 +198,7 @@ public class ReaderController {
             String id = getTagValue("id", element);
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
-            TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
+            TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element)); //TODO - type sensors need to be added to the local list
             sensorService.setSensorType(sensor, typeSensor);
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
@@ -212,7 +212,6 @@ public class ReaderController {
                 ignored.getErrorOffset();
             }
             sensor = new Sensor(id, name, typeSensor, local, date);
-            sensorService.addSensor(sensor);
         }
         return sensor;
     }

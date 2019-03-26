@@ -31,9 +31,9 @@ public class Sensor {
     @OneToMany(mappedBy = "sensor")
     private List<Reading> readingList;
 
-//    @ManyToOne
-//    @JoinColumn(name = "geographic_area_id")
-//    private GeographicArea geographicArea;
+    @ManyToOne
+    @JoinColumn(name = "sensor_list_id")
+    private SensorList sensorList;
 
     private boolean active;
 
@@ -191,6 +191,14 @@ public class Sensor {
         if (readingList != null) {
             this.readingList = readingList;
         }
+    }
+
+    public SensorList getSensorList() {
+        return sensorList;
+    }
+
+    public void setSensorList(SensorList sensorList) {
+        this.sensorList = sensorList;
     }
 
     public boolean isActive() {
