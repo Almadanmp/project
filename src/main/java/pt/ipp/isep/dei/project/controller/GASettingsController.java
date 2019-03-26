@@ -173,7 +173,11 @@ public class GASettingsController {
     }
 
     /**
-     * Deactivate sensor
+     * Deactivates a sensor from a sensor list
+     * @param geographicAreaList the geographic area list that contains the geographic area with sensors
+     * @param sensorDTO selected sensor from the geographic area, list of sensors
+     * @param geographicAreaDTO selected geographicAreaDTO from the geographic area list
+     * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
     public boolean deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
         Mapper mapper = new Mapper();

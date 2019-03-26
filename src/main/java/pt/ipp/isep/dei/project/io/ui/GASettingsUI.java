@@ -296,7 +296,7 @@ class GASettingsUI {
     }
 
     /**
-     * This method activates or deactivates a sensor selected from a list of sensor of an selected geographic area
+     * This method deactivates a sensor selected from a list of sensor of an selected geographic area
      *
      * @param geographicAreaList geographic area list
      */
