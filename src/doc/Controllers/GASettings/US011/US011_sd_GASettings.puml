@@ -1,0 +1,60 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title US011 \n As an Administrator, I want to remove a sensor from a geographical area, so that it will no longer be used.
+
+actor Administrator
+Administrator -> MainUI:run()
+activate MainUI
+MainUI -> GASettingsUI: Remove sensor
+activate GASettingsUI
+GASettingsUI -> GASettingsController: startAndPromptPath()
+activate GASettingsController
+GASettingsController -> HouseConfigurationUI: Request File Path
+HouseConfigurationUI -> Administrator: Request File Path
+Administrator --> HouseConfigurationUI: Insert File Path (.csv)
+HouseConfigurationUI --> CSVReaderController: File Path (.csv)
+CSVReaderController -> CSVReaderController: readAndSet(GeographicAreaList geographicAreaList, String path)
+CSVReaderController -->> CSVReader: List<String[]> readCSV = readCSV(String csvFileLocation)
+activate CSVReader
+deactivate CSVReader
+CSVReaderController -> CSVReaderController: getSensorData(GeographicAreaList geographicAreaList)
+CSVReaderController -> CSVReaderController: parseAndLog(String[] readings, Logger logger, SensorList typeSensorList)
+
+alt Try
+CSVReaderController -> CSVReaderController: setCSVReadings(Sensor sensor, Date date, Double value)
+else
+CSVReaderController -> Log: Create new entry
+
+
+deactivate HouseConfigurationUI
+
+
+end
+deactivate CSVReader
+deactivate MainUI
+deactivate HouseConfigurationUI
+@enduml

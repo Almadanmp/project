@@ -1,6 +1,7 @@
 @startuml
 
-title US010 \n As an Administrator, I want to import geographical areas and sensors from a JSON file.
+title US011 \n As an Administrator, I want to remove a sensor from a geographical area, so that it will no longer be used.
+
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 2
 skinparam titleBorderColor indianred
@@ -36,28 +37,28 @@ Mapper -- Sensor : >
 GASettingsController -- GeographicArea : >
 
 class GASettingsUI {
-runUS10(GeographicAreaList);
+runUS11()
 }
 
 class GASettingsController {
-deactivateSensor(geographicAreaList, sensorDTO, geographicAreaDTO)
+removeSensor( GeographicAreaList, SensorDTO, GeographicAreaDTO )
 }
 
 class Mapper {
-geoAreaToDTO();
-geoAreaDTOToObject();
-sensorToDTO();
-sensorDTOToObject();
+geoAreaToDTO()
+sensorToDTO()
+sensorDTOToObject()
 }
 
 class GeographicArea{
-add();
+getElementsAsArray()
+getName()
+removeSensor( Sensor )
 }
 
 class InputUtils{
-getInputPath();
-getInputSensorByList(geographicArea.getSensorList();
-getGeographicAreaByList(geographicAreaList);
+getInputSensorByList( SensorList )
+getGeographicAreaByList( GeographicAreaList )
 
 }
 
