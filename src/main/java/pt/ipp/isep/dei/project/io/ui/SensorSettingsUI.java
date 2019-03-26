@@ -12,15 +12,15 @@ import java.util.Scanner;
 class SensorSettingsUI {
     private SensorSettingsController controller;
 
-    SensorSettingsUI(TypeSensorsService typeSensorsService) {
-        this.controller = new SensorSettingsController(typeSensorsService);
+    SensorSettingsUI(TypeSensorList typeSensorList) {
+        this.controller = new SensorSettingsController(typeSensorList);
     }
 
     void run(GeographicAreaList geographicAreaList) {
-       /* if (geographicAreaList.isEmpty()) {
+        if (geographicAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
-        }*/
+        }
 
         boolean activeInput = true;
         int option;
@@ -55,10 +55,6 @@ class SensorSettingsUI {
     /* LIST DISPLAY */
 
     private void displayList() {
-//        if (list.isEmpty()) {
-//            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
-//            return;
-//        }
         System.out.println(controller.buildSensorTypesString());
     }
 
@@ -97,10 +93,6 @@ class SensorSettingsUI {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-//        if (typeSensorList.isEmpty()) {
-//            System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
-//            return;
-//        }
         Sensor sensor = createSensor();
         if (!getConfirmation(sensor)) {
             return;

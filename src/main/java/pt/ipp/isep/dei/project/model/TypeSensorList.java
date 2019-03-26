@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
@@ -13,19 +14,15 @@ import java.util.List;
  * Methods are organized by functionality
  */
 
+@Service
 public class TypeSensorList {
 
-    // @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    //  @OneToMany(mappedBy = "typeSensorList")
-    private List<TypeSensor> typeSensors;
-    //    @Autowired
+
+    @Autowired
     TypeSensorRepository typeSensorRepository;
 
-    public TypeSensorList(TypeSensorRepository typeSensorRepository) {
-        this.typeSensorRepository = typeSensorRepository;
-    }
+    private List<TypeSensor> typeSensors;
+
 
     //CONSTRUCTOR
     public TypeSensorList() {
@@ -42,9 +39,8 @@ public class TypeSensorList {
      **/
     public boolean add(TypeSensor typeSensor) {
         if (!typeSensors.contains(typeSensor)) {
-            //typeSensor.setTypeSensorList(this);
-            //typeSensors.add(typeSensor);
-            //typeSensorRepository.save(typeSensor);
+            typeSensors.add(typeSensor);
+            //  typeSensorRepository.save(typeSensor);
             return true;
         }
         return false;
@@ -63,6 +59,27 @@ public class TypeSensorList {
         return this.typeSensors.get(index);
     }
 
+    public TypeSensor createTypeSensor(String name, String unit) {
+        return new TypeSensor(name, unit);
+    }
+
+    /**
+     * Checks the type sensor list size and returns the size as int.\
+     *
+     * @return TypeSensor size as int
+     **/
+    public int sizeRepository() {
+        return typeSensorRepository.findAll().size();
+    }
+
+    /**
+     * This methods checks if type sensor list is empty.
+     *
+     * @return true if list is empty, false otherwise
+     */
+    public boolean isEmptyRepository() {
+        return (sizeRepository() == 0);
+    }
 
     /**
      * Checks the type sensor list size and returns the size as int.\
@@ -96,6 +113,25 @@ public class TypeSensorList {
             TypeSensor aux = typeSensors.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Unit: ").append(aux.getUnits()).append("\n");
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+
+    /**
+     * This method prints all sensor types in a type sensor list.
+     *
+     * @return a string of sensor types in a list
+     */
+    public String getAllAsString() {
+        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        if (isEmptyRepository()) {
+            return "There are no Sensor Types Configured\n";
+        }
+        Iterable<TypeSensor> typeSensors = typeSensorRepository.findAll();
+        for (TypeSensor tS : typeSensors) {
+            result.append(tS.getId()).append(") Description: ").append(tS.getName()).append(" | ");
+            result.append("Unit: ").append(tS.getUnits()).append("\n");
         }
         result.append("---------------\n");
         return result.toString();

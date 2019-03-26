@@ -35,34 +35,12 @@ class MockUI {
 //Getter Methods to use on MAINUI
 
 
-    TypeSensorList getTypeSensorList() {
-        return mockTypeSensorList();
-    }
-
     GeographicAreaList getGeoAreaList() {
         return geoAreaList;
     }
 
     void initializeMockUI() {
-        this.typeSensorList = mockTypeSensorList();
         this.geoAreaList = mockGeographicAreaList();
-    }
-
-
-    private TypeSensorList mockTypeSensorList() {
-        TypeSensorList mockTypeSensorList = new TypeSensorList();
-
-        TypeSensor rainfallST = new TypeSensor("rainfall", "l/m2");
-        mockTypeSensorList.add(rainfallST);
-
-        this.temperatureST = new TypeSensor("Temperature", "º");
-        mockTypeSensorList.add(this.temperatureST);
-
-        this.humidityST = new TypeSensor("Humidity", "g/m3");
-        mockTypeSensorList.add(this.humidityST);
-
-        return mockTypeSensorList;
-
     }
 
     private GeographicAreaList mockGeographicAreaList() {
