@@ -799,8 +799,6 @@ class SensorTest {
     void seeIfActive() {
 
         // Act
-        Local edge = new Local(10, 30, 5);
-        Sensor validSensor = new Sensor("RF12345", "Sensor", new TypeSensor("Temperature", "Celsius"), edge, new Date());
         validSensor.deactivateSensor();
         // Act
        boolean result = validSensor.deactivateSensor();
@@ -808,6 +806,17 @@ class SensorTest {
         // Assert
 
         Assertions.assertFalse(result);
+    }
+
+    @Test
+    void seeIfDeactivates() {
+
+        // Act
+        boolean result = validSensor.deactivateSensor();
+
+        // Assert
+
+        Assertions.assertTrue(result);
     }
 
 
