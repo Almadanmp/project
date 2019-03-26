@@ -1,6 +1,6 @@
 @startuml
 
-title getInputPath
+title getInputPathJsonOrXML
 
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
@@ -28,12 +28,11 @@ skinparam component {
 
 actor Administrator
 
---> HouseConfigurationUI: getInputPath
-HouseConfigurationUI -> InputUtils: getInputPath
+HouseConfigurationUI -> InputUtils: getInputPathJsonOrXML()
 InputUtils -> Administrator: Ask user for input.
 Administrator -> InputUtils: Input path.
 alt if path is valid (ends with .json or .xml and exists)
-<-- InputUtils: return String path
+ InputUtils-->HouseConfigurationUI: return true
 else if path is invalid
 loop
 InputUtils -> Administrator: Ask user for input.

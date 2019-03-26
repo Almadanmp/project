@@ -60,19 +60,88 @@ public class ReaderController {
     }
 
     /**
+     * Is the method that loads geographic areas from the .json file.
+     *
+     * @param geoAreas is the JSONArray corresponding to the list of geographic areas in the .json file.
+     * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
+     */
+
+    public GeographicArea[] readGeoAreasJSON(JSONArray geoAreas) {
+        GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
+        for (int i = 0; i < geoAreas.length(); i++) {
+            JSONObject area = geoAreas.getJSONObject(i);
+            JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
+            String areaID = area.getString("id");
+            String areaDescription = area.getString("description");
+            TypeArea areaType = new TypeArea(area.getString("type"));
+            double areaWidth = area.getDouble("width");
+            double areaLength = (area.getDouble("length"));
+            double areaLatitude = local.getDouble("latitude");
+            double areaLongitude = local.getDouble("longitude");
+            double areaAltitude = local.getDouble("altitude");
+            GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, new Local(areaLatitude,
+                    areaLongitude, areaAltitude));
+            areaObject.setDescription(areaDescription);
+            geographicAreasArray[i] = areaObject;
+            JSONArray areaSensors = area.getJSONArray("area_sensor");
+            List<Sensor> areaSensorsList = readAreaSensorsJSON(areaSensors);
+            areaObject.addSensors(areaSensorsList);
+        }
+        return geographicAreasArray;
+    }
+
+    /**
+     * Is the method that loads sensors from a list of sensors in the .json file.
+     *
+     * @param areaSensors is the array of sensors contained in the .json file, usually the list of sensors
+     *                    that belong to an area.
+     * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
+     */
+
+    private List<Sensor> readAreaSensorsJSON(JSONArray areaSensors) {
+        List<Sensor> result = new ArrayList<>();
+        int entriesChecked = 0;
+        while (entriesChecked < areaSensors.length()) {
+            JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
+            JSONObject sensor = areaSensor.getJSONObject("sensor");
+            String sensorId = sensor.getString("id");
+            String sensorName = sensor.getString("name");
+            String sensorDate = sensor.getString("start_date");
+            SimpleDateFormat validDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date;
+            try {
+                date = validDateFormat.parse(sensorDate);
+            } catch (ParseException c) {
+                entriesChecked++;
+                continue;
+            }
+            String sensorType = sensor.getString("type");
+            String sensorUnits = sensor.getString("units");
+            JSONObject sensorLocal = areaSensor.getJSONObject("location");
+            double sensorLatitude = sensorLocal.getDouble("latitude");
+            double sensorLongitude = sensorLocal.getDouble("longitude");
+            double sensorAltitude = sensorLocal.getDouble("altitude");
+            Sensor sensorObject = new Sensor(sensorId, sensorName, new TypeSensor(sensorType, sensorUnits), new Local(sensorLatitude,
+                    sensorLongitude, sensorAltitude), date);
+            result.add(sensorObject);
+            entriesChecked++;
+        }
+        return result;
+    }
+    /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
      *
      * @param filePath path to the xml file
      * @param list     geographic area list to add the imported geographic areas
      */
-    public int readGeoAreasFromFileXML(String filePath, GeographicAreaList list) {
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list) {
         ReaderXML reader = new ReaderXML();
         int result = 0;
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (list.addGeographicArea(getGeographicAreas(nListGeoArea.item(i)))) {
+            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i)))) {
                 result++;
             }
         }
@@ -85,7 +154,7 @@ public class ReaderController {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    private GeographicArea getGeographicAreas(Node node) {
+    private GeographicArea readGeographicAreasXML(Node node) {
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -102,7 +171,7 @@ public class ReaderController {
             NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
             for (int j = 0; j < nListSensor.getLength(); j++) {
-                sensorList.add(getSensors(nListSensor.item(j)));
+                sensorList.add(readSensorsXML(nListSensor.item(j)));
             }
             geoArea.setSensorList(sensorList);
         }
@@ -114,7 +183,7 @@ public class ReaderController {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private Sensor getSensors(Node node) {
+    private Sensor readSensorsXML(Node node) {
         Sensor sensor = new Sensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;

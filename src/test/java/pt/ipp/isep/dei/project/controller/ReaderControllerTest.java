@@ -6,8 +6,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 import pt.ipp.isep.dei.project.model.*;
 
 import java.io.*;
@@ -17,7 +15,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -787,7 +784,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
         // Assert
 
@@ -823,7 +820,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
         // Assert
 
@@ -838,7 +835,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
         // Assert
 
@@ -872,7 +869,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
         // Assert
 
@@ -888,7 +885,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
         // Assert
 
@@ -903,7 +900,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readGeoAreasFromFileXML(absolutePath, actualResult);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
         // Assert
 

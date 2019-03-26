@@ -20,4 +20,5 @@ public class ReaderXML implements Reader {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
+
 }

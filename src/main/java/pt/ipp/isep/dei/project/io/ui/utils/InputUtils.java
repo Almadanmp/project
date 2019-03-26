@@ -431,19 +431,18 @@ public class InputUtils {
      * Reads either a .json ou a .xml path
      *
      * @param input   - input of user
-     * @param filePath - the path to the file
      * @param list     - the GeographicAreaList provided
      */
-    public boolean readJsonOrXMLFile(String input, String filePath, GeographicAreaList list) {
+    public boolean getInputPathJsonOrXML(String input, GeographicAreaList list) {
         ReaderController controller = new ReaderController();
-
+        String filePath = getInputPath(input);
         if (input.endsWith(".json")) {
             int areasRead = controller.readJSONGeographicAreasFile(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
             return true;
         }
         if (input.endsWith(".xml")) {
-            int areas = controller.readGeoAreasFromFileXML(filePath, list);
+            int areas = controller.readFileXMLAndAddAreas(filePath, list);
             System.out.println(areas + " Geographic Areas have been successfully imported.");
             return true;
         }
