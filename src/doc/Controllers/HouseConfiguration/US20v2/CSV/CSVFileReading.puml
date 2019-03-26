@@ -1,0 +1,56 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+
+
+
+-> ReaderController: readReadingsFromCSV(geographicAreaList, filePath, logPath)
+activate ReaderController
+
+ReaderController -> ReaderController: SensorList sensorList = geographicAreaList.getAreaListSensors();
+create "csvRead :ReaderCSVReadings"
+ReaderController -> "csvRead :ReaderCSVReadings": new ReaderCSVReadings();
+activate "csvRead :ReaderCSVReadings"
+ref over "csvRead :ReaderCSVReadings"
+Read readings from
+JSON file reading
+end ref
+ReaderController -> "csvRead :ReaderCSVReadings": List<String[]> list = csvRead.readFile(filePath);
+
+deactivate "csvRead :ReaderCSVReadings"
+
+loop  String[] reading CONTAINED IN list
+ReaderController -> ReaderController: parseAndLogCSVReading(reading, logger, sensorList);
+ref over ReaderController
+Parse and Add Readings To Sensors
+end ref
+
+end
+
+<- ReaderController: int added Readings
+deactivate "ReaderController"
+
+@enduml

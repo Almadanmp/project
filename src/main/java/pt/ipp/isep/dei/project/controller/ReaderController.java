@@ -239,8 +239,8 @@ public class ReaderController {
             FileHandler fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
-            for (String[] readings : list) {
-                addedReadings += parseAndLogCSVReading(readings, logger, sensorList);
+            for (String[] reading : list) {
+                addedReadings += parseAndLogCSVReading(reading, logger, sensorList);
             }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -292,14 +292,14 @@ public class ReaderController {
             return addedReadings;
         }
         ReaderJSONReadings reader = new ReaderJSONReadings();
-        JSONArray readings = reader.readFile(path);
+        JSONArray array = reader.readFile(path);
         try {
             Logger logger = Logger.getLogger(ReaderController.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
             FileHandler fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
-            addedReadings = parseAndLogJSONReadings(sensorList, readings, logger);
+            addedReadings = parseAndLogJSONReadings(sensorList, array, logger);
 
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -314,10 +314,10 @@ public class ReaderController {
      *
      * @return the number of readings added to geographic area sensors
      ***/
-    int parseAndLogJSONReadings(SensorList sensorList, JSONArray readings, Logger logger) {
+    int parseAndLogJSONReadings(SensorList sensorList, JSONArray array, Logger logger) {
         int added = 0;
-        for (int i = 0; i < readings.length(); i++) {
-            JSONObject readingObject = readings.getJSONObject(i);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject readingObject = array.getJSONObject(i);
             added += parseAndLogJSONReading(sensorList, readingObject, logger);
         }
         return added;

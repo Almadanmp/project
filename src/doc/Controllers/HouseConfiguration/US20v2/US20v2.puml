@@ -1,0 +1,73 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title US020v2 \n  As an Administrator I want to import geographic area sensor readings \n into the application from a either a CSV, JSON or XML file. \n Data outside the valid sensor operation period should not be imported but registered in the application log.
+
+
+actor Administrator
+Administrator -> HouseConfigurationUI: Import data from .csv/.json/.xml file
+activate HouseConfigurationUI
+HouseConfigurationUI -> HouseConfigurationUI: US20v2(GeographicAreaList)
+HouseConfigurationUI -> InputUtils: String path = getInputFileLocation();
+ref over InputUtils
+Get Input Path
+end ref
+
+create ":ReaderController"
+HouseConfigurationUI -> ":ReaderController": new ReaderController();
+
+
+alt if CSV file
+activate ":ReaderController"
+HouseConfigurationUI -> ":ReaderController": readReadingsFromCSV(geographicAreaList, filePath, logPath)
+ref over ":ReaderController"
+Read readings from
+CSV file reading
+end ref
+
+
+":ReaderController" -> HouseConfigurationUI: int added Readings
+else else if JSON file
+HouseConfigurationUI -> ":ReaderController": readReadingsFromJSON(geographicAreaList, filePath, logPath)
+ref over ":ReaderController"
+Read readings from
+JSON file reading
+end ref
+":ReaderController" -> HouseConfigurationUI: int added Readings
+else else if XML file
+HouseConfigurationUI -> ":ReaderController": readReadingsFromXML(geographicAreaList, filePath, logPath)
+ref over ":ReaderController"
+Read readings from
+XML file reading
+end ref
+":ReaderController" -> HouseConfigurationUI: int added Readings
+end
+deactivate ":ReaderController"
+HouseConfigurationUI -> Administrator: display message
+
+deactivate HouseConfigurationUI
+
+@enduml

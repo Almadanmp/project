@@ -450,22 +450,6 @@ public class InputUtils {
     }
 
     /**
-     * Method to get the path to the file from user input, only works if the file is a .csv file and it actually exists.
-     *
-     * @author Andre (US20)
-     */
-    public String getInputCSVPath() {
-        Scanner scanner = new Scanner(System.in);
-        UtilsUI.printMessage("Please insert the location of the CSV file");
-        String csvFileLocation = scanner.next();
-        while (!csvFileLocation.endsWith(".csv") || !new File(csvFileLocation).exists()) {
-            UtilsUI.printMessage("Please enter a valid  CSV path");
-            csvFileLocation = scanner.next();
-        }
-        return csvFileLocation;
-    }
-
-    /**
      * This method will ask for a file location from the user and return it in case the file is
      * a .csv, .xml or .json.
      *

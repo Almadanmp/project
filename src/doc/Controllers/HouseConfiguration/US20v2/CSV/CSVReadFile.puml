@@ -1,0 +1,49 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+
+
+
+-> ReaderCSVReadings : readCSV(String csvFileLocation)
+activate ReaderCSVReadings
+ReaderCSVReadings  -> ArrayList: List<String[]> list = new ArrayList<>();
+ReaderCSVReadings  -> String: String line = "";
+ReaderCSVReadings  -> String: String cvsSplit = ",";
+alt try
+ReaderCSVReadings  -> FileReader: fileReader = new FileReader(filePath)
+ReaderCSVReadings  -> BufferedReader: buffReader = new BufferedReader(fileReader)
+loop  WHILE    line = buffReader.readLine()) != null
+ReaderCSVReadings  -> ReaderCSVReadings :readings = line.split(cvsSplit);
+ReaderCSVReadings  -> ReaderCSVReadings :list.add(readings);
+end
+
+else catch
+ReaderCSVReadings  -> ReaderCSVReadings : IOException
+
+end
+<- ReaderCSVReadings : list
+deactivate ReaderCSVReadings
+@enduml

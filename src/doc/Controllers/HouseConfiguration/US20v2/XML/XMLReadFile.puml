@@ -1,0 +1,46 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+
+
+
+-> ReaderXMLReadings : readFile(String filePath)
+activate ReaderXMLReadings
+alt try
+ReaderXMLReadings  -> File: File file = new File(filePath)
+ReaderXMLReadings  -> DocumentBuilderFactory: DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+ReaderXMLReadings  -> DocumentBuilder: DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+ReaderXMLReadings  -> Document: doc = dBuilder.parse(inputFile);
+
+<- ReaderXMLReadings : doc
+
+else catch IOException
+<- ReaderXMLReadings : throw new IllegalArgumentException();
+deactivate ReaderXMLReadings
+end
+
+@enduml
