@@ -69,6 +69,15 @@ class TypeAreaListTest {
         assertEquals(actualResult, expectedResult);
     }
 
+    @Test
+    void seeIfGetSizeRepository() {
+        // Arrange
+        int expectedResult = 2;
+        // Act
+        int actualResult = validList.getSizeRepository();
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
 
     @Test
     void seeIfPrintGAWholeList() {
