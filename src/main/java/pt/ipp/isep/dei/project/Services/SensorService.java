@@ -3,12 +3,9 @@ package pt.ipp.isep.dei.project.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.repository.LocalRepository;
-import pt.ipp.isep.dei.project.repository.SensorListRepository;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
-import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
+import pt.ipp.isep.dei.project.repository.*;
 
-import java.util.List;
+import java.util.Date;
 
 @Service
 public class SensorService {
@@ -25,17 +22,15 @@ public class SensorService {
     @Autowired
     private TypeSensorRepository typeSensorRepository;
 
+    @Autowired
+    private ReadingListRepository readingListRepository;
+
+    @Autowired
+    private ReadingRepository readingRepository;
+
     public void addSensor(Sensor sensorToAdd, SensorList sensorList) {
         sensorList.add(sensorToAdd);
         sensorToAdd.setSensorList(sensorList);
-        sensorRepository.save(sensorToAdd);
-    }
-
-    public void addSensorsToList(Sensor sensorToAdd, List<Sensor> sensorList) {
-        sensorList.add(sensorToAdd);
-        SensorList sensorList1 = new SensorList();
-        sensorList1.setSensors(sensorList);
-        sensorToAdd.setSensorList(sensorList1);
         sensorRepository.save(sensorToAdd);
     }
 
@@ -53,4 +48,16 @@ public class SensorService {
         sensor.setTypeSensor(typeSensor);
         typeSensorRepository.save(typeSensor);
     }
+
+    public void setReadingList(Sensor sensor, ReadingList readingList) {
+        sensor.setReadingList(readingList);
+        readingListRepository.save(readingList);
+    }
+
+    public boolean addReadingToMatchingSensor(SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+        sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate);
+        readingRepository.save(new Reading(readingValue, readingDate));
+        return true;
+    }
+
 }

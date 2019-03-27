@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -23,11 +24,18 @@ import java.util.logging.Logger;
 
 public class ReaderController {
 
+    @Autowired
+    SensorService sensorService2;
+
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
     private static final String VALID_DATE_FORMAT1 = "yyyy-MM-dd'T'HH:mm:ss'+00:00'";
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
+
+    public ReaderController(SensorService service) {
+        this.sensorService2 = service;
+    }
 
 
     // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
@@ -252,8 +260,9 @@ public class ReaderController {
      *
      * @return the number of readings added to the geographic area sensors
      **/
+    //TODO Teresa
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
-        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
         int addedReadings = 0;
         if (sensorList.isEmpty()) {
             return addedReadings;
@@ -282,6 +291,7 @@ public class ReaderController {
      *
      * @return 0 in case the reading was not added, 1 in case of success.
      ***/
+    //TODO Teresa
     int parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
@@ -292,7 +302,7 @@ public class ReaderController {
                 String sensorID = readings[0];
                 Date readingDate = pattern.parse(readings[1]);
                 Double readingValue = Double.parseDouble(readings[2]);
-                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
+                return addReadingToMatchingSensor(logger, sensorList, sensorService2, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -366,7 +376,7 @@ public class ReaderController {
                 String sensorID = reading.getString("id");
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
-                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
+                return addReadingToMatchingSensor(logger, sensorList, sensorService2, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -384,8 +394,9 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
-        if (logger.isLoggable(Level.WARNING) && sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
+    //TODO Teresa
+    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, SensorService service, String sensorID, Double readingValue, Date readingDate) {
+        if (logger.isLoggable(Level.WARNING) && service.addReadingToMatchingSensor(sensorList, sensorID, readingValue, readingDate)) {
             return 1;
         }
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
@@ -461,7 +472,7 @@ public class ReaderController {
                 String sensorID = element.getElementsByTagName("id").item(0).getTextContent();
                 Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
-                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
+                return addReadingToMatchingSensor(logger, sensorList, sensorService2, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;

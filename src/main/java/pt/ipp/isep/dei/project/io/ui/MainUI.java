@@ -102,6 +102,7 @@ public class MainUI {
             MockUI mockUI = new MockUI();
             mockUI.initializeMockUI();
             //TODO
+
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
 
             TypeSensorList mockTypeSensorList = null;

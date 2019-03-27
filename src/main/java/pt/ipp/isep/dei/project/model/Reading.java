@@ -17,8 +17,8 @@ public class Reading {
 
     //TODO verificar relacao
     @ManyToOne
-    @JoinColumn(name = "sensor_id")
-    private Sensor sensor;
+    @JoinColumn(name = "reading_list_id")
+    private ReadingList readingList;
 
     /**
      * Builder with 'value' and 'date'
@@ -33,6 +33,8 @@ public class Reading {
 
     protected Reading() {
     }
+
+    public void setReadingList(ReadingList readingList){}
 
     /**
      * getters e setters

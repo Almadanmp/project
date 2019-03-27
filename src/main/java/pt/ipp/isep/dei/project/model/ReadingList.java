@@ -14,7 +14,7 @@ public class ReadingList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "readingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reading> readings;
 
     /**

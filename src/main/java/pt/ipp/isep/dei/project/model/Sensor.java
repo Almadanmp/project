@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Represents a Sensor.
@@ -25,10 +24,6 @@ public class Sensor {
     private Local local;
 
     private Date dateStartedFunctioning;
-
-    //@OneToOne(mappedBy = "sensor",cascade = CascadeType.ALL)
-    @Transient
-    private List<Reading> readingList2;
 
     @OneToOne(cascade = CascadeType.ALL)
     private ReadingList readingList;
