@@ -3,11 +3,7 @@ package pt.ipp.isep.dei.project.reader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
-import pt.ipp.isep.dei.project.Services.SensorService;
-import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +26,6 @@ public class ReaderJSONGeographicAreas implements Reader {
         }
         return new JSONArray();
     }
-
 
 
 }

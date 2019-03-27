@@ -2,8 +2,11 @@ package pt.ipp.isep.dei.project.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.SensorList;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
+import pt.ipp.isep.dei.project.repository.SensorRepository;
 
 import java.util.Date;
 
@@ -11,48 +14,11 @@ import java.util.Date;
 public class SensorService {
 
     @Autowired
-    private SensorListRepository sensorListRepository;
-
-    @Autowired
     private SensorRepository sensorRepository;
-
-    @Autowired
-    private LocalRepository localRepository;
-
-    @Autowired
-    private TypeSensorRepository typeSensorRepository;
-
-    @Autowired
-    private ReadingListRepository readingListRepository;
 
     @Autowired
     private ReadingRepository readingRepository;
 
-    public void addSensor(Sensor sensorToAdd, SensorList sensorList) {
-        sensorList.add(sensorToAdd);
-        sensorToAdd.setSensorList(sensorList);
-        sensorRepository.save(sensorToAdd);
-    }
-
-    public void addSensorLocalization(Sensor sensor, Local local) {
-        sensor.setLocal(local);
-        localRepository.save(local);
-    }
-
-    public void setSensorList(GeographicArea geographicArea, SensorList sensorList) {
-        geographicArea.setSensorList(sensorList);
-        sensorListRepository.save(sensorList);
-    }
-
-    public void setSensorType(Sensor sensor, TypeSensor typeSensor) {
-        sensor.setTypeSensor(typeSensor);
-        typeSensorRepository.save(typeSensor);
-    }
-
-    public void setReadingList(Sensor sensor, ReadingList readingList) {
-        sensor.setReadingList(readingList);
-        readingListRepository.save(readingList);
-    }
 
     public boolean addReadingToMatchingSensor(SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
         sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate);

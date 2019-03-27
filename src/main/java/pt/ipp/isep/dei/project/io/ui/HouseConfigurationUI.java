@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
@@ -24,13 +23,11 @@ class HouseConfigurationUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private final SensorService sensorService;
     private GeographicAreaList geographicAreaList;
-    private GeoAreaService geoAreaService;
 
-    HouseConfigurationUI(SensorService sensorService, GeographicAreaList geographicAreaList, GeoAreaService geoAreaService) {
+    HouseConfigurationUI(SensorService sensorService, GeographicAreaList geographicAreaList) {
         this.controller = new HouseConfigurationController();
         this.sensorService = sensorService;
         this.geographicAreaList = geographicAreaList;
-        this.geoAreaService = geoAreaService;
     }
 
     void run(House house, GeographicAreaList list) {
@@ -84,7 +81,7 @@ class HouseConfigurationUI {
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        if (!input.getInputPathJsonOrXML(result, geographicAreaList, sensorService)){
+        if (!input.getInputPathJsonOrXML(result, geographicAreaList, sensorService)) {
             System.out.println("The file isn't a JSON nor a XML file.");
         }
     }
