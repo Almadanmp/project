@@ -162,7 +162,7 @@ public class HouseMonitoringController {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings " +
                     "available.");
         }
-        return Math.floor(closestSensor.getAmplitudeValueFromDate(dateInput) * 10) / 10;
+        return Math.floor(closestSensor.getHighestAmplitudeInDate(dateInput) * 10) / 10;
     }
 
     /**

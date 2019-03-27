@@ -156,10 +156,10 @@ public class SensorList {
      *
      * @return a list with all readings from sensor list
      **/
-    public List<Reading> getReadings() {
-        List<Reading> finalList = new ArrayList<>();
+    public ReadingList getReadings() {
+        ReadingList finalList = new ReadingList();
         for (Sensor s : this.sensors) {
-            finalList = s.appendListNoDuplicates(finalList);
+            finalList.appendListNoDuplicates(s.getReadingList());
         }
         return finalList;
     }
@@ -232,8 +232,8 @@ public class SensorList {
      * @return returns value readings from every sensor from given day
      **/
     List<Double> getValuesOfSpecificDayReadings(Date day) {
-        List<Reading> readingList = getReadings();
-        return ReadingUtils.getValuesOfSpecificDayReadings(day, readingList);
+        ReadingList readingList = getReadings();
+        return readingList.getValuesOfSpecificDayReadings(day);
     }
 
     /**
