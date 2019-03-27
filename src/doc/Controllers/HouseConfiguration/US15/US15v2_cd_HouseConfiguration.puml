@@ -28,11 +28,11 @@ class ReaderJSONGeographicAreas
 class GeographicAreaList
 class GeographicArea
 class Sensor
-class InputUtils
+class InputHelperUI
 
 MainUI -- HouseConfigurationUI : >
-HouseConfigurationUI -- InputUtils : >
-InputUtils -- ReaderController : >
+HouseConfigurationUI -- InputHelperUI : >
+InputHelperUI -- ReaderController : >
 ReaderController -- Sensor : >
 ReaderController -- GeographicArea : >
 ReaderController -- GeographicAreaList : >
@@ -69,7 +69,7 @@ class GeographicAreaList{
 add();
 }
 
-class InputUtils{
+class InputHelperUI{
 getInputPathJsonOrXML(String, GeographicAreaList)
 }
 

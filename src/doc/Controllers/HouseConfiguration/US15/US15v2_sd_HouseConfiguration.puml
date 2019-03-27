@@ -27,22 +27,31 @@ skinparam component {
 
 actor Administrator
 Administrator -> HouseConfigurationUI: Import data from .json or .xml file
-HouseConfigurationUI -> InputUtils: getInputPathJsonOrXML();
-ref over InputUtils
+activate Administrator
+activate HouseConfigurationUI
+HouseConfigurationUI -> InputHelperUI: getInputPathJsonOrXML();
+activate InputHelperUI
+
+ref over InputHelperUI
 getInputPathJsonOrXML();
 end ref
 alt .json file
 
-ref over InputUtils
+ref over InputHelperUI
 .json file
 
 end ref
 else .xml file
-ref over InputUtils
+ref over InputHelperUI
 .xml file
 
 end
 end alt
-InputUtils --> HouseConfigurationUI: display feedback message.
+InputHelperUI --> HouseConfigurationUI: display feedback message.
+deactivate InputHelperUI
+
+deactivate HouseConfigurationUI
 HouseConfigurationUI --> Administrator: display feedback message.
+deactivate Administrator
+
 @enduml

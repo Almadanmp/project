@@ -25,20 +25,42 @@ skinparam component {
 }
 
 
-InputUtils -> ReaderController: readFileXMLAndAddAreas(filePath)
+InputHelperUI -> ReaderController: readFileXMLAndAddAreas(filePath)
+activate InputHelperUI
+activate ReaderController
 ReaderController -> ReaderXML: readFile(filePath)
+activate ReaderXML
+deactivate ReaderController
+
 ReaderXML --> ReaderController: return Document
+deactivate ReaderXML
+
+activate ReaderController
 ReaderController->ReaderController:NodeList = getElementsByTagName("geographical_area")
 loop success
 ReaderController->ReaderController:readGeographicAreasXML(Node node)
 create "geoArea :GeographicArea"
 ReaderController -->> "geoArea :GeographicArea": create
+activate "geoArea :GeographicArea"
+deactivate ReaderController
+
 "geoArea :GeographicArea" --> ReaderController: return geoArea
+deactivate "geoArea :GeographicArea"
+activate ReaderController
 end loop
 
 loop success
 ReaderController -> GeographicAreaList: add(geoArea)
-return return true
+deactivate ReaderController
+activate GeographicAreaList
+
+GeographicAreaList-->ReaderController: return true
+deactivate GeographicAreaList
+
+activate ReaderController
+
 end loop
-ReaderController --> InputUtils: return int
+ReaderController --> InputHelperUI: return int
+deactivate ReaderController
+
 @enduml

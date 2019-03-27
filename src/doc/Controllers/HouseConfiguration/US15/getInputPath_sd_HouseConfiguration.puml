@@ -28,14 +28,25 @@ skinparam component {
 
 actor Administrator
 
-HouseConfigurationUI -> InputUtils: getInputPathJsonOrXML()
-InputUtils -> Administrator: Ask user for input.
-Administrator -> InputUtils: Input path.
+HouseConfigurationUI -> InputHelperUI: getInputPathJsonOrXML()
+activate InputHelperUI
+InputHelperUI -> Administrator: Ask user for input.
+deactivate InputHelperUI
+
+activate Administrator
+
+Administrator -> InputHelperUI: Input path.
+deactivate Administrator
+
+activate InputHelperUI
+
 alt if path is valid (ends with .json or .xml and exists)
- InputUtils-->HouseConfigurationUI: return true
+ InputHelperUI-->HouseConfigurationUI: return true
 else if path is invalid
 loop
-InputUtils -> Administrator: Ask user for input.
+InputHelperUI -> Administrator: Ask user for input.
+activate Administrator
+deactivate InputHelperUI
 end loop
 end
 @enduml
