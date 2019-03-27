@@ -15,22 +15,22 @@ public class GeographicArea {
     private Long id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "type_area_id")
     private TypeArea typeArea;
 
     private double length;
     private double width;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mother_area_id")
     private GeographicArea motherArea;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "local_id")
     private Local location;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private SensorList areaSensors;
 
     private String description;

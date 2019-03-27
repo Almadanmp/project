@@ -432,8 +432,8 @@ public class InputHelperUI {
     /**
      * Reads either a .json ou a .xml path
      *
-     * @param input   - input of user
-     * @param list     - the GeographicAreaList provided
+     * @param input - input of user
+     * @param list  - the GeographicAreaList provided
      */
     public boolean getInputPathJsonOrXML(String input, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
         ReaderController controller = new ReaderController(sensorService);
@@ -444,7 +444,7 @@ public class InputHelperUI {
             return true;
         }
         if (input.endsWith(".xml")) {
-            int areas = controller.readFileXMLAndAddAreas(filePath, list, sensorService, geoAreaService);
+            int areas = controller.readFileXMLAndAddAreas(filePath, list);
             System.out.println(areas + " Geographic Areas have been successfully imported.");
             return true;
         }
@@ -456,8 +456,7 @@ public class InputHelperUI {
      * a .csv, .xml or .json.
      *
      * @return the file path as a String
-     *
-     * **/
+     **/
     public String getInputFileLocation() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the file you want to import: ");
@@ -474,7 +473,7 @@ public class InputHelperUI {
      * (i.e. is either a .xml, .csv, .json file)
      *
      * @return true if the path is valid, false otherwise
-     * **/
+     **/
     private boolean pathIsValid(String path) {
         return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
     }

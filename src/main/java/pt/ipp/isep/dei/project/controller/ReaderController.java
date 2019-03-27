@@ -162,14 +162,14 @@ public class ReaderController {
      * @param filePath path to the xml file
      * @param list     geographic area list to add the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list) {
         ReaderXML reader = new ReaderXML();
         int result = 0;
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i), sensorService, geoAreaService))) {
+            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i)))) {
                 result++;
             }
         }
@@ -182,7 +182,7 @@ public class ReaderController {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    private GeographicArea readGeographicAreasXML(Node node, SensorService sensorService, GeoAreaService geoAreaService) {
+    private GeographicArea readGeographicAreasXML(Node node) {
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -193,18 +193,17 @@ public class ReaderController {
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
-            geoAreaService.addGeoAreaLocal(geoArea, local);
             TypeArea typeArea = new TypeArea(getTagValue("type", element)); // TODO - type areas need to be added to the local list
-            geoAreaService.setTypeArea(geoArea, typeArea);
             geoArea = new GeographicArea(id, typeArea, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
-            sensorService.setSensorList(geoArea, sensorList);
             for (int j = 0; j < nListSensor.getLength(); j++) {
-                Sensor s = readSensorsXML(nListSensor.item(j), sensorService);
-                sensorService.addSensor(s, sensorList);
+                sensorList.add(readSensorsXML(nListSensor.item(j), sensorList));
             }
+            geoArea.setSensorList(sensorList);
+
+
         }
         return geoArea;
     }
@@ -215,7 +214,7 @@ public class ReaderController {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private Sensor readSensorsXML(Node node, SensorService sensorService) {
+    private Sensor readSensorsXML(Node node, SensorList sensorList) {
         Sensor sensor = new Sensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -223,12 +222,10 @@ public class ReaderController {
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
             TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element)); //TODO - type sensors need to be added to the local list
-            sensorService.setSensorType(sensor, typeSensor);
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
-            sensorService.addSensorLocalization(sensor, local);
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
@@ -236,6 +233,7 @@ public class ReaderController {
                 ignored.getErrorOffset();
             }
             sensor = new Sensor(id, name, typeSensor, local, date);
+            sensor.setSensorList(sensorList);
         }
         return sensor;
     }

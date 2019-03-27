@@ -15,11 +15,11 @@ public class Sensor {
     private String id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "type_sensor_id")
     private TypeSensor typeSensor;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "local_id")
     private Local local;
 
@@ -28,7 +28,7 @@ public class Sensor {
     @OneToOne(cascade = CascadeType.ALL)
     private ReadingList readingList;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_list_id")
     private SensorList sensorList;
 
