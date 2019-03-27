@@ -56,7 +56,10 @@ public class SensorService {
 
     public boolean addReadingToMatchingSensor(SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
         sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate);
-        readingRepository.save(new Reading(readingValue, readingDate));
+        Sensor sensor = sensorRepository.findById(sensorID).get();
+        Reading reading = new Reading(readingValue, readingDate);
+        reading.setReadingList(sensor.getReadingList());
+        readingRepository.save(reading);
         return true;
     }
 

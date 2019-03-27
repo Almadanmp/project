@@ -34,7 +34,9 @@ public class Reading {
     protected Reading() {
     }
 
-    public void setReadingList(ReadingList readingList){}
+    public void setReadingList(ReadingList readingList){
+        this.readingList = readingList;
+    }
 
     /**
      * getters e setters
