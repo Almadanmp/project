@@ -37,6 +37,15 @@ public class GeographicAreaList {
         geographicAreas = new ArrayList<>();
     }
 
+    public GeographicAreaList getAll(){
+        Iterable<GeographicArea> geographicAreas = this.geographicAreaRepository.findAll();
+        for(GeographicArea g : geographicAreas){
+            this.addGeographicArea(g);
+        }
+        return this;
+    }
+
+
     /**
      * Method that receives a geographic area as a parameter and adds that
      * GA to the list in case it is not contained in that list already.

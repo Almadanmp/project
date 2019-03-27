@@ -436,7 +436,7 @@ public class InputHelperUI {
      * @param list     - the GeographicAreaList provided
      */
     public boolean getInputPathJsonOrXML(String input, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
-        ReaderController controller = new ReaderController();
+        ReaderController controller = new ReaderController(sensorService);
         String filePath = getInputPath(input);
         if (input.endsWith(".json")) {
             int areasRead = controller.readJSONFileAndAddGeoAreas(filePath, list, sensorService, geoAreaService);

@@ -106,17 +106,17 @@ class HouseConfigurationUI {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String path = inputHelperUI.getInputFileLocation();
         if (path.endsWith(".csv")) {
-            readReadingsFromCSV(geographicAreaList, path, VALID_LOG_PATH);
+            readReadingsFromCSV(path, VALID_LOG_PATH);
         } else if (path.endsWith(".json")) {
             readReadingsFromJSON(geographicAreaList, path, VALID_LOG_PATH);
         } else if (path.endsWith(".xml")) {
             readReadingsFromXML(geographicAreaList, path, VALID_LOG_PATH);
         }
     }
-
-    private void readReadingsFromCSV(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
+    //TODO Teresa
+    private void readReadingsFromCSV(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController();
+        ReaderController ctrl = new ReaderController(sensorService);
         try {
             result = ctrl.readReadingsFromCSV(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -127,7 +127,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromJSON(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController();
+        ReaderController ctrl = new ReaderController(sensorService);
         try {
             result = ctrl.readReadingsFromJSON(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -138,7 +138,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromXML(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController();
+        ReaderController ctrl = new ReaderController(sensorService);
         try {
             result = ctrl.readReadingsFromXML(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
