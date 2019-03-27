@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 
 /**
@@ -201,14 +201,14 @@ public class GASettingsController {
 
     public GeographicAreaDTO inputArea(GeographicAreaList geographicAreaList) {
         Mapper mapper = new Mapper();
-        GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
         return mapper.geographicAreaToDTO(geographicArea);
     }
 
     public SensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO) {
         Mapper mapper = new Mapper();
         GeographicArea geographicArea = mapper.geographicAreaDTOToObject(geographicAreaDTO);
-        Sensor sensor = InputUtils.getInputSensorByList(geographicArea.getSensorList());
+        Sensor sensor = InputHelperUI.getInputSensorByList(geographicArea.getSensorList());
         return mapper.sensorToDTO(sensor);
     }
 

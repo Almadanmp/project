@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 
@@ -28,7 +28,7 @@ public class HouseMonitoringUI {
         System.out.println("--------------\n");
         while (!activeInput) {
             printOptionMessage();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS610(programHouse);
@@ -105,7 +105,7 @@ public class HouseMonitoringUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTOSensorListIsValid(room, house)) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
@@ -135,7 +135,7 @@ public class HouseMonitoringUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
         if (!(utilsUI.roomDTOSensorListIsValid(room, house))) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;

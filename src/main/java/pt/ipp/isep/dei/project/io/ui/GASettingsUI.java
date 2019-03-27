@@ -25,7 +25,7 @@ class GASettingsUI {
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS01();
@@ -81,7 +81,7 @@ class GASettingsUI {
         Mapper mapper = new Mapper();
         System.out.println("Please select the Geographic Area Type from the list: ");
         System.out.print(controller.getTypeAreaListRepository());
-        int aux = InputUtils.getInputAsInt();
+        int aux = InputHelperUI.getInputAsInt();
         TypeAreaDTO typeAreaDTO = mapper.typeAreaToDTO(controller.getTypeAreaById(aux));
         System.out.println("You have chosen the following Geographic Area Type:");
         System.out.println("TypeArea: " + controller.getTypeAreaName(typeAreaDTO));
@@ -152,7 +152,7 @@ class GASettingsUI {
         String geoAreDescription = null;
         LocalDTO localDTO = controller.createLocalDTO(geoAreaLat, geoAreaLong, geoAreaAlt);
         GeographicAreaDTO geoAreaDTO = controller.createGeoAreaDTO(nameOfGeoArea, geoTypeAreaDTO, localDTO, geoAreaLength, geoAreaWidth);
-        if (InputUtils.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
+        if (InputHelperUI.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
             geoAreaDTO.setDescription(geoAreDescription);
@@ -189,12 +189,12 @@ class GASettingsUI {
 
     private double readInputNumber(String inputType) {
         System.out.print(createInputMsg(inputType));
-        return InputUtils.getInputAsDouble();
+        return InputHelperUI.getInputAsDouble();
     }
 
     private double readInputPositiveNumber(String inputType) {
         System.out.print(createInputMsg(inputType));
-        return InputUtils.getInputAsDoublePositive();
+        return InputHelperUI.getInputAsDoublePositive();
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
@@ -236,12 +236,12 @@ class GASettingsUI {
 
     private GeographicArea getInputMotherGeographicArea(GeographicAreaList programGAList) {
         System.out.println("First you need to select the geographic area you wish to set as container.");
-        return InputUtils.getGeographicAreaByList(programGAList);
+        return InputHelperUI.getGeographicAreaByList(programGAList);
     }
 
     private GeographicArea getInputDaughterGeographicArea(GeographicAreaList programGAList) {
         System.out.println("Second you need to select the geographic area you wish to set as contained.");
-        return InputUtils.getGeographicAreaByList(programGAList);
+        return InputHelperUI.getGeographicAreaByList(programGAList);
     }
 
     private void updateStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {
@@ -273,7 +273,7 @@ class GASettingsUI {
      */
     private GeographicArea getMotherArea(GeographicAreaList geographicAreaList) {
         System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
-        return InputUtils.getGeographicAreaByList(geographicAreaList);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaList);
     }
 
     /**
@@ -282,7 +282,7 @@ class GASettingsUI {
      */
     private GeographicArea getDaughterArea(GeographicAreaList geographicAreaList) {
         System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
-        return InputUtils.getGeographicAreaByList(geographicAreaList);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaList);
     }
 
     /**

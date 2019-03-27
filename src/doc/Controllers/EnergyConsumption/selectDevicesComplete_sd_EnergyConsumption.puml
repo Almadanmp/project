@@ -2,8 +2,8 @@
 Actor PowerUser
 
 -> EnergyConsumptionUI: selectDevices
-EnergyConsumptionUI -> inputUtils: getInputDevice
-inputUtils --> EnergyConsumptionUI: return Device
+EnergyConsumptionUI -> inputHelperUI: getInputDevice
+inputHelperUI --> EnergyConsumptionUI: return Device
 EnergyConsumptionUI -> EnergyConsumptionController: listContainsDevice(selectedDevices, device)
 EnergyConsumptionController -> DeviceList: contains(device)
 DeviceList --> EnergyConsumptionUI: return true / false

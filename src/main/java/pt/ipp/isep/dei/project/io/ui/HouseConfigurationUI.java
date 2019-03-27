@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -42,7 +42,7 @@ class HouseConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printHouseConfigMenu();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS15v2();
@@ -81,7 +81,7 @@ class HouseConfigurationUI {
      */
 
     private void runUS15v2() {
-        InputUtils input = new InputUtils();
+        InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
@@ -103,8 +103,8 @@ class HouseConfigurationUI {
      * @param geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
     private void runUS20v2(GeographicAreaList geographicAreaList) {
-        InputUtils inputUtils = new InputUtils();
-        String path = inputUtils.getInputFileLocation();
+        InputHelperUI inputHelperUI = new InputHelperUI();
+        String path = inputHelperUI.getInputFileLocation();
         if (path.endsWith(".csv")) {
             readReadingsFromCSV(geographicAreaList, path, VALID_LOG_PATH);
         } else if (path.endsWith(".json")) {
@@ -153,7 +153,7 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("First select the geographic area where this house is located.");
-        GeographicArea motherArea = InputUtils.getGeographicAreaByList(geographicAreaList);
+        GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
 
         // get house address
         System.out.print("Please, type the street where the house is located: ");
@@ -169,15 +169,15 @@ class HouseConfigurationUI {
 
         //get latitude
         System.out.print("Please, type the latitude: ");
-        double houseLat = InputUtils.getInputAsDouble();
+        double houseLat = InputHelperUI.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the longitude: ");
-        double houseLon = InputUtils.getInputAsDouble();
+        double houseLon = InputHelperUI.getInputAsDouble();
 
         // get longitude
         System.out.print("Please, type the altitude: ");
-        double houseAlt = InputUtils.getInputAsDouble();
+        double houseAlt = InputHelperUI.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
         controller.setHouseAddress(street, zip, town, house);
@@ -213,17 +213,17 @@ class HouseConfigurationUI {
 
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
-        this.roomHouseFloor = InputUtils.getInputAsInt();
+        this.roomHouseFloor = InputHelperUI.getInputAsInt();
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        this.roomWidth = InputUtils.getInputAsDoublePositive();
+        this.roomWidth = InputHelperUI.getInputAsDoublePositive();
 
         System.out.println("Please insert your room's length in meters: ");
-        this.roomLength = InputUtils.getInputAsDoublePositive();
+        this.roomLength = InputHelperUI.getInputAsDoublePositive();
 
         System.out.println("Please insert your room's height in meters: ");
-        this.roomHeight = InputUtils.getInputAsDoublePositive();
+        this.roomHeight = InputHelperUI.getInputAsDoublePositive();
     }
 
     private Room createNewRoom(House house) {

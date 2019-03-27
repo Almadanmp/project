@@ -21,7 +21,7 @@ import java.util.Scanner;
 /**
  * Utility class that aggregates common INPUT methods used by the UI classes.
  */
-public class InputUtils {
+public class InputHelperUI {
 
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
     private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";

@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
@@ -26,7 +26,7 @@ class EnergyGridSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printEnergyGridMenu();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US130
                     runUS130(house);
@@ -74,7 +74,7 @@ class EnergyGridSettingsUI {
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
-        double power = InputUtils.getInputAsDoubleZeroOrPositive();
+        double power = InputHelperUI.getInputAsDoubleZeroOrPositive();
         return controller.createEnergyGrid(programHouse, name, power);
     }
 
@@ -93,7 +93,7 @@ class EnergyGridSettingsUI {
      */
     private void runUS135(House house) {
         if (!house.isEnergyGridListEmpty()) {
-            EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
+            EnergyGrid energyGrid = InputHelperUI.getInputGridByList(house);
             PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
             updateGridAndDisplayState(energyGrid, powerSource);
         } else {
@@ -106,10 +106,10 @@ class EnergyGridSettingsUI {
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum power output of this power source.");
-        double maxPowerOutput = InputUtils.getInputAsDoubleZeroOrPositive();
+        double maxPowerOutput = InputHelperUI.getInputAsDoubleZeroOrPositive();
         System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
                 "power source can't storage any energy).");
-        double maxEnergyStorage = InputUtils.getInputAsDoubleZeroOrPositive();
+        double maxEnergyStorage = InputHelperUI.getInputAsDoubleZeroOrPositive();
         return controller.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
     }
 
@@ -130,7 +130,7 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
+        EnergyGrid energyGrid = InputHelperUI.getInputGridByList(house);
         displayRoomList(energyGrid);
 
     }
@@ -150,8 +150,8 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
-        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
+        EnergyGrid energyGrid = InputHelperUI.getInputGridByList(house);
         updateGridUS147(energyGrid, room, house);
     }
 
@@ -170,12 +170,12 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
+        EnergyGrid energyGrid = InputHelperUI.getInputGridByList(house);
         if (energyGrid.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputUtils.getGridRoomByList(energyGrid);
+        Room room = InputHelperUI.getGridRoomByList(energyGrid);
         updateGridUS149(energyGrid, room);
     }
 
@@ -196,7 +196,7 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid energyGrid = InputUtils.getInputGridByList(house);
+        EnergyGrid energyGrid = InputHelperUI.getInputGridByList(house);
         if (energyGrid.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;

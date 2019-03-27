@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -35,7 +35,7 @@ class EnergyConsumptionUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS172(programHouse);
@@ -75,20 +75,20 @@ class EnergyConsumptionUI {
     }
 
     // USER STORY 172 - As a Power User [or Administrator], I want to know the total nominal power
-    //connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
-    //in the grid.
+    // connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
+    // in the grid.
 
     private void runUS172(House house) {
         if (house.isEnergyGridListEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid mEnergyGrid = InputUtils.getInputGridByList(house);
-        if (mEnergyGrid.isRoomListEmpty()) {
+        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
+        if (grid.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        double nominalPower = updateUS172(mEnergyGrid);
+        double nominalPower = updateUS172(grid);
         displayUS172(nominalPower);
     }
 
@@ -99,7 +99,7 @@ class EnergyConsumptionUI {
 
     private void displayUS172(Double nomPower) {
         System.out.println(" The sum of the Nominal Power of all the devices connected to this Energy Grid is " + nomPower + " kW.\n");
-        InputUtils.returnToMenu(returnToConsole);
+        InputHelperUI.returnToMenu(returnToConsole);
     }
 
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
@@ -110,7 +110,7 @@ class EnergyConsumptionUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid grid = InputUtils.getInputGridByList(programHouse);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(programHouse);
         RoomList selectedRooms = new RoomList();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
@@ -119,7 +119,7 @@ class EnergyConsumptionUI {
                     "\n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; " +
                     "\n 4) Return to main menu;\n ");
             int option;
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
                     allRoomDevicesSelection(grid, selectedRooms, selectedDevices);
@@ -130,7 +130,7 @@ class EnergyConsumptionUI {
                 case 3:
                     printSelection(selectedDevices, selectedRooms);
                     printSelectionNominalPower(selectedDevices);
-                    InputUtils.returnToMenu(returnToConsole);
+                    InputHelperUI.returnToMenu(returnToConsole);
                     break;
                 case 4:
                     return;
@@ -183,11 +183,11 @@ class EnergyConsumptionUI {
      */
 
     private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
-        Room r1 = InputUtils.getGridRoomByList(grid);
+        Room r1 = InputHelperUI.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to removeGeographicArea it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
-            if (InputUtils.yesOrNo(duplicateRoom)) {
+            if (InputHelperUI.yesOrNo(duplicateRoom)) {
                 controller.removeRoomFromList(r1, selectedRooms);
                 controller.removeRoomDevicesFromDeviceList(r1, selectedDevices);
                 System.out.println("The room and its devices have been deselected.");
@@ -207,11 +207,11 @@ class EnergyConsumptionUI {
      */
 
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
-        Device d1 = InputUtils.getGridDevicesByList(grid);
+        Device d1 = InputHelperUI.getGridDevicesByList(grid);
         if (selectedDevices.containsDevice(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
             System.out.println(duplicateDevice);
-            if (InputUtils.yesOrNo(duplicateDevice)) {
+            if (InputHelperUI.yesOrNo(duplicateDevice)) {
                 controller.removeDeviceFromList(d1, selectedDevices);
                 System.out.println("The device has been deselected.");
             }
@@ -231,7 +231,7 @@ class EnergyConsumptionUI {
     private boolean continuePrompt() {
         String prompt = "Would you like to continue choosing? (y/n)";
         System.out.println(prompt);
-        return InputUtils.yesOrNo(prompt);
+        return InputHelperUI.yesOrNo(prompt);
     }
 
     /**
@@ -260,12 +260,12 @@ class EnergyConsumptionUI {
 
     private void runUS720(House house) {
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = InputUtils.getHouseRoomDTOByList(house);
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTODeviceListIsValid(room, house)) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        Device device = InputUtils.getInputRoomDTODevicesByList(room, house);
+        Device device = InputHelperUI.getInputRoomDTODevicesByList(room, house);
         if (device.isLogListEmpty()) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -288,7 +288,7 @@ class EnergyConsumptionUI {
         if (programHouse.isRoomListEmpty()) {
             System.out.print(UtilsUI.INVALID_ROOM_LIST);
         }
-        Room room = InputUtils.getHouseRoomByList(programHouse);
+        Room room = InputHelperUI.getHouseRoomByList(programHouse);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
@@ -307,7 +307,7 @@ class EnergyConsumptionUI {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
             return;
         }
-        EnergyGrid eGrid = InputUtils.getInputGridByList(programHouse);
+        EnergyGrid eGrid = InputHelperUI.getInputGridByList(programHouse);
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
         System.out.println("Please insert the date at which you want to start the interval.");
@@ -326,7 +326,7 @@ class EnergyConsumptionUI {
 
     private void runUS730(House programHouse) {
         this.printUS730Menu();
-        int option = InputUtils.getInputAsInt();
+        int option = InputHelperUI.getInputAsInt();
         switch (option) {
             case 1:
                 setGridData(programHouse);
@@ -345,7 +345,7 @@ class EnergyConsumptionUI {
     }
 
     private void setGridData(House programHouse) {
-        EnergyGrid grid = InputUtils.getInputGridByList(programHouse);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(programHouse);
         System.out.println(INSERT_START_DATE);
         Date startDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println(INSERT_END_DATE);
@@ -356,7 +356,7 @@ class EnergyConsumptionUI {
     }
 
     private void setRoomData(House programHouse) {
-        RoomDTO case2Room = InputUtils.getHouseRoomDTOByList(programHouse);
+        RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, programHouse);
@@ -364,8 +364,8 @@ class EnergyConsumptionUI {
     }
 
     private void setDeviceData(House programHouse) {
-        RoomDTO case3Room = InputUtils.getHouseRoomDTOByList(programHouse);
-        Device device = InputUtils.getInputRoomDTODevicesByList(case3Room, programHouse);
+        RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(programHouse);
+        Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, programHouse);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);
@@ -398,9 +398,9 @@ class EnergyConsumptionUI {
         for (Device d : waterHeaters) {
             System.out.println("Water Heater name: " + controller.getWHName(d) + ".\n");
             System.out.println("Please insert the cold water temperature for Water Heater " + controller.getWHName(d) + ":");
-            double coldWaterTemperature = InputUtils.getInputAsDouble();
+            double coldWaterTemperature = InputHelperUI.getInputAsDouble();
             System.out.println("Please insert the volume of water to heat for Water Heater " + d.getName() + ":");
-            double volumeWaterToHeat = InputUtils.getInputAsDouble();
+            double volumeWaterToHeat = InputHelperUI.getInputAsDouble();
             boolean configResult = controller.configureWH(d, coldWaterTemperature, volumeWaterToHeat);
             if (!configResult) {
                 System.out.println("Error: unable to set parameters. Returning to Main Menu.");

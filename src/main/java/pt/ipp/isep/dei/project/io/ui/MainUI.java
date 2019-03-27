@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
@@ -146,7 +146,7 @@ public class MainUI {
                 boolean activeInput = true;
 
                 while (activeInput) {
-                    option = InputUtils.getInputAsInt();
+                    option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(typeAreaList, geographicAreaList);

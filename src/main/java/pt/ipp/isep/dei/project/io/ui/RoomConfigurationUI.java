@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -36,7 +36,7 @@ class RoomConfigurationUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printRoomConfigMenu();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US201
                     runUS201(house);
@@ -88,7 +88,7 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputUtils.getHouseRoomByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
@@ -113,8 +113,8 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputUtils.getHouseRoomByList(house);
-        DeviceType deviceType = InputUtils.getInputDeviceTypeByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
+        DeviceType deviceType = InputHelperUI.getInputDeviceTypeByList(house);
         createDevice(room, deviceType);
     }
 
@@ -131,11 +131,11 @@ class RoomConfigurationUI {
         List<String> deviceAttributes = controller.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));
-            Double value = InputUtils.getInputAsDoublePositive();
+            Double value = InputHelperUI.getInputAsDoublePositive();
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
-        controller.setNominalPowerDevice(device, InputUtils.getInputAsDoubleZeroOrPositive());
+        controller.setNominalPowerDevice(device, InputHelperUI.getInputAsDoubleZeroOrPositive());
 
         createProgram(device);
         if (controller.addDevice(room, device)) {
@@ -168,12 +168,12 @@ class RoomConfigurationUI {
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
     private void runUS215(House house) {
-        Room room = InputUtils.getHouseRoomByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        Device device = InputUtils.getInputRoomDevicesByList(room);
+        Device device = InputHelperUI.getInputRoomDevicesByList(room);
         getInputDeviceCharacteristicsUS215(device, room, house);
     }
 
@@ -189,17 +189,17 @@ class RoomConfigurationUI {
         //get room
         controller.removeDevice(room, device);
         Room room1;
-        room1 = InputUtils.getHouseRoomByList(house);
+        room1 = InputHelperUI.getHouseRoomByList(house);
         controller.addDevice(room1, device);
         List<String> attributeNames = controller.getAttributeNames(device);
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
                     + " (" + controller.getAttributeUnit(device, i) + ")");
-            Double value = InputUtils.getInputAsDoublePositive();
+            Double value = InputHelperUI.getInputAsDoublePositive();
             controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
-        controller.setNominalPowerDevice(device, InputUtils.getInputAsDoubleZeroOrPositive());
+        controller.setNominalPowerDevice(device, InputHelperUI.getInputAsDoubleZeroOrPositive());
         if (device instanceof Programmable) {
             System.out.println("This device is programmable.");
             ProgramList programList = controller.getProgramList((Programmable) device);
@@ -207,7 +207,7 @@ class RoomConfigurationUI {
                 System.out.println(UtilsUI.INVALID_PROGRAM_LIST);
                 return;
             }
-            FixedTimeProgram program = InputUtils.getSelectedProgramFromDevice((Programmable) device);
+            FixedTimeProgram program = InputHelperUI.getSelectedProgramFromDevice((Programmable) device);
             configureAProgrammableDevice(program, programList, (Programmable) device);
             controller.configureDeviceProgramList(device, programList);
         }
@@ -252,15 +252,15 @@ class RoomConfigurationUI {
     // enters a loop if the user chooses to edit another program of the existing programs in the list. (us215)
     private void loopForEditingProgram(String message, Programmable device) {
         FixedTimeProgram program;
-        while (InputUtils.yesOrNo(message)) {
-            program = InputUtils.getSelectedProgramFromDevice(device);
+        while (InputHelperUI.yesOrNo(message)) {
+            program = InputHelperUI.getSelectedProgramFromDevice(device);
             loopForPrograms(program);
         }
     }
 
     // enters a loop if the user chooses to add another program. (us210)
     private void loopForCreatingProgram(String message, ProgramList programList) {
-        while (InputUtils.yesOrNo(message)) {
+        while (InputHelperUI.yesOrNo(message)) {
             loopForCreatingPrograms(programList);
         }
     }
@@ -281,7 +281,7 @@ class RoomConfigurationUI {
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
                     + " (" + controller.getProgramAttributeUnit(program2, i) + ")");
-            Double value = InputUtils.getInputAsDoublePositive();
+            Double value = InputHelperUI.getInputAsDoublePositive();
             controller.setProgramAttributeValue(program2, i, value);
         }
     }
@@ -314,12 +314,12 @@ class RoomConfigurationUI {
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
     private void runUS222(House house) {
-        Room room = InputUtils.getHouseRoomByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        Device device = InputUtils.getInputRoomDevicesByList(room);
+        Device device = InputHelperUI.getInputRoomDevicesByList(room);
         updateStateUS222(device);
     }
 
@@ -337,7 +337,7 @@ class RoomConfigurationUI {
      * room.
      **/
     private void runUS230(House house) {
-        Room room = InputUtils.getHouseRoomByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
         getRoomNominalPower(room);
     }
 
@@ -350,7 +350,7 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
     private void runUS250(House house) {
-        Room room = InputUtils.getHouseRoomByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
         displaySensorListUS250(room);
     }
 
@@ -375,8 +375,8 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
-        Room room = InputUtils.getHouseRoomByList(house);
-        TypeSensor typeSensor = InputUtils.getInputSensorTypeByList(typeSensorList);
+        Room room = InputHelperUI.getHouseRoomByList(house);
+        TypeSensor typeSensor = InputHelperUI.getInputSensorTypeByList(typeSensorList);
         getInput253(room, typeSensor, typeSensorList);
     }
 
@@ -427,12 +427,12 @@ class RoomConfigurationUI {
     Its activity log is also removed.
     MARIA MEIRELES*/
     private void runUS220(House house) {
-        Room room = InputUtils.getHouseRoomByList(house);
+        Room room = InputHelperUI.getHouseRoomByList(house);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        Device device = InputUtils.getInputRoomDevicesByList(room);
+        Device device = InputHelperUI.getInputRoomDevicesByList(room);
         removeDeviceUS220(device, room);
     }
 

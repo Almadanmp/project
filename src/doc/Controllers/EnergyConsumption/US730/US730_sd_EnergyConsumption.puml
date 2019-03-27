@@ -4,19 +4,19 @@ actor PowerUser
 PowerUser -> EnergyConsumptionUI: runUS730
 alt EnergyGrid
 activate EnergyConsumptionUI
-EnergyConsumptionUI -> inputUtils
-ref over inputUtils
+EnergyConsumptionUI -> inputHelperUI
+ref over inputHelperUI
 selectGrid
 end ref
-activate inputUtils
-ref over inputUtils
+activate inputHelperUI
+ref over inputHelperUI
 selectInitialTime
 end ref
-ref over inputUtils
+ref over inputHelperUI
 selectFinalTime
 end ref
 EnergyConsumptionUI -> EnergyConsumptionController: getGridLogsInInterval(grid)
-deactivate inputUtils
+deactivate inputHelperUI
 activate EnergyConsumptionController
 EnergyConsumptionController -> EnergyGrid: getLogsInInterval
 activate EnergyGrid
@@ -27,19 +27,19 @@ EnergyGrid --> EnergyConsumptionUI: return LogList
 deactivate EnergyGrid
 deactivate EnergyConsumptionController
 else Room
-EnergyConsumptionUI -> inputUtils
-activate inputUtils
-ref over inputUtils
+EnergyConsumptionUI -> inputHelperUI
+activate inputHelperUI
+ref over inputHelperUI
 select Room
 end ref
-ref over inputUtils
+ref over inputHelperUI
 selectInitialTime
 end ref
-ref over inputUtils
+ref over inputHelperUI
 selectFinalTime
 end ref
 EnergyConsumptionUI -> EnergyConsumptionController: getRoomLogsInInterval(room)
-deactivate inputUtils
+deactivate inputHelperUI
 activate EnergyConsumptionController
 EnergyConsumptionController -> Room: getLogsInInterval;
 activate Room
@@ -50,22 +50,22 @@ Room --> EnergyConsumptionUI: return LogList;
 deactivate EnergyConsumptionController
 deactivate Room
 else Device
-EnergyConsumptionUI -> inputUtils
-activate inputUtils
-ref over inputUtils
+EnergyConsumptionUI -> inputHelperUI
+activate inputHelperUI
+ref over inputHelperUI
 selectRoom
 end ref
-ref over inputUtils
+ref over inputHelperUI
 selectDevice
 end ref
-ref over inputUtils
+ref over inputHelperUI
 selectInitialTime
 end ref
-ref over inputUtils
+ref over inputHelperUI
 selectFinalTime
 end ref
 EnergyConsumptionUI -> EnergyConsumptionController: getDeviceLogsInInterval(device)
-deactivate inputUtils
+deactivate inputHelperUI
 activate EnergyConsumptionController
 EnergyConsumptionController -> Device: getLogsInInterval
 activate Device

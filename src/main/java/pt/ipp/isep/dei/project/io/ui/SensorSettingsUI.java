@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
-import pt.ipp.isep.dei.project.io.ui.utils.InputUtils;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -29,7 +29,7 @@ class SensorSettingsUI {
         System.out.println("--------------\n");
         while (activeInput) {
             printOptionMessage();
-            option = InputUtils.getInputAsInt();
+            option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
                     runUS05();
@@ -68,9 +68,9 @@ class SensorSettingsUI {
 
     private TypeSensor getInput05() {
         System.out.print("Enter the sensor type's name: ");
-        String name = InputUtils.getInputStringAlphabetCharOnly();
+        String name = InputHelperUI.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
-        String unit = InputUtils.getInputStringAlphabetCharOnly();
+        String unit = InputHelperUI.getInputStringAlphabetCharOnly();
         return controller.createType(name, unit);
     }
 
@@ -126,7 +126,7 @@ class SensorSettingsUI {
         Scanner input = new Scanner(System.in);
 
         System.out.println("\nEnter the sensor type's name:\t");
-        String name = InputUtils.getInputStringAlphabetCharOnly();
+        String name = InputHelperUI.getInputStringAlphabetCharOnly();
 
         System.out.println("\nEnter the sensor type's unit of measurement:\t");
         String unit = input.nextLine();
@@ -137,13 +137,13 @@ class SensorSettingsUI {
     private Local getInputSensorLocal() {
         System.out.println("\nNow let's set its GPS localization\n");
         System.out.println("\nEnter the latitude:\t");
-        double latitude = InputUtils.getInputAsDouble();
+        double latitude = InputHelperUI.getInputAsDouble();
 
         System.out.println("\nEnter Longitude:\t");
-        double longitude = InputUtils.getInputAsDouble();
+        double longitude = InputHelperUI.getInputAsDouble();
 
         System.out.println("\nEnter Altitude:\t");
-        double altitude = InputUtils.getInputAsDouble();
+        double altitude = InputHelperUI.getInputAsDouble();
 
         return controller.createLocal(latitude, longitude, altitude);
     }
@@ -162,7 +162,7 @@ class SensorSettingsUI {
     }
 
     private void addSensor(Sensor sensor, GeographicAreaList geographicAreaList) {
-        GeographicArea geographicArea = InputUtils.getGeographicAreaByList(geographicAreaList);
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
         if (controller.addSensorToGeographicArea(sensor, geographicArea)) {
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {

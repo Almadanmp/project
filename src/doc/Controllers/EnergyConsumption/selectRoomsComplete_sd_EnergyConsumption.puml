@@ -3,8 +3,8 @@
 actor PowerUser
 
 -> EnergyConsumptionUI: selectRooms
-EnergyConsumptionUI -> inputUtils: getInputRoom(grid)
-inputUtils--> EnergyConsumptionUI: return room
+EnergyConsumptionUI -> inputHelperUI: getInputRoom(grid)
+inputHelperUI--> EnergyConsumptionUI: return room
 EnergyConsumptionUI -> EnergyConsumptionController: listContainsRoom(selectedRooms, room)
 EnergyConsumptionController -> RoomList: contains(room)
 RoomList --> EnergyConsumptionUI: return true / false

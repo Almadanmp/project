@@ -1,8 +1,8 @@
 @startuml
 actor PowerUser
 PowerUser -> EnergyConsumptionUI: runUS705
-EnergyConsumptionUI -> inputUtils: getInputGrid
-inputUtils --> EnergyConsumptionUI: return EnergyGrid
+EnergyConsumptionUI -> inputHelperUI: getInputGrid
+inputHelperUI --> EnergyConsumptionUI: return EnergyGrid
 EnergyConsumptionUI -> PowerUser: display selection options
 alt
 PowerUser -> EnergyConsumptionUI: selectRooms
