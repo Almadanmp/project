@@ -6,9 +6,20 @@
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+//import org.springframework.test.context.support.AnnotationConfigContextLoader;
+//import pt.ipp.isep.dei.project.Services.SensorService;
+//import pt.ipp.isep.dei.project.io.ui.MainUI;
 //import pt.ipp.isep.dei.project.model.*;
 //
-//import java.io.*;
+//import java.io.ByteArrayOutputStream;
+//import java.io.File;
+//import java.io.InputStream;
+//import java.io.PrintStream;
 //import java.text.ParseException;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
@@ -20,7 +31,10 @@
 ///**
 // * ReaderController test class.
 // */
-//
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@DataJpaTest
+//@ContextConfiguration(classes = {MainUI.class},
+//        loader = AnnotationConfigContextLoader.class)
 //class ReaderControllerTest {
 //
 //    // Common artifacts for testing in this class.
@@ -57,9 +71,12 @@
 //
 //    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 //
+//    @Autowired
+//    SensorService sensorService;
+//
 //    @BeforeEach
 //    void arrangeArtifacts() {
-//        validReader = new ReaderController();
+//        validReader = new ReaderController(sensorService);
 //        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
 //        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
 //        try {
@@ -113,7 +130,7 @@
 //    void setUpOutput() {
 //        ByteArrayOutputStream testOut = new ByteArrayOutputStream();
 //        System.setOut(new PrintStream(testOut));
-//    logger.setLevel(Level.WARNING);
+//        logger.setLevel(Level.WARNING);
 //    }
 //
 //    @AfterEach
@@ -686,8 +703,9 @@
 //
 //        assertEquals(actualResult, 0);
 //    }
+//
 //    @Test
-//    void seeIfReadFileXMLGeoAreaWorks(){
+//    void seeIfReadFileXMLGeoAreaWorks() {
 //        // Arrange
 //
 //        GeographicAreaList expectedResult = new GeographicAreaList();
@@ -701,7 +719,7 @@
 //        firstArea.setTypeArea(new TypeArea("urban area"));
 //        firstArea.setWidth(0.261);
 //        firstArea.setLength(0.249);
-//        firstArea.setLocation(new Local(41.178553,-8.608035,111));
+//        firstArea.setLocation(new Local(41.178553, -8.608035, 111));
 //        // First Sensor in First Area
 //
 //        Sensor firstAreaFirstSensor = new Sensor();
@@ -717,8 +735,8 @@
 //            e.printStackTrace();
 //        }
 //        firstAreaFirstSensor.setDateStartedFunctioning(date);
-//        firstAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall","l/m2"));
-//        firstAreaFirstSensor.setLocal(new Local(41.179230,-8.606409,125));
+//        firstAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall", "l/m2"));
+//        firstAreaFirstSensor.setLocal(new Local(41.179230, -8.606409, 125));
 //        firstArea.addSensor(firstAreaFirstSensor);
 //
 //        // Second sensor in First Area
@@ -727,8 +745,8 @@
 //        firstAreaSecondSensor.setId("TT12346");
 //        firstAreaSecondSensor.setName("Meteo station ISEP - temperature");
 //        firstAreaSecondSensor.setDateStartedFunctioning(date);
-//        firstAreaSecondSensor.setTypeSensor(new TypeSensor("temperature","C"));
-//        firstAreaSecondSensor.setLocal(new Local(41.179230,-8.606409,125));
+//        firstAreaSecondSensor.setTypeSensor(new TypeSensor("temperature", "C"));
+//        firstAreaSecondSensor.setLocal(new Local(41.179230, -8.606409, 125));
 //        firstArea.addSensor(firstAreaSecondSensor);
 //
 //        // Second Area
@@ -739,7 +757,7 @@
 //        secondArea.setTypeArea(new TypeArea("city"));
 //        secondArea.setWidth(10.09);
 //        secondArea.setLength(3.30);
-//        secondArea.setLocation(new Local(41.149935,-8.610857,118));
+//        secondArea.setLocation(new Local(41.149935, -8.610857, 118));
 //
 //        // First Sensor in Second Area
 //
@@ -754,8 +772,8 @@
 //            e.printStackTrace();
 //        }
 //        secondAreaFirstSensor.setDateStartedFunctioning(date2);
-//        secondAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall","l/m2"));
-//        secondAreaFirstSensor.setLocal(new Local(41.179230,-8.606409,139));
+//        secondAreaFirstSensor.setTypeSensor(new TypeSensor("rainfall", "l/m2"));
+//        secondAreaFirstSensor.setLocal(new Local(41.179230, -8.606409, 139));
 //        secondArea.addSensor(secondAreaFirstSensor);
 //
 //        // Second Sensor in Second Area
@@ -771,8 +789,8 @@
 //            e.printStackTrace();
 //        }
 //        secondAreaSecondSensor.setDateStartedFunctioning(date3);
-//        secondAreaSecondSensor.setTypeSensor(new TypeSensor("temperature","C"));
-//        secondAreaSecondSensor.setLocal(new Local(41.179230,-8.606409,139));
+//        secondAreaSecondSensor.setTypeSensor(new TypeSensor("temperature", "C"));
+//        secondAreaSecondSensor.setLocal(new Local(41.179230, -8.606409, 139));
 //        secondArea.addSensor(secondAreaSecondSensor);
 //
 //        // Populate expectedResult array
@@ -811,7 +829,7 @@
 //    }
 //
 //    @Test
-//    void seeIfReadFileXMLGeoAreaWorksZeroAreas(){
+//    void seeIfReadFileXMLGeoAreaWorksZeroAreas() {
 //        // Arrange
 //
 //        GeographicAreaList actualResult = new GeographicAreaList();
@@ -826,8 +844,9 @@
 //
 //        assertEquals(0, areasAdded);
 //    }
+//
 //    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat(){
+//    void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat() {
 //        // Arrange
 //        GeographicAreaList actualResult = new GeographicAreaList();
 //
@@ -860,8 +879,9 @@
 //        assertEquals(expectedArea, actualArea);
 //        assertEquals(expectedSensors, firstAreaSensors);
 //    }
+//
 //    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate(){
+//    void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate() {
 //        // Arrange
 //        GeographicAreaList actualResult = new GeographicAreaList();
 //
@@ -876,8 +896,9 @@
 //        assertEquals(2, areasAdded);
 //
 //    }
+//
 //    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithoutGeoAreas(){
+//    void seeIfReadFileXMLGeoAreaWorksWithoutGeoAreas() {
 //        // Arrange
 //        GeographicAreaList actualResult = new GeographicAreaList();
 //
@@ -891,8 +912,9 @@
 //
 //        assertEquals(0, areasAdded);
 //    }
+//
 //    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea(){
+//    void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
 //        // Arrange
 //        GeographicAreaList actualResult = new GeographicAreaList();
 //
