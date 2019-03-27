@@ -67,8 +67,10 @@ public class TypeAreaList {
     public String getAllAsString() {
         StringBuilder result = new StringBuilder("---------------\n");
         Iterable<TypeArea> typeAreas = typeAreaRepository.findAll();
+        int counter = 0;
         for (TypeArea ta : typeAreas) {
-            result.append(ta.getId()).append(") Name: ").append(ta.getName()).append(" \n");
+            counter++;
+            result.append(counter).append(") Name: ").append(ta.getName()).append(" \n");
         }
         result.append("---------------\n");
         return result.toString();

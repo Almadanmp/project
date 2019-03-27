@@ -56,8 +56,6 @@ class TypeAreaListTest {
         assertEquals(type1, firstValidType);
     }
 
-    //TODO This test works on intellij and Maven, but not on Sonarqube
-/*
     @Test
     void seeIfGetAllAsStringWorks() {
         // Arrange
@@ -70,7 +68,7 @@ class TypeAreaListTest {
         // Assert
         assertEquals(actualResult, expectedResult);
     }
-*/
+
 
     @Test
     void seeIfGetSizeRepository() {
