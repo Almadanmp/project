@@ -150,7 +150,7 @@ public class MainUI {
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(typeAreaList, geographicAreaList);
-                            view1.runGASettings(mockGeographicAreaList);
+                            view1.runGASettings();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

@@ -19,7 +19,7 @@ class GASettingsUI {
         this.geographicAreaList = geographicAreaList;
     }
 
-    void runGASettings(GeographicAreaList programGAList) {
+    void runGASettings() {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -36,19 +36,19 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS03(programGAList);
+                    runUS03();
                     activeInput = false;
                     break;
                 case 4:
-                    runUS04(programGAList);
+                    runUS04();
                     activeInput = false;
                     break;
                 case 5:
-                    runUS07(programGAList);
+                    runUS07();
                     activeInput = false;
                     break;
                 case 6:
-                    runUS08(programGAList);
+                    runUS08();
                     activeInput = false;
                     break;
                 case 7:
@@ -131,7 +131,7 @@ class GASettingsUI {
     }
 
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
-    private void runUS03(GeographicAreaList geographicAreaList) {
+    private void runUS03() {
         if (controller.getTypeAreaListSize() < 0) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
@@ -198,7 +198,7 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
-    private void runUS04(GeographicAreaList geographicAreaList) {
+    private void runUS04() {
         if (controller.getTypeAreaListSize() < 0) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
@@ -223,7 +223,7 @@ class GASettingsUI {
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
-    private void runUS07(GeographicAreaList geographicAreaList) {
+    private void runUS07() {
         if (geographicAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
@@ -257,7 +257,7 @@ class GASettingsUI {
 
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
-    private void runUS08(GeographicAreaList geographicAreaList) {
+    private void runUS08() {
         if (geographicAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
