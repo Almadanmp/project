@@ -7,7 +7,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.*;
@@ -51,11 +50,11 @@ public class ReaderController {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
         GeographicArea[] geographicAreasArray;
-        geographicAreasArray = readGeoAreasJSON(geoAreas, sensorService, geoAreaService);
+        geographicAreasArray = readGeoAreasJSON(geoAreas);
         return addGeoAreasToList(geographicAreasArray, list);
     }
 
@@ -84,29 +83,26 @@ public class ReaderController {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private GeographicArea[] readGeoAreasJSON(JSONArray geoAreas, SensorService sensorService, GeoAreaService geoAreaService) {
+    private GeographicArea[] readGeoAreasJSON(JSONArray geoAreas) {
         GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
-        GeographicArea areaObject = new GeographicArea();
         for (int i = 0; i < geoAreas.length(); i++) {
             JSONObject area = geoAreas.getJSONObject(i);
             JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
             String areaID = area.getString("id");
             String areaDescription = area.getString("description");
             TypeArea areaType = new TypeArea(area.getString("type"));
-            geoAreaService.setTypeArea(areaObject, areaType);
             double areaWidth = area.getDouble("width");
             double areaLength = (area.getDouble("length"));
             double areaLatitude = local.getDouble("latitude");
             double areaLongitude = local.getDouble("longitude");
             double areaAltitude = local.getDouble("altitude");
             Local location = new Local(areaLatitude,areaLongitude,areaAltitude);
-            geoAreaService.addGeoAreaLocal(areaObject, location);
-            areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
+            GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
             areaObject.setDescription(areaDescription);
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            SensorList areaSensorsList = readAreaSensorsJSON(areaSensors, sensorService);
-            sensorService.setSensorList(areaObject,areaSensorsList);
+            SensorList areaSensorsList = readAreaSensorsJSON(areaSensors);
+            areaObject.setSensorList(areaSensorsList);
         }
         return geographicAreasArray;
     }
@@ -119,7 +115,7 @@ public class ReaderController {
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private SensorList readAreaSensorsJSON(JSONArray areaSensors, SensorService sensorService) {
+    private SensorList readAreaSensorsJSON(JSONArray areaSensors) {
         List<Sensor> result = new ArrayList<>();
         SensorList sensorListObject = new SensorList();
         int entriesChecked = 0;
@@ -147,8 +143,7 @@ public class ReaderController {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             Sensor sensorObject = new Sensor(sensorId, sensorName, type,local , date);
-            sensorService.addSensorLocalization(sensorObject, local);
-            sensorService.setSensorType(sensorObject, type);
+            sensorObject.setSensorList(sensorListObject);
             result.add(sensorObject);
             entriesChecked++;
         }
@@ -258,7 +253,6 @@ public class ReaderController {
      *
      * @return the number of readings added to the geographic area sensors
      **/
-    //TODO Teresa
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
         SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
         int addedReadings = 0;
@@ -289,7 +283,6 @@ public class ReaderController {
      *
      * @return 0 in case the reading was not added, 1 in case of success.
      ***/
-    //TODO Teresa
     int parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
@@ -392,7 +385,6 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    //TODO Teresa
     int addReadingToMatchingSensor(Logger logger, SensorList sensorList, SensorService service, String sensorID, Double readingValue, Date readingDate) {
         if (logger.isLoggable(Level.WARNING) && service.addReadingToMatchingSensor(sensorList, sensorID, readingValue, readingDate)) {
             return 1;

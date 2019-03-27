@@ -84,7 +84,7 @@ class HouseConfigurationUI {
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        if (!input.getInputPathJsonOrXML(result, geographicAreaList, sensorService, geoAreaService)) {
+        if (!input.getInputPathJsonOrXML(result, geographicAreaList, sensorService, geoAreaService)){
             System.out.println("The file isn't a JSON nor a XML file.");
         }
     }
