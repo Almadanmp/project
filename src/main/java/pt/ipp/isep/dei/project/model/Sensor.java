@@ -28,8 +28,12 @@ public class Sensor {
 
     private Date dateStartedFunctioning;
 
-    @OneToMany(mappedBy = "sensor")
+    //@OneToOne(mappedBy = "sensor",cascade = CascadeType.ALL)
+    @Transient
     private List<Reading> readingList;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ReadingList readingList2;
 
     @ManyToOne
     @JoinColumn(name = "sensor_list_id")
@@ -43,6 +47,7 @@ public class Sensor {
      */
     public Sensor() {
         readingList = new ArrayList<>();
+        this.readingList2 = new ReadingList();
         this.active = true;
     }
 
@@ -62,6 +67,7 @@ public class Sensor {
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
         this.readingList = new ArrayList<>();
+        this.readingList2 = new ReadingList();
         this.active = true;
     }
 
@@ -81,6 +87,7 @@ public class Sensor {
         setTypeSensor(typeSensor);
         setDateStartedFunctioning(dateStartedFunctioning);
         this.readingList = new ArrayList<>();
+        this.readingList2 = new ReadingList();
         this.active = true;
     }
 
@@ -242,9 +249,9 @@ public class Sensor {
      * or false in case the reading already exists
      **/
     public boolean addReading(Reading reading) {
-        if (this.active && !readingList.contains(reading)) {
+        if (this.active && !readingList2.contains(reading)) {
             // readingRepository.save(reading);
-            return this.readingList.add(reading);
+            return this.readingList2.addReading(reading);
         }
         return false;
     }

@@ -11,7 +11,7 @@ public class Reading {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long iD;
+    private long id;
     private double value;
     private Date date;
 

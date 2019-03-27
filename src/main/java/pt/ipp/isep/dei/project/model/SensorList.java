@@ -16,7 +16,7 @@ public class SensorList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "sensorList")
+    @OneToMany(mappedBy = "sensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Sensor> sensors;
 
 
