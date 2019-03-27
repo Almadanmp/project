@@ -35,8 +35,9 @@ Mapper -- GeographicArea : >
 Mapper -- Sensor : >
 GASettingsController -- GeographicArea : >
 
+
 class GASettingsUI {
-runUS10(GeographicAreaList);
+runUS10();
 }
 
 class GASettingsController {
@@ -51,14 +52,14 @@ sensorDTOToObject();
 }
 
 class GeographicArea{
-add();
+getElementsAsArray()
+getName()
+add(sensor);
 }
 
 class InputUtils{
-getInputPath();
-getInputSensorByList(geographicArea.getSensorList();
 getGeographicAreaByList(geographicAreaList);
-
+getInputSensorByList(geographicArea.getSensorList();
 }
 
 class Sensor {

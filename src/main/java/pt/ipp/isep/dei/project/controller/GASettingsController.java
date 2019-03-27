@@ -186,6 +186,7 @@ public class GASettingsController {
             sensor.deactivateSensor();
             for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
                 if (g.getName().equals(geographicAreaDTO.getName())) {
+                    g.removeSensor(sensor);
                     g.addSensor(sensor);
                 }
             }
