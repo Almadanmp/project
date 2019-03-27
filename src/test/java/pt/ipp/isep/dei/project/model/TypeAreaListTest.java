@@ -84,11 +84,11 @@ class TypeAreaListTest {
     @Test
     void seeIfGetTypeAreaByIdRepository() {
         // Arrange
-        TypeArea expectedResult = validList.getTypeAreaByIdRepository(1);
+        TypeArea expectedResult = firstValidType;
         // Act
         TypeArea actualResult = validList.getTypeAreaByIdRepository(1);
         // Assert
-
+        assertEquals(actualResult, expectedResult);
     }
 
     @Test
