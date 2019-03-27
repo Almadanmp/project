@@ -48,6 +48,14 @@ class TypeAreaListTest {
         validList.addTypeArea(secondValidType);
     }
 
+    @Test
+    void seeIfCreateTypeAreaWorks() {
+        // Act
+        TypeArea type1 = validList.createTypeArea("Country");
+        // Assert
+        assertEquals(type1, firstValidType);
+
+    }
 
     @Test
     void seeIfPrintGAWholeList() {
