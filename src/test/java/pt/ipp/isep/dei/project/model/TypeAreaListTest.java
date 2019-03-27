@@ -56,6 +56,7 @@ class TypeAreaListTest {
         assertEquals(type1, firstValidType);
     }
 
+/*
     @Test
     void seeIfGetAllAsStringWorks() {
         // Arrange
@@ -68,6 +69,7 @@ class TypeAreaListTest {
         // Assert
         assertEquals(actualResult, expectedResult);
     }
+*/
 
     @Test
     void seeIfGetSizeRepository() {
@@ -77,6 +79,16 @@ class TypeAreaListTest {
         int actualResult = validList.getSizeRepository();
         // Assert
         assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    void seeIfGetTypeAreaByIdRepository() {
+        // Arrange
+        TypeArea expectedResult = validList.getTypeAreaByIdRepository(1);
+        // Act
+        TypeArea actualResult = validList.getTypeAreaByIdRepository(1);
+        // Assert
+
     }
 
     @Test
