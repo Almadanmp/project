@@ -52,7 +52,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS10(programGAList);
+                    runUS10();
                     activeInput = false;
                     break;
                 case 8:
@@ -300,9 +300,8 @@ class GASettingsUI {
     /**
      * This method deactivates a sensor selected from a list of sensor of an selected geographic area
      *
-     * @param geographicAreaList geographic area list
      */
-    private void runUS10(GeographicAreaList geographicAreaList) {
+    private void runUS10() {
         GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
         SensorDTO sensorDTO = controller.inputSensor(geographicAreaDTO);
         if (!controller.deactivateSensor(geographicAreaList, sensorDTO, geographicAreaDTO)) {
