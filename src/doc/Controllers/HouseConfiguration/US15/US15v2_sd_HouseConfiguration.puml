@@ -27,19 +27,22 @@ skinparam component {
 
 actor Administrator
 Administrator -> HouseConfigurationUI: Import data from .json or .xml file
-HouseConfigurationUI -> InputUtils: getInputPath();
+HouseConfigurationUI -> InputUtils: getInputPathJsonOrXML();
 ref over InputUtils
-getInputPath();
+getInputPathJsonOrXML();
 end ref
-HouseConfigurationUI -> HouseConfigurationController: readFile(filePath)
-HouseConfigurationController -> JSONReader: readFile(filePath)
-loop
-JSONReader -> GeographicArea: create();
-end loop
-GeographicArea --> JSONReader: return GeographicArea[]
-JSONReader -> HouseConfigurationController: return GeographicArea[]
-loop
-HouseConfigurationController -> GeographicAreaList: add(GeographicArea)
-end loop
-HouseConfigurationUI -> Administrator: display feedback message.
+alt .json file
+
+ref over InputUtils
+.json file
+
+end ref
+else .xml file
+ref over InputUtils
+.xml file
+
+end
+end alt
+InputUtils --> HouseConfigurationUI: display feedback message.
+HouseConfigurationUI --> Administrator: display feedback message.
 @enduml

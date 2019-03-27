@@ -46,6 +46,9 @@ public class SensorList {
         return false;
     }
 
+    public void setSensors(List<Sensor> sensors) {
+        this.sensors = sensors;
+    }
 
     /**
      * Method that goes through the sensor list and looks for the sensor

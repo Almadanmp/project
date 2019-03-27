@@ -32,6 +32,26 @@ public class ReaderController {
 
     // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
 
+
+    /**
+     * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
+     * from the data in the file.
+     *
+     * @param filePath is the absolute filepath of the .json file in the system.
+     * @param list     is the list of Geographic areas that comes from Main, since we still don't have a database, to which
+     *                 we want to add the imported geographic areas.
+     * @return is an array of data transfer geographic area objects created with the data in the .json file.
+     */
+
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
+        ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
+        JSONArray geoAreas = reader.readFile(filePath);
+        GeographicArea[] geographicAreasArray;
+        geographicAreasArray = readGeoAreasJSON(geoAreas, sensorService, geoAreaService);
+        return addGeoAreasToList(geographicAreasArray, list);
+    }
+
+
     /**
      * The given method receives a list of geographic areas and calls mapper to convert every DTO created upon reading
      * the json file, before adding the newly created Geographic Areas (and their sensors) to the list.
@@ -39,7 +59,7 @@ public class ReaderController {
      * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
      * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
      */
-    public int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
+    private int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
         int result = 0;
         for (GeographicArea area : fileAreas) {
             if (list.addGeographicArea(area)) {
@@ -50,45 +70,35 @@ public class ReaderController {
     }
 
     /**
-     * Method calls upon a ReaderJSONGeographicAreas class to read a given filepath.
-     *
-     * @param filePath is the filepath where the file we want to read is.
-     * @param list     is the list we want to import the data into.
-     * @return is the number of areas imported.
-     */
-
-    public int readJSONGeographicAreasFile(String filePath, GeographicAreaList list) {
-        ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
-        return reader.readFileAndAdd(filePath, list);
-    }
-
-    /**
      * Is the method that loads geographic areas from the .json file.
      *
      * @param geoAreas is the JSONArray corresponding to the list of geographic areas in the .json file.
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    public GeographicArea[] readGeoAreasJSON(JSONArray geoAreas) {
+    private GeographicArea[] readGeoAreasJSON(JSONArray geoAreas, SensorService sensorService, GeoAreaService geoAreaService) {
         GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
+        GeographicArea areaObject = new GeographicArea();
         for (int i = 0; i < geoAreas.length(); i++) {
             JSONObject area = geoAreas.getJSONObject(i);
             JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
             String areaID = area.getString("id");
             String areaDescription = area.getString("description");
             TypeArea areaType = new TypeArea(area.getString("type"));
+            geoAreaService.setTypeArea(areaObject, areaType);
             double areaWidth = area.getDouble("width");
             double areaLength = (area.getDouble("length"));
             double areaLatitude = local.getDouble("latitude");
             double areaLongitude = local.getDouble("longitude");
             double areaAltitude = local.getDouble("altitude");
-            GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, new Local(areaLatitude,
-                    areaLongitude, areaAltitude));
+            Local location = new Local(areaLatitude,areaLongitude,areaAltitude);
+            geoAreaService.addGeoAreaLocal(areaObject, location);
+            areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
             areaObject.setDescription(areaDescription);
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            List<Sensor> areaSensorsList = readAreaSensorsJSON(areaSensors);
-            areaObject.addSensors(areaSensorsList);
+            SensorList areaSensorsList = readAreaSensorsJSON(areaSensors, sensorService);
+            sensorService.setSensorList(areaObject,areaSensorsList);
         }
         return geographicAreasArray;
     }
@@ -101,8 +111,9 @@ public class ReaderController {
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private List<Sensor> readAreaSensorsJSON(JSONArray areaSensors) {
+    private SensorList readAreaSensorsJSON(JSONArray areaSensors, SensorService sensorService) {
         List<Sensor> result = new ArrayList<>();
+        SensorList sensorListObject = new SensorList();
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -120,16 +131,21 @@ public class ReaderController {
             }
             String sensorType = sensor.getString("type");
             String sensorUnits = sensor.getString("units");
+            TypeSensor type = new TypeSensor(sensorType, sensorUnits);
             JSONObject sensorLocal = areaSensor.getJSONObject("location");
             double sensorLatitude = sensorLocal.getDouble("latitude");
             double sensorLongitude = sensorLocal.getDouble("longitude");
             double sensorAltitude = sensorLocal.getDouble("altitude");
-            Sensor sensorObject = new Sensor(sensorId, sensorName, new TypeSensor(sensorType, sensorUnits), new Local(sensorLatitude,
-                    sensorLongitude, sensorAltitude), date);
+            Local local = new Local(sensorLatitude,
+                    sensorLongitude, sensorAltitude);
+            Sensor sensorObject = new Sensor(sensorId, sensorName, type,local , date);
+            sensorService.addSensorLocalization(sensorObject, local);
+            sensorService.setSensorType(sensorObject, type);
             result.add(sensorObject);
             entriesChecked++;
         }
-        return result;
+        sensorListObject.setSensors(result);
+        return sensorListObject;
     }
 
     /**

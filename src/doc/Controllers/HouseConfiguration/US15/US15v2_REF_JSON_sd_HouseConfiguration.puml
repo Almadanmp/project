@@ -1,0 +1,43 @@
+@startuml
+title US015v2 \n REF JSON file.
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+
+InputUtils -> ReaderController: readJSONFileAndAddGeoAreas(filePath)
+ReaderController -> ReaderJSONGeographicAreas: readFile(filePath)
+ReaderJSONGeographicAreas->ReaderJSONGeographicAreas:getJSONArray("geographical_area")
+ReaderJSONGeographicAreas --> ReaderController: return JSONArray
+loop successs
+ReaderController->ReaderController:getJSONObject()
+create "GeographicArea"
+ReaderController -->> "GeographicArea": create
+"GeographicArea" --> ReaderController: return GeographicArea[]
+end loop
+loop success
+ReaderController -> GeographicAreaList: add(geoArea)
+return return true
+end loop
+ReaderController --> InputUtils: return int
+@enduml

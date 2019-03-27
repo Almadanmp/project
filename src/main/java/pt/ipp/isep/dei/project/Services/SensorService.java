@@ -8,6 +8,8 @@ import pt.ipp.isep.dei.project.repository.SensorListRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
+import java.util.List;
+
 @Service
 public class SensorService {
 
@@ -26,6 +28,14 @@ public class SensorService {
     public void addSensor(Sensor sensorToAdd, SensorList sensorList) {
         sensorList.add(sensorToAdd);
         sensorToAdd.setSensorList(sensorList);
+        sensorRepository.save(sensorToAdd);
+    }
+
+    public void addSensorsToList(Sensor sensorToAdd, List<Sensor> sensorList) {
+        sensorList.add(sensorToAdd);
+        SensorList sensorList1 = new SensorList();
+        sensorList1.setSensors(sensorList);
+        sensorToAdd.setSensorList(sensorList1);
         sensorRepository.save(sensorToAdd);
     }
 

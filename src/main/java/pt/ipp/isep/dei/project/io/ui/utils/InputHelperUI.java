@@ -439,7 +439,7 @@ public class InputHelperUI {
         ReaderController controller = new ReaderController();
         String filePath = getInputPath(input);
         if (input.endsWith(".json")) {
-            int areasRead = controller.readJSONGeographicAreasFile(filePath, list);
+            int areasRead = controller.readJSONFileAndAddGeoAreas(filePath, list, sensorService, geoAreaService);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
             return true;
         }

@@ -15,6 +15,7 @@
 //    // Common testing artifacts for testing in this class.
 //
 //    private ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
+//    private ReaderController ctrl = new ReaderController();
 //    @Test
 //    void seeIfReadFileWorks() {
 //        // Arrange
@@ -110,14 +111,12 @@
 //
 //        File fileToRead = new File("src/test/resources/DataSet_sprint04_GA.json");
 //        String absolutePath = fileToRead.getAbsolutePath();
-//        double areasAdded = reader.readFileAndAdd(absolutePath, actualResult);
+//        double areasAdded = ctrl.readJSONFileAndAddGeoAreas(absolutePath, actualResult);
 //        ReaderController readerController = new ReaderController();
-//        double areas = readerController.readJSONGeographicAreasFile(absolutePath,new GeographicAreaList());
 //        // Assert
 //
 //        assertEquals(expectedResult, actualResult);
 //        assertEquals(2, areasAdded);
-//        assertEquals(2,areas);
 //
 //        // Get one of the areas to  check its contents.
 //
@@ -147,7 +146,7 @@
 //
 //        // Act
 //
-//        double actualResult = reader.readFileAndAdd(invalidPath, new GeographicAreaList());
+//        double actualResult = ctrl.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList());
 //
 //        // Assert
 //
@@ -236,7 +235,7 @@
 //
 //        File fileToRead = new File("src/test/resources/InvalidJSONWrongDates.json");
 //        String absolutePath = fileToRead.getAbsolutePath();
-//        double areasAdded = reader.readFileAndAdd(absolutePath, actualResult);
+//        double areasAdded = ctrl.readJSONFileAndAddGeoAreas(absolutePath, actualResult);
 //
 //        // Assert
 //
