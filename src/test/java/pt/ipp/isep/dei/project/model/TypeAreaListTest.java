@@ -54,8 +54,21 @@ class TypeAreaListTest {
         TypeArea type1 = validList.createTypeArea("Country");
         // Assert
         assertEquals(type1, firstValidType);
-
     }
+
+    @Test
+    void seeIfGetAllAsStringWorks() {
+        // Arrange
+        String expectedResult = "---------------\n" +
+                "1) Name: Country \n" +
+                "2) Name: City \n" +
+                "---------------\n";
+        // Act
+        String actualResult = validList.getAllAsString();
+        // Assert
+        assertEquals(actualResult, expectedResult);
+    }
+
 
     @Test
     void seeIfPrintGAWholeList() {
