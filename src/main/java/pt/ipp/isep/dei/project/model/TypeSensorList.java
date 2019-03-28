@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class TypeSensorList {
-    public static String stringBuilder = "---------------\n";
+    private static final String stringBuilder = "---------------\n";
 
     @Autowired
     TypeSensorRepository typeSensorRepository;
