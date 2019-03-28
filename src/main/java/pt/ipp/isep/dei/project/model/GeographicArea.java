@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Class that represents a Geographical Area.
@@ -285,17 +284,6 @@ public class GeographicArea {
         return this.areaSensors.getSensorListByType(type);
     }
 
-    /**
-     * Method that adds all the sensorDTOs in an array to a GeographicAreaDTO.
-     *
-     * @param sensorsToAdd is the array containing all the sensor DTOs that we want to add somewhere.
-     */
-
-    public void addSensors(List<Sensor> sensorsToAdd) {
-        for (Sensor sensor : sensorsToAdd) {
-            this.addSensor(sensor);
-        }
-    }
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
