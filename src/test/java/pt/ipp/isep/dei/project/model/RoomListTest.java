@@ -262,6 +262,8 @@ class RoomListTest {
     }
 
 
+
+
     @Test
     void hashCodeDummyTest() {
         // Arrange
