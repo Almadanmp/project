@@ -1156,6 +1156,38 @@ class SensorTest {
 
         assertFalse(addValidReading);
     }
+    @Test
+    void seeIfGetAverageReadingsBetweenDates() {
+        // Arrange
+        ReadingList validReadingList1;
+        validReadingList1 = new ReadingList();
+        Date validDate3 = new Date(); // 31/09/2018 23:59:59
+        Date validDate4 = new Date(); // 07/10/2018 00:00:00
+        Date validDate5 = new Date(); // 08/10/2018 23:26:21
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate3 = validSdf.parse("31/09/2018 23:59:59");
+            validDate4 = validSdf.parse("07/10/2018 00:00:00");
+            validDate5 = validSdf.parse("08/10/2018 23:26:21");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading r0 = new Reading(20, validDate3);
+        Reading r1 = new Reading(25, validDate4);
+        Reading r2 = new Reading(30, validDate5);
+        validReadingList1.addReading(r0);
+        validReadingList1.addReading(r1);
+        validReadingList1.addReading(r2);
+        double expectedResult = 25;
+
+        // Act
+
+        double actualResult = validReadingList1.getAverageReadingsBetweenDates(validDate3, validDate5);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
 
