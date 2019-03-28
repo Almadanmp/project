@@ -206,6 +206,10 @@ public class Sensor {
         this.sensorList = sensorList;
     }
 
+    public SensorList getSensorList() {
+        return sensorList;
+    }
+
     /**
      * Method to activate an deactivated sensor, and vice versa
      *
