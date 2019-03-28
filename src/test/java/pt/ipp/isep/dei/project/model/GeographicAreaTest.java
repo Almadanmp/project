@@ -356,6 +356,39 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfRemovesSensorWorks(){
+        // Arrange
+
+        Sensor sensor = new Sensor();
+        validArea.addSensor(sensor);
+
+        // Act
+
+        boolean actualResult = validArea.removeSensor(sensor);
+
+        // Assert
+
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfRemovesSensorWorksFalse(){
+        // Arrange
+
+        Sensor sensor = new Sensor();
+
+        // Act
+
+        boolean actualResult = validArea.removeSensor(sensor);
+
+        // Assert
+
+        assertFalse(actualResult);
+
+    }
+
+    @Test
     void seeIfGetSensorList() {
         // Arrange
 
