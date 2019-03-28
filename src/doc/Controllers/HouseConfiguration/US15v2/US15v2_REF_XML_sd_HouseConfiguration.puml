@@ -61,7 +61,7 @@ activate ReaderController
 
 end loop
 ReaderController --> InputHelperUI: return int
-
+deactivate ReaderController
  <-- InputHelperUI: return int
  deactivate InputHelperUI
 @enduml
