@@ -719,7 +719,6 @@ class HouseMonitoringControllerTest {
 //        assertEquals("Warning: No temperature readings available in given period.",
 //                exception.getMessage());
 //    }
-
     @Test
     void seeIfIsMotherAreaValidHappyCase() {
         validHouseArea.setSensorList(validSensorList);
@@ -737,5 +736,59 @@ class HouseMonitoringControllerTest {
                 "4455-125", "Porto"), new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         assertFalse(controller.isMotherAreaValid(invalidHouse));
+    }
+
+    @Test
+    void seeIfGetDayMaxTemperatureWorks() {
+        //Arrange
+        double expectedResult = 30.0;
+        //Act
+        double actualResult = controller.getDayMaxTemperature(validRoom, validDate3, validHouse);
+       //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAverageRainfallIntervalWorks() {
+        //Arrange
+        double expectedResult = 20.0;
+        validHouse.getMotherArea().setSensorList(validSensorList);
+        //Actual
+        double actualResult = controller.getAverageRainfallInterval(validHouse,validDate01,validDate10);
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfGetTotalRainfallOnGivenDayWorks(){
+        //Arrange
+        double expectedResult = 40.0;
+        validHouse.getMotherArea().setSensorList(validSensorList);
+        //Actual
+        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse,validDate4);
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeDateWorks(){
+        //Arrange
+        Date expectedResult = validDate1;
+        validHouse.getMotherArea().setSensorList(validSensorList);
+        //Actual
+        Date actualResult = controller.getHighestTempAmplitudeDate(validHouse,validDate01,validDate10);
+        //Assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfGetHouseAreaTemperatureWorks(){
+        //Arrange
+        double expectedResult = 20.0;
+        validHouse.getMotherArea().setSensorList(validSensorList);
+        //Actual
+        double actualResult = controller.getHouseAreaTemperature(validHouse);
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 }
