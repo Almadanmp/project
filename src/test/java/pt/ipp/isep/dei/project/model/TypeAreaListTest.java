@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -293,59 +292,4 @@ class TypeAreaListTest {
         assertEquals(0, actualResult1);
         assertEquals(2, actualResult2);
     }
-
-    @Test
-    void seeIfEqualsWorks() {
-        // Arrange
-
-        validList.addTypeArea(firstValidType);
-
-        // Act
-
-        boolean actualResult = validList.equals(validList);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-/*
-    @Test
-    void seeIfEqualsWorksFalse() {
-        // Arrange
-
-        TypeSensorList testList = new TypeSensorList();
-        testList.add(firstTypeSensor);
-        testList.add(secondTypeSensor);
-
-        // Act
-
-        boolean actualResult = testList.equals(validList);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsWorksNotAnInstanceOf() {
-        //Act
-
-        boolean actualResult = validList.equals(new RoomList()); // Needed for Sonarqube testing purposes.
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsWorksOnItself() {
-        // Act
-
-        boolean actualResult = validList.equals(validList); // Needed for Sonarqube testing purposes.
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-    */
 }
