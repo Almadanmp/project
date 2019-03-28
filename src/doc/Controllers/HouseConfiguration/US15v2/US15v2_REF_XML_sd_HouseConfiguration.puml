@@ -31,7 +31,9 @@ activate ReaderController
 ReaderController -> ReaderXML: readFile(filePath)
 deactivate ReaderController
 activate ReaderXML
-
+ref over ReaderXML
+XMLReadFile
+end ref
 ReaderXML --> ReaderController: return doc: Document
 deactivate ReaderXML
 

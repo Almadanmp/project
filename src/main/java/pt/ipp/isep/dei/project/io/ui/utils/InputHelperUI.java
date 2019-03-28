@@ -428,27 +428,20 @@ public class InputHelperUI {
         return result;
     }
 
+
     /**
      * Reads either a .json ou a .xml path
      *
      * @param input - input of user
-     * @param list  - the GeographicAreaList provided
      */
-    public boolean getInputPathJsonOrXML(String input, GeographicAreaList list, SensorService sensorService) {
-        ReaderController controller = new ReaderController(sensorService);
-        String filePath = getInputPath(input);
-        if (input.endsWith(".json")) {
-            int areasRead = controller.readJSONFileAndAddGeoAreas(filePath, list);
-            System.out.println(areasRead + " Geographic Areas have been successfully imported.");
-            return true;
-        }
-        if (input.endsWith(".xml")) {
-            int areas = controller.readFileXMLAndAddAreas(filePath, list);
-            System.out.println(areas + " Geographic Areas have been successfully imported.");
-            return true;
-        }
-        return false;
+    public String getInputPathJsonOrXML(String input) {
+        String filePath = "";
+        if((input.endsWith(".json") || (input.endsWith(".xml")))){
+            filePath = getInputPath(input);}
+        return filePath;
+
     }
+
 
     /**
      * This method will ask for a file location from the user and return it in case the file is
