@@ -39,8 +39,10 @@ class GASettingsControllerTest {
     private TypeArea typeCountry;
     private TypeArea typeCity;
     private GeographicAreaDTO validGeographicAreaDTO;
-    private SensorDTO validSensorDTO;
-    private Sensor validSensor;
+    private SensorDTO validSensorDTO1;
+    private SensorDTO validSensorDTO2;
+    private Sensor validSensor1;
+    private Sensor validSensor2;
     private Mapper mapper;
     private GeographicAreaList validGeographicAreaList;
     private TypeAreaList validTypeAreaList;
@@ -71,15 +73,21 @@ class GASettingsControllerTest {
                 2, 5, new Local(21, 33, 5));
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
-        validSensor = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
+        validSensor1 = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
                 new Local(31, 15, 3), date);
-        firstValidArea.addSensor(validSensor);
+        validSensor2 = new Sensor("TT12345", "SensTwo", new TypeSensor("Temperature", "Celsius"),
+                new Local(21, 65, 3), date);
+        firstValidArea.addSensor(validSensor1);
         mapper = new Mapper();
         validGeographicAreaDTO = mapper.geographicAreaToDTO(firstValidArea);
-        validSensorDTO = mapper.sensorToDTO(validSensor);
+        validSensorDTO1 = mapper.sensorToDTO(validSensor1);
+        validSensorDTO2 = mapper.sensorToDTO(validSensor2);
+
         validGeographicAreaList = new GeographicAreaList();
         validGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
         validGeographicAreaList.addGeographicArea(firstValidArea);
+        validGeographicAreaList.addGeographicArea(secondValidArea);
+
         validTypeAreaList = new TypeAreaList();
         validTypeAreaList.setTypeAreaRepository(typeAreaRepository);
     }
@@ -343,7 +351,17 @@ class GASettingsControllerTest {
     void seeIfDeactivateSensor() {
 
         //Act
-        boolean actualResult = controller.deactivateSensor(validGeographicAreaList, validSensorDTO, validGeographicAreaDTO);
+        boolean actualResult = controller.deactivateSensor(validGeographicAreaList, validSensorDTO1, validGeographicAreaDTO);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateSensorWhenSecondInList() {
+
+        //Act
+        boolean actualResult = controller.deactivateSensor(validGeographicAreaList, validSensorDTO2, validGeographicAreaDTO);
 
         //Assert
         assertTrue(actualResult);
@@ -353,8 +371,8 @@ class GASettingsControllerTest {
     void seeIfDeactivatedSensorDoesntChange() {
 
         //Arrange
-        validSensor.deactivateSensor();
-        SensorDTO sensorDTO = mapper.sensorToDTO(validSensor);
+        validSensor1.deactivateSensor();
+        SensorDTO sensorDTO = mapper.sensorToDTO(validSensor1);
 
         //Act
         boolean actualResult = controller.deactivateSensor(validGeographicAreaList, sensorDTO, validGeographicAreaDTO);
@@ -523,7 +541,7 @@ class GASettingsControllerTest {
 
         InputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
-        SensorDTO expectedResult = validSensorDTO;
+        SensorDTO expectedResult = validSensorDTO1;
 
         //Act
 
@@ -540,11 +558,29 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList expectedResult = validGeographicAreaList;
-        expectedResult.get(0).removeSensor(validSensor);
+        expectedResult.get(0).removeSensor(validSensor1);
 
         //Act
 
-        controller.removeSensor(validGeographicAreaList, validSensorDTO, validGeographicAreaDTO);
+        controller.removeSensor(validGeographicAreaList, validSensorDTO1, validGeographicAreaDTO);
+        GeographicAreaList actualResult = validGeographicAreaList;
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfRemoveSensorWorksWhenSecondInList() {
+
+        //Arrange
+
+        GeographicAreaList expectedResult = validGeographicAreaList;
+        expectedResult.get(0).removeSensor(validSensor2);
+
+        //Act
+
+        controller.removeSensor(validGeographicAreaList, validSensorDTO2, validGeographicAreaDTO);
         GeographicAreaList actualResult = validGeographicAreaList;
 
         //Assert
@@ -561,7 +597,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        controller.removeSensor(validGeographicAreaList, validSensorDTO, validGeographicAreaDTO);
+        controller.removeSensor(validGeographicAreaList, validSensorDTO1, validGeographicAreaDTO);
         GeographicAreaList actualResult = validGeographicAreaList;
 
         //Assert
