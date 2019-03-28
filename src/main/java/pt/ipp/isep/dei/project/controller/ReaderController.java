@@ -88,7 +88,7 @@ public class ReaderController {
      * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
      * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
      */
-    private int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
+   int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
         int result = 0;
         for (GeographicArea area : fileAreas) {
             if (list.addGeographicArea(area)) {
