@@ -34,7 +34,7 @@ public class SensorService {
         sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate);
         Optional<Sensor> value = sensorRepository.findById(sensorID);
         if (value.isPresent()) {
-            Sensor sensor = sensorRepository.findById(sensorID).get();
+            Sensor sensor = value.get();
             Reading reading = new Reading(readingValue, readingDate);
             reading.setReadingList(sensor.getReadingList());
             readingRepository.save(reading);
@@ -42,5 +42,4 @@ public class SensorService {
         }
         return false;
     }
-
 }
