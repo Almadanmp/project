@@ -38,14 +38,12 @@ class TypeSensorListTest {
 
     @Autowired
     private TypeSensorList validList;
-    private TypeSensorList testList1;
 
     @BeforeEach
     void arrangeArtifacts() {
         firstTypeSensor = new TypeSensor("Temperature", "Celsius");
         secondTypeSensor = new TypeSensor("Rainfall", "l/m2");
         validList.add(firstTypeSensor);
-        testList1 = new TypeSensorList();
     }
 
     @Test
