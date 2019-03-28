@@ -56,7 +56,7 @@ public class HouseConfigurationController {
     }
 
 
-    /* USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
+    /* USER STORY 105 - As an Administrator, I want to addWithoutPersisting a new room to the house, in order to configure it (name,
      house floor and dimensions) */
 
     /**
@@ -75,7 +75,7 @@ public class HouseConfigurationController {
     }
 
     /**
-     * The method receives a house and a roomDTO, transforms it into a room, and tries to add it to house.
+     * The method receives a house and a roomDTO, transforms it into a room, and tries to addWithoutPersisting it to house.
      *
      * @param house the project House.
      * @param room  the DTO of a Room.

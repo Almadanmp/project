@@ -23,10 +23,10 @@ public class EnergyConsumptionController {
      */
 
     /**
-     * Calls for the room's method in the model to add all of its devices to a given deviceList.
+     * Calls for the room's method in the model to addWithoutPersisting all of its devices to a given deviceList.
      *
-     * @param room       is the room where the devices we want to add are.
-     * @param deviceList is the deviceList we want to add devices to.
+     * @param room       is the room where the devices we want to addWithoutPersisting are.
+     * @param deviceList is the deviceList we want to addWithoutPersisting devices to.
      */
 
     public void addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
@@ -34,10 +34,10 @@ public class EnergyConsumptionController {
     }
 
     /**
-     * Calls for the roomList's method in the model to add a room to itself.
+     * Calls for the roomList's method in the model to addWithoutPersisting a room to itself.
      *
-     * @param room the room we want to add.
-     * @param list the list we want to add the room to.
+     * @param room the room we want to addWithoutPersisting.
+     * @param list the list we want to addWithoutPersisting the room to.
      * @return true if the room was added, false if it was already in the list.
      */
 
@@ -46,10 +46,10 @@ public class EnergyConsumptionController {
     }
 
     /**
-     * Calls for the list's method in the model to add a device to itself.
+     * Calls for the list's method in the model to addWithoutPersisting a device to itself.
      *
-     * @param device the device we want to add to a list.
-     * @param list   the list we want to add the device to.
+     * @param device the device we want to addWithoutPersisting to a list.
+     * @param list   the list we want to addWithoutPersisting the device to.
      * @return true if the device was added, false if it was already in the list.
      */
 

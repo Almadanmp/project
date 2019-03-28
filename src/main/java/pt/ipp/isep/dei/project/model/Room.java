@@ -160,7 +160,7 @@ public class Room implements Metered {
     }
 
     /**
-     * This method will go through the room's device list and add all the devices'
+     * This method will go through the room's device list and addWithoutPersisting all the devices'
      * The result is the room's total nominal power and will be returned as a double
      *
      * @return room's total nominal power (double)
@@ -226,9 +226,9 @@ public class Room implements Metered {
     }
 
     /**
-     * Method to add a Sensor to the Room.
+     * Method to addWithoutPersisting a Sensor to the Room.
      *
-     * @param sensor is the sensor we want to add.
+     * @param sensor is the sensor we want to addWithoutPersisting.
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
@@ -301,7 +301,7 @@ public class Room implements Metered {
     /**
      * Adds all of this room's devices to a given list. Skips duplicates.
      *
-     * @param list is the list we want to add the room's devices to.
+     * @param list is the list we want to addWithoutPersisting the room's devices to.
      */
 
     public void addRoomDevicesToDeviceList(DeviceList list) {

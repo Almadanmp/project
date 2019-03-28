@@ -94,7 +94,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     /**
      * This method adds a Log to the device LogList, if the Log isn't already in the LogList.
      *
-     * @param log - Parameter which will be used to add to the Device LogList.
+     * @param log - Parameter which will be used to addWithoutPersisting to the Device LogList.
      * @return true if log was added
      */
     public boolean addLog(Log log) {

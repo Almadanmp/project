@@ -38,9 +38,9 @@ public class DeviceList {
     }
 
     /**
-     * Method to add a Device to the DeviceList.
+     * Method to addWithoutPersisting a Device to the DeviceList.
      *
-     * @param device is the device that we want to add.
+     * @param device is the device that we want to addWithoutPersisting.
      * @return true if the device was successfully added, false otherwise(device already exists in the list)
      */
     public boolean add(Device device) {
@@ -220,7 +220,7 @@ public class DeviceList {
     /**
      * Adds all of this devices to a given list. Skips duplicates.
      *
-     * @param list is the list we want to add the room's devices to.
+     * @param list is the list we want to addWithoutPersisting the room's devices to.
      */
     public void addDevicesToDeviceList(DeviceList list) {
         for (Device d : this.devices) {

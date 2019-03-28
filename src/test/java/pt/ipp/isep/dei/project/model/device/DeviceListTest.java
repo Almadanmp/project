@@ -353,7 +353,7 @@ class DeviceListTest {
 
         int actualResult1 = validList.size();
 
-        // Arrange to add one device.
+        // Arrange to addWithoutPersisting one device.
 
         validList.add(firstValidDevice);
 
@@ -361,7 +361,7 @@ class DeviceListTest {
 
         int actualResult2 = validList.size();
 
-        // Arrange to add second device.
+        // Arrange to addWithoutPersisting second device.
 
         Device testDevice = new Fridge(new FridgeSpec());
         testDevice.setName("Fridge2");

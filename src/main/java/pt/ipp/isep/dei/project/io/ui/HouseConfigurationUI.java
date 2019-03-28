@@ -193,7 +193,7 @@ class HouseConfigurationUI {
     }
 
 
-    // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
+    // USER STORY 105 - As an Administrator, I want to addWithoutPersisting a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
     private void runUS105(House house) {
         getInputRoomCharacteristics();

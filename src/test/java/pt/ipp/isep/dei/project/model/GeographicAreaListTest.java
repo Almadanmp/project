@@ -316,4 +316,78 @@ class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
 
+//    @Test
+//    void seeIfGetsAll(){
+//        // Arrange
+//
+//        GeographicAreaList expectedResult = new GeographicAreaList();
+//        expectedResult.addWithoutPersisting(firstValidArea);
+//
+//        // Act
+//
+//        GeographicAreaList actualResult = validList.getAll();
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
+
+    @Test
+    void seeIfGetsGeoAreasByType(){
+        // Arrange
+
+        geographicAreaRepository.deleteAll();
+        validList.addGeographicArea(firstValidArea);
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addWithoutPersisting(firstValidArea);
+
+
+        // Act
+
+        GeographicAreaList actualResult = validList.getGeoAreasByType("Country");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfRemovesGeographicAreaTrue() {
+        // Act
+
+        boolean actualResult = validList.removeGeographicArea(firstValidArea);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfRemovesGeographicAreaFalse() {
+        // Act
+
+        validList.removeGeographicArea(firstValidArea);
+        boolean actualResult = validList.removeGeographicArea(firstValidArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetAreaListSensorsNoAreas(){
+        // Arrange
+
+        validList.removeGeographicArea(firstValidArea);
+        SensorList expectedResult = new SensorList();
+
+        // Act
+
+        SensorList actualResult = validList.getAreaListSensors();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }

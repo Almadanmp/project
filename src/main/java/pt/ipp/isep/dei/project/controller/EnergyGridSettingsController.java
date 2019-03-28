@@ -44,7 +44,7 @@ public class EnergyGridSettingsController {
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      *
      * @param programHouse the house to which the grid will be added to.
-     * @param energyGrid   the grid to add to the House.
+     * @param energyGrid   the grid to addWithoutPersisting to the House.
      * @return true if the grid was added to the house.
      */
     public boolean addEnergyGridToHouse(House programHouse, EnergyGrid energyGrid) {
@@ -61,7 +61,7 @@ public class EnergyGridSettingsController {
         return programHouse.createEnergyGrid(designation, maxPower);
     }
 
-    /* USER STORY 135 - As an Administrator, I want to add a power source to an energy grid, so that the produced
+    /* USER STORY 135 - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid. */
 
     /**
@@ -77,8 +77,8 @@ public class EnergyGridSettingsController {
     }
 
     /**
-     * @param grid        is the grid we're going to add the new powerSource to.
-     * @param powerSource the power source we are going to add.
+     * @param grid        is the grid we're going to addWithoutPersisting the new powerSource to.
+     * @param powerSource the power source we are going to addWithoutPersisting.
      * @return is true if the power source is added successfully, false if it isn't.
      */
 
@@ -91,8 +91,8 @@ public class EnergyGridSettingsController {
     /**
      * Adds a room to an Energy grid
      *
-     * @param grid    is the grid we're going to add a room to.
-     * @param roomDTO is the room we're going to add to a grid.
+     * @param grid    is the grid we're going to addWithoutPersisting a room to.
+     * @param roomDTO is the room we're going to addWithoutPersisting to a grid.
      * @param house   the project's house.
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */

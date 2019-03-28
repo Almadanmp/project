@@ -38,7 +38,7 @@ public class TypeAreaList {
     /**
      * This method creates a new Type of Geographic Area and adds it to a list.
      *
-     * @param name String of the new Area Type that one wishes to create and add to a list.
+     * @param name String of the new Area Type that one wishes to create and addWithoutPersisting to a list.
      * @return true or false depending on if it adds the type to the list or not.
      */
     public TypeArea createTypeArea(String name) {
@@ -48,7 +48,7 @@ public class TypeAreaList {
     /**
      * This method adds a previously stated Area Type to a List of Area Types.
      *
-     * @param type Type of Geographic Area one wishes to add to a list.
+     * @param type Type of Geographic Area one wishes to addWithoutPersisting to a list.
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {

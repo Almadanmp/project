@@ -86,7 +86,7 @@ class SensorSettingsUI {
         }
     }
 
-    /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
+    /* USER STORY 006 - an Administrator, I want to addWithoutPersisting a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
     private void runUS06(GeographicAreaList geographicAreaList) {
         if (geographicAreaList.isEmpty()) {
@@ -156,7 +156,7 @@ class SensorSettingsUI {
     private boolean getConfirmation(Sensor sensor) {
         System.out.println("You have created the following sensor:\n" + controller.buildSensorString(sensor));
         Scanner input = new Scanner(System.in);
-        System.out.println("\n Do you wish to add this sensor to a geographic area?\n");
+        System.out.println("\n Do you wish to addWithoutPersisting this sensor to a geographic area?\n");
         System.out.println("Yes/No:\t");
         return "yes".equals(input.nextLine());
     }

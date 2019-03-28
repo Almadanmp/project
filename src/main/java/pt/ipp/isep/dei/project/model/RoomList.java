@@ -29,7 +29,7 @@ public class RoomList {
     /**
      * Method that adds a Room to the RoomList.
      *
-     * @param room is the room we want to add.
+     * @param room is the room we want to addWithoutPersisting.
      * @return true if the room was successfully added to the RoomList, false otherwise.
      */
     public boolean add(Room room) {

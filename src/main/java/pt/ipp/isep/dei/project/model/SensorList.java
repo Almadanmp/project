@@ -35,7 +35,7 @@ public class SensorList {
     /**
      * Method to Add a sensor only if it's not contained in the list already.
      *
-     * @param sensorToAdd is the sensor we want to add to the sensorList.
+     * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
      * @return true if sensor was successfully added to the SensorList, false otherwise.
      */
 
@@ -259,9 +259,9 @@ public class SensorList {
      * or because its date is before the date that the sensor started functioning), an error message is saved into a log
      * file.
      *
-     * @param sensorID     is the id of the sensor we want to add readings to.
-     * @param readingValue is the value of the reading we want to add.
-     * @param readingDate  is the date of the reading we want to add.
+     * @param sensorID     is the id of the sensor we want to addWithoutPersisting readings to.
+     * @param readingValue is the value of the reading we want to addWithoutPersisting.
+     * @param readingDate  is the date of the reading we want to addWithoutPersisting.
      */
 
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {

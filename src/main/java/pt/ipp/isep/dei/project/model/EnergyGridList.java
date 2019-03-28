@@ -22,7 +22,7 @@ public class EnergyGridList {
     /**
      * Method adds an energy grid to the a energy grid list if the input grid isn't already contained in said list.
      *
-     * @param energyGridToAdd the energy grid we want to add to the list.
+     * @param energyGridToAdd the energy grid we want to addWithoutPersisting to the list.
      * @return returns true if the addition to the list is successful.
      */
     public boolean addGrid(EnergyGrid energyGridToAdd) {

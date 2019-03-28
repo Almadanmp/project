@@ -70,7 +70,7 @@ public class RoomConfigurationController {
     }
 
 
-    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
+    /* USER STORY 253 - As an Administrator, I want to addWithoutPersisting a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
     /**
@@ -94,7 +94,7 @@ public class RoomConfigurationController {
      * adds a given program to a program list.
      *
      * @param programList         - the list
-     * @param newFixedTimeProgram -the program we want to add to the list
+     * @param newFixedTimeProgram -the program we want to addWithoutPersisting to the list
      */
     public void addProgramToProgramList(ProgramList programList, FixedTimeProgram newFixedTimeProgram) {
         programList.add(newFixedTimeProgram);
@@ -124,8 +124,8 @@ public class RoomConfigurationController {
     /**
      * adds device to a given room
      *
-     * @param room   - room we want to add the device to
-     * @param device - device we want to add to the room
+     * @param room   - room we want to addWithoutPersisting the device to
+     * @param device - device we want to addWithoutPersisting to the room
      * @return - boolean
      */
     public boolean addDevice(Room room, Device device) {
@@ -288,8 +288,8 @@ public class RoomConfigurationController {
     /**
      * sets a programlist to a programmable device
      *
-     * @param device  - device we want to add the programlist to
-     * @param program - programlist we want to add to the device
+     * @param device  - device we want to addWithoutPersisting the programlist to
+     * @param program - programlist we want to addWithoutPersisting to the device
      */
     public void configureDeviceProgramList(Device device, ProgramList program) {
         String programList = "programList";
@@ -308,9 +308,9 @@ public class RoomConfigurationController {
 
     /**
      * /**
-     * Method to add a Sensor to the Room.
-     * @param sensor is the sensor we want to add.
-     * @param room is the room we want to add the sensor to.
+     * Method to addWithoutPersisting a Sensor to the Room.
+     * @param sensor is the sensor we want to addWithoutPersisting.
+     * @param room is the room we want to addWithoutPersisting the sensor to.
      * @return if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensorToRoom(Sensor sensor, Room room) {
