@@ -419,7 +419,7 @@ public class InputHelperUI {
      *
      * @return returns a filepath.
      */
-    public String getInputPath(String result) {
+    private String getInputPath(String result) {
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
             System.out.println("Please enter a valid path");

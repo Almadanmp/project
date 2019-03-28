@@ -66,7 +66,7 @@ public class ReaderController {
      * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
      * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
      */
-    public int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
+    private int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
         int result = 0;
         for (GeographicArea area : fileAreas) {
             if (list.addGeographicArea(area)) {
@@ -224,8 +224,8 @@ public class ReaderController {
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException expected) {
+                expected.getErrorOffset();
             }
             sensor = new Sensor(id, name, typeSensor, local, date);
             sensor.setSensorList(sensorList);
@@ -297,8 +297,8 @@ public class ReaderController {
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException expected) {
+                expected.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);
@@ -371,8 +371,8 @@ public class ReaderController {
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException ok) {
+                ok.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);
@@ -466,8 +466,8 @@ public class ReaderController {
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException ok) {
+                ok.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);
