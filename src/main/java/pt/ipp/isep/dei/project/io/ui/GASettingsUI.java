@@ -329,7 +329,7 @@ class GASettingsUI {
     private void updateUS11(SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
         controller.removeSensor(geographicAreaList, sensorDTO, geographicAreaDTO);
         System.out.println("The sensor " + sensorDTO.getName() + " on the Geographical Area " +
-                geographicAreaDTO.getId() + " has ceased to be.");
+                geographicAreaDTO.getName() + " has ceased to be.");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
