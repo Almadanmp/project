@@ -41,6 +41,18 @@ class SensorTest {
     }
 
     @Test
+    void seeIfSetSensorList() {
+        // Arrange
+        SensorList listA = new SensorList();
+        SensorList expectedResult = listA;
+        // Act
+        validSensor.setSensorList(listA);
+        SensorList actualResult = validSensor.getSensorList();
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfConstructorSetsDate() {
         // Arrange
 

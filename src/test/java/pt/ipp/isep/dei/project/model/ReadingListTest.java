@@ -35,7 +35,6 @@ class ReadingListTest {
     private Date validDate13;
     private Date validDate14; // 02/10/2018 23:59:00
     private Date validDate15;
-    private Date validDate17; // same date as validDate2, different hours
     private Date validDate18; // same day and month as 9 ans 16 but different year
     private Date validDate19; // same day and month as 9 ans 16 but different year, different hour
 
@@ -46,11 +45,8 @@ class ReadingListTest {
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
             validDate12 = validSdf.parse("02/11/2015 20:00:00");
-
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
-            validDate17 = validSdf.parse("03/09/2018 15:00:00");
             validDate3 = validSdf.parse("31/09/2018 23:59:59");
-
             validDate13 = validSdfDay.parse("03/10/2018");
             validDate14 = validSdf.parse("02/10/2018 23:59:00");
             validDate15 = validSdf.parse("03/10/2018 00:00:00");
@@ -62,10 +58,8 @@ class ReadingListTest {
             validDate16 = validSdf.parse("13/10/2018 23:59:59");
             validDate8 = validSdf.parse("23/10/2018 12:14:23");
             validDate10 = validSdf.parse("30/10/2018 23:59:59");
-
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate11 = validSdf.parse("01/11/2018 00:00:00");
-
             validDate18 = validSdf.parse("13/10/2019 12:12:12");
             validDate19 = validSdf.parse("13/10/2019 23:59:59");
 
@@ -849,7 +843,8 @@ class ReadingListTest {
 
     @Test
     void seeIfWeGetLastColdestDayInGivenIntervalWorks() {
-        //Arrange
+        // Arrange
+
         validReadingList = new ReadingList();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
@@ -891,9 +886,13 @@ class ReadingListTest {
         validReadingList.addReading(reading18);
         validReadingList.addReading(reading19);
         validReadingList.addReading(reading20);
-        //Act
+
+        // Act
+
         Date actualResult = validReadingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
-        //Assert
+
+        // Assert
+
         assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
     }
 
@@ -1110,5 +1109,32 @@ class ReadingListTest {
 
         assertTrue(actualResult1);
         assertFalse(actualResult2);
+    }
+
+    @Test
+    void seeIfGetHottestDayInGivenPeriodWorks() {
+        // Arrange
+
+        Date expectedResult = new GregorianCalendar(2018, Calendar.SEPTEMBER, 3).getTime();
+        Reading firstReading = new Reading(15, validDate3);
+        Reading secondReading = new Reading(29, validDate2);
+        validReadingList.addReading(firstReading);
+        validReadingList.addReading(secondReading);
+
+        // Act
+
+        Date actualResult = validReadingList.getFirstHottestDayInGivenPeriod(validDate12, validDate1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetHottestDayInGivenPeriodWorksNoReadings(){
+        // Assert
+
+        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12,validDate1));
     }
 }
