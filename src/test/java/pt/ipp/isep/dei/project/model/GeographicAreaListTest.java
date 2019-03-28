@@ -374,20 +374,4 @@ class GeographicAreaListTest {
 
         assertFalse(actualResult);
     }
-
-    @Test
-    void seeIfGetAreaListSensorsNoAreas(){
-        // Arrange
-
-        validList.removeGeographicArea(firstValidArea);
-        SensorList expectedResult = new SensorList();
-
-        // Act
-
-        SensorList actualResult = validList.getAreaListSensors();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
 }
