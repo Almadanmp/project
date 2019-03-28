@@ -84,13 +84,12 @@ class HouseConfigurationUI {
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        String filePath=input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(result,filePath,geographicAreaList);
-        if (areas==-1){
+        String filePath = input.getInputPathJsonOrXML(result);
+        int areas = ctrl.acceptPath(result, filePath, geographicAreaList);
+        if (areas == -1) {
             System.out.println("Please enter a valid path.");
-        }
-        else System.out.println(areas + " Geographic Areas have been successfully imported.");
-        }
+        } else System.out.println(areas + " Geographic Areas have been successfully imported.");
+    }
 
 
     /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
@@ -117,7 +116,6 @@ class HouseConfigurationUI {
         }
     }
 
-    //TODO Teresa
     private void readReadingsFromCSV(String filePath, String logFilePath) {
         int result = 0;
         ReaderController ctrl = new ReaderController(sensorService);
