@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class TypeSensorList {
-    private static final String stringBuilder = "---------------\n";
+    private static final String STRING_BUILDER = "---------------\n";
 
     @Autowired
     TypeSensorRepository typeSensorRepository;
@@ -40,7 +40,7 @@ public class TypeSensorList {
     public boolean add(TypeSensor typeSensor) {
         if (!typeSensors.contains(typeSensor)) {
             typeSensors.add(typeSensor);
-            //  typeSensorRepository.save(typeSensor);
+            // typeSensorRepository.save(typeSensor);
             return true;
         }
         return false;
@@ -68,7 +68,7 @@ public class TypeSensorList {
      *
      * @return TypeSensor size as int
      **/
-    public int sizeRepository() {
+    private int sizeRepository() {
         return typeSensorRepository.findAll().size();
     }
 
@@ -105,7 +105,7 @@ public class TypeSensorList {
      * @return a string of sensor types in a list
      */
     public String buildString() {
-        StringBuilder result = new StringBuilder(stringBuilder);
+        StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (typeSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -114,7 +114,7 @@ public class TypeSensorList {
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Unit: ").append(aux.getUnits()).append("\n");
         }
-        result.append(stringBuilder);
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 
@@ -124,16 +124,16 @@ public class TypeSensorList {
      * @return a string of sensor types in a list
      */
     public String getAllAsString() {
-        StringBuilder result = new StringBuilder(stringBuilder);
+        StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (isEmptyRepository()) {
             return "There are no Sensor Types Configured\n";
         }
-        Iterable<TypeSensor> typeSensors = typeSensorRepository.findAll();
-        for (TypeSensor tS : typeSensors) {
+        Iterable<TypeSensor> typeSensorRepositoryAll = typeSensorRepository.findAll();
+        for (TypeSensor tS : typeSensorRepositoryAll) {
             result.append(tS.getId()).append(") Description: ").append(tS.getName()).append(" | ");
             result.append("Unit: ").append(tS.getUnits()).append("\n");
         }
-        result.append(stringBuilder);
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 

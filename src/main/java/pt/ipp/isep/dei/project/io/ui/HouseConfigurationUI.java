@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.Services.SensorService;
+import pt.ipp.isep.dei.project.services.SensorService;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -21,6 +21,7 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
+    private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private final SensorService sensorService;
     private GeographicAreaList geographicAreaList;
 
@@ -83,13 +84,12 @@ class HouseConfigurationUI {
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        String filePath=input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(result,filePath,geographicAreaList);
-        if (areas==-1){
+        String filePath = input.getInputPathJsonOrXML(result);
+        int areas = ctrl.acceptPath(result, filePath, geographicAreaList);
+        if (areas == -1) {
             System.out.println("Please enter a valid path.");
-        }
-        else System.out.println(areas + " Geographic Areas have been successfully imported.");
-        }
+        } else System.out.println(areas + " Geographic Areas have been successfully imported.");
+    }
 
 
     /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
@@ -116,7 +116,6 @@ class HouseConfigurationUI {
         }
     }
 
-    //TODO Teresa
     private void readReadingsFromCSV(String filePath, String logFilePath) {
         int result = 0;
         ReaderController ctrl = new ReaderController(sensorService);
@@ -125,7 +124,7 @@ class HouseConfigurationUI {
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid.");
         }
-        System.out.println(result + " reading(s) successfully imported.");
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     private void readReadingsFromJSON(String filePath, String logFilePath) {
@@ -136,7 +135,7 @@ class HouseConfigurationUI {
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid.");
         }
-        System.out.println(result + " reading(s) successfully imported.");
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     private void readReadingsFromXML(String filePath, String logFilePath) {
@@ -147,7 +146,7 @@ class HouseConfigurationUI {
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid.");
         }
-        System.out.println(result + " reading(s) successfully imported.");
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
@@ -193,7 +192,7 @@ class HouseConfigurationUI {
     }
 
 
-    // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
+    // USER STORY 105 - As an Administrator, I want to addWithoutPersisting a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
     private void runUS105(House house) {
         getInputRoomCharacteristics();

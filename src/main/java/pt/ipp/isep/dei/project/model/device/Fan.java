@@ -123,7 +123,7 @@ public class Fan implements Device {
 
     /**
      * Method that adds a log to the device's log list.
-     * @param log is the log we want to add to the device's list.
+     * @param log is the log we want to addWithoutPersisting to the device's list.
      * @return is true if the log was added, and false if the log was already contained in the device's list.
      */
 

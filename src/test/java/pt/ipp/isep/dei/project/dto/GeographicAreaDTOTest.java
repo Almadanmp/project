@@ -115,6 +115,23 @@ class GeographicAreaDTOTest {
     }
 
     @Test
+    void seeIfSetIDWorks(){
+        // Arrange
+
+        long expectedresult = 213L;
+        GeographicAreaDTO dto = new GeographicAreaDTO();
+        dto.setId((213L));
+
+        // Act
+
+        long actualResult = dto.getId();
+
+        // Assert
+
+        assertEquals(expectedresult, actualResult);
+    }
+
+    @Test
     void seeIfHashCodeWorks() {
         //Arrange
 

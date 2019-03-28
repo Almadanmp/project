@@ -24,9 +24,8 @@ import static org.testng.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@ContextConfiguration(classes = {MainUI.class },
+@ContextConfiguration(classes = {MainUI.class},
         loader = AnnotationConfigContextLoader.class)
-
 class TypeSensorListTest {
     // Common Testing Artifacts for this test class.
 
@@ -63,20 +62,21 @@ class TypeSensorListTest {
         // Assert
         Assert.assertEquals(type1, firstTypeSensor);
     }
-/*
-    @Test
-    void seeIfSizeRepository() {
-        // Arrange
 
-        testList1.add(firstTypeSensor);
-        testList1.add(secondTypeSensor);
-        int expectedResult = 2;
-        // Act
-        int actualResult = testList1.sizeRepository();
-        // Assert
-        assertEquals(expectedResult, actualResult);
-    }
-*/
+    /*
+        @Test
+        void seeIfSizeRepository() {
+            // Arrange
+
+            testList1.addWithoutPersisting(firstTypeSensor);
+            testList1.addWithoutPersisting(secondTypeSensor);
+            int expectedResult = 2;
+            // Act
+            int actualResult = testList1.sizeRepository();
+            // Assert
+            assertEquals(expectedResult, actualResult);
+        }
+    */
     @Test
     void seeIfAddSensorTypeWorks() {
         // Arrange
@@ -165,7 +165,7 @@ class TypeSensorListTest {
     @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
-validList.add(secondTypeSensor);
+        validList.add(secondTypeSensor);
         TypeSensorList testList = new TypeSensorList();
         testList.add(firstTypeSensor);
 
@@ -263,7 +263,7 @@ validList.add(secondTypeSensor);
     }
 
     @Test
-        void seeIfGetElementsAsArrayWorks() {
+    void seeIfGetElementsAsArrayWorks() {
         // Arrange
         TypeSensorList testList = new TypeSensorList();
         TypeSensor[] expectedResult1 = new TypeSensor[0];
@@ -292,5 +292,20 @@ validList.add(secondTypeSensor);
         assertArrayEquals(expectedResult1, actualResult1);
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
+    }
+
+    @Test
+    void seeIfIsEmptyRepositoryWorks(){
+        // Arrange
+
+        typeSensorRepository.deleteAll();
+
+        // Act
+
+        boolean result = validList.isEmptyRepository();
+
+        // Assert
+
+        assertTrue(result);
     }
 }

@@ -16,7 +16,7 @@ public class DeviceTypeConfig {
      * @return - string "value" from the key
      * @throws IOException - will throw an IOException if we cannot read the input key
      */
-    public String getPropertyValueFromKey(Properties p, String key) throws IOException {
+    String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
             throw new IOException("Could not read " + key + " property value.");
@@ -32,7 +32,7 @@ public class DeviceTypeConfig {
      * @return - list of strings with device paths
      * @throws IOException - will be thrown if there is any error with the configuration file
      */
-    public List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
+    List<String> getDeviceTypeConfigFromSpecificFile(String propFileName) throws IOException {
         String allDevicesKey = "allDeviceTypes";
         Properties props = new Properties();
 
@@ -46,7 +46,7 @@ public class DeviceTypeConfig {
                 String aux = getPropertyValueFromKey(props, s);
                 deviceTypeConfig.add(aux);
             }
-        } catch (IOException e) {
+        } catch (IOException e) { // NOSONAR
             throw new IOException("ERROR: Unable to process device configuration file - " + e.getMessage());
         }
         return deviceTypeConfig;

@@ -149,4 +149,20 @@ class TypeSensorTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetIdWorks() {
+        TypeSensor typeSensor = new TypeSensor();
+        Long expectedResult = 0L;
+        Long actualResult = typeSensor.getId();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfToStringWorks() {
+        TypeSensor typeSensor = new TypeSensor("temperature","C");
+        String expectedResult = "TypeSensor[id=0, name='temperature', units='C']";
+        String actualResult = typeSensor.toString();
+        assertEquals(expectedResult,actualResult);
+    }
 }

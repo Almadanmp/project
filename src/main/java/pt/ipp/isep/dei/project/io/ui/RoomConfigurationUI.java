@@ -103,7 +103,7 @@ class RoomConfigurationUI {
     }
 
     /**
-     * US210 As an Administrator, I want to add a new device to a room from the list of available device types, so that I can configure it.
+     * US210 As an Administrator, I want to addWithoutPersisting a new device to a room from the list of available device types, so that I can configure it.
      *
      * @param house
      */
@@ -157,7 +157,7 @@ class RoomConfigurationUI {
             loopToSetAttributeValuesProgram(program, programAttributesNames);
             controller.setProgramName(program, programName);
             loopToBuildFinalStringProgram(program, programAttributesNames);
-            String message = "Would you like to add another FixedTimeProgram? (y/n)";
+            String message = "Would you like to addWithoutPersisting another FixedTimeProgram? (y/n)";
             controller.addProgramToProgramList(programList, program);
             loopForCreatingProgram(message, programList);
             controller.configureDeviceProgramList(device, programList);
@@ -258,7 +258,7 @@ class RoomConfigurationUI {
         }
     }
 
-    // enters a loop if the user chooses to add another program. (us210)
+    // enters a loop if the user chooses to addWithoutPersisting another program. (us210)
     private void loopForCreatingProgram(String message, ProgramList programList) {
         while (InputHelperUI.yesOrNo(message)) {
             loopForCreatingPrograms(programList);
@@ -365,7 +365,7 @@ class RoomConfigurationUI {
 
 
     /**
-     * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
+     * runs US253, As an Administrator, I want to addWithoutPersisting a new sensor to a room from the list of available
      * sensor types, in order to configure it.
      * <p>
      * //  * @param typeSensorList is
@@ -377,10 +377,10 @@ class RoomConfigurationUI {
         }
         Room room = InputHelperUI.getHouseRoomByList(house);
         TypeSensor typeSensor = InputHelperUI.getInputSensorTypeByList(typeSensorList);
-        getInput253(room, typeSensor, typeSensorList);
+        getInput253(room, typeSensor);
     }
 
-    private void getInput253(Room room, TypeSensor typeSensor, TypeSensorList typeSensorList) {
+    private void getInput253(Room room, TypeSensor typeSensor) {
         Scanner input = new Scanner(System.in);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");

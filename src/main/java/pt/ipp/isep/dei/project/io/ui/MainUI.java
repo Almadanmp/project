@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import pt.ipp.isep.dei.project.Services.SensorService;
+import pt.ipp.isep.dei.project.services.SensorService;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -46,7 +46,7 @@ public class MainUI {
 
     @Bean
     public CommandLineRunner mainRun() {
-        return (args) -> {
+        return args -> {
             List<String> deviceTypeConfig;
             FileInputUtils fileUtils = new FileInputUtils();
 

@@ -99,7 +99,7 @@ class GASettingsUI {
         }
     }
 
-    /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
+    /* USER STORY 001 - As an Administrator, I want to addWithoutPersisting a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01() {
         if (typeAreaList == null) {
@@ -122,7 +122,7 @@ class GASettingsUI {
     }
 
     private boolean updateModelUS01(String typeAreaName) {
-        return controller.createAndAddTypeAreaToList(typeAreaName);
+        return controller.createAndAddTypeAreaToList(typeAreaList, typeAreaName);
     }
 
     private void displayStateUS01(boolean created) {
@@ -167,7 +167,7 @@ class GASettingsUI {
         String geoAreDescription = null;
         LocalDTO localDTO = controller.createLocalDTO(geoAreaLat, geoAreaLong, geoAreaAlt);
         GeographicAreaDTO geoAreaDTO = controller.createGeoAreaDTO(nameOfGeoArea, geoTypeAreaDTO, localDTO, geoAreaLength, geoAreaWidth);
-        if (InputHelperUI.yesOrNo("Would you like to add a description to the new geographic area? (y/n)")) {
+        if (InputHelperUI.yesOrNo("Would you like to addWithoutPersisting a description to the new geographic area? (y/n)")) {
             System.out.println("Please insert the geographic area description:");
             geoAreDescription = scanner.nextLine();
             geoAreaDTO.setDescription(geoAreDescription);

@@ -136,7 +136,7 @@
 //                new Local(1, 1, 1),
 //                validDate1);
 //        SensorList sensorList = new SensorList();
-//        sensorList.add(firstSensor);
+//        sensorList.addWithoutPersisting(firstSensor);
 //        geoArea.setSensorList(sensorList);
 //
 //        // Act
@@ -156,8 +156,8 @@
 //        TypeSensorList list1 = new TypeSensorList();
 //        TypeSensor t1 = new TypeSensor("rain", "mm");
 //        TypeSensor t2 = new TypeSensor("wind", "km/h");
-//        list1.add(t1);
-//        list1.add(t2);
+//        list1.addWithoutPersisting(t1);
+//        list1.addWithoutPersisting(t2);
 //
 //        // Act
 //

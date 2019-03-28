@@ -70,7 +70,13 @@ public class TypeSensor {
         return result;
     }
 
-    //TODO Testing, if it stays, do javadoc
+    /**
+     * Method to print a TypeSensor.
+     * It will print the attributes needed to check the information of the TypeSensor
+     * (id, name and Units)
+     *
+     * @return a string of the TypeSensor.
+     */
     public String toString() {
         return String.format(
                 "TypeSensor[id=%d, name='%s', units='%s']",

@@ -10,12 +10,10 @@ import pt.ipp.isep.dei.project.model.*;
 public class GASettingsController {
 
 
-    private TypeAreaList typeAreaList;
-
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     public GASettingsController(TypeAreaList typeAreaList) {
-        this.typeAreaList = typeAreaList;
+        TypeAreaList typeAreaList1 = typeAreaList;
     }
 
     GASettingsController() {
@@ -52,7 +50,7 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(String input) {
+    public boolean createAndAddTypeAreaToList(TypeAreaList typeAreaList, String input) {
         TypeArea typeArea = typeAreaList.createTypeArea(input);
         return typeAreaList.addTypeArea(typeArea);
     }
@@ -67,9 +65,9 @@ public class GASettingsController {
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
 
     /**
-     * Method to add a new geographic area to a list of geographic areas
+     * Method to addWithoutPersisting a new geographic area to a list of geographic areas
      *
-     * @param newGeoList geographic area list to add the new geographic area
+     * @param newGeoList geographic area list to addWithoutPersisting the new geographic area
      * @param localDTO   the latitude, longitude and altitude of the GA
      * @return success if a new GA is added, false otherwise
      */
@@ -77,12 +75,12 @@ public class GASettingsController {
         Mapper mapper = new Mapper();
         GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), mapper.dtoToLocal(localDTO));
-        if (!(newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
+        if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
                 mapper.dtoToLocal(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
-            return false;
+           return newGeoList.addGeographicArea(geoToAdd);
         }
     }
 
@@ -136,7 +134,7 @@ public class GASettingsController {
         return typeAreaDTO.getName();
     }
 
-    /*USER STORY 07 - As an Administrator, I want to add an existing geographical area to another one (e.g. add city of
+    /*USER STORY 07 - As an Administrator, I want to addWithoutPersisting an existing geographical area to another one (e.g. addWithoutPersisting city of
     Porto to the district of Porto). */
 
 

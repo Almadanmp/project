@@ -44,7 +44,7 @@ public class House implements Metered {
 
     /**
      * Method that will instantiate an object from each device Type path in device.properties file
-     * and add it to the List<DeviceType> attribute in House class.
+     * and addWithoutPersisting it to the List<DeviceType> attribute in House class.
      *
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */

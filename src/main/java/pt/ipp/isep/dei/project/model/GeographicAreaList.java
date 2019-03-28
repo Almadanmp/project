@@ -24,7 +24,7 @@ public class GeographicAreaList {
      * GeographicAreaList constructor that receives a Geographic Area as a parameter and
      * adds the GA to the attribute geographicAreas
      *
-     * @param geographicAreaToAdd geographic area to add to the attribute
+     * @param geographicAreaToAdd geographic area to addWithoutPersisting to the attribute
      */
     public GeographicAreaList(GeographicArea geographicAreaToAdd) {
         geographicAreas = new ArrayList<>();
@@ -38,9 +38,9 @@ public class GeographicAreaList {
         geographicAreas = new ArrayList<>();
     }
 
-    public GeographicAreaList getAll(){
-        Iterable<GeographicArea> geographicAreas = this.geographicAreaRepository.findAll();
-        for(GeographicArea g : geographicAreas){
+    public GeographicAreaList getAll() {
+        Iterable<GeographicArea> geoAreas = this.geographicAreaRepository.findAll();
+        for (GeographicArea g : geoAreas) {
             this.addGeographicArea(g);
         }
         return this;
@@ -49,6 +49,7 @@ public class GeographicAreaList {
     public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
         this.geographicAreaRepository = geographicAreaRepository;
     }
+
 
     /**
      * Method that receives a geographic area as a parameter and adds that
@@ -61,6 +62,14 @@ public class GeographicAreaList {
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             geographicAreaRepository.save(geographicAreaToAdd);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addWithoutPersisting(GeographicArea geographicAreaToAdd) {
+        if (!(geographicAreas.contains(geographicAreaToAdd))) {
+            geographicAreas.add(geographicAreaToAdd);
             return true;
         }
         return false;
@@ -103,9 +112,8 @@ public class GeographicAreaList {
      * exists, false if it doesn't.
      */
     public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, Local local) {
-        Local newLocal = new Local(local.getLatitude(), local.getLongitude(), local.getAltitude());
         for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsParameters(newName, typeArea, newLocal)) {
+            if (ga.equalsParameters(newName, typeArea, local)) {
                 return true;
             }
         }
@@ -147,7 +155,7 @@ public class GeographicAreaList {
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsTypeArea(typeAreaToTest)) {
-                finalList.addGeographicArea(ga);
+                finalList.addWithoutPersisting(ga);
             }
         }
         return finalList;
@@ -205,7 +213,7 @@ public class GeographicAreaList {
         }
         for (GeographicArea ga : this.geographicAreas) {
             if (ga.getSensorList().isEmpty()) {
-                return fullSensorList;
+                continue;
             }
             for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
                 fullSensorList.add(sensor);

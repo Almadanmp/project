@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
@@ -762,10 +764,37 @@ class HouseTest {
     }
 
     @Test
-    void seeIfGetEnergyConsumption() {
+    void seeIfGetEnergyConsumptionWorksZero() {
+        // Arrange
+
         double expectedResult = 0.0;
 
+        // Act
+
         double result = validHouse.getEnergyConsumption(10);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetEnergyConsumptionWorks() {
+        // Arrange
+
+        double expectedResult = 310;
+        Device device = new Fridge(new FridgeSpec());
+        device.setNominalPower(31);
+        Room tempRoom = new Room("tempRoom", 1, 20, 20, 10);
+        validHouse.addRoom(tempRoom);
+        tempRoom.addDevice(device);
+
+        // Act
+
+        double result = validHouse.getEnergyConsumption(10);
+
+        // Assert
+
         assertEquals(expectedResult, result);
     }
 

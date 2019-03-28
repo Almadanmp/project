@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Component
 public class TypeAreaList {
-    private static final String stringBuilder = "---------------\n";
+    private static final String STRING_BUILDER = "---------------\n";
 
     private List<TypeArea> typeAreas = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class TypeAreaList {
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
     public TypeAreaList() {
-
+        //empty constructor
     }
 
     public List<TypeArea> getTypeAreas() {
@@ -38,7 +38,7 @@ public class TypeAreaList {
     /**
      * This method creates a new Type of Geographic Area and adds it to a list.
      *
-     * @param name String of the new Area Type that one wishes to create and add to a list.
+     * @param name String of the new Area Type that one wishes to create and addWithoutPersisting to a list.
      * @return true or false depending on if it adds the type to the list or not.
      */
     public TypeArea createTypeArea(String name) {
@@ -48,15 +48,17 @@ public class TypeAreaList {
     /**
      * This method adds a previously stated Area Type to a List of Area Types.
      *
-     * @param type Type of Geographic Area one wishes to add to a list.
+     * @param type Type of Geographic Area one wishes to addWithoutPersisting to a list.
      * @return true or false depending on the list containing or not the type input already.
      */
     public boolean addTypeArea(TypeArea type) {
         if (!typeAreas.contains(type)) {
             typeAreas.add(type);
+            typeAreaRepository.save(type);
+            return true;
+        } else {
+            return false;
         }
-        typeAreaRepository.save(type);
-        return true;
     }
 
 
@@ -66,7 +68,7 @@ public class TypeAreaList {
      * @return builds a string of all the individual members of the geoAreaType list.
      */
     public String buildString() {
-        StringBuilder result = new StringBuilder(stringBuilder);
+        StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (typeAreas.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -74,7 +76,7 @@ public class TypeAreaList {
             TypeArea aux = typeAreas.get(i);
             result.append(i).append(") Description: ").append(aux.getName()).append(" \n");
         }
-        result.append(stringBuilder);
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 

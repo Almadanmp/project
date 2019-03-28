@@ -13,6 +13,7 @@ import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -128,6 +129,7 @@ class TypeAreaListTest {
 
         assertTrue(actualResult);
     }
+
 
     @Test
     void seeIfEqualsWorksFalse() {
