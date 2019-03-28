@@ -3,10 +3,16 @@
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+//import org.springframework.test.context.support.AnnotationConfigContextLoader;
 //import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 //import pt.ipp.isep.dei.project.dto.LocalDTO;
 //import pt.ipp.isep.dei.project.dto.Mapper;
 //import pt.ipp.isep.dei.project.dto.SensorDTO;
+//import pt.ipp.isep.dei.project.io.ui.MainUI;
 //import pt.ipp.isep.dei.project.model.*;
 //
 //import java.io.*;
@@ -19,7 +25,10 @@
 ///**
 // * GASettingsController tests class.
 // */
-//
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@DataJpaTest
+//@ContextConfiguration(classes = {MainUI.class },
+//        loader = AnnotationConfigContextLoader.class)
 //class GASettingsControllerTest {
 //    private GASettingsController controller = new GASettingsController();
 //    private GeographicArea firstValidArea;

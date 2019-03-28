@@ -7,7 +7,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.*;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 public class ReaderController {
 
     @Autowired
-    SensorService sensorService2;
+    SensorService sensorService;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
@@ -34,7 +33,7 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
     public ReaderController(SensorService service) {
-        this.sensorService2 = service;
+        this.sensorService = service;
     }
 
 
@@ -51,11 +50,11 @@ public class ReaderController {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
         GeographicArea[] geographicAreasArray;
-        geographicAreasArray = readGeoAreasJSON(geoAreas, sensorService, geoAreaService);
+        geographicAreasArray = readGeoAreasJSON(geoAreas);
         return addGeoAreasToList(geographicAreasArray, list);
     }
 
@@ -84,29 +83,26 @@ public class ReaderController {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private GeographicArea[] readGeoAreasJSON(JSONArray geoAreas, SensorService sensorService, GeoAreaService geoAreaService) {
+    private GeographicArea[] readGeoAreasJSON(JSONArray geoAreas) {
         GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
-        GeographicArea areaObject = new GeographicArea();
         for (int i = 0; i < geoAreas.length(); i++) {
             JSONObject area = geoAreas.getJSONObject(i);
             JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
             String areaID = area.getString("id");
             String areaDescription = area.getString("description");
             TypeArea areaType = new TypeArea(area.getString("type"));
-            geoAreaService.setTypeArea(areaObject, areaType);
             double areaWidth = area.getDouble("width");
             double areaLength = (area.getDouble("length"));
             double areaLatitude = local.getDouble("latitude");
             double areaLongitude = local.getDouble("longitude");
             double areaAltitude = local.getDouble("altitude");
-            Local location = new Local(areaLatitude,areaLongitude,areaAltitude);
-            geoAreaService.addGeoAreaLocal(areaObject, location);
-            areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
+            Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
+            GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
             areaObject.setDescription(areaDescription);
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            SensorList areaSensorsList = readAreaSensorsJSON(areaSensors, sensorService);
-            sensorService.setSensorList(areaObject,areaSensorsList);
+            SensorList areaSensorsList = readAreaSensorsJSON(areaSensors);
+            areaObject.setSensorList(areaSensorsList);
         }
         return geographicAreasArray;
     }
@@ -119,7 +115,7 @@ public class ReaderController {
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private SensorList readAreaSensorsJSON(JSONArray areaSensors, SensorService sensorService) {
+    private SensorList readAreaSensorsJSON(JSONArray areaSensors) {
         List<Sensor> result = new ArrayList<>();
         SensorList sensorListObject = new SensorList();
         int entriesChecked = 0;
@@ -146,9 +142,8 @@ public class ReaderController {
             double sensorAltitude = sensorLocal.getDouble("altitude");
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
-            Sensor sensorObject = new Sensor(sensorId, sensorName, type,local , date);
-            sensorService.addSensorLocalization(sensorObject, local);
-            sensorService.setSensorType(sensorObject, type);
+            Sensor sensorObject = new Sensor(sensorId, sensorName, type, local, date);
+            sensorObject.setSensorList(sensorListObject);
             result.add(sensorObject);
             entriesChecked++;
         }
@@ -162,14 +157,14 @@ public class ReaderController {
      * @param filePath path to the xml file
      * @param list     geographic area list to add the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list) {
         ReaderXML reader = new ReaderXML();
         int result = 0;
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i), sensorService, geoAreaService))) {
+            if (list.addGeographicArea(readGeographicAreasXML(nListGeoArea.item(i)))) {
                 result++;
             }
         }
@@ -182,7 +177,7 @@ public class ReaderController {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    private GeographicArea readGeographicAreasXML(Node node, SensorService sensorService, GeoAreaService geoAreaService) {
+    private GeographicArea readGeographicAreasXML(Node node) {
         GeographicArea geoArea = new GeographicArea();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -193,18 +188,17 @@ public class ReaderController {
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
-            geoAreaService.addGeoAreaLocal(geoArea, local);
             TypeArea typeArea = new TypeArea(getTagValue("type", element)); // TODO - type areas need to be added to the local list
-            geoAreaService.setTypeArea(geoArea, typeArea);
             geoArea = new GeographicArea(id, typeArea, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
-            sensorService.setSensorList(geoArea, sensorList);
             for (int j = 0; j < nListSensor.getLength(); j++) {
-                Sensor s = readSensorsXML(nListSensor.item(j), sensorService);
-                sensorService.addSensor(s, sensorList);
+                sensorList.add(readSensorsXML(nListSensor.item(j), sensorList));
             }
+            geoArea.setSensorList(sensorList);
+
+
         }
         return geoArea;
     }
@@ -215,7 +209,7 @@ public class ReaderController {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private Sensor readSensorsXML(Node node, SensorService sensorService) {
+    private Sensor readSensorsXML(Node node, SensorList sensorList) {
         Sensor sensor = new Sensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -223,19 +217,18 @@ public class ReaderController {
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
             TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element)); //TODO - type sensors need to be added to the local list
-            sensorService.setSensorType(sensor, typeSensor);
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
                     Double.parseDouble(getTagValue("longitude", element)),
                     Double.parseDouble(getTagValue("altitude", element)));
-            sensorService.addSensorLocalization(sensor, local);
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException expected) {
+                expected.getErrorOffset();
             }
             sensor = new Sensor(id, name, typeSensor, local, date);
+            sensor.setSensorList(sensorList);
         }
         return sensor;
     }
@@ -260,7 +253,6 @@ public class ReaderController {
      *
      * @return the number of readings added to the geographic area sensors
      **/
-    //TODO Teresa
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
         SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
         int addedReadings = 0;
@@ -291,7 +283,6 @@ public class ReaderController {
      *
      * @return 0 in case the reading was not added, 1 in case of success.
      ***/
-    //TODO Teresa
     int parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
@@ -302,12 +293,12 @@ public class ReaderController {
                 String sensorID = readings[0];
                 Date readingDate = pattern.parse(readings[1]);
                 Double readingValue = Double.parseDouble(readings[2]);
-                return addReadingToMatchingSensor(logger, sensorList, sensorService2, sensorID, readingValue, readingDate);
+                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException expected) {
+                expected.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);
@@ -376,12 +367,12 @@ public class ReaderController {
                 String sensorID = reading.getString("id");
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
-                return addReadingToMatchingSensor(logger, sensorList, sensorService2, sensorID, readingValue, readingDate);
+                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException ok) {
+                ok.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);
@@ -394,9 +385,8 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    //TODO Teresa
-    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, SensorService service, String sensorID, Double readingValue, Date readingDate) {
-        if (logger.isLoggable(Level.WARNING) && service.addReadingToMatchingSensor(sensorList, sensorID, readingValue, readingDate)) {
+    int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+        if (logger.isLoggable(Level.WARNING) && sensorService.addReadingToMatchingSensor(sensorList, sensorID, readingValue, readingDate)) {
             return 1;
         }
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
@@ -472,12 +462,12 @@ public class ReaderController {
                 String sensorID = element.getElementsByTagName("id").item(0).getTextContent();
                 Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
-                return addReadingToMatchingSensor(logger, sensorList, sensorService2, sensorID, readingValue, readingDate);
+                return addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
-            } catch (ParseException ignored) {
-                ignored.getErrorOffset();
+            } catch (ParseException ok) {
+                ok.getErrorOffset();
             }
         }
         logger.warning(INVALID_DATE);

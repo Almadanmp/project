@@ -26,7 +26,7 @@ skinparam component {
 
 
 
-
+title XMLFileReading
 -> ReaderController: readReadingsFromXML(geographicAreaList, filePath, logPath)
 activate ReaderController
 

@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
@@ -40,9 +39,6 @@ public class MainUI {
 
     @Autowired
     GeographicAreaList geographicAreaList;
-
-    @Autowired
-    GeoAreaService geoAreaService;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -156,7 +152,7 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(sensorService, geographicAreaList, geoAreaService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(sensorService, geographicAreaList);
                             houseC.run(mockHouse, mockGeographicAreaList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

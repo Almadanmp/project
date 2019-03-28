@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
@@ -420,7 +419,7 @@ public class InputHelperUI {
      *
      * @return returns a filepath.
      */
-    public String getInputPath(String result) {
+    private String getInputPath(String result) {
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
             System.out.println("Please enter a valid path");
@@ -432,19 +431,19 @@ public class InputHelperUI {
     /**
      * Reads either a .json ou a .xml path
      *
-     * @param input   - input of user
-     * @param list     - the GeographicAreaList provided
+     * @param input - input of user
+     * @param list  - the GeographicAreaList provided
      */
-    public boolean getInputPathJsonOrXML(String input, GeographicAreaList list, SensorService sensorService, GeoAreaService geoAreaService) {
+    public boolean getInputPathJsonOrXML(String input, GeographicAreaList list, SensorService sensorService) {
         ReaderController controller = new ReaderController(sensorService);
         String filePath = getInputPath(input);
         if (input.endsWith(".json")) {
-            int areasRead = controller.readJSONFileAndAddGeoAreas(filePath, list, sensorService, geoAreaService);
+            int areasRead = controller.readJSONFileAndAddGeoAreas(filePath, list);
             System.out.println(areasRead + " Geographic Areas have been successfully imported.");
             return true;
         }
         if (input.endsWith(".xml")) {
-            int areas = controller.readFileXMLAndAddAreas(filePath, list, sensorService, geoAreaService);
+            int areas = controller.readFileXMLAndAddAreas(filePath, list);
             System.out.println(areas + " Geographic Areas have been successfully imported.");
             return true;
         }
@@ -456,8 +455,7 @@ public class InputHelperUI {
      * a .csv, .xml or .json.
      *
      * @return the file path as a String
-     *
-     * **/
+     **/
     public String getInputFileLocation() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the file you want to import: ");
@@ -474,7 +472,7 @@ public class InputHelperUI {
      * (i.e. is either a .xml, .csv, .json file)
      *
      * @return true if the path is valid, false otherwise
-     * **/
+     **/
     private boolean pathIsValid(String path) {
         return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
     }

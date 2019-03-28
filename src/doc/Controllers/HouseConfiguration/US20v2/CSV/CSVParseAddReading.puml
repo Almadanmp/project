@@ -25,7 +25,7 @@ skinparam actor {
  }
 
 
-
+title CSVParseAddReading
 -> ReaderController: parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList)
 activate ReaderController
 

@@ -1,16 +1,14 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.Services.GeoAreaService;
 import pt.ipp.isep.dei.project.Services.SensorService;
-import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
+import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-
 
 import java.util.Scanner;
 
@@ -25,13 +23,11 @@ class HouseConfigurationUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private final SensorService sensorService;
     private GeographicAreaList geographicAreaList;
-    private GeoAreaService geoAreaService;
 
-    HouseConfigurationUI(SensorService sensorService, GeographicAreaList geographicAreaList, GeoAreaService geoAreaService) {
+    HouseConfigurationUI(SensorService sensorService, GeographicAreaList geographicAreaList) {
         this.controller = new HouseConfigurationController();
         this.sensorService = sensorService;
         this.geographicAreaList = geographicAreaList;
-        this.geoAreaService = geoAreaService;
     }
 
     void run(House house, GeographicAreaList list) {
@@ -49,7 +45,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS20v2(list);
+                    runUS20v2();
                     activeInput = false;
                     break;
                 case 3:
@@ -76,8 +72,8 @@ class HouseConfigurationUI {
 
     /**
      * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
-     *
-     *  list is the static, program list of geographic areas that comes from mainUI.
+     * <p>
+     * list is the static, program list of geographic areas that comes from mainUI.
      */
 
     private void runUS15v2() {
@@ -85,7 +81,7 @@ class HouseConfigurationUI {
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        if (!input.getInputPathJsonOrXML(result,geographicAreaList, sensorService, geoAreaService)){
+        if (!input.getInputPathJsonOrXML(result, geographicAreaList, sensorService)) {
             System.out.println("The file isn't a JSON nor a XML file.");
         }
     }
@@ -99,20 +95,21 @@ class HouseConfigurationUI {
      * As an Administrator, I want to import geographic area sensor readings into the application
      * from a a CSV, JSON and XML file and display a message to the user of how many readings were
      * successfully imported.
-     *
-     * @param geographicAreaList is the static, program list of geographic areas that comes from mainUI.
+     * <p>
+     * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
-    private void runUS20v2(GeographicAreaList geographicAreaList) {
+    private void runUS20v2() {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String path = inputHelperUI.getInputFileLocation();
         if (path.endsWith(".csv")) {
             readReadingsFromCSV(path, VALID_LOG_PATH);
         } else if (path.endsWith(".json")) {
-            readReadingsFromJSON(geographicAreaList, path, VALID_LOG_PATH);
+            readReadingsFromJSON(path, VALID_LOG_PATH);
         } else if (path.endsWith(".xml")) {
-            readReadingsFromXML(geographicAreaList, path, VALID_LOG_PATH);
+            readReadingsFromXML(path, VALID_LOG_PATH);
         }
     }
+
     //TODO Teresa
     private void readReadingsFromCSV(String filePath, String logFilePath) {
         int result = 0;
@@ -125,7 +122,7 @@ class HouseConfigurationUI {
         System.out.println(result + " reading(s) successfully imported.");
     }
 
-    private void readReadingsFromJSON(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
+    private void readReadingsFromJSON(String filePath, String logFilePath) {
         int result = 0;
         ReaderController ctrl = new ReaderController(sensorService);
         try {
@@ -136,7 +133,7 @@ class HouseConfigurationUI {
         System.out.println(result + " reading(s) successfully imported.");
     }
 
-    private void readReadingsFromXML(GeographicAreaList geographicAreaList, String filePath, String logFilePath) {
+    private void readReadingsFromXML(String filePath, String logFilePath) {
         int result = 0;
         ReaderController ctrl = new ReaderController(sensorService);
         try {

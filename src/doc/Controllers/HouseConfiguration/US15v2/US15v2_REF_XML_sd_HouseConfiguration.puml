@@ -1,5 +1,5 @@
 @startuml
-title US015v2 \n REF JSON file.
+title US015v2 \n REF XML file.
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
@@ -24,41 +24,44 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-InputHelperUI -> ReaderController: readJSONFileAndAddGeoAreas(filePath)
+-> InputHelperUI: getInputPathJsonOrXML();
 activate InputHelperUI
+InputHelperUI -> ReaderController: readFileXMLAndAddAreas(filePath)
 activate ReaderController
-ReaderController -> ReaderJSONGeographicAreas: readFile(filePath)
+ReaderController -> ReaderXML: readFile(filePath)
+activate ReaderXML
 deactivate ReaderController
-activate ReaderJSONGeographicAreas
 
-ReaderJSONGeographicAreas->ReaderJSONGeographicAreas:getJSONArray("geographical_area")
-ReaderJSONGeographicAreas --> ReaderController: return JSONArray
-deactivate ReaderJSONGeographicAreas
+ReaderXML --> ReaderController: return Document
+deactivate ReaderXML
+
 activate ReaderController
-loop successs
-ReaderController->ReaderController:getJSONObject()
-create ":GeographicArea"
-ReaderController -->> ":GeographicArea": create
-activate ":GeographicArea"
+ReaderController->ReaderController:NodeList = getElementsByTagName("geographical_area")
+loop success
+ReaderController->ReaderController:readGeographicAreasXML(Node node)
+create "geoArea :GeographicArea"
+ReaderController -->> "geoArea :GeographicArea": create
+activate "geoArea :GeographicArea"
 deactivate ReaderController
-":GeographicArea" --> ReaderController: return GeographicArea[]
-deactivate ":GeographicArea"
 
+"geoArea :GeographicArea" --> ReaderController: return geoArea
+deactivate "geoArea :GeographicArea"
 activate ReaderController
 end loop
+
 loop success
 ReaderController -> GeographicAreaList: add(geoArea)
 deactivate ReaderController
-
 activate GeographicAreaList
 
 GeographicAreaList-->ReaderController: return true
 deactivate GeographicAreaList
 
 activate ReaderController
+
 end loop
 ReaderController --> InputHelperUI: return int
 deactivate ReaderController
-deactivate InputHelperUI
-
+ <-- InputHelperUI: return int
+ deactivate InputHelperUI
 @enduml

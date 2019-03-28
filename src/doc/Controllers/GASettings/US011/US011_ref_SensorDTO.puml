@@ -28,7 +28,7 @@ skinparam actor {
 
 -> GASettingsController: inputSensor( GeographicAreaDTO )
 activate GASettingsController
-GASettingsController -->> InputUtils: sensor = getInputSensorByList(SensorList)
+GASettingsController -->> InputHelperUI: sensor = getInputSensorByList(SensorList)
 GASettingsController -->> Mapper: Mapper mapper = new Mapper();
 activate Mapper
 Mapper -> Mapper: sensorToDTO(sensor)
