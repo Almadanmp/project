@@ -10,12 +10,10 @@ import pt.ipp.isep.dei.project.model.*;
 public class GASettingsController {
 
 
-    private TypeAreaList typeAreaList;
-
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     public GASettingsController(TypeAreaList typeAreaList) {
-        this.typeAreaList = typeAreaList;
+        TypeAreaList typeAreaList1 = typeAreaList;
     }
 
     GASettingsController() {

@@ -39,8 +39,8 @@ public class GeographicAreaList {
     }
 
     public GeographicAreaList getAll(){
-        Iterable<GeographicArea> geographicAreas = this.geographicAreaRepository.findAll();
-        for(GeographicArea g : geographicAreas){
+        Iterable<GeographicArea> areas = this.geographicAreaRepository.findAll();
+        for(GeographicArea g : areas){
             this.addGeographicArea(g);
         }
         return this;

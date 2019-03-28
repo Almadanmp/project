@@ -46,7 +46,7 @@ public class MainUI {
 
     @Bean
     public CommandLineRunner mainRun() {
-        return (args) -> {
+        return args -> {
             List<String> deviceTypeConfig;
             FileInputUtils fileUtils = new FileInputUtils();
 

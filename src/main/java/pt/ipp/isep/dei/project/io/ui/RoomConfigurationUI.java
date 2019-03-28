@@ -377,10 +377,10 @@ class RoomConfigurationUI {
         }
         Room room = InputHelperUI.getHouseRoomByList(house);
         TypeSensor typeSensor = InputHelperUI.getInputSensorTypeByList(typeSensorList);
-        getInput253(room, typeSensor, typeSensorList);
+        getInput253(room, typeSensor);
     }
 
-    private void getInput253(Room room, TypeSensor typeSensor, TypeSensorList typeSensorList) {
+    private void getInput253(Room room, TypeSensor typeSensor) {
         Scanner input = new Scanner(System.in);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");

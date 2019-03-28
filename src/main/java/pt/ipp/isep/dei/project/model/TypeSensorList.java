@@ -128,8 +128,8 @@ public class TypeSensorList {
         if (isEmptyRepository()) {
             return "There are no Sensor Types Configured\n";
         }
-        Iterable<TypeSensor> typeSensors = typeSensorRepository.findAll();
-        for (TypeSensor tS : typeSensors) {
+        Iterable<TypeSensor> typeSensorRepositoryAll = typeSensorRepository.findAll();
+        for (TypeSensor tS : typeSensorRepositoryAll) {
             result.append(tS.getId()).append(") Description: ").append(tS.getName()).append(" | ");
             result.append("Unit: ").append(tS.getUnits()).append("\n");
         }

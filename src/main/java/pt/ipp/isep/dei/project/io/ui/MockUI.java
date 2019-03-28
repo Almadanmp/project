@@ -24,7 +24,6 @@ class MockUI {
     private static final String GLASSES = "Glasses";
     private static final String DISHES = "Dishes";
 
-    private TypeSensorList typeSensorList;
     private GeographicAreaList geoAreaList;
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
