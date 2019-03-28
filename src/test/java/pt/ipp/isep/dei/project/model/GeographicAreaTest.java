@@ -119,6 +119,17 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfGetSetMotherAreaWorksFalse() {
+        // Act
+
+        boolean actualResult = validArea.setMotherArea(null);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetSetDescription() {
         // Arrange
 
@@ -294,6 +305,40 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfEqualsTypeAreaWorks(){
+        // Arrange
+
+        TypeArea typeArea1 = new TypeArea("City");
+        validArea.setTypeArea(typeArea1);
+
+        // Act
+
+        boolean actualResult = validArea.equalsTypeArea(typeArea1);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsTypeAreaWorksFalse(){
+        // Arrange
+
+        TypeArea typeArea1 = new TypeArea("City");
+        validArea.setTypeArea(typeArea1);
+        TypeArea typeArea2 = new TypeArea("Street");
+
+        // Act
+
+        boolean actualResult = validArea.equalsTypeArea(typeArea2);
+
+        // Assert
+
+        assertFalse(actualResult);
+
+    }
+
+    @Test
     void seeIfGetLocation() {
         // Arrange
 
@@ -307,6 +352,7 @@ class GeographicAreaTest {
         // Assert
 
         assertEquals(local, actualLocal);
+
     }
 
     @Test

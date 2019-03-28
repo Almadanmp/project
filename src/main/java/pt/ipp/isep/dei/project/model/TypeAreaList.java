@@ -7,23 +7,22 @@ import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Class that groups a number of Types of Geographical Areas.
  */
 @Component
 public class TypeAreaList {
+    private static final String stringBuilder = "---------------\n";
 
     private List<TypeArea> typeAreas = new ArrayList<>();
-
-    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
-        this.typeAreaRepository = typeAreaRepository;
-    }
 
     @Autowired
     TypeAreaRepository typeAreaRepository;
 
+    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
+        this.typeAreaRepository = typeAreaRepository;
+    }
 
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
@@ -60,23 +59,6 @@ public class TypeAreaList {
         return true;
     }
 
-    /**
-     * This method builds a string of all the individual members of the geoAreaType list.
-     *
-     * @return builds a string of all the individual members of the geoAreaType list.
-     */
-    public String getAllAsString() {
-        StringBuilder result = new StringBuilder("---------------\n");
-        Iterable<TypeArea> typeAreas = typeAreaRepository.findAll();
-        int counter = 0;
-        for (TypeArea ta : typeAreas) {
-            counter++;
-            result.append(counter).append(") Name: ").append(ta.getName()).append(" \n");
-        }
-        result.append("---------------\n");
-        return result.toString();
-    }
-
 
     /**
      * This method builds a string of all the individual members of the geoAreaType list.
@@ -84,7 +66,7 @@ public class TypeAreaList {
      * @return builds a string of all the individual members of the geoAreaType list.
      */
     public String buildString() {
-        StringBuilder result = new StringBuilder("---------------\n");
+        StringBuilder result = new StringBuilder(stringBuilder);
         if (typeAreas.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -92,29 +74,10 @@ public class TypeAreaList {
             TypeArea aux = typeAreas.get(i);
             result.append(i).append(") Description: ").append(aux.getName()).append(" \n");
         }
-        result.append("---------------\n");
+        result.append(stringBuilder);
         return result.toString();
     }
 
-    /**
-     * Method to get the TypeArea Repository Size
-     *
-     * @return repository size
-     */
-    public int getSizeRepository() {
-        return typeAreaRepository.findAll().size();
-    }
-
-    /**
-     * Method to get a TypeArea from the Repository through a given ID.
-     *
-     * @param id selected id
-     * @return Type Area corresponding to the given id
-     */
-    public TypeArea getTypeAreaByIdRepository(int id) {
-        Optional <TypeArea> value = typeAreaRepository.findById((long) id);
-        return value.orElse(null);
-    }
 
     /**
      * This method checks if type area list is empty.*

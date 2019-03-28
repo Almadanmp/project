@@ -30,6 +30,16 @@ public class GASettingsController {
         return geoAreaList.buildString();
     }
 
+    /**
+     * @param typeAreaList is the list of Geographic Area Types we want to print.
+     * @return builds a string with each individual member of the given list.
+     */
+
+    public String buildGATypeListString(TypeAreaList typeAreaList) {
+        return typeAreaList.buildString();
+    }
+
+
     /*
      * User Story 01
      * As a system administrator, I wish to define a new type of geographic area, so that later I can classify said geographic area.
@@ -42,7 +52,7 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToListRepository(String input) {
+    public boolean createAndAddTypeAreaToList(String input) {
         TypeArea typeArea = typeAreaList.createTypeArea(input);
         return typeAreaList.addTypeArea(typeArea);
     }
@@ -50,18 +60,8 @@ public class GASettingsController {
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
-    public String getTypeAreaListRepository() {
-        return typeAreaList.getAllAsString();
-    }
-
-    public int getTypeAreaListSize() {
-
-        return typeAreaList.getSizeRepository();
-    }
-
-
-    public TypeArea getTypeAreaById(int id) {
-        return typeAreaList.getTypeAreaByIdRepository(id);
+    public String getTypeAreaList(TypeAreaList typeAreaList) {
+        return typeAreaList.buildString();
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
@@ -174,9 +174,10 @@ public class GASettingsController {
 
     /**
      * Deactivates a sensor from a sensor list
+     *
      * @param geographicAreaList the geographic area list that contains the geographic area with sensors
-     * @param sensorDTO selected sensor from the geographic area, list of sensors
-     * @param geographicAreaDTO selected geographicAreaDTO from the geographic area list
+     * @param sensorDTO          selected sensor from the geographic area, list of sensors
+     * @param geographicAreaDTO  selected geographicAreaDTO from the geographic area list
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
     public boolean deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {

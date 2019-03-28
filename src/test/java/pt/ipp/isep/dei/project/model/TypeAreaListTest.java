@@ -11,20 +11,20 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.testng.Assert.*;
 
 /**
  * TypeAreaList tests class.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@ContextConfiguration(classes = {MainUI.class },
+@ContextConfiguration(classes = {MainUI.class},
         loader = AnnotationConfigContextLoader.class)
 class TypeAreaListTest {
     // Common testing artifacts for this class.
@@ -36,7 +36,7 @@ class TypeAreaListTest {
     @Autowired
     TypeAreaRepository typeAreaRepository;
 
-    @Autowired
+    @Resource
     private TypeAreaList validList;
 
     @BeforeEach
@@ -56,43 +56,6 @@ class TypeAreaListTest {
         assertEquals(type1, firstValidType);
     }
 
-    @Test
-    void seeIfGetAllAsStringWorks() {
-        // Arrange
-        String expectedResult = "---------------\n" +
-                "1) Name: Country \n" +
-                "2) Name: City \n" +
-                "---------------\n";
-        // Act
-        String actualResult = validList.getAllAsString();
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
-
-
-    @Test
-    void seeIfGetSizeRepository() {
-        // Arrange
-        int expectedResult = 2;
-        // Act
-        int actualResult = validList.getSizeRepository();
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
-
-    //TODO This test works on intellij and Maven, but not on Sonarqube
-
-    /*
-    @Test
-    void seeIfGetTypeAreaByIdRepository() {
-        // Arrange
-        TypeArea expectedResult = firstValidType;
-        // Act
-        TypeArea actualResult = validList.getTypeAreaByIdRepository(1);
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
-    */
 
     @Test
     void seeIfPrintGAWholeList() {
