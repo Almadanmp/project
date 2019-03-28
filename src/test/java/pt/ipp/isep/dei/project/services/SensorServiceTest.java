@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.services;
+package pt.ipp.isep.dei.project.services;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,6 @@ import pt.ipp.isep.dei.project.model.Sensor;
 import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.model.TypeSensor;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
-import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,7 +28,7 @@ import static org.testng.Assert.assertTrue;
 class SensorServiceTest {
 
     @Autowired
-    SensorService sensorService;
+    private SensorService sensorService;
 
     @Autowired
     private SensorRepository sensorRepository;
