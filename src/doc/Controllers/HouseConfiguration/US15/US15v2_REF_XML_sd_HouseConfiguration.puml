@@ -24,9 +24,9 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-
-InputHelperUI -> ReaderController: readFileXMLAndAddAreas(filePath)
+-> InputHelperUI: getInputPathJsonOrXML();
 activate InputHelperUI
+InputHelperUI -> ReaderController: readFileXMLAndAddAreas(filePath)
 activate ReaderController
 ReaderController -> ReaderXML: readFile(filePath)
 activate ReaderXML
@@ -61,6 +61,7 @@ activate ReaderController
 
 end loop
 ReaderController --> InputHelperUI: return int
-deactivate ReaderController
 
+ <-- InputHelperUI: return int
+ deactivate InputHelperUI
 @enduml

@@ -23,9 +23,9 @@ skinparam component {
   ArrowColor indianred
   ArrowFontColor darkslategrey
 }
-
-InputHelperUI -> ReaderController: readJSONFileAndAddGeoAreas(filePath)
+-> InputHelperUI: getInputPathJsonOrXML();
 activate InputHelperUI
+InputHelperUI -> ReaderController: readJSONFileAndAddGeoAreas(filePath)
 activate ReaderController
 ReaderController -> ReaderJSONGeographicAreas: readFile(filePath)
 deactivate ReaderController
@@ -37,17 +37,20 @@ deactivate ReaderJSONGeographicAreas
 activate ReaderController
 loop successs
 ReaderController->ReaderController:getJSONObject()
-create ":GeographicArea"
-ReaderController -->> ":GeographicArea": create
-activate ":GeographicArea"
+create "geoArea :GeographicArea"
+ReaderController -->> "geoArea :GeographicArea": create
+activate "geoArea :GeographicArea"
 deactivate ReaderController
-":GeographicArea" --> ReaderController: return GeographicArea[]
-deactivate ":GeographicArea"
+"geoArea :GeographicArea" --> ReaderController: return geoArea
+deactivate "geoArea :GeographicArea"
 
 activate ReaderController
+
+ReaderController -> ReaderController: add to GeographicArea[]
+
 end loop
 loop success
-ReaderController -> GeographicAreaList: add(geoArea)
+ReaderController -> GeographicAreaList: add(GeographicArea[])
 deactivate ReaderController
 
 activate GeographicAreaList
@@ -59,6 +62,7 @@ activate ReaderController
 end loop
 ReaderController --> InputHelperUI: return int
 deactivate ReaderController
-deactivate InputHelperUI
+ <-- InputHelperUI: return int
+ deactivate InputHelperUI
 
 @enduml
