@@ -21,6 +21,7 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
+    private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private final SensorService sensorService;
     private GeographicAreaList geographicAreaList;
 
@@ -125,7 +126,7 @@ class HouseConfigurationUI {
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid.");
         }
-        System.out.println(result + " reading(s) successfully imported.");
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     private void readReadingsFromJSON(String filePath, String logFilePath) {
@@ -136,7 +137,7 @@ class HouseConfigurationUI {
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid.");
         }
-        System.out.println(result + " reading(s) successfully imported.");
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     private void readReadingsFromXML(String filePath, String logFilePath) {
@@ -147,7 +148,7 @@ class HouseConfigurationUI {
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid.");
         }
-        System.out.println(result + " reading(s) successfully imported.");
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
