@@ -1233,6 +1233,70 @@ class SensorTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetTotalValueReadingsOnGivenDay() {
+        // Arrange
+        ReadingList validReadingList = new ReadingList();
+        Date validDate15 = new Date();
+        Date validDate3 = new Date();
+        Date validDate7 = new Date();
+        Date validDate14 = new Date();
+        Date validDate13 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            validDate3 = validSdf.parse("31/09/2018 23:59:59");
+            validDate14 = validSdf.parse("02/10/2018 23:59:00");
+            validDate15 = validSdf.parse("03/10/2018 00:00:00");
+            validDate7 = validSdf.parse("10/10/2018 18:14:03");
+            validDate13 = validSdfDay.parse("03/10/2018");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading reading = new Reading(20, validDate15);
+        Reading reading2 = new Reading(20, validDate3);
+        Reading reading3 = new Reading(20, validDate7);
+        Reading reading4 = new Reading(20, validDate14);
+        validReadingList.addReading(reading);
+        validReadingList.addReading(reading2);
+        validReadingList.addReading(reading3);
+        validReadingList.addReading(reading4);
+        double expectedResult = 20;
+        // Act
+
+        double actualResult = validReadingList.getValueReadingsInDay(validDate13);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetMostRecentValueReading() {
+        // Arrange
+        ReadingList validReadingList = new ReadingList();
+        Date validDate12 = new Date();
+        validReadingList = new ReadingList();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2015 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12);
+        Reading laterReading = new Reading(30, testDate);
+        validReadingList.addReading(earlierReading);
+        validReadingList.addReading(laterReading);
+        double expectedResult = 30.0;
+
+        // Act
+        double result = validReadingList.getMostRecentValue();
+
+        // Assert
+        assertEquals(expectedResult, result, 0.01);
+    }
 }
-
-
