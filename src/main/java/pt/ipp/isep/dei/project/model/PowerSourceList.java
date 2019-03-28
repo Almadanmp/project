@@ -26,7 +26,7 @@ public class PowerSourceList {
 
     /**
      * Adds a power source to the list. Duplicates are rejected.
-     * @param powerSource is the power source we want to add.
+     * @param powerSource is the power source we want to addWithoutPersisting.
      * @return is true if the power source was added, false if it wasn't.
      */
     boolean add(PowerSource powerSource) {

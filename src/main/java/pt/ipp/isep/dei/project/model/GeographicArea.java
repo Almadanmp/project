@@ -211,7 +211,7 @@ public class GeographicArea {
     /**
      * Method adds sensor to geographic area sensor list.
      *
-     * @param sensor to add
+     * @param sensor to addWithoutPersisting
      * @return true in case the sensor is added, false otherwise.
      **/
     public boolean addSensor(Sensor sensor) {

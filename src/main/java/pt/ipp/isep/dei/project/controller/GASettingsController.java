@@ -65,9 +65,9 @@ public class GASettingsController {
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
 
     /**
-     * Method to add a new geographic area to a list of geographic areas
+     * Method to addWithoutPersisting a new geographic area to a list of geographic areas
      *
-     * @param newGeoList geographic area list to add the new geographic area
+     * @param newGeoList geographic area list to addWithoutPersisting the new geographic area
      * @param localDTO   the latitude, longitude and altitude of the GA
      * @return success if a new GA is added, false otherwise
      */
@@ -134,7 +134,7 @@ public class GASettingsController {
         return typeAreaDTO.getName();
     }
 
-    /*USER STORY 07 - As an Administrator, I want to add an existing geographical area to another one (e.g. add city of
+    /*USER STORY 07 - As an Administrator, I want to addWithoutPersisting an existing geographical area to another one (e.g. addWithoutPersisting city of
     Porto to the district of Porto). */
 
 

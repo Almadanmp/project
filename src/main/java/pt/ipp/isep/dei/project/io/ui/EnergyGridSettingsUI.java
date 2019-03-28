@@ -88,7 +88,7 @@ class EnergyGridSettingsUI {
         }
     }
 
-    /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
+    /* USER STORY 135 UI - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
     private void runUS135(House house) {
@@ -103,7 +103,7 @@ class EnergyGridSettingsUI {
 
     private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type the designation of the power source you want to add: ");
+        System.out.println("Type the designation of the power source you want to addWithoutPersisting: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum power output of this power source.");
         double maxPowerOutput = InputHelperUI.getInputAsDoubleZeroOrPositive();
@@ -159,7 +159,7 @@ class EnergyGridSettingsUI {
         if (controller.addRoomToGrid(grid, room, house)) {
             System.out.println("Room successfully added to the grid!");
         } else {
-            System.out.println("It wasn't possible to add the room. Please try again.");
+            System.out.println("It wasn't possible to addWithoutPersisting the room. Please try again.");
         }
     }
 

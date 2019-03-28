@@ -47,7 +47,7 @@ public class LogList {
     /**
      * Method that adds a Log to the LogList.
      *
-     * @param logToAdd is the Log we want to add to the LogList.
+     * @param logToAdd is the Log we want to addWithoutPersisting to the LogList.
      * @return false if it's already contained in the list, true if it added successfully.
      */
     public boolean addLog(Log logToAdd) {
@@ -79,7 +79,7 @@ public class LogList {
     /**
      * Method that allows adding a LogList to another one.
      *
-     * @param listToAdd is the List we want to add to the LogList.
+     * @param listToAdd is the List we want to addWithoutPersisting to the LogList.
      * @return true if at least one object was added do the list, false if nothing was added to the list.
      */
     public boolean addLogList(LogList listToAdd) {

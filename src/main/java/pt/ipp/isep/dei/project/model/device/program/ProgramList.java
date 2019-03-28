@@ -46,7 +46,7 @@ public class ProgramList {
     /**
      * Method that adds a Program to the ProgramList.
      *
-     * @param program is the program we want to add.
+     * @param program is the program we want to addWithoutPersisting.
      * @return true if program was successfully added, false otherwise (already existing program)
      */
     public boolean add(Program program) {

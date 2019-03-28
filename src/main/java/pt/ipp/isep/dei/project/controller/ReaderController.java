@@ -68,7 +68,7 @@ public class ReaderController {
      *
      * @param filePath is the absolute filepath of the .json file in the system.
      * @param list     is the list of Geographic areas that comes from Main, since we still don't have a database, to which
-     *                 we want to add the imported geographic areas.
+     *                 we want to addWithoutPersisting the imported geographic areas.
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
@@ -177,7 +177,7 @@ public class ReaderController {
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
      *
      * @param filePath path to the xml file
-     * @param list     geographic area list to add the imported geographic areas
+     * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
     public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list) {
         ReaderXML reader = new ReaderXML();
@@ -299,7 +299,7 @@ public class ReaderController {
     }
 
     /**
-     * This method receives a logger, a sensor list and an array of strings, tries to add a reading
+     * This method receives a logger, a sensor list and an array of strings, tries to addWithoutPersisting a reading
      * to a sensor in list and returns the number of readings added toM sensor. The array of strings
      * contains the reading's attributes.
      *
@@ -329,7 +329,7 @@ public class ReaderController {
 
     /**
      * This method receives a geographic area list, a file path to JSON file and a file path to a log.
-     * The method will read the JSON file, try to parse every reading and try to add them to the
+     * The method will read the JSON file, try to parse every reading and try to addWithoutPersisting them to the
      * corresponding sensor from its corresponding geographic area. The readings that fail to be added
      * will be added to log.
      *
@@ -374,7 +374,7 @@ public class ReaderController {
     }
 
     /**
-     * This method receives a logger, a sensor list and a JSON Object, tries to add the corresponding
+     * This method receives a logger, a sensor list and a JSON Object, tries to addWithoutPersisting the corresponding
      * reading to the corresponding sensor.
      *
      * @return returns 1 in case the reading is added, 0 otherwise
@@ -403,7 +403,7 @@ public class ReaderController {
 
     /**
      * This method receives a logger, a sensor list, and reading features (sensor Id, reading value, reading date)
-     * and tries to add the corresponding reading to the sensor list.
+     * and tries to addWithoutPersisting the corresponding reading to the sensor list.
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
@@ -419,7 +419,7 @@ public class ReaderController {
 
     /**
      * This method receives a geographic area list, a file path to XML file and a file path to a log.
-     * The method will read the XML file, try to parse every reading and try to add them to the
+     * The method will read the XML file, try to parse every reading and try to addWithoutPersisting them to the
      * corresponding sensor from its corresponding geographic area. The readings that fail to be added
      * will be added to log.
      *
@@ -471,7 +471,7 @@ public class ReaderController {
     /**
      * This method receives a logger, a sensor list, and an Element containing
      * reading features (sensor Id, reading value, reading date)
-     * and tries to add the resulting reading into the corresponding sensor.
+     * and tries to addWithoutPersisting the resulting reading into the corresponding sensor.
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/

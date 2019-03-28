@@ -36,7 +36,7 @@ public class SensorSettingsController {
     //TODO review
 
     /**
-     * This method receives a list and a type sensor and tries to add the type sensor
+     * This method receives a list and a type sensor and tries to addWithoutPersisting the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.
      *
      * @param typeSensor the type of sensor to be added
@@ -47,7 +47,7 @@ public class SensorSettingsController {
         return typeSensorList.add(typeSensor);
     }
 
-    /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
+    /* USER STORY 006 - an Administrator, I want to addWithoutPersisting a new sensor and associate it to a geographical area, so that
     one can get measurements of that type in that area */
 
     /**
@@ -123,8 +123,8 @@ public class SensorSettingsController {
     }
 
     /**
-     * @param sensor  the sensor we want to add to the geographic area.
-     * @param geoArea is the area we want to add the sensor to.
+     * @param sensor  the sensor we want to addWithoutPersisting to the geographic area.
+     * @param geoArea is the area we want to addWithoutPersisting the sensor to.
      * @return is true if successfully added, false if not.
      */
 

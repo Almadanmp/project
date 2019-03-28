@@ -24,7 +24,7 @@ public class GeographicAreaList {
      * GeographicAreaList constructor that receives a Geographic Area as a parameter and
      * adds the GA to the attribute geographicAreas
      *
-     * @param geographicAreaToAdd geographic area to add to the attribute
+     * @param geographicAreaToAdd geographic area to addWithoutPersisting to the attribute
      */
     public GeographicAreaList(GeographicArea geographicAreaToAdd) {
         geographicAreas = new ArrayList<>();
@@ -39,8 +39,8 @@ public class GeographicAreaList {
     }
 
     public GeographicAreaList getAll(){
-        Iterable<GeographicArea> areas = this.geographicAreaRepository.findAll();
-        for(GeographicArea g : areas){
+        Iterable<GeographicArea> geoAreas = this.geographicAreaRepository.findAll();
+        for(GeographicArea g : geoAreas){
             this.addGeographicArea(g);
         }
         return this;
@@ -62,6 +62,14 @@ public class GeographicAreaList {
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             geographicAreaRepository.save(geographicAreaToAdd);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addWithoutPersisting(GeographicArea geographicAreaToAdd){
+        if (!(geographicAreas.contains(geographicAreaToAdd))) {
+            geographicAreas.add(geographicAreaToAdd);
             return true;
         }
         return false;
@@ -147,7 +155,7 @@ public class GeographicAreaList {
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsTypeArea(typeAreaToTest)) {
-                finalList.addGeographicArea(ga);
+                finalList.addWithoutPersisting(ga);
             }
         }
         return finalList;

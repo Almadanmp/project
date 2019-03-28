@@ -68,8 +68,8 @@ class TypeSensorListTest {
     void seeIfSizeRepository() {
         // Arrange
 
-        testList1.add(firstTypeSensor);
-        testList1.add(secondTypeSensor);
+        testList1.addWithoutPersisting(firstTypeSensor);
+        testList1.addWithoutPersisting(secondTypeSensor);
         int expectedResult = 2;
         // Act
         int actualResult = testList1.sizeRepository();
