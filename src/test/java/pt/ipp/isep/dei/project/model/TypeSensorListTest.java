@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +24,14 @@ class TypeSensorListTest {
         firstTypeSensor = new TypeSensor("Temperature", "Celsius");
         secondTypeSensor = new TypeSensor("Rainfall", "l/m2");
         validList.add(firstTypeSensor);
+    }
+
+    @Test
+    void seeIfCreateTypeAreaWorks() {
+        // Act
+        TypeSensor type1 = validList.createTypeSensor("Temperature", "Celsius");
+        // Assert
+        Assert.assertEquals(type1, firstTypeSensor);
     }
 
     @Test
