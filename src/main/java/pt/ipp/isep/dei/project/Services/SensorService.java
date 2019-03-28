@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.Services;
+package pt.ipp.isep.dei.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class SensorService {
      * if there is no sensor with that ID.
      */
 
-    public boolean addReadingToMatchingSensor(SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
+    public boolean addReadingToMatchingSensor(SensorList sensorList, String sensorID, double readingValue, Date readingDate) {
         sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate);
         Optional<Sensor> value = sensorRepository.findById(sensorID);
         if (value.isPresent()) {
