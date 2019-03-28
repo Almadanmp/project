@@ -1133,8 +1133,13 @@ class ReadingListTest {
 
     @Test
     void seeIfGetHottestDayInGivenPeriodWorksNoReadings(){
+        // Arrange
+
+        Reading outOfBoundsReading = new Reading(1, validDate1);
+        validReadingList.addReading(outOfBoundsReading);
+
         // Assert
 
-        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12,validDate1));
+       assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12,validDate2));
     }
 }
