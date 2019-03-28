@@ -59,7 +59,7 @@ add(sensor);
 
 class InputUtils{
 getGeographicAreaByList(geographicAreaList);
-getInputSensorByList(geographicArea.getSensorList();
+getInputSensorByList(SensorList);
 }
 
 class Sensor {

@@ -29,11 +29,11 @@ actor Administrator
 Administrator -> HouseConfigurationUI: Import data from .json or .xml file
 activate Administrator
 activate HouseConfigurationUI
-HouseConfigurationUI -> InputHelperUI: getInputPathJsonOrXML();
+HouseConfigurationUI -> InputHelperUI: getInputPathJsonOrXML()
 activate InputHelperUI
 
 ref over InputHelperUI
-getInputPathJsonOrXML();
+getInputPathJsonOrXML()
 end ref
 alt .json file
 

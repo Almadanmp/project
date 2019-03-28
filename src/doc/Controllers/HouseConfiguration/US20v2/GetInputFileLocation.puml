@@ -24,7 +24,7 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-
+title GetInputFileLocation
 actor Administrator
 ReaderController -> InputUtils: getInputFileLocation()
 activate InputUtils

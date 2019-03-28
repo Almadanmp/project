@@ -47,11 +47,10 @@ runUS15v2(GeographicAreaList);
 
 class ReaderJSONGeographicAreas {
 readFile(String filePath);
-readFileAndAdd(String, GeographicAreaList)
 }
 
 class ReaderController {
-readJSONGeographicAreasFile(String, GeographicAreaList);
+readJSONFileAndAddGeoAreas(String, GeographicAreaList);
 addGeoAreasToList(GeographicAreaDTO[], GeographicAreaList);
 readGeoAreasJSON(JSONArray);
 readAreaSensorsJSON(JSONArray);
