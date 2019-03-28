@@ -30,7 +30,7 @@ import static org.testng.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-@ContextConfiguration(classes = {MainUI.class },
+@ContextConfiguration(classes = {MainUI.class},
         loader = AnnotationConfigContextLoader.class)
 class GASettingsControllerTest {
     private GASettingsController controller = new GASettingsController();
@@ -43,6 +43,7 @@ class GASettingsControllerTest {
     private Sensor validSensor;
     private Mapper mapper;
     private GeographicAreaList validGeographicAreaList;
+    private TypeAreaList validTypeAreaList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @Autowired
@@ -79,6 +80,29 @@ class GASettingsControllerTest {
         validGeographicAreaList = new GeographicAreaList();
         validGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
         validGeographicAreaList.addGeographicArea(firstValidArea);
+        validTypeAreaList = new TypeAreaList();
+        validTypeAreaList.setTypeAreaRepository(typeAreaRepository);
+    }
+
+    @Test
+    void seeIfPrintGATypeListWorks() {
+        // Arrange
+
+        validTypeAreaList.addTypeArea(typeCountry);
+        validTypeAreaList.addTypeArea(typeCity);
+        String expectedResult = "---------------\n" +
+                "0) Description: Country \n" +
+                "1) Description: City \n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = controller.buildGATypeListString(validTypeAreaList);
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
 //    @Test
@@ -113,6 +137,118 @@ class GASettingsControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    //USER STORY 001 TESTS
+
+    @Test
+    void seeIfCreateTypeAreaWorksEmptyList() {
+
+        // Act
+
+        boolean result = controller.createAndAddTypeAreaToList(validTypeAreaList, "City");
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfCreateTypeAreaWorksListWithElements() {
+
+        // Arrange
+
+        validTypeAreaList.addTypeArea(typeCountry);
+
+        // Act
+
+        boolean result = controller.createAndAddTypeAreaToList(validTypeAreaList, "City");
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
+
+        // Arrange
+
+        validTypeAreaList.addTypeArea(typeCountry);
+
+        // Act
+
+        boolean result = controller.createAndAddTypeAreaToList(validTypeAreaList, "Country");
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    //USER STORY 002 TESTS
+
+    @Test
+    void seeIfPrintTypeAreaListWorks() {
+
+        // Arrange
+
+        validTypeAreaList.addTypeArea(typeCountry);
+        String expectedResult = "---------------\n" +
+                "0) Description: Country \n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = controller.getTypeAreaList(validTypeAreaList);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
+
+        // Arrange
+
+        validTypeAreaList.addTypeArea(typeCountry);
+        validTypeAreaList.addTypeArea(typeCity);
+        String expectedResult = "---------------\n" +
+                "0) Description: Country \n" +
+                "1) Description: City \n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = controller.getTypeAreaList(validTypeAreaList);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintTypeAreaListWorksWithThreeTypes() {
+
+        // Arrange
+
+        validTypeAreaList.addTypeArea(typeCity);
+        validTypeAreaList.addTypeArea(typeCountry);
+        String expectedResult = "---------------\n" +
+                "0) Description: City \n" +
+                "1) Description: Country \n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = controller.getTypeAreaList(validTypeAreaList);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    //USER STORY 003 TESTS
+
 
     //USER STORY 003 TESTS
 
@@ -218,7 +354,7 @@ class GASettingsControllerTest {
 
         //Arrange
         validSensor.deactivateSensor();
-        SensorDTO sensorDTO =  mapper.sensorToDTO(validSensor);
+        SensorDTO sensorDTO = mapper.sensorToDTO(validSensor);
 
         //Act
         boolean actualResult = controller.deactivateSensor(validGeographicAreaList, sensorDTO, validGeographicAreaDTO);
@@ -432,5 +568,4 @@ class GASettingsControllerTest {
 
         assertNotEquals(expectedResult, actualResult);
     }
-
 }

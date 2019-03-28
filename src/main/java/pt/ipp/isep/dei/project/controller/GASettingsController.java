@@ -52,7 +52,7 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(String input) {
+    public boolean createAndAddTypeAreaToList(TypeAreaList typeAreaList, String input) {
         TypeArea typeArea = typeAreaList.createTypeArea(input);
         return typeAreaList.addTypeArea(typeArea);
     }

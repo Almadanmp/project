@@ -122,7 +122,7 @@ class GASettingsUI {
     }
 
     private boolean updateModelUS01(String typeAreaName) {
-        return controller.createAndAddTypeAreaToList(typeAreaName);
+        return controller.createAndAddTypeAreaToList(typeAreaList, typeAreaName);
     }
 
     private void displayStateUS01(boolean created) {

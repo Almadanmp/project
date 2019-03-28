@@ -54,9 +54,11 @@ public class TypeAreaList {
     public boolean addTypeArea(TypeArea type) {
         if (!typeAreas.contains(type)) {
             typeAreas.add(type);
+            typeAreaRepository.save(type);
+            return true;
+        } else {
+            return false;
         }
-        typeAreaRepository.save(type);
-        return true;
     }
 
 
