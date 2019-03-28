@@ -29,27 +29,40 @@ activate InputHelperUI
 InputHelperUI -> ReaderController: readFileXMLAndAddAreas(filePath)
 activate ReaderController
 ReaderController -> ReaderXML: readFile(filePath)
-activate ReaderXML
 deactivate ReaderController
+activate ReaderXML
 
-ReaderXML --> ReaderController: return Document
+ReaderXML --> ReaderController: return doc: Document
 deactivate ReaderXML
 
 activate ReaderController
 ReaderController->ReaderController:NodeList = getElementsByTagName("geographical_area")
-loop success
-ReaderController->ReaderController:readGeographicAreasXML(Node node)
+loop
+ReaderController->ReaderController:readGeographicAreasXML(Node)
 create "geoArea :GeographicArea"
-ReaderController -->> "geoArea :GeographicArea": create
+ReaderController ->> "geoArea :GeographicArea": create
 activate "geoArea :GeographicArea"
 deactivate ReaderController
 
 "geoArea :GeographicArea" --> ReaderController: return geoArea
 deactivate "geoArea :GeographicArea"
 activate ReaderController
+loop
+ReaderController->ReaderController:readSensorsXML(Node)
+create "sensor: Sensor"
+ReaderController ->> "sensor: Sensor": create
+activate "sensor: Sensor"
+deactivate ReaderController
+
+"sensor: Sensor" --> ReaderController: return sensor
+deactivate "sensor: Sensor"
+
+activate ReaderController
+ReaderController -> "geoArea :GeographicArea": add(sensor)
+end loop
 end loop
 
-loop success
+loop
 ReaderController -> GeographicAreaList: add(geoArea)
 deactivate ReaderController
 activate GeographicAreaList
