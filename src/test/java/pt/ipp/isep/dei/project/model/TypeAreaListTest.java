@@ -81,6 +81,7 @@ class TypeAreaListTest {
     }
 
     //TODO This test works on intellij and Maven, but not on Sonarqube
+
     /*
     @Test
     void seeIfGetTypeAreaByIdRepository() {
@@ -92,7 +93,6 @@ class TypeAreaListTest {
         assertEquals(actualResult, expectedResult);
     }
     */
-
 
     @Test
     void seeIfPrintGAWholeList() {
