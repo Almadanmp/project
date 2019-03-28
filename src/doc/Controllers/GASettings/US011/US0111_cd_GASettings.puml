@@ -26,10 +26,10 @@ class GASettingsUI
 class Mapper
 class GeographicArea
 class Sensor
-class InputUtils
+class InputHelperUI
 
 MainUI -- GASettingsUI : >
-GASettingsUI -- InputUtils : >
+GASettingsUI -- InputHelperUI : >
 GASettingsUI -- GASettingsController : >
 GASettingsController -- Mapper : >
 Mapper -- GeographicArea : >
@@ -56,9 +56,9 @@ getName()
 removeSensor( Sensor )
 }
 
-class InputUtils{
-getInputSensorByList( SensorList )
-getGeographicAreaByList( GeographicAreaList )
+class InputHelperUI{
+getInputSensorByList(SensorList)
+getGeographicAreaByList(GeographicAreaList)
 
 }
 

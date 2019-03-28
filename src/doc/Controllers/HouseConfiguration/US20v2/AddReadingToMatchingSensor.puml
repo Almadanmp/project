@@ -25,7 +25,7 @@ skinparam actor {
  }
 
 
-
+title AddReadingToMatchingSensor
 -> ReaderController: addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate)
 activate ReaderController
 

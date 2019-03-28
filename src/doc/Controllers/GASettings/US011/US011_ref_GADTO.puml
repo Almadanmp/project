@@ -28,7 +28,7 @@ skinparam actor {
 
 -> GASettingsController: inputArea( GeographicAreaList )
 activate GASettingsController
-GASettingsController -->> InputUtils: geographicArea = getGeographicAreaByList(geographicAreaList)
+GASettingsController -->> InputHelperUI: geographicArea = getGeographicAreaByList(geographicAreaList)
 GASettingsController -->> Mapper: Mapper mapper = new Mapper();
 activate Mapper
 Mapper -> Mapper: geographicAreaToDTO(geographicArea)

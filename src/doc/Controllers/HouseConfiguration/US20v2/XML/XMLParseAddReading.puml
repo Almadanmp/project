@@ -25,7 +25,7 @@ skinparam actor {
  }
 
 
-
+title XMLParseAddReading
 -> ReaderController: parseAndLogXMLReading(sensorList, element, logger)
 activate ReaderController
 

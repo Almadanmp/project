@@ -1,5 +1,5 @@
 @startuml
-title US010 As an Administrator, I want to deactivate a sensor in a geographical area, \n so that it will no longer be used. It can be reactivated later.
+title US010 \n As an Administrator, I want to deactivate a sensor in a geographical area, \n so that it will no longer be used. It can be reactivated later.
 actor Admin
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
@@ -25,7 +25,7 @@ skinparam actor {
    ArrowFontColor darkslategrey
  }
 autonumber
-Admin -> ":GASettingsUI": runUS10(GeographicAreaList)
+Admin -> ":GASettingsUI": runUS10()
 activate ":GASettingsUI"
 ref over ":GASettingsUI"
 Select GeographicAreaDTO
@@ -36,11 +36,16 @@ end ref
 ":GASettingsUI" -> ":GASettingsController": deactivateSensor(geographicAreaList,sensorDTO, geographicAreaDTO)
 activate ":GASettingsController"
 ":GASettingsController" -> ":Mapper": sensorDTOToObject(sensorDTO)
+
 create ":Sensor"
+
 ":Mapper" -->> ":Sensor": create
+activate ":Sensor"
+":Sensor" --> ":GASettingsController": return Sensor
+deactivate ":Sensor"
 alt if isActive()
-":GASettingsController" -> ":Sensor": sensor.deactivate()
-":Sensor" -> ":GeographicArea": geographicArea.add(sensor)
+":GASettingsController" -> ":Sensor": deactivate()
+":Sensor" -> ":GeographicArea": add(sensor)
 ":Sensor" --> ":GASettingsController": return true
 else if else
 ":Sensor" -> ":GASettingsController": return false

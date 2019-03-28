@@ -25,7 +25,7 @@ skinparam actor {
  }
 
 
-
+title JSONParseAddReading
 -> ReaderController: parseAndLogJSONReading(sensorList, reading, logger)
 activate ReaderController
 
