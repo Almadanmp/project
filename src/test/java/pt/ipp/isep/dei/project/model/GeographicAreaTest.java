@@ -537,9 +537,23 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfEqualsWorksNotAnInstance (){
+        // Arrange
+        Local local = new Local(21, 1, 12);
+
+        // Act
+        boolean actualResult = validArea.equals(local);
+
+        // Assert
+
+        assertFalse(actualResult);
+
+
+    }
+
+    @Test
     void seeIfEqualsParametersWorks() {
         // Act
-
         boolean actualResult1 = validArea.equalsParameters("Portugal", new TypeArea("Country"), new Local(50, 50, 10));
         boolean actualResult2 = validArea.equalsParameters("Porto", new TypeArea("City"), new Local(20, 20, 20));
         boolean actualResult3 = validArea.equalsParameters("Porto", new TypeArea("Country"), new Local(50, 50, 10));

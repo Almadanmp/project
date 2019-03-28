@@ -28,7 +28,7 @@ public class TypeAreaList {
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
     public TypeAreaList() {
-
+        //empty constructor
     }
 
     public List<TypeArea> getTypeAreas() {
