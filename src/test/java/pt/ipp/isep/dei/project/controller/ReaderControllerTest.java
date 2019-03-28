@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -175,7 +176,7 @@ class ReaderControllerTest {
 //
 //        assertEquals(1, actualResult);
 //    }
-
+//
 //    @Test
 //    void seeIfParseAndLogReadingWorksWithExtraParameter() {
 //        // Arrange
@@ -195,74 +196,74 @@ class ReaderControllerTest {
 //
 //        assertEquals(1, actualResult);
 //    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithWrongSensor() {
-//        // Arrange
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "wrong sensor";
-//        readings[1] = "2019-12-30T02:00:00+00:00";
-//        readings[2] = "23";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithRepeatedReading() {
-//        // Arrange
-//        Date validDate = new Date();
-//        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-//        try {
-//            validDate = validSdf2.parse("2019-12-30T02:00:00+00:00");
-//        } catch (ParseException c) {
-//            c.printStackTrace();
-//        }
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "2019-12-30T02:00:00+00:00";
-//        readings[2] = "23";
-//
-//        validSensor1.addReading(new Reading(32, validDate));
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
 
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithEmptySensorList() {
-//        // Arrange
-//
-//        SensorList emptyList = new SensorList();
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "2019-12-30T02:00:00+00:00";
-//        readings[2] = "23";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, emptyList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+    @Test
+    void seeIfParseAndLogReadingFailsWithWrongSensor() {
+        // Arrange
+
+
+        String[] readings = new String[3];
+        readings[0] = "wrong sensor";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithRepeatedReading() {
+        // Arrange
+        Date validDate = new Date();
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate = validSdf2.parse("2019-12-30T02:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        validSensor1.addReading(new Reading(32, validDate));
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithEmptySensorList() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+
+
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger, emptyList);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
     @Test
     void seeIfParseAndLogReadingFailsWithInvalidDateFormat() {
@@ -429,47 +430,47 @@ class ReaderControllerTest {
         assertEquals(0, actualResult);
     }
 
-//    @Test
-//    void seeIfParseAndLogJSONReadingWorksWithInvalidSensorID() {
-//        //Arrange
-//
-//        JSONObject validJSONObj = new JSONObject();
-//        validJSONObj.put("id", "xxxx");
-//        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
-//        validJSONObj.put("value", "23.3");
-//        validJSONObj.put("unit", "F");
-//
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogJSONReadingWorksWithInvalidLogger() {
-//
-//        //Arrange
-//
-//        JSONObject validJSONObj = new JSONObject();
-//        validJSONObj.put("id", "xxxx");
-//        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
-//        validJSONObj.put("value", "23.3");
-//        validJSONObj.put("unit", "F");
-//
-//        logger.setLevel(Level.INFO);
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+    @Test
+    void seeIfParseAndLogJSONReadingWorksWithInvalidSensorID() {
+        //Arrange
+
+        JSONObject validJSONObj = new JSONObject();
+        validJSONObj.put("id", "xxxx");
+        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj.put("value", "23.3");
+        validJSONObj.put("unit", "F");
+
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogJSONReadingWorksWithInvalidLogger() {
+
+        //Arrange
+
+        JSONObject validJSONObj = new JSONObject();
+        validJSONObj.put("id", "xxxx");
+        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj.put("value", "23.3");
+        validJSONObj.put("unit", "F");
+
+        logger.setLevel(Level.INFO);
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
 //    @Test
 //    void seeIfParseAndLogJSONReadingsWorks() {
@@ -558,7 +559,7 @@ class ReaderControllerTest {
 //
 //        assertEquals(4, actualResult);
 //    }
-
+//
 //    @Test
 //    void seeIfReadReadingsFromJSONWorksWhenReadingsHaveSameDate() {
 //
@@ -711,17 +712,17 @@ class ReaderControllerTest {
         assertEquals(actualResult, 0);
     }
 
-    //    @Test
-//    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
-//        //Act
-//
-//        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
-//
-//        // Assert
-//
-//        assertEquals(actualResult, 0);
-//    }
-//
+        @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "xxxx", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
+
     @Test
     void seeIfReadFileXMLGeoAreaWorks() {
         // Arrange
