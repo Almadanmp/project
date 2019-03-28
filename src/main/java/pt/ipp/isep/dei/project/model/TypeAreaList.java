@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Class that groups a number of Types of Geographical Areas.
@@ -105,15 +106,14 @@ public class TypeAreaList {
     }
 
     /**
-     * Method to get a TypeArea from the Repository through a given id
+     * Method to get a TypeArea from the Repository through a given ID.
      *
      * @param id selected id
      * @return Type Area corresponding to the given id
      */
     public TypeArea getTypeAreaByIdRepository(int id) {
-
-        return typeAreaRepository.findById(new Long(id)).get(); // TODO understand optional(Daniela)
-
+        Optional <TypeArea> value = typeAreaRepository.findById((long) id);
+        return value.orElse(null);
     }
 
     /**
