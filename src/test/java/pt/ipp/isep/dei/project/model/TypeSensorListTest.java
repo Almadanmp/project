@@ -49,6 +49,16 @@ class TypeSensorListTest {
     }
 
     @Test
+    void seeIfGetAllAsString() {
+        // Arrange
+        String expectedResult = "There are no Sensor Types Configured\n";
+        // Act
+        String actualResult = validList.getAllAsString();
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfCreateTypeAreaWorks() {
         // Act
         TypeSensor type1 = validList.createTypeSensor("Temperature", "Celsius");
