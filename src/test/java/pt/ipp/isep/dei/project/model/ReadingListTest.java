@@ -1132,9 +1132,21 @@ class ReadingListTest {
     }
 
     @Test
-    void seeIfGetHottestDayInGivenPeriodWorksNoReadings(){
+    void seeIfGetHottestDayInGivenPeriodWorksNoReadings() {
         // Assert
 
-        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12,validDate1));
+        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12, validDate1));
+    }
+
+    @Test
+    void seeIfGetHottestDayInGivenPeriodWorksNoValidInterval() {
+        // Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        validReadingList.addReading(new Reading(200, validDate14));
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validSdf.parse("02/11/2010 20:00:00"), validSdf.parse("02/11/2010 20:00:00")));
     }
 }
