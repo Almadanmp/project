@@ -193,6 +193,7 @@ public class Sensor {
     /**
      * Settter: sets the sensor active
      */
+
     public void setActive() {
         this.active = true;
     }
@@ -219,19 +220,7 @@ public class Sensor {
         }
     }
 
-    /**
-     * Method to activate an deactivated sensor, and vice versa
-     *
-     * @return active or not
-     */
-    public boolean activateOrDeactivate() {
-        if (!isActive()) {
-            this.active = true;
-            return true;
-        }
-        this.active = false;
-        return false;
-    }
+
 
     /**
      * Checks if reading already exists in reading list and in case the
