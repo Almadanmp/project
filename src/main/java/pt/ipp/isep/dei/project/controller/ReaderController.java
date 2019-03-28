@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReaderController {
@@ -44,9 +43,10 @@ public class ReaderController {
 
     /**
      * This method only accepts a path that ends with .json or .xml
-     * @param input - the user input
+     *
+     * @param input    - the user input
      * @param filePath - the path to the file if it exists
-     * @param list - the geographic area list
+     * @param list     - the geographic area list
      * @return - number of geoareas imported
      */
     public int acceptPath(String input, String filePath, GeographicAreaList list) {
@@ -88,7 +88,7 @@ public class ReaderController {
      * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
      * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
      */
-   int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
+    int addGeoAreasToList(GeographicArea[] fileAreas, GeographicAreaList list) {
         int result = 0;
         for (GeographicArea area : fileAreas) {
             if (list.addGeographicArea(area)) {
@@ -408,9 +408,10 @@ public class ReaderController {
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
     int addReadingToMatchingSensor(Logger logger, SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
-        if (logger.isLoggable(Level.WARNING) && sensorService.addReadingToMatchingSensor(sensorList, sensorID, readingValue, readingDate)) {
+        if (sensorService.addReadingToMatchingSensor(sensorList, sensorID, readingValue, readingDate)) {
             return 1;
         }
+
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
         logger.warning(message);
         return 0;
