@@ -31,6 +31,9 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT1 = "yyyy-MM-dd'T'HH:mm:ss'+00:00'";
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE = "longitude";
+    private static final String ALTITUDE = "altitude";
 
     public ReaderController(SensorService service) {
         this.sensorService = service;
@@ -39,6 +42,25 @@ public class ReaderController {
 
     // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
 
+    /**
+     * This method only accepts a path that ends with .json or .xml
+     * @param input - the user input
+     * @param filePath - the path to the file if it exists
+     * @param list - the geographic area list
+     * @return - number of geoareas imported
+     */
+    public int acceptPath(String input, String filePath, GeographicAreaList list) {
+        int areasRead;
+        if (input.endsWith(".json")) {
+            areasRead = this.readJSONFileAndAddGeoAreas(filePath, list);
+            return areasRead;
+        }
+        if (input.endsWith(".xml")) {
+            areasRead = this.readFileXMLAndAddAreas(filePath, list);
+            return areasRead;
+        }
+        return -1;
+    }
 
     /**
      * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
@@ -93,9 +115,9 @@ public class ReaderController {
             TypeArea areaType = new TypeArea(area.getString("type"));
             double areaWidth = area.getDouble("width");
             double areaLength = (area.getDouble("length"));
-            double areaLatitude = local.getDouble("latitude");
-            double areaLongitude = local.getDouble("longitude");
-            double areaAltitude = local.getDouble("altitude");
+            double areaLatitude = local.getDouble(LATITUDE);
+            double areaLongitude = local.getDouble(LONGITUDE);
+            double areaAltitude = local.getDouble(ALTITUDE);
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
             GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
             areaObject.setDescription(areaDescription);
@@ -137,9 +159,9 @@ public class ReaderController {
             String sensorUnits = sensor.getString("units");
             TypeSensor type = new TypeSensor(sensorType, sensorUnits);
             JSONObject sensorLocal = areaSensor.getJSONObject("location");
-            double sensorLatitude = sensorLocal.getDouble("latitude");
-            double sensorLongitude = sensorLocal.getDouble("longitude");
-            double sensorAltitude = sensorLocal.getDouble("altitude");
+            double sensorLatitude = sensorLocal.getDouble(LATITUDE);
+            double sensorLongitude = sensorLocal.getDouble(LONGITUDE);
+            double sensorAltitude = sensorLocal.getDouble(ALTITUDE);
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             Sensor sensorObject = new Sensor(sensorId, sensorName, type, local, date);
@@ -185,9 +207,9 @@ public class ReaderController {
             String id = getTagValue("id", element);
             double length = Double.parseDouble(getTagValue("length", element));
             double width = Double.parseDouble(getTagValue("width", element));
-            Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
-                    Double.parseDouble(getTagValue("longitude", element)),
-                    Double.parseDouble(getTagValue("altitude", element)));
+            Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
+                    Double.parseDouble(getTagValue(LONGITUDE, element)),
+                    Double.parseDouble(getTagValue(ALTITUDE, element)));
             TypeArea typeArea = new TypeArea(getTagValue("type", element)); // TODO - type areas need to be added to the local list
             geoArea = new GeographicArea(id, typeArea, length, width, local);
             geoArea.setDescription(description);
@@ -218,9 +240,9 @@ public class ReaderController {
             String sensorDate = getTagValue("start_date", element);
             TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element)); //TODO - type sensors need to be added to the local list
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
-            Local local = new Local(Double.parseDouble(getTagValue("latitude", element)),
-                    Double.parseDouble(getTagValue("longitude", element)),
-                    Double.parseDouble(getTagValue("altitude", element)));
+            Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
+                    Double.parseDouble(getTagValue(LONGITUDE, element)),
+                    Double.parseDouble(getTagValue(ALTITUDE, element)));
             Date date = new Date();
             try {
                 date = validDateFormat.parse(sensorDate);
