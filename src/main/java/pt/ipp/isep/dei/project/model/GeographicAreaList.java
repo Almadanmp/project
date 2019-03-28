@@ -16,9 +16,6 @@ public class GeographicAreaList {
 
     private List<GeographicArea> geographicAreas;
 
-    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
-        this.geographicAreaRepository = geographicAreaRepository;
-    }
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
@@ -49,6 +46,9 @@ public class GeographicAreaList {
         return this;
     }
 
+    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
+        this.geographicAreaRepository = geographicAreaRepository;
+    }
 
     /**
      * Method that receives a geographic area as a parameter and adds that
