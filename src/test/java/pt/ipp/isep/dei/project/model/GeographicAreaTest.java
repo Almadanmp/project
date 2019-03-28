@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +52,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalse() {
+    void seeIfEqualsWorks() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
@@ -66,6 +65,22 @@ class GeographicAreaTest {
         // Assert
 
         assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 300, 200,
+                new Local(21, 31, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
