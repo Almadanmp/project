@@ -40,7 +40,7 @@ public class TypeSensorList {
     public boolean add(TypeSensor typeSensor) {
         if (!typeSensors.contains(typeSensor)) {
             typeSensors.add(typeSensor);
-            //  typeSensorRepository.save(typeSensor);
+            // typeSensorRepository.save(typeSensor);
             return true;
         }
         return false;
@@ -68,7 +68,7 @@ public class TypeSensorList {
      *
      * @return TypeSensor size as int
      **/
-    public int sizeRepository() {
+    private int sizeRepository() {
         return typeSensorRepository.findAll().size();
     }
 

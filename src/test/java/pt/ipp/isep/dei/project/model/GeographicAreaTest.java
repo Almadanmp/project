@@ -616,7 +616,8 @@ class GeographicAreaTest {
 
     @Test
     void seeIfToStringOverrideWorks() {
-        //Arrange
+        // Arrange
+
         GeographicArea motherArea = new GeographicArea();
         GeographicArea geographicArea = new GeographicArea();
         geographicArea.setTypeArea(new TypeArea("city"));
@@ -626,9 +627,13 @@ class GeographicAreaTest {
         geographicArea.setLocation(new Local(2, 3, 5));
         geographicArea.setDescription("city of porto");
         String expectedResult = "GeographicArea[id=null, typeArea='pt.ipp.isep.dei.project.model.TypeArea@1', length='2.0, width='3.0', motherArea='GeographicArea[id=null, typeArea='null', length='0.0, width='0.0', motherArea='null, location='null', description='null'], location='Local[id=0, latitude='2.0', longitude='3.0', altitude='5.0']', description='city of porto']";
-        //Act
+
+        // Act
+
         String actualResult = geographicArea.toString();
-        //Assert
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }
