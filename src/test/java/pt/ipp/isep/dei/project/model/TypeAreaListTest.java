@@ -117,13 +117,12 @@ class TypeAreaListTest {
     void seeIfEqualsWorksTrue() {
         // Assert
 
-        List<TypeArea> testList = new ArrayList<>();
-        testList.add(firstValidType);
-        testList.add(secondValidType);
+        TypeAreaList testList = new TypeAreaList();
+        validList = new TypeAreaList();
 
         // Act
 
-        boolean actualResult = validTypes.equals(testList);
+        boolean actualResult = validList.equals(testList);
 
         // Assert
 
