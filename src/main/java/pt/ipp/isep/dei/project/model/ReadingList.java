@@ -13,7 +13,7 @@ public class ReadingList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id; // Used as primary key in repository tables.
     @OneToMany(mappedBy = "readingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reading> readings;
 

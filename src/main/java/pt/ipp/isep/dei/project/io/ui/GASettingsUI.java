@@ -2,10 +2,11 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.io.ui.utils.*;
+import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.TypeArea;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 
 import java.util.Scanner;
@@ -13,10 +14,12 @@ import java.util.Scanner;
 class GASettingsUI {
     private GASettingsController controller;
     private GeographicAreaList geographicAreaList;
+    private TypeAreaList typeAreaList;
 
     GASettingsUI(TypeAreaList typeAreaList, GeographicAreaList geographicAreaList) {
         this.controller = new GASettingsController(typeAreaList);
         this.geographicAreaList = geographicAreaList;
+        this.typeAreaList = typeAreaList;
     }
 
     void runGASettings() {
@@ -77,20 +80,32 @@ class GASettingsUI {
      * @return Type area DTO
      * used on US 03 and 04
      */
+
     private TypeAreaDTO getInputTypeAreaDTOByList() {
-        Mapper mapper = new Mapper();
-        System.out.println("Please select the Geographic Area Type from the list: ");
-        System.out.print(controller.getTypeAreaListRepository());
-        int aux = InputHelperUI.getInputAsInt();
-        TypeAreaDTO typeAreaDTO = mapper.typeAreaToDTO(controller.getTypeAreaById(aux));
-        System.out.println("You have chosen the following Geographic Area Type:");
-        System.out.println("TypeArea: " + controller.getTypeAreaName(typeAreaDTO));
-        return typeAreaDTO;
+        while (true) {
+            Mapper mapper = new Mapper();
+            System.out.println("Please select the Geographic Area Type from the list: ");
+            System.out.print(controller.buildGATypeListString(typeAreaList));
+            int aux = InputHelperUI.getInputAsInt();
+            if (aux >= 0 && aux < typeAreaList.size()) {
+                TypeArea typeArea = typeAreaList.get(aux);
+                TypeAreaDTO typeAreaDTO = mapper.typeAreaToDTO(typeArea);
+                System.out.println("You have chosen the following Geographic Area Type:");
+                System.out.println("TypeArea: " + controller.getTypeAreaName(typeAreaDTO));
+                return typeAreaDTO;
+            } else {
+                System.out.println(UtilsUI.INVALID_OPTION);
+            }
+        }
     }
 
     /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01() {
+        if (typeAreaList == null) {
+            System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
+            return;
+        }
         String typeAreaName = getInputUS01();
         boolean created = updateModelUS01(typeAreaName);
         displayStateUS01(created);
@@ -107,7 +122,7 @@ class GASettingsUI {
     }
 
     private boolean updateModelUS01(String typeAreaName) {
-        return controller.createAndAddTypeAreaToListRepository(typeAreaName);
+        return controller.createAndAddTypeAreaToList(typeAreaName);
     }
 
     private void displayStateUS01(boolean created) {
@@ -122,8 +137,8 @@ class GASettingsUI {
     /* USER STORY 002 - As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
      * Class responsible for presenting the list. - NUNO AZEVEDO */
     private void runUS02() {
-        if (controller.getTypeAreaListSize() >= 0) {
-            System.out.println(controller.getTypeAreaListRepository());
+        if (!typeAreaList.isEmpty()) {
+            System.out.println(controller.getTypeAreaList(typeAreaList));
             System.out.println("\nList finished.");
         } else {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
@@ -132,14 +147,14 @@ class GASettingsUI {
 
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
     private void runUS03() {
-        if (controller.getTypeAreaListSize() < 0) {
+        if (typeAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
-        getAreaInputUS03(geographicAreaList);
+        getAreaInputUS03();
     }
 
-    private void getAreaInputUS03(GeographicAreaList geographicAreaList) {
+    private void getAreaInputUS03() {
         Scanner scanner = new Scanner(System.in);
         TypeAreaDTO geoTypeAreaDTO = getInputTypeAreaDTOByList();
         String gaTypeAreaName = controller.getTypeAreaName(geoTypeAreaDTO);
@@ -199,7 +214,7 @@ class GASettingsUI {
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
     private void runUS04() {
-        if (controller.getTypeAreaListSize() < 0) {
+        if (typeAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
@@ -299,7 +314,6 @@ class GASettingsUI {
 
     /**
      * This method deactivates a sensor selected from a list of sensor of an selected geographic area
-     *
      */
     private void runUS10() {
         GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);
@@ -318,7 +332,6 @@ class GASettingsUI {
 
     /**
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
-     *
      */
     private void runUS11() {
         GeographicAreaDTO geographicAreaDTO = controller.inputArea(geographicAreaList);

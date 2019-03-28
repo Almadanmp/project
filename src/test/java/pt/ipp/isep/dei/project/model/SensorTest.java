@@ -29,6 +29,30 @@ class SensorTest {
     }
 
     @Test
+    void seeIfEmptyConstructorWorks() {
+        // Arrange
+        Sensor sensorABC = new Sensor();
+        sensorABC.setId("ABC");
+        String expectedResult = "ABC";
+        // Act
+        String actualResult = sensorABC.getId();
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetSensorList() {
+        // Arrange
+        SensorList listA = new SensorList();
+        SensorList expectedResult = listA;
+        // Act
+        validSensor.setSensorList(listA);
+        SensorList actualResult = validSensor.getSensorList();
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfConstructorSetsDate() {
         // Arrange
 
@@ -1132,6 +1156,147 @@ class SensorTest {
 
         assertFalse(addValidReading);
     }
+    @Test
+    void seeIfGetAverageReadingsBetweenDates() {
+        // Arrange
+        ReadingList validReadingList1;
+        validReadingList1 = new ReadingList();
+        Date validDate3 = new Date(); // 31/09/2018 23:59:59
+        Date validDate4 = new Date(); // 07/10/2018 00:00:00
+        Date validDate5 = new Date(); // 08/10/2018 23:26:21
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate3 = validSdf.parse("31/09/2018 23:59:59");
+            validDate4 = validSdf.parse("07/10/2018 00:00:00");
+            validDate5 = validSdf.parse("08/10/2018 23:26:21");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading r0 = new Reading(20, validDate3);
+        Reading r1 = new Reading(25, validDate4);
+        Reading r2 = new Reading(30, validDate5);
+        validReadingList1.addReading(r0);
+        validReadingList1.addReading(r1);
+        validReadingList1.addReading(r2);
+        double expectedResult = 25;
+
+        // Act
+
+        double actualResult = validReadingList1.getAverageReadingsBetweenDates(validDate3, validDate5);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDates() {
+        // Arrange
+        ReadingList validReadingList1;
+        validReadingList1 = new ReadingList();
+        Date validDate3 = new Date(); // 31/09/2018 23:59:59
+        Date validDate4 = new Date(); // 07/10/2018 00:00:00
+        Date validDate5 = new Date(); // 08/10/2018 23:26:21
+        Date validDate6 = new Date(); // 31/09/2018 23:59:59
+        Date validDate7 = new Date(); // 07/10/2018 00:00:00
+        Date validDate8 = new Date(); // 08/10/2018 23:26:21
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate3 = validSdf.parse("31/09/2018 23:59:59");
+            validDate4 = validSdf.parse("07/10/2018 20:00:00");
+            validDate5 = validSdf.parse("08/10/2018 23:26:21");
+            validDate6 = validSdf.parse("31/09/2018 10:59:59");
+            validDate7 = validSdf.parse("07/10/2018 00:00:00");
+            validDate8 = validSdf.parse("08/10/2018 13:26:21");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading r0 = new Reading(20, validDate3);
+        Reading r1 = new Reading(25, validDate4);
+        Reading r2 = new Reading(30, validDate5);
+        Reading r3 = new Reading(10, validDate6);
+        Reading r4 = new Reading(10, validDate7);
+        Reading r5 = new Reading(10, validDate8);
+        validReadingList1.addReading(r0);
+        validReadingList1.addReading(r1);
+        validReadingList1.addReading(r2);
+        validReadingList1.addReading(r3);
+        validReadingList1.addReading(r4);
+        validReadingList1.addReading(r5);
+        Date expectedResult = validDate5;
+
+        // Act
+
+        Date actualResult = validReadingList1.getDateHighestAmplitudeBetweenDates(validDate6, validDate5);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetTotalValueReadingsOnGivenDay() {
+        // Arrange
+        ReadingList validReadingList = new ReadingList();
+        Date validDate15 = new Date();
+        Date validDate3 = new Date();
+        Date validDate7 = new Date();
+        Date validDate14 = new Date();
+        Date validDate13 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            validDate3 = validSdf.parse("31/09/2018 23:59:59");
+            validDate14 = validSdf.parse("02/10/2018 23:59:00");
+            validDate15 = validSdf.parse("03/10/2018 00:00:00");
+            validDate7 = validSdf.parse("10/10/2018 18:14:03");
+            validDate13 = validSdfDay.parse("03/10/2018");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading reading = new Reading(20, validDate15);
+        Reading reading2 = new Reading(20, validDate3);
+        Reading reading3 = new Reading(20, validDate7);
+        Reading reading4 = new Reading(20, validDate14);
+        validReadingList.addReading(reading);
+        validReadingList.addReading(reading2);
+        validReadingList.addReading(reading3);
+        validReadingList.addReading(reading4);
+        double expectedResult = 20;
+        // Act
+
+        double actualResult = validReadingList.getValueReadingsInDay(validDate13);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetMostRecentValueReading() {
+        // Arrange
+        ReadingList validReadingList = new ReadingList();
+        Date validDate12 = new Date();
+        validReadingList = new ReadingList();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2015 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12);
+        Reading laterReading = new Reading(30, testDate);
+        validReadingList.addReading(earlierReading);
+        validReadingList.addReading(laterReading);
+        double expectedResult = 30.0;
+
+        // Act
+        double result = validReadingList.getMostRecentValue();
+
+        // Assert
+        assertEquals(expectedResult, result, 0.01);
+    }
 }
-
-

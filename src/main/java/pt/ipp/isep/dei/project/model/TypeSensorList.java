@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class TypeSensorList {
-
+    private static final String stringBuilder = "---------------\n";
 
     @Autowired
     TypeSensorRepository typeSensorRepository;
@@ -105,7 +105,7 @@ public class TypeSensorList {
      * @return a string of sensor types in a list
      */
     public String buildString() {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        StringBuilder result = new StringBuilder(stringBuilder);
         if (typeSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -114,7 +114,7 @@ public class TypeSensorList {
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Unit: ").append(aux.getUnits()).append("\n");
         }
-        result.append("---------------\n");
+        result.append(stringBuilder);
         return result.toString();
     }
 
@@ -124,7 +124,7 @@ public class TypeSensorList {
      * @return a string of sensor types in a list
      */
     public String getAllAsString() {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        StringBuilder result = new StringBuilder(stringBuilder);
         if (isEmptyRepository()) {
             return "There are no Sensor Types Configured\n";
         }
@@ -133,7 +133,7 @@ public class TypeSensorList {
             result.append(tS.getId()).append(") Description: ").append(tS.getName()).append(" | ");
             result.append("Unit: ").append(tS.getUnits()).append("\n");
         }
-        result.append("---------------\n");
+        result.append(stringBuilder);
         return result.toString();
     }
 

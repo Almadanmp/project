@@ -4,6 +4,7 @@
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 //import org.springframework.test.context.ContextConfiguration;
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -14,6 +15,8 @@
 //import pt.ipp.isep.dei.project.dto.SensorDTO;
 //import pt.ipp.isep.dei.project.io.ui.MainUI;
 //import pt.ipp.isep.dei.project.model.*;
+//import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+//import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 //
 //import java.io.*;
 //import java.text.ParseException;
@@ -30,27 +33,44 @@
 //@ContextConfiguration(classes = {MainUI.class },
 //        loader = AnnotationConfigContextLoader.class)
 //class GASettingsControllerTest {
+//
+//    @Autowired
+//    GeographicAreaList validGeographicAreaList;
+//
+//    @Autowired
+//    TypeAreaList typeAreaList;
+//
+//    @Autowired
+//    GeographicAreaRepository geographicAreaRepository;
+//
+//    @Autowired
+//    TypeAreaRepository typeAreaRepository;
+//
 //    private GASettingsController controller = new GASettingsController();
 //    private GeographicArea firstValidArea;
 //    private GeographicArea secondValidArea;
 //    private TypeArea typeCountry;
 //    private TypeArea typeCity;
 //    private GeographicAreaDTO validGeographicAreaDTO;
+//    private GeographicAreaDTO validGeographicAreaDTO2;
 //    private SensorDTO validSensorDTO;
 //    private Sensor validSensor;
 //    private Mapper mapper;
-//    private GeographicAreaList validGeographicAreaList;
 //    private Date date; // Wed Nov 21 05:12:00 WET 2018
 //
 //
 //    @BeforeEach
 //    void arrangeArtifacts() {
+//        geographicAreaRepository.deleteAll();
+//        typeAreaRepository.deleteAll();
+//
 //        SimpleDateFormat day = new SimpleDateFormat("dd-MM-yyyy");
 //        try {
 //            date = day.parse("12-12-2018");
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
+//
 //        typeCountry = new TypeArea("Country");
 //        typeCity = new TypeArea("City");
 //        firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -61,50 +81,49 @@
 //                new Local(31, 15, 3), date);
 //        firstValidArea.addSensor(validSensor);
 //        mapper = new Mapper();
+//
 //        validGeographicAreaDTO = mapper.geographicAreaToDTO(firstValidArea);
+//        validGeographicAreaDTO2 = mapper.geographicAreaToDTO(secondValidArea);
 //        validSensorDTO = mapper.sensorToDTO(validSensor);
-//        validGeographicAreaList = new GeographicAreaList();
 //        validGeographicAreaList.addGeographicArea(firstValidArea);
 //    }
 //
 //
 //    //SHARED METHODS
 //
-////    @Test
-////    void seeIfPrintGATypeListWorks() {
-////        // Arrange
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCountry);
-////        list.addTypeArea(typeCity);
-////        String expectedResult = "---------------\n" +
-////                "0) Name: Country \n" +
-////                "1) Name: City \n" +
-////                "---------------\n";
-////
-////        // Act
-////
-////        String actualResult = controller.buildGATypeListString(list);
-////
-////
-////        // Assert
-////
-////        assertEquals(expectedResult, actualResult);
-////    }
+//    @Test
+//    void seeIfPrintGATypeListWorks() {
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//        typeAreaList.addTypeArea(typeCity);
+//        String expectedResult = "---------------\n" +
+//                "0) Description: Country \n" +
+//                "1) Description: City \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.buildGATypeListString(typeAreaList);
+//
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 //
 //    @Test
 //    void seeIfMatchGAByTypeAreaWorks() {
 //        // Arrange
 //
-//        GeographicAreaList geographicAreaList = new GeographicAreaList();
-//        geographicAreaList.addGeographicArea(firstValidArea);
-//        geographicAreaList.addGeographicArea(secondValidArea);
+//        validGeographicAreaList.addGeographicArea(firstValidArea);
+//        validGeographicAreaList.addGeographicArea(secondValidArea);
 //        GeographicAreaList expectedResult = new GeographicAreaList();
 //        expectedResult.addGeographicArea(secondValidArea);
 //
 //        // Act
 //
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(geographicAreaList, mapper.typeAreaToDTO(typeCity));
+//        GeographicAreaList actualResult = controller.matchGAByTypeArea(validGeographicAreaList, mapper.typeAreaToDTO(typeCity));
 //
 //        // Assert
 //
@@ -128,174 +147,161 @@
 //
 //    //USER STORY 001 TESTS
 //
-////    @Test
-////    void seeIfCreateTypeAreaWorksEmptyList() {
-////
-////        // Arrange
-////
-////        TypeAreaList newList = new TypeAreaList();
-////
-////        // Act
-////
-////        boolean result = controller.createAndAddTypeAreaToList("City", newList);
-////
-////        // Assert
-////
-////        assertTrue(result);
-////    }
+//    @Test
+//    void seeIfCreateTypeAreaWorksEmptyList() {
 //
-////    @Test
-////    void seeIfCreateTypeAreaWorksListWithElements() {
-////
-////        // Arrange
-////
-////        TypeAreaList typeAreaList = new TypeAreaList();
-////        typeAreaList.addTypeArea(typeCountry);
-////
-////        // Act
-////
-////        boolean result = controller.createAndAddTypeAreaToList("City", typeAreaList);
-////
-////        // Assert
-////
-////        assertTrue(result);
-////    }
+//        // Act
 //
-////    @Test
-////    void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
-////
-////        // Arrange
-////
-////        TypeAreaList expectedResult = new TypeAreaList();
-////        expectedResult.addTypeArea(typeCountry);
-////
-////        // Act
-////
-////        boolean result = controller.createAndAddTypeAreaToList("Country", expectedResult);
-////
-////        // Assert
-////
-////        assertFalse(result);
-////    }
+//        boolean result = controller.createAndAddTypeAreaToList("City");
 //
-////    @Test
-////    void seeIfCreateTypeAreaDoesntWorkWhenNullIsAdded() {
-////
-////        // Arrange
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCountry);
-////
-////        // Act
-////
-////        boolean result = controller.createAndAddTypeAreaToList(null, list);
-////
-////        // Assert
-////
-////        assertFalse(result);
-////    }
+//        // Assert
 //
-////    @Test
-////    void seeIfCreateTypeAreaDoesntWorkWhenNameIsEmpty() {
-////
-////        // Arrange
-////
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCountry);
-////
-////        // Act
-////
-////        boolean result = controller.createAndAddTypeAreaToList("", list);
-////
-////        // Assert
-////
-////        assertFalse(result);
-////    }
+//        assertTrue(result);
+//    }
 //
-////    @Test
-////    void seeIfCreateTypeAreaDoesntWorkWhenNumbersAreAdded() {
-////
-////        // Arrange
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCountry);
-////
-////        // Act
-////
-////        boolean result = controller.createAndAddTypeAreaToList("Country21", list);
-////
-////        // Assert
-////
-////        assertFalse(result);
-////    }
+//    @Test
+//    void seeIfCreateTypeAreaWorksListWithElements() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("City");
+//
+//        // Assert
+//
+//        assertTrue(result);
+//    }
+//
+//    @Test
+//    void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("Country");
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
+//
+//    @Test
+//    void seeIfCreateTypeAreaDoesntWorkWhenNullIsAdded() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList(null);
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
+//
+//    @Test
+//    void seeIfCreateTypeAreaDoesntWorkWhenNameIsEmpty() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("");
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
+//
+//    @Test
+//    void seeIfCreateTypeAreaDoesntWorkWhenNumbersAreAdded() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//
+//        // Act
+//
+//        boolean result = controller.createAndAddTypeAreaToList("Country21");
+//
+//        // Assert
+//
+//        assertFalse(result);
+//    }
 //
 //
 //    //USER STORY 002 TESTS
 //
-////    @Test
-////    void seeIfPrintTypeAreaListWorks() {
-////
-////        // Arrange
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCountry);
-////        String expectedResult = "---------------\n" +
-////                "0) Name: Country \n" +
-////                "---------------\n";
-////
-////        // Act
-////
-////        String actualResult = controller.getTypeAreaList(list);
-////
-////        // Assert
-////
-////        assertEquals(expectedResult, actualResult);
-////    }
+//    @Test
+//    void seeIfPrintTypeAreaListWorks() {
 //
-////    @Test
-////    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
-////
-////        // Arrange
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCountry);
-////        list.addTypeArea(typeCity);
-////        String expectedResult = "---------------\n" +
-////                "0) Name: Country \n" +
-////                "1) Name: City \n" +
-////                "---------------\n";
-////
-////        // Act
-////
-////        String actualResult = controller.getTypeAreaList(list);
-////
-////        // Assert
-////
-////        assertEquals(expectedResult, actualResult);
-////    }
+//        // Arrange
 //
-////    @Test
-////    void seeIfPrintTypeAreaListWorksWithThreeTypes() {
-////
-////        // Arrange
-////
-////        TypeAreaList list = new TypeAreaList();
-////        list.addTypeArea(typeCity);
-////        list.addTypeArea(typeCountry);
-////        String expectedResult = "---------------\n" +
-////                "0) Name: City \n" +
-////                "1) Name: Country \n" +
-////                "---------------\n";
-////
-////        // Act
-////
-////        String actualResult = controller.getTypeAreaList(list);
-////
-////        // Assert
-////
-////        assertEquals(expectedResult, actualResult);
-////    }
+//        typeAreaList.addTypeArea(typeCountry);
+//        String expectedResult = "---------------\n" +
+//                "0) Name: Country \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.getTypeAreaList(typeAreaList);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
+//
+//    @Test
+//    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCountry);
+//        typeAreaList.addTypeArea(typeCity);
+//        String expectedResult = "---------------\n" +
+//                "0) Name: Country \n" +
+//                "1) Name: City \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.getTypeAreaList(typeAreaList);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
+//
+//    @Test
+//    void seeIfPrintTypeAreaListWorksWithThreeTypes() {
+//
+//        // Arrange
+//
+//        typeAreaList.addTypeArea(typeCity);
+//        typeAreaList.addTypeArea(typeCountry);
+//        String expectedResult = "---------------\n" +
+//                "0) Description: City \n" +
+//                "1) Description: Country \n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.getTypeAreaList(typeAreaList);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 //
 //    //USER STORY 003 TESTS
 //
@@ -304,16 +310,14 @@
 //
 //        // Arrange
 //
-//        GeographicAreaList geoList = new GeographicAreaList();
-//
 //        // Act
 //
-//        boolean result = controller.addNewGeoAreaToList(geoList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
+//        boolean result = controller.addNewGeoAreaToList(validGeographicAreaList, validGeographicAreaDTO2, mapper.localToDTO(secondValidArea.getLocal()));
 //
 //        // Assert
 //
 //        assertTrue(result);
-//        assertEquals(1, geoList.size());
+//        assertEquals(2, validGeographicAreaList.size());
 //    }
 //
 //    //USER STORY 004 TESTS
@@ -323,15 +327,14 @@
 //
 //        //Arrange
 //
-//        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addGeographicArea(firstValidArea);
-//        gaL1.addGeographicArea(secondValidArea);
+//        validGeographicAreaList.addGeographicArea(firstValidArea);
+//        validGeographicAreaList.addGeographicArea(secondValidArea);
 //        GeographicAreaList expectedResult = new GeographicAreaList();
 //        expectedResult.addGeographicArea(firstValidArea);
 //
 //        //Act
 //
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCountry));
+//        GeographicAreaList actualResult = controller.matchGAByTypeArea(validGeographicAreaList, mapper.typeAreaToDTO(typeCountry));
 //
 //        //Assert
 //
@@ -461,11 +464,9 @@
 //    void seeIfSetMotherAreaBreaks() {
 //        // Arrange
 //
-//        GeographicAreaList geographicAreaList = new GeographicAreaList();
-//
 //        // Act
 //
-//        geographicAreaList.addGeographicArea(firstValidArea);
+//        validGeographicAreaList.addGeographicArea(firstValidArea);
 //        boolean actualResult = controller.setMotherArea(firstValidArea, null);
 //
 //        // Assert
@@ -539,58 +540,6 @@
 //
 //        assertEquals(actualResult, "Portugal");
 //    }
-//
-////    @Test
-////    void seeIfActivate() {
-////        // Arrange
-////        Mapper mapper = new Mapper();
-////        Date startDate = new Date();
-////        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"),startDate );
-////        sensor.setLocal(new Local(12,23,23));
-////        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-////        try {
-////            startDate = validSdf.parse("11/01/2018 10:00:00");
-////
-////        } catch (ParseException e) {
-////            e.printStackTrace();
-////        }
-////        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
-////
-////        // Act
-////
-////        boolean actualResult = controller.activateOrDeactivateSensor(sensorDTO);
-////
-////        // Assert
-////
-////        Assertions.assertTrue(actualResult);
-////    }
-////
-////    @Test
-////    void seeIfDeactivate() {
-////        // Arrange
-////        Mapper mapper = new Mapper();
-////        Date startDate = new Date();
-////        Sensor sensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"),startDate );
-////        sensor.setActive();
-////        sensor.setLocal(new Local(12,23,23));
-////        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-////        try {
-////            startDate = validSdf.parse("11/01/2018 10:00:00");
-////
-////        } catch (ParseException e) {
-////            e.printStackTrace();
-////        }
-////        SensorDTO sensorDTO = mapper.sensorToDTO(sensor);
-////
-////
-////        // Act
-////
-////        boolean actualResult = controller.activateOrDeactivateSensor(sensorDTO);
-////
-////        // Assert
-////
-////        Assertions.assertFalse(actualResult);
-////    }
 //
 //    @Test
 //    void seeIfCreateGeoAreaDTO() {
