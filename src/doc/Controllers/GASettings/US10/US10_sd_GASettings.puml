@@ -39,7 +39,7 @@ activate ":GASettingsController"
 
 create ":Sensor"
 
-":Mapper" -->> ":Sensor": create
+":Mapper" ->> ":Sensor": create
 activate ":Sensor"
 ":Sensor" --> ":GASettingsController": return Sensor
 deactivate ":Sensor"
