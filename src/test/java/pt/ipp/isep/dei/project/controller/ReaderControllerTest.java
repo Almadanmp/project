@@ -711,7 +711,7 @@ class ReaderControllerTest {
         assertEquals(actualResult, 0);
     }
 
-//    @Test
+    //    @Test
 //    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
 //        //Act
 //
@@ -923,5 +923,35 @@ class ReaderControllerTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void seeIfAcceptPathWorksXML() {
+        String input = "src/test/resources/DataSet_sprint05_GA_test_no_GAs.xml";
+        File fileToRead = new File(input);
+        String absolutePath = fileToRead.getAbsolutePath();
+        int result = validReader.acceptPath(input, absolutePath, geographicAreaList);
+        assertEquals(result, 0);
+    }
+    @Test
+    void seeIfAcceptPathWorksWrongPath() {
+        String input = "src/test/resources/wrong_path";
+        File fileToRead = new File(input);
+        String absolutePath = fileToRead.getAbsolutePath();
+        int result = validReader.acceptPath(input, absolutePath, geographicAreaList);
+        assertEquals(result, -1);
+    }
 
+    @Test
+    void seeIfAcceptPathWorksJSON() {
+        geographicAreaRepository.deleteAll();
+        sensorRepository.deleteAll();
+        readingRepository.deleteAll();
+        String input = "src/test/resources/DataSet_sprint04_GA.json";
+        File fileToRead = new File(input);
+        String absolutePath = fileToRead.getAbsolutePath();
+        GeographicAreaList geographicAreaList1 = new GeographicAreaList();
+        geographicAreaList1.setGeographicAreaRepository(geographicAreaRepository);
+        ReaderController readerController = new ReaderController(sensorService);
+        int result = readerController.acceptPath(input, absolutePath, geographicAreaList1);
+        assertEquals(result, 2);
+    }
 }
