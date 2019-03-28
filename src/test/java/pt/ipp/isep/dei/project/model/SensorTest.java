@@ -29,6 +29,18 @@ class SensorTest {
     }
 
     @Test
+    void seeIfEmptyConstructorWorks() {
+        // Arrange
+        Sensor sensorABC = new Sensor();
+        sensorABC.setId("ABC");
+        String expectedResult = "ABC";
+        // Act
+        String actualResult = sensorABC.getId();
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfConstructorSetsDate() {
         // Arrange
 

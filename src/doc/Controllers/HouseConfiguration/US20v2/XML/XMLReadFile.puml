@@ -27,20 +27,20 @@ skinparam component {
 
 
 title XMLReadFile
--> ReaderXMLReadings : readFile(String filePath)
-activate ReaderXMLReadings
+-> ReaderXML: readFile(String filePath)
+activate ReaderXML
 alt try
-ReaderXMLReadings  -> File: File file = new File(filePath)
-ReaderXMLReadings  -> DocumentBuilderFactory: DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+ReaderXML  -> File: File file = new File(filePath)
+ReaderXML  -> DocumentBuilderFactory: DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
-ReaderXMLReadings  -> DocumentBuilder: DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-ReaderXMLReadings  -> Document: doc = dBuilder.parse(inputFile);
+ReaderXML -> DocumentBuilder: DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+ReaderXML -> Document: doc = dBuilder.parse(inputFile);
 
-<- ReaderXMLReadings : doc
+<- ReaderXML: doc
 
 else catch IOException
-<- ReaderXMLReadings : throw new IllegalArgumentException();
-deactivate ReaderXMLReadings
+<- ReaderXML : throw new IllegalArgumentException();
+deactivate ReaderXML
 end
 
 @enduml

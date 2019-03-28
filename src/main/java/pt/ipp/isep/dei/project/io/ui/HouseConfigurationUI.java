@@ -70,6 +70,7 @@ class HouseConfigurationUI {
     }
     // USER STORY 15v.2 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file and a XML file.
 
+
     /**
      * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
      * <p>
@@ -77,14 +78,19 @@ class HouseConfigurationUI {
      */
 
     private void runUS15v2() {
+        ReaderController ctrl = new ReaderController(sensorService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        if (!input.getInputPathJsonOrXML(result, geographicAreaList, sensorService)) {
-            System.out.println("The file isn't a JSON nor a XML file.");
+        String filePath=input.getInputPathJsonOrXML(result);
+        int areas = ctrl.acceptPath(result,filePath,geographicAreaList);
+        if (areas==-1){
+            System.out.println("Please enter a valid path.");
         }
-    }
+        else System.out.println(areas + " Geographic Areas have been successfully imported.");
+        }
+
 
     /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
      from a either a CSV, JSON or XML file.

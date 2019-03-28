@@ -35,10 +35,10 @@ ReaderJSONGeographicAreas->ReaderJSONGeographicAreas:getJSONArray("geographical_
 ReaderJSONGeographicAreas --> ReaderController: return JSONArray
 deactivate ReaderJSONGeographicAreas
 activate ReaderController
-loop successs
+loop
 ReaderController->ReaderController:getJSONObject()
 create "geoArea :GeographicArea"
-ReaderController -->> "geoArea :GeographicArea": create
+ReaderController ->> "geoArea :GeographicArea": create
 activate "geoArea :GeographicArea"
 deactivate ReaderController
 "geoArea :GeographicArea" --> ReaderController: return geoArea
@@ -47,9 +47,21 @@ deactivate "geoArea :GeographicArea"
 activate ReaderController
 
 ReaderController -> ReaderController: add to GeographicArea[]
+loop
+ReaderController->ReaderController:readAreaSensorsJSON(JSONArray)
+create "sensor: Sensor"
+ReaderController ->> "sensor: Sensor": create
+activate "sensor: Sensor"
+deactivate ReaderController
 
+"sensor: Sensor" --> ReaderController: return sensor
+deactivate "sensor: Sensor"
+
+activate ReaderController
+ReaderController -> "geoArea :GeographicArea": add(sensor)
 end loop
-loop success
+end loop
+loop
 ReaderController -> GeographicAreaList: add(GeographicArea[])
 deactivate ReaderController
 
