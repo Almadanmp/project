@@ -119,6 +119,17 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfGetSetMotherAreaWorksFalse() {
+        // Act
+
+        boolean actualResult = validArea.setMotherArea(null);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetSetDescription() {
         // Arrange
 

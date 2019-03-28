@@ -16,6 +16,10 @@ public class GeographicAreaList {
 
     private List<GeographicArea> geographicAreas;
 
+    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
+        this.geographicAreaRepository = geographicAreaRepository;
+    }
+
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
 
