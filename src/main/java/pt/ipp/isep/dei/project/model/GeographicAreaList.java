@@ -38,15 +38,15 @@ public class GeographicAreaList {
         geographicAreas = new ArrayList<>();
     }
 
-    public GeographicAreaList getAll(){
+    public GeographicAreaList getAll() {
         Iterable<GeographicArea> geoAreas = this.geographicAreaRepository.findAll();
-        for(GeographicArea g : geoAreas){
+        for (GeographicArea g : geoAreas) {
             this.addGeographicArea(g);
         }
         return this;
     }
 
-    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository){
+    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
         this.geographicAreaRepository = geographicAreaRepository;
     }
 
@@ -67,7 +67,7 @@ public class GeographicAreaList {
         return false;
     }
 
-    public boolean addWithoutPersisting(GeographicArea geographicAreaToAdd){
+    public boolean addWithoutPersisting(GeographicArea geographicAreaToAdd) {
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             return true;
@@ -213,7 +213,7 @@ public class GeographicAreaList {
         }
         for (GeographicArea ga : this.geographicAreas) {
             if (ga.getSensorList().isEmpty()) {
-                return fullSensorList;
+                continue;
             }
             for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
                 fullSensorList.add(sensor);

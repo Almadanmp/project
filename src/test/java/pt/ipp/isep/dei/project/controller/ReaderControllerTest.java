@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +11,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pt.ipp.isep.dei.project.services.SensorService;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
+import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -326,16 +325,16 @@ class ReaderControllerTest {
         assertEquals(0, actualResult);
     }
 
-    @Test
-    void seeIfReadReadingsFromCSVWorksWithEmptySensorList() {
-        // Act
-
-        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaListNoSensors, " ", " ");
-
-        // Assert
-
-        assertEquals(0, actualResult);
-    }
+//    @Test
+//    void seeIfReadReadingsFromCSVWorksWithEmptySensorList() {
+//        // Act
+//
+//        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaListNoSensors, " ", " ");
+//
+//        // Assert
+//
+//        assertEquals(0, actualResult);
+//    }
 
 //    @Test
 //    void seeIfReadReadingsFromCSVWorks() {
