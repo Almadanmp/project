@@ -11,6 +11,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ class TypeAreaListTest {
     @Autowired
     TypeAreaRepository typeAreaRepository;
 
-    @Autowired
+    @Resource
     private TypeAreaList validList;
 
     @BeforeEach

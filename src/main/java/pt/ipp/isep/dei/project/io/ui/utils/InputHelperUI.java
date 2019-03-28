@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
-import pt.ipp.isep.dei.project.Services.SensorService;
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
-import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
@@ -419,7 +417,8 @@ public class InputHelperUI {
      *
      * @return returns a filepath.
      */
-    private String getInputPath(String result) {
+    private String getInputPath(String filePath) {
+        String result = filePath;
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
             System.out.println("Please enter a valid path");
@@ -436,8 +435,9 @@ public class InputHelperUI {
      */
     public String getInputPathJsonOrXML(String input) {
         String filePath = "";
-        if((input.endsWith(".json") || (input.endsWith(".xml")))){
-            filePath = getInputPath(input);}
+        if ((input.endsWith(".json") || (input.endsWith(".xml")))) {
+            filePath = getInputPath(input);
+        }
         return filePath;
 
     }

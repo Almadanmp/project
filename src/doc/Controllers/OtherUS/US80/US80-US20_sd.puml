@@ -45,6 +45,10 @@ SensorService ->> "r:Reading": create
 activate "r:Reading"
 "r:Reading" --> SensorService: return r
 deactivate "r:Reading"
+SensorService -> ":Sensor": getReadingList()
+activate ":Sensor"
+":Sensor" --> SensorService: return :ReadingList
+deactivate ":Sensor"
 SensorService -> "r:Reading": setReadingList(:ReadingList)
 SensorService -> ReadingRepository: save(r)
 SensorService --> ReaderController: return true
