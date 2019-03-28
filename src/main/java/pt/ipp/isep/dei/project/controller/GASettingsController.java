@@ -77,12 +77,12 @@ public class GASettingsController {
         Mapper mapper = new Mapper();
         GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), mapper.dtoToLocal(localDTO));
-        if (!(newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
+        if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
                 mapper.dtoToLocal(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
-            return false;
+           return newGeoList.addGeographicArea(geoToAdd);
         }
     }
 

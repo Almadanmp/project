@@ -36,7 +36,7 @@ ReaderController -> "csvRead :ReaderCSVReadings": new ReaderCSVReadings();
 activate "csvRead :ReaderCSVReadings"
 ref over "csvRead :ReaderCSVReadings"
 Read readings from
-JSON file reading
+CSV file reading
 end ref
 ReaderController -> "csvRead :ReaderCSVReadings": List<String[]> list = csvRead.readFile(filePath);
 

@@ -46,9 +46,10 @@ public class GeographicAreaList {
         return this;
     }
 
-    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
+    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository){
         this.geographicAreaRepository = geographicAreaRepository;
     }
+
 
     /**
      * Method that receives a geographic area as a parameter and adds that
@@ -103,9 +104,8 @@ public class GeographicAreaList {
      * exists, false if it doesn't.
      */
     public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, Local local) {
-        Local newLocal = new Local(local.getLatitude(), local.getLongitude(), local.getAltitude());
         for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsParameters(newName, typeArea, newLocal)) {
+            if (ga.equalsParameters(newName, typeArea, local)) {
                 return true;
             }
         }
