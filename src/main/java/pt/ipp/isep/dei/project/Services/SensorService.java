@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class SensorService {
@@ -31,8 +32,9 @@ public class SensorService {
 
     public boolean addReadingToMatchingSensor(SensorList sensorList, String sensorID, Double readingValue, Date readingDate) {
         sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate);
-        if (sensorRepository.findById(sensorID).isPresent()) {
-            Sensor sensor = sensorRepository.findById(sensorID).get();
+        Optional<Sensor> value = sensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            Sensor sensor = value.get();
             Reading reading = new Reading(readingValue, readingDate);
             reading.setReadingList(sensor.getReadingList());
             readingRepository.save(reading);
@@ -40,5 +42,4 @@ public class SensorService {
         }
         return false;
     }
-
 }
