@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -305,7 +307,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsTypeAreaWorks(){
+    void seeIfEqualsTypeAreaWorks() {
         // Arrange
 
         TypeArea typeArea1 = new TypeArea("City");
@@ -321,7 +323,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsTypeAreaWorksFalse(){
+    void seeIfEqualsTypeAreaWorksFalse() {
         // Arrange
 
         TypeArea typeArea1 = new TypeArea("City");
@@ -356,7 +358,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfRemovesSensorWorks(){
+    void seeIfRemovesSensorWorks() {
         // Arrange
 
         Sensor sensor = new Sensor();
@@ -373,7 +375,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfRemovesSensorWorksFalse(){
+    void seeIfRemovesSensorWorksFalse() {
         // Arrange
 
         Sensor sensor = new Sensor();
@@ -440,5 +442,69 @@ class GeographicAreaTest {
         assertFalse(actualResult4);
         assertFalse(actualResult5);
     }
+
+    @Test
+    void seeIfGetIdWorks() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        geographicArea.setId(95L);
+        Long expectedResult = 95L;
+        //Actual
+        Long actualResult = geographicArea.getId();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorsOfGivenTypeWorks() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        SensorList sensorList = new SensorList();
+        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
+        Sensor sensor2 = new Sensor("Sensor 2", new TypeSensor("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
+        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
+        sensorList.add(sensor1);
+        sensorList.add(sensor2);
+        sensorList.add(sensor3);
+        geographicArea.setSensorList(sensorList);
+        SensorList expectedResult = new SensorList();
+        expectedResult.add(sensor1);
+        expectedResult.add(sensor3);
+        //Act
+        SensorList actualResult = geographicArea.getSensorsOfGivenType("temperature");
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetLocationWorks() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        geographicArea.setLocation(new Local(2, 1, 4));
+        Local expectedResult = new Local(2, 1, 4);
+        //Act
+        Local actualResult = geographicArea.getLocation();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfToStringOverrideWorks() {
+        //Arrange
+        GeographicArea motherArea = new GeographicArea();
+        GeographicArea geographicArea = new GeographicArea();
+        geographicArea.setTypeArea(new TypeArea("city"));
+        geographicArea.setLength(2);
+        geographicArea.setWidth(3);
+        geographicArea.setMotherArea(motherArea);
+        geographicArea.setLocation(new Local(2, 3, 5));
+        geographicArea.setDescription("city of porto");
+        String expectedResult = "GeographicArea[id=null, typeArea='pt.ipp.isep.dei.project.model.TypeArea@1', length='2.0, width='3.0', motherArea='GeographicArea[id=null, typeArea='null', length='0.0, width='0.0', motherArea='null, location='null', description='null'], location='Local[id=0, latitude='2.0', longitude='3.0', altitude='5.0']', description='city of porto']";
+        //Act
+        String actualResult = geographicArea.toString();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
+
 
