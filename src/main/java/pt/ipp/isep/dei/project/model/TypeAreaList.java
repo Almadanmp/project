@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Component
 public class TypeAreaList {
-    private static final String STRINGBUILDER = "---------------\n";
+    private static final String STRING_BUILDER = "---------------\n";
 
     private List<TypeArea> typeAreas = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class TypeAreaList {
      * @return builds a string of all the individual members of the geoAreaType list.
      */
     public String buildString() {
-        StringBuilder result = new StringBuilder(STRINGBUILDER);
+        StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (typeAreas.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -76,7 +76,7 @@ public class TypeAreaList {
             TypeArea aux = typeAreas.get(i);
             result.append(i).append(") Description: ").append(aux.getName()).append(" \n");
         }
-        result.append(STRINGBUILDER);
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 
