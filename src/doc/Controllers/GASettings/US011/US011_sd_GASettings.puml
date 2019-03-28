@@ -65,7 +65,7 @@ end ref
 activate ":GASettingsController"
 ":GASettingsController" -> ":Mapper": sensorDTOToObject(sensorDTO)
 create ":Sensor"
-":Mapper" -->> ":Sensor": create
+":Mapper" ->> ":Sensor": create
 ":Sensor" --> ":GASettingsController": return Sensor
 loop Geographical Areas in Geographical Areas List till Geographical Area name matches
 ":GASettingsController" -> GeographicArea: removeSensor (:Sensor)
