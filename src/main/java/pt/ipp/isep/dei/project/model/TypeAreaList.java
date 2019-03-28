@@ -16,13 +16,12 @@ public class TypeAreaList {
 
     private List<TypeArea> typeAreas = new ArrayList<>();
 
-    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
-        this.typeAreaRepository = typeAreaRepository;
-    }
-
     @Autowired
     TypeAreaRepository typeAreaRepository;
 
+    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
+        this.typeAreaRepository = typeAreaRepository;
+    }
 
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
@@ -64,24 +63,6 @@ public class TypeAreaList {
      *
      * @return builds a string of all the individual members of the geoAreaType list.
      */
-    public String getAllAsString() {
-        StringBuilder result = new StringBuilder("---------------\n");
-        Iterable<TypeArea> typeAreas = typeAreaRepository.findAll();
-        int counter = 0;
-        for (TypeArea ta : typeAreas) {
-            counter++;
-            result.append(counter).append(") Name: ").append(ta.getName()).append(" \n");
-        }
-        result.append("---------------\n");
-        return result.toString();
-    }
-
-
-    /**
-     * This method builds a string of all the individual members of the geoAreaType list.
-     *
-     * @return builds a string of all the individual members of the geoAreaType list.
-     */
     public String buildString() {
         StringBuilder result = new StringBuilder("---------------\n");
         if (typeAreas.isEmpty()) {
@@ -95,26 +76,6 @@ public class TypeAreaList {
         return result.toString();
     }
 
-    /**
-     * Method to get the TypeArea Repository Size
-     *
-     * @return repository size
-     */
-    public int getSizeRepository() {
-        return typeAreaRepository.findAll().size();
-    }
-
-    /**
-     * Method to get a TypeArea from the Repository through a given id
-     *
-     * @param id selected id
-     * @return Type Area corresponding to the given id
-     */
-    public TypeArea getTypeAreaByIdRepository(int id) {
-
-        return typeAreaRepository.findById(new Long(id)).get(); // TODO understand optional(Daniela)
-
-    }
 
     /**
      * This method checks if type area list is empty.*
