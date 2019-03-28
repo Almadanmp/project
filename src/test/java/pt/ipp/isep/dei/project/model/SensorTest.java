@@ -1272,6 +1272,31 @@ class SensorTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetMostRecentValueReading() {
+        // Arrange
+        ReadingList validReadingList = new ReadingList();
+        Date validDate12 = new Date();
+        validReadingList = new ReadingList();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2015 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12);
+        Reading laterReading = new Reading(30, testDate);
+        validReadingList.addReading(earlierReading);
+        validReadingList.addReading(laterReading);
+        double expectedResult = 30.0;
+
+        // Act
+        double result = validReadingList.getMostRecentValue();
+
+        // Assert
+        assertEquals(expectedResult, result, 0.01);
+    }
 }
-
-
