@@ -68,11 +68,107 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalse() {
+    void seeIfEqualsWorksFalseDiffLocalDiffTypeDiffLocal() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 300, 200,
                 new Local(21, 31, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseSameLocalSameNameDiffType(){
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("City"), 300, 200,
+                new Local(50, 50, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseSameLocalDiffNameSameType(){
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("Country"), 300, 200,
+                new Local(50, 50, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseSameLocalDiffNameDiffType(){
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 300, 200,
+                new Local(50, 50, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseDiffLocalSameNameSameType(){
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+                new Local(50, 30, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseDiffLocalDiffNameSameType(){
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("Country"), 300, 200,
+                new Local(50, 21, 1));
+
+        // Act
+
+        boolean actualResult = validArea.equals(testArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseDiffLocalSameNameDiffType(){
+        // Arrange
+
+        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("City"), 300, 200,
+                new Local(21, 50, 1));
 
         // Act
 
@@ -97,6 +193,7 @@ class GeographicAreaTest {
 
         assertFalse(actualResult);
     }
+
 
     @Test
     void seeIfGetSetSensorListWork() {
