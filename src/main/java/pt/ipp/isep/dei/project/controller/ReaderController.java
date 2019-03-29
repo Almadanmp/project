@@ -7,9 +7,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.services.SensorService;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.reader.*;
+import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -276,7 +276,7 @@ public class ReaderController {
      * @return the number of readings added to the geographic area sensors
      **/
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
-        SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
+        SensorList sensorList = geographicAreaList.getAreaListSensors();
         int addedReadings = 0;
         if (sensorList.isEmpty()) {
             return addedReadings;
@@ -444,7 +444,6 @@ public class ReaderController {
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
-
         return addedReadings;
     }
 

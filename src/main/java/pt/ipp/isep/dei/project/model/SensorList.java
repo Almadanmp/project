@@ -253,26 +253,6 @@ public class SensorList {
         return result;
     }
 
-    /**
-     * Adds a reading made up by the received date and received value to the sensor whose ID matches a received ID.
-     * If a reading can't be added to a sensor that matches the received ID (because it's a duplicate, for instance,
-     * or because its date is before the date that the sensor started functioning), an error message is saved into a log
-     * file.
-     *
-     * @param sensorID     is the id of the sensor we want to addWithoutPersisting readings to.
-     * @param readingValue is the value of the reading we want to addWithoutPersisting.
-     * @param readingDate  is the date of the reading we want to addWithoutPersisting.
-     */
-
-    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {
-        for (Sensor sensor : this.sensors) {
-            if (sensor.getId().equals(sensorID) && sensor.addReading(readingDate, readingValue)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean remove(Sensor sensor) {
         if (this.contains(sensor)) {
             sensors.remove(sensor);
