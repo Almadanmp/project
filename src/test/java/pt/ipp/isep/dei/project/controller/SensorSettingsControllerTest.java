@@ -49,6 +49,24 @@ class SensorSettingsControllerTest {
         // Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfAddTypeSensorToList() {
+        // Arrange
+        TypeSensorList tySList = new TypeSensorList();
+        TypeSensor tS = new TypeSensor();
+        TypeSensor expectedResult = tS;
+        tySList.add(tS);
+
+        // Act
+
+        TypeSensor actualResult = tySList.get(0);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
     //USER STORY 006 TESTS
 
     @Test
