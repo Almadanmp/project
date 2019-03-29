@@ -188,6 +188,23 @@ class TypeAreaListTest {
     }
 
     @Test
+    void seeIfGetTypeAreasWorks(){
+        // Arrange
+
+        List<TypeArea> expectedResult = new ArrayList<>();
+        expectedResult.add(firstValidType);
+        expectedResult.add(secondValidType);
+
+        // Act
+
+        List<TypeArea> actualResult = validList.getTypeAreas();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void getByIndexEmptyTypeAreaList() {
         // Arrange
 
