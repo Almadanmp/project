@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +16,6 @@ import java.util.List;
 public class TypeSensorList {
     private static final String STRING_BUILDER = "---------------\n";
 
-    @Autowired
-    TypeSensorRepository typeSensorRepository;
 
     private List<TypeSensor> typeSensors;
 
@@ -40,7 +36,6 @@ public class TypeSensorList {
     public boolean add(TypeSensor typeSensor) {
         if (!typeSensors.contains(typeSensor)) {
             typeSensors.add(typeSensor);
-            // typeSensorRepository.save(typeSensor);
             return true;
         }
         return false;
@@ -61,24 +56,6 @@ public class TypeSensorList {
 
     public TypeSensor createTypeSensor(String name, String unit) {
         return new TypeSensor(name, unit);
-    }
-
-    /**
-     * Checks the type sensor list size and returns the size as int.\
-     *
-     * @return TypeSensor size as int
-     **/
-    private int sizeRepository() {
-        return typeSensorRepository.findAll().size();
-    }
-
-    /**
-     * This methods checks if type sensor list is empty.
-     *
-     * @return true if list is empty, false otherwise
-     */
-    public boolean isEmptyRepository() {
-        return (sizeRepository() == 0);
     }
 
     /**
@@ -113,25 +90,6 @@ public class TypeSensorList {
             TypeSensor aux = typeSensors.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Unit: ").append(aux.getUnits()).append("\n");
-        }
-        result.append(STRING_BUILDER);
-        return result.toString();
-    }
-
-    /**
-     * This method prints all sensor types in a type sensor list.
-     *
-     * @return a string of sensor types in a list
-     */
-    public String getAllAsString() {
-        StringBuilder result = new StringBuilder(STRING_BUILDER);
-        if (isEmptyRepository()) {
-            return "There are no Sensor Types Configured\n";
-        }
-        Iterable<TypeSensor> typeSensorRepositoryAll = typeSensorRepository.findAll();
-        for (TypeSensor tS : typeSensorRepositoryAll) {
-            result.append(tS.getId()).append(") Description: ").append(tS.getName()).append(" | ");
-            result.append("Unit: ").append(tS.getUnits()).append("\n");
         }
         result.append(STRING_BUILDER);
         return result.toString();

@@ -30,7 +30,7 @@ public class SensorSettingsController {
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
     public String buildSensorTypesString() {
-        return typeSensorList.getAllAsString();
+        return typeSensorList.buildString();
     }
 
     //TODO review

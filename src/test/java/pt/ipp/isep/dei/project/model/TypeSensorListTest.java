@@ -12,9 +12,7 @@ import org.testng.Assert;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -33,9 +31,6 @@ class TypeSensorListTest {
     private TypeSensor secondTypeSensor; // Is not in the list.
 
     @Autowired
-    TypeSensorRepository typeSensorRepository;
-
-    @Autowired
     private TypeSensorList validList;
 
     @BeforeEach
@@ -48,9 +43,10 @@ class TypeSensorListTest {
     @Test
     void seeIfGetAllAsString() {
         // Arrange
-        String expectedResult = "There are no Sensor Types Configured\n";
+        String expectedResult = "Invalid List - List is Empty\n";
         // Act
-        String actualResult = validList.getAllAsString();
+        TypeSensorList typeSensorList = new TypeSensorList();
+        String actualResult = typeSensorList.buildString();
         // Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -292,20 +288,5 @@ class TypeSensorListTest {
         assertArrayEquals(expectedResult1, actualResult1);
         assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
-    }
-
-    @Test
-    void seeIfIsEmptyRepositoryWorks(){
-        // Arrange
-
-        typeSensorRepository.deleteAll();
-
-        // Act
-
-        boolean result = validList.isEmptyRepository();
-
-        // Assert
-
-        assertTrue(result);
     }
 }
