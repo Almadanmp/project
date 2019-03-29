@@ -100,7 +100,6 @@ class SensorSettingsUI {
         addSensor(sensor, geographicAreaList);
     }
 
-    //TODO esta US cria um typesensor novo e nao o guarda em lado nenhum(agora tem de guardar na DB) ou à luz das restantes US, deve listar os typesensors que ja existem e deixar o utilizador escolher
     private Sensor createSensor() {
         String id = getInputSensorId();
         String name = getInputSensorName();

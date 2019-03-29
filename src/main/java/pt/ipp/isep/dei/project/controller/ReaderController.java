@@ -210,7 +210,7 @@ public class ReaderController {
             Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
                     Double.parseDouble(getTagValue(ALTITUDE, element)));
-            TypeArea typeArea = new TypeArea(getTagValue("type", element)); // TODO - type areas need to be added to the local list
+            TypeArea typeArea = new TypeArea(getTagValue("type", element));
             geoArea = new GeographicArea(id, typeArea, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
@@ -238,7 +238,7 @@ public class ReaderController {
             String id = getTagValue("id", element);
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
-            TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element)); //TODO - type sensors need to be added to the local list
+            TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT3);
             Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
                     Double.parseDouble(getTagValue(LONGITUDE, element)),

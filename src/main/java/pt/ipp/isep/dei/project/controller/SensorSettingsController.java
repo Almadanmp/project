@@ -33,8 +33,6 @@ public class SensorSettingsController {
         return typeSensorList.buildString();
     }
 
-    //TODO review
-
     /**
      * This method receives a list and a type sensor and tries to addWithoutPersisting the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.

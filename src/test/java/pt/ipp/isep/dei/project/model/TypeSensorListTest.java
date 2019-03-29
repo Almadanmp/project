@@ -79,6 +79,7 @@ class TypeSensorListTest {
         assertFalse(actualResult3);
     }
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfBuildStringWorks() {
         // Arrange
