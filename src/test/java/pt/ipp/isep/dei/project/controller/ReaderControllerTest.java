@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +15,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.io.ByteArrayOutputStream;
@@ -31,8 +32,6 @@ import static org.testng.Assert.assertEquals;
 /**
  * ReaderController test class.
  */
-
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = {MainUI.class},
@@ -77,23 +76,10 @@ class ReaderControllerTest {
     SensorService sensorService;
 
     @Autowired
-    GeographicAreaList geographicAreaList;
-    @Autowired
-    GeographicAreaList geographicAreaList2;
-
-    @Autowired
     GeographicAreaRepository geographicAreaRepository;
-
-    @Autowired
-    SensorRepository sensorRepository;
-    @Autowired
-    ReadingRepository readingRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-//        geographicAreaRepository.deleteAll();
-//        sensorRepository.deleteAll();
-//        readingRepository.deleteAll();
         validReader = new ReaderController(sensorService);
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
@@ -131,14 +117,15 @@ class ReaderControllerTest {
         validSensorList2.add(validSensor4);
         validGeographicArea.setSensorList(validSensorList);
         validGeographicArea2.setSensorList(validSensorList2);
-        validGeographicAreaList = geographicAreaList;
-        validGeographicAreaList2 = geographicAreaList;
-        emptyGeographicAreaList = geographicAreaList;
-        validGeographicAreaListNoSensors = geographicAreaList;
+        validGeographicAreaList = new GeographicAreaList();
+        validGeographicAreaList2 = new GeographicAreaList();
+        emptyGeographicAreaList = new GeographicAreaList();
+        validGeographicAreaListNoSensors = new GeographicAreaList();
         validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea2);
         validGeographicAreaList2.addGeographicArea(validGeographicArea);
+        validGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
     }
 
     private final InputStream systemIn = System.in;
@@ -169,13 +156,13 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
+//        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
 //
 //        // Assert
 //
 //        assertEquals(1, actualResult);
 //    }
-//
+
 //    @Test
 //    void seeIfParseAndLogReadingWorksWithExtraParameter() {
 //        // Arrange
@@ -189,152 +176,152 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
-//
-//        // Assert
-//
-//        assertEquals(1, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithWrongSensor() {
-//        // Arrange
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "wrong sensor";
-//        readings[1] = "2019-12-30T02:00:00+00:00";
-//        readings[2] = "23";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithRepeatedReading() {
-//        // Arrange
-//        Date validDate = new Date();
-//        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-//        try {
-//            validDate = validSdf2.parse("2019-12-30T02:00:00+00:00");
-//        } catch (ParseException c) {
-//            c.printStackTrace();
-//        }
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "2019-12-30T02:00:00+00:00";
-//        readings[2] = "23";
-//
-//        validSensor1.addReading(new Reading(32, validDate));
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithEmptySensorList() {
-//        // Arrange
-//
-//        SensorList emptyList = new SensorList();
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "2019-12-30T02:00:00+00:00";
-//        readings[2] = "23";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, emptyList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithInvalidDateFormat() {
-//        // Arrange
-//
-//        SensorList emptyList = new SensorList();
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "invalid date";
-//        readings[2] = "23";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, emptyList);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingsWorksLogNotLoggable() {
-//
-//        //Arrange
-//
-//
-//        logger.setLevel(Level.INFO);
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "2008-12-30T02:00:00+00:00";
-//        readings[2] = "test";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
-//
-//        //Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogReadingFailsWithInvalidValue() {
-//        // Arrange
-//
-//
-//        String[] readings = new String[3];
-//        readings[0] = "RF12345";
-//        readings[1] = "2008-12-30T02:00:00+00:00";
-//        readings[2] = "invalid value";
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogCSVReading(readings, logger, validSensorList);
+//        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
 //
 //        // Assert
 //
 //        assertEquals(0, actualResult);
 //    }
 
-//    @Test
-//    void seeIfReadReadingsFromCSVWorksWithEmptySensorList() {
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaListNoSensors, " ", " ");
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+    @Test
+    void seeIfParseAndLogReadingFailsWithWrongSensor() {
+        // Arrange
+
+
+        String[] readings = new String[3];
+        readings[0] = "wrong sensor";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithRepeatedReading() {
+        // Arrange
+        Date validDate = new Date();
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate = validSdf2.parse("2019-12-30T02:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        validSensor1.addReading(new Reading(32, validDate));
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithEmptySensorList() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+
+
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2019-12-30T02:00:00+00:00";
+        readings[2] = "23";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithInvalidDateFormat() {
+        // Arrange
+
+        SensorList emptyList = new SensorList();
+
+
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "invalid date";
+        readings[2] = "23";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingsWorksLogNotLoggable() {
+
+        //Arrange
+
+
+        logger.setLevel(Level.INFO);
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "test";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
+
+        //Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogReadingFailsWithInvalidValue() {
+        // Arrange
+
+
+        String[] readings = new String[3];
+        readings[0] = "RF12345";
+        readings[1] = "2008-12-30T02:00:00+00:00";
+        readings[2] = "invalid value";
+
+        // Act
+
+        int actualResult = validReader.parseAndLogCSVReading(readings, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromCSVWorksWithEmptySensorList() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaListNoSensors, " ", " ");
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
 //    @Test
 //    void seeIfReadReadingsFromCSVWorks() {
@@ -350,25 +337,25 @@ class ReaderControllerTest {
 //        assertEquals(9, actualResult);
 //    }
 
-//    @Test
-//    void seeIfReadReadingsFromCSVWorksWhenFileIsEmpty() {
-//
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaList, validCSVLocation3, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+    @Test
+    void seeIfReadReadingsFromCSVWorksWhenFileIsEmpty() {
 
-//    @Test
-//    void seeIfReadReadingsFromCSVThrowsExceptionWithInvalidLogPath() {
-//        // Assert
-//
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromCSV(validGeographicAreaList, validCSVLocation1, invalidLogPath));
-//    }
-//
+        // Act
+
+        int actualResult = validReader.readReadingsFromCSV(validGeographicAreaList, validCSVLocation3, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromCSVThrowsExceptionWithInvalidLogPath() {
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromCSV(validGeographicAreaList, validCSVLocation1, invalidLogPath));
+    }
+
 //    @Test
 //    void seeIfParseAndLogJSONReadingWorks() {
 //        //Arrange
@@ -382,94 +369,94 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
+//        int actualResult = validReader.parseAndLogJSONReading(validJSONObj, logger);
 //
 //        // Assert
 //
 //        assertEquals(1, actualResult);
 //    }
 
-//    @Test
-//    void seeIfParseAndLogJSONReadingWorksWithInvalidDateFormat() {
-//        //Arrange
-//
-//        JSONObject validJSONObj = new JSONObject();
-//        validJSONObj.put("id", "TT12346");
-//        validJSONObj.put("timestamp/date", "00:00+00:00");
-//        validJSONObj.put("value", "57.2");
-//        validJSONObj.put("unit", "F");
-//
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogJSONReadingWorksWithInvalidValue() {
-//        //Arrange
-//
-//        JSONObject validJSONObj = new JSONObject();
-//        validJSONObj.put("id", "TT12346");
-//        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
-//        validJSONObj.put("value", "string");
-//        validJSONObj.put("unit", "F");
-//
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogJSONReadingWorksWithInvalidSensorID() {
-//        //Arrange
-//
-//        JSONObject validJSONObj = new JSONObject();
-//        validJSONObj.put("id", "xxxx");
-//        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
-//        validJSONObj.put("value", "23.3");
-//        validJSONObj.put("unit", "F");
-//
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfParseAndLogJSONReadingWorksWithInvalidLogger() {
-//
-//        //Arrange
-//
-//        JSONObject validJSONObj = new JSONObject();
-//        validJSONObj.put("id", "xxxx");
-//        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
-//        validJSONObj.put("value", "23.3");
-//        validJSONObj.put("unit", "F");
-//
-//        logger.setLevel(Level.INFO);
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReading(validSensorList, validJSONObj, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+    @Test
+    void seeIfParseAndLogJSONReadingWorksWithInvalidDateFormat() {
+        //Arrange
+
+        JSONObject validJSONObj = new JSONObject();
+        validJSONObj.put("id", "TT12346");
+        validJSONObj.put("timestamp/date", "00:00+00:00");
+        validJSONObj.put("value", "57.2");
+        validJSONObj.put("unit", "F");
+
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReading(validJSONObj, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogJSONReadingWorksWithInvalidValue() {
+        //Arrange
+
+        JSONObject validJSONObj = new JSONObject();
+        validJSONObj.put("id", "TT12346");
+        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj.put("value", "string");
+        validJSONObj.put("unit", "F");
+
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReading(validJSONObj, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogJSONReadingWorksWithInvalidSensorID() {
+        //Arrange
+
+        JSONObject validJSONObj = new JSONObject();
+        validJSONObj.put("id", "xxxx");
+        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj.put("value", "23.3");
+        validJSONObj.put("unit", "F");
+
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReading(validJSONObj, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfParseAndLogJSONReadingWorksWithInvalidLogger() {
+
+        //Arrange
+
+        JSONObject validJSONObj = new JSONObject();
+        validJSONObj.put("id", "xxxx");
+        validJSONObj.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj.put("value", "23.3");
+        validJSONObj.put("unit", "F");
+
+        logger.setLevel(Level.INFO);
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReading(validJSONObj, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
 //    @Test
 //    void seeIfParseAndLogJSONReadingsWorks() {
@@ -494,58 +481,59 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        int actualResult = validReader.parseAndLogJSONReadings(validSensorList, validJSONArray, logger);
+//        int actualResult = validReader.parseAndLogJSONReadings(validJSONArray, logger);
 //
 //        // Assert
 //
 //        assertEquals(2, actualResult);
 //    }
-//
-//    @Test
-//    void seeIfParseAndLogJSONReadingsWorksWithInvalidField() {
-//
-//        //Arrange
-//
-//        JSONObject validJSONObj1 = new JSONObject();
-//        validJSONObj1.put("id", "TT12346");
-//        validJSONObj1.put("timestamp/date", "2018-12-30T02:00:00+00:00");
-//        validJSONObj1.put("value", "invalidField");
-//        validJSONObj1.put("unit", "F");
-//
-//        JSONArray validJSONArray = new JSONArray();
-//        validJSONArray.put(validJSONObj1);
-//
-//        // Act
-//
-//        int actualResult = validReader.parseAndLogJSONReadings(validSensorList, validJSONArray, logger);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfReadReadingsFromJSONWorksWithEmptySensorList() {
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromJSON(emptyGeographicAreaList, validJSONLocation1, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfReadReadingsFromJSONWorksWhenFileHasNoReadings() {
-//
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation1, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+
+    @Test
+    void seeIfParseAndLogJSONReadingsWorksWithInvalidField() {
+
+        //Arrange
+
+        JSONObject validJSONObj1 = new JSONObject();
+        validJSONObj1.put("id", "TT12346");
+        validJSONObj1.put("timestamp/date", "2018-12-30T02:00:00+00:00");
+        validJSONObj1.put("value", "invalidField");
+        validJSONObj1.put("unit", "F");
+
+        JSONArray validJSONArray = new JSONArray();
+        validJSONArray.put(validJSONObj1);
+
+        // Act
+
+        int actualResult = validReader.parseAndLogJSONReadings(validJSONArray, logger);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWithEmptySensorList() {
+        // Act
+        geographicAreaRepository.deleteAll();
+        emptyGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
+        int actualResult = validReader.readReadingsFromJSON(emptyGeographicAreaList, validJSONLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWhenFileHasNoReadings() {
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
 //    @Test
 //    void seeIfReadReadingsFromJSONWorksWhenOneReadingHasWrongSensorId() {
@@ -563,54 +551,55 @@ class ReaderControllerTest {
 //    void seeIfReadReadingsFromJSONWorksWhenReadingsHaveSameDate() {
 //
 //        // Act
-//
+//        validGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
 //        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation3, validLogPath);
 //
 //        // Assert
 //
 //        assertEquals(1, actualResult);
 //    }
-//
-//    @Test
-//    void seeIfReadReadingsFromJSONWorksWhenInputValuesAreWrong() {
-//
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation4, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
+
+    @Test
+    void seeIfReadReadingsFromJSONWorksWhenInputValuesAreWrong() {
+
+        // Act
+
+        int actualResult = validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation4, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
 //    @Test
 //    void seeIfReadReadingsFromJSONThrowsExceptionWithInvalidLogPath() {
 //        // Assert
 //
 //        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromJSON(validGeographicAreaList, validJSONLocation3, invalidLogPath));
 //    }
-//
-//    @Test
-//    void seeIfReadReadingsFromXMLWorksWhenSensorListIsEmpty() {
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromXML(emptyGeographicAreaList, validXMLocation1, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfReadReadingsFromXMLWorksWhenFileHasNoReadings() {
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation1, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenSensorListIsEmpty() {
+        // Act
+        geographicAreaRepository.deleteAll();
+        emptyGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
+        int actualResult = validReader.readReadingsFromXML(emptyGeographicAreaList, validXMLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenFileHasNoReadings() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation1, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
 //    @Test
 //    void seeIfReadReadingsFromXMLWorksWhenOneReadingHasWrongSensorId() {
@@ -633,28 +622,28 @@ class ReaderControllerTest {
 //
 //        assertEquals(1, actualResult);
 //    }
-//
-//    @Test
-//    void seeIfReadReadingsFromXMLWorksWhenInputValuesAreWrong() {
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation4, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfReadReadingsFromXMLWorksWhenFileHasNoElements() {
-//        // Act
-//
-//        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation5, validLogPath);
-//
-//        // Assert
-//
-//        assertEquals(0, actualResult);
-//    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenInputValuesAreWrong() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation4, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfReadReadingsFromXMLWorksWhenFileHasNoElements() {
+        // Act
+
+        int actualResult = validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation5, validLogPath);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
 
 //    @Test
 //    void seeIfReadReadingsFromXMLThrowsExceptionWithInvalidLogPath() {
@@ -662,65 +651,65 @@ class ReaderControllerTest {
 //
 //        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, validXMLocation2, invalidLogPath));
 //    }
-//
+
 //    @Test
 //    void seeIfReadReadingsFromXMLThrowsExceptionWithInvalidXMLPath() {
 //        // Assert
 //        Assertions.assertThrows(IllegalArgumentException.class, () -> validReader.readReadingsFromXML(validGeographicAreaList, "src/test/resources/wrongPath.xml", validLogPath));
 //    }
-//
-//    @Test
-//    void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreInvalid() {
-//        //Arrange
-//
-//        logger.setLevel(Level.SEVERE);
-//
-//        //Act
-//
-//        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1);
-//
-//        // Assert
-//
-//        assertEquals(actualResult, 0);
-//    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreInvalid() {
+        //Arrange
+
+        logger.setLevel(Level.SEVERE);
+
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
 
 //    @Test
 //    void seeIfAddReadingToMatchingSensorWorksWhenLoggerAndReadingAreValid() {
 //        //Act
 //
 //
-//        int actualResult = validReader.addReadingToMatchingSensor(logger, validSensorList, "TT12346", 20D, validDate1);
+//        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1);
 //
 //        // Assert
 //
 //        assertEquals(actualResult, 1);
 //    }
-//
-//    @Test
-//    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsInvalidAndReadingAreValid() {
-//        //Arrange
-//
-//        logger.setLevel(Level.SEVERE);
-//
-//        //Act
-//
-//        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1);
-//
-//        // Assert
-//
-//        assertEquals(actualResult, 0);
-//    }
-//
-//        @Test
-//    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
-//        //Act
-//
-//        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1);
-//
-//        // Assert
-//
-//        assertEquals(actualResult, 0);
-//    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsInvalidAndReadingAreValid() {
+        //Arrange
+
+        logger.setLevel(Level.SEVERE);
+
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
+
+    @Test
+    void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
+        //Act
+
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1);
+
+        // Assert
+
+        assertEquals(actualResult, 0);
+    }
 
     @Test
     void seeIfReadFileXMLGeoAreaWorks() {
@@ -819,13 +808,13 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate() {
         // Arrange
 
-        geographicAreaList2.setGeographicAreaRepository(geographicAreaRepository);
+        validGeographicAreaList2.setGeographicAreaRepository(geographicAreaRepository);
 
         // Act
 
         File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, geographicAreaList2);
+        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, validGeographicAreaList2);
 
         // Assert
 
@@ -907,7 +896,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/DataSet_sprint05_GA_test_no_GAs.xml";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(input, absolutePath, geographicAreaList);
+        int result = validReader.acceptPath(input, absolutePath, validGeographicAreaList);
         assertEquals(result, 0);
     }
 
@@ -916,7 +905,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/wrong_path";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(input, absolutePath, geographicAreaList);
+        int result = validReader.acceptPath(input, absolutePath, validGeographicAreaList);
         assertEquals(result, -1);
     }
 
