@@ -589,6 +589,18 @@ class GASettingsControllerTest {
     }
 
     @Test
+    void seeIfAddNewGeoAreaToListWorksAlreadyThere(){
+        // Act
+
+        boolean result = controller.addNewGeoAreaToList(validGeographicAreaList, validGeographicAreaDTO, mapper.localToDTO
+                (new Local(21,33,5)));
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
     void seeIfRemoveSensorFails() {
 
         //Arrange
