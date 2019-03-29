@@ -204,7 +204,6 @@ public class MainUI {
         };
     }
 
-
     private static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
