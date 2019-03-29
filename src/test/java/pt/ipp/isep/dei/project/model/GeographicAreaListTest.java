@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.Date;
 
@@ -27,6 +29,9 @@ class GeographicAreaListTest {
     private GeographicAreaList validList;
     private GeographicArea firstValidArea;
     private GeographicArea secondValidArea;
+
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -264,22 +269,23 @@ class GeographicAreaListTest {
         assertFalse(actualResult2);
     }
 
-//    @Test
-//    void seeIfGetByIndexWorks() {
-//        //Arrange
-//
-//        validList.addAndPersistGA(secondValidArea);
-//
-//        //Act
-//
-//        GeographicArea actualResult1 = validList.get(0);
-//        GeographicArea actualResult2 = validList.get(1);
-//
-//        //Assert
-//
-//        assertEquals(firstValidArea, actualResult1);
-//        assertEquals(secondValidArea, actualResult2);
-//    }
+    @Test
+    void seeIfGetByIndexWorks() {
+        //Arrange
+
+        validList.setGeographicAreaRepository(geographicAreaRepository);
+        validList.addAndPersistGA(secondValidArea);
+
+        //Act
+
+        GeographicArea actualResult1 = validList.get(0);
+        GeographicArea actualResult2 = validList.get(1);
+
+        //Assert
+
+        assertEquals(firstValidArea, actualResult1);
+        assertEquals(secondValidArea, actualResult2);
+    }
 
     @Test
     void getByIndexEmptyGAList() {
@@ -309,25 +315,26 @@ class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfGetsAll(){
-//        // Arrange
-//
-//        GeographicAreaList expectedResult = new GeographicAreaList();
-//        expectedResult.addWithoutPersisting(firstValidArea);
-//
-//
-//        // Act
-//
-//        GeographicAreaList actualResult = validList.getAll();
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfGetsAll(){
+        // Arrange
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicArea(firstValidArea);
+        GeographicAreaList geographicAreaList = new GeographicAreaList(geographicAreaRepository);
+        geographicAreaList.addAndPersistGA(firstValidArea);
+
+        // Act
+
+        GeographicAreaList actualResult = geographicAreaList.getAll();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
-    void seeIfDoenstAddWithoutPersisting() {
+    void seeIfDoesNotAddWithoutPersisting() {
         // Arrange
 
         GeographicAreaList expectedResult = new GeographicAreaList();
