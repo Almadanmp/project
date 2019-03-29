@@ -452,8 +452,19 @@ class GeographicAreaListTest {
     void seeIfRemovesGeographicAreaFalse() {
         // Act
 
-        validList.removeGeographicArea(firstValidArea);
-        boolean actualResult = validList.removeGeographicArea(firstValidArea);
+        boolean actualResult = validList.removeGeographicArea(secondValidArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfRemovesGeographicAreaEmptyList() {
+        // Act
+
+        GeographicAreaList emptyList = new GeographicAreaList();
+        boolean actualResult = emptyList.removeGeographicArea(secondValidArea);
 
         // Assert
 
