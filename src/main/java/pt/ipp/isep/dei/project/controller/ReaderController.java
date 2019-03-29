@@ -337,7 +337,7 @@ public class ReaderController {
      ***/
     public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
-        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
         if (sensorList.isEmpty()) {
             return addedReadings;
         }
@@ -411,7 +411,6 @@ public class ReaderController {
         if (sensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
             return 1;
         }
-
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
         logger.warning(message);
         return 0;
@@ -427,7 +426,7 @@ public class ReaderController {
      ***/
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
-        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
         if (sensorList.isEmpty()) {
             return addedReadings;
         }
