@@ -34,6 +34,21 @@ class SensorSettingsControllerTest {
             c.printStackTrace();
         }
     }
+
+    @Test
+    void seeIfBuildSensorTypesStrings() {
+        // Arrange
+        TypeSensorList typeSList = new TypeSensorList();
+        TypeSensor typeA = new TypeSensor("Temperature", "Celsius");
+        typeSList.add(typeA);
+        String expectedResult = "---------------\n" +
+                "0) Name: Temperature | Unit: Celsius\n" +
+                "---------------\n";
+        // Act
+        String actualResult = controller.buildSensorTypesString(typeSList);
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
     //USER STORY 006 TESTS
 
     @Test
