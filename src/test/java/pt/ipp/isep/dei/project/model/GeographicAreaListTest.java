@@ -12,6 +12,8 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -323,6 +325,7 @@ class GeographicAreaListTest {
 //        GeographicAreaList expectedResult = new GeographicAreaList();
 //        expectedResult.addWithoutPersisting(firstValidArea);
 //
+//
 //        // Act
 //
 //        GeographicAreaList actualResult = validList.getAll();
@@ -331,6 +334,44 @@ class GeographicAreaListTest {
 //
 //        assertEquals(expectedResult, actualResult);
 //    }
+
+    @Test
+    void seeIfDoenstAddWithoutPersisting(){
+        // Arrange
+
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addWithoutPersisting(firstValidArea);
+
+        // Act
+
+        boolean actualResult = expectedResult.addWithoutPersisting(firstValidArea);;
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetsAreaListSensors(){
+        // Arrange
+        SensorList validSensorList = new SensorList();
+        Sensor firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
+                31, 1, 2), new Date());
+        firstValidSensor.setActive();
+       Sensor secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
+                new Date());
+        secondValidSensor.setActive();
+
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+
+        // Act
+
+        SensorList actualResult = geographicAreaList.getAreaListSensors();
+
+        // Assert
+
+        assertEquals(validSensorList, actualResult);
+    }
 
     @Test
     void seeIfGetsGeoAreasByType(){
