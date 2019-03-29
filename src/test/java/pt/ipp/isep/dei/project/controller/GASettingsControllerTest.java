@@ -16,7 +16,6 @@ import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -50,12 +49,10 @@ class GASettingsControllerTest {
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
-
+    GeographicAreaRepository geographicAreaRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-        geographicAreaRepository.deleteAll();
 
         SimpleDateFormat day = new SimpleDateFormat("dd-MM-yyyy");
         try {
@@ -80,7 +77,6 @@ class GASettingsControllerTest {
         validSensorDTO2 = mapper.sensorToDTO(validSensor2);
 
         validGeographicAreaList = new GeographicAreaList();
-        validGeographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
         validGeographicAreaList.addGeographicArea(firstValidArea);
         validGeographicAreaList.addGeographicArea(secondValidArea);
 
@@ -250,8 +246,6 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    //USER STORY 003 TESTS
-
 
     //USER STORY 003 TESTS
 
@@ -260,7 +254,6 @@ class GASettingsControllerTest {
         // Arrange
 
         GeographicAreaList geographicAreaList = new GeographicAreaList();
-        geographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
 
         // Act
 
@@ -589,11 +582,11 @@ class GASettingsControllerTest {
     }
 
     @Test
-    void seeIfAddNewGeoAreaToListWorksAlreadyThere(){
+    void seeIfAddNewGeoAreaToListWorksAlreadyThere() {
         // Act
 
         boolean result = controller.addNewGeoAreaToList(validGeographicAreaList, validGeographicAreaDTO, mapper.localToDTO
-                (new Local(21,33,5)));
+                (new Local(21, 33, 5)));
 
         // Assert
 
