@@ -262,16 +262,21 @@ class GASettingsControllerTest {
 
 //    @Test
 //    void seeIfCreatesGeographicAreaAndAddsItToList() {
+//        // Arrange
+//
+//        GeographicAreaList geographicAreaList = new GeographicAreaList();
+//        geographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
+//
 //        // Act
 //
-//        boolean result = controller.addNewGeoAreaToList(validGeographicAreaList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
+//        boolean result = controller.addNewGeoAreaToList(geographicAreaList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
 //
 //        // Assert
 //
 //        assertTrue(result);
-//        assertEquals(1, validGeographicAreaList.size());
+//        assertEquals(1, geographicAreaList.size());
 //    }
-//
+
 //    //USER STORY 004 TESTS
 //
 //    @Test

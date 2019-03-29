@@ -17,7 +17,7 @@ class GASettingsUI {
     private TypeAreaList typeAreaList;
 
     GASettingsUI(TypeAreaList typeAreaList, GeographicAreaList geographicAreaList) {
-        this.controller = new GASettingsController(typeAreaList);
+        this.controller = new GASettingsController();
         this.geographicAreaList = geographicAreaList;
         this.typeAreaList = typeAreaList;
     }

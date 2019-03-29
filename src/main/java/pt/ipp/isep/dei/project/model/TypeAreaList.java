@@ -15,7 +15,7 @@ import java.util.List;
 public class TypeAreaList {
     private static final String STRING_BUILDER = "---------------\n";
 
-    private List<TypeArea> typeAreas = new ArrayList<>();
+    private List<TypeArea> typeAreas;
 
     @Autowired
     TypeAreaRepository typeAreaRepository;
@@ -28,6 +28,7 @@ public class TypeAreaList {
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
     public TypeAreaList() {
+        this.typeAreas = new ArrayList<>();
         //empty constructor
     }
 

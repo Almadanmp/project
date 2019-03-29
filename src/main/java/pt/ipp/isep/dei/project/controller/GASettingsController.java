@@ -12,11 +12,7 @@ public class GASettingsController {
 
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
-    public GASettingsController(TypeAreaList typeAreaList) {
-        TypeAreaList typeAreaList1 = typeAreaList;
-    }
-
-    GASettingsController() {
+    public GASettingsController() {
     }
 
     /**
