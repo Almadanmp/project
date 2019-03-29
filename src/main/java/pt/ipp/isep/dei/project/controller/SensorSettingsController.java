@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -13,23 +12,10 @@ import java.util.GregorianCalendar;
 @Controller
 public class SensorSettingsController {
 
-    private TypeSensorList typeSensorList;
-
-
-    @Autowired
-    public SensorSettingsController(TypeSensorList typeSensorList) {
-        this.typeSensorList = typeSensorList;
-    }
-
-    /**
-     * Empty constructor being used on RoomConfigurationUI
-     */
-    public SensorSettingsController() {
-    }
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public String buildSensorTypesString() {
+    public String buildSensorTypesString(TypeSensorList typeSensorList) {
         return typeSensorList.buildString();
     }
 
@@ -41,7 +27,7 @@ public class SensorSettingsController {
      *                   // * @param typeSensorList the list of types of sensors
      * @return true if the type of sensor was added to the list of type sensors.
      */
-    public boolean addTypeSensorToList(TypeSensor typeSensor) {
+    public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList) {
         return typeSensorList.add(typeSensor);
     }
 
@@ -79,7 +65,7 @@ public class SensorSettingsController {
      * @return is the newly created sensorType.
      */
 
-    public TypeSensor createType(String sensorType, String sensorUnits) {
+    public TypeSensor createType(TypeSensorList typeSensorList, String sensorType, String sensorUnits) {
         return typeSensorList.createTypeSensor(sensorType, sensorUnits);
     }
 

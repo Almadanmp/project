@@ -103,7 +103,7 @@ public class MainUI {
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
 
-            TypeSensorList mockTypeSensorList = null;
+            TypeSensorList mockTypeSensorList = new TypeSensorList();
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
@@ -170,8 +170,8 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 4:
-                            SensorSettingsUI sensorSettings = new SensorSettingsUI(typeSensorList);
-                            sensorSettings.run(mockGeographicAreaList);
+                            SensorSettingsUI sensorSettings = new SensorSettingsUI();
+                            sensorSettings.run(mockGeographicAreaList, mockTypeSensorList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -203,7 +203,6 @@ public class MainUI {
             }
         };
     }
-
 
     private static void returnToMenu(Scanner scanner) {
         String pressEnter = "\nPress ENTER to return.";
