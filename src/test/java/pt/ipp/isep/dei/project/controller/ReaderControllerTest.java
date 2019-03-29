@@ -723,9 +723,6 @@ class ReaderControllerTest {
     @Test
     void seeIfReadFileXMLGeoAreaWorks() {
         // Arrange
-        geographicAreaRepository.deleteAll();
-        sensorRepository.deleteAll();
-        readingRepository.deleteAll();
 
         GeographicAreaList actualResult = new GeographicAreaList();
 
@@ -783,12 +780,8 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat() {
         // Arrange
 
-        geographicAreaRepository.deleteAll();
-        sensorRepository.deleteAll();
-        readingRepository.deleteAll();
         GeographicAreaList geographicAreaList3 = new GeographicAreaList();
         geographicAreaList3.setGeographicAreaRepository(geographicAreaRepository);
-
 
         // Act
 
@@ -823,9 +816,7 @@ class ReaderControllerTest {
     @Test
     void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate() {
         // Arrange
-        geographicAreaRepository.deleteAll();
-        sensorRepository.deleteAll();
-        readingRepository.deleteAll();
+
         geographicAreaList2.setGeographicAreaRepository(geographicAreaRepository);
 
         // Act
@@ -859,14 +850,9 @@ class ReaderControllerTest {
     @Test
     void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
         // Arrange
-        geographicAreaRepository.deleteAll();
-        sensorRepository.deleteAll();
-        readingRepository.deleteAll();
-
 
         GeographicAreaList actualResult = new GeographicAreaList();
         actualResult.setGeographicAreaRepository(geographicAreaRepository);
-
 
         // Act
 
@@ -883,16 +869,9 @@ class ReaderControllerTest {
     void seeIfAddGeoAreasToListWorks() {
         // Arrange
 
-        geographicAreaRepository.deleteAll();
-        sensorRepository.deleteAll();
-        readingRepository.deleteAll();
-
         GeographicAreaList result = new GeographicAreaList();
-
         result.setGeographicAreaRepository(geographicAreaRepository);
-
         GeographicArea[] arrayToUse = new GeographicArea[2];
-
 
         // Set up Expected Result
 
@@ -941,16 +920,21 @@ class ReaderControllerTest {
 
     @Test
     void seeIfAcceptPathWorksJSON() {
-        geographicAreaRepository.deleteAll();
-        sensorRepository.deleteAll();
-        readingRepository.deleteAll();
+        // Arrange
+
         String input = "src/test/resources/DataSet_sprint04_GA.json";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
         GeographicAreaList geographicAreaList1 = new GeographicAreaList();
         geographicAreaList1.setGeographicAreaRepository(geographicAreaRepository);
         ReaderController readerController = new ReaderController(sensorService);
+
+        // Act
+
         int result = readerController.acceptPath(input, absolutePath, geographicAreaList1);
+
+        // Assert
+
         assertEquals(result, 2);
     }
 }
