@@ -91,7 +91,7 @@ class HouseConfigurationControllerTest {
 
         assertTrue(actualResult1 instanceof Room);
         assertTrue(actualResult2 instanceof Room);
-        assertTrue(actualResult3 instanceof Room); // TODO Cárina make tests fit test document parameters.
+        assertTrue(actualResult3 instanceof Room);
     }
 
     @Test

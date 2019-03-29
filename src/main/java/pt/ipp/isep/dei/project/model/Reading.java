@@ -15,7 +15,6 @@ public class Reading {
     private double value;
     private Date date;
 
-    //TODO verificar relacao
     @ManyToOne
     @JoinColumn(name = "reading_list_id")
     private ReadingList readingList;
