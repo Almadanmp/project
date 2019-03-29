@@ -316,7 +316,7 @@ class GeographicAreaListTest {
     }
 
     @Test
-    void seeIfGetsAll(){
+    void seeIfGetsAll() {
         // Arrange
 
         GeographicAreaList expectedResult = new GeographicAreaList();
@@ -400,6 +400,52 @@ class GeographicAreaListTest {
         // Assert
 
         assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfGetAreaListSensorsWorks() {
+        // Arrange
+
+        Sensor firstValidSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor secondValidSensor = new Sensor("SensTwo", new TypeSensor("Temperature", "Celsius"), new Date());
+        SensorList expectedResult = new SensorList();
+        expectedResult.add(firstValidSensor);
+        firstValidArea.addSensor(firstValidSensor);
+
+        // Act
+
+        SensorList actualResult = validList.getAreaListSensors();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+        // Add new Area
+
+        validList.addGeographicArea(secondValidArea);
+        secondValidArea.addSensor(secondValidSensor);
+        expectedResult.add(secondValidSensor);
+
+        // Act
+
+        actualResult = validList.getAreaListSensors();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+        // Arrange to make the first area get skipped (empty sensor list)
+
+        firstValidArea.setSensorList(new SensorList());
+        expectedResult.remove(firstValidSensor);
+
+        // Act
+
+        actualResult = validList.getAreaListSensors();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
