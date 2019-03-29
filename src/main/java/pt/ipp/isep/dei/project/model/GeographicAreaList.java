@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
@@ -16,19 +15,11 @@ public class GeographicAreaList {
 
     private List<GeographicArea> geographicAreas;
 
-
-    @Autowired
     private GeographicAreaRepository geographicAreaRepository;
 
-    /**
-     * GeographicAreaList constructor that receives a Geographic Area as a parameter and
-     * adds the GA to the attribute geographicAreas
-     *
-     * @param geographicAreaToAdd geographic area to addWithoutPersisting to the attribute
-     */
-    public GeographicAreaList(GeographicArea geographicAreaToAdd) {
+    public GeographicAreaList(GeographicAreaRepository geographicAreaRepository) {
         geographicAreas = new ArrayList<>();
-        geographicAreas.add(geographicAreaToAdd);
+        this.geographicAreaRepository = geographicAreaRepository;
     }
 
     /**
@@ -38,12 +29,24 @@ public class GeographicAreaList {
         geographicAreas = new ArrayList<>();
     }
 
+    /**
+     * GeographicAreaList constructor that receives a Geographic Area as a parameter and
+     * adds the GA to the attribute geographicAreas
+     *
+     * @param geographicAreaToAdd geographic area to add Without Persisting to the attribute
+     */
+    public GeographicAreaList(GeographicArea geographicAreaToAdd) {
+        geographicAreas = new ArrayList<>();
+        geographicAreas.add(geographicAreaToAdd);
+    }
+
     public GeographicAreaList getAll() {
         Iterable<GeographicArea> geoAreas = this.geographicAreaRepository.findAll();
+        GeographicAreaList result = new GeographicAreaList(this.geographicAreaRepository);
         for (GeographicArea g : geoAreas) {
-            this.addGeographicArea(g);
+            result.addGeographicArea(g);
         }
-        return this;
+        return result;
     }
 
     public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
@@ -58,7 +61,7 @@ public class GeographicAreaList {
      * @param geographicAreaToAdd geographic area to be added
      * @return returns true in case the geographic area is added and false if not
      **/
-    public boolean addGeographicArea(GeographicArea geographicAreaToAdd) {
+    public boolean addAndPersistGA(GeographicArea geographicAreaToAdd) {
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             geographicAreaRepository.save(geographicAreaToAdd);
@@ -67,7 +70,14 @@ public class GeographicAreaList {
         return false;
     }
 
-    public boolean addWithoutPersisting(GeographicArea geographicAreaToAdd) {
+    /**
+     * Method that receives a geographic area as a parameter and adds that
+     * GA to the list in case it is not contained in that list already.
+     *
+     * @param geographicAreaToAdd geographic area to be added
+     * @return returns true in case the geographic area is added and false if not
+     **/
+    public boolean addGeographicArea(GeographicArea geographicAreaToAdd) {
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             return true;
@@ -155,7 +165,7 @@ public class GeographicAreaList {
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsTypeArea(typeAreaToTest)) {
-                finalList.addWithoutPersisting(ga);
+                finalList.addGeographicArea(ga);
             }
         }
         return finalList;

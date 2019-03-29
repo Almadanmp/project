@@ -106,7 +106,7 @@ public class ReadingList {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReading() { //TODO there is a not a number
+    Reading getMostRecentReading() {
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime());
         if (isEmpty()) {
             return error;

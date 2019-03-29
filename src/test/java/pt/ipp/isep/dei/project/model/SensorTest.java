@@ -1105,16 +1105,21 @@ class SensorTest {
         Date outOfBoundsDate = new GregorianCalendar(2014, Calendar.NOVEMBER, 15).getTime();
         Date dateSensorStartedFunctioning = new GregorianCalendar(2015, Calendar.NOVEMBER, 15).getTime();
         validSensor.setDateStartedFunctioning(dateSensorStartedFunctioning);
+        ReadingList expectedResultList = new ReadingList();
+        expectedResultList.addReading(new Reading(23.3, validDate1));
 
         // Act
 
         boolean actualResult = validSensor.addReading(validDate1, 23.3);
         boolean actualResultFailed = validSensor.addReading(outOfBoundsDate, 31D);
+        ReadingList actualResultList = validSensor.getReadingList().get(0).getReadingList();
+
 
         //Assert
 
         Assertions.assertTrue(actualResult);
         assertFalse(actualResultFailed);
+        assertEquals(expectedResultList, actualResultList);
     }
 
     @Test

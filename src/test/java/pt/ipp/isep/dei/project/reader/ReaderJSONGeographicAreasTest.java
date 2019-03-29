@@ -18,6 +18,7 @@ import pt.ipp.isep.dei.project.repository.SensorRepository;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = {MainUI.class},
@@ -130,8 +131,8 @@ class ReaderJSONGeographicAreasTest {
 //
 //        GeographicArea areaOne = mapper.geographicAreaDTOToObject(firstArea);
 //        GeographicArea areaTwo = mapper.geographicAreaDTOToObject(secondArea);
-//        expectedResult.addGeographicArea(areaOne);
-//        expectedResult.addGeographicArea(areaTwo);
+//        expectedResult.addAndPersistGA(areaOne);
+//        expectedResult.addAndPersistGA(areaTwo);
 
         // Act
 
@@ -186,7 +187,7 @@ class ReaderJSONGeographicAreasTest {
         expectedResult.setGeographicAreaRepository(geographicAreaRepository);
         GeographicAreaList actualResult = new GeographicAreaList();
         actualResult.setGeographicAreaRepository(geographicAreaRepository);
-      //  Mapper mapper = new Mapper();
+        //  Mapper mapper = new Mapper();
 
 //        // First Area
 //
@@ -255,8 +256,8 @@ class ReaderJSONGeographicAreasTest {
 //
 //        GeographicArea areaOne = mapper.geographicAreaDTOToObject(firstArea);
 //        GeographicArea areaTwo = mapper.geographicAreaDTOToObject(secondArea);
-//        expectedResult.addGeographicArea(areaOne);
-//        expectedResult.addGeographicArea(areaTwo);
+//        expectedResult.addAndPersistGA(areaOne);
+//        expectedResult.addAndPersistGA(areaTwo);
 
         // Act
 
@@ -267,7 +268,7 @@ class ReaderJSONGeographicAreasTest {
         // Assert
 
         assertEquals(2, areasAdded);
-      //  assertEquals(expectedResult, actualResult);
+        //  assertEquals(expectedResult, actualResult);
 
         // Get one of the areas to  check its contents.
 

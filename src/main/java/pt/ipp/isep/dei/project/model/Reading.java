@@ -15,7 +15,6 @@ public class Reading {
     private double value;
     private Date date;
 
-    //TODO verificar relacao
     @ManyToOne
     @JoinColumn(name = "reading_list_id")
     private ReadingList readingList;
@@ -34,8 +33,16 @@ public class Reading {
     protected Reading() {
     }
 
-    public void setReadingList(ReadingList readingList){
+    public void setReadingList(ReadingList readingList) {
         this.readingList = readingList;
+    }
+
+    public ReadingList getReadingList() {
+        return readingList;
+    }
+
+    public long getId() {
+        return id;
     }
 
     /**

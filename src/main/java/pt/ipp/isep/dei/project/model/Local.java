@@ -122,7 +122,6 @@ public class Local {
         return earthRadiusInKm * c;
     }
 
-    //TODO Testing, if it stays, do javadoc
     public String toString() {
         return String.format(
                 "Local[id=%d, latitude='%s', longitude='%s', altitude='%s']",

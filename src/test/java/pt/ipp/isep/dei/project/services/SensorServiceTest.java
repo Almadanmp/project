@@ -35,12 +35,10 @@ class SensorServiceTest {
 
 
     @Test
-    void seeIfAddReadingToMatchingSensorTrue(){
+    void seeIfAddReadingToMatchingSensorTrue() {
         // Arrange
-
-        SensorList sensorList = new SensorList();
         TypeSensor typeSensor = new TypeSensor("Humidity", "23");
-        Local local = new Local(23,20,10);
+        Local local = new Local(23, 20, 10);
         Date dateStartFunction = new GregorianCalendar(2018, Calendar.APRIL, 27).getTime();
         String sensorId = "404";
         double value = 34;
@@ -50,7 +48,7 @@ class SensorServiceTest {
 
         // Act
 
-        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorList, sensorId, value, date);
+        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date);
 
         // Assert
 
@@ -59,7 +57,7 @@ class SensorServiceTest {
     }
 
     @Test
-    void seeIfAddReadingToMatchingSensorFalse(){
+    void seeIfAddReadingToMatchingSensorFalse() {
         // Arrange
 
         SensorList sensorList = new SensorList();
@@ -69,7 +67,7 @@ class SensorServiceTest {
 
         // Act
 
-        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorList, sensorId, value, date);
+        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date);
 
         // Assert
 

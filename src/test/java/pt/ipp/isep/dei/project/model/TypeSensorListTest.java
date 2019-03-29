@@ -5,13 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
-import pt.ipp.isep.dei.project.repository.TypeSensorRepository;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,9 +32,6 @@ class TypeSensorListTest {
     private TypeSensor secondTypeSensor; // Is not in the list.
 
     @Autowired
-    TypeSensorRepository typeSensorRepository;
-
-    @Autowired
     private TypeSensorList validList;
 
     @BeforeEach
@@ -45,13 +41,16 @@ class TypeSensorListTest {
         validList.add(firstTypeSensor);
     }
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfGetAllAsString() {
         // Arrange
-        String expectedResult = "There are no Sensor Types Configured\n";
+        String expectedResult = "Invalid List - List is Empty\n";
         // Act
-        String actualResult = validList.getAllAsString();
+        TypeSensorList typeSensorList = new TypeSensorList();
+        String actualResult = typeSensorList.buildString();
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
@@ -63,32 +62,14 @@ class TypeSensorListTest {
         Assert.assertEquals(type1, firstTypeSensor);
     }
 
-    /*
-        @Test
-        void seeIfSizeRepository() {
-            // Arrange
-
-            testList1.addWithoutPersisting(firstTypeSensor);
-            testList1.addWithoutPersisting(secondTypeSensor);
-            int expectedResult = 2;
-            // Act
-            int actualResult = testList1.sizeRepository();
-            // Assert
-            assertEquals(expectedResult, actualResult);
-        }
-    */
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfAddSensorTypeWorks() {
-        // Arrange
-
-        TypeSensorList testList = new TypeSensorList();
-        testList.add(firstTypeSensor);
-
         // Act
 
-        boolean actualResult1 = testList.add(secondTypeSensor);
-        boolean actualResult2 = testList.add(new TypeSensor("Pressure", "Percentage"));
-        boolean actualResult3 = testList.add(firstTypeSensor);
+        boolean actualResult1 = validList.add(secondTypeSensor);
+        boolean actualResult2 = validList.add(new TypeSensor("Pressure", "Percentage"));
+        boolean actualResult3 = validList.add(firstTypeSensor);
 
 
         // Assert
@@ -98,26 +79,38 @@ class TypeSensorListTest {
         assertFalse(actualResult3);
     }
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
-    void testBuildString() {
+    void seeIfBuildStringWorks() {
         // Arrange
 
         String expectedResult1 = "---------------\n" +
                 "0) Name: Temperature | Unit: Celsius\n" +
                 "---------------\n";
-        String expectedResult2 = "Invalid List - List is Empty\n";
-        TypeSensorList emptyList = new TypeSensorList();
-        TypeSensorList testList2 = new TypeSensorList();
-        testList2.add(firstTypeSensor);
+
         // Act
 
-        String actualResult1 = testList2.buildString();
-        String actualResult2 = emptyList.buildString();
+        String actualResult1 = validList.buildString();
 
         // Assert
 
         assertEquals(expectedResult1, actualResult1);
-        assertEquals(expectedResult2, actualResult2);
+    }
+
+    @Test
+    void seeIfBuildStringWorksFalseEmpty() {
+        // Arrange
+
+        String expectedResult = "Invalid List - List is Empty\n";
+        TypeSensorList testList = new TypeSensorList();
+
+        // Act
+
+        String actualResult = testList.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -125,53 +118,25 @@ class TypeSensorListTest {
         // Arrange
 
         TypeSensorList emptyList = new TypeSensorList();
-        TypeSensorList twoElementsList = new TypeSensorList();
-
-        twoElementsList.add(firstTypeSensor);
-        twoElementsList.add(secondTypeSensor);
-
         // Act
 
         boolean actualResult1 = emptyList.isEmpty();
         boolean actualResult2 = validList.isEmpty();
-        boolean actualResult3 = twoElementsList.isEmpty();
 
         // Assert
 
         assertTrue(actualResult1);
         assertFalse(actualResult2);
-        assertFalse(actualResult3);
-    }
-
-    @Test
-    void seeIfEqualsWorks() {
-        // Arrange
-        validList.add(firstTypeSensor);
-        validList.add(secondTypeSensor);
-        TypeSensorList testList = new TypeSensorList();
-        testList.add(firstTypeSensor);
-        testList.add(secondTypeSensor);
-
-
-        // Act
-
-        boolean actualResult = testList.equals(validList);
-
-        // Assert
-
-        assertTrue(actualResult);
     }
 
     @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
-        validList.add(secondTypeSensor);
-        TypeSensorList testList = new TypeSensorList();
-        testList.add(firstTypeSensor);
+        TypeSensorList tempSensorList = new TypeSensorList();
 
         // Act
 
-        boolean actualResult = testList.equals(validList);
+        boolean actualResult = tempSensorList.equals(validList);
 
         // Assert
 
@@ -227,6 +192,7 @@ class TypeSensorListTest {
         assertEquals("The type sensor list is empty.", exception.getMessage());
     }
 
+    @DirtiesContext
     @Test
     void seeIfGetElementWorks() {
         // Arrange
@@ -244,6 +210,7 @@ class TypeSensorListTest {
         assertEquals(secondTypeSensor, actualResult2);
     }
 
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfSizeWorks() {
         // Arrange
@@ -262,50 +229,27 @@ class TypeSensorListTest {
         assertEquals(2, actualResult2);
     }
 
+
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfGetElementsAsArrayWorks() {
         // Arrange
-        TypeSensorList testList = new TypeSensorList();
         TypeSensor[] expectedResult1 = new TypeSensor[0];
-        TypeSensor[] expectedResult2 = new TypeSensor[1];
         TypeSensor[] expectedResult3 = new TypeSensor[2];
-
-        TypeSensorList emptyList = new TypeSensorList();
-        TypeSensorList twoElementsList = new TypeSensorList();
-
-        twoElementsList.add(firstTypeSensor);
-        twoElementsList.add(secondTypeSensor);
-
-        expectedResult2[0] = firstTypeSensor;
         expectedResult3[0] = firstTypeSensor;
         expectedResult3[1] = secondTypeSensor;
+        TypeSensorList emptyList = new TypeSensorList();
 
-        testList.add(firstTypeSensor);
+        validList.add(secondTypeSensor);
+
         // Act
 
         TypeSensor[] actualResult1 = emptyList.getElementsAsArray();
-        TypeSensor[] actualResult2 = testList.getElementsAsArray();
-        TypeSensor[] actualResult3 = twoElementsList.getElementsAsArray();
+        TypeSensor[] actualResult3 = validList.getElementsAsArray();
 
         // Assert
 
         assertArrayEquals(expectedResult1, actualResult1);
-        assertArrayEquals(expectedResult2, actualResult2);
         assertArrayEquals(expectedResult3, actualResult3);
-    }
-
-    @Test
-    void seeIfIsEmptyRepositoryWorks(){
-        // Arrange
-
-        typeSensorRepository.deleteAll();
-
-        // Act
-
-        boolean result = validList.isEmptyRepository();
-
-        // Assert
-
-        assertTrue(result);
     }
 }

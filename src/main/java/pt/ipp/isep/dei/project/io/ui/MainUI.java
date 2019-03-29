@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import pt.ipp.isep.dei.project.services.SensorService;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -16,6 +15,8 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
 import pt.ipp.isep.dei.project.model.TypeSensorList;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -37,8 +38,10 @@ public class MainUI {
     @Autowired
     SensorService sensorService;
 
-    @Autowired
     GeographicAreaList geographicAreaList;
+
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -97,12 +100,14 @@ public class MainUI {
             // *************************
             MockUI mockUI = new MockUI();
             mockUI.initializeMockUI();
-            //TODO
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
 
             TypeSensorList mockTypeSensorList = null;
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+
+            //LOAD PERSISTED GA DATA
+            this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
 
             //MAIN CODE
 
@@ -144,6 +149,7 @@ public class MainUI {
 
                 while (activeInput) {
                     option = InputHelperUI.getInputAsInt();
+                    this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(typeAreaList, geographicAreaList);
@@ -153,7 +159,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(sensorService, geographicAreaList);
-                            houseC.run(mockHouse, mockGeographicAreaList);
+                            houseC.run(mockHouse);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
