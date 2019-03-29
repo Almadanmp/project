@@ -3,17 +3,14 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
-import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -30,19 +27,14 @@ import static org.testng.Assert.*;
 class TypeAreaListTest {
     // Common testing artifacts for this class.
 
-    private List<TypeArea> validTypes;
     private TypeArea firstValidType;
     private TypeArea secondValidType;
-
-    @Autowired
-    TypeAreaRepository typeAreaRepository;
 
     @Resource
     private TypeAreaList validList;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validTypes = validList.getTypeAreas();
         firstValidType = new TypeArea("Country");
         secondValidType = new TypeArea("City");
         validList.addTypeArea(firstValidType);
@@ -97,7 +89,6 @@ class TypeAreaListTest {
 
         TypeAreaList emptyList = new TypeAreaList(); // List is Empty.
         List<TypeArea> oneElementList = new ArrayList<>(); // List has one element.
-        emptyList.setTypeAreaRepository(typeAreaRepository);
         oneElementList.add(firstValidType);
 
         // Act

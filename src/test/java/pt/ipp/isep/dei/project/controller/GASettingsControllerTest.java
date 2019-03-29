@@ -90,7 +90,6 @@ class GASettingsControllerTest {
         validGeographicAreaList.addGeographicArea(secondValidArea);
 
         validTypeAreaList = new TypeAreaList();
-        validTypeAreaList.setTypeAreaRepository(typeAreaRepository);
     }
 
     @Test
@@ -114,23 +113,23 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfMatchGAByTypeAreaWorks() {
-//        // Arrange
-//
-//        validGeographicAreaList.addAndPersistGA(secondValidArea);
-//        GeographicAreaList expectedResult = new GeographicAreaList();
-//        expectedResult.setGeographicAreaRepository(geographicAreaRepository);
-//        expectedResult.addAndPersistGA(secondValidArea);
-//
-//        // Act
-//
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(geographicAreaList, mapper.typeAreaToDTO(typeCity));
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfMatchGAByTypeAreaWorks() {
+        // Arrange
+
+        validGeographicAreaList.addAndPersistGA(secondValidArea);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.setGeographicAreaRepository(geographicAreaRepository);
+        expectedResult.addAndPersistGA(secondValidArea);
+
+        // Act
+
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(validGeographicAreaList, mapper.typeAreaToDTO(typeCity));
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfGetTypeAreaName() {
@@ -261,82 +260,82 @@ class GASettingsControllerTest {
 
     //USER STORY 003 TESTS
 
-//    @Test
-//    void seeIfCreatesGeographicAreaAndAddsItToList() {
-//        // Arrange
-//
-//        GeographicAreaList geographicAreaList = new GeographicAreaList();
-//        geographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
-//
-//        // Act
-//
-//        boolean result = controller.addNewGeoAreaToList(geographicAreaList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
-//
-//        // Assert
-//
-//        assertTrue(result);
-//        assertEquals(1, geographicAreaList.size());
-//    }
+    @Test
+    void seeIfCreatesGeographicAreaAndAddsItToList() {
+        // Arrange
 
-//    //USER STORY 004 TESTS
-//
-//    @Test
-//    void seeIfMatchGAByTypeCountry() {
-//
-//        //Arrange
-//
-//        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addAndPersistGA(firstValidArea);
-//        gaL1.addAndPersistGA(secondValidArea);
-//        GeographicAreaList expectedResult = new GeographicAreaList();
-//        expectedResult.addAndPersistGA(firstValidArea);
-//
-//        //Act
-//
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCountry));
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfMatchGAByTypeCity() {
-//
-//        //Arrange
-//
-//        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addAndPersistGA(firstValidArea);
-//        gaL1.addAndPersistGA(secondValidArea);
-//        GeographicAreaList expectedResult = new GeographicAreaList();
-//        expectedResult.addAndPersistGA(secondValidArea);
-//
-//        //Act
-//
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeMatchGAByTypeNotInList() {
-//
-//        //Arrange
-//
-//        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addAndPersistGA(firstValidArea);
-//        GeographicAreaList expectedResult = new GeographicAreaList();
-//
-//        //Act
-//
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        geographicAreaList.setGeographicAreaRepository(geographicAreaRepository);
+
+        // Act
+
+        boolean result = controller.addNewGeoAreaToList(geographicAreaList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
+
+        // Assert
+
+        assertTrue(result);
+        assertEquals(1, geographicAreaList.size());
+    }
+
+    //USER STORY 004 TESTS
+
+    @Test
+    void seeIfMatchGAByTypeCountry() {
+
+        //Arrange
+
+        GeographicAreaList gaL1 = new GeographicAreaList();
+        gaL1.addGeographicArea(firstValidArea);
+        gaL1.addGeographicArea(secondValidArea);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicArea(firstValidArea);
+
+        //Act
+
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCountry));
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfMatchGAByTypeCity() {
+
+        //Arrange
+
+        GeographicAreaList gaL1 = new GeographicAreaList();
+        gaL1.addGeographicArea(firstValidArea);
+        gaL1.addGeographicArea(secondValidArea);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+        expectedResult.addGeographicArea(secondValidArea);
+
+        //Act
+
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeMatchGAByTypeNotInList() {
+
+        //Arrange
+
+        GeographicAreaList gaL1 = new GeographicAreaList();
+        gaL1.addGeographicArea(firstValidArea);
+        GeographicAreaList expectedResult = new GeographicAreaList();
+
+        //Act
+
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void getTypeAreaName() {
