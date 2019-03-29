@@ -31,7 +31,7 @@ class HouseConfigurationUI {
         this.geographicAreaList = geographicAreaList;
     }
 
-    void run(House house, GeographicAreaList list) {
+    void run(House house) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -50,7 +50,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS101(house, list);
+                    runUS101(house);
                     activeInput = false;
                     break;
                 case 4:
@@ -151,7 +151,7 @@ class HouseConfigurationUI {
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 
-    private void runUS101(House house, GeographicAreaList geographicAreaList) {
+    private void runUS101(House house) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("First select the geographic area where this house is located.");

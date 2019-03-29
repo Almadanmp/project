@@ -18,7 +18,8 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -117,10 +118,10 @@ class GASettingsControllerTest {
 //    void seeIfMatchGAByTypeAreaWorks() {
 //        // Arrange
 //
-//        validGeographicAreaList.addGeographicArea(secondValidArea);
+//        validGeographicAreaList.addAndPersistGA(secondValidArea);
 //        GeographicAreaList expectedResult = new GeographicAreaList();
 //        expectedResult.setGeographicAreaRepository(geographicAreaRepository);
-//        expectedResult.addGeographicArea(secondValidArea);
+//        expectedResult.addAndPersistGA(secondValidArea);
 //
 //        // Act
 //
@@ -285,10 +286,10 @@ class GASettingsControllerTest {
 //        //Arrange
 //
 //        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addGeographicArea(firstValidArea);
-//        gaL1.addGeographicArea(secondValidArea);
+//        gaL1.addAndPersistGA(firstValidArea);
+//        gaL1.addAndPersistGA(secondValidArea);
 //        GeographicAreaList expectedResult = new GeographicAreaList();
-//        expectedResult.addGeographicArea(firstValidArea);
+//        expectedResult.addAndPersistGA(firstValidArea);
 //
 //        //Act
 //
@@ -305,10 +306,10 @@ class GASettingsControllerTest {
 //        //Arrange
 //
 //        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addGeographicArea(firstValidArea);
-//        gaL1.addGeographicArea(secondValidArea);
+//        gaL1.addAndPersistGA(firstValidArea);
+//        gaL1.addAndPersistGA(secondValidArea);
 //        GeographicAreaList expectedResult = new GeographicAreaList();
-//        expectedResult.addGeographicArea(secondValidArea);
+//        expectedResult.addAndPersistGA(secondValidArea);
 //
 //        //Act
 //
@@ -325,7 +326,7 @@ class GASettingsControllerTest {
 //        //Arrange
 //
 //        GeographicAreaList gaL1 = new GeographicAreaList();
-//        gaL1.addGeographicArea(firstValidArea);
+//        gaL1.addAndPersistGA(firstValidArea);
 //        GeographicAreaList expectedResult = new GeographicAreaList();
 //
 //        //Act

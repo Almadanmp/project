@@ -25,7 +25,7 @@ public class Sensor {
 
     private Date dateStartedFunctioning;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ReadingList readingList;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -225,7 +225,6 @@ public class Sensor {
     }
 
 
-
     /**
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
@@ -255,6 +254,7 @@ public class Sensor {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
                 Reading reading = new Reading(value, date);
+                reading.setReadingList(this.readingList);
                 return this.addReading(reading);
             }
         }
