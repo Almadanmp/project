@@ -13,6 +13,7 @@ public class GASettingsController {
     //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
 
     public GASettingsController() {
+        //empty constructor
     }
 
     /**

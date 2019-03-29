@@ -290,7 +290,7 @@ public class ReaderController {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             for (String[] reading : list) {
-                addedReadings += parseAndLogCSVReading(reading, logger, sensorList);
+                addedReadings += parseAndLogCSVReading(reading, logger);
             }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -305,7 +305,7 @@ public class ReaderController {
      *
      * @return 0 in case the reading was not added, 1 in case of success.
      ***/
-    int parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList) {
+    int parseAndLogCSVReading(String[] readings, Logger logger) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT2));
@@ -349,7 +349,7 @@ public class ReaderController {
             FileHandler fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
-            addedReadings = parseAndLogJSONReadings(sensorList, array, logger);
+            addedReadings = parseAndLogJSONReadings(array, logger);
 
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -364,11 +364,11 @@ public class ReaderController {
      *
      * @return the number of readings added to geographic area sensors
      ***/
-    int parseAndLogJSONReadings(SensorList sensorList, JSONArray array, Logger logger) {
+    int parseAndLogJSONReadings(JSONArray array, Logger logger) {
         int added = 0;
         for (int i = 0; i < array.length(); i++) {
             JSONObject readingObject = array.getJSONObject(i);
-            added += parseAndLogJSONReading(sensorList, readingObject, logger);
+            added += parseAndLogJSONReading(readingObject, logger);
         }
         return added;
     }
@@ -379,7 +379,7 @@ public class ReaderController {
      *
      * @return returns 1 in case the reading is added, 0 otherwise
      ***/
-    int parseAndLogJSONReading(SensorList sensorList, JSONObject reading, Logger logger) {
+    int parseAndLogJSONReading(JSONObject reading, Logger logger) {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT1));
         knownPatterns.add(new SimpleDateFormat(VALID_DATE_FORMAT2));

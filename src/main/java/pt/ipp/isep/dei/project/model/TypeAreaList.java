@@ -20,16 +20,16 @@ public class TypeAreaList {
     @Autowired
     TypeAreaRepository typeAreaRepository;
 
-    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
-        this.typeAreaRepository = typeAreaRepository;
-    }
-
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
     public TypeAreaList() {
         this.typeAreas = new ArrayList<>();
         //empty constructor
+    }
+
+    public void setTypeAreaRepository(TypeAreaRepository typeAreaRepository) {
+        this.typeAreaRepository = typeAreaRepository;
     }
 
     public List<TypeArea> getTypeAreas() {
