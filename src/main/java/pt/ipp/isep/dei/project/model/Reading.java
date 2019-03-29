@@ -38,6 +38,10 @@ public class Reading {
         this.readingList = readingList;
     }
 
+    public ReadingList getReadingList() {
+        return readingList;
+    }
+
     public long getId() {
         return id;
     }

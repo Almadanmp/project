@@ -68,6 +68,25 @@ class ReadingTest {
     }
 
     @Test
+    void seeIfGetReadingWorks(){
+        // Arrange
+
+        ReadingList tempList = new ReadingList();
+        tempList.addReading(firstValidReading);
+        firstValidReading.setReadingList(tempList);
+        ReadingList expectedResult = new ReadingList();
+        expectedResult.addReading(firstValidReading);
+
+        // Act
+
+        ReadingList actualResult = firstValidReading.getReadingList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfSetGetValueWorks() {
         // Arrange
 
