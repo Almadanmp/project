@@ -53,14 +53,9 @@ class GASettingsControllerTest {
     private GeographicAreaRepository geographicAreaRepository;
 
 
-    @Autowired
-    private TypeAreaRepository typeAreaRepository;
-
-
     @BeforeEach
     void arrangeArtifacts() {
         geographicAreaRepository.deleteAll();
-        typeAreaRepository.deleteAll();
 
         SimpleDateFormat day = new SimpleDateFormat("dd-MM-yyyy");
         try {
