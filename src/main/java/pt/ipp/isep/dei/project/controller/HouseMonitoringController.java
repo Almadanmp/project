@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
@@ -28,8 +28,7 @@ public class HouseMonitoringController {
      */
 
     public double getCurrentRoomTemperature(RoomDTO roomDTO, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getCurrentRoomTemperature();
     }
 
@@ -41,8 +40,7 @@ public class HouseMonitoringController {
      */
 
     public double getDayMaxTemperature(RoomDTO roomDTO, Date day, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -54,9 +52,8 @@ public class HouseMonitoringController {
      * @return room's name as a string
      **/
     public String getRoomName(RoomDTO roomDTO, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
-        return room.getRoomName();
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+        return room.getName();
     }
 
 

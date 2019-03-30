@@ -68,7 +68,7 @@ public class RoomList {
 
     Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
         for (Room r : this.rooms) {
-            String designation = r.getRoomName();
+            String designation = r.getName();
             if (roomDesignation.equals(designation)) {
                 return r;
             }
@@ -88,11 +88,11 @@ public class RoomList {
         }
         for (int i = 0; i < this.size(); i++) {
             Room aux = this.get(i);
-            result.append(i).append(") Designation: ").append(aux.getRoomName()).append(" | ");
-            result.append("House Floor: ").append(aux.getHouseFloor()).append(" | ");
-            result.append("Width: ").append(aux.getRoomWidth()).append(" | ");
-            result.append("Length: ").append(aux.getRoomLength()).append(" | ");
-            result.append("Height: ").append(aux.getRoomHeight()).append("\n");
+            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
+            result.append("House Floor: ").append(aux.getFloor()).append(" | ");
+            result.append("Width: ").append(aux.getWidth()).append(" | ");
+            result.append("Length: ").append(aux.getLength()).append(" | ");
+            result.append("Height: ").append(aux.getHeight()).append("\n");
 
         }
         result.append("---------------\n");

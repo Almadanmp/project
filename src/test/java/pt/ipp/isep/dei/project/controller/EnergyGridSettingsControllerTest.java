@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -142,16 +142,15 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void ensureThatWeAddRoomToTheGrid() {
-
         // Arrange
-        Mapper mapper = new Mapper();
 
         Room room = new Room("Quarto", 1, 20, 2, 2);
         EnergyGridList gridList = new EnergyGridList();
         gridList.addGrid(validGrid);
         RoomList rl = new RoomList();
         validGrid.setRoomList(rl);
-        RoomDTO roomDTO = mapper.roomToDTO(room);
+        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+
         // Act
 
         boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO,validHouse);
@@ -163,9 +162,7 @@ class EnergyGridSettingsControllerTest {
 
     @Test
     void ensureThatWeDoNotAddRoomToTheGrid() {
-
         // Arrange
-        Mapper mapper = new Mapper();
 
         EnergyGridList gridList = new EnergyGridList();
         gridList.addGrid(validGrid);
@@ -174,7 +171,7 @@ class EnergyGridSettingsControllerTest {
         roomList.add(room);
         validGrid.setRoomList(roomList);
         validHouse.setRoomList(roomList);
-        RoomDTO roomDTO = mapper.roomToDTO(room);
+        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 
         // Act
 

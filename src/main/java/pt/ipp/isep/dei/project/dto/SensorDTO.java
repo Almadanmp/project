@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.project.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SensorDTO {
 
     private String id;
@@ -11,6 +14,11 @@ public class SensorDTO {
     private double altitude;
     private String dateStartedFunctioning;
     private boolean active;
+    private List<ReadingDTO> readingList;
+
+    public SensorDTO(){
+        readingList = new ArrayList<>();
+    }
 
     /**
      * Method that retrieves the DTO's id.
@@ -38,7 +46,7 @@ public class SensorDTO {
      * @return is the unit the Sensor stores readings in.
      */
 
-    String getUnits() {
+    public String getUnits() {
         return units;
     }
 
@@ -138,7 +146,7 @@ public class SensorDTO {
      * @return is a string that corresponds to the name of the type of the DTO.
      */
 
-    String getTypeSensor() {
+    public String getType() {
         return typeSensor;
     }
 
@@ -165,7 +173,7 @@ public class SensorDTO {
      * @return the date at which the sensor started functioning, as a string.
      */
 
-    String getDateStartedFunctioning() {
+    public String getDateStartedFunctioning() {
         return dateStartedFunctioning;
     }
 
@@ -179,6 +187,13 @@ public class SensorDTO {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
+    public List<ReadingDTO> getReadingList() {
+        return readingList;
+    }
+
+    public void setReadingList(List<ReadingDTO> readingList) {
+        this.readingList = readingList;
+    }
 
     @Override
     public boolean equals(Object testDTO) {

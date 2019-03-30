@@ -43,7 +43,7 @@ public class EnergyGrid implements Metered {
         return roomList;
     }
 
-    double getMaxContractedPower() {
+    public double getMaxContractedPower() {
         return maxContractedPower;
     }
 
@@ -61,8 +61,12 @@ public class EnergyGrid implements Metered {
      *
      * @return the list of power sources connected to the energy grid.
      */
-    PowerSourceList getListPowerSources() {
+    public PowerSourceList getPowerSourceList() {
         return listPowerSources;
+    }
+
+    public void setPowerSourceList(PowerSourceList listPowerSources) {
+        this.listPowerSources = listPowerSources;
     }
 
     boolean setMaxContractedPower(double power) {

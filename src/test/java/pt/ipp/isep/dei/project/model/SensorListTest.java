@@ -27,10 +27,10 @@ class SensorListTest {
         validSensorList = new SensorList();
         firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
-        firstValidSensor.setActive();
+        firstValidSensor.setActive(true);
         secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
                 new Date());
-        secondValidSensor.setActive();
+        secondValidSensor.setActive(true);
         thirdValidSensor = new Sensor("SensorThree", new TypeSensor("Rainfall", "l/m2"),
                 new Date());
         validSensorList.add(firstValidSensor);

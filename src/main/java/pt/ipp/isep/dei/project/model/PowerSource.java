@@ -25,15 +25,15 @@ public class PowerSource {
         this.maxEnergyStorage = maxEnergyStorage;
     }
 
-    double getMaxEnergyStorage() {
+    public double getMaxEnergyStorage() {
         return maxEnergyStorage;
     }
 
-    double getMaxPowerOutput() {
+    public double getMaxPowerOutput() {
         return maxPowerOutput;
     }
 
-    String getPowerSourceName(){return this.powerSourceName;}
+    public String getName(){return this.powerSourceName;}
 
     /**
      * Method to check if an instance of this class is equal to another object.
@@ -51,7 +51,7 @@ public class PowerSource {
         }
 
         PowerSource ps = (PowerSource) o;
-        return Objects.equals(powerSourceName, ps.getPowerSourceName());
+        return Objects.equals(powerSourceName, ps.getName());
     }
 
     @Override

@@ -10,8 +10,12 @@ public class PowerSourceList {
 
     private List<PowerSource> powerSources;
 
-    PowerSourceList() {
+    public PowerSourceList() {
         this.powerSources = new ArrayList<>();
+    }
+
+    public List<PowerSource> getPowerSources() {
+        return powerSources;
     }
 
     /**
@@ -29,7 +33,7 @@ public class PowerSourceList {
      * @param powerSource is the power source we want to addWithoutPersisting.
      * @return is true if the power source was added, false if it wasn't.
      */
-    boolean add(PowerSource powerSource) {
+    public boolean add(PowerSource powerSource) {
         if (!(powerSources.contains(powerSource))) {
             powerSources.add(powerSource);
             return true;
@@ -63,7 +67,7 @@ public class PowerSourceList {
      */
     PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage){
         for(PowerSource p : this.powerSources){
-            String testName = p.getPowerSourceName();
+            String testName = p.getName();
             if(testName.equals(name)){
                 return p;
             }

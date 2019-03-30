@@ -66,6 +66,10 @@ public class ReadingList {
         return reading.getValue();
     }
 
+    public List<Reading> getReadings() {
+        return readings;
+    }
+
     /**
      * This method receives an index as parameter and gets a reading date from reading list.
      *
