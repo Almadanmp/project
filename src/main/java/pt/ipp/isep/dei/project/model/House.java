@@ -22,13 +22,14 @@ public class House implements Metered {
 
     /**
      * Standard constructor for a house object.
-     * @param id is the id of the house.
-     * @param address is the address of the house. An address is made up of several pieces of data, like the street and
-     *                the zip code the house is in.
-     * @param mLocation is the location of the central point of the house, in latitude, longitude and altitude coordinates.
-     * @param gridMeteringPeriod is the metering period of grids contained in the house.
+     *
+     * @param id                   is the id of the house.
+     * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
+     *                             the zip code the house is in.
+     * @param mLocation            is the location of the central point of the house, in latitude, longitude and altitude coordinates.
+     * @param gridMeteringPeriod   is the metering period of grids contained in the house.
      * @param deviceMeteringPeriod is the metering period of devices contained in the house.
-     * @param deviceTypeConfig is the list of possible device types that the house supports.
+     * @param deviceTypeConfig     is the list of possible device types that the house supports.
      */
     public House(String id, Address address, Local mLocation, int gridMeteringPeriod,
                  int deviceMeteringPeriod, List<String> deviceTypeConfig) {
@@ -69,85 +70,185 @@ public class House implements Metered {
         this.id = id;
     }
 
+    /**
+     * Standard getter method, to return the Id of the House.
+     *
+     * @return the string with the Id of the House.
+     */
     public String getHouseId() {
         return this.id;
     }
 
+    /**
+     * Standard getter method, to return the Address of the House.
+     *
+     * @return the string with the Address of the House.
+     */
     public Address getAddress() {
         return address;
     }
 
+    /**
+     * Standard getter method, to return the total nominal power of the devices in the House.
+     *
+     * @return the string with the nominal power of all the devices active in the House.
+     */
     public double getNominalPower() {
         return this.roomList.getNominalPower();
     }
 
+    /**
+     * Standard setter method, to define the metering period of the energy grid.
+     *
+     * @param meteringPeriod is the period of time where the energy of the energy grid is calculated.
+     */
     void setGridMeteringPeriod(int meteringPeriod) {
         this.gridMeteringPeriod = meteringPeriod;
     }
 
+    /**
+     * Standard getter method, to return the period of time where the total energy consumption of all the energy grids
+     * of the house.
+     *
+     * @return the value of the period of time where the energy consumption will be calculated.
+     */
     double getGridMeteringPeriod() {
         return gridMeteringPeriod;
     }
 
+    /**
+     * Standard setter method, to define the metering period of the devices.
+     *
+     * @param meteringPeriod is the period of time where the energy of the devices is calculated.
+     */
     void setDeviceMeteringPeriod(int meteringPeriod) {
         this.deviceMeteringPeriod = meteringPeriod;
     }
 
+    /**
+     * Standard getter method, to return the period of time where the energy consumed by all the devices present in
+     * the house will be calculated.
+     *
+     * @return the value of the period of time where the energy consumption will be calculated.
+     */
     double getDeviceMeteringPeriod() {
         return deviceMeteringPeriod;
     }
 
+    /**
+     * Standard getter method, to return the location where the House is located in.
+     *
+     * @return the Local of the House.
+     */
     public Local getLocation() {
         return location;
     }
 
+    /**
+     * Standard setter method, to define the location parameters of the House.
+     *
+     * @param latitude  is the latitude of the location.
+     * @param longitude is the longitude of the location.
+     * @param altitude  is the altitude of the location.
+     */
     public void setLocation(double latitude, double longitude, double altitude) {
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         location.setAltitude(altitude);
     }
 
+    /**
+     * Standard setter method, to define the Address of the House.
+     *
+     * @param street is the street of the address.
+     * @param zip    is the zip-code of the address.
+     * @param town   is the town of the address.
+     */
     public void setAddress(String street, String zip, String town) {
         address.setStreet(street);
         address.setZip(zip);
         address.setTown(town);
     }
 
+    /**
+     * Standard setter method, to define the list of rooms to be added to the House.
+     *
+     * @param roomList is the room list to be set.
+     */
     public void setRoomList(RoomList roomList) {
         if (roomList != null) {
             this.roomList = roomList;
         }
     }
 
+    /**
+     * Standard getter method, to return value of the Altitude of the location of the house
+     *
+     * @return the double value of the altitude.
+     */
     public double getAltitude() {
         return this.location.getAltitude();
     }
 
+    /**
+     * Standard setter method, to define Geographical Area in which the House is contained.
+     *
+     * @param motherArea is the Geographical Area to be set.
+     */
     public void setMotherArea(GeographicArea motherArea) {
         this.motherArea = motherArea;
     }
 
+    /**
+     * Standard getter method, to return Geographical Area where the House is located.
+     *
+     * @return the Geographical Area of the House.
+     */
     public GeographicArea getMotherArea() {
         return motherArea;
     }
 
+    /**
+     * Standard getter method, to return the list of rooms present on the House.
+     *
+     * @return the RoomList associated to the House.
+     */
     public RoomList getRoomList() {
         return this.roomList;
     }
 
-
+    /**
+     * Standard getter method, to return the list of energy grids present on the House.
+     *
+     * @return the EnergyGridList associated to the House.
+     */
     public EnergyGridList getGridList() {
         return this.energyGridList;
     }
 
+    /**
+     * Standard setter method, to define the list of energy grids to be added to the House.
+     *
+     * @param energyGridList is the Energy grid list to be set.
+     */
     public void setGridList(EnergyGridList energyGridList) {
         this.energyGridList = energyGridList;
     }
 
+    /**
+     * Standard getter method, to return the list of device types that can be created in the house.
+     *
+     * @return the list of Device Types associated to the House.
+     */
     public List<DeviceType> getDeviceTypeList() {
         return deviceTypeList;
     }
 
+    /**
+     * Standard setter method, to add a Room to the House.
+     *
+     * @param room the Room to be added to the House.
+     */
     public boolean addRoom(Room room) {
         return this.roomList.add(room);
     }
@@ -404,6 +505,7 @@ public class House implements Metered {
 
     /**
      * Method to check if an instance of this class is equal to another object.
+     *
      * @param o is the object we want to check for equality.
      * @return is true if the object is a house with the same address.
      */
