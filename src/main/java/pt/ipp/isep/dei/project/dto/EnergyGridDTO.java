@@ -41,6 +41,13 @@ public class EnergyGridDTO {
         return roomDTOS;
     }
 
+    /**
+     * Method that determines if an instance of this object is equal to another instance. The rules for determining this
+     * should match the rules for determining if two instances of the original model object are equal.
+     * @param testDTO is the instance of this object we want to test for equality.
+     * @return is true if the instances are equal, false if they aren't.
+     */
+
     @Override
     public boolean equals(Object testDTO) {
         if (this == testDTO) {
