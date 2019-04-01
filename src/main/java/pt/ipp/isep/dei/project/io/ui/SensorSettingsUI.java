@@ -5,6 +5,9 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
 
 import java.util.Date;
 import java.util.Scanner;

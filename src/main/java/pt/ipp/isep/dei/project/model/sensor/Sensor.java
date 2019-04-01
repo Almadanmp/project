@@ -1,4 +1,6 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.sensor;
+
+import pt.ipp.isep.dei.project.model.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -278,7 +280,7 @@ public class Sensor {
      * @param area is the area we want to check if the sensor is in.
      * @return true if the sensor is in the given area, false otherwise.
      */
-    boolean isContainedInArea(GeographicArea area) {
+    public boolean isContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
         Local areaLocal = area.getLocal();
@@ -295,7 +297,7 @@ public class Sensor {
      * @param house is the house we want to calculate the distance to.
      * @return a double that represents the distance between the house and the sensor.
      */
-    double getDistanceToHouse(House house) {
+    public double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }
@@ -321,7 +323,7 @@ public class Sensor {
     /**
      * Method to print info if a sensor is active or not.
      */
-    String printActive() {
+    public String printActive() {
         if (!this.active) {
             return "Deactivated";
         }

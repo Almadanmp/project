@@ -10,6 +10,9 @@ import pt.ipp.isep.dei.project.model.device.Kettler;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
 import java.util.*;
 

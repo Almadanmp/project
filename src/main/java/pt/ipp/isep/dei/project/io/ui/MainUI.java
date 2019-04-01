@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.TypeAreaList;
-import pt.ipp.isep.dei.project.model.TypeSensorList;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.services.SensorService;

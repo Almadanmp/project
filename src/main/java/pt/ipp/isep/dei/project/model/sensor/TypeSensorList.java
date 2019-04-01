@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.sensor;
 
 import org.springframework.stereotype.Service;
 
@@ -100,7 +100,7 @@ public class TypeSensorList {
      *
      * @return array of Type Sensors
      */
-    TypeSensor[] getElementsAsArray() {
+    public TypeSensor[] getElementsAsArray() {
         int sizeOfResultArray = typeSensors.size();
         TypeSensor[] result = new TypeSensor[sizeOfResultArray];
         for (int i = 0; i < typeSensors.size(); i++) {

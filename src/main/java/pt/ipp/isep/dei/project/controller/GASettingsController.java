@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
 
 /**
  * Controller class for Geographical Area Settings UI

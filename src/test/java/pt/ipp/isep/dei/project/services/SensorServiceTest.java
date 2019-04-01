@@ -9,9 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.Sensor;
-import pt.ipp.isep.dei.project.model.SensorList;
-import pt.ipp.isep.dei.project.model.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 
 import java.util.Calendar;

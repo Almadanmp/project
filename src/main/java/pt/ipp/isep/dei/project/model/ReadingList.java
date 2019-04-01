@@ -134,7 +134,7 @@ public class ReadingList {
      * @return most recent reading date
      **/
 
-    Date getMostRecentReadingDate() {
+    public Date getMostRecentReadingDate() {
         return getMostRecentReading().getDate();
     }
 
@@ -145,7 +145,7 @@ public class ReadingList {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-    double getMostRecentValue() {
+    public double getMostRecentValue() {
         if (this.readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
@@ -159,7 +159,7 @@ public class ReadingList {
      * @return sum
      * @author André (US620)
      */
-    double getValueReadingsInDay(Date givenDate) {
+    public double getValueReadingsInDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
@@ -269,7 +269,7 @@ public class ReadingList {
      * @return the average of all values in the reading list between the two given dates
      * @author Daniela (US623)
      */
-    double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
+    public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
         if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
@@ -292,7 +292,7 @@ public class ReadingList {
      * @return returns a list with every value of readings that was recorded on that particular day.
      * @author Daniela - US623
      */
-    List<Double> getValuesOfSpecificDayReadings(Date day) {
+    public List<Double> getValuesOfSpecificDayReadings(Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < size(); i++) {
             if (compareDayMonthAndYearBetweenDates(this.getValueDate(i), day)) {
@@ -347,7 +347,7 @@ public class ReadingList {
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
      * @author Daniela (US633)
      */
-    Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+    public Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
 
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
@@ -379,7 +379,7 @@ public class ReadingList {
      * @return highest amplitude value
      * @author Daniela (US633)
      */
-    double getAmplitudeValueFromDate(Date date) {
+    public double getAmplitudeValueFromDate(Date date) {
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
@@ -392,7 +392,7 @@ public class ReadingList {
      * @param readingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      **/
-    ReadingList appendListNoDuplicates(ReadingList readingList) {
+    public ReadingList appendListNoDuplicates(ReadingList readingList) {
         Reading[] readingsArray = readingList.getElementsAsArray();
         for (Reading r : readingsArray) {
             this.addReading(r);
@@ -413,7 +413,7 @@ public class ReadingList {
      * @author Nuno (US631)
      */
 
-    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
@@ -518,7 +518,7 @@ public class ReadingList {
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
+    public Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }

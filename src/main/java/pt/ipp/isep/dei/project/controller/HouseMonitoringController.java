@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
 
 import java.util.Date;
 

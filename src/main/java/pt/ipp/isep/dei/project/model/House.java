@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
 import java.util.*;
 
@@ -268,7 +271,7 @@ public class House implements Metered {
      * @param sensor sensor from where to calculate the distance
      * @return returns the distance between sensor and the house
      */
-    double calculateDistanceToSensor(Sensor sensor) {
+    public double calculateDistanceToSensor(Sensor sensor) {
         Local l = sensor.getLocal();
         return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }

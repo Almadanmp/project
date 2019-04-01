@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
 
 import java.util.Date;
 import java.util.GregorianCalendar;

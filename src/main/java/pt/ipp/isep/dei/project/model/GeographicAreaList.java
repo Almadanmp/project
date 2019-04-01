@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Component;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.ArrayList;

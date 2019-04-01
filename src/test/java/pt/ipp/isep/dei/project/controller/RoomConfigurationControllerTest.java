@@ -11,6 +11,9 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

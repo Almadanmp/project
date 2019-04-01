@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.device;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.model.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;

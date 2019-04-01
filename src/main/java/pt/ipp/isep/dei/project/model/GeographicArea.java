@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
+
 import javax.persistence.*;
 
 /**
@@ -132,7 +135,7 @@ public class GeographicArea {
     /**
      * Standard setter method, to define the location of the Geographic Area.
      *
-     * @param local is the Local of the Geographical Area.
+     * @param location is the Local of the Geographical Area.
      */
     public void setLocation(Local location) {
         this.location = location;

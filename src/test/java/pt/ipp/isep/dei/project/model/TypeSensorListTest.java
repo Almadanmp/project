@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.testng.Assert;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

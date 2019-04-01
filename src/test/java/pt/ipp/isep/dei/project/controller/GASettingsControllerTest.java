@@ -18,6 +18,8 @@ import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.io.ByteArrayInputStream;

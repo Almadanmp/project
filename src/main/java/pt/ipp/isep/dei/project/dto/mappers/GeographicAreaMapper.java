@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
 import java.util.ArrayList;
 import java.util.List;

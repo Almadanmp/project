@@ -106,7 +106,7 @@ public class Local {
      * @param local1 Localization 1
      * @return linear distance from Localization 1 to Localization 2
      */
-    double getLinearDistanceBetweenLocalsInKm(Local local1) {
+    public double getLinearDistanceBetweenLocalsInKm(Local local1) {
         int earthRadiusInKm = 6371;
         double latitude1 = local1.getLatitude();
         double latitude2 = getLatitude();

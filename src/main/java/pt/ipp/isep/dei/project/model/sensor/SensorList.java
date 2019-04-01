@@ -1,4 +1,7 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.sensor;
+
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.ReadingList;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class SensorList {
      *
      * @return the most recently used sensor
      */
-    Sensor getMostRecentlyUsedSensor() {
+    public Sensor getMostRecentlyUsedSensor() {
         if (this.sensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
@@ -83,7 +86,7 @@ public class SensorList {
      * @return SensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    SensorList getSensorsWithReadings() {
+    public SensorList getSensorsWithReadings() {
         SensorList finalList = new SensorList();
         if (this.sensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -101,7 +104,7 @@ public class SensorList {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    SensorList getSensorListByType(String name) {
+    public SensorList getSensorListByType(String name) {
         SensorList containedTypeSensors = new SensorList();
         for (Sensor sensor : this.sensors) {
             if (name.equals(sensor.getSensorTypeName())) {
@@ -118,7 +121,7 @@ public class SensorList {
      * @param house to calculate closest distance
      * @return List of sensors distance to house
      */
-    List<Double> getSensorsDistanceToHouse(House house) {
+    public List<Double> getSensorsDistanceToHouse(House house) {
         ArrayList<Double> arrayList = new ArrayList<>();
         for (Sensor sensor : this.sensors) {
             arrayList.add(house.calculateDistanceToSensor(sensor));
@@ -175,7 +178,7 @@ public class SensorList {
      * @param minDist the distance to the sensor
      * @return SensorList with sensors closest to house.
      **/
-    SensorList getSensorsByDistanceToHouse(House house, double minDist) {
+    public SensorList getSensorsByDistanceToHouse(House house, double minDist) {
         SensorList finalList = new SensorList();
         for (Sensor s : this.sensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -234,7 +237,7 @@ public class SensorList {
      * @param day date of day the method will use to get reading values
      * @return returns value readings from every sensor from given day
      **/
-    List<Double> getValuesOfSpecificDayReadings(Date day) {
+    public List<Double> getValuesOfSpecificDayReadings(Date day) {
         ReadingList readingList = getReadings();
         return readingList.getValuesOfSpecificDayReadings(day);
     }
