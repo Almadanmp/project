@@ -97,7 +97,7 @@ class RoomConfigurationUI {
     }
 
     private void printRoomDeviceList(Room room) {
-        System.out.println("Available Devices in Room " + room.getRoomName());
+        System.out.println("Available Devices in Room " + room.getName());
         System.out.println("Please select one of the existing Devices in the selected Room: ");
         System.out.println(controller.buildDeviceListString(room));
     }
@@ -231,7 +231,7 @@ class RoomConfigurationUI {
     private void displayDeviceUS215(Device device, Room room, String deviceName) {
         List<String> attributeNames = controller.getAttributeNames(device);
         System.out.println("\nYou have successfully changed the device name to " + deviceName + "." +
-                "\nThe room is " + room.getRoomName() + "\n");
+                "\nThe room is " + room.getName() + "\n");
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("You have changed the : " + attributeNames.get(i) + " to: "
                     + controller.getAttributeValue(device, i) + " "
@@ -418,7 +418,7 @@ class RoomConfigurationUI {
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
         Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, typeSensor, mDate);
         if (controller.addSensorToRoom(mSensor, room)) {
-            System.out.println("\nSensor successfully added to the Room " + room.getRoomName());
+            System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");
     }
 
@@ -442,7 +442,7 @@ class RoomConfigurationUI {
             return;
         }
         controller.removeDevice(room, device);
-        System.out.println("The device " + device.getName() + " on room " + room.getRoomName() + " has ceased to be.");
+        System.out.println("The device " + device.getName() + " on room " + room.getName() + " has ceased to be.");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

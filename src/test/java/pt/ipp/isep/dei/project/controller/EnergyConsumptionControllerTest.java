@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -771,7 +771,7 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    void seeIfGetGridLogsInInterval() {
+    void seeIfGetGridLogsInIntervalWorks() {
 
         //Arrange
         validGrid.addRoom(validRoom1);
@@ -789,12 +789,11 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    void seeIfGetRoomLogsInInterval() {
+    void seeIfGetRoomLogsInIntervalWorks() {
         //Arrange
 
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
-        Mapper mapper = new Mapper();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
                 new Local(20, 20, 20),  60,
@@ -802,7 +801,8 @@ class EnergyConsumptionControllerTest {
         validHouse.setMotherArea(validArea);
 
         validHouse.addRoom(validRoom1);
-        RoomDTO roomDTO = mapper.roomToDTO(validRoom1);
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
         //Act
 
         validDevice1.addLog(validLog1);
@@ -850,13 +850,21 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    public void seeIfAddRoomDevicesToDeviceListWorks() {
+    void seeIfAddRoomDevicesToDeviceListWorks() {
+        // Arrange
+
         DeviceList expectedResult = new DeviceList();
         expectedResult.add(validDevice1);
         validRoom1.setDeviceList(expectedResult);
         DeviceList actualResult = new DeviceList();
         actualResult.add(validDevice1);
+
+        // Act
+
         controller.addRoomDevicesToDeviceList(validRoom1,actualResult);
+
+        // Assert
+
         assertEquals(expectedResult,actualResult);
     }
 

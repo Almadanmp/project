@@ -4,13 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
-import pt.ipp.isep.dei.project.model.device.program.Program;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 
 import java.text.ParseException;
@@ -473,10 +472,10 @@ class RoomConfigurationControllerTest {
                 2, 3, new Local(4, 4, 100)));
         Room emptyDeviceList = new Room("emptyDeviceList", 2, 20, 20, 3);
         validHouse.addRoom(emptyDeviceList);
-        Mapper mapper = new Mapper();
+
         //Act
 
-        int actualResult1 = controller.getDeviceListSize(mapper.roomToDTO(emptyDeviceList), validHouse);
+        int actualResult1 = controller.getDeviceListSize(RoomMapper.objectToDTO(emptyDeviceList), validHouse);
 
         //Assert Empty List
 
@@ -498,11 +497,10 @@ class RoomConfigurationControllerTest {
         Device validDevice = new WaterHeater(new WaterHeaterSpec());
         validRoom.addDevice(validDevice);
         validHouse.addRoom(validRoom);
-        Mapper mapper = new Mapper();
 
         //Act
 
-        Device actualResult = controller.getDeviceByIndex(mapper.roomToDTO(validRoom),validHouse,0);
+        Device actualResult = controller.getDeviceByIndex(RoomMapper.objectToDTO(validRoom),validHouse,0);
 
         //Assert
 

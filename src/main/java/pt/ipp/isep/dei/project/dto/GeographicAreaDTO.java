@@ -114,7 +114,7 @@ public class GeographicAreaDTO {
      * @return is the latitude of the object.
      */
 
-    double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -134,7 +134,7 @@ public class GeographicAreaDTO {
      * @return is the longitude of the object.
      */
 
-    double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -154,7 +154,7 @@ public class GeographicAreaDTO {
      * @return is the altitude of the object.
      */
 
-    double getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
@@ -194,7 +194,7 @@ public class GeographicAreaDTO {
      * @param listToStore is the list we want to store.
      */
 
-    void setSensorDTOList(List<SensorDTO> listToStore) {
+    public void setSensorDTOList(List<SensorDTO> listToStore) {
         this.sensorDTOList = listToStore;
     }
 
@@ -204,7 +204,7 @@ public class GeographicAreaDTO {
      * @return is the object's description.
      */
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 

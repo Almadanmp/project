@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -192,8 +192,7 @@ public class EnergyConsumptionController {
      */
 
     public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getLogsInInterval(startDate, endDate);
     }
 

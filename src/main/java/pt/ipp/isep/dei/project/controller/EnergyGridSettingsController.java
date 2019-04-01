@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 
 /**
@@ -98,8 +98,7 @@ public class EnergyGridSettingsController {
      */
 
     public boolean addRoomToGrid(EnergyGrid grid, RoomDTO roomDTO, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return grid.addRoom(room);
     }
 

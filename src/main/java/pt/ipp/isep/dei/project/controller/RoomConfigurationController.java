@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.Sensor;
@@ -139,8 +139,7 @@ public class RoomConfigurationController {
      * @return a int that represents the size of the deviceList.
      */
     public int getDeviceListSize(RoomDTO roomDTO, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getDeviceListSize();
     }
 
@@ -152,8 +151,7 @@ public class RoomConfigurationController {
      * @return
      */
     public Device getDeviceByIndex(RoomDTO roomDTO, House house, int index) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getDeviceByIndex(index);
     }
 

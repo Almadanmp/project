@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
-import pt.ipp.isep.dei.project.dto.Mapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -65,7 +65,6 @@ public class InputHelperUI {
      * @return is the chosen room.
      */
     public static RoomDTO getHouseRoomDTOByList(House house) {
-        Mapper mapper = new Mapper();
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
             System.out.println(house.buildRoomListString());
@@ -74,7 +73,7 @@ public class InputHelperUI {
                 Room result = house.getRoomByIndex(aux);
                 System.out.println(SELECT_ROOMS);
                 System.out.println(result.buildString() + "\n");
-                return mapper.roomToDTO(result);
+                return RoomMapper.objectToDTO(result);
             } else {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
@@ -183,10 +182,9 @@ public class InputHelperUI {
      */
     public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
         RoomConfigurationController controller = new RoomConfigurationController();
-        Mapper mapper = new Mapper();
         while (true) {
             System.out.println(SELECT_DEVICES);
-            System.out.println(controller.buildDeviceListString(mapper.updateHouseRoom(room, house)));
+            System.out.println(controller.buildDeviceListString(RoomMapper.updateHouseRoom(room, house)));
             int aux = getInputAsInt();
             if (aux >= 0 && aux < controller.getDeviceListSize(room, house)) {
                 Device result = controller.getDeviceByIndex(room, house, aux);

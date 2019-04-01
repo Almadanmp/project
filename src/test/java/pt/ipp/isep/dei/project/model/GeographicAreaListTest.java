@@ -356,10 +356,10 @@ class GeographicAreaListTest {
         SensorList validSensorList = new SensorList();
         Sensor firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
-        firstValidSensor.setActive();
+        firstValidSensor.setActive(true);
         Sensor secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
                 new Date());
-        secondValidSensor.setActive();
+        secondValidSensor.setActive(true);
 
         GeographicAreaList geographicAreaList = new GeographicAreaList();
 

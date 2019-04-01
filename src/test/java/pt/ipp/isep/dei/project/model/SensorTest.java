@@ -25,7 +25,7 @@ class SensorTest {
     @BeforeEach
     void arrangeArtifacts() {
         validSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
-        validSensor.setActive();
+        validSensor.setActive(true);
     }
 
     @Test

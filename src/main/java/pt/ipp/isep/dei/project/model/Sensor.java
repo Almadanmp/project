@@ -193,9 +193,8 @@ public class Sensor {
     /**
      * Settter: sets the sensor active
      */
-
-    public void setActive() {
-        this.active = true;
+    public void setActive(boolean status) {
+        this.active = status;
     }
 
     public void setterActive(boolean active) {

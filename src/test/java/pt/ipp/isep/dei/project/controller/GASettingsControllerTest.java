@@ -11,8 +11,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
+import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -43,7 +46,6 @@ class GASettingsControllerTest {
     private SensorDTO validSensorDTO2;
     private Sensor validSensor1;
     private Sensor validSensor2;
-    private Mapper mapper;
     private GeographicAreaList validGeographicAreaList;
     private TypeAreaList validTypeAreaList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
@@ -71,10 +73,9 @@ class GASettingsControllerTest {
         validSensor2 = new Sensor("TT12345", "SensTwo", new TypeSensor("Temperature", "Celsius"),
                 new Local(21, 65, 3), date);
         firstValidArea.addSensor(validSensor1);
-        mapper = new Mapper();
-        validGeographicAreaDTO = mapper.geographicAreaToDTO(firstValidArea);
-        validSensorDTO1 = mapper.sensorToDTO(validSensor1);
-        validSensorDTO2 = mapper.sensorToDTO(validSensor2);
+        validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
+        validSensorDTO1 = SensorMapper.objectToDTO(validSensor1);
+        validSensorDTO2 = SensorMapper.objectToDTO(validSensor2);
 
         validGeographicAreaList = new GeographicAreaList();
         validGeographicAreaList.addGeographicArea(firstValidArea);
@@ -115,7 +116,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(validGeographicAreaList, mapper.typeAreaToDTO(typeCity));
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(validGeographicAreaList, TypeAreaMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -130,7 +131,7 @@ class GASettingsControllerTest {
         String expectedResult = "City";
 
         // Act
-        String actualResult = controller.getTypeAreaName(mapper.typeAreaToDTO(typeCity));
+        String actualResult = controller.getTypeAreaName(TypeAreaMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -257,7 +258,8 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean result = controller.addNewGeoAreaToList(geographicAreaList, validGeographicAreaDTO, mapper.localToDTO(firstValidArea.getLocal()));
+        boolean result = controller.addNewGeoAreaToList(geographicAreaList, validGeographicAreaDTO,
+                LocalMapper.objectToDTO(firstValidArea.getLocal()));
 
         // Assert
 
@@ -280,7 +282,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCountry));
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, TypeAreaMapper.objectToDTO(typeCountry));
 
         //Assert
 
@@ -300,7 +302,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, TypeAreaMapper.objectToDTO(typeCity));
 
         //Assert
 
@@ -318,7 +320,7 @@ class GASettingsControllerTest {
 
         //Act
 
-        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, mapper.typeAreaToDTO(typeCity));
+        GeographicAreaList actualResult = controller.matchGAByTypeArea(gaL1, TypeAreaMapper.objectToDTO(typeCity));
 
         //Assert
 
@@ -334,7 +336,7 @@ class GASettingsControllerTest {
         String actualResult;
 
         //Act
-        actualResult = controller.getTypeAreaName(mapper.typeAreaToDTO(typeCity));
+        actualResult = controller.getTypeAreaName(TypeAreaMapper.objectToDTO(typeCity));
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -362,20 +364,21 @@ class GASettingsControllerTest {
 
     @Test
     void seeIfDeactivatedSensorDoesntChange() {
-
         //Arrange
+
         validSensor1.deactivateSensor();
-        SensorDTO sensorDTO = mapper.sensorToDTO(validSensor1);
+        SensorDTO sensorDTO = SensorMapper.objectToDTO(validSensor1);
 
         //Act
+
         boolean actualResult = controller.deactivateSensor(validGeographicAreaList, sensorDTO, validGeographicAreaDTO);
 
         //Assert
+
         assertFalse(actualResult);
     }
 
 
-    //
     @Test
     void seeIfPrintGAList() {
 
@@ -494,7 +497,8 @@ class GASettingsControllerTest {
         expectedResult.setAltitude(13);
         expectedResult.setTypeArea(typeCity.getName());
 
-        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", mapper.typeAreaToDTO(typeCity), controller.createLocalDTO(12, 13, 13), 12, 13);
+        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", TypeAreaMapper.objectToDTO(typeCity),
+                controller.createLocalDTO(12, 13, 13), 12, 13);
 
         assertEquals(expectedResult, result);
     }
@@ -585,7 +589,7 @@ class GASettingsControllerTest {
     void seeIfAddNewGeoAreaToListWorksAlreadyThere() {
         // Act
 
-        boolean result = controller.addNewGeoAreaToList(validGeographicAreaList, validGeographicAreaDTO, mapper.localToDTO
+        boolean result = controller.addNewGeoAreaToList(validGeographicAreaList, validGeographicAreaDTO, LocalMapper.objectToDTO
                 (new Local(21, 33, 5)));
 
         // Assert

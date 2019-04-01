@@ -186,7 +186,7 @@ class EnergyGridTest {
 
         // Act
 
-        PowerSourceList actualResult = validGrid.getListPowerSources();
+        PowerSourceList actualResult = validGrid.getPowerSourceList();
 
         // Assert
 

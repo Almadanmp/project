@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.dto;
-
-
-import pt.ipp.isep.dei.project.model.SensorList;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.util.List;
 import java.util.UUID;
 
 public class RoomDTO {
@@ -13,7 +11,7 @@ public class RoomDTO {
     private double width;
     private double length;
     private double height;
-    private SensorList sensorList;
+    private List<SensorDTO> sensorList;
     private DeviceList deviceList;
     private UUID id;
 
@@ -22,7 +20,7 @@ public class RoomDTO {
      * @return is the DTO's sensorList.
      */
 
-    public SensorList getSensorList() {
+    public List<SensorDTO> getSensorList() {
         return sensorList;
     }
 
@@ -31,7 +29,7 @@ public class RoomDTO {
      * @param sensorList is the list we want to store in the DTO.
      */
 
-    public void setSensorList(SensorList sensorList) {
+    public void setSensorList(List<SensorDTO> sensorList) {
         this.sensorList = sensorList;
     }
 
@@ -49,7 +47,7 @@ public class RoomDTO {
      * @param deviceList is the device list we want to store in the DTO.
      */
 
-    void setDeviceList(DeviceList deviceList) {
+    public void setDeviceList(DeviceList deviceList) {
         this.deviceList = deviceList;
     }
 

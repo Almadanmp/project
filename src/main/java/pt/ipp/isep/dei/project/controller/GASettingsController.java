@@ -1,6 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
+import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 
@@ -69,11 +73,10 @@ public class GASettingsController {
      * @return success if a new GA is added, false otherwise
      */
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
-        Mapper mapper = new Mapper();
         GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
-                geoAreaDTO.getLength(), geoAreaDTO.getLength(), mapper.dtoToLocal(localDTO));
+                geoAreaDTO.getLength(), geoAreaDTO.getLength(), LocalMapper.dtoToObject(localDTO));
         if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
-                mapper.dtoToLocal(localDTO)))) {
+                LocalMapper.dtoToObject(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
@@ -92,9 +95,9 @@ public class GASettingsController {
      * @return Geographic Area DTO
      */
     public GeographicAreaDTO createGeoAreaDTO(String newName, TypeAreaDTO typeAreaDTO, LocalDTO localDTO, double length, double width) {
-        Mapper mapper = new Mapper();
-        GeographicArea geoArea = new GeographicArea(newName, mapper.dtoToTypeArea(typeAreaDTO), length, width, mapper.dtoToLocal(localDTO));
-        return mapper.geographicAreaToDTO(geoArea);
+        GeographicArea geoArea = new GeographicArea(newName, TypeAreaMapper.dtoToObject(typeAreaDTO), length, width,
+                LocalMapper.dtoToObject(localDTO));
+        return GeographicAreaMapper.objectToDTO(geoArea);
     }
 
     /**
@@ -107,8 +110,7 @@ public class GASettingsController {
      */
     public LocalDTO createLocalDTO(double latitude, double longitude, double altitude) {
         Local local = new Local(latitude, longitude, altitude);
-        Mapper mapper = new Mapper();
-        return mapper.localToDTO(local);
+        return LocalMapper.objectToDTO(local);
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
@@ -176,8 +178,7 @@ public class GASettingsController {
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
     public boolean deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        Mapper mapper = new Mapper();
-        Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
+        Sensor sensor = SensorMapper.dtoToObject(sensorDTO);
         if (sensor.isActive()) {
             sensor.deactivateSensor();
             for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
@@ -191,27 +192,21 @@ public class GASettingsController {
         return false;
     }
 
-
-
-
     /* USER STORY 11 */
 
     public GeographicAreaDTO inputArea(GeographicAreaList geographicAreaList) {
-        Mapper mapper = new Mapper();
         GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
-        return mapper.geographicAreaToDTO(geographicArea);
+        return GeographicAreaMapper.objectToDTO(geographicArea);
     }
 
     public SensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO) {
-        Mapper mapper = new Mapper();
-        GeographicArea geographicArea = mapper.geographicAreaDTOToObject(geographicAreaDTO);
+        GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
         Sensor sensor = InputHelperUI.getInputSensorByList(geographicArea.getSensorList());
-        return mapper.sensorToDTO(sensor);
+        return SensorMapper.objectToDTO(sensor);
     }
 
     public void removeSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        Mapper mapper = new Mapper();
-        Sensor sensor = mapper.sensorDTOToObject(sensorDTO);
+        Sensor sensor = SensorMapper.dtoToObject(sensorDTO);
         for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
             if (g.getName().equals(geographicAreaDTO.getName())) {
                 g.removeSensor(sensor);

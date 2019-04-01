@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
-import pt.ipp.isep.dei.project.dto.Mapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 
@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.Room;
 public class UtilsUI {
 
     public static final String INVALID_OPTION = "Please enter a valid option.";
-    public static final String INVALID_NUMBER = "Please enter a valid number.";
+    static final String INVALID_NUMBER = "Please enter a valid number.";
     private static final String RETURNING_TO_MAIN_MENU = "-- Returning to main menu -- \n";
     public static final String INVALID_ROOM_LIST = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_GRID_LIST = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
@@ -25,14 +25,12 @@ public class UtilsUI {
 
 
     public  boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getSensorList() != null && !room.isSensorListEmpty();
     }
 
     public   boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
-        Mapper mapper = new Mapper();
-        Room room = mapper.updateHouseRoom(roomDTO, house);
+        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
@@ -103,8 +101,8 @@ public class UtilsUI {
 
     /**
      *
-     * @param string
-     * @return string
+     * @param string is the message we want to print.
+     * @return string is the message we want to print.
      * @author André Rua
      */
     public static String printMessage(String string) {

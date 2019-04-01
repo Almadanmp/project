@@ -78,7 +78,7 @@ public class Room implements Metered {
      *
      * @return a double that represents the room height.
      */
-    public double getRoomHeight() {
+    public double getHeight() {
         return roomHeight;
     }
 
@@ -87,7 +87,7 @@ public class Room implements Metered {
      *
      * @return a double that represents the room length.
      */
-    public double getRoomLength() {
+    public double getLength() {
         return roomLength;
     }
 
@@ -96,7 +96,7 @@ public class Room implements Metered {
      *
      * @return a double that represents the room width.
      */
-    public double getRoomWidth() {
+    public double getWidth() {
         return roomWidth;
     }
 
@@ -114,7 +114,7 @@ public class Room implements Metered {
      *
      * @return a string that represents the room name.
      */
-    public String getRoomName() {
+    public String getName() {
         return roomName;
     }
 
@@ -123,7 +123,7 @@ public class Room implements Metered {
      *
      * @return a int that represents the room house floor.
      */
-    public int getHouseFloor() {
+    public int getFloor() {
         return houseFloor;
     }
 
@@ -269,8 +269,8 @@ public class Room implements Metered {
      */
     public String buildString() {
         String result;
-        result = this.roomName + ", " + this.getHouseFloor() + ", " +
-                this.getRoomWidth() + ", " + this.getRoomLength() + ", " + this.getRoomHeight() + ".\n";
+        result = this.roomName + ", " + this.getFloor() + ", " +
+                this.getWidth() + ", " + this.getLength() + ", " + this.getHeight() + ".\n";
         return result;
     }
 
