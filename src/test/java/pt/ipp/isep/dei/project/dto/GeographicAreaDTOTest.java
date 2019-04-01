@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,6 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 class GeographicAreaDTOTest {
+    // Common testing artifacts for testing in this class.
+
+    private GeographicAreaDTO validDTO;
+
+    @BeforeEach
+    void arrangeArtifacts(){
+        validDTO = new GeographicAreaDTO();
+    }
 
     @Test
     void seeIfEqualsWorks() {
@@ -115,7 +124,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetIDWorks(){
+    void seeIfSetGetIDWorks(){
         // Arrange
 
         long expectedresult = 213L;
@@ -132,6 +141,116 @@ class GeographicAreaDTOTest {
     }
 
     @Test
+    void seeIfSetGetNameWorks(){
+        // Arrange
+
+        validDTO.setName("Test");
+        String expectedResult = "Test";
+
+        // Act
+
+        String actualResult = validDTO.getName();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfSetGetTypeAreaWorks(){
+        // Arrange
+
+        validDTO.setTypeArea("Mock");
+        String expectedResult = "Mock";
+
+        // Act
+
+        String actualResult = validDTO.getTypeArea();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetLengthWorks(){
+        // Arrange
+
+        validDTO.setLength(21D);
+
+        // Act
+
+        double actualResult = validDTO.getLength();
+
+        // Assert
+
+        assertEquals(21D, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetWidthWorks(){
+        // Arrange
+
+        validDTO.setWidth(13D);
+
+        // Act
+
+        double actualResult = validDTO.getWidth();
+
+        // Assert
+
+        assertEquals(13D, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetLatitudeWorks(){
+        // Arrange
+
+        validDTO.setLatitude(5D);
+
+        // Act
+
+        double actualResult = validDTO.getLatitude();
+
+        // Assert
+
+        assertEquals(5D, actualResult);
+    }
+
+
+    @Test
+    void seeIfSetGetLongitudeWorks(){
+        // Arrange
+
+        validDTO.setLongitude(5D);
+
+        // Act
+
+        double actualResult = validDTO.getLongitude();
+
+        // Assert
+
+        assertEquals(5D, actualResult);
+    }
+
+
+    @Test
+    void seeIfSetGetAltitudeWorks(){
+        // Arrange
+
+        validDTO.setAltitude(5D);
+
+        // Act
+
+        double actualResult = validDTO.getAltitude();
+
+        // Assert
+
+        assertEquals(5D, actualResult);
+    }
+
+    @Test
     void seeIfHashCodeWorks() {
         //Arrange
 
@@ -144,5 +263,37 @@ class GeographicAreaDTOTest {
         //Assert
 
         assertEquals(1, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetSensorDTOListWorks(){
+        // Arrange
+
+        List<SensorDTO> sensorDTOList = new ArrayList<>();
+        validDTO.setSensorDTOList(sensorDTOList);
+
+        // Act
+
+        List<SensorDTO> actualResult = validDTO.getSensorDTOList();
+
+        // Assert
+
+        assertEquals(sensorDTOList, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetDescriptionWorks(){
+        // Arrange
+
+        validDTO.setDescription("A geographic area.");
+        String expectedResult = "A geographic area.";
+
+        // Act
+
+        String actualResult = validDTO.getDescription();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }

@@ -169,16 +169,6 @@ public class GeographicAreaDTO {
     }
 
     /**
-     * Method that stores a particular sensor DTO in the Geographic Area DTO's list of sensors.
-     *
-     * @param sensorDTOToAdd is the sensor we want to addWithoutPersisting.
-     */
-
-    public void addSensorDTO(SensorDTO sensorDTOToAdd) {
-        this.sensorDTOList.add(sensorDTOToAdd);
-    }
-
-    /**
      * Method that retrieves the object's list of sensor DTOs.
      *
      * @return is a list of sensorDTOs.
