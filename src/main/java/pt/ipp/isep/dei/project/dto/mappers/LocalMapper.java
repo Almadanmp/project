@@ -3,7 +3,23 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.Local;
 
+/**
+ * This class is responsible for converting Locals and Local DTOs into one another.
+ */
+
 public final class LocalMapper {
+    /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private LocalMapper(){}
+
+    /**
+     * This is the method that converts Local DTOs into model objects with the same data.
+     * @param dtoToConvert is the DTO we want to convert.
+     * @return is the converted model object.
+     */
+
     public static Local dtoToObject(LocalDTO dtoToConvert){
         // Update parameters
 
@@ -23,6 +39,12 @@ public final class LocalMapper {
 
         return resultObject;
     }
+
+    /**
+     * This is the method that converts Local model objects into DTOs with the same data.
+     * @param objectToConvert is the object we want to convert.
+     * @return is the converted DTO.
+     */
 
     public static LocalDTO objectToDTO(Local objectToConvert){
         // Update parameters

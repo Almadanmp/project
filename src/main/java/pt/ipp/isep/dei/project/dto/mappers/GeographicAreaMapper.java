@@ -14,6 +14,12 @@ import java.util.List;
 public final class GeographicAreaMapper {
 
     /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private GeographicAreaMapper(){}
+
+    /**
      * This is the method that converts Geographic Area DTOs into model objects with the same data.
      *
      * @param dtoToConvert is the DTO we want to convert.

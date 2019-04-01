@@ -57,7 +57,8 @@ public class EnergyGridDTO {
             return false;
         }
         EnergyGridDTO localVariable = (EnergyGridDTO) testDTO;
-        return (localVariable.getName().equals(this.name) && localVariable.getMaxContractedPower() == this.maxContractedPower);
+        return (localVariable.getName().equals(this.name) && Double.compare(localVariable.getMaxContractedPower(),
+                this.maxContractedPower) == 0);
     }
 
     @Override

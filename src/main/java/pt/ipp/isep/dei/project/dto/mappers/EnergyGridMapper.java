@@ -13,6 +13,11 @@ import java.util.List;
  */
 
 public final class EnergyGridMapper {
+    /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private EnergyGridMapper(){}
 
     /**
      * This is the method that converts energy grid DTOs into model objects with the same data.

@@ -10,6 +10,11 @@ import java.util.Date;
  */
 public final class ReadingMapper {
     /**
+     * Don't let anyone instantiate this class.
+     */
+    private ReadingMapper(){}
+
+    /**
      * This is the method that converts Reading DTOs into model objects with the same data.
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.

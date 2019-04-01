@@ -13,13 +13,17 @@ import java.util.UUID;
  */
 
 public final class RoomMapper {
+    /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private RoomMapper(){}
 
     /**
      * This is the method that converts Room DTOs into model objects with the same data.
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-
     public static Room dtoToObject(RoomDTO dtoToConvert){
         // Update the name
 

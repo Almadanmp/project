@@ -10,6 +10,11 @@ import pt.ipp.isep.dei.project.model.TypeArea;
 
 public final class TypeAreaMapper {
     /**
+     * Don't let anyone instantiate this class.
+     */
+    private TypeAreaMapper(){}
+
+    /**
      * This is the method that converts TypeArea DTOs into model objects with the same data.
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.

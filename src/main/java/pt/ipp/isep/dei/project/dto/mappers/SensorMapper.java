@@ -15,6 +15,11 @@ import java.util.List;
  */
 
 public final class SensorMapper {
+    /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private SensorMapper(){}
 
     /**
      * This is the method that converts Sensor DTOs into model objects with the same data.

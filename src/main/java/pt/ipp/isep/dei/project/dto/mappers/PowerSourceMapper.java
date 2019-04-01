@@ -8,6 +8,11 @@ import pt.ipp.isep.dei.project.model.PowerSource;
  */
 
 public final class PowerSourceMapper {
+    /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private PowerSourceMapper(){}
 
     /**
      * This is the method that converts PowerSource DTOs into model objects with the same data.
