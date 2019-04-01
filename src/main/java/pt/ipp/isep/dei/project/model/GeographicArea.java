@@ -64,40 +64,85 @@ public class GeographicArea {
         this.areaSensors = new SensorList();
     }
 
+    /**
+     * Standard getter method, to return the Id of the Geographical Area.
+     *
+     * @return the long with the Id.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Standard setter method, to define the Id.
+     *
+     * @param id is the Id of the Geographical Area.
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
     // Setters and Getters for all the parameters.
 
+    /**
+     * Standard setter method, to define the name of the Geographical Area.
+     *
+     * @param name is the name of the Geographical Area.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Standard setter method, to define the Area type.
+     *
+     * @param typeArea is the type of the Geographical Area.
+     */
     public void setTypeArea(TypeArea typeArea) {
         this.typeArea = typeArea;
     }
 
+    /**
+     * Standard setter method, to define the length of the Geographic Area.
+     *
+     * @param length is the length value of the Geographical Area.
+     */
     public void setLength(double length) {
         this.length = length;
     }
 
+    /**
+     * Standard setter method, to define the width of the Geographic Area.
+     *
+     * @param width is the width value of the Geographical Area.
+     */
     public void setWidth(double width) {
         this.width = width;
     }
 
+    /**
+     * Standard getter method, to return the Location of the Geographical Area.
+     *
+     * @return the Location of the Geographical Area.
+     */
     public Local getLocation() {
         return location;
     }
 
+    /**
+     * Standard setter method, to define the location of the Geographic Area.
+     *
+     * @param local is the Local of the Geographical Area.
+     */
     public void setLocation(Local location) {
         this.location = location;
     }
 
+    /**
+     * Standard getter method, to return the name of the Geographical Area.
+     *
+     * @return the string with the Geographical Area name.
+     */
     public String getName() {
         return this.name;
     }
@@ -112,6 +157,11 @@ public class GeographicArea {
         this.description = description;
     }
 
+    /**
+     * Standard getter method, to return the description of the Geographical Area.
+     *
+     * @return the string with the description.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -125,6 +175,11 @@ public class GeographicArea {
         this.areaSensors = listToSet;
     }
 
+    /**
+     * Standard setter method, to define the Geographical Area that contains the current Geographic Area.
+     *
+     * @param geoArea is the Geographical Area that contains this Geographical Area.
+     */
     public boolean setMotherArea(GeographicArea geoArea) {
         if (geoArea != null) {
             this.motherArea = geoArea;
@@ -134,6 +189,11 @@ public class GeographicArea {
         }
     }
 
+    /**
+     * Standard getter method, to return the Geographical Area that contains the current Geographic Area.
+     *
+     * @return is the Geographical Area that contains this Geographical Area.
+     */
     GeographicArea getMotherArea() {
         return this.motherArea;
     }

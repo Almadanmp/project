@@ -40,6 +40,11 @@ public class GeographicAreaList {
         geographicAreas.add(geographicAreaToAdd);
     }
 
+    /**
+     * Method to return a list with all the Geographical Areas contained on the geographicAreaRepository
+     *
+     * @return a GeographicAreaList with all the Geographical Areas saved in the repository.
+     */
     public GeographicAreaList getAll() {
         Iterable<GeographicArea> geoAreas = this.geographicAreaRepository.findAll();
         GeographicAreaList result = new GeographicAreaList(this.geographicAreaRepository);
@@ -49,6 +54,11 @@ public class GeographicAreaList {
         return result;
     }
 
+    /**
+     * Method to set a geographicAreaRepository
+     *
+     * @param geographicAreaRepository is a repository of Geographical Areas to be set to the object.
+     */
     public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
         this.geographicAreaRepository = geographicAreaRepository;
     }
