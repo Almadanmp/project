@@ -11,9 +11,10 @@ public class Address {
 
     /**
      * Standard address constructor, used for creating addresses.
+     *
      * @param street is the street.
-     * @param zip is the zip-code.
-     * @param town is the town.
+     * @param zip    is the zip-code.
+     * @param town   is the town.
      */
     public Address(String street, String zip, String town) {
         this.street = street;
@@ -21,26 +22,56 @@ public class Address {
         this.town = town;
     }
 
+    /**
+     * Standard getter method, to return the Street name.
+     *
+     * @return the string with the street name.
+     */
     String getStreet() {
         return this.street;
     }
 
+    /**
+     * Standard getter method, to return the zip code.
+     *
+     * @return the string with the zip code.
+     */
     String getZip() {
         return this.zip;
     }
 
+    /**
+     * Standard getter method, to return the Town name.
+     *
+     * @return the string with the town name.
+     */
     String getTown() {
         return this.town;
     }
 
+    /**
+     * Standard setter method, to define the Street name.
+     *
+     * @param street the string with the street name.
+     */
     void setStreet(String street) {
         this.street = street;
     }
 
+    /**
+     * Standard setter method, to define the Zip code.
+     *
+     * @param zip the string with the zip code.
+     */
     void setZip(String zip) {
         this.zip = zip;
     }
 
+    /**
+     * Standard setter method, to define the Town name.
+     *
+     * @param town the string with the town name.
+     */
     void setTown(String town) {
         this.town = town;
     }

@@ -18,6 +18,12 @@ public class EnergyGrid implements Metered {
     private PowerSourceList listPowerSources;
     private double maxContractedPower;
 
+    /**
+     * Standard Energy Grid constructor, used for creating energy grids.
+     *
+     * @param name               is the name of the grid.
+     * @param maxContractedPower is the value of the maximum power contracted.
+     */
     public EnergyGrid(String name, double maxContractedPower) {
         this.roomList = new RoomList();
         this.listPowerSources = new PowerSourceList();
@@ -43,6 +49,11 @@ public class EnergyGrid implements Metered {
         return roomList;
     }
 
+    /**
+     * Standard getter method, to return the Maximum contracted power.
+     *
+     * @return the number of the max power contracted.
+     */
     public double getMaxContractedPower() {
         return maxContractedPower;
     }
@@ -65,10 +76,20 @@ public class EnergyGrid implements Metered {
         return listPowerSources;
     }
 
+    /**
+     * Standard setter method, to define the list of power sources.
+     *
+     * @param listPowerSources is the PowerSourceList we want to add to the Energy Grid.
+     */
     public void setPowerSourceList(PowerSourceList listPowerSources) {
         this.listPowerSources = listPowerSources;
     }
 
+    /**
+     * Standard setter method, to define the value of the max contracted power.
+     *
+     * @param power is the value of the max contracted power.
+     */
     boolean setMaxContractedPower(double power) {
         if (power < 0) {
             return false;
@@ -160,7 +181,7 @@ public class EnergyGrid implements Metered {
      */
     public Device getDeviceByIndex(int index) {
         DeviceList deviceList = this.getDeviceList();
-        if(deviceList.isEmpty()){
+        if (deviceList.isEmpty()) {
             throw new IndexOutOfBoundsException("The device list is empty.");
         }
         return deviceList.get(index);
@@ -279,6 +300,12 @@ public class EnergyGrid implements Metered {
         return this.listPowerSources.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
+    /**
+     * Method to calculate the energy consumed in a given time interval
+     *
+     * @param time is the timer interval we wish to use to measure the energy consumed
+     * @return the energy consumed.
+     */
     @Override
     public double getEnergyConsumption(float time) {
         return 0;
