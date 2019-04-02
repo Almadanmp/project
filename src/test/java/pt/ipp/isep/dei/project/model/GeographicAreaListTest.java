@@ -3,18 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.Date;
 
@@ -23,10 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * GeographicAreaList tests class.
  */
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = {MainUI.class},
-        loader = AnnotationConfigContextLoader.class)
+
 class GeographicAreaListTest {
     // Common testing artifacts for this class.
 
@@ -34,18 +22,13 @@ class GeographicAreaListTest {
     private GeographicArea firstValidArea;
     private GeographicArea secondValidArea;
 
-    @Autowired
-    GeographicAreaRepository geographicAreaRepository;
-
-    @Autowired
-    private TestEntityManager entityManager;
 
     @BeforeEach
     void arrangeArtifacts() {
-        entityManager.persist(firstValidArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
-                new Local(50, 50, 10)));
-        entityManager.persist(secondValidArea = new GeographicArea("Europe", new TypeArea("Continent"), 3000, 2000,
-                new Local(90, 100, 10)));
+        firstValidArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+                new Local(50, 50, 10));
+        secondValidArea = new GeographicArea("Europe", new TypeArea("Continent"), 3000, 2000,
+                new Local(90, 100, 10));
         validList = new GeographicAreaList();
         validList.addGeographicArea(firstValidArea);
     }
@@ -280,19 +263,17 @@ class GeographicAreaListTest {
     void seeIfGetByIndexWorks() {
         //Arrange
 
-        entityManager.persist(secondValidArea);
-        entityManager.persist(firstValidArea);
-        entityManager.flush();
+        validList.addGeographicArea(secondValidArea);
 
         //Act
 
-        GeographicArea actualResult1 = geographicAreaRepository.findById(secondValidArea.getId()).get();
-        GeographicArea actualResult2 = geographicAreaRepository.findById(firstValidArea.getId()).get();
+        GeographicArea actualResult1 = validList.get(0);
+        GeographicArea actualResult2 = validList.get(1);
 
         //Assert
 
-        assertEquals(actualResult1.getId(), secondValidArea.getId());
-        assertEquals(actualResult2.getId(), firstValidArea.getId());
+        assertEquals(firstValidArea, actualResult1);
+        assertEquals(secondValidArea, actualResult2);
     }
 
 

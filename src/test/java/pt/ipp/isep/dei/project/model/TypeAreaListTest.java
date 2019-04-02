@@ -2,16 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pt.ipp.isep.dei.project.io.ui.MainUI;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,26 +13,20 @@ import static org.testng.Assert.*;
 /**
  * TypeAreaList tests class.
  */
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = {MainUI.class},
-        loader = AnnotationConfigContextLoader.class)
 class TypeAreaListTest {
     // Common testing artifacts for this class.
 
     private TypeArea firstValidType;
     private TypeArea secondValidType;
 
-    @Resource
     private TypeAreaList validList;
 
-    @Autowired
-    private TestEntityManager entityManager;
 
     @BeforeEach
     void arrangeArtifacts() {
-        entityManager.persist(firstValidType = new TypeArea("Country"));
-        entityManager.persist(secondValidType = new TypeArea("City"));
+        validList = new TypeAreaList();
+        firstValidType = new TypeArea("Country");
+        secondValidType = new TypeArea("City");
         validList.addTypeArea(firstValidType);
         validList.addTypeArea(secondValidType);
     }

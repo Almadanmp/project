@@ -10,7 +10,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 
@@ -59,8 +58,6 @@ class SensorServiceTest {
     @Test
     void seeIfAddReadingToMatchingSensorFalse() {
         // Arrange
-
-        SensorList sensorList = new SensorList();
         String sensorId = "404";
         double value = 34;
         Date date = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();

@@ -2,15 +2,8 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.testng.Assert;
-import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
 
@@ -22,27 +15,23 @@ import static org.testng.Assert.assertTrue;
  * TypeSensorList tests class
  */
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = {MainUI.class},
-        loader = AnnotationConfigContextLoader.class)
+
 class TypeSensorListTest {
     // Common Testing Artifacts for this test class.
 
     private TypeSensor firstTypeSensor; // Is in the list.
     private TypeSensor secondTypeSensor; // Is not in the list.
 
-    @Autowired
     private TypeSensorList validList;
 
     @BeforeEach
     void arrangeArtifacts() {
+        validList = new TypeSensorList();
         firstTypeSensor = new TypeSensor("Temperature", "Celsius");
         secondTypeSensor = new TypeSensor("Rainfall", "l/m2");
         validList.add(firstTypeSensor);
     }
 
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfGetAllAsString() {
         // Arrange
@@ -63,7 +52,6 @@ class TypeSensorListTest {
         Assert.assertEquals(type1, firstTypeSensor);
     }
 
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfAddSensorTypeWorks() {
         // Act
@@ -211,7 +199,7 @@ class TypeSensorListTest {
         assertEquals(secondTypeSensor, actualResult2);
     }
 
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+
     @Test
     void seeIfSizeWorks() {
         // Arrange
@@ -231,7 +219,6 @@ class TypeSensorListTest {
     }
 
 
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Test
     void seeIfGetElementsAsArrayWorks() {
         // Arrange
