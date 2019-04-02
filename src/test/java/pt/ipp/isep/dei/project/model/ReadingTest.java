@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -65,25 +66,6 @@ class ReadingTest {
         // Assert
 
         assertEquals(31, actualResult, 0.01);
-    }
-
-    @Test
-    void seeIfGetReadingWorks(){
-        // Arrange
-
-        ReadingList tempList = new ReadingList();
-        tempList.addReading(firstValidReading);
-        firstValidReading.setReadingList(tempList);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(firstValidReading);
-
-        // Act
-
-        ReadingList actualResult = firstValidReading.getReadingList();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
     }
 
     @Test

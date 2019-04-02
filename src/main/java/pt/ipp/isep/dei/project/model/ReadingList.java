@@ -14,7 +14,11 @@ public class ReadingList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // Used as primary key in repository tables.
-    @OneToMany(mappedBy = "readingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Reading",
+            joinColumns = @JoinColumn(name = "Reading_List_id"))
+    @Embedded
     private List<Reading> readings;
 
     /**

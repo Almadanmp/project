@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 
 import java.util.Date;
@@ -16,9 +15,6 @@ public class SensorService {
 
     @Autowired
     private SensorRepository sensorRepository;
-
-    @Autowired
-    private ReadingRepository readingRepository;
 
     /**
      * Method to add a reading to a matching sensor contained in the repository. The sensor is found by its ID.
@@ -44,9 +40,7 @@ public class SensorService {
             if (sensorReadingList.contains(reading)) {
                 return false;
             }
-            reading.setReadingList(sensor.getReadingList());
             sensor.addReading(reading);
-            readingRepository.save(reading);
             sensorRepository.save(sensor);
             return true;
         }

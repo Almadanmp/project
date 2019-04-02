@@ -48,7 +48,9 @@ class GASettingsControllerTest {
     private SensorDTO validSensorDTO2;
     private Sensor validSensor1;
     private Sensor validSensor2;
+    @Autowired
     private GeographicAreaList validGeographicAreaList;
+
     private TypeAreaList validTypeAreaList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
@@ -532,7 +534,7 @@ class GASettingsControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-/**
+
     @Test
     void seeIfInputSensorWorks() {
 
@@ -550,7 +552,7 @@ class GASettingsControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-**/
+
     @Test
     void seeIfRemoveSensorWorks() {
 

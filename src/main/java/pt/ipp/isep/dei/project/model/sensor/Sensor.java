@@ -251,7 +251,6 @@ public class Sensor {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
                 Reading reading = new Reading(value, date, unit);
-                reading.setReadingList(this.readingList);
                 return this.addReading(reading);
             }
         }

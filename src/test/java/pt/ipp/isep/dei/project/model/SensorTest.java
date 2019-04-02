@@ -10,7 +10,10 @@ import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertTrue;
@@ -827,7 +830,7 @@ class SensorTest {
         // Act
         validSensor.deactivateSensor();
         // Act
-       boolean result = validSensor.deactivateSensor();
+        boolean result = validSensor.deactivateSensor();
 
         // Assert
 
@@ -1115,14 +1118,11 @@ class SensorTest {
 
         boolean actualResult = validSensor.addReading(validDate1, 23.3, "C");
         boolean actualResultFailed = validSensor.addReading(outOfBoundsDate, 31D, "C");
-        ReadingList actualResultList = validSensor.getReadingList().get(0).getReadingList();
-
 
         //Assert
 
         Assertions.assertTrue(actualResult);
         assertFalse(actualResultFailed);
-        assertEquals(expectedResultList, actualResultList);
     }
 
     @Test
@@ -1164,6 +1164,7 @@ class SensorTest {
 
         assertFalse(addValidReading);
     }
+
     @Test
     void seeIfGetAverageReadingsBetweenDates() {
         // Arrange

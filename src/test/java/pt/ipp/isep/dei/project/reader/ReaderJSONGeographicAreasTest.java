@@ -7,14 +7,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.services.SensorService;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.TypeArea;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
+import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.io.File;
 
@@ -34,11 +36,6 @@ class ReaderJSONGeographicAreasTest {
 
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
-
-    @Autowired
-    SensorRepository sensorRepository;
-    @Autowired
-    ReadingRepository readingRepository;
 
     private ReaderController ctrl = new ReaderController(sensorService);
 

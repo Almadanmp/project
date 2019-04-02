@@ -1,24 +1,19 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import java.util.Date;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
  */
-@Entity
+@Embeddable
 public class Reading {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+
     private double value;
     private Date date;
     private String unit;
 
-    @ManyToOne
-    @JoinColumn(name = "reading_list_id")
-    private ReadingList readingList;
 
     /**
      * Builder with 'value' and 'date'
@@ -33,18 +28,6 @@ public class Reading {
     }
 
     protected Reading() {
-    }
-
-    public void setReadingList(ReadingList readingList) {
-        this.readingList = readingList;
-    }
-
-    public ReadingList getReadingList() {
-        return readingList;
-    }
-
-    public long getId() {
-        return id;
     }
 
     /**
@@ -73,17 +56,21 @@ public class Reading {
         return this.date;
     }
 
-    /** Setter for unit. Receives a string and sets it as a parameter.
+    /**
+     * Setter for unit. Receives a string and sets it as a parameter.
+     *
      * @param unit string of unit
-     * **/
-    public void setUnit(String unit){
+     **/
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 
-    /** Getter for unit.
+    /**
+     * Getter for unit.
+     *
      * @return unit as string
-     * **/
-    public String getUnit(){
+     **/
+    public String getUnit() {
         return this.unit;
     }
 
