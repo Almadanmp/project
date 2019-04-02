@@ -59,10 +59,10 @@ public class RoomList {
      * the method checks the room name to see if it already exists before creating it
      *
      * @param roomDesignation room name
-     * @param roomHouseFloor floor of the house where room is located
-     * @param width from room size
-     * @param length from room size
-     * @param height from room size
+     * @param roomHouseFloor  floor of the house where room is located
+     * @param width           from room size
+     * @param length          from room size
+     * @param height          from room size
      * @return new created room
      */
 
@@ -268,6 +268,7 @@ public class RoomList {
         }
         return result;
     }
+
     /**
      * Method to check if an instance of this class is equal to another object.
      * Necessary for adding rooms to list.

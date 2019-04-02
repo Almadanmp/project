@@ -23,13 +23,6 @@ public class FixedTimeProgram implements Program {
         setEnergyConsumption(energyConsumption);
     }
 
-    public String buildString() {
-        String result;
-        result = "- The FixedTimeProgram Name is " + getProgramName() + ", its Duration is " +
-                getDuration() + " hours and its Energy Consumption is " + getEnergyConsumption() + ".\n";
-        return result;
-    }
-
     public void setProgramName(String name) {
         this.programName = name;
     }
@@ -104,6 +97,13 @@ public class FixedTimeProgram implements Program {
         }
     }
 
+
+    public String buildString() {
+        String result;
+        result = "- The FixedTimeProgram Name is " + getProgramName() + ", its Duration is " +
+                getDuration() + " hours and its Energy Consumption is " + getEnergyConsumption() + ".\n";
+        return result;
+    }
 
     @Override
     public boolean equals(Object o) {

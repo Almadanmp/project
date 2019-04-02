@@ -199,10 +199,6 @@ public class Sensor {
         this.active = status;
     }
 
-    public void setterActive(boolean active) {
-        this.active = active;
-    }
-
     public void setSensorList(SensorList sensorList) {
         this.sensorList = sensorList;
     }

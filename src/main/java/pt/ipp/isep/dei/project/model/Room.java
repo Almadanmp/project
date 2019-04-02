@@ -46,26 +46,6 @@ public class Room implements Metered {
         this.uniqueID = UUID.randomUUID();
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public void setHouseFloor(int houseFloor) {
-        this.houseFloor = houseFloor;
-    }
-
-    public void setRoomWidth(double roomWidth) {
-        this.roomWidth = roomWidth;
-    }
-
-    public void setRoomLength(double roomLength) {
-        this.roomLength = roomLength;
-    }
-
-    public void setRoomHeight(double roomHeight) {
-        this.roomHeight = roomHeight;
-    }
-
     /**
      * Method that returns the SensorList of the room.
      *

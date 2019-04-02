@@ -35,20 +35,6 @@ public class SensorList {
         return sensors;
     }
 
-    /**
-     * Method to Add a sensor only if it's not contained in the list already.
-     *
-     * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
-     * @return true if sensor was successfully added to the SensorList, false otherwise.
-     */
-
-    public boolean add(Sensor sensorToAdd) {
-        if (!(sensors.contains(sensorToAdd))) {
-            return sensors.add(sensorToAdd);
-        }
-        return false;
-    }
-
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
@@ -112,6 +98,21 @@ public class SensorList {
             }
         }
         return containedTypeSensors;
+    }
+
+
+    /**
+     * Method to Add a sensor only if it's not contained in the list already.
+     *
+     * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
+     * @return true if sensor was successfully added to the SensorList, false otherwise.
+     */
+
+    public boolean add(Sensor sensorToAdd) {
+        if (!(sensors.contains(sensorToAdd))) {
+            return sensors.add(sensorToAdd);
+        }
+        return false;
     }
 
     /**

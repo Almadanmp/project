@@ -4,15 +4,6 @@ import java.util.List;
 
 public interface Program {
 
-    /**
-     * Represents a program option for devices.
-     * A programmable device implements a number of different programs. Types of programs may vary from device to
-     * device.
-     *
-     * @return a built String.
-     */
-    String buildString();
-
     void setProgramName(String name);
 
     String getProgramName();
@@ -26,5 +17,12 @@ public interface Program {
 
     Object getAttributeValue(String attributeName);
 
-
+    /**
+     * Represents a program option for devices.
+     * A programmable device implements a number of different programs. Types of programs may vary from device to
+     * device.
+     *
+     * @return a built String.
+     */
+    String buildString();
 }
