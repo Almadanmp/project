@@ -612,13 +612,8 @@ public class ReadingList {
      *
      * @return true if the reading already exists, false otherwise
      */
-    boolean contains(Reading reading) {
-        for (Reading r : this.readings) {
-            if (r.equals(reading)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean contains(Reading reading) {
+        return (readings.contains(reading));
     }
 
     @Override

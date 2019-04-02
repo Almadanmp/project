@@ -264,6 +264,7 @@ public class SensorList {
         return false;
     }
 
+
     /**
      * Method 'equals' for comparison between objects of the same class
      *
