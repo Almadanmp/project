@@ -28,8 +28,7 @@ public class GeographicArea {
     @JoinColumn(name = "mother_area_id")
     private GeographicArea motherArea;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "local_id")
+    @Embedded
     private Local location;
 
     @OneToOne(cascade = CascadeType.ALL)

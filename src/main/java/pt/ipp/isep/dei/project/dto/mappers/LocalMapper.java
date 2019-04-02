@@ -12,15 +12,17 @@ public final class LocalMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private LocalMapper(){}
+    private LocalMapper() {
+    }
 
     /**
      * This is the method that converts Local DTOs into model objects with the same data.
+     *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
 
-    public static Local dtoToObject(LocalDTO dtoToConvert){
+    public static Local dtoToObject(LocalDTO dtoToConvert) {
         // Update parameters
 
         double objectLatitude = dtoToConvert.getLatitude();
@@ -35,18 +37,18 @@ public final class LocalMapper {
 
         Local resultObject = new Local(objectLatitude, objectLongitude, objectAltitude);
 
-        resultObject.setId(objectID);
 
         return resultObject;
     }
 
     /**
      * This is the method that converts Local model objects into DTOs with the same data.
+     *
      * @param objectToConvert is the object we want to convert.
      * @return is the converted DTO.
      */
 
-    public static LocalDTO objectToDTO(Local objectToConvert){
+    public static LocalDTO objectToDTO(Local objectToConvert) {
         // Update parameters
 
         double dtoLatitude = objectToConvert.getLatitude();
@@ -55,7 +57,6 @@ public final class LocalMapper {
 
         double dtoAltitude = objectToConvert.getAltitude();
 
-        long dtoID = objectToConvert.getId();
 
         // Create, update and return new object
 
@@ -63,7 +64,6 @@ public final class LocalMapper {
         resultDTO.setAltitude(dtoAltitude);
         resultDTO.setLatitude(dtoLatitude);
         resultDTO.setLongitude(dtoLongitude);
-        resultDTO.setId(dtoID);
 
         return resultDTO;
     }

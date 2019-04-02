@@ -21,7 +21,7 @@ public class Sensor {
     @JoinColumn(name = "type_sensor_id")
     private TypeSensor typeSensor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Embedded
     @JoinColumn(name = "local_id")
     private Local local;
 

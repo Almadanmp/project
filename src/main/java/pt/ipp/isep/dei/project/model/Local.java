@@ -1,20 +1,13 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 
 
 /**
  * Class that represents the Local of an Object .
  */
-@Entity
+@Embeddable
 public class Local {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
 
     private double latitude;
     private double longitude;
@@ -34,14 +27,6 @@ public class Local {
     }
 
     protected Local() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     /**
@@ -120,12 +105,6 @@ public class Local {
                 Math.cos(latitude1) * Math.cos(latitude2) * (Math.sin(dLon / 2) * Math.sin(dLon / 2));
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadiusInKm * c;
-    }
-
-    public String toString() {
-        return String.format(
-                "Local[id=%d, latitude='%s', longitude='%s', altitude='%s']",
-                id, latitude, longitude, altitude);
     }
 
     /**

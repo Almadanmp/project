@@ -87,7 +87,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalseSameLocalSameNameDiffType(){
+    void seeIfEqualsWorksFalseSameLocalSameNameDiffType() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("City"), 300, 200,
@@ -103,7 +103,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalseSameLocalDiffNameSameType(){
+    void seeIfEqualsWorksFalseSameLocalDiffNameSameType() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Porto", new TypeArea("Country"), 300, 200,
@@ -119,7 +119,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalseSameLocalDiffNameDiffType(){
+    void seeIfEqualsWorksFalseSameLocalDiffNameDiffType() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 300, 200,
@@ -135,7 +135,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalseDiffLocalSameNameSameType(){
+    void seeIfEqualsWorksFalseDiffLocalSameNameSameType() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
@@ -151,7 +151,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalseDiffLocalDiffNameSameType(){
+    void seeIfEqualsWorksFalseDiffLocalDiffNameSameType() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Porto", new TypeArea("Country"), 300, 200,
@@ -167,7 +167,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalseDiffLocalSameNameDiffType(){
+    void seeIfEqualsWorksFalseDiffLocalSameNameDiffType() {
         // Arrange
 
         GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("City"), 300, 200,
@@ -540,7 +540,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfEqualsWorksNotAnInstance (){
+    void seeIfEqualsWorksNotAnInstance() {
         // Arrange
         Local local = new Local(21, 1, 12);
 
@@ -614,29 +614,6 @@ class GeographicAreaTest {
         //Act
         Local actualResult = geographicArea.getLocation();
         //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfToStringOverrideWorks() {
-        // Arrange
-
-        GeographicArea motherArea = new GeographicArea();
-        GeographicArea geographicArea = new GeographicArea();
-        geographicArea.setTypeArea(new TypeArea("city"));
-        geographicArea.setLength(2);
-        geographicArea.setWidth(3);
-        geographicArea.setMotherArea(motherArea);
-        geographicArea.setLocation(new Local(2, 3, 5));
-        geographicArea.setDescription("city of porto");
-        String expectedResult = "GeographicArea[id=null, typeArea='pt.ipp.isep.dei.project.model.TypeArea@1', length='2.0, width='3.0', motherArea='GeographicArea[id=null, typeArea='null', length='0.0, width='0.0', motherArea='null, location='null', description='null'], location='Local[id=0, latitude='2.0', longitude='3.0', altitude='5.0']', description='city of porto']";
-
-        // Act
-
-        String actualResult = geographicArea.toString();
-
-        // Assert
-
         assertEquals(expectedResult, actualResult);
     }
 }
