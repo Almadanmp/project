@@ -3,12 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
@@ -16,7 +11,6 @@ import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
 import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
-import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
@@ -33,10 +27,7 @@ import static org.testng.Assert.*;
 /**
  * GASettingsController tests class.
  */
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = {MainUI.class},
-        loader = AnnotationConfigContextLoader.class)
+
 class GASettingsControllerTest {
     private GASettingsController controller = new GASettingsController();
     private GeographicArea firstValidArea;
@@ -115,8 +106,7 @@ class GASettingsControllerTest {
 
         validGeographicAreaList.addAndPersistGA(secondValidArea);
         GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.setGeographicAreaRepository(geographicAreaRepository);
-        expectedResult.addAndPersistGA(secondValidArea);
+        expectedResult.addGeographicArea(secondValidArea);
 
         // Act
 

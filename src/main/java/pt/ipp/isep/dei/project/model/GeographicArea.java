@@ -364,13 +364,6 @@ public class GeographicArea {
     }
 
     @Override
-    public String toString() {
-        return String.format(
-                "GeographicArea[id=%s, typeArea='%s', length='%s, width='%s', motherArea='%s, location='%s', description='%s']",
-                name, typeArea, length, width, motherArea, location, description);
-    }
-
-    @Override
     public int hashCode() {
         return 1;
     }
