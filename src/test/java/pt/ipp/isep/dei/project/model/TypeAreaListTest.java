@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 
@@ -20,7 +22,7 @@ import static org.testng.Assert.*;
 /**
  * TypeAreaList tests class.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = {MainUI.class},
         loader = AnnotationConfigContextLoader.class)
@@ -33,10 +35,13 @@ class TypeAreaListTest {
     @Resource
     private TypeAreaList validList;
 
+    @Autowired
+    private TestEntityManager entityManager;
+
     @BeforeEach
     void arrangeArtifacts() {
-        firstValidType = new TypeArea("Country");
-        secondValidType = new TypeArea("City");
+        entityManager.persist(firstValidType = new TypeArea("Country"));
+        entityManager.persist(secondValidType = new TypeArea("City"));
         validList.addTypeArea(firstValidType);
         validList.addTypeArea(secondValidType);
     }
@@ -188,7 +193,7 @@ class TypeAreaListTest {
     }
 
     @Test
-    void seeIfGetTypeAreasWorks(){
+    void seeIfGetTypeAreasWorks() {
         // Arrange
 
         List<TypeArea> expectedResult = new ArrayList<>();
