@@ -14,6 +14,7 @@ public class Reading {
     private long id;
     private double value;
     private Date date;
+    private String unit;
 
     @ManyToOne
     @JoinColumn(name = "reading_list_id")
@@ -25,9 +26,10 @@ public class Reading {
      * @param value value received
      * @param date  date received
      */
-    public Reading(double value, Date date) {
+    public Reading(double value, Date date, String unit) {
         setValue(value);
         setDate(date);
+        setUnit(unit);
     }
 
     protected Reading() {
@@ -71,6 +73,19 @@ public class Reading {
         return this.date;
     }
 
+    /** Setter for unit. Receives a string and sets it as a parameter.
+     * @param unit string of unit
+     * **/
+    public void setUnit(String unit){
+        this.unit = unit;
+    }
+
+    /** Getter for unit.
+     * @return unit as string
+     * **/
+    public String getUnit(){
+        return this.unit;
+    }
 
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
@@ -78,7 +93,6 @@ public class Reading {
      * @param o object
      * @return boolean
      */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

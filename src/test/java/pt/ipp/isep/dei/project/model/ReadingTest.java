@@ -22,7 +22,7 @@ class ReadingTest {
     void arrangeArtifacts() {
         earlyDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         lateDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-        firstValidReading = new Reading(31, earlyDate);
+        firstValidReading = new Reading(31, earlyDate, "C");
     }
 
     @Test
@@ -120,7 +120,7 @@ class ReadingTest {
     void seeIfEqualsWorksTrue() {
         // Arrange
 
-        Reading testReading = new Reading(31, earlyDate);
+        Reading testReading = new Reading(31, earlyDate, "C");
 
         // Act
 
@@ -140,6 +140,22 @@ class ReadingTest {
         // Act
 
         int actualResult = firstValidReading.hashCode();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetAndGetUnitWorks() {
+        //Arrange
+
+        String expectedResult = "F";
+
+        // Act
+
+        firstValidReading.setUnit("F");
+        String actualResult = firstValidReading.getUnit();
 
         // Assert
 

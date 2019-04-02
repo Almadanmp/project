@@ -191,10 +191,11 @@ class ReaderControllerTest {
         // Arrange
 
 
-        String[] readings = new String[3];
+        String[] readings = new String[4];
         readings[0] = "wrong sensor";
         readings[1] = "2019-12-30T02:00:00+00:00";
         readings[2] = "23";
+        readings[3] = "C";
 
         // Act
 
@@ -217,12 +218,13 @@ class ReaderControllerTest {
         }
 
 
-        String[] readings = new String[3];
+        String[] readings = new String[4];
         readings[0] = "RF12345";
         readings[1] = "2019-12-30T02:00:00+00:00";
         readings[2] = "23";
+        readings[3] = "C";
 
-        validSensor1.addReading(new Reading(32, validDate));
+        validSensor1.addReading(new Reading(32, validDate, "C"));
 
         // Act
 
@@ -240,10 +242,11 @@ class ReaderControllerTest {
         SensorList emptyList = new SensorList();
 
 
-        String[] readings = new String[3];
+        String[] readings = new String[4];
         readings[0] = "RF12345";
         readings[1] = "2019-12-30T02:00:00+00:00";
         readings[2] = "23";
+        readings[3] = "C";
 
         // Act
 
@@ -669,7 +672,7 @@ class ReaderControllerTest {
 
         //Act
 
-        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1);
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1, "C");
 
         // Assert
 
@@ -696,7 +699,7 @@ class ReaderControllerTest {
 
         //Act
 
-        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1);
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1, "C");
 
         // Assert
 
@@ -707,7 +710,7 @@ class ReaderControllerTest {
     void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
         //Act
 
-        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1);
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1, "C");
 
         // Assert
 

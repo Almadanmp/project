@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * ReaderCSVReadings test class.
+ * ReaderCSV test class.
  */
 
-class ReaderCSVReadingsTest {
+class ReaderCSVTest {
 
     // Common artifacts for testing in this class.
-    private ReaderCSVReadings validReader;
+    private ReaderCSV validReader;
     private static final String validLocation1 = "src/test/resources/test3CSVReadings.csv";
     private static final String validLocation2 = "src/test/resources/test4CSVReadings.csv";
     private static final String wrongLocation1 = "src/test/resources";
@@ -25,7 +25,7 @@ class ReaderCSVReadingsTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReader = new ReaderCSVReadings();
+        validReader = new ReaderCSV();
         validList = new ArrayList<>();
 
     }

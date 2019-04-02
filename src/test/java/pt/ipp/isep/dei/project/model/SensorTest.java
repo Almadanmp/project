@@ -213,7 +213,7 @@ class SensorTest {
         ReadingList expectedResult2 = new ReadingList();
         ReadingList emptyList = new ReadingList();
         ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(15, new Date());
+        Reading reading1 = new Reading(15, new Date(), "C");
 
         Sensor sensor1 = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
         Sensor sensor2 = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
@@ -886,7 +886,7 @@ class SensorTest {
     void seeIfAddReadingsWorks() {
         // Arrange
 
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C");
 
         // Act
 
@@ -903,7 +903,7 @@ class SensorTest {
     void seeIfAddReadingsWorksNotActiveResult() {
         // Arrange
 
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C");
         validSensor.deactivateSensor();
         // Act
 
@@ -953,26 +953,26 @@ class SensorTest {
     void seeIfGetLastColdestDayInIntervalWorks() {
         //Arrange
         ReadingList readingList = new ReadingList();
-        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime());
-        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime());
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime());
-        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime());
-        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime());
-        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime());
-        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime());
-        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime());
-        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime());
-        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime());
-        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime());
-        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime());
-        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime());
-        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime());
-        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime());
-        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime());
-        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime());
-        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime());
-        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime());
-        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime());
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         readingList.addReading(reading3);
@@ -1109,12 +1109,12 @@ class SensorTest {
         Date dateSensorStartedFunctioning = new GregorianCalendar(2015, Calendar.NOVEMBER, 15).getTime();
         validSensor.setDateStartedFunctioning(dateSensorStartedFunctioning);
         ReadingList expectedResultList = new ReadingList();
-        expectedResultList.addReading(new Reading(23.3, validDate1));
+        expectedResultList.addReading(new Reading(23.3, validDate1, "C"));
 
         // Act
 
-        boolean actualResult = validSensor.addReading(validDate1, 23.3);
-        boolean actualResultFailed = validSensor.addReading(outOfBoundsDate, 31D);
+        boolean actualResult = validSensor.addReading(validDate1, 23.3, "C");
+        boolean actualResultFailed = validSensor.addReading(outOfBoundsDate, 31D, "C");
         ReadingList actualResultList = validSensor.getReadingList().get(0).getReadingList();
 
 
@@ -1134,11 +1134,11 @@ class SensorTest {
         // Act
 
         boolean addValidReading = validSensor.addReading(new GregorianCalendar(2019, Calendar.JANUARY,
-                1).getTime(), 20D);
+                1).getTime(), 20D, "C");
         boolean addOutOfBoundsReading = validSensor.addReading(new GregorianCalendar(2017, Calendar.FEBRUARY,
-                3).getTime(), 12D);
+                3).getTime(), 12D, "C");
         boolean addOnBoundsReading = validSensor.addReading(new GregorianCalendar(2018, Calendar.JANUARY,
-                2).getTime(), 15D);
+                2).getTime(), 15D, "C");
 
 
         // Assert
@@ -1157,7 +1157,7 @@ class SensorTest {
         // Act
 
         boolean addValidReading = validSensor.addReading(new GregorianCalendar(2019, Calendar.JANUARY,
-                1).getTime(), 20D);
+                1).getTime(), 20D, "C");
 
 
         // Assert
@@ -1180,9 +1180,9 @@ class SensorTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Reading r0 = new Reading(20, validDate3);
-        Reading r1 = new Reading(25, validDate4);
-        Reading r2 = new Reading(30, validDate5);
+        Reading r0 = new Reading(20, validDate3, "C");
+        Reading r1 = new Reading(25, validDate4, "C");
+        Reading r2 = new Reading(30, validDate5, "C");
         validReadingList1.addReading(r0);
         validReadingList1.addReading(r1);
         validReadingList1.addReading(r2);
@@ -1219,12 +1219,12 @@ class SensorTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Reading r0 = new Reading(20, validDate3);
-        Reading r1 = new Reading(25, validDate4);
-        Reading r2 = new Reading(30, validDate5);
-        Reading r3 = new Reading(10, validDate6);
-        Reading r4 = new Reading(10, validDate7);
-        Reading r5 = new Reading(10, validDate8);
+        Reading r0 = new Reading(20, validDate3, "C");
+        Reading r1 = new Reading(25, validDate4, "C");
+        Reading r2 = new Reading(30, validDate5, "C");
+        Reading r3 = new Reading(10, validDate6, "C");
+        Reading r4 = new Reading(10, validDate7, "C");
+        Reading r5 = new Reading(10, validDate8, "C");
         validReadingList1.addReading(r0);
         validReadingList1.addReading(r1);
         validReadingList1.addReading(r2);
@@ -1263,10 +1263,10 @@ class SensorTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Reading reading = new Reading(20, validDate15);
-        Reading reading2 = new Reading(20, validDate3);
-        Reading reading3 = new Reading(20, validDate7);
-        Reading reading4 = new Reading(20, validDate14);
+        Reading reading = new Reading(20, validDate15, "C");
+        Reading reading2 = new Reading(20, validDate3, "C");
+        Reading reading3 = new Reading(20, validDate7, "C");
+        Reading reading4 = new Reading(20, validDate14, "C");
         validReadingList.addReading(reading);
         validReadingList.addReading(reading2);
         validReadingList.addReading(reading3);
@@ -1295,8 +1295,8 @@ class SensorTest {
             e.printStackTrace();
         }
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
-        Reading earlierReading = new Reading(15, validDate12);
-        Reading laterReading = new Reading(30, testDate);
+        Reading earlierReading = new Reading(15, validDate12, "C");
+        Reading laterReading = new Reading(30, testDate, "C");
         validReadingList.addReading(earlierReading);
         validReadingList.addReading(laterReading);
         double expectedResult = 30.0;

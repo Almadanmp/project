@@ -47,7 +47,7 @@ class RoomTest {
         validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
         validRoom.addDevice(validDevice);
         validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
-                getTime());
+                getTime(),"C");
         validSensor.addReading(validReading);
     }
 
@@ -439,9 +439,9 @@ class RoomTest {
         // Arrange
 
         Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 0).getTime());
+                12, 2, 0).getTime(),"C");
         Reading thirdReading = new Reading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                11, 2, 0).getTime());
+                11, 2, 0).getTime(),"C");
         validSensor.addReading(secondReading);
         validSensor.addReading(thirdReading);
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
@@ -478,9 +478,9 @@ class RoomTest {
         // Arrange
 
         Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 2).getTime());
+                12, 2, 2).getTime(), "C");
         Reading thirdReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 13).getTime());
+                12, 2, 13).getTime(), "C");
         validSensor.addReading(secondReading);
         validSensor.addReading(thirdReading);
         double expectedResult = 21;
@@ -508,11 +508,11 @@ class RoomTest {
         validRoom.addSensor(secondSensor);
         validRoom.addSensor(thirdSensor);
         Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 2).getTime());
+                12, 2, 2).getTime(), "C");
         Reading thirdReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 13).getTime());
+                12, 2, 13).getTime(), "C");
         Reading mostRecentReading = new Reading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                15, 2, 13).getTime());
+                15, 2, 13).getTime(), "C");
         firstSensor.addReading(secondReading);
         secondSensor.addReading(thirdReading);
         secondSensor.addReading(mostRecentReading);

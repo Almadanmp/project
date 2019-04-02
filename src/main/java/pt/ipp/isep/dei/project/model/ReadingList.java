@@ -111,7 +111,7 @@ public class ReadingList {
      * @author Carina (US600 e US605)
      **/
     Reading getMostRecentReading() {
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime());
+        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
         if (isEmpty()) {
             return error;
         }

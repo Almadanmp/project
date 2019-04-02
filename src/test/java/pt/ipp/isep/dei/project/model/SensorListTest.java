@@ -199,7 +199,7 @@ class SensorListTest {
     void seeIfGetReadingsWorksReadingsAtBeginning() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
@@ -218,7 +218,7 @@ class SensorListTest {
     void seeIfGetReadingsWorksReadingsAtEnd() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validSensorList.add(secondValidSensor);
         secondValidSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
@@ -237,8 +237,8 @@ class SensorListTest {
     void seeIfGetReadingsWorksAllSensorsHaveReadings() {
         // Arrange
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
-        Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C");
+        Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         secondValidSensor.addReading(readingTwo);
@@ -271,13 +271,13 @@ class SensorListTest {
         // Assign readings to sensors.
 
         Reading mostRecentReading = new Reading(3, new GregorianCalendar(2019, Calendar.JANUARY, 1)
-                .getTime());
+                .getTime(), "C");
         firstValidSensor.addReading(mostRecentReading);
         Reading secondReading = new Reading(3, new GregorianCalendar(2018, Calendar.JANUARY, 2)
-                .getTime());
+                .getTime(), "C");
         secondValidSensor.addReading(secondReading);
         Reading thirdReading = new Reading(3, new GregorianCalendar(2017, Calendar.JANUARY, 1)
-                .getTime());
+                .getTime(), "C");
         thirdValidSensor.addReading(thirdReading);
 
         // Test for when most recent reading is in the first sensor.
@@ -366,7 +366,7 @@ class SensorListTest {
         SensorList emptyList = new SensorList();
         SensorList twoSensorsList = new SensorList();
 
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         secondValidSensor.addReading(readingOne);
 
         twoSensorsList.add(firstValidSensor);

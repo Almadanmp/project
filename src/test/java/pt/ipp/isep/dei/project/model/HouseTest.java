@@ -411,8 +411,8 @@ class HouseTest {
         Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
         Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
         ReadingList readingList = new ReadingList();
-        Reading firstReading = new Reading(15, laterDate);
-        Reading secondReading = new Reading(12, earlierDate);
+        Reading firstReading = new Reading(15, laterDate,"C");
+        Reading secondReading = new Reading(12, earlierDate,"C");
         readingList.addReading(firstReading);
         readingList.addReading(secondReading);
         firstValidSensor.setReadingList(readingList);
@@ -440,15 +440,15 @@ class HouseTest {
             e.printStackTrace();
         }
         ReadingList readingList = new ReadingList();
-        Reading firstReading = new Reading(15, laterDate);
-        Reading secondReading = new Reading(12, earlierDate);
+        Reading firstReading = new Reading(15, laterDate, "C");
+        Reading secondReading = new Reading(12, earlierDate,"C");
         readingList.addReading(firstReading);
         readingList.addReading(secondReading);
         firstValidSensor.setReadingList(readingList);
 
         Sensor secondSensor = new Sensor("RF4321", "tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        secondSensor.addReading(new Reading(15, earlierDate));
+        secondSensor.addReading(new Reading(15, earlierDate,"C"));
         validArea.addSensor(secondSensor);
 
         // Act

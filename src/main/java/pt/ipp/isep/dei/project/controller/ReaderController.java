@@ -284,7 +284,7 @@ public class ReaderController {
         if (sensorList.isEmpty()) {
             return addedReadings;
         }
-        ReaderCSVReadings csvRead = new ReaderCSVReadings();
+        ReaderCSV csvRead = new ReaderCSV();
         List<String[]> list = csvRead.readFile(path);
         try {
             Logger logger = Logger.getLogger(ReaderController.class.getName());
@@ -318,7 +318,8 @@ public class ReaderController {
                 String sensorID = readings[0];
                 Date readingDate = pattern.parse(readings[1]);
                 Double readingValue = Double.parseDouble(readings[2]);
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate);
+                String readingUnit = readings[3];
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -392,7 +393,8 @@ public class ReaderController {
                 String sensorID = reading.getString("id");
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate);
+                String readingUnit = reading.getString("unit");
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -410,8 +412,8 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate) {
-        if (sensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate)) {
+    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
+        if (sensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
             return 1;
         }
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
@@ -486,7 +488,8 @@ public class ReaderController {
                 String sensorID = element.getElementsByTagName("id").item(0).getTextContent();
                 Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate);
+                String readingUnit = element.getElementsByTagName("unit").item(0).getTextContent();
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;

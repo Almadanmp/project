@@ -62,9 +62,9 @@ public final class SensorMapper {
         Date objectDate = null;
         String objectDateStartedFunctioningString = dtoToConvert.getDateStartedFunctioning();
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy"));
         knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"));
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 objectDate = pattern.parse(objectDateStartedFunctioningString);

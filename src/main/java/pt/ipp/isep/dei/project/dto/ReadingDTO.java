@@ -5,6 +5,7 @@ import java.util.Date;
 public class ReadingDTO {
     private double value;
     private Date date;
+    private String unit;
 
     public Date getDate() {
         return date;
@@ -20,5 +21,13 @@ public class ReadingDTO {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public String getUnit() {
+        return this.unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

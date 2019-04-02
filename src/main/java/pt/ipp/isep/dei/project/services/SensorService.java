@@ -34,11 +34,12 @@ public class SensorService {
      * @return is true if the reading is added (if there is a sensor with an ID that matches the given ID), false
      * if there is no sensor with that ID.
      */
-    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate) {
+
+    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
         Optional<Sensor> value = sensorRepository.findById(sensorID);
         if (value.isPresent()) {
             Sensor sensor = value.get();
-            Reading reading = new Reading(readingValue, readingDate);
+            Reading reading = new Reading(readingValue, readingDate, unit);
             ReadingList sensorReadingList = sensor.getReadingList();
             if (sensorReadingList.contains(reading)) {
                 return false;

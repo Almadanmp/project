@@ -532,7 +532,7 @@ class GASettingsControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
+/**
     @Test
     void seeIfInputSensorWorks() {
 
@@ -550,7 +550,7 @@ class GASettingsControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
+**/
     @Test
     void seeIfRemoveSensorWorks() {
 

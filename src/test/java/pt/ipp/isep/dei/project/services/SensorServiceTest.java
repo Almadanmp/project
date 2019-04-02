@@ -48,7 +48,7 @@ class SensorServiceTest {
 
         // Act
 
-        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date);
+        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date, "C");
 
         // Assert
 
@@ -67,7 +67,7 @@ class SensorServiceTest {
 
         // Act
 
-        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date);
+        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date, "C");
 
         // Assert
 

@@ -24,10 +24,11 @@ public final class ReadingMapper {
 
         double objectValue = dtoToConvert.getValue();
         Date objectDate = dtoToConvert.getDate();
+        String objectUnit = dtoToConvert.getUnit();
 
         // Create, update and return the converted object
 
-        return new Reading(objectValue, objectDate);
+        return new Reading(objectValue, objectDate, objectUnit);
     }
 
     /**

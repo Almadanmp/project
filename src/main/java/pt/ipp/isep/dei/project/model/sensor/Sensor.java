@@ -250,11 +250,11 @@ public class Sensor {
      * @return returns true if the reading was successfully added.
      * @author André
      */
-    public boolean addReading(Date date, Double value) {
+    public boolean addReading(Date date, Double value, String unit) {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
-                Reading reading = new Reading(value, date);
+                Reading reading = new Reading(value, date, unit);
                 reading.setReadingList(this.readingList);
                 return this.addReading(reading);
             }

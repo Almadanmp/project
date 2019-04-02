@@ -31,15 +31,15 @@ title XMLFileReading
 activate ReaderController
 
 ReaderController -> ReaderController: SensorList sensorList = geographicAreaList.getAreaListSensors();
-create "xmlRead :ReaderXMLReadings"
-ReaderController -> "xmlRead :ReaderXMLReadings": new ReaderXMLReadings();
-activate "xmlRead :ReaderXMLReadings"
-ref over "xmlRead :ReaderXMLReadings"
+create "xmlRead :ReaderXML"
+ReaderController -> "xmlRead :ReaderXML": new ReaderXML();
+activate "xmlRead :ReaderXML"
+ref over "xmlRead :ReaderXML"
 Read readings from
 XML file reading
 end ref
-ReaderController -> "xmlRead :ReaderXMLReadings": Document doc = xmlRead.readFile(filePath);
-deactivate "xmlRead :ReaderXMLReadings"
+ReaderController -> "xmlRead :ReaderXML": Document doc = xmlRead.readFile(filePath);
+deactivate "xmlRead :ReaderXML"
 
 ReaderController -> ReaderController: NodeList list = doc.getElementsByTagName("reading");
 
