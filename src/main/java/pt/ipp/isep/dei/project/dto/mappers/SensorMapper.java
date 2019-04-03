@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This class is responsible for converting Sensors and Sensor DTOs into one another.
@@ -62,9 +63,9 @@ public final class SensorMapper {
         Date objectDate = null;
         String objectDateStartedFunctioningString = dtoToConvert.getDateStartedFunctioning();
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy"));
-        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"));
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy"));
+        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy", new Locale("en", "US")));
+        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US")));
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "US")));
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 objectDate = pattern.parse(objectDateStartedFunctioningString);
