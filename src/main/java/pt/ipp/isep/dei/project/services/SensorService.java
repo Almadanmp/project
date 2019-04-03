@@ -16,6 +16,10 @@ public class SensorService {
     @Autowired
     private SensorRepository sensorRepository;
 
+    public SensorService(SensorRepository sensorRepository) {
+        this.sensorRepository = sensorRepository;
+    }
+
     /**
      * Method to add a reading to a matching sensor contained in the repository. The sensor is found by its ID.
      * <p>

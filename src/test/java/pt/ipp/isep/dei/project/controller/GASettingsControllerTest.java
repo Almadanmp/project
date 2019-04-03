@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
@@ -44,13 +42,10 @@ class GASettingsControllerTest {
     private SensorDTO validSensorDTO2;
     private Sensor validSensor1;
     private Sensor validSensor2;
-    @Autowired
     private GeographicAreaList validGeographicAreaList;
-    @InjectMocks
     private TypeAreaList validTypeAreaList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
-    @Autowired
     GeographicAreaRepository geographicAreaRepository;
 
     @Mock
@@ -81,7 +76,7 @@ class GASettingsControllerTest {
         validSensorDTO1 = SensorMapper.objectToDTO(validSensor1);
         validSensorDTO2 = SensorMapper.objectToDTO(validSensor2);
 
-        validGeographicAreaList = new GeographicAreaList();
+        validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaList.addGeographicArea(firstValidArea);
         validGeographicAreaList.addGeographicArea(secondValidArea);
     }
@@ -112,7 +107,7 @@ class GASettingsControllerTest {
         // Arrange
 
         validGeographicAreaList.addAndPersistGA(secondValidArea);
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
         expectedResult.addGeographicArea(secondValidArea);
 
         // Act
@@ -255,7 +250,7 @@ class GASettingsControllerTest {
     void seeIfCreatesGeographicAreaAndAddsItToList() {
         // Arrange
 
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicAreaList geographicAreaList = new GeographicAreaList(geographicAreaRepository);
 
         // Act
 
@@ -275,10 +270,10 @@ class GASettingsControllerTest {
 
         //Arrange
 
-        GeographicAreaList gaL1 = new GeographicAreaList();
+        GeographicAreaList gaL1 = new GeographicAreaList(geographicAreaRepository);
         gaL1.addGeographicArea(firstValidArea);
         gaL1.addGeographicArea(secondValidArea);
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
         //Act
@@ -295,10 +290,10 @@ class GASettingsControllerTest {
 
         //Arrange
 
-        GeographicAreaList gaL1 = new GeographicAreaList();
+        GeographicAreaList gaL1 = new GeographicAreaList(geographicAreaRepository);
         gaL1.addGeographicArea(firstValidArea);
         gaL1.addGeographicArea(secondValidArea);
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
         expectedResult.addGeographicArea(secondValidArea);
 
         //Act
@@ -315,9 +310,9 @@ class GASettingsControllerTest {
 
         //Arrange
 
-        GeographicAreaList gaL1 = new GeographicAreaList();
+        GeographicAreaList gaL1 = new GeographicAreaList(geographicAreaRepository);
         gaL1.addGeographicArea(firstValidArea);
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
 
         //Act
 
@@ -603,7 +598,7 @@ class GASettingsControllerTest {
 
         //Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
 
         //Act
 

@@ -25,24 +25,6 @@ public class GeographicAreaList {
     }
 
     /**
-     * GeographicAreaList constructor that receives without parameters
-     */
-    public GeographicAreaList() {
-        geographicAreas = new ArrayList<>();
-    }
-
-    /**
-     * GeographicAreaList constructor that receives a Geographic Area as a parameter and
-     * adds the GA to the attribute geographicAreas
-     *
-     * @param geographicAreaToAdd geographic area to add Without Persisting to the attribute
-     */
-    public GeographicAreaList(GeographicArea geographicAreaToAdd) {
-        geographicAreas = new ArrayList<>();
-        geographicAreas.add(geographicAreaToAdd);
-    }
-
-    /**
      * Method to return a list with all the Geographical Areas contained on the geographicAreaRepository
      *
      * @return a GeographicAreaList with all the Geographical Areas saved in the repository.
@@ -173,7 +155,7 @@ public class GeographicAreaList {
      * @return a GeographicAreaList with a given type.
      */
     public GeographicAreaList getGeoAreasByType(String typeAreaName) {
-        GeographicAreaList finalList = new GeographicAreaList();
+        GeographicAreaList finalList = new GeographicAreaList(geographicAreaRepository);
         TypeArea typeAreaToTest = new TypeArea(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsTypeArea(typeAreaToTest)) {
@@ -266,7 +248,6 @@ public class GeographicAreaList {
     public boolean isEmpty() {
         return this.geographicAreas.isEmpty();
     }
-
 
 
     /**

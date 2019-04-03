@@ -1,14 +1,10 @@
 package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
-import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
@@ -22,32 +18,31 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = {MainUI.class},
-        loader = AnnotationConfigContextLoader.class)
+@ExtendWith(MockitoExtension.class)
 class ReaderJSONGeographicAreasTest {
     // Common testing artifacts for testing in this class.
-    @Autowired
-    SensorService sensorService;
 
-    @Autowired
-    GeographicAreaList geographicAreaList;
-
-    @Autowired
+    @Mock
     GeographicAreaRepository geographicAreaRepository;
+
+    @Mock
+    SensorRepository sensorRepository;
+
+    SensorService sensorService = new SensorService(sensorRepository);
+
+    GeographicAreaList geographicAreaList = new GeographicAreaList(geographicAreaRepository);
 
     private ReaderController ctrl = new ReaderController(sensorService);
 
+
+    //TODO who made this tests please check if they still apply
     @Test
     void seeIfReadFileWorks() {
         // Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.setGeographicAreaRepository(geographicAreaRepository);
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
         //Mapper mapper = new Mapper();
-        GeographicAreaList actualResult = new GeographicAreaList();
-        actualResult.setGeographicAreaRepository(geographicAreaRepository);
+        GeographicAreaList actualResult = new GeographicAreaList(geographicAreaRepository);
 
 //        // First Area
 //
@@ -170,7 +165,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = ctrl.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList());
+        double actualResult = ctrl.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository));
 
         // Assert
 
@@ -181,10 +176,8 @@ class ReaderJSONGeographicAreasTest {
     void seeIfReadFileWorksAndSkipsSensorsWithWrongDateFormat() {
         // Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList();
-        expectedResult.setGeographicAreaRepository(geographicAreaRepository);
-        GeographicAreaList actualResult = new GeographicAreaList();
-        actualResult.setGeographicAreaRepository(geographicAreaRepository);
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaList actualResult = new GeographicAreaList(geographicAreaRepository);
         //  Mapper mapper = new Mapper();
 
 //        // First Area

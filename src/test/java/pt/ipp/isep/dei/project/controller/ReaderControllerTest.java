@@ -6,7 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
@@ -15,9 +15,9 @@ import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.SensorService;
 
-import javax.persistence.EntityManager;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -70,17 +70,17 @@ class ReaderControllerTest {
 
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 
-    @Autowired
-    EntityManager entityManager;
+    @Mock
+    SensorRepository sensorRepository;
 
-    @Autowired
-    SensorService sensorService;
-
-    @Autowired
+    @Mock
     GeographicAreaRepository geographicAreaRepository;
+
+    SensorService sensorService;
 
     @BeforeEach
     void arrangeArtifacts() {
+        sensorService = new SensorService(sensorRepository);
         validReader = new ReaderController(sensorService);
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
@@ -118,10 +118,10 @@ class ReaderControllerTest {
         validSensorList2.add(validSensor4);
         validGeographicArea.setSensorList(validSensorList);
         validGeographicArea2.setSensorList(validSensorList2);
-        validGeographicAreaList = new GeographicAreaList();
-        validGeographicAreaList2 = new GeographicAreaList();
-        emptyGeographicAreaList = new GeographicAreaList();
-        validGeographicAreaListNoSensors = new GeographicAreaList();
+        validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
+        validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
+        emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
+        validGeographicAreaListNoSensors = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea);
         validGeographicAreaList.addGeographicArea(validGeographicArea2);
@@ -301,7 +301,7 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksZeroAreas() {
         // Arrange
 
-        GeographicAreaList actualResult = new GeographicAreaList();
+        GeographicAreaList actualResult = new GeographicAreaList(geographicAreaRepository);
 
         // Act
 
@@ -318,7 +318,7 @@ class ReaderControllerTest {
     @Test
     void seeIfReadFileXMLGeoAreaWorksWithoutGeoAreas() {
         // Arrange
-        GeographicAreaList actualResult = new GeographicAreaList();
+        GeographicAreaList actualResult = new GeographicAreaList(geographicAreaRepository);
 
         // Act
 

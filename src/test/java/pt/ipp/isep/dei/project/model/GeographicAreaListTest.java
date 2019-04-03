@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.Date;
 
@@ -22,6 +24,9 @@ class GeographicAreaListTest {
     private GeographicArea firstValidArea;
     private GeographicArea secondValidArea;
 
+    @Mock
+    GeographicAreaRepository geographicAreaRepository;
+
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -29,7 +34,7 @@ class GeographicAreaListTest {
                 new Local(50, 50, 10));
         secondValidArea = new GeographicArea("Europe", new TypeArea("Continent"), 3000, 2000,
                 new Local(90, 100, 10));
-        validList = new GeographicAreaList();
+        validList = new GeographicAreaList(geographicAreaRepository);
         validList.addGeographicArea(firstValidArea);
     }
 
@@ -81,7 +86,8 @@ class GeographicAreaListTest {
     void seeIfGetGeoAreaByTypeWorks() {
         // Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList(firstValidArea);
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
+        expectedResult.addGeographicArea(firstValidArea);
 
         // Act
 
@@ -97,7 +103,8 @@ class GeographicAreaListTest {
     void seeifEqualsWorks() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList(firstValidArea);
+        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
+        testList.addGeographicArea(firstValidArea);
 
         //Act
 
@@ -123,7 +130,8 @@ class GeographicAreaListTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList(secondValidArea);
+        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
+        testList.addGeographicArea(secondValidArea);
 
         //Act
 
@@ -170,7 +178,7 @@ class GeographicAreaListTest {
     void seeIfPrintsGeoAListIfEmpty() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList();
+        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -186,7 +194,7 @@ class GeographicAreaListTest {
     void hashCodeDummyTest() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList();
+        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
         int expectedResult = 1;
 
         // Act
@@ -228,7 +236,7 @@ class GeographicAreaListTest {
     void checkIfGAExistsIfEmptyList() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList();
+        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
 
         // Act
 
@@ -245,7 +253,7 @@ class GeographicAreaListTest {
     void isEmpty() {
         //Arrange
 
-        GeographicAreaList emptyTestList = new GeographicAreaList();
+        GeographicAreaList emptyTestList = new GeographicAreaList(geographicAreaRepository);
 
 
         // Act
@@ -281,7 +289,7 @@ class GeographicAreaListTest {
     void getByIndexEmptyGAList() {
         //Arrange
 
-        GeographicAreaList emptyList = new GeographicAreaList();
+        GeographicAreaList emptyList = new GeographicAreaList(geographicAreaRepository);
 
         //Act
 
@@ -309,7 +317,7 @@ class GeographicAreaListTest {
     void seeIfDoesNotAddWithoutPersisting() {
         // Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
         // Act
@@ -333,7 +341,7 @@ class GeographicAreaListTest {
                 new Date());
         secondValidSensor.setActive(true);
 
-        GeographicAreaList geographicAreaList = new GeographicAreaList();
+        GeographicAreaList geographicAreaList = new GeographicAreaList(geographicAreaRepository);
 
         // Act
 
@@ -350,7 +358,7 @@ class GeographicAreaListTest {
 
         validList.addGeographicArea(firstValidArea);
 
-        GeographicAreaList expectedResult = new GeographicAreaList();
+        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
 
@@ -435,7 +443,7 @@ class GeographicAreaListTest {
     void seeIfRemovesGeographicAreaEmptyList() {
         // Act
 
-        GeographicAreaList emptyList = new GeographicAreaList();
+        GeographicAreaList emptyList = new GeographicAreaList(geographicAreaRepository);
         boolean actualResult = emptyList.removeGeographicArea(secondValidArea);
 
         // Assert

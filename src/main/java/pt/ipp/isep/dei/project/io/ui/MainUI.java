@@ -103,7 +103,7 @@ public class MainUI {
             // *************************
             // ******* < MOCK DATA FOR TESTING PURPOSES >*******
             // *************************
-            MockUI mockUI = new MockUI();
+            MockUI mockUI = new MockUI(geographicAreaRepository);
             mockUI.initializeMockUI();
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();

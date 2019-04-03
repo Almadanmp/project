@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -22,7 +23,7 @@ import java.util.List;
 
 class MockUI {
 
-
+    GeographicAreaRepository geographicAreaRepository;
     private static final String GLASSES = "Glasses";
     private static final String DISHES = "Dishes";
 
@@ -32,6 +33,11 @@ class MockUI {
 
     private TypeSensor temperatureST;
     private TypeSensor humidityST;
+
+
+    public MockUI(GeographicAreaRepository geographicAreaRepository) {
+        this.geographicAreaRepository = geographicAreaRepository;
+    }
 
 //Getter Methods to use on MAINUI
 
@@ -46,7 +52,7 @@ class MockUI {
 
     private GeographicAreaList mockGeographicAreaList() {
 
-        return new GeographicAreaList();
+        return new GeographicAreaList(geographicAreaRepository);
     }
 
     House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
