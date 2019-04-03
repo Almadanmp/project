@@ -177,4 +177,76 @@ class UnitHelperTest {
 
     }
 
+    @Test
+    void seeIfToDefaultRainfallMillimeterToMillimeterWorks() {
+        // Arrange
+
+        RainfallUnit unit = new Millimeter();
+        double valueToConvert = 10;
+        String defaultUnit = "Millimeter";
+        double expectedResult = 10;
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultRainfallUnit(defaultUnit, valueToConvert, unit);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfToDefaultRainfallMillimeterToLiterPerSquareMeterWorks() {
+        // Arrange
+
+        RainfallUnit unit = new Millimeter();
+        double valueToConvert = 10;
+        String defaultUnit = "LiterPerSquareMeter";
+        double expectedResult = 10;
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultRainfallUnit(defaultUnit, valueToConvert, unit);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfToDefaultRainfallLiterPerSquareMeterToLiterPerSquareMeterWorks() {
+        // Arrange
+
+        RainfallUnit unit = new LiterPerSquareMeter();
+        double valueToConvert = 10;
+        String defaultUnit = "LiterPerSquareMeter";
+        double expectedResult = 10;
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultRainfallUnit(defaultUnit, valueToConvert, unit);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfToDefaultRainfallLiterPerSquareMeterToMillimeterWorks() {
+        // Arrange
+
+        RainfallUnit unit = new LiterPerSquareMeter();
+        double valueToConvert = 10;
+        String defaultUnit = "Millimeter";
+        double expectedResult = 10;
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultRainfallUnit(defaultUnit, valueToConvert, unit);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 }
