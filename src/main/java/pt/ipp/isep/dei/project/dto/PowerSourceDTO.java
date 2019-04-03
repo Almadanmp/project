@@ -28,4 +28,22 @@ public class PowerSourceDTO {
     public double getMaxEnergyStorage() {
         return maxEnergyStorage;
     }
+
+    @Override
+    public boolean equals(Object testDTO) {
+        if (this == testDTO) {
+            return true;
+        }
+        if (!(testDTO instanceof PowerSourceDTO)) {
+            return false;
+        }
+
+        PowerSourceDTO localVariable = (PowerSourceDTO) testDTO;
+        return (localVariable.getName().equals(this.getName()));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }
