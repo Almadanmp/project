@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.Embeddable;
+
 /**
  * Class that represents the Address of a House .
  */
-
+@Embeddable
 public class Address {
     private String street;
     private String zip;

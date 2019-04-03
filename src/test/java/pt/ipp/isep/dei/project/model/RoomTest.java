@@ -14,7 +14,10 @@ import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testng.Assert.assertTrue;
@@ -47,7 +50,7 @@ class RoomTest {
         validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
         validRoom.addDevice(validDevice);
         validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
-                getTime(),"C");
+                getTime(), "C");
         validSensor.addReading(validReading);
     }
 
@@ -439,9 +442,9 @@ class RoomTest {
         // Arrange
 
         Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 0).getTime(),"C");
+                12, 2, 0).getTime(), "C");
         Reading thirdReading = new Reading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                11, 2, 0).getTime(),"C");
+                11, 2, 0).getTime(), "C");
         validSensor.addReading(secondReading);
         validSensor.addReading(thirdReading);
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
@@ -590,20 +593,6 @@ class RoomTest {
         assertEquals(actualResult, expectedResult);
     }
 
-    @Test
-    void seeIfGetId() {
-        // Arrange
-
-        validRoom.setUniqueID(UUID.randomUUID());
-
-        // Act
-
-        UUID uuid = validRoom.getUniqueID();
-
-        // Assert
-
-        assertTrue(uuid instanceof UUID); // Needed for Sonarqube testing purposes.
-    }
 
     @Test
     void getByIndexWithEmptyDeviceList() {

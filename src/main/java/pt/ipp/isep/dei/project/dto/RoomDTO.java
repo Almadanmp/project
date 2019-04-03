@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.dto;
+
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.List;
-import java.util.UUID;
 
 public class RoomDTO {
 
@@ -13,10 +13,11 @@ public class RoomDTO {
     private double height;
     private List<SensorDTO> sensorList;
     private DeviceList deviceList;
-    private UUID id;
+    private Long id;
 
     /**
      * Method that retrieves the DTO's sensor list.
+     *
      * @return is the DTO's sensorList.
      */
 
@@ -26,6 +27,7 @@ public class RoomDTO {
 
     /**
      * Method that stores a particular sensorList in a DTO.
+     *
      * @param sensorList is the list we want to store in the DTO.
      */
 
@@ -35,6 +37,7 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the DTO's Device List.
+     *
      * @return is the DTO's device list.
      */
 
@@ -44,6 +47,7 @@ public class RoomDTO {
 
     /**
      * Method that stores a particular deviceList in the DTO.
+     *
      * @param deviceList is the device list we want to store in the DTO.
      */
 
@@ -53,6 +57,7 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the DTO's name.
+     *
      * @return is the name of the DTO.
      */
 
@@ -62,6 +67,7 @@ public class RoomDTO {
 
     /**
      * Method that stores a particular string as the DTO's name.
+     *
      * @param name is the name we want to store.
      */
 
@@ -71,6 +77,7 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the floor of the DTO.
+     *
      * @return is the floor.
      */
 
@@ -80,6 +87,7 @@ public class RoomDTO {
 
     /**
      * Method that stores an int as the DTO's floor.
+     *
      * @param floor is the int we want to store.
      */
 
@@ -89,6 +97,7 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the width of the DTO.
+     *
      * @return is the DTO's width.
      */
 
@@ -98,6 +107,7 @@ public class RoomDTO {
 
     /**
      * Method that stores a double as the DTO's width.
+     *
      * @param width is the double we want to store.
      */
 
@@ -107,6 +117,7 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the length of the DTO.
+     *
      * @return is the length of the DTO.
      */
 
@@ -116,6 +127,7 @@ public class RoomDTO {
 
     /**
      * Method that stores a double as the DTO's length.
+     *
      * @param length is the double we want to store.
      */
 
@@ -125,6 +137,7 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the height of the DTO.
+     *
      * @return is the DTO's height.
      */
 
@@ -134,6 +147,7 @@ public class RoomDTO {
 
     /**
      * Method that stores a double as the DTO's height.
+     *
      * @param height is the height we want to store.
      */
 
@@ -143,19 +157,21 @@ public class RoomDTO {
 
     /**
      * Method that retrieves the DTO's unique ID. This is useful to match it with a model object.
+     *
      * @return is a UUID. UUID is a java class.
      */
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Method that stores a UUID as the object's UUID. This is useful to match the DTO with a model object.
+     *
      * @param id is the UUID we want to store.
      */
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

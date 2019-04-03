@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
+import javax.persistence.Embedded;
 import java.util.*;
 
 /**
@@ -14,6 +15,7 @@ import java.util.*;
 
 public class House implements Metered {
     private String id;
+    @Embedded
     private Address address;
     private Local location;
     private EnergyGridList energyGridList;

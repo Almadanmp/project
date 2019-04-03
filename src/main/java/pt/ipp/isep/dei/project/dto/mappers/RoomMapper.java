@@ -2,14 +2,15 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * This class is responsible for converting Rooms and Room DTOs into one another.
@@ -20,14 +21,16 @@ public final class RoomMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private RoomMapper(){}
+    private RoomMapper() {
+    }
 
     /**
      * This is the method that converts Room DTOs into model objects with the same data.
+     *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static Room dtoToObject(RoomDTO dtoToConvert){
+    public static Room dtoToObject(RoomDTO dtoToConvert) {
         // Update the name
 
         String objectName = dtoToConvert.getName();
@@ -51,7 +54,7 @@ public final class RoomMapper {
         // Update the SensorList
 
         SensorList objectSensorList = new SensorList();
-        for (SensorDTO y : dtoToConvert.getSensorList()){
+        for (SensorDTO y : dtoToConvert.getSensorList()) {
             Sensor tempSensor = SensorMapper.dtoToObject(y);
             objectSensorList.add(tempSensor);
         }
@@ -63,25 +66,26 @@ public final class RoomMapper {
 
         // Update the UUID
 
-        UUID objectUUID = dtoToConvert.getId();
+        Long objectID = dtoToConvert.getId();
 
         // Create, update and return the converted object.
 
         Room resultObject = new Room(objectName, objectFloor, objectWidth, objectLength, objectHeight);
         resultObject.setDeviceList(objectDeviceList);
         resultObject.setSensorList(objectSensorList);
-        resultObject.setUniqueID(objectUUID);
+        resultObject.setId(objectID);
 
         return resultObject;
     }
 
     /**
      * This is the method that converts Room model objects into DTOs with the same data.
+     *
      * @param objectToConvert is the object we want to convert.
      * @return is the converted DTO.
      */
 
-    public static RoomDTO objectToDTO(Room objectToConvert){
+    public static RoomDTO objectToDTO(Room objectToConvert) {
         // Update the name
 
         String dtoName = objectToConvert.getName();
@@ -105,9 +109,9 @@ public final class RoomMapper {
         // Update the SensorList
 
         List<SensorDTO> dtoSensorList = new ArrayList<>();
-        for (Sensor y: objectToConvert.getSensorList().getSensors()){
+        for (Sensor y : objectToConvert.getSensorList().getSensors()) {
             SensorDTO tempSensorDTO = SensorMapper.objectToDTO(y);
-            if (!(dtoSensorList.contains(tempSensorDTO))){
+            if (!(dtoSensorList.contains(tempSensorDTO))) {
                 dtoSensorList.add(tempSensorDTO);
             }
         }
@@ -118,7 +122,7 @@ public final class RoomMapper {
 
         // Update the UUID
 
-        UUID dtoID = objectToConvert.getUniqueID();
+        Long dtoID = objectToConvert.getId();
 
         // Create, update and return the converted DTO.
 
@@ -147,7 +151,7 @@ public final class RoomMapper {
         Room room = null;
         RoomList roomlist = house.getRoomList();
         for (Room r : roomlist.getRooms()) {
-            if (roomDTO.getId().compareTo(r.getUniqueID()) == 0) {
+            if (roomDTO.getId().compareTo(r.getId()) == 0) {
                 r = RoomMapper.dtoToObject(roomDTO);
                 room = r;
             }

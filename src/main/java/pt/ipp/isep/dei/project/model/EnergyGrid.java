@@ -12,6 +12,7 @@ import java.util.Objects;
  * Class that represents an Energy Grid present in a House.
  */
 
+
 public class EnergyGrid implements Metered {
     private String name;
     private RoomList roomList;

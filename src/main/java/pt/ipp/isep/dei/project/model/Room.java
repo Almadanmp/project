@@ -6,25 +6,39 @@ import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
+import javax.persistence.*;
 import java.util.*;
 
 /**
  * Class that represents a Room of a House.
  */
-
+@Entity
 public class Room implements Metered {
 
-    private static final String TEMPERATURE = "temperature";
 
+    private static final String TEMPERATURE = "temperature";
+    private static final String noTempReadings = "There aren't any temperature readings available.";
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String roomName;
     private int houseFloor;
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sensor_list_id")
     private SensorList roomSensorList;
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "room_list_id")
+//    private RoomList rooms;
+
+    @Transient
     private DeviceList deviceList;
-    private String noTempReadings = "There aren't any temperature readings available.";
-    private UUID uniqueID;
 
     /**
      * Room() Constructor receiving 5 parameters and initializing 2 Lists, SensorList and DeviceList.
@@ -43,7 +57,9 @@ public class Room implements Metered {
         this.roomHeight = height;
         this.roomSensorList = new SensorList();
         this.deviceList = new DeviceList();
-        this.uniqueID = UUID.randomUUID();
+    }
+
+    protected Room() {
     }
 
     /**
@@ -109,12 +125,13 @@ public class Room implements Metered {
         return houseFloor;
     }
 
-    public UUID getUniqueID() {
-        return uniqueID;
+
+    public long getId() {
+        return id;
     }
 
-    public void setUniqueID(UUID uniqueID) {
-        this.uniqueID = uniqueID;
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

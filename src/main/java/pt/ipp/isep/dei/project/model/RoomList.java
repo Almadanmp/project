@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -11,8 +12,14 @@ import java.util.List;
 /**
  * Class that groups a number of Rooms in a House.
  */
-
+@Entity
 public class RoomList {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Room> rooms;
 
     /**
