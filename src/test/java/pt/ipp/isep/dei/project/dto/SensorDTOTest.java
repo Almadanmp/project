@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class SensorDTOTest {
+class SensorDTOTest {
 
     @Test
-    public void seeIfEqualsWorks() {
+    void seeIfEqualsWorks() {
         //Arrange
 
         SensorDTO sensorDTO1 = new SensorDTO();
@@ -42,7 +42,7 @@ public class SensorDTOTest {
     }
 
     @Test
-    public void seeIfHashCodeWorks() {
+    void seeIfHashCodeWorks() {
         //Arrange
 
         SensorDTO sensorDTO = new SensorDTO();
