@@ -15,7 +15,7 @@ public class Millimeter implements RainfallUnit {
      * @throws IOException in case the properties file is missing or doesn't have the property.
      */
     public double toApplicationDefault(double valueToConvert) throws IOException {
-        String defaultUnit = getApplicationRainfallDefault();
+        String defaultUnit = getApplicationRainfallConfig();
         return toDefaultRainfallUnit(defaultUnit, valueToConvert, this);
     }
 
@@ -27,7 +27,7 @@ public class Millimeter implements RainfallUnit {
      * @throws IOException in case the properties file is missing or doesn't have the property.
      */
     public double toUserDefault(double valueToConvert) throws IOException {
-        String defaultUnit = getUserRainfallDefault();
+        String defaultUnit = getUserRainfallConfig();
         return toDefaultRainfallUnit(defaultUnit, valueToConvert, this);
     }
 

@@ -15,7 +15,7 @@ public class Celsius implements TemperatureUnit {
      * @throws IOException in case the properties file is missing or doesn't have the property.
      */
     public double toApplicationDefault(double valueToConvert) throws IOException {
-        String defaultUnit = getApplicationTemperatureDefault();
+        String defaultUnit = getApplicationTemperatureConfig();
         return toDefaultTemperatureUnit(defaultUnit, valueToConvert, this);
     }
 
@@ -27,7 +27,7 @@ public class Celsius implements TemperatureUnit {
      * @throws IOException in case the properties file is missing or doesn't have the property.
      */
     public double toUserDefault(double valueToConvert) throws IOException {
-        String defaultUnit = getUserTemperatureDefault();
+        String defaultUnit = getUserTemperatureConfig();
         return toDefaultTemperatureUnit(defaultUnit, valueToConvert, this);
     }
 
