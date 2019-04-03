@@ -6,23 +6,29 @@ import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
-import javax.persistence.Embedded;
+import javax.persistence.*;
 import java.util.*;
 
 /**
  * House Class. Defines de House
  */
-
+@Entity
 public class House implements Metered {
+    @Id
     private String id;
     @Embedded
     private Address address;
+    @Embedded
     private Local location;
+    @OneToOne(cascade = CascadeType.ALL)
     private EnergyGridList energyGridList;
+    @OneToOne(cascade = CascadeType.ALL)
     private RoomList roomList;
+    @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
+    @Transient
     private List<DeviceType> deviceTypeList;
 
     /**
