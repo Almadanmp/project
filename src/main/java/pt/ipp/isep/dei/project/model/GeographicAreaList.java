@@ -267,6 +267,8 @@ public class GeographicAreaList {
         return this.geographicAreas.isEmpty();
     }
 
+
+
     /**
      * Method to check if an instance of this class is equal to another object.
      *
