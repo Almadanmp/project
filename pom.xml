@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+        <!-- Mockito for testing the methods that will interact with the repositories -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>2.23.4</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>log4j</groupId>

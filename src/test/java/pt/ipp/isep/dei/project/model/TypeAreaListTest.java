@@ -2,6 +2,11 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +18,22 @@ import static org.testng.Assert.*;
 /**
  * TypeAreaList tests class.
  */
+@ExtendWith(MockitoExtension.class)
 class TypeAreaListTest {
     // Common testing artifacts for this class.
 
     private TypeArea firstValidType;
     private TypeArea secondValidType;
 
+    @InjectMocks
     private TypeAreaList validList;
 
+    @Mock
+    private TypeAreaRepository typeAreaRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validList = new TypeAreaList();
+        validList = new TypeAreaList(this.typeAreaRepository);
         firstValidType = new TypeArea("Country");
         secondValidType = new TypeArea("City");
         validList.addTypeArea(firstValidType);
@@ -38,7 +47,6 @@ class TypeAreaListTest {
         // Assert
         assertEquals(type1, firstValidType);
     }
-
 
     @Test
     void seeIfPrintGAWholeList() {
@@ -61,7 +69,7 @@ class TypeAreaListTest {
     @Test
     void seeIfBuildListIfEmpty() {
         // Arrange
-        TypeAreaList emptyList = new TypeAreaList();
+        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -77,7 +85,7 @@ class TypeAreaListTest {
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        TypeAreaList emptyList = new TypeAreaList(); // List is Empty.
+        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository); // List is Empty.
         List<TypeArea> oneElementList = new ArrayList<>(); // List has one element.
         oneElementList.add(firstValidType);
 
@@ -93,23 +101,6 @@ class TypeAreaListTest {
         assertFalse(actualResult2);
         assertFalse(actualResult3);
     }
-
-    @Test
-    void seeIfEqualsWorksTrue() {
-        // Assert
-
-        TypeAreaList testList = new TypeAreaList();
-        validList = new TypeAreaList();
-
-        // Act
-
-        boolean actualResult = validList.equals(testList);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
 
     @Test
     void seeIfEqualsWorksFalse() {
@@ -179,26 +170,18 @@ class TypeAreaListTest {
 
     @Test
     void seeIfGetTypeAreasWorks() {
-        // Arrange
-
-        List<TypeArea> expectedResult = new ArrayList<>();
-        expectedResult.add(firstValidType);
-        expectedResult.add(secondValidType);
-
-        // Act
-
         List<TypeArea> actualResult = validList.getTypeAreas();
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertNotNull(actualResult);
     }
 
     @Test
     void getByIndexEmptyTypeAreaList() {
         // Arrange
 
-        TypeAreaList emptyList = new TypeAreaList();
+        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
 
         // Act
 
@@ -210,6 +193,40 @@ class TypeAreaListTest {
     }
 
     @Test
+    void seeIfGetSizeWorks() {
+        // Arrange
+
+        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
+
+        // Act
+
+        int actualResult1 = emptyList.size();
+        int actualResult2 = validList.size();
+
+
+        // Assert
+
+        assertEquals(0, actualResult1);
+        assertEquals(2, actualResult2);
+    }
+
+    @Test
+    void seeIfEqualsWorksTrue() {
+        // Assert
+
+        TypeAreaList testList = new TypeAreaList(typeAreaRepository);
+        validList = new TypeAreaList(typeAreaRepository);
+
+        // Act
+
+        boolean actualResult = validList.equals(testList);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
     void seeIfGetElementsAsArrayWorks() {
         // Arrange
 
@@ -217,7 +234,7 @@ class TypeAreaListTest {
         TypeArea[] expectedResult2 = new TypeArea[1];
         TypeArea[] expectedResult3 = new TypeArea[2];
 
-        TypeAreaList emptyList = new TypeAreaList();
+        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
         List<TypeArea> oneTypeArea = new ArrayList<>();
 
         oneTypeArea.add(new TypeArea("typeArea1"));
@@ -237,21 +254,4 @@ class TypeAreaListTest {
         assertArrayEquals(expectedResult3, actualResult3);
     }
 
-    @Test
-    void seeIfGetSizeWorks() {
-        // Arrange
-
-        TypeAreaList emptyList = new TypeAreaList();
-
-        // Act
-
-        int actualResult1 = emptyList.size();
-        int actualResult2 = validList.size();
-
-
-        // Assert
-
-        assertEquals(0, actualResult1);
-        assertEquals(2, actualResult2);
-    }
 }

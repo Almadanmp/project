@@ -9,7 +9,5 @@ import java.util.List;
 @Repository
 public interface TypeAreaRepository extends CrudRepository<TypeArea, Long> {
 
-    TypeArea findByName(String name);
-
     List<TypeArea> findAll();
 }

@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,16 +17,19 @@ public class TypeAreaList {
 
     private List<TypeArea> typeAreas;
 
+    @Autowired
+    TypeAreaRepository typeAreaRepository;
+
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
-    public TypeAreaList() {
-        this.typeAreas = new ArrayList<>();
-        //empty constructor
+    public TypeAreaList(TypeAreaRepository typeAreaRepository) {
+        typeAreas = new ArrayList<>();
+        this.typeAreaRepository = typeAreaRepository;
     }
 
     public List<TypeArea> getTypeAreas() {
-        return typeAreas;
+        return typeAreaRepository.findAll();
     }
 
     /**
@@ -45,7 +50,8 @@ public class TypeAreaList {
      */
     public boolean addTypeArea(TypeArea type) {
         if (!typeAreas.contains(type)) {
-            typeAreas.add(type);
+            this.typeAreas.add(type);
+            typeAreaRepository.save(type);
             return true;
         } else {
             return false;
@@ -97,7 +103,7 @@ public class TypeAreaList {
      * @return returns Type Area that corresponds to index.
      */
     public TypeArea get(int index) {
-        if (this.typeAreas.isEmpty()) {
+        if (typeAreas.isEmpty()) {
             throw new IndexOutOfBoundsException("The type area list is empty.");
         }
         return this.typeAreas.get(index);
@@ -108,7 +114,7 @@ public class TypeAreaList {
      *
      * @return array of Type Areas
      */
-    TypeArea[] getElementsAsArray() {
+    protected TypeArea[] getElementsAsArray() {
         int sizeOfResultArray = typeAreas.size();
         TypeArea[] result = new TypeArea[sizeOfResultArray];
         for (int i = 0; i < typeAreas.size(); i++) {

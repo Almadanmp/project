@@ -3,6 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
@@ -15,6 +19,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -27,7 +32,7 @@ import static org.testng.Assert.*;
 /**
  * GASettingsController tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class GASettingsControllerTest {
     private GASettingsController controller = new GASettingsController();
     private GeographicArea firstValidArea;
@@ -41,12 +46,15 @@ class GASettingsControllerTest {
     private Sensor validSensor2;
     @Autowired
     private GeographicAreaList validGeographicAreaList;
-
+    @InjectMocks
     private TypeAreaList validTypeAreaList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
+
+    @Mock
+    TypeAreaRepository typeAreaRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -57,6 +65,7 @@ class GASettingsControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        validTypeAreaList = new TypeAreaList(typeAreaRepository);
         typeCountry = new TypeArea("Country");
         typeCity = new TypeArea("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -75,8 +84,6 @@ class GASettingsControllerTest {
         validGeographicAreaList = new GeographicAreaList();
         validGeographicAreaList.addGeographicArea(firstValidArea);
         validGeographicAreaList.addGeographicArea(secondValidArea);
-
-        validTypeAreaList = new TypeAreaList();
     }
 
     @Test
@@ -166,7 +173,7 @@ class GASettingsControllerTest {
     void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
 
         // Arrange
-
+        validTypeAreaList.addTypeArea(typeCountry);
         validTypeAreaList.addTypeArea(typeCountry);
 
         // Act
