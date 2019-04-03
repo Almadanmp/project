@@ -30,4 +30,22 @@ public class ReadingDTO {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ReadingDTO)) {
+            return false;
+        } else {
+            ReadingDTO reading = (ReadingDTO) o;
+            return (this.date.equals(reading.getDate()));
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }
