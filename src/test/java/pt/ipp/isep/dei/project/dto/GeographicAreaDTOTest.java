@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Local;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,35 +60,47 @@ class GeographicAreaDTOTest {
         geographicAreaDTO8.setName("01");
         geographicAreaDTO9.setName("01");
 
-        geographicAreaDTO1.setAltitude(1);
-        geographicAreaDTO2.setAltitude(2);
-        geographicAreaDTO3.setAltitude(1);
-        geographicAreaDTO4.setAltitude(1);
-        geographicAreaDTO5.setAltitude(4);
-        geographicAreaDTO6.setAltitude(1);
-        geographicAreaDTO7.setAltitude(1);
-        geographicAreaDTO8.setAltitude(1);
-        geographicAreaDTO9.setAltitude(1);
+        LocalDTO localDTO1 = new LocalDTO();
+        LocalDTO localDTO2 = new LocalDTO();
+        LocalDTO localDTO3 = new LocalDTO();
+        LocalDTO localDTO4 = new LocalDTO();
+        LocalDTO localDTO5 = new LocalDTO();
+        LocalDTO localDTO6 = new LocalDTO();
+        LocalDTO localDTO7 = new LocalDTO();
+        LocalDTO localDTO8 = new LocalDTO();
+        LocalDTO localDTO9 = new LocalDTO();
 
-        geographicAreaDTO1.setLongitude(1);
-        geographicAreaDTO2.setLongitude(2);
-        geographicAreaDTO3.setLongitude(1);
-        geographicAreaDTO4.setLongitude(1);
-        geographicAreaDTO5.setLongitude(1);
-        geographicAreaDTO6.setLongitude(1);
-        geographicAreaDTO7.setLongitude(5);
-        geographicAreaDTO8.setLongitude(1);
-        geographicAreaDTO9.setLongitude(1);
 
-        geographicAreaDTO1.setLatitude(1);
-        geographicAreaDTO2.setLatitude(2);
-        geographicAreaDTO3.setLatitude(1);
-        geographicAreaDTO4.setLatitude(1);
-        geographicAreaDTO5.setLatitude(1);
-        geographicAreaDTO6.setLatitude(1);
-        geographicAreaDTO7.setLatitude(1);
-        geographicAreaDTO8.setLatitude(5);
-        geographicAreaDTO9.setLatitude(1);
+        localDTO1.setAltitude(1);
+        localDTO2.setAltitude(2);
+        localDTO3.setAltitude(1);
+        localDTO4.setAltitude(1);
+        localDTO5.setAltitude(4);
+        localDTO6.setAltitude(1);
+        localDTO7.setAltitude(1);
+        localDTO8.setAltitude(1);
+        localDTO9.setAltitude(1);
+
+        localDTO1.setLongitude(1);
+        localDTO2.setLongitude(2);
+        localDTO3.setLongitude(1);
+        localDTO4.setLongitude(1);
+        localDTO5.setLongitude(1);
+        localDTO6.setLongitude(1);
+        localDTO7.setLongitude(5);
+        localDTO8.setLongitude(1);
+        localDTO9.setLongitude(1);
+
+        localDTO1.setLatitude(1);
+        localDTO2.setLatitude(2);
+        localDTO3.setLatitude(1);
+        localDTO4.setLatitude(1);
+        localDTO5.setLatitude(1);
+        localDTO6.setLatitude(1);
+        localDTO6.setLatitude(1);
+        localDTO7.setLatitude(5);
+        localDTO8.setLatitude(7);
+        localDTO9.setLatitude(1);
 
         geographicAreaDTO1.setTypeArea("City");
         geographicAreaDTO2.setTypeArea("Town");
@@ -108,6 +121,16 @@ class GeographicAreaDTOTest {
         geographicAreaDTO7.setSensorDTOList(dtoList);
         geographicAreaDTO8.setSensorDTOList(dtoList);
         geographicAreaDTO9.setSensorDTOList(dtoListEmpty);
+
+        geographicAreaDTO1.setLocalDTO(localDTO1);
+        geographicAreaDTO2.setLocalDTO(localDTO2);
+        geographicAreaDTO3.setLocalDTO(localDTO3);
+        geographicAreaDTO4.setLocalDTO(localDTO4);
+        geographicAreaDTO5.setLocalDTO(localDTO5);
+        geographicAreaDTO6.setLocalDTO(localDTO6);
+        geographicAreaDTO7.setLocalDTO(localDTO7);
+        geographicAreaDTO8.setLocalDTO(localDTO8);
+        geographicAreaDTO9.setLocalDTO(localDTO9);
 
         //Assert
 
@@ -204,51 +227,30 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetLatitudeWorks(){
+    void seeIfSetGetLocalWorks(){
         // Arrange
+        LocalDTO expectedResult = new LocalDTO();
+        LocalDTO localDTO = new LocalDTO();
 
-        validDTO.setLatitude(5D);
+        expectedResult.setAltitude(2);
+        expectedResult.setLatitude(2);
+        expectedResult.setLongitude(4);
+
+        localDTO.setAltitude(2);
+        localDTO.setLatitude(2);
+        localDTO.setLongitude(4);
+
+        validDTO.setLocalDTO(localDTO);
 
         // Act
 
-        double actualResult = validDTO.getLatitude();
+        LocalDTO actualResult = validDTO.getLocalDTO();
 
         // Assert
 
-        assertEquals(5D, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
-
-    @Test
-    void seeIfSetGetLongitudeWorks(){
-        // Arrange
-
-        validDTO.setLongitude(5D);
-
-        // Act
-
-        double actualResult = validDTO.getLongitude();
-
-        // Assert
-
-        assertEquals(5D, actualResult);
-    }
-
-
-    @Test
-    void seeIfSetGetAltitudeWorks(){
-        // Arrange
-
-        validDTO.setAltitude(5D);
-
-        // Act
-
-        double actualResult = validDTO.getAltitude();
-
-        // Assert
-
-        assertEquals(5D, actualResult);
-    }
 
     @Test
     void seeIfHashCodeWorks() {

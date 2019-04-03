@@ -1,12 +1,15 @@
 package pt.ipp.isep.dei.project.reader;
 
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
 
 import java.util.List;
 
 public interface GeographicAreaReader {
 
-    List<GeographicAreaDTO> readFile(String filePath, GeographicAreaList geographicAreaList);
-
+    /** This method receives a file path that contains information to create Geographic Areas
+     * and their respective Sensors and returns a List of Geographic Area DTOs.
+     * @param filePath  the file location
+     * @return a List with GeographicAreaDTOs
+     * **/
+    List<GeographicAreaDTO> readFile(String filePath);
 }

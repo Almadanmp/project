@@ -129,7 +129,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint04_GA.json");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = ctrl.readJSONFileAndAddGeoAreas(absolutePath, actualResult);
         // Assert
@@ -252,7 +252,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/InvalidJSONWrongDates.json");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/InvalidJSONWrongDates.json");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = ctrl.readJSONFileAndAddGeoAreas(absolutePath, actualResult);
 

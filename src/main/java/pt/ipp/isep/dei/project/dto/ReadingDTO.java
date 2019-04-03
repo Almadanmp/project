@@ -1,10 +1,10 @@
 package pt.ipp.isep.dei.project.dto;
-
 import java.util.Date;
 
 public class ReadingDTO {
-    private double value;
+
     private Date date;
+    private double value;
     private String unit;
 
     public Date getDate() {

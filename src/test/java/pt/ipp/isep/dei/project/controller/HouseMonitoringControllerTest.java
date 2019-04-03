@@ -111,7 +111,7 @@ class HouseMonitoringControllerTest {
             c.printStackTrace();
         }
 
-        // Sets up a valid temperature sensor with valid Readings.
+        // Sets up a valid temperature sensor with valid readings.
 
         validTemperatureSensor = new Sensor("RF12345", "TempOne", new TypeSensor("temperature", "Celsius"),
                 new Local(21, 10, 15),

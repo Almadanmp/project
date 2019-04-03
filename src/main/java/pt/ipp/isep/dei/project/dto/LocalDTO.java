@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.dto;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class LocalDTO {
 
     private double latitude;
@@ -38,5 +40,22 @@ public class LocalDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object testDTO) {
+        if (this == testDTO) {
+            return true;
+        }
+        if (!(testDTO instanceof LocalDTO)) {
+            return false;
+        }
+        LocalDTO localVariable = (LocalDTO) testDTO;
+        return (java.lang.Double.compare(this.id, localVariable.getId()) == 0 && java.lang.Double.compare(this.latitude, localVariable.getLatitude()) == 0 && java.lang.Double.compare(this.longitude, localVariable.getLongitude()) == 0);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

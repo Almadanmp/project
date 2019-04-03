@@ -285,7 +285,7 @@ class HouseConfigurationUI {
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
-        System.out.println("2) Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v2)");
+        System.out.println("2) Import Geographic Area Sensor readings from a file - json, xml, csv. (US20v2)");
         System.out.println("3) Configure the location of the house. (US101)");
         System.out.println("4) Add a new room to the house. (US105)");
         System.out.println("5) List the existing rooms. (US108)");

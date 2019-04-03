@@ -487,10 +487,12 @@ class GASettingsControllerTest {
     @Test
     void seeIfCreateGeoAreaDTO() {
         GeographicAreaDTO expectedResult = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
         expectedResult.setName("Joana");
-        expectedResult.setLatitude(12);
-        expectedResult.setLongitude(13);
-        expectedResult.setAltitude(13);
+        expectedResult.setLocalDTO(localDTO);
+        localDTO.setLatitude(12);
+        localDTO.setLongitude(13);
+        localDTO.setAltitude(13);
         expectedResult.setTypeArea(typeCity.getName());
 
         GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", TypeAreaMapper.objectToDTO(typeCity),

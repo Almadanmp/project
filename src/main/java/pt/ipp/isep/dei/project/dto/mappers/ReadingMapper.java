@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.Reading;
 import java.util.Date;
 
 /**
- * This class is responsible for converting Readings and Reading DTOs into one another.
+ * This class is responsible for converting readings and Reading DTOs into one another.
  */
 public final class ReadingMapper {
     /**
@@ -32,7 +32,7 @@ public final class ReadingMapper {
     }
 
     /**
-     * This is the method that converts Readings into DTOs with the same data.
+     * This is the method that converts readings into DTOs with the same data.
      * @param objectToConvert is the model object we want to convert.
      * @return is the converted model object.
      */

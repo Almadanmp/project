@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
@@ -48,11 +49,7 @@ public final class GeographicAreaMapper {
 
         double objectWidth = dtoToConvert.getWidth();
 
-        double objectLatitude = dtoToConvert.getLatitude();
-
-        double objectLongitude = dtoToConvert.getLongitude();
-
-        double objectAltitude = dtoToConvert.getAltitude();
+        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocalDTO());
 
         String objectDescription = dtoToConvert.getDescription();
 
@@ -67,7 +64,7 @@ public final class GeographicAreaMapper {
         // Create, update and return the converted object.
 
         GeographicArea resultObject = new GeographicArea(objectName, new TypeArea(objectType), objectLength, objectWidth,
-                new Local(objectLatitude, objectLongitude, objectAltitude));
+                objectLocal);
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
         resultObject.setSensorList(objectSensorList);
@@ -104,11 +101,7 @@ public final class GeographicAreaMapper {
 
         double dtoWidth = objectToConvert.getWidth();
 
-        double dtoLatitude = objectToConvert.getLocal().getLatitude();
-
-        double dtoLongitude = objectToConvert.getLocal().getLongitude();
-
-        double dtoAltitude = objectToConvert.getLocal().getAltitude();
+        LocalDTO localDTO = LocalMapper.objectToDTO(objectToConvert.getLocal());
 
         String dtoDescription = objectToConvert.getDescription();
 
@@ -130,9 +123,7 @@ public final class GeographicAreaMapper {
         resultDTO.setTypeArea(dtoType);
         resultDTO.setDescription(dtoDescription);
         resultDTO.setName(dtoName);
-        resultDTO.setLongitude(dtoLongitude);
-        resultDTO.setAltitude(dtoAltitude);
-        resultDTO.setLatitude(dtoLatitude);
+        resultDTO.setLocalDTO(localDTO);
         resultDTO.setSensorDTOList(sensorDTOList);
 
         return resultDTO;

@@ -1,8 +1,4 @@
 package pt.ipp.isep.dei.project.dto;
-
-
-import pt.ipp.isep.dei.project.model.Local;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +9,7 @@ public class GeographicAreaDTO {
     private String typeArea;
     private double length;
     private double width;
-    private double latitude;
-    private double longitude;
-    private double altitude;
+    private LocalDTO localDTO;
     private List<SensorDTO> sensorDTOList = new ArrayList<>();
     private String description;
 
@@ -109,66 +103,6 @@ public class GeographicAreaDTO {
     }
 
     /**
-     * Method that retrieves the latitude of a geographic area DTO.
-     *
-     * @return is the latitude of the object.
-     */
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    /**
-     * Method that stores the latitude of a geographic area DTO.
-     *
-     * @param latitude is the latitude of the object.
-     */
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    /**
-     * Method that retrieves the longitude of a geographic area DTO.
-     *
-     * @return is the longitude of the object.
-     */
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    /**
-     * Method that stores the longitude of a geographic area DTO.
-     *
-     * @param longitude is the longitude of the object.
-     */
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    /**
-     * Method that retrieves the altitude of a geographic area DTO.
-     *
-     * @return is the altitude of the object.
-     */
-
-    public double getAltitude() {
-        return altitude;
-    }
-
-    /**
-     * Method that stores the altitude of a geographic area DTO.
-     *
-     * @param altitude is the altitude of the object.
-     */
-
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
-    }
-
-    /**
      * Method that retrieves the object's list of sensor DTOs.
      *
      * @return is a list of sensorDTOs.
@@ -193,7 +127,6 @@ public class GeographicAreaDTO {
      *
      * @return is the object's description.
      */
-
     public String getDescription() {
         return description;
     }
@@ -203,9 +136,25 @@ public class GeographicAreaDTO {
      *
      * @param description is the description we want to store.
      */
-
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Method that receives a Local Dto and sets it as an attribute.
+     *
+     */
+    public void setLocalDTO(LocalDTO localDTO) {
+        this.localDTO = localDTO;
+    }
+
+    /**
+     * Method that retrieves the object's Local Dto.
+     *
+     * @return is the object's Local Dto.
+     */
+    public LocalDTO getLocalDTO(){
+        return this.localDTO;
     }
 
     @Override
@@ -218,11 +167,9 @@ public class GeographicAreaDTO {
         }
 
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
-        Local testDTOLocal = new Local(localVariable.getLatitude(), localVariable.getLongitude(), localVariable.
-                getAltitude());
-        Local geographicAreaDTOLocal = new Local(this.latitude, this.longitude, this.altitude);
+        LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(geographicAreaDTOLocal) && localVariable.getSensorDTOList().equals(this.sensorDTOList));
+                && testDTOLocal.equals(this.localDTO) && localVariable.getSensorDTOList().equals(this.sensorDTOList));
     }
 
     @Override

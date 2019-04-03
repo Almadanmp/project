@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.TypeArea;
@@ -26,13 +27,16 @@ class GeographicAreaMapperTest {
         // Arrange
 
         GeographicAreaDTO expectedResult = new GeographicAreaDTO();
-        expectedResult.setLatitude(50);
-        expectedResult.setAltitude(10);
-        expectedResult.setLongitude(50);
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50D);
+        localDTO.setLongitude(50D);
+        localDTO.setAltitude(10D);
         expectedResult.setName("Portugal");
         expectedResult.setTypeArea("Country");
         expectedResult.setLength(300);
         expectedResult.setWidth(200);
+        expectedResult.setId(21L);
+        expectedResult.setLocalDTO(localDTO);
 
         // Act
 
@@ -49,14 +53,16 @@ class GeographicAreaMapperTest {
         // Arrange
 
         GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();
-        dtoToConvert.setLatitude(50);
-        dtoToConvert.setAltitude(10);
-        dtoToConvert.setLongitude(50);
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50);
+        localDTO.setAltitude(10);
+        localDTO.setLongitude(50);
         dtoToConvert.setName("Portugal");
         dtoToConvert.setTypeArea("Country");
         dtoToConvert.setLength(300);
         dtoToConvert.setWidth(200);
         dtoToConvert.setId(21L);
+        dtoToConvert.setLocalDTO(localDTO);
 
         // Act
 

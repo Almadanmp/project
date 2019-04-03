@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * This is the ReadingList Class, a List of Readings that the Sensor receives.
+ * This is the ReadingList Class, a List of readings that the Sensor receives.
  */
 @Entity
 public class ReadingList {
@@ -23,7 +23,7 @@ public class ReadingList {
 
     /**
      * /**
-     * Empty Constructor to always allow the creation of an ArrayList of Readings.
+     * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
     public ReadingList() {
         this.readings = new ArrayList<>();
@@ -157,7 +157,7 @@ public class ReadingList {
     }
 
     /**
-     * Method that gives the Total Value of Readings on a given day (Date).
+     * Method that gives the Total Value of readings on a given day (Date).
      *
      * @param givenDate given date
      * @return sum
@@ -264,7 +264,7 @@ public class ReadingList {
 
 
     /**
-     * Method that gives the Average of Readings between two dates (given days)
+     * Method that gives the Average of readings between two dates (given days)
      * It calculates the average of all days, considering the average of each day.
      * It will throw an IllegalArgumentException if there are no readings between the selected dates
      *
@@ -342,7 +342,7 @@ public class ReadingList {
     }
 
     /**
-     * Method that gives the Date with the Highest Amplitude of Readings between two dates (given days).
+     * Method that gives the Date with the Highest Amplitude of readings between two dates (given days).
      * If there is more than one day with the same temperature amplitude, the return will be the most recent day.
      * It will throw an IllegalArgumentException if there are no readings between the selected dates.
      *
@@ -564,7 +564,7 @@ public class ReadingList {
      *
      * @param initialDate is the initial date of the interval.
      * @param finalDate   is the final date of the interval.
-     * @return a ReadingList that represents the initial ReadingList but only with Readings within the given interval.
+     * @return a ReadingList that represents the initial ReadingList but only with readings within the given interval.
      */
     ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         ReadingList result = new ReadingList();

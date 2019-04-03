@@ -49,20 +49,20 @@ class ReaderControllerTest {
     private ReaderController validReader;
     private Sensor validSensor1;
     private SensorList validSensorList;
-    private static final String validCSVLocation1 = "src/test/resources/test1CSVReadings.csv";
-    private static final String validCSVLocation2 = "src/test/resources/test2CSVReadings.csv";
-    private static final String validCSVLocation3 = "src/test/resources/test3CSVReadings.csv";
-    private static final String validCSVLocation4 = "src/test/resources/test4CSVReadings.csv";
-    private static final String validCSVLocation5 = "src/test/resources/test5CSVReadings.csv";
-    private static final String validJSONLocation1 = "src/test/resources/test1JSONReadings.json";
-    private static final String validJSONLocation2 = "src/test/resources/test2JSONReadings.json";
-    private static final String validJSONLocation3 = "src/test/resources/test3JSONReadings.json";
-    private static final String validJSONLocation4 = "src/test/resources/test4JSONReadings.json";
-    private static final String validXMLocation1 = "src/test/resources/test1XMLReadings.xml";
-    private static final String validXMLocation2 = "src/test/resources/test2XMLReadings.xml";
-    private static final String validXMLocation3 = "src/test/resources/test3XMLReadings.xml";
-    private static final String validXMLocation4 = "src/test/resources/test4XMLReadings.xml";
-    private static final String validXMLocation5 = "src/test/resources/test5XMLReadings.xml";
+    private static final String validCSVLocation1 = "src/test/resources/readerReadings/test1CSVReadings.csv";
+    private static final String validCSVLocation2 = "src/test/resources/readerReadings/test2CSVReadings.csv";
+    private static final String validCSVLocation3 = "src/test/resources/readerReadings/test3CSVReadings.csv";
+    private static final String validCSVLocation4 = "src/test/resources/readerReadings/test4CSVReadings.csv";
+    private static final String validCSVLocation5 = "src/test/resources/readerReadings/test5CSVReadings.csv";
+    private static final String validJSONLocation1 = "src/test/resources/readerReadings/test1JSONReadings.json";
+    private static final String validJSONLocation2 = "src/test/resources/readerReadings/test2JSONReadings.json";
+    private static final String validJSONLocation3 = "src/test/resources/readerReadings/test3JSONReadings.json";
+    private static final String validJSONLocation4 = "src/test/resources/readerReadings/test4JSONReadings.json";
+    private static final String validXMLocation1 = "src/test/resources/readerReadings/test1XMLReadings.xml";
+    private static final String validXMLocation2 = "src/test/resources/readerReadings/test2XMLReadings.xml";
+    private static final String validXMLocation3 = "src/test/resources/readerReadings/test3XMLReadings.xml";
+    private static final String validXMLocation4 = "src/test/resources/readerReadings/test4XMLReadings.xml";
+    private static final String validXMLocation5 = "src/test/resources/readerReadings/test5XMLReadings.xml";
 
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
@@ -304,7 +304,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/test1XMLReadings.xml");
+        File fileToRead = new File("src/test/resources/readerReadings/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
@@ -321,7 +321,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_no_GAs.xml");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
@@ -332,7 +332,7 @@ class ReaderControllerTest {
 
     @Test
     void seeIfAcceptPathWorksXML() {
-        String input = "src/test/resources/DataSet_sprint05_GA_test_no_GAs.xml";
+        String input = "src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
         int result = validReader.acceptPath(input, absolutePath, validGeographicAreaList);
@@ -352,7 +352,7 @@ class ReaderControllerTest {
     void seeIfAcceptPathWorksJSON() {
         // Arrange
 
-        String input = "src/test/resources/DataSet_sprint04_GA.json";
+        String input = "src/test/resources/readerGeographicAreas/DataSet_sprint04_GA.json";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
         GeographicAreaList geographicAreaList1 = new GeographicAreaList(geographicAreaRepository);
@@ -631,7 +631,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA.xml");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
@@ -668,7 +668,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_date.xml");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, geographicAreaList3);
 
@@ -702,7 +702,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, validGeographicAreaList2);
 
@@ -720,7 +720,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/DataSet_sprint05_GA_test_one_GA.xml");
+        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
 
