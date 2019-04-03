@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,9 +8,14 @@ import java.util.List;
 /**
  * Class that groups a number of energy Grids of a House.
  */
-
+@Entity
 public class EnergyGridList {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @OneToMany(mappedBy = "energyGridList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EnergyGrid> energyGrids;
 
     /**
