@@ -6,28 +6,64 @@ import static pt.ipp.isep.dei.project.services.units.UnitHelper.*;
 
 public class Fahrenheit implements TemperatureUnit {
 
+
+    /**
+     * This method checks the application default temperature and then converts a Fahrenheit value into the default one.
+     *
+     * @param valueToConvert refers to the temperature value.
+     * @return value converted into the default Unit.
+     * @throws IOException in case the properties file is missing or doesn't have the property.
+     */
     public double toApplicationDefault(double valueToConvert) throws IOException {
         String defaultUnit = getApplicationTemperatureDefault();
         return toDefaultTemperatureUnit(defaultUnit, valueToConvert, this);
     }
 
+    /**
+     * This method checks the user default temperature and then converts a Fahrenheit value into the default one.
+     *
+     * @param valueToConvert refers to the temperature value.
+     * @return value converted into the default Unit.
+     * @throws IOException in case the properties file is missing or doesn't have the property.
+     */
     public double toUserDefault(double valueToConvert) throws IOException {
         String defaultUnit = getUserTemperatureDefault();
         return toDefaultTemperatureUnit(defaultUnit, valueToConvert, this);
     }
 
+    /**
+     * This method converts the temperature value into Kelvin.
+     *
+     * @param temperature refers to the temperature in Fahrenheit
+     * @return temperature value in Kelvin.
+     */
     public double toKelvin(double temperature) {
         return (temperature + 459.67) * 5 / 9;
     }
 
+    /**
+     * This method converts the temperature value into Fahrenheit.
+     *
+     * @param temperature refers to the temperature in Fahrenheit
+     * @return temperature value in Fahrenheit.
+     */
     public double toFahrenheit(double temperature) {
         return temperature;
     }
 
+    /**
+     * This method converts the temperature value into Celsius.
+     *
+     * @param temperature refers to the temperature in Fahrenheit
+     * @return temperature value in Celsius.
+     */
     public double toCelsius(double temperature) {
         return (temperature - 32) * 5 / 9;
     }
 
+    /**
+     * @return the Temperature Unit type as a string
+     */
     public String buildString() {
         return "Fahrenheit";
     }
