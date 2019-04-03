@@ -4,20 +4,41 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * Class that represents an Energy Grid present in a House.
  */
-
-
+@Entity
 public class EnergyGrid implements Metered {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private RoomList roomList;
+
+    @Transient
     private PowerSourceList listPowerSources;
+
     private double maxContractedPower;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "energy_grid_list_id")
+    private EnergyGridList energyGridList;
+
+    /**
+     * Empty Constructor to use when importing Energy Grids from XML files.
+     */
+    public EnergyGrid() {
+        this.listPowerSources = new PowerSourceList();
+    }
 
     /**
      * Standard Energy Grid constructor, used for creating energy grids.

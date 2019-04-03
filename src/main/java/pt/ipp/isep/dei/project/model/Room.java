@@ -33,9 +33,9 @@ public class Room implements Metered {
     @JoinColumn(name = "sensor_list_id")
     private SensorList roomSensorList;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "room_list_id")
-//    private RoomList rooms;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_list_id")
+    private RoomList rooms;
 
     @Transient
     private DeviceList deviceList;
