@@ -20,7 +20,8 @@ public final class GeographicAreaMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private GeographicAreaMapper(){}
+    private GeographicAreaMapper() {
+    }
 
     /**
      * This is the method that converts Geographic Area DTOs into model objects with the same data.
@@ -35,8 +36,7 @@ public final class GeographicAreaMapper {
 
         try {
             objectId = dtoToConvert.getId();
-        }
-        catch (NullPointerException ok){
+        } catch (NullPointerException ok) {
             ok.printStackTrace();
         }
 

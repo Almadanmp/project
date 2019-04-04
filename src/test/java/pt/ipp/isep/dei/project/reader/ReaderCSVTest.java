@@ -46,7 +46,7 @@ class ReaderCSVTest {
         List<String[]> actualResult = validReader.readFile(validLocation2);
 
         //Assert
-        assertArrayEquals(validList.toArray(),actualResult.toArray());
+        assertArrayEquals(validList.toArray(), actualResult.toArray());
     }
 
     @Test
@@ -63,7 +63,7 @@ class ReaderCSVTest {
         List<String[]> actualResult = validReader.readFile(validLocation1);
 
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

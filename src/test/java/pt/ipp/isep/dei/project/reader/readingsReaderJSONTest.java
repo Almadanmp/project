@@ -14,6 +14,7 @@ class readingsReaderJSONTest {
 
     @Test
     void readFile() {
+        //Arrange
 
         Date validDate3 = new Date();
 
@@ -27,7 +28,7 @@ class readingsReaderJSONTest {
 
 
         ReadingsReaderJSON readingsReaderJSON = new ReadingsReaderJSON();
-        List<ReadingDTOWithSensorID> readingDTOList = new ArrayList<>();
+        List<ReadingDTOWithSensorID> expectedResult = new ArrayList<>();
         ReadingDTOWithSensorID readingDTO1 = new ReadingDTOWithSensorID();
         readingDTO1.setDate(validDate3);
         readingDTO1.setValue(57.2D);
@@ -40,11 +41,15 @@ class readingsReaderJSONTest {
         readingDTO2.setUnit("F");
         readingDTO2.setSensorId("TT12346");
 
-        readingDTOList.add(readingDTO1);
-        readingDTOList.add(readingDTO2);
+        expectedResult.add(readingDTO1);
+        expectedResult.add(readingDTO2);
 
-        List<ReadingDTOWithSensorID> actual = readingsReaderJSON.readFile("/Users/teresavarela/Dropbox/SWITCHPESSOAL/desoft/project_g2/src/test/resources/readerReadings/test3JSONReadings.json");
+        //Act
 
-        assertEquals(readingDTOList, actual);
+        List<ReadingDTOWithSensorID> actualResult = readingsReaderJSON.readFile("src/test/resources/readerReadings/test3JSONReadings.json");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }

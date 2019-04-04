@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.reader;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.*;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithSensorID;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
@@ -20,10 +19,6 @@ public class ReadingsReaderJSON implements ReadingsReader {
             File file = new File(filePath);
             ReadingDTOWrapper readingDTOWrapper = objectMapper.readValue(file, ReadingDTOWrapper.class);
             readingDTOWithSensorID = readingDTOWrapper.getReadingDTOList();
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
