@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Double.NaN;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class TvSpecTest {
 

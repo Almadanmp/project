@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
@@ -19,9 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * RoomConfigurationController tests class.
@@ -35,7 +32,6 @@ class RoomConfigurationControllerTest {
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
-    private Object attributeUnit;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -56,11 +52,10 @@ class RoomConfigurationControllerTest {
         pList.add(fTProgram);
         Dishwasher dish = new Dishwasher(new DishwasherSpec());
         dish.setProgramList(pList);
-        ProgramList expectedResult = pList;
         // Act
         ProgramList actualResult = controller.getProgramList(dish);
         // Assert
-        assertEquals(actualResult, expectedResult);
+        assertEquals(actualResult, pList);
     }
 
     @Test
@@ -143,7 +138,7 @@ class RoomConfigurationControllerTest {
     void seeIfPrintSensorListWorks() {
         //Arrange
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        ;
+
         Date date = new Date();
         try {
             date = validSdf.parse("03/12/2017 10:02:00");
@@ -228,7 +223,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        Assert.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -237,7 +232,7 @@ class RoomConfigurationControllerTest {
 
         boolean actualResult = controller.removeDevice(validRoomNoDevices, validDeviceFridge);
 
-        Assert.assertFalse(actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -248,7 +243,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        Assert.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -260,7 +255,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        Assert.assertFalse(actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -350,7 +345,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        Assertions.assertEquals(validDeviceFridge, actualResult);
+        assertEquals(validDeviceFridge, actualResult);
     }
 
     @Test
@@ -409,7 +404,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        Assertions.assertEquals(expectedResultUnit, actualResultUnit);
+        assertEquals(expectedResultUnit, actualResultUnit);
         assertEquals(expectedResultValue, actualResultValue);
     }
 
@@ -482,7 +477,7 @@ class RoomConfigurationControllerTest {
 
         //Assert Empty List
 
-        Assertions.assertEquals(0, actualResult1);
+        assertEquals(0, actualResult1);
     }
 
     @Test

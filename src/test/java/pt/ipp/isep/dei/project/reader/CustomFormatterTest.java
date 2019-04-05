@@ -11,7 +11,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.StreamHandler;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * CustomFormatter tests class.

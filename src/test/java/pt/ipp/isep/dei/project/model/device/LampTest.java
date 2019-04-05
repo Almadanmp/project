@@ -13,9 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Lamp Device tests class.
@@ -443,11 +441,11 @@ class LampTest {
 
         // Proper value object, but incorrect attribute name.
 
-        Assertions.assertFalse(validLamp.setAttributeValue("notFLUX", attribute));
+        assertFalse(validLamp.setAttributeValue("notFLUX", attribute));
 
         // Empty attribute name, proper value object.
 
-        Assertions.assertFalse(validLamp.setAttributeValue("", attribute));
+        assertFalse(validLamp.setAttributeValue("", attribute));
     }
 
     @Test
@@ -457,16 +455,16 @@ class LampTest {
 
         // Proper attribute name, but value isn't double:
 
-        Assertions.assertFalse(validLamp.setAttributeValue(LampSpec.FLUX, attribute));
+        assertFalse(validLamp.setAttributeValue(LampSpec.FLUX, attribute));
 
         // Improper attribute name and value isn't double:
 
-        Assertions.assertFalse(validLamp.setAttributeValue("notFLUX", attribute));
-        Assertions.assertFalse(validLamp.setAttributeValue("notNOMINAL_POWER", attribute));
+        assertFalse(validLamp.setAttributeValue("notFLUX", attribute));
+        assertFalse(validLamp.setAttributeValue("notNOMINAL_POWER", attribute));
 
         // Empty attribute name and value isn't double:
 
-        Assertions.assertFalse(validLamp.setAttributeValue("", attribute));
+        assertFalse(validLamp.setAttributeValue("", attribute));
     }
 
     @Test

@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
@@ -596,10 +595,10 @@ class MicrowaveOvenTest {
 
         // Assert
 
-        Assert.assertEquals(expectedResult1, actualResult1);
-        Assert.assertEquals(expectedResult2, actualResult2);
-        Assert.assertEquals(false, actualResult3);
-        Assert.assertFalse(actualResult4);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(false, actualResult3);
+        assertFalse(actualResult4);
     }
 
     @Test

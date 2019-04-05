@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -13,10 +12,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.testng.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * EnergyGrid tests class.
@@ -292,7 +289,7 @@ class EnergyGridTest {
 
         // Assert
 
-        Assert.assertEquals("Invalid List - List is Empty\n", actualResult);
+        assertEquals("Invalid List - List is Empty\n", actualResult);
     }
 
     @Test

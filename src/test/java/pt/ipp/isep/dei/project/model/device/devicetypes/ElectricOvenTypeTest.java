@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.ElectricOven;
 import pt.ipp.isep.dei.project.model.device.devicespecs.ElectricOvenSpec;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ElectricOvenTypeTest {
     // Common testing artifacts for tests in this class.

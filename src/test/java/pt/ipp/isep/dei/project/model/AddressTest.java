@@ -4,10 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AddressTest {
 
@@ -139,13 +136,13 @@ class AddressTest {
     @Test
     void seeIfEqualsWorks() {
         //Assert
-        assertTrue(validAddress.equals(validAddress));
+        assertEquals(validAddress, validAddress);
     }
 
     @Test
     void seeIfEqualsFailsDifferentObject() {
         //Assert
-        assertFalse(validAddress.equals(new TypeSensor("Rain","mm")));
+        assertNotEquals(validAddress, new TypeSensor("Rain", "mm"));
     }
 
     @Test
@@ -155,8 +152,8 @@ class AddressTest {
         Address address = null;
 
         //Assert
-        assertFalse(validAddress.equals(obj));
-        assertFalse(validAddress.equals(address));
+        assertNotEquals(validAddress, obj);
+        assertNotEquals(validAddress, address);
     }
 
     @Test
@@ -166,7 +163,7 @@ class AddressTest {
                 "4440-616", "Porto");
 
         //Assert
-        assertTrue(sameAddress.equals(validAddress));
+        assertEquals(sameAddress, validAddress);
     }
 
     @Test
@@ -176,7 +173,7 @@ class AddressTest {
                 "4440-616", "Lisbon");
 
         //Assert
-        assertFalse(sameAddress.equals(validAddress));
+        assertNotEquals(sameAddress, validAddress);
     }
 
     @Test
@@ -186,7 +183,7 @@ class AddressTest {
                 "4440-666", "Porto");
 
         //Assert
-        assertFalse(sameAddress.equals(validAddress));
+        assertNotEquals(sameAddress, validAddress);
     }
 
     @Test
@@ -196,7 +193,7 @@ class AddressTest {
                 "4440-616", "Porto");
 
         //Assert
-        assertFalse(sameAddress.equals(validAddress));
+        assertNotEquals(sameAddress, validAddress);
     }
 
     @Test

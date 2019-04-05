@@ -7,9 +7,7 @@ import pt.ipp.isep.dei.project.model.device.Freezer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FreezerSpecTest {
     private Freezer validFreezer = new Freezer(new FreezerSpec());

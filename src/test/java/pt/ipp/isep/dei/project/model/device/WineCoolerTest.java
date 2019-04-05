@@ -14,8 +14,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class WineCoolerTest {
     private WineCooler validCooler = new WineCooler(new WineCoolerSpec());
@@ -477,8 +476,8 @@ class WineCoolerTest {
 
         assertFalse(validCooler.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attribute));
         assertTrue(validCooler.setAttributeValue(WineCoolerSpec.NUMBER_BOTTLES, attributeD));
-        Assertions.assertFalse(validCooler.setAttributeValue("notBottle", attributeD));
-        Assertions.assertFalse(validCooler.setAttributeValue("", attributeD));
+        assertFalse(validCooler.setAttributeValue("notBottle", attributeD));
+        assertFalse(validCooler.setAttributeValue("", attributeD));
     }
 
     @Test

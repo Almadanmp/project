@@ -5,7 +5,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.TV;
 import pt.ipp.isep.dei.project.model.device.devicespecs.TvSpec;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class TvTypeTest {
 

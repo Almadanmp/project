@@ -6,7 +6,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.MicrowaveOven;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class MicrowaveOvenTypeTest {
     // Common testing artifacts for tests in this class.

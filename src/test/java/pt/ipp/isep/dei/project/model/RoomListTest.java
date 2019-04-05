@@ -3,10 +3,8 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.testng.Assert.assertTrue;
 
 /**
  * RoomList tests class.
@@ -60,7 +58,7 @@ class RoomListTest {
 
         // Assert
 
-        Assert.assertEquals("Invalid List - List is Empty\n", result);
+        assertEquals("Invalid List - List is Empty\n", result);
     }
 
 

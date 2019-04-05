@@ -11,8 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Double.NaN;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TV Device tests class.
