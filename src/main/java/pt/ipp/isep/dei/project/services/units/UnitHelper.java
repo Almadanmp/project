@@ -8,7 +8,7 @@ import java.util.Properties;
 class UnitHelper {
 
     /**
-     * This method converts de temperature value into the default one.
+     * This method converts the temperature value into the default one.
      *
      * @param defaultUnit    refers to the temperature unit that the value should be converted to.
      * @param valueToConvert refers to the temperature value.
@@ -25,7 +25,7 @@ class UnitHelper {
     }
 
     /**
-     * This method converts de temperature value into the default one.
+     * This method converts the temperature value into the default one.
      *
      * @param defaultUnit    refers to the rainfall unit that the value should be converted to.
      * @param valueToConvert refers to the rainfall value.

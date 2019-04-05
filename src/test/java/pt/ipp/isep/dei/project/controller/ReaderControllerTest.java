@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.SensorService;
@@ -43,6 +44,8 @@ class ReaderControllerTest {
     private GeographicAreaList validGeographicAreaList2;
     private GeographicAreaList emptyGeographicAreaList;
     private GeographicAreaList validGeographicAreaListNoSensors;
+    private GeographicArea validGeographicArea;
+    private ReaderXMLGeoArea validReaderXMLGeoArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
     private Date validDate3 = new Date();
@@ -74,6 +77,7 @@ class ReaderControllerTest {
     void arrangeArtifacts() {
         sensorService = new SensorService(sensorRepository);
         validReader = new ReaderController(sensorService);
+        validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             validDate1 = validSdf.parse("2016-11-15");
@@ -298,7 +302,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerReadings/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult,sensorService);
 
         // Assert
 
@@ -315,7 +319,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult,sensorService);
 
         // Assert
 
@@ -625,7 +629,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult,sensorService);
 
         // Assert
 
@@ -662,7 +666,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, geographicAreaList3);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaList3,sensorService);
 
         // Assert
 
@@ -696,7 +700,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, validGeographicAreaList2);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, validGeographicAreaList2,sensorService);
 
         // Assert
 
@@ -714,7 +718,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReader.readFileXMLAndAddAreas(absolutePath, actualResult);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult,sensorService);
 
         // Assert
 
@@ -746,7 +750,7 @@ class ReaderControllerTest {
 
         // Act
 
-        double addedAreas = validReader.addGeoAreasToList(arrayToUse, result);
+        double addedAreas = validReader.addGeoAreaArrayToList(arrayToUse, result);
 
         // Assert
 

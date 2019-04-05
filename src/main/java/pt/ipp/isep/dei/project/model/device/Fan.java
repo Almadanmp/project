@@ -8,12 +8,9 @@ import java.util.Date;
 import java.util.List;
 
 public class Fan implements Device {
-    private String name;
-    private double nominalPower;
     private ProgramList programList;
-    private LogList logList;
     private FanSpec deviceSpecs;
-    private boolean active;
+    private CommonDeviceAttributes commonDeviceAttributes;
 
     /**
      * Default constructor for fan devices.
@@ -21,10 +18,9 @@ public class Fan implements Device {
      */
 
     public Fan(FanSpec fanSpec) {
+        commonDeviceAttributes = new CommonDeviceAttributes();
         this.deviceSpecs = fanSpec;
-        this.active = true;
         programList = new ProgramList();
-        logList = new LogList();
     }
 
     /**
@@ -33,7 +29,7 @@ public class Fan implements Device {
      */
 
     public String getName() {
-        return name;
+        return commonDeviceAttributes.getName();
     }
 
     /**
@@ -42,7 +38,7 @@ public class Fan implements Device {
      */
 
     public void setName(String name) {
-        this.name = name;
+        this.commonDeviceAttributes.setName(name);
     }
 
     /**
@@ -60,7 +56,7 @@ public class Fan implements Device {
      */
 
     public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
+        this.commonDeviceAttributes.setNominalPower(nominalPower);
     }
 
     /**
@@ -69,7 +65,7 @@ public class Fan implements Device {
      */
 
     public double getNominalPower() {
-        return nominalPower;
+        return this.commonDeviceAttributes.getNominalPower();
     }
 
     /**
@@ -78,7 +74,7 @@ public class Fan implements Device {
      */
 
     public boolean isActive() {
-        return active;
+        return this.commonDeviceAttributes.isActive();
     }
 
     /**
@@ -87,11 +83,7 @@ public class Fan implements Device {
      */
 
     public boolean deactivate() {
-        if (this.active) {
-            this.active = false;
-            return true;
-        }
-        return false;
+        return this.commonDeviceAttributes.deactivate();
     }
 
     /**
@@ -100,7 +92,7 @@ public class Fan implements Device {
      */
 
     public String buildString() {
-        return "The fan name is " + this.name + " and its nominal power is: " + this.nominalPower;
+        return "The fan name is " + this.commonDeviceAttributes.getName() + " and its nominal power is: " + this.commonDeviceAttributes.getNominalPower();
     }
 
     /**
@@ -109,7 +101,7 @@ public class Fan implements Device {
      */
 
     public LogList getLogList() {
-        return logList;
+        return this.commonDeviceAttributes.getLogList();
     }
 
     /**
@@ -118,7 +110,7 @@ public class Fan implements Device {
      */
 
     public boolean isLogListEmpty() {
-        return this.logList.isEmpty();
+        return this.commonDeviceAttributes.isLogListEmpty();
     }
 
     /**
@@ -128,12 +120,7 @@ public class Fan implements Device {
      */
 
     public boolean addLog(Log log) {
-        if (!(logList.contains(log)) && this.active) {
-            logList.addLog(log);
-            return true;
-        } else {
-            return false;
-        }
+        return this.commonDeviceAttributes.addLog(log);
     }
 
     /**
@@ -144,7 +131,7 @@ public class Fan implements Device {
      */
 
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return logList.countLogsInInterval(initialTime, finalTime);
+        return this.commonDeviceAttributes.countLogsInInterval(initialTime, finalTime);
     }
 
     /**
@@ -155,7 +142,7 @@ public class Fan implements Device {
      */
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return logList.getLogsInInterval(startDate, endDate);
+        return this.commonDeviceAttributes.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -187,7 +174,7 @@ public class Fan implements Device {
      */
 
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
-        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return this.commonDeviceAttributes.getConsumptionInInterval(initialTime, finalTime);
     }
 
     /**
@@ -198,7 +185,7 @@ public class Fan implements Device {
      */
 
     public double getEnergyConsumption(float time) {
-        return nominalPower * time;
+        return this.commonDeviceAttributes.getEnergyConsumption(time);
     }
 
     // WRAPPER METHODS TO DEVICE SPECS
