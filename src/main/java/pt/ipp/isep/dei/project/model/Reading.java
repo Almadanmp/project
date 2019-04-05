@@ -1,19 +1,23 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
  */
-@Embeddable
+@Entity
 public class Reading {
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private double value;
     private Date date;
     private String unit;
 
+    @ManyToOne
+    @JoinColumn(name = "reading_list_id")
+    private ReadingList readingList;
 
     /**
      * Builder with 'value' and 'date'
