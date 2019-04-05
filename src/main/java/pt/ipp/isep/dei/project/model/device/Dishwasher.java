@@ -12,18 +12,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
-    // private String name;
-    // private double nominalPower;
     private DishwasherSpec deviceSpecs;
-    // private boolean active;
     private ProgramList programList;
-    // private LogList logList;
-    private GenericDevice device;
+    private CommonDeviceAttributes device;
 
     public Dishwasher(DishwasherSpec dishwasherSpec) {
         this.deviceSpecs = dishwasherSpec;
         this.programList = new ProgramList();
-        this.device = new GenericDevice();
+        this.device = new CommonDeviceAttributes();
     }
 
     public String getName() {

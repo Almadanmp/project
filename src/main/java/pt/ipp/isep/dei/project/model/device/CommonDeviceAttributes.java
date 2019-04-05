@@ -5,13 +5,13 @@ import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
 
-public class GenericDevice {
+public class CommonDeviceAttributes {
     private String name;
     private double nominalPower;
     private boolean active;
     private LogList logList;
 
-    public GenericDevice(){
+    public CommonDeviceAttributes(){
         logList = new LogList();
         this.active = true;
     }
@@ -43,6 +43,10 @@ public class GenericDevice {
         } else {
             return false;
         }
+    }
+
+    public void setActive(boolean active){
+        this.active = active;
     }
 
 
