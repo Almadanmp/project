@@ -3,9 +3,10 @@ package pt.ipp.isep.dei.project.dto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddressDTOTest {
+
+class AddressDTOTest {
     // Common testing artifacts for testing in this class.
 
     private AddressDTO validAddressDTO;

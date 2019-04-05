@@ -9,7 +9,8 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class EnergyGridMapperTest {
     // Common testing artifacts for testing in this class
