@@ -8,25 +8,25 @@ import java.util.Date;
  * It is defined by a name, type of sensor and the date it started functioning.
  * It contains a list with one or more weather readings.
  */
-@Entity
+//@Entity
 public class HouseSensor {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_sensor_id")
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "type_sensor_id")
     private TypeSensor typeSensor;
 
     private Date dateStartedFunctioning;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private HouseReadingList houseReadingList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sensor_list_id")
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "sensor_list_id")
     private HouseSensorList houseSensorList;
 
     private boolean active;

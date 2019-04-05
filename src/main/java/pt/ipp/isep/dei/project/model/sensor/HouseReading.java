@@ -6,18 +6,18 @@ import java.util.Date;
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
  */
-@Entity
+//@Entity
 public class HouseReading {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private double value;
     private Date date;
     private String unit;
 
-    @ManyToOne
-    @JoinColumn(name = "house_reading_list_id")
+    //@ManyToOne
+    //@JoinColumn(name = "house_reading_list_id")
     private HouseReadingList houseReadingList;
 
     /**

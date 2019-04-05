@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Class that groups a number of Sensors.
  */
-@Entity
+//@Entity
 public class HouseSensorList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "houseSensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "houseSensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<HouseSensor> houseSensors;
 
     /**
