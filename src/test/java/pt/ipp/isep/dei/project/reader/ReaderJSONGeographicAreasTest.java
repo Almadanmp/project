@@ -131,7 +131,8 @@ class ReaderJSONGeographicAreasTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = ctrl.readJSONFileAndAddGeoAreas(absolutePath, actualResult);
+        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
+        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, actualResult,sensorService);
         // Assert
 
 //        assertEquals(expectedResult, actualResult);
@@ -162,10 +163,11 @@ class ReaderJSONGeographicAreasTest {
         // Arrange
 
         String invalidPath = ("invalidfilepath");
+        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
 
         // Act
 
-        double actualResult = ctrl.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository));
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository), sensorService);
 
         // Assert
 
@@ -254,7 +256,8 @@ class ReaderJSONGeographicAreasTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/InvalidJSONWrongDates.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = ctrl.readJSONFileAndAddGeoAreas(absolutePath, actualResult);
+        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
+        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, actualResult,sensorService);
 
         // Assert
 
