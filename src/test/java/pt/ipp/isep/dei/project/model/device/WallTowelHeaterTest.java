@@ -7,8 +7,7 @@ import pt.ipp.isep.dei.project.model.device.log.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class WallTowelHeaterTest {
     // Common artifacts for testing in this class.
@@ -31,8 +30,8 @@ class WallTowelHeaterTest {
         // Arrange
         WallTowelHeater emptyWallTH = new WallTowelHeater(new WallTowelHeaterSpec());
         // Act
-       Boolean actualResult1 = validWTHeater.isLogListEmpty();
-       Boolean actualResult2 = emptyWallTH.isLogListEmpty();
+       boolean actualResult1 = validWTHeater.isLogListEmpty();
+       boolean actualResult2 = emptyWallTH.isLogListEmpty();
         // Assert
         assertFalse(actualResult1);
         assertTrue(actualResult2);

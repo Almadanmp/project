@@ -6,7 +6,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Freezer;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FreezerSpec;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class FreezerTypeTest {
     // Common testing artifacts for tests in this class.

@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.device.devicespecs.PortableElectricConvectionHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 
@@ -10,10 +9,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Lamp Device tests class.
@@ -126,12 +122,12 @@ class PortableElectricConvectionHeaterTest {
 
         // Assert
 
-        Assert.assertEquals("At the moment, this operation is not supported.", exception1.getMessage());
-        Assert.assertEquals("At the moment, this operation is not supported.", exception2.getMessage());
-        Assert.assertEquals("At the moment, this operation is not supported.", exception3.getMessage());
-        Assert.assertEquals("At the moment, this operation is not supported.", exception4.getMessage());
-        Assert.assertEquals("At the moment, this operation is not supported.", exception5.getMessage());
-        Assert.assertEquals("At the moment, this operation is not supported.", exception6.getMessage());
+        assertEquals("At the moment, this operation is not supported.", exception1.getMessage());
+        assertEquals("At the moment, this operation is not supported.", exception2.getMessage());
+        assertEquals("At the moment, this operation is not supported.", exception3.getMessage());
+        assertEquals("At the moment, this operation is not supported.", exception4.getMessage());
+        assertEquals("At the moment, this operation is not supported.", exception5.getMessage());
+        assertEquals("At the moment, this operation is not supported.", exception6.getMessage());
     }
 
     @Test
@@ -185,10 +181,10 @@ class PortableElectricConvectionHeaterTest {
 
         // Assert
 
-        Assert.assertEquals(expectedResult1, actualResult1);
-        Assert.assertEquals(expectedResult2, actualResult2);
-        Assert.assertEquals(false, actualResult3);
-        Assert.assertFalse(actualResult4);
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(false, actualResult3);
+        assertFalse(actualResult4);
     }
 
     @Test

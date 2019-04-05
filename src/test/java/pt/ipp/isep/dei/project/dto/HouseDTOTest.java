@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HouseDTOTest {
     // Common testing artifacts for testing in this class.

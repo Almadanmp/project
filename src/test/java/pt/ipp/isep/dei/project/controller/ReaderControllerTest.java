@@ -27,7 +27,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * ReaderController test class.
@@ -41,26 +42,17 @@ class ReaderControllerTest {
     private GeographicAreaList validGeographicAreaList2;
     private GeographicAreaList emptyGeographicAreaList;
     private GeographicAreaList validGeographicAreaListNoSensors;
-    private GeographicArea validGeographicArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
     private ReaderController validReader;
     private Sensor validSensor1;
-    private SensorList validSensorList;
     private static final String validCSVLocation1 = "src/test/resources/readerReadings/test1CSVReadings.csv";
-    private static final String validCSVLocation2 = "src/test/resources/readerReadings/test2CSVReadings.csv";
     private static final String validCSVLocation3 = "src/test/resources/readerReadings/test3CSVReadings.csv";
-    private static final String validCSVLocation4 = "src/test/resources/readerReadings/test4CSVReadings.csv";
-    private static final String validCSVLocation5 = "src/test/resources/readerReadings/test5CSVReadings.csv";
     private static final String validJSONLocation1 = "src/test/resources/readerReadings/test1JSONReadings.json";
-    private static final String validJSONLocation2 = "src/test/resources/readerReadings/test2JSONReadings.json";
-    private static final String validJSONLocation3 = "src/test/resources/readerReadings/test3JSONReadings.json";
     private static final String validJSONLocation4 = "src/test/resources/readerReadings/test4JSONReadings.json";
     private static final String validXMLocation1 = "src/test/resources/readerReadings/test1XMLReadings.xml";
-    private static final String validXMLocation2 = "src/test/resources/readerReadings/test2XMLReadings.xml";
-    private static final String validXMLocation3 = "src/test/resources/readerReadings/test3XMLReadings.xml";
     private static final String validXMLocation4 = "src/test/resources/readerReadings/test4XMLReadings.xml";
     private static final String validXMLocation5 = "src/test/resources/readerReadings/test5XMLReadings.xml";
 
@@ -75,14 +67,13 @@ class ReaderControllerTest {
     @Mock
     GeographicAreaRepository geographicAreaRepository;
 
-    SensorService sensorService;
+    private SensorService sensorService;
 
     @BeforeEach
     void arrangeArtifacts() {
         sensorService = new SensorService(sensorRepository);
         validReader = new ReaderController(sensorService);
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         try {
             validDate1 = validSdf.parse("2016-11-15");
             validDate2 = validSdf.parse("2016-11-15");
@@ -91,7 +82,7 @@ class ReaderControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validGeographicArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261,
+        GeographicArea validGeographicArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261,
                 new Local(41.178553, -8.608035, 111));
         GeographicArea validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
@@ -109,7 +100,7 @@ class ReaderControllerTest {
         Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new TypeSensor("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
-        validSensorList = new SensorList();
+        SensorList validSensorList = new SensorList();
         SensorList validSensorList2 = new SensorList();
         validSensorList.add(validSensor1);
         validSensorList.add(validSensor2);

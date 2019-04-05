@@ -5,7 +5,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Kettler;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class KettlerTypeTest {
 

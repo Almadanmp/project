@@ -3,13 +3,10 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
 import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 /**
  * TypeSensorList tests class
@@ -49,7 +46,7 @@ class TypeSensorListTest {
         // Act
         TypeSensor type1 = validList.createTypeSensor("Temperature", "Celsius");
         // Assert
-        Assert.assertEquals(type1, firstTypeSensor);
+        assertEquals(type1, firstTypeSensor);
     }
 
     @Test

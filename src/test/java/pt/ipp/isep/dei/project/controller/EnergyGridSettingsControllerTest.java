@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
@@ -15,10 +13,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * EnergyGridSettingsController tests class.
@@ -66,7 +61,7 @@ class EnergyGridSettingsControllerTest {
 
         // Assert
 
-        Assert.assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -81,7 +76,7 @@ class EnergyGridSettingsControllerTest {
 
         //Assert
 
-        Assert.assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     //USER STORY 149
@@ -100,7 +95,7 @@ class EnergyGridSettingsControllerTest {
 
         //Assert
 
-        Assertions.assertTrue(actualresult);
+        assertTrue(actualresult);
     }
 
     @Test
@@ -121,7 +116,7 @@ class EnergyGridSettingsControllerTest {
 
         // Assert
 
-        Assert.assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -157,7 +152,7 @@ class EnergyGridSettingsControllerTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -194,7 +189,7 @@ class EnergyGridSettingsControllerTest {
 
         // Assert
 
-        Assertions.assertTrue(result);
+        assertTrue(result);
     }
 
     @Test

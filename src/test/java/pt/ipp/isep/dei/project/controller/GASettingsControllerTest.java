@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * GASettingsController tests class.
@@ -46,7 +46,7 @@ class GASettingsControllerTest {
     private TypeAreaList validTypeAreaList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
-    GeographicAreaRepository geographicAreaRepository;
+    private GeographicAreaRepository geographicAreaRepository;
 
     @Mock
     TypeAreaRepository typeAreaRepository;
@@ -403,7 +403,7 @@ class GASettingsControllerTest {
 
         // Assert
 
-        Assertions.assertTrue(actualResult);
+        assertTrue(actualResult);
     }
 
     @Test
@@ -414,7 +414,7 @@ class GASettingsControllerTest {
 
         // Assert
 
-        Assertions.assertFalse(actualResult);
+        assertFalse(actualResult);
     }
 
 //USER STORY 008 Tests

@@ -13,8 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FreezerTest {
     private Freezer validFreezer = new Freezer(new FreezerSpec());
@@ -514,8 +513,8 @@ class FreezerTest {
 
         assertFalse(validFreezer.setAttributeValue(FreezerSpec.CAPACITY, testAttribute));
         assertTrue(validFreezer.setAttributeValue(FreezerSpec.CAPACITY, testAttributeDouble));
-        Assertions.assertFalse(validFreezer.setAttributeValue("notCapacity", testAttributeDouble));
-        Assertions.assertFalse(validFreezer.setAttributeValue("", testAttributeDouble));
+        assertFalse(validFreezer.setAttributeValue("notCapacity", testAttributeDouble));
+        assertFalse(validFreezer.setAttributeValue("", testAttributeDouble));
     }
 
     @Test

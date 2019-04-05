@@ -1,18 +1,17 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class FileInputUtilsTest {
+class FileInputUtilsTest {
 
     @Test
-    public void validGridMetering() throws IOException, NumberFormatException {
+    void validGridMetering() throws IOException, NumberFormatException {
         // Arrange
 
         FileInputUtils fileInputUtils = new FileInputUtils();
@@ -27,7 +26,7 @@ public class FileInputUtilsTest {
     }
 
     @Test
-    public void readInvalidFile() {
+    void readInvalidFile() {
         assertThrows(IOException.class,
                 () -> {
                     Properties props = new Properties();
@@ -38,7 +37,7 @@ public class FileInputUtilsTest {
     }
 
     @Test
-    public void readInvalidNumber() {
+    void readInvalidNumber() {
         assertThrows(NumberFormatException.class,
                 () -> {
                     Properties props = new Properties();
@@ -60,7 +59,7 @@ public class FileInputUtilsTest {
     }
 
     @Test
-    public void validGridMeteringPeriod() {
+    void validGridMeteringPeriod() {
         int mp1 = 1;
         int mp2 = 60;
         int mp3 = 1440;
@@ -76,7 +75,7 @@ public class FileInputUtilsTest {
     }
 
     @Test
-    public void invalidGridMeteringPeriod() {
+    void invalidGridMeteringPeriod() {
         int mp1 = 0;
         int mp2 = 14;
         int mp3 = 1441;
@@ -92,7 +91,7 @@ public class FileInputUtilsTest {
     }
 
     @Test
-    public void validFileGridMeteringPeriod() throws IOException {
+    void validFileGridMeteringPeriod() throws IOException {
         Properties props = new Properties();
         String propFileName = "resources/meteringPeriods.properties";
         FileInputStream input = new FileInputStream(propFileName);

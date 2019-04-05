@@ -6,7 +6,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Stove;
 import pt.ipp.isep.dei.project.model.device.devicespecs.StoveSpec;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class StoveTypeTest {
     // Common testing artifacts for tests in this class.

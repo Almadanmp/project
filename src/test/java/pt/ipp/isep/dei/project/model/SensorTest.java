@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.testng.Assert.assertTrue;
 
 /**
  * Sensor tests class.
@@ -50,12 +49,11 @@ class SensorTest {
     void seeIfSetSensorList() {
         // Arrange
         SensorList listA = new SensorList();
-        SensorList expectedResult = listA;
         // Act
         validSensor.setSensorList(listA);
         SensorList actualResult = validSensor.getSensorList();
         // Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(listA, actualResult);
     }
 
     @Test
@@ -153,9 +151,7 @@ class SensorTest {
     void seeIfNullSensorNameThrowsStringMessage() {
         // Act
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            validSensor.setName(null);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validSensor.setName(null));
 
         // Assert
 
@@ -166,9 +162,7 @@ class SensorTest {
     void seeIfEmptySensorNameThrowsException() {
         // Act
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            validSensor.setName("");
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validSensor.setName(""));
 
         // Assert
 
@@ -1285,7 +1279,7 @@ class SensorTest {
     @Test
     void seeIfGetMostRecentValueReading() {
         // Arrange
-        ReadingList validReadingList = new ReadingList();
+        ReadingList validReadingList;
         Date validDate12 = new Date();
         validReadingList = new ReadingList();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

@@ -6,7 +6,8 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.WineCooler;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WineCoolerSpec;
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class WineCoolerTypeTest {
     // Common testing artifacts for tests in this class.
