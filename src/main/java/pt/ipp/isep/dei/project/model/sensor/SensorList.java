@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.ReadingList;
 
 import javax.persistence.*;
 import java.util.ArrayList;

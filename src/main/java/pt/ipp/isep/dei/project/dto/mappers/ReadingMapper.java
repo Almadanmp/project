@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
 
 import java.util.Date;
 

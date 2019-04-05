@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.reader;
 
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithSensorID;
+import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,14 +28,14 @@ class readingsReaderJSONTest {
 
 
         ReadingsReaderJSON readingsReaderJSON = new ReadingsReaderJSON();
-        List<ReadingDTOWithSensorID> expectedResult = new ArrayList<>();
-        ReadingDTOWithSensorID readingDTO1 = new ReadingDTOWithSensorID();
+        List<ReadingDTOWrapper> expectedResult = new ArrayList<>();
+        ReadingDTOWrapper readingDTO1 = new ReadingDTOWrapper();
         readingDTO1.setDate(validDate3);
         readingDTO1.setValue(57.2D);
         readingDTO1.setUnit("F");
         readingDTO1.setSensorId("TT12346");
 
-        ReadingDTOWithSensorID readingDTO2 = new ReadingDTOWithSensorID();
+        ReadingDTOWrapper readingDTO2 = new ReadingDTOWrapper();
         readingDTO2.setDate(validDate3);
         readingDTO2.setValue(56.66D);
         readingDTO2.setUnit("F");
@@ -46,7 +46,7 @@ class readingsReaderJSONTest {
 
         //Act
 
-        List<ReadingDTOWithSensorID> actualResult = readingsReaderJSON.readFile("src/test/resources/readerReadings/test3JSONReadings.json");
+        List<ReadingDTOWrapper> actualResult = readingsReaderJSON.readFile("src/test/resources/readerReadings/test3JSONReadings.json");
 
         //Assert
 

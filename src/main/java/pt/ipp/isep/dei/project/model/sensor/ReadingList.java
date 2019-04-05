@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.sensor;
 
 import javax.persistence.*;
 import java.util.*;
@@ -15,10 +15,7 @@ public class ReadingList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // Used as primary key in repository tables.
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "Reading",
-            joinColumns = @JoinColumn(name = "Reading_List_id"))
-    @Embedded
+    @OneToMany(mappedBy = "readingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reading> readings;
 
     /**
@@ -62,7 +59,7 @@ public class ReadingList {
      * @param index the index of the Reading we want to get value from
      * @return returns value reading that corresponds to index.
      */
-    double getValueReading(int index) {
+    public double getValueReading(int index) {
         if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -80,7 +77,7 @@ public class ReadingList {
      * @param index the index of the Reading we want to get date from
      * @return returns date reading that corresponds to index.
      */
-    Date getValueDate(int index) {
+   public Date getValueDate(int index) {
         if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -114,7 +111,7 @@ public class ReadingList {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReading() {
+    public Reading getMostRecentReading() {
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
         if (isEmpty()) {
             return error;
@@ -181,7 +178,7 @@ public class ReadingList {
      *
      * @return returns the sum of all values contained within that List
      */
-    double getListSum(List<Double> valueList) {
+    public double getListSum(List<Double> valueList) {
         double sum = 0;
         for (Double aValueList : valueList) {
             sum = sum + aValueList;
@@ -196,7 +193,7 @@ public class ReadingList {
      * @return date with 1st second of given day
      * @author Daniela - US623
      */
-    Date getFirstSecondOfDay(Date day) {
+   public Date getFirstSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
@@ -210,7 +207,7 @@ public class ReadingList {
      * @return date with last second of given day
      * @author Daniela (US623)
      */
-    Date getLastSecondOfDay(Date day) {
+   public Date getLastSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
@@ -226,7 +223,7 @@ public class ReadingList {
      * @return list of dates of readings between the given dates
      * @author Daniela - US623 & US633
      */
-    List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
+    public List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
         List<Date> daysWithReadings = new ArrayList<>();
         List<Date> daysProcessed = new ArrayList<>();
 
@@ -257,7 +254,7 @@ public class ReadingList {
      * @return true if reading date is between dates, false if it isn't
      * @author Daniela - US623
      */
-    boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
+    public boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
         return (readingDate.after(startDate) || readingDate.equals(startDate)) &&
                 (readingDate.before(endDate) || readingDate.equals(endDate));
     }
@@ -333,7 +330,7 @@ public class ReadingList {
      *
      * @return returns the average of all values contained within that List. If List is empty it will return 0.
      */
-    double getAvgFromList(List<Double> valueList) {
+    public double getAvgFromList(List<Double> valueList) {
         if (valueList.isEmpty()) {
             return 0;
         }
@@ -467,7 +464,7 @@ public class ReadingList {
      *
      * @return array of readings
      */
-    Reading[] getElementsAsArray() {
+    public Reading[] getElementsAsArray() {
         int sizeOfResultArray = size();
         Reading[] result = new Reading[sizeOfResultArray];
         for (int i = 0; i < size(); i++) {
@@ -483,7 +480,7 @@ public class ReadingList {
      * @param value is the value we want to choose.
      * @return a ReadingList with a chosen value.
      */
-    ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
+    public ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
             if (Double.compare(r.getValue(), value) == 0) {
@@ -500,7 +497,7 @@ public class ReadingList {
      * @param date is the Day of the reading we want to get.
      * @return a Reading from the ReadingList with a Specific Date.
      */
-    Reading getAReadingWithSpecificDay(Date date) {
+    public Reading getAReadingWithSpecificDay(Date date) {
         Reading result = null;
         for (Reading r : this.readings) {
             if (compareDayMonthAndYearBetweenDates(r.getDate(), date)) {
@@ -545,7 +542,7 @@ public class ReadingList {
      * @param day is the day we want to know the maximum value.
      * @return a double that represents the maximum value of the day.
      */
-    Reading getMaxValueOfTheDay(Date day) {
+   public Reading getMaxValueOfTheDay(Date day) {
         double auxValue = getValuesOfSpecificDayReadings(day).get(0);
         Reading result = getAReadingWithSpecificDay(day);
         Date auxDay = getFirstSecondOfDay(day);
@@ -566,7 +563,7 @@ public class ReadingList {
      * @param finalDate   is the final date of the interval.
      * @return a ReadingList that represents the initial ReadingList but only with readings within the given interval.
      */
-    ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
+    public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         ReadingList result = new ReadingList();
         for (Reading r : this.readings) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
@@ -584,7 +581,7 @@ public class ReadingList {
      * @return a ReadingList that represents a List of maximum values of the ReadingList for each
      * day within a given period.
      */
-    ReadingList getListOfMaxValuesForEachDay() {
+    public ReadingList getListOfMaxValuesForEachDay() {
         ReadingList result = new ReadingList();
         List<Date> dateList = new ArrayList<>();
         for (Reading r : this.readings) {
@@ -603,7 +600,7 @@ public class ReadingList {
      *
      * @return a double value that represents the minimum value in a ReadingList.
      */
-    double getMinValueInReadingList() {
+   public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
         for (Reading r : this.readings) {
             result = Math.min(r.getValue(), result);
