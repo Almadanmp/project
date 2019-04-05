@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.sensor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -39,7 +39,7 @@ public class Reading {
      *
      * @param value of reading made
      */
-    void setValue(double value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
