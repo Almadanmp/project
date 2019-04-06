@@ -10,6 +10,7 @@ public class Address {
     private String street;
     private String zip;
     private String town;
+    private String country;
 
     /**
      * Standard address constructor, used for creating addresses.
@@ -18,10 +19,11 @@ public class Address {
      * @param zip    is the zip-code.
      * @param town   is the town.
      */
-    public Address(String street, String zip, String town) {
+    public Address(String street, String zip, String town, String country) {
         this.street = street;
         this.zip = zip;
         this.town = town;
+        this.country = country;
     }
 
     /**
@@ -76,6 +78,24 @@ public class Address {
      */
     void setTown(String town) {
         this.town = town;
+    }
+
+    /**
+     * Standard getter method, to return the Country name.
+     *
+     * @return the string with the country name.
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * Standard setter method, to define the country name.
+     *
+     * @param country the string with the country name.
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

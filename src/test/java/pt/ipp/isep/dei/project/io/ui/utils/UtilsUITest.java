@@ -23,7 +23,7 @@ public class UtilsUITest {
         Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3);
         UtilsUI utilsUI = new UtilsUI();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
+                "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
@@ -50,7 +50,7 @@ public class UtilsUITest {
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
+                "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),

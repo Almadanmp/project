@@ -30,7 +30,7 @@ class EnergyGridSettingsControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto",
@@ -279,7 +279,7 @@ class EnergyGridSettingsControllerTest {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores", "4512", "Porto");
+        Address address = new Address("Rua das Flores", "4512", "Porto","Portugal");
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherArea(new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);

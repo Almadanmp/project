@@ -306,7 +306,7 @@ class EnergyConsumptionControllerTest {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
 
         House house = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
@@ -366,7 +366,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
 
         House house = new House("ISEP", address,
                 new Local(20, 20, 20),  60, 180,
@@ -395,7 +395,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeString);
@@ -418,7 +418,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
 
         House house = new House("ISEP", address , new Local(20, 20, 20), 60,
                 180, deviceTypeString);
@@ -443,7 +443,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
@@ -469,7 +469,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
@@ -497,7 +497,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
@@ -523,7 +523,7 @@ class EnergyConsumptionControllerTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
@@ -795,7 +795,7 @@ class EnergyConsumptionControllerTest {
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
+                "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20),  60,
                 180, new ArrayList<>());
         validHouse.setMotherArea(validArea);

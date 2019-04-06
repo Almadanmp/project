@@ -34,7 +34,7 @@ class EnergyGridTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
+                "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),

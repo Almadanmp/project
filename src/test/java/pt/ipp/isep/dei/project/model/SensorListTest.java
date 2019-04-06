@@ -470,7 +470,7 @@ class SensorListTest {
         //House
 
         List<String> deviceTypeString = new ArrayList<>();
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address, new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         house.setMotherArea(new GeographicArea("Porto", new TypeArea

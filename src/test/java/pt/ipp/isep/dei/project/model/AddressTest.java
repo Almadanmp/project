@@ -15,7 +15,7 @@ class AddressTest {
     @BeforeEach
     void arrangeArtifacts() {
         validAddress = new Address("Rua Dr. António Bernardino de Almeida",
-                "4440-616", "Porto");
+                "4440-616", "Porto","Portugal");
     }
 
     @Test
@@ -160,7 +160,7 @@ class AddressTest {
     void seeIfEqualsWorksSameParameters() {
         //Arrange
         Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida",
-                "4440-616", "Porto");
+                "4440-616", "Porto","Portugal");
 
         //Assert
         assertEquals(sameAddress, validAddress);
@@ -170,7 +170,7 @@ class AddressTest {
     void seeIfEqualsFailsWithDifferentTown() {
         //Arrange
         Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida",
-                "4440-616", "Lisbon");
+                "4440-616", "Lisbon","Portugal");
 
         //Assert
         assertNotEquals(sameAddress, validAddress);
@@ -180,7 +180,7 @@ class AddressTest {
     void seeIfEqualsFailsWithDifferentZip() {
         //Arrange
         Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida",
-                "4440-666", "Porto");
+                "4440-666", "Porto","Portugal");
 
         //Assert
         assertNotEquals(sameAddress, validAddress);
@@ -190,7 +190,7 @@ class AddressTest {
     void seeIfEqualsFailsWithDifferentStreet() {
         //Arrange
         Address sameAddress = new Address("Rua Dr. José Bernardino de Almeida",
-                "4440-616", "Porto");
+                "4440-616", "Porto","Portugal");
 
         //Assert
         assertNotEquals(sameAddress, validAddress);

@@ -861,7 +861,7 @@ class SensorTest {
     void seeIfGetDistanceToHouseWorks() {
         // Arrange
 
-        House house = new House("House", new Address("Rua das Flores", "4512", "Porto"), new Local(
+        House house = new House("House", new Address("Rua das Flores", "4512", "Porto","Portugal"), new Local(
                 4, 6, 6), 60, 180,
                 new ArrayList<>());
         house.setMotherArea(new GeographicArea("Porto", new TypeArea("City"),

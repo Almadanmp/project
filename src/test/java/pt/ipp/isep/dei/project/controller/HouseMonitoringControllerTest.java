@@ -62,7 +62,7 @@ class HouseMonitoringControllerTest {
         validHouseArea = new GeographicArea("Portugal", new TypeArea("Country"), 300,
                 200, new Local(45, 30, 30));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
+                "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
@@ -663,7 +663,7 @@ class HouseMonitoringControllerTest {
     void testGetFirstHottestDayHouseWithoutSensors() {
         // Arrange
         House house = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"),
+                "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         house.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
@@ -736,7 +736,7 @@ class HouseMonitoringControllerTest {
     @Test
     void seeIfIsMotherAreaValidNoMotherArea() {
         House invalidHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
-                "4455-125", "Porto"), new Local(20, 20, 20), 60,
+                "4455-125", "Porto","Portugal"), new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         assertFalse(controller.isMotherAreaValid(invalidHouse));
     }

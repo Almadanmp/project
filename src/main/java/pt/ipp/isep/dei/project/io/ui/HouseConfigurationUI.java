@@ -170,6 +170,10 @@ class HouseConfigurationUI {
         System.out.println("Please, type the town where the house is located: ");
         String town = scanner.nextLine();
 
+        // get country
+        System.out.println("Please, type the country where the house is located: ");
+        String country = scanner.nextLine();
+
         //get latitude
         System.out.print("Please, type the latitude: ");
         double houseLat = InputHelperUI.getInputAsDouble();
@@ -183,12 +187,12 @@ class HouseConfigurationUI {
         double houseAlt = InputHelperUI.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
-        controller.setHouseAddress(street, zip, town, house);
+        controller.setHouseAddress(street, zip, town, country, house);
         controller.setHouseMotherArea(house, motherArea);
 
         String houseId = controller.getHouseName(house);
         System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
-                street + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Latitude: " + houseLat + ". \n" +
+                street + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Country: " + country + ". \n" + "Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }
 
