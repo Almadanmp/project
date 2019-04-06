@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ReadingsReaderXMLTest {
+class ReadingsReaderCSVTest {
 
     @Test
     void seeIfReadFileWorks() {
@@ -35,7 +35,7 @@ class ReadingsReaderXMLTest {
 
         Map<ReadingDTOWithUnit, String> expectedResult = new HashMap<>();
 
-        ReadingsReaderXML readingsReaderXML = new ReadingsReaderXML();
+        ReadingsReaderCSV readingsReaderCSV = new ReadingsReaderCSV();
         ReadingDTOWithUnit readingDTO1 = new ReadingDTOWithUnit();
         readingDTO1.setDate(validDate1);
         readingDTO1.setValue(14D);
@@ -76,7 +76,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        Map<ReadingDTOWithUnit, String> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test2XMLReadings.xml");
+        Map<ReadingDTOWithUnit, String> actualResult = readingsReaderCSV.readFile("src/test/resources/readerReadings/test2CSVReadings.csv");
 
         //Assert
 

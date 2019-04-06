@@ -201,4 +201,52 @@ class UnitHelperTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfConvertUnitToSystemDefaultWorks() {
+        // Arrange
+
+        Unit expectedResult = new Celsius();
+        Unit givenUnit = new Fahrenheit();
+
+        // Act
+
+        Unit actualResult = UnitHelper.convertUnitToSystemDefault(givenUnit);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfConvertStringToUnitWorks() {
+        // Arrange
+
+        Unit expectedResult = new Celsius();
+        String givenUnitString = "Celsius";
+
+        // Act
+
+        Unit actualResult = UnitHelper.convertStringToUnit(givenUnitString);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetReaderClassToInstanceWorks() throws IOException{
+        // Arrange
+
+        String expectedResult = "Fahrenheit";
+        String givenUnitString = "F";
+
+        // Act
+
+        String actualResult = UnitHelper.getReaderClassToInstance(givenUnitString);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 }

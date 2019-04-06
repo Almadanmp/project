@@ -57,4 +57,17 @@ public class LiterPerSquareMeter implements RainfallUnit {
     public String buildString() {
         return "LiterPerSquareMeter";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

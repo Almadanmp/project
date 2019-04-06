@@ -57,4 +57,17 @@ public class Millimeter implements RainfallUnit {
     public String buildString() {
         return "Millimeter";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

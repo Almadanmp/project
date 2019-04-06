@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.services.units;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 class UnitHelper {
@@ -191,5 +192,74 @@ class UnitHelper {
         }
         RainfallUnit specificUnit = (RainfallUnit) unitToConvert;
         return specificUnit.toUserDefault(valueToConvert);
+    }
+
+
+    /**
+     * This method receives a Unit object and returns another Unit object from same measuring system
+     * that was previously defined as System Default.
+     *
+     * @param unit Unit object to convert.
+     * @return Unit object defined as System Default
+     */
+    static Unit convertUnitToSystemDefault(Unit unit) {
+        try {
+            TemperatureUnit specificUnit = (TemperatureUnit) unit;
+            String defaultTemperatureString = getApplicationTemperatureConfig();
+            return convertStringToUnit(defaultTemperatureString);
+        } catch (ClassCastException ok) {
+            ok.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        RainfallUnit specificUnit = (RainfallUnit) unit;
+        try {
+            String defaultRainfallString = getApplicationRainfallConfig();
+            return convertStringToUnit(defaultRainfallString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * This method receives a String that corresponds to a given Measuring Unit and
+     * converts that String to an object of the corresponding Measuring Unit.
+     *
+     * @param unit String that corresponds to a given Unit.
+     * @return Unit object that was created from the given String.
+     */
+    public static Unit convertStringToUnit(String unit) {
+        try {
+            String classToInstance = getReaderClassToInstance(unit); //retrieves class to instance
+
+            Class<?> unitClass = Class.forName("pt.ipp.isep.dei.project.services.units." + classToInstance);
+            return (Unit) unitClass.newInstance(); // invokes empty constructor
+        } catch (IOException io) {
+            throw new IllegalArgumentException(io.getMessage());
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * This method receives a String that corresponds to a given Unit and returns
+     * another String that corresponds to the Class that instances objects from the given Unit.
+     *
+     * @param unit String that corresponds to a given Unit.
+     * @return String of the Class that corresponds to the given Unit.
+     */
+    static String getReaderClassToInstance(String unit) throws IOException {
+        String classToInstance;
+        Properties props = new Properties();
+        try (InputStream input = new FileInputStream("resources/unit.properties")) {
+            props.load(input);
+            classToInstance = props.getProperty(unit);
+
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+        return classToInstance;
     }
 }
