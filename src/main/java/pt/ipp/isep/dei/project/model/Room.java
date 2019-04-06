@@ -25,6 +25,7 @@ public class Room implements Metered {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String roomName;
+    private String description;
     private int houseFloor;
     private double roomWidth;
     private double roomLength;
@@ -50,8 +51,9 @@ public class Room implements Metered {
      * @param length     of the room
      * @param height     of the room
      */
-    public Room(String name, int houseFloor, double width, double length, double height) {
+    public Room(String name, String description, int houseFloor, double width, double length, double height) {
         this.roomName = name;
+        this.description = description;
         this.houseFloor = houseFloor;
         this.roomWidth = width;
         this.roomLength = length;
@@ -100,6 +102,14 @@ public class Room implements Metered {
     }
 
     /**
+     * Room description getter.
+     * @return String of the description of the room.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Room Sensor List Setter.
      *
      * @param sensorList is the sensorList to set to the Room
@@ -134,6 +144,7 @@ public class Room implements Metered {
     public void setId(long id) {
         this.id = id;
     }
+
 
     /**
      * Method that gets the room's device list.

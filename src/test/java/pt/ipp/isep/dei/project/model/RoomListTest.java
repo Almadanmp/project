@@ -20,7 +20,7 @@ class RoomListTest {
     void arrangeArtifacts() {
         validRoomList = new RoomList();
         emptyRoomList = new RoomList();
-        validRoomKitchen = new Room("Kitchen", 1, 4, 5, 3);
+        validRoomKitchen = new Room("Kitchen","1st Floor Kitchen", 1, 4, 5, 3);
         validRoomList.add(validRoomKitchen);
     }
 
@@ -96,7 +96,7 @@ class RoomListTest {
     void seeIfEqualsDifferentListContents() {
         // Arrange
 
-        Room testRoom = new Room("Balcony", 4, 2, 4, 3);
+        Room testRoom = new Room("Balcony","4th Floor Balcony", 4, 2, 4, 3);
         validRoomList.add(testRoom);
         emptyRoomList.add(validRoomKitchen);
 
@@ -113,7 +113,7 @@ class RoomListTest {
     void seeIfEqualsDifferentObjectTypes() {
         // Arrange
 
-        Room room2 = new Room("Balcony", 3, 2, 4, 3);
+        Room room2 = new Room("Balcony","3rd Floor Balcony", 3, 2, 4, 3);
         validRoomList.add(validRoomKitchen);
 
         // Act
@@ -131,7 +131,7 @@ class RoomListTest {
 
         RoomList roomList3 = new RoomList(); //Has two rooms.
 
-        Room room2 = new Room("Balcony", 2, 21, 21, 4);
+        Room room2 = new Room("Balcony","2nd Floor Balcony", 2, 21, 21, 4);
         roomList3.add(validRoomKitchen);
         roomList3.add(room2);
 
@@ -151,7 +151,7 @@ class RoomListTest {
     @Test
     void seeIfGetByIndexWorks() {
         //Arrange
-        Room room = new Room("room", 2, 20, 20, 4);
+        Room room = new Room("room","Double Bedroom", 2, 20, 20, 4);
         validRoomList.add(room);
 
         //Act
@@ -213,11 +213,11 @@ class RoomListTest {
 
         RoomList validRoomList2 = new RoomList();
         validRoomList2.add(validRoomKitchen);
-        validRoomList2.add(new Room("room", 2, 20, 20, 3));
+        validRoomList2.add(new Room("room","Single Bedroom", 2, 20, 20, 3));
 
         expectedResult2[0] = validRoomKitchen;
         expectedResult3[0] = validRoomKitchen;
-        expectedResult3[1] = new Room("room", 2, 20, 20, 3);
+        expectedResult3[1] = new Room("room","Single Bedroom", 2, 20, 20, 3);
 
         //Act
 
@@ -236,12 +236,12 @@ class RoomListTest {
     void seeIfCreateRoomWorks() {
         //Arrange
 
-        Room room = new Room("kitchen", 0, 15, 10, 2);
-        Room roomExpected = new Room("kitchen", 0, 15, 10, 2);
+        Room room = new Room("kitchen","Ground Floor Kitchen", 0, 15, 10, 2);
+        Room roomExpected = new Room("kitchen","Ground Floor Kitchen", 0, 15, 10, 2);
 
         //Act
 
-        Room roomActual1 = validRoomList.createRoom("kitchen", 0, 15, 10, 2);
+        Room roomActual1 = validRoomList.createRoom("kitchen", "Ground Floor Kitchen",0, 15, 10, 2);
 
         //Assert
 
@@ -253,7 +253,7 @@ class RoomListTest {
 
         //Act
 
-        Room roomActual2 = validRoomList.createRoom("kitchen", 0, 15, 10, 2);
+        Room roomActual2 = validRoomList.createRoom("kitchen","Ground Floor Kitchen", 0, 15, 10, 2);
 
         //Assert
         assertEquals(roomExpected, roomActual2);

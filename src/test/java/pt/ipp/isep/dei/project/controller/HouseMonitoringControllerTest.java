@@ -68,7 +68,7 @@ class HouseMonitoringControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
-        Room validRoom1 = new Room("Bedroom", 2, 15, 15, 10);
+        Room validRoom1 = new Room("Bedroom","Double Bedroom", 2, 15, 15, 10);
         RoomList validRoomList = new RoomList();
         validRoomList.add(validRoom1);
         validSensorList = new SensorList();
@@ -671,7 +671,7 @@ class HouseMonitoringControllerTest {
         SensorList sList = new SensorList();
         RoomList roomL = new RoomList();
         house.setRoomList(roomL);
-        Room roomD = new Room("Bedroom", 2, 15, 15, 10);
+        Room roomD = new Room("Bedroom","Single Bedroom", 2, 15, 15, 10);
         roomL.add(roomD);
         roomD.setSensorList(sList);
         // Act

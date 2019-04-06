@@ -73,14 +73,14 @@ public class RoomList {
      * @return new created room
      */
 
-    Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
+    Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height) {
         for (Room r : this.rooms) {
             String designation = r.getName();
             if (roomDesignation.equals(designation)) {
                 return r;
             }
         }
-        return new Room(roomDesignation, roomHouseFloor, width, length, height);
+        return new Room(roomDesignation, roomDescription,roomHouseFloor, width, length, height);
     }
 
     /**

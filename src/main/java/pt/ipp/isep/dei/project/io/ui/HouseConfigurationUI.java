@@ -15,6 +15,7 @@ import java.util.Scanner;
 class HouseConfigurationUI {
     private HouseConfigurationController controller;
     private String roomName;
+    private String roomDescription;
     private int roomHouseFloor;
     private double roomWidth;
     private double roomLength;
@@ -228,7 +229,7 @@ class HouseConfigurationUI {
     }
 
     private Room createNewRoom(House house) {
-        return controller.createNewRoom(house, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight);
+        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight);
     }
 
     /**

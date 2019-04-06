@@ -70,8 +70,8 @@ public class HouseConfigurationController {
      * @param height          is the height of the room we're going to create.
      * @return a new Room
      */
-    public Room createNewRoom(House house, String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        return house.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+    public Room createNewRoom(House house, String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height) {
+        return house.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height);
     }
 
     /**

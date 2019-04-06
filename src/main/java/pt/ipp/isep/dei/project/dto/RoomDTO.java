@@ -7,6 +7,7 @@ import java.util.List;
 public class RoomDTO {
 
     private String name;
+    private String description;
     private int floor;
     private double width;
     private double length;
@@ -76,10 +77,29 @@ public class RoomDTO {
     }
 
     /**
+     * Method that retrieves the DTO's description.
+     *
+     * @return is the description of the DTO.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Method that stores a particular string as the DTO's description.
+     *
+     * @param description is the description we want to store.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Method that retrieves the floor of the DTO.
      *
      * @return is the floor.
      */
+
 
     public int getFloor() {
         return floor;

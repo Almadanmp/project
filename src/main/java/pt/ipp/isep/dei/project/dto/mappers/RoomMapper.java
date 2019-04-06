@@ -35,6 +35,10 @@ public final class RoomMapper {
 
         String objectName = dtoToConvert.getName();
 
+        // Update the description
+
+        String objectDescription = dtoToConvert.getDescription();
+
         // Update the floor
 
         int objectFloor = dtoToConvert.getFloor();
@@ -70,7 +74,7 @@ public final class RoomMapper {
 
         // Create, update and return the converted object.
 
-        Room resultObject = new Room(objectName, objectFloor, objectWidth, objectLength, objectHeight);
+        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
         resultObject.setDeviceList(objectDeviceList);
         resultObject.setSensorList(objectSensorList);
         resultObject.setId(objectID);

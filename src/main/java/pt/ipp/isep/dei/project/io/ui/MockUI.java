@@ -84,7 +84,7 @@ class MockUI {
 
     //METHODS TO CREATE ROOMS
     private Room createRoomB107() {
-        Room roomB107 = new Room("B107", 1, 7, 11, 3.5);
+        Room roomB107 = new Room("B107", "Classroom",1, 7, 11, 3.5);
         WaterHeater wH107 = new WaterHeater(new WaterHeaterSpec());
         wH107.setName("EHW B107");
         wH107.setNominalPower(1.5);
@@ -124,7 +124,7 @@ class MockUI {
     }
 
     private Room createRoomB109() {
-        Room roomB109 = new Room("B109", 1, 7, 11, 3.5);
+        Room roomB109 = new Room("B109","Classroom", 1, 7, 11, 3.5);
 
         Sensor temperatureSensorB109 = new Sensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
         roomB109.addSensor(temperatureSensorB109);
@@ -165,7 +165,7 @@ class MockUI {
     }
 
     private Room createRoomB106() {
-        Room roomB106 = new Room("B106", 1, 7, 13, 3.5);
+        Room roomB106 = new Room("B106","Classroom", 1, 7, 13, 3.5);
         WaterHeater wH106 = new WaterHeater(new WaterHeaterSpec());
         wH106.setName("EHW B106");
         wH106.setNominalPower(2.2);

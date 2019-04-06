@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
@@ -57,8 +56,8 @@ class HouseConfigurationControllerTest {
     void seeIfPrintsRoomList() {
         // Arrange
 
-        Room roomOne = new Room("Kitchen", 1, 15, 20, 10);
-        Room roomTwo = new Room("LivingRoom", 1, 40, 40, 10);
+        Room roomOne = new Room("Kitchen","Equipped Kitchen" ,1, 15, 20, 10);
+        Room roomTwo = new Room("LivingRoom","1st Floor Living Room", 1, 40, 40, 10);
         RoomList roomList = new RoomList();
         roomList.add(roomOne);
         roomList.add(roomTwo);
@@ -81,9 +80,9 @@ class HouseConfigurationControllerTest {
     void createsRoom() {
         // Act
 
-        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
-        Room actualResult2 = controller.createNewRoom(validHouse, "Room", 1, 10, 15, 10);
-        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen", 1, 10, 15, 10);
+        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen","Not equipped Kitchen", 1, 10, 15, 10);
+        Room actualResult2 = controller.createNewRoom(validHouse, "Room","Double Bedroom",1, 10, 15, 10);
+        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen","Fully Equipped Kitchen", 1, 10, 15, 10);
 
         // Assert
 
@@ -95,9 +94,9 @@ class HouseConfigurationControllerTest {
     @Test
     void addsRoom() {
         //Arrange
-        Room room1 = new Room("Kitchen", 1, 10, 15, 10);
-        Room room2 = new Room("Room", 1, 10, 15, 10);
-        Room room3 = new Room("Kitchen", 1, 10, 15, 10);
+        Room room1 = new Room("Kitchen","Not equipped Kitchen", 1, 10, 15, 10);
+        Room room2 = new Room("Room","Double Bedroom", 1, 10, 15, 10);
+        Room room3 = new Room("Kitchen", "Fully Equipped Kitchen",1, 10, 15, 10);
 
         // Act
         boolean actualResult1 = controller.addRoomToHouse(validHouse, room1);

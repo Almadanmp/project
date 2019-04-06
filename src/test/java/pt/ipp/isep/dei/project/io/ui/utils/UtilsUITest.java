@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UtilsUITest {
     @Test
     public void roomListsAreInvalid() {
-        Room room1 = new Room("room1", 19, 23456789, 5, 3);
+        Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3);
         UtilsUI utilsUI = new UtilsUI();
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto"),
@@ -43,7 +43,7 @@ public class UtilsUITest {
     public void seeIfRoomDTOSensorListIsValidWorks() {
         // Arrange
 
-        Room room1 = new Room("room1", 19, 23456789, 5, 3);
+        Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3);
         GregorianCalendar date = new GregorianCalendar(2010, Calendar.DECEMBER, 2, 12, 12);
         Sensor sensor1 = new Sensor("RF12345", "sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         room1.addSensor(sensor1);

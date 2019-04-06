@@ -417,8 +417,8 @@ public class House implements Metered {
      * @param length          the length of the room.
      * @return room with characteristics given as parameters
      **/
-    public Room createRoom(String roomDesignation, int roomHouseFloor, double width, double length, double height) {
-        return this.roomList.createRoom(roomDesignation, roomHouseFloor, width, length, height);
+    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height) {
+        return this.roomList.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height);
     }
 
     /**

@@ -23,7 +23,7 @@ class RoomMapperTest {
 
     @BeforeEach
     void arrangeArtifacts(){
-        validRoom = new Room("Kitchen", 2, 30, 20, 10);
+        validRoom = new Room("Kitchen","2nd Floor Kitchen", 2, 30, 20, 10);
         validDTO = new RoomDTO();
     }
 
