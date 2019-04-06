@@ -11,17 +11,18 @@ import java.util.*;
 public class ReadingsReaderJSON implements ReadingsReader {
 
     public List<ReadingDTOWrapper> readFile(String filePath) {
-        List<ReadingDTOWrapper> readingDTOWrapper = new ArrayList<>();
+        List<ReadingDTOWrapper> readingDTOWrapperList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
             File file = new File(filePath);
             ReadingDTOLWrapperList readingDTOLWrapperList = objectMapper.readValue(file, ReadingDTOLWrapperList.class);
-            readingDTOWrapper = readingDTOLWrapperList.getReadingDTOWrapperList();
+            readingDTOWrapperList = readingDTOLWrapperList.getReadingDTOWrapperList();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return readingDTOWrapper;
+        return readingDTOWrapperList;
     }
 }

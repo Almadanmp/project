@@ -1,4 +1,6 @@
 package pt.ipp.isep.dei.project.reader.wrapper;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pt.ipp.isep.dei.project.reader.deserializer.CustomDateDeserializer;
@@ -6,15 +8,17 @@ import pt.ipp.isep.dei.project.reader.deserializer.CustomDateDeserializer;
 import java.util.Date;
 
 public class ReadingDTOWrapper {
+    @JsonProperty("id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private String sensorId;
     @JsonProperty("timestamp/date")
+    @JsonAlias({"timestamp/date", "timestamp_date"})
     @JsonDeserialize(using = CustomDateDeserializer.class)
     public Date date;
     @JsonProperty("value")
     public double value;
     @JsonProperty("unit")
     public String unit;
-    @JsonProperty("id")
-    public String sensorId;
 
     public Date getDate() {
         return date;
