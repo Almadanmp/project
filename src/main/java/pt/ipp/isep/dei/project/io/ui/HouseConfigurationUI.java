@@ -217,6 +217,10 @@ class HouseConfigurationUI {
         System.out.println("Please insert the room's name: ");
         this.roomName = scanner.nextLine();
 
+        //GET ROOM DESCRIPTION
+        System.out.println("Please insert the room's description: ");
+        this.roomDescription = scanner.nextLine();
+
         //GET ROOM HOUSE FLOOR
         System.out.println("Please insert your room's house floor: ");
         this.roomHouseFloor = InputHelperUI.getInputAsInt();
@@ -242,19 +246,20 @@ class HouseConfigurationUI {
 
     private void displayRoom() {
         String yourNewRoom = "The room is called ";
+        String description = " it is the ";
         String located = ", located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
         String height = " meters of height.";
         //SHOW ROOM ENTERED BY USER
         if (roomHouseFloor == 1) {
-            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "st floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+            System.out.println(yourNewRoom + roomName + description + roomDescription + located + roomHouseFloor + "st floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         } else if (roomHouseFloor == 2) {
-            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "nd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+            System.out.println(yourNewRoom + roomName + description + roomDescription + located + roomHouseFloor + "nd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         } else if (roomHouseFloor == 3) {
-            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "rd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+            System.out.println(yourNewRoom + roomName + description + roomDescription + located + roomHouseFloor + "rd floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         } else {
-            System.out.println(yourNewRoom + roomName + located + roomHouseFloor + "th floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
+            System.out.println(yourNewRoom + roomName + description + roomDescription + located + roomHouseFloor + "th floor and has " + roomWidth + width + roomLength + length + roomHeight + height);
         }
     }
 

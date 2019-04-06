@@ -46,7 +46,7 @@ class EnergyGridTest {
         validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
         validFridge.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
         validFridge.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
-        validRoom = new Room("Office","1st Floor Office", 2, 30, 30, 10);
+        validRoom = new Room("Office","2nd Floor Office", 2, 30, 30, 10);
         validRoom.addDevice(validFridge);
         validGrid.addRoom(validRoom);
     }
@@ -71,7 +71,7 @@ class EnergyGridTest {
         // Arrange
 
         String expectedResult = "---------------\n" +
-                "0) Designation: Office | House Floor: 2 | Width: 30.0 | Length: 30.0 | Height: 10.0\n" +
+                "0) Designation: Office | Description: 2nd Floor Office | House Floor: 2 | Width: 30.0 | Length: 30.0 | Height: 10.0\n" +
                 "---------------\n";
 
         // Act

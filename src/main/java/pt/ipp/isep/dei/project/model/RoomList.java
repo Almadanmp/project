@@ -96,6 +96,7 @@ public class RoomList {
         for (int i = 0; i < this.size(); i++) {
             Room aux = this.get(i);
             result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
+            result.append("Description: ").append(aux.getDescription()).append(" | ");
             result.append("House Floor: ").append(aux.getFloor()).append(" | ");
             result.append("Width: ").append(aux.getWidth()).append(" | ");
             result.append("Length: ").append(aux.getLength()).append(" | ");

@@ -63,8 +63,8 @@ class HouseConfigurationControllerTest {
         roomList.add(roomTwo);
         validHouse.setRoomList(roomList);
         String expectedResult = "---------------\n" +
-                "0) Designation: Kitchen | House Floor: 1 | Width: 15.0 | Length: 20.0 | Height: 10.0\n" +
-                "1) Designation: LivingRoom | House Floor: 1 | Width: 40.0 | Length: 40.0 | Height: 10.0\n" +
+                "0) Designation: Kitchen | Description: Equipped Kitchen | House Floor: 1 | Width: 15.0 | Length: 20.0 | Height: 10.0\n" +
+                "1) Designation: LivingRoom | Description: 1st Floor Living Room | House Floor: 1 | Width: 40.0 | Length: 40.0 | Height: 10.0\n" +
                 "---------------\n";
 
         // Act

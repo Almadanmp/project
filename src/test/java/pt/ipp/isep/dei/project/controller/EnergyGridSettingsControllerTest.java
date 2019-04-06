@@ -48,11 +48,11 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         RoomList roomList = new RoomList();
-        Room room = new Room("Quarto","Quarto de casal", 1, 20, 2, 2);
+        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
         roomList.add(room);
         validHouse.setRoomList(roomList);
         String expectedResult = "---------------\n" +
-                "0) Designation: Quarto | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
+                "0) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
 
         // Act
