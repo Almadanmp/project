@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LocalDTO {
 
@@ -9,6 +8,14 @@ public class LocalDTO {
     private double longitude;
     private double altitude;
     private long id;
+
+    public LocalDTO(){}
+
+    public LocalDTO(double latitude, double longitude, double altitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+    }
 
     public double getLatitude() {
         return latitude;

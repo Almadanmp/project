@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.services.units;
 
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
+import pt.ipp.isep.dei.project.reader.wrapper.GeographicAreaDTOWrapper;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
@@ -60,6 +62,32 @@ public final class Adapter {
             readingDTO.setSensorID(wrapper.getSensorId());
             if(!finalList.contains(readingDTO)) {
                 finalList.add(readingDTO);
+            }
+        }
+        return finalList;
+    }
+
+    /**
+     * This method receives a List of Geographic Area DTO Wrappers and returns a HashMap that contains Geographic Area DTO
+     * with its corresponding id.
+     *
+     * @param geographicAreaDTOWrappers list of areas Dto wrappers
+     * @return hashmap containing Reading DTOs with its corresponding sensor ID
+     **/
+    public static List<GeographicAreaDTO> geographicAreaDTOWrapperConversion(List<GeographicAreaDTOWrapper> geographicAreaDTOWrappers) {
+        List<GeographicAreaDTO> finalList = new ArrayList<>();
+        for (GeographicAreaDTOWrapper wrapper : geographicAreaDTOWrappers) {
+            GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+            geographicAreaDTO.setId(wrapper.getId());
+            geographicAreaDTO.setTypeArea(wrapper.getTypeArea());
+            geographicAreaDTO.setLength(wrapper.getLength());
+            geographicAreaDTO.setWidth(wrapper.getWidth());
+            geographicAreaDTO.setDescription(wrapper.getDescription());
+            geographicAreaDTO.setName(wrapper.getName());
+            geographicAreaDTO.setLocalDTO(wrapper.getLocalDTO());
+            geographicAreaDTO.setSensorDTOList(wrapper.getSensorDTOList());
+            if(!finalList.contains(geographicAreaDTO)) {
+                finalList.add(geographicAreaDTO);
             }
         }
         return finalList;
