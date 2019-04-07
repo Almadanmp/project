@@ -22,7 +22,7 @@ public class UtilsUITest {
     public void roomListsAreInvalid() {
         Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3);
         UtilsUI utilsUI = new UtilsUI();
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
@@ -49,7 +49,7 @@ public class UtilsUITest {
         room1.addSensor(areaSensor1);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());

@@ -25,7 +25,7 @@ class HouseConfigurationControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         List<String> deviceTypeList = new ArrayList<>();
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida","431", "4200-072", "Porto","Portugal");
         validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
@@ -117,7 +117,7 @@ class HouseConfigurationControllerTest {
 
         // Assert
 
-        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "4400", "City","Portugal"));
+        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431","4400", "City","Portugal"));
     }
 
     @Test

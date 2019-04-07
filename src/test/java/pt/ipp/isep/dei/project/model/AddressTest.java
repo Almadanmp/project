@@ -14,7 +14,7 @@ class AddressTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAddress = new Address("Rua Dr. António Bernardino de Almeida",
+        validAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4440-616", "Porto","Portugal");
     }
 
@@ -159,7 +159,7 @@ class AddressTest {
     @Test
     void seeIfEqualsWorksSameParameters() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida",
+        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4440-616", "Porto","Portugal");
 
         //Assert
@@ -169,7 +169,7 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsWithDifferentTown() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida",
+        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4440-616", "Lisbon","Portugal");
 
         //Assert
@@ -179,7 +179,7 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsWithDifferentZip() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida",
+        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4440-666", "Porto","Portugal");
 
         //Assert
@@ -189,7 +189,7 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsWithDifferentStreet() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. José Bernardino de Almeida",
+        Address sameAddress = new Address("Rua Dr. José Bernardino de Almeida","431",
                 "4440-616", "Porto","Portugal");
 
         //Assert

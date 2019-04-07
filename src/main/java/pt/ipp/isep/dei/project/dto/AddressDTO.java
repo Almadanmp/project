@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 public class AddressDTO {
     private String street;
+    private String number;
     private String zip;
     private String town;
     private String country;
@@ -12,6 +13,14 @@ public class AddressDTO {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getZip() {

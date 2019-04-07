@@ -40,7 +40,7 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
-        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
@@ -118,7 +118,7 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
@@ -140,7 +140,7 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
@@ -173,7 +173,7 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida",
+        House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida","431",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
@@ -526,7 +526,7 @@ class HouseTest {
     void seeIfBuildDeviceTypeStringWorksEmptyList() {
         // Arrange
 
-        House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock","Mock"),
+        House testHouse = new House("Mock", new Address("Mock", "Mock","Mock", "Mock","Mock"),
                 new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
         testHouse.setMotherArea(new GeographicArea("Mock", new AreaType("Mock"),
@@ -926,7 +926,7 @@ class HouseTest {
         validHouse.setAddress("Rua do ISEP", "4400", "Campus","Portugal");
 
         //Assert
-        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "4400", "Campus","Portugal"));
+        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431","4400", "Campus","Portugal"));
     }
 
     @Test

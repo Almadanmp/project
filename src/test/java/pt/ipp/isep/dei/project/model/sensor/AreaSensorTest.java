@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -862,7 +861,7 @@ class AreaSensorTest {
     void seeIfGetDistanceToHouseWorks() {
         // Arrange
 
-        House house = new House("House", new Address("Rua das Flores", "4512", "Porto","Portugal"), new Local(
+        House house = new House("House", new Address("Rua das Flores","431", "4512", "Porto","Portugal"), new Local(
                 4, 6, 6), 60, 180,
                 new ArrayList<>());
         house.setMotherArea(new GeographicArea("Porto", new AreaType("City"),

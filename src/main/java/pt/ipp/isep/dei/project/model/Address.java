@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
     private String street;
+    private String number;
     private String zip;
     private String town;
     private String country;
@@ -19,8 +20,9 @@ public class Address {
      * @param zip    is the zip-code.
      * @param town   is the town.
      */
-    public Address(String street, String zip, String town, String country) {
+    public Address(String street, String number, String zip, String town, String country) {
         this.street = street;
+        this.number = number;
         this.zip = zip;
         this.town = town;
         this.country = country;
@@ -33,6 +35,15 @@ public class Address {
      */
     String getStreet() {
         return this.street;
+    }
+
+    /**
+     * Standard getter method, to return the number.
+     *
+     * @return the string with the number.
+     */
+    public String getNumber() {
+        return number;
     }
 
     /**
