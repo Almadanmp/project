@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
@@ -96,14 +96,14 @@ class SensorSettingsUI {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        Sensor sensor = createSensor(sensorTypeList);
-        if (!getConfirmation(sensor)) {
+        AreaSensor areaSensor = createSensor(sensorTypeList);
+        if (!getConfirmation(areaSensor)) {
             return;
         }
-        addSensor(sensor, geographicAreaList);
+        addSensor(areaSensor, geographicAreaList);
     }
 
-    private Sensor createSensor(SensorTypeList sensorTypeList) {
+    private AreaSensor createSensor(SensorTypeList sensorTypeList) {
         String id = getInputSensorId();
         String name = getInputSensorName();
         SensorType sensorType = getInputTypeSensor(sensorTypeList);
@@ -155,17 +155,17 @@ class SensorSettingsUI {
         return DateUtils.getInputYearMonthDay();
     }
 
-    private boolean getConfirmation(Sensor sensor) {
-        System.out.println("You have created the following sensor:\n" + controller.buildSensorString(sensor));
+    private boolean getConfirmation(AreaSensor areaSensor) {
+        System.out.println("You have created the following sensor:\n" + controller.buildSensorString(areaSensor));
         Scanner input = new Scanner(System.in);
         System.out.println("\n Do you wish to addWithoutPersisting this sensor to a geographic area?\n");
         System.out.println("Yes/No:\t");
         return "yes".equals(input.nextLine());
     }
 
-    private void addSensor(Sensor sensor, GeographicAreaList geographicAreaList) {
+    private void addSensor(AreaSensor areaSensor, GeographicAreaList geographicAreaList) {
         GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
-        if (controller.addSensorToGeographicArea(sensor, geographicArea)) {
+        if (controller.addSensorToGeographicArea(areaSensor, geographicArea)) {
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {
             System.out.println("\nSensor wasn't added to the selected geographic area.");

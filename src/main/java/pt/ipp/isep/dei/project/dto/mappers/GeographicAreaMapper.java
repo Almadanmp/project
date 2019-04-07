@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +59,8 @@ public final class GeographicAreaMapper {
 
         AreaSensorList objectAreaSensorList = new AreaSensorList();
         for (SensorDTO y : dtoToConvert.getSensorDTOList()) {
-            Sensor tempSensor = SensorMapper.dtoToObject(y);
-            objectAreaSensorList.add(tempSensor);
+            AreaSensor tempAreaSensor = SensorMapper.dtoToObject(y);
+            objectAreaSensorList.add(tempAreaSensor);
         }
 
         // Create, update and return the converted object.
@@ -110,7 +110,7 @@ public final class GeographicAreaMapper {
         // Update the AreaSensorList
 
         List<SensorDTO> sensorDTOList = new ArrayList<>();
-        for (Sensor b : objectToConvert.getSensorList().getSensors()) {
+        for (AreaSensor b : objectToConvert.getSensorList().getAreaSensors()) {
             SensorDTO tempDTO = SensorMapper.objectToDTO(b);
             if (!sensorDTOList.contains(tempDTO)) {
                 sensorDTOList.add(tempDTO);

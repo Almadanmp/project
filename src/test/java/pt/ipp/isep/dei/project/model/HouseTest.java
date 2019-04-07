@@ -32,7 +32,7 @@ class HouseTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private House validHouse;
     private GeographicArea validArea;
-    private Sensor firstValidSensor;
+    private AreaSensor firstValidAreaSensor;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -46,12 +46,12 @@ class HouseTest {
                 180, deviceTypeString);
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        firstValidSensor = new Sensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
+        firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        Sensor secondValidSensor = new Sensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
+        AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
                 40, 15), new Date());
-        validArea.addSensor(firstValidSensor);
-        validArea.addSensor(secondValidSensor);
+        validArea.addSensor(firstValidAreaSensor);
+        validArea.addSensor(secondValidAreaSensor);
         validHouse.setMotherArea(validArea);
     }
 
@@ -59,7 +59,7 @@ class HouseTest {
     void seeDistanceToSensor() {
         // Act
 
-        double actualResult = validHouse.calculateDistanceToSensor(firstValidSensor);
+        double actualResult = validHouse.calculateDistanceToSensor(firstValidAreaSensor);
 
         // Assert
 
@@ -71,11 +71,11 @@ class HouseTest {
     void seeIfGetClosestSensorOfGivenTypeWorks() {
         // Act
 
-        Sensor result = validHouse.getClosestSensorOfGivenType("Temperature");
+        AreaSensor result = validHouse.getClosestSensorOfGivenType("Temperature");
 
         // Assert
 
-        assertEquals(firstValidSensor, result);
+        assertEquals(firstValidAreaSensor, result);
     }
 
     @Test
@@ -84,7 +84,7 @@ class HouseTest {
 
         double expectedResult = 1111.9492664455872;
         AreaSensorList validAreaSensorList = new AreaSensorList();
-        validAreaSensorList.add(firstValidSensor);
+        validAreaSensorList.add(firstValidAreaSensor);
         // Act
 
         double actualResult = validHouse.getMinDistanceToSensorOfGivenType(validAreaSensorList);
@@ -98,9 +98,9 @@ class HouseTest {
     void getMinDistanceToSensorOfGivenTypeSamePosition() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12666", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(20,
+        AreaSensor testAreaSensor = new AreaSensor("RF12666", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(20,
                 20, 20), new Date());
-        validArea.addSensor(testSensor);
+        validArea.addSensor(testAreaSensor);
         double expectedResult = 0;
 
         // Act
@@ -412,15 +412,15 @@ class HouseTest {
         AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
         areaReadingList.addReading(firstAreaReading);
         areaReadingList.addReading(secondAreaReading);
-        firstValidSensor.setAreaReadingList(areaReadingList);
+        firstValidAreaSensor.setAreaReadingList(areaReadingList);
 
         // Act
 
-        Sensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
+        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
 
         // Assert
 
-        assertEquals(firstValidSensor, actualResult);
+        assertEquals(firstValidAreaSensor, actualResult);
     }
 
     @Test
@@ -441,37 +441,37 @@ class HouseTest {
         AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
         areaReadingList.addReading(firstAreaReading);
         areaReadingList.addReading(secondAreaReading);
-        firstValidSensor.setAreaReadingList(areaReadingList);
+        firstValidAreaSensor.setAreaReadingList(areaReadingList);
 
-        Sensor secondSensor = new Sensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
+        AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        secondSensor.addReading(new AreaReading(15, earlierDate,"C"));
-        validArea.addSensor(secondSensor);
+        secondAreaSensor.addReading(new AreaReading(15, earlierDate,"C"));
+        validArea.addSensor(secondAreaSensor);
 
         // Act
 
-        Sensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
+        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
 
         // Assert
 
-        assertEquals(firstValidSensor, actualResult);
+        assertEquals(firstValidAreaSensor, actualResult);
     }
 
     @Test
     void seeIfGetClosestSensorOfTypeWorksByDistance() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
+        AreaSensor testAreaSensor = new AreaSensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
                 21, 20), new Date());
-        validArea.addSensor(testSensor);
+        validArea.addSensor(testAreaSensor);
 
         // Act
 
-        Sensor actualResult = validHouse.getClosestSensorOfGivenType("Rainfall");
+        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Rainfall");
 
         // Assert
 
-        assertEquals(testSensor, actualResult);
+        assertEquals(testAreaSensor, actualResult);
     }
 
 
@@ -479,12 +479,12 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksNoSensor() {
         // Arrange
 
-        Sensor expectedResult = new Sensor("RF12345", "EmptyList", new SensorType("temperature", ""),
+        AreaSensor expectedResult = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", ""),
                 new Local(0, 0, 0), new Date());
 
         // Act
 
-        Sensor actualResult = validHouse.getClosestSensorOfGivenType("Movement");
+        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Movement");
 
         // Assert
 

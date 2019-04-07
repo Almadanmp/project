@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-class SensorDTOTest {
+class AreaSensorDTOTest {
 
     @Test
     void seeIfEqualsWorks() {

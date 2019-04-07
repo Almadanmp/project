@@ -11,7 +11,7 @@ import java.util.Date;
  * It contains a list with one or more weather readings.
  */
 @Entity
-public class Sensor {
+public class AreaSensor {
 
     @Id
     private String id;
@@ -40,7 +40,7 @@ public class Sensor {
     /**
      * Empty constructor to import Sensors from a XML file.
      */
-    public Sensor() {
+    public AreaSensor() {
     }
 
     /**
@@ -52,7 +52,7 @@ public class Sensor {
      * @param local                  is the Local of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public Sensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
+    public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
         setId(id);
         setName(name);
         setSensorType(sensorType);
@@ -70,7 +70,7 @@ public class Sensor {
      * @param sensorType             is the Type of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public Sensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
+    public AreaSensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
@@ -450,11 +450,11 @@ public class Sensor {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof Sensor)) {
+        if (!(testObject instanceof AreaSensor)) {
             return false;
         }
-        Sensor sensor = (Sensor) testObject;
-        return this.getName().equals(sensor.getName());
+        AreaSensor areaSensor = (AreaSensor) testObject;
+        return this.getName().equals(areaSensor.getName());
     }
 
     @Override

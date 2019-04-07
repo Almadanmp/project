@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import javax.persistence.*;
@@ -259,11 +259,11 @@ public class House implements Metered {
     /**
      * calculates distance from the house to the sensor.
      *
-     * @param sensor sensor from where to calculate the distance
+     * @param areaSensor sensor from where to calculate the distance
      * @return returns the distance between sensor and the house
      */
-    public double calculateDistanceToSensor(Sensor sensor) {
-        Local l = sensor.getLocal();
+    public double calculateDistanceToSensor(AreaSensor areaSensor) {
+        Local l = areaSensor.getLocal();
         return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
@@ -287,10 +287,10 @@ public class House implements Metered {
      * @param sensorType the type of sensor to check
      * @return the closest sensor.
      */
-    public Sensor getClosestSensorOfGivenType(String sensorType) {
-        Sensor sensor;
+    public AreaSensor getClosestSensorOfGivenType(String sensorType) {
+        AreaSensor areaSensor;
         AreaSensorList minDistSensor = new AreaSensorList();
-        Sensor sensorError = new Sensor("RF12345", "EmptyList", new SensorType("temperature", " " +
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime());
         AreaSensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
@@ -299,14 +299,14 @@ public class House implements Metered {
             minDistSensor = sensorsType.getSensorsByDistanceToHouse(this, minDist);
         }
         if (minDistSensor.isEmpty()) {
-            return sensorError;
+            return areaSensorError;
         }
         if (minDistSensor.size() > 1) {
-            sensor = minDistSensor.getMostRecentlyUsedSensor();
+            areaSensor = minDistSensor.getMostRecentlyUsedSensor();
         } else {
-            sensor = minDistSensor.get(0);
+            areaSensor = minDistSensor.get(0);
         }
-        return sensor;
+        return areaSensor;
     }
 
 

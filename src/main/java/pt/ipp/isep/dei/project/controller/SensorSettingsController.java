@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
@@ -83,18 +83,18 @@ public class SensorSettingsController {
      */
 
 
-    public Sensor createSensor(String id, String name, SensorType type, Local local, Date date) {
-        return new Sensor(id, name, type, local, date);
+    public AreaSensor createSensor(String id, String name, SensorType type, Local local, Date date) {
+        return new AreaSensor(id, name, type, local, date);
     }
 
     /**
      * This method receives a sensor and returns a string with the sensor's parameters
      *
-     * @param sensor the chosen sensor.
+     * @param areaSensor the chosen sensor.
      * @return String with sensor parameters
      **/
-    public String buildSensorString(Sensor sensor) {
-        return sensor.buildString();
+    public String buildSensorString(AreaSensor areaSensor) {
+        return areaSensor.buildString();
     }
 
     /**
@@ -105,18 +105,18 @@ public class SensorSettingsController {
      * @param date
      * @return a created Sensor
      */
-    public Sensor createRoomSensor(String name, SensorType type, Date date) {
-        return new Sensor(name, type, date);
+    public AreaSensor createRoomSensor(String name, SensorType type, Date date) {
+        return new AreaSensor(name, type, date);
     }
 
     /**
-     * @param sensor  the sensor we want to addWithoutPersisting to the geographic area.
+     * @param areaSensor  the sensor we want to addWithoutPersisting to the geographic area.
      * @param geoArea is the area we want to addWithoutPersisting the sensor to.
      * @return is true if successfully added, false if not.
      */
 
-    public boolean addSensorToGeographicArea(Sensor sensor, GeographicArea geoArea) {
-        return (geoArea.addSensor(sensor));
+    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geoArea) {
+        return (geoArea.addSensor(areaSensor));
     }
 
 

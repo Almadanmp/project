@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 
@@ -42,8 +42,8 @@ class AreaSensorServiceTest {
         String sensorId = "404";
         double value = 34;
         Date date = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-        Sensor sensor = new Sensor(sensorId, "sensor", sensorType, local, dateStartFunction);
-        sensorRepository.save(sensor);
+        AreaSensor areaSensor = new AreaSensor(sensorId, "sensor", sensorType, local, dateStartFunction);
+        sensorRepository.save(areaSensor);
 
         // Act
 

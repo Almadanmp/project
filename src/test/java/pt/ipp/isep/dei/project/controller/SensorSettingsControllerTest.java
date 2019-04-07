@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
@@ -148,11 +148,11 @@ class SensorSettingsControllerTest {
         Date date1 = controller.createDate(year, month, day);
         controller.createSensor(idString, nameString, type1, loc1, date1);
         SensorType t1 = new SensorType(typeStr, "kg/m³");
-        Sensor expectedResult = new Sensor("RF12345", "XV-56D", t1, loc1,
+        AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", t1, loc1,
                 validDate1);
 
         //Act
-        Sensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1);
+        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -165,20 +165,20 @@ class SensorSettingsControllerTest {
         GeographicArea geoArea = new GeographicArea("Portugal",
                 new AreaType("Country"), 300, 200,
                 new Local(30, 30, 50));
-        Sensor firstSensor = new Sensor("RF12345", "SensorOne", new SensorType
+        AreaSensor firstAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType
                 ("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1);
-        Sensor secondSensor = new Sensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
+        AreaSensor secondAreaSensor = new AreaSensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1);
         AreaSensorList areaSensorList = new AreaSensorList();
-        areaSensorList.add(firstSensor);
+        areaSensorList.add(firstAreaSensor);
         geoArea.setSensorList(areaSensorList);
 
         // Act
 
-        boolean actualResult = geoArea.addSensor(secondSensor);
+        boolean actualResult = geoArea.addSensor(secondAreaSensor);
 
         // Assert
 
@@ -225,11 +225,11 @@ class SensorSettingsControllerTest {
         Date date1 = controller.createDate(year, month, day);
         controller.createRoomSensor(nameString, firstType, date1);
         SensorType t1 = new SensorType(typeStr, "Celsius³");
-        Sensor expectedResult = new Sensor("XV-56D", t1, validDate1);
+        AreaSensor expectedResult = new AreaSensor("XV-56D", t1, validDate1);
 
         // Act
 
-        Sensor actualResult = controller.createRoomSensor(nameString, firstType, date1);
+        AreaSensor actualResult = controller.createRoomSensor(nameString, firstType, date1);
 
         // Assert
 
@@ -266,17 +266,17 @@ class SensorSettingsControllerTest {
         // Arrange
 
         GeographicArea ga1 = new GeographicArea("Porto", new AreaType("City"), 2, 3, new Local(4, 4, 100));
-        Sensor sensor1 = new Sensor("RF12345", "sensor1", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
+        AreaSensor areaSensor1 = new AreaSensor("RF12345", "sensor1", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
-        Sensor sensor2 = new Sensor("RF12345", "sensor1", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
+        AreaSensor areaSensor2 = new AreaSensor("RF12345", "sensor1", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
-        Sensor sensor3 = new Sensor("RF12345", "sensor3", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
+        AreaSensor areaSensor3 = new AreaSensor("RF12345", "sensor3", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
 
         // Act
-        boolean actualResult1 = controller.addSensorToGeographicArea(sensor1, ga1);
-        boolean actualResult2 = controller.addSensorToGeographicArea(sensor2, ga1);
-        boolean actualResult3 = controller.addSensorToGeographicArea(sensor3, ga1);
+        boolean actualResult1 = controller.addSensorToGeographicArea(areaSensor1, ga1);
+        boolean actualResult2 = controller.addSensorToGeographicArea(areaSensor2, ga1);
+        boolean actualResult3 = controller.addSensorToGeographicArea(areaSensor3, ga1);
 
         // Assert
         assertTrue(actualResult1);
@@ -288,14 +288,14 @@ class SensorSettingsControllerTest {
     void testBuildSensorString() {
         // Arrange
 
-        Sensor sensor = new Sensor("RF12345", "Sensor", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
+        AreaSensor areaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
                 validDate1);
         String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long \n";
 
 
         // Act
 
-        String actualResult = controller.buildSensorString(sensor);
+        String actualResult = controller.buildSensorString(areaSensor);
 
         // Assert
 

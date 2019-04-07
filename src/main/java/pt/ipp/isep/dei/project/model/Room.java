@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
 import javax.persistence.*;
 import java.util.*;
@@ -239,11 +239,11 @@ public class Room implements Metered {
     /**
      * Method to addWithoutPersisting a Sensor to the Room.
      *
-     * @param sensor is the sensor we want to addWithoutPersisting.
+     * @param areaSensor is the sensor we want to addWithoutPersisting.
      * @return true if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensor(Sensor sensor) {
-        return roomAreaSensorList.add(sensor);
+    public boolean addSensor(AreaSensor areaSensor) {
+        return roomAreaSensorList.add(areaSensor);
     }
 
     /**

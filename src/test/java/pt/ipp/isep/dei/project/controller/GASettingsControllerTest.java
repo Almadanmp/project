@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
 import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -39,8 +39,8 @@ class GASettingsControllerTest {
     private GeographicAreaDTO validGeographicAreaDTO;
     private SensorDTO validSensorDTO1;
     private SensorDTO validSensorDTO2;
-    private Sensor validSensor1;
-    private Sensor validSensor2;
+    private AreaSensor validAreaSensor1;
+    private AreaSensor validAreaSensor2;
     private GeographicAreaList validGeographicAreaList;
     private AreaTypeList validAreaTypeList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
@@ -66,14 +66,14 @@ class GASettingsControllerTest {
                 2, 5, new Local(21, 33, 5));
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
-        validSensor1 = new Sensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
+        validAreaSensor1 = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
                 new Local(31, 15, 3), date);
-        validSensor2 = new Sensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
+        validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
                 new Local(21, 65, 3), date);
-        firstValidArea.addSensor(validSensor1);
+        firstValidArea.addSensor(validAreaSensor1);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
-        validSensorDTO1 = SensorMapper.objectToDTO(validSensor1);
-        validSensorDTO2 = SensorMapper.objectToDTO(validSensor2);
+        validSensorDTO1 = SensorMapper.objectToDTO(validAreaSensor1);
+        validSensorDTO2 = SensorMapper.objectToDTO(validAreaSensor2);
 
         validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaList.addGeographicArea(firstValidArea);
@@ -361,8 +361,8 @@ class GASettingsControllerTest {
     void seeIfDeactivatedSensorDoesntChange() {
         //Arrange
 
-        validSensor1.deactivateSensor();
-        SensorDTO sensorDTO = SensorMapper.objectToDTO(validSensor1);
+        validAreaSensor1.deactivateSensor();
+        SensorDTO sensorDTO = SensorMapper.objectToDTO(validAreaSensor1);
 
         //Act
 
@@ -552,7 +552,7 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList expectedResult = validGeographicAreaList;
-        expectedResult.get(0).removeSensor(validSensor1);
+        expectedResult.get(0).removeSensor(validAreaSensor1);
 
         //Act
 
@@ -570,7 +570,7 @@ class GASettingsControllerTest {
         //Arrange
 
         GeographicAreaList expectedResult = validGeographicAreaList;
-        expectedResult.get(0).removeSensor(validSensor2);
+        expectedResult.get(0).removeSensor(validAreaSensor2);
 
         //Act
 

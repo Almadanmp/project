@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
@@ -31,7 +31,7 @@ public final class SensorMapper {
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static Sensor dtoToObject(SensorDTO dtoToConvert){
+    public static AreaSensor dtoToObject(SensorDTO dtoToConvert){
         // Update id
 
         String objectID = dtoToConvert.getId();
@@ -90,7 +90,7 @@ public final class SensorMapper {
 
         // Create, update and return converted object
 
-        Sensor resultObject = new Sensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
+        AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate);
         resultObject.setActive(objectStatus);
         resultObject.setAreaReadingList(objectAreaReadingList);
@@ -104,7 +104,7 @@ public final class SensorMapper {
      * @return is the converted model object.
      */
 
-    public static SensorDTO objectToDTO(Sensor objectToConvert){
+    public static SensorDTO objectToDTO(AreaSensor objectToConvert){
         // Update the ID
 
         String dtoID = objectToConvert.getId();

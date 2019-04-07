@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -51,7 +51,7 @@ class ReaderControllerTest {
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
     private ReaderController validReader;
-    private Sensor validSensor1;
+    private AreaSensor validAreaSensor1;
     private static final String validCSVLocation1 = "src/test/resources/readerReadings/test1CSVReadings.csv";
     private static final String validCSVLocation3 = "src/test/resources/readerReadings/test3CSVReadings.csv";
     private static final String validJSONLocation1 = "src/test/resources/readerReadings/test1JSONReadings.json";
@@ -93,24 +93,24 @@ class ReaderControllerTest {
                 new Local(41.149935, -8.610857, 118));
         GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new AreaType("city"), 0.299, 0.291,
                 new Local(41.178553, 8.608035, 117));
-        validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
+        validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
                 validDate1);
-        Sensor validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
+        AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 125),
                 validDate2);
-        Sensor validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
+        AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate3);
-        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
+        AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
         AreaSensorList validAreaSensorList = new AreaSensorList();
         AreaSensorList validAreaSensorList2 = new AreaSensorList();
-        validAreaSensorList.add(validSensor1);
-        validAreaSensorList.add(validSensor2);
-        validAreaSensorList2.add(validSensor3);
-        validAreaSensorList2.add(validSensor4);
+        validAreaSensorList.add(validAreaSensor1);
+        validAreaSensorList.add(validAreaSensor2);
+        validAreaSensorList2.add(validAreaSensor3);
+        validAreaSensorList2.add(validAreaSensor4);
         validGeographicArea.setSensorList(validAreaSensorList);
         validGeographicArea2.setSensorList(validAreaSensorList2);
         validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
@@ -421,7 +421,7 @@ class ReaderControllerTest {
         readings[2] = "23";
         readings[3] = "C";
 
-        validSensor1.addReading(new AreaReading(32, validDate, "C"));
+        validAreaSensor1.addReading(new AreaReading(32, validDate, "C"));
 
         // Act
 

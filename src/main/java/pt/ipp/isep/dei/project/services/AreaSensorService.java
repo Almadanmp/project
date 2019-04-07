@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 
 import java.util.Date;
@@ -36,16 +36,16 @@ public class AreaSensorService {
      */
 
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
-        Optional<Sensor> value = sensorRepository.findById(sensorID);
+        Optional<AreaSensor> value = sensorRepository.findById(sensorID);
         if (value.isPresent()) {
-            Sensor sensor = value.get();
+            AreaSensor areaSensor = value.get();
             AreaReading areaReading = new AreaReading(readingValue, readingDate, unit);
-            AreaReadingList sensorAreaReadingList = sensor.getAreaReadingList();
+            AreaReadingList sensorAreaReadingList = areaSensor.getAreaReadingList();
             if (sensorAreaReadingList.contains(areaReading)) {
                 return false;
             }
-            sensor.addReading(areaReading);
-            sensorRepository.save(sensor);
+            areaSensor.addReading(areaReading);
+            sensorRepository.save(areaSensor);
             return true;
         }
         return false;

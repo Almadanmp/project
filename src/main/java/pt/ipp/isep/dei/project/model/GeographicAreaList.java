@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Component;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -219,8 +219,8 @@ public class GeographicAreaList {
             if (ga.getSensorList().isEmpty()) {
                 continue;
             }
-            for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
-                fullAreaSensorList.add(sensor);
+            for (AreaSensor areaSensor : ga.getSensorList().getElementsAsArray()) {
+                fullAreaSensorList.add(areaSensor);
             }
         }
         return fullAreaSensorList;

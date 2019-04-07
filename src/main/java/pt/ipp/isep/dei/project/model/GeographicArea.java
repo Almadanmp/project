@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
 import javax.persistence.*;
 
@@ -273,11 +273,11 @@ public class GeographicArea {
     /**
      * Method adds sensor to geographic area sensor list.
      *
-     * @param sensor to addWithoutPersisting
+     * @param areaSensor to addWithoutPersisting
      * @return true in case the sensor is added, false otherwise.
      **/
-    public boolean addSensor(Sensor sensor) {
-        return this.areaSensors.add(sensor);
+    public boolean addSensor(AreaSensor areaSensor) {
+        return this.areaSensors.add(areaSensor);
     }
 
     /**
@@ -327,11 +327,11 @@ public class GeographicArea {
     /**
      * Method that removes a Sensor from the Geographical Area.
      *
-     * @param sensor is the sensor we want to remove.
+     * @param areaSensor is the sensor we want to remove.
      * @return true if the sensor was successfully removed from the geographical area, false otherwise.
      */
-    public boolean removeSensor(Sensor sensor) {
-        return areaSensors.remove(sensor);
+    public boolean removeSensor(AreaSensor areaSensor) {
+        return areaSensors.remove(areaSensor);
     }
 
     /**

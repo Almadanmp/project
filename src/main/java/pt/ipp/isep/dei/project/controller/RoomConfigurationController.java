@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -307,11 +307,11 @@ public class RoomConfigurationController {
     /**
      * /**
      * Method to addWithoutPersisting a Sensor to the Room.
-     * @param sensor is the sensor we want to addWithoutPersisting.
+     * @param areaSensor is the sensor we want to addWithoutPersisting.
      * @param room is the room we want to addWithoutPersisting the sensor to.
      * @return if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensorToRoom(Sensor sensor, Room room) {
-        return (room.addSensor(sensor));
+    public boolean addSensorToRoom(AreaSensor areaSensor, Room room) {
+        return (room.addSensor(areaSensor));
     }
 }

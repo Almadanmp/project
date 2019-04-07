@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class UtilsUITest {
 
         Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3);
         GregorianCalendar date = new GregorianCalendar(2010, Calendar.DECEMBER, 2, 12, 12);
-        Sensor sensor1 = new Sensor("RF12345", "sensor", new SensorType("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
-        room1.addSensor(sensor1);
+        AreaSensor areaSensor1 = new AreaSensor("RF12345", "sensor", new SensorType("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
+        room1.addSensor(areaSensor1);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
         House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",

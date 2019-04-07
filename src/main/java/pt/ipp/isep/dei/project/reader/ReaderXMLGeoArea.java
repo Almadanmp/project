@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.AreaType;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
@@ -78,8 +78,8 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private Sensor readSensorsXML(Node node, AreaSensorList areaSensorList) {
-        Sensor sensor = new Sensor();
+    private AreaSensor readSensorsXML(Node node, AreaSensorList areaSensorList) {
+        AreaSensor areaSensor = new AreaSensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             String id = getTagValue("id", element);
@@ -96,10 +96,10 @@ public class ReaderXMLGeoArea {
             } catch (ParseException expected) {
                 expected.getErrorOffset();
             }
-            sensor = new Sensor(id, name, sensorType, local, date);
-            sensor.setAreaSensorList(areaSensorList);
+            areaSensor = new AreaSensor(id, name, sensorType, local, date);
+            areaSensor.setAreaSensorList(areaSensorList);
         }
-        return sensor;
+        return areaSensor;
     }
 
     /**

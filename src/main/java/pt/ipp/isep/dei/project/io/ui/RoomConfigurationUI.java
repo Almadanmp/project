@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
@@ -420,8 +420,8 @@ class RoomConfigurationUI {
     private void updateAndDisplay253(SensorType sensorType, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
-        Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, sensorType, mDate);
-        if (controller.addSensorToRoom(mSensor, room)) {
+        AreaSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorName, sensorType, mDate);
+        if (controller.addSensorToRoom(mAreaSensor, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");
     }

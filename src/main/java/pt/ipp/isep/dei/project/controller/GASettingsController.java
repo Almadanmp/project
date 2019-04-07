@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
 /**
  * Controller class for Geographical Area Settings UI
@@ -179,13 +179,13 @@ public class GASettingsController {
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
     public boolean deactivateSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        Sensor sensor = SensorMapper.dtoToObject(sensorDTO);
-        if (sensor.isActive()) {
-            sensor.deactivateSensor();
+        AreaSensor areaSensor = SensorMapper.dtoToObject(sensorDTO);
+        if (areaSensor.isActive()) {
+            areaSensor.deactivateSensor();
             for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
                 if (g.getName().equals(geographicAreaDTO.getName())) {
-                    g.removeSensor(sensor);
-                    g.addSensor(sensor);
+                    g.removeSensor(areaSensor);
+                    g.addSensor(areaSensor);
                 }
             }
             return true;
@@ -202,15 +202,15 @@ public class GASettingsController {
 
     public SensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
-        Sensor sensor = InputHelperUI.getInputSensorByList(geographicArea.getSensorList());
-        return SensorMapper.objectToDTO(sensor);
+        AreaSensor areaSensor = InputHelperUI.getInputSensorByList(geographicArea.getSensorList());
+        return SensorMapper.objectToDTO(areaSensor);
     }
 
     public void removeSensor(GeographicAreaList geographicAreaList, SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        Sensor sensor = SensorMapper.dtoToObject(sensorDTO);
+        AreaSensor areaSensor = SensorMapper.dtoToObject(sensorDTO);
         for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
             if (g.getName().equals(geographicAreaDTO.getName())) {
-                g.removeSensor(sensor);
+                g.removeSensor(areaSensor);
             }
         }
     }

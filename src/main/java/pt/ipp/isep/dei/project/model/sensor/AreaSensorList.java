@@ -19,23 +19,23 @@ public class AreaSensorList {
     private Long id;
 
     @OneToMany(mappedBy = "areaSensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Sensor> sensors;
+    private List<AreaSensor> areaSensors;
 
 
     /**
      * AreaSensorList() empty constructor that initializes an ArrayList of Sensors.
      */
     public AreaSensorList() {
-        this.sensors = new ArrayList<>();
+        this.areaSensors = new ArrayList<>();
     }
 
 
-    public List<Sensor> getSensors() {
-        return sensors;
+    public List<AreaSensor> getAreaSensors() {
+        return areaSensors;
     }
 
-    public void setSensors(List<Sensor> sensors) {
-        this.sensors = sensors;
+    public void setAreaSensors(List<AreaSensor> areaSensors) {
+        this.areaSensors = areaSensors;
     }
 
     /**
@@ -44,17 +44,17 @@ public class AreaSensorList {
      *
      * @return the most recently used sensor
      */
-    public Sensor getMostRecentlyUsedSensor() {
-        if (this.sensors.isEmpty()) {
+    public AreaSensor getMostRecentlyUsedSensor() {
+        if (this.areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
         AreaSensorList areaSensorList = getSensorsWithReadings();
         if (areaSensorList.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
-        Sensor mostRecent = areaSensorList.get(0);
+        AreaSensor mostRecent = areaSensorList.get(0);
         Date recent = mostRecent.getMostRecentReadingDate();
-        for (Sensor s : this.sensors) {
+        for (AreaSensor s : this.areaSensors) {
             Date test = s.getMostRecentReadingDate();
             if (recent.before(test)) {
                 recent = test;
@@ -73,10 +73,10 @@ public class AreaSensorList {
      */
     public AreaSensorList getSensorsWithReadings() {
         AreaSensorList finalList = new AreaSensorList();
-        if (this.sensors.isEmpty()) {
+        if (this.areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
         }
-        for (Sensor s : this.sensors) {
+        for (AreaSensor s : this.areaSensors) {
             if (!s.isReadingListEmpty()) {
                 finalList.add(s);
             }
@@ -91,9 +91,9 @@ public class AreaSensorList {
 
     public AreaSensorList getSensorListByType(String name) {
         AreaSensorList containedTypeSensors = new AreaSensorList();
-        for (Sensor sensor : this.sensors) {
-            if (name.equals(sensor.getSensorTypeName())) {
-                containedTypeSensors.add(sensor);
+        for (AreaSensor areaSensor : this.areaSensors) {
+            if (name.equals(areaSensor.getSensorTypeName())) {
+                containedTypeSensors.add(areaSensor);
             }
         }
         return containedTypeSensors;
@@ -103,13 +103,13 @@ public class AreaSensorList {
     /**
      * Method to Add a sensor only if it's not contained in the list already.
      *
-     * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
+     * @param areaSensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
-    public boolean add(Sensor sensorToAdd) {
-        if (!(sensors.contains(sensorToAdd))) {
-            return sensors.add(sensorToAdd);
+    public boolean add(AreaSensor areaSensorToAdd) {
+        if (!(areaSensors.contains(areaSensorToAdd))) {
+            return areaSensors.add(areaSensorToAdd);
         }
         return false;
     }
@@ -123,8 +123,8 @@ public class AreaSensorList {
      */
     public List<Double> getSensorsDistanceToHouse(House house) {
         ArrayList<Double> arrayList = new ArrayList<>();
-        for (Sensor sensor : this.sensors) {
-            arrayList.add(house.calculateDistanceToSensor(sensor));
+        for (AreaSensor areaSensor : this.areaSensors) {
+            arrayList.add(house.calculateDistanceToSensor(areaSensor));
         }
         return arrayList;
     }
@@ -141,12 +141,12 @@ public class AreaSensorList {
     public String toString() {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
-        if (sensors.isEmpty()) {
+        if (areaSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
-        for (int i = 0; i < sensors.size(); i++) {
-            Sensor aux = sensors.get(i);
+        for (int i = 0; i < areaSensors.size(); i++) {
+            AreaSensor aux = areaSensors.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Type: ").append(aux.getSensorTypeName()).append(" | ")
                     .append(aux.printActive()).append("\n");
@@ -164,7 +164,7 @@ public class AreaSensorList {
      **/
     public AreaReadingList getReadings() {
         AreaReadingList finalList = new AreaReadingList();
-        for (Sensor s : this.sensors) {
+        for (AreaSensor s : this.areaSensors) {
             finalList.appendListNoDuplicates(s.getAreaReadingList());
         }
         return finalList;
@@ -180,7 +180,7 @@ public class AreaSensorList {
      **/
     public AreaSensorList getSensorsByDistanceToHouse(House house, double minDist) {
         AreaSensorList finalList = new AreaSensorList();
-        for (Sensor s : this.sensors) {
+        for (AreaSensor s : this.areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
                 finalList.add(s);
             }
@@ -194,7 +194,7 @@ public class AreaSensorList {
      * @return true if empty, false otherwise.
      **/
     public boolean isEmpty() {
-        return this.sensors.isEmpty();
+        return this.areaSensors.isEmpty();
     }
 
     /**
@@ -203,7 +203,7 @@ public class AreaSensorList {
      * @return AreaSensorList size as int
      **/
     public int size() {
-        return this.sensors.size();
+        return this.areaSensors.size();
     }
 
     /**
@@ -212,22 +212,22 @@ public class AreaSensorList {
      * @param index the index of the Sensor.
      * @return returns sensor that corresponds to index.
      */
-    public Sensor get(int index) {
-        if (this.sensors.isEmpty()) {
+    public AreaSensor get(int index) {
+        if (this.areaSensors.isEmpty()) {
             throw new IndexOutOfBoundsException("The sensor list is empty.");
         }
-        return this.sensors.get(index);
+        return this.areaSensors.get(index);
     }
 
     /**
      * Method checks if sensor list contains sensor given as parameter.
      *
-     * @param sensor sensor to check.
+     * @param areaSensor sensor to check.
      * @return returns true if list contains sensor, false if it does not contain sensor.
      */
 
-    public boolean contains(Sensor sensor) {
-        return sensors.contains(sensor);
+    public boolean contains(AreaSensor areaSensor) {
+        return areaSensors.contains(areaSensor);
     }
 
     /**
@@ -247,18 +247,18 @@ public class AreaSensorList {
      *
      * @return array of sensors
      */
-    public Sensor[] getElementsAsArray() {
-        int sizeOfResultArray = sensors.size();
-        Sensor[] result = new Sensor[sizeOfResultArray];
-        for (int i = 0; i < sensors.size(); i++) {
-            result[i] = sensors.get(i);
+    public AreaSensor[] getElementsAsArray() {
+        int sizeOfResultArray = areaSensors.size();
+        AreaSensor[] result = new AreaSensor[sizeOfResultArray];
+        for (int i = 0; i < areaSensors.size(); i++) {
+            result[i] = areaSensors.get(i);
         }
         return result;
     }
 
-    public boolean remove(Sensor sensor) {
-        if (this.contains(sensor)) {
-            sensors.remove(sensor);
+    public boolean remove(AreaSensor areaSensor) {
+        if (this.contains(areaSensor)) {
+            areaSensors.remove(areaSensor);
             return true;
         }
         return false;

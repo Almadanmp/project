@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
@@ -102,7 +102,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      */
 
     private AreaSensorList readAreaSensorsJSON(JSONArray areaSensors) {
-        List<Sensor> result = new ArrayList<>();
+        List<AreaSensor> result = new ArrayList<>();
         AreaSensorList areaSensorListObject = new AreaSensorList();
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
@@ -128,12 +128,12 @@ public class ReaderJSONGeographicAreas implements Reader {
             double sensorAltitude = sensorLocal.getDouble(ALTITUDE);
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
-            Sensor sensorObject = new Sensor(sensorId, sensorName, type, local, date);
-            sensorObject.setAreaSensorList(areaSensorListObject);
-            result.add(sensorObject);
+            AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date);
+            areaSensorObject.setAreaSensorList(areaSensorListObject);
+            result.add(areaSensorObject);
             entriesChecked++;
         }
-        areaSensorListObject.setSensors(result);
+        areaSensorListObject.setAreaSensors(result);
         return areaSensorListObject;
     }
 

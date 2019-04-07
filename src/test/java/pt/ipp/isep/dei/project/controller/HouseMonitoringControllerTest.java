@@ -28,7 +28,7 @@ class HouseMonitoringControllerTest {
     private GeographicArea validHouseArea;
     private House validHouse;
     private RoomDTO validRoom;
-    private Sensor validTemperatureSensor; // Is a temperature sensor with valid readings.
+    private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
     private AreaSensorList validAreaSensorList; // Contains the mock sensors mentioned above.
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1;
@@ -111,7 +111,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid temperature sensor with valid readings.
 
-        validTemperatureSensor = new Sensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
+        validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
                 new Date());
         AreaReading firstTempAreaReading = new AreaReading(15, validDate1, "C");
@@ -119,12 +119,12 @@ class HouseMonitoringControllerTest {
         AreaReading thirdTempAreaReading = new AreaReading(30, validDate3, "C");
         AreaReading fourthTempAreaReading = new AreaReading(30, validDate4, "C");
         AreaReading fifthTempAreaReading = new AreaReading(-5, validDate5, "C");
-        validTemperatureSensor.addReading(firstTempAreaReading);
-        validTemperatureSensor.addReading(secondTempAreaReading);
-        validTemperatureSensor.addReading(thirdTempAreaReading);
-        validTemperatureSensor.addReading(fourthTempAreaReading);
-        validTemperatureSensor.addReading(fifthTempAreaReading);
-        validAreaSensorList.add(validTemperatureSensor);
+        validTemperatureAreaSensor.addReading(firstTempAreaReading);
+        validTemperatureAreaSensor.addReading(secondTempAreaReading);
+        validTemperatureAreaSensor.addReading(thirdTempAreaReading);
+        validTemperatureAreaSensor.addReading(fourthTempAreaReading);
+        validTemperatureAreaSensor.addReading(fifthTempAreaReading);
+        validAreaSensorList.add(validTemperatureAreaSensor);
 
         // Copy past to TEST for using the organized dates and readings
         /*
@@ -165,15 +165,15 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid rainfall sensor with valid readings.
 
-        Sensor validRainfallSensor = new Sensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
+        AreaSensor validRainfallAreaSensor = new AreaSensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
                 (21, 41, 11), new Date());
         AreaReading firstRainAreaReading = new AreaReading(40, validDate4, "C");
         AreaReading secondRainAreaReading = new AreaReading(10, validDate5, "C");
         AreaReading thirdRainAreaReading = new AreaReading(10, validDate6, "C");
-        validRainfallSensor.addReading(firstRainAreaReading);
-        validRainfallSensor.addReading(secondRainAreaReading);
-        validRainfallSensor.addReading(thirdRainAreaReading);
-        validAreaSensorList.add(validRainfallSensor);
+        validRainfallAreaSensor.addReading(firstRainAreaReading);
+        validRainfallAreaSensor.addReading(secondRainAreaReading);
+        validRainfallAreaSensor.addReading(thirdRainAreaReading);
+        validAreaSensorList.add(validRainfallAreaSensor);
         validRoom = RoomMapper.objectToDTO(validRoom1);
     }
 
@@ -331,8 +331,8 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         AreaSensorList temperatureList = new AreaSensorList();
-        Sensor temperatureSensor = new Sensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date);
-        temperatureList.add(temperatureSensor);
+        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date);
+        temperatureList.add(temperatureAreaSensor);
         validHouseArea.setSensorList(temperatureList);
 
         // Act
@@ -354,8 +354,8 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         AreaSensorList rainFallAreaSensorList = new AreaSensorList();
-        Sensor rainfallSensor = new Sensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date);
-        rainFallAreaSensorList.add(rainfallSensor);
+        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date);
+        rainFallAreaSensorList.add(rainfallAreaSensor);
         validHouseArea.setSensorList(rainFallAreaSensorList);
 
         // Act
@@ -373,8 +373,8 @@ class HouseMonitoringControllerTest {
 
         AreaReading secondAreaReading = new AreaReading(30, validDate4, "C");
         AreaReading thirdAreaReading = new AreaReading(3, validDate5, "C");
-        validTemperatureSensor.addReading(secondAreaReading);
-        validTemperatureSensor.addReading(thirdAreaReading);
+        validTemperatureAreaSensor.addReading(secondAreaReading);
+        validTemperatureAreaSensor.addReading(thirdAreaReading);
         double expectedResult = 30;
 
         // Act
@@ -463,7 +463,7 @@ class HouseMonitoringControllerTest {
         AreaReadingList areaReadingList = new AreaReadingList();
         AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
         areaReadingList.addReading(areaReading1);
-        validTemperatureSensor.setAreaReadingList(areaReadingList);
+        validTemperatureAreaSensor.setAreaReadingList(areaReadingList);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
@@ -530,7 +530,7 @@ class HouseMonitoringControllerTest {
         areaReadingList.addReading(areaReading18);
         areaReadingList.addReading(areaReading19);
         areaReadingList.addReading(areaReading20);
-        validTemperatureSensor.setAreaReadingList(areaReadingList);
+        validTemperatureAreaSensor.setAreaReadingList(areaReadingList);
         //Act
         Date actualResult = controller.getLastColdestDayInInterval(validHouse, (new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
         //Assert
@@ -559,16 +559,16 @@ class HouseMonitoringControllerTest {
         AreaReading r09 = new AreaReading(40.2, validDate09, "C"); // Hottest Final Date ALSO MaxAmplitude Final Date
         AreaReading r10 = new AreaReading(21.2, validDate10, "C"); // Cold Final Date ALSO MaxAmplitude Final Date
 
-        validTemperatureSensor.addReading(r01);
-        validTemperatureSensor.addReading(r02);
-        validTemperatureSensor.addReading(r03);
-        validTemperatureSensor.addReading(r04);
-        validTemperatureSensor.addReading(r05);
-        validTemperatureSensor.addReading(r06);
-        validTemperatureSensor.addReading(r07);
-        validTemperatureSensor.addReading(r08);
-        validTemperatureSensor.addReading(r09);
-        validTemperatureSensor.addReading(r10);
+        validTemperatureAreaSensor.addReading(r01);
+        validTemperatureAreaSensor.addReading(r02);
+        validTemperatureAreaSensor.addReading(r03);
+        validTemperatureAreaSensor.addReading(r04);
+        validTemperatureAreaSensor.addReading(r05);
+        validTemperatureAreaSensor.addReading(r06);
+        validTemperatureAreaSensor.addReading(r07);
+        validTemperatureAreaSensor.addReading(r08);
+        validTemperatureAreaSensor.addReading(r09);
+        validTemperatureAreaSensor.addReading(r10);
         validHouseArea.setSensorList(validAreaSensorList);
         Date expectedResult = validDate06;
         // Act
@@ -596,16 +596,16 @@ class HouseMonitoringControllerTest {
         AreaReading r10 = new AreaReading(21.2, validDate10, "C"); // Cold Final Date ALSO MaxAmplitude Final Date
         AreaReading r01 = new AreaReading(40, validDate01, "C"); // MaxAmplitude First Date
 
-        validTemperatureSensor.addReading(r02);
-        validTemperatureSensor.addReading(r03);
-        validTemperatureSensor.addReading(r04);
-        validTemperatureSensor.addReading(r05);
-        validTemperatureSensor.addReading(r07);
-        validTemperatureSensor.addReading(r08);
-        validTemperatureSensor.addReading(r06);
-        validTemperatureSensor.addReading(r09);
-        validTemperatureSensor.addReading(r10);
-        validTemperatureSensor.addReading(r01);
+        validTemperatureAreaSensor.addReading(r02);
+        validTemperatureAreaSensor.addReading(r03);
+        validTemperatureAreaSensor.addReading(r04);
+        validTemperatureAreaSensor.addReading(r05);
+        validTemperatureAreaSensor.addReading(r07);
+        validTemperatureAreaSensor.addReading(r08);
+        validTemperatureAreaSensor.addReading(r06);
+        validTemperatureAreaSensor.addReading(r09);
+        validTemperatureAreaSensor.addReading(r10);
+        validTemperatureAreaSensor.addReading(r01);
         validHouseArea.setSensorList(validAreaSensorList);
         Date expectedResult = validDate06;
         // Act
@@ -640,12 +640,12 @@ class HouseMonitoringControllerTest {
         AreaReading r23 = new AreaReading(25, validDate23, "C");
         AreaReading r24 = new AreaReading(21, validDate24, "C");
         AreaReading r25 = new AreaReading(20, validDate25, "C");
-        validTemperatureSensor.addReading(r20);
-        validTemperatureSensor.addReading(r21);
-        validTemperatureSensor.addReading(r22);
-        validTemperatureSensor.addReading(r23);
-        validTemperatureSensor.addReading(r24);
-        validTemperatureSensor.addReading(r25);
+        validTemperatureAreaSensor.addReading(r20);
+        validTemperatureAreaSensor.addReading(r21);
+        validTemperatureAreaSensor.addReading(r22);
+        validTemperatureAreaSensor.addReading(r23);
+        validTemperatureAreaSensor.addReading(r24);
+        validTemperatureAreaSensor.addReading(r25);
         validHouseArea.setSensorList(validAreaSensorList);
         // Act
         Date expectedResult = validDate22;
@@ -710,9 +710,9 @@ class HouseMonitoringControllerTest {
         AreaReading r20 = new AreaReading(20, validDate20, "C");
         AreaReading r21 = new AreaReading(22, validDate21, "C");
         AreaReading r25 = new AreaReading(20, validDate25, "C");
-        validTemperatureSensor.addReading(r20);
-        validTemperatureSensor.addReading(r21);
-        validTemperatureSensor.addReading(r25);
+        validTemperatureAreaSensor.addReading(r20);
+        validTemperatureAreaSensor.addReading(r21);
+        validTemperatureAreaSensor.addReading(r25);
         validHouseArea.setSensorList(validAreaSensorList);
         // Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->

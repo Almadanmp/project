@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
@@ -146,10 +146,10 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Sensor s1 = new Sensor("RF12345", "SensorOne", new SensorType("Wind", "km/h"),
+        AreaSensor s1 = new AreaSensor("RF12345", "SensorOne", new SensorType("Wind", "km/h"),
                 new Local(12, 31, 21),
                 date);
-        Sensor s2 = new Sensor("RF12345", "SensorTwo", new SensorType("Rain", "l/m2"),
+        AreaSensor s2 = new AreaSensor("RF12345", "SensorTwo", new SensorType("Rain", "l/m2"),
                 new Local(10, 30, 20),
                 date);
         AreaSensorList areaSensorList = new AreaSensorList();
@@ -194,10 +194,10 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Sensor testSensor = new Sensor("SensorOne", new SensorType("Rain", "mm"), date);
+        AreaSensor testAreaSensor = new AreaSensor("SensorOne", new SensorType("Rain", "mm"), date);
         // Act
 
-        boolean actualResult = controller.addSensorToRoom(testSensor, validRoomWithDevices);
+        boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomWithDevices);
 
         // Assert
 

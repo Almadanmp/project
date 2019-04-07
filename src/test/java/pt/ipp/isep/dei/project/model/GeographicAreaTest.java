@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Sensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.util.Calendar;
@@ -200,11 +200,11 @@ class GeographicAreaTest {
     void seeIfGetSetSensorListWork() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345", "Vento", new SensorType("Atmosférico", "km/h"),
+        AreaSensor testAreaSensor = new AreaSensor("RF12345", "Vento", new SensorType("Atmosférico", "km/h"),
                 new Local(12, 31, 21), new Date());
-        validArea.addSensor(testSensor);
+        validArea.addSensor(testAreaSensor);
         AreaSensorList expectedResult = new AreaSensorList();
-        expectedResult.add(testSensor);
+        expectedResult.add(testAreaSensor);
 
         // Act
 
@@ -317,15 +317,15 @@ class GeographicAreaTest {
     void seeAddSensorToGA() {
         // Arrange
 
-        Sensor firstTestSensor = new Sensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
-        Sensor secondTestSensor = new Sensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
-        Sensor thirdTestSensor = new Sensor("Sensor 3", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor firstTestAreaSensor = new AreaSensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor secondTestAreaSensor = new AreaSensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor thirdTestAreaSensor = new AreaSensor("Sensor 3", new SensorType("Temperature", "Celsius"), new Date());
 
         // Act
 
-        boolean result1 = validArea.addSensor(firstTestSensor);
-        boolean result2 = validArea.addSensor(secondTestSensor);
-        boolean result3 = validArea.addSensor(thirdTestSensor);
+        boolean result1 = validArea.addSensor(firstTestAreaSensor);
+        boolean result2 = validArea.addSensor(secondTestAreaSensor);
+        boolean result3 = validArea.addSensor(thirdTestAreaSensor);
 
         // Assert
 
@@ -346,8 +346,8 @@ class GeographicAreaTest {
 
         // Arrange
 
-        Sensor sensor = new Sensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
-        validArea.addSensor(sensor);
+        AreaSensor areaSensor = new AreaSensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
+        validArea.addSensor(areaSensor);
 
         // Act
 
@@ -474,12 +474,12 @@ class GeographicAreaTest {
     void seeIfRemovesSensorWorks() {
         // Arrange
 
-        Sensor sensor = new Sensor();
-        validArea.addSensor(sensor);
+        AreaSensor areaSensor = new AreaSensor();
+        validArea.addSensor(areaSensor);
 
         // Act
 
-        boolean actualResult = validArea.removeSensor(sensor);
+        boolean actualResult = validArea.removeSensor(areaSensor);
 
         // Assert
 
@@ -491,11 +491,11 @@ class GeographicAreaTest {
     void seeIfRemovesSensorWorksFalse() {
         // Arrange
 
-        Sensor sensor = new Sensor();
+        AreaSensor areaSensor = new AreaSensor();
 
         // Act
 
-        boolean actualResult = validArea.removeSensor(sensor);
+        boolean actualResult = validArea.removeSensor(areaSensor);
 
         // Assert
 
@@ -587,16 +587,16 @@ class GeographicAreaTest {
         //Arrange
         GeographicArea geographicArea = new GeographicArea();
         AreaSensorList areaSensorList = new AreaSensorList();
-        Sensor sensor1 = new Sensor("Sensor 1", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
-        Sensor sensor2 = new Sensor("Sensor 2", new SensorType("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
-        Sensor sensor3 = new Sensor("Sensor 3", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
-        areaSensorList.add(sensor1);
-        areaSensorList.add(sensor2);
-        areaSensorList.add(sensor3);
+        AreaSensor areaSensor1 = new AreaSensor("Sensor 1", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
+        AreaSensor areaSensor2 = new AreaSensor("Sensor 2", new SensorType("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
+        AreaSensor areaSensor3 = new AreaSensor("Sensor 3", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
+        areaSensorList.add(areaSensor1);
+        areaSensorList.add(areaSensor2);
+        areaSensorList.add(areaSensor3);
         geographicArea.setSensorList(areaSensorList);
         AreaSensorList expectedResult = new AreaSensorList();
-        expectedResult.add(sensor1);
-        expectedResult.add(sensor3);
+        expectedResult.add(areaSensor1);
+        expectedResult.add(areaSensor3);
         //Act
         AreaSensorList actualResult = geographicArea.getSensorsOfGivenType("temperature");
         //Assert
