@@ -10,11 +10,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.AreaTypeList;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.AreaTypeList;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
@@ -32,6 +33,9 @@ public class MainUI {
 
     @Autowired
     SensorTypeList sensorTypeList;
+
+    @Autowired
+    AreaTypeRepository areaTypeRepository;
 
     @Autowired
     AreaTypeList areaTypeList;
@@ -106,7 +110,7 @@ public class MainUI {
             mockUI.initializeMockUI();
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
-
+            this.areaTypeList = new AreaTypeList(areaTypeRepository);
             SensorTypeList mockSensorTypeList = new SensorTypeList();
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
@@ -156,8 +160,8 @@ public class MainUI {
                     this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(areaTypeList, geographicAreaList, areaSensorService);
-                            view1.runGASettings();
+                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService);
+                            view1.runGASettings(areaTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
