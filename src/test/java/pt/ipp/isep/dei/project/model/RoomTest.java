@@ -29,7 +29,7 @@ class RoomTest {
     private static Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
     private Sensor validSensor; // Valid temperature sensor with valid readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
-    private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
+    private AreaReading validAreaReading; // Valid temperature reading at February 2, 2018, 00:00:00.
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -45,9 +45,9 @@ class RoomTest {
         validDevice.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
         validRoom.addDevice(validDevice);
-        validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+        validAreaReading = new AreaReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime(), "C");
-        validSensor.addReading(validReading);
+        validSensor.addReading(validAreaReading);
     }
 
     @Test
@@ -97,7 +97,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNegative() {
         // Arrange
 
-        validReading.setValue(-12);
+        validAreaReading.setValue(-12);
         double expectedResult = -12;
 
         // Act
@@ -437,12 +437,12 @@ class RoomTest {
     void seeIfGetMaxTemperatureGivenDayWorksMultipleReadings() {
         // Arrange
 
-        Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading secondAreaReading = new AreaReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 0).getTime(), "C");
-        Reading thirdReading = new Reading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading thirdAreaReading = new AreaReading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 11, 2, 0).getTime(), "C");
-        validSensor.addReading(secondReading);
-        validSensor.addReading(thirdReading);
+        validSensor.addReading(secondAreaReading);
+        validSensor.addReading(thirdAreaReading);
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
         double expectedResult = 28;
@@ -476,12 +476,12 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksSameMinuteReadings() {
         // Arrange
 
-        Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading secondAreaReading = new AreaReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 2).getTime(), "C");
-        Reading thirdReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading thirdAreaReading = new AreaReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 13).getTime(), "C");
-        validSensor.addReading(secondReading);
-        validSensor.addReading(thirdReading);
+        validSensor.addReading(secondAreaReading);
+        validSensor.addReading(thirdAreaReading);
         double expectedResult = 21;
 
         // Act
@@ -506,15 +506,15 @@ class RoomTest {
         validRoom.addSensor(firstSensor);
         validRoom.addSensor(secondSensor);
         validRoom.addSensor(thirdSensor);
-        Reading secondReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading secondAreaReading = new AreaReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 2).getTime(), "C");
-        Reading thirdReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading thirdAreaReading = new AreaReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 13).getTime(), "C");
-        Reading mostRecentReading = new Reading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        AreaReading mostRecentAreaReading = new AreaReading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 15, 2, 13).getTime(), "C");
-        firstSensor.addReading(secondReading);
-        secondSensor.addReading(thirdReading);
-        secondSensor.addReading(mostRecentReading);
+        firstSensor.addReading(secondAreaReading);
+        secondSensor.addReading(thirdAreaReading);
+        secondSensor.addReading(mostRecentAreaReading);
         double expectedResult = 30;
 
         // Act

@@ -208,13 +208,13 @@ class SensorTest {
         AreaReadingList expectedResult2 = new AreaReadingList();
         AreaReadingList emptyList = new AreaReadingList();
         AreaReadingList areaReadingList = new AreaReadingList();
-        Reading reading1 = new Reading(15, new Date(), "C");
+        AreaReading areaReading1 = new AreaReading(15, new Date(), "C");
 
         Sensor sensor1 = new Sensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
         Sensor sensor2 = new Sensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
 
-        areaReadingList.addReading(reading1);
-        expectedResult2.addReading(reading1);
+        areaReadingList.addReading(areaReading1);
+        expectedResult2.addReading(areaReading1);
 
 
         // Act
@@ -881,12 +881,12 @@ class SensorTest {
     void seeIfAddReadingsWorks() {
         // Arrange
 
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C");
+        AreaReading areaReading1 = new AreaReading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C");
 
         // Act
 
-        boolean actualResult1 = validSensor.addReading(reading1);
-        boolean actualResult3 = validSensor.addReading(reading1);
+        boolean actualResult1 = validSensor.addReading(areaReading1);
+        boolean actualResult3 = validSensor.addReading(areaReading1);
 
         // Assert
 
@@ -898,12 +898,12 @@ class SensorTest {
     void seeIfAddReadingsWorksNotActiveResult() {
         // Arrange
 
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C");
+        AreaReading areaReading1 = new AreaReading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C");
         validSensor.deactivateSensor();
         // Act
 
-        boolean actualResult1 = validSensor.addReading(reading1);
-        boolean actualResult3 = validSensor.addReading(reading1);
+        boolean actualResult1 = validSensor.addReading(areaReading1);
+        boolean actualResult3 = validSensor.addReading(areaReading1);
 
         // Assert
 
@@ -948,46 +948,46 @@ class SensorTest {
     void seeIfGetLastColdestDayInIntervalWorks() {
         //Arrange
         AreaReadingList areaReadingList = new AreaReadingList();
-        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
-        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
-        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
-        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
-        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
-        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
-        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
-        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
-        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
-        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
-        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
-        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
-        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
-        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
-        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
-        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
-        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
-        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
-        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
-        areaReadingList.addReading(reading1);
-        areaReadingList.addReading(reading2);
-        areaReadingList.addReading(reading3);
-        areaReadingList.addReading(reading4);
-        areaReadingList.addReading(reading5);
-        areaReadingList.addReading(reading6);
-        areaReadingList.addReading(reading7);
-        areaReadingList.addReading(reading8);
-        areaReadingList.addReading(reading9);
-        areaReadingList.addReading(reading10);
-        areaReadingList.addReading(reading11);
-        areaReadingList.addReading(reading12);
-        areaReadingList.addReading(reading13);
-        areaReadingList.addReading(reading14);
-        areaReadingList.addReading(reading15);
-        areaReadingList.addReading(reading16);
-        areaReadingList.addReading(reading17);
-        areaReadingList.addReading(reading18);
-        areaReadingList.addReading(reading19);
-        areaReadingList.addReading(reading20);
+        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
+        AreaReading areaReading2 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
+        AreaReading areaReading3 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
+        AreaReading areaReading4 = new AreaReading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
+        AreaReading areaReading5 = new AreaReading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
+        AreaReading areaReading6 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
+        AreaReading areaReading7 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
+        AreaReading areaReading8 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
+        AreaReading areaReading9 = new AreaReading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
+        AreaReading areaReading10 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
+        AreaReading areaReading11 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
+        AreaReading areaReading12 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
+        AreaReading areaReading13 = new AreaReading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
+        AreaReading areaReading14 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
+        AreaReading areaReading15 = new AreaReading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
+        AreaReading areaReading16 = new AreaReading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
+        AreaReading areaReading17 = new AreaReading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
+        AreaReading areaReading18 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
+        AreaReading areaReading19 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
+        AreaReading areaReading20 = new AreaReading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
+        areaReadingList.addReading(areaReading1);
+        areaReadingList.addReading(areaReading2);
+        areaReadingList.addReading(areaReading3);
+        areaReadingList.addReading(areaReading4);
+        areaReadingList.addReading(areaReading5);
+        areaReadingList.addReading(areaReading6);
+        areaReadingList.addReading(areaReading7);
+        areaReadingList.addReading(areaReading8);
+        areaReadingList.addReading(areaReading9);
+        areaReadingList.addReading(areaReading10);
+        areaReadingList.addReading(areaReading11);
+        areaReadingList.addReading(areaReading12);
+        areaReadingList.addReading(areaReading13);
+        areaReadingList.addReading(areaReading14);
+        areaReadingList.addReading(areaReading15);
+        areaReadingList.addReading(areaReading16);
+        areaReadingList.addReading(areaReading17);
+        areaReadingList.addReading(areaReading18);
+        areaReadingList.addReading(areaReading19);
+        areaReadingList.addReading(areaReading20);
         validSensor.setAreaReadingList(areaReadingList);
         //Act
         Date actualResult = validSensor.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
@@ -1104,7 +1104,7 @@ class SensorTest {
         Date dateSensorStartedFunctioning = new GregorianCalendar(2015, Calendar.NOVEMBER, 15).getTime();
         validSensor.setDateStartedFunctioning(dateSensorStartedFunctioning);
         AreaReadingList expectedResultList = new AreaReadingList();
-        expectedResultList.addReading(new Reading(23.3, validDate1, "C"));
+        expectedResultList.addReading(new AreaReading(23.3, validDate1, "C"));
 
         // Act
 
@@ -1173,9 +1173,9 @@ class SensorTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Reading r0 = new Reading(20, validDate3, "C");
-        Reading r1 = new Reading(25, validDate4, "C");
-        Reading r2 = new Reading(30, validDate5, "C");
+        AreaReading r0 = new AreaReading(20, validDate3, "C");
+        AreaReading r1 = new AreaReading(25, validDate4, "C");
+        AreaReading r2 = new AreaReading(30, validDate5, "C");
         validAreaReadingList1.addReading(r0);
         validAreaReadingList1.addReading(r1);
         validAreaReadingList1.addReading(r2);
@@ -1212,12 +1212,12 @@ class SensorTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Reading r0 = new Reading(20, validDate3, "C");
-        Reading r1 = new Reading(25, validDate4, "C");
-        Reading r2 = new Reading(30, validDate5, "C");
-        Reading r3 = new Reading(10, validDate6, "C");
-        Reading r4 = new Reading(10, validDate7, "C");
-        Reading r5 = new Reading(10, validDate8, "C");
+        AreaReading r0 = new AreaReading(20, validDate3, "C");
+        AreaReading r1 = new AreaReading(25, validDate4, "C");
+        AreaReading r2 = new AreaReading(30, validDate5, "C");
+        AreaReading r3 = new AreaReading(10, validDate6, "C");
+        AreaReading r4 = new AreaReading(10, validDate7, "C");
+        AreaReading r5 = new AreaReading(10, validDate8, "C");
         validAreaReadingList1.addReading(r0);
         validAreaReadingList1.addReading(r1);
         validAreaReadingList1.addReading(r2);
@@ -1256,14 +1256,14 @@ class SensorTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Reading reading = new Reading(20, validDate15, "C");
-        Reading reading2 = new Reading(20, validDate3, "C");
-        Reading reading3 = new Reading(20, validDate7, "C");
-        Reading reading4 = new Reading(20, validDate14, "C");
-        validAreaReadingList.addReading(reading);
-        validAreaReadingList.addReading(reading2);
-        validAreaReadingList.addReading(reading3);
-        validAreaReadingList.addReading(reading4);
+        AreaReading areaReading = new AreaReading(20, validDate15, "C");
+        AreaReading areaReading2 = new AreaReading(20, validDate3, "C");
+        AreaReading areaReading3 = new AreaReading(20, validDate7, "C");
+        AreaReading areaReading4 = new AreaReading(20, validDate14, "C");
+        validAreaReadingList.addReading(areaReading);
+        validAreaReadingList.addReading(areaReading2);
+        validAreaReadingList.addReading(areaReading3);
+        validAreaReadingList.addReading(areaReading4);
         double expectedResult = 20;
         // Act
 
@@ -1288,10 +1288,10 @@ class SensorTest {
             e.printStackTrace();
         }
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
-        Reading earlierReading = new Reading(15, validDate12, "C");
-        Reading laterReading = new Reading(30, testDate, "C");
-        validAreaReadingList.addReading(earlierReading);
-        validAreaReadingList.addReading(laterReading);
+        AreaReading earlierAreaReading = new AreaReading(15, validDate12, "C");
+        AreaReading laterAreaReading = new AreaReading(30, testDate, "C");
+        validAreaReadingList.addReading(earlierAreaReading);
+        validAreaReadingList.addReading(laterAreaReading);
         double expectedResult = 30.0;
 
         // Act

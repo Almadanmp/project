@@ -7,7 +7,7 @@ import java.util.Date;
  * This class will contain a value read by a Sensor, associated with a date of said reading.
  */
 @Entity
-public class Reading {
+public class AreaReading {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,13 +25,13 @@ public class Reading {
      * @param value value received
      * @param date  date received
      */
-    public Reading(double value, Date date, String unit) {
+    public AreaReading(double value, Date date, String unit) {
         setValue(value);
         setDate(date);
         setUnit(unit);
     }
 
-    protected Reading() {
+    protected AreaReading() {
     }
 
     /**
@@ -89,11 +89,11 @@ public class Reading {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Reading)) {
+        if (!(o instanceof AreaReading)) {
             return false;
         } else {
-            Reading reading = (Reading) o;
-            return (this.date.equals(reading.getDate()));
+            AreaReading areaReading = (AreaReading) o;
+            return (this.date.equals(areaReading.getDate()));
         }
     }
 

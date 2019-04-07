@@ -226,13 +226,13 @@ public class Sensor {
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
      *
-     * @param reading the reading to be added to the list
+     * @param areaReading the reading to be added to the list
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/
-    public boolean addReading(Reading reading) {
+    public boolean addReading(AreaReading areaReading) {
         if (this.active) {
-            return areaReadingList.addReading(reading);
+            return areaReadingList.addReading(areaReading);
         }
         return false;
     }
@@ -250,8 +250,8 @@ public class Sensor {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
-                Reading reading = new Reading(value, date, unit);
-                return this.addReading(reading);
+                AreaReading areaReading = new AreaReading(value, date, unit);
+                return this.addReading(areaReading);
             }
         }
         return false;

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.sensor.AreaReading;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,11 +74,11 @@ class AreaReadingListTest {
     void seeAddReadingIfListIsEmpty() {
         // Arrange
 
-        Reading reading1 = new Reading(17, validDate1, "C");
+        AreaReading areaReading1 = new AreaReading(17, validDate1, "C");
 
         // Act
 
-        boolean actualResult = validAreaReadingList.addReading(reading1);
+        boolean actualResult = validAreaReadingList.addReading(areaReading1);
 
         // Assert
 
@@ -121,13 +121,13 @@ class AreaReadingListTest {
     void seeIfAddsDifferentReadings() {
         // Arrange
 
-        Reading reading1 = new Reading(17, validDate1, "C");
-        Reading reading2 = new Reading(29, validDate2, "C");
-        validAreaReadingList.addReading(reading1);
+        AreaReading areaReading1 = new AreaReading(17, validDate1, "C");
+        AreaReading areaReading2 = new AreaReading(29, validDate2, "C");
+        validAreaReadingList.addReading(areaReading1);
 
         // Act
 
-        boolean actualResult = validAreaReadingList.addReading(reading2);
+        boolean actualResult = validAreaReadingList.addReading(areaReading2);
 
         // Assert
 
@@ -138,13 +138,13 @@ class AreaReadingListTest {
     void seeIfAddsSameReading() {
         // Arrange
 
-        Reading reading1 = new Reading(17, validDate1, "C");
-        Reading reading2 = new Reading(17, validDate1, "C");
-        validAreaReadingList.addReading(reading1);
+        AreaReading areaReading1 = new AreaReading(17, validDate1, "C");
+        AreaReading areaReading2 = new AreaReading(17, validDate1, "C");
+        validAreaReadingList.addReading(areaReading1);
 
         // Act
 
-        boolean actualResult = validAreaReadingList.addReading(reading2);
+        boolean actualResult = validAreaReadingList.addReading(areaReading2);
 
         // Assert
 
@@ -155,10 +155,10 @@ class AreaReadingListTest {
     void seeIfGetsValueFromList() {
         // Arrange
 
-        Reading reading1 = new Reading(15, validDate1, "C");
-        Reading reading2 = new Reading(29, validDate2, "C");
-        validAreaReadingList.addReading(reading1);
-        validAreaReadingList.addReading(reading2);
+        AreaReading areaReading1 = new AreaReading(15, validDate1, "C");
+        AreaReading areaReading2 = new AreaReading(29, validDate2, "C");
+        validAreaReadingList.addReading(areaReading1);
+        validAreaReadingList.addReading(areaReading2);
         double expectedResult = 15;
 
         // Act
@@ -174,10 +174,10 @@ class AreaReadingListTest {
     void seeIfGetsSingularValue() {
         // Arrange
 
-        Reading reading1 = new Reading(15, validDate1, "C");
-        Reading reading2 = new Reading(29, validDate2, "C");
-        validAreaReadingList.addReading(reading1);
-        validAreaReadingList.addReading(reading2);
+        AreaReading areaReading1 = new AreaReading(15, validDate1, "C");
+        AreaReading areaReading2 = new AreaReading(29, validDate2, "C");
+        validAreaReadingList.addReading(areaReading1);
+        validAreaReadingList.addReading(areaReading2);
         double expectedResult = 29;
 
         // Act
@@ -193,17 +193,17 @@ class AreaReadingListTest {
     void seeIfGetDatesWithReadingsBetweenTwoGivenDates() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3, "C"); //  01 Oct 23:59:59 (2018)
-        Reading r1 = new Reading(23, validDate4, "C"); //  07 Oct 00:00:00 "
-        Reading r2 = new Reading(24, validDate5, "C"); //  08 Oct 23:26:21 "
-        Reading r3 = new Reading(25, validDate6, "C"); //  09 Oct 08:21:22 "
-        Reading r4 = new Reading(26, validDate7, "C"); //  10 Oct 18:14:03 "
-        Reading r5 = new Reading(23, validDate8, "C"); //  23 Oct 12:14:23 "
-        Reading r6 = new Reading(22, validDate9, "C"); //  13 Oct 12:12:12 "
-        Reading r7 = new Reading(23, validDate10, "C"); // 30 Oct 23:59:59 "
-        Reading r8 = new Reading(22, validDate11, "C"); // 01 Nov 01:00:00 "
-        Reading r9 = new Reading(23, validDate18, "C"); // 13 Oct 12:12:12 (2019)
-        Reading r10 = new Reading(22, validDate19, "C"); // 13 Oct 23:59:59 "
+        AreaReading r0 = new AreaReading(23, validDate3, "C"); //  01 Oct 23:59:59 (2018)
+        AreaReading r1 = new AreaReading(23, validDate4, "C"); //  07 Oct 00:00:00 "
+        AreaReading r2 = new AreaReading(24, validDate5, "C"); //  08 Oct 23:26:21 "
+        AreaReading r3 = new AreaReading(25, validDate6, "C"); //  09 Oct 08:21:22 "
+        AreaReading r4 = new AreaReading(26, validDate7, "C"); //  10 Oct 18:14:03 "
+        AreaReading r5 = new AreaReading(23, validDate8, "C"); //  23 Oct 12:14:23 "
+        AreaReading r6 = new AreaReading(22, validDate9, "C"); //  13 Oct 12:12:12 "
+        AreaReading r7 = new AreaReading(23, validDate10, "C"); // 30 Oct 23:59:59 "
+        AreaReading r8 = new AreaReading(22, validDate11, "C"); // 01 Nov 01:00:00 "
+        AreaReading r9 = new AreaReading(23, validDate18, "C"); // 13 Oct 12:12:12 (2019)
+        AreaReading r10 = new AreaReading(22, validDate19, "C"); // 13 Oct 23:59:59 "
         validAreaReadingList.addReading(r0);
         validAreaReadingList.addReading(r1);
         validAreaReadingList.addReading(r2);
@@ -239,17 +239,17 @@ class AreaReadingListTest {
     void seeIfGetDatesWithReadingsBetweenTwoGivenDatesIfMostRecentReadingsAreIntroducedFirst() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3, "C"); //  01 Oct 23:59:59 (2018)
-        Reading r1 = new Reading(23, validDate4, "C"); //  07 Oct 00:00:00 "
-        Reading r2 = new Reading(24, validDate5, "C"); //  08 Oct 23:26:21 "
-        Reading r3 = new Reading(25, validDate6, "C"); //  09 Oct 08:21:22 "
-        Reading r4 = new Reading(26, validDate7, "C"); //  10 Oct 18:14:03 "
-        Reading r5 = new Reading(23, validDate8, "C"); //  23 Oct 12:14:23 "
-        Reading r6 = new Reading(22, validDate9, "C"); //  13 Oct 12:12:12 "
-        Reading r7 = new Reading(23, validDate10, "C"); // 30 Oct 23:59:59 "
-        Reading r8 = new Reading(22, validDate11, "C"); // 01 Nov 01:00:00 "
-        Reading r9 = new Reading(23, validDate18, "C"); // 13 Oct 12:12:12 (2019)
-        Reading r10 = new Reading(22, validDate19, "C"); // 13 Oct 23:59:59 "
+        AreaReading r0 = new AreaReading(23, validDate3, "C"); //  01 Oct 23:59:59 (2018)
+        AreaReading r1 = new AreaReading(23, validDate4, "C"); //  07 Oct 00:00:00 "
+        AreaReading r2 = new AreaReading(24, validDate5, "C"); //  08 Oct 23:26:21 "
+        AreaReading r3 = new AreaReading(25, validDate6, "C"); //  09 Oct 08:21:22 "
+        AreaReading r4 = new AreaReading(26, validDate7, "C"); //  10 Oct 18:14:03 "
+        AreaReading r5 = new AreaReading(23, validDate8, "C"); //  23 Oct 12:14:23 "
+        AreaReading r6 = new AreaReading(22, validDate9, "C"); //  13 Oct 12:12:12 "
+        AreaReading r7 = new AreaReading(23, validDate10, "C"); // 30 Oct 23:59:59 "
+        AreaReading r8 = new AreaReading(22, validDate11, "C"); // 01 Nov 01:00:00 "
+        AreaReading r9 = new AreaReading(23, validDate18, "C"); // 13 Oct 12:12:12 (2019)
+        AreaReading r10 = new AreaReading(22, validDate19, "C"); // 13 Oct 23:59:59 "
         validAreaReadingList.addReading(r10);
         validAreaReadingList.addReading(r9);
         validAreaReadingList.addReading(r8);
@@ -320,10 +320,10 @@ class AreaReadingListTest {
         // Arrange
 
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
-        Reading earlierReading = new Reading(15, validDate12, "C");
-        Reading laterReading = new Reading(30, testDate, "C");
-        validAreaReadingList.addReading(earlierReading);
-        validAreaReadingList.addReading(laterReading);
+        AreaReading earlierAreaReading = new AreaReading(15, validDate12, "C");
+        AreaReading laterAreaReading = new AreaReading(30, testDate, "C");
+        validAreaReadingList.addReading(earlierAreaReading);
+        validAreaReadingList.addReading(laterAreaReading);
         double expectedResult = 30.0;
 
         // Act
@@ -349,10 +349,10 @@ class AreaReadingListTest {
 
         Date testDate = new GregorianCalendar(2015, Calendar.NOVEMBER, 2, 5, 0,
                 0).getTime();
-        Reading earlierReading = new Reading(15, validDate12, "C");
-        Reading laterReading = new Reading(30, testDate, "C");
-        validAreaReadingList.addReading(earlierReading);
-        validAreaReadingList.addReading(laterReading);
+        AreaReading earlierAreaReading = new AreaReading(15, validDate12, "C");
+        AreaReading laterAreaReading = new AreaReading(30, testDate, "C");
+        validAreaReadingList.addReading(earlierAreaReading);
+        validAreaReadingList.addReading(laterAreaReading);
         double expectedResult = 15.0;
 
         // Act
@@ -369,15 +369,15 @@ class AreaReadingListTest {
     void seeIfGetsAverageBetweenTwoDates() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3, "C");
-        Reading r1 = new Reading(23, validDate2, "C");
-        Reading r2 = new Reading(24, validDate5, "C");
-        Reading r3 = new Reading(25, validDate6, "C");
-        Reading r4 = new Reading(26, validDate7, "C");
-        Reading r5 = new Reading(23, validDate8, "C");
-        Reading r6 = new Reading(22, validDate9, "C");
-        Reading r7 = new Reading(23, validDate10, "C");
-        Reading r8 = new Reading(22, validDate11, "C");
+        AreaReading r0 = new AreaReading(23, validDate3, "C");
+        AreaReading r1 = new AreaReading(23, validDate2, "C");
+        AreaReading r2 = new AreaReading(24, validDate5, "C");
+        AreaReading r3 = new AreaReading(25, validDate6, "C");
+        AreaReading r4 = new AreaReading(26, validDate7, "C");
+        AreaReading r5 = new AreaReading(23, validDate8, "C");
+        AreaReading r6 = new AreaReading(22, validDate9, "C");
+        AreaReading r7 = new AreaReading(23, validDate10, "C");
+        AreaReading r8 = new AreaReading(22, validDate11, "C");
         validAreaReadingList.addReading(r0);
         validAreaReadingList.addReading(r1);
         validAreaReadingList.addReading(r2);
@@ -421,8 +421,8 @@ class AreaReadingListTest {
     void seeIfReadingListIsNotEmpty() {
         // Arrange
 
-        Reading testReading = new Reading(31, validDate3, "C");
-        validAreaReadingList.addReading(testReading);
+        AreaReading testAreaReading = new AreaReading(31, validDate3, "C");
+        validAreaReadingList.addReading(testAreaReading);
 
         // Act
 
@@ -437,14 +437,14 @@ class AreaReadingListTest {
     void seeIfGetsTotalReadings() {
         // Arrange
 
-        Reading reading = new Reading(20, validDate15, "C");
-        Reading reading2 = new Reading(20, validDate3, "C");
-        Reading reading3 = new Reading(20, validDate7, "C");
-        Reading reading4 = new Reading(20, validDate14, "C");
-        validAreaReadingList.addReading(reading);
-        validAreaReadingList.addReading(reading2);
-        validAreaReadingList.addReading(reading3);
-        validAreaReadingList.addReading(reading4);
+        AreaReading areaReading = new AreaReading(20, validDate15, "C");
+        AreaReading areaReading2 = new AreaReading(20, validDate3, "C");
+        AreaReading areaReading3 = new AreaReading(20, validDate7, "C");
+        AreaReading areaReading4 = new AreaReading(20, validDate14, "C");
+        validAreaReadingList.addReading(areaReading);
+        validAreaReadingList.addReading(areaReading2);
+        validAreaReadingList.addReading(areaReading3);
+        validAreaReadingList.addReading(areaReading4);
         double expectedResult = 20;
 
         // Act
@@ -480,37 +480,37 @@ class AreaReadingListTest {
         AreaReadingList areaReadingList3 = new AreaReadingList();
         AreaReadingList areaReadingList4 = new AreaReadingList();
         AreaReadingList areaReadingList5 = new AreaReadingList();
-        Reading secondMostRecentReading = new Reading(22, validDate14, "C");
-        Reading mostRecentReading = new Reading(25, validDate15, "C");
-        Reading oldestReading = new Reading(27, validDate3, "C");
-        validAreaReadingList.addReading(oldestReading);
-        validAreaReadingList.addReading(secondMostRecentReading);
-        validAreaReadingList.addReading(mostRecentReading);
-        areaReadingList2.addReading(mostRecentReading);
-        areaReadingList2.addReading(oldestReading);
-        areaReadingList2.addReading(secondMostRecentReading);
-        areaReadingList3.addReading(mostRecentReading);
-        areaReadingList3.addReading(secondMostRecentReading);
-        areaReadingList3.addReading(oldestReading);
-        areaReadingList4.addReading(oldestReading);
-        areaReadingList4.addReading(secondMostRecentReading);
-        areaReadingList4.addReading(oldestReading);
-        Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
+        AreaReading secondMostRecentAreaReading = new AreaReading(22, validDate14, "C");
+        AreaReading mostRecentAreaReading = new AreaReading(25, validDate15, "C");
+        AreaReading oldestAreaReading = new AreaReading(27, validDate3, "C");
+        validAreaReadingList.addReading(oldestAreaReading);
+        validAreaReadingList.addReading(secondMostRecentAreaReading);
+        validAreaReadingList.addReading(mostRecentAreaReading);
+        areaReadingList2.addReading(mostRecentAreaReading);
+        areaReadingList2.addReading(oldestAreaReading);
+        areaReadingList2.addReading(secondMostRecentAreaReading);
+        areaReadingList3.addReading(mostRecentAreaReading);
+        areaReadingList3.addReading(secondMostRecentAreaReading);
+        areaReadingList3.addReading(oldestAreaReading);
+        areaReadingList4.addReading(oldestAreaReading);
+        areaReadingList4.addReading(secondMostRecentAreaReading);
+        areaReadingList4.addReading(oldestAreaReading);
+        AreaReading error = new AreaReading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
 
         // Act
 
-        Reading actualResult1 = validAreaReadingList.getMostRecentReading();
-        Reading actualResult2 = areaReadingList2.getMostRecentReading();
-        Reading actualResult3 = areaReadingList3.getMostRecentReading();
-        Reading actualResult4 = areaReadingList4.getMostRecentReading();
-        Reading actualResult5 = areaReadingList5.getMostRecentReading();
+        AreaReading actualResult1 = validAreaReadingList.getMostRecentReading();
+        AreaReading actualResult2 = areaReadingList2.getMostRecentReading();
+        AreaReading actualResult3 = areaReadingList3.getMostRecentReading();
+        AreaReading actualResult4 = areaReadingList4.getMostRecentReading();
+        AreaReading actualResult5 = areaReadingList5.getMostRecentReading();
 
         // Assert
 
-        assertEquals(mostRecentReading, actualResult1); // Tests if method works when most recent reading is the first on the list.
-        assertEquals(mostRecentReading, actualResult2); // Tests if method works when most recent reading is in the middle of the list.
-        assertEquals(mostRecentReading, actualResult3); // Tests if method works when most recent reading is the last on the list.
-        assertEquals(secondMostRecentReading, actualResult4); // Tests if method works when most recent reading happens more than once.
+        assertEquals(mostRecentAreaReading, actualResult1); // Tests if method works when most recent reading is the first on the list.
+        assertEquals(mostRecentAreaReading, actualResult2); // Tests if method works when most recent reading is in the middle of the list.
+        assertEquals(mostRecentAreaReading, actualResult3); // Tests if method works when most recent reading is the last on the list.
+        assertEquals(secondMostRecentAreaReading, actualResult4); // Tests if method works when most recent reading happens more than once.
         assertEquals(error, actualResult5); // Tests if method works when there are no readings.
     }
 
@@ -520,14 +520,14 @@ class AreaReadingListTest {
 
         AreaReadingList areaReadingList2 = new AreaReadingList();
         AreaReadingList areaReadingList3 = new AreaReadingList();
-        Reading reading1 = new Reading(22, validDate14, "C");
-        Reading reading2 = new Reading(25, validDate15, "C");
-        validAreaReadingList.addReading(reading1);
-        validAreaReadingList.addReading(reading2);
-        areaReadingList2.addReading(reading1);
-        areaReadingList2.addReading(reading2);
-        areaReadingList3.addReading(reading2);
-        areaReadingList3.addReading(reading1);
+        AreaReading areaReading1 = new AreaReading(22, validDate14, "C");
+        AreaReading areaReading2 = new AreaReading(25, validDate15, "C");
+        validAreaReadingList.addReading(areaReading1);
+        validAreaReadingList.addReading(areaReading2);
+        areaReadingList2.addReading(areaReading1);
+        areaReadingList2.addReading(areaReading2);
+        areaReadingList3.addReading(areaReading2);
+        areaReadingList3.addReading(areaReading1);
 
         // Act
 
@@ -571,12 +571,12 @@ class AreaReadingListTest {
     void seeIfReadingDateWithinTwoDates() {
         //Arrange
 
-        Reading testReading = new Reading(22, validDate14, "C");
-        validAreaReadingList.addReading(testReading);
+        AreaReading testAreaReading = new AreaReading(22, validDate14, "C");
+        validAreaReadingList.addReading(testAreaReading);
 
         // Act
 
-        boolean actualResult = validAreaReadingList.isReadingDateBetweenTwoDates(testReading.getDate(), validDate12,
+        boolean actualResult = validAreaReadingList.isReadingDateBetweenTwoDates(testAreaReading.getDate(), validDate12,
                 validDate16);
 
         //Assert
@@ -588,12 +588,12 @@ class AreaReadingListTest {
     void seeIfReadingDateWithinTwoDatesFalse() {
         //Arrange
 
-        Reading testReading = new Reading(22, validDate14, "C");
-        validAreaReadingList.addReading(testReading);
+        AreaReading testAreaReading = new AreaReading(22, validDate14, "C");
+        validAreaReadingList.addReading(testAreaReading);
 
         // Act
 
-        boolean actualResult = validAreaReadingList.isReadingDateBetweenTwoDates(testReading.getDate(), validDate13,
+        boolean actualResult = validAreaReadingList.isReadingDateBetweenTwoDates(testAreaReading.getDate(), validDate13,
                 validDate15);
 
         //Assert
@@ -620,25 +620,25 @@ class AreaReadingListTest {
     void getElementsAsArray() {
         //Arrange
 
-        Reading[] expectedResult1 = new Reading[0];
-        Reading[] expectedResult2 = new Reading[1];
-        Reading[] expectedResult3 = new Reading[2];
+        AreaReading[] expectedResult1 = new AreaReading[0];
+        AreaReading[] expectedResult2 = new AreaReading[1];
+        AreaReading[] expectedResult3 = new AreaReading[2];
 
         AreaReadingList emptyList = new AreaReadingList();
-        validAreaReadingList.addReading(new Reading(20, validDate1, "C"));
+        validAreaReadingList.addReading(new AreaReading(20, validDate1, "C"));
         AreaReadingList validAreaReadingList2 = new AreaReadingList();
-        validAreaReadingList2.addReading(new Reading(20, validDate1, "C"));
-        validAreaReadingList2.addReading(new Reading(25, validDate2, "C"));
+        validAreaReadingList2.addReading(new AreaReading(20, validDate1, "C"));
+        validAreaReadingList2.addReading(new AreaReading(25, validDate2, "C"));
 
-        expectedResult2[0] = new Reading(20, validDate1, "C");
-        expectedResult3[0] = new Reading(20, validDate1, "C");
-        expectedResult3[1] = new Reading(25, validDate2, "C");
+        expectedResult2[0] = new AreaReading(20, validDate1, "C");
+        expectedResult3[0] = new AreaReading(20, validDate1, "C");
+        expectedResult3[1] = new AreaReading(25, validDate2, "C");
 
         //Act
 
-        Reading[] actualResult1 = emptyList.getElementsAsArray();
-        Reading[] actualResult2 = validAreaReadingList.getElementsAsArray();
-        Reading[] actualResult3 = validAreaReadingList2.getElementsAsArray();
+        AreaReading[] actualResult1 = emptyList.getElementsAsArray();
+        AreaReading[] actualResult2 = validAreaReadingList.getElementsAsArray();
+        AreaReading[] actualResult3 = validAreaReadingList2.getElementsAsArray();
 
         //Assert
 
@@ -654,18 +654,18 @@ class AreaReadingListTest {
         AreaReadingList expectedResult1 = new AreaReadingList();
         AreaReadingList expectedResult2 = new AreaReadingList();
 
-        Reading reading1 = new Reading(20, validDate1, "C");
-        Reading reading2 = new Reading(22, validDate2, "C");
+        AreaReading areaReading1 = new AreaReading(20, validDate1, "C");
+        AreaReading areaReading2 = new AreaReading(22, validDate2, "C");
 
         AreaReadingList emptyList = new AreaReadingList();
-        validAreaReadingList.addReading(reading1);
+        validAreaReadingList.addReading(areaReading1);
         AreaReadingList validAreaReadingList2 = new AreaReadingList();
-        validAreaReadingList2.addReading(reading1);
-        validAreaReadingList2.addReading(reading2);
+        validAreaReadingList2.addReading(areaReading1);
+        validAreaReadingList2.addReading(areaReading2);
 
-        expectedResult1.addReading(reading1);
-        expectedResult2.addReading(reading1);
-        expectedResult2.addReading(reading2);
+        expectedResult1.addReading(areaReading1);
+        expectedResult2.addReading(areaReading1);
+        expectedResult2.addReading(areaReading2);
 
         //Act
 
@@ -690,8 +690,8 @@ class AreaReadingListTest {
     void hashCodeDummyTest() {
         //Arrange
 
-        Reading reading1 = new Reading(22, validDate14, "C");
-        validAreaReadingList.addReading(reading1);
+        AreaReading areaReading1 = new AreaReading(22, validDate14, "C");
+        validAreaReadingList.addReading(areaReading1);
 
         // Act
 
@@ -708,25 +708,25 @@ class AreaReadingListTest {
         AreaReadingList areaReadingList = new AreaReadingList();
         AreaReadingList areaReadingList2 = new AreaReadingList();
         AreaReadingList areaReadingList3 = new AreaReadingList();
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime(), "C");
-        Reading reading2 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime(), "C");
-        Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime(), "C");
-        Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C");
-        areaReadingList.addReading(reading1);
-        areaReadingList.addReading(reading2);
-        areaReadingList2.addReading(reading2);
-        areaReadingList2.addReading(reading3);
-        areaReadingList3.addReading(reading3);
-        areaReadingList3.addReading(reading4);
+        AreaReading areaReading1 = new AreaReading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime(), "C");
+        AreaReading areaReading2 = new AreaReading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime(), "C");
+        AreaReading areaReading3 = new AreaReading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime(), "C");
+        AreaReading areaReading4 = new AreaReading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C");
+        areaReadingList.addReading(areaReading1);
+        areaReadingList.addReading(areaReading2);
+        areaReadingList2.addReading(areaReading2);
+        areaReadingList2.addReading(areaReading3);
+        areaReadingList3.addReading(areaReading3);
+        areaReadingList3.addReading(areaReading4);
         //Act
-        Reading actualResult = areaReadingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
-        Reading actualResult2 = areaReadingList2.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
-        Reading actualResult3 = areaReadingList3.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        AreaReading actualResult = areaReadingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        AreaReading actualResult2 = areaReadingList2.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        AreaReading actualResult3 = areaReadingList3.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
 
         //Assert
-        assertEquals(reading1, actualResult);
-        assertEquals(reading3, actualResult2);
-        assertEquals(reading3, actualResult3);
+        assertEquals(areaReading1, actualResult);
+        assertEquals(areaReading3, actualResult2);
+        assertEquals(areaReading3, actualResult3);
     }
 
     @Test
@@ -734,12 +734,12 @@ class AreaReadingListTest {
         //Arrange
         validAreaReadingList = new AreaReadingList();
         AreaReadingList expectedResult = new AreaReadingList();
-        Reading r1 = new Reading(22, validDate2, "C");
-        Reading r2 = new Reading(24, validDate14, "C");
-        Reading r3 = new Reading(22, validDate2, "C");
-        Reading r4 = new Reading(21, validDate15, "C");
-        Reading r5 = new Reading(22, validDate12, "C");
-        Reading r6 = new Reading(29, validDate2, "C");
+        AreaReading r1 = new AreaReading(22, validDate2, "C");
+        AreaReading r2 = new AreaReading(24, validDate14, "C");
+        AreaReading r3 = new AreaReading(22, validDate2, "C");
+        AreaReading r4 = new AreaReading(21, validDate15, "C");
+        AreaReading r5 = new AreaReading(22, validDate12, "C");
+        AreaReading r6 = new AreaReading(29, validDate2, "C");
         validAreaReadingList.addReading(r1);
         validAreaReadingList.addReading(r2);
         validAreaReadingList.addReading(r3);
@@ -761,17 +761,17 @@ class AreaReadingListTest {
         AreaReadingList areaReadingList = new AreaReadingList();
         AreaReadingList areaReadingList2 = new AreaReadingList();
         AreaReadingList areaReadingList3 = new AreaReadingList();
-        Reading reading1 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime(), "C");
-        Reading reading2 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C");
-        Reading reading4 = new Reading(21, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime(), "C");
-        areaReadingList.addReading(reading1);
-        areaReadingList.addReading(reading4);
-        areaReadingList.addReading(reading2);
-        areaReadingList2.addReading(reading2);
-        areaReadingList2.addReading(reading3);
-        areaReadingList3.addReading(reading3);
-        areaReadingList3.addReading(reading4);
+        AreaReading areaReading1 = new AreaReading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime(), "C");
+        AreaReading areaReading2 = new AreaReading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime(), "C");
+        AreaReading areaReading3 = new AreaReading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C");
+        AreaReading areaReading4 = new AreaReading(21, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime(), "C");
+        areaReadingList.addReading(areaReading1);
+        areaReadingList.addReading(areaReading4);
+        areaReadingList.addReading(areaReading2);
+        areaReadingList2.addReading(areaReading2);
+        areaReadingList2.addReading(areaReading3);
+        areaReadingList3.addReading(areaReading3);
+        areaReadingList3.addReading(areaReading4);
         double expectedResult1 = 20;
         double expectedResult2 = 19;
         double expectedResult3 = 19;
@@ -789,12 +789,12 @@ class AreaReadingListTest {
     void seeIfWeGetReadingWithSpecificDateWorks() {
         //Arrange
         validAreaReadingList = new AreaReadingList();
-        Reading r1 = new Reading(22, validDate5, "C");
-        Reading r2 = new Reading(24, validDate14, "C");
-        Reading r3 = new Reading(22, validDate2, "C");
-        Reading r4 = new Reading(21, validDate15, "C");
-        Reading r5 = new Reading(22, validDate12, "C");
-        Reading r6 = new Reading(29, validDate2, "C");
+        AreaReading r1 = new AreaReading(22, validDate5, "C");
+        AreaReading r2 = new AreaReading(24, validDate14, "C");
+        AreaReading r3 = new AreaReading(22, validDate2, "C");
+        AreaReading r4 = new AreaReading(21, validDate15, "C");
+        AreaReading r5 = new AreaReading(22, validDate12, "C");
+        AreaReading r6 = new AreaReading(29, validDate2, "C");
         validAreaReadingList.addReading(r1);
         validAreaReadingList.addReading(r2);
         validAreaReadingList.addReading(r3);
@@ -802,8 +802,8 @@ class AreaReadingListTest {
         validAreaReadingList.addReading(r5);
         validAreaReadingList.addReading(r6);
         //Act
-        Reading actualResult2 = validAreaReadingList.getAReadingWithSpecificDay(validDate7);
-        Reading actualResult = validAreaReadingList.getAReadingWithSpecificDay(validDate2);
+        AreaReading actualResult2 = validAreaReadingList.getAReadingWithSpecificDay(validDate7);
+        AreaReading actualResult = validAreaReadingList.getAReadingWithSpecificDay(validDate2);
         //Assert
         assertNull(actualResult2);
         assertEquals(r3, actualResult);
@@ -813,15 +813,15 @@ class AreaReadingListTest {
     void seeIfWeGetListOfMaxValuesForEachDayWorks() {
         //Arrange
         validAreaReadingList = new AreaReadingList();
-        Reading r1 = new Reading(22, validDate5, "C");
-        Reading r2 = new Reading(24, validDate14, "C");
-        Reading r3 = new Reading(22, validDate2, "C");
-        Reading r4 = new Reading(21, validDate15, "C");
-        Reading r5 = new Reading(22, validDate12, "C");
-        Reading r6 = new Reading(23, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 0).getTime(), "C");
-        Reading r7 = new Reading(26, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 10, 0).getTime(), "C");
-        Reading r8 = new Reading(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 3, 23, 30).getTime(), "C");
-        Reading r10 = new Reading(20, validDate12, "C");
+        AreaReading r1 = new AreaReading(22, validDate5, "C");
+        AreaReading r2 = new AreaReading(24, validDate14, "C");
+        AreaReading r3 = new AreaReading(22, validDate2, "C");
+        AreaReading r4 = new AreaReading(21, validDate15, "C");
+        AreaReading r5 = new AreaReading(22, validDate12, "C");
+        AreaReading r6 = new AreaReading(23, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 0).getTime(), "C");
+        AreaReading r7 = new AreaReading(26, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 10, 0).getTime(), "C");
+        AreaReading r8 = new AreaReading(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 3, 23, 30).getTime(), "C");
+        AreaReading r10 = new AreaReading(20, validDate12, "C");
         validAreaReadingList.addReading(r1);
         validAreaReadingList.addReading(r2);
         validAreaReadingList.addReading(r3);
@@ -848,46 +848,46 @@ class AreaReadingListTest {
         // Arrange
 
         validAreaReadingList = new AreaReadingList();
-        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
-        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
-        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
-        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
-        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
-        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
-        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
-        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
-        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
-        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
-        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
-        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
-        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
-        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
-        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
-        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
-        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
-        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
-        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
-        validAreaReadingList.addReading(reading1);
-        validAreaReadingList.addReading(reading2);
-        validAreaReadingList.addReading(reading3);
-        validAreaReadingList.addReading(reading4);
-        validAreaReadingList.addReading(reading5);
-        validAreaReadingList.addReading(reading6);
-        validAreaReadingList.addReading(reading7);
-        validAreaReadingList.addReading(reading8);
-        validAreaReadingList.addReading(reading9);
-        validAreaReadingList.addReading(reading10);
-        validAreaReadingList.addReading(reading11);
-        validAreaReadingList.addReading(reading12);
-        validAreaReadingList.addReading(reading13);
-        validAreaReadingList.addReading(reading14);
-        validAreaReadingList.addReading(reading15);
-        validAreaReadingList.addReading(reading16);
-        validAreaReadingList.addReading(reading17);
-        validAreaReadingList.addReading(reading18);
-        validAreaReadingList.addReading(reading19);
-        validAreaReadingList.addReading(reading20);
+        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
+        AreaReading areaReading2 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
+        AreaReading areaReading3 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
+        AreaReading areaReading4 = new AreaReading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
+        AreaReading areaReading5 = new AreaReading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
+        AreaReading areaReading6 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
+        AreaReading areaReading7 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
+        AreaReading areaReading8 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
+        AreaReading areaReading9 = new AreaReading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
+        AreaReading areaReading10 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
+        AreaReading areaReading11 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
+        AreaReading areaReading12 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
+        AreaReading areaReading13 = new AreaReading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
+        AreaReading areaReading14 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
+        AreaReading areaReading15 = new AreaReading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
+        AreaReading areaReading16 = new AreaReading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
+        AreaReading areaReading17 = new AreaReading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
+        AreaReading areaReading18 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
+        AreaReading areaReading19 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
+        AreaReading areaReading20 = new AreaReading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
+        validAreaReadingList.addReading(areaReading1);
+        validAreaReadingList.addReading(areaReading2);
+        validAreaReadingList.addReading(areaReading3);
+        validAreaReadingList.addReading(areaReading4);
+        validAreaReadingList.addReading(areaReading5);
+        validAreaReadingList.addReading(areaReading6);
+        validAreaReadingList.addReading(areaReading7);
+        validAreaReadingList.addReading(areaReading8);
+        validAreaReadingList.addReading(areaReading9);
+        validAreaReadingList.addReading(areaReading10);
+        validAreaReadingList.addReading(areaReading11);
+        validAreaReadingList.addReading(areaReading12);
+        validAreaReadingList.addReading(areaReading13);
+        validAreaReadingList.addReading(areaReading14);
+        validAreaReadingList.addReading(areaReading15);
+        validAreaReadingList.addReading(areaReading16);
+        validAreaReadingList.addReading(areaReading17);
+        validAreaReadingList.addReading(areaReading18);
+        validAreaReadingList.addReading(areaReading19);
+        validAreaReadingList.addReading(areaReading20);
 
         // Act
 
@@ -902,55 +902,55 @@ class AreaReadingListTest {
     void seeIfWeGetReadingListBetweenDates() {
         //Arrange
         validAreaReadingList = new AreaReadingList();
-        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
-        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
-        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
-        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
-        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
-        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
-        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
-        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
-        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
-        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
-        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
-        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
-        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
-        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
-        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
-        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
-        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
-        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
-        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
-        validAreaReadingList.addReading(reading1);
-        validAreaReadingList.addReading(reading2);
-        validAreaReadingList.addReading(reading3);
-        validAreaReadingList.addReading(reading4);
-        validAreaReadingList.addReading(reading5);
-        validAreaReadingList.addReading(reading6);
-        validAreaReadingList.addReading(reading7);
-        validAreaReadingList.addReading(reading8);
-        validAreaReadingList.addReading(reading9);
-        validAreaReadingList.addReading(reading10);
-        validAreaReadingList.addReading(reading11);
-        validAreaReadingList.addReading(reading12);
-        validAreaReadingList.addReading(reading13);
-        validAreaReadingList.addReading(reading14);
-        validAreaReadingList.addReading(reading15);
-        validAreaReadingList.addReading(reading16);
-        validAreaReadingList.addReading(reading17);
-        validAreaReadingList.addReading(reading18);
-        validAreaReadingList.addReading(reading19);
-        validAreaReadingList.addReading(reading20);
+        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
+        AreaReading areaReading2 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
+        AreaReading areaReading3 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
+        AreaReading areaReading4 = new AreaReading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
+        AreaReading areaReading5 = new AreaReading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
+        AreaReading areaReading6 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
+        AreaReading areaReading7 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
+        AreaReading areaReading8 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
+        AreaReading areaReading9 = new AreaReading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
+        AreaReading areaReading10 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
+        AreaReading areaReading11 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
+        AreaReading areaReading12 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
+        AreaReading areaReading13 = new AreaReading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
+        AreaReading areaReading14 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
+        AreaReading areaReading15 = new AreaReading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
+        AreaReading areaReading16 = new AreaReading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
+        AreaReading areaReading17 = new AreaReading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
+        AreaReading areaReading18 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
+        AreaReading areaReading19 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
+        AreaReading areaReading20 = new AreaReading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
+        validAreaReadingList.addReading(areaReading1);
+        validAreaReadingList.addReading(areaReading2);
+        validAreaReadingList.addReading(areaReading3);
+        validAreaReadingList.addReading(areaReading4);
+        validAreaReadingList.addReading(areaReading5);
+        validAreaReadingList.addReading(areaReading6);
+        validAreaReadingList.addReading(areaReading7);
+        validAreaReadingList.addReading(areaReading8);
+        validAreaReadingList.addReading(areaReading9);
+        validAreaReadingList.addReading(areaReading10);
+        validAreaReadingList.addReading(areaReading11);
+        validAreaReadingList.addReading(areaReading12);
+        validAreaReadingList.addReading(areaReading13);
+        validAreaReadingList.addReading(areaReading14);
+        validAreaReadingList.addReading(areaReading15);
+        validAreaReadingList.addReading(areaReading16);
+        validAreaReadingList.addReading(areaReading17);
+        validAreaReadingList.addReading(areaReading18);
+        validAreaReadingList.addReading(areaReading19);
+        validAreaReadingList.addReading(areaReading20);
         AreaReadingList expectedResult = new AreaReadingList();
-        expectedResult.addReading(reading5);
-        expectedResult.addReading(reading6);
-        expectedResult.addReading(reading7);
-        expectedResult.addReading(reading8);
-        expectedResult.addReading(reading9);
-        expectedResult.addReading(reading10);
-        expectedResult.addReading(reading11);
-        expectedResult.addReading(reading12);
+        expectedResult.addReading(areaReading5);
+        expectedResult.addReading(areaReading6);
+        expectedResult.addReading(areaReading7);
+        expectedResult.addReading(areaReading8);
+        expectedResult.addReading(areaReading9);
+        expectedResult.addReading(areaReading10);
+        expectedResult.addReading(areaReading11);
+        expectedResult.addReading(areaReading12);
         //Act
         AreaReadingList actualResult = validAreaReadingList.getReadingListBetweenDates(new GregorianCalendar(2018, Calendar.JULY, 3, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 7, 10, 29).getTime());
         //Assert
@@ -959,10 +959,10 @@ class AreaReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDates() {
-        validAreaReadingList.addReading(new Reading(22, validDate9, "C"));
-        validAreaReadingList.addReading(new Reading(30, validDate16, "C"));
-        validAreaReadingList.addReading(new Reading(5, validDate18, "C"));
-        validAreaReadingList.addReading(new Reading(50, validDate19, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate9, "C"));
+        validAreaReadingList.addReading(new AreaReading(30, validDate16, "C"));
+        validAreaReadingList.addReading(new AreaReading(5, validDate18, "C"));
+        validAreaReadingList.addReading(new AreaReading(50, validDate19, "C"));
         Date expectedResult = validDate18;
 
         Date result = validAreaReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
@@ -972,10 +972,10 @@ class AreaReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChange() {
-        validAreaReadingList.addReading(new Reading(22, validDate9, "C"));
-        validAreaReadingList.addReading(new Reading(22, validDate16, "C"));
-        validAreaReadingList.addReading(new Reading(22, validDate18, "C"));
-        validAreaReadingList.addReading(new Reading(22, validDate19, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate9, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate16, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate18, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate19, "C"));
         Date expectedResult = validDate18;
 
         Date result = validAreaReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
@@ -985,10 +985,10 @@ class AreaReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChangeInverted() {
-        validAreaReadingList.addReading(new Reading(22, validDate18, "C"));
-        validAreaReadingList.addReading(new Reading(22, validDate19, "C"));
-        validAreaReadingList.addReading(new Reading(22, validDate9, "C"));
-        validAreaReadingList.addReading(new Reading(22, validDate16, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate18, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate19, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate9, "C"));
+        validAreaReadingList.addReading(new AreaReading(22, validDate16, "C"));
 
         Date expectedResult = validDate18;
 
@@ -1060,8 +1060,8 @@ class AreaReadingListTest {
         AreaReadingList emptyList = new AreaReadingList();
         Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
         Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
-        Reading reading = new Reading(20, new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), "C");
-        emptyList.addReading(reading);
+        AreaReading areaReading = new AreaReading(20, new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), "C");
+        emptyList.addReading(areaReading);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> emptyList.getLastColdestDayInGivenInterval(date1, date2));
@@ -1074,20 +1074,20 @@ class AreaReadingListTest {
     void seeIfContainsWorks() {
         //Arrange
 
-        Reading validReading1 = new Reading(20.2, validDate1, "C");
-        Reading validReading2 = new Reading(20.2, validDate1, "C");
+        AreaReading validAreaReading1 = new AreaReading(20.2, validDate1, "C");
+        AreaReading validAreaReading2 = new AreaReading(20.2, validDate1, "C");
 
         //Act
 
-        boolean actualResult1 = validAreaReadingList.contains(validReading1);
+        boolean actualResult1 = validAreaReadingList.contains(validAreaReading1);
 
         //Arrange
 
-        validAreaReadingList.addReading(validReading1);
+        validAreaReadingList.addReading(validAreaReading1);
 
         //Act
 
-        boolean actualResult2 = validAreaReadingList.contains(validReading2);
+        boolean actualResult2 = validAreaReadingList.contains(validAreaReading2);
 
         //Assert
 
@@ -1099,13 +1099,13 @@ class AreaReadingListTest {
     void seeIfAddReadingWorks() {
         //Arrange
 
-        Reading validReading1 = new Reading(20.2, validDate1, "C");
-        Reading validReading2 = new Reading(20.2, validDate1, "C");
+        AreaReading validAreaReading1 = new AreaReading(20.2, validDate1, "C");
+        AreaReading validAreaReading2 = new AreaReading(20.2, validDate1, "C");
 
         //Act
 
-        boolean actualResult1 = validAreaReadingList.addReading(validReading1);
-        boolean actualResult2 = validAreaReadingList.addReading(validReading2);
+        boolean actualResult1 = validAreaReadingList.addReading(validAreaReading1);
+        boolean actualResult2 = validAreaReadingList.addReading(validAreaReading2);
 
         //Assert
 
@@ -1118,10 +1118,10 @@ class AreaReadingListTest {
         // Arrange
 
         Date expectedResult = new GregorianCalendar(2018, Calendar.SEPTEMBER, 3).getTime();
-        Reading firstReading = new Reading(15, validDate3, "C");
-        Reading secondReading = new Reading(29, validDate2, "C");
-        validAreaReadingList.addReading(firstReading);
-        validAreaReadingList.addReading(secondReading);
+        AreaReading firstAreaReading = new AreaReading(15, validDate3, "C");
+        AreaReading secondAreaReading = new AreaReading(29, validDate2, "C");
+        validAreaReadingList.addReading(firstAreaReading);
+        validAreaReadingList.addReading(secondAreaReading);
 
         // Act
 
@@ -1137,8 +1137,8 @@ class AreaReadingListTest {
     void seeIfGetHottestDayInGivenPeriodWorksNoReadings(){
         // Arrange
 
-        Reading outOfBoundsReading = new Reading(1, validDate1, "C");
-        validAreaReadingList.addReading(outOfBoundsReading);
+        AreaReading outOfBoundsAreaReading = new AreaReading(1, validDate1, "C");
+        validAreaReadingList.addReading(outOfBoundsAreaReading);
 
         // Assert
 

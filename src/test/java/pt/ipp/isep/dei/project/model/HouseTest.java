@@ -408,10 +408,10 @@ class HouseTest {
         Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
         Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
         AreaReadingList areaReadingList = new AreaReadingList();
-        Reading firstReading = new Reading(15, laterDate,"C");
-        Reading secondReading = new Reading(12, earlierDate,"C");
-        areaReadingList.addReading(firstReading);
-        areaReadingList.addReading(secondReading);
+        AreaReading firstAreaReading = new AreaReading(15, laterDate,"C");
+        AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
+        areaReadingList.addReading(firstAreaReading);
+        areaReadingList.addReading(secondAreaReading);
         firstValidSensor.setAreaReadingList(areaReadingList);
 
         // Act
@@ -437,15 +437,15 @@ class HouseTest {
             e.printStackTrace();
         }
         AreaReadingList areaReadingList = new AreaReadingList();
-        Reading firstReading = new Reading(15, laterDate, "C");
-        Reading secondReading = new Reading(12, earlierDate,"C");
-        areaReadingList.addReading(firstReading);
-        areaReadingList.addReading(secondReading);
+        AreaReading firstAreaReading = new AreaReading(15, laterDate, "C");
+        AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
+        areaReadingList.addReading(firstAreaReading);
+        areaReadingList.addReading(secondAreaReading);
         firstValidSensor.setAreaReadingList(areaReadingList);
 
         Sensor secondSensor = new Sensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        secondSensor.addReading(new Reading(15, earlierDate,"C"));
+        secondSensor.addReading(new AreaReading(15, earlierDate,"C"));
         validArea.addSensor(secondSensor);
 
         // Act

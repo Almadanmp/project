@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class ReadingDTOTest {
+class AreaReadingDTOTest {
     // Common testing artifacts for testing in this class.
 
     private ReadingDTO validDTO;

@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.sensor.AreaReading;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
@@ -421,7 +421,7 @@ class ReaderControllerTest {
         readings[2] = "23";
         readings[3] = "C";
 
-        validSensor1.addReading(new Reading(32, validDate, "C"));
+        validSensor1.addReading(new AreaReading(32, validDate, "C"));
 
         // Act
 
