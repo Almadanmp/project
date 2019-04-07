@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.sensor;
 
 
 import org.junit.jupiter.api.BeforeEach;

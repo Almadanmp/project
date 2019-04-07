@@ -4,11 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +32,7 @@ class AreaTypeListTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        MockitoAnnotations.initMocks(this);
         validList = new AreaTypeList(this.areaTypeRepository);
         firstValidType = new AreaType("Country");
         secondValidType = new AreaType("City");
@@ -172,6 +176,15 @@ class AreaTypeListTest {
 
         assertNotNull(actualResult);
     }
+
+//TODO tries with mockito testing, not working, to be fixed (Daniela)
+
+//    @Test
+//    void seeIfGetTypeAreaByIdRepository() {
+//        AreaType areaType = new AreaType("Street");
+//        Mockito.when(areaTypeRepository.findById(areaType.getId())).thenReturn(Optional.of(areaType));
+//      //  assertEquals(areaType, );
+//    }
 
     @Test
     void getByIndexEmptyTypeAreaList() {

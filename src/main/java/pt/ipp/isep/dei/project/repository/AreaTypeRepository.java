@@ -10,4 +10,6 @@ import java.util.List;
 public interface AreaTypeRepository extends CrudRepository<AreaType, Long> {
 
     List<AreaType> findAll();
+
+    AreaType findByName(String name);
 }
