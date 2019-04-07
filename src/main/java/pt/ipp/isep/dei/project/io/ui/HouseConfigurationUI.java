@@ -107,7 +107,7 @@ class HouseConfigurationUI {
      */
     private void runUS20v2() {
         InputHelperUI inputHelperUI = new InputHelperUI();
-        String path = inputHelperUI.getInputFileLocation();
+        String path = inputHelperUI.getInputJsonXmlCsv();
         if (path.endsWith(".csv")) {
             readReadingsFromCSV(path, VALID_LOG_PATH);
         } else if (path.endsWith(".json")) {

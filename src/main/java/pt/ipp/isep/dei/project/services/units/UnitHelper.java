@@ -169,7 +169,7 @@ class UnitHelper {
             TemperatureUnit specificUnit = (TemperatureUnit) unitToConvert;
             return specificUnit.toApplicationDefault(valueToConvert);
         } catch (ClassCastException ok) {
-            ok.printStackTrace();
+            ok.getMessage();
         }
         RainfallUnit specificUnit = (RainfallUnit) unitToConvert;
         return specificUnit.toApplicationDefault(valueToConvert);
@@ -188,7 +188,7 @@ class UnitHelper {
             TemperatureUnit specificUnit = (TemperatureUnit) unitToConvert;
             return specificUnit.toUserDefault(valueToConvert);
         } catch (ClassCastException ok) {
-            ok.printStackTrace();
+            ok.getMessage();
         }
         RainfallUnit specificUnit = (RainfallUnit) unitToConvert;
         return specificUnit.toUserDefault(valueToConvert);
@@ -208,7 +208,7 @@ class UnitHelper {
             String defaultTemperatureString = getApplicationTemperatureConfig();
             return convertStringToUnit(defaultTemperatureString);
         } catch (ClassCastException ok) {
-            ok.printStackTrace();
+            ok.getMessage();
         } catch (IOException e) {
             e.printStackTrace();
         }

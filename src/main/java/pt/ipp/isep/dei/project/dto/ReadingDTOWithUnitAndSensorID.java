@@ -4,11 +4,12 @@ import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Date;
 
-public class ReadingDTOWithUnit {
+public class ReadingDTOWithUnitAndSensorID {
 
     private Date date;
     private double value;
     private Unit unit; // This needs to be UnitDto
+    private String sensorID;
 
     public Date getDate() {
         return date;
@@ -34,16 +35,24 @@ public class ReadingDTOWithUnit {
         this.unit = unit;
     }
 
+    public String getSensorID() {
+        return sensorID;
+    }
+
+    public void setSensorID(String sensorID) {
+        this.sensorID = sensorID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ReadingDTOWithUnit)) {
+        if (!(o instanceof ReadingDTOWithUnitAndSensorID)) {
             return false;
         } else {
-            ReadingDTOWithUnit reading = (ReadingDTOWithUnit) o;
-            return (this.date.equals(reading.getDate()));
+            ReadingDTOWithUnitAndSensorID reading = (ReadingDTOWithUnitAndSensorID) o;
+            return (this.sensorID.equals(reading.getSensorID()) && this.date.equals(reading.getDate()));
         }
     }
 

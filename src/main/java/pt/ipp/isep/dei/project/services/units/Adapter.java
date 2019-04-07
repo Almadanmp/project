@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.services.units;
 
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnit;
+import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
@@ -41,10 +41,10 @@ public final class Adapter {
      * @param readingDTOWrapperList list of reading Dto wrappers
      * @return hashmap containing Reading DTOs with its corresponding sensor ID
      **/
-    public static Map<ReadingDTOWithUnit, String> readingDTOWrapperConversion(List<ReadingDTOWrapper> readingDTOWrapperList) {
-        Map<ReadingDTOWithUnit, String> finalMap = new HashMap<>();
+    public static List<ReadingDTOWithUnitAndSensorID> readingDTOWrapperConversion(List<ReadingDTOWrapper> readingDTOWrapperList) {
+        List<ReadingDTOWithUnitAndSensorID> finalList = new ArrayList<>();
         for (ReadingDTOWrapper wrapper : readingDTOWrapperList) {
-            ReadingDTOWithUnit readingDTO = new ReadingDTOWithUnit();
+            ReadingDTOWithUnitAndSensorID readingDTO = new ReadingDTOWithUnitAndSensorID();
             String startUnitString = wrapper.getUnit();
             Unit startUnit = UnitHelper.convertStringToUnit(startUnitString);
             double startValue = wrapper.getValue();
@@ -57,10 +57,10 @@ public final class Adapter {
             Unit defaultUnit = UnitHelper.convertUnitToSystemDefault(startUnit);
             readingDTO.setUnit(defaultUnit);
             readingDTO.setDate(wrapper.getDate());
-            String sensorId = wrapper.getSensorId();
-            finalMap.put(readingDTO, sensorId);
+            readingDTO.setSensorID(wrapper.getSensorId());
+            finalList.add(readingDTO);
         }
-        return finalMap;
+        return finalList;
     }
 
 }

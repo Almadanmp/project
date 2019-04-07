@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.project.reader;
 
 
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnit;
+import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ReadingsReader {
     /**
@@ -13,5 +13,5 @@ public interface ReadingsReader {
      * @param filePath the file location
      * @return mapper with ReadingDTO and corresponding sensor Id
      **/
-    Map<ReadingDTOWithUnit, String> readFile(String filePath);
+    List<ReadingDTOWithUnitAndSensorID> readFile(String filePath);
 }

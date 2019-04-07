@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -35,7 +37,7 @@ public class ReaderController {
         this.areaSensorService = service;
     }
 
-
+    //
     // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
 
     /**
@@ -325,6 +327,10 @@ public class ReaderController {
             }
         }
         logger.warning(INVALID_DATE);
+        return 0;
+    }
+
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings, String logPath){
         return 0;
     }
 }

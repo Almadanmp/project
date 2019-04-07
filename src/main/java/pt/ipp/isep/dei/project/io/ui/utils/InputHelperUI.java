@@ -451,11 +451,11 @@ public class InputHelperUI {
      *
      * @return the file path as a String
      **/
-    public String getInputFileLocation() {
+    public String getInputJsonXmlCsv() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the file you want to import: ");
         String result = scanner.next();
-        while (!pathIsValid(result) || !new File(result).exists()) {
+        while (!pathIsJsonXmlCsv(result) || !new File(result).exists()) {
             System.out.println("Please enter a valid path.");
             result = scanner.next();
         }
@@ -468,7 +468,7 @@ public class InputHelperUI {
      *
      * @return true if the path is valid, false otherwise
      **/
-    private boolean pathIsValid(String path) {
+    private boolean pathIsJsonXmlCsv(String path) {
         return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
     }
 }

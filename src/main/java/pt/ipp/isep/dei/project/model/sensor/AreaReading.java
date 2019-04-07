@@ -97,7 +97,6 @@ public class AreaReading {
         }
     }
 
-
     @Override
     public int hashCode() {
         return 1;

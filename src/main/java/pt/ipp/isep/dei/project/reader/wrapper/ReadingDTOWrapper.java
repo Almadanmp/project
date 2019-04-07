@@ -60,7 +60,7 @@ public class ReadingDTOWrapper {
             return false;
         } else {
             ReadingDTOWrapper reading = (ReadingDTOWrapper) objectTest;
-            return (this.date.equals(reading.getDate()));
+            return (this.sensorId.equals(reading.getSensorId()) && this.date.equals(reading.getDate()));
         }
     }
 

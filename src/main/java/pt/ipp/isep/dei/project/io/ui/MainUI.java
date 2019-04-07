@@ -44,7 +44,6 @@ public class MainUI {
     @Autowired
     SensorRepository sensorRepository;
 
-
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
 
@@ -157,7 +156,7 @@ public class MainUI {
                     this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(areaTypeList, geographicAreaList);
+                            GASettingsUI view1 = new GASettingsUI(areaTypeList, geographicAreaList, areaSensorService);
                             view1.runGASettings();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
