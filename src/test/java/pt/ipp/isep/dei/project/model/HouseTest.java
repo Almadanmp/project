@@ -923,7 +923,7 @@ class HouseTest {
     @Test
     void seeIfSetGetAddressWorks() {
         //Act
-        validHouse.setAddress("Rua do ISEP", "4400", "Campus","Portugal");
+        validHouse.setAddress("Rua do ISEP","431", "4400", "Campus","Portugal");
 
         //Assert
         assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431","4400", "Campus","Portugal"));

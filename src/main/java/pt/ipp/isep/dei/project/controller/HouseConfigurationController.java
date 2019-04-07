@@ -17,15 +17,16 @@ public class HouseConfigurationController {
     /**
      * Sets the address of a given House.
      *
-     * @param street the house's street.
-     * @param town   The house's town.
-     * @param zip    The house's zip code.
+     * @param street  the house's street.
+     * @param number  the house's number.
+     * @param town    The house's town.
+     * @param zip     The house's zip code.
      * @param country The houses's country.
-     * @param house  is the house we're going to set the address of.
+     * @param house   is the house we're going to set the address of.
      */
 
-    public void setHouseAddress(String street, String zip, String town, String country, House house) {
-        house.setAddress(street, zip, town, country);
+    public void setHouseAddress(String street, String number, String zip, String town, String country, House house) {
+        house.setAddress(street, number, zip, town, country);
     }
 
     /**

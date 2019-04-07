@@ -113,7 +113,7 @@ class HouseConfigurationControllerTest {
     void seeIfSetHouseAddress() {
         //Act
 
-        controller.setHouseAddress("Rua do ISEP", "4400", "City","Portugal", validHouse);
+        controller.setHouseAddress("Rua do ISEP", "431","4400", "City","Portugal", validHouse);
 
         // Assert
 

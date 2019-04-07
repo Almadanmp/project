@@ -153,12 +153,14 @@ public class House implements Metered {
      * Standard setter method, to define the Address of the House.
      *
      * @param street is the street of the address.
+     * @param number is the number of the address.
      * @param zip    is the zip-code of the address.
      * @param town   is the town of the address.
      * @param country is the country of the address.
      */
-    public void setAddress(String street, String zip, String town, String country) {
+    public void setAddress(String street,String number, String zip, String town, String country) {
         address.setStreet(street);
+        address.setNumber(number);
         address.setZip(zip);
         address.setTown(town);
         address.setCountry(country);

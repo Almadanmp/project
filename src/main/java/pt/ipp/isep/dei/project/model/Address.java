@@ -83,6 +83,15 @@ public class Address {
     }
 
     /**
+     * Standard setter method, to define the number.
+     *
+     * @param number the string with the number.
+     */
+    void setNumber(String number) {
+        this.number = number;
+    }
+
+    /**
      * Standard setter method, to define the Town name.
      *
      * @param town the string with the town name.
