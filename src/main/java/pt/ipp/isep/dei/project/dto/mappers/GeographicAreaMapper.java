@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.SensorDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.AreaType;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +55,12 @@ public final class GeographicAreaMapper {
 
         String objectDescription = dtoToConvert.getDescription();
 
-        // Update the SensorList
+        // Update the AreaSensorList
 
-        SensorList objectSensorList = new SensorList();
+        AreaSensorList objectAreaSensorList = new AreaSensorList();
         for (SensorDTO y : dtoToConvert.getSensorDTOList()) {
             Sensor tempSensor = SensorMapper.dtoToObject(y);
-            objectSensorList.add(tempSensor);
+            objectAreaSensorList.add(tempSensor);
         }
 
         // Create, update and return the converted object.
@@ -67,7 +69,7 @@ public final class GeographicAreaMapper {
                 objectLocal);
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
-        resultObject.setSensorList(objectSensorList);
+        resultObject.setSensorList(objectAreaSensorList);
 
         return resultObject;
     }
@@ -105,7 +107,7 @@ public final class GeographicAreaMapper {
 
         String dtoDescription = objectToConvert.getDescription();
 
-        // Update the SensorList
+        // Update the AreaSensorList
 
         List<SensorDTO> sensorDTOList = new ArrayList<>();
         for (Sensor b : objectToConvert.getSensorList().getSensors()) {

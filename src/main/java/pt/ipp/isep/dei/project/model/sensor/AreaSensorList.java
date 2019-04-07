@@ -12,20 +12,20 @@ import java.util.List;
  * Class that groups a number of Sensors.
  */
 @Entity
-public class SensorList {
+public class AreaSensorList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "sensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "areaSensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Sensor> sensors;
 
 
     /**
-     * SensorList() empty constructor that initializes an ArrayList of Sensors.
+     * AreaSensorList() empty constructor that initializes an ArrayList of Sensors.
      */
-    public SensorList() {
+    public AreaSensorList() {
         this.sensors = new ArrayList<>();
     }
 
@@ -48,11 +48,11 @@ public class SensorList {
         if (this.sensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        SensorList sensorList = getSensorsWithReadings();
-        if (sensorList.isEmpty()) {
+        AreaSensorList areaSensorList = getSensorsWithReadings();
+        if (areaSensorList.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
-        Sensor mostRecent = sensorList.get(0);
+        Sensor mostRecent = areaSensorList.get(0);
         Date recent = mostRecent.getMostRecentReadingDate();
         for (Sensor s : this.sensors) {
             Date test = s.getMostRecentReadingDate();
@@ -68,11 +68,11 @@ public class SensorList {
      * Method that goes through the sensor list and returns a list of those which
      * have readings. The method throws an exception in case the sensorList is empty.
      *
-     * @return SensorList of every sensor that has readings. It will return an empty list in
+     * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    public SensorList getSensorsWithReadings() {
-        SensorList finalList = new SensorList();
+    public AreaSensorList getSensorsWithReadings() {
+        AreaSensorList finalList = new AreaSensorList();
         if (this.sensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
         }
@@ -89,8 +89,8 @@ public class SensorList {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public SensorList getSensorListByType(String name) {
-        SensorList containedTypeSensors = new SensorList();
+    public AreaSensorList getSensorListByType(String name) {
+        AreaSensorList containedTypeSensors = new AreaSensorList();
         for (Sensor sensor : this.sensors) {
             if (name.equals(sensor.getSensorTypeName())) {
                 containedTypeSensors.add(sensor);
@@ -104,7 +104,7 @@ public class SensorList {
      * Method to Add a sensor only if it's not contained in the list already.
      *
      * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
-     * @return true if sensor was successfully added to the SensorList, false otherwise.
+     * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
     public boolean add(Sensor sensorToAdd) {
@@ -176,10 +176,10 @@ public class SensorList {
      *
      * @param house   the House of the project
      * @param minDist the distance to the sensor
-     * @return SensorList with sensors closest to house.
+     * @return AreaSensorList with sensors closest to house.
      **/
-    public SensorList getSensorsByDistanceToHouse(House house, double minDist) {
-        SensorList finalList = new SensorList();
+    public AreaSensorList getSensorsByDistanceToHouse(House house, double minDist) {
+        AreaSensorList finalList = new AreaSensorList();
         for (Sensor s : this.sensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
                 finalList.add(s);
@@ -200,7 +200,7 @@ public class SensorList {
     /**
      * Checks the sensor list size and returns the size as int.\
      *
-     * @return SensorList size as int
+     * @return AreaSensorList size as int
      **/
     public int size() {
         return this.sensors.size();
@@ -277,10 +277,10 @@ public class SensorList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof SensorList)) {
+        if (!(testObject instanceof AreaSensorList)) {
             return false;
         }
-        SensorList list = (SensorList) testObject;
+        AreaSensorList list = (AreaSensorList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

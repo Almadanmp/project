@@ -11,21 +11,21 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * SensorList tests class.
+ * AreaSensorList tests class.
  */
 
-class SensorListTest {
+class AreaSensorListTest {
 
     // Common artifacts for testing in this class.
 
-    private SensorList validSensorList; // Contains the first valid sensor by default.
+    private AreaSensorList validAreaSensorList; // Contains the first valid sensor by default.
     private Sensor firstValidSensor;
     private Sensor secondValidSensor;
     private Sensor thirdValidSensor;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validSensorList = new SensorList();
+        validAreaSensorList = new AreaSensorList();
         firstValidSensor = new Sensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidSensor.setActive(true);
@@ -34,7 +34,7 @@ class SensorListTest {
         secondValidSensor.setActive(true);
         thirdValidSensor = new Sensor("SensorThree", new SensorType("Rainfall", "l/m2"),
                 new Date());
-        validSensorList.add(firstValidSensor);
+        validAreaSensorList.add(firstValidSensor);
     }
 
 
@@ -42,7 +42,7 @@ class SensorListTest {
     void seeIfEqualsWorksOnSameObject() {
         //Act
 
-        boolean actualResult = validSensorList.equals(validSensorList); // Required for Sonarqube testing purposes.
+        boolean actualResult = validAreaSensorList.equals(validAreaSensorList); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -53,7 +53,7 @@ class SensorListTest {
     void seeIfEqualsWorksOnDiffObject() {
         //Act
 
-        boolean actualResult = validSensorList.equals(20D); // Required for Sonarqube testing purposes.
+        boolean actualResult = validAreaSensorList.equals(20D); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -64,12 +64,12 @@ class SensorListTest {
     void seeIfEqualsWorksOnSensorListWithSameContent() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(firstValidSensor);
 
         // Act
 
-        boolean actualResult = validSensorList.equals(expectedResult);
+        boolean actualResult = validAreaSensorList.equals(expectedResult);
 
         // Assert
 
@@ -80,12 +80,12 @@ class SensorListTest {
     void seeIfEqualsWorksOnSensorListWithDifferentContent() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(secondValidSensor);
 
         // Act
 
-        boolean actualResult = validSensorList.equals(expectedResult);
+        boolean actualResult = validAreaSensorList.equals(expectedResult);
 
         // Assert
 
@@ -100,7 +100,7 @@ class SensorListTest {
 
         // Act
 
-        int actualResult = validSensorList.hashCode();
+        int actualResult = validAreaSensorList.hashCode();
 
         // Assert
 
@@ -111,15 +111,15 @@ class SensorListTest {
     void seeItGetSensorListByTypeWorks() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(firstValidSensor);
         expectedResult.add(secondValidSensor);
-        validSensorList.add(secondValidSensor);
-        validSensorList.add(thirdValidSensor);
+        validAreaSensorList.add(secondValidSensor);
+        validAreaSensorList.add(thirdValidSensor);
 
         // Act
 
-        SensorList actualResult = validSensorList.getSensorListByType("Temperature");
+        AreaSensorList actualResult = validAreaSensorList.getSensorListByType("Temperature");
 
         // Assert
 
@@ -130,11 +130,11 @@ class SensorListTest {
     void seeItGetSensorListByTypeWorksFalse() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
 
         // Act
 
-        SensorList actualResult = validSensorList.getSensorListByType("Pressure");
+        AreaSensorList actualResult = validAreaSensorList.getSensorListByType("Pressure");
 
         // Assert
 
@@ -145,8 +145,8 @@ class SensorListTest {
     void seeIfToStringWorks() {
         // Arrange
 
-        validSensorList.add(secondValidSensor);
-        validSensorList.add(thirdValidSensor);
+        validAreaSensorList.add(secondValidSensor);
+        validAreaSensorList.add(thirdValidSensor);
         String expectedResult = "---------------\n" +
                 "0) Name: SensorOne | Type: Temperature | Active\n" +
                 "1) Name: SensorTwo | Type: Temperature | Active\n" +
@@ -155,7 +155,7 @@ class SensorListTest {
 
         // Act
 
-        String actualResult = validSensorList.toString();
+        String actualResult = validAreaSensorList.toString();
 
         // Assert
 
@@ -166,12 +166,12 @@ class SensorListTest {
     void seeIfToStringWorksEmpty() {
         // Arrange
 
-        validSensorList = new SensorList();
+        validAreaSensorList = new AreaSensorList();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String actualResult = validSensorList.toString();
+        String actualResult = validAreaSensorList.toString();
 
         // Assert
 
@@ -186,7 +186,7 @@ class SensorListTest {
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -198,14 +198,14 @@ class SensorListTest {
         // Arrange
 
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
-        validSensorList.add(secondValidSensor);
+        validAreaSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
         expectedResult.addReading(readingOne);
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -217,14 +217,14 @@ class SensorListTest {
         // Arrange
 
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
-        validSensorList.add(secondValidSensor);
+        validAreaSensorList.add(secondValidSensor);
         secondValidSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
         expectedResult.addReading(readingOne);
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -237,7 +237,7 @@ class SensorListTest {
 
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C");
         Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
-        validSensorList.add(secondValidSensor);
+        validAreaSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         secondValidSensor.addReading(readingTwo);
         ReadingList expectedResult = new ReadingList();
@@ -246,7 +246,7 @@ class SensorListTest {
 
         // Act
 
-        ReadingList actualResult = validSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -257,11 +257,11 @@ class SensorListTest {
     void seeIfGetMostRecentlyUsedSensorWorksNoSensors() {
         // Arrange
 
-        validSensorList = new SensorList();
+        validAreaSensorList = new AreaSensorList();
 
         // Assert
 
-        assertThrows(IllegalArgumentException.class, validSensorList::getMostRecentlyUsedSensor);
+        assertThrows(IllegalArgumentException.class, validAreaSensorList::getMostRecentlyUsedSensor);
     }
 
     @Test
@@ -282,12 +282,12 @@ class SensorListTest {
 
         // Arrange
 
-        validSensorList.add(secondValidSensor);
-        validSensorList.add(thirdValidSensor);
+        validAreaSensorList.add(secondValidSensor);
+        validAreaSensorList.add(thirdValidSensor);
 
         // Act
 
-        Sensor actualResult1 = validSensorList.getMostRecentlyUsedSensor();
+        Sensor actualResult1 = validAreaSensorList.getMostRecentlyUsedSensor();
 
         // Assert
 
@@ -297,14 +297,14 @@ class SensorListTest {
 
         // Arrange
 
-        validSensorList = new SensorList();
-        validSensorList.add(secondValidSensor);
-        validSensorList.add(firstValidSensor);
-        validSensorList.add(thirdValidSensor);
+        validAreaSensorList = new AreaSensorList();
+        validAreaSensorList.add(secondValidSensor);
+        validAreaSensorList.add(firstValidSensor);
+        validAreaSensorList.add(thirdValidSensor);
 
         // Act
 
-        Sensor actualResult2 = validSensorList.getMostRecentlyUsedSensor();
+        Sensor actualResult2 = validAreaSensorList.getMostRecentlyUsedSensor();
 
         // Assert
 
@@ -314,14 +314,14 @@ class SensorListTest {
 
         // Arrange
 
-        validSensorList = new SensorList();
-        validSensorList.add(secondValidSensor);
-        validSensorList.add(thirdValidSensor);
-        validSensorList.add(firstValidSensor);
+        validAreaSensorList = new AreaSensorList();
+        validAreaSensorList.add(secondValidSensor);
+        validAreaSensorList.add(thirdValidSensor);
+        validAreaSensorList.add(firstValidSensor);
 
         // Act
 
-        Sensor actualResult3 = validSensorList.getMostRecentlyUsedSensor();
+        Sensor actualResult3 = validAreaSensorList.getMostRecentlyUsedSensor();
 
         // Assert
 
@@ -332,22 +332,22 @@ class SensorListTest {
     void seeIfGetMostRecentlyUsedSensorWorksOneSensorNoReadings() {
         // Assert
 
-        assertThrows(IllegalArgumentException.class, validSensorList::getMostRecentlyUsedSensor);
+        assertThrows(IllegalArgumentException.class, validAreaSensorList::getMostRecentlyUsedSensor);
     }
 
     @Test
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        SensorList emptyList = new SensorList();
-        SensorList twoSensorsList = new SensorList();
+        AreaSensorList emptyList = new AreaSensorList();
+        AreaSensorList twoSensorsList = new AreaSensorList();
         twoSensorsList.add(firstValidSensor);
         twoSensorsList.add(secondValidSensor);
 
         // Act
 
         boolean actualResult1 = emptyList.isEmpty();
-        boolean actualResult2 = validSensorList.isEmpty();
+        boolean actualResult2 = validAreaSensorList.isEmpty();
         boolean actualResult3 = twoSensorsList.isEmpty();
 
         // Assert
@@ -361,8 +361,8 @@ class SensorListTest {
     void getSensorsWithReadings() {
         // Arrange
 
-        SensorList emptyList = new SensorList();
-        SensorList twoSensorsList = new SensorList();
+        AreaSensorList emptyList = new AreaSensorList();
+        AreaSensorList twoSensorsList = new AreaSensorList();
 
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         secondValidSensor.addReading(readingOne);
@@ -370,12 +370,12 @@ class SensorListTest {
         twoSensorsList.add(firstValidSensor);
         twoSensorsList.add(secondValidSensor);
 
-        SensorList expectedResult1 = new SensorList();
+        AreaSensorList expectedResult1 = new AreaSensorList();
         expectedResult1.add(secondValidSensor);
 
         // Act
 
-        SensorList actualResult1 = twoSensorsList.getSensorsWithReadings();
+        AreaSensorList actualResult1 = twoSensorsList.getSensorsWithReadings();
 
         // Assert
 
@@ -387,12 +387,12 @@ class SensorListTest {
     void seeIfGetByIndexWorks() {
         //Arrange
 
-        validSensorList.add(secondValidSensor);
+        validAreaSensorList.add(secondValidSensor);
 
         //Act
 
-        Sensor actualResult1 = validSensorList.get(0);
-        Sensor actualResult2 = validSensorList.get(1);
+        Sensor actualResult1 = validAreaSensorList.get(0);
+        Sensor actualResult2 = validAreaSensorList.get(1);
 
         //Assert
 
@@ -404,7 +404,7 @@ class SensorListTest {
     void getByIndexEmptySensorList() {
         //Arrange
 
-        SensorList emptyList = new SensorList();
+        AreaSensorList emptyList = new AreaSensorList();
 
         //Act
 
@@ -423,10 +423,10 @@ class SensorListTest {
         Sensor[] expectedResult2 = new Sensor[1];
         Sensor[] expectedResult3 = new Sensor[2];
 
-        SensorList emptySensorList = new SensorList();
-        SensorList validSensorList2 = new SensorList();
-        validSensorList2.add(firstValidSensor);
-        validSensorList2.add(secondValidSensor);
+        AreaSensorList emptyAreaSensorList = new AreaSensorList();
+        AreaSensorList validAreaSensorList2 = new AreaSensorList();
+        validAreaSensorList2.add(firstValidSensor);
+        validAreaSensorList2.add(secondValidSensor);
 
         expectedResult2[0] = firstValidSensor;
         expectedResult3[0] = firstValidSensor;
@@ -434,9 +434,9 @@ class SensorListTest {
 
         //Act
 
-        Sensor[] actualResult1 = emptySensorList.getElementsAsArray();
-        Sensor[] actualResult2 = validSensorList.getElementsAsArray();
-        Sensor[] actualResult3 = validSensorList2.getElementsAsArray();
+        Sensor[] actualResult1 = emptyAreaSensorList.getElementsAsArray();
+        Sensor[] actualResult2 = validAreaSensorList.getElementsAsArray();
+        Sensor[] actualResult3 = validAreaSensorList2.getElementsAsArray();
 
         //Assert
 
@@ -463,9 +463,9 @@ class SensorListTest {
         Sensor sensorSameLocalHouse = new Sensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date);
         Sensor sensorDiffLocalHouse = new Sensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date);
 
-        SensorList validSensorList = new SensorList();
-        validSensorList.add(sensorDiffLocalHouse);
-        validSensorList.add(sensorSameLocalHouse);
+        AreaSensorList validAreaSensorList = new AreaSensorList();
+        validAreaSensorList.add(sensorDiffLocalHouse);
+        validAreaSensorList.add(sensorSameLocalHouse);
 
         //House
 
@@ -477,12 +477,12 @@ class SensorListTest {
                 ("Cidade"), 2, 3, new Local(4, 4, 100)));
 
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(sensorSameLocalHouse);
 
         //Act
 
-        SensorList actualResult = validSensorList.getSensorsByDistanceToHouse(house, 0);
+        AreaSensorList actualResult = validAreaSensorList.getSensorsByDistanceToHouse(house, 0);
 
         //Assert
 
@@ -494,15 +494,15 @@ class SensorListTest {
 
         //Arrange
 
-        SensorList emptyList = new SensorList();
-        SensorList twoSensors = new SensorList();
+        AreaSensorList emptyList = new AreaSensorList();
+        AreaSensorList twoSensors = new AreaSensorList();
         twoSensors.add(firstValidSensor);
         twoSensors.add(secondValidSensor);
 
         //Act
 
         int actualResult1 = emptyList.size();
-        int actualResult2 = validSensorList.size();
+        int actualResult2 = validAreaSensorList.size();
         int actualResult3 = twoSensors.size();
 
         //Assert
@@ -517,13 +517,13 @@ class SensorListTest {
 
         //Arrange
 
-        SensorList emptyList = new SensorList();
+        AreaSensorList emptyList = new AreaSensorList();
 
         //Act
 
         boolean actualResult1 = emptyList.contains(firstValidSensor);
-        boolean actualResult2 = validSensorList.contains(firstValidSensor);
-        boolean actualResult3 = validSensorList.contains(secondValidSensor);
+        boolean actualResult2 = validAreaSensorList.contains(firstValidSensor);
+        boolean actualResult3 = validAreaSensorList.contains(secondValidSensor);
 
         //Assert
 
@@ -541,17 +541,17 @@ class SensorListTest {
 //
 //        // Act for reading within bounds.
 //
-//        boolean result = validSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
+//        boolean result = validAreaSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
 //                2017, Calendar.FEBRUARY, 5).getTime());
 //
 //        // Act for reading outside bounds.
 //
-//        boolean failedResult = validSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
+//        boolean failedResult = validAreaSensorList.addReadingToMatchingSensor("SensorOne", 31D, new GregorianCalendar(
 //                2015, Calendar.FEBRUARY, 1).getTime());
 //
 //        // Act for not existing sensor
 //
-//        boolean failedResult2 = validSensorList.addReadingToMatchingSensor("xxxxxxx", 32D, new GregorianCalendar(
+//        boolean failedResult2 = validAreaSensorList.addReadingToMatchingSensor("xxxxxxx", 32D, new GregorianCalendar(
 //                2018, Calendar.FEBRUARY, 1).getTime());
 //
 //

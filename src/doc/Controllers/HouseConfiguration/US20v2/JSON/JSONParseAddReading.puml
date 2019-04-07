@@ -26,7 +26,7 @@ skinparam actor {
 
 
 title JSONParseAddReading
--> ReaderController: parseAndLogJSONReading(sensorList, reading, logger)
+-> ReaderController: parseAndLogJSONReading(areaSensorList, reading, logger)
 activate ReaderController
 
 alt try
@@ -34,7 +34,7 @@ alt try
 ReaderController -> ReaderController: sensorID = reading.getString("id");
 ReaderController -> ReaderController: Date readDate = Double.parseDate(reading.getString("timestamp/date"));
 ReaderController -> ReaderController: Double readValue = Double.parseDouble(reading.getString("value"));
-ReaderController -> ReaderController: addReadingToMatchingSensor(logger, sensorList, sensorID, readDate, readValue);
+ReaderController -> ReaderController: addReadingToMatchingSensor(logger, areaSensorList, sensorID, readDate, readValue);
 else catch
 ReaderController -> ReaderController: NumberFormatException
 ReaderController -> ReaderController: ParseException

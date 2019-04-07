@@ -26,11 +26,11 @@ skinparam actor {
 
 
 title AddReadingToMatchingSensor
--> ReaderController: addReadingToMatchingSensor(logger, sensorList, sensorID, readingValue, readingDate)
+-> ReaderController: addReadingToMatchingSensor(logger, areaSensorList, sensorID, readingValue, readingDate)
 activate ReaderController
 
 ReaderController -> ReaderController: logger.isLoggable(Level.WARNING)
-ReaderController -> SensorList: sensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)
+ReaderController -> SensorList: areaSensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)
 
 alt if loggable && add Reading
 

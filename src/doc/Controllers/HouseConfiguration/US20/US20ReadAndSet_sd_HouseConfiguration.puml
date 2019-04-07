@@ -32,7 +32,7 @@ skinparam component {
 -> CSVReaderController: readAndSet(GeographicAreaList geographicAreaList, String path)
 activate CSVReaderController
 
-CSVReaderController -->> CSVReaderController: SensorList fullSensorList = getSensorData(geographicAreaList)
+CSVReaderController -->> CSVReaderController: SensorList fullAreaSensorList = getSensorData(geographicAreaList)
 CSVReaderController -->> CSVReader: List<String[]> list = csvRead.readCSV(path);
 alt try
 
@@ -44,7 +44,7 @@ CSVReaderController -->> FileHandler: FileHandler fileHandler = new FileHandler(
 CSVReaderController -> CSVReaderController: logger.addHandler(fileHandler);
 CSVReaderController -> CSVReaderController: fileHandler.setFormatter(myFormat);
 loop  String[] readings CONTAINED IN list
-CSVReaderController -> CSVReaderController: parseAndLog(readings, logger, fullSensorList);
+CSVReaderController -> CSVReaderController: parseAndLog(readings, logger, fullAreaSensorList);
 end
 else catch
 CSVReaderController -> CSVReaderController: IOException

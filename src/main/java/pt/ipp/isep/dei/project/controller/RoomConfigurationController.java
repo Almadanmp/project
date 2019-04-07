@@ -4,8 +4,8 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -60,12 +60,12 @@ public class RoomConfigurationController {
     }
 
     /**
-     * Method that returns the SensorList of the room.
+     * Method that returns the AreaSensorList of the room.
      *
      * @param room is the room we want to choose.
-     * @return SensorList of the Room.
+     * @return AreaSensorList of the Room.
      */
-    public SensorList getRoomSensorList(Room room) {
+    public AreaSensorList getRoomSensorList(Room room) {
         return room.getSensorList();
     }
 
@@ -74,12 +74,12 @@ public class RoomConfigurationController {
     sensor types, in order to configure it. - ANDRÉ RUA */
 
     /**
-     * @param sensorList is the sensor list to print.
+     * @param areaSensorList is the sensor list to print.
      * @return builds a string from given sensor list.
      */
 
-    public String buildSensorListString(SensorList sensorList) {
-        return sensorList.toString();
+    public String buildSensorListString(AreaSensorList areaSensorList) {
+        return areaSensorList.toString();
     }
 
     /**

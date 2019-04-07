@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
@@ -141,11 +141,11 @@ class ReaderJSONGeographicAreasTest {
         // Get one of the areas to  check its contents.
 
         GeographicArea actualArea = actualResult.get(0);
-        SensorList firstAreaSensors = actualArea.getSensorList();
+        AreaSensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
 
-        SensorList expectedSensors = new SensorList();
+        AreaSensorList expectedSensors = new AreaSensorList();
         expectedSensors.add(actualArea.getSensorList().get(0));
         expectedSensors.add(actualArea.getSensorList().get(1));
 
@@ -267,11 +267,11 @@ class ReaderJSONGeographicAreasTest {
         // Get one of the areas to  check its contents.
 
         GeographicArea actualArea = actualResult.get(0);
-        SensorList firstAreaSensors = actualArea.getSensorList();
+        AreaSensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
 
-        SensorList expectedSensors = new SensorList();
+        AreaSensorList expectedSensors = new AreaSensorList();
         expectedSensors.add(firstAreaSensors.get(0));
 
         GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,

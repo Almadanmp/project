@@ -30,7 +30,7 @@ title CSVFileReading
 -> ReaderController: readReadingsFromCSV(geographicAreaList, filePath, logPath)
 activate ReaderController
 
-ReaderController -> ReaderController: SensorList sensorList = geographicAreaList.getAreaListSensors();
+ReaderController -> ReaderController: SensorList areaSensorList = geographicAreaList.getAreaListSensors();
 create "csvRead :ReaderCSVReadings"
 ReaderController -> "csvRead :ReaderCSVReadings": new ReaderCSVReadings();
 activate "csvRead :ReaderCSVReadings"
@@ -43,7 +43,7 @@ ReaderController -> "csvRead :ReaderCSVReadings": List<String[]> list = csvRead.
 deactivate "csvRead :ReaderCSVReadings"
 
 loop  String[] reading CONTAINED IN list
-ReaderController -> ReaderController: parseAndLogCSVReading(reading, logger, sensorList);
+ReaderController -> ReaderController: parseAndLogCSVReading(reading, logger, areaSensorList);
 ref over ReaderController
 Parse and Add Readings To Sensors
 end ref

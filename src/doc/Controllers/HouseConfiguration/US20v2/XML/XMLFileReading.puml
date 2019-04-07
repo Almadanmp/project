@@ -30,7 +30,7 @@ title XMLFileReading
 -> ReaderController: readReadingsFromXML(geographicAreaList, filePath, logPath)
 activate ReaderController
 
-ReaderController -> ReaderController: SensorList sensorList = geographicAreaList.getAreaListSensors();
+ReaderController -> ReaderController: SensorList areaSensorList = geographicAreaList.getAreaListSensors();
 create "xmlRead :ReaderXML"
 ReaderController -> "xmlRead :ReaderXML": new ReaderXML();
 activate "xmlRead :ReaderXML"
@@ -44,7 +44,7 @@ deactivate "xmlRead :ReaderXML"
 ReaderController -> ReaderController: NodeList list = doc.getElementsByTagName("reading");
 
 loop  Element reading CONTAINED IN list
-ReaderController -> ReaderController: parseAndLogXMLReading(sensorList, reading, logger);
+ReaderController -> ReaderController: parseAndLogXMLReading(areaSensorList, reading, logger);
 ref over ReaderController
 Parse and Add Readings To Sensors
 end ref

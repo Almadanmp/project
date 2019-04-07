@@ -14,7 +14,7 @@
 //import pt.ipp.isep.dei.project.model.Local;
 //import pt.ipp.isep.dei.project.model.AreaType;
 //import pt.ipp.isep.dei.project.model.sensor.Sensor;
-//import pt.ipp.isep.dei.project.model.sensor.SensorList;
+//import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 //import pt.ipp.isep.dei.project.model.sensor.SensorType;
 //import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 //import pt.ipp.isep.dei.project.repository.SensorRepository;
@@ -50,7 +50,7 @@
 //    private Date validDate4 = new Date();
 //    private ReaderController validReader;
 //    private Sensor validSensor1;
-//    private SensorList validSensorList;
+//    private AreaSensorList validSensorList;
 //    private static final String validCSVLocation1 = "src/test/resources/test1CSVReadings.csv";
 //    private static final String validCSVLocation2 = "src/test/resources/test2CSVReadings.csv";
 //    private static final String validCSVLocation3 = "src/test/resources/test3CSVReadings.csv";
@@ -113,14 +113,14 @@
 //        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
 //                new Local(41.179230, -8.606409, 139),
 //                validDate4);
-//        validSensorList = new SensorList();
-//        SensorList validSensorList2 = new SensorList();
+//        validSensorList = new AreaSensorList();
+//        AreaSensorList validSensorList2 = new AreaSensorList();
 //        validSensorList.add(validSensor1);
 //        validSensorList.add(validSensor2);
 //        validSensorList2.add(validSensor3);
 //        validSensorList2.add(validSensor4);
-//        validGeographicArea.setSensorList(validSensorList);
-//        validGeographicArea2.setSensorList(validSensorList2);
+//        validGeographicArea.setAreaSensorList(validSensorList);
+//        validGeographicArea2.setAreaSensorList(validSensorList2);
 //        validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
 //        validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
 //        emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);

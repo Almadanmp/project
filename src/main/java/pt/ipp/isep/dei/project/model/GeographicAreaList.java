@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Component;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -207,23 +207,23 @@ public class GeographicAreaList {
     /**
      * Gets the list of sensors that exist in a Geographic Area List.
      *
-     * @return returns a SensorList of the geographical areas of the geographical area list.
+     * @return returns a AreaSensorList of the geographical areas of the geographical area list.
      * @author Andre
      */
-    public SensorList getAreaListSensors() {
-        SensorList fullSensorList = new SensorList();
+    public AreaSensorList getAreaListSensors() {
+        AreaSensorList fullAreaSensorList = new AreaSensorList();
         if (this.geographicAreas.isEmpty()) {
-            return fullSensorList;
+            return fullAreaSensorList;
         }
         for (GeographicArea ga : this.geographicAreas) {
             if (ga.getSensorList().isEmpty()) {
                 continue;
             }
             for (Sensor sensor : ga.getSensorList().getElementsAsArray()) {
-                fullSensorList.add(sensor);
+                fullAreaSensorList.add(sensor);
             }
         }
-        return fullSensorList;
+        return fullAreaSensorList;
     }
 
     /**

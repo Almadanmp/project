@@ -20,7 +20,7 @@ public class HouseSensorList {
     private List<HouseSensor> houseSensors;
 
     /**
-     * SensorList() empty constructor that initializes an ArrayList of House Sensors.
+     * AreaSensorList() empty constructor that initializes an ArrayList of House Sensors.
      */
     public HouseSensorList() {
         this.houseSensors = new ArrayList<>();
@@ -64,7 +64,7 @@ public class HouseSensorList {
      * Method that goes through the sensor list and returns a list of those which
      * have readings. The method throws an exception in case the sensorList is empty.
      *
-     * @return SensorList of every sensor that has readings. It will return an empty list in
+     * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
     public HouseSensorList getSensorsWithReadings() {
@@ -99,7 +99,7 @@ public class HouseSensorList {
      * Method to Add a sensor only if it's not contained in the list already.
      *
      * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
-     * @return true if sensor was successfully added to the SensorList, false otherwise.
+     * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
     public boolean add(HouseSensor sensorToAdd) {
@@ -162,7 +162,7 @@ public class HouseSensorList {
     /**
      * Checks the sensor list size and returns the size as int.\
      *
-     * @return SensorList size as int
+     * @return AreaSensorList size as int
      **/
     public int size() {
         return this.houseSensors.size();

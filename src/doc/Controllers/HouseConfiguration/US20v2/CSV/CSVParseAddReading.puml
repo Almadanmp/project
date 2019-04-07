@@ -26,7 +26,7 @@ skinparam actor {
 
 
 title CSVParseAddReading
--> ReaderController: parseAndLogCSVReading(String[] readings, Logger logger, SensorList sensorList)
+-> ReaderController: parseAndLogCSVReading(String[] readings, Logger logger, SensorList areaSensorList)
 activate ReaderController
 
 alt try
@@ -34,7 +34,7 @@ alt try
 ReaderController -> ReaderController: sensorID = readings[0];
 ReaderController -> ReaderController: Date readDate = Double.parseDate(readings[1]))
 ReaderController -> ReaderController: Double readValue = Double.parseDouble(readings[2]);
-ReaderController -> ReaderController: addReadingToMatchingSensor(logger, sensorList, sensorID, readDate, readValue)
+ReaderController -> ReaderController: addReadingToMatchingSensor(logger, areaSensorList, sensorID, readDate, readValue)
 else catch
 ReaderController -> ReaderController: NumberFormatException
 ReaderController -> ReaderController: ParseException

@@ -164,7 +164,7 @@ public class HouseMonitoringController {
 
     /**
      * This is a shared methods between many User stories and it checks if the House has its Mother Area defined and
-     * if that Mother Area has a valid SensorList
+     * if that Mother Area has a valid AreaSensorList
      *
      * @param house - house to get Mother Area from
      * @return true in case both conditions are met

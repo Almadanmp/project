@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
@@ -363,8 +363,8 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        SensorList sensorList = room.getSensorList();
-        System.out.println(controller.buildSensorListString(sensorList));
+        AreaSensorList areaSensorList = room.getSensorList();
+        System.out.println(controller.buildSensorListString(areaSensorList));
     }
 
 

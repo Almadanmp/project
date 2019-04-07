@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
@@ -106,9 +106,9 @@ public class ReaderController {
      * @return the number of readings added to the geographic area sensors
      **/
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
-        SensorList sensorList = geographicAreaList.getAreaListSensors();
+        AreaSensorList areaSensorList = geographicAreaList.getAreaListSensors();
         int addedReadings = 0;
-        if (sensorList.isEmpty()) {
+        if (areaSensorList.isEmpty()) {
             return addedReadings;
         }
         ReaderCSV csvRead = new ReaderCSV();
@@ -168,8 +168,8 @@ public class ReaderController {
      ***/
     public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
-        SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
-        if (sensorList.isEmpty()) {
+        AreaSensorList areaSensorList = geographicAreaList.getAll().getAreaListSensors();
+        if (areaSensorList.isEmpty()) {
             return addedReadings;
         }
         ReaderJSONReadings reader = new ReaderJSONReadings();
@@ -258,8 +258,8 @@ public class ReaderController {
      ***/
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
-        SensorList sensorList = geographicAreaList.getAll().getAreaListSensors();
-        if (sensorList.isEmpty()) {
+        AreaSensorList areaSensorList = geographicAreaList.getAll().getAreaListSensors();
+        if (areaSensorList.isEmpty()) {
             return addedReadings;
         }
         ReaderXML reader = new ReaderXML();

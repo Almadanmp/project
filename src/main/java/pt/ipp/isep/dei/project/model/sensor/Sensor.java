@@ -31,8 +31,8 @@ public class Sensor {
     private ReadingList readingList;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sensor_list_id")
-    private SensorList sensorList;
+    @JoinColumn(name = "area_sensor_list_id")
+    private AreaSensorList areaSensorList;
 
     private boolean active;
 
@@ -199,12 +199,12 @@ public class Sensor {
         this.active = status;
     }
 
-    public void setSensorList(SensorList sensorList) {
-        this.sensorList = sensorList;
+    public void setAreaSensorList(AreaSensorList areaSensorList) {
+        this.areaSensorList = areaSensorList;
     }
 
-    public SensorList getSensorList() {
-        return sensorList;
+    public AreaSensorList getAreaSensorList() {
+        return areaSensorList;
     }
 
     /**

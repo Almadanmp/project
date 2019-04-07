@@ -9,8 +9,8 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
@@ -152,9 +152,9 @@ class RoomConfigurationControllerTest {
         Sensor s2 = new Sensor("RF12345", "SensorTwo", new SensorType("Rain", "l/m2"),
                 new Local(10, 30, 20),
                 date);
-        SensorList sensorList = new SensorList();
-        sensorList.add(s1);
-        sensorList.add(s2);
+        AreaSensorList areaSensorList = new AreaSensorList();
+        areaSensorList.add(s1);
+        areaSensorList.add(s2);
         String expectedResult = "---------------\n" +
                 "0) Name: SensorOne | Type: Wind | Active\n" +
                 "1) Name: SensorTwo | Type: Rain | Active\n" +
@@ -162,7 +162,7 @@ class RoomConfigurationControllerTest {
 
         //Act
 
-        String actualResult = controller.buildSensorListString(sensorList);
+        String actualResult = controller.buildSensorListString(areaSensorList);
 
         //Assert
 
@@ -447,11 +447,11 @@ class RoomConfigurationControllerTest {
     void seeIfGetSensorListWorks() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         validRoomNoDevices.setSensorList(expectedResult);
         // Act
 
-        SensorList actualResult = controller.getRoomSensorList(validRoomNoDevices);
+        AreaSensorList actualResult = controller.getRoomSensorList(validRoomNoDevices);
 
         // Assert
         assertEquals(actualResult, expectedResult);

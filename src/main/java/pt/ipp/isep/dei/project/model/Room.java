@@ -3,9 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.ReadingList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
 import javax.persistence.*;
 import java.util.*;
@@ -33,7 +33,7 @@ public class Room implements Metered {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_list_id")
-    private SensorList roomSensorList;
+    private AreaSensorList roomAreaSensorList;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_list_id")
@@ -43,7 +43,7 @@ public class Room implements Metered {
     private DeviceList deviceList;
 
     /**
-     * Room() Constructor receiving 5 parameters and initializing 2 Lists, SensorList and DeviceList.
+     * Room() Constructor receiving 5 parameters and initializing 2 Lists, AreaSensorList and DeviceList.
      *
      * @param name       of the room
      * @param houseFloor of the room
@@ -58,7 +58,7 @@ public class Room implements Metered {
         this.roomWidth = width;
         this.roomLength = length;
         this.roomHeight = height;
-        this.roomSensorList = new SensorList();
+        this.roomAreaSensorList = new AreaSensorList();
         this.deviceList = new DeviceList();
     }
 
@@ -66,12 +66,12 @@ public class Room implements Metered {
     }
 
     /**
-     * Method that returns the SensorList of the room.
+     * Method that returns the AreaSensorList of the room.
      *
-     * @return SensorList of the Room.
+     * @return AreaSensorList of the Room.
      */
-    public SensorList getSensorList() {
-        return roomSensorList;
+    public AreaSensorList getSensorList() {
+        return roomAreaSensorList;
     }
 
     /**
@@ -112,10 +112,10 @@ public class Room implements Metered {
     /**
      * Room Sensor List Setter.
      *
-     * @param sensorList is the sensorList to set to the Room
+     * @param areaSensorList is the areaSensorList to set to the Room
      */
-    public void setSensorList(SensorList sensorList) {
-        roomSensorList = sensorList;
+    public void setSensorList(AreaSensorList areaSensorList) {
+        roomAreaSensorList = areaSensorList;
     }
 
     /**
@@ -204,7 +204,7 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
-        SensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
+        AreaSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
@@ -222,8 +222,8 @@ public class Room implements Metered {
      *
      * @return a sensor list that contains sensors of given type
      **/
-    SensorList getSensorsOfGivenType(String type) {
-        return this.roomSensorList.getSensorListByType(type);
+    AreaSensorList getSensorsOfGivenType(String type) {
+        return this.roomAreaSensorList.getSensorListByType(type);
     }
 
     /**
@@ -243,7 +243,7 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(Sensor sensor) {
-        return roomSensorList.add(sensor);
+        return roomAreaSensorList.add(sensor);
     }
 
     /**
@@ -265,7 +265,7 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        SensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
+        AreaSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
@@ -342,12 +342,12 @@ public class Room implements Metered {
     }
 
     /**
-     * This method checks if room's SensorList is empty.
+     * This method checks if room's AreaSensorList is empty.
      *
-     * @return true if room's SensorList is empty, false otherwise.
+     * @return true if room's AreaSensorList is empty, false otherwise.
      **/
     public boolean isSensorListEmpty() {
-        return this.roomSensorList.isEmpty();
+        return this.roomAreaSensorList.isEmpty();
     }
 
     /**

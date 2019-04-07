@@ -9,8 +9,8 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
@@ -87,7 +87,7 @@ public class ReaderJSONGeographicAreas implements Reader {
             areaObject.setDescription(areaDescription);
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            SensorList areaSensorsList = readAreaSensorsJSON(areaSensors);
+            AreaSensorList areaSensorsList = readAreaSensorsJSON(areaSensors);
             areaObject.setSensorList(areaSensorsList);
         }
         return geographicAreasArray;
@@ -101,9 +101,9 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private SensorList readAreaSensorsJSON(JSONArray areaSensors) {
+    private AreaSensorList readAreaSensorsJSON(JSONArray areaSensors) {
         List<Sensor> result = new ArrayList<>();
-        SensorList sensorListObject = new SensorList();
+        AreaSensorList areaSensorListObject = new AreaSensorList();
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -129,12 +129,12 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             Sensor sensorObject = new Sensor(sensorId, sensorName, type, local, date);
-            sensorObject.setSensorList(sensorListObject);
+            sensorObject.setAreaSensorList(areaSensorListObject);
             result.add(sensorObject);
             entriesChecked++;
         }
-        sensorListObject.setSensors(result);
-        return sensorListObject;
+        areaSensorListObject.setSensors(result);
+        return areaSensorListObject;
     }
 
 }

@@ -30,7 +30,7 @@ title JSONFileReading
 -> ReaderController: readReadingsFromJSON(geographicAreaList, filePath, logPath)
 activate ReaderController
 
-ReaderController -> ReaderController: SensorList sensorList = geographicAreaList.getAreaListSensors();
+ReaderController -> ReaderController: SensorList areaSensorList = geographicAreaList.getAreaListSensors();
 create "jsonRead :ReaderJSONReadings"
 ReaderController -> "jsonRead :ReaderJSONReadings": new ReaderJSONReadings();
 activate "jsonRead :ReaderJSONReadings"
@@ -43,7 +43,7 @@ ReaderController -> "jsonRead :ReaderJSONReadings": JSONArray array = jsonRead.r
 deactivate "jsonRead :ReaderJSONReadings"
 
 loop  JSONArray reading CONTAINED IN array
-ReaderController -> ReaderController: parseAndLogJSONReading(sensorList, reading, logger);
+ReaderController -> ReaderController: parseAndLogJSONReading(areaSensorList, reading, logger);
 ref over ReaderController
 Parse and Add Readings To Sensors
 end ref

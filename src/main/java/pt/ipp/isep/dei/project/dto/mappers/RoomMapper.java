@@ -6,8 +6,8 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +55,12 @@ public final class RoomMapper {
 
         double objectHeight = dtoToConvert.getHeight();
 
-        // Update the SensorList
+        // Update the AreaSensorList
 
-        SensorList objectSensorList = new SensorList();
+        AreaSensorList objectAreaSensorList = new AreaSensorList();
         for (SensorDTO y : dtoToConvert.getSensorList()) {
             Sensor tempSensor = SensorMapper.dtoToObject(y);
-            objectSensorList.add(tempSensor);
+            objectAreaSensorList.add(tempSensor);
         }
 
         // Update the device list
@@ -76,7 +76,7 @@ public final class RoomMapper {
 
         Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
         resultObject.setDeviceList(objectDeviceList);
-        resultObject.setSensorList(objectSensorList);
+        resultObject.setSensorList(objectAreaSensorList);
         resultObject.setId(objectID);
 
         return resultObject;
@@ -110,7 +110,7 @@ public final class RoomMapper {
 
         double dtoLength = objectToConvert.getLength();
 
-        // Update the SensorList
+        // Update the AreaSensorList
 
         List<SensorDTO> dtoSensorList = new ArrayList<>();
         for (Sensor y : objectToConvert.getSensorList().getSensors()) {

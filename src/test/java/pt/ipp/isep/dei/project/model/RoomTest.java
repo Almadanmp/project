@@ -128,7 +128,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNoSensors() {
         // Arrange
 
-        SensorList emptyList = new SensorList();
+        AreaSensorList emptyList = new AreaSensorList();
         validRoom.setSensorList(emptyList);
 
         // Assert
@@ -404,12 +404,12 @@ class RoomTest {
     void seeIfGetSensorsByTypeWorks() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(validSensor);
 
         // Act
 
-        SensorList actualResult = validRoom.getSensorsOfGivenType("temperature");
+        AreaSensorList actualResult = validRoom.getSensorsOfGivenType("temperature");
 
         // Assert
 
@@ -544,12 +544,12 @@ class RoomTest {
     void seeIfGetSensorListWorks() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(validSensor);
 
         // Act
 
-        SensorList actualResult = validRoom.getSensorList();
+        AreaSensorList actualResult = validRoom.getSensorList();
 
         // Assert
         assertEquals(actualResult, expectedResult);
@@ -559,12 +559,12 @@ class RoomTest {
     void seeIfGetSensorListWorksNoSensors() {
         // Arrange
 
-        SensorList expectedResult = new SensorList();
-        validRoom.setSensorList(new SensorList());
+        AreaSensorList expectedResult = new AreaSensorList();
+        validRoom.setSensorList(new AreaSensorList());
 
         // Act
 
-        SensorList actualResult = validRoom.getSensorList();
+        AreaSensorList actualResult = validRoom.getSensorList();
 
         // Assert
 
@@ -577,13 +577,13 @@ class RoomTest {
 
         Sensor testSensor = new Sensor("Mock", new SensorType("Temperature", "Celsius"), new Date());
         validRoom.addSensor(testSensor);
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(validSensor);
         expectedResult.add(testSensor);
 
         // Act
 
-        SensorList actualResult = validRoom.getSensorList();
+        AreaSensorList actualResult = validRoom.getSensorList();
 
         // Assert
         assertEquals(actualResult, expectedResult);

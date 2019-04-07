@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ class RoomMapperTest {
         Device d1 = new WashingMachine(new WashingMachineSpec());
         deviceList.add(d1);
         validDTO.setDeviceList(deviceList);
-        SensorList testList = new SensorList();
+        AreaSensorList testList = new AreaSensorList();
         testList.add(SensorMapper.dtoToObject(dto));
         validRoom.setSensorList(testList);
         validRoom.setDeviceList(deviceList);

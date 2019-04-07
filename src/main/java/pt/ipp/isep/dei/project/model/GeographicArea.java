@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 
 import javax.persistence.*;
 
@@ -32,7 +32,7 @@ public class GeographicArea {
     private Local location;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private SensorList areaSensors;
+    private AreaSensorList areaSensors;
 
     private String description;
 
@@ -44,7 +44,7 @@ public class GeographicArea {
      * Empty Constructor to use when importing Geographic Areas from XML files.
      */
     public GeographicArea() {
-        this.areaSensors = new SensorList();
+        this.areaSensors = new AreaSensorList();
     }
 
     /**
@@ -63,7 +63,7 @@ public class GeographicArea {
         this.length = length;
         this.width = width;
         this.location = location;
-        this.areaSensors = new SensorList();
+        this.areaSensors = new AreaSensorList();
     }
 
     /**
@@ -173,7 +173,7 @@ public class GeographicArea {
      *
      * @param listToSet list to set
      */
-    public void setSensorList(SensorList listToSet) {
+    public void setSensorList(AreaSensorList listToSet) {
         this.areaSensors = listToSet;
     }
 
@@ -244,7 +244,7 @@ public class GeographicArea {
      *
      * @return returns the attribute sensorList from an object of the class Geographic Area
      */
-    public SensorList getSensorList() {
+    public AreaSensorList getSensorList() {
         return this.areaSensors;
     }
 
@@ -283,7 +283,7 @@ public class GeographicArea {
     /**
      * Method checks if geographic area's sensor list is empty.
      *
-     * @return true if SensorList is empty, false otherwise
+     * @return true if AreaSensorList is empty, false otherwise
      */
     public boolean isSensorListEmpty() {
         return areaSensors.isEmpty();
@@ -339,10 +339,10 @@ public class GeographicArea {
      * from geographic area of that type.
      *
      * @param type the type of Sensor to test.
-     * @return SensorList of given type
+     * @return AreaSensorList of given type
      **/
 
-    SensorList getSensorsOfGivenType(String type) {
+    AreaSensorList getSensorsOfGivenType(String type) {
         return this.areaSensors.getSensorListByType(type);
     }
 

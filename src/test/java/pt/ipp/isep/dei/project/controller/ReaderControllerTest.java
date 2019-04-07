@@ -10,9 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -105,14 +105,14 @@ class ReaderControllerTest {
         Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
-        SensorList validSensorList = new SensorList();
-        SensorList validSensorList2 = new SensorList();
-        validSensorList.add(validSensor1);
-        validSensorList.add(validSensor2);
-        validSensorList2.add(validSensor3);
-        validSensorList2.add(validSensor4);
-        validGeographicArea.setSensorList(validSensorList);
-        validGeographicArea2.setSensorList(validSensorList2);
+        AreaSensorList validAreaSensorList = new AreaSensorList();
+        AreaSensorList validAreaSensorList2 = new AreaSensorList();
+        validAreaSensorList.add(validSensor1);
+        validAreaSensorList.add(validSensor2);
+        validAreaSensorList2.add(validSensor3);
+        validAreaSensorList2.add(validSensor4);
+        validGeographicArea.setSensorList(validAreaSensorList);
+        validGeographicArea2.setSensorList(validAreaSensorList2);
         validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
         emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
@@ -638,11 +638,11 @@ class ReaderControllerTest {
         // Get one of the areas to  check its contents.
 
         GeographicArea actualArea = actualResult.get(0);
-        SensorList firstAreaSensors = actualArea.getSensorList();
+        AreaSensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
 
-        SensorList expectedSensors = new SensorList();
+        AreaSensorList expectedSensors = new AreaSensorList();
         expectedSensors.add(actualArea.getSensorList().get(0));
         expectedSensors.add(actualArea.getSensorList().get(1));
 
@@ -675,11 +675,11 @@ class ReaderControllerTest {
         // Get one of the areas to  check its contents.
 
         GeographicArea actualArea = geographicAreaList3.get(0);
-        SensorList firstAreaSensors = actualArea.getSensorList();
+        AreaSensorList firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
 
-        SensorList expectedSensors = new SensorList();
+        AreaSensorList expectedSensors = new AreaSensorList();
         expectedSensors.add(actualArea.getSensorList().get(0));
         expectedSensors.add(actualArea.getSensorList().get(1));
 

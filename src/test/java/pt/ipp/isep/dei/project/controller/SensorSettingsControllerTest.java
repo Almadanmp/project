@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
@@ -172,9 +172,9 @@ class SensorSettingsControllerTest {
         Sensor secondSensor = new Sensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1);
-        SensorList sensorList = new SensorList();
-        sensorList.add(firstSensor);
-        geoArea.setSensorList(sensorList);
+        AreaSensorList areaSensorList = new AreaSensorList();
+        areaSensorList.add(firstSensor);
+        geoArea.setSensorList(areaSensorList);
 
         // Act
 

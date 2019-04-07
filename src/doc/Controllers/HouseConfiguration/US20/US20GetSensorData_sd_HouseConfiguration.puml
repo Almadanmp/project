@@ -30,12 +30,12 @@ skinparam actor {
 
 -> CSVReaderController: getSensorData(GeographicAreaList geographicAreaList)
 activate CSVReaderController
-CSVReaderController -->> SensorList: fullSensorList = new SensorList()
+CSVReaderController -->> SensorList: fullAreaSensorList = new SensorList()
 
 loop All Sensors IN GeographicAreaList
 
 
-CSVReaderController -->> SensorList: fullSensorList.add(sensor);
+CSVReaderController -->> SensorList: fullAreaSensorList.add(sensor);
 end
 
 

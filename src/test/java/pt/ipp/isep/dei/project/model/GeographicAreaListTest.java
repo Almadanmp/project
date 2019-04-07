@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
@@ -333,7 +333,7 @@ class GeographicAreaListTest {
     @Test
     void seeIfGetsAreaListSensors() {
         // Arrange
-        SensorList validSensorList = new SensorList();
+        AreaSensorList validAreaSensorList = new AreaSensorList();
         Sensor firstValidSensor = new Sensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidSensor.setActive(true);
@@ -345,11 +345,11 @@ class GeographicAreaListTest {
 
         // Act
 
-        SensorList actualResult = geographicAreaList.getAreaListSensors();
+        AreaSensorList actualResult = geographicAreaList.getAreaListSensors();
 
         // Assert
 
-        assertEquals(validSensorList, actualResult);
+        assertEquals(validAreaSensorList, actualResult);
     }
 
     @Test
@@ -388,13 +388,13 @@ class GeographicAreaListTest {
 
         Sensor firstValidSensor = new Sensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
         Sensor secondValidSensor = new Sensor("SensTwo", new SensorType("Temperature", "Celsius"), new Date());
-        SensorList expectedResult = new SensorList();
+        AreaSensorList expectedResult = new AreaSensorList();
         expectedResult.add(firstValidSensor);
         firstValidArea.addSensor(firstValidSensor);
 
         // Act
 
-        SensorList actualResult = validList.getAreaListSensors();
+        AreaSensorList actualResult = validList.getAreaListSensors();
 
         // Assert
 
@@ -416,7 +416,7 @@ class GeographicAreaListTest {
 
         // Arrange to make the first area get skipped (empty sensor list)
 
-        firstValidArea.setSensorList(new SensorList());
+        firstValidArea.setSensorList(new AreaSensorList());
         expectedResult.remove(firstValidSensor);
 
         // Act

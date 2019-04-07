@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
@@ -61,11 +61,11 @@ public class ReaderXMLGeoArea {
             geoArea = new GeographicArea(id, areaType, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
-            SensorList sensorList = new SensorList();
+            AreaSensorList areaSensorList = new AreaSensorList();
             for (int j = 0; j < nListSensor.getLength(); j++) {
-                sensorList.add(readSensorsXML(nListSensor.item(j), sensorList));
+                areaSensorList.add(readSensorsXML(nListSensor.item(j), areaSensorList));
             }
-            geoArea.setSensorList(sensorList);
+            geoArea.setSensorList(areaSensorList);
 
 
         }
@@ -78,7 +78,7 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private Sensor readSensorsXML(Node node, SensorList sensorList) {
+    private Sensor readSensorsXML(Node node, AreaSensorList areaSensorList) {
         Sensor sensor = new Sensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -97,7 +97,7 @@ public class ReaderXMLGeoArea {
                 expected.getErrorOffset();
             }
             sensor = new Sensor(id, name, sensorType, local, date);
-            sensor.setSensorList(sensorList);
+            sensor.setAreaSensorList(areaSensorList);
         }
         return sensor;
     }

@@ -46,10 +46,10 @@ class SensorTest {
     @Test
     void seeIfSetSensorList() {
         // Arrange
-        SensorList listA = new SensorList();
+        AreaSensorList listA = new AreaSensorList();
         // Act
-        validSensor.setSensorList(listA);
-        SensorList actualResult = validSensor.getSensorList();
+        validSensor.setAreaSensorList(listA);
+        AreaSensorList actualResult = validSensor.getAreaSensorList();
         // Assert
         assertEquals(listA, actualResult);
     }
