@@ -1,17 +1,15 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Types of Geographical Areas.
  */
-@Component
+@Service
 public class AreaTypeList {
     private static final String STRING_BUILDER = "---------------\n";
 
@@ -58,6 +56,18 @@ public class AreaTypeList {
         }
     }
 
+    public boolean addTypeAreaRepository(AreaType type) {
+        AreaType typeArea = areaTypeRepository.findByName(type.getName());
+//        if (!areaTypes.contains(type)) {
+//            areaTypes.add(type);
+//        }
+        if (typeArea != null) {
+            areaTypeRepository.delete(typeArea);
+        }
+        areaTypeRepository.save(type);
+        return true;
+    }
+
 
     /**
      * This method builds a string of all the individual members of the geoAreaType list.
@@ -77,6 +87,26 @@ public class AreaTypeList {
         return result.toString();
     }
 
+    //TODO after implementation remove build string
+
+    /**
+     * This method builds a string of all the individual members of the geoAreaType list.
+     *
+     * @return builds a string of all the individual members of the geoAreaType list.
+     */
+    public String getAllAsString() {
+        StringBuilder result = new StringBuilder("---------------\n");
+        List<AreaType> typeAreas = areaTypeRepository.findAll();
+        if (isEmptyRepository()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (AreaType ta : typeAreas) {
+            result.append(ta.getId()).append(") Name: ").append(ta.getName()).append(" \n");
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+
 
     /**
      * This method checks if type area list is empty.*
@@ -87,6 +117,16 @@ public class AreaTypeList {
         return this.areaTypes.isEmpty();
     }
 
+
+    /**
+     * This method checks if type area list is empty.*
+     *
+     * @return true if list is empty, false otherwise.
+     */
+    public boolean isEmptyRepository() {
+        return sizeRepository() == 0;
+    }
+
     /**
      * Checks the type area list size and returns the size as int.\
      *
@@ -94,6 +134,17 @@ public class AreaTypeList {
      **/
     public int size() {
         return this.areaTypes.size();
+    }
+
+    //TODO Repository size method version
+
+    /**
+     * Method to get the TypeArea Repository Size
+     *
+     * @return repository size
+     */
+    public int sizeRepository() {
+        return areaTypeRepository.findAll().size();
     }
 
     /**
@@ -107,6 +158,22 @@ public class AreaTypeList {
             throw new IndexOutOfBoundsException("The type area list is empty.");
         }
         return this.areaTypes.get(index);
+    }
+
+    //TODO Repository get method version
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param id selected id
+     * @return Type Area corresponding to the given id
+     */
+    public AreaType getTypeAreaByIdRepository(long id) {
+        Optional<AreaType> value = areaTypeRepository.findById(id);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        throw new NoSuchElementException("ERROR: There is no Area Type with the selected ID.");
     }
 
     /**

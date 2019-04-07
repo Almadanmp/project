@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.dto.TypeAreaDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
 import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
@@ -36,7 +39,7 @@ public class GASettingsController {
      */
 
     public String buildGATypeListString(AreaTypeList areaTypeList) {
-        return areaTypeList.buildString();
+        return areaTypeList.getAllAsString();
     }
 
 
@@ -54,14 +57,14 @@ public class GASettingsController {
      */
     public boolean createAndAddTypeAreaToList(AreaTypeList areaTypeList, String input) {
         AreaType areaType = areaTypeList.createTypeArea(input);
-        return areaTypeList.addTypeArea(areaType);
+        return areaTypeList.addTypeAreaRepository(areaType);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
     public String getTypeAreaList(AreaTypeList areaTypeList) {
-        return areaTypeList.buildString();
+        return areaTypeList.getAllAsString();
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
@@ -81,7 +84,7 @@ public class GASettingsController {
             newGeoList.removeGeographicArea(geoToAdd);
             return newGeoList.addGeographicArea(geoToAdd);
         } else {
-           return newGeoList.addGeographicArea(geoToAdd);
+            return newGeoList.addGeographicArea(geoToAdd);
         }
     }
 

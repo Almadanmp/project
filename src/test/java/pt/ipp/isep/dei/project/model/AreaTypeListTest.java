@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -179,12 +180,31 @@ class AreaTypeListTest {
 
 //TODO tries with mockito testing, not working, to be fixed (Daniela)
 
-//    @Test
-//    void seeIfGetTypeAreaByIdRepository() {
-//        AreaType areaType = new AreaType("Street");
-//        Mockito.when(areaTypeRepository.findById(areaType.getId())).thenReturn(Optional.of(areaType));
-//      //  assertEquals(areaType, );
-//    }
+    @Test
+    void seeIfGetTypeAreaByIdRepository() {
+        long mockId = 1234;
+
+        AreaType areaType = new AreaType("Street");
+        areaType.setId(mockId);
+
+        Mockito.when(areaTypeRepository.findById(mockId)).thenReturn(Optional.of(areaType));
+
+        AreaType result = validList.getTypeAreaByIdRepository(mockId);
+
+        assertEquals(result.getId(), areaType.getId());
+        assertEquals(result.getName(), areaType.getName());
+    }
+
+    @Test
+    void seeIfGetTypeAreaByIdRepositoryNull() {
+        long mockId = 1234;
+
+        Mockito.when(areaTypeRepository.findById(mockId)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validList.getTypeAreaByIdRepository(mockId));
+
+        assertEquals("ERROR: There is no Area Type with the selected ID.", exception.getMessage());
+    }
 
     @Test
     void getByIndexEmptyTypeAreaList() {
