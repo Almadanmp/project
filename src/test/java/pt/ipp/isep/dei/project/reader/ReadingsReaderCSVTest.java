@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.reader;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 import pt.ipp.isep.dei.project.services.units.Celsius;
@@ -11,6 +12,13 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReadingsReaderCSVTest {
+
+    private ReadingsReaderCSV readingsReaderCSV;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        readingsReaderCSV = new ReadingsReaderCSV();
+    }
 
     @Test
     void seeIfReadFileWorks() {
@@ -35,7 +43,6 @@ class ReadingsReaderCSVTest {
 
         List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
 
-        ReadingsReaderCSV readingsReaderCSV = new ReadingsReaderCSV();
         ReadingDTOWithUnitAndSensorID readingDTO1 = new ReadingDTOWithUnitAndSensorID();
         readingDTO1.setDate(validDate1);
         readingDTO1.setValue(14D);
@@ -85,5 +92,13 @@ class ReadingsReaderCSVTest {
         //Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileWorksWhenFileHasNoReadings() {
+        //Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> readingsReaderCSV.readFile("src/test/resources/readerReadings/test3CSVReadings.csv"));
     }
 }

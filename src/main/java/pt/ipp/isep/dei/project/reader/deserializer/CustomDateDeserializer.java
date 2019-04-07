@@ -26,23 +26,24 @@ public class CustomDateDeserializer extends StdDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser jsonparser, DeserializationContext context)
             throws IOException, JsonProcessingException {
-        List<SimpleDateFormat> simpleDateFormats =  getSimpleDateFormats();
+        List<SimpleDateFormat> simpleDateFormats = getSimpleDateFormats();
         String date = jsonparser.getText();
-        for(SimpleDateFormat sdf : simpleDateFormats) {
+        for (SimpleDateFormat sdf : simpleDateFormats) {
             try {
                 return sdf.parse(date);
             } catch (ParseException e) {
-                e.getErrorOffset();
+                e.getMessage();
             }
         }
         throw new RuntimeException();
     }
-    private List<SimpleDateFormat> getSimpleDateFormats(){
+
+    private List<SimpleDateFormat> getSimpleDateFormats() {
         SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
 
-        List<SimpleDateFormat> simpleDateFormats =  new ArrayList<>();
+        List<SimpleDateFormat> simpleDateFormats = new ArrayList<>();
         simpleDateFormats.add(dateFormat1);
         simpleDateFormats.add(dateFormat2);
         simpleDateFormats.add(dateFormat3);

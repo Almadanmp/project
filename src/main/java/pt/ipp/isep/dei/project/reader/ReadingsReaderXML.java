@@ -10,13 +10,12 @@ import pt.ipp.isep.dei.project.services.units.Adapter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReadingsReaderXML implements ReadingsReader {
 
     public List<ReadingDTOWithUnitAndSensorID> readFile(String filePath) {
-        List<ReadingDTOWithUnitAndSensorID> finalList = new ArrayList<>();
+        List<ReadingDTOWithUnitAndSensorID> finalList;
         List<ReadingDTOWrapper> readingDTOWrapper;
         ObjectMapper objectMapper = new XmlMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -27,7 +26,7 @@ public class ReadingsReaderXML implements ReadingsReader {
             readingDTOWrapper = readingDTOLWrapperList.getReadingDTOWrapperList();
             finalList = Adapter.readingDTOWrapperConversion(readingDTOWrapper);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e.getMessage());
         }
         return finalList;
     }

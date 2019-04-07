@@ -9,13 +9,12 @@ import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 import pt.ipp.isep.dei.project.services.units.Adapter;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReadingsReaderCSV implements ReadingsReader {
 
     public List<ReadingDTOWithUnitAndSensorID> readFile(String filePath) {
-        List<ReadingDTOWithUnitAndSensorID> finalList = new ArrayList<>();
+        List<ReadingDTOWithUnitAndSensorID> finalList;
         List<ReadingDTOWrapper> readingDTOWrappers;
         CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
         ObjectMapper csvMapper = new CsvMapper();
@@ -29,7 +28,7 @@ public class ReadingsReaderCSV implements ReadingsReader {
             readingDTOWrappers = matchOutcomeIterator.readAll();
             finalList = Adapter.readingDTOWrapperConversion(readingDTOWrappers);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e.getMessage());
         }
         return finalList;
     }

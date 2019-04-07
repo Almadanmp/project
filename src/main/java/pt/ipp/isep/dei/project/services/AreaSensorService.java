@@ -6,9 +6,11 @@ import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
+import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class AreaSensorService {
@@ -45,6 +47,65 @@ public class AreaSensorService {
                 return false;
             }
             areaSensor.addReading(areaReading);
+            sensorRepository.save(areaSensor);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This method receives the parameters to create an Area reading and tries to add that
+     * to its corresponding Area Sensor. It also receives a Logger so that it can register every
+     * reading that was not added to its corresponding sensor.
+     * This method will look for the sensor in the repository by its ID.
+     *
+     * @param sensorID     is the ID of the area sensor we want to add a reading to.
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @param unit         is the Unit of the reading we want to add.
+     * @return true in case the reading was added false otherwise.
+     */
+    public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, Unit unit, Logger logger) {
+        try {
+            AreaSensor areaSensor = getAreaSensorFromRepository(sensorID);
+            AreaReading areaReading = new AreaReading(readingValue, readingDate, "Should receive the variable unit");  //TODO Change the AreaReading parameter unit from STRING to UNIT
+            if (addReadingToSensorInRepository(areaReading, areaSensor)) {
+                return true;
+            }
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added.");
+            return false;
+
+        } catch (IllegalArgumentException illegal) {
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added because a sensor with that ID wasn't found.");
+            return false;
+        }
+    }
+
+    /**
+     * This method receives a sensor ID, checks if that sensor exists in the repository and returns
+     * the area sensor. It throws an Illegal Argument Exception in case the sensor does not exist in repository.
+     *
+     * @param sensorID String of sensor ID
+     * @return the area sensor that corresponds to the sensor ID.
+     **/
+    private AreaSensor getAreaSensorFromRepository(String sensorID) {
+        Optional<AreaSensor> value = sensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        throw new IllegalArgumentException("There is no sensor with that ID in the repository");
+    }
+
+    /**
+     * This method receives a Area Reading and a Area Sensor and tries to add the reading to the
+     * area sensor.
+     *
+     * @return true in case the reading is added to sensor, false otherwise.
+     **/
+    private boolean addReadingToSensorInRepository(AreaReading areaReading, AreaSensor areaSensor) {
+        if (areaSensor.addReading(areaReading)) {
             sensorRepository.save(areaSensor);
             return true;
         }

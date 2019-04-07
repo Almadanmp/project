@@ -13,7 +13,7 @@ import java.util.*;
 public class ReadingsReaderJSON implements ReadingsReader {
 
     public List<ReadingDTOWithUnitAndSensorID> readFile(String filePath) {
-        List<ReadingDTOWithUnitAndSensorID> finalList = new ArrayList<>();
+        List<ReadingDTOWithUnitAndSensorID> finalList;
         List<ReadingDTOWrapper> readingDTOWrapperList;
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -25,10 +25,8 @@ public class ReadingsReaderJSON implements ReadingsReader {
             finalList = Adapter.readingDTOWrapperConversion(readingDTOWrapperList);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e.getMessage());
         }
         return finalList;
     }
-
-
 }

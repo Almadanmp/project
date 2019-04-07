@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
+import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -19,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -33,6 +33,7 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT1 = "yyyy-MM-dd'T'HH:mm:ss'+00:00'";
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
+
     public ReaderController(AreaSensorService service) {
         this.areaSensorService = service;
     }
@@ -84,11 +85,12 @@ public class ReaderController {
     /**
      * This method receives a list of Geographic Areas to add the given NodeList correspondent to the Geographic Areas
      * imported from the XML File.
+     *
      * @param nListGeoArea - NodeList imported from the XML.
-     * @param list - list to which we want to add and persist the Geographic areas.
+     * @param list         - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list){
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
@@ -330,7 +332,47 @@ public class ReaderController {
         return 0;
     }
 
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings, String logPath){
-        return 0;
+    /**
+     * This method will receive a List of AreaReadingDTOs and a log file path and will try to add
+     * every reading in the list to its corresponding area sensor.
+     * The method returns the number of readings that were correctly added and logs every readings
+     * that wasn't added.
+     *
+     * @param readings List of Area Reading DTOs
+     * @param logPath  log file path
+     * @return number of Area Readings added to corresponding Area Sensor
+     **/
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings, String logPath) {
+        Logger logger = getLogger(logPath);
+        int addedReadings = 0;
+        for (ReadingDTOWithUnitAndSensorID r : readings) {
+            String sensorID = r.getSensorID();
+            double value = r.getValue();
+            Date date = r.getDate();
+            Unit unit = r.getUnit();
+            if (areaSensorService.addAreaReadingToAreaSensor(sensorID, value, date, unit, logger)) {
+                addedReadings++;
+            }
+        }
+        return addedReadings;
+    }
+
+    /**
+     * This method creates a Logger.
+     *
+     * @param logPath log file path.
+     * @return object of class Logger.
+     **/
+    private Logger getLogger(String logPath) {
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        try {
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+        } catch (IOException io) {
+            io.getMessage();
+        }
+        return logger;
     }
 }

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.reader;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 import pt.ipp.isep.dei.project.services.units.Celsius;
@@ -11,6 +12,13 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReadingsReaderXMLTest {
+
+    private ReadingsReaderXML readingsReaderXML;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        readingsReaderXML = new ReadingsReaderXML();
+    }
 
     @Test
     void seeIfReadFileWorks() {
@@ -35,7 +43,6 @@ class ReadingsReaderXMLTest {
 
         List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
 
-        ReadingsReaderXML readingsReaderXML = new ReadingsReaderXML();
         ReadingDTOWithUnitAndSensorID readingDTO1 = new ReadingDTOWithUnitAndSensorID();
         readingDTO1.setDate(validDate1);
         readingDTO1.setValue(14D);
@@ -56,14 +63,12 @@ class ReadingsReaderXMLTest {
         String sensorID3 = "TT1236A";
         readingDTO3.setSensorID(sensorID3);
 
-
         ReadingDTOWithUnitAndSensorID readingDTO4 = new ReadingDTOWithUnitAndSensorID();
         readingDTO4.setDate(validDate4);
         readingDTO4.setValue(15.41D);
         readingDTO4.setUnit(new Celsius());
         String sensorID4 = "RF12334";
         readingDTO4.setSensorID(sensorID4);
-
 
         ReadingDTOWithUnitAndSensorID readingDTO5 = new ReadingDTOWithUnitAndSensorID();
         readingDTO5.setDate(validDate5);
@@ -85,5 +90,64 @@ class ReadingsReaderXMLTest {
         //Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileWorksWhenEmpty() {
+        //Arrange
+
+        List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
+
+        //Act
+
+        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test1XMLReadings.xml");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileWorksWhenSameDateAndSensorID() {
+        //Arrange
+
+        Date validDate1 = new Date();
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate1 = simpleDate.parse("2018-12-30T02:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+        List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
+
+        ReadingDTOWithUnitAndSensorID readingDTO1 = new ReadingDTOWithUnitAndSensorID();
+        readingDTO1.setDate(validDate1);
+        readingDTO1.setValue(14.0D);
+        readingDTO1.setUnit(new Celsius());
+        readingDTO1.setSensorID("TT12346");
+        expectedResult.add(readingDTO1);
+
+        //Act
+
+        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test3XMLReadings.xml");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult.get(0).getValue(), actualResult.get(0).getValue(), 0.01);
+        assertEquals(expectedResult.get(0).getUnit(), actualResult.get(0).getUnit());
+    }
+
+    @Test
+    void seeIfReadFileWorksWhenContentsAreWrong() {
+        //Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test4XMLReadings.xml");
+
+                });
     }
 }

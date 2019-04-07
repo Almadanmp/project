@@ -58,7 +58,9 @@ public final class Adapter {
             readingDTO.setUnit(defaultUnit);
             readingDTO.setDate(wrapper.getDate());
             readingDTO.setSensorID(wrapper.getSensorId());
-            finalList.add(readingDTO);
+            if(!finalList.contains(readingDTO)) {
+                finalList.add(readingDTO);
+            }
         }
         return finalList;
     }

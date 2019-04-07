@@ -393,8 +393,7 @@ class GASettingsUI {
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         try {
             List<ReadingDTOWithUnitAndSensorID> list = readerCSV.readFile(filePath);
-            result = list.size();
-            System.out.println(list.toString());
+            result = addReadingsToAreaSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
@@ -406,7 +405,7 @@ class GASettingsUI {
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         try {
             List<ReadingDTOWithUnitAndSensorID> list = readerJSON.readFile(filePath);
-            result = list.size();
+            result = addReadingsToAreaSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
@@ -418,14 +417,14 @@ class GASettingsUI {
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         try {
             List<ReadingDTOWithUnitAndSensorID> list = readerXML.readFile(filePath);
-            result = list.size();
+            result = addReadingsToAreaSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private int addReadingsToGeographicAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings) {
+    private int addReadingsToAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings) {
         return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
     }
 
