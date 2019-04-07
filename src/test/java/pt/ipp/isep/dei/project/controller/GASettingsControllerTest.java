@@ -15,8 +15,8 @@ import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -48,7 +48,7 @@ class GASettingsControllerTest {
     private GeographicAreaRepository geographicAreaRepository;
 
     @Mock
-    TypeAreaRepository typeAreaRepository;
+    AreaTypeRepository areaTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -59,7 +59,7 @@ class GASettingsControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validAreaTypeList = new AreaTypeList(typeAreaRepository);
+        validAreaTypeList = new AreaTypeList(areaTypeRepository);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,

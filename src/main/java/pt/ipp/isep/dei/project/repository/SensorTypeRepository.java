@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import java.util.List;
 
 @Repository
-public interface TypeSensorRepository extends CrudRepository<SensorType, Long> {
+public interface SensorTypeRepository extends CrudRepository<SensorType, Long> {
 
     SensorType findByName(String name);
 

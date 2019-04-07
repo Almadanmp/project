@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,18 +18,18 @@ public class AreaTypeList {
     private List<AreaType> areaTypes;
 
     @Autowired
-    TypeAreaRepository typeAreaRepository;
+    AreaTypeRepository areaTypeRepository;
 
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
-    public AreaTypeList(TypeAreaRepository typeAreaRepository) {
+    public AreaTypeList(AreaTypeRepository areaTypeRepository) {
         areaTypes = new ArrayList<>();
-        this.typeAreaRepository = typeAreaRepository;
+        this.areaTypeRepository = areaTypeRepository;
     }
 
     public List<AreaType> getAreaTypes() {
-        return typeAreaRepository.findAll();
+        return areaTypeRepository.findAll();
     }
 
     /**
@@ -51,7 +51,7 @@ public class AreaTypeList {
     public boolean addTypeArea(AreaType type) {
         if (!areaTypes.contains(type)) {
             this.areaTypes.add(type);
-            typeAreaRepository.save(type);
+            areaTypeRepository.save(type);
             return true;
         } else {
             return false;

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,13 @@ class AreaTypeListTest {
     private AreaType secondValidType;
 
     @Mock
-    private TypeAreaRepository typeAreaRepository;
+    private AreaTypeRepository areaTypeRepository;
 
     private AreaTypeList validList;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validList = new AreaTypeList(this.typeAreaRepository);
+        validList = new AreaTypeList(this.areaTypeRepository);
         firstValidType = new AreaType("Country");
         secondValidType = new AreaType("City");
         validList.addTypeArea(firstValidType);
@@ -65,7 +65,7 @@ class AreaTypeListTest {
     @Test
     void seeIfBuildListIfEmpty() {
         // Arrange
-        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(areaTypeRepository);
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -81,7 +81,7 @@ class AreaTypeListTest {
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository); // List is Empty.
+        AreaTypeList emptyList = new AreaTypeList(areaTypeRepository); // List is Empty.
         List<AreaType> oneElementList = new ArrayList<>(); // List has one element.
         oneElementList.add(firstValidType);
 
@@ -177,7 +177,7 @@ class AreaTypeListTest {
     void getByIndexEmptyTypeAreaList() {
         // Arrange
 
-        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(areaTypeRepository);
 
         // Act
 
@@ -192,7 +192,7 @@ class AreaTypeListTest {
     void seeIfGetSizeWorks() {
         // Arrange
 
-        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(areaTypeRepository);
 
         // Act
 
@@ -210,8 +210,8 @@ class AreaTypeListTest {
     void seeIfEqualsWorksTrue() {
         // Assert
 
-        AreaTypeList testList = new AreaTypeList(typeAreaRepository);
-        validList = new AreaTypeList(typeAreaRepository);
+        AreaTypeList testList = new AreaTypeList(areaTypeRepository);
+        validList = new AreaTypeList(areaTypeRepository);
 
         // Act
 
@@ -230,7 +230,7 @@ class AreaTypeListTest {
         AreaType[] expectedResult2 = new AreaType[1];
         AreaType[] expectedResult3 = new AreaType[2];
 
-        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(areaTypeRepository);
         List<AreaType> oneAreaType = new ArrayList<>();
 
         oneAreaType.add(new AreaType("typeArea1"));

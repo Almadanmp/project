@@ -24,10 +24,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DataJpaTest
 @ContextConfiguration(classes = {MainUI.class},
         loader = AnnotationConfigContextLoader.class)
-class SensorServiceTest {
+class AreaSensorServiceTest {
 
     @Autowired
-    private SensorService sensorService;
+    private AreaSensorService areaSensorService;
 
     @Autowired
     private SensorRepository sensorRepository;
@@ -47,7 +47,7 @@ class SensorServiceTest {
 
         // Act
 
-        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date, "C");
+        boolean actualResult = areaSensorService.addReadingToMatchingSensor(sensorId, value, date, "C");
 
         // Assert
 
@@ -64,7 +64,7 @@ class SensorServiceTest {
 
         // Act
 
-        boolean actualResult = sensorService.addReadingToMatchingSensor(sensorId, value, date, "C");
+        boolean actualResult = areaSensorService.addReadingToMatchingSensor(sensorId, value, date, "C");
 
         // Assert
 

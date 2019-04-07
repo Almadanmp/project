@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.services.SensorService;
+import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,7 +54,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, SensorService service) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, AreaSensorService service) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         ReaderController ctrl = new ReaderController(service);
         JSONArray geoAreas = reader.readFile(filePath);

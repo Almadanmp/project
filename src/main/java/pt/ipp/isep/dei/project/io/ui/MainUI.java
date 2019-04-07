@@ -17,7 +17,7 @@ import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
-import pt.ipp.isep.dei.project.services.SensorService;
+import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -37,7 +37,7 @@ public class MainUI {
     AreaTypeList areaTypeList;
 
     @Autowired
-    SensorService sensorService;
+    AreaSensorService areaSensorService;
 
     GeographicAreaList geographicAreaList;
 
@@ -163,7 +163,7 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(sensorService, geographicAreaList);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, geographicAreaList);
                             houseC.run(mockHouse);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

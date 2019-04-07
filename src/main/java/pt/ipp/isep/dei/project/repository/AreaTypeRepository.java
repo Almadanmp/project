@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import java.util.List;
 
 @Repository
-public interface TypeAreaRepository extends CrudRepository<AreaType, Long> {
+public interface AreaTypeRepository extends CrudRepository<AreaType, Long> {
 
     List<AreaType> findAll();
 }

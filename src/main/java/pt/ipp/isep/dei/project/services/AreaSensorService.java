@@ -11,12 +11,12 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class SensorService {
+public class AreaSensorService {
 
     @Autowired
     private SensorRepository sensorRepository;
 
-    public SensorService(SensorRepository sensorRepository) {
+    public AreaSensorService(SensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
     }
 

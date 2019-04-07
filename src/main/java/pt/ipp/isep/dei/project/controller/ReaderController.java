@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.reader.*;
-import pt.ipp.isep.dei.project.services.SensorService;
+import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,15 +24,15 @@ import java.util.logging.Logger;
 public class ReaderController {
 
 
-    private SensorService sensorService;
+    private AreaSensorService areaSensorService;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
     private static final String VALID_DATE_FORMAT1 = "yyyy-MM-dd'T'HH:mm:ss'+00:00'";
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
-    public ReaderController(SensorService service) {
-        this.sensorService = service;
+    public ReaderController(AreaSensorService service) {
+        this.areaSensorService = service;
     }
 
 
@@ -50,12 +50,12 @@ public class ReaderController {
         int areasRead;
         if (input.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, sensorService);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorService);
             return areasRead;
         }
         if (input.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, sensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService);
             return areasRead;
         }
         return -1;
@@ -240,7 +240,7 @@ public class ReaderController {
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
     int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
-        if (sensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
+        if (areaSensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
             return 1;
         }
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
