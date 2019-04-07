@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * ReadingList tests class.
+ * AreaReadingList tests class.
  */
 
 class LogListTest {

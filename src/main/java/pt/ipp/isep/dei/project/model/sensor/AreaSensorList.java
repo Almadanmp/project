@@ -162,10 +162,10 @@ public class AreaSensorList {
      *
      * @return a list with all readings from sensor list
      **/
-    public ReadingList getReadings() {
-        ReadingList finalList = new ReadingList();
+    public AreaReadingList getReadings() {
+        AreaReadingList finalList = new AreaReadingList();
         for (Sensor s : this.sensors) {
-            finalList.appendListNoDuplicates(s.getReadingList());
+            finalList.appendListNoDuplicates(s.getAreaReadingList());
         }
         return finalList;
     }
@@ -238,8 +238,8 @@ public class AreaSensorList {
      * @return returns value readings from every sensor from given day
      **/
     public List<Double> getValuesOfSpecificDayReadings(Date day) {
-        ReadingList readingList = getReadings();
-        return readingList.getValuesOfSpecificDayReadings(day);
+        AreaReadingList areaReadingList = getReadings();
+        return areaReadingList.getValuesOfSpecificDayReadings(day);
     }
 
     /**

@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * This class will contain a value read by a Sensor, associated with a date of said reading.
@@ -19,8 +16,8 @@ public class Reading {
     private String unit;
 
     @ManyToOne
-    @JoinColumn(name = "reading_list_id")
-    private ReadingList readingList;
+    @JoinColumn(name = "area_reading_list_id")
+    private AreaReadingList areaReadingList;
 
     /**
      * Builder with 'value' and 'date'
@@ -82,7 +79,7 @@ public class Reading {
     }
 
     /**
-     * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
+     * Method 'equals' is required so that each 'Reading' can be added to a 'AreaReadingList'.
      *
      * @param o object
      * @return boolean

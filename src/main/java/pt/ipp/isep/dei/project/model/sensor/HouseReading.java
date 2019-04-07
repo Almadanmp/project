@@ -80,7 +80,7 @@ public class HouseReading {
     }
 
     /**
-     * Method 'equals' is required so that each 'Reading' can be added to a 'ReadingList'.
+     * Method 'equals' is required so that each 'Reading' can be added to a 'AreaReadingList'.
      *
      * @param o object
      * @return boolean

@@ -28,7 +28,7 @@ public class Sensor {
     private Date dateStartedFunctioning;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private ReadingList readingList;
+    private AreaReadingList areaReadingList;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "area_sensor_list_id")
@@ -58,7 +58,7 @@ public class Sensor {
         setSensorType(sensorType);
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
-        readingList = new ReadingList();
+        areaReadingList = new AreaReadingList();
         this.active = true;
     }
 
@@ -74,7 +74,7 @@ public class Sensor {
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
-        readingList = new ReadingList();
+        areaReadingList = new AreaReadingList();
         this.active = true;
     }
 
@@ -170,20 +170,20 @@ public class Sensor {
     /**
      * Getter: reading list
      *
-     * @return the readingList of the sensor.
+     * @return the areaReadingList of the sensor.
      */
-    public ReadingList getReadingList() {
-        return readingList;
+    public AreaReadingList getAreaReadingList() {
+        return areaReadingList;
     }
 
     /**
      * Setter: reading list
      *
-     * @param readingList is the readingList we want to set to the sensor.
+     * @param areaReadingList is the areaReadingList we want to set to the sensor.
      */
-    public void setReadingList(ReadingList readingList) {
-        if (readingList != null) {
-            this.readingList = readingList;
+    public void setAreaReadingList(AreaReadingList areaReadingList) {
+        if (areaReadingList != null) {
+            this.areaReadingList = areaReadingList;
         }
     }
 
@@ -232,7 +232,7 @@ public class Sensor {
      **/
     public boolean addReading(Reading reading) {
         if (this.active) {
-            return readingList.addReading(reading);
+            return areaReadingList.addReading(reading);
         }
         return false;
     }
@@ -333,7 +333,7 @@ public class Sensor {
      **/
 
     Date getMostRecentReadingDate() {
-        return this.readingList.getMostRecentReadingDate();
+        return this.areaReadingList.getMostRecentReadingDate();
     }
 
     /**
@@ -352,7 +352,7 @@ public class Sensor {
      * @return true if valid, false if invalid.
      **/
     public boolean isReadingListEmpty() {
-        return this.readingList.isEmpty();
+        return this.areaReadingList.isEmpty();
     }
 
     /**
@@ -365,7 +365,7 @@ public class Sensor {
      * @author Daniela - US623
      ***/
     public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
+        return this.areaReadingList.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -378,7 +378,7 @@ public class Sensor {
      * @author Daniela - US633
      ***/
     public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+        return this.areaReadingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -390,7 +390,7 @@ public class Sensor {
      * @author Daniela - US633
      ***/
     public double getHighestAmplitudeInDate(Date date) {
-        return this.readingList.getAmplitudeValueFromDate(date);
+        return this.areaReadingList.getAmplitudeValueFromDate(date);
     }
 
 
@@ -398,7 +398,7 @@ public class Sensor {
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
      * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Reading within an interval from a ReadingList that represents the last coldest day in the
+     * it returns a Reading within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.
@@ -406,7 +406,7 @@ public class Sensor {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
+        return this.areaReadingList.getLastColdestDayInGivenInterval(initialDate, endDate);
     }
 
     /**
@@ -420,7 +420,7 @@ public class Sensor {
      */
 
     public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
-        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
+        return this.areaReadingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
     /**
@@ -431,7 +431,7 @@ public class Sensor {
      * @return total reading values of that day
      ***/
     public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.readingList.getValueReadingsInDay(day);
+        return this.areaReadingList.getValueReadingsInDay(day);
     }
 
     /**
@@ -441,7 +441,7 @@ public class Sensor {
      * @return sensor's most recent reading value.
      ***/
     public double getMostRecentValueReading() {
-        return this.readingList.getMostRecentValue();
+        return this.areaReadingList.getMostRecentValue();
     }
 
 

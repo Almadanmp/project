@@ -140,7 +140,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNoReadings() {
         // Arrange
 
-        validSensor.setReadingList(new ReadingList());
+        validSensor.setAreaReadingList(new AreaReadingList());
 
         // Assert
 
@@ -463,7 +463,7 @@ class RoomTest {
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
         Room noSensorRoom = new Room("Mock","Mock", 1, 2, 3, 4);
-        validSensor.setReadingList(new ReadingList()); // validSensor has proper sensors, but they have no readings.
+        validSensor.setAreaReadingList(new AreaReadingList()); // validSensor has proper sensors, but they have no readings.
 
 
         // Act and Assert
@@ -531,7 +531,7 @@ class RoomTest {
         //Arrange
 
         Room noSensorsRoom = new Room("Mock","Mock", 1, 2, 3, 4);
-        validSensor.setReadingList(new ReadingList()); // Valid Sensor now has sensors, but no readings.
+        validSensor.setAreaReadingList(new AreaReadingList()); // Valid Sensor now has sensors, but no readings.
 
         //Act and Assert
 

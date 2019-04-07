@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * This is the ReadingList Class, a List of readings that the Sensor receives.
+ * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
 @Entity
-public class ReadingList {
+public class AreaReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
@@ -15,14 +15,14 @@ public class ReadingList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // Used as primary key in repository tables.
 
-    @OneToMany(mappedBy = "readingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "areaReadingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reading> readings;
 
     /**
      * /**
      * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
-    public ReadingList() {
+    public AreaReadingList() {
         this.readings = new ArrayList<>();
     }
 
@@ -98,7 +98,7 @@ public class ReadingList {
     /**
      * Checks the reading list size and returns the size as int.\
      *
-     * @return ReadingList size as int
+     * @return AreaReadingList size as int
      **/
     public int size() {
         return this.readings.size();
@@ -271,13 +271,13 @@ public class ReadingList {
      * @author Daniela (US623)
      */
     public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
-        if (readingListBetweenDates.isEmpty()) {
+        AreaReadingList areaReadingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
+        if (areaReadingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
-        for (int i = 0; i < readingListBetweenDates.size(); i++) {
-            Date day = readingListBetweenDates.get(i).getDate();
+        for (int i = 0; i < areaReadingListBetweenDates.size(); i++) {
+            Date day = areaReadingListBetweenDates.get(i).getDate();
             List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
             double avgDay = getAvgFromList(specificDayValues);
             avgDailyValues.add(avgDay);
@@ -388,13 +388,13 @@ public class ReadingList {
     }
 
     /**
-     * Adds all readings of a given ReadingList to target list, rejecting duplicates.
+     * Adds all readings of a given AreaReadingList to target list, rejecting duplicates.
      *
-     * @param readingList The list to be added to the target list
+     * @param areaReadingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      **/
-    public ReadingList appendListNoDuplicates(ReadingList readingList) {
-        Reading[] readingsArray = readingList.getElementsAsArray();
+    public AreaReadingList appendListNoDuplicates(AreaReadingList areaReadingList) {
+        Reading[] readingsArray = areaReadingList.getElementsAsArray();
         for (Reading r : readingsArray) {
             this.addReading(r);
         }
@@ -475,13 +475,13 @@ public class ReadingList {
 
     /**
      * US630
-     * This method filters the existing ReadingList so that it returns the ReadingList with the chosen value.
+     * This method filters the existing AreaReadingList so that it returns the AreaReadingList with the chosen value.
      *
      * @param value is the value we want to choose.
-     * @return a ReadingList with a chosen value.
+     * @return a AreaReadingList with a chosen value.
      */
-    public ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
-        ReadingList result = new ReadingList();
+    public AreaReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
+        AreaReadingList result = new AreaReadingList();
         for (Reading r : this.readings) {
             if (Double.compare(r.getValue(), value) == 0) {
                 result.addReading(r);
@@ -492,10 +492,10 @@ public class ReadingList {
 
     /**
      * US630
-     * This method returns a Reading with a specific day from a given ReadingList.
+     * This method returns a Reading with a specific day from a given AreaReadingList.
      *
      * @param date is the Day of the reading we want to get.
-     * @return a Reading from the ReadingList with a Specific Date.
+     * @return a Reading from the AreaReadingList with a Specific Date.
      */
     public Reading getAReadingWithSpecificDay(Date date) {
         Reading result = null;
@@ -512,7 +512,7 @@ public class ReadingList {
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
      * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Date within an interval from a ReadingList that represents the last coldest day in the
+     * it returns a Date within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.
@@ -523,20 +523,20 @@ public class ReadingList {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
-        if (readingListBetweenDates.isEmpty()) {
+        AreaReadingList areaReadingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
+        if (areaReadingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
-        ReadingList listOfMaxValuesForEachDay = readingListBetweenDates.getListOfMaxValuesForEachDay();
+        AreaReadingList listOfMaxValuesForEachDay = areaReadingListBetweenDates.getListOfMaxValuesForEachDay();
         double minValueInList = listOfMaxValuesForEachDay.getMinValueInReadingList();
-        ReadingList readingListWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
-        return readingListWithSpecificValue.getMostRecentReadingDate();
+        AreaReadingList areaReadingListWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
+        return areaReadingListWithSpecificValue.getMostRecentReadingDate();
     }
 
 
     /**
      * US630
-     * This method returns a Reading that represents the maximum value of a Reading in a ReadingList
+     * This method returns a Reading that represents the maximum value of a Reading in a AreaReadingList
      * from a given day.
      *
      * @param day is the day we want to know the maximum value.
@@ -557,14 +557,14 @@ public class ReadingList {
     }
 
     /**
-     * This method filters a ReadingList and returns the ReadingList but within an interval of given dates.
+     * This method filters a AreaReadingList and returns the AreaReadingList but within an interval of given dates.
      *
      * @param initialDate is the initial date of the interval.
      * @param finalDate   is the final date of the interval.
-     * @return a ReadingList that represents the initial ReadingList but only with readings within the given interval.
+     * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
-    public ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
-        ReadingList result = new ReadingList();
+    public AreaReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
+        AreaReadingList result = new AreaReadingList();
         for (Reading r : this.readings) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
                 result.addReading(r);
@@ -575,14 +575,14 @@ public class ReadingList {
 
     /**
      * US630
-     * This method returns a ReadingList that represents a List of maximum values of the ReadingList for each
+     * This method returns a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      *
-     * @return a ReadingList that represents a List of maximum values of the ReadingList for each
+     * @return a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      */
-    public ReadingList getListOfMaxValuesForEachDay() {
-        ReadingList result = new ReadingList();
+    public AreaReadingList getListOfMaxValuesForEachDay() {
+        AreaReadingList result = new AreaReadingList();
         List<Date> dateList = new ArrayList<>();
         for (Reading r : this.readings) {
             Date aux = getFirstSecondOfDay(r.getDate());
@@ -596,9 +596,9 @@ public class ReadingList {
     }
 
     /**
-     * This method returns a double value that represents the minimum value in a ReadingList.
+     * This method returns a double value that represents the minimum value in a AreaReadingList.
      *
-     * @return a double value that represents the minimum value in a ReadingList.
+     * @return a double value that represents the minimum value in a AreaReadingList.
      */
    public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
@@ -622,10 +622,10 @@ public class ReadingList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof ReadingList)) {
+        if (!(testObject instanceof AreaReadingList)) {
             return false;
         }
-        ReadingList list = (ReadingList) testObject;
+        AreaReadingList list = (AreaReadingList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

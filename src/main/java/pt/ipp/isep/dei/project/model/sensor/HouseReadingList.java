@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * This is the ReadingList Class, a List of readings that the Sensor receives.
+ * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
 //@Entity
 public class HouseReadingList {
@@ -97,7 +97,7 @@ public class HouseReadingList {
     /**
      * Checks the reading list size and returns the size as int.\
      *
-     * @return ReadingList size as int
+     * @return AreaReadingList size as int
      **/
     public int size() {
         return this.readings.size();
@@ -387,7 +387,7 @@ public class HouseReadingList {
     }
 
     /**
-     * Adds all readings of a given ReadingList to target list, rejecting duplicates.
+     * Adds all readings of a given AreaReadingList to target list, rejecting duplicates.
      *
      * @param readingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
@@ -474,10 +474,10 @@ public class HouseReadingList {
 
     /**
      * US630
-     * This method filters the existing ReadingList so that it returns the ReadingList with the chosen value.
+     * This method filters the existing AreaReadingList so that it returns the AreaReadingList with the chosen value.
      *
      * @param value is the value we want to choose.
-     * @return a ReadingList with a chosen value.
+     * @return a AreaReadingList with a chosen value.
      */
     public HouseReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         HouseReadingList result = new HouseReadingList();
@@ -491,10 +491,10 @@ public class HouseReadingList {
 
     /**
      * US630
-     * This method returns a Reading with a specific day from a given ReadingList.
+     * This method returns a Reading with a specific day from a given AreaReadingList.
      *
      * @param date is the Day of the reading we want to get.
-     * @return a Reading from the ReadingList with a Specific Date.
+     * @return a Reading from the AreaReadingList with a Specific Date.
      */
     public HouseReading getAReadingWithSpecificDay(Date date) {
         HouseReading result = null;
@@ -511,7 +511,7 @@ public class HouseReadingList {
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
      * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Date within an interval from a ReadingList that represents the last coldest day in the
+     * it returns a Date within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.
@@ -535,7 +535,7 @@ public class HouseReadingList {
 
     /**
      * US630
-     * This method returns a Reading that represents the maximum value of a Reading in a ReadingList
+     * This method returns a Reading that represents the maximum value of a Reading in a AreaReadingList
      * from a given day.
      *
      * @param day is the day we want to know the maximum value.
@@ -556,11 +556,11 @@ public class HouseReadingList {
     }
 
     /**
-     * This method filters a ReadingList and returns the ReadingList but within an interval of given dates.
+     * This method filters a AreaReadingList and returns the AreaReadingList but within an interval of given dates.
      *
      * @param initialDate is the initial date of the interval.
      * @param finalDate   is the final date of the interval.
-     * @return a ReadingList that represents the initial ReadingList but only with readings within the given interval.
+     * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
     public HouseReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         HouseReadingList result = new HouseReadingList();
@@ -574,10 +574,10 @@ public class HouseReadingList {
 
     /**
      * US630
-     * This method returns a ReadingList that represents a List of maximum values of the ReadingList for each
+     * This method returns a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      *
-     * @return a ReadingList that represents a List of maximum values of the ReadingList for each
+     * @return a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      */
     public HouseReadingList getListOfMaxValuesForEachDay() {
@@ -595,9 +595,9 @@ public class HouseReadingList {
     }
 
     /**
-     * This method returns a double value that represents the minimum value in a ReadingList.
+     * This method returns a double value that represents the minimum value in a AreaReadingList.
      *
-     * @return a double value that represents the minimum value in a ReadingList.
+     * @return a double value that represents the minimum value in a AreaReadingList.
      */
     public double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();

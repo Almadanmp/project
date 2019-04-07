@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * ReadingList tests class.
+ * AreaReadingList tests class.
  */
 
 class LogTest {

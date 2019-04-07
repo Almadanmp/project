@@ -297,7 +297,7 @@ public class HouseSensor {
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
      * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Reading within an interval from a ReadingList that represents the last coldest day in the
+     * it returns a Reading within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *
      * @param initialDate is the Initial Date of the period.

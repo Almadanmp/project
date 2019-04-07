@@ -50,7 +50,7 @@ readCSV(String csvFileLocation)
 class Sensor{
 String id
 Date dateStartedFunctioning
-ReadingList readingList
+ReadingList areaReadingList
 
 getId()
 addReading(Reading reading)

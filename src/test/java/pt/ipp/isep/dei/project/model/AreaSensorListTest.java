@@ -182,11 +182,11 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksNoReadings() {
         // Arrange
 
-        ReadingList expectedResult = new ReadingList();
+        AreaReadingList expectedResult = new AreaReadingList();
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        AreaReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -200,12 +200,12 @@ class AreaSensorListTest {
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validAreaSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
-        ReadingList expectedResult = new ReadingList();
+        AreaReadingList expectedResult = new AreaReadingList();
         expectedResult.addReading(readingOne);
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        AreaReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -219,12 +219,12 @@ class AreaSensorListTest {
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validAreaSensorList.add(secondValidSensor);
         secondValidSensor.addReading(readingOne);
-        ReadingList expectedResult = new ReadingList();
+        AreaReadingList expectedResult = new AreaReadingList();
         expectedResult.addReading(readingOne);
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        AreaReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -240,13 +240,13 @@ class AreaSensorListTest {
         validAreaSensorList.add(secondValidSensor);
         firstValidSensor.addReading(readingOne);
         secondValidSensor.addReading(readingTwo);
-        ReadingList expectedResult = new ReadingList();
+        AreaReadingList expectedResult = new AreaReadingList();
         expectedResult.addReading(readingOne);
         expectedResult.addReading(readingTwo);
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        AreaReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 

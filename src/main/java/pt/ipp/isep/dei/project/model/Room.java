@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.ReadingList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 
 import javax.persistence.*;
@@ -269,8 +269,8 @@ public class Room implements Metered {
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        ReadingList readingList = tempSensors.getReadings();
-        return readingList.getMostRecentValue();
+        AreaReadingList areaReadingList = tempSensors.getReadings();
+        return areaReadingList.getMostRecentValue();
     }
 
     /**

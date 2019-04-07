@@ -59,7 +59,7 @@ getSensorsOfGivenType()
 
 class SensorList{
 List<Sensor> sensors
-ReadingList readingList
+ReadingList areaReadingList
 
 getSensorListByType(String)
 getSensorsByDistanceToHouse(House, double)
