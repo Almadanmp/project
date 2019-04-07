@@ -29,7 +29,7 @@ class HouseConfigurationControllerTest {
         validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
-        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
     }
@@ -136,9 +136,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfSetAndGetHouseMotherAreaWorks() {
         //Arrange
-        controller.setHouseMotherArea(validHouse, new GeographicArea("Porto", new TypeArea("Cidade"),
+        controller.setHouseMotherArea(validHouse, new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        GeographicArea expected = new GeographicArea("Porto", new TypeArea("Cidade"),
+        GeographicArea expected = new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100));
         //Act
         GeographicArea actualResult = validHouse.getMotherArea();

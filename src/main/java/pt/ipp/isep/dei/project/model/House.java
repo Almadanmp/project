@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import javax.persistence.*;
 import java.util.*;
@@ -290,7 +290,7 @@ public class House implements Metered {
     public Sensor getClosestSensorOfGivenType(String sensorType) {
         Sensor sensor;
         SensorList minDistSensor = new SensorList();
-        Sensor sensorError = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", " " +
+        Sensor sensorError = new Sensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime());
         SensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);

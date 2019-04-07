@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,7 +98,7 @@ class LocalTest {
     void seeIfEqualsWorksNotInstance() {
         // Arrange
 
-        TypeSensor t1 = new TypeSensor("Temperature", "Celsius");
+        SensorType t1 = new SensorType("Temperature", "Celsius");
 
         // Act
 

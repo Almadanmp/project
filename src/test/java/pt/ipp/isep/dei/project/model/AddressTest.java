@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -142,7 +142,7 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsDifferentObject() {
         //Assert
-        assertNotEquals(validAddress, new TypeSensor("Rain", "mm"));
+        assertNotEquals(validAddress, new SensorType("Rain", "mm"));
     }
 
     @Test

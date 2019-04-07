@@ -26,13 +26,13 @@ class SensorListTest {
     @BeforeEach
     void arrangeArtifacts() {
         validSensorList = new SensorList();
-        firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
+        firstValidSensor = new Sensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidSensor.setActive(true);
-        secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
+        secondValidSensor = new Sensor("SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Date());
         secondValidSensor.setActive(true);
-        thirdValidSensor = new Sensor("SensorThree", new TypeSensor("Rainfall", "l/m2"),
+        thirdValidSensor = new Sensor("SensorThree", new SensorType("Rainfall", "l/m2"),
                 new Date());
         validSensorList.add(firstValidSensor);
     }
@@ -460,8 +460,8 @@ class SensorListTest {
 
         //Sensors
 
-        Sensor sensorSameLocalHouse = new Sensor("123", "sameLocalAsHouse", new TypeSensor("Temperature", "K"), new Local(20, 20, 20), date);
-        Sensor sensorDiffLocalHouse = new Sensor("125", "DiffLocalAsHouse", new TypeSensor("Temperature", "K"), new Local(20, 25, 20), date);
+        Sensor sensorSameLocalHouse = new Sensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date);
+        Sensor sensorDiffLocalHouse = new Sensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date);
 
         SensorList validSensorList = new SensorList();
         validSensorList.add(sensorDiffLocalHouse);
@@ -473,7 +473,7 @@ class SensorListTest {
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "4200-072", "Porto","Portugal");
         House house = new House("ISEP", address, new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        house.setMotherArea(new GeographicArea("Porto", new TypeArea
+        house.setMotherArea(new GeographicArea("Porto", new AreaType
                 ("Cidade"), 2, 3, new Local(4, 4, 100)));
 
 

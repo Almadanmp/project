@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.controller;
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,20 +18,20 @@ public class SensorSettingsController {
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public String buildSensorTypesString(TypeSensorList typeSensorList) {
-        return typeSensorList.buildString();
+    public String buildSensorTypesString(SensorTypeList sensorTypeList) {
+        return sensorTypeList.buildString();
     }
 
     /**
      * This method receives a list and a type sensor and tries to addWithoutPersisting the type sensor
      * to the list. The type sensor will not be added in case the list already contains it.
      *
-     * @param typeSensor the type of sensor to be added
+     * @param sensorType the type of sensor to be added
      *                   // * @param typeSensorList the list of types of sensors
      * @return true if the type of sensor was added to the list of type sensors.
      */
-    public boolean addTypeSensorToList(TypeSensor typeSensor, TypeSensorList typeSensorList) {
-        return typeSensorList.add(typeSensor);
+    public boolean addTypeSensorToList(SensorType sensorType, SensorTypeList sensorTypeList) {
+        return sensorTypeList.add(sensorType);
     }
 
     /* USER STORY 006 - an Administrator, I want to addWithoutPersisting a new sensor and associate it to a geographical area, so that
@@ -68,8 +68,8 @@ public class SensorSettingsController {
      * @return is the newly created sensorType.
      */
 
-    public TypeSensor createType(TypeSensorList typeSensorList, String sensorType, String sensorUnits) {
-        return typeSensorList.createTypeSensor(sensorType, sensorUnits);
+    public SensorType createType(SensorTypeList sensorTypeList, String sensorType, String sensorUnits) {
+        return sensorTypeList.createTypeSensor(sensorType, sensorUnits);
     }
 
 
@@ -83,7 +83,7 @@ public class SensorSettingsController {
      */
 
 
-    public Sensor createSensor(String id, String name, TypeSensor type, Local local, Date date) {
+    public Sensor createSensor(String id, String name, SensorType type, Local local, Date date) {
         return new Sensor(id, name, type, local, date);
     }
 
@@ -105,7 +105,7 @@ public class SensorSettingsController {
      * @param date
      * @return a created Sensor
      */
-    public Sensor createRoomSensor(String name, TypeSensor type, Date date) {
+    public Sensor createRoomSensor(String name, SensorType type, Date date) {
         return new Sensor(name, type, date);
     }
 

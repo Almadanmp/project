@@ -31,12 +31,12 @@ public class GASettingsController {
     }
 
     /**
-     * @param typeAreaList is the list of Geographic Area Types we want to print.
+     * @param areaTypeList is the list of Geographic Area Types we want to print.
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGATypeListString(TypeAreaList typeAreaList) {
-        return typeAreaList.buildString();
+    public String buildGATypeListString(AreaTypeList areaTypeList) {
+        return areaTypeList.buildString();
     }
 
 
@@ -52,16 +52,16 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(TypeAreaList typeAreaList, String input) {
-        TypeArea typeArea = typeAreaList.createTypeArea(input);
-        return typeAreaList.addTypeArea(typeArea);
+    public boolean createAndAddTypeAreaToList(AreaTypeList areaTypeList, String input) {
+        AreaType areaType = areaTypeList.createTypeArea(input);
+        return areaTypeList.addTypeArea(areaType);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
-    public String getTypeAreaList(TypeAreaList typeAreaList) {
-        return typeAreaList.buildString();
+    public String getTypeAreaList(AreaTypeList areaTypeList) {
+        return areaTypeList.buildString();
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
@@ -74,9 +74,9 @@ public class GASettingsController {
      * @return success if a new GA is added, false otherwise
      */
     public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
-        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
+        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), LocalMapper.dtoToObject(localDTO));
-        if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new TypeArea(geoAreaDTO.getTypeArea()),
+        if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 LocalMapper.dtoToObject(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
             return newGeoList.addGeographicArea(geoToAdd);

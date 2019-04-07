@@ -12,10 +12,10 @@
 //import pt.ipp.isep.dei.project.model.GeographicArea;
 //import pt.ipp.isep.dei.project.model.GeographicAreaList;
 //import pt.ipp.isep.dei.project.model.Local;
-//import pt.ipp.isep.dei.project.model.TypeArea;
+//import pt.ipp.isep.dei.project.model.AreaType;
 //import pt.ipp.isep.dei.project.model.sensor.Sensor;
 //import pt.ipp.isep.dei.project.model.sensor.SensorList;
-//import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+//import pt.ipp.isep.dei.project.model.sensor.SensorType;
 //import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 //import pt.ipp.isep.dei.project.repository.SensorRepository;
 //import pt.ipp.isep.dei.project.services.SensorService;
@@ -95,22 +95,22 @@
 //        } catch (ParseException c) {
 //            c.printStackTrace();
 //        }
-//        validGeographicArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261,
+//        validGeographicArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249, 0.261,
 //                new Local(41.178553, -8.608035, 111));
-//        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+//        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
 //                new Local(41.149935, -8.610857, 118));
-//        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new TypeArea("city"), 0.299, 0.291,
+//        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new AreaType("city"), 0.299, 0.291,
 //                new Local(41.178553, 8.608035, 117));
-//        validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new TypeSensor("rain", "mm"),
+//        validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
 //                new Local(41.179230, -8.606409, 125),
 //                validDate1);
-//        Sensor validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new TypeSensor("rain2", "mm2"),
+//        Sensor validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
 //                new Local(41.179230, -8.606409, 125),
 //                validDate2);
-//        Sensor validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new TypeSensor("rain2", "mm2"),
+//        Sensor validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
 //                new Local(41.179230, -8.606409, 139),
 //                validDate3);
-//        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new TypeSensor("rain2", "mm2"),
+//        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
 //                new Local(41.179230, -8.606409, 139),
 //                validDate4);
 //        validSensorList = new SensorList();

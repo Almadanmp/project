@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Dishwasher;
 import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +26,7 @@ public class UtilsUITest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = RoomMapper.objectToDTO(room1);
@@ -45,7 +45,7 @@ public class UtilsUITest {
 
         Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3);
         GregorianCalendar date = new GregorianCalendar(2010, Calendar.DECEMBER, 2, 12, 12);
-        Sensor sensor1 = new Sensor("RF12345", "sensor", new TypeSensor("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
+        Sensor sensor1 = new Sensor("RF12345", "sensor", new SensorType("sensor", "celsius"), new Local(2, 2, 2), date.getTime());
         room1.addSensor(sensor1);
         Device device = new Dishwasher(new DishwasherSpec());
         room1.addDevice(device);
@@ -53,7 +53,7 @@ public class UtilsUITest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.addRoom(room1);
         RoomDTO roomDTO = RoomMapper.objectToDTO(room1);

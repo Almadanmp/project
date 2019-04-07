@@ -19,7 +19,7 @@ public class Sensor {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "type_sensor_id")
-    private TypeSensor typeSensor;
+    private SensorType sensorType;
 
     @Embedded
     @JoinColumn(name = "local_id")
@@ -48,14 +48,14 @@ public class Sensor {
      *
      * @param id                     is the id we want to set to the Sensor.
      * @param name                   is the name we want to set to the Sensor.
-     * @param typeSensor             is the Type of the Sensor.
+     * @param sensorType             is the Type of the Sensor.
      * @param local                  is the Local of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public Sensor(String id, String name, TypeSensor typeSensor, Local local, Date dateStartedFunctioning) {
+    public Sensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
         setId(id);
         setName(name);
-        setTypeSensor(typeSensor);
+        setSensorType(sensorType);
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
@@ -67,12 +67,12 @@ public class Sensor {
      * the room/house).
      *
      * @param name                   is the name we want to set to the Sensor.
-     * @param typeSensor             is the Type of the Sensor.
+     * @param sensorType             is the Type of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public Sensor(String name, TypeSensor typeSensor, Date dateStartedFunctioning) {
+    public Sensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
         setName(name);
-        setTypeSensor(typeSensor);
+        setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
         readingList = new ReadingList();
         this.active = true;
@@ -114,8 +114,8 @@ public class Sensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    public void setTypeSensor(TypeSensor sensor) {
-        this.typeSensor = sensor;
+    public void setSensorType(SensorType sensor) {
+        this.sensorType = sensor;
     }
 
     /**
@@ -154,8 +154,8 @@ public class Sensor {
      *
      * @return the Type of the Sensor.
      */
-    public TypeSensor getTypeSensor() {
-        return (this.typeSensor);
+    public SensorType getSensorType() {
+        return (this.sensorType);
     }
 
     /**
@@ -306,11 +306,11 @@ public class Sensor {
     public String buildString() {
 
         if (this.getLocal() == null) {
-            return this.name + ", " + this.typeSensor.getName() + ". ";
+            return this.name + ", " + this.sensorType.getName() + ". ";
         }
         String result;
 
-        result = this.name + ", " + this.typeSensor.getName() + ", " +
+        result = this.name + ", " + this.sensorType.getName() + ", " +
                 this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long \n";
         return result;
     }
@@ -343,7 +343,7 @@ public class Sensor {
      **/
 
     String getSensorTypeName() {
-        return this.typeSensor.getName();
+        return this.sensorType.getName();
     }
 
     /**

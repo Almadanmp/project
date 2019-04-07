@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,7 @@ import pt.ipp.isep.dei.project.dto.mappers.SensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.TypeAreaRepository;
 
@@ -35,15 +34,15 @@ class GASettingsControllerTest {
     private GASettingsController controller = new GASettingsController();
     private GeographicArea firstValidArea;
     private GeographicArea secondValidArea;
-    private TypeArea typeCountry;
-    private TypeArea typeCity;
+    private AreaType typeCountry;
+    private AreaType typeCity;
     private GeographicAreaDTO validGeographicAreaDTO;
     private SensorDTO validSensorDTO1;
     private SensorDTO validSensorDTO2;
     private Sensor validSensor1;
     private Sensor validSensor2;
     private GeographicAreaList validGeographicAreaList;
-    private TypeAreaList validTypeAreaList;
+    private AreaTypeList validAreaTypeList;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     private GeographicAreaRepository geographicAreaRepository;
@@ -60,16 +59,16 @@ class GASettingsControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validTypeAreaList = new TypeAreaList(typeAreaRepository);
-        typeCountry = new TypeArea("Country");
-        typeCity = new TypeArea("City");
+        validAreaTypeList = new AreaTypeList(typeAreaRepository);
+        typeCountry = new AreaType("Country");
+        typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
                 2, 5, new Local(21, 33, 5));
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
-        validSensor1 = new Sensor("RF12345", "SensOne", new TypeSensor("Temperature", "Celsius"),
+        validSensor1 = new Sensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
                 new Local(31, 15, 3), date);
-        validSensor2 = new Sensor("TT12345", "SensTwo", new TypeSensor("Temperature", "Celsius"),
+        validSensor2 = new Sensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
                 new Local(21, 65, 3), date);
         firstValidArea.addSensor(validSensor1);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
@@ -85,8 +84,8 @@ class GASettingsControllerTest {
     void seeIfPrintGATypeListWorks() {
         // Arrange
 
-        validTypeAreaList.addTypeArea(typeCountry);
-        validTypeAreaList.addTypeArea(typeCity);
+        validAreaTypeList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCity);
         String expectedResult = "---------------\n" +
                 "0) Description: Country \n" +
                 "1) Description: City \n" +
@@ -94,7 +93,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.buildGATypeListString(validTypeAreaList);
+        String actualResult = controller.buildGATypeListString(validAreaTypeList);
 
 
         // Assert
@@ -141,7 +140,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean result = controller.createAndAddTypeAreaToList(validTypeAreaList, "City");
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeList, "City");
 
         // Assert
 
@@ -153,11 +152,11 @@ class GASettingsControllerTest {
 
         // Arrange
 
-        validTypeAreaList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCountry);
 
         // Act
 
-        boolean result = controller.createAndAddTypeAreaToList(validTypeAreaList, "City");
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeList, "City");
 
         // Assert
 
@@ -168,12 +167,12 @@ class GASettingsControllerTest {
     void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
 
         // Arrange
-        validTypeAreaList.addTypeArea(typeCountry);
-        validTypeAreaList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCountry);
 
         // Act
 
-        boolean result = controller.createAndAddTypeAreaToList(validTypeAreaList, "Country");
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeList, "Country");
 
         // Assert
 
@@ -187,14 +186,14 @@ class GASettingsControllerTest {
 
         // Arrange
 
-        validTypeAreaList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCountry);
         String expectedResult = "---------------\n" +
                 "0) Description: Country \n" +
                 "---------------\n";
 
         // Act
 
-        String actualResult = controller.getTypeAreaList(validTypeAreaList);
+        String actualResult = controller.getTypeAreaList(validAreaTypeList);
 
         // Assert
 
@@ -206,8 +205,8 @@ class GASettingsControllerTest {
 
         // Arrange
 
-        validTypeAreaList.addTypeArea(typeCountry);
-        validTypeAreaList.addTypeArea(typeCity);
+        validAreaTypeList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCity);
         String expectedResult = "---------------\n" +
                 "0) Description: Country \n" +
                 "1) Description: City \n" +
@@ -215,7 +214,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.getTypeAreaList(validTypeAreaList);
+        String actualResult = controller.getTypeAreaList(validAreaTypeList);
 
         // Assert
 
@@ -227,8 +226,8 @@ class GASettingsControllerTest {
 
         // Arrange
 
-        validTypeAreaList.addTypeArea(typeCity);
-        validTypeAreaList.addTypeArea(typeCountry);
+        validAreaTypeList.addTypeArea(typeCity);
+        validAreaTypeList.addTypeArea(typeCountry);
         String expectedResult = "---------------\n" +
                 "0) Description: City \n" +
                 "1) Description: Country \n" +
@@ -236,7 +235,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.getTypeAreaList(validTypeAreaList);
+        String actualResult = controller.getTypeAreaList(validAreaTypeList);
 
         // Assert
 
@@ -440,7 +439,7 @@ class GASettingsControllerTest {
 
         // Arrange
 
-        GeographicArea grandDaughterGA = new GeographicArea("Porto", new TypeArea("Country"),
+        GeographicArea grandDaughterGA = new GeographicArea("Porto", new AreaType("Country"),
                 2, 4, new Local(21, 33, 5));
         grandDaughterGA.setMotherArea(secondValidArea);
         secondValidArea.setMotherArea(firstValidArea);
@@ -459,7 +458,7 @@ class GASettingsControllerTest {
 
         // Arrange
 
-        GeographicArea grandDaughterGA = new GeographicArea("Oporto", new TypeArea("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea grandDaughterGA = new GeographicArea("Oporto", new AreaType("Country"), 2, 4, new Local(21, 33, 5));
         grandDaughterGA.setMotherArea(secondValidArea);
         secondValidArea.setMotherArea(firstValidArea);
 

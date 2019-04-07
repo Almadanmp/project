@@ -6,8 +6,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -19,7 +19,7 @@ class SensorSettingsUI {
         this.controller = new SensorSettingsController();
     }
 
-    void run(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList) {
+    void run(GeographicAreaList geographicAreaList, SensorTypeList sensorTypeList) {
         if (geographicAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
@@ -35,15 +35,15 @@ class SensorSettingsUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS05(typeSensorList);
+                    runUS05(sensorTypeList);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS06(geographicAreaList, typeSensorList);
+                    runUS06(geographicAreaList, sensorTypeList);
                     activeInput = false;
                     break;
                 case 3:
-                    displayList(typeSensorList);
+                    displayList(sensorTypeList);
                     activeInput = false;
                     break;
                 case 0:
@@ -57,28 +57,28 @@ class SensorSettingsUI {
 
     /* LIST DISPLAY */
 
-    private void displayList(TypeSensorList typeSensorList) {
-        System.out.println(controller.buildSensorTypesString(typeSensorList));
+    private void displayList(SensorTypeList sensorTypeList) {
+        System.out.println(controller.buildSensorTypesString(sensorTypeList));
     }
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
-    private void runUS05(TypeSensorList typeSensorList) {
-        TypeSensor typeSensor = getInput05(typeSensorList);
-        boolean added = updateModel05(typeSensor, typeSensorList);
+    private void runUS05(SensorTypeList sensorTypeList) {
+        SensorType sensorType = getInput05(sensorTypeList);
+        boolean added = updateModel05(sensorType, sensorTypeList);
         displayState05(added);
     }
 
-    private TypeSensor getInput05(TypeSensorList typeSensorList) {
+    private SensorType getInput05(SensorTypeList sensorTypeList) {
         System.out.print("Enter the sensor type's name: ");
         String name = InputHelperUI.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
         String unit = InputHelperUI.getInputStringAlphabetCharOnly();
-        return controller.createType(typeSensorList, name, unit);
+        return controller.createType(sensorTypeList, name, unit);
     }
 
-    private boolean updateModel05(TypeSensor typeSensor, TypeSensorList typeSensorList) {
-        return controller.addTypeSensorToList(typeSensor, typeSensorList);
+    private boolean updateModel05(SensorType sensorType, SensorTypeList sensorTypeList) {
+        return controller.addTypeSensorToList(sensorType, sensorTypeList);
     }
 
     private void displayState05(boolean added) {
@@ -91,25 +91,25 @@ class SensorSettingsUI {
 
     /* USER STORY 006 - an Administrator, I want to addWithoutPersisting a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-    private void runUS06(GeographicAreaList geographicAreaList, TypeSensorList typeSensorList) {
+    private void runUS06(GeographicAreaList geographicAreaList, SensorTypeList sensorTypeList) {
         if (geographicAreaList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        Sensor sensor = createSensor(typeSensorList);
+        Sensor sensor = createSensor(sensorTypeList);
         if (!getConfirmation(sensor)) {
             return;
         }
         addSensor(sensor, geographicAreaList);
     }
 
-    private Sensor createSensor(TypeSensorList typeSensorList) {
+    private Sensor createSensor(SensorTypeList sensorTypeList) {
         String id = getInputSensorId();
         String name = getInputSensorName();
-        TypeSensor typeSensor = getInputTypeSensor(typeSensorList);
+        SensorType sensorType = getInputTypeSensor(sensorTypeList);
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        return controller.createSensor(id, name, typeSensor, local, startDate);
+        return controller.createSensor(id, name, sensorType, local, startDate);
     }
 
     private String getInputSensorId() {
@@ -124,7 +124,7 @@ class SensorSettingsUI {
         return input.nextLine();
     }
 
-    private TypeSensor getInputTypeSensor(TypeSensorList typeSensorList) {
+    private SensorType getInputTypeSensor(SensorTypeList sensorTypeList) {
         Scanner input = new Scanner(System.in);
 
         System.out.println("\nEnter the sensor type's name:\t");
@@ -133,7 +133,7 @@ class SensorSettingsUI {
         System.out.println("\nEnter the sensor type's unit of measurement:\t");
         String unit = input.nextLine();
 
-        return controller.createType(typeSensorList, name, unit);
+        return controller.createType(sensorTypeList, name, unit);
     }
 
     private Local getInputSensorLocal() {

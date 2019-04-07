@@ -5,10 +5,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
+import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.TypeArea;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
@@ -49,7 +49,7 @@ class ReaderJSONGeographicAreasTest {
 //        GeographicAreaDTO firstArea = new GeographicAreaDTO();
 //        firstArea.setName("ISEP");
 //        firstArea.setDescription("Campus do ISEP");
-//        firstArea.setTypeArea("urban area");
+//        firstArea.setAreaType("urban area");
 //        firstArea.setWidth(0.261);
 //        firstArea.setLength(0.249);
 //        firstArea.setLatitude(41.178553);
@@ -62,7 +62,7 @@ class ReaderJSONGeographicAreasTest {
 //        firstAreaFirstSensor.setId("RF12345");
 //        firstAreaFirstSensor.setName("Meteo station ISEP - rainfall");
 //        firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
-//        firstAreaFirstSensor.setTypeSensor("rainfall");
+//        firstAreaFirstSensor.setSensorType("rainfall");
 //        firstAreaFirstSensor.setUnits("l/m2");
 //        firstAreaFirstSensor.setLatitude(41.179230);
 //        firstAreaFirstSensor.setLongitude(-8.606409);
@@ -75,7 +75,7 @@ class ReaderJSONGeographicAreasTest {
 //        firstAreaSecondSensor.setId("TT12346");
 //        firstAreaSecondSensor.setName("Meteo station ISEP - temperature");
 //        firstAreaSecondSensor.setDateStartedFunctioning("2016-11-15");
-//        firstAreaSecondSensor.setTypeSensor("temperature");
+//        firstAreaSecondSensor.setSensorType("temperature");
 //        firstAreaSecondSensor.setUnits("C");
 //        firstAreaSecondSensor.setLatitude(41.179230);
 //        firstAreaSecondSensor.setLongitude(-8.606409);
@@ -87,7 +87,7 @@ class ReaderJSONGeographicAreasTest {
 //        GeographicAreaDTO secondArea = new GeographicAreaDTO();
 //        secondArea.setName("Porto");
 //        secondArea.setDescription("City of Porto");
-//        secondArea.setTypeArea("city");
+//        secondArea.setAreaType("city");
 //        secondArea.setWidth(10.09);
 //        secondArea.setLength(3.30);
 //        secondArea.setLatitude(41.149935);
@@ -100,7 +100,7 @@ class ReaderJSONGeographicAreasTest {
 //        secondAreaFirstSensor.setId("RF12334");
 //        secondAreaFirstSensor.setName("Meteo station CMP - rainfall");
 //        secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
-//        secondAreaFirstSensor.setTypeSensor("rainfall");
+//        secondAreaFirstSensor.setSensorType("rainfall");
 //        secondAreaFirstSensor.setUnits("l/m2");
 //        secondAreaFirstSensor.setLatitude(41.179230);
 //        secondAreaFirstSensor.setLongitude(-8.606409);
@@ -113,7 +113,7 @@ class ReaderJSONGeographicAreasTest {
 //        secondAreaSecondSensor.setId("TT1236A");
 //        secondAreaSecondSensor.setName("Meteo station CMP - temperature");
 //        secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
-//        secondAreaSecondSensor.setTypeSensor("temperature");
+//        secondAreaSecondSensor.setSensorType("temperature");
 //        secondAreaSecondSensor.setUnits("C");
 //        secondAreaSecondSensor.setLatitude(41.179230);
 //        secondAreaSecondSensor.setLongitude(-8.606409);
@@ -149,7 +149,7 @@ class ReaderJSONGeographicAreasTest {
         expectedSensors.add(actualArea.getSensorList().get(0));
         expectedSensors.add(actualArea.getSensorList().get(1));
 
-        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
                 0.261, new Local(41.178553, -8.608035, 139));
 
         // Assert
@@ -187,7 +187,7 @@ class ReaderJSONGeographicAreasTest {
 //        GeographicAreaDTO firstArea = new GeographicAreaDTO();
 //        firstArea.setName("ISEP");
 //        firstArea.setDescription("Campus do ISEP");
-//        firstArea.setTypeArea("urban area");
+//        firstArea.setAreaType("urban area");
 //        firstArea.setWidth(0.261);
 //        firstArea.setLength(0.249);
 //        firstArea.setLatitude(41.178553);
@@ -200,7 +200,7 @@ class ReaderJSONGeographicAreasTest {
 //        firstAreaFirstSensor.setId("TT12346");
 //        firstAreaFirstSensor.setName("Meteo station ISEP - temperature");
 //        firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
-//        firstAreaFirstSensor.setTypeSensor("temperature");
+//        firstAreaFirstSensor.setSensorType("temperature");
 //        firstAreaFirstSensor.setUnits("C");
 //        firstAreaFirstSensor.setLatitude(41.179230);
 //        firstAreaFirstSensor.setLongitude(-8.606409);
@@ -212,7 +212,7 @@ class ReaderJSONGeographicAreasTest {
 //        GeographicAreaDTO secondArea = new GeographicAreaDTO();
 //        secondArea.setName("Porto");
 //        secondArea.setDescription("City of Porto");
-//        secondArea.setTypeArea("city");
+//        secondArea.setAreaType("city");
 //        secondArea.setWidth(10.09);
 //        secondArea.setLength(3.30);
 //        secondArea.setLatitude(41.149935);
@@ -225,7 +225,7 @@ class ReaderJSONGeographicAreasTest {
 //        secondAreaFirstSensor.setId("RF12334");
 //        secondAreaFirstSensor.setName("Meteo station CMP - rainfall");
 //        secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
-//        secondAreaFirstSensor.setTypeSensor("rainfall");
+//        secondAreaFirstSensor.setSensorType("rainfall");
 //        secondAreaFirstSensor.setUnits("l/m2");
 //        secondAreaFirstSensor.setLatitude(41.179230);
 //        secondAreaFirstSensor.setLongitude(-8.606409);
@@ -238,7 +238,7 @@ class ReaderJSONGeographicAreasTest {
 //        secondAreaSecondSensor.setId("TT1236A");
 //        secondAreaSecondSensor.setName("Meteo station CMP - temperature");
 //        secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
-//        secondAreaSecondSensor.setTypeSensor("temperature");
+//        secondAreaSecondSensor.setSensorType("temperature");
 //        secondAreaSecondSensor.setUnits("C");
 //        secondAreaSecondSensor.setLatitude(41.179230);
 //        secondAreaSecondSensor.setLongitude(-8.606409);
@@ -274,7 +274,7 @@ class ReaderJSONGeographicAreasTest {
         SensorList expectedSensors = new SensorList();
         expectedSensors.add(firstAreaSensors.get(0));
 
-        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
                 0.261, new Local(41.178553, -8.608035, 139));
 
         // Assert

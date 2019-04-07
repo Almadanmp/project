@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
@@ -87,22 +87,22 @@ class ReaderControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        GeographicArea validGeographicArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249, 0.261,
+        GeographicArea validGeographicArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249, 0.261,
                 new Local(41.178553, -8.608035, 111));
-        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
-        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new TypeArea("city"), 0.299, 0.291,
+        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new AreaType("city"), 0.299, 0.291,
                 new Local(41.178553, 8.608035, 117));
-        validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new TypeSensor("rain", "mm"),
+        validSensor1 = new Sensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
                 validDate1);
-        Sensor validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new TypeSensor("rain2", "mm2"),
+        Sensor validSensor2 = new Sensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 125),
                 validDate2);
-        Sensor validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new TypeSensor("rain2", "mm2"),
+        Sensor validSensor3 = new Sensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate3);
-        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new TypeSensor("rain2", "mm2"),
+        Sensor validSensor4 = new Sensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
         SensorList validSensorList = new SensorList();
@@ -646,7 +646,7 @@ class ReaderControllerTest {
         expectedSensors.add(actualArea.getSensorList().get(0));
         expectedSensors.add(actualArea.getSensorList().get(1));
 
-        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
                 0.261, new Local(41.178553, -8.608035, 139));
 
         // Assert
@@ -683,7 +683,7 @@ class ReaderControllerTest {
         expectedSensors.add(actualArea.getSensorList().get(0));
         expectedSensors.add(actualArea.getSensorList().get(1));
 
-        GeographicArea expectedArea = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
                 0.261, new Local(41.178553, -8.608035, 139));
 
         // Assert
@@ -734,9 +734,9 @@ class ReaderControllerTest {
 
         // Set up Expected Result
 
-        GeographicArea geoArea1 = new GeographicArea("ISEP", new TypeArea("urban area"), 0.249,
+        GeographicArea geoArea1 = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
                 0.261, new Local(41.178553, -8.608035, 111));
-        GeographicArea geoArea2 = new GeographicArea("Porto", new TypeArea("city"), 3.30, 10.09,
+        GeographicArea geoArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
 
         GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);

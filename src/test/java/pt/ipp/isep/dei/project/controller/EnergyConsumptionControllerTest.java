@@ -75,7 +75,7 @@ class EnergyConsumptionControllerTest {
         }
         validLog1 = new Log(56, validDate1,validDate2);
         validArea =  new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100));
+                new AreaType("Cidade"), 2, 3, new Local(4, 4, 100));
     }
 
     //US705 TESTS

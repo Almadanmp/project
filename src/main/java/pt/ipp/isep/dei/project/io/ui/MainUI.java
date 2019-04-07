@@ -12,9 +12,9 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.TypeAreaList;
+import pt.ipp.isep.dei.project.model.AreaTypeList;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.SensorService;
@@ -31,10 +31,10 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    TypeSensorList typeSensorList;
+    SensorTypeList sensorTypeList;
 
     @Autowired
-    TypeAreaList typeAreaList;
+    AreaTypeList areaTypeList;
 
     @Autowired
     SensorService sensorService;
@@ -108,7 +108,7 @@ public class MainUI {
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
 
-            TypeSensorList mockTypeSensorList = new TypeSensorList();
+            SensorTypeList mockSensorTypeList = new SensorTypeList();
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
@@ -157,7 +157,7 @@ public class MainUI {
                     this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(typeAreaList, geographicAreaList);
+                            GASettingsUI view1 = new GASettingsUI(areaTypeList, geographicAreaList);
                             view1.runGASettings();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
@@ -170,13 +170,13 @@ public class MainUI {
                             break;
                         case 3:
                             RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                            roomConfiguration.run(mockHouse, mockTypeSensorList);
+                            roomConfiguration.run(mockHouse, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 4:
                             SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(mockGeographicAreaList, mockTypeSensorList);
+                            sensorSettings.run(mockGeographicAreaList, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

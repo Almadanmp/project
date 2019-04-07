@@ -97,7 +97,7 @@ public class GeographicAreaList {
         for (int i = 0; i < this.size(); i++) {
             GeographicArea aux = this.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
-            result.append("Type: ").append(aux.getTypeArea().getName()).append(" | ");
+            result.append("Type: ").append(aux.getAreaType().getName()).append(" | ");
             result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
             result.append("Longitude: ").append(aux.getLocal().getLongitude()).append("\n");
         }
@@ -110,14 +110,14 @@ public class GeographicAreaList {
      * typearea or local)
      *
      * @param newName  the name of the GA
-     * @param typeArea the type of the GA
+     * @param areaType the type of the GA
      * @param local    the latitude, longitude and altitude of the GA
      * @return will return true if a Geographic Area matching given parameters already
      * exists, false if it doesn't.
      */
-    public boolean containsObjectMatchesParameters(String newName, TypeArea typeArea, Local local) {
+    public boolean containsObjectMatchesParameters(String newName, AreaType areaType, Local local) {
         for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsParameters(newName, typeArea, local)) {
+            if (ga.equalsParameters(newName, areaType, local)) {
                 return true;
             }
         }
@@ -128,14 +128,14 @@ public class GeographicAreaList {
      * Method to create a new geographic area before adding it to a GA List.
      *
      * @param newName  input string for geographic area name for the new geographic area
-     * @param typeArea input string for type area for the new geographic area
+     * @param areaType input string for type area for the new geographic area
      * @param length   input number for length for the new geographic area
      * @param width    input number for width for the new geographic area
      * @param local    input number for latitude, longitude and altitude of the new geographic area
      * @return a new geographic area.
      */
-    public GeographicArea createGA(String newName, TypeArea typeArea, double length, double width, Local local) {
-        return new GeographicArea(newName, typeArea, length, width, local);
+    public GeographicArea createGA(String newName, AreaType areaType, double length, double width, Local local) {
+        return new GeographicArea(newName, areaType, length, width, local);
     }
 
     /**
@@ -156,9 +156,9 @@ public class GeographicAreaList {
      */
     public GeographicAreaList getGeoAreasByType(String typeAreaName) {
         GeographicAreaList finalList = new GeographicAreaList(geographicAreaRepository);
-        TypeArea typeAreaToTest = new TypeArea(typeAreaName);
+        AreaType areaTypeToTest = new AreaType(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsTypeArea(typeAreaToTest)) {
+            if (ga.equalsTypeArea(areaTypeToTest)) {
                 finalList.addGeographicArea(ga);
             }
         }
@@ -173,7 +173,7 @@ public class GeographicAreaList {
      */
     public boolean removeGeographicArea(GeographicArea geoArea) {
         for (GeographicArea gA : this.geographicAreas) {
-            if (gA.equalsParameters(geoArea.getName(), geoArea.getTypeArea(), geoArea.getLocal())) {
+            if (gA.equalsParameters(geoArea.getName(), geoArea.getAreaType(), geoArea.getLocal())) {
                 this.geographicAreas.remove(gA);
                 return true;
             }

@@ -12,10 +12,10 @@ import java.util.List;
  * Class that groups a number of Types of Geographical Areas.
  */
 @Component
-public class TypeAreaList {
+public class AreaTypeList {
     private static final String STRING_BUILDER = "---------------\n";
 
-    private List<TypeArea> typeAreas;
+    private List<AreaType> areaTypes;
 
     @Autowired
     TypeAreaRepository typeAreaRepository;
@@ -23,12 +23,12 @@ public class TypeAreaList {
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
-    public TypeAreaList(TypeAreaRepository typeAreaRepository) {
-        typeAreas = new ArrayList<>();
+    public AreaTypeList(TypeAreaRepository typeAreaRepository) {
+        areaTypes = new ArrayList<>();
         this.typeAreaRepository = typeAreaRepository;
     }
 
-    public List<TypeArea> getTypeAreas() {
+    public List<AreaType> getAreaTypes() {
         return typeAreaRepository.findAll();
     }
 
@@ -38,8 +38,8 @@ public class TypeAreaList {
      * @param name String of the new Area Type that one wishes to create and addWithoutPersisting to a list.
      * @return true or false depending on if it adds the type to the list or not.
      */
-    public TypeArea createTypeArea(String name) {
-        return new TypeArea(name);
+    public AreaType createTypeArea(String name) {
+        return new AreaType(name);
     }
 
     /**
@@ -48,9 +48,9 @@ public class TypeAreaList {
      * @param type Type of Geographic Area one wishes to addWithoutPersisting to a list.
      * @return true or false depending on the list containing or not the type input already.
      */
-    public boolean addTypeArea(TypeArea type) {
-        if (!typeAreas.contains(type)) {
-            this.typeAreas.add(type);
+    public boolean addTypeArea(AreaType type) {
+        if (!areaTypes.contains(type)) {
+            this.areaTypes.add(type);
             typeAreaRepository.save(type);
             return true;
         } else {
@@ -66,11 +66,11 @@ public class TypeAreaList {
      */
     public String buildString() {
         StringBuilder result = new StringBuilder(STRING_BUILDER);
-        if (typeAreas.isEmpty()) {
+        if (areaTypes.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < typeAreas.size(); i++) {
-            TypeArea aux = typeAreas.get(i);
+        for (int i = 0; i < areaTypes.size(); i++) {
+            AreaType aux = areaTypes.get(i);
             result.append(i).append(") Description: ").append(aux.getName()).append(" \n");
         }
         result.append(STRING_BUILDER);
@@ -84,16 +84,16 @@ public class TypeAreaList {
      * @return true if list is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return this.typeAreas.isEmpty();
+        return this.areaTypes.isEmpty();
     }
 
     /**
      * Checks the type area list size and returns the size as int.\
      *
-     * @return TypeArea size as int
+     * @return AreaType size as int
      **/
     public int size() {
-        return this.typeAreas.size();
+        return this.areaTypes.size();
     }
 
     /**
@@ -102,11 +102,11 @@ public class TypeAreaList {
      * @param index the index of the type area
      * @return returns Type Area that corresponds to index.
      */
-    public TypeArea get(int index) {
-        if (typeAreas.isEmpty()) {
+    public AreaType get(int index) {
+        if (areaTypes.isEmpty()) {
             throw new IndexOutOfBoundsException("The type area list is empty.");
         }
-        return this.typeAreas.get(index);
+        return this.areaTypes.get(index);
     }
 
     /**
@@ -114,11 +114,11 @@ public class TypeAreaList {
      *
      * @return array of Type Areas
      */
-    protected TypeArea[] getElementsAsArray() {
-        int sizeOfResultArray = typeAreas.size();
-        TypeArea[] result = new TypeArea[sizeOfResultArray];
-        for (int i = 0; i < typeAreas.size(); i++) {
-            result[i] = typeAreas.get(i);
+    protected AreaType[] getElementsAsArray() {
+        int sizeOfResultArray = areaTypes.size();
+        AreaType[] result = new AreaType[sizeOfResultArray];
+        for (int i = 0; i < areaTypes.size(); i++) {
+            result[i] = areaTypes.get(i);
         }
         return result;
     }
@@ -128,10 +128,10 @@ public class TypeAreaList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof TypeAreaList)) {
+        if (!(testObject instanceof AreaTypeList)) {
             return false;
         }
-        TypeAreaList list = (TypeAreaList) testObject;
+        AreaTypeList list = (AreaTypeList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

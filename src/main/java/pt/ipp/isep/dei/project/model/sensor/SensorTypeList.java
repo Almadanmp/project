@@ -13,16 +13,16 @@ import java.util.List;
  */
 
 @Service
-public class TypeSensorList {
+public class SensorTypeList {
     private static final String STRING_BUILDER = "---------------\n";
 
 
-    private List<TypeSensor> typeSensors;
+    private List<SensorType> sensorTypes;
 
 
     //CONSTRUCTOR
-    public TypeSensorList() {
-        typeSensors = new ArrayList<>();
+    public SensorTypeList() {
+        sensorTypes = new ArrayList<>();
     }
 
 
@@ -30,12 +30,12 @@ public class TypeSensorList {
      * Method receives a type Sensor, checks if it already exists in list
      * and adds it in case it does not exist in list.
      *
-     * @param typeSensor The type of the Sensor
+     * @param sensorType The type of the Sensor
      * @return true in case the type sensor is added, false otherwise
      **/
-    public boolean add(TypeSensor typeSensor) {
-        if (!typeSensors.contains(typeSensor)) {
-            typeSensors.add(typeSensor);
+    public boolean add(SensorType sensorType) {
+        if (!sensorTypes.contains(sensorType)) {
+            sensorTypes.add(sensorType);
             return true;
         }
         return false;
@@ -47,24 +47,24 @@ public class TypeSensorList {
      * @param index the type sensor index
      * @return returns Type Sensor that corresponds to index.
      */
-    public TypeSensor get(int index) {
-        if (this.typeSensors.isEmpty()) {
+    public SensorType get(int index) {
+        if (this.sensorTypes.isEmpty()) {
             throw new IndexOutOfBoundsException("The type sensor list is empty.");
         }
-        return this.typeSensors.get(index);
+        return this.sensorTypes.get(index);
     }
 
-    public TypeSensor createTypeSensor(String name, String unit) {
-        return new TypeSensor(name, unit);
+    public SensorType createTypeSensor(String name, String unit) {
+        return new SensorType(name, unit);
     }
 
     /**
      * Checks the type sensor list size and returns the size as int.\
      *
-     * @return TypeSensor size as int
+     * @return SensorType size as int
      **/
     public int size() {
-        return this.typeSensors.size();
+        return this.sensorTypes.size();
     }
 
     /**
@@ -73,7 +73,7 @@ public class TypeSensorList {
      * @return true if list is empty, false otherwise
      */
     public boolean isEmpty() {
-        return this.typeSensors.isEmpty();
+        return this.sensorTypes.isEmpty();
     }
 
     /**
@@ -83,11 +83,11 @@ public class TypeSensorList {
      */
     public String buildString() {
         StringBuilder result = new StringBuilder(STRING_BUILDER);
-        if (typeSensors.isEmpty()) {
+        if (sensorTypes.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < typeSensors.size(); i++) {
-            TypeSensor aux = typeSensors.get(i);
+        for (int i = 0; i < sensorTypes.size(); i++) {
+            SensorType aux = sensorTypes.get(i);
             result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
             result.append("Unit: ").append(aux.getUnits()).append("\n");
         }
@@ -100,11 +100,11 @@ public class TypeSensorList {
      *
      * @return array of Type Sensors
      */
-    public TypeSensor[] getElementsAsArray() {
-        int sizeOfResultArray = typeSensors.size();
-        TypeSensor[] result = new TypeSensor[sizeOfResultArray];
-        for (int i = 0; i < typeSensors.size(); i++) {
-            result[i] = typeSensors.get(i);
+    public SensorType[] getElementsAsArray() {
+        int sizeOfResultArray = sensorTypes.size();
+        SensorType[] result = new SensorType[sizeOfResultArray];
+        for (int i = 0; i < sensorTypes.size(); i++) {
+            result[i] = sensorTypes.get(i);
         }
         return result;
     }
@@ -113,10 +113,10 @@ public class TypeSensorList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof TypeSensorList)) {
+        if (!(testObject instanceof SensorTypeList)) {
             return false;
         }
-        TypeSensorList list = (TypeSensorList) testObject;
+        SensorTypeList list = (SensorTypeList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

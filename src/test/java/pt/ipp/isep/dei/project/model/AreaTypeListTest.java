@@ -16,22 +16,22 @@ import static org.junit.jupiter.api.Assertions.*;
  * TypeAreaList tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class TypeAreaListTest {
+class AreaTypeListTest {
     // Common testing artifacts for this class.
 
-    private TypeArea firstValidType;
-    private TypeArea secondValidType;
+    private AreaType firstValidType;
+    private AreaType secondValidType;
 
     @Mock
     private TypeAreaRepository typeAreaRepository;
 
-    private TypeAreaList validList;
+    private AreaTypeList validList;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validList = new TypeAreaList(this.typeAreaRepository);
-        firstValidType = new TypeArea("Country");
-        secondValidType = new TypeArea("City");
+        validList = new AreaTypeList(this.typeAreaRepository);
+        firstValidType = new AreaType("Country");
+        secondValidType = new AreaType("City");
         validList.addTypeArea(firstValidType);
         validList.addTypeArea(secondValidType);
     }
@@ -39,7 +39,7 @@ class TypeAreaListTest {
     @Test
     void seeIfCreateTypeAreaWorks() {
         // Act
-        TypeArea type1 = validList.createTypeArea("Country");
+        AreaType type1 = validList.createTypeArea("Country");
         // Assert
         assertEquals(type1, firstValidType);
     }
@@ -65,7 +65,7 @@ class TypeAreaListTest {
     @Test
     void seeIfBuildListIfEmpty() {
         // Arrange
-        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -81,8 +81,8 @@ class TypeAreaListTest {
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository); // List is Empty.
-        List<TypeArea> oneElementList = new ArrayList<>(); // List has one element.
+        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository); // List is Empty.
+        List<AreaType> oneElementList = new ArrayList<>(); // List has one element.
         oneElementList.add(firstValidType);
 
         // Act
@@ -102,7 +102,7 @@ class TypeAreaListTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        List<TypeArea> testList = new ArrayList<>();
+        List<AreaType> testList = new ArrayList<>();
         testList.add(secondValidType);
 
         // Act
@@ -155,8 +155,8 @@ class TypeAreaListTest {
     void seeIfGetTypeAreaByIndexWorks() {
         //Act
 
-        TypeArea actualResult1 = validList.get(0);
-        TypeArea actualResult2 = validList.get(1);
+        AreaType actualResult1 = validList.get(0);
+        AreaType actualResult2 = validList.get(1);
 
         //Assert
 
@@ -166,7 +166,7 @@ class TypeAreaListTest {
 
     @Test
     void seeIfGetTypeAreasWorks() {
-        List<TypeArea> actualResult = validList.getTypeAreas();
+        List<AreaType> actualResult = validList.getAreaTypes();
 
         // Assert
 
@@ -177,7 +177,7 @@ class TypeAreaListTest {
     void getByIndexEmptyTypeAreaList() {
         // Arrange
 
-        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
 
         // Act
 
@@ -192,7 +192,7 @@ class TypeAreaListTest {
     void seeIfGetSizeWorks() {
         // Arrange
 
-        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
+        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
 
         // Act
 
@@ -210,8 +210,8 @@ class TypeAreaListTest {
     void seeIfEqualsWorksTrue() {
         // Assert
 
-        TypeAreaList testList = new TypeAreaList(typeAreaRepository);
-        validList = new TypeAreaList(typeAreaRepository);
+        AreaTypeList testList = new AreaTypeList(typeAreaRepository);
+        validList = new AreaTypeList(typeAreaRepository);
 
         // Act
 
@@ -226,23 +226,23 @@ class TypeAreaListTest {
     void seeIfGetElementsAsArrayWorks() {
         // Arrange
 
-        TypeArea[] expectedResult1 = new TypeArea[0];
-        TypeArea[] expectedResult2 = new TypeArea[1];
-        TypeArea[] expectedResult3 = new TypeArea[2];
+        AreaType[] expectedResult1 = new AreaType[0];
+        AreaType[] expectedResult2 = new AreaType[1];
+        AreaType[] expectedResult3 = new AreaType[2];
 
-        TypeAreaList emptyList = new TypeAreaList(typeAreaRepository);
-        List<TypeArea> oneTypeArea = new ArrayList<>();
+        AreaTypeList emptyList = new AreaTypeList(typeAreaRepository);
+        List<AreaType> oneAreaType = new ArrayList<>();
 
-        oneTypeArea.add(new TypeArea("typeArea1"));
+        oneAreaType.add(new AreaType("typeArea1"));
 
-        expectedResult2[0] = new TypeArea("typeArea1");
+        expectedResult2[0] = new AreaType("typeArea1");
         expectedResult3[0] = firstValidType;
         expectedResult3[1] = secondValidType;
 
         //Act
 
-        TypeArea[] actualResult1 = emptyList.getElementsAsArray();
-        TypeArea[] actualResult3 = validList.getElementsAsArray();
+        AreaType[] actualResult1 = emptyList.getElementsAsArray();
+        AreaType[] actualResult3 = validList.getElementsAsArray();
 
         //Assert
 

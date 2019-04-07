@@ -12,8 +12,8 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +28,7 @@ class RoomConfigurationUI {
         this.controller = new RoomConfigurationController();
     }
 
-    void run(House house, TypeSensorList typeSensorList) {
+    void run(House house, SensorTypeList sensorTypeList) {
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -71,7 +71,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(house, typeSensorList);
+                    runUS253(house, sensorTypeList);
                     activeInput = false;
                     break;
                 case 0:
@@ -374,17 +374,17 @@ class RoomConfigurationUI {
      * <p>
      * //  * @param typeSensorList is
      */
-    private void runUS253(House house, TypeSensorList typeSensorList) {
-        if (typeSensorList.isEmpty()) {
+    private void runUS253(House house, SensorTypeList sensorTypeList) {
+        if (sensorTypeList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
         Room room = InputHelperUI.getHouseRoomByList(house);
-        TypeSensor typeSensor = InputHelperUI.getInputSensorTypeByList(typeSensorList);
-        getInput253(room, typeSensor);
+        SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorTypeList);
+        getInput253(room, sensorType);
     }
 
-    private void getInput253(Room room, TypeSensor typeSensor) {
+    private void getInput253(Room room, SensorType sensorType) {
         Scanner input = new Scanner(System.in);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
@@ -413,14 +413,14 @@ class RoomConfigurationUI {
         }
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
-        updateAndDisplay253(typeSensor, room, dateYear, dateMonth, dateDay, sensorName);
+        updateAndDisplay253(sensorType, room, dateYear, dateMonth, dateDay, sensorName);
 
     }
 
-    private void updateAndDisplay253(TypeSensor typeSensor, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
+    private void updateAndDisplay253(SensorType sensorType, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
-        Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, typeSensor, mDate);
+        Sensor mSensor = sensorSettingsController.createRoomSensor(sensorName, sensorType, mDate);
         if (controller.addSensorToRoom(mSensor, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");

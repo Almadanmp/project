@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.TypeAreaDTO;
-import pt.ipp.isep.dei.project.model.TypeArea;
+import pt.ipp.isep.dei.project.model.AreaType;
 
 
 /**
@@ -15,11 +15,11 @@ public final class TypeAreaMapper {
     private TypeAreaMapper(){}
 
     /**
-     * This is the method that converts TypeArea DTOs into model objects with the same data.
+     * This is the method that converts AreaType DTOs into model objects with the same data.
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static TypeArea dtoToObject(TypeAreaDTO dtoToConvert){
+    public static AreaType dtoToObject(TypeAreaDTO dtoToConvert){
         // Update parameters
 
         String objectName = dtoToConvert.getName();
@@ -28,7 +28,7 @@ public final class TypeAreaMapper {
 
         // Create, update and return the converted object.
 
-        TypeArea resultObject = new TypeArea(objectName);
+        AreaType resultObject = new AreaType(objectName);
 
         resultObject.setId(objectID);
 
@@ -40,7 +40,7 @@ public final class TypeAreaMapper {
      * @param objectToConvert is the object we want to convert.
      * @return is the converted DTO.
      */
-    public static TypeAreaDTO objectToDTO(TypeArea objectToConvert){
+    public static TypeAreaDTO objectToDTO(AreaType objectToConvert){
         // Update parameters
 
         String dtoName = objectToConvert.getName();

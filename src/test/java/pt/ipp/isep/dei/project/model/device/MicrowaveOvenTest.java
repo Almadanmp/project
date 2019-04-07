@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.device.devicespecs.MicrowaveOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -643,7 +643,7 @@ class MicrowaveOvenTest {
     void seeIfEqualsFailsDifferentObject() {
         // Assert
 
-        assertNotEquals(validMicrowaveOven, new TypeSensor("Rain", "mm"));
+        assertNotEquals(validMicrowaveOven, new SensorType("Rain", "mm"));
     }
 
     @Test

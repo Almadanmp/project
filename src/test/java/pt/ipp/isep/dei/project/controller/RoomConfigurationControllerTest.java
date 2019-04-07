@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -146,10 +146,10 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Sensor s1 = new Sensor("RF12345", "SensorOne", new TypeSensor("Wind", "km/h"),
+        Sensor s1 = new Sensor("RF12345", "SensorOne", new SensorType("Wind", "km/h"),
                 new Local(12, 31, 21),
                 date);
-        Sensor s2 = new Sensor("RF12345", "SensorTwo", new TypeSensor("Rain", "l/m2"),
+        Sensor s2 = new Sensor("RF12345", "SensorTwo", new SensorType("Rain", "l/m2"),
                 new Local(10, 30, 20),
                 date);
         SensorList sensorList = new SensorList();
@@ -194,7 +194,7 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Sensor testSensor = new Sensor("SensorOne", new TypeSensor("Rain", "mm"), date);
+        Sensor testSensor = new Sensor("SensorOne", new SensorType("Rain", "mm"), date);
         // Act
 
         boolean actualResult = controller.addSensorToRoom(testSensor, validRoomWithDevices);
@@ -467,7 +467,7 @@ class RoomConfigurationControllerTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList" ,2, 20, 20, 3);
         validHouse.addRoom(emptyDeviceList);
@@ -490,7 +490,7 @@ class RoomConfigurationControllerTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea( new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         Room validRoom = new Room("Bedroom","Single Bedroom", 2, 30, 40, 10);
         Device validDevice = new WaterHeater(new WaterHeaterSpec());

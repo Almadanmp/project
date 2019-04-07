@@ -11,7 +11,7 @@ import javax.persistence.Id;
  * Different Sensor Types cannot share the same Type Name
  */
 @Entity
-public class TypeSensor {
+public class SensorType {
 
 
     @Id
@@ -20,7 +20,7 @@ public class TypeSensor {
     private String name;
     private String units;
 
-    public TypeSensor() {
+    public SensorType() {
     }
 
     /**
@@ -28,7 +28,7 @@ public class TypeSensor {
      * @param units The type of units used in that type of sensor
      *              Constructor to always create an object that names the Type of the Sensor and the Units of the Sensor.
      */
-    public TypeSensor(String name, String units) {
+    public SensorType(String name, String units) {
         this.name = name;
         this.units = units;
     }
@@ -71,22 +71,22 @@ public class TypeSensor {
     }
 
     /**
-     * Method to print a TypeSensor.
-     * It will print the attributes needed to check the information of the TypeSensor
+     * Method to print a SensorType.
+     * It will print the attributes needed to check the information of the SensorType
      * (id, name and Units)
      *
-     * @return a string of the TypeSensor.
+     * @return a string of the SensorType.
      */
     public String toString() {
         return String.format(
-                "TypeSensor[id=%d, name='%s', units='%s']",
+                "SensorType[id=%d, name='%s', units='%s']",
                 id, name, units);
     }
 
     /**
      * Equals Method
      *
-     * @param testSensor Receives an object to verify if it matches current instance of TypeSensor.
+     * @param testSensor Receives an object to verify if it matches current instance of SensorType.
      * @return boolean returns true if equal, false if they are not equal.
      */
     @Override
@@ -94,11 +94,11 @@ public class TypeSensor {
         if (this == testSensor) {
             return true;
         }
-        if (!(testSensor instanceof TypeSensor)) {
+        if (!(testSensor instanceof SensorType)) {
             return false;
         }
-        TypeSensor typeSensor = (TypeSensor) testSensor;
-        return this.getName().equals(typeSensor.getName()) && this.getUnits().equals(typeSensor.getUnits());
+        SensorType sensorType = (SensorType) testSensor;
+        return this.getName().equals(sensorType.getName()) && this.getUnits().equals(sensorType.getUnits());
     }
 
     /**

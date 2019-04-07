@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensorList;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,20 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 
-class TypeSensorListTest {
+class SensorTypeListTest {
     // Common Testing Artifacts for this test class.
 
-    private TypeSensor firstTypeSensor; // Is in the list.
-    private TypeSensor secondTypeSensor; // Is not in the list.
+    private SensorType firstSensorType; // Is in the list.
+    private SensorType secondSensorType; // Is not in the list.
 
-    private TypeSensorList validList;
+    private SensorTypeList validList;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validList = new TypeSensorList();
-        firstTypeSensor = new TypeSensor("Temperature", "Celsius");
-        secondTypeSensor = new TypeSensor("Rainfall", "l/m2");
-        validList.add(firstTypeSensor);
+        validList = new SensorTypeList();
+        firstSensorType = new SensorType("Temperature", "Celsius");
+        secondSensorType = new SensorType("Rainfall", "l/m2");
+        validList.add(firstSensorType);
     }
 
     @Test
@@ -34,8 +34,8 @@ class TypeSensorListTest {
         // Arrange
         String expectedResult = "Invalid List - List is Empty\n";
         // Act
-        TypeSensorList typeSensorList = new TypeSensorList();
-        String actualResult = typeSensorList.buildString();
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        String actualResult = sensorTypeList.buildString();
         // Assert
 
         assertEquals(expectedResult, actualResult);
@@ -44,18 +44,18 @@ class TypeSensorListTest {
     @Test
     void seeIfCreateTypeAreaWorks() {
         // Act
-        TypeSensor type1 = validList.createTypeSensor("Temperature", "Celsius");
+        SensorType type1 = validList.createTypeSensor("Temperature", "Celsius");
         // Assert
-        assertEquals(type1, firstTypeSensor);
+        assertEquals(type1, firstSensorType);
     }
 
     @Test
     void seeIfAddSensorTypeWorks() {
         // Act
 
-        boolean actualResult1 = validList.add(secondTypeSensor);
-        boolean actualResult2 = validList.add(new TypeSensor("Pressure", "Percentage"));
-        boolean actualResult3 = validList.add(firstTypeSensor);
+        boolean actualResult1 = validList.add(secondSensorType);
+        boolean actualResult2 = validList.add(new SensorType("Pressure", "Percentage"));
+        boolean actualResult3 = validList.add(firstSensorType);
 
 
         // Assert
@@ -88,7 +88,7 @@ class TypeSensorListTest {
         // Arrange
 
         String expectedResult = "Invalid List - List is Empty\n";
-        TypeSensorList testList = new TypeSensorList();
+        SensorTypeList testList = new SensorTypeList();
 
         // Act
 
@@ -103,7 +103,7 @@ class TypeSensorListTest {
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        TypeSensorList emptyList = new TypeSensorList();
+        SensorTypeList emptyList = new SensorTypeList();
         // Act
 
         boolean actualResult1 = emptyList.isEmpty();
@@ -118,7 +118,7 @@ class TypeSensorListTest {
     @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
-        TypeSensorList tempSensorList = new TypeSensorList();
+        SensorTypeList tempSensorList = new SensorTypeList();
 
         // Act
 
@@ -167,7 +167,7 @@ class TypeSensorListTest {
     void seeIfGetElementWorksEmptyList() {
         // Arrange
 
-        TypeSensorList emptyList = new TypeSensorList();
+        SensorTypeList emptyList = new SensorTypeList();
 
         // Act
 
@@ -183,17 +183,17 @@ class TypeSensorListTest {
     void seeIfGetElementWorks() {
         // Arrange
 
-        validList.add(secondTypeSensor);
+        validList.add(secondSensorType);
 
         // Act
 
-        TypeSensor actualResult1 = validList.get(0);
-        TypeSensor actualResult2 = validList.get(1);
+        SensorType actualResult1 = validList.get(0);
+        SensorType actualResult2 = validList.get(1);
 
         // Assert
 
-        assertEquals(firstTypeSensor, actualResult1);
-        assertEquals(secondTypeSensor, actualResult2);
+        assertEquals(firstSensorType, actualResult1);
+        assertEquals(secondSensorType, actualResult2);
     }
 
 
@@ -201,8 +201,8 @@ class TypeSensorListTest {
     void seeIfSizeWorks() {
         // Arrange
 
-        TypeSensorList emptyList = new TypeSensorList();
-        validList.add(secondTypeSensor);
+        SensorTypeList emptyList = new SensorTypeList();
+        validList.add(secondSensorType);
 
         // Act
 
@@ -219,18 +219,18 @@ class TypeSensorListTest {
     @Test
     void seeIfGetElementsAsArrayWorks() {
         // Arrange
-        TypeSensor[] expectedResult1 = new TypeSensor[0];
-        TypeSensor[] expectedResult3 = new TypeSensor[2];
-        expectedResult3[0] = firstTypeSensor;
-        expectedResult3[1] = secondTypeSensor;
-        TypeSensorList emptyList = new TypeSensorList();
+        SensorType[] expectedResult1 = new SensorType[0];
+        SensorType[] expectedResult3 = new SensorType[2];
+        expectedResult3[0] = firstSensorType;
+        expectedResult3[1] = secondSensorType;
+        SensorTypeList emptyList = new SensorTypeList();
 
-        validList.add(secondTypeSensor);
+        validList.add(secondSensorType);
 
         // Act
 
-        TypeSensor[] actualResult1 = emptyList.getElementsAsArray();
-        TypeSensor[] actualResult3 = validList.getElementsAsArray();
+        SensorType[] actualResult1 = emptyList.getElementsAsArray();
+        SensorType[] actualResult3 = validList.getElementsAsArray();
 
         // Assert
 

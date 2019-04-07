@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingList;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -90,7 +90,7 @@ public final class SensorMapper {
 
         // Create, update and return converted object
 
-        Sensor resultObject = new Sensor(objectID, objectName, new TypeSensor(objectType, objectUnit), new Local(
+        Sensor resultObject = new Sensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate);
         resultObject.setActive(objectStatus);
         resultObject.setReadingList(objectReadingList);
@@ -125,7 +125,7 @@ public final class SensorMapper {
 
         // Update the type of the sensor
 
-        String dtoType = objectToConvert.getTypeSensor().getName();
+        String dtoType = objectToConvert.getSensorType().getName();
 
         // Update the status
 
@@ -133,7 +133,7 @@ public final class SensorMapper {
 
         // Update the units
 
-        String dtoUnits = objectToConvert.getTypeSensor().getUnits();
+        String dtoUnits = objectToConvert.getSensorType().getUnits();
 
         // Update the reading list
 

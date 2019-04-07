@@ -2,22 +2,22 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * TypeSensor tests class.
+ * SensorType tests class.
  */
 
-class TypeSensorTest {
+class SensorTypeTest {
     // Common testing artifacts for this class.
 
-    private TypeSensor validType;
+    private SensorType validType;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validType = new TypeSensor("Temperature", "Celsius");
+        validType = new SensorType("Temperature", "Celsius");
     }
 
     @Test
@@ -39,7 +39,7 @@ class TypeSensorTest {
     void seeIfEqualsWorksSameContent() {
         // Arrange
 
-        TypeSensor testType = new TypeSensor("Temperature", "Celsius");
+        SensorType testType = new SensorType("Temperature", "Celsius");
 
         // Act
 
@@ -54,7 +54,7 @@ class TypeSensorTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        TypeSensor testType = new TypeSensor("Rainfall", "l/m2");
+        SensorType testType = new SensorType("Rainfall", "l/m2");
 
         // Act
 
@@ -69,7 +69,7 @@ class TypeSensorTest {
     void seeIfEqualsWorksFalseDifferentUnits() {
         // Arrange
 
-        TypeSensor testType = new TypeSensor("Temperature", "Kelvin");
+        SensorType testType = new SensorType("Temperature", "Kelvin");
 
         // Act
 
@@ -84,7 +84,7 @@ class TypeSensorTest {
     void seeIfEqualsWorksFalseDifferentName() {
         // Arrange
 
-        TypeSensor testType = new TypeSensor("Movement", "Celsius");
+        SensorType testType = new SensorType("Movement", "Celsius");
 
         // Act
 
@@ -153,17 +153,17 @@ class TypeSensorTest {
 
     @Test
     void seeIfGetIdWorks() {
-        TypeSensor typeSensor = new TypeSensor();
+        SensorType sensorType = new SensorType();
         Long expectedResult = 0L;
-        Long actualResult = typeSensor.getId();
+        Long actualResult = sensorType.getId();
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfToStringWorks() {
-        TypeSensor typeSensor = new TypeSensor("temperature","C");
-        String expectedResult = "TypeSensor[id=0, name='temperature', units='C']";
-        String actualResult = typeSensor.toString();
+        SensorType sensorType = new SensorType("temperature","C");
+        String expectedResult = "SensorType[id=0, name='temperature', units='C']";
+        String actualResult = sensorType.toString();
         assertEquals(expectedResult,actualResult);
     }
 }

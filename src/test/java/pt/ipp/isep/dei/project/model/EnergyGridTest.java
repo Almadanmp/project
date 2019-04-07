@@ -37,7 +37,7 @@ class EnergyGridTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea( new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea( new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.addGrid(validGrid);
         validGrid = new EnergyGrid("FirstGrid", 400);

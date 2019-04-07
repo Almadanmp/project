@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.Date;
@@ -30,9 +30,9 @@ class GeographicAreaListTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        firstValidArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+        firstValidArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
-        secondValidArea = new GeographicArea("Europe", new TypeArea("Continent"), 3000, 2000,
+        secondValidArea = new GeographicArea("Europe", new AreaType("Continent"), 3000, 2000,
                 new Local(90, 100, 10));
         validList = new GeographicAreaList(geographicAreaRepository);
         validList.addGeographicArea(firstValidArea);
@@ -210,7 +210,7 @@ class GeographicAreaListTest {
     void seeIfContainsGAByParametersFalse() {
         // Act
 
-        boolean actualResult = validList.containsObjectMatchesParameters("Lisboa", new TypeArea("City"), new Local(21,
+        boolean actualResult = validList.containsObjectMatchesParameters("Lisboa", new AreaType("City"), new Local(21,
                 30, 40));
 
 
@@ -223,7 +223,7 @@ class GeographicAreaListTest {
     void seeIfContainsGAByParametersTrue() {
         // Act
 
-        boolean actualResult = validList.containsObjectMatchesParameters("Portugal", new TypeArea("Country"), new Local(50,
+        boolean actualResult = validList.containsObjectMatchesParameters("Portugal", new AreaType("Country"), new Local(50,
                 50, 10));
 
 
@@ -240,7 +240,7 @@ class GeographicAreaListTest {
 
         // Act
 
-        boolean actualResult = testList.containsObjectMatchesParameters("Lisboa", new TypeArea("City"), new Local(21,
+        boolean actualResult = testList.containsObjectMatchesParameters("Lisboa", new AreaType("City"), new Local(21,
                 30, 40));
 
 
@@ -304,11 +304,11 @@ class GeographicAreaListTest {
     @Test
     void createGA() {
         String iD = "Coimbra";
-        TypeArea typeArea = new TypeArea("Distrito");
+        AreaType areaType = new AreaType("Distrito");
         Local local = new Local(12, 12, 12);
-        GeographicArea expectedResult = new GeographicArea(iD, typeArea, 12, 12, local);
+        GeographicArea expectedResult = new GeographicArea(iD, areaType, 12, 12, local);
 
-        GeographicArea actualResult = validList.createGA(iD, typeArea, 12, 12, local);
+        GeographicArea actualResult = validList.createGA(iD, areaType, 12, 12, local);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -334,10 +334,10 @@ class GeographicAreaListTest {
     void seeIfGetsAreaListSensors() {
         // Arrange
         SensorList validSensorList = new SensorList();
-        Sensor firstValidSensor = new Sensor("SensorOne", "SensorOne", new TypeSensor("Temperature", "Celsius"), new Local(
+        Sensor firstValidSensor = new Sensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidSensor.setActive(true);
-        Sensor secondValidSensor = new Sensor("SensorTwo", new TypeSensor("Temperature", "Celsius"),
+        Sensor secondValidSensor = new Sensor("SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Date());
         secondValidSensor.setActive(true);
 
@@ -386,8 +386,8 @@ class GeographicAreaListTest {
     void seeIfGetAreaListSensorsWorks() {
         // Arrange
 
-        Sensor firstValidSensor = new Sensor("SensOne", new TypeSensor("Temperature", "Celsius"), new Date());
-        Sensor secondValidSensor = new Sensor("SensTwo", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor firstValidSensor = new Sensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
+        Sensor secondValidSensor = new Sensor("SensTwo", new SensorType("Temperature", "Celsius"), new Date());
         SensorList expectedResult = new SensorList();
         expectedResult.add(firstValidSensor);
         firstValidArea.addSensor(firstValidSensor);

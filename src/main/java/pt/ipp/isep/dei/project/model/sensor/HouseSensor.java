@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -18,7 +17,7 @@ public class HouseSensor {
 
     //@ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "type_sensor_id")
-    private TypeSensor typeSensor;
+    private SensorType sensorType;
 
     private Date dateStartedFunctioning;
 
@@ -42,12 +41,12 @@ public class HouseSensor {
      * the room/house).
      *
      * @param name                   is the name we want to set to the Sensor.
-     * @param typeSensor             is the Type of the Sensor.
+     * @param sensorType             is the Type of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public HouseSensor(String name, TypeSensor typeSensor, Date dateStartedFunctioning) {
+    public HouseSensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
         setName(name);
-        setTypeSensor(typeSensor);
+        setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
         houseReadingList = new HouseReadingList();
         this.active = true;
@@ -71,8 +70,8 @@ public class HouseSensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    public void setTypeSensor(TypeSensor sensor) {
-        this.typeSensor = sensor;
+    public void setSensorType(SensorType sensor) {
+        this.sensorType = sensor;
     }
 
     /**
@@ -102,8 +101,8 @@ public class HouseSensor {
      *
      * @return the Type of the Sensor.
      */
-    public TypeSensor getTypeSensor() {
-        return (this.typeSensor);
+    public SensorType getSensorType() {
+        return (this.sensorType);
     }
 
     /**
@@ -211,7 +210,7 @@ public class HouseSensor {
      * @return returns a string with Sensor Parameters
      */
     public String buildString() {
-        String result = this.name + ", " + this.typeSensor.getName() + "\n";
+        String result = this.name + ", " + this.sensorType.getName() + "\n";
         return result;
     }
 
@@ -243,7 +242,7 @@ public class HouseSensor {
      **/
 
     String getSensorTypeName() {
-        return this.typeSensor.getName();
+        return this.sensorType.getName();
     }
 
     /**

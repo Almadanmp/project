@@ -59,13 +59,13 @@ class HouseMonitoringControllerTest {
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
 
-        validHouseArea = new GeographicArea("Portugal", new TypeArea("Country"), 300,
+        validHouseArea = new GeographicArea("Portugal", new AreaType("Country"), 300,
                 200, new Local(45, 30, 30));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
         Room validRoom1 = new Room("Bedroom","Double Bedroom", 2, 15, 15, 10);
@@ -111,7 +111,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid temperature sensor with valid readings.
 
-        validTemperatureSensor = new Sensor("RF12345", "TempOne", new TypeSensor("temperature", "Celsius"),
+        validTemperatureSensor = new Sensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
                 new Date());
         Reading firstTempReading = new Reading(15, validDate1, "C");
@@ -165,7 +165,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid rainfall sensor with valid readings.
 
-        Sensor validRainfallSensor = new Sensor("RF12366", "RainOne", new TypeSensor("rainfall", "l/m2 "), new Local
+        Sensor validRainfallSensor = new Sensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
                 (21, 41, 11), new Date());
         Reading firstRainReading = new Reading(40, validDate4, "C");
         Reading secondRainReading = new Reading(10, validDate5, "C");
@@ -331,7 +331,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         SensorList temperatureList = new SensorList();
-        Sensor temperatureSensor = new Sensor("RF12345", "temperature sensor", new TypeSensor("temperature", "celsius"), new Local(21, 20, 20), date);
+        Sensor temperatureSensor = new Sensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date);
         temperatureList.add(temperatureSensor);
         validHouseArea.setSensorList(temperatureList);
 
@@ -354,7 +354,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         SensorList rainFallSensorList = new SensorList();
-        Sensor rainfallSensor = new Sensor("RF12345", "rainfall sensor", new TypeSensor("rainfall", "L"), new Local(21, 20, 20), date);
+        Sensor rainfallSensor = new Sensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date);
         rainFallSensorList.add(rainfallSensor);
         validHouseArea.setSensorList(rainFallSensorList);
 
@@ -666,7 +666,7 @@ class HouseMonitoringControllerTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        house.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        house.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         SensorList sList = new SensorList();
         RoomList roomL = new RoomList();

@@ -19,7 +19,7 @@ public class GeographicArea {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "type_area_id")
-    private TypeArea typeArea;
+    private AreaType areaType;
 
     private double length;
     private double width;
@@ -51,15 +51,15 @@ public class GeographicArea {
      * Constructor
      *
      * @param name     the name of the Area
-     * @param typeArea the type of the area.
+     * @param areaType the type of the area.
      * @param length   the total length of the area.
      * @param width    the total width of the area.
      * @param location the location of the area,
      */
 
-    public GeographicArea(String name, TypeArea typeArea, double length, double width, Local location) {
+    public GeographicArea(String name, AreaType areaType, double length, double width, Local location) {
         this.name = name;
-        this.typeArea = typeArea;
+        this.areaType = areaType;
         this.length = length;
         this.width = width;
         this.location = location;
@@ -98,10 +98,10 @@ public class GeographicArea {
     /**
      * Standard setter method, to define the Area type.
      *
-     * @param typeArea is the type of the Geographical Area.
+     * @param areaType is the type of the Geographical Area.
      */
-    public void setTypeArea(TypeArea typeArea) {
-        this.typeArea = typeArea;
+    public void setAreaType(AreaType areaType) {
+        this.areaType = areaType;
     }
 
     /**
@@ -223,10 +223,10 @@ public class GeographicArea {
     /**
      * Getter for type of Geographic Area.
      *
-     * @return returns the attribute TypeArea from an object of the class Geographic Area
+     * @return returns the attribute AreaType from an object of the class Geographic Area
      */
-    public TypeArea getTypeArea() {
-        return this.typeArea;
+    public AreaType getAreaType() {
+        return this.areaType;
     }
 
 
@@ -257,7 +257,7 @@ public class GeographicArea {
 
     public String buildString() {
         String result;
-        result = this.name + ", " + this.typeArea.getName() + ", " +
+        result = this.name + ", " + this.areaType.getName() + ", " +
                 this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
@@ -305,23 +305,23 @@ public class GeographicArea {
      *
      * @param name     the name of the Geographic Area
      * @param local    the localization on the Geographic Area
-     * @param typeArea the type of Geographic Area
+     * @param areaType the type of Geographic Area
      * @return true if it matches, false if it does not.
      **/
 
-    boolean equalsParameters(String name, TypeArea typeArea, Local local) {
-        return (this.name.equals(name) && (this.typeArea.equals(typeArea) && (this.location.equals(local))));
+    boolean equalsParameters(String name, AreaType areaType, Local local) {
+        return (this.name.equals(name) && (this.areaType.equals(areaType) && (this.location.equals(local))));
     }
 
     /**
      * This method checks if type area given match that of geographic area.
      *
-     * @param typeArea the type of Area
+     * @param areaType the type of Area
      * @return true if it matches, false if it does not.
      **/
 
-    boolean equalsTypeArea(TypeArea typeArea) {
-        return (this.typeArea.equals(typeArea));
+    boolean equalsTypeArea(AreaType areaType) {
+        return (this.areaType.equals(areaType));
     }
 
     /**
@@ -349,7 +349,7 @@ public class GeographicArea {
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
-     * Geographic Areas cannot have the same Localization, name and TypeArea
+     * Geographic Areas cannot have the same Localization, name and AreaType
      */
     @Override
     public boolean equals(Object testObject) {
@@ -360,7 +360,7 @@ public class GeographicArea {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getTypeArea().equals(gA.getTypeArea()))));
+        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getAreaType().equals(gA.getAreaType()))));
     }
 
     @Override

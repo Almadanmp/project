@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * TypeArea test class.
+ * AreaType test class.
  */
 
-class TypeAreaTest {
+class AreaTypeTest {
 
     // Common artifacts for testing in this class.
-    private TypeArea validType;
+    private AreaType validType;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validType = new TypeArea("Country");
+        validType = new AreaType("Country");
     }
 
     @Test
@@ -39,7 +39,7 @@ class TypeAreaTest {
     void seeIfEqualsWorksTrue() {
         // Arrange
 
-        TypeArea testType = new TypeArea("Country");
+        AreaType testType = new AreaType("Country");
 
         // Act
 
@@ -54,11 +54,11 @@ class TypeAreaTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        TypeArea testTypeArea = new TypeArea("City");
+        AreaType testAreaType = new AreaType("City");
 
         // Act
 
-        boolean actualResult = testTypeArea.equals(validType);
+        boolean actualResult = testAreaType.equals(validType);
 
         // Assert
 

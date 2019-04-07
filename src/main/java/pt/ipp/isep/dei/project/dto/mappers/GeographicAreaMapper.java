@@ -63,7 +63,7 @@ public final class GeographicAreaMapper {
 
         // Create, update and return the converted object.
 
-        GeographicArea resultObject = new GeographicArea(objectName, new TypeArea(objectType), objectLength, objectWidth,
+        GeographicArea resultObject = new GeographicArea(objectName, new AreaType(objectType), objectLength, objectWidth,
                 objectLocal);
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
@@ -95,7 +95,7 @@ public final class GeographicAreaMapper {
 
         String dtoName = objectToConvert.getName();
 
-        String dtoType = objectToConvert.getTypeArea().getName();
+        String dtoType = objectToConvert.getAreaType().getName();
 
         double dtoLength = objectToConvert.getLength();
 

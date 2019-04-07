@@ -6,19 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * The TypeArea class.
- * A TypeArea is has a name (designation).
+ * The AreaType class.
+ * A AreaType is has a name (designation).
  * We cannot create two TypeAreas with the same name.
  */
 @Entity
-public class TypeArea {
+public class AreaType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
 
-    protected TypeArea() {
+    protected AreaType() {
     }
 
     /**
@@ -26,7 +26,7 @@ public class TypeArea {
      *
      * @param nameGiven The name of the type of area
      */
-    public TypeArea(String nameGiven) {
+    public AreaType(String nameGiven) {
         this.name = nameGiven;
     }
 
@@ -80,10 +80,10 @@ public class TypeArea {
         if (this == objectToTest) {
             return true;
         }
-        if (!(objectToTest instanceof TypeArea)) {
+        if (!(objectToTest instanceof AreaType)) {
             return false;
         }
-        TypeArea localVariable = (TypeArea) objectToTest;
+        AreaType localVariable = (AreaType) objectToTest;
         return localVariable.getName().equals(this.name);
     }
 

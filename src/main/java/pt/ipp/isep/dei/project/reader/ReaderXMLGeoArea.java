@@ -8,10 +8,10 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.TypeArea;
+import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.services.SensorService;
 
 import java.text.ParseException;
@@ -57,8 +57,8 @@ public class ReaderXMLGeoArea {
             Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
                     Double.parseDouble(getTagValue(ALTITUDE, element)));
-            TypeArea typeArea = new TypeArea(getTagValue("type", element));
-            geoArea = new GeographicArea(id, typeArea, length, width, local);
+            AreaType areaType = new AreaType(getTagValue("type", element));
+            geoArea = new GeographicArea(id, areaType, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
             SensorList sensorList = new SensorList();
@@ -85,7 +85,7 @@ public class ReaderXMLGeoArea {
             String id = getTagValue("id", element);
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
-            TypeSensor typeSensor = new TypeSensor(getTagValue("type", element), getTagValue("units", element));
+            SensorType sensorType = new SensorType(getTagValue("type", element), getTagValue("units", element));
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT);
             Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
@@ -96,7 +96,7 @@ public class ReaderXMLGeoArea {
             } catch (ParseException expected) {
                 expected.getErrorOffset();
             }
-            sensor = new Sensor(id, name, typeSensor, local, date);
+            sensor = new Sensor(id, name, sensorType, local, date);
             sensor.setSensorList(sensorList);
         }
         return sensor;

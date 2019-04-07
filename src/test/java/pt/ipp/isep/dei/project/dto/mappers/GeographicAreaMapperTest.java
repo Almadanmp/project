@@ -4,9 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.TypeArea;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,7 +17,7 @@ class GeographicAreaMapperTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaObject = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+        validAreaObject = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
         validAreaObject.setId(21L);
     }

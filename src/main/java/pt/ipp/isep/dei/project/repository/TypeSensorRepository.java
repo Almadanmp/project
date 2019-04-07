@@ -2,14 +2,14 @@ package pt.ipp.isep.dei.project.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.util.List;
 
 @Repository
-public interface TypeSensorRepository extends CrudRepository<TypeSensor, Long> {
+public interface TypeSensorRepository extends CrudRepository<SensorType, Long> {
 
-    TypeSensor findByName(String name);
+    SensorType findByName(String name);
 
-    List<TypeSensor> findAll();
+    List<SensorType> findAll();
 }

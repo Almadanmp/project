@@ -38,17 +38,17 @@ class HouseTest {
     void arrangeArtifacts() {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        validArea = new GeographicArea("Europe", new TypeArea("Continent"), 3500, 3000,
+        validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida",
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        firstValidSensor = new Sensor("RF12345", "tempOne", new TypeSensor("Temperature", "Celsius"), new Local(
+        firstValidSensor = new Sensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        Sensor secondValidSensor = new Sensor("RF17745", "rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(21,
+        Sensor secondValidSensor = new Sensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
                 40, 15), new Date());
         validArea.addSensor(firstValidSensor);
         validArea.addSensor(secondValidSensor);
@@ -98,7 +98,7 @@ class HouseTest {
     void getMinDistanceToSensorOfGivenTypeSamePosition() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12666", "tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(20,
+        Sensor testSensor = new Sensor("RF12666", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(20,
                 20, 20), new Date());
         validArea.addSensor(testSensor);
         double expectedResult = 0;
@@ -122,7 +122,7 @@ class HouseTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
 
         // Act
@@ -144,7 +144,7 @@ class HouseTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
 
         // Act
@@ -177,7 +177,7 @@ class HouseTest {
                 "4455-125", "Porto","Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", new TypeArea("Cidade"),
+        testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
 
         // Act
@@ -443,7 +443,7 @@ class HouseTest {
         readingList.addReading(secondReading);
         firstValidSensor.setReadingList(readingList);
 
-        Sensor secondSensor = new Sensor("RF4321", "tempTwo", new TypeSensor("Temperature", "Celsius"), new Local(
+        Sensor secondSensor = new Sensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
         secondSensor.addReading(new Reading(15, earlierDate,"C"));
         validArea.addSensor(secondSensor);
@@ -461,7 +461,7 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksByDistance() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345", "rainOne", new TypeSensor("Rainfall", "l/m2"), new Local(20,
+        Sensor testSensor = new Sensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
                 21, 20), new Date());
         validArea.addSensor(testSensor);
 
@@ -479,7 +479,7 @@ class HouseTest {
     void seeIfGetClosestSensorOfTypeWorksNoSensor() {
         // Arrange
 
-        Sensor expectedResult = new Sensor("RF12345", "EmptyList", new TypeSensor("temperature", ""),
+        Sensor expectedResult = new Sensor("RF12345", "EmptyList", new SensorType("temperature", ""),
                 new Local(0, 0, 0), new Date());
 
         // Act
@@ -529,7 +529,7 @@ class HouseTest {
         House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock","Mock"),
                 new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
-        testHouse.setMotherArea(new GeographicArea("Mock", new TypeArea("Mock"),
+        testHouse.setMotherArea(new GeographicArea("Mock", new AreaType("Mock"),
                 60, 180, new Local(30, 40, 30)));
         String expectedResult = "Invalid List - List is Empty\n";
 
@@ -913,7 +913,7 @@ class HouseTest {
     @Test
     void seeIfSetMotherAreaWorks() {
         //Act
-        GeographicArea geoArea = new GeographicArea("Porto", new TypeArea("City"), 50, 13, new Local(5, 5, 5));
+        GeographicArea geoArea = new GeographicArea("Porto", new AreaType("City"), 50, 13, new Local(5, 5, 5));
         validHouse.setMotherArea(geoArea);
 
         //Assert

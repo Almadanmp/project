@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.Calendar;
@@ -31,8 +31,8 @@ class MockUI {
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
 
-    private TypeSensor temperatureST;
-    private TypeSensor humidityST;
+    private SensorType temperatureST;
+    private SensorType humidityST;
 
 
     public MockUI(GeographicAreaRepository geographicAreaRepository) {

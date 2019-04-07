@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.sensor.Sensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorList;
-import pt.ipp.isep.dei.project.model.sensor.TypeSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +22,7 @@ class GeographicAreaTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+        validArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
     }
 
@@ -30,11 +30,11 @@ class GeographicAreaTest {
     void seeIfGetTypeAreaWorks() {
         // Arrange
 
-        TypeArea expectedResult = new TypeArea("Country");
+        AreaType expectedResult = new AreaType("Country");
 
         // Act
 
-        TypeArea actualResult = validArea.getTypeArea();
+        AreaType actualResult = validArea.getAreaType();
 
         // Assert
 
@@ -56,7 +56,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorks() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
 
         // Act
@@ -72,7 +72,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalDiffTypeDiffLocal() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 300, 200,
                 new Local(21, 31, 1));
 
         // Act
@@ -88,7 +88,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseSameLocalSameNameDiffType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("City"), 300, 200,
                 new Local(50, 50, 1));
 
         // Act
@@ -104,7 +104,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseSameLocalDiffNameSameType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 1));
 
         // Act
@@ -120,7 +120,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseSameLocalDiffNameDiffType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 300, 200,
                 new Local(50, 50, 1));
 
         // Act
@@ -136,7 +136,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalSameNameSameType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 30, 1));
 
         // Act
@@ -152,7 +152,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalDiffNameSameType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("Country"), 300, 200,
                 new Local(50, 21, 1));
 
         // Act
@@ -168,7 +168,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalSameNameDiffType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new TypeArea("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("City"), 300, 200,
                 new Local(21, 50, 1));
 
         // Act
@@ -200,7 +200,7 @@ class GeographicAreaTest {
     void seeIfGetSetSensorListWork() {
         // Arrange
 
-        Sensor testSensor = new Sensor("RF12345", "Vento", new TypeSensor("Atmosférico", "km/h"),
+        Sensor testSensor = new Sensor("RF12345", "Vento", new SensorType("Atmosférico", "km/h"),
                 new Local(12, 31, 21), new Date());
         validArea.addSensor(testSensor);
         SensorList expectedResult = new SensorList();
@@ -220,7 +220,7 @@ class GeographicAreaTest {
     void seeIfGetSetMotherAreaWorks() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 2, 5,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 2, 5,
                 new Local(22, 23, 100));
         validArea.setMotherArea(testArea);
 
@@ -263,7 +263,7 @@ class GeographicAreaTest {
     void seeIfCheckIfAreaIsContainedWorksTrue() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 2, 5,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 2, 5,
                 new Local(22, 23, 100));
         validArea.setMotherArea(testArea);
 
@@ -280,7 +280,7 @@ class GeographicAreaTest {
     void seeIfCheckIfAreaIsContainedWorksFalse() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new TypeArea("City"), 2, 5,
+        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 2, 5,
                 new Local(22, 23, 100));
 
 
@@ -297,9 +297,9 @@ class GeographicAreaTest {
     void seeIfCheckIfAreaIsContainedWorksTransitive() {
         // Arrange
 
-        GeographicArea firstTestArea = new GeographicArea("Porto", new TypeArea("City"),
+        GeographicArea firstTestArea = new GeographicArea("Porto", new AreaType("City"),
                 2, 4, new Local(22, 22, 100));
-        GeographicArea secondTestArea = new GeographicArea("Europe", new TypeArea("Continent"),
+        GeographicArea secondTestArea = new GeographicArea("Europe", new AreaType("Continent"),
                 200, 400, new Local(22, 22, 100));
         firstTestArea.setMotherArea(validArea);
         validArea.setMotherArea(secondTestArea);
@@ -317,9 +317,9 @@ class GeographicAreaTest {
     void seeAddSensorToGA() {
         // Arrange
 
-        Sensor firstTestSensor = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new Date());
-        Sensor secondTestSensor = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new Date());
-        Sensor thirdTestSensor = new Sensor("Sensor 3", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor firstTestSensor = new Sensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
+        Sensor secondTestSensor = new Sensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
+        Sensor thirdTestSensor = new Sensor("Sensor 3", new SensorType("Temperature", "Celsius"), new Date());
 
         // Act
 
@@ -346,7 +346,7 @@ class GeographicAreaTest {
 
         // Arrange
 
-        Sensor sensor = new Sensor("Sensor 1", new TypeSensor("Temperature", "Celsius"), new Date());
+        Sensor sensor = new Sensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
         validArea.addSensor(sensor);
 
         // Act
@@ -407,12 +407,12 @@ class GeographicAreaTest {
     void seeIfGetTypeArea() {
         // Arrange
 
-        TypeArea type = new TypeArea("Island");
-        validArea.setTypeArea(type);
+        AreaType type = new AreaType("Island");
+        validArea.setAreaType(type);
 
         // Act
 
-        TypeArea actualType = validArea.getTypeArea();
+        AreaType actualType = validArea.getAreaType();
 
         // Assert
 
@@ -423,12 +423,12 @@ class GeographicAreaTest {
     void seeIfEqualsTypeAreaWorks() {
         // Arrange
 
-        TypeArea typeArea1 = new TypeArea("City");
-        validArea.setTypeArea(typeArea1);
+        AreaType areaType1 = new AreaType("City");
+        validArea.setAreaType(areaType1);
 
         // Act
 
-        boolean actualResult = validArea.equalsTypeArea(typeArea1);
+        boolean actualResult = validArea.equalsTypeArea(areaType1);
 
         // Assert
 
@@ -439,13 +439,13 @@ class GeographicAreaTest {
     void seeIfEqualsTypeAreaWorksFalse() {
         // Arrange
 
-        TypeArea typeArea1 = new TypeArea("City");
-        validArea.setTypeArea(typeArea1);
-        TypeArea typeArea2 = new TypeArea("Street");
+        AreaType areaType1 = new AreaType("City");
+        validArea.setAreaType(areaType1);
+        AreaType areaType2 = new AreaType("Street");
 
         // Act
 
-        boolean actualResult = validArea.equalsTypeArea(typeArea2);
+        boolean actualResult = validArea.equalsTypeArea(areaType2);
 
         // Assert
 
@@ -555,11 +555,11 @@ class GeographicAreaTest {
     @Test
     void seeIfEqualsParametersWorks() {
         // Act
-        boolean actualResult1 = validArea.equalsParameters("Portugal", new TypeArea("Country"), new Local(50, 50, 10));
-        boolean actualResult2 = validArea.equalsParameters("Porto", new TypeArea("City"), new Local(20, 20, 20));
-        boolean actualResult3 = validArea.equalsParameters("Porto", new TypeArea("Country"), new Local(50, 50, 10));
-        boolean actualResult4 = validArea.equalsParameters("Portugal", new TypeArea("City"), new Local(50, 50, 10));
-        boolean actualResult5 = validArea.equalsParameters("Portugal", new TypeArea("Country"), new Local(20, 50, 10));
+        boolean actualResult1 = validArea.equalsParameters("Portugal", new AreaType("Country"), new Local(50, 50, 10));
+        boolean actualResult2 = validArea.equalsParameters("Porto", new AreaType("City"), new Local(20, 20, 20));
+        boolean actualResult3 = validArea.equalsParameters("Porto", new AreaType("Country"), new Local(50, 50, 10));
+        boolean actualResult4 = validArea.equalsParameters("Portugal", new AreaType("City"), new Local(50, 50, 10));
+        boolean actualResult5 = validArea.equalsParameters("Portugal", new AreaType("Country"), new Local(20, 50, 10));
 
         // Assert
 
@@ -587,9 +587,9 @@ class GeographicAreaTest {
         //Arrange
         GeographicArea geographicArea = new GeographicArea();
         SensorList sensorList = new SensorList();
-        Sensor sensor1 = new Sensor("Sensor 1", new TypeSensor("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
-        Sensor sensor2 = new Sensor("Sensor 2", new TypeSensor("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
-        Sensor sensor3 = new Sensor("Sensor 3", new TypeSensor("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
+        Sensor sensor1 = new Sensor("Sensor 1", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
+        Sensor sensor2 = new Sensor("Sensor 2", new SensorType("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
+        Sensor sensor3 = new Sensor("Sensor 3", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
         sensorList.add(sensor1);
         sensorList.add(sensor2);
         sensorList.add(sensor3);

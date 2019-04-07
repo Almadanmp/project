@@ -34,7 +34,7 @@ class EnergyGridSettingsControllerTest {
         validHouse = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto",
-                new TypeArea("Cidade"), 2, 3, new Local(4, 4, 100)));
+                new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
         validGrid = new EnergyGrid("validGrid", 300);
     }
 
@@ -281,7 +281,7 @@ class EnergyGridSettingsControllerTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "4512", "Porto","Portugal");
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
-        house.setMotherArea(new GeographicArea("porto", new TypeArea("cidade"), 2, 3, new Local(4, 4, 100)));
+        house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
         RoomList rl = new RoomList();
