@@ -152,7 +152,7 @@ public class HouseConfigurationController {
                 }
                 HouseSensor importedSensor = new HouseSensor(sensorName, new SensorType(sensorType, sensorUnit), objectDate);
                 for (Room r : houseRooms.getRooms()) {
-                    if (r.getId().equals(roomID)) {
+                    if (r.getName().equals(roomID)) {
                         r.addSensor(importedSensor);
                         addedSensors++;
                     }
