@@ -104,7 +104,7 @@ public class House implements Metered {
      *
      * @return the value of the period of time where the energy consumption will be calculated.
      */
-    double getGridMeteringPeriod() {
+    public int getGridMeteringPeriod() {
         return gridMeteringPeriod;
     }
 
@@ -123,7 +123,7 @@ public class House implements Metered {
      *
      * @return the value of the period of time where the energy consumption will be calculated.
      */
-    double getDeviceMeteringPeriod() {
+    public int getDeviceMeteringPeriod() {
         return deviceMeteringPeriod;
     }
 

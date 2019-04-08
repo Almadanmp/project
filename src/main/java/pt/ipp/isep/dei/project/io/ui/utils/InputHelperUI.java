@@ -442,6 +442,14 @@ public class InputHelperUI {
 
     }
 
+    public String getInputPathJson(String input) {
+        String filePath = "";
+        if (input.endsWith(".json")) {
+            filePath = getInputPath(input);
+        }
+        return filePath;
+    }
+
 
     /**
      * This method will ask for a file location from the user and return it in case the file is

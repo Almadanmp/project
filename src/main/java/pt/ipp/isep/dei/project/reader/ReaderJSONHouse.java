@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 
@@ -18,46 +19,27 @@ import java.util.List;
 public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
 
-    public JSONArray readFile(String filePath) {
+    public HouseDTO readFile(String filePath) {
+        HouseDTO houseDTO = new HouseDTO();
         try {
             File file = new File(filePath);
             InputStream stream = new FileInputStream(file);
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             JSONArray roomList = object.getJSONArray("room");
-            return roomList;
-        } catch (FileNotFoundException e) {
-            UtilsUI.printMessage("The file wasn't found.");
-        }
-        return new JSONArray();
-    }
-
-    public JSONObject readFile1(String filePath) {
-        try {
-            File file = new File(filePath);
-            InputStream stream = new FileInputStream(file);
-            JSONTokener tokener = new JSONTokener(stream);
-            JSONObject object = new JSONObject(tokener);
             JSONObject address = object.getJSONObject("adress");
-            return address;
-        } catch (FileNotFoundException e) {
-            UtilsUI.printMessage("The file wasn't found.");
-        }
-        return new JSONObject();
-    }
-
-    public JSONArray readFile2(String filePath) {
-        try {
-            File file = new File(filePath);
-            InputStream stream = new FileInputStream(file);
-            JSONTokener tokener = new JSONTokener(stream);
-            JSONObject object = new JSONObject(tokener);
             JSONArray gridList = object.getJSONArray("grid");
-            return gridList;
+            List<RoomDTO> roomDTOList = readRoomsJSON(roomList);
+            AddressDTO addressDTO = readAddressJSON(address);
+            List<EnergyGridDTO> energyGridDTOList = readGridsJSON(gridList);
+            houseDTO.setAddress(addressDTO);
+            houseDTO.setRoomList(roomDTOList);
+            houseDTO.setEnergyGridList(energyGridDTOList);
+            return houseDTO;
         } catch (FileNotFoundException e) {
             UtilsUI.printMessage("The file wasn't found.");
         }
-        return new JSONArray();
+        return new HouseDTO();
     }
 
     public List<RoomDTO> readRoomsJSON(JSONArray rooms) {
