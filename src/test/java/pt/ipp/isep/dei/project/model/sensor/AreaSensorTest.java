@@ -27,7 +27,7 @@ class AreaSensorTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaSensor = new AreaSensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
+        validAreaSensor = new AreaSensor("SensOne", "SensOne",  new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date());
         validAreaSensor.setActive(true);
     }
 
@@ -68,7 +68,7 @@ class AreaSensorTest {
             e.printStackTrace();
         }
 
-        AreaSensor areaSensor = new AreaSensor("Sensor", new SensorType("Temperature", "Celsius"), startDate);
+        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(12,12,12), startDate);
 
         // Act
 
@@ -167,40 +167,6 @@ class AreaSensorTest {
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
 
-
-    @Test
-    void seeIfSetGetLocalWorks() {
-        // Arrange
-
-        Local expectedResult = new Local(31, 11, 11);
-
-        // Act
-
-        validAreaSensor.setLocal(new Local(31, 11, 11));
-        Local actualResult = validAreaSensor.getLocal();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetSetTypeSensorWorks() {
-        // Arrange
-
-        SensorType expectedResult = new SensorType("Rain", "l/m2");
-        SensorType actualResult;
-
-        // Act
-
-        validAreaSensor.setSensorType(new SensorType("Rain", "l/m2"));
-        actualResult = validAreaSensor.getSensorType();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
     @Test
     void seeIfSeTAndGetReadingList() {
         // Arrange
@@ -210,8 +176,8 @@ class AreaSensorTest {
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(15, new Date(), "C", "TEST");
 
-        AreaSensor areaSensor1 = new AreaSensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
-        AreaSensor areaSensor2 = new AreaSensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor areaSensor1 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date());
+        AreaSensor areaSensor2 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date());
 
         readingList.addReading(reading1);
         expectedResult2.addReading(reading1);
@@ -272,7 +238,7 @@ class AreaSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        AreaSensor testAreaSensor = new AreaSensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date());
 
         // Act
 
@@ -758,7 +724,7 @@ class AreaSensorTest {
     void seeIfPrintSensorWorksNoLocal() {
         // Arrange
 
-        String expectedResult = "SensOne, Temperature. ";
+        String expectedResult = "SensOne, Temperature, 10.0º lat, 10.0º long \n";
 
         // Act
 
@@ -845,7 +811,7 @@ class AreaSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validAreaSensor = new AreaSensor("SensOne", new SensorType("Temperature", "Kelvin"), new Date());
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(12,12,12), new Date());
         SensorType expectedResult = new SensorType("Temperature", "Kelvin");
 
         // Act
@@ -867,8 +833,7 @@ class AreaSensorTest {
         house.setMotherArea(new GeographicArea("Porto", new AreaType("City"),
                 2, 3, new Local(4, 4, 100)));
         Local testLocal = new Local(-5, -5, -5);
-        validAreaSensor.setLocal(testLocal);
-        double expectedResult = 1579.3659688476016;
+        double expectedResult = 799.8866399214708;
 
         //Act
         double actualResult = validAreaSensor.getDistanceToHouse(house);
@@ -909,23 +874,6 @@ class AreaSensorTest {
 
         assertFalse(actualResult1);
         assertFalse(actualResult3);
-    }
-
-    @Test
-    void seeIfGetDateStartedFunctioningWorks() {
-        // Arrange
-
-        Date expectedResult = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
-        validAreaSensor.setDateStartedFunctioning(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
-
-        // Act
-
-        Date actualResult = validAreaSensor.getDateStartedFunctioning();
-
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
     }
 
     @Test

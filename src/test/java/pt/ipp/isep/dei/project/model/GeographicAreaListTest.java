@@ -294,7 +294,7 @@ class GeographicAreaListTest {
         AreaSensor firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidAreaSensor.setActive(true);
-        AreaSensor secondValidAreaSensor = new AreaSensor("SensorTwo", new SensorType("Temperature", "Celsius"),
+        AreaSensor secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,10),
                 new Date());
         secondValidAreaSensor.setActive(true);
 
@@ -343,8 +343,8 @@ class GeographicAreaListTest {
     void seeIfGetAreaListSensorsWorks() {
         // Arrange
 
-        AreaSensor firstValidAreaSensor = new AreaSensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
-        AreaSensor secondValidAreaSensor = new AreaSensor("SensTwo", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor firstValidAreaSensor = new AreaSensor("SensOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date());
+        AreaSensor secondValidAreaSensor = new AreaSensor("SensTwo", "SensTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,20),new Date());
         AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(firstValidAreaSensor);
         firstValidArea.addSensor(firstValidAreaSensor);

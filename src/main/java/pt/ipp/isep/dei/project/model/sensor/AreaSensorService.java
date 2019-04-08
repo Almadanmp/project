@@ -170,21 +170,6 @@ public class AreaSensorService {
     }
 
     /**
-     * Method that goes through every sensor in the sensor list and gets
-     * every reading within that sensor. In the end we will get a Reading list
-     * that contains every reading from every sensor of the sensor list.
-     *
-     * @return a list with all readings from sensor list
-     **/
-    public ReadingList getReadings() {
-        ReadingList finalList = new ReadingList();
-        for (AreaSensor s : this.areaSensors) {
-            finalList.appendListNoDuplicates(s.getReadingList());
-        }
-        return finalList;
-    }
-
-    /**
      * This method receives a house and the distance of the sensor closest to it,
      * goes through the sensor list and returns the sensors closest to house.
      *
@@ -242,18 +227,6 @@ public class AreaSensorService {
 
     public boolean contains(AreaSensor areaSensor) {
         return areaSensors.contains(areaSensor);
-    }
-
-    /**
-     * This method goes through every sensor reading list and returns the
-     * reading values of a given day. This day is given to method as parameter.
-     *
-     * @param day date of day the method will use to get reading values
-     * @return returns value readings from every sensor from given day
-     **/
-    public List<Double> getValuesOfSpecificDayReadings(Date day) {
-        ReadingList readingList = getReadings();
-        return readingList.getValuesOfSpecificDayReadings(day);
     }
 
     /**
@@ -347,6 +320,13 @@ public class AreaSensorService {
     }
 
 
+    public boolean remove(AreaSensor areaSensor) {
+        if (this.contains(areaSensor)) {
+            areaSensors.remove(areaSensor);
+            return true;
+        }
+        return false;
+    }
 
 
     /**
@@ -363,13 +343,6 @@ public class AreaSensorService {
         return result;
     }
 
-    public boolean remove(AreaSensor areaSensor) {
-        if (this.contains(areaSensor)) {
-            areaSensors.remove(areaSensor);
-            return true;
-        }
-        return false;
-    }
 
 
     /**

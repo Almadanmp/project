@@ -55,25 +55,9 @@ public class AreaSensor {
     public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
         setId(id);
         setName(name);
-        setSensorType(sensorType);
-        setLocal(local);
-        setDateStartedFunctioning(dateStartedFunctioning);
-        readingList = new ReadingList();
-        this.active = true;
-    }
-
-    /**
-     * Sensor() constructor with 3 parameters (Used When A Sensor is in a Room already. So the Location is the same as
-     * the room/house).
-     *
-     * @param name                   is the name we want to set to the Sensor.
-     * @param sensorType             is the Type of the Sensor.
-     * @param dateStartedFunctioning is the Date that the Sensor Started Working.
-     */
-    public AreaSensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
-        setName(name);
-        setSensorType(sensorType);
-        setDateStartedFunctioning(dateStartedFunctioning);
+        this.sensorType = sensorType;
+        this.local = local;
+        this.dateStartedFunctioning=dateStartedFunctioning;
         readingList = new ReadingList();
         this.active = true;
     }
@@ -98,33 +82,6 @@ public class AreaSensor {
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
-    }
-
-    /**
-     * Setter: local
-     *
-     * @param local is the local we want to set to the sensor.
-     */
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
-    /**
-     * Setter: type sensor
-     *
-     * @param sensor is the Type we want to set to the sensor.
-     */
-    public void setSensorType(SensorType sensor) {
-        this.sensorType = sensor;
-    }
-
-    /**
-     * Setter: date started functioning
-     *
-     * @param dateStartedFunctioning is the date that the sensor started functioning.
-     */
-    public void setDateStartedFunctioning(Date dateStartedFunctioning) {
-        this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
     public Date getDateStartedFunctioning() {
@@ -194,7 +151,6 @@ public class AreaSensor {
     public boolean isActive() {
         return this.active;
     }
-
 
     /**
      * Settter: sets the sensor active

@@ -29,10 +29,10 @@ class AreaSensorServiceTest {
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidAreaSensor.setActive(true);
-        secondValidAreaSensor = new AreaSensor("SensorTwo", new SensorType("Temperature", "Celsius"),
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,10),
                 new Date());
         secondValidAreaSensor.setActive(true);
-        thirdValidAreaSensor = new AreaSensor("SensorThree", new SensorType("Rainfall", "l/m2"),
+        thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10,10,10),
                 new Date());
         validAreaSensorService.add(firstValidAreaSensor);
     }
@@ -172,85 +172,6 @@ class AreaSensorServiceTest {
         // Act
 
         String actualResult = validAreaSensorService.toString();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetReadingsWorksNoReadings() {
-        // Arrange
-
-        ReadingList expectedResult = new ReadingList();
-
-        // Act
-
-        ReadingList actualResult = validAreaSensorService.getReadings();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetReadingsWorksReadingsAtBeginning() {
-        // Arrange
-
-
-        validAreaSensorService.add(secondValidAreaSensor);
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", firstValidAreaSensor.getId());
-        firstValidAreaSensor.addReading(readingOne);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(readingOne);
-
-        // Act
-
-        ReadingList actualResult = validAreaSensorService.getReadings();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetReadingsWorksReadingsAtEnd() {
-        // Arrange
-        validAreaSensorService.add(secondValidAreaSensor);
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", secondValidAreaSensor.getId());
-
-        secondValidAreaSensor.addReading(readingOne);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(readingOne);
-
-        // Act
-
-        ReadingList actualResult = validAreaSensorService.getReadings();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetReadingsWorksAllSensorsHaveReadings() {
-        // Arrange
-
-
-        validAreaSensorService.add(secondValidAreaSensor);
-
-        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C", firstValidAreaSensor.getId());
-        Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", secondValidAreaSensor.getId());
-
-        firstValidAreaSensor.addReading(readingOne);
-        secondValidAreaSensor.addReading(readingTwo);
-        ReadingList expectedResult = new ReadingList();
-        expectedResult.addReading(readingOne);
-        expectedResult.addReading(readingTwo);
-
-        // Act
-
-        ReadingList actualResult = validAreaSensorService.getReadings();
 
         // Assert
 
