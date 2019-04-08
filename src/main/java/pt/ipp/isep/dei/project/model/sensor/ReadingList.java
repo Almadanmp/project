@@ -142,7 +142,7 @@ public class ReadingList {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-    double getMostRecentValue() {
+    public double getMostRecentValue() {
         if (this.readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }

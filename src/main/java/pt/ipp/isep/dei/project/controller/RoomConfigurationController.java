@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class RoomConfigurationController {
      * @param room is the room we want to choose.
      * @return AreaSensorList of the Room.
      */
-    public HouseSensorList getRoomSensorList(Room room) {
+    public HouseSensorService getRoomSensorList(Room room) {
         return room.getSensorList();
     }
 
@@ -78,7 +78,7 @@ public class RoomConfigurationController {
      * @return builds a string from given sensor list.
      */
 
-    public String buildSensorListString(HouseSensorList areaSensorList) {
+    public String buildSensorListString(HouseSensorService areaSensorList) {
         return areaSensorList.toString();
     }
 

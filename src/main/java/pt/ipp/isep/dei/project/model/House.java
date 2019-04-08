@@ -14,20 +14,28 @@ import java.util.*;
  */
 @Entity
 public class House implements Metered {
+
     @Id
     private String id;
+
     @Embedded
     private Address address;
+
     @Embedded
     private Local location;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @Transient
     private EnergyGridList energyGridList;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @Transient
     private RoomList roomList;
+
     @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
+
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
+
     @Transient
     private List<DeviceType> deviceTypeList;
 
@@ -152,13 +160,13 @@ public class House implements Metered {
     /**
      * Standard setter method, to define the Address of the House.
      *
-     * @param street is the street of the address.
-     * @param number is the number of the address.
-     * @param zip    is the zip-code of the address.
-     * @param town   is the town of the address.
+     * @param street  is the street of the address.
+     * @param number  is the number of the address.
+     * @param zip     is the zip-code of the address.
+     * @param town    is the town of the address.
      * @param country is the country of the address.
      */
-    public void setAddress(String street,String number, String zip, String town, String country) {
+    public void setAddress(String street, String number, String zip, String town, String country) {
         address.setStreet(street);
         address.setNumber(number);
         address.setZip(zip);

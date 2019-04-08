@@ -12,9 +12,7 @@ import java.util.Date;
 public class HouseSensor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private String id;
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -23,12 +21,8 @@ public class HouseSensor {
 
     private Date dateStartedFunctioning;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Transient
     private ReadingList readingList;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sensor_list_id")
-    private HouseSensorList houseSensorList;
 
     private boolean active;
 
@@ -67,6 +61,24 @@ public class HouseSensor {
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
+    }
+
+    /**
+     * Setter: Id
+     *
+     * @param id is the id we want to set to the sensor.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Getter: Id
+     *
+     * @return a string that represents the name of the sensor.
+     */
+    public String getId() {
+        return (this.id);
     }
 
     /**
@@ -140,13 +152,6 @@ public class HouseSensor {
         this.active = status;
     }
 
-    public void setSensorList(HouseSensorList houseSensorList) {
-        this.houseSensorList = houseSensorList;
-    }
-
-    public HouseSensorList getSensorList() {
-        return houseSensorList;
-    }
 
     /**
      * Method to activate an deactivated sensor, and vice versa

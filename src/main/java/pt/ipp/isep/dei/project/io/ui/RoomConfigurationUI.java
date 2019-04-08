@@ -360,7 +360,7 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        HouseSensorList areaSensorList = room.getSensorList();
+        HouseSensorService areaSensorList = room.getSensorList();
         System.out.println(controller.buildSensorListString(areaSensorList));
     }
 

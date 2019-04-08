@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public final class RoomMapper {
 
         // Update the AreaSensorList
 
-        HouseSensorList objectSensorList = new HouseSensorList();
+        HouseSensorService objectSensorList = new HouseSensorService();
         for (HouseSensorDTO y : dtoToConvert.getSensorList()) {
             HouseSensor tempAreaSensor = HouseSensorMapper.dtoToObject(y);
             objectSensorList.add(tempAreaSensor);

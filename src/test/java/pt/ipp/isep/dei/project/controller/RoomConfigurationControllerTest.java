@@ -148,7 +148,7 @@ class RoomConfigurationControllerTest {
                 date);
         HouseSensor s2 = new HouseSensor("SensorTwo", new SensorType("Rain", "l/m2"),
                 date);
-        HouseSensorList areaSensorList = new HouseSensorList();
+        HouseSensorService areaSensorList = new HouseSensorService();
         areaSensorList.add(s1);
         areaSensorList.add(s2);
         String expectedResult = "---------------\n" +
@@ -443,11 +443,11 @@ class RoomConfigurationControllerTest {
     void seeIfGetSensorListWorks() {
         // Arrange
 
-        HouseSensorList expectedResult = new HouseSensorList();
+        HouseSensorService expectedResult = new HouseSensorService();
         validRoomNoDevices.setSensorList(expectedResult);
         // Act
 
-        HouseSensorList actualResult = controller.getRoomSensorList(validRoomNoDevices);
+        HouseSensorService actualResult = controller.getRoomSensorList(validRoomNoDevices);
 
         // Assert
         assertEquals(actualResult, expectedResult);

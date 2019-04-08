@@ -14,10 +14,8 @@ import java.util.*;
 @Entity
 public class Room implements Metered {
 
-
     private static final String TEMPERATURE = "temperature";
     private static final String noTempReadings = "There aren't any temperature readings available.";
-
 
     @Id
     private String roomName;
@@ -29,11 +27,7 @@ public class Room implements Metered {
     private double roomHeight;
 
     @Transient
-    private HouseSensorList roomAreaSensorList;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_list_id")
-    private RoomList rooms;
+    private HouseSensorService roomSensorList;
 
     @Transient
     private DeviceList deviceList;
@@ -56,7 +50,7 @@ public class Room implements Metered {
         this.roomWidth = width;
         this.roomLength = length;
         this.roomHeight = height;
-        this.roomAreaSensorList = new HouseSensorList();
+        this.roomSensorList = new HouseSensorService();
         this.deviceList = new DeviceList();
     }
 
@@ -68,8 +62,8 @@ public class Room implements Metered {
      *
      * @return AreaSensorList of the Room.
      */
-    public HouseSensorList getSensorList() {
-        return roomAreaSensorList;
+    public HouseSensorService getSensorList() {
+        return roomSensorList;
     }
 
     /**
@@ -111,10 +105,10 @@ public class Room implements Metered {
     /**
      * Room Sensor List Setter.
      *
-     * @param houseSensorList is the areaSensorList to set to the Room
+     * @param houseSensorService is the areaSensorList to set to the Room
      */
-    public void setSensorList(HouseSensorList houseSensorList) {
-        roomAreaSensorList = houseSensorList;
+    public void setSensorList(HouseSensorService houseSensorService) {
+        roomSensorList = houseSensorService;
     }
 
     /**
@@ -193,7 +187,7 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
-        HouseSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
+        HouseSensorService tempSensors = getSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
@@ -211,8 +205,8 @@ public class Room implements Metered {
      *
      * @return a sensor list that contains sensors of given type
      **/
-    HouseSensorList getSensorsOfGivenType(String type) {
-        return this.roomAreaSensorList.getSensorListByType(type);
+    HouseSensorService getSensorsOfGivenType(String type) {
+        return this.roomSensorList.getSensorListByType(type);
     }
 
     /**
@@ -232,7 +226,7 @@ public class Room implements Metered {
      * @return true if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensor(HouseSensor areaSensor) {
-        return roomAreaSensorList.add(areaSensor);
+        return roomSensorList.add(areaSensor);
     }
 
     /**
@@ -254,11 +248,11 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        HouseSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
+        HouseSensorService tempSensors = getSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        HouseReadingList houseReadingList = tempSensors.getReadings();
+        ReadingList houseReadingList = tempSensors.getReadings();
         return houseReadingList.getMostRecentValue();
     }
 
@@ -336,7 +330,7 @@ public class Room implements Metered {
      * @return true if room's AreaSensorList is empty, false otherwise.
      **/
     public boolean isSensorListEmpty() {
-        return this.roomAreaSensorList.isEmpty();
+        return this.roomSensorList.isEmpty();
     }
 
     /**

@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import javax.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -9,20 +12,18 @@ import java.util.List;
 /**
  * Class that groups a number of Sensors.
  */
-@Entity
-public class HouseSensorList {
+@Service
+public class HouseSensorService {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Autowired
+    HouseSensorRepository houseSensorRepository;
 
-    @OneToMany(mappedBy = "houseSensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<HouseSensor> houseSensors;
 
     /**
      * AreaSensorList() empty constructor that initializes an ArrayList of House Sensors.
      */
-    public HouseSensorList() {
+    public HouseSensorService() {
         this.houseSensors = new ArrayList<>();
     }
 
@@ -39,8 +40,8 @@ public class HouseSensorList {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public HouseSensorList getSensorListByType(String name) {
-        HouseSensorList containedTypeSensors = new HouseSensorList();
+    public HouseSensorService getSensorListByType(String name) {
+        HouseSensorService containedTypeSensors = new HouseSensorService();
         for (HouseSensor sensor : this.houseSensors) {
             if (name.equals(sensor.getSensorTypeName())) {
                 containedTypeSensors.add(sensor);
@@ -96,8 +97,8 @@ public class HouseSensorList {
      *
      * @return a list with all readings from sensor list
      **/
-    public HouseReadingList getReadings() {
-        HouseReadingList finalList = new HouseReadingList();
+    public ReadingList getReadings() {
+        ReadingList finalList = new ReadingList();
         for (HouseSensor s : this.houseSensors) {
             finalList.appendListNoDuplicates(s.getReadingList());
         }
@@ -154,7 +155,7 @@ public class HouseSensorList {
      * @return returns value readings from every sensor from given day
      **/
     public List<Double> getValuesOfSpecificDayReadings(Date day) {
-        HouseReadingList readingList = getReadings();
+        ReadingList readingList = getReadings();
         return readingList.getValuesOfSpecificDayReadings(day);
     }
 
@@ -193,10 +194,10 @@ public class HouseSensorList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof HouseSensorList)) {
+        if (!(testObject instanceof HouseSensorService)) {
             return false;
         }
-        HouseSensorList list = (HouseSensorList) testObject;
+        HouseSensorService list = (HouseSensorService) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

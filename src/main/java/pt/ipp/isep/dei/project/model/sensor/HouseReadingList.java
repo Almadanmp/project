@@ -377,7 +377,7 @@ public class HouseReadingList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof HouseSensorList)) {
+        if (!(testObject instanceof HouseSensorService)) {
             return false;
         }
         HouseReadingList list = (HouseReadingList) testObject;
