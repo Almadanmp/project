@@ -23,7 +23,7 @@ class ReadingTest {
     void arrangeArtifacts() {
         earlyDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         lateDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-        firstValidReading = new Reading(31, earlyDate, "C");
+        firstValidReading = new Reading(31, earlyDate, "C", "TEST");
     }
 
     @Test
@@ -102,7 +102,7 @@ class ReadingTest {
     void seeIfEqualsWorksTrue() {
         // Arrange
 
-        Reading testReading = new Reading(31, earlyDate, "C");
+        Reading testReading = new Reading(31, earlyDate, "C", "TEST");
 
         // Act
 

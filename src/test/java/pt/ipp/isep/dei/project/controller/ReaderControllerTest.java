@@ -13,9 +13,9 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
@@ -426,7 +426,7 @@ class ReaderControllerTest {
         readings[2] = "23";
         readings[3] = "C";
 
-        validAreaSensor1.addReading(new Reading(32, validDate, "C"));
+        validAreaSensor1.addReading(new Reading(32, validDate, "C", validAreaSensor1.getId()));
 
         // Act
 

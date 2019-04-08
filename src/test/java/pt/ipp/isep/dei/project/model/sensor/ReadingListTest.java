@@ -72,7 +72,7 @@ class ReadingListTest {
     void seeAddReadingIfListIsEmpty() {
         // Arrange
 
-        Reading reading1 = new Reading(17, validDate1, "C");
+        Reading reading1 = new Reading(17, validDate1, "C", "TEST");
 
         // Act
 
@@ -119,8 +119,8 @@ class ReadingListTest {
     void seeIfAddsDifferentReadings() {
         // Arrange
 
-        Reading reading1 = new Reading(17, validDate1, "C");
-        Reading reading2 = new Reading(29, validDate2, "C");
+        Reading reading1 = new Reading(17, validDate1, "C", "TEST");
+        Reading reading2 = new Reading(29, validDate2, "C", "TEST");
         validReadingList.addReading(reading1);
 
         // Act
@@ -136,8 +136,8 @@ class ReadingListTest {
     void seeIfAddsSameReading() {
         // Arrange
 
-        Reading reading1 = new Reading(17, validDate1, "C");
-        Reading reading2 = new Reading(17, validDate1, "C");
+        Reading reading1 = new Reading(17, validDate1, "C", "TEST");
+        Reading reading2 = new Reading(17, validDate1, "C", "TEST");
         validReadingList.addReading(reading1);
 
         // Act
@@ -153,8 +153,8 @@ class ReadingListTest {
     void seeIfGetsValueFromList() {
         // Arrange
 
-        Reading reading1 = new Reading(15, validDate1, "C");
-        Reading reading2 = new Reading(29, validDate2, "C");
+        Reading reading1 = new Reading(15, validDate1, "C", "TEST");
+        Reading reading2 = new Reading(29, validDate2, "C", "TEST");
         validReadingList.addReading(reading1);
         validReadingList.addReading(reading2);
         double expectedResult = 15;
@@ -172,8 +172,8 @@ class ReadingListTest {
     void seeIfGetsSingularValue() {
         // Arrange
 
-        Reading reading1 = new Reading(15, validDate1, "C");
-        Reading reading2 = new Reading(29, validDate2, "C");
+        Reading reading1 = new Reading(15, validDate1, "C", "TEST");
+        Reading reading2 = new Reading(29, validDate2, "C", "TEST");
         validReadingList.addReading(reading1);
         validReadingList.addReading(reading2);
         double expectedResult = 29;
@@ -191,17 +191,17 @@ class ReadingListTest {
     void seeIfGetDatesWithReadingsBetweenTwoGivenDates() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3, "C"); //  01 Oct 23:59:59 (2018)
-        Reading r1 = new Reading(23, validDate4, "C"); //  07 Oct 00:00:00 "
-        Reading r2 = new Reading(24, validDate5, "C"); //  08 Oct 23:26:21 "
-        Reading r3 = new Reading(25, validDate6, "C"); //  09 Oct 08:21:22 "
-        Reading r4 = new Reading(26, validDate7, "C"); //  10 Oct 18:14:03 "
-        Reading r5 = new Reading(23, validDate8, "C"); //  23 Oct 12:14:23 "
-        Reading r6 = new Reading(22, validDate9, "C"); //  13 Oct 12:12:12 "
-        Reading r7 = new Reading(23, validDate10, "C"); // 30 Oct 23:59:59 "
-        Reading r8 = new Reading(22, validDate11, "C"); // 01 Nov 01:00:00 "
-        Reading r9 = new Reading(23, validDate18, "C"); // 13 Oct 12:12:12 (2019)
-        Reading r10 = new Reading(22, validDate19, "C"); // 13 Oct 23:59:59 "
+        Reading r0 = new Reading(23, validDate3, "C", "TEST"); //  01 Oct 23:59:59 (2018)
+        Reading r1 = new Reading(23, validDate4, "C", "TEST"); //  07 Oct 00:00:00 "
+        Reading r2 = new Reading(24, validDate5, "C", "TEST"); //  08 Oct 23:26:21 "
+        Reading r3 = new Reading(25, validDate6, "C", "TEST"); //  09 Oct 08:21:22 "
+        Reading r4 = new Reading(26, validDate7, "C", "TEST"); //  10 Oct 18:14:03 "
+        Reading r5 = new Reading(23, validDate8, "C", "TEST"); //  23 Oct 12:14:23 "
+        Reading r6 = new Reading(22, validDate9, "C", "TEST"); //  13 Oct 12:12:12 "
+        Reading r7 = new Reading(23, validDate10, "C", "TEST"); // 30 Oct 23:59:59 "
+        Reading r8 = new Reading(22, validDate11, "C", "TEST"); // 01 Nov 01:00:00 "
+        Reading r9 = new Reading(23, validDate18, "C", "TEST"); // 13 Oct 12:12:12 (2019)
+        Reading r10 = new Reading(22, validDate19, "C", "TEST"); // 13 Oct 23:59:59 "
         validReadingList.addReading(r0);
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
@@ -237,17 +237,17 @@ class ReadingListTest {
     void seeIfGetDatesWithReadingsBetweenTwoGivenDatesIfMostRecentReadingsAreIntroducedFirst() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3, "C"); //  01 Oct 23:59:59 (2018)
-        Reading r1 = new Reading(23, validDate4, "C"); //  07 Oct 00:00:00 "
-        Reading r2 = new Reading(24, validDate5, "C"); //  08 Oct 23:26:21 "
-        Reading r3 = new Reading(25, validDate6, "C"); //  09 Oct 08:21:22 "
-        Reading r4 = new Reading(26, validDate7, "C"); //  10 Oct 18:14:03 "
-        Reading r5 = new Reading(23, validDate8, "C"); //  23 Oct 12:14:23 "
-        Reading r6 = new Reading(22, validDate9, "C"); //  13 Oct 12:12:12 "
-        Reading r7 = new Reading(23, validDate10, "C"); // 30 Oct 23:59:59 "
-        Reading r8 = new Reading(22, validDate11, "C"); // 01 Nov 01:00:00 "
-        Reading r9 = new Reading(23, validDate18, "C"); // 13 Oct 12:12:12 (2019)
-        Reading r10 = new Reading(22, validDate19, "C"); // 13 Oct 23:59:59 "
+        Reading r0 = new Reading(23, validDate3, "C", "TEST"); //  01 Oct 23:59:59 (2018)
+        Reading r1 = new Reading(23, validDate4, "C", "TEST"); //  07 Oct 00:00:00 "
+        Reading r2 = new Reading(24, validDate5, "C", "TEST"); //  08 Oct 23:26:21 "
+        Reading r3 = new Reading(25, validDate6, "C", "TEST"); //  09 Oct 08:21:22 "
+        Reading r4 = new Reading(26, validDate7, "C", "TEST"); //  10 Oct 18:14:03 "
+        Reading r5 = new Reading(23, validDate8, "C", "TEST"); //  23 Oct 12:14:23 "
+        Reading r6 = new Reading(22, validDate9, "C", "TEST"); //  13 Oct 12:12:12 "
+        Reading r7 = new Reading(23, validDate10, "C", "TEST"); // 30 Oct 23:59:59 "
+        Reading r8 = new Reading(22, validDate11, "C", "TEST"); // 01 Nov 01:00:00 "
+        Reading r9 = new Reading(23, validDate18, "C", "TEST"); // 13 Oct 12:12:12 (2019)
+        Reading r10 = new Reading(22, validDate19, "C", "TEST"); // 13 Oct 23:59:59 "
         validReadingList.addReading(r10);
         validReadingList.addReading(r9);
         validReadingList.addReading(r8);
@@ -318,8 +318,8 @@ class ReadingListTest {
         // Arrange
 
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
-        Reading earlierReading = new Reading(15, validDate12, "C");
-        Reading laterReading = new Reading(30, testDate, "C");
+        Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
+        Reading laterReading = new Reading(30, testDate, "C", "TEST");
         validReadingList.addReading(earlierReading);
         validReadingList.addReading(laterReading);
         double expectedResult = 30.0;
@@ -347,8 +347,8 @@ class ReadingListTest {
 
         Date testDate = new GregorianCalendar(2015, Calendar.NOVEMBER, 2, 5, 0,
                 0).getTime();
-        Reading earlierReading = new Reading(15, validDate12, "C");
-        Reading laterReading = new Reading(30, testDate, "C");
+        Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
+        Reading laterReading = new Reading(30, testDate, "C", "TEST");
         validReadingList.addReading(earlierReading);
         validReadingList.addReading(laterReading);
         double expectedResult = 15.0;
@@ -367,15 +367,15 @@ class ReadingListTest {
     void seeIfGetsAverageBetweenTwoDates() {
         // Arrange
 
-        Reading r0 = new Reading(23, validDate3, "C");
-        Reading r1 = new Reading(23, validDate2, "C");
-        Reading r2 = new Reading(24, validDate5, "C");
-        Reading r3 = new Reading(25, validDate6, "C");
-        Reading r4 = new Reading(26, validDate7, "C");
-        Reading r5 = new Reading(23, validDate8, "C");
-        Reading r6 = new Reading(22, validDate9, "C");
-        Reading r7 = new Reading(23, validDate10, "C");
-        Reading r8 = new Reading(22, validDate11, "C");
+        Reading r0 = new Reading(23, validDate3, "C", "TEST");
+        Reading r1 = new Reading(23, validDate2, "C", "TEST");
+        Reading r2 = new Reading(24, validDate5, "C", "TEST");
+        Reading r3 = new Reading(25, validDate6, "C", "TEST");
+        Reading r4 = new Reading(26, validDate7, "C", "TEST");
+        Reading r5 = new Reading(23, validDate8, "C", "TEST");
+        Reading r6 = new Reading(22, validDate9, "C", "TEST");
+        Reading r7 = new Reading(23, validDate10, "C", "TEST");
+        Reading r8 = new Reading(22, validDate11, "C", "TEST");
         validReadingList.addReading(r0);
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
@@ -419,7 +419,7 @@ class ReadingListTest {
     void seeIfReadingListIsNotEmpty() {
         // Arrange
 
-        Reading testReading = new Reading(31, validDate3, "C");
+        Reading testReading = new Reading(31, validDate3, "C", "TEST");
         validReadingList.addReading(testReading);
 
         // Act
@@ -435,10 +435,10 @@ class ReadingListTest {
     void seeIfGetsTotalReadings() {
         // Arrange
 
-        Reading reading = new Reading(20, validDate15, "C");
-        Reading reading2 = new Reading(20, validDate3, "C");
-        Reading reading3 = new Reading(20, validDate7, "C");
-        Reading reading4 = new Reading(20, validDate14, "C");
+        Reading reading = new Reading(20, validDate15, "C", "TEST");
+        Reading reading2 = new Reading(20, validDate3, "C", "TEST");
+        Reading reading3 = new Reading(20, validDate7, "C", "TEST");
+        Reading reading4 = new Reading(20, validDate14, "C", "TEST");
         validReadingList.addReading(reading);
         validReadingList.addReading(reading2);
         validReadingList.addReading(reading3);
@@ -478,9 +478,9 @@ class ReadingListTest {
         ReadingList readingList3 = new ReadingList();
         ReadingList readingList4 = new ReadingList();
         ReadingList readingList5 = new ReadingList();
-        Reading secondMostRecentReading = new Reading(22, validDate14, "C");
-        Reading mostRecentReading = new Reading(25, validDate15, "C");
-        Reading oldestReading = new Reading(27, validDate3, "C");
+        Reading secondMostRecentReading = new Reading(22, validDate14, "C", "TEST");
+        Reading mostRecentReading = new Reading(25, validDate15, "C", "TEST");
+        Reading oldestReading = new Reading(27, validDate3, "C", "TEST");
         validReadingList.addReading(oldestReading);
         validReadingList.addReading(secondMostRecentReading);
         validReadingList.addReading(mostRecentReading);
@@ -493,7 +493,7 @@ class ReadingListTest {
         readingList4.addReading(oldestReading);
         readingList4.addReading(secondMostRecentReading);
         readingList4.addReading(oldestReading);
-        Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
+        Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "TEST");
 
         // Act
 
@@ -518,8 +518,8 @@ class ReadingListTest {
 
         ReadingList readingList2 = new ReadingList();
         ReadingList readingList3 = new ReadingList();
-        Reading reading1 = new Reading(22, validDate14, "C");
-        Reading reading2 = new Reading(25, validDate15, "C");
+        Reading reading1 = new Reading(22, validDate14, "C", "TEST");
+        Reading reading2 = new Reading(25, validDate15, "C", "TEST");
         validReadingList.addReading(reading1);
         validReadingList.addReading(reading2);
         readingList2.addReading(reading1);
@@ -569,7 +569,7 @@ class ReadingListTest {
     void seeIfReadingDateWithinTwoDates() {
         //Arrange
 
-        Reading testReading = new Reading(22, validDate14, "C");
+        Reading testReading = new Reading(22, validDate14, "C", "TEST");
         validReadingList.addReading(testReading);
 
         // Act
@@ -586,7 +586,7 @@ class ReadingListTest {
     void seeIfReadingDateWithinTwoDatesFalse() {
         //Arrange
 
-        Reading testReading = new Reading(22, validDate14, "C");
+        Reading testReading = new Reading(22, validDate14, "C", "TEST");
         validReadingList.addReading(testReading);
 
         // Act
@@ -623,14 +623,14 @@ class ReadingListTest {
         Reading[] expectedResult3 = new Reading[2];
 
         ReadingList emptyList = new ReadingList();
-        validReadingList.addReading(new Reading(20, validDate1, "C"));
+        validReadingList.addReading(new Reading(20, validDate1, "C", "TEST"));
         ReadingList validReadingList2 = new ReadingList();
-        validReadingList2.addReading(new Reading(20, validDate1, "C"));
-        validReadingList2.addReading(new Reading(25, validDate2, "C"));
+        validReadingList2.addReading(new Reading(20, validDate1, "C", "TEST"));
+        validReadingList2.addReading(new Reading(25, validDate2, "C", "TEST"));
 
-        expectedResult2[0] = new Reading(20, validDate1, "C");
-        expectedResult3[0] = new Reading(20, validDate1, "C");
-        expectedResult3[1] = new Reading(25, validDate2, "C");
+        expectedResult2[0] = new Reading(20, validDate1, "C", "TEST");
+        expectedResult3[0] = new Reading(20, validDate1, "C", "TEST");
+        expectedResult3[1] = new Reading(25, validDate2, "C", "TEST");
 
         //Act
 
@@ -652,8 +652,8 @@ class ReadingListTest {
         ReadingList expectedResult1 = new ReadingList();
         ReadingList expectedResult2 = new ReadingList();
 
-        Reading reading1 = new Reading(20, validDate1, "C");
-        Reading reading2 = new Reading(22, validDate2, "C");
+        Reading reading1 = new Reading(20, validDate1, "C", "TEST");
+        Reading reading2 = new Reading(22, validDate2, "C", "TEST");
 
         ReadingList emptyList = new ReadingList();
         validReadingList.addReading(reading1);
@@ -688,7 +688,7 @@ class ReadingListTest {
     void hashCodeDummyTest() {
         //Arrange
 
-        Reading reading1 = new Reading(22, validDate14, "C");
+        Reading reading1 = new Reading(22, validDate14, "C", "TEST");
         validReadingList.addReading(reading1);
 
         // Act
@@ -706,10 +706,10 @@ class ReadingListTest {
         ReadingList readingList = new ReadingList();
         ReadingList readingList2 = new ReadingList();
         ReadingList readingList3 = new ReadingList();
-        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime(), "C");
-        Reading reading2 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime(), "C");
-        Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime(), "C");
-        Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C");
+        Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime(), "C", "TEST");
+        Reading reading2 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime(), "C", "TEST");
+        Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime(), "C", "TEST");
+        Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C", "TEST");
         readingList.addReading(reading1);
         readingList.addReading(reading2);
         readingList2.addReading(reading2);
@@ -732,12 +732,12 @@ class ReadingListTest {
         //Arrange
         validReadingList = new ReadingList();
         ReadingList expectedResult = new ReadingList();
-        Reading r1 = new Reading(22, validDate2, "C");
-        Reading r2 = new Reading(24, validDate14, "C");
-        Reading r3 = new Reading(22, validDate2, "C");
-        Reading r4 = new Reading(21, validDate15, "C");
-        Reading r5 = new Reading(22, validDate12, "C");
-        Reading r6 = new Reading(29, validDate2, "C");
+        Reading r1 = new Reading(22, validDate2, "C", "TEST");
+        Reading r2 = new Reading(24, validDate14, "C", "TEST");
+        Reading r3 = new Reading(22, validDate2, "C", "TEST");
+        Reading r4 = new Reading(21, validDate15, "C", "TEST");
+        Reading r5 = new Reading(22, validDate12, "C", "TEST");
+        Reading r6 = new Reading(29, validDate2, "C", "TEST");
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
         validReadingList.addReading(r3);
@@ -759,10 +759,10 @@ class ReadingListTest {
         ReadingList readingList = new ReadingList();
         ReadingList readingList2 = new ReadingList();
         ReadingList readingList3 = new ReadingList();
-        Reading reading1 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime(), "C");
-        Reading reading2 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C");
-        Reading reading4 = new Reading(21, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime(), "C");
+        Reading reading1 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime(), "C", "TEST");
+        Reading reading2 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime(), "C", "TEST");
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C", "TEST");
+        Reading reading4 = new Reading(21, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime(), "C", "TEST");
         readingList.addReading(reading1);
         readingList.addReading(reading4);
         readingList.addReading(reading2);
@@ -787,12 +787,12 @@ class ReadingListTest {
     void seeIfWeGetReadingWithSpecificDateWorks() {
         //Arrange
         validReadingList = new ReadingList();
-        Reading r1 = new Reading(22, validDate5, "C");
-        Reading r2 = new Reading(24, validDate14, "C");
-        Reading r3 = new Reading(22, validDate2, "C");
-        Reading r4 = new Reading(21, validDate15, "C");
-        Reading r5 = new Reading(22, validDate12, "C");
-        Reading r6 = new Reading(29, validDate2, "C");
+        Reading r1 = new Reading(22, validDate5, "C", "TEST");
+        Reading r2 = new Reading(24, validDate14, "C", "TEST");
+        Reading r3 = new Reading(22, validDate2, "C", "TEST");
+        Reading r4 = new Reading(21, validDate15, "C", "TEST");
+        Reading r5 = new Reading(22, validDate12, "C", "TEST");
+        Reading r6 = new Reading(29, validDate2, "C", "TEST");
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
         validReadingList.addReading(r3);
@@ -811,15 +811,15 @@ class ReadingListTest {
     void seeIfWeGetListOfMaxValuesForEachDayWorks() {
         //Arrange
         validReadingList = new ReadingList();
-        Reading r1 = new Reading(22, validDate5, "C");
-        Reading r2 = new Reading(24, validDate14, "C");
-        Reading r3 = new Reading(22, validDate2, "C");
-        Reading r4 = new Reading(21, validDate15, "C");
-        Reading r5 = new Reading(22, validDate12, "C");
-        Reading r6 = new Reading(23, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 0).getTime(), "C");
-        Reading r7 = new Reading(26, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 10, 0).getTime(), "C");
-        Reading r8 = new Reading(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 3, 23, 30).getTime(), "C");
-        Reading r10 = new Reading(20, validDate12, "C");
+        Reading r1 = new Reading(22, validDate5, "C", "TEST");
+        Reading r2 = new Reading(24, validDate14, "C", "TEST");
+        Reading r3 = new Reading(22, validDate2, "C", "TEST");
+        Reading r4 = new Reading(21, validDate15, "C", "TEST");
+        Reading r5 = new Reading(22, validDate12, "C", "TEST");
+        Reading r6 = new Reading(23, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 0).getTime(), "C", "TEST");
+        Reading r7 = new Reading(26, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 10, 0).getTime(), "C", "TEST");
+        Reading r8 = new Reading(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 3, 23, 30).getTime(), "C", "TEST");
+        Reading r10 = new Reading(20, validDate12, "C", "TEST");
         validReadingList.addReading(r1);
         validReadingList.addReading(r2);
         validReadingList.addReading(r3);
@@ -846,26 +846,26 @@ class ReadingListTest {
         // Arrange
 
         validReadingList = new ReadingList();
-        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
-        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
-        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
-        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
-        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
-        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
-        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
-        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
-        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
-        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
-        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
-        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
-        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
-        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
-        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
-        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
-        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
-        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
-        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C", "TEST");
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C", "TEST");
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C", "TEST");
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C", "TEST");
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C", "TEST");
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C", "TEST");
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C", "TEST");
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C", "TEST");
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C", "TEST");
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C", "TEST");
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C", "TEST");
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C", "TEST");
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C", "TEST");
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C", "TEST");
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
         validReadingList.addReading(reading1);
         validReadingList.addReading(reading2);
         validReadingList.addReading(reading3);
@@ -900,26 +900,26 @@ class ReadingListTest {
     void seeIfWeGetReadingListBetweenDates() {
         //Arrange
         validReadingList = new ReadingList();
-        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
-        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
-        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
-        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
-        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
-        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
-        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
-        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
-        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
-        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
-        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
-        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
-        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
-        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
-        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
-        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
-        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
-        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
-        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
-        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
+        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
+        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
+        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
+        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C", "TEST");
+        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C", "TEST");
+        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C", "TEST");
+        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C", "TEST");
+        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C", "TEST");
+        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C", "TEST");
+        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C", "TEST");
+        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C", "TEST");
+        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C", "TEST");
+        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C", "TEST");
+        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C", "TEST");
+        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C", "TEST");
+        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C", "TEST");
+        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C", "TEST");
+        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
+        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
+        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
         validReadingList.addReading(reading1);
         validReadingList.addReading(reading2);
         validReadingList.addReading(reading3);
@@ -957,10 +957,10 @@ class ReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDates() {
-        validReadingList.addReading(new Reading(22, validDate9, "C"));
-        validReadingList.addReading(new Reading(30, validDate16, "C"));
-        validReadingList.addReading(new Reading(5, validDate18, "C"));
-        validReadingList.addReading(new Reading(50, validDate19, "C"));
+        validReadingList.addReading(new Reading(22, validDate9, "C", "TEST"));
+        validReadingList.addReading(new Reading(30, validDate16, "C", "TEST"));
+        validReadingList.addReading(new Reading(5, validDate18, "C", "TEST"));
+        validReadingList.addReading(new Reading(50, validDate19, "C", "TEST"));
         Date expectedResult = validDate18;
 
         Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
@@ -970,10 +970,10 @@ class ReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChange() {
-        validReadingList.addReading(new Reading(22, validDate9, "C"));
-        validReadingList.addReading(new Reading(22, validDate16, "C"));
-        validReadingList.addReading(new Reading(22, validDate18, "C"));
-        validReadingList.addReading(new Reading(22, validDate19, "C"));
+        validReadingList.addReading(new Reading(22, validDate9, "C", "TEST"));
+        validReadingList.addReading(new Reading(22, validDate16, "C", "TEST"));
+        validReadingList.addReading(new Reading(22, validDate18, "C", "TEST"));
+        validReadingList.addReading(new Reading(22, validDate19, "C", "TEST"));
         Date expectedResult = validDate18;
 
         Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
@@ -983,10 +983,10 @@ class ReadingListTest {
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChangeInverted() {
-        validReadingList.addReading(new Reading(22, validDate18, "C"));
-        validReadingList.addReading(new Reading(22, validDate19, "C"));
-        validReadingList.addReading(new Reading(22, validDate9, "C"));
-        validReadingList.addReading(new Reading(22, validDate16, "C"));
+        validReadingList.addReading(new Reading(22, validDate18, "C", "TEST"));
+        validReadingList.addReading(new Reading(22, validDate19, "C", "TEST"));
+        validReadingList.addReading(new Reading(22, validDate9, "C", "TEST"));
+        validReadingList.addReading(new Reading(22, validDate16, "C", "TEST"));
 
         Date expectedResult = validDate18;
 
@@ -1058,7 +1058,7 @@ class ReadingListTest {
         ReadingList emptyList = new ReadingList();
         Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
         Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
-        Reading reading = new Reading(20, new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), "C");
+        Reading reading = new Reading(20, new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), "C", "TEST");
         emptyList.addReading(reading);
 
         //Act
@@ -1072,8 +1072,8 @@ class ReadingListTest {
     void seeIfContainsWorks() {
         //Arrange
 
-        Reading validReading1 = new Reading(20.2, validDate1, "C");
-        Reading validReading2 = new Reading(20.2, validDate1, "C");
+        Reading validReading1 = new Reading(20.2, validDate1, "C", "TEST");
+        Reading validReading2 = new Reading(20.2, validDate1, "C", "TEST");
 
         //Act
 
@@ -1097,8 +1097,8 @@ class ReadingListTest {
     void seeIfAddReadingWorks() {
         //Arrange
 
-        Reading validReading1 = new Reading(20.2, validDate1, "C");
-        Reading validReading2 = new Reading(20.2, validDate1, "C");
+        Reading validReading1 = new Reading(20.2, validDate1, "C", "TEST");
+        Reading validReading2 = new Reading(20.2, validDate1, "C", "TEST");
 
         //Act
 
@@ -1116,8 +1116,8 @@ class ReadingListTest {
         // Arrange
 
         Date expectedResult = new GregorianCalendar(2018, Calendar.SEPTEMBER, 3).getTime();
-        Reading firstReading = new Reading(15, validDate3, "C");
-        Reading secondReading = new Reading(29, validDate2, "C");
+        Reading firstReading = new Reading(15, validDate3, "C", "TEST");
+        Reading secondReading = new Reading(29, validDate2, "C", "TEST");
         validReadingList.addReading(firstReading);
         validReadingList.addReading(secondReading);
 
@@ -1132,14 +1132,14 @@ class ReadingListTest {
     }
 
     @Test
-    void seeIfGetHottestDayInGivenPeriodWorksNoReadings(){
+    void seeIfGetHottestDayInGivenPeriodWorksNoReadings() {
         // Arrange
 
-        Reading outOfBoundsReading = new Reading(1, validDate1, "C");
+        Reading outOfBoundsReading = new Reading(1, validDate1, "C", "TEST");
         validReadingList.addReading(outOfBoundsReading);
 
         // Assert
 
-       assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12,validDate2));
+        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12, validDate2));
     }
 }

@@ -55,7 +55,7 @@ public class ReadingList {
      * @param index the index of the Reading we want to get value from
      * @return returns value reading that corresponds to index.
      */
-     double getValueReading(int index) {
+    double getValueReading(int index) {
         if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -73,7 +73,7 @@ public class ReadingList {
      * @param index the index of the Reading we want to get date from
      * @return returns date reading that corresponds to index.
      */
-     Date getValueDate(int index) {
+    Date getValueDate(int index) {
         if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -108,7 +108,7 @@ public class ReadingList {
      * @author Carina (US600 e US605)
      **/
     Reading getMostRecentReading() {
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
+        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
         if (isEmpty()) {
             return error;
         }
@@ -131,7 +131,7 @@ public class ReadingList {
      * @return most recent reading date
      **/
 
-     Date getMostRecentReadingDate() {
+    Date getMostRecentReadingDate() {
         return getMostRecentReading().getDate();
     }
 
@@ -142,7 +142,7 @@ public class ReadingList {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-     double getMostRecentValue() {
+    double getMostRecentValue() {
         if (this.readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
@@ -156,7 +156,7 @@ public class ReadingList {
      * @return sum
      * @author André (US620)
      */
-     double getValueReadingsInDay(Date givenDate) {
+    double getValueReadingsInDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
@@ -326,7 +326,7 @@ public class ReadingList {
      *
      * @return returns the average of all values contained within that List. If List is empty it will return 0.
      */
-     double getAvgFromList(List<Double> valueList) {
+    double getAvgFromList(List<Double> valueList) {
         if (valueList.isEmpty()) {
             return 0;
         }
@@ -344,7 +344,7 @@ public class ReadingList {
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
      * @author Daniela (US633)
      */
-     Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+    Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
 
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
@@ -376,7 +376,7 @@ public class ReadingList {
      * @return highest amplitude value
      * @author Daniela (US633)
      */
-     double getAmplitudeValueFromDate(Date date) {
+    double getAmplitudeValueFromDate(Date date) {
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
@@ -389,7 +389,7 @@ public class ReadingList {
      * @param readingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      **/
-     ReadingList appendListNoDuplicates(ReadingList readingList) {
+    ReadingList appendListNoDuplicates(ReadingList readingList) {
         Reading[] readingsArray = readingList.getElementsAsArray();
         for (Reading r : readingsArray) {
             this.addReading(r);
@@ -596,7 +596,7 @@ public class ReadingList {
      *
      * @return a double value that represents the minimum value in a AreaReadingList.
      */
-   double getMinValueInReadingList() {
+    double getMinValueInReadingList() {
         double result = this.readings.get(0).getValue();
         for (Reading r : this.readings) {
             result = Math.min(r.getValue(), result);

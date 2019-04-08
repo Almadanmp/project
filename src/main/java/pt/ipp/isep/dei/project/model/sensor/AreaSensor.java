@@ -234,27 +234,6 @@ public class AreaSensor {
     }
 
     /**
-     * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
-     * to the date when the sensor was activated.
-     *
-     * @param value is the value readSensors on the reading.
-     * @param date  is the readSensors date of the reading.
-     * @return returns true if the reading was successfully added.
-     * @author André
-     */
-    public boolean addReading(Date date, Double value, String unit) {
-        if (this.active) {
-            Date startingDate = this.getDateStartedFunctioning();
-            if (date.after(startingDate) || date.equals(startingDate)) {
-                Reading reading = new Reading(value, date, unit);
-                return this.addReading(reading);
-            }
-        }
-        return false;
-    }
-
-
-    /**
      * Method to restrain input name so they cant be null or empty.
      *
      * @param name name inserted by user

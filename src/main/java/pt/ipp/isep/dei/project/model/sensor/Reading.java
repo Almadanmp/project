@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -22,10 +25,11 @@ public class Reading {
      * @param value value received
      * @param date  date received
      */
-    public Reading(double value, Date date, String unit) {
+    public Reading(double value, Date date, String unit, String sensorId) {
         setValue(value);
         setDate(date);
         setUnit(unit);
+        this.sensorId = sensorId;
     }
 
     protected Reading() {

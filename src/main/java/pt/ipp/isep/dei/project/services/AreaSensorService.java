@@ -2,9 +2,9 @@ package pt.ipp.isep.dei.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.services.units.Unit;
 
@@ -41,8 +41,7 @@ public class AreaSensorService {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
-            Reading reading = new Reading(readingValue, readingDate, unit);
-           // reading.setSensorId(sensorID);
+            Reading reading = new Reading(readingValue, readingDate, unit, areaSensor.getId());
             ReadingList sensorReadingList = areaSensor.getReadingList();
             if (sensorReadingList.contains(reading)) {
                 return false;
@@ -69,7 +68,7 @@ public class AreaSensorService {
     public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, Unit unit, Logger logger) {
         try {
             AreaSensor areaSensor = getAreaSensorFromRepository(sensorID);
-            Reading reading = new Reading(readingValue, readingDate, "Should receive the variable unit");  //TODO Change the Reading parameter unit from STRING to UNIT
+            Reading reading = new Reading(readingValue, readingDate, "Should receive the variable unit", areaSensor.getId());  //TODO Change the Reading parameter unit from STRING to UNIT
             if (addReadingToSensorInRepository(reading, areaSensor)) {
                 return true;
             }

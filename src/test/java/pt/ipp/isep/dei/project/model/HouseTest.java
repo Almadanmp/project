@@ -40,8 +40,8 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
-        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
@@ -118,8 +118,8 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
@@ -140,8 +140,8 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House testHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
@@ -173,8 +173,8 @@ class HouseTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House testHouse = new House("ISEP1", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
@@ -194,7 +194,7 @@ class HouseTest {
     void seeIfEqualsWorksNotInstanceOf() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom","Single Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10);
 
         // Act
 
@@ -209,7 +209,7 @@ class HouseTest {
     void seeIfAddRoomWorks() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom","Single Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10);
 
         // Act
 
@@ -224,7 +224,7 @@ class HouseTest {
     void seeIfAddRoomWorksDuplicate() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom","Double Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 30, 10);
         validHouse.addRoom(testRoom);
 
         // Act
@@ -306,7 +306,7 @@ class HouseTest {
     void seeIfGetNominalPowerWorks() {
         //Arrange
 
-        Room testRoom = new Room("Kitchen","Ground Floor Kitchen", 0, 12, 30, 10);
+        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 12, 30, 10);
         Device testDevice = new WaterHeater(new WaterHeaterSpec());
         testDevice.setNominalPower(30.0);
         testRoom.addDevice(testDevice);
@@ -352,7 +352,7 @@ class HouseTest {
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 15D);
-        Room testRoom = new Room("Office","2nd Floor Office", 2, 30, 30, 10);
+        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10);
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         double expectedResult = 0.4;
@@ -386,7 +386,7 @@ class HouseTest {
 
         Device waterHeater = new WaterHeater(new WaterHeaterSpec());
         waterHeater.setName("WaterHeaterOne");
-        Room testRoom = new Room("Kitchen","Ground Floor Kitchen", 0, 15, 15, 10);
+        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10);
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         DeviceList expectedResult = new DeviceList();
@@ -408,8 +408,8 @@ class HouseTest {
         Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
         Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
         ReadingList readingList = new ReadingList();
-        Reading firstReading = new Reading(15, laterDate,"C");
-        Reading secondReading = new Reading(12, earlierDate,"C");
+        Reading firstReading = new Reading(15, laterDate, "C", firstValidAreaSensor.getId());
+        Reading secondReading = new Reading(12, earlierDate, "C", firstValidAreaSensor.getId());
         readingList.addReading(firstReading);
         readingList.addReading(secondReading);
         firstValidAreaSensor.setReadingList(readingList);
@@ -437,15 +437,15 @@ class HouseTest {
             e.printStackTrace();
         }
         ReadingList readingList = new ReadingList();
-        Reading firstReading = new Reading(15, laterDate, "C");
-        Reading secondReading = new Reading(12, earlierDate,"C");
+        Reading firstReading = new Reading(15, laterDate, "C", firstValidAreaSensor.getId());
+        Reading secondReading = new Reading(12, earlierDate, "C", firstValidAreaSensor.getId());
         readingList.addReading(firstReading);
         readingList.addReading(secondReading);
         firstValidAreaSensor.setReadingList(readingList);
 
         AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        secondAreaSensor.addReading(new Reading(15, earlierDate,"C"));
+        secondAreaSensor.addReading(new Reading(15, earlierDate, "C", firstValidAreaSensor.getId()));
         validArea.addSensor(secondAreaSensor);
 
         // Act
@@ -526,7 +526,7 @@ class HouseTest {
     void seeIfBuildDeviceTypeStringWorksEmptyList() {
         // Arrange
 
-        House testHouse = new House("Mock", new Address("Mock", "Mock","Mock", "Mock","Mock"),
+        House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock", "Mock", "Mock"),
                 new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
         testHouse.setMotherArea(new GeographicArea("Mock", new AreaType("Mock"),
@@ -615,11 +615,11 @@ class HouseTest {
     void seeIfCreateRoomWorks() {
         // Arrange
 
-        Room expectedResult = new Room("Kitchen","1st Floor Kitchen", 1, 1, 1, 1);
+        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1);
 
         // Act
 
-        Room actualResult = validHouse.createRoom("Kitchen","1st Floor Kitchen", 1, 1, 1,
+        Room actualResult = validHouse.createRoom("Kitchen", "1st Floor Kitchen", 1, 1, 1,
                 1);
 
         // Assert
@@ -631,7 +631,7 @@ class HouseTest {
     void seeIfGetRoomListWorks() {
         // Arrange
 
-        Room testRoom = new Room("Office","1st Floor Office", 1, 20, 15, 10);
+        Room testRoom = new Room("Office", "1st Floor Office", 1, 20, 15, 10);
         RoomList roomList = new RoomList();
         roomList.add(testRoom);
         RoomList expectedResult = new RoomList();
@@ -704,8 +704,8 @@ class HouseTest {
     void seeIfGetRoomByIndexWorks() {
         //Arrange
 
-        Room room1 = new Room("room1","Single Bedroom", 1, 20, 15, 10);
-        Room room2 = new Room("room2","Double Bedroom", 2, 20, 15, 10);
+        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10);
+        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10);
         validHouse.addRoom(room1);
         validHouse.addRoom(room2);
 
@@ -785,7 +785,7 @@ class HouseTest {
         double expectedResult = 310;
         Device device = new Fridge(new FridgeSpec());
         device.setNominalPower(31);
-        Room tempRoom = new Room("tempRoom","Sensor's Room", 1, 20, 20, 10);
+        Room tempRoom = new Room("tempRoom", "Sensor's Room", 1, 20, 20, 10);
         validHouse.addRoom(tempRoom);
         tempRoom.addDevice(device);
 
@@ -833,7 +833,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addRoom(new Room("room","Single Bedroom", 2, 20, 20, 3));
+        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3));
 
         //Act
 
@@ -856,7 +856,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addRoom(new Room("room","Single Bedroom", 2, 20, 20, 3));
+        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3));
 
         //Act
 
@@ -923,10 +923,10 @@ class HouseTest {
     @Test
     void seeIfSetGetAddressWorks() {
         //Act
-        validHouse.setAddress("Rua do ISEP","431", "4400", "Campus","Portugal");
+        validHouse.setAddress("Rua do ISEP", "431", "4400", "Campus", "Portugal");
 
         //Assert
-        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431","4400", "Campus","Portugal"));
+        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431", "4400", "Campus", "Portugal"));
     }
 
     @Test

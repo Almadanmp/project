@@ -12,10 +12,12 @@ public final class ReadingMapper {
     /**
      * Don't let anyone instantiate this class.
      */
-    private ReadingMapper(){}
+    private ReadingMapper() {
+    }
 
     /**
      * This is the method that converts Reading DTOs into model objects with the same data.
+     *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
@@ -25,14 +27,16 @@ public final class ReadingMapper {
         double objectValue = dtoToConvert.getValue();
         Date objectDate = dtoToConvert.getDate();
         String objectUnit = dtoToConvert.getUnit();
+        String objectSensorId = dtoToConvert.getSensorId();
 
         // Create, update and return the converted object
 
-        return new Reading(objectValue, objectDate, objectUnit);
+        return new Reading(objectValue, objectDate, objectUnit, objectSensorId);
     }
 
     /**
      * This is the method that converts readings into DTOs with the same data.
+     *
      * @param objectToConvert is the model object we want to convert.
      * @return is the converted model object.
      */
