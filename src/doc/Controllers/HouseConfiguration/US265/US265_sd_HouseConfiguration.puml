@@ -43,29 +43,27 @@ HouseConfigurationUI -> HouseConfigurationController: read(filePath)
 HouseConfigurationController -> "Reader": read(filePath)
 "Reader" -> "House": add(List<Reading>
 activate House
-"House" -> "RoomList": getRoomById(Sensor.getRoomID)
-activate RoomList
-loop
-"RoomList" -> "Sensor": getSensorById (Sensor)
+"House" -> "Sensor": getSensorById (Sensor)
 activate Sensor
+loop
 alt if a sensor with that ID exists
 "Sensor" -> "ReadingList": add (ReadingList)
 activate ReadingList
-else if a sensor with that ID doesn't exist or the Sensor has no Room, or outside the valid sensor operation period
+else if a sensor with that ID doesn't exist or the Sensor has no Room, \n or outside the valid sensor operation period
 "ReadingList" -> "Log": add(Log)
 activate Log
 "Sensor" -> "ReadingList": continue
 deactivate Log
 end
-"ReadingList" --> "Sensor": return (int) sensorsImported
+"ReadingList" --> "Sensor": return (int) importedReadingLists
 deactivate ReadingList
-"Sensor" --> "House": return (int) sensorsImported
+"Sensor" --> "House": return (int) importedReadingLists
 deactivate Sensor
-"House" --> "Reader": return (int) sensorsImported
+"House" --> "Reader": return (int) importedReadingLists
 deactivate House
-"Reader" --> "HouseConfigurationController": return (int) sensorsImported
+"Reader" --> "HouseConfigurationController": return (int) importedReadingLists
 deactivate Reader
-HouseConfigurationController --> HouseConfigurationUI: return (int) sensorsImported
+HouseConfigurationController --> HouseConfigurationUI: return (int) importedReadingLists
 deactivate HouseConfigurationController
 HouseConfigurationUI -> Administrator: display feedback message
 deactivate HouseConfigurationUI
