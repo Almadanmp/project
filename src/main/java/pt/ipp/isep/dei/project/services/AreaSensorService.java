@@ -42,6 +42,7 @@ public class AreaSensorService {
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
             AreaReading areaReading = new AreaReading(readingValue, readingDate, unit);
+           // areaReading.setSensorId(sensorID);
             AreaReadingList sensorAreaReadingList = areaSensor.getAreaReadingList();
             if (sensorAreaReadingList.contains(areaReading)) {
                 return false;

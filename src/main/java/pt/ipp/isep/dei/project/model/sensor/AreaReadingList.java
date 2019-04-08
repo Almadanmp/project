@@ -2,22 +2,17 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import pt.ipp.isep.dei.project.services.units.Celsius;
 
-import javax.persistence.*;
+import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
  * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
-@Entity
+@Service
 public class AreaReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id; // Used as primary key in repository tables.
-
-    @OneToMany(mappedBy = "areaReadingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AreaReading> areaReadings;
 
     /**
@@ -61,7 +56,7 @@ public class AreaReadingList {
      * @param index the index of the Reading we want to get value from
      * @return returns value reading that corresponds to index.
      */
-    public double getValueReading(int index) {
+     double getValueReading(int index) {
         if (this.areaReadings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -79,7 +74,7 @@ public class AreaReadingList {
      * @param index the index of the Reading we want to get date from
      * @return returns date reading that corresponds to index.
      */
-   public Date getValueDate(int index) {
+     Date getValueDate(int index) {
         if (this.areaReadings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -113,7 +108,7 @@ public class AreaReadingList {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    public AreaReading getMostRecentReading() {
+    AreaReading getMostRecentReading() {
         AreaReading error = new AreaReading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), new Celsius());
         if (isEmpty()) {
             return error;
@@ -137,7 +132,7 @@ public class AreaReadingList {
      * @return most recent reading date
      **/
 
-    public Date getMostRecentReadingDate() {
+     Date getMostRecentReadingDate() {
         return getMostRecentReading().getDate();
     }
 
@@ -148,7 +143,7 @@ public class AreaReadingList {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-    public double getMostRecentValue() {
+     double getMostRecentValue() {
         if (this.areaReadings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
@@ -162,7 +157,7 @@ public class AreaReadingList {
      * @return sum
      * @author André (US620)
      */
-    public double getValueReadingsInDay(Date givenDate) {
+     double getValueReadingsInDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
@@ -180,7 +175,7 @@ public class AreaReadingList {
      *
      * @return returns the sum of all values contained within that List
      */
-    public double getListSum(List<Double> valueList) {
+    double getListSum(List<Double> valueList) {
         double sum = 0;
         for (Double aValueList : valueList) {
             sum = sum + aValueList;
@@ -195,7 +190,7 @@ public class AreaReadingList {
      * @return date with 1st second of given day
      * @author Daniela - US623
      */
-   public Date getFirstSecondOfDay(Date day) {
+    Date getFirstSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
@@ -209,7 +204,7 @@ public class AreaReadingList {
      * @return date with last second of given day
      * @author Daniela (US623)
      */
-   public Date getLastSecondOfDay(Date day) {
+    Date getLastSecondOfDay(Date day) {
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(day);
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
@@ -225,7 +220,7 @@ public class AreaReadingList {
      * @return list of dates of readings between the given dates
      * @author Daniela - US623 & US633
      */
-    public List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
+    List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
         List<Date> daysWithReadings = new ArrayList<>();
         List<Date> daysProcessed = new ArrayList<>();
 
@@ -256,7 +251,7 @@ public class AreaReadingList {
      * @return true if reading date is between dates, false if it isn't
      * @author Daniela - US623
      */
-    public boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
+    boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
         return (readingDate.after(startDate) || readingDate.equals(startDate)) &&
                 (readingDate.before(endDate) || readingDate.equals(endDate));
     }
@@ -272,7 +267,7 @@ public class AreaReadingList {
      * @return the average of all values in the reading list between the two given dates
      * @author Daniela (US623)
      */
-    public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
+    double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         AreaReadingList areaReadingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
         if (areaReadingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
@@ -295,7 +290,7 @@ public class AreaReadingList {
      * @return returns a list with every value of readings that was recorded on that particular day.
      * @author Daniela - US623
      */
-    public List<Double> getValuesOfSpecificDayReadings(Date day) {
+    List<Double> getValuesOfSpecificDayReadings(Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < size(); i++) {
             if (compareDayMonthAndYearBetweenDates(this.getValueDate(i), day)) {
@@ -332,7 +327,7 @@ public class AreaReadingList {
      *
      * @return returns the average of all values contained within that List. If List is empty it will return 0.
      */
-    public double getAvgFromList(List<Double> valueList) {
+     double getAvgFromList(List<Double> valueList) {
         if (valueList.isEmpty()) {
             return 0;
         }
@@ -350,7 +345,7 @@ public class AreaReadingList {
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
      * @author Daniela (US633)
      */
-    public Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+     Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
 
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
@@ -382,7 +377,7 @@ public class AreaReadingList {
      * @return highest amplitude value
      * @author Daniela (US633)
      */
-    public double getAmplitudeValueFromDate(Date date) {
+     double getAmplitudeValueFromDate(Date date) {
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
@@ -395,7 +390,7 @@ public class AreaReadingList {
      * @param areaReadingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      **/
-    public AreaReadingList appendListNoDuplicates(AreaReadingList areaReadingList) {
+     AreaReadingList appendListNoDuplicates(AreaReadingList areaReadingList) {
         AreaReading[] readingsArray = areaReadingList.getElementsAsArray();
         for (AreaReading r : readingsArray) {
             this.addReading(r);
@@ -416,7 +411,7 @@ public class AreaReadingList {
      * @author Nuno (US631)
      */
 
-    public Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
+    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
@@ -482,7 +477,7 @@ public class AreaReadingList {
      * @param value is the value we want to choose.
      * @return a AreaReadingList with a chosen value.
      */
-    public AreaReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
+    AreaReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
         AreaReadingList result = new AreaReadingList();
         for (AreaReading r : this.areaReadings) {
             if (Double.compare(r.getValue(), value) == 0) {
@@ -499,7 +494,7 @@ public class AreaReadingList {
      * @param date is the Day of the reading we want to get.
      * @return a Reading from the AreaReadingList with a Specific Date.
      */
-    public AreaReading getAReadingWithSpecificDay(Date date) {
+    AreaReading getAReadingWithSpecificDay(Date date) {
         AreaReading result = null;
         for (AreaReading r : this.areaReadings) {
             if (compareDayMonthAndYearBetweenDates(r.getDate(), date)) {
@@ -521,7 +516,7 @@ public class AreaReadingList {
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    public Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
+    Date getLastColdestDayInGivenInterval(Date initialDate, Date finalDate) {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
@@ -544,7 +539,7 @@ public class AreaReadingList {
      * @param day is the day we want to know the maximum value.
      * @return a double that represents the maximum value of the day.
      */
-   public AreaReading getMaxValueOfTheDay(Date day) {
+    AreaReading getMaxValueOfTheDay(Date day) {
         double auxValue = getValuesOfSpecificDayReadings(day).get(0);
         AreaReading result = getAReadingWithSpecificDay(day);
         Date auxDay = getFirstSecondOfDay(day);
@@ -565,7 +560,7 @@ public class AreaReadingList {
      * @param finalDate   is the final date of the interval.
      * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
-    public AreaReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
+    AreaReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
         AreaReadingList result = new AreaReadingList();
         for (AreaReading r : this.areaReadings) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
@@ -583,7 +578,7 @@ public class AreaReadingList {
      * @return a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      */
-    public AreaReadingList getListOfMaxValuesForEachDay() {
+    AreaReadingList getListOfMaxValuesForEachDay() {
         AreaReadingList result = new AreaReadingList();
         List<Date> dateList = new ArrayList<>();
         for (AreaReading r : this.areaReadings) {
@@ -602,7 +597,7 @@ public class AreaReadingList {
      *
      * @return a double value that represents the minimum value in a AreaReadingList.
      */
-   public double getMinValueInReadingList() {
+   double getMinValueInReadingList() {
         double result = this.areaReadings.get(0).getValue();
         for (AreaReading r : this.areaReadings) {
             result = Math.min(r.getValue(), result);

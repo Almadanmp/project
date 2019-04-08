@@ -1,6 +1,11 @@
 package pt.ipp.isep.dei.project.services;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -9,21 +14,19 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = {MainUI.class},
-        loader = AnnotationConfigContextLoader.class)
+@ExtendWith(MockitoExtension.class)
 class AreaSensorServiceTest {
 
-    @Autowired
+
     private AreaSensorService areaSensorService;
 
-    @Autowired
+    @Mock
     private AreaSensorRepository areaSensorRepository;
 
 
 //    @Test
 //    void seeIfAddReadingToMatchingSensorTrue() {
+//        areaSensorService = new AreaSensorService(areaSensorRepository);
 //        // Arrange
 //        SensorType sensorType = new SensorType("Humidity", "23");
 //        Local local = new Local(23, 20, 10);

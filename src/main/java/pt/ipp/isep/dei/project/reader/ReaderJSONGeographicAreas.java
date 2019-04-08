@@ -122,7 +122,7 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date);
-            areaSensorObject.setGeographicArea(geographicArea);
+            areaSensorObject.setGeographicAreaId(geographicArea.getId());
             areaSensorList.addWithPersist(areaSensorObject);
             entriesChecked++;
         }

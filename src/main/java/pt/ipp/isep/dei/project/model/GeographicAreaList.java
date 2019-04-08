@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Class that groups a number of Geographical Areas.
  */
-@Component
+@Service
 public class GeographicAreaList {
 
     private List<GeographicArea> geographicAreas;
@@ -38,17 +39,7 @@ public class GeographicAreaList {
         return result;
     }
 
-    /**
-     * Method to set a geographicAreaRepository
-     *
-     * @param geographicAreaRepository is a repository of Geographical Areas to be set to the object.
-     */
-    public void setGeographicAreaRepository(GeographicAreaRepository geographicAreaRepository) {
-        this.geographicAreaRepository = geographicAreaRepository;
-    }
-
-
-    /**
+     /**
      * Method that receives a geographic area as a parameter and adds that
      * GA to the list in case it is not contained in that list already.
      *

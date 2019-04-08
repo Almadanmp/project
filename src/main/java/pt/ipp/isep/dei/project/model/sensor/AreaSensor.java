@@ -30,12 +30,10 @@ public class AreaSensor {
 
     private Date dateStartedFunctioning;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Transient
     private AreaReadingList areaReadingList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "geographic_area_id")
-    private GeographicArea geographicArea;
+    private long geographicAreaId;
 
     private boolean active;
 
@@ -143,6 +141,10 @@ public class AreaSensor {
         return (this.id);
     }
 
+    public void setGeographicAreaId(long geographicAreaId) {
+        this.geographicAreaId = geographicAreaId;
+    }
+
     /**
      * Getter: name
      *
@@ -200,15 +202,6 @@ public class AreaSensor {
      */
     public void setActive(boolean status) {
         this.active = status;
-    }
-
-
-    public GeographicArea getGeographicArea() {
-        return geographicArea;
-    }
-
-    public void setGeographicArea(GeographicArea geographicArea) {
-        this.geographicArea = geographicArea;
     }
 
     /**

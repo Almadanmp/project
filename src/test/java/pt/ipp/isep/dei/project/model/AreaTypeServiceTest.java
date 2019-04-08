@@ -33,8 +33,7 @@ class AreaTypeServiceTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        MockitoAnnotations.initMocks(this);
-        validList = new AreaTypeService(this.areaTypeRepository);
+        validList = new AreaTypeService(areaTypeRepository);
         firstValidType = new AreaType("Country");
         secondValidType = new AreaType("City");
     }
