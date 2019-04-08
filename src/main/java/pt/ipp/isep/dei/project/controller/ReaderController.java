@@ -104,6 +104,11 @@ public class ReaderController {
         return result;
     }
 
+    public List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath){
+        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
+        return readerJSON.readFile(filePath);
+    }
+
     public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaList list) {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {

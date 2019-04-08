@@ -25,6 +25,7 @@ class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
     private GeographicAreaList geographicAreaList;
+
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
@@ -444,13 +445,8 @@ class GASettingsUI {
 
     private void importGeoAreasFromJSON(String filePath) {
         int result;
-        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
-      //  try {
-            List<GeographicAreaDTO> list = readerJSON.readFile(filePath);
-            result = addGeoAreasDTOToList(list, geographicAreaList);
-       // } catch (IllegalArgumentException illegal) {
-       //     System.out.println("The JSON file is invalid. Please fix before continuing.");
-        //}
+        List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
+        result = addGeoAreasDTOToList(list, geographicAreaList);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
 

@@ -429,7 +429,7 @@ public class InputHelperUI {
 
 
     /**
-     * Reads either a .json ou a .xml path
+     * Reads either a .json or a .xml path
      *
      * @param input - input of user
      */
@@ -439,7 +439,6 @@ public class InputHelperUI {
             filePath = getInputPath(input);
         }
         return filePath;
-
     }
 
     public String getInputPathJson(String input) {
