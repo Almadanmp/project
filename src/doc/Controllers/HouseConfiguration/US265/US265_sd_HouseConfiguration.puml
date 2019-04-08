@@ -1,0 +1,71 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title US265 \n  As an Administrator, I want to import a list of sensor readings of the house sensors. \n Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but registered in the application log.
+
+
+actor Administrator
+Administrator -> MainUI:run()
+activate MainUI
+MainUI -> HouseConfigurationUI: runUS265
+activate HouseConfigurationUI
+HouseConfigurationUI -> "HouseConfigurationController": importHouseSensorReadingList
+activate HouseConfigurationController
+HouseConfigurationController -> "Reader": importHouseSensorReadingList
+activate Reader
+Reader -> HouseConfigurationUI: Request File Path
+HouseConfigurationUI -> Administrator: Request File Path
+Administrator --> HouseConfigurationUI: Insert File Path
+HouseConfigurationUI -> HouseConfigurationController: read(filePath)
+HouseConfigurationController -> "Reader": read(filePath)
+"Reader" -> "House": add(List<Reading>
+activate House
+"House" -> "Sensor": getSensorById (Sensor)
+activate Sensor
+loop
+alt if a sensor with that ID exists
+"Sensor" -> "ReadingList": add (ReadingList)
+activate ReadingList
+else if a sensor with that ID doesn't exist or the Sensor has no Room, \n or outside the valid sensor operation period
+"ReadingList" -> "Log": add(Log)
+activate Log
+"Sensor" -> "ReadingList": continue
+deactivate Log
+end
+"ReadingList" --> "Sensor": return (int) importedReadingLists
+deactivate ReadingList
+"Sensor" --> "House": return (int) importedReadingLists
+deactivate Sensor
+"House" --> "Reader": return (int) importedReadingLists
+deactivate House
+"Reader" --> "HouseConfigurationController": return (int) importedReadingLists
+deactivate Reader
+HouseConfigurationController --> HouseConfigurationUI: return (int) importedReadingLists
+deactivate HouseConfigurationController
+HouseConfigurationUI -> Administrator: display feedback message
+deactivate HouseConfigurationUI
+deactivate MainUI
+@enduml
