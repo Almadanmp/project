@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +13,9 @@ import java.util.List;
  */
 @Service
 public class EnergyGridList {
+
+    @Autowired
+    EnergyGridRepository energyGridRepository;
 
     private List<EnergyGrid> energyGrids;
 
