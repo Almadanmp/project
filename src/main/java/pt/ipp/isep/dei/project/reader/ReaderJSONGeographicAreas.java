@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.io.File;
@@ -50,10 +50,10 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, AreaSensorList areaSensorList) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, AreaSensorService areaSensorService) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
-        return readGeoAreasJSON(geoAreas, list, areaSensorList);
+        return readGeoAreasJSON(geoAreas, list, areaSensorService);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaList list, AreaSensorList areaSensorList) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaList list, AreaSensorService areaSensorService) {
         int result = 0;
 
         for (int i = 0; i < geoAreas.length(); i++) {
@@ -83,7 +83,7 @@ public class ReaderJSONGeographicAreas implements Reader {
             JSONArray areaSensors = area.getJSONArray("area_sensor");
             if (list.addAndPersistGA(areaObject)) {
                 result++;
-                readAreaSensorsJSON(areaSensors, areaObject, areaSensorList);
+                readAreaSensorsJSON(areaSensors, areaObject, areaSensorService);
             }
         }
         return result;
@@ -96,7 +96,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      *                    that belong to an area.
      */
 
-    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, AreaSensorList areaSensorList) {
+    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, AreaSensorService areaSensorService) {
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -123,7 +123,7 @@ public class ReaderJSONGeographicAreas implements Reader {
                     sensorLongitude, sensorAltitude);
             AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date);
             areaSensorObject.setGeographicAreaId(geographicArea.getId());
-            areaSensorList.addWithPersist(areaSensorObject);
+            areaSensorService.addWithPersist(areaSensorObject);
             entriesChecked++;
         }
     }

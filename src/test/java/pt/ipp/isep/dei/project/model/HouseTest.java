@@ -83,11 +83,11 @@ class HouseTest {
         // Arrange
 
         double expectedResult = 1111.9492664455872;
-        AreaSensorList validAreaSensorList = new AreaSensorList();
-        validAreaSensorList.add(firstValidAreaSensor);
+        AreaSensorService validAreaSensorService = new AreaSensorService();
+        validAreaSensorService.add(firstValidAreaSensor);
         // Act
 
-        double actualResult = validHouse.getMinDistanceToSensorOfGivenType(validAreaSensorList);
+        double actualResult = validHouse.getMinDistanceToSensorOfGivenType(validAreaSensorService);
 
         // Assert
 

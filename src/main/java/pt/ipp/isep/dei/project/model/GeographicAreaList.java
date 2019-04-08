@@ -1,8 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
@@ -201,20 +200,20 @@ public class GeographicAreaList {
      * @return returns a AreaSensorList of the geographical areas of the geographical area list.
      * @author Andre
      */
-    public AreaSensorList getAreaListSensors() {
-        AreaSensorList fullAreaSensorList = new AreaSensorList();
+    public AreaSensorService getAreaListSensors() {
+        AreaSensorService fullAreaSensorService = new AreaSensorService();
         if (this.geographicAreas.isEmpty()) {
-            return fullAreaSensorList;
+            return fullAreaSensorService;
         }
         for (GeographicArea ga : this.geographicAreas) {
             if (ga.getSensorList().isEmpty()) {
                 continue;
             }
             for (AreaSensor areaSensor : ga.getSensorList().getElementsAsArray()) {
-                fullAreaSensorList.add(areaSensor);
+                fullAreaSensorService.add(areaSensor);
             }
         }
-        return fullAreaSensorList;
+        return fullAreaSensorService;
     }
 
     /**

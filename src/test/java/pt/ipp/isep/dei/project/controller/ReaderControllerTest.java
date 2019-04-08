@@ -14,13 +14,12 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -74,15 +73,14 @@ class ReaderControllerTest {
     @Mock
     GeographicAreaRepository geographicAreaRepository;
 
-    private AreaSensorList areaSensorList;
-
     private AreaSensorService areaSensorService;
+
 
     @BeforeEach
     void arrangeArtifacts() {
-        areaSensorList = new AreaSensorList(areaSensorRepository);
         areaSensorService = new AreaSensorService(areaSensorRepository);
-        validReader = new ReaderController(areaSensorService, areaSensorList);
+
+        validReader = new ReaderController(areaSensorService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -111,14 +109,14 @@ class ReaderControllerTest {
         AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
-        AreaSensorList validAreaSensorList = new AreaSensorList();
-        AreaSensorList validAreaSensorList2 = new AreaSensorList();
-        validAreaSensorList.add(validAreaSensor1);
-        validAreaSensorList.add(validAreaSensor2);
-        validAreaSensorList2.add(validAreaSensor3);
-        validAreaSensorList2.add(validAreaSensor4);
-        validGeographicArea.setSensorList(validAreaSensorList);
-        validGeographicArea2.setSensorList(validAreaSensorList2);
+        AreaSensorService validAreaSensorService = new AreaSensorService();
+        AreaSensorService validAreaSensorService2 = new AreaSensorService();
+        validAreaSensorService.add(validAreaSensor1);
+        validAreaSensorService.add(validAreaSensor2);
+        validAreaSensorService2.add(validAreaSensor3);
+        validAreaSensorService2.add(validAreaSensor4);
+        validGeographicArea.setSensorList(validAreaSensorService);
+        validGeographicArea2.setSensorList(validAreaSensorService2);
         validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
         emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
@@ -307,7 +305,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerReadings/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService);
 
         // Assert
 
@@ -324,7 +322,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService);
 
         // Assert
 

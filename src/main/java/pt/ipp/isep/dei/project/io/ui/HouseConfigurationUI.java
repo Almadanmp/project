@@ -8,8 +8,7 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.services.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 
 import java.util.Scanner;
 
@@ -24,15 +23,13 @@ class HouseConfigurationUI {
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private final AreaSensorService areaSensorService;
     private GeographicAreaList geographicAreaList;
-    private AreaSensorList areaSensorList;
+    private AreaSensorService areaSensorService;
 
-    HouseConfigurationUI(AreaSensorService areaSensorService, GeographicAreaList geographicAreaList, AreaSensorList areaSensorList) {
+    HouseConfigurationUI(GeographicAreaList geographicAreaList, AreaSensorService areaSensorService) {
         this.controller = new HouseConfigurationController();
-        this.areaSensorService = areaSensorService;
         this.geographicAreaList = geographicAreaList;
-        this.areaSensorList = areaSensorList;
+        this.areaSensorService = areaSensorService;
     }
 
     void run(House house) {
@@ -91,7 +88,7 @@ class HouseConfigurationUI {
      */
 
     private void runUS15v2() {
-        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
+        ReaderController ctrl = new ReaderController(areaSensorService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -128,7 +125,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromCSV(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
+        ReaderController ctrl = new ReaderController(areaSensorService);
         try {
             result = ctrl.readReadingsFromCSV(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -139,7 +136,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromJSON(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
+        ReaderController ctrl = new ReaderController(areaSensorService);
         try {
             result = ctrl.readReadingsFromJSON(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -150,7 +147,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromXML(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
+        ReaderController ctrl = new ReaderController(areaSensorService);
         try {
             result = ctrl.readReadingsFromXML(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -162,13 +159,13 @@ class HouseConfigurationUI {
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
     private void runUS100() {
-        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
+        ReaderController ctrl = new ReaderController(areaSensorService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJson(result);
-        if(ctrl.readJSONAndDefineHouse(filePath)){
+        if (ctrl.readJSONAndDefineHouse(filePath)) {
             System.out.println("House Data Successfully imported.");
         }
         System.out.println("The JSON file is invalid.");
@@ -338,7 +335,7 @@ class HouseConfigurationUI {
         System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
         System.out.println("2) Import Geographic Area Sensor readings from a file - json, xml, csv. (US20v2)");
         System.out.println("3) As an Administrator, I want to configure the house from a file containing basic house " +
-                        "information, grids and rooms)(US100)");
+                "information, grids and rooms)(US100)");
         System.out.println("4) Configure the location of the house. (US101)");
         System.out.println("5) Add a new room to the house. (US105)");
         System.out.println("6) List the existing rooms. (US108)");

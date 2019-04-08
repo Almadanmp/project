@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
@@ -277,7 +277,7 @@ public class House implements Metered {
      * @return is the value of the distance of the house to sensor of the given type closest to it.
      */
 
-    double getMinDistanceToSensorOfGivenType(AreaSensorList type) {
+    double getMinDistanceToSensorOfGivenType(AreaSensorService type) {
         List<Double> arrayList = type.getSensorsDistanceToHouse(this);
         return Collections.min(arrayList);
     }
@@ -291,11 +291,11 @@ public class House implements Metered {
      */
     public AreaSensor getClosestSensorOfGivenType(String sensorType) {
         AreaSensor areaSensor;
-        AreaSensorList minDistSensor = new AreaSensorList();
+        AreaSensorService minDistSensor = new AreaSensorService();
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime());
-        AreaSensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
+        AreaSensorService sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);
             minDistSensor = sensorsType.getSensorsByDistanceToHouse(this, minDist);

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 
 import javax.persistence.*;
 
@@ -33,7 +33,7 @@ public class GeographicArea {
 
     @Transient
 //    @OneToOne(cascade = CascadeType.ALL)
-    private AreaSensorList areaSensors;
+    private AreaSensorService areaSensors;
 
     private String description;
 
@@ -45,7 +45,7 @@ public class GeographicArea {
      * Empty Constructor to use when importing Geographic Areas from XML files.
      */
     public GeographicArea() {
-        this.areaSensors = new AreaSensorList();
+        this.areaSensors = new AreaSensorService();
     }
 
     /**
@@ -64,7 +64,7 @@ public class GeographicArea {
         this.length = length;
         this.width = width;
         this.location = location;
-        this.areaSensors = new AreaSensorList();
+        this.areaSensors = new AreaSensorService();
     }
 
     /**
@@ -174,7 +174,7 @@ public class GeographicArea {
      *
      * @param listToSet list to set
      */
-    public void setSensorList(AreaSensorList listToSet) {
+    public void setSensorList(AreaSensorService listToSet) {
         this.areaSensors = listToSet;
     }
 
@@ -245,7 +245,7 @@ public class GeographicArea {
      *
      * @return returns the attribute sensorList from an object of the class Geographic Area
      */
-    public AreaSensorList getSensorList() {
+    public AreaSensorService getSensorList() {
         return this.areaSensors;
     }
 
@@ -343,7 +343,7 @@ public class GeographicArea {
      * @return AreaSensorList of given type
      **/
 
-    AreaSensorList getSensorsOfGivenType(String type) {
+    AreaSensorService getSensorsOfGivenType(String type) {
         return this.areaSensors.getSensorListByType(type);
     }
 

@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
@@ -203,12 +203,12 @@ class GeographicAreaTest {
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Vento", new SensorType("Atmosférico", "km/h"),
                 new Local(12, 31, 21), new Date());
         validArea.addSensor(testAreaSensor);
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(testAreaSensor);
 
         // Act
 
-        AreaSensorList actualResult = validArea.getSensorList();
+        AreaSensorService actualResult = validArea.getSensorList();
 
         // Assert
 
@@ -507,16 +507,16 @@ class GeographicAreaTest {
     void seeIfGetSensorList() {
         // Arrange
 
-        AreaSensorList areaSensorList = new AreaSensorList();
-        validArea.setSensorList(areaSensorList);
+        AreaSensorService areaSensorService = new AreaSensorService();
+        validArea.setSensorList(areaSensorService);
 
         // Act
 
-        AreaSensorList actualAreaSensorList = validArea.getSensorList();
+        AreaSensorService actualAreaSensorService = validArea.getSensorList();
 
         // Assert
 
-        assertEquals(areaSensorList, actualAreaSensorList);
+        assertEquals(areaSensorService, actualAreaSensorService);
     }
 
     @Test
@@ -586,19 +586,19 @@ class GeographicAreaTest {
     void seeIfGetSensorsOfGivenTypeWorks() {
         //Arrange
         GeographicArea geographicArea = new GeographicArea();
-        AreaSensorList areaSensorList = new AreaSensorList();
+        AreaSensorService areaSensorService = new AreaSensorService();
         AreaSensor areaSensor1 = new AreaSensor("Sensor 1", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
         AreaSensor areaSensor2 = new AreaSensor("Sensor 2", new SensorType("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
         AreaSensor areaSensor3 = new AreaSensor("Sensor 3", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
-        areaSensorList.add(areaSensor1);
-        areaSensorList.add(areaSensor2);
-        areaSensorList.add(areaSensor3);
-        geographicArea.setSensorList(areaSensorList);
-        AreaSensorList expectedResult = new AreaSensorList();
+        areaSensorService.add(areaSensor1);
+        areaSensorService.add(areaSensor2);
+        areaSensorService.add(areaSensor3);
+        geographicArea.setSensorList(areaSensorService);
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(areaSensor1);
         expectedResult.add(areaSensor3);
         //Act
-        AreaSensorList actualResult = geographicArea.getSensorsOfGivenType("temperature");
+        AreaSensorService actualResult = geographicArea.getSensorsOfGivenType("temperature");
         //Assert
         assertEquals(expectedResult, actualResult);
     }

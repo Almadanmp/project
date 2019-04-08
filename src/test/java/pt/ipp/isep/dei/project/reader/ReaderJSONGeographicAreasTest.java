@@ -7,10 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,9 +23,8 @@ class ReaderJSONGeographicAreasTest {
     @Mock
     AreaSensorRepository areaSensorRepository;
 
-    AreaSensorList areaSensorList;
-
     AreaSensorService areaSensorService;
+
 
     GeographicAreaList geographicAreaList;
 
@@ -34,13 +32,11 @@ class ReaderJSONGeographicAreasTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        areaSensorList = new AreaSensorList(areaSensorRepository);
-
         areaSensorService = new AreaSensorService(areaSensorRepository);
 
         geographicAreaList = new GeographicAreaList(geographicAreaRepository);
 
-        ctrl = new ReaderController(areaSensorService, areaSensorList);
+        ctrl = new ReaderController(areaSensorService);
 
 
     }
@@ -173,7 +169,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository), areaSensorList);
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository), areaSensorService);
 
         // Assert
 

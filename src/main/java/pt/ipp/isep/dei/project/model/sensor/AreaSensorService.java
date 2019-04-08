@@ -4,17 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.services.units.Unit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Sensors.
  */
 @Service
-public class AreaSensorList {
+public class AreaSensorService {
 
     @Autowired
     AreaSensorRepository areaSensorRepository;
@@ -25,11 +24,11 @@ public class AreaSensorList {
     /**
      * AreaSensorList() empty constructor that initializes an ArrayList of Sensors.
      */
-    public AreaSensorList() {
+    public AreaSensorService() {
         this.areaSensors = new ArrayList<>();
     }
 
-    public AreaSensorList(AreaSensorRepository areaSensorRepository) {
+    public AreaSensorService(AreaSensorRepository areaSensorRepository) {
         this.areaSensors = new ArrayList<>();
         this.areaSensorRepository = areaSensorRepository;
     }
@@ -48,11 +47,11 @@ public class AreaSensorList {
         if (this.areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        AreaSensorList areaSensorList = getSensorsWithReadings();
-        if (areaSensorList.isEmpty()) {
+        AreaSensorService areaSensorService = getSensorsWithReadings();
+        if (areaSensorService.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
-        AreaSensor mostRecent = areaSensorList.get(0);
+        AreaSensor mostRecent = areaSensorService.get(0);
         Date recent = mostRecent.getMostRecentReadingDate();
         for (AreaSensor s : this.areaSensors) {
             Date test = s.getMostRecentReadingDate();
@@ -71,8 +70,8 @@ public class AreaSensorList {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    public AreaSensorList getSensorsWithReadings() {
-        AreaSensorList finalList = new AreaSensorList();
+    public AreaSensorService getSensorsWithReadings() {
+        AreaSensorService finalList = new AreaSensorService();
         if (this.areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
         }
@@ -89,8 +88,8 @@ public class AreaSensorList {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public AreaSensorList getSensorListByType(String name) {
-        AreaSensorList containedTypeSensors = new AreaSensorList();
+    public AreaSensorService getSensorListByType(String name) {
+        AreaSensorService containedTypeSensors = new AreaSensorService();
         for (AreaSensor areaSensor : this.areaSensors) {
             if (name.equals(areaSensor.getSensorTypeName())) {
                 containedTypeSensors.add(areaSensor);
@@ -193,8 +192,8 @@ public class AreaSensorList {
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    public AreaSensorList getSensorsByDistanceToHouse(House house, double minDist) {
-        AreaSensorList finalList = new AreaSensorList();
+    public AreaSensorService getSensorsByDistanceToHouse(House house, double minDist) {
+        AreaSensorService finalList = new AreaSensorService();
         for (AreaSensor s : this.areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
                 finalList.add(s);
@@ -258,6 +257,99 @@ public class AreaSensorList {
     }
 
     /**
+     * Method to add a reading to a matching sensor contained in the repository. The sensor is found by its ID.
+     * <p>
+     * sensorList   is the sensorList we want to add a reading to.
+     * <p>
+     * to avoid duplicated readings we will check first if the reading list of the sensor already has the reading to import
+     * (has the same date) and will only add it if false.
+     *
+     * @param sensorID     is the ID of the sensor we want to add a reading to.
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @return is true if the reading is added (if there is a sensor with an ID that matches the given ID), false
+     * if there is no sensor with that ID.
+     */
+
+    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            AreaSensor areaSensor = value.get();
+            Reading reading = new Reading(readingValue, readingDate, unit, areaSensor.getId());
+            ReadingList sensorReadingList = areaSensor.getReadingList();
+            if (sensorReadingList.contains(reading)) {
+                return false;
+            }
+            areaSensor.addReading(reading);
+            areaSensorRepository.save(areaSensor);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This method receives the parameters to create an Area reading and tries to add that
+     * to its corresponding Area Sensor. It also receives a Logger so that it can register every
+     * reading that was not added to its corresponding sensor.
+     * This method will look for the sensor in the repository by its ID.
+     *
+     * @param sensorID     is the ID of the area sensor we want to add a reading to.
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @param unit         is the Unit of the reading we want to add.
+     * @return true in case the reading was added false otherwise.
+     */
+    public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, Unit unit, Logger logger) {
+        try {
+            AreaSensor areaSensor = getAreaSensorFromRepository(sensorID);
+            Reading reading = new Reading(readingValue, readingDate, "Should receive the variable unit", areaSensor.getId());  //TODO Change the Reading parameter unit from STRING to UNIT
+            if (addReadingToSensorInRepository(reading, areaSensor)) {
+                return true;
+            }
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added.");
+            return false;
+
+        } catch (IllegalArgumentException illegal) {
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added because a sensor with that ID wasn't found.");
+            return false;
+        }
+    }
+
+    /**
+     * This method receives a sensor ID, checks if that sensor exists in the repository and returns
+     * the area sensor. It throws an Illegal Argument Exception in case the sensor does not exist in repository.
+     *
+     * @param sensorID String of sensor ID
+     * @return the area sensor that corresponds to the sensor ID.
+     **/
+    private AreaSensor getAreaSensorFromRepository(String sensorID) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        throw new IllegalArgumentException("There is no sensor with that ID in the repository");
+    }
+
+    /**
+     * This method receives a Area Reading and a Area Sensor and tries to add the reading to the
+     * area sensor.
+     *
+     * @return true in case the reading is added to sensor, false otherwise.
+     **/
+    private boolean addReadingToSensorInRepository(Reading reading, AreaSensor areaSensor) {
+        if (areaSensor.addReading(reading)) {
+            areaSensorRepository.save(areaSensor);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    /**
      * Getter (array of sensors)
      *
      * @return array of sensors
@@ -292,10 +384,10 @@ public class AreaSensorList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof AreaSensorList)) {
+        if (!(testObject instanceof AreaSensorService)) {
             return false;
         }
-        AreaSensorList list = (AreaSensorList) testObject;
+        AreaSensorService list = (AreaSensorService) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

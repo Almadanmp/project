@@ -14,18 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * AreaSensorList tests class.
  */
 
-class AreaSensorListTest {
+class AreaSensorServiceTest {
 
     // Common artifacts for testing in this class.
 
-    private AreaSensorList validAreaSensorList; // Contains the first valid sensor by default.
+    private AreaSensorService validAreaSensorService; // Contains the first valid sensor by default.
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor thirdValidAreaSensor;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaSensorList = new AreaSensorList();
+        validAreaSensorService = new AreaSensorService();
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidAreaSensor.setActive(true);
@@ -34,7 +34,7 @@ class AreaSensorListTest {
         secondValidAreaSensor.setActive(true);
         thirdValidAreaSensor = new AreaSensor("SensorThree", new SensorType("Rainfall", "l/m2"),
                 new Date());
-        validAreaSensorList.add(firstValidAreaSensor);
+        validAreaSensorService.add(firstValidAreaSensor);
     }
 
 
@@ -42,7 +42,7 @@ class AreaSensorListTest {
     void seeIfEqualsWorksOnSameObject() {
         //Act
 
-        boolean actualResult = validAreaSensorList.equals(validAreaSensorList); // Required for Sonarqube testing purposes.
+        boolean actualResult = validAreaSensorService.equals(validAreaSensorService); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -53,7 +53,7 @@ class AreaSensorListTest {
     void seeIfEqualsWorksOnDiffObject() {
         //Act
 
-        boolean actualResult = validAreaSensorList.equals(20D); // Required for Sonarqube testing purposes.
+        boolean actualResult = validAreaSensorService.equals(20D); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -64,12 +64,12 @@ class AreaSensorListTest {
     void seeIfEqualsWorksOnSensorListWithSameContent() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(firstValidAreaSensor);
 
         // Act
 
-        boolean actualResult = validAreaSensorList.equals(expectedResult);
+        boolean actualResult = validAreaSensorService.equals(expectedResult);
 
         // Assert
 
@@ -80,12 +80,12 @@ class AreaSensorListTest {
     void seeIfEqualsWorksOnSensorListWithDifferentContent() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(secondValidAreaSensor);
 
         // Act
 
-        boolean actualResult = validAreaSensorList.equals(expectedResult);
+        boolean actualResult = validAreaSensorService.equals(expectedResult);
 
         // Assert
 
@@ -100,7 +100,7 @@ class AreaSensorListTest {
 
         // Act
 
-        int actualResult = validAreaSensorList.hashCode();
+        int actualResult = validAreaSensorService.hashCode();
 
         // Assert
 
@@ -111,15 +111,15 @@ class AreaSensorListTest {
     void seeItGetSensorListByTypeWorks() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(firstValidAreaSensor);
         expectedResult.add(secondValidAreaSensor);
-        validAreaSensorList.add(secondValidAreaSensor);
-        validAreaSensorList.add(thirdValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
+        validAreaSensorService.add(thirdValidAreaSensor);
 
         // Act
 
-        AreaSensorList actualResult = validAreaSensorList.getSensorListByType("Temperature");
+        AreaSensorService actualResult = validAreaSensorService.getSensorListByType("Temperature");
 
         // Assert
 
@@ -130,11 +130,11 @@ class AreaSensorListTest {
     void seeItGetSensorListByTypeWorksFalse() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensorService expectedResult = new AreaSensorService();
 
         // Act
 
-        AreaSensorList actualResult = validAreaSensorList.getSensorListByType("Pressure");
+        AreaSensorService actualResult = validAreaSensorService.getSensorListByType("Pressure");
 
         // Assert
 
@@ -145,8 +145,8 @@ class AreaSensorListTest {
     void seeIfToStringWorks() {
         // Arrange
 
-        validAreaSensorList.add(secondValidAreaSensor);
-        validAreaSensorList.add(thirdValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
+        validAreaSensorService.add(thirdValidAreaSensor);
         String expectedResult = "---------------\n" +
                 "0) Name: SensorOne | Type: Temperature | Active\n" +
                 "1) Name: SensorTwo | Type: Temperature | Active\n" +
@@ -155,7 +155,7 @@ class AreaSensorListTest {
 
         // Act
 
-        String actualResult = validAreaSensorList.toString();
+        String actualResult = validAreaSensorService.toString();
 
         // Assert
 
@@ -166,12 +166,12 @@ class AreaSensorListTest {
     void seeIfToStringWorksEmpty() {
         // Arrange
 
-        validAreaSensorList = new AreaSensorList();
+        validAreaSensorService = new AreaSensorService();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String actualResult = validAreaSensorList.toString();
+        String actualResult = validAreaSensorService.toString();
 
         // Assert
 
@@ -186,7 +186,7 @@ class AreaSensorListTest {
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorService.getReadings();
 
         // Assert
 
@@ -198,7 +198,7 @@ class AreaSensorListTest {
         // Arrange
 
 
-        validAreaSensorList.add(secondValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", firstValidAreaSensor.getId());
         firstValidAreaSensor.addReading(readingOne);
         ReadingList expectedResult = new ReadingList();
@@ -206,7 +206,7 @@ class AreaSensorListTest {
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorService.getReadings();
 
         // Assert
 
@@ -216,7 +216,7 @@ class AreaSensorListTest {
     @Test
     void seeIfGetReadingsWorksReadingsAtEnd() {
         // Arrange
-        validAreaSensorList.add(secondValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", secondValidAreaSensor.getId());
 
         secondValidAreaSensor.addReading(readingOne);
@@ -225,7 +225,7 @@ class AreaSensorListTest {
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorService.getReadings();
 
         // Assert
 
@@ -237,7 +237,7 @@ class AreaSensorListTest {
         // Arrange
 
 
-        validAreaSensorList.add(secondValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
 
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C", firstValidAreaSensor.getId());
         Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", secondValidAreaSensor.getId());
@@ -250,7 +250,7 @@ class AreaSensorListTest {
 
         // Act
 
-        ReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorService.getReadings();
 
         // Assert
 
@@ -261,11 +261,11 @@ class AreaSensorListTest {
     void seeIfGetMostRecentlyUsedSensorWorksNoSensors() {
         // Arrange
 
-        validAreaSensorList = new AreaSensorList();
+        validAreaSensorService = new AreaSensorService();
 
         // Assert
 
-        assertThrows(IllegalArgumentException.class, validAreaSensorList::getMostRecentlyUsedSensor);
+        assertThrows(IllegalArgumentException.class, validAreaSensorService::getMostRecentlyUsedSensor);
     }
 
     @Test
@@ -286,12 +286,12 @@ class AreaSensorListTest {
 
         // Arrange
 
-        validAreaSensorList.add(secondValidAreaSensor);
-        validAreaSensorList.add(thirdValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
+        validAreaSensorService.add(thirdValidAreaSensor);
 
         // Act
 
-        AreaSensor actualResult1 = validAreaSensorList.getMostRecentlyUsedSensor();
+        AreaSensor actualResult1 = validAreaSensorService.getMostRecentlyUsedSensor();
 
         // Assert
 
@@ -301,14 +301,14 @@ class AreaSensorListTest {
 
         // Arrange
 
-        validAreaSensorList = new AreaSensorList();
-        validAreaSensorList.add(secondValidAreaSensor);
-        validAreaSensorList.add(firstValidAreaSensor);
-        validAreaSensorList.add(thirdValidAreaSensor);
+        validAreaSensorService = new AreaSensorService();
+        validAreaSensorService.add(secondValidAreaSensor);
+        validAreaSensorService.add(firstValidAreaSensor);
+        validAreaSensorService.add(thirdValidAreaSensor);
 
         // Act
 
-        AreaSensor actualResult2 = validAreaSensorList.getMostRecentlyUsedSensor();
+        AreaSensor actualResult2 = validAreaSensorService.getMostRecentlyUsedSensor();
 
         // Assert
 
@@ -318,14 +318,14 @@ class AreaSensorListTest {
 
         // Arrange
 
-        validAreaSensorList = new AreaSensorList();
-        validAreaSensorList.add(secondValidAreaSensor);
-        validAreaSensorList.add(thirdValidAreaSensor);
-        validAreaSensorList.add(firstValidAreaSensor);
+        validAreaSensorService = new AreaSensorService();
+        validAreaSensorService.add(secondValidAreaSensor);
+        validAreaSensorService.add(thirdValidAreaSensor);
+        validAreaSensorService.add(firstValidAreaSensor);
 
         // Act
 
-        AreaSensor actualResult3 = validAreaSensorList.getMostRecentlyUsedSensor();
+        AreaSensor actualResult3 = validAreaSensorService.getMostRecentlyUsedSensor();
 
         // Assert
 
@@ -336,22 +336,22 @@ class AreaSensorListTest {
     void seeIfGetMostRecentlyUsedSensorWorksOneSensorNoReadings() {
         // Assert
 
-        assertThrows(IllegalArgumentException.class, validAreaSensorList::getMostRecentlyUsedSensor);
+        assertThrows(IllegalArgumentException.class, validAreaSensorService::getMostRecentlyUsedSensor);
     }
 
     @Test
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        AreaSensorList emptyList = new AreaSensorList();
-        AreaSensorList twoSensorsList = new AreaSensorList();
+        AreaSensorService emptyList = new AreaSensorService();
+        AreaSensorService twoSensorsList = new AreaSensorService();
         twoSensorsList.add(firstValidAreaSensor);
         twoSensorsList.add(secondValidAreaSensor);
 
         // Act
 
         boolean actualResult1 = emptyList.isEmpty();
-        boolean actualResult2 = validAreaSensorList.isEmpty();
+        boolean actualResult2 = validAreaSensorService.isEmpty();
         boolean actualResult3 = twoSensorsList.isEmpty();
 
         // Assert
@@ -365,8 +365,8 @@ class AreaSensorListTest {
     void getSensorsWithReadings() {
         // Arrange
 
-        AreaSensorList emptyList = new AreaSensorList();
-        AreaSensorList twoSensorsList = new AreaSensorList();
+        AreaSensorService emptyList = new AreaSensorService();
+        AreaSensorService twoSensorsList = new AreaSensorService();
 
         Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C", secondValidAreaSensor.getId());
         secondValidAreaSensor.addReading(readingOne);
@@ -374,12 +374,12 @@ class AreaSensorListTest {
         twoSensorsList.add(firstValidAreaSensor);
         twoSensorsList.add(secondValidAreaSensor);
 
-        AreaSensorList expectedResult1 = new AreaSensorList();
+        AreaSensorService expectedResult1 = new AreaSensorService();
         expectedResult1.add(secondValidAreaSensor);
 
         // Act
 
-        AreaSensorList actualResult1 = twoSensorsList.getSensorsWithReadings();
+        AreaSensorService actualResult1 = twoSensorsList.getSensorsWithReadings();
 
         // Assert
 
@@ -391,12 +391,12 @@ class AreaSensorListTest {
     void seeIfGetByIndexWorks() {
         //Arrange
 
-        validAreaSensorList.add(secondValidAreaSensor);
+        validAreaSensorService.add(secondValidAreaSensor);
 
         //Act
 
-        AreaSensor actualResult1 = validAreaSensorList.get(0);
-        AreaSensor actualResult2 = validAreaSensorList.get(1);
+        AreaSensor actualResult1 = validAreaSensorService.get(0);
+        AreaSensor actualResult2 = validAreaSensorService.get(1);
 
         //Assert
 
@@ -408,7 +408,7 @@ class AreaSensorListTest {
     void getByIndexEmptySensorList() {
         //Arrange
 
-        AreaSensorList emptyList = new AreaSensorList();
+        AreaSensorService emptyList = new AreaSensorService();
 
         //Act
 
@@ -427,10 +427,10 @@ class AreaSensorListTest {
         AreaSensor[] expectedResult2 = new AreaSensor[1];
         AreaSensor[] expectedResult3 = new AreaSensor[2];
 
-        AreaSensorList emptyAreaSensorList = new AreaSensorList();
-        AreaSensorList validAreaSensorList2 = new AreaSensorList();
-        validAreaSensorList2.add(firstValidAreaSensor);
-        validAreaSensorList2.add(secondValidAreaSensor);
+        AreaSensorService emptyAreaSensorService = new AreaSensorService();
+        AreaSensorService validAreaSensorService2 = new AreaSensorService();
+        validAreaSensorService2.add(firstValidAreaSensor);
+        validAreaSensorService2.add(secondValidAreaSensor);
 
         expectedResult2[0] = firstValidAreaSensor;
         expectedResult3[0] = firstValidAreaSensor;
@@ -438,9 +438,9 @@ class AreaSensorListTest {
 
         //Act
 
-        AreaSensor[] actualResult1 = emptyAreaSensorList.getElementsAsArray();
-        AreaSensor[] actualResult2 = validAreaSensorList.getElementsAsArray();
-        AreaSensor[] actualResult3 = validAreaSensorList2.getElementsAsArray();
+        AreaSensor[] actualResult1 = emptyAreaSensorService.getElementsAsArray();
+        AreaSensor[] actualResult2 = validAreaSensorService.getElementsAsArray();
+        AreaSensor[] actualResult3 = validAreaSensorService2.getElementsAsArray();
 
         //Assert
 
@@ -467,9 +467,9 @@ class AreaSensorListTest {
         AreaSensor areaSensorSameLocalHouse = new AreaSensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date);
         AreaSensor areaSensorDiffLocalHouse = new AreaSensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date);
 
-        AreaSensorList validAreaSensorList = new AreaSensorList();
-        validAreaSensorList.add(areaSensorDiffLocalHouse);
-        validAreaSensorList.add(areaSensorSameLocalHouse);
+        AreaSensorService validAreaSensorService = new AreaSensorService();
+        validAreaSensorService.add(areaSensorDiffLocalHouse);
+        validAreaSensorService.add(areaSensorSameLocalHouse);
 
         //House
 
@@ -481,12 +481,12 @@ class AreaSensorListTest {
                 ("Cidade"), 2, 3, new Local(4, 4, 100)));
 
 
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(areaSensorSameLocalHouse);
 
         //Act
 
-        AreaSensorList actualResult = validAreaSensorList.getSensorsByDistanceToHouse(house, 0);
+        AreaSensorService actualResult = validAreaSensorService.getSensorsByDistanceToHouse(house, 0);
 
         //Assert
 
@@ -498,15 +498,15 @@ class AreaSensorListTest {
 
         //Arrange
 
-        AreaSensorList emptyList = new AreaSensorList();
-        AreaSensorList twoSensors = new AreaSensorList();
+        AreaSensorService emptyList = new AreaSensorService();
+        AreaSensorService twoSensors = new AreaSensorService();
         twoSensors.add(firstValidAreaSensor);
         twoSensors.add(secondValidAreaSensor);
 
         //Act
 
         int actualResult1 = emptyList.size();
-        int actualResult2 = validAreaSensorList.size();
+        int actualResult2 = validAreaSensorService.size();
         int actualResult3 = twoSensors.size();
 
         //Assert
@@ -521,13 +521,13 @@ class AreaSensorListTest {
 
         //Arrange
 
-        AreaSensorList emptyList = new AreaSensorList();
+        AreaSensorService emptyList = new AreaSensorService();
 
         //Act
 
         boolean actualResult1 = emptyList.contains(firstValidAreaSensor);
-        boolean actualResult2 = validAreaSensorList.contains(firstValidAreaSensor);
-        boolean actualResult3 = validAreaSensorList.contains(secondValidAreaSensor);
+        boolean actualResult2 = validAreaSensorService.contains(firstValidAreaSensor);
+        boolean actualResult3 = validAreaSensorService.contains(secondValidAreaSensor);
 
         //Assert
 

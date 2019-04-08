@@ -13,9 +13,8 @@ import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.reader.*;
-import pt.ipp.isep.dei.project.services.AreaSensorService;
 import pt.ipp.isep.dei.project.services.HouseService;
 import pt.ipp.isep.dei.project.services.units.Unit;
 
@@ -32,7 +31,6 @@ public class ReaderController {
 
 
     private AreaSensorService areaSensorService;
-    private AreaSensorList areaSensorList;
     private HouseService houseService;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
@@ -41,9 +39,9 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
-    public ReaderController(AreaSensorService service, AreaSensorList areaSensorList) {
-        this.areaSensorService = service;
-        this.areaSensorList = areaSensorList;
+    public ReaderController(AreaSensorService areaSensorService) {
+
+        this.areaSensorService = areaSensorService;
     }
 
     //
@@ -61,12 +59,12 @@ public class ReaderController {
         int areasRead;
         if (input.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorList);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorService);
             return areasRead;
         }
         if (input.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, areaSensorList);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService);
             return areasRead;
         }
         return -1;
@@ -75,6 +73,7 @@ public class ReaderController {
     /**
      * This method reads a JSON file that represents the class House() and sets House attributes from the file and
      * saves it into the repository.
+     *
      * @param filePath is the file path.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
@@ -93,18 +92,18 @@ public class ReaderController {
      * @param list         - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list, AreaSensorList areaSensorList) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list, AreaSensorService areaSensorService) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), list, areaSensorList)) {
+            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), list, areaSensorService)) {
                 result++;
             }
         }
         return result;
     }
 
-    public List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath){
+    public List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath) {
         GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
         return readerJSON.readFile(filePath);
     }
@@ -113,7 +112,7 @@ public class ReaderController {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
-           System.out.println(GeographicAreaMapper.dtoToObject(dto).toString());
+            System.out.println(GeographicAreaMapper.dtoToObject(dto).toString());
             counter++;
         }
         return counter;
@@ -127,9 +126,9 @@ public class ReaderController {
      * @return the number of readings added to the geographic area sensors
      **/
     public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
-        AreaSensorList areaSensorList = geographicAreaList.getAreaListSensors();
+        AreaSensorService areaSensorService2 = geographicAreaList.getAreaListSensors();
         int addedReadings = 0;
-        if (areaSensorList.isEmpty()) {
+        if (areaSensorService2.isEmpty()) {
             return addedReadings;
         }
         ReaderCSV csvRead = new ReaderCSV();
@@ -189,8 +188,8 @@ public class ReaderController {
      ***/
     public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
-        AreaSensorList areaSensorList = geographicAreaList.getAll().getAreaListSensors();
-        if (areaSensorList.isEmpty()) {
+        AreaSensorService areaSensorService = geographicAreaList.getAll().getAreaListSensors();
+        if (areaSensorService.isEmpty()) {
             return addedReadings;
         }
         ReaderJSONReadings reader = new ReaderJSONReadings();
@@ -278,8 +277,8 @@ public class ReaderController {
      ***/
     public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
         int addedReadings = 0;
-        AreaSensorList areaSensorList = geographicAreaList.getAll().getAreaListSensors();
-        if (areaSensorList.isEmpty()) {
+        AreaSensorService areaSensorService = geographicAreaList.getAll().getAreaListSensors();
+        if (areaSensorService.isEmpty()) {
             return addedReadings;
         }
         ReaderXML reader = new ReaderXML();

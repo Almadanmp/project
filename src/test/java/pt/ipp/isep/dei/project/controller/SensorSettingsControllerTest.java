@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
@@ -193,9 +193,9 @@ class SensorSettingsControllerTest {
         AreaSensor secondAreaSensor = new AreaSensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1);
-        AreaSensorList areaSensorList = new AreaSensorList(areaSensorRepository);
-        areaSensorList.add(firstAreaSensor);
-        geoArea.setSensorList(areaSensorList);
+        AreaSensorService areaSensorService = new AreaSensorService(areaSensorRepository);
+        areaSensorService.add(firstAreaSensor);
+        geoArea.setSensorList(areaSensorService);
 
         // Act
 
