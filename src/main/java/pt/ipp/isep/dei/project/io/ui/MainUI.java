@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.AreaTypeList;
+import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
@@ -40,7 +40,7 @@ public class MainUI {
     AreaTypeRepository areaTypeRepository;
 
     @Autowired
-    AreaTypeList areaTypeList;
+    AreaTypeService areaTypeService;
 
     @Autowired
     AreaSensorList areaSensorList;
@@ -118,7 +118,7 @@ public class MainUI {
             mockUI.initializeMockUI();
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
-            this.areaTypeList = new AreaTypeList(areaTypeRepository);
+            this.areaTypeService = new AreaTypeService(areaTypeRepository);
             SensorTypeList mockSensorTypeList = new SensorTypeList(sensorTypeRepository);
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
@@ -169,7 +169,7 @@ public class MainUI {
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService, areaSensorList);
-                            view1.runGASettings(areaTypeList);
+                            view1.runGASettings(areaTypeService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

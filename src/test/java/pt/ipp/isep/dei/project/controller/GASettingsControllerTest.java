@@ -8,9 +8,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
@@ -42,7 +42,7 @@ class GASettingsControllerTest {
     private AreaSensor validAreaSensor1;
     private AreaSensor validAreaSensor2;
     private GeographicAreaList validGeographicAreaList;
-    private AreaTypeList validAreaTypeList;
+    private AreaTypeService validAreaTypeService;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @Mock
@@ -60,7 +60,7 @@ class GASettingsControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validAreaTypeList = new AreaTypeList(areaTypeRepository);
+        validAreaTypeService = new AreaTypeService(areaTypeRepository);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -141,28 +141,13 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeList, "City");
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeService, "City");
 
         // Assert
 
         assertTrue(result);
     }
 
-    @Test
-    void seeIfCreateTypeAreaWorksListWithElements() {
-
-        // Arrange
-
-        validAreaTypeList.addTypeArea(typeCountry);
-
-        // Act
-
-        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeList, "City");
-
-        // Assert
-
-        assertTrue(result);
-    }
 
     //TODO review immutable objects approach. it now works since it is using it on AreaTypes, so it will never assertFalse
 //    @Test

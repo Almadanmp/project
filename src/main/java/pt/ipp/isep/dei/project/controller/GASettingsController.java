@@ -1,9 +1,12 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.TypeAreaDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
@@ -31,12 +34,12 @@ public class GASettingsController {
     }
 
     /**
-     * @param areaTypeList is the list of Geographic Area Types we want to print.
+     * @param areaTypeService is the list of Geographic Area Types we want to print.
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGATypeListString(AreaTypeList areaTypeList) {
-        return areaTypeList.getAllAsString();
+    public String buildGATypeListString(AreaTypeService areaTypeService) {
+        return areaTypeService.getAllAsString();
     }
 
 
@@ -52,16 +55,16 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(AreaTypeList areaTypeList, String input) {
-        AreaType areaType = areaTypeList.createTypeArea(input);
-        return areaTypeList.addTypeAreaRepository(areaType);
+    public boolean createAndAddTypeAreaToList(AreaTypeService areaTypeService, String input) {
+        AreaType areaType = areaTypeService.create(input);
+        return areaTypeService.add(areaType);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
-    public String getTypeAreaList(AreaTypeList areaTypeList) {
-        return areaTypeList.getAllAsString();
+    public String getTypeAreaList(AreaTypeService areaTypeService) {
+        return areaTypeService.getAllAsString();
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
@@ -174,7 +177,7 @@ public class GASettingsController {
      * Deactivates a sensor from a sensor list
      *
      * @param geographicAreaList the geographic area list that contains the geographic area with sensors
-     * @param areaSensorDTO          selected sensor from the geographic area, list of sensors
+     * @param areaSensorDTO      selected sensor from the geographic area, list of sensors
      * @param geographicAreaDTO  selected geographicAreaDTO from the geographic area list
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
