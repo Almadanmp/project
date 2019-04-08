@@ -16,10 +16,10 @@ import java.util.List;
 public class GeographicAreaReaderJSON implements GeographicAreaReader {
 
     public List<GeographicAreaDTO> readFile(String filePath) {
-        List<GeographicAreaDTO> geographicAreaDTOS;
+        List<GeographicAreaDTO> geographicAreaDTOS = new ArrayList<>();
 
         List<GeographicAreaDTOWrapperList> listOfGeoAreaDTOWrapperList;
-        List<GeographicAreaDTOWrapper> geoAreaDTOWrapperList = new ArrayList<>();
+        List<GeographicAreaDTOWrapper> geoAreaDTOWrapperList;
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -29,9 +29,9 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
             ListOfGeographicAreaDTOWrapperList listGeographicAreaDTOWrapperList = objectMapper.readValue(file, ListOfGeographicAreaDTOWrapperList.class);
             listOfGeoAreaDTOWrapperList = listGeographicAreaDTOWrapperList.getGeoAreaDTOWrapperList();
             for (GeographicAreaDTOWrapperList list : listOfGeoAreaDTOWrapperList){
-                geoAreaDTOWrapperList=list.getGeoAreaDTOWrapperList();
+                geoAreaDTOWrapperList = list.getGeoAreaDTOWrapperList();
+                geographicAreaDTOS = Adapter.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
             }
-            geographicAreaDTOS = Adapter.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
