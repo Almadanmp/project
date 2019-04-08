@@ -35,52 +35,6 @@ public class HouseSensorList {
     }
 
     /**
-     * Method that goes through the sensor list and looks for the sensor
-     * that was most recently used (that as the most recent reading).
-     *
-     * @return the most recently used sensor
-     */
-    public HouseSensor getMostRecentlyUsedSensor() {
-        if (this.houseSensors.isEmpty()) {
-            throw new IllegalArgumentException("The sensor list is empty.");
-        }
-        HouseSensorList sensorList = getSensorsWithReadings();
-        if (sensorList.isEmpty()) {
-            throw new IllegalArgumentException("The sensor list has no readings available.");
-        }
-        HouseSensor mostRecent = sensorList.get(0);
-        Date recent = mostRecent.getMostRecentReadingDate();
-        for (HouseSensor s : this.houseSensors) {
-            Date test = s.getMostRecentReadingDate();
-            if (recent.before(test)) {
-                recent = test;
-                mostRecent = s;
-            }
-        }
-        return mostRecent;
-    }
-
-    /**
-     * Method that goes through the sensor list and returns a list of those which
-     * have readings. The method throws an exception in case the sensorList is empty.
-     *
-     * @return AreaSensorList of every sensor that has readings. It will return an empty list in
-     * case the original list was empty from readings.
-     */
-    public HouseSensorList getSensorsWithReadings() {
-        HouseSensorList finalList = new HouseSensorList();
-        if (this.houseSensors.isEmpty()) {
-            throw new IllegalArgumentException("The sensor list is empty");
-        }
-        for (HouseSensor s : this.houseSensors) {
-            if (!s.isReadingListEmpty()) {
-                finalList.add(s);
-            }
-        }
-        return finalList;
-    }
-
-    /**
      * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
