@@ -317,9 +317,9 @@ class GeographicAreaTest {
     void seeAddSensorToGA() {
         // Arrange
 
-        AreaSensor firstTestAreaSensor = new AreaSensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
-        AreaSensor secondTestAreaSensor = new AreaSensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
-        AreaSensor thirdTestAreaSensor = new AreaSensor("Sensor 3", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor firstTestAreaSensor = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date());
+        AreaSensor secondTestAreaSensor = new AreaSensor("Sensor 1","Sensor 1", new SensorType("Temperature", "Celsius"), new Local(12,12,12), new Date());
+        AreaSensor thirdTestAreaSensor = new AreaSensor("Sensor 3", "Sensor 3",  new SensorType("Temperature", "Celsius"), new Local( 12,12,12),new Date());
 
         // Act
 
@@ -346,7 +346,7 @@ class GeographicAreaTest {
 
         // Arrange
 
-        AreaSensor areaSensor = new AreaSensor("Sensor 1", new SensorType("Temperature", "Celsius"), new Date());
+        AreaSensor areaSensor = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date());
         validArea.addSensor(areaSensor);
 
         // Act
@@ -587,9 +587,9 @@ class GeographicAreaTest {
         //Arrange
         GeographicArea geographicArea = new GeographicArea();
         AreaSensorService areaSensorService = new AreaSensorService();
-        AreaSensor areaSensor1 = new AreaSensor("Sensor 1", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
-        AreaSensor areaSensor2 = new AreaSensor("Sensor 2", new SensorType("rainfall", "mm"), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
-        AreaSensor areaSensor3 = new AreaSensor("Sensor 3", new SensorType("temperature", "C"), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
+        AreaSensor areaSensor1 = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("temperature", "C"), new Local(12,12,12), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
+        AreaSensor areaSensor2 = new AreaSensor("Sensor 2", "Sensor 2", new SensorType("rainfall", "mm"), new Local(12,12,12), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime());
+        AreaSensor areaSensor3 = new AreaSensor("Sensor 3", "Sensor 3", new SensorType("temperature", "C"), new Local(12,12,12), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime());
         areaSensorService.add(areaSensor1);
         areaSensorService.add(areaSensor2);
         areaSensorService.add(areaSensor3);

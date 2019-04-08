@@ -28,10 +28,6 @@ public class EnergyGrid implements Metered {
 
     private double maxContractedPower;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "energy_grid_list_id")
-    private EnergyGridList energyGridList;
-
     /**
      * Empty Constructor to use when importing Energy Grids from XML files.
      */
