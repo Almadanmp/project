@@ -176,7 +176,7 @@ public class ReaderController {
 
     /**
      * This method receives a geographic area list, a file path to JSON file and a file path to a log.
-     * The method will read the JSON file, try to parse every reading and try to addWithoutPersisting them to the
+     * The method will readSensors the JSON file, try to parse every reading and try to addWithoutPersisting them to the
      * corresponding sensor from its corresponding geographic area. The readings that fail to be added
      * will be added to log.
      *
@@ -197,7 +197,6 @@ public class ReaderController {
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             addedReadings = parseAndLogJSONReadings(array, logger);
-
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -266,7 +265,7 @@ public class ReaderController {
 
     /**
      * This method receives a geographic area list, a file path to XML file and a file path to a log.
-     * The method will read the XML file, try to parse every reading and try to addWithoutPersisting them to the
+     * The method will readSensors the XML file, try to parse every reading and try to addWithoutPersisting them to the
      * corresponding sensor from its corresponding geographic area. The readings that fail to be added
      * will be added to log.
      *

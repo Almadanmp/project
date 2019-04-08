@@ -179,8 +179,8 @@ public class HouseSensor {
      * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
      * to the date when the sensor was activated.
      *
-     * @param value is the value read on the reading.
-     * @param date  is the read date of the reading.
+     * @param value is the value readSensors on the reading.
+     * @param date  is the readSensors date of the reading.
      * @return returns true if the reading was successfully added.
      * @author André
      */

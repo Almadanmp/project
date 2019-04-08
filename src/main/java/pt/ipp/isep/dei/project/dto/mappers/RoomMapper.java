@@ -70,7 +70,7 @@ public final class RoomMapper {
 
         // Update the UUID
 
-        Long objectID = dtoToConvert.getId();
+        String objectID = dtoToConvert.getId();
 
         // Create, update and return the converted object.
 
@@ -126,7 +126,7 @@ public final class RoomMapper {
 
         // Update the UUID
 
-        Long dtoID = objectToConvert.getId();
+        String dtoID = objectToConvert.getId();
 
         // Create, update and return the converted DTO.
 

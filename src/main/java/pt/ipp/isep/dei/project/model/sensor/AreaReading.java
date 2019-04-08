@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * This class will contain a value read by a Sensor, associated with a date of said reading.
+ * This class will contain a value readSensors by a Sensor, associated with a date of said reading.
  */
 @Entity
 public class AreaReading {

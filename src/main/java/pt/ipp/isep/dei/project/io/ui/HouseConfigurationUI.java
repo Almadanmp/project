@@ -69,6 +69,10 @@ class HouseConfigurationUI {
                     runUS108(house);
                     activeInput = false;
                     break;
+                case 7:
+                    runUS260(house);
+                    activeInput = false;
+                    break;
                 case 0:
                     return;
                 default:
@@ -94,9 +98,7 @@ class HouseConfigurationUI {
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
         int areas = ctrl.acceptPath(result, filePath, geographicAreaList);
-        if (areas == -1) {
-            System.out.println("Please enter a valid path.");
-        } else System.out.println(areas + " Geographic Areas have been successfully imported.");
+        System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 
 
@@ -317,16 +319,30 @@ class HouseConfigurationUI {
         System.out.println(controller.buildRoomsString(house));
     }
 
+    // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.
+    // Sensors without a valid room shouldn’t be imported but registered in the application log.
+
+    private void runUS260(House house) {
+        InputHelperUI inputs = new InputHelperUI();
+        System.out.println("Please insert the location of the file you want to import:");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = inputs.getInputPathJsonOrXML(result);
+        int importedSensors = controller.readSensors(filePath, house);
+        System.out.println(importedSensors + " Sensors successfully imported.");
+    }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
         System.out.println("2) Import Geographic Area Sensor readings from a file - json, xml, csv. (US20v2)");
-        System.out.println("3) I want to configure the house from a file containing basic house information, grids and rooms.");
+        System.out.println("3) As an Administrator, I want to configure the house from a file containing basic house " +
+                        "information, grids and rooms)(US100)");
         System.out.println("4) Configure the location of the house. (US101)");
         System.out.println("5) Add a new room to the house. (US105)");
         System.out.println("6) List the existing rooms. (US108)");
+        System.out.println("7) Import House Sensors from a file. (US260)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

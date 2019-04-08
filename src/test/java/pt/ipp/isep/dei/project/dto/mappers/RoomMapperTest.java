@@ -39,7 +39,7 @@ class RoomMapperTest {
     void seeIfDTOToObjectWorks() {
         // Arrange
 
-        validDTO.setId(15L);
+        validDTO.setId("15L");
         validDTO.setName("Kitchen");
         validDTO.setFloor(2);
         validDTO.setWidth(30);
@@ -59,7 +59,7 @@ class RoomMapperTest {
         testList.add(HouseSensorMapper.dtoToObject(dto));
         validRoom.setSensorList(testList);
         validRoom.setDeviceList(deviceList);
-        validRoom.setId(15L);
+        validRoom.setId("15L");
 
         // Act
 

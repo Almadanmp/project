@@ -102,15 +102,15 @@ class RoomDTOTest {
     void seeIfSetGetIDWorks(){
         // Arrange
 
-        validDTO.setId(131L);
+        validDTO.setId("131L");
 
         // Act
 
-        long result = validDTO.getId();
+        String result = validDTO.getId();
 
         // Assert
 
-        assertEquals(131L, result);
+        assertEquals("131L", result);
     }
 
     @Test

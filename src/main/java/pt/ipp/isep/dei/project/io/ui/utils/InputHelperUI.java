@@ -352,11 +352,11 @@ public class InputHelperUI {
     }
 
     /**
-     * Method to read the user input as an Int
+     * Method to readSensors the user input as an Int
      * If its not an int it will print an invalid option message
      * If its a double it will convert it to an int
      *
-     * @return value read from the user
+     * @return value readSensors from the user
      */
     public static int getInputAsInt() {
         Scanner scan = new Scanner(System.in);
@@ -369,10 +369,10 @@ public class InputHelperUI {
     }
 
     /**
-     * Method to read a double value from a user.
+     * Method to readSensors a double value from a user.
      * Will validate input is a double. if it isn't it will print an error message.
      *
-     * @return value read from user
+     * @return value readSensors from user
      */
     public static Double getInputAsDouble() {
         Scanner scanner = new Scanner(System.in);
@@ -384,10 +384,10 @@ public class InputHelperUI {
     }
 
     /**
-     * Method to read a double value from a user.
+     * Method to readSensors a double value from a user.
      * Will validate if input is a double and of positive value. if it isn't it will print an error message.
      *
-     * @return value read from user
+     * @return value readSensors from user
      */
     public static Double getInputAsDoublePositive() {
         double input = -1.0;
@@ -398,10 +398,10 @@ public class InputHelperUI {
     }
 
     /**
-     * Method to read a double value from a user.
+     * Method to readSensors a double value from a user.
      * Will validate if input is a double and zero or positive value. if it isn't it will print an error message.
      *
-     * @return value read from user
+     * @return value readSensors from user
      */
     public static Double getInputAsDoubleZeroOrPositive() {
         double input = -1.0;
@@ -417,7 +417,7 @@ public class InputHelperUI {
      *
      * @return returns a filepath.
      */
-    private String getInputPath(String filePath) {
+    private static String getInputPath(String filePath) {
         String result = filePath;
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
@@ -435,7 +435,7 @@ public class InputHelperUI {
      */
     public String getInputPathJsonOrXML(String input) {
         String filePath = "";
-        if ((input.endsWith(".json") || (input.endsWith(".xml")))) {
+        while (!(input.endsWith(".json") && !((input.endsWith(".xml"))))) {
             filePath = getInputPath(input);
         }
         return filePath;
