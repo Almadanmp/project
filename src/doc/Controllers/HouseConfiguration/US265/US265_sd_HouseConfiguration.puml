@@ -41,7 +41,7 @@ HouseConfigurationUI -> Administrator: Request File Path
 Administrator --> HouseConfigurationUI: Insert File Path
 HouseConfigurationUI -> HouseConfigurationController: read(filePath)
 HouseConfigurationController -> "Reader": read(filePath)
-"Reader" -> "House": add(List<Reading>
+"Reader" -> "House": add(List<Reading>)
 activate House
 "House" -> "Sensor": getSensorById (Sensor)
 activate Sensor
