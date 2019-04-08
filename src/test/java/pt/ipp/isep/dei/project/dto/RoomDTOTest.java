@@ -99,21 +99,6 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetIDWorks(){
-        // Arrange
-
-        validDTO.setId(131L);
-
-        // Act
-
-        long result = validDTO.getId();
-
-        // Assert
-
-        assertEquals(131L, result);
-    }
-
-    @Test
     void seeIfSetGetSensorListWorks(){
         // Arrange
 

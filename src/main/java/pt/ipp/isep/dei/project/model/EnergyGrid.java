@@ -20,7 +20,7 @@ public class EnergyGrid implements Metered {
     private Long id;
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private RoomList roomList;
 
     @Transient

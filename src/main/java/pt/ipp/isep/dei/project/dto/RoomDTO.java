@@ -14,7 +14,6 @@ public class RoomDTO {
     private double height;
     private List<HouseSensorDTO> sensorList;
     private DeviceList deviceList;
-    private Long id;
 
     /**
      * Method that retrieves the DTO's sensor list.
@@ -175,23 +174,5 @@ public class RoomDTO {
         this.height = height;
     }
 
-    /**
-     * Method that retrieves the DTO's unique ID. This is useful to match it with a model object.
-     *
-     * @return is a UUID. UUID is a java class.
-     */
 
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Method that stores a UUID as the object's UUID. This is useful to match the DTO with a model object.
-     *
-     * @param id is the UUID we want to store.
-     */
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
