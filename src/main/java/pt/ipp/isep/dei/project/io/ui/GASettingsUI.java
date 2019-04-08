@@ -434,6 +434,7 @@ class GASettingsUI {
     private void runUS15v3() {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter a valid path.");
         String result = scanner.next();
         String filePath = inputHelperUI.getInputPathJsonOrXML(result);
         if (filePath.endsWith(".json")) {
@@ -442,15 +443,15 @@ class GASettingsUI {
     }
 
     private void importGeoAreasFromJSON(String filePath) {
-        int result = 0;
+        int result;
         GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
-        try {
+      //  try {
             List<GeographicAreaDTO> list = readerJSON.readFile(filePath);
             result = addGeoAreasDTOToList(list, geographicAreaList);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The JSON file is invalid. Please fix before continuing.");
-        }
-        System.out.println(result + READINGS_IMPORTED);
+       // } catch (IllegalArgumentException illegal) {
+       //     System.out.println("The JSON file is invalid. Please fix before continuing.");
+        //}
+        System.out.println(result + " geographic area(s) successfully imported.");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

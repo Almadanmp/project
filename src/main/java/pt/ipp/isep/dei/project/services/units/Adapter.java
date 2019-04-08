@@ -78,6 +78,7 @@ public final class Adapter {
         List<GeographicAreaDTO> finalList = new ArrayList<>();
         for (GeographicAreaDTOWrapper wrapper : geographicAreaDTOWrappers) {
             GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+            geographicAreaDTO.setId(wrapper.getId());
             geographicAreaDTO.setTypeArea(wrapper.getTypeArea());
             geographicAreaDTO.setLength(wrapper.getLength());
             geographicAreaDTO.setWidth(wrapper.getWidth());

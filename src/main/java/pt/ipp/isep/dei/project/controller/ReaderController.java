@@ -108,6 +108,7 @@ public class ReaderController {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
+           System.out.println(GeographicAreaMapper.dtoToObject(dto).toString());
             counter++;
         }
         return counter;

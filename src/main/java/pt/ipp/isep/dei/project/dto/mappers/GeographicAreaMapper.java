@@ -71,6 +71,7 @@ public final class GeographicAreaMapper {
         resultObject.setDescription(objectDescription);
         resultObject.setSensorList(objectAreaSensorList);
 
+
         return resultObject;
     }
 
