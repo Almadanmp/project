@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GeographicAreaDTOWrapperList {
-    @JsonProperty("geographical_area")
+public class ListOfGeographicAreaDTOWrapperList {
+    @JsonProperty("geographical_area_list")
     @JacksonXmlElementWrapper(useWrapping = false)
-    private List<GeographicAreaDTOWrapper> areaDTOWrappers;
+    private List<GeographicAreaDTOWrapperList> areaDTOWrapperLists;
 
-    public GeographicAreaDTOWrapperList(List<GeographicAreaDTOWrapper> geographicAreaDTOWrappers) {
-        this.areaDTOWrappers = geographicAreaDTOWrappers;
+    public ListOfGeographicAreaDTOWrapperList(List<GeographicAreaDTOWrapperList> areaDTOS) {
+        this.areaDTOWrapperLists = areaDTOS;
     }
 
-    public GeographicAreaDTOWrapperList() {
-        this.areaDTOWrappers = new ArrayList<>();
+    public ListOfGeographicAreaDTOWrapperList() {
+        this.areaDTOWrapperLists = new ArrayList<>();
     }
 
-    public List<GeographicAreaDTOWrapper> getGeoAreaDTOWrapperList() {
-        return this.areaDTOWrappers;
+    public List<GeographicAreaDTOWrapperList> getGeoAreaDTOWrapperList() {
+        return this.areaDTOWrapperLists;
     }
 
-    public void setGeoAreaDTOWrapperList(List<GeographicAreaDTOWrapper> geographicAreaDTOWrappers) {
-        this.areaDTOWrappers = geographicAreaDTOWrappers;
+    public void setGeoAreaDTOWrapperList(List<GeographicAreaDTOWrapperList> areaDTOList) {
+        this.areaDTOWrapperLists = areaDTOList;
     }
 
     /**
@@ -34,11 +34,11 @@ public class GeographicAreaDTOWrapperList {
      *
      * @return array of ReadingDTOWrappers
      */
-    public GeographicAreaDTOWrapper[] getElementsAsArray() {
-        int sizeOfResultArray = areaDTOWrappers.size();
-        GeographicAreaDTOWrapper[] result = new GeographicAreaDTOWrapper[sizeOfResultArray];
-        for (int i = 0; i < areaDTOWrappers.size(); i++) {
-            result[i] = areaDTOWrappers.get(i);
+    public GeographicAreaDTOWrapperList[] getElementsAsArray() {
+        int sizeOfResultArray = areaDTOWrapperLists.size();
+        GeographicAreaDTOWrapperList[] result = new GeographicAreaDTOWrapperList[sizeOfResultArray];
+        for (int i = 0; i < areaDTOWrapperLists.size(); i++) {
+            result[i] = areaDTOWrapperLists.get(i);
         }
         return result;
     }
@@ -57,7 +57,7 @@ public class GeographicAreaDTOWrapperList {
         if (!(testObject instanceof GeographicAreaList)) {
             return false;
         }
-        GeographicAreaDTOWrapperList list = (GeographicAreaDTOWrapperList) testObject;
+        ListOfGeographicAreaDTOWrapperList list = (ListOfGeographicAreaDTOWrapperList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

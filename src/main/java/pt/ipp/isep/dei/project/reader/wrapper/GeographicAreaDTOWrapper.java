@@ -10,17 +10,22 @@ import java.util.List;
 
 public class GeographicAreaDTOWrapper {
 
+    private long id;
+
     @JsonProperty("id")
     private String name;
+
+    @JsonProperty("description")
+    private String description;
 
     @JsonProperty("type")
     private String typeArea;
 
-    @JsonProperty("length")
-    private double length;
-
     @JsonProperty("width")
     private double width;
+
+    @JsonProperty("length")
+    private double length;
 
     @JsonProperty("latitude")
     private double latitude;
@@ -31,11 +36,14 @@ public class GeographicAreaDTOWrapper {
     @JsonProperty("altitude")
     private double altitude;
 
-    @JsonProperty("area_sensor")
+   // @JsonProperty("area_sensor")
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
 
-    @JsonProperty("description")
-    private String description;
+    public void setId(long id1){
+        this.id = id1;
+    }
+
+    public long getId(){return this.id;}
 
     public void setName(String name) {
         this.name = name;
