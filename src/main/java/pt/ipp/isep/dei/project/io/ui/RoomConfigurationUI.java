@@ -25,7 +25,7 @@ class RoomConfigurationUI {
         this.controller = new RoomConfigurationController();
     }
 
-    void run(House house, SensorTypeList sensorTypeList) {
+    void run(House house, SensorTypeService sensorTypeList) {
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -371,7 +371,7 @@ class RoomConfigurationUI {
      * <p>
      * //  * @param typeSensorList is
      */
-    private void runUS253(House house, SensorTypeList sensorTypeList) {
+    private void runUS253(House house, SensorTypeService sensorTypeList) {
         if (sensorTypeList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
