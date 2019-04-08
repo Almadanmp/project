@@ -72,6 +72,12 @@ public class ReaderController {
         return -1;
     }
 
+    /**
+     * This method reads a JSON file that represents the class House() and sets House attributes from the file and
+     * saves it into the repository.
+     * @param filePath is the file path.
+     * @return true if the House was successfully saved in the repository, false otherwise.
+     */
     public boolean readJSONAndDefineHouse(String filePath) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
