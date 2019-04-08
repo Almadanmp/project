@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
-import pt.ipp.isep.dei.project.dto.HouseReadingDTO;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
@@ -60,9 +60,9 @@ public class HouseSensorMapper {
 
         // Update the reading list
 
-        HouseReadingList objectAreaReadingList = new HouseReadingList();
-        for (HouseReadingDTO r: dtoToConvert.getReadingList()){
-            HouseReading tempAreaReading = HouseReadingMapper.dtoToObject(r);
+        ReadingList objectAreaReadingList = new ReadingList();
+        for (ReadingDTO r: dtoToConvert.getReadingList()){
+            Reading tempAreaReading = ReadingMapper.dtoToObject(r);
             objectAreaReadingList.addReading(tempAreaReading);
         }
 
@@ -109,9 +109,9 @@ public class HouseSensorMapper {
 
         // Update the reading list
 
-        List<HouseReadingDTO> dtoReadingList = new ArrayList<>();
-        for (HouseReading r: objectToConvert.getReadingList().getReadings()){
-            HouseReadingDTO tempReadingDTO = HouseReadingMapper.objectToDTO(r);
+        List<ReadingDTO> dtoReadingList = new ArrayList<>();
+        for (Reading r: objectToConvert.getReadingList().getReadings()){
+            ReadingDTO tempReadingDTO = ReadingMapper.objectToDTO(r);
             if(!dtoReadingList.contains(tempReadingDTO)){
                 dtoReadingList.add(tempReadingDTO);
             }
