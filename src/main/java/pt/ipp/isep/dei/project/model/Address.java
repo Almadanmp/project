@@ -33,7 +33,7 @@ public class Address {
      *
      * @return the string with the street name.
      */
-    String getStreet() {
+    public String getStreet() {
         return this.street;
     }
 
@@ -51,7 +51,7 @@ public class Address {
      *
      * @return the string with the zip code.
      */
-    String getZip() {
+    public String getZip() {
         return this.zip;
     }
 
@@ -60,7 +60,7 @@ public class Address {
      *
      * @return the string with the town name.
      */
-    String getTown() {
+    public String getTown() {
         return this.town;
     }
 

@@ -54,14 +54,18 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS101(house);
+                    runUS100();
                     activeInput = false;
                     break;
                 case 4:
-                    runUS105(house);
+                    runUS101(house);
                     activeInput = false;
                     break;
                 case 5:
+                    runUS105(house);
+                    activeInput = false;
+                    break;
+                case 6:
                     runUS108(house);
                     activeInput = false;
                     break;
@@ -152,6 +156,22 @@ class HouseConfigurationUI {
         }
         System.out.println(result + READINGS_IMPORTED);
     }
+
+    /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
+
+    private void runUS100() {
+        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
+        InputHelperUI input = new InputHelperUI();
+        System.out.println("Please insert the location of the file you want to import:");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = input.getInputPathJson(result);
+        if(ctrl.readJSONAndDefineHouse(filePath)){
+            System.out.println("House Data Successfully imported.");
+        }
+        System.out.println("The JSON file is invalid.");
+    }
+
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 
@@ -253,7 +273,7 @@ class HouseConfigurationUI {
 
     private void displayRoom() {
         String yourNewRoom = "The room is called ";
-        String description = " it is the ";
+        String description = " it is ";
         String located = ", located on the ";
         String width = " meters of width, ";
         String length = " meters of length and ";
@@ -303,9 +323,10 @@ class HouseConfigurationUI {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
         System.out.println("2) Import Geographic Area Sensor readings from a file - json, xml, csv. (US20v2)");
-        System.out.println("3) Configure the location of the house. (US101)");
-        System.out.println("4) Add a new room to the house. (US105)");
-        System.out.println("5) List the existing rooms. (US108)");
+        System.out.println("3) I want to configure the house from a file containing basic house information, grids and rooms.");
+        System.out.println("4) Configure the location of the house. (US101)");
+        System.out.println("5) Add a new room to the house. (US105)");
+        System.out.println("6) List the existing rooms. (US108)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
