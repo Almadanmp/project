@@ -2,10 +2,12 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.annotation.DirtiesContext;
 import pt.ipp.isep.dei.project.model.RoomList;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,9 +15,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * TypeSensorList tests class
  */
 
-
+@ExtendWith(MockitoExtension.class)
 class SensorTypeListTest {
     // Common Testing Artifacts for this test class.
+
+    @Mock
+    private SensorTypeRepository sensorTypeRepository;
 
     private SensorType firstSensorType; // Is in the list.
     private SensorType secondSensorType; // Is not in the list.
@@ -24,7 +29,7 @@ class SensorTypeListTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validList = new SensorTypeList();
+        validList = new SensorTypeList(sensorTypeRepository);
         firstSensorType = new SensorType("Temperature", "Celsius");
         secondSensorType = new SensorType("Rainfall", "l/m2");
         validList.add(firstSensorType);
@@ -35,7 +40,7 @@ class SensorTypeListTest {
         // Arrange
         String expectedResult = "Invalid List - List is Empty\n";
         // Act
-        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorTypeList sensorTypeList = new SensorTypeList(sensorTypeRepository);
         String actualResult = sensorTypeList.buildString();
         // Assert
 
@@ -89,7 +94,7 @@ class SensorTypeListTest {
         // Arrange
 
         String expectedResult = "Invalid List - List is Empty\n";
-        SensorTypeList testList = new SensorTypeList();
+        SensorTypeList testList = new SensorTypeList(sensorTypeRepository);
 
         // Act
 
@@ -104,7 +109,7 @@ class SensorTypeListTest {
     void seeIfIsEmptyWorks() {
         // Arrange
 
-        SensorTypeList emptyList = new SensorTypeList();
+        SensorTypeList emptyList = new SensorTypeList(sensorTypeRepository);
         // Act
 
         boolean actualResult1 = emptyList.isEmpty();
@@ -119,7 +124,7 @@ class SensorTypeListTest {
     @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
-        SensorTypeList tempSensorList = new SensorTypeList();
+        SensorTypeList tempSensorList = new SensorTypeList(sensorTypeRepository);
 
         // Act
 
@@ -168,7 +173,7 @@ class SensorTypeListTest {
     void seeIfGetElementWorksEmptyList() {
         // Arrange
 
-        SensorTypeList emptyList = new SensorTypeList();
+        SensorTypeList emptyList = new SensorTypeList(sensorTypeRepository);
 
         // Act
 
@@ -202,7 +207,7 @@ class SensorTypeListTest {
     void seeIfSizeWorks() {
         // Arrange
 
-        SensorTypeList emptyList = new SensorTypeList();
+        SensorTypeList emptyList = new SensorTypeList(sensorTypeRepository);
         validList.add(secondSensorType);
 
         // Act
@@ -224,7 +229,7 @@ class SensorTypeListTest {
         SensorType[] expectedResult3 = new SensorType[2];
         expectedResult3[0] = firstSensorType;
         expectedResult3[1] = secondSensorType;
-        SensorTypeList emptyList = new SensorTypeList();
+        SensorTypeList emptyList = new SensorTypeList(sensorTypeRepository);
 
         validList.add(secondSensorType);
 

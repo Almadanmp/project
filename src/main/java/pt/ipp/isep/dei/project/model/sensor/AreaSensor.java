@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Local;
 
 import javax.persistence.*;
 import java.util.Date;

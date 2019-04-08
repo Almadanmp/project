@@ -2,7 +2,9 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.Room;
@@ -10,27 +12,31 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 class RoomMapperTest {
     // Common testing artifacts for testing in this class
     private Room validRoom;
     private RoomDTO validDTO;
 
+    @Mock
+    private AreaSensorRepository areaSensorRepository;
+
     @BeforeEach
-    void arrangeArtifacts(){
-        validRoom = new Room("Kitchen","2nd Floor Kitchen", 2, 30, 20, 10);
+    void arrangeArtifacts() {
+        validRoom = new Room("Kitchen", "2nd Floor Kitchen", 2, 30, 20, 10);
         validDTO = new RoomDTO();
     }
 
     @Test
-    void seeIfDTOToObjectWorks(){
+    void seeIfDTOToObjectWorks() {
         // Arrange
 
         validDTO.setId(15L);

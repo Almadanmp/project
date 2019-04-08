@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,13 +18,16 @@ import java.util.List;
 public class SensorTypeList {
     private static final String STRING_BUILDER = "---------------\n";
 
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
 
     private List<SensorType> sensorTypes;
 
 
     //CONSTRUCTOR
-    public SensorTypeList() {
+    public SensorTypeList(SensorTypeRepository sensorTypeRepository) {
         sensorTypes = new ArrayList<>();
+        this.sensorTypeRepository = sensorTypeRepository;
     }
 
 

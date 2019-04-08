@@ -120,6 +120,21 @@ public class AreaSensorList {
     }
 
     /**
+     * Method to Add a sensor only if it's not contained in the list already.
+     *
+     * @param areaSensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
+     * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
+     */
+
+    public boolean addWithPersist(AreaSensor areaSensorToAdd) {
+        if (!(areaSensors.contains(areaSensorToAdd))) {
+            areaSensorRepository.save(areaSensorToAdd);
+            return areaSensors.add(areaSensorToAdd);
+        }
+        return false;
+    }
+
+    /**
      * Goes through the sensor list, calculates sensors distance to house and
      * returns values in ArrayList.
      *

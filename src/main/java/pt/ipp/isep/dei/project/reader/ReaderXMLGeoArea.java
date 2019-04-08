@@ -5,10 +5,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
+import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
@@ -31,13 +31,13 @@ public class ReaderXMLGeoArea {
      * @param filePath path to the xml file
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list, AreaSensorService service) {
-        ReaderController ctrl = new ReaderController(service);
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list, AreaSensorService service, AreaSensorList areaSensorList) {
+        ReaderController ctrl = new ReaderController(service, areaSensorList);
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
-        return ctrl.addGeoAreaNodeListToList(nListGeoArea,list);
+        return ctrl.addGeoAreaNodeListToList(nListGeoArea, list, areaSensorList);
     }
 
     /**
@@ -46,8 +46,9 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    public GeographicArea readGeographicAreasXML(Node node) {
-        GeographicArea geoArea = new GeographicArea();
+    public boolean readGeographicAreasXML(Node node, GeographicAreaList list, AreaSensorList areaSensorList) {
+        boolean result = false;
+        GeographicArea geoArea;
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             String description = getTagValue("description", element);
@@ -61,15 +62,15 @@ public class ReaderXMLGeoArea {
             geoArea = new GeographicArea(id, areaType, length, width, local);
             geoArea.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
-            AreaSensorList areaSensorList = new AreaSensorList();
-            for (int j = 0; j < nListSensor.getLength(); j++) {
-                areaSensorList.add(readSensorsXML(nListSensor.item(j), areaSensorList));
+            result = list.addAndPersistGA(geoArea);
+            if (result) {
+                for (int j = 0; j < nListSensor.getLength(); j++) {
+                    areaSensorList.addWithPersist(readSensorsXML(nListSensor.item(j), geoArea));
+                }
             }
-            geoArea.setSensorList(areaSensorList);
-
 
         }
-        return geoArea;
+        return result;
     }
 
     /**
@@ -78,7 +79,7 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private AreaSensor readSensorsXML(Node node, AreaSensorList areaSensorList) {
+    private AreaSensor readSensorsXML(Node node, GeographicArea geographicArea) {
         AreaSensor areaSensor = new AreaSensor();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -97,7 +98,7 @@ public class ReaderXMLGeoArea {
                 expected.getErrorOffset();
             }
             areaSensor = new AreaSensor(id, name, sensorType, local, date);
-            areaSensor.setAreaSensorList(areaSensorList);
+            areaSensor.setGeographicArea(geographicArea);
         }
         return areaSensor;
     }

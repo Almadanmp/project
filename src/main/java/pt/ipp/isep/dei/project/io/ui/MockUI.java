@@ -57,7 +57,7 @@ class MockUI {
     }
 
     House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida","431", "4200-072", "Porto","Portugal"), new Local(41.177748, -8.607745, 112), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal"), new Local(41.177748, -8.607745, 112), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         EnergyGrid mainGrid = new EnergyGrid("Main Grid", 0);
         EnergyGridList mockEGList = new EnergyGridList();
         mockEGList.addGrid(mainGrid);
@@ -85,7 +85,7 @@ class MockUI {
 
     //METHODS TO CREATE ROOMS
     private Room createRoomB107() {
-        Room roomB107 = new Room("B107", "Classroom",1, 7, 11, 3.5);
+        Room roomB107 = new Room("B107", "Classroom", 1, 7, 11, 3.5);
         WaterHeater wH107 = new WaterHeater(new WaterHeaterSpec());
         wH107.setName("EHW B107");
         wH107.setNominalPower(1.5);
@@ -125,7 +125,7 @@ class MockUI {
     }
 
     private Room createRoomB109() {
-        Room roomB109 = new Room("B109","Classroom", 1, 7, 11, 3.5);
+        Room roomB109 = new Room("B109", "Classroom", 1, 7, 11, 3.5);
 
 //        AreaSensor temperatureAreaSensorB109 = new AreaSensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
 //        roomB109.addSensor(temperatureAreaSensorB109);
@@ -166,7 +166,7 @@ class MockUI {
     }
 
     private Room createRoomB106() {
-        Room roomB106 = new Room("B106","Classroom", 1, 7, 13, 3.5);
+        Room roomB106 = new Room("B106", "Classroom", 1, 7, 13, 3.5);
         WaterHeater wH106 = new WaterHeater(new WaterHeaterSpec());
         wH106.setName("EHW B106");
         wH106.setNominalPower(2.2);

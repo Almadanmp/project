@@ -56,6 +56,9 @@ public class MainUI {
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
 
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
     }
@@ -116,7 +119,7 @@ public class MainUI {
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
             this.areaTypeList = new AreaTypeList(areaTypeRepository);
-            SensorTypeList mockSensorTypeList = new SensorTypeList();
+            SensorTypeList mockSensorTypeList = new SensorTypeList(sensorTypeRepository);
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA

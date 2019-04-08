@@ -100,6 +100,7 @@ public class Room implements Metered {
 
     /**
      * Room description getter.
+     *
      * @return String of the description of the room.
      */
     public String getDescription() {

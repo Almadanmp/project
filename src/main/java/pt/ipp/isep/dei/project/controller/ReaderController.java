@@ -92,11 +92,11 @@ public class ReaderController {
      * @param list         - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list, AreaSensorList areaSensorList) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (list.addAndPersistGA(readerXML.readGeographicAreasXML(nListGeoArea.item(i)))) {
+            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), list, areaSensorList)) {
                 result++;
             }
         }
