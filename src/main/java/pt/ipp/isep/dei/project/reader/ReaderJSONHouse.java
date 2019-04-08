@@ -86,7 +86,7 @@ public class ReaderJSONHouse implements Reader {
     public List<EnergyGridDTO> readGridsJSON(JSONArray energyGrid) {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
         for (int i = 0; i < energyGrid.length(); i++) {
-            List<RoomDTO> list = new ArrayList<>();
+            List<RoomDTO> roomDTOList = new ArrayList<>();
             int e = energyGrid.getJSONObject(i).getJSONArray("rooms").length();
             JSONObject grid = energyGrid.getJSONObject(i);
             String gridName = grid.getString("name");
@@ -94,16 +94,16 @@ public class ReaderJSONHouse implements Reader {
             energyGridObject.setName(gridName);
             for (int y = 0; y < e; y++) {
                 Object jsonArray = grid.getJSONArray("rooms").get(y);
-                String eee = jsonArray.toString();
+                String gridRoomName = jsonArray.toString();
                 for (int x = 0; x < roomDTOS.size(); x++) {
-                    if (roomDTOS.get(x).getName().equals(eee)) {
+                    if (roomDTOS.get(x).getName().equals(gridRoomName)) {
                         RoomDTO roomDTO = roomDTOS.get(x);
-                        list.add(roomDTO);
+                        roomDTOList.add(roomDTO);
                     }
                 }
 
             }
-            energyGridObject.setRoomDTOS(list);
+            energyGridObject.setRoomDTOS(roomDTOList);
             energyGridDTOList.add(energyGridObject);
         }
         return energyGridDTOList;
