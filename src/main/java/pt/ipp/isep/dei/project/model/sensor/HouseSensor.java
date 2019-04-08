@@ -227,17 +227,6 @@ public class HouseSensor {
     }
 
     /**
-     * This method goes through the sensor reading list and return
-     * the most recent reading date.
-     *
-     * @return most recent reading date in sensor
-     **/
-
-    Date getMostRecentReadingDate() {
-        return this.houseReadingList.getMostRecentReadingDate();
-    }
-
-    /**
      * This method returns the sensor type name.
      *
      * @return he sensor type name.
@@ -246,105 +235,6 @@ public class HouseSensor {
     String getSensorTypeName() {
         return this.sensorType.getName();
     }
-
-    /**
-     * This method checks if the sensor's reading list is valid.
-     *
-     * @return true if valid, false if invalid.
-     **/
-    public boolean isReadingListEmpty() {
-        return this.houseReadingList.isEmpty();
-    }
-
-    /**
-     * This method receives an interval, goes through the sensor's reading list and returns the
-     * average reading values between the interval given.
-     *
-     * @param initialDate start of interval
-     * @param endDate     end of interval
-     * @return average reading value between interval
-     * @author Daniela - US623
-     ***/
-    public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.houseReadingList.getAverageReadingsBetweenDates(initialDate, endDate);
-    }
-
-    /**
-     * This method receives an interval, goes through the sensor's reading list and returns the date with the
-     * highest amplitude reading value between the interval given.
-     *
-     * @param initialDate start of interval
-     * @param endDate     end of interval
-     * @return date with the highest amplitude reading value between interval
-     * @author Daniela - US633
-     ***/
-    public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.houseReadingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
-    }
-
-    /**
-     * This method receives a date, goes through the sensor's reading list and returns the highest amplitude reading
-     * value on that date.
-     *
-     * @param date start of interval
-     * @return highest amplitude reading value on date
-     * @author Daniela - US633
-     ***/
-    public double getHighestAmplitudeInDate(Date date) {
-        return this.houseReadingList.getAmplitudeValueFromDate(date);
-    }
-
-
-    /**
-     * US630
-     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
-     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Reading within an interval from a AreaReadingList that represents the last coldest day in the
-     * given period (lower maximum temperature).
-     *
-     * @param initialDate is the Initial Date of the period.
-     * @param endDate     is the Final Date of the period.
-     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
-     */
-    public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.houseReadingList.getLastColdestDayInGivenInterval(initialDate, endDate);
-    }
-
-    /**
-     * US631
-     * This method returns a DATE for the first hottest day (higher maximum temperature) in the house area in a given period
-     * (higher maximum temperature).
-     *
-     * @param startDate is the Initial Date of the period.
-     * @param endDate   is the Final Date of the period.
-     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
-     */
-
-    public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
-        return this.houseReadingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
-    }
-
-    /**
-     * This method receives a date of a given day, goes through the sensor's reading list and
-     * returns the total reading values of that day.
-     *
-     * @param day date of day
-     * @return total reading values of that day
-     ***/
-    public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.houseReadingList.getValueReadingsInDay(day);
-    }
-
-    /**
-     * This method goes through the sensor's reading list and
-     * returns the most recent reading value.
-     *
-     * @return sensor's most recent reading value.
-     ***/
-    public double getMostRecentValueReading() {
-        return this.houseReadingList.getMostRecentValue();
-    }
-
 
     @Override
     public boolean equals(Object testObject) {
