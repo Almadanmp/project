@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.reader.wrapper;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
@@ -10,10 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeographicAreaDTOWrapper {
-    private Long id;
 
     @JsonProperty("id")
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String name;
 
     @JsonProperty("type")
@@ -25,14 +22,14 @@ public class GeographicAreaDTOWrapper {
     @JsonProperty("width")
     private double width;
 
-
     @JsonProperty("latitude")
     private double latitude;
+
     @JsonProperty("longitude")
     private double longitude;
+
     @JsonProperty("altitude")
     private double altitude;
-
 
     @JsonProperty("area_sensor")
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
@@ -40,85 +37,59 @@ public class GeographicAreaDTOWrapper {
     @JsonProperty("description")
     private String description;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getName() {
         return this.name;
     }
 
-
-
     public String getTypeArea() {
         return typeArea;
     }
-
 
     public void setTypeArea(String typeArea) {
         this.typeArea = typeArea;
     }
 
-
     public double getLength() {
         return length;
     }
-
-
 
     public void setLength(double length) {
         this.length = length;
     }
 
-
     public double getWidth() {
         return width;
     }
-
-
 
     public void setWidth(double width) {
         this.width = width;
     }
 
-
     public List<AreaSensorDTO> getAreaSensorDTOList() {
         return areaSensorDTOList;
     }
-
 
     public void setAreaSensorDTOList(List<AreaSensorDTO> listToStore) {
         this.areaSensorDTOList = listToStore;
     }
 
-
     public String getDescription() {
         return description;
     }
-
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-
     public void setLocalDTO(double latitude, double longitude, double altitude) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.altitude =altitude;
+        this.altitude = altitude;
     }
-
 
     public LocalDTO getLocalDTO(){
         LocalDTO local = new LocalDTO();

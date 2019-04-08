@@ -6,7 +6,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
@@ -66,24 +68,6 @@ public class ReaderController {
         return -1;
     }
 
-
-    /**
-     * The given method receives a list of geographic areas and calls mapper to convert every DTO created upon reading
-     * the json file, before adding the newly created Geographic Areas (and their sensors) to the list.
-     *
-     * @param fileAreas is the list of Geographic Area DTOs created by reading a given .json file.
-     * @param list      comes from mainUI because there is no database yet. Is the program's static list of geographic areas.
-     */
-    public int addGeoAreaArrayToList(GeographicArea[] fileAreas, GeographicAreaList list) {
-        int result = 0;
-        for (GeographicArea area : fileAreas) {
-            if (list.addAndPersistGA(area)) {
-                result++;
-            }
-        }
-        return result;
-    }
-
     /**
      * This method receives a list of Geographic Areas to add the given NodeList correspondent to the Geographic Areas
      * imported from the XML File.
@@ -103,7 +87,14 @@ public class ReaderController {
         return result;
     }
 
-
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaList list){
+        int counter = 0;
+        for (GeographicAreaDTO dto: geographicAreaDTOS){
+            list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
+            counter++;
+        }
+        return counter;
+    }
     /**
      * This method goes receives a geographic area list, a string with a path to a CSV file and
      * a string path to a logger. The CSV file contains readings that will be added to the corresponding

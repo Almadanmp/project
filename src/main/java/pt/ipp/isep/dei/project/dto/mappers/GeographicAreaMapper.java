@@ -22,7 +22,7 @@ public final class GeographicAreaMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private GeographicAreaMapper() {
+    public GeographicAreaMapper() {
     }
 
     /**

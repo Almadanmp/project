@@ -731,37 +731,5 @@ class ReaderControllerTest {
         assertEquals(1, areasAdded);
     }
 
-    @Test
-    void seeIfAddGeoAreasToListWorks() {
-        // Arrange
-
-        GeographicAreaList result = new GeographicAreaList(geographicAreaRepository);
-        GeographicArea[] arrayToUse = new GeographicArea[2];
-
-        // Set up Expected Result
-
-        GeographicArea geoArea1 = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
-                0.261, new Local(41.178553, -8.608035, 111));
-        GeographicArea geoArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
-                new Local(41.149935, -8.610857, 118));
-
-        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
-        expectedResult.addAndPersistGA(geoArea1);
-        expectedResult.addAndPersistGA(geoArea2);
-
-        // Populate Array to Use
-
-        arrayToUse[0] = geoArea1;
-        arrayToUse[1] = geoArea2;
-
-        // Act
-
-        double addedAreas = validReader.addGeoAreaArrayToList(arrayToUse, result);
-
-        // Assert
-
-        assertEquals(2, addedAreas);
-        assertEquals(expectedResult, result);
-    }
 
 }

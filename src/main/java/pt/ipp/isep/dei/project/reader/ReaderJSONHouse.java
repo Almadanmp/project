@@ -101,7 +101,6 @@ public class ReaderJSONHouse implements Reader {
                         roomDTOList.add(roomDTO);
                     }
                 }
-
             }
             energyGridObject.setRoomDTOS(roomDTOList);
             energyGridDTOList.add(energyGridObject);

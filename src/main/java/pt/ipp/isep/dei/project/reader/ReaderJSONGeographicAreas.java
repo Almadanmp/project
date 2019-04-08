@@ -66,7 +66,6 @@ public class ReaderJSONGeographicAreas implements Reader {
     private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaList list, AreaSensorList areaSensorList) {
         int result = 0;
 
-        GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
         for (int i = 0; i < geoAreas.length(); i++) {
             JSONObject area = geoAreas.getJSONObject(i);
             JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
@@ -81,7 +80,6 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
             GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
             areaObject.setDescription(areaDescription);
-            geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
             if (list.addAndPersistGA(areaObject)) {
                 result++;

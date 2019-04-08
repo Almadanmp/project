@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.reader.GeographicAreaReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -426,7 +427,30 @@ class GASettingsUI {
         return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
     }
 
+    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaList list) {
+        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
+    }
+
     private void runUS15v3() {
+        InputHelperUI inputHelperUI = new InputHelperUI();
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = inputHelperUI.getInputPathJsonOrXML(result);
+        if (filePath.endsWith(".json")) {
+            importGeoAreasFromJSON(filePath);
+        }
+    }
+
+    private void importGeoAreasFromJSON(String filePath) {
+        int result = 0;
+        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
+        try {
+            List<GeographicAreaDTO> list = readerJSON.readFile(filePath);
+            result = addGeoAreasDTOToList(list, geographicAreaList);
+        } catch (IllegalArgumentException illegal) {
+            System.out.println("The JSON file is invalid. Please fix before continuing.");
+        }
+        System.out.println(result + READINGS_IMPORTED);
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
