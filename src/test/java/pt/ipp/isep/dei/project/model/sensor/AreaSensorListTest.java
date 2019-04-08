@@ -182,11 +182,11 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksNoReadings() {
         // Arrange
 
-        AreaReadingList expectedResult = new AreaReadingList();
+        ReadingList expectedResult = new ReadingList();
 
         // Act
 
-        AreaReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -197,15 +197,15 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksReadingsAtBeginning() {
         // Arrange
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validAreaSensorList.add(secondValidAreaSensor);
-        firstValidAreaSensor.addReading(areaReadingOne);
-        AreaReadingList expectedResult = new AreaReadingList();
-        expectedResult.addReading(areaReadingOne);
+        firstValidAreaSensor.addReading(readingOne);
+        ReadingList expectedResult = new ReadingList();
+        expectedResult.addReading(readingOne);
 
         // Act
 
-        AreaReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -216,15 +216,15 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksReadingsAtEnd() {
         // Arrange
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validAreaSensorList.add(secondValidAreaSensor);
-        secondValidAreaSensor.addReading(areaReadingOne);
-        AreaReadingList expectedResult = new AreaReadingList();
-        expectedResult.addReading(areaReadingOne);
+        secondValidAreaSensor.addReading(readingOne);
+        ReadingList expectedResult = new ReadingList();
+        expectedResult.addReading(readingOne);
 
         // Act
 
-        AreaReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -235,18 +235,18 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksAllSensorsHaveReadings() {
         // Arrange
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C");
-        AreaReading areaReadingTwo = new AreaReading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C");
+        Reading readingTwo = new Reading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
         validAreaSensorList.add(secondValidAreaSensor);
-        firstValidAreaSensor.addReading(areaReadingOne);
-        secondValidAreaSensor.addReading(areaReadingTwo);
-        AreaReadingList expectedResult = new AreaReadingList();
-        expectedResult.addReading(areaReadingOne);
-        expectedResult.addReading(areaReadingTwo);
+        firstValidAreaSensor.addReading(readingOne);
+        secondValidAreaSensor.addReading(readingTwo);
+        ReadingList expectedResult = new ReadingList();
+        expectedResult.addReading(readingOne);
+        expectedResult.addReading(readingTwo);
 
         // Act
 
-        AreaReadingList actualResult = validAreaSensorList.getReadings();
+        ReadingList actualResult = validAreaSensorList.getReadings();
 
         // Assert
 
@@ -268,15 +268,15 @@ class AreaSensorListTest {
     void seeIfGetMostRecentlyUsedSensorWorksThreeSensors() {
         // Assign readings to sensors.
 
-        AreaReading mostRecentAreaReading = new AreaReading(3, new GregorianCalendar(2019, Calendar.JANUARY, 1)
+        Reading mostRecentReading = new Reading(3, new GregorianCalendar(2019, Calendar.JANUARY, 1)
                 .getTime(), "C");
-        firstValidAreaSensor.addReading(mostRecentAreaReading);
-        AreaReading secondAreaReading = new AreaReading(3, new GregorianCalendar(2018, Calendar.JANUARY, 2)
+        firstValidAreaSensor.addReading(mostRecentReading);
+        Reading secondReading = new Reading(3, new GregorianCalendar(2018, Calendar.JANUARY, 2)
                 .getTime(), "C");
-        secondValidAreaSensor.addReading(secondAreaReading);
-        AreaReading thirdAreaReading = new AreaReading(3, new GregorianCalendar(2017, Calendar.JANUARY, 1)
+        secondValidAreaSensor.addReading(secondReading);
+        Reading thirdReading = new Reading(3, new GregorianCalendar(2017, Calendar.JANUARY, 1)
                 .getTime(), "C");
-        thirdValidAreaSensor.addReading(thirdAreaReading);
+        thirdValidAreaSensor.addReading(thirdReading);
 
         // Test for when most recent reading is in the first sensor.
 
@@ -364,8 +364,8 @@ class AreaSensorListTest {
         AreaSensorList emptyList = new AreaSensorList();
         AreaSensorList twoSensorsList = new AreaSensorList();
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
-        secondValidAreaSensor.addReading(areaReadingOne);
+        Reading readingOne = new Reading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        secondValidAreaSensor.addReading(readingOne);
 
         twoSensorsList.add(firstValidAreaSensor);
         twoSensorsList.add(secondValidAreaSensor);

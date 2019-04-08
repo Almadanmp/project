@@ -407,12 +407,12 @@ class HouseTest {
 
         Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
         Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
-        AreaReadingList areaReadingList = new AreaReadingList();
-        AreaReading firstAreaReading = new AreaReading(15, laterDate,"C");
-        AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
-        areaReadingList.addReading(firstAreaReading);
-        areaReadingList.addReading(secondAreaReading);
-        firstValidAreaSensor.setAreaReadingList(areaReadingList);
+        ReadingList readingList = new ReadingList();
+        Reading firstReading = new Reading(15, laterDate,"C");
+        Reading secondReading = new Reading(12, earlierDate,"C");
+        readingList.addReading(firstReading);
+        readingList.addReading(secondReading);
+        firstValidAreaSensor.setReadingList(readingList);
 
         // Act
 
@@ -436,16 +436,16 @@ class HouseTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        AreaReadingList areaReadingList = new AreaReadingList();
-        AreaReading firstAreaReading = new AreaReading(15, laterDate, "C");
-        AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
-        areaReadingList.addReading(firstAreaReading);
-        areaReadingList.addReading(secondAreaReading);
-        firstValidAreaSensor.setAreaReadingList(areaReadingList);
+        ReadingList readingList = new ReadingList();
+        Reading firstReading = new Reading(15, laterDate, "C");
+        Reading secondReading = new Reading(12, earlierDate,"C");
+        readingList.addReading(firstReading);
+        readingList.addReading(secondReading);
+        firstValidAreaSensor.setReadingList(readingList);
 
         AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        secondAreaSensor.addReading(new AreaReading(15, earlierDate,"C"));
+        secondAreaSensor.addReading(new Reading(15, earlierDate,"C"));
         validArea.addSensor(secondAreaSensor);
 
         // Act

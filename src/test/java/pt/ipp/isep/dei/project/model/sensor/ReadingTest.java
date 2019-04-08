@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.AreaReading;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,16 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
  * Reading tests class.
  */
 
-class AreaReadingTest {
+class ReadingTest {
     private Date earlyDate;
     private Date lateDate;
-    private AreaReading firstValidAreaReading;
+    private Reading firstValidReading;
 
     @BeforeEach
     void arrangeArtifacts() {
         earlyDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         lateDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-        firstValidAreaReading = new AreaReading(31, earlyDate, "C");
+        firstValidReading = new Reading(31, earlyDate, "C");
     }
 
     @Test
@@ -35,7 +34,7 @@ class AreaReadingTest {
 
         // Act
 
-        Date actualResult = firstValidAreaReading.getDate();
+        Date actualResult = firstValidReading.getDate();
 
         // Assert
 
@@ -47,11 +46,11 @@ class AreaReadingTest {
         // Arrange
 
         Date expectedResult = lateDate;
-        firstValidAreaReading.setDate(lateDate);
+        firstValidReading.setDate(lateDate);
 
         //Act
 
-        Date actualResult = firstValidAreaReading.getDate();
+        Date actualResult = firstValidReading.getDate();
 
         // Assert
 
@@ -62,7 +61,7 @@ class AreaReadingTest {
     void seeIfGetValueWorks() {
         // Act
 
-        double actualResult = firstValidAreaReading.getValue();
+        double actualResult = firstValidReading.getValue();
 
         // Assert
 
@@ -73,11 +72,11 @@ class AreaReadingTest {
     void seeIfSetGetValueWorks() {
         // Arrange
 
-        firstValidAreaReading.setValue(51);
+        firstValidReading.setValue(51);
 
         // Act
 
-        double actualResult = firstValidAreaReading.getValue();
+        double actualResult = firstValidReading.getValue();
 
         // Assert
 
@@ -92,7 +91,7 @@ class AreaReadingTest {
 
         // Act
 
-        boolean actualResult = firstValidAreaReading.equals(testInt); // Needed for Sonarqube testing purposes.
+        boolean actualResult = firstValidReading.equals(testInt); // Needed for Sonarqube testing purposes.
 
         // Assert
 
@@ -103,11 +102,11 @@ class AreaReadingTest {
     void seeIfEqualsWorksTrue() {
         // Arrange
 
-        AreaReading testAreaReading = new AreaReading(31, earlyDate, "C");
+        Reading testReading = new Reading(31, earlyDate, "C");
 
         // Act
 
-        boolean actualResult = testAreaReading.equals(firstValidAreaReading);
+        boolean actualResult = testReading.equals(firstValidReading);
 
         // Assert
 
@@ -122,7 +121,7 @@ class AreaReadingTest {
 
         // Act
 
-        int actualResult = firstValidAreaReading.hashCode();
+        int actualResult = firstValidReading.hashCode();
 
         // Assert
 
@@ -137,8 +136,8 @@ class AreaReadingTest {
 
         // Act
 
-        firstValidAreaReading.setUnit("F");
-        String actualResult = firstValidAreaReading.getUnit();
+        firstValidReading.setUnit("F");
+        String actualResult = firstValidReading.getUnit();
 
         // Assert
 

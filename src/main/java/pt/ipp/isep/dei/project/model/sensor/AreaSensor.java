@@ -30,7 +30,7 @@ public class AreaSensor {
     private Date dateStartedFunctioning;
 
     @Transient
-    private AreaReadingList areaReadingList;
+    private ReadingList readingList;
 
     private long geographicAreaId;
 
@@ -58,7 +58,7 @@ public class AreaSensor {
         setSensorType(sensorType);
         setLocal(local);
         setDateStartedFunctioning(dateStartedFunctioning);
-        areaReadingList = new AreaReadingList();
+        readingList = new ReadingList();
         this.active = true;
     }
 
@@ -74,7 +74,7 @@ public class AreaSensor {
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
-        areaReadingList = new AreaReadingList();
+        readingList = new ReadingList();
         this.active = true;
     }
 
@@ -176,18 +176,18 @@ public class AreaSensor {
      *
      * @return the areaReadingList of the sensor.
      */
-    public AreaReadingList getAreaReadingList() {
-        return areaReadingList;
+    public ReadingList getReadingList() {
+        return readingList;
     }
 
     /**
      * Setter: reading list
      *
-     * @param areaReadingList is the areaReadingList we want to set to the sensor.
+     * @param readingList is the areaReadingList we want to set to the sensor.
      */
-    public void setAreaReadingList(AreaReadingList areaReadingList) {
-        if (areaReadingList != null) {
-            this.areaReadingList = areaReadingList;
+    public void setReadingList(ReadingList readingList) {
+        if (readingList != null) {
+            this.readingList = readingList;
         }
     }
 
@@ -222,13 +222,13 @@ public class AreaSensor {
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
      *
-     * @param areaReading the reading to be added to the list
+     * @param reading the reading to be added to the list
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/
-    public boolean addReading(AreaReading areaReading) {
+    public boolean addReading(Reading reading) {
         if (this.active) {
-            return areaReadingList.addReading(areaReading);
+            return readingList.addReading(reading);
         }
         return false;
     }
@@ -246,8 +246,8 @@ public class AreaSensor {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
-                AreaReading areaReading = new AreaReading(value, date, unit);
-                return this.addReading(areaReading);
+                Reading reading = new Reading(value, date, unit);
+                return this.addReading(reading);
             }
         }
         return false;
@@ -329,7 +329,7 @@ public class AreaSensor {
      **/
 
     Date getMostRecentReadingDate() {
-        return this.areaReadingList.getMostRecentReadingDate();
+        return this.readingList.getMostRecentReadingDate();
     }
 
     /**
@@ -348,7 +348,7 @@ public class AreaSensor {
      * @return true if valid, false if invalid.
      **/
     public boolean isReadingListEmpty() {
-        return this.areaReadingList.isEmpty();
+        return this.readingList.isEmpty();
     }
 
     /**
@@ -361,7 +361,7 @@ public class AreaSensor {
      * @author Daniela - US623
      ***/
     public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.areaReadingList.getAverageReadingsBetweenDates(initialDate, endDate);
+        return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -374,7 +374,7 @@ public class AreaSensor {
      * @author Daniela - US633
      ***/
     public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.areaReadingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+        return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -386,7 +386,7 @@ public class AreaSensor {
      * @author Daniela - US633
      ***/
     public double getHighestAmplitudeInDate(Date date) {
-        return this.areaReadingList.getAmplitudeValueFromDate(date);
+        return this.readingList.getAmplitudeValueFromDate(date);
     }
 
 
@@ -402,7 +402,7 @@ public class AreaSensor {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.areaReadingList.getLastColdestDayInGivenInterval(initialDate, endDate);
+        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
     }
 
     /**
@@ -416,7 +416,7 @@ public class AreaSensor {
      */
 
     public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
-        return this.areaReadingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
+        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
     /**
@@ -427,7 +427,7 @@ public class AreaSensor {
      * @return total reading values of that day
      ***/
     public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.areaReadingList.getValueReadingsInDay(day);
+        return this.readingList.getValueReadingsInDay(day);
     }
 
     /**
@@ -437,7 +437,7 @@ public class AreaSensor {
      * @return sensor's most recent reading value.
      ***/
     public double getMostRecentValueReading() {
-        return this.areaReadingList.getMostRecentValue();
+        return this.readingList.getMostRecentValue();
     }
 
 

@@ -38,11 +38,6 @@ public class AreaSensorList {
         return areaSensors;
     }
 
-
-    public void setAreaSensors(List<AreaSensor> areaSensors) {
-        this.areaSensors = areaSensors;
-    }
-
     /**
      * Method that goes through the sensor list and looks for the sensor
      * that was most recently used (that as the most recent reading).
@@ -182,10 +177,10 @@ public class AreaSensorList {
      *
      * @return a list with all readings from sensor list
      **/
-    public AreaReadingList getReadings() {
-        AreaReadingList finalList = new AreaReadingList();
+    public ReadingList getReadings() {
+        ReadingList finalList = new ReadingList();
         for (AreaSensor s : this.areaSensors) {
-            finalList.appendListNoDuplicates(s.getAreaReadingList());
+            finalList.appendListNoDuplicates(s.getReadingList());
         }
         return finalList;
     }
@@ -258,8 +253,8 @@ public class AreaSensorList {
      * @return returns value readings from every sensor from given day
      **/
     public List<Double> getValuesOfSpecificDayReadings(Date day) {
-        AreaReadingList areaReadingList = getReadings();
-        return areaReadingList.getValuesOfSpecificDayReadings(day);
+        ReadingList readingList = getReadings();
+        return readingList.getValuesOfSpecificDayReadings(day);
     }
 
     /**

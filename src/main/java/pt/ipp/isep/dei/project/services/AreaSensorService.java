@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.sensor.AreaReading;
-import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.sensor.ReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.services.units.Unit;
@@ -41,13 +41,13 @@ public class AreaSensorService {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
-            AreaReading areaReading = new AreaReading(readingValue, readingDate, unit);
-           // areaReading.setSensorId(sensorID);
-            AreaReadingList sensorAreaReadingList = areaSensor.getAreaReadingList();
-            if (sensorAreaReadingList.contains(areaReading)) {
+            Reading reading = new Reading(readingValue, readingDate, unit);
+           // reading.setSensorId(sensorID);
+            ReadingList sensorReadingList = areaSensor.getReadingList();
+            if (sensorReadingList.contains(reading)) {
                 return false;
             }
-            areaSensor.addReading(areaReading);
+            areaSensor.addReading(reading);
             areaSensorRepository.save(areaSensor);
             return true;
         }
@@ -69,8 +69,8 @@ public class AreaSensorService {
     public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, Unit unit, Logger logger) {
         try {
             AreaSensor areaSensor = getAreaSensorFromRepository(sensorID);
-            AreaReading areaReading = new AreaReading(readingValue, readingDate, "Should receive the variable unit");  //TODO Change the AreaReading parameter unit from STRING to UNIT
-            if (addReadingToSensorInRepository(areaReading, areaSensor)) {
+            Reading reading = new Reading(readingValue, readingDate, "Should receive the variable unit");  //TODO Change the Reading parameter unit from STRING to UNIT
+            if (addReadingToSensorInRepository(reading, areaSensor)) {
                 return true;
             }
             logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
@@ -105,8 +105,8 @@ public class AreaSensorService {
      *
      * @return true in case the reading is added to sensor, false otherwise.
      **/
-    private boolean addReadingToSensorInRepository(AreaReading areaReading, AreaSensor areaSensor) {
-        if (areaSensor.addReading(areaReading)) {
+    private boolean addReadingToSensorInRepository(Reading reading, AreaSensor areaSensor) {
+        if (areaSensor.addReading(reading)) {
             areaSensorRepository.save(areaSensor);
             return true;
         }

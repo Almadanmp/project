@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
-import pt.ipp.isep.dei.project.model.sensor.AreaReading;
+import pt.ipp.isep.dei.project.model.sensor.ReadingList;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
@@ -78,10 +78,10 @@ public final class AreaSensorMapper {
 
         // Update the reading list
 
-        AreaReadingList objectAreaReadingList = new AreaReadingList();
+        ReadingList objectReadingList = new ReadingList();
         for (ReadingDTO r: dtoToConvert.getReadingList()){
-            AreaReading tempAreaReading = ReadingMapper.dtoToObject(r);
-            objectAreaReadingList.addReading(tempAreaReading);
+            Reading tempReading = ReadingMapper.dtoToObject(r);
+            objectReadingList.addReading(tempReading);
         }
 
         // Update status
@@ -93,7 +93,7 @@ public final class AreaSensorMapper {
         AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate);
         resultObject.setActive(objectStatus);
-        resultObject.setAreaReadingList(objectAreaReadingList);
+        resultObject.setReadingList(objectReadingList);
 
         return resultObject;
     }
@@ -138,7 +138,7 @@ public final class AreaSensorMapper {
         // Update the reading list
 
         List<ReadingDTO> dtoReadingList = new ArrayList<>();
-        for (AreaReading r: objectToConvert.getAreaReadingList().getAreaReadings()){
+        for (Reading r: objectToConvert.getReadingList().getReadings()){
             ReadingDTO tempReadingDTO = ReadingMapper.objectToDTO(r);
             if(!dtoReadingList.contains(tempReadingDTO)){
                 dtoReadingList.add(tempReadingDTO);

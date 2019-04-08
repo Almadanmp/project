@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.model.sensor.AreaReading;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public final class ReadingMapper {
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static AreaReading dtoToObject(ReadingDTO dtoToConvert) {
+    public static Reading dtoToObject(ReadingDTO dtoToConvert) {
         // Update values
 
         double objectValue = dtoToConvert.getValue();
@@ -28,7 +28,7 @@ public final class ReadingMapper {
 
         // Create, update and return the converted object
 
-        return new AreaReading(objectValue, objectDate, objectUnit);
+        return new Reading(objectValue, objectDate, objectUnit);
     }
 
     /**
@@ -37,7 +37,7 @@ public final class ReadingMapper {
      * @return is the converted model object.
      */
 
-    public static ReadingDTO objectToDTO(AreaReading objectToConvert) {
+    public static ReadingDTO objectToDTO(Reading objectToConvert) {
         // Update values
 
         double dtoValue = objectToConvert.getValue();
