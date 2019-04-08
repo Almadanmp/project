@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -27,7 +29,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -620,6 +624,30 @@ class ReaderControllerTest {
 
         assertEquals(actualResult, 0);
     }
+
+//    @Test
+//    void seeIfReadFileWorks() {
+//        //Arrange
+//        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+//
+//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+//        geographicAreaDTO.setName("ISEP");
+//        geographicAreaDTO.setLocalDTO(new LocalDTO(41.178553,-8.608035,111));
+//        geographicAreaDTO.setDescription("Campus do ISEP");
+//        geographicAreaDTO.setWidth(0.261);
+//        geographicAreaDTO.setLength(0.249);
+//        geographicAreaDTO.setTypeArea("urban area");
+//
+//        expectedResult.add(geographicAreaDTO);
+//
+//        //Act
+//
+//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+//
+//        //Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
 //    @Test
 //    void seeIfReadFileXMLGeoAreaWorks() {

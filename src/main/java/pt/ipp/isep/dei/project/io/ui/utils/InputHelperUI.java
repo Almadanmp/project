@@ -435,7 +435,7 @@ public class InputHelperUI {
      */
     public String getInputPathJsonOrXML(String input) {
         String filePath = "";
-        while (!(input.endsWith(".json") && !((input.endsWith(".xml"))))) {
+        if ((input.endsWith(".json") || (input.endsWith(".xml")))) {
             filePath = getInputPath(input);
         }
         return filePath;

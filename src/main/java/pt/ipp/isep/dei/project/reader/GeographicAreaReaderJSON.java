@@ -30,7 +30,7 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
             listOfGeoAreaDTOWrapperList = listGeographicAreaDTOWrapperList.getGeoAreaDTOWrapperList();
             for (GeographicAreaDTOWrapperList list : listOfGeoAreaDTOWrapperList){
                 geoAreaDTOWrapperList = list.getGeoAreaDTOWrapperList();
-                geographicAreaDTOS = Adapter.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
+                geographicAreaDTOS = GeographicAreaDTOWrapper.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
             }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());

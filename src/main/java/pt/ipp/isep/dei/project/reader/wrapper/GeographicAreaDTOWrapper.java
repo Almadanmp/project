@@ -10,7 +10,6 @@ import java.util.List;
 
 public class GeographicAreaDTOWrapper {
 
-    private long id;
 
     @JsonProperty("id")
     private String name;
@@ -39,11 +38,6 @@ public class GeographicAreaDTOWrapper {
    // @JsonProperty("area_sensor")
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
 
-    public void setId(long id1){
-        this.id = id1;
-    }
-
-    public long getId(){return this.id;}
 
     public void setName(String name) {
         this.name = name;
@@ -105,6 +99,32 @@ public class GeographicAreaDTOWrapper {
         local.setLatitude(this.latitude);
         local.setAltitude(this.altitude);
         return local;
+    }
+
+    /**
+     * This method receives a List of Geographic Area DTO Wrappers and returns a HashMap that contains Geographic Area DTO
+     * with its corresponding id.
+     *
+     * @param geographicAreaDTOWrappers list of areas Dto wrappers
+     * @return hashmap containing Reading DTOs with its corresponding sensor ID
+     **/
+    public static List<GeographicAreaDTO> geographicAreaDTOWrapperConversion(List<GeographicAreaDTOWrapper> geographicAreaDTOWrappers) {
+        List<GeographicAreaDTO> finalList = new ArrayList<>();
+        for (GeographicAreaDTOWrapper wrapper : geographicAreaDTOWrappers) {
+            GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+            //       geographicAreaDTO.setId(wrapper.getId());
+            geographicAreaDTO.setTypeArea(wrapper.getTypeArea());
+            geographicAreaDTO.setLength(wrapper.getLength());
+            geographicAreaDTO.setWidth(wrapper.getWidth());
+            geographicAreaDTO.setDescription(wrapper.getDescription());
+            geographicAreaDTO.setName(wrapper.getName());
+            geographicAreaDTO.setLocalDTO(wrapper.getLocalDTO());
+            geographicAreaDTO.setAreaSensorDTOList(wrapper.getAreaSensorDTOList());
+            if(!finalList.contains(geographicAreaDTO)) {
+                finalList.add(geographicAreaDTO);
+            }
+        }
+        return finalList;
     }
 
     @Override
