@@ -73,7 +73,7 @@
 //
 //
 //    @Mock
-//    SensorRepository sensorRepository;
+//    SensorRepository areaSensorRepository;
 //
 //    @Mock
 //    GeographicAreaRepository geographicAreaRepository;
@@ -83,7 +83,7 @@
 //
 //    @BeforeEach
 //    void arrangeArtifacts() {
-//        sensorService = new SensorService(sensorRepository);
+//        sensorService = new SensorService(areaSensorRepository);
 //        validReader = new ReaderController(sensorService);
 //        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
 //        SimpleDateFormat validSdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");

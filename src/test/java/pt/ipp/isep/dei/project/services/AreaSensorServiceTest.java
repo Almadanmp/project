@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.io.ui.MainUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +30,7 @@ class AreaSensorServiceTest {
     private AreaSensorService areaSensorService;
 
     @Autowired
-    private SensorRepository sensorRepository;
+    private AreaSensorRepository areaSensorRepository;
 
 
     @Test
@@ -43,7 +43,7 @@ class AreaSensorServiceTest {
         double value = 34;
         Date date = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
         AreaSensor areaSensor = new AreaSensor(sensorId, "sensor", sensorType, local, dateStartFunction);
-        sensorRepository.save(areaSensor);
+        areaSensorRepository.save(areaSensor);
 
         // Act
 

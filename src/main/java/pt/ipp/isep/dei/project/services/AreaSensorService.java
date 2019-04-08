@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Date;
@@ -16,10 +16,10 @@ import java.util.logging.Logger;
 public class AreaSensorService {
 
     @Autowired
-    private SensorRepository sensorRepository;
+    private AreaSensorRepository areaSensorRepository;
 
-    public AreaSensorService(SensorRepository sensorRepository) {
-        this.sensorRepository = sensorRepository;
+    public AreaSensorService(AreaSensorRepository areaSensorRepository) {
+        this.areaSensorRepository = areaSensorRepository;
     }
 
     /**
@@ -38,7 +38,7 @@ public class AreaSensorService {
      */
 
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
-        Optional<AreaSensor> value = sensorRepository.findById(sensorID);
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
             AreaReading areaReading = new AreaReading(readingValue, readingDate, unit);
@@ -47,7 +47,7 @@ public class AreaSensorService {
                 return false;
             }
             areaSensor.addReading(areaReading);
-            sensorRepository.save(areaSensor);
+            areaSensorRepository.save(areaSensor);
             return true;
         }
         return false;
@@ -91,7 +91,7 @@ public class AreaSensorService {
      * @return the area sensor that corresponds to the sensor ID.
      **/
     private AreaSensor getAreaSensorFromRepository(String sensorID) {
-        Optional<AreaSensor> value = sensorRepository.findById(sensorID);
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             return value.get();
         }
@@ -106,7 +106,7 @@ public class AreaSensorService {
      **/
     private boolean addReadingToSensorInRepository(AreaReading areaReading, AreaSensor areaSensor) {
         if (areaSensor.addReading(areaReading)) {
-            sensorRepository.save(areaSensor);
+            areaSensorRepository.save(areaSensor);
             return true;
         }
         return false;

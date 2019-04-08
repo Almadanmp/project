@@ -10,8 +10,8 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.File;
@@ -26,14 +26,28 @@ class ReaderJSONGeographicAreasTest {
     GeographicAreaRepository geographicAreaRepository;
 
     @Mock
-    SensorRepository sensorRepository;
+    AreaSensorRepository areaSensorRepository;
 
-    AreaSensorService areaSensorService = new AreaSensorService(sensorRepository);
+    AreaSensorList areaSensorList;
+
+    AreaSensorService areaSensorService;
 
     GeographicAreaList geographicAreaList = new GeographicAreaList(geographicAreaRepository);
 
-    private ReaderController ctrl = new ReaderController(areaSensorService);
+    private ReaderController ctrl;
 
+    @BeforeEach
+    void arrangeArtifacts() {
+        areaSensorList = new AreaSensorList(areaSensorRepository);
+
+        areaSensorService = new AreaSensorService(areaSensorRepository);
+
+        geographicAreaList = new GeographicAreaList(geographicAreaRepository);
+
+        ctrl = new ReaderController(areaSensorService, areaSensorList);
+
+
+    }
 
     //TODO who made this tests please check if they still apply
     @Test
@@ -132,7 +146,7 @@ class ReaderJSONGeographicAreasTest {
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
         ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
-        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, actualResult, areaSensorService);
+        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, actualResult, areaSensorList);
         // Assert
 
 //        assertEquals(expectedResult, actualResult);
@@ -167,7 +181,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository), areaSensorService);
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaList(geographicAreaRepository), areaSensorList);
 
         // Assert
 

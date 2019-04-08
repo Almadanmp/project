@@ -43,16 +43,16 @@ class AreaSensorTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfSetSensorList() {
-        // Arrange
-        AreaSensorList listA = new AreaSensorList();
-        // Act
-        validAreaSensor.setAreaSensorList(listA);
-        AreaSensorList actualResult = validAreaSensor.getAreaSensorList();
-        // Assert
-        assertEquals(listA, actualResult);
-    }
+//    @Test
+//    void seeIfSetSensorList() {
+//        // Arrange
+//        AreaSensorList listA = new AreaSensorList();
+//        // Act
+//        validAreaSensor.setAreaSensorList(listA);
+//        AreaSensorList actualResult = validAreaSensor.getAreaSensorList();
+//        // Assert
+//        assertEquals(listA, actualResult);
+//    }
 
     @Test
     void seeIfConstructorSetsDate() {

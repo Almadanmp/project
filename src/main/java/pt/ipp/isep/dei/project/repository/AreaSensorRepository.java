@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
 @Repository
-public interface SensorRepository extends CrudRepository<AreaSensor, String> {
+public interface AreaSensorRepository extends CrudRepository<AreaSensor, String> {
 
 
 }

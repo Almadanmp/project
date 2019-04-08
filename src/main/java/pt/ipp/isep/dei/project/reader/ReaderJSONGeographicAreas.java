@@ -3,14 +3,13 @@ package pt.ipp.isep.dei.project.reader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
@@ -20,9 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ReaderJSONGeographicAreas implements Reader {
 
@@ -54,14 +51,12 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, AreaSensorService service) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, AreaSensorList areaSensorList) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
-        ReaderController ctrl = new ReaderController(service);
         JSONArray geoAreas = reader.readFile(filePath);
-        GeographicArea[] geographicAreasArray;
-        geographicAreasArray = readGeoAreasJSON(geoAreas);
-        return ctrl.addGeoAreaArrayToList(geographicAreasArray, list);
+        return readGeoAreasJSON(geoAreas, list, areaSensorList);
     }
+
     /**
      * Is the method that loads geographic areas from the .json file.
      *
@@ -69,7 +64,9 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private GeographicArea[] readGeoAreasJSON(JSONArray geoAreas) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaList list, AreaSensorList areaSensorList) {
+        int result = 0;
+
         GeographicArea[] geographicAreasArray = new GeographicArea[geoAreas.length()];
         for (int i = 0; i < geoAreas.length(); i++) {
             JSONObject area = geoAreas.getJSONObject(i);
@@ -87,10 +84,12 @@ public class ReaderJSONGeographicAreas implements Reader {
             areaObject.setDescription(areaDescription);
             geographicAreasArray[i] = areaObject;
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            AreaSensorList areaSensorsList = readAreaSensorsJSON(areaSensors);
-            areaObject.setSensorList(areaSensorsList);
+            if (list.addAndPersistGA(areaObject)) {
+                result++;
+                readAreaSensorsJSON(areaSensors, areaObject, areaSensorList);
+            }
         }
-        return geographicAreasArray;
+        return result;
     }
 
     /**
@@ -98,12 +97,9 @@ public class ReaderJSONGeographicAreas implements Reader {
      *
      * @param areaSensors is the array of sensors contained in the .json file, usually the list of sensors
      *                    that belong to an area.
-     * @return is an array of data transfer sensor objects created with the data in the given JSON Array.
      */
 
-    private AreaSensorList readAreaSensorsJSON(JSONArray areaSensors) {
-        List<AreaSensor> result = new ArrayList<>();
-        AreaSensorList areaSensorListObject = new AreaSensorList();
+    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, AreaSensorList areaSensorList) {
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -129,12 +125,10 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date);
-            areaSensorObject.setAreaSensorList(areaSensorListObject);
-            result.add(areaSensorObject);
+            areaSensorObject.setGeographicArea(geographicArea);
+            areaSensorList.addWithPersist(areaSensorObject);
             entriesChecked++;
         }
-        areaSensorListObject.setAreaSensors(result);
-        return areaSensorListObject;
     }
 
 }

@@ -14,10 +14,12 @@ import pt.ipp.isep.dei.project.model.AreaTypeList;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.IOException;
@@ -41,12 +43,15 @@ public class MainUI {
     AreaTypeList areaTypeList;
 
     @Autowired
+    AreaSensorList areaSensorList;
+
+    @Autowired
     AreaSensorService areaSensorService;
 
     GeographicAreaList geographicAreaList;
 
     @Autowired
-    SensorRepository sensorRepository;
+    AreaSensorRepository areaSensorRepository;
 
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
@@ -160,13 +165,13 @@ public class MainUI {
                     this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService);
+                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService, areaSensorList);
                             view1.runGASettings(areaTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, geographicAreaList);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, geographicAreaList, areaSensorList);
                             houseC.run(mockHouse);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

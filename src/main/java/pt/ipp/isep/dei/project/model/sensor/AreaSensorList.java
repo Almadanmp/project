@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -11,14 +13,12 @@ import java.util.List;
 /**
  * Class that groups a number of Sensors.
  */
-@Entity
+@Service
 public class AreaSensorList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Autowired
+    AreaSensorRepository areaSensorRepository;
 
-    @OneToMany(mappedBy = "areaSensorList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AreaSensor> areaSensors;
 
 
@@ -29,10 +29,15 @@ public class AreaSensorList {
         this.areaSensors = new ArrayList<>();
     }
 
+    public AreaSensorList(AreaSensorRepository areaSensorRepository) {
+        this.areaSensors = new ArrayList<>();
+        this.areaSensorRepository = areaSensorRepository;
+    }
 
     public List<AreaSensor> getAreaSensors() {
         return areaSensors;
     }
+
 
     public void setAreaSensors(List<AreaSensor> areaSensors) {
         this.areaSensors = areaSensors;

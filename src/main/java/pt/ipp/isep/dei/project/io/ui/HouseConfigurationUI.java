@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.services.AreaSensorService;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -9,6 +8,8 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.util.Scanner;
 
@@ -25,11 +26,13 @@ class HouseConfigurationUI {
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private final AreaSensorService areaSensorService;
     private GeographicAreaList geographicAreaList;
+    private AreaSensorList areaSensorList;
 
-    HouseConfigurationUI(AreaSensorService areaSensorService, GeographicAreaList geographicAreaList) {
+    HouseConfigurationUI(AreaSensorService areaSensorService, GeographicAreaList geographicAreaList, AreaSensorList areaSensorList) {
         this.controller = new HouseConfigurationController();
         this.areaSensorService = areaSensorService;
         this.geographicAreaList = geographicAreaList;
+        this.areaSensorList = areaSensorList;
     }
 
     void run(House house) {
@@ -80,7 +83,7 @@ class HouseConfigurationUI {
      */
 
     private void runUS15v2() {
-        ReaderController ctrl = new ReaderController(areaSensorService);
+        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -119,7 +122,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromCSV(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService);
+        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
         try {
             result = ctrl.readReadingsFromCSV(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -130,7 +133,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromJSON(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService);
+        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
         try {
             result = ctrl.readReadingsFromJSON(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
@@ -141,7 +144,7 @@ class HouseConfigurationUI {
 
     private void readReadingsFromXML(String filePath, String logFilePath) {
         int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService);
+        ReaderController ctrl = new ReaderController(areaSensorService, areaSensorList);
         try {
             result = ctrl.readReadingsFromXML(geographicAreaList, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {

@@ -27,6 +27,7 @@ public class ReaderController {
 
 
     private AreaSensorService areaSensorService;
+    private AreaSensorList areaSensorList;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
@@ -34,8 +35,9 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
-    public ReaderController(AreaSensorService service) {
+    public ReaderController(AreaSensorService service, AreaSensorList areaSensorList) {
         this.areaSensorService = service;
+        this.areaSensorList = areaSensorList;
     }
 
     //
@@ -53,12 +55,12 @@ public class ReaderController {
         int areasRead;
         if (input.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorService);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorList);
             return areasRead;
         }
         if (input.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, areaSensorList);
             return areasRead;
         }
         return -1;

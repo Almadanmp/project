@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.AreaTypeList;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -26,9 +27,9 @@ class GASettingsUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
-    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService sensorService) {
+    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService sensorService, AreaSensorList areaSensorList) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(sensorService);
+        this.readerController = new ReaderController(sensorService, areaSensorList);
         this.geographicAreaList = geographicAreaList;
     }
 

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 
 import javax.persistence.*;
 
@@ -31,7 +31,8 @@ public class GeographicArea {
     @Embedded
     private Local location;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Transient
+//    @OneToOne(cascade = CascadeType.ALL)
     private AreaSensorList areaSensors;
 
     private String description;

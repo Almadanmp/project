@@ -31,8 +31,8 @@ public class AreaSensor {
     private AreaReadingList areaReadingList;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "area_sensor_list_id")
-    private AreaSensorList areaSensorList;
+    @JoinColumn(name = "geographic_area_id")
+    private GeographicArea geographicArea;
 
     private boolean active;
 
@@ -199,12 +199,13 @@ public class AreaSensor {
         this.active = status;
     }
 
-    public void setAreaSensorList(AreaSensorList areaSensorList) {
-        this.areaSensorList = areaSensorList;
+
+    public GeographicArea getGeographicArea() {
+        return geographicArea;
     }
 
-    public AreaSensorList getAreaSensorList() {
-        return areaSensorList;
+    public void setGeographicArea(GeographicArea geographicArea) {
+        this.geographicArea = geographicArea;
     }
 
     /**
