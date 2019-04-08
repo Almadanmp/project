@@ -27,16 +27,16 @@ class RoomTest {
 
 
     private static Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
-    private AreaSensor validAreaSensor; // Valid temperature sensor with valid readings.
+    private HouseSensor validSensor; // Valid temperature sensor with valid readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
-    private AreaReading validAreaReading; // Valid temperature reading at February 2, 2018, 00:00:00.
+    private HouseReading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
 
     @BeforeEach
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom","Double Bedroom", 2, 30, 40, 10);
-        validAreaSensor = new AreaSensor("tempOne", new SensorType("temperature", "Celsius"), new Date());
-        validAreaSensor.setActive(true);
-        validRoom.addSensor(validAreaSensor);
+        validSensor = new HouseSensor("tempOne", new SensorType("temperature", "Celsius"), new Date());
+        validSensor.setActive(true);
+        validRoom.addSensor(validSensor);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
         validDevice.setNominalPower(21.0);
@@ -45,9 +45,9 @@ class RoomTest {
         validDevice.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
         validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
         validRoom.addDevice(validDevice);
-        validAreaReading = new AreaReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+        validReading = new HouseReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime(), "C");
-        validAreaSensor.addReading(validAreaReading);
+        validSensor.addReading(validReading);
     }
 
     @Test
@@ -97,7 +97,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNegative() {
         // Arrange
 
-        validAreaReading.setValue(-12);
+        validReading.setValue(-12);
         double expectedResult = -12;
 
         // Act
@@ -128,7 +128,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNoSensors() {
         // Arrange
 
-        AreaSensorList emptyList = new AreaSensorList();
+        HouseSensorList emptyList = new HouseSensorList();
         validRoom.setSensorList(emptyList);
 
         // Assert
@@ -140,7 +140,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksNoReadings() {
         // Arrange
 
-        validAreaSensor.setAreaReadingList(new AreaReadingList());
+        validSensor.setReadingList(new HouseReadingList());
 
         // Assert
 
@@ -151,12 +151,12 @@ class RoomTest {
     void seeIfAddSensorWorks() {
         // Arrange
 
-        AreaSensor testAreaSensor = new AreaSensor("RF12345", "testSensor", new SensorType("Temperature", "Celsius"),
-                new Local(1, 1, 50), new Date());
+        HouseSensor testSensor = new HouseSensor("testSensor", new SensorType("Temperature", "Celsius"),
+                new Date());
 
         // Act
 
-        boolean actualResult = validRoom.addSensor(testAreaSensor);
+        boolean actualResult = validRoom.addSensor(testSensor);
 
         // Assert
 
@@ -167,7 +167,7 @@ class RoomTest {
     void seeIfAddSensorWorksFalse() {
         // Act
 
-        boolean actualResult = validRoom.addSensor(validAreaSensor);
+        boolean actualResult = validRoom.addSensor(validSensor);
 
         // Assert
 
@@ -404,12 +404,12 @@ class RoomTest {
     void seeIfGetSensorsByTypeWorks() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
-        expectedResult.add(validAreaSensor);
+        HouseSensorList expectedResult = new HouseSensorList();
+        expectedResult.add(validSensor);
 
         // Act
 
-        AreaSensorList actualResult = validRoom.getSensorsOfGivenType("temperature");
+        HouseSensorList actualResult = validRoom.getSensorsOfGivenType("temperature");
 
         // Assert
 
@@ -437,12 +437,12 @@ class RoomTest {
     void seeIfGetMaxTemperatureGivenDayWorksMultipleReadings() {
         // Arrange
 
-        AreaReading secondAreaReading = new AreaReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading secondAreaReading = new HouseReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 0).getTime(), "C");
-        AreaReading thirdAreaReading = new AreaReading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading thirdAreaReading = new HouseReading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 11, 2, 0).getTime(), "C");
-        validAreaSensor.addReading(secondAreaReading);
-        validAreaSensor.addReading(thirdAreaReading);
+        validSensor.addReading(secondAreaReading);
+        validSensor.addReading(thirdAreaReading);
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
         double expectedResult = 28;
@@ -463,7 +463,7 @@ class RoomTest {
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
         Room noSensorRoom = new Room("Mock","Mock", 1, 2, 3, 4);
-        validAreaSensor.setAreaReadingList(new AreaReadingList()); // validSensor has proper sensors, but they have no readings.
+        validSensor.setReadingList(new HouseReadingList()); // validSensor has proper sensors, but they have no readings.
 
 
         // Act and Assert
@@ -476,12 +476,12 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksSameMinuteReadings() {
         // Arrange
 
-        AreaReading secondAreaReading = new AreaReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading secondAreaReading = new HouseReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 2).getTime(), "C");
-        AreaReading thirdAreaReading = new AreaReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading thirdAreaReading = new HouseReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 13).getTime(), "C");
-        validAreaSensor.addReading(secondAreaReading);
-        validAreaSensor.addReading(thirdAreaReading);
+        validSensor.addReading(secondAreaReading);
+        validSensor.addReading(thirdAreaReading);
         double expectedResult = 21;
 
         // Act
@@ -497,20 +497,20 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksMultipleSensors() {
         // Arrange
 
-        AreaSensor firstAreaSensor = new AreaSensor("firstSensor", new SensorType("temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
-        AreaSensor secondAreaSensor = new AreaSensor("secondSensor", new SensorType("temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
-        AreaSensor thirdAreaSensor = new AreaSensor("secondSensor", new SensorType("temperature", "Celsius"), new Date()); // Has no readings.
+        HouseSensor firstAreaSensor = new HouseSensor("firstSensor", new SensorType("temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
+        HouseSensor secondAreaSensor = new HouseSensor("secondSensor", new SensorType("temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
+        HouseSensor thirdAreaSensor = new HouseSensor("secondSensor", new SensorType("temperature", "Celsius"), new Date()); // Has no readings.
         firstAreaSensor.setActive(true);
         secondAreaSensor.setActive(true);
         thirdAreaSensor.setActive(true);
         validRoom.addSensor(firstAreaSensor);
         validRoom.addSensor(secondAreaSensor);
         validRoom.addSensor(thirdAreaSensor);
-        AreaReading secondAreaReading = new AreaReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading secondAreaReading = new HouseReading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 2).getTime(), "C");
-        AreaReading thirdAreaReading = new AreaReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading thirdAreaReading = new HouseReading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 12, 2, 13).getTime(), "C");
-        AreaReading mostRecentAreaReading = new AreaReading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
+        HouseReading mostRecentAreaReading = new HouseReading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
                 15, 2, 13).getTime(), "C");
         firstAreaSensor.addReading(secondAreaReading);
         secondAreaSensor.addReading(thirdAreaReading);
@@ -531,7 +531,7 @@ class RoomTest {
         //Arrange
 
         Room noSensorsRoom = new Room("Mock","Mock", 1, 2, 3, 4);
-        validAreaSensor.setAreaReadingList(new AreaReadingList()); // Valid Sensor now has sensors, but no readings.
+        validSensor.setReadingList(new HouseReadingList()); // Valid Sensor now has sensors, but no readings.
 
         //Act and Assert
 
@@ -544,12 +544,12 @@ class RoomTest {
     void seeIfGetSensorListWorks() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
-        expectedResult.add(validAreaSensor);
+        HouseSensorList expectedResult = new HouseSensorList();
+        expectedResult.add(validSensor);
 
         // Act
 
-        AreaSensorList actualResult = validRoom.getSensorList();
+        HouseSensorList actualResult = validRoom.getSensorList();
 
         // Assert
         assertEquals(actualResult, expectedResult);
@@ -559,12 +559,12 @@ class RoomTest {
     void seeIfGetSensorListWorksNoSensors() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
-        validRoom.setSensorList(new AreaSensorList());
+        HouseSensorList expectedResult = new HouseSensorList();
+        validRoom.setSensorList(new HouseSensorList());
 
         // Act
 
-        AreaSensorList actualResult = validRoom.getSensorList();
+        HouseSensorList actualResult = validRoom.getSensorList();
 
         // Assert
 
@@ -575,15 +575,15 @@ class RoomTest {
     void seeIfGetSensorListWorksMultipleSensors() {
         // Arrange
 
-        AreaSensor testAreaSensor = new AreaSensor("Mock", new SensorType("Temperature", "Celsius"), new Date());
-        validRoom.addSensor(testAreaSensor);
-        AreaSensorList expectedResult = new AreaSensorList();
-        expectedResult.add(validAreaSensor);
-        expectedResult.add(testAreaSensor);
+        HouseSensor testSensor = new HouseSensor("Mock", new SensorType("Temperature", "Celsius"), new Date());
+        validRoom.addSensor(testSensor);
+        HouseSensorList expectedResult = new HouseSensorList();
+        expectedResult.add(validSensor);
+        expectedResult.add(testSensor);
 
         // Act
 
-        AreaSensorList actualResult = validRoom.getSensorList();
+        HouseSensorList actualResult = validRoom.getSensorList();
 
         // Assert
         assertEquals(actualResult, expectedResult);

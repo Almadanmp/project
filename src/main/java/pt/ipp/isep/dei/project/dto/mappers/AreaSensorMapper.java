@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
@@ -19,19 +19,19 @@ import java.util.Locale;
  * This class is responsible for converting Sensors and Sensor DTOs into one another.
  */
 
-public final class SensorMapper {
+public final class AreaSensorMapper {
     /**
      * Don't let anyone instantiate this class.
      */
 
-    private SensorMapper(){}
+    private AreaSensorMapper(){}
 
     /**
      * This is the method that converts Sensor DTOs into model objects with the same data.
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static AreaSensor dtoToObject(SensorDTO dtoToConvert){
+    public static AreaSensor dtoToObject(AreaSensorDTO dtoToConvert){
         // Update id
 
         String objectID = dtoToConvert.getId();
@@ -104,7 +104,7 @@ public final class SensorMapper {
      * @return is the converted model object.
      */
 
-    public static SensorDTO objectToDTO(AreaSensor objectToConvert){
+    public static AreaSensorDTO objectToDTO(AreaSensor objectToConvert){
         // Update the ID
 
         String dtoID = objectToConvert.getId();
@@ -147,7 +147,7 @@ public final class SensorMapper {
 
         // Create, update and return the converted DTO.
 
-        SensorDTO resultDTO = new SensorDTO();
+        AreaSensorDTO resultDTO = new AreaSensorDTO();
         resultDTO.setAltitude(dtoAltitude);
         resultDTO.setLongitude(dtoLongitude);
         resultDTO.setLatitude(dtoLatitude);

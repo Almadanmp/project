@@ -58,7 +58,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // First Sensor in First Area
 //
-//        SensorDTO firstAreaFirstSensor = new SensorDTO();
+//        AreaSensorDTO firstAreaFirstSensor = new AreaSensorDTO();
 //        firstAreaFirstSensor.setId("RF12345");
 //        firstAreaFirstSensor.setName("Meteo station ISEP - rainfall");
 //        firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
@@ -71,7 +71,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // Second sensor in First Area
 //
-//        SensorDTO firstAreaSecondSensor = new SensorDTO();
+//        AreaSensorDTO firstAreaSecondSensor = new AreaSensorDTO();
 //        firstAreaSecondSensor.setId("TT12346");
 //        firstAreaSecondSensor.setName("Meteo station ISEP - temperature");
 //        firstAreaSecondSensor.setDateStartedFunctioning("2016-11-15");
@@ -96,7 +96,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // First Sensor in Second Area
 //
-//        SensorDTO secondAreaFirstSensor = new SensorDTO();
+//        AreaSensorDTO secondAreaFirstSensor = new AreaSensorDTO();
 //        secondAreaFirstSensor.setId("RF12334");
 //        secondAreaFirstSensor.setName("Meteo station CMP - rainfall");
 //        secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
@@ -109,7 +109,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // Second Sensor in Second Area
 //
-//        SensorDTO secondAreaSecondSensor = new SensorDTO();
+//        AreaSensorDTO secondAreaSecondSensor = new AreaSensorDTO();
 //        secondAreaSecondSensor.setId("TT1236A");
 //        secondAreaSecondSensor.setName("Meteo station CMP - temperature");
 //        secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
@@ -196,7 +196,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // First Sensor in First Area
 //
-//        SensorDTO firstAreaFirstSensor = new SensorDTO();
+//        AreaSensorDTO firstAreaFirstSensor = new AreaSensorDTO();
 //        firstAreaFirstSensor.setId("TT12346");
 //        firstAreaFirstSensor.setName("Meteo station ISEP - temperature");
 //        firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
@@ -221,7 +221,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // First Sensor in Second Area
 //
-//        SensorDTO secondAreaFirstSensor = new SensorDTO();
+//        AreaSensorDTO secondAreaFirstSensor = new AreaSensorDTO();
 //        secondAreaFirstSensor.setId("RF12334");
 //        secondAreaFirstSensor.setName("Meteo station CMP - rainfall");
 //        secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
@@ -234,7 +234,7 @@ class ReaderJSONGeographicAreasTest {
 //
 //        // Second Sensor in Second Area
 //
-//        SensorDTO secondAreaSecondSensor = new SensorDTO();
+//        AreaSensorDTO secondAreaSecondSensor = new AreaSensorDTO();
 //        secondAreaSecondSensor.setId("TT1236A");
 //        secondAreaSecondSensor.setName("Meteo station CMP - temperature");
 //        secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");

@@ -1,13 +1,13 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
+import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +57,10 @@ public final class RoomMapper {
 
         // Update the AreaSensorList
 
-        AreaSensorList objectAreaSensorList = new AreaSensorList();
-        for (SensorDTO y : dtoToConvert.getSensorList()) {
-            AreaSensor tempAreaSensor = SensorMapper.dtoToObject(y);
-            objectAreaSensorList.add(tempAreaSensor);
+        HouseSensorList objectSensorList = new HouseSensorList();
+        for (HouseSensorDTO y : dtoToConvert.getSensorList()) {
+            HouseSensor tempAreaSensor = HouseSensorMapper.dtoToObject(y);
+            objectSensorList.add(tempAreaSensor);
         }
 
         // Update the device list
@@ -76,7 +76,7 @@ public final class RoomMapper {
 
         Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
         resultObject.setDeviceList(objectDeviceList);
-        resultObject.setSensorList(objectAreaSensorList);
+        resultObject.setSensorList(objectSensorList);
         resultObject.setId(objectID);
 
         return resultObject;
@@ -112,11 +112,11 @@ public final class RoomMapper {
 
         // Update the AreaSensorList
 
-        List<SensorDTO> dtoSensorList = new ArrayList<>();
-        for (AreaSensor y : objectToConvert.getSensorList().getAreaSensors()) {
-            SensorDTO tempSensorDTO = SensorMapper.objectToDTO(y);
-            if (!(dtoSensorList.contains(tempSensorDTO))) {
-                dtoSensorList.add(tempSensorDTO);
+        List<HouseSensorDTO> dtoSensorList = new ArrayList<>();
+        for (HouseSensor y : objectToConvert.getSensorList().getSensors()) {
+            HouseSensorDTO tempAreaSensorDTO = HouseSensorMapper.objectToDTO(y);
+            if (!(dtoSensorList.contains(tempAreaSensorDTO))) {
+                dtoSensorList.add(tempAreaSensorDTO);
             }
         }
 

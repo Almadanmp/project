@@ -10,7 +10,7 @@ public class GeographicAreaDTO {
     private double length;
     private double width;
     private LocalDTO localDTO;
-    private List<SensorDTO> sensorDTOList = new ArrayList<>();
+    private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
     private String description;
 
 
@@ -108,8 +108,8 @@ public class GeographicAreaDTO {
      * @return is a list of sensorDTOs.
      */
 
-    public List<SensorDTO> getSensorDTOList() {
-        return sensorDTOList;
+    public List<AreaSensorDTO> getAreaSensorDTOList() {
+        return areaSensorDTOList;
     }
 
     /**
@@ -118,8 +118,8 @@ public class GeographicAreaDTO {
      * @param listToStore is the list we want to store.
      */
 
-    public void setSensorDTOList(List<SensorDTO> listToStore) {
-        this.sensorDTOList = listToStore;
+    public void setAreaSensorDTOList(List<AreaSensorDTO> listToStore) {
+        this.areaSensorDTOList = listToStore;
     }
 
     /**
@@ -169,7 +169,7 @@ public class GeographicAreaDTO {
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(this.localDTO) && localVariable.getSensorDTOList().equals(this.sensorDTOList));
+                && testDTOLocal.equals(this.localDTO) && localVariable.getAreaSensorDTOList().equals(this.areaSensorDTOList));
     }
 
     @Override

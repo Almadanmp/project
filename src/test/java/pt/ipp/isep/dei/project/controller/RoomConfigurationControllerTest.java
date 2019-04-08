@@ -9,9 +9,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -146,13 +144,11 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        AreaSensor s1 = new AreaSensor("RF12345", "SensorOne", new SensorType("Wind", "km/h"),
-                new Local(12, 31, 21),
+        HouseSensor s1 = new HouseSensor("SensorOne", new SensorType("Wind", "km/h"),
                 date);
-        AreaSensor s2 = new AreaSensor("RF12345", "SensorTwo", new SensorType("Rain", "l/m2"),
-                new Local(10, 30, 20),
+        HouseSensor s2 = new HouseSensor("SensorTwo", new SensorType("Rain", "l/m2"),
                 date);
-        AreaSensorList areaSensorList = new AreaSensorList();
+        HouseSensorList areaSensorList = new HouseSensorList();
         areaSensorList.add(s1);
         areaSensorList.add(s2);
         String expectedResult = "---------------\n" +
@@ -194,7 +190,7 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        AreaSensor testAreaSensor = new AreaSensor("SensorOne", new SensorType("Rain", "mm"), date);
+        HouseSensor testAreaSensor = new HouseSensor("SensorOne", new SensorType("Rain", "mm"), date);
         // Act
 
         boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomWithDevices);
@@ -447,11 +443,11 @@ class RoomConfigurationControllerTest {
     void seeIfGetSensorListWorks() {
         // Arrange
 
-        AreaSensorList expectedResult = new AreaSensorList();
+        HouseSensorList expectedResult = new HouseSensorList();
         validRoomNoDevices.setSensorList(expectedResult);
         // Act
 
-        AreaSensorList actualResult = controller.getRoomSensorList(validRoomNoDevices);
+        HouseSensorList actualResult = controller.getRoomSensorList(validRoomNoDevices);
 
         // Assert
         assertEquals(actualResult, expectedResult);

@@ -12,7 +12,7 @@ public class RoomDTO {
     private double width;
     private double length;
     private double height;
-    private List<SensorDTO> sensorList;
+    private List<HouseSensorDTO> sensorList;
     private DeviceList deviceList;
     private Long id;
 
@@ -22,7 +22,7 @@ public class RoomDTO {
      * @return is the DTO's sensorList.
      */
 
-    public List<SensorDTO> getSensorList() {
+    public List<HouseSensorDTO> getSensorList() {
         return sensorList;
     }
 
@@ -32,7 +32,7 @@ public class RoomDTO {
      * @param sensorList is the list we want to store in the DTO.
      */
 
-    public void setSensorList(List<SensorDTO> sensorList) {
+    public void setSensorList(List<HouseSensorDTO> sensorList) {
         this.sensorList = sensorList;
     }
 

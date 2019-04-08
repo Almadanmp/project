@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class GeographicAreaDTOWrapper {
 
 
     @JsonProperty("area_sensor")
-    private List<SensorDTO> sensorDTOList = new ArrayList<>();
+    private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
 
     @JsonProperty("description")
     private String description;
@@ -93,13 +93,13 @@ public class GeographicAreaDTOWrapper {
     }
 
 
-    public List<SensorDTO> getSensorDTOList() {
-        return sensorDTOList;
+    public List<AreaSensorDTO> getAreaSensorDTOList() {
+        return areaSensorDTOList;
     }
 
 
-    public void setSensorDTOList(List<SensorDTO> listToStore) {
-        this.sensorDTOList = listToStore;
+    public void setAreaSensorDTOList(List<AreaSensorDTO> listToStore) {
+        this.areaSensorDTOList = listToStore;
     }
 
 
@@ -141,7 +141,7 @@ public class GeographicAreaDTOWrapper {
         LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
                 && testDTOLocal.equals(new LocalDTO(this.latitude,this.longitude,this.altitude)) &&
-                localVariable.getSensorDTOList().equals(this.sensorDTOList));
+                localVariable.getAreaSensorDTOList().equals(this.areaSensorDTOList));
     }
 
     @Override

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
 
@@ -105,8 +106,8 @@ public class SensorSettingsController {
      * @param date
      * @return a created Sensor
      */
-    public AreaSensor createRoomSensor(String name, SensorType type, Date date) {
-        return new AreaSensor(name, type, date);
+    public HouseSensor createRoomSensor(String name, SensorType type, Date date) {
+        return new HouseSensor(name, type, date);
     }
 
     /**

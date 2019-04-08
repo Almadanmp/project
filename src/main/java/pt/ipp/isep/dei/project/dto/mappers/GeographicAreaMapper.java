@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
@@ -58,8 +58,8 @@ public final class GeographicAreaMapper {
         // Update the AreaSensorList
 
         AreaSensorList objectAreaSensorList = new AreaSensorList();
-        for (SensorDTO y : dtoToConvert.getSensorDTOList()) {
-            AreaSensor tempAreaSensor = SensorMapper.dtoToObject(y);
+        for (AreaSensorDTO y : dtoToConvert.getAreaSensorDTOList()) {
+            AreaSensor tempAreaSensor = AreaSensorMapper.dtoToObject(y);
             objectAreaSensorList.add(tempAreaSensor);
         }
 
@@ -109,11 +109,11 @@ public final class GeographicAreaMapper {
 
         // Update the AreaSensorList
 
-        List<SensorDTO> sensorDTOList = new ArrayList<>();
+        List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
         for (AreaSensor b : objectToConvert.getSensorList().getAreaSensors()) {
-            SensorDTO tempDTO = SensorMapper.objectToDTO(b);
-            if (!sensorDTOList.contains(tempDTO)) {
-                sensorDTOList.add(tempDTO);
+            AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(b);
+            if (!areaSensorDTOList.contains(tempDTO)) {
+                areaSensorDTOList.add(tempDTO);
             }
         }
 
@@ -126,7 +126,7 @@ public final class GeographicAreaMapper {
         resultDTO.setDescription(dtoDescription);
         resultDTO.setName(dtoName);
         resultDTO.setLocalDTO(localDTO);
-        resultDTO.setSensorDTOList(sensorDTOList);
+        resultDTO.setAreaSensorDTOList(areaSensorDTOList);
 
         return resultDTO;
     }

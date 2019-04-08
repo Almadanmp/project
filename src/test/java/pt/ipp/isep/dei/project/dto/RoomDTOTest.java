@@ -117,16 +117,15 @@ class RoomDTOTest {
     void seeIfSetGetSensorListWorks(){
         // Arrange
 
-        List<SensorDTO> list = new ArrayList<>();
-        SensorDTO firstDTO = new SensorDTO();
-        firstDTO.setId("Mock");
+        List<HouseSensorDTO> list = new ArrayList<>();
+        HouseSensorDTO firstDTO = new HouseSensorDTO();
         firstDTO.setName("Test");
         list.add(firstDTO);
         validDTO.setSensorList(list);
 
         // Act
 
-        List<SensorDTO> result = validDTO.getSensorList();
+        List<HouseSensorDTO> result = validDTO.getSensorList();
 
         // Assert
 

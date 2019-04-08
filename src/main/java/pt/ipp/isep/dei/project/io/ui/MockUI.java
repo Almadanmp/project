@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
@@ -126,9 +127,9 @@ class MockUI {
     private Room createRoomB109() {
         Room roomB109 = new Room("B109","Classroom", 1, 7, 11, 3.5);
 
-        AreaSensor temperatureAreaSensorB109 = new AreaSensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
+        HouseSensor temperatureAreaSensorB109 = new HouseSensor("Temperature B109", this.temperatureST, new GregorianCalendar(2018, Calendar.NOVEMBER, 15).getTime());
         roomB109.addSensor(temperatureAreaSensorB109);
-        AreaSensor humidityAreaSensorB109 = new AreaSensor("Humidity B109", this.humidityST, new GregorianCalendar(2018, Calendar.NOVEMBER, 22).getTime());
+        HouseSensor humidityAreaSensorB109 = new HouseSensor("Humidity B109", this.humidityST, new GregorianCalendar(2018, Calendar.NOVEMBER, 22).getTime());
         roomB109.addSensor(humidityAreaSensorB109);
         WaterHeater wH109 = new WaterHeater(new WaterHeaterSpec());
         wH109.setName("EHW B109");

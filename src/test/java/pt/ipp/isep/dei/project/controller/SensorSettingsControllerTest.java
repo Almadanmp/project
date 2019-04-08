@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -225,11 +222,11 @@ class SensorSettingsControllerTest {
         Date date1 = controller.createDate(year, month, day);
         controller.createRoomSensor(nameString, firstType, date1);
         SensorType t1 = new SensorType(typeStr, "Celsius³");
-        AreaSensor expectedResult = new AreaSensor("XV-56D", t1, validDate1);
+        HouseSensor expectedResult = new HouseSensor("XV-56D", t1, validDate1);
 
         // Act
 
-        AreaSensor actualResult = controller.createRoomSensor(nameString, firstType, date1);
+        HouseSensor actualResult = controller.createRoomSensor(nameString, firstType, date1);
 
         // Assert
 

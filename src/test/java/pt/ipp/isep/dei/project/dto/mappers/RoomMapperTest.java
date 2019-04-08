@@ -2,14 +2,16 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.SensorDTO;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +39,8 @@ class RoomMapperTest {
         validDTO.setWidth(30);
         validDTO.setLength(20);
         validDTO.setHeight(10);
-        List<SensorDTO> list = new ArrayList<>();
-        SensorDTO dto = new SensorDTO();
-        dto.setId("Mock");
+        List<HouseSensorDTO> list = new ArrayList<>();
+        HouseSensorDTO dto = new HouseSensorDTO();
         dto.setName("Test");
         dto.setDateStartedFunctioning("12-12-1995");
         list.add(dto);
@@ -48,8 +49,8 @@ class RoomMapperTest {
         Device d1 = new WashingMachine(new WashingMachineSpec());
         deviceList.add(d1);
         validDTO.setDeviceList(deviceList);
-        AreaSensorList testList = new AreaSensorList();
-        testList.add(SensorMapper.dtoToObject(dto));
+        HouseSensorList testList = new HouseSensorList();
+        testList.add(HouseSensorMapper.dtoToObject(dto));
         validRoom.setSensorList(testList);
         validRoom.setDeviceList(deviceList);
         validRoom.setId(15L);

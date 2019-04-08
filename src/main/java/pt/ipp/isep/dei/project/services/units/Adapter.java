@@ -85,7 +85,7 @@ public final class Adapter {
             geographicAreaDTO.setDescription(wrapper.getDescription());
             geographicAreaDTO.setName(wrapper.getName());
             geographicAreaDTO.setLocalDTO(wrapper.getLocalDTO());
-            geographicAreaDTO.setSensorDTOList(wrapper.getSensorDTOList());
+            geographicAreaDTO.setAreaSensorDTOList(wrapper.getAreaSensorDTOList());
             if(!finalList.contains(geographicAreaDTO)) {
                 finalList.add(geographicAreaDTO);
             }

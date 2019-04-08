@@ -3,9 +3,7 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.sensor.AreaReadingList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -31,9 +29,8 @@ public class Room implements Metered {
     private double roomLength;
     private double roomHeight;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sensor_list_id")
-    private AreaSensorList roomAreaSensorList;
+    @OneToOne(cascade = CascadeType.ALL)
+    private HouseSensorList roomAreaSensorList;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_list_id")
@@ -58,7 +55,7 @@ public class Room implements Metered {
         this.roomWidth = width;
         this.roomLength = length;
         this.roomHeight = height;
-        this.roomAreaSensorList = new AreaSensorList();
+        this.roomAreaSensorList = new HouseSensorList();
         this.deviceList = new DeviceList();
     }
 
@@ -70,7 +67,7 @@ public class Room implements Metered {
      *
      * @return AreaSensorList of the Room.
      */
-    public AreaSensorList getSensorList() {
+    public HouseSensorList getSensorList() {
         return roomAreaSensorList;
     }
 
@@ -112,10 +109,10 @@ public class Room implements Metered {
     /**
      * Room Sensor List Setter.
      *
-     * @param areaSensorList is the areaSensorList to set to the Room
+     * @param houseSensorList is the areaSensorList to set to the Room
      */
-    public void setSensorList(AreaSensorList areaSensorList) {
-        roomAreaSensorList = areaSensorList;
+    public void setSensorList(HouseSensorList houseSensorList) {
+        roomAreaSensorList = houseSensorList;
     }
 
     /**
@@ -204,7 +201,7 @@ public class Room implements Metered {
      * in case the room has no readings whatsoever
      **/
     public double getMaxTemperatureOnGivenDay(Date day) {
-        AreaSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
+        HouseSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
@@ -222,7 +219,7 @@ public class Room implements Metered {
      *
      * @return a sensor list that contains sensors of given type
      **/
-    AreaSensorList getSensorsOfGivenType(String type) {
+    HouseSensorList getSensorsOfGivenType(String type) {
         return this.roomAreaSensorList.getSensorListByType(type);
     }
 
@@ -242,7 +239,7 @@ public class Room implements Metered {
      * @param areaSensor is the sensor we want to addWithoutPersisting.
      * @return true if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensor(AreaSensor areaSensor) {
+    public boolean addSensor(HouseSensor areaSensor) {
         return roomAreaSensorList.add(areaSensor);
     }
 
@@ -265,12 +262,12 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-        AreaSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
+        HouseSensorList tempSensors = getSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        AreaReadingList areaReadingList = tempSensors.getReadings();
-        return areaReadingList.getMostRecentValue();
+        HouseReadingList houseReadingList = tempSensors.getReadings();
+        return houseReadingList.getMostRecentValue();
     }
 
     /**

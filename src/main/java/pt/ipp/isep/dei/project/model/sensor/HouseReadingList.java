@@ -6,16 +6,16 @@ import java.util.*;
 /**
  * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
-//@Entity
+@Entity
 public class HouseReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // Used as primary key in repository tables.
 
-    //@OneToMany(mappedBy = "houseReadingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "houseReadingList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<HouseReading> readings;
 
     /**

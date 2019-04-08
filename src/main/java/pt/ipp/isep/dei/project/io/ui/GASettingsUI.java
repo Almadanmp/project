@@ -333,8 +333,8 @@ class GASettingsUI {
      */
     private void runUS10() {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaList);
-        SensorDTO sensorDTO = gaController.inputSensor(geographicAreaDTO);
-        if (!gaController.deactivateSensor(geographicAreaList, sensorDTO, geographicAreaDTO)) {
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
+        if (!gaController.deactivateSensor(geographicAreaList, areaSensorDTO, geographicAreaDTO)) {
             System.out.println("Sensor already deactivated.");
         } else {
             System.out.println("Sensor successfully deactivated!");
@@ -351,13 +351,13 @@ class GASettingsUI {
      */
     private void runUS11() {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaList);
-        SensorDTO sensorDTO = gaController.inputSensor(geographicAreaDTO);
-        updateUS11(sensorDTO, geographicAreaDTO);
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
+        updateUS11(areaSensorDTO, geographicAreaDTO);
     }
 
-    private void updateUS11(SensorDTO sensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(geographicAreaList, sensorDTO, geographicAreaDTO);
-        System.out.println("The sensor " + sensorDTO.getName() + " on the Geographical Area " +
+    private void updateUS11(AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
+        gaController.removeSensor(geographicAreaList, areaSensorDTO, geographicAreaDTO);
+        System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getName() + " has ceased to be.");
     }
 
