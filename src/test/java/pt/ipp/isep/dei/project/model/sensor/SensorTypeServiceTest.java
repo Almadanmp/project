@@ -28,14 +28,14 @@ class SensorTypeServiceTest {
     private SensorType secondValidType;
 
     @Mock
-    private SensorTypeRepository areaTypeRepository;
+    private SensorTypeRepository sensorTypeRepository;
 
     private SensorTypeService validList;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validList = new SensorTypeService(this.areaTypeRepository);
+        validList = new SensorTypeService(this.sensorTypeRepository);
         firstValidType = new SensorType("Temperature","Celsius");
         secondValidType = new SensorType("Rainfall", "l/m2");
     }
@@ -55,7 +55,7 @@ class SensorTypeServiceTest {
     void seeIfAddAreaType() {
         SensorType sensorType = new SensorType("Temperature","Celsius");
 
-        Mockito.when(areaTypeRepository.findByName(sensorType.getName())).thenReturn(sensorType);
+        Mockito.when(sensorTypeRepository.findByName(sensorType.getName())).thenReturn(sensorType);
 
         assertTrue(validList.add(sensorType));
     }
@@ -67,7 +67,7 @@ class SensorTypeServiceTest {
         SensorType sensorType = new SensorType("Temperature","Celsius");
         sensorType.getId();
 
-        Mockito.when(areaTypeRepository.findById(mockId)).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.of(sensorType));
 
         SensorType result = validList.getById(mockId);
 
@@ -79,7 +79,7 @@ class SensorTypeServiceTest {
     void seeIfGetTypeAreaByIdRepositoryNull() {
         long mockId = 1234;
 
-        Mockito.when(areaTypeRepository.findById(mockId)).thenReturn(Optional.empty());
+        Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.empty());
 
         Throwable exception = assertThrows(NoSuchElementException.class, () -> validList.getById(mockId));
 
@@ -94,13 +94,25 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(sensorType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         int result = validList.size();
 
         assertEquals(result, 1);
     }
 
+    @Test
+    void seeIfSizeRepositoryDoNotChange() {
+
+        List<SensorType> sensorTypes = new ArrayList<>();
+        sensorTypes.add(null);
+
+        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+
+        int result = validList.size();
+
+        assertEquals(result, 1);
+    }
 
     @Test
     void seeIfIsEmptyFalse() {
@@ -110,7 +122,7 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(sensorType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         assertFalse(validList.isEmpty());
 
@@ -121,7 +133,7 @@ class SensorTypeServiceTest {
 
         List<SensorType> sensorTypes = new ArrayList<>();
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         assertTrue(validList.isEmpty());
     }
@@ -132,7 +144,7 @@ class SensorTypeServiceTest {
         sensorTypes.add(secondValidType);
         sensorTypes.add(firstValidType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "---------------\n" +
                 "0) Name: Rainfall | Unit: l/m2 \n" +
@@ -148,7 +160,7 @@ class SensorTypeServiceTest {
     void getAllAsStringEmpty() {
         List<SensorType> sensorTypes = new ArrayList<>();
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "Invalid List - List is Empty\n";
 
