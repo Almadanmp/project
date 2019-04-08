@@ -39,7 +39,6 @@ class RoomMapperTest {
     void seeIfDTOToObjectWorks() {
         // Arrange
 
-        validDTO.setId("15L");
         validDTO.setName("Kitchen");
         validDTO.setFloor(2);
         validDTO.setWidth(30);
@@ -59,7 +58,6 @@ class RoomMapperTest {
         testList.add(HouseSensorMapper.dtoToObject(dto));
         validRoom.setSensorList(testList);
         validRoom.setDeviceList(deviceList);
-        validRoom.setId("15L");
 
         // Act
 
@@ -73,6 +71,6 @@ class RoomMapperTest {
 
         assertEquals(validRoom.getSensorList(), (result.getSensorList()));
         assertEquals(validRoom.getDeviceList(), result.getDeviceList());
-        assertEquals(validRoom.getId(), result.getId());
+        assertEquals(validRoom.getName(), result.getName());
     }
 }

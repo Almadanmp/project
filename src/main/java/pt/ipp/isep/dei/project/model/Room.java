@@ -20,16 +20,15 @@ public class Room implements Metered {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
     private String roomName;
+
     private String description;
     private int houseFloor;
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private HouseSensorList roomAreaSensorList;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -38,6 +37,8 @@ public class Room implements Metered {
 
     @Transient
     private DeviceList deviceList;
+
+    private long energyGridId;
 
     /**
      * Room() Constructor receiving 5 parameters and initializing 2 Lists, AreaSensorList and DeviceList.
@@ -133,16 +134,6 @@ public class Room implements Metered {
     public int getFloor() {
         return houseFloor;
     }
-
-
-    public String  getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     /**
      * Method that gets the room's device list.
