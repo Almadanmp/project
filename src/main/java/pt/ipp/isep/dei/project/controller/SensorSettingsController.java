@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,7 +19,7 @@ public class SensorSettingsController {
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public String buildSensorTypesString(SensorTypeList sensorTypeList) {
+    public String buildSensorTypesString(SensorTypeService sensorTypeList) {
         return sensorTypeList.buildString();
     }
 
@@ -31,7 +31,7 @@ public class SensorSettingsController {
      *                   // * @param typeSensorList the list of types of sensors
      * @return true if the type of sensor was added to the list of type sensors.
      */
-    public boolean addTypeSensorToList(SensorType sensorType, SensorTypeList sensorTypeList) {
+    public boolean addTypeSensorToList(SensorType sensorType, SensorTypeService sensorTypeList) {
         return sensorTypeList.add(sensorType);
     }
 
@@ -69,7 +69,7 @@ public class SensorSettingsController {
      * @return is the newly created sensorType.
      */
 
-    public SensorType createType(SensorTypeList sensorTypeList, String sensorType, String sensorUnits) {
+    public SensorType createType(SensorTypeService sensorTypeList, String sensorType, String sensorUnits) {
         return sensorTypeList.createTypeSensor(sensorType, sensorUnits);
     }
 

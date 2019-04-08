@@ -15,7 +15,7 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -34,7 +34,7 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    SensorTypeList sensorTypeList;
+    SensorTypeService sensorTypeService;
 
     @Autowired
     AreaTypeRepository areaTypeRepository;
@@ -119,7 +119,7 @@ public class MainUI {
 
             GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
             this.areaTypeService = new AreaTypeService(areaTypeRepository);
-            SensorTypeList mockSensorTypeList = new SensorTypeList(sensorTypeRepository);
+            SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
@@ -187,7 +187,7 @@ public class MainUI {
                             break;
                         case 4:
                             SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(mockGeographicAreaList, mockSensorTypeList);
+                            sensorSettings.run(geographicAreaList, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

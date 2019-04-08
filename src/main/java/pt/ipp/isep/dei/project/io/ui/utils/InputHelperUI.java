@@ -10,10 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeList;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.io.File;
 import java.util.List;
@@ -253,17 +250,18 @@ public class InputHelperUI {
      * Method that shows the user a list of all the available types of sensor the program has, then prompts him to choose
      * one based on index.
      *
-     * @param sensorTypeList is the list of available types of sensor.
+     * @param sensorTypeService is the list of available types of sensor.
      * @return is the chosen type of sensor.
      */
-    public static SensorType getInputSensorTypeByList(SensorTypeList sensorTypeList) {
+    public static SensorType getInputSensorTypeByList(SensorTypeService sensorTypeService) {
         while (true) {
             System.out.println("Please select a type of sensor from the list:");
-            System.out.println(sensorTypeList.buildString());
+            System.out.println(sensorTypeService.buildString());
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < sensorTypeList.size()) {
-                SensorType result = sensorTypeList.get(aux);
+            if (aux >= 0 && aux < sensorTypeService.size()) {
+                SensorType result = sensorTypeService.getById(aux);
                 System.out.println("You have chosen the following sensor type:");
+                System.out.println("SensorType: " + result.getName());
                 System.out.println(result.buildString() + "\n");
                 return result;
             } else {
