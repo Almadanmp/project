@@ -98,7 +98,7 @@ public class ReaderXMLGeoArea {
                 expected.getErrorOffset();
             }
             areaSensor = new AreaSensor(id, name, sensorType, local, date);
-            areaSensor.setGeographicArea(geographicArea);
+            areaSensor.setGeographicAreaId(geographicArea.getId());
         }
         return areaSensor;
     }

@@ -14,10 +14,7 @@ public class AreaReading {
     private double value;
     private Date date;
     private String unit;
-
-    @ManyToOne
-    @JoinColumn(name = "area_reading_list_id")
-    private AreaReadingList areaReadingList;
+    private String sensorId;
 
     /**
      * Builder with 'value' and 'date'
@@ -76,6 +73,11 @@ public class AreaReading {
      **/
     public String getUnit() {
         return this.unit;
+    }
+
+
+    public void setSensorId(String sensorId) {
+        this.sensorId = sensorId;
     }
 
     /**

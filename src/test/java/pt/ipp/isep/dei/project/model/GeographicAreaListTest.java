@@ -100,33 +100,6 @@ class GeographicAreaListTest {
 
 
     @Test
-    void seeifEqualsWorks() {
-        // Arrange
-
-        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
-        testList.addGeographicArea(firstValidArea);
-
-        //Act
-
-        boolean actualResult = validList.equals(testList);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsToSameObject() {
-        //Act
-
-        boolean actualResult = validList.equals(validList); // Needed for SonarQube testing purposes.
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
 
@@ -190,21 +163,6 @@ class GeographicAreaListTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void hashCodeDummyTest() {
-        // Arrange
-
-        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
-        int expectedResult = 1;
-
-        // Act
-
-        int actualResult = testList.hashCode();
-
-        // Assert
-
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfContainsGAByParametersFalse() {
