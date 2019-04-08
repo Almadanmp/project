@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import pt.ipp.isep.dei.project.services.units.Celsius;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -112,7 +114,7 @@ public class AreaReadingList {
      * @author Carina (US600 e US605)
      **/
     public AreaReading getMostRecentReading() {
-        AreaReading error = new AreaReading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C");
+        AreaReading error = new AreaReading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), new Celsius());
         if (isEmpty()) {
             return error;
         }

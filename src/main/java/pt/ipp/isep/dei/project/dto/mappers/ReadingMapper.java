@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.sensor.AreaReading;
+import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Date;
 
@@ -24,7 +25,7 @@ public final class ReadingMapper {
 
         double objectValue = dtoToConvert.getValue();
         Date objectDate = dtoToConvert.getDate();
-        String objectUnit = dtoToConvert.getUnit();
+        Unit objectUnit = dtoToConvert.getUnit();
 
         // Create, update and return the converted object
 

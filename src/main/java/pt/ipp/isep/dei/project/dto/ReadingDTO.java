@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.project.dto;
+
+import pt.ipp.isep.dei.project.services.units.Unit;
+
 import java.util.Date;
 
 public class ReadingDTO {
 
     private Date date;
     private double value;
-    private String unit;
+    private Unit unit;
 
     public Date getDate() {
         return date;
@@ -23,11 +26,11 @@ public class ReadingDTO {
         this.value = value;
     }
 
-    public String getUnit() {
+    public Unit getUnit() {
         return this.unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 

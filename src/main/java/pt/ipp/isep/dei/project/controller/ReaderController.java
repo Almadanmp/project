@@ -9,12 +9,12 @@ import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
 import pt.ipp.isep.dei.project.services.units.Unit;
+import pt.ipp.isep.dei.project.services.units.UnitHelper;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -143,7 +143,8 @@ public class ReaderController {
                 Date readingDate = pattern.parse(readings[1]);
                 Double readingValue = Double.parseDouble(readings[2]);
                 String readingUnit = readings[3];
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
+                Unit unit = UnitHelper.convertStringToUnit(readingUnit);
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, unit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -218,7 +219,8 @@ public class ReaderController {
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
                 String readingUnit = reading.getString("unit");
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
+                Unit unit = UnitHelper.convertStringToUnit(readingUnit);
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, unit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -236,7 +238,7 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
+    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, Unit readingUnit) {
         if (areaSensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
             return 1;
         }
@@ -313,7 +315,8 @@ public class ReaderController {
                 Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
                 String readingUnit = element.getElementsByTagName("unit").item(0).getTextContent();
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
+                Unit unit = UnitHelper.convertStringToUnit(readingUnit);
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, unit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;

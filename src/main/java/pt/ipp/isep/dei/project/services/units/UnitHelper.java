@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-class UnitHelper {
+public class UnitHelper {
 
     /**
      * This method converts the temperature value into the default one.

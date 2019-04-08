@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.sensor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -197,7 +198,7 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksReadingsAtBeginning() {
         // Arrange
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), new Celsius());
         validAreaSensorList.add(secondValidAreaSensor);
         firstValidAreaSensor.addReading(areaReadingOne);
         AreaReadingList expectedResult = new AreaReadingList();
@@ -216,7 +217,7 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksReadingsAtEnd() {
         // Arrange
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), new Celsius());
         validAreaSensorList.add(secondValidAreaSensor);
         secondValidAreaSensor.addReading(areaReadingOne);
         AreaReadingList expectedResult = new AreaReadingList();
@@ -235,8 +236,8 @@ class AreaSensorListTest {
     void seeIfGetReadingsWorksAllSensorsHaveReadings() {
         // Arrange
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "C");
-        AreaReading areaReadingTwo = new AreaReading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), new Celsius());
+        AreaReading areaReadingTwo = new AreaReading(20, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), new Celsius());
         validAreaSensorList.add(secondValidAreaSensor);
         firstValidAreaSensor.addReading(areaReadingOne);
         secondValidAreaSensor.addReading(areaReadingTwo);
@@ -269,13 +270,13 @@ class AreaSensorListTest {
         // Assign readings to sensors.
 
         AreaReading mostRecentAreaReading = new AreaReading(3, new GregorianCalendar(2019, Calendar.JANUARY, 1)
-                .getTime(), "C");
+                .getTime(), new Celsius());
         firstValidAreaSensor.addReading(mostRecentAreaReading);
         AreaReading secondAreaReading = new AreaReading(3, new GregorianCalendar(2018, Calendar.JANUARY, 2)
-                .getTime(), "C");
+                .getTime(), new Celsius());
         secondValidAreaSensor.addReading(secondAreaReading);
         AreaReading thirdAreaReading = new AreaReading(3, new GregorianCalendar(2017, Calendar.JANUARY, 1)
-                .getTime(), "C");
+                .getTime(), new Celsius());
         thirdValidAreaSensor.addReading(thirdAreaReading);
 
         // Test for when most recent reading is in the first sensor.
@@ -364,7 +365,7 @@ class AreaSensorListTest {
         AreaSensorList emptyList = new AreaSensorList();
         AreaSensorList twoSensorsList = new AreaSensorList();
 
-        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), "C");
+        AreaReading areaReadingOne = new AreaReading(31, new GregorianCalendar(2018, Calendar.MARCH, 1).getTime(), new Celsius());
         secondValidAreaSensor.addReading(areaReadingOne);
 
         twoSensorsList.add(firstValidAreaSensor);

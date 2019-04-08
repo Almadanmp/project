@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensor.AreaReading;
+import pt.ipp.isep.dei.project.services.units.Celsius;
+import pt.ipp.isep.dei.project.services.units.Fahrenheit;
+import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +26,7 @@ class AreaReadingTest {
     void arrangeArtifacts() {
         earlyDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         lateDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-        firstValidAreaReading = new AreaReading(31, earlyDate, "C");
+        firstValidAreaReading = new AreaReading(31, earlyDate, new Celsius());
     }
 
     @Test
@@ -103,7 +105,7 @@ class AreaReadingTest {
     void seeIfEqualsWorksTrue() {
         // Arrange
 
-        AreaReading testAreaReading = new AreaReading(31, earlyDate, "C");
+        AreaReading testAreaReading = new AreaReading(31, earlyDate, new Celsius());
 
         // Act
 
@@ -133,12 +135,12 @@ class AreaReadingTest {
     void seeIfSetAndGetUnitWorks() {
         //Arrange
 
-        String expectedResult = "F";
+        Unit expectedResult = new Fahrenheit();
 
         // Act
 
-        firstValidAreaReading.setUnit("F");
-        String actualResult = firstValidAreaReading.getUnit();
+        firstValidAreaReading.setUnit(new Fahrenheit());
+        Unit actualResult = firstValidAreaReading.getUnit();
 
         // Assert
 

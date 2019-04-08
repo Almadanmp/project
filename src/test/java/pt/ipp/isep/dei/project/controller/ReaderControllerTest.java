@@ -21,6 +21,7 @@ import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.services.AreaSensorService;
+import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -427,7 +428,7 @@ class ReaderControllerTest {
         readings[2] = "23";
         readings[3] = "C";
 
-        validAreaSensor1.addReading(new AreaReading(32, validDate, "C"));
+        validAreaSensor1.addReading(new AreaReading(32, validDate, new Celsius()));
 
         // Act
 
@@ -590,7 +591,7 @@ class ReaderControllerTest {
 
         //Act
 
-        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1, "C");
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1, new Celsius());
 
         // Assert
 
@@ -606,7 +607,7 @@ class ReaderControllerTest {
 
         //Act
 
-        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1, "C");
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1, new Celsius());
 
         // Assert
 
@@ -617,7 +618,7 @@ class ReaderControllerTest {
     void seeIfAddReadingToMatchingSensorWorksWhenLoggerIsValidAndReadingAreInvalid() {
         //Act
 
-        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1, "C");
+        int actualResult = validReader.addReadingToMatchingSensor(logger, "xxxx", 20D, validDate1, new Celsius());
 
         // Assert
 

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.sensor;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.services.units.Unit;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -249,7 +250,7 @@ public class AreaSensor {
      * @return returns true if the reading was successfully added.
      * @author André
      */
-    public boolean addReading(Date date, Double value, String unit) {
+    public boolean addReading(Date date, Double value, Unit unit) {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {

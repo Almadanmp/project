@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import pt.ipp.isep.dei.project.services.units.Unit;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +15,7 @@ public class AreaReading {
     private Long id;
     private double value;
     private Date date;
-    private String unit;
+    private Unit unit;
 
     @ManyToOne
     @JoinColumn(name = "area_reading_list_id")
@@ -25,7 +27,7 @@ public class AreaReading {
      * @param value value received
      * @param date  date received
      */
-    public AreaReading(double value, Date date, String unit) {
+    public AreaReading(double value, Date date, Unit unit) {
         setValue(value);
         setDate(date);
         setUnit(unit);
@@ -65,7 +67,7 @@ public class AreaReading {
      *
      * @param unit string of unit
      **/
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
@@ -74,7 +76,7 @@ public class AreaReading {
      *
      * @return unit as string
      **/
-    public String getUnit() {
+    public Unit getUnit() {
         return this.unit;
     }
 

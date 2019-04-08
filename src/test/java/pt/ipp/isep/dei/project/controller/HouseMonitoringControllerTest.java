@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -119,11 +120,11 @@ class HouseMonitoringControllerTest {
                 new Date());
         validTemperatureHouseSensor = new HouseSensor("TempOne", new SensorType("temperature", "Celsius"),
                 new Date());
-        AreaReading firstTempAreaReading = new AreaReading(15, validDate1, "C");
-        AreaReading secondTempAreaReading = new AreaReading(20, validDate2, "C");
-        AreaReading thirdTempAreaReading = new AreaReading(30, validDate3, "C");
-        AreaReading fourthTempAreaReading = new AreaReading(30, validDate4, "C");
-        AreaReading fifthTempAreaReading = new AreaReading(-5, validDate5, "C");
+        AreaReading firstTempAreaReading = new AreaReading(15, validDate1, new Celsius());
+        AreaReading secondTempAreaReading = new AreaReading(20, validDate2, new Celsius());
+        AreaReading thirdTempAreaReading = new AreaReading(30, validDate3, new Celsius());
+        AreaReading fourthTempAreaReading = new AreaReading(30, validDate4, new Celsius());
+        AreaReading fifthTempAreaReading = new AreaReading(-5, validDate5, new Celsius());
         validTemperatureAreaSensor.addReading(firstTempAreaReading);
         validTemperatureAreaSensor.addReading(secondTempAreaReading);
         validTemperatureAreaSensor.addReading(thirdTempAreaReading);
@@ -184,9 +185,9 @@ class HouseMonitoringControllerTest {
 
         AreaSensor validRainfallAreaSensor = new AreaSensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
                 (21, 41, 11), new Date());
-        AreaReading firstRainAreaReading = new AreaReading(40, validDate4, "C");
-        AreaReading secondRainAreaReading = new AreaReading(10, validDate5, "C");
-        AreaReading thirdRainAreaReading = new AreaReading(10, validDate6, "C");
+        AreaReading firstRainAreaReading = new AreaReading(40, validDate4, new Celsius());
+        AreaReading secondRainAreaReading = new AreaReading(10, validDate5, new Celsius());
+        AreaReading thirdRainAreaReading = new AreaReading(10, validDate6, new Celsius());
         validRainfallAreaSensor.addReading(firstRainAreaReading);
         validRainfallAreaSensor.addReading(secondRainAreaReading);
         validRainfallAreaSensor.addReading(thirdRainAreaReading);
@@ -388,8 +389,8 @@ class HouseMonitoringControllerTest {
     void roomMaxTemperatureInGivenDay() {
         // Arrange
 
-        AreaReading secondAreaReading = new AreaReading(30, validDate4, "C");
-        AreaReading thirdAreaReading = new AreaReading(3, validDate5, "C");
+        AreaReading secondAreaReading = new AreaReading(30, validDate4, new Celsius());
+        AreaReading thirdAreaReading = new AreaReading(3, validDate5, new Celsius());
         validTemperatureAreaSensor.addReading(secondAreaReading);
         validTemperatureAreaSensor.addReading(thirdAreaReading);
         double expectedResult = 30;
@@ -478,7 +479,7 @@ class HouseMonitoringControllerTest {
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validAreaSensorList);
         AreaReadingList areaReadingList = new AreaReadingList();
-        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
+        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), new Celsius());
         areaReadingList.addReading(areaReading1);
         validTemperatureAreaSensor.setAreaReadingList(areaReadingList);
 
@@ -507,26 +508,26 @@ class HouseMonitoringControllerTest {
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validAreaSensorList);
         AreaReadingList areaReadingList = new AreaReadingList();
-        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C");
-        AreaReading areaReading2 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C");
-        AreaReading areaReading3 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C");
-        AreaReading areaReading4 = new AreaReading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C");
-        AreaReading areaReading5 = new AreaReading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C");
-        AreaReading areaReading6 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C");
-        AreaReading areaReading7 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C");
-        AreaReading areaReading8 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C");
-        AreaReading areaReading9 = new AreaReading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C");
-        AreaReading areaReading10 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C");
-        AreaReading areaReading11 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C");
-        AreaReading areaReading12 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C");
-        AreaReading areaReading13 = new AreaReading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C");
-        AreaReading areaReading14 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C");
-        AreaReading areaReading15 = new AreaReading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C");
-        AreaReading areaReading16 = new AreaReading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C");
-        AreaReading areaReading17 = new AreaReading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C");
-        AreaReading areaReading18 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C");
-        AreaReading areaReading19 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C");
-        AreaReading areaReading20 = new AreaReading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C");
+        AreaReading areaReading1 = new AreaReading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), new Celsius());
+        AreaReading areaReading2 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), new Celsius());
+        AreaReading areaReading3 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), new Celsius());
+        AreaReading areaReading4 = new AreaReading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), new Celsius());
+        AreaReading areaReading5 = new AreaReading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), new Celsius());
+        AreaReading areaReading6 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), new Celsius());
+        AreaReading areaReading7 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), new Celsius());
+        AreaReading areaReading8 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), new Celsius());
+        AreaReading areaReading9 = new AreaReading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), new Celsius());
+        AreaReading areaReading10 = new AreaReading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), new Celsius());
+        AreaReading areaReading11 = new AreaReading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), new Celsius());
+        AreaReading areaReading12 = new AreaReading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), new Celsius());
+        AreaReading areaReading13 = new AreaReading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), new Celsius());
+        AreaReading areaReading14 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), new Celsius());
+        AreaReading areaReading15 = new AreaReading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), new Celsius());
+        AreaReading areaReading16 = new AreaReading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), new Celsius());
+        AreaReading areaReading17 = new AreaReading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), new Celsius());
+        AreaReading areaReading18 = new AreaReading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), new Celsius());
+        AreaReading areaReading19 = new AreaReading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), new Celsius());
+        AreaReading areaReading20 = new AreaReading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), new Celsius());
         areaReadingList.addReading(areaReading1);
         areaReadingList.addReading(areaReading2);
         areaReadingList.addReading(areaReading3);
@@ -565,16 +566,16 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayInPeriod() {
         // Arrange
-        AreaReading r01 = new AreaReading(20, validDate01, "C"); // MaxAmplitude First Date
-        AreaReading r02 = new AreaReading(1, validDate02, "C"); // MaxAmplitude First Date
-        AreaReading r03 = new AreaReading(22, validDate03, "C");
-        AreaReading r04 = new AreaReading(10, validDate04, "C"); // Cold First Date
-        AreaReading r05 = new AreaReading(40, validDate05, "C");
-        AreaReading r06 = new AreaReading(40.2, validDate06, "C"); // Hottest First Date
-        AreaReading r07 = new AreaReading(10.2, validDate07, "C");
-        AreaReading r08 = new AreaReading(12, validDate08, "C");
-        AreaReading r09 = new AreaReading(40.2, validDate09, "C"); // Hottest Final Date ALSO MaxAmplitude Final Date
-        AreaReading r10 = new AreaReading(21.2, validDate10, "C"); // Cold Final Date ALSO MaxAmplitude Final Date
+        AreaReading r01 = new AreaReading(20, validDate01, new Celsius()); // MaxAmplitude First Date
+        AreaReading r02 = new AreaReading(1, validDate02, new Celsius()); // MaxAmplitude First Date
+        AreaReading r03 = new AreaReading(22, validDate03, new Celsius());
+        AreaReading r04 = new AreaReading(10, validDate04, new Celsius()); // Cold First Date
+        AreaReading r05 = new AreaReading(40, validDate05, new Celsius());
+        AreaReading r06 = new AreaReading(40.2, validDate06, new Celsius()); // Hottest First Date
+        AreaReading r07 = new AreaReading(10.2, validDate07, new Celsius());
+        AreaReading r08 = new AreaReading(12, validDate08, new Celsius());
+        AreaReading r09 = new AreaReading(40.2, validDate09, new Celsius()); // Hottest Final Date ALSO MaxAmplitude Final Date
+        AreaReading r10 = new AreaReading(21.2, validDate10, new Celsius()); // Cold Final Date ALSO MaxAmplitude Final Date
 
         validTemperatureAreaSensor.addReading(r01);
         validTemperatureAreaSensor.addReading(r02);
@@ -602,16 +603,16 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayInPeriod2() {
         // Arrange
-        AreaReading r02 = new AreaReading(1, validDate02, "C"); // MaxAmplitude First Date
-        AreaReading r03 = new AreaReading(22, validDate03, "C");
-        AreaReading r04 = new AreaReading(10, validDate04, "C"); // Cold First Date
-        AreaReading r05 = new AreaReading(40, validDate05, "C");
-        AreaReading r07 = new AreaReading(10.2, validDate07, "C");
-        AreaReading r08 = new AreaReading(12, validDate08, "C");
-        AreaReading r06 = new AreaReading(40.2, validDate06, "C"); // Hottest First Date
-        AreaReading r09 = new AreaReading(40.2, validDate09, "C"); // Hottest Final Date ALSO MaxAmplitude Final Date
-        AreaReading r10 = new AreaReading(21.2, validDate10, "C"); // Cold Final Date ALSO MaxAmplitude Final Date
-        AreaReading r01 = new AreaReading(40, validDate01, "C"); // MaxAmplitude First Date
+        AreaReading r02 = new AreaReading(1, validDate02, new Celsius()); // MaxAmplitude First Date
+        AreaReading r03 = new AreaReading(22, validDate03, new Celsius());
+        AreaReading r04 = new AreaReading(10, validDate04, new Celsius()); // Cold First Date
+        AreaReading r05 = new AreaReading(40, validDate05, new Celsius());
+        AreaReading r07 = new AreaReading(10.2, validDate07, new Celsius());
+        AreaReading r08 = new AreaReading(12, validDate08, new Celsius());
+        AreaReading r06 = new AreaReading(40.2, validDate06, new Celsius()); // Hottest First Date
+        AreaReading r09 = new AreaReading(40.2, validDate09, new Celsius()); // Hottest Final Date ALSO MaxAmplitude Final Date
+        AreaReading r10 = new AreaReading(21.2, validDate10, new Celsius()); // Cold Final Date ALSO MaxAmplitude Final Date
+        AreaReading r01 = new AreaReading(40, validDate01, new Celsius()); // MaxAmplitude First Date
 
         validTemperatureAreaSensor.addReading(r02);
         validTemperatureAreaSensor.addReading(r03);
@@ -651,12 +652,12 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayMultipleReadingsSameDay() {
         // Arrange
-        AreaReading r20 = new AreaReading(20, validDate20, "C");
-        AreaReading r21 = new AreaReading(22, validDate21, "C");
-        AreaReading r22 = new AreaReading(30, validDate22, "C");
-        AreaReading r23 = new AreaReading(25, validDate23, "C");
-        AreaReading r24 = new AreaReading(21, validDate24, "C");
-        AreaReading r25 = new AreaReading(20, validDate25, "C");
+        AreaReading r20 = new AreaReading(20, validDate20, new Celsius());
+        AreaReading r21 = new AreaReading(22, validDate21, new Celsius());
+        AreaReading r22 = new AreaReading(30, validDate22, new Celsius());
+        AreaReading r23 = new AreaReading(25, validDate23, new Celsius());
+        AreaReading r24 = new AreaReading(21, validDate24, new Celsius());
+        AreaReading r25 = new AreaReading(20, validDate25, new Celsius());
         validTemperatureAreaSensor.addReading(r20);
         validTemperatureAreaSensor.addReading(r21);
         validTemperatureAreaSensor.addReading(r22);
@@ -724,9 +725,9 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayValidReadingsNotContained() {
         // Arrange
-        AreaReading r20 = new AreaReading(20, validDate20, "C");
-        AreaReading r21 = new AreaReading(22, validDate21, "C");
-        AreaReading r25 = new AreaReading(20, validDate25, "C");
+        AreaReading r20 = new AreaReading(20, validDate20, new Celsius());
+        AreaReading r21 = new AreaReading(22, validDate21, new Celsius());
+        AreaReading r25 = new AreaReading(20, validDate25, new Celsius());
         validTemperatureAreaSensor.addReading(r20);
         validTemperatureAreaSensor.addReading(r21);
         validTemperatureAreaSensor.addReading(r25);

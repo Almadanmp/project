@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
 import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -408,8 +409,8 @@ class HouseTest {
         Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
         Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
         AreaReadingList areaReadingList = new AreaReadingList();
-        AreaReading firstAreaReading = new AreaReading(15, laterDate,"C");
-        AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
+        AreaReading firstAreaReading = new AreaReading(15, laterDate,new Celsius());
+        AreaReading secondAreaReading = new AreaReading(12, earlierDate, new Celsius());
         areaReadingList.addReading(firstAreaReading);
         areaReadingList.addReading(secondAreaReading);
         firstValidAreaSensor.setAreaReadingList(areaReadingList);
@@ -437,15 +438,15 @@ class HouseTest {
             e.printStackTrace();
         }
         AreaReadingList areaReadingList = new AreaReadingList();
-        AreaReading firstAreaReading = new AreaReading(15, laterDate, "C");
-        AreaReading secondAreaReading = new AreaReading(12, earlierDate,"C");
+        AreaReading firstAreaReading = new AreaReading(15, laterDate, new Celsius());
+        AreaReading secondAreaReading = new AreaReading(12, earlierDate, new Celsius());
         areaReadingList.addReading(firstAreaReading);
         areaReadingList.addReading(secondAreaReading);
         firstValidAreaSensor.setAreaReadingList(areaReadingList);
 
         AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date());
-        secondAreaSensor.addReading(new AreaReading(15, earlierDate,"C"));
+        secondAreaSensor.addReading(new AreaReading(15, earlierDate,new Celsius()));
         validArea.addSensor(secondAreaSensor);
 
         // Act

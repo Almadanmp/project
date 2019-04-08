@@ -37,7 +37,7 @@ public class AreaSensorService {
      * if there is no sensor with that ID.
      */
 
-    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
+    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, Unit unit) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
@@ -68,7 +68,7 @@ public class AreaSensorService {
     public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, Unit unit, Logger logger) {
         try {
             AreaSensor areaSensor = getAreaSensorFromRepository(sensorID);
-            AreaReading areaReading = new AreaReading(readingValue, readingDate, "Should receive the variable unit");  //TODO Change the AreaReading parameter unit from STRING to UNIT
+            AreaReading areaReading = new AreaReading(readingValue, readingDate, unit);
             if (addReadingToSensorInRepository(areaReading, areaSensor)) {
                 return true;
             }
