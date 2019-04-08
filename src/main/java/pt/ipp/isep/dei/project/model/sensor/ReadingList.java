@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 
 import java.util.*;
 
@@ -11,6 +13,9 @@ import java.util.*;
 public class ReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
+
+    @Autowired
+    ReadingRepository readingRepository;
 
     private List<Reading> readings;
 

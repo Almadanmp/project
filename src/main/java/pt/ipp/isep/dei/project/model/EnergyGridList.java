@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,14 +12,12 @@ import java.util.List;
 /**
  * Class that groups a number of energy Grids of a House.
  */
-@Entity
+@Service
 public class EnergyGridList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Autowired
+    EnergyGridRepository energyGridRepository;
 
-    @OneToMany(mappedBy = "energyGridList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EnergyGrid> energyGrids;
 
     /**

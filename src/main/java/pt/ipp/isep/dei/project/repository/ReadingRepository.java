@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 
 @Repository
-public interface AreaReadingRepository extends CrudRepository<Reading, Long> {
+public interface ReadingRepository extends CrudRepository<Reading, Long> {
 }

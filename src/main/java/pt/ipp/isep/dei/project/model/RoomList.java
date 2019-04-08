@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,14 +15,12 @@ import java.util.List;
 /**
  * Class that groups a number of Rooms in a House.
  */
-@Entity
+@Service
 public class RoomList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Autowired
+    RoomRepository roomRepository;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Room> rooms;
 
     /**
