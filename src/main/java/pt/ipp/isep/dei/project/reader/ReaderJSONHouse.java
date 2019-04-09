@@ -19,7 +19,7 @@ import java.util.List;
 public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
 
-    public HouseDTO readFile(String filePath) {
+    public HouseDTO readFile(String filePath){
         HouseDTO houseDTO = new HouseDTO();
         try {
             File file = new File(filePath);

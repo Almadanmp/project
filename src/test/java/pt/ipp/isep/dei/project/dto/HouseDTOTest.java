@@ -22,7 +22,7 @@ class HouseDTOTest {
         addressDTO.setZip("4200-072");
         validHouseDTO.setAddress(addressDTO);
         validHouseDTO.setDeviceMeteringPeriod(10);
-        validHouseDTO.setId("House");
+        validHouseDTO.setName("House");
         LocalDTO localDTO = new LocalDTO();
         localDTO.setAltitude(111);
         localDTO.setLatitude(41.178553);
@@ -39,12 +39,12 @@ class HouseDTOTest {
     }
 
     @Test
-    void seeIfGetSetId() {
+    void seeIfGetSetName() {
         //Arrange
-        validHouseDTO.setId("House 1");
+        validHouseDTO.setName("House 1");
         String expectedResult = "House 1";
         //Act
-        String actualResult = validHouseDTO.getId();
+        String actualResult = validHouseDTO.getName();
         //Assert
         assertEquals(expectedResult, actualResult);
     }

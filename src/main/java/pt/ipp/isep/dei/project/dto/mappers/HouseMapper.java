@@ -25,7 +25,7 @@ public class HouseMapper {
     public static House dtoToObject(HouseDTO dtoToConvert) {
         // Update parameters
 
-        String objectId = dtoToConvert.getId();
+        String objectName = dtoToConvert.getName();
 
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
@@ -55,7 +55,7 @@ public class HouseMapper {
 
         // Create, update and return new object
 
-        House resultObject = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
+        House resultObject = new House(objectName, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
         resultObject.setMotherArea(objectGeoArea);
 
         return resultObject;
@@ -64,7 +64,6 @@ public class HouseMapper {
     public static House dtoToObjectUS100(HouseDTO dtoToConvert) {
         // Update parameters
 
-        String objectId = dtoToConvert.getId();
 
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
@@ -85,7 +84,7 @@ public class HouseMapper {
 
         // Create, update and return new object
 
-        House resultObject = new House(objectId,objectAddress,objectDeviceTypeConfigList);
+        House resultObject = new House(objectAddress,objectDeviceTypeConfigList);
         resultObject.setRoomList(objectRoomList);
         resultObject.setGridList(objectGridList);
 
@@ -100,7 +99,7 @@ public class HouseMapper {
      * @return is the converted DTO.
      */
     public static HouseDTO objectToDTO(House objectToConvert) {
-        String dtoId = objectToConvert.getHouseName();
+        String dtoName = objectToConvert.getHouseName();
 
         AddressDTO dtoAddress = AddressMapper.objectToDTO(objectToConvert.getAddress());
 
@@ -131,7 +130,7 @@ public class HouseMapper {
         // Create, update and return new object
 
         HouseDTO resultObject = new HouseDTO();
-        resultObject.setId(dtoId);
+        resultObject.setName(dtoName);
         resultObject.setAddress(dtoAddress);
         resultObject.setLocation(dtoLocal);
         resultObject.setEnergyGridList(dtoGridList);

@@ -17,6 +17,10 @@ public class HouseService {
 
 
     public boolean saveHouse(House house) {
+        House house1 = houseRepository.findByAddress(house.getAddress());
+        if (house1 != null) {
+            houseRepository.delete(house1);
+        }
         houseRepository.save(house);
         return true;
     }

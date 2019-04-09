@@ -73,8 +73,7 @@ public class House implements Metered {
      * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
      *                             the zip code the house is in.
      */
-    public House(String name, Address address, List<String> deviceTypeConfig) {
-        this.name = name;
+    public House(Address address, List<String> deviceTypeConfig) {
         this.address = address;
         this.roomList = new RoomList();
         this.energyGridService = new EnergyGridService();
