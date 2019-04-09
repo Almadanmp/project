@@ -92,8 +92,7 @@ public final class GeographicAreaMapper {
             Long dtoID = objectToConvert.getId();
             resultDTO.setId(dtoID);
 
-        } catch (NullPointerException ok) {
-            ok.printStackTrace();
+        } catch (NullPointerException ignored) {
         }
 
         String dtoName = objectToConvert.getName();
