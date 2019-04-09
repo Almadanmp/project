@@ -100,7 +100,7 @@ public class HouseMapper {
      * @return is the converted DTO.
      */
     public static HouseDTO objectToDTO(House objectToConvert) {
-        String dtoId = objectToConvert.getHouseId();
+        String dtoId = objectToConvert.getHouseName();
 
         AddressDTO dtoAddress = AddressMapper.objectToDTO(objectToConvert.getAddress());
 

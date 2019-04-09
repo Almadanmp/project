@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.dto;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HouseDTO {
     private String id;
@@ -85,5 +86,22 @@ public class HouseDTO {
 
     public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
         this.deviceTypeList = deviceTypeList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        HouseDTO house = (HouseDTO) o;
+        return Objects.equals(this.address, house.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

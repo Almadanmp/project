@@ -16,8 +16,6 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.HouseService;
-import pt.ipp.isep.dei.project.services.units.Unit;
-import pt.ipp.isep.dei.project.services.units.UnitHelper;
 
 import java.io.IOException;
 import java.text.ParseException;

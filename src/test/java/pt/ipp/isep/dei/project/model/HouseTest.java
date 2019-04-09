@@ -14,7 +14,6 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
 import pt.ipp.isep.dei.project.model.sensor.*;
-import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -905,10 +904,10 @@ class HouseTest {
     @Test
     void seeIfSetIDWorks() {
         //Act
-        validHouse.setId("valid house");
+        validHouse.setName("valid house");
 
         //Assert
-        assertEquals(validHouse.getHouseId(), "valid house");
+        assertEquals(validHouse.getHouseName(), "valid house");
     }
 
     @Test

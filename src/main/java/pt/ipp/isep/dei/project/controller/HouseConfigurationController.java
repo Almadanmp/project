@@ -67,7 +67,7 @@ public class HouseConfigurationController {
      */
 
     public String getHouseName(House house) {
-        return house.getHouseId();
+        return house.getHouseName();
     }
 
 

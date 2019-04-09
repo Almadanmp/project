@@ -13,6 +13,8 @@ public class Address {
     private String town;
     private String country;
 
+    protected Address() {
+    }
 
     /**
      * Standard address constructor, used for creating addresses.
