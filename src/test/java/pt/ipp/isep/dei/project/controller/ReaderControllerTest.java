@@ -1,153 +1,155 @@
-//package pt.ipp.isep.dei.project.controller;
-//
-//import org.json.JSONArray;
-//import org.json.JSONObject;
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-//import pt.ipp.isep.dei.project.dto.LocalDTO;
-//import pt.ipp.isep.dei.project.model.AreaType;
-//import pt.ipp.isep.dei.project.model.GeographicArea;
-//import pt.ipp.isep.dei.project.model.GeographicAreaList;
-//import pt.ipp.isep.dei.project.model.Local;
-//import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-//import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-//import pt.ipp.isep.dei.project.model.sensor.Reading;
-//import pt.ipp.isep.dei.project.model.sensor.SensorType;
-//import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
-//import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-//import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-//import pt.ipp.isep.dei.project.services.units.Celsius;
-//
-//import java.io.ByteArrayOutputStream;
-//import java.io.File;
-//import java.io.InputStream;
-//import java.io.PrintStream;
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//
-///**
-// * ReaderController test class.
-// */
-//@ExtendWith(MockitoExtension.class)
-//class ReaderControllerTest {
-//
-//    // Common artifacts for testing in this class.
-//
-//    private GeographicAreaList validGeographicAreaList;
-//    private GeographicAreaList validGeographicAreaList2;
-//    private GeographicAreaList emptyGeographicAreaList;
-//    private GeographicAreaList validGeographicAreaListNoSensors;
-//    private GeographicArea validGeographicArea;
-//    private ReaderXMLGeoArea validReaderXMLGeoArea;
-//    private Date validDate1 = new Date();
-//    private Date validDate2 = new Date();
-//    private Date validDate3 = new Date();
-//    private Date validDate4 = new Date();
-//    private ReaderController validReader;
-//    private AreaSensor validAreaSensor1;
-//    private static final String validCSVLocation1 = "src/test/resources/readerReadings/test1CSVReadings.csv";
-//    private static final String validCSVLocation3 = "src/test/resources/readerReadings/test3CSVReadings.csv";
-//    private static final String validJSONLocation1 = "src/test/resources/readerReadings/test1JSONReadings.json";
-//    private static final String validJSONLocation4 = "src/test/resources/readerReadings/test4JSONReadings.json";
-//    private static final String validXMLocation1 = "src/test/resources/readerReadings/test1XMLReadings.xml";
-//    private static final String validXMLocation4 = "src/test/resources/readerReadings/test4XMLReadings.xml";
-//    private static final String validXMLocation5 = "src/test/resources/readerReadings/test5XMLReadings.xml";
-//
-//    private static final String validLogPath = "resources/logs/logOut.log";
-//    private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
-//
-//    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
-//
-//    @Mock
-//    AreaSensorRepository areaSensorRepository;
-//
-//    @Mock
-//    GeographicAreaRepository geographicAreaRepository;
-//
-//    private AreaSensorService areaSensorService;
-//
-//
-//    @BeforeEach
-//    void arrangeArtifacts() {
-//        areaSensorService = new AreaSensorService(areaSensorRepository);
-//
-//        validReader = new ReaderController(areaSensorService);
-//        validReaderXMLGeoArea = new ReaderXMLGeoArea();
-//        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
-//        try {
-//            validDate1 = validSdf.parse("2016-11-15");
-//            validDate2 = validSdf.parse("2016-11-15");
-//            validDate3 = validSdf.parse("2017-11-15");
-//            validDate4 = validSdf.parse("2017-11-16");
-//        } catch (ParseException c) {
-//            c.printStackTrace();
-//        }
-//        GeographicArea validGeographicArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249, 0.261,
-//                new Local(41.178553, -8.608035, 111));
-//        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
-//                new Local(41.149935, -8.610857, 118));
-//        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new AreaType("city"), 0.299, 0.291,
-//                new Local(41.178553, 8.608035, 117));
-//        validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
-//                new Local(41.179230, -8.606409, 125),
-//                validDate1,6008L);
-//        AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
-//                new Local(41.179230, -8.606409, 125),
-//                validDate2,6008L);
-//        AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
-//                new Local(41.179230, -8.606409, 139),
-//                validDate3,6008L);
-//        AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
-//                new Local(41.179230, -8.606409, 139),
-//                validDate4,6008L);
-//        AreaSensorService validAreaSensorService = new AreaSensorService();
-//        AreaSensorService validAreaSensorService2 = new AreaSensorService();
-//        validAreaSensorService.add(validAreaSensor1);
-//        validAreaSensorService.add(validAreaSensor2);
-//        validAreaSensorService2.add(validAreaSensor3);
-//        validAreaSensorService2.add(validAreaSensor4);
-//        validGeographicArea.setSensorList(validAreaSensorService);
-//        validGeographicArea2.setSensorList(validAreaSensorService2);
-//        validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
-//        validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
-//        emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
-//        validGeographicAreaListNoSensors = new GeographicAreaList(geographicAreaRepository);
-//        validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
-//        validGeographicAreaList.addGeographicArea(validGeographicArea);
-//        validGeographicAreaList.addGeographicArea(validGeographicArea2);
-//        validGeographicAreaList2.addGeographicArea(validGeographicArea);
-//    }
-//
-//    private final InputStream systemIn = System.in;
-//    private final PrintStream systemOut = System.out;
-//
-//    @BeforeEach
-//    void setUpOutput() {
-//        ByteArrayOutputStream testOut = new ByteArrayOutputStream();
-//        System.setOut(new PrintStream(testOut));
-//        logger.setLevel(Level.WARNING);
-//    }
-//
-//    @AfterEach
-//    void restoreSystemInputOutput() {
-//        System.setIn(systemIn);
-//        System.setOut(systemOut);
-//    }
-//
+package pt.ipp.isep.dei.project.controller;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.model.AreaType;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.services.HouseService;
+import pt.ipp.isep.dei.project.services.units.Celsius;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+/**
+ * ReaderController test class.
+ */
+@ExtendWith(MockitoExtension.class)
+class ReaderControllerTest {
+
+    // Common artifacts for testing in this class.
+
+    private GeographicAreaList validGeographicAreaList;
+    private GeographicAreaList validGeographicAreaList2;
+    private GeographicAreaList emptyGeographicAreaList;
+    private GeographicAreaList validGeographicAreaListNoSensors;
+    private GeographicArea validGeographicArea;
+    private ReaderXMLGeoArea validReaderXMLGeoArea;
+    private Date validDate1 = new Date();
+    private Date validDate2 = new Date();
+    private Date validDate3 = new Date();
+    private Date validDate4 = new Date();
+    private ReaderController validReader;
+    private AreaSensor validAreaSensor1;
+    private static final String validCSVLocation1 = "src/test/resources/readerReadings/test1CSVReadings.csv";
+    private static final String validCSVLocation3 = "src/test/resources/readerReadings/test3CSVReadings.csv";
+    private static final String validJSONLocation1 = "src/test/resources/readerReadings/test1JSONReadings.json";
+    private static final String validJSONLocation4 = "src/test/resources/readerReadings/test4JSONReadings.json";
+    private static final String validXMLocation1 = "src/test/resources/readerReadings/test1XMLReadings.xml";
+    private static final String validXMLocation4 = "src/test/resources/readerReadings/test4XMLReadings.xml";
+    private static final String validXMLocation5 = "src/test/resources/readerReadings/test5XMLReadings.xml";
+
+    private static final String validLogPath = "resources/logs/logOut.log";
+    private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
+
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
+
+    @Mock
+    AreaSensorRepository areaSensorRepository;
+
+    @Mock
+    GeographicAreaRepository geographicAreaRepository;
+
+    private AreaSensorService areaSensorService;
+    private HouseService houseService;
+
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        areaSensorService = new AreaSensorService(areaSensorRepository);
+
+        validReader = new ReaderController(areaSensorService, houseService);
+        validReaderXMLGeoArea = new ReaderXMLGeoArea();
+        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            validDate1 = validSdf.parse("2016-11-15");
+            validDate2 = validSdf.parse("2016-11-15");
+            validDate3 = validSdf.parse("2017-11-15");
+            validDate4 = validSdf.parse("2017-11-16");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+        GeographicArea validGeographicArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249, 0.261,
+                new Local(41.178553, -8.608035, 111));
+        GeographicArea validGeographicArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
+                new Local(41.149935, -8.610857, 118));
+        GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", new AreaType("city"), 0.299, 0.291,
+                new Local(41.178553, 8.608035, 117));
+        validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
+                new Local(41.179230, -8.606409, 125),
+                validDate1, 6008L);
+        AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
+                new Local(41.179230, -8.606409, 125),
+                validDate2, 6008L);
+        AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
+                new Local(41.179230, -8.606409, 139),
+                validDate3, 6008L);
+        AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
+                new Local(41.179230, -8.606409, 139),
+                validDate4, 6008L);
+        AreaSensorService validAreaSensorService = new AreaSensorService();
+        AreaSensorService validAreaSensorService2 = new AreaSensorService();
+        validAreaSensorService.add(validAreaSensor1);
+        validAreaSensorService.add(validAreaSensor2);
+        validAreaSensorService2.add(validAreaSensor3);
+        validAreaSensorService2.add(validAreaSensor4);
+        validGeographicArea.setSensorList(validAreaSensorService);
+        validGeographicArea2.setSensorList(validAreaSensorService2);
+        validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
+        validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
+        emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
+        validGeographicAreaListNoSensors = new GeographicAreaList(geographicAreaRepository);
+        validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
+        validGeographicAreaList.addGeographicArea(validGeographicArea);
+        validGeographicAreaList.addGeographicArea(validGeographicArea2);
+        validGeographicAreaList2.addGeographicArea(validGeographicArea);
+    }
+
+    private final InputStream systemIn = System.in;
+    private final PrintStream systemOut = System.out;
+
+    @BeforeEach
+    void setUpOutput() {
+        ByteArrayOutputStream testOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testOut));
+        logger.setLevel(Level.WARNING);
+    }
+
+    @AfterEach
+    void restoreSystemInputOutput() {
+        System.setIn(systemIn);
+        System.setOut(systemOut);
+    }
+
 //    @Test
 //    void seeIfParseAndLogReadingFailsWithInvalidDateFormat() {
 //        // Arrange
@@ -758,5 +760,66 @@
 //
 //        assertEquals(1, areasAdded);
 //    }
-//
-//}
+
+
+    @Test
+    void seeIfReadFileWorksWithOneGA() {
+        //Arrange
+        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setName("ISEP");
+        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
+        geographicAreaDTO.setLocalDTO(localDTO);
+        geographicAreaDTO.setDescription("Campus do ISEP");
+        geographicAreaDTO.setWidth(0.261);
+        geographicAreaDTO.setLength(0.249);
+        geographicAreaDTO.setTypeArea("urban area");
+
+        expectedResult.add(geographicAreaDTO);
+
+        //Act
+
+        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileWorksWithTwoGA() {
+        //Arrange
+        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+
+        GeographicAreaDTO firstGeographicAreaDTO = new GeographicAreaDTO();
+        firstGeographicAreaDTO.setName("ISEP");
+        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
+        firstGeographicAreaDTO.setLocalDTO(localDTO);
+        firstGeographicAreaDTO.setDescription("Campus do ISEP");
+        firstGeographicAreaDTO.setWidth(0.261);
+        firstGeographicAreaDTO.setLength(0.249);
+        firstGeographicAreaDTO.setAreaSensorDTOList(null);
+        firstGeographicAreaDTO.setTypeArea("urban area");
+
+        GeographicAreaDTO secondGeographicAreaDTO = new GeographicAreaDTO();
+        secondGeographicAreaDTO.setName("Porto");
+        LocalDTO localDTO2 = new LocalDTO(41.149935, -8.610857, 118);
+        secondGeographicAreaDTO.setLocalDTO(localDTO2);
+        secondGeographicAreaDTO.setDescription("City of Porto");
+        secondGeographicAreaDTO.setWidth(10.09);
+        secondGeographicAreaDTO.setLength(3.30);
+        secondGeographicAreaDTO.setTypeArea("city");
+
+        expectedResult.add(firstGeographicAreaDTO);
+        expectedResult.add(secondGeographicAreaDTO);
+
+        //Act
+
+        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_TWO_GA.json");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+}
