@@ -55,7 +55,8 @@ public final class Adapter {
                 e.printStackTrace();
             }
             Unit defaultUnit = UnitHelper.convertUnitToSystemDefault(startUnit);
-            readingDTO.setUnit(defaultUnit);
+
+            readingDTO.setUnit(defaultUnit.buildString());
             readingDTO.setDate(wrapper.getDate());
             readingDTO.setSensorID(wrapper.getSensorId());
             if(!finalList.contains(readingDTO)) {

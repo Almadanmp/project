@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Date;
 
@@ -8,7 +7,7 @@ public class ReadingDTOWithUnitAndSensorID {
 
     private Date date;
     private double value;
-    private Unit unit; // This needs to be UnitDto
+    private String unit; // This needs to be UnitDto
     private String sensorID;
 
     public Date getDate() {
@@ -27,11 +26,11 @@ public class ReadingDTOWithUnitAndSensorID {
         this.value = value;
     }
 
-    public Unit getUnit() {
+    public String getUnit() {
         return this.unit;
     }
 
-    public void setUnit(Unit unit) {
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 
