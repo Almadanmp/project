@@ -87,7 +87,7 @@ class ReadingsReaderCSVTest {
 
         //Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderCSV.readFile("src/test/resources/readerReadings/test2CSVReadings.csv");
+        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderCSV.readFile("src/test/resources/readingsFiles/test2CSVReadings.csv");
 
         //Assert
 
@@ -99,6 +99,6 @@ class ReadingsReaderCSVTest {
         //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> readingsReaderCSV.readFile("src/test/resources/readerReadings/test3CSVReadings.csv"));
+                () -> readingsReaderCSV.readFile("src/test/resources/readingsFiles/test3CSVReadings.csv"));
     }
 }

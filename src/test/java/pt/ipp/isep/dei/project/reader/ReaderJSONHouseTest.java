@@ -8,7 +8,7 @@ public class ReaderJSONHouseTest {
     @Test
     public void seeHouseDTO() {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
-        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readerReadings/DataSet_sprint06_HouseData.json");
+        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readingsFiles/DataSet_sprint06_HouseData.json");
         System.out.println(houseDTO);
     }
 }

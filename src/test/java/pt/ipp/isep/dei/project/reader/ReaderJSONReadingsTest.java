@@ -14,8 +14,8 @@ class ReaderJSONReadingsTest {
 
     // Common artifacts for testing in this class.
     private ReaderJSONReadings validReader;
-    private static final String validPathNoReadings = "src/test/resources/readerReadings/test1JSONReadings.json";
-    private static final String validPathWithReadings = "src/test/resources/readerReadings/test3JSONReadings.json";
+    private static final String validPathNoReadings = "src/test/resources/readingsFiles/test1JSONReadings.json";
+    private static final String validPathWithReadings = "src/test/resources/readingsFiles/test3JSONReadings.json";
     private static final String invalidPath = "src/test/resources";
     private JSONArray validJSONArray;
 

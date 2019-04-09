@@ -85,7 +85,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test2XMLReadings.xml");
+        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test2XMLReadings.xml");
 
         //Assert
 
@@ -100,7 +100,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test1XMLReadings.xml");
+        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test1XMLReadings.xml");
 
         //Assert
 
@@ -131,7 +131,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test3XMLReadings.xml");
+        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test3XMLReadings.xml");
 
         //Assert
 
@@ -146,7 +146,7 @@ class ReadingsReaderXMLTest {
 
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                    List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test4XMLReadings.xml");
+                    List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test4XMLReadings.xml");
 
                 });
     }

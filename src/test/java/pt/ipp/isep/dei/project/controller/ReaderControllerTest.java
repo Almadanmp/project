@@ -48,10 +48,8 @@ class ReaderControllerTest {
     // Common artifacts for testing in this class.
 
     private GeographicAreaList validGeographicAreaList;
-    private GeographicAreaList validGeographicAreaList2;
     private GeographicAreaList emptyGeographicAreaList;
     private GeographicAreaList validGeographicAreaListNoSensors;
-    private GeographicArea validGeographicArea;
     private ReaderXMLGeoArea validReaderXMLGeoArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
@@ -59,13 +57,13 @@ class ReaderControllerTest {
     private Date validDate4 = new Date();
     private ReaderController validReader;
     private AreaSensor validAreaSensor1;
-    private static final String validCSVLocation1 = "src/test/resources/readerReadings/test1CSVReadings.csv";
-    private static final String validCSVLocation3 = "src/test/resources/readerReadings/test3CSVReadings.csv";
-    private static final String validJSONLocation1 = "src/test/resources/readerReadings/test1JSONReadings.json";
-    private static final String validJSONLocation4 = "src/test/resources/readerReadings/test4JSONReadings.json";
-    private static final String validXMLocation1 = "src/test/resources/readerReadings/test1XMLReadings.xml";
-    private static final String validXMLocation4 = "src/test/resources/readerReadings/test4XMLReadings.xml";
-    private static final String validXMLocation5 = "src/test/resources/readerReadings/test5XMLReadings.xml";
+    private static final String validCSVLocation1 = "src/test/resources/readingsFiles/test1CSVReadings.csv";
+    private static final String validCSVLocation3 = "src/test/resources/readingsFiles/test3CSVReadings.csv";
+    private static final String validJSONLocation1 = "src/test/resources/readingsFiles/test1JSONReadings.json";
+    private static final String validJSONLocation4 = "src/test/resources/readingsFiles/test4JSONReadings.json";
+    private static final String validXMLocation1 = "src/test/resources/readingsFiles/test1XMLReadings.xml";
+    private static final String validXMLocation4 = "src/test/resources/readingsFiles/test4XMLReadings.xml";
+    private static final String validXMLocation5 = "src/test/resources/readingsFiles/test5XMLReadings.xml";
 
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log";
@@ -123,7 +121,7 @@ class ReaderControllerTest {
         validGeographicArea.setSensorList(validAreaSensorService);
         validGeographicArea2.setSensorList(validAreaSensorService2);
         validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
-        validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaList validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
         emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaListNoSensors = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
@@ -308,7 +306,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/readerReadings/test1XMLReadings.xml");
+        File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService);
 
@@ -325,7 +323,7 @@ class ReaderControllerTest {
 
         // Act
 
-        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml");
+        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService);
 
@@ -336,7 +334,7 @@ class ReaderControllerTest {
 
     @Test
     void seeIfAcceptPathWorksXML() {
-        String input = "src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml";
+        String input = "src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
         int result = validReader.acceptPath(absolutePath, validGeographicAreaList);
@@ -356,7 +354,7 @@ class ReaderControllerTest {
 //    void seeIfAcceptPathWorksJSON() {
 //        // Arrange
 //
-//        String input = "src/test/resources/readerGeographicAreas/DataSet_sprint04_GA.json";
+//        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
 //        File fileToRead = new File(input);
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        GeographicAreaList geographicAreaList1 = new GeographicAreaList(geographicAreaRepository);
@@ -643,7 +641,7 @@ class ReaderControllerTest {
 //
 //        //Act
 //
-//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
 //
 //        //Assert
 //
@@ -659,7 +657,7 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA.xml");
+//        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
 //
@@ -696,7 +694,7 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_date.xml");
+//        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaList3, areaSensorService, areaSensorList);
 //
@@ -730,7 +728,7 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
+//        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, validGeographicAreaList2, areaSensorService, areaSensorList);
 //
@@ -748,7 +746,7 @@ class ReaderControllerTest {
 //
 //        // Act
 //
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_one_GA.xml");
+//        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
 //

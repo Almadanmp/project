@@ -135,7 +135,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA.json");
+//        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json");
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
 //        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, actualResult, areaSensorList);
@@ -256,7 +256,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/InvalidJSONWrongDates.json");
+//        File fileToRead = new File("src/test/resources/geoAreaFiles/InvalidJSONWrongDates.json");
 //        String absolutePath = fileToRead.getAbsolutePath();
 //        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
 //        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, actualResult, areaSensorList);

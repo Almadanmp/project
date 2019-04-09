@@ -18,8 +18,8 @@ class ReaderCSVTest {
 
     // Common artifacts for testing in this class.
     private ReaderCSV validReader;
-    private static final String validLocation1 = "src/test/resources/readerReadings/test3CSVReadings.csv";
-    private static final String validLocation2 = "src/test/resources/readerReadings/test4CSVReadings.csv";
+    private static final String validLocation1 = "src/test/resources/readingsFiles/test3CSVReadings.csv";
+    private static final String validLocation2 = "src/test/resources/readingsFiles/test4CSVReadings.csv";
     private static final String wrongLocation1 = "src/test/resources";
     private List<String[]> validList;
 
