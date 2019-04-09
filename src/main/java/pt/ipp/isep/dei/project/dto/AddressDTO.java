@@ -46,4 +46,22 @@ public class AddressDTO {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    @Override
+    public boolean equals(Object testAddress) {
+        if (this == testAddress) {
+            return true;
+        }
+        if (!(testAddress instanceof AddressDTO)) {
+            return false;
+        }
+        AddressDTO localVariable = (AddressDTO) testAddress;
+        return (this.street.equals(localVariable.street) && this.town.equals(localVariable.town) &&
+                this.zip.equals(localVariable.zip));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

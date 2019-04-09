@@ -16,8 +16,6 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.HouseService;
-import pt.ipp.isep.dei.project.services.units.Unit;
-import pt.ipp.isep.dei.project.services.units.UnitHelper;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -40,9 +38,10 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
-    public ReaderController(AreaSensorService areaSensorService) {
+    public ReaderController(AreaSensorService areaSensorService, HouseService houseService) {
 
         this.areaSensorService = areaSensorService;
+        this.houseService = houseService;
     }
 
     //
@@ -65,7 +64,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, houseService);
             return areasRead;
         }
         return -1;

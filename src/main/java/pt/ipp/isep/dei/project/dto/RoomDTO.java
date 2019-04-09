@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.dto;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RoomDTO {
 
@@ -174,5 +175,21 @@ public class RoomDTO {
         this.height = height;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RoomDTO room = (RoomDTO) o;
+        return Objects.equals(name, room.name);
+    }
 
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

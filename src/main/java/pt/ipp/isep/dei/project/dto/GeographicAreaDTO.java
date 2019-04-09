@@ -169,7 +169,7 @@ public class GeographicAreaDTO {
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(this.localDTO) && localVariable.getAreaSensorDTOList().equals(this.areaSensorDTOList));
+                && testDTOLocal.equals(this.localDTO));
     }
 
     @Override

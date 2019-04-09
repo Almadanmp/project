@@ -16,7 +16,10 @@ import java.util.*;
 public class House implements Metered {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long ID2;
+
+    private String name;
 
     @Embedded
     private Address address;
@@ -42,7 +45,7 @@ public class House implements Metered {
     /**
      * Standard constructor for a house object.
      *
-     * @param id                   is the id of the house.
+     * @param name                   is the name of the house.
      * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
      *                             the zip code the house is in.
      * @param mLocation            is the location of the central point of the house, in latitude, longitude and altitude coordinates.
@@ -50,9 +53,9 @@ public class House implements Metered {
      * @param deviceMeteringPeriod is the metering period of devices contained in the house.
      * @param deviceTypeConfig     is the list of possible device types that the house supports.
      */
-    public House(String id, Address address, Local mLocation, int gridMeteringPeriod,
+    public House(String name, Address address, Local mLocation, int gridMeteringPeriod,
                  int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        this.id = id;
+        this.name = name;
         this.address = address;
         this.location = mLocation;
         this.roomList = new RoomList();
@@ -66,23 +69,25 @@ public class House implements Metered {
      * Constructor for a house object. Created for US100. Since the file we receive to import data only contained
      * ID, Address, RoomList and EnergyGridList.
      *
-     * @param id                   is the id of the house.
+     * @param name                   is the name of the house.
      * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
      *                             the zip code the house is in.
      */
-    public House(String id, Address address) {
-        this.id = id;
+    public House(String name, Address address, List<String> deviceTypeConfig) {
+        this.name = name;
         this.address = address;
         this.roomList = new RoomList();
         this.energyGridList = new EnergyGridList();
+        buildDeviceTypeList(deviceTypeConfig);
+
     }
 
 
     //SETTERS AND GETTERS
 
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -90,8 +95,8 @@ public class House implements Metered {
      *
      * @return the string with the Id of the House.
      */
-    public String getHouseId() {
-        return this.id;
+    public String getHouseName() {
+        return this.name;
     }
 
     /**
@@ -117,7 +122,7 @@ public class House implements Metered {
      *
      * @param meteringPeriod is the period of time where the energy of the energy grid is calculated.
      */
-    void setGridMeteringPeriod(int meteringPeriod) {
+    public void setGridMeteringPeriod(int meteringPeriod) {
         this.gridMeteringPeriod = meteringPeriod;
     }
 
@@ -136,7 +141,7 @@ public class House implements Metered {
      *
      * @param meteringPeriod is the period of time where the energy of the devices is calculated.
      */
-    void setDeviceMeteringPeriod(int meteringPeriod) {
+    public void setDeviceMeteringPeriod(int meteringPeriod) {
         this.deviceMeteringPeriod = meteringPeriod;
     }
 
