@@ -149,13 +149,13 @@ class GeographicAreaDTOTest {
     void seeIfSetGetIDWorks(){
         // Arrange
 
-        long expectedresult = 213L;
+        Long expectedresult = 6008L;
         GeographicAreaDTO dto = new GeographicAreaDTO();
-        dto.setId((213L));
+        dto.setId(6008L);
 
         // Act
 
-        long actualResult = dto.getId();
+        Long actualResult = dto.getId();
 
         // Assert
 

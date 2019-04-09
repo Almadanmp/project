@@ -48,9 +48,9 @@ class HouseTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date());
+                30, 20, 10), new Date(),6008L);
         AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
-                40, 15), new Date());
+                40, 15), new Date(),6008L);
         validArea.addSensor(firstValidAreaSensor);
         validArea.addSensor(secondValidAreaSensor);
         validHouse.setMotherArea(validArea);
@@ -100,7 +100,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor testAreaSensor = new AreaSensor("RF12666", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(20,
-                20, 20), new Date());
+                20, 20), new Date(),6008L);
         validArea.addSensor(testAreaSensor);
         double expectedResult = 0;
 
@@ -445,7 +445,7 @@ class HouseTest {
         firstValidAreaSensor.setReadingList(readingList);
 
         AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date());
+                30, 20, 10), new Date(),6008L);
         secondAreaSensor.addReading(new Reading(15, earlierDate, "C", firstValidAreaSensor.getId()));
         validArea.addSensor(secondAreaSensor);
 
@@ -463,7 +463,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
-                21, 20), new Date());
+                21, 20), new Date(),6008L);
         validArea.addSensor(testAreaSensor);
 
         // Act
@@ -481,7 +481,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor expectedResult = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", ""),
-                new Local(0, 0, 0), new Date());
+                new Local(0, 0, 0), new Date(),6008L);
 
         // Act
 

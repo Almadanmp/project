@@ -44,16 +44,15 @@ public class UnitHelper {
      * This method checks the properties file for the application default temperature unit.
      *
      * @return temperature unit as a String.
-     * @throws IOException in case the file is not found or it doesn't have the property.
      */
-    static String getApplicationTemperatureDefault(String propFileName) throws IOException {
-        String temperatureDefault;
+    static String getApplicationTemperatureDefault(String propFileName) {
+        String temperatureDefault = "Celsius";
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(propFileName)) {
             prop.load(input);
             temperatureDefault = prop.getProperty("defaultApplicationTemperatureUnit");
         } catch (IOException ioe) {
-            throw new IOException("ERROR: Unable to process configuration file.");
+            ioe.printStackTrace();
         }
         return temperatureDefault;
     }
@@ -63,9 +62,8 @@ public class UnitHelper {
      * This method is separated from the above so we can test with different propfilenames (wrong etc).
      *
      * @return String with ApplicationTemperatureDefault path
-     * @throws IOException the exception to the method
      */
-    static String getApplicationTemperatureConfig() throws IOException {
+    static String getApplicationTemperatureConfig() {
         return getApplicationTemperatureDefault("resources/units.properties");
     }
 
@@ -92,7 +90,6 @@ public class UnitHelper {
      * This method is separated from the above so we can test with different propfilenames (wrong etc).
      *
      * @return String with ApplicationTemperatureDefault path
-     * @throws IOException the exception to the method
      */
     static String getUserTemperatureConfig() throws IOException {
         return getUserTemperatureDefault("resources/units.properties");
@@ -102,16 +99,15 @@ public class UnitHelper {
      * This method checks the properties file for the application default rainfall unit.
      *
      * @return rainfall unit as a String.
-     * @throws IOException in case the file is not found or it doesn't have the property.
      */
-    static String getApplicationRainfallDefault(String propFileName) throws IOException {
-        String rainfallDefault;
+    static String getApplicationRainfallDefault(String propFileName) {
+        String rainfallDefault = "Millimeter";
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(propFileName)) {
             prop.load(input);
             rainfallDefault = prop.getProperty("defaultApplicationRainfallUnit");
         } catch (IOException ioe) {
-            throw new IOException("ERROR: Unable to process configuration file.");
+            ioe.printStackTrace();
         }
         return rainfallDefault;
     }
@@ -121,9 +117,8 @@ public class UnitHelper {
      * This method is separated from the above so we can test with different propfilenames (wrong etc).
      *
      * @return String with ApplicationTemperatureDefault path
-     * @throws IOException the exception to the method
      */
-    static String getApplicationRainfallConfig() throws IOException {
+    static String getApplicationRainfallConfig(){
         return getApplicationRainfallDefault("resources/units.properties");
     }
 
@@ -181,7 +176,6 @@ public class UnitHelper {
      * @param valueToConvert refers to unit value.
      * @param unitToConvert  refers to unit type.
      * @return the value converted into the user default unit.
-     * @throws IOException in case the unit does not correspond to the Unit in the try.
      */
     static double convertToUserDefault(double valueToConvert, Unit unitToConvert) throws IOException {
         try {
@@ -203,21 +197,13 @@ public class UnitHelper {
      * @return Unit object defined as System Default
      */
     static Unit convertUnitToSystemDefault(Unit unit) {
-        try {
-            TemperatureUnit specificUnit = (TemperatureUnit) unit;
+        if (unit instanceof TemperatureUnit) {
             String defaultTemperatureString = getApplicationTemperatureConfig();
             return convertStringToUnit(defaultTemperatureString);
-        } catch (ClassCastException ok) {
-            ok.getMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        RainfallUnit specificUnit = (RainfallUnit) unit;
-        try {
+        else if (unit instanceof RainfallUnit) {
             String defaultRainfallString = getApplicationRainfallConfig();
             return convertStringToUnit(defaultRainfallString);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -229,7 +215,7 @@ public class UnitHelper {
      * @param unit String that corresponds to a given Unit.
      * @return Unit object that was created from the given String.
      */
-    public static Unit convertStringToUnit(String unit) {
+    static Unit convertStringToUnit(String unit) {
         try {
             String classToInstance = getReaderClassToInstance(unit); //retrieves class to instance
 

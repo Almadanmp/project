@@ -28,7 +28,7 @@ class AreaSensorTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaSensor = new AreaSensor("SensOne", "SensOne",  new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date());
+        validAreaSensor = new AreaSensor("SensOne", "SensOne",  new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date(),6008L);
         validAreaSensor.setActive(true);
     }
 
@@ -69,7 +69,7 @@ class AreaSensorTest {
             e.printStackTrace();
         }
 
-        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(12,12,12), startDate);
+        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(12,12,12), startDate,6008L);
 
         // Act
 
@@ -102,7 +102,7 @@ class AreaSensorTest {
 
         SensorType expectedResult = new SensorType("Temperature", "Celsius");
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), new Date());
+                new Local(31, 15, 3), new Date(),6008L);
 
         // Act
 
@@ -118,7 +118,7 @@ class AreaSensorTest {
         // Arrange
 
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), new Date());
+                new Local(31, 15, 3), new Date(),6008L);
         Local expectedResult = new Local(31, 15, 3);
 
         //Act
@@ -177,8 +177,8 @@ class AreaSensorTest {
         ReadingList readingList = new ReadingList();
         Reading reading1 = new Reading(15, new Date(), "C", "TEST");
 
-        AreaSensor areaSensor1 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date());
-        AreaSensor areaSensor2 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date());
+        AreaSensor areaSensor1 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date(),6008L);
+        AreaSensor areaSensor2 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date(),6008L);
 
         readingList.addReading(reading1);
         expectedResult2.addReading(reading1);
@@ -223,7 +223,7 @@ class AreaSensorTest {
         // Arrange
 
         AreaSensor s2 = new AreaSensor("RF12345", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
-                new Local(21, 1, 12), new Date());
+                new Local(21, 1, 12), new Date(),6008L);
 
         // Act
 
@@ -239,7 +239,7 @@ class AreaSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date());
+        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date(),6008L);
 
         // Act
 
@@ -272,7 +272,7 @@ class AreaSensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new AreaType("Country"), 20, 30,
                 new Local(31, 15, 3));
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), new Date());
+                new Local(31, 15, 3), new Date(),6008L);
 
         // Act
 
@@ -292,7 +292,7 @@ class AreaSensorTest {
                 30, testLocal);
         Local testLocal2 = new Local(10, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Rainfall", "l/m2"), testLocal2,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -312,7 +312,7 @@ class AreaSensorTest {
                 testLocal);
         Local upperRightVertex = new Local(30, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Pressure", "mm"),
-                upperRightVertex, new Date());
+                upperRightVertex, new Date(),6008L);
 
         // Act
 
@@ -332,7 +332,7 @@ class AreaSensorTest {
                 30, testLocal);
         Local upperLeftVertex = new Local(10, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Movement", "cm"), upperLeftVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -352,7 +352,7 @@ class AreaSensorTest {
                 35, testLocal);
         Local bottomLeftVertex = new Local(10, 10, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Temperature", "Kelvin"), bottomLeftVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -372,7 +372,7 @@ class AreaSensorTest {
                 23, testLocal);
         Local bottomRightVertex = new Local(30, 10, 5);
         AreaSensor s1 = new AreaSensor("RF12345", "XV56-LD1", new SensorType("Rainfall", "dm/m2"), bottomRightVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -392,7 +392,7 @@ class AreaSensorTest {
                 21, testLocal);
         Local wrongLatitude = new Local(35, 20, 5);
         AreaSensor s1 = new AreaSensor("RF12345", "XV56-LD1", new SensorType("Temperature", "Celsius"), wrongLatitude,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -412,7 +412,7 @@ class AreaSensorTest {
                 20, testLocal);
         Local wrongLatitude = new Local(-35, 20, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "XV56-LD1", new SensorType("Rainfall", "l/m2"),
-                wrongLatitude, new Date());
+                wrongLatitude, new Date(),6008L);
 
         // Act
 
@@ -432,7 +432,7 @@ class AreaSensorTest {
                 21, testLocal);
         Local wrongLatitude = new Local(35, 20, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF123451", "XV56-LD1", new SensorType("Temperature", "Celsius"),
-                wrongLatitude, new Date());
+                wrongLatitude, new Date(),6008L);
 
         // Act
 
@@ -452,7 +452,7 @@ class AreaSensorTest {
                 20, testLocal);
         Local wrongLatitude = new Local(-35, 20, 5);
         AreaSensor s1 = new AreaSensor("RF12345", "XV56-LD1", new SensorType("Temperature", "Kelvin"),
-                wrongLatitude, new Date());
+                wrongLatitude, new Date(),6008L);
 
         // Act
 
@@ -472,7 +472,7 @@ class AreaSensorTest {
                 10, testLocal);
         Local wrongLongitude = new Local(100, 100, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF123452", "Sensor", new SensorType("Temperature", "Fahrenheit"),
-                wrongLongitude, new Date());
+                wrongLongitude, new Date(),6008L);
 
         // Act
 
@@ -492,7 +492,7 @@ class AreaSensorTest {
                 100, testLocal);
         Local wrongLongitude = new Local(20, -35, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF123453", "Sensor", new SensorType("Rainfall", "l/m2"), wrongLongitude,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -512,7 +512,7 @@ class AreaSensorTest {
                 10, testLocal);
         Local wrongLongitude = new Local(100, 100, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Rainfall", "l/m2"), wrongLongitude,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -532,7 +532,7 @@ class AreaSensorTest {
                 100, testLocal);
         Local wrongLongitude = new Local(20, -35, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Rainfall", "l/m2"), wrongLongitude,
-                new Date());
+                new Date(),6008L);
         // Act
 
         boolean result = testAreaSensor.isContainedInArea(testArea);
@@ -551,7 +551,7 @@ class AreaSensorTest {
                 10, testLocal);
         Local wrongLongitude = new Local(100, 20, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Rainfall", "l/m2"), wrongLongitude,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -571,7 +571,7 @@ class AreaSensorTest {
                 50, testLocal);
         Local negativeCoords = new Local(-5, -5, -5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Rainfall", "l/m2"), negativeCoords,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -591,7 +591,7 @@ class AreaSensorTest {
                 30, testLocal);
         Local edge = new Local(10, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Rainfall", "l/m2"), edge,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -610,7 +610,7 @@ class AreaSensorTest {
         GeographicArea testArea = new GeographicArea("Portugal", new AreaType("Country"), 20,
                 30, testLocal);
         Local edge = new Local(10, 30, 5);
-        AreaSensor validAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"), edge, new Date());
+        AreaSensor validAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"), edge, new Date(),6008L);
 
         // Act
 
@@ -629,7 +629,7 @@ class AreaSensorTest {
                 30, testLocal);
         Local upperRightVertex = new Local(30, 30, 5);
         AreaSensor validAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"),
-                upperRightVertex, new Date());
+                upperRightVertex, new Date(),6008L);
 
         // Act
 
@@ -649,7 +649,7 @@ class AreaSensorTest {
                 30, testLocal);
         Local upperLeftVertex = new Local(10, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"),
-                upperLeftVertex, new Date());
+                upperLeftVertex, new Date(),6008L);
 
         // Act
 
@@ -669,7 +669,7 @@ class AreaSensorTest {
                 25, testLocal);
         Local bottomLeftVertex = new Local(10, 10, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"),
-                bottomLeftVertex, new Date());
+                bottomLeftVertex, new Date(),6008L);
         // Act
 
         boolean result = testAreaSensor.isContainedInArea(testArea);
@@ -688,7 +688,7 @@ class AreaSensorTest {
                 23, testLocal);
         Local bottomRightVertex = new Local(30, 10, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"),
-                bottomRightVertex, new Date());
+                bottomRightVertex, new Date(),6008L);
 
         // Act
 
@@ -708,7 +708,7 @@ class AreaSensorTest {
                 50, testLocal);
         Local testLocal2 = new Local(-5, -5, -5);
         AreaSensor s1 = new AreaSensor("RF12345", "Sensor", new SensorType("Temperature", "Celsius"),
-                testLocal2, new Date());
+                testLocal2, new Date(),6008L);
 
         // Act
 
@@ -741,7 +741,7 @@ class AreaSensorTest {
         // Arrange
 
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(21,
-                31, 15), new Date());
+                31, 15), new Date(),6008L);
         String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long \n";
 
         // Act
@@ -812,7 +812,7 @@ class AreaSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(12,12,12), new Date());
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(12,12,12), new Date(),6008L);
         SensorType expectedResult = new SensorType("Temperature", "Kelvin");
 
         // Act
@@ -953,7 +953,7 @@ class AreaSensorTest {
                 10, testLocal);
         Local upperLeftVertex = new Local(25, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Movement", "cm"), upperLeftVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -973,7 +973,7 @@ class AreaSensorTest {
                 3, testLocal);
         Local upperLeftVertex = new Local(18, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Movement", "cm"), upperLeftVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -993,7 +993,7 @@ class AreaSensorTest {
                 3, testLocal);
         Local upperLeftVertex = new Local(18, 30, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Movement", "cm"), upperLeftVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -1013,7 +1013,7 @@ class AreaSensorTest {
                 20, testLocal);
         Local upperVertex = new Local(20, 24, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Movement", "cm"), upperVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 
@@ -1033,7 +1033,7 @@ class AreaSensorTest {
                 20, testLocal);
         Local upperVertex = new Local(20, 31, 5);
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType("Movement", "cm"), upperVertex,
-                new Date());
+                new Date(),6008L);
 
         // Act
 

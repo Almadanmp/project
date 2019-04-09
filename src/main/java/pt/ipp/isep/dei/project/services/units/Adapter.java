@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.project.services.units;
 
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
-import pt.ipp.isep.dei.project.reader.wrapper.GeographicAreaDTOWrapper;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public final class Adapter {
 
@@ -66,7 +64,5 @@ public final class Adapter {
         }
         return finalList;
     }
-
-
 
 }

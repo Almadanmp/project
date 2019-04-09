@@ -67,7 +67,6 @@ public class ReaderXMLGeoArea {
                     areaSensorService.addWithPersist(readSensorsXML(nListSensor.item(j), geoArea));
                 }
             }
-
         }
         return result;
     }
@@ -91,12 +90,13 @@ public class ReaderXMLGeoArea {
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
                     Double.parseDouble(getTagValue(ALTITUDE, element)));
             Date date = new Date();
+            Long gaID = geographicArea.getId();
             try {
                 date = validDateFormat.parse(sensorDate);
             } catch (ParseException expected) {
                 expected.getErrorOffset();
             }
-            areaSensor = new AreaSensor(id, name, sensorType, local, date);
+            areaSensor = new AreaSensor(id, name, sensorType, local, date, gaID);
             areaSensor.setGeographicAreaId(geographicArea.getId());
         }
         return areaSensor;
