@@ -29,7 +29,7 @@ class EnergyConsumptionControllerTest {
 
     // Common artifacts for testing in this class.
 
-    private EnergyGrid validGrid = new EnergyGrid("validGrid", 300);
+    private EnergyGrid validGrid = new EnergyGrid("validGrid", 300,"34576");
     private Room validRoom1; // Is a room with 3 valid devices.
     private Room validRoom2; // Is a room without devices.
     private Device validDevice1 = new WaterHeater(new WaterHeaterSpec());
@@ -312,7 +312,7 @@ class EnergyConsumptionControllerTest {
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeString);
         house.setMotherArea(validArea);
-        EnergyGrid testGrid = new EnergyGrid("GridOne", 300);
+        EnergyGrid testGrid = new EnergyGrid("GridOne", 300,"34576");
         EnergyGridList houseGrid = new EnergyGridList();
         houseGrid.addGrid(testGrid);
         house.setGridList(houseGrid);

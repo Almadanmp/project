@@ -30,6 +30,10 @@ public final class EnergyGridMapper {
 
         String objectName = dtoToConvert.getName();
 
+        // Update the houseID
+
+        String objectHouseID = dtoToConvert.getHouseID();
+
         // Update the RoomList
 
         RoomList objectRoomList = new RoomList();
@@ -52,7 +56,7 @@ public final class EnergyGridMapper {
 
         // Create, update and return the new model object.
 
-        EnergyGrid resultObject = new EnergyGrid(objectName, objectMaxContractedPower);
+        EnergyGrid resultObject = new EnergyGrid(objectName, objectMaxContractedPower, objectHouseID);
         resultObject.setRoomList(objectRoomList);
         resultObject.setPowerSourceList(objectPowerSourceList);
 
@@ -69,6 +73,10 @@ public final class EnergyGridMapper {
         // Update the name
 
         String dtoName = objectToConvert.getName();
+
+        // Update the houseID
+
+        String dtoHouseID = objectToConvert.getHouseId();
 
         // Update the maximum contracted power
 
@@ -101,6 +109,7 @@ public final class EnergyGridMapper {
         resultDTO.setName(dtoName);
         resultDTO.setPowerSourceDTOS(dtoPowerSourceList);
         resultDTO.setRoomDTOS(dtoRoomList);
+        resultDTO.setHouseID(dtoHouseID);
 
         return resultDTO;
     }

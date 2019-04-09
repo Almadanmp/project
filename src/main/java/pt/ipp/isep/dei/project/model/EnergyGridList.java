@@ -47,14 +47,14 @@ public class EnergyGridList {
      * @param maxPower    - maximum power of the to be created EnergyGrid.
      * @return a new EnergyGrid or an existing one if the designation is the same.
      */
-    EnergyGrid createEnergyGrid(String designation, double maxPower) {
+    EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
         for (EnergyGrid e : this.energyGrids) {
             String name = e.getName();
             if (name.equals(designation)) {
                 return e;
             }
         }
-        return new EnergyGrid(designation, maxPower);
+        return new EnergyGrid(designation, maxPower, houseID);
     }
 
     /**

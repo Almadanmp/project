@@ -538,8 +538,8 @@ public class House implements Metered {
      * @param maxPower    - EnergyGrid Maximum Power
      * @return a new EnergyGrid or the EnergyGrid with the same designation
      */
-    public EnergyGrid createEnergyGrid(String designation, double maxPower) {
-        return this.energyGridList.createEnergyGrid(designation, maxPower);
+    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
+        return this.energyGridList.createEnergyGrid(designation, maxPower, houseID);
     }
 
     /**

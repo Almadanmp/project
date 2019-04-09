@@ -20,8 +20,8 @@ class EnergyGridListTest {
     @BeforeEach
     void arrangeArtifacts() {
         validGridList = new EnergyGridList();
-        firstValidGrid = new EnergyGrid("Primary Grid", 500);
-        secondValidGrid = new EnergyGrid("Secondary Grid", 100);
+        firstValidGrid = new EnergyGrid("Primary Grid", 500,"34576");
+        secondValidGrid = new EnergyGrid("Secondary Grid", 100,"34576");
     }
 
     @Test
@@ -102,8 +102,8 @@ class EnergyGridListTest {
         EnergyGridList testListOneGrid = new EnergyGridList(); // Not empty: One Grid
         EnergyGridList testListTwoGrids = new EnergyGridList(); // Not empty: Two Grids
 
-        EnergyGrid energyGrid1 = new EnergyGrid("grid1", 200);
-        EnergyGrid energyGrid2 = new EnergyGrid("grid2", 200);
+        EnergyGrid energyGrid1 = new EnergyGrid("grid1", 200,"34576");
+        EnergyGrid energyGrid2 = new EnergyGrid("grid2", 200,"34576");
 
         testListOneGrid.addGrid(energyGrid1);
         testListTwoGrids.addGrid(energyGrid1);
@@ -207,7 +207,7 @@ class EnergyGridListTest {
 
         //Arrange
 
-        validGridList.addGrid(new EnergyGrid("grid", 200));
+        validGridList.addGrid(new EnergyGrid("grid", 200,"34576"));
 
         //Act
 
@@ -222,7 +222,7 @@ class EnergyGridListTest {
     void seeIfCreateEnergyWorks() {
         //Act
 
-        EnergyGrid actualResult1 = validGridList.createEnergyGrid("Primary Grid", 500);
+        EnergyGrid actualResult1 = validGridList.createEnergyGrid("Primary Grid", 500,"34576");
 
         //Assert Empty List
 
@@ -234,7 +234,7 @@ class EnergyGridListTest {
 
         //Act When Grid Exists
 
-        EnergyGrid actualResult2 = validGridList.createEnergyGrid("Primary Grid", 500);
+        EnergyGrid actualResult2 = validGridList.createEnergyGrid("Primary Grid", 500,"34576");
 
         //Assert
 
@@ -242,7 +242,7 @@ class EnergyGridListTest {
 
         //Act When Grid Doesn't Exist
 
-        EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100);
+        EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100,"34576");
 
         //Assert
 

@@ -259,7 +259,7 @@ class HouseTest {
         String expectedResult = "---------------\n" +
                 "0) Designation: Home | Max Power: 440.0\n" +
                 "---------------\n";
-        EnergyGrid testGrid = new EnergyGrid("Home", 440);
+        EnergyGrid testGrid = new EnergyGrid("Home", 440,"34576");
         validHouse.addGrid(testGrid);
 
         // Act
@@ -328,7 +328,7 @@ class HouseTest {
         // Arrange
 
         EnergyGridList gridList = new EnergyGridList();
-        EnergyGrid testGrid = new EnergyGrid("Garden", 300);
+        EnergyGrid testGrid = new EnergyGrid("Garden", 300,"34576");
         gridList.addGrid(testGrid);
         validHouse.setGridList(gridList);
         EnergyGridList expectedResult = new EnergyGridList();
@@ -593,9 +593,9 @@ class HouseTest {
     void seeIfAddGridToHouseWorks() {
         // Arrange
 
-        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25);
-        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55);
-        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25);
+        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25,"34576");
+        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55,"34576");
+        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25,"34576");
 
         // Act
 
@@ -726,8 +726,8 @@ class HouseTest {
     void seeIfGetEnergyGridByIndexWorks() {
         //Arrange
 
-        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200);
-        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200);
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200,"34576");
+        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200,"34576");
         validHouse.addGrid(energyGrid1);
         validHouse.addGrid(energyGrid2);
 
@@ -811,7 +811,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addGrid(new EnergyGrid("grid", 200));
+        validHouse.addGrid(new EnergyGrid("grid", 200,"34576"));
 
         //Act
 
@@ -880,7 +880,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addGrid(new EnergyGrid("energyGrid", 230));
+        validHouse.addGrid(new EnergyGrid("energyGrid", 230,"34576"));
 
         //Act
 

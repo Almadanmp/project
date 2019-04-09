@@ -35,7 +35,7 @@ class EnergyGridSettingsControllerTest {
                 60, 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto",
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
-        validGrid = new EnergyGrid("validGrid", 300);
+        validGrid = new EnergyGrid("validGrid", 300,"34576");
     }
 
 
@@ -214,7 +214,7 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        EnergyGrid energyGrid = new EnergyGrid("grid", 400);
+        EnergyGrid energyGrid = new EnergyGrid("grid", 400,"34576");
 
 
         // Act
@@ -230,14 +230,14 @@ class EnergyGridSettingsControllerTest {
     void seeIfCreateGridTrue() {
         // Arrange
 
-        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400);
-        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400);
+        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400,"34576");
+        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400,"34576");
 
         // Act
 
-        EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400);
+        EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400,"34576");
         validHouse.addGrid(expectedResult2);
-        EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400);
+        EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400,"34576");
 
         // Assert
 
@@ -283,7 +283,7 @@ class EnergyGridSettingsControllerTest {
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333,"34576");
         RoomList rl = new RoomList();
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);

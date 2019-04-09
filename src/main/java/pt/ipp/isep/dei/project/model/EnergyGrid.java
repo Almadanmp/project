@@ -28,6 +28,8 @@ public class EnergyGrid implements Metered {
 
     private double maxContractedPower;
 
+    private String houseId;
+
     /**
      * Empty Constructor to use when importing Energy Grids from XML files.
      */
@@ -41,7 +43,7 @@ public class EnergyGrid implements Metered {
      * @param name               is the name of the grid.
      * @param maxContractedPower is the value of the maximum power contracted.
      */
-    public EnergyGrid(String name, double maxContractedPower) {
+    public EnergyGrid(String name, double maxContractedPower, String houseId) {
         this.roomList = new RoomList();
         this.listPowerSources = new PowerSourceList();
         this.name = name;
@@ -124,6 +126,14 @@ public class EnergyGrid implements Metered {
         if (roomList != null) {
             this.roomList = roomList;
         }
+    }
+
+    public void setHouseId(String houseId) {
+        this.houseId = houseId;
+    }
+
+    public String getHouseId() {
+        return this.houseId;
     }
 
     /**

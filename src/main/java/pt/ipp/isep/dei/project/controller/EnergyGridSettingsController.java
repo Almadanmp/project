@@ -57,8 +57,8 @@ public class EnergyGridSettingsController {
      * @param programHouse the house.
      * @return a new EnergyGrid.
      */
-    public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
-        return programHouse.createEnergyGrid(designation, maxPower);
+    public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower, String houseID) {
+        return programHouse.createEnergyGrid(designation, maxPower, houseID);
     }
 
     /* USER STORY 135 - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced
