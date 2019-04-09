@@ -61,6 +61,35 @@ public class HouseMapper {
         return resultObject;
     }
 
+    public static House dtoToObjectUS100(HouseDTO dtoToConvert) {
+        // Update parameters
+
+        String objectId = dtoToConvert.getId();
+
+        Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
+
+        EnergyGridList objectGridList = new EnergyGridList();
+        for (EnergyGridDTO y : dtoToConvert.getEnergyGridList()) {
+            EnergyGrid grid = EnergyGridMapper.dtoToObject(y);
+            objectGridList.addGrid(grid);
+        }
+
+        RoomList objectRoomList = new RoomList();
+        for (RoomDTO y : dtoToConvert.getRoomList()) {
+            Room room = RoomMapper.dtoToObjectUS100(y);
+            objectRoomList.add(room);
+        }
+
+        // Create, update and return new object
+
+        House resultObject = new House(objectId,objectAddress);
+        resultObject.setRoomList(objectRoomList);
+        resultObject.setGridList(objectGridList);
+
+        return resultObject;
+    }
+
+
     /**
      * This is the method that converts House model objects into DTOs with the same data.
      *
