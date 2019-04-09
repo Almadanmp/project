@@ -30,9 +30,9 @@ public class GeographicAreaDTOWrapperList {
     }
 
     /**
-     * Getter (array of ReadingDTOWrappers)
+     * Getter (array of GeographicAreaDTOWrappers)
      *
-     * @return array of ReadingDTOWrappers
+     * @return array of GeographicAreaDTOWrappers
      */
     public GeographicAreaDTOWrapper[] getElementsAsArray() {
         int sizeOfResultArray = areaDTOWrappers.size();

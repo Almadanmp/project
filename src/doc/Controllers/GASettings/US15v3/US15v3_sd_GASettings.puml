@@ -51,7 +51,7 @@ GeographicAreaReaderJSON->" :ObjectMapper": readValue(file, GeographicAreaDTOWra
 deactivate GeographicAreaReaderJSON
 activate " :ObjectMapper"
 
-" :ObjectMapper"-->GeographicAreaReaderJSON: return List<GeographicAreaDTO>
+" :ObjectMapper"-->GeographicAreaReaderJSON: return GeographicAreaDTOWrapperList
 deactivate " :ObjectMapper"
 
 activate GeographicAreaReaderJSON
@@ -62,7 +62,6 @@ loop
 ReaderController -> GeographicAreaMapper: dtoToObject(GeographicAreaDTO)
 deactivate ReaderController
 activate GeographicAreaMapper
-
 
 GeographicAreaMapper-->ReaderController: return GeographicArea
 deactivate GeographicAreaMapper

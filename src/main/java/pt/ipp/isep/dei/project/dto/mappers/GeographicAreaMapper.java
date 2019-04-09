@@ -38,10 +38,8 @@ public final class GeographicAreaMapper {
 
         try {
             objectId = dtoToConvert.getId();
-        } catch (NullPointerException ok) {
-            ok.printStackTrace();
+        } catch (NullPointerException ignored) {
         }
-
 
         String objectName = dtoToConvert.getName();
 

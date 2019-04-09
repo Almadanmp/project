@@ -1,24 +1,49 @@
-package pt.ipp.isep.dei.project.dto;
+package pt.ipp.isep.dei.project.reader.wrapper;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.reader.deserializer.CustomDateDeserializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AreaSensorDTO {
-
+public class AreaSensorDTOWrapper {
+    @JsonProperty("id")
     private String id;
-    private String name;
-    private String typeSensor;
-    private String units;
-    private double latitude;
-    private double longitude;
-    private double altitude;
-    private LocalDTO localDTO = new LocalDTO(latitude,longitude,altitude);
-    private String dateStartedFunctioning;
-    private boolean active;
-    private List<ReadingDTO> readingList;
-    private Long geographicAreaID;
 
-    public AreaSensorDTO(){
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("type")
+    private String typeSensor;
+
+    @JsonProperty("units")
+    private String units;
+    @JsonProperty("latitude")
+    private double latitude;
+
+    @JsonProperty("longitude")
+    private double longitude;
+
+    @JsonProperty("altitude")
+    private double altitude;
+
+    @JsonProperty("location")
+    private LocalDTO localDTO = new LocalDTO(latitude,longitude,altitude);
+
+    @JsonProperty("start_date")
+    @JsonDeserialize(using = CustomDateDeserializer.class)
+    private String dateStartedFunctioning;
+
+    private boolean active;
+
+    private List<ReadingDTO> readingList;
+
+    public AreaSensorDTOWrapper(){
         readingList = new ArrayList<>();
     }
 
@@ -151,27 +176,6 @@ public class AreaSensorDTO {
     }
 
     /**
-     * Method that retrieves the DTO's geographical area ID as a string.
-     *
-     * @return is the DTO's geographical area annotation.
-     */
-
-    public Long getGeographicAreaID() {
-        return geographicAreaID;
-    }
-
-    /**
-     * Method that stores a String as the DTO's geographicArea annotation.
-     *
-     * @param geographicAreaID is the string we want to store.
-     */
-
-    public void setGeographicAreaID(Long geographicAreaID) {
-        this.geographicAreaID = geographicAreaID;
-    }
-
-
-    /**
      * Method that retrieves the DTO's type's name as a string.
      *
      * @return is a string that corresponds to the name of the type of the DTO.
@@ -243,3 +247,4 @@ public class AreaSensorDTO {
         return 1;
     }
 }
+
