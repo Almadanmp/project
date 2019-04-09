@@ -633,10 +633,12 @@ class ReaderControllerTest {
 //
 //        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
 //        geographicAreaDTO.setName("ISEP");
-//        geographicAreaDTO.setLocalDTO(new LocalDTO(41.178553,-8.608035,111));
+//        LocalDTO localDTO = new LocalDTO(41.178553,-8.608035,111);
+//        geographicAreaDTO.setLocalDTO(localDTO);
 //        geographicAreaDTO.setDescription("Campus do ISEP");
 //        geographicAreaDTO.setWidth(0.261);
 //        geographicAreaDTO.setLength(0.249);
+//        geographicAreaDTO.setAreaSensorDTOList(null);
 //        geographicAreaDTO.setTypeArea("urban area");
 //
 //        expectedResult.add(geographicAreaDTO);

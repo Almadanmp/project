@@ -94,11 +94,10 @@ class AdapterTest {
 
         //Dto
 
-        Unit celsius = new Celsius();
         ReadingDTOWithUnitAndSensorID readingDTOWithUnitAndSensorID = new ReadingDTOWithUnitAndSensorID();
         readingDTOWithUnitAndSensorID.setValue(20D);
         readingDTOWithUnitAndSensorID.setDate(validDate);
-        readingDTOWithUnitAndSensorID.setUnit(celsius);
+        readingDTOWithUnitAndSensorID.setUnit("C");
         readingDTOWithUnitAndSensorID.setSensorID("TT12");
 
         List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
@@ -154,13 +153,13 @@ class AdapterTest {
         ReadingDTOWithUnitAndSensorID dtoCelsius1 = new ReadingDTOWithUnitAndSensorID();
         dtoCelsius1.setValue(20D);
         dtoCelsius1.setDate(validDate1);
-        dtoCelsius1.setUnit(celsius);
+        dtoCelsius1.setUnit("C");
         dtoCelsius1.setSensorID("TT12");
 
         ReadingDTOWithUnitAndSensorID dtoCelsius2 = new ReadingDTOWithUnitAndSensorID();
         dtoCelsius2.setValue(24.44D);
         dtoCelsius2.setDate(validDate2);
-        dtoCelsius2.setUnit(celsius);
+        dtoCelsius2.setUnit("C");
         dtoCelsius2.setSensorID("TT55");
 
         List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();

@@ -366,7 +366,7 @@ public class ReaderController {
             String sensorID = r.getSensorID();
             double value = r.getValue();
             Date date = r.getDate();
-            Unit unit = r.getUnit();
+            String unit = r.getUnit();
             if (areaSensorService.addAreaReadingToAreaSensor(sensorID, value, date, unit, logger)) {
                 addedReadings++;
             }
