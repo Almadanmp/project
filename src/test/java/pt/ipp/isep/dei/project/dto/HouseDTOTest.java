@@ -33,9 +33,9 @@ class HouseDTOTest {
         validHouseDTO.setDeviceTypeList(deviceTypeList);
         validHouseDTO.setGridMeteringPeriod(8);
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
-        validHouseDTO.setEnergyGridList(energyGridDTOList);
+
         List<RoomDTO> roomDTOS = new ArrayList<>();
-        validHouseDTO.setRoomList(roomDTOS);
+
     }
 
     @Test
@@ -120,6 +120,7 @@ class HouseDTOTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeIfGetSetDeviceMeteringPeriod() {
         //Arrange

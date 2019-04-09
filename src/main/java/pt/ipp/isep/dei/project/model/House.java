@@ -17,7 +17,7 @@ public class House implements Metered {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long ID2;
+    private long id;
 
     private String name;
 
@@ -37,6 +37,7 @@ public class House implements Metered {
     private GeographicArea motherArea;
 
     private int gridMeteringPeriod;
+
     private int deviceMeteringPeriod;
 
     @Transient
@@ -45,7 +46,7 @@ public class House implements Metered {
     /**
      * Standard constructor for a house object.
      *
-     * @param name                   is the name of the house.
+     * @param name                 is the name of the house.
      * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
      *                             the zip code the house is in.
      * @param mLocation            is the location of the central point of the house, in latitude, longitude and altitude coordinates.
@@ -65,16 +66,10 @@ public class House implements Metered {
         buildDeviceTypeList(deviceTypeConfig);
     }
 
-    /**
-     * Constructor for a house object. Created for US100. Since the file we receive to import data only contained
-     * ID, Address, RoomList and EnergyGridList.
-     *
-     * @param name                   is the name of the house.
-     * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
-     *                             the zip code the house is in.
-     */
-    public House(Address address, List<String> deviceTypeConfig) {
+    public House(Address address, List<String> deviceTypeConfig, Local local) {
+
         this.address = address;
+        this.location = local;
         this.roomList = new RoomList();
         this.energyGridService = new EnergyGridService();
         buildDeviceTypeList(deviceTypeConfig);
@@ -320,7 +315,7 @@ public class House implements Metered {
         AreaSensorService minDistSensor = new AreaSensorService();
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime(),  2356L);
+                1).getTime(), 2356L);
         AreaSensorService sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);

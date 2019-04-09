@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.reader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import pt.ipp.isep.dei.project.dto.AddressDTO;
-import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.HouseDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 
 import java.io.File;
@@ -19,7 +16,7 @@ import java.util.List;
 public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
 
-    public HouseDTO readFile(String filePath){
+    public HouseDTO readFile(String filePath) {
         HouseDTO houseDTO = new HouseDTO();
         try {
             File file = new File(filePath);
@@ -33,6 +30,7 @@ public class ReaderJSONHouse implements Reader {
             AddressDTO addressDTO = readAddressJSON(address);
             List<EnergyGridDTO> energyGridDTOList = readGridsJSON(gridList);
             houseDTO.setAddress(addressDTO);
+            houseDTO.setLocation(new LocalDTO(0.0, 0.0, 0.0));
             houseDTO.setRoomList(roomDTOList);
             houseDTO.setEnergyGridList(energyGridDTOList);
             return houseDTO;

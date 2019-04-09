@@ -102,6 +102,6 @@ public class ReaderJSONHouseTest {
         expectedResult.setEnergyGridList(energyGridListExpectedResult);
         expectedResult.setAddress(addressExpectedResult);
         HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readerReadings/DataSet_sprint06_HouseData.json");
-        assertEquals(expectedResult,houseDTO);
+        assertEquals(expectedResult, houseDTO);
     }
 }
