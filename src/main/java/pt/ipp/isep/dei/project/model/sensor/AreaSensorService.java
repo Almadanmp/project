@@ -159,11 +159,10 @@ public class AreaSensorService {
             return "Invalid List - List is Empty\n";
         }
 
-        for (int i = 0; i < areaSensors.size(); i++) {
-            AreaSensor aux = areaSensors.get(i);
-            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
-            result.append("Type: ").append(aux.getSensorTypeName()).append(" | ")
-                    .append(aux.printActive()).append("\n");
+        for (AreaSensor as: this.areaSensors) {
+            result.append(as.getId()).append(") Name: ").append(as.getName()).append(" | ");
+            result.append("Type: ").append(as.getSensorTypeName()).append(" | ")
+                    .append(as.printActive()).append("\n");
         }
         result.append("---------------\n");
         return result.toString();

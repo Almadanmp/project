@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.EnergyGridList;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -112,7 +112,7 @@ class FridgeTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validFridge.equals(new EnergyGridList()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validFridge.equals(new EnergyGridService()); // Needed for sonarqube testing purposes.
 
         // Assert
 

@@ -313,19 +313,18 @@ class EnergyConsumptionControllerTest {
                 deviceTypeString);
         house.setMotherArea(validArea);
         EnergyGrid testGrid = new EnergyGrid("GridOne", 300,"34576");
-        EnergyGridList houseGrid = new EnergyGridList();
+        testGrid.setId(23);
+        EnergyGridService houseGrid = new EnergyGridService();
         houseGrid.addGrid(testGrid);
         house.setGridList(houseGrid);
-        EnergyGridList expectedResult = new EnergyGridList();
-        expectedResult.addGrid(testGrid);
 
         //Act
 
-        EnergyGridList actualResult = controller.getHouseGridList(house);
+        EnergyGridService actualResult = controller.getHouseGridList(house);
 
         //Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(houseGrid, actualResult);
     }
 
     @Test

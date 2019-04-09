@@ -75,7 +75,7 @@ class EnergyGridSettingsUI {
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
         double power = InputHelperUI.getInputAsDoubleZeroOrPositive();
-        return controller.createEnergyGrid(programHouse, name, power, programHouse.getHouseId());
+        return controller.createEnergyGrid(programHouse, name, power, programHouse.getHouseName());
     }
 
 

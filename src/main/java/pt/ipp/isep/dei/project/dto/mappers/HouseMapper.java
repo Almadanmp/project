@@ -31,7 +31,7 @@ public class HouseMapper {
 
         Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
 
-        EnergyGridList objectGridList = new EnergyGridList();
+        EnergyGridService objectGridList = new EnergyGridService();
         for (EnergyGridDTO y : dtoToConvert.getEnergyGridList()) {
             EnergyGrid grid = EnergyGridMapper.dtoToObject(y);
             objectGridList.addGrid(grid);
@@ -68,7 +68,7 @@ public class HouseMapper {
 
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
-        EnergyGridList objectGridList = new EnergyGridList();
+        EnergyGridService objectGridList = new EnergyGridService();
         for (EnergyGridDTO y : dtoToConvert.getEnergyGridList()) {
             EnergyGrid grid = EnergyGridMapper.dtoToObjectUS100(y);
             objectGridList.addGrid(grid);

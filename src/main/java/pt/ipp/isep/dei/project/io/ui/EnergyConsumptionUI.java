@@ -302,7 +302,7 @@ class EnergyConsumptionUI {
     interval.*/
 
     private void runUS722(House programHouse) {
-        EnergyGridList gridList = controller.getHouseGridList(programHouse);
+        EnergyGridService gridList = controller.getHouseGridList(programHouse);
         if (gridList.isEmpty()) {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
             return;

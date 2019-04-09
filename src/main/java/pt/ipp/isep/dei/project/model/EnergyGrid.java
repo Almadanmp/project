@@ -64,6 +64,17 @@ public class EnergyGrid implements Metered {
     }
 
     /**
+     * Getter for id of the energy grid
+     *
+     * @return returns attribute grid of the energy grid.
+     */
+    public long getId() { return id; }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
      * Getter for list of rooms that are contained in the energy grid.
      *
      * @return returns a list with all the rooms contained in this energy grid.

@@ -28,7 +28,7 @@ public class House implements Metered {
     private Local location;
 
     @Transient
-    private EnergyGridList energyGridList;
+    private EnergyGridService energyGridService;
 
     @Transient
     private RoomList roomList;
@@ -59,7 +59,7 @@ public class House implements Metered {
         this.address = address;
         this.location = mLocation;
         this.roomList = new RoomList();
-        this.energyGridList = new EnergyGridList();
+        this.energyGridService = new EnergyGridService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         buildDeviceTypeList(deviceTypeConfig);
@@ -77,9 +77,8 @@ public class House implements Metered {
         this.name = name;
         this.address = address;
         this.roomList = new RoomList();
-        this.energyGridList = new EnergyGridList();
+        this.energyGridService = new EnergyGridService();
         buildDeviceTypeList(deviceTypeConfig);
-
     }
 
 
@@ -246,17 +245,17 @@ public class House implements Metered {
      *
      * @return the EnergyGridList associated to the House.
      */
-    public EnergyGridList getGridList() {
-        return this.energyGridList;
+    public EnergyGridService getGridList() {
+        return this.energyGridService;
     }
 
     /**
      * Standard setter method, to define the list of energy grids to be added to the House.
      *
-     * @param energyGridList is the Energy grid list to be set.
+     * @param energyGridService is the Energy grid list to be set.
      */
-    public void setGridList(EnergyGridList energyGridList) {
-        this.energyGridList = energyGridList;
+    public void setGridList(EnergyGridService energyGridService) {
+        this.energyGridService = energyGridService;
     }
 
     /**
@@ -366,7 +365,7 @@ public class House implements Metered {
      * @return string with energy grid list
      */
     public String buildGridListString() {
-        return this.energyGridList.buildString();
+        return this.energyGridService.buildString();
     }
 
     /**
@@ -419,7 +418,7 @@ public class House implements Metered {
     }
 
     public boolean addGrid(EnergyGrid energyGrid) {
-        return this.energyGridList.addGrid(energyGrid);
+        return this.energyGridService.addGrid(energyGrid);
     }
 
     /**
@@ -469,7 +468,7 @@ public class House implements Metered {
      * @return true if house's EnergyGridList is empty, false otherwise.
      **/
     public boolean isEnergyGridListEmpty() {
-        return this.energyGridList.isEmpty();
+        return this.energyGridService.isEmpty();
     }
 
     /**
@@ -478,7 +477,7 @@ public class House implements Metered {
      * @return returns the house's energy grid list size as int.
      */
     public int energyGridListSize() {
-        return this.energyGridList.size();
+        return this.energyGridService.size();
     }
 
     /**
@@ -520,10 +519,10 @@ public class House implements Metered {
      * @return returns Energy grid that corresponds to index.
      */
     public EnergyGrid getEnergyGridByIndex(int index) {
-        if (this.energyGridList.isEmpty()) {
+        if (this.energyGridService.isEmpty()) {
             throw new IndexOutOfBoundsException("The energy grid list is empty.");
         }
-        return this.energyGridList.get(index);
+        return this.energyGridService.get(index);
     }
 
     /**
@@ -544,7 +543,7 @@ public class House implements Metered {
      * @return a new EnergyGrid or the EnergyGrid with the same designation
      */
     public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
-        return this.energyGridList.createEnergyGrid(designation, maxPower, houseID);
+        return this.energyGridService.createEnergyGrid(designation, maxPower, houseID);
     }
 
     /**

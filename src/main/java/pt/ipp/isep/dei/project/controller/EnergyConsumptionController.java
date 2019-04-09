@@ -140,7 +140,7 @@ public class EnergyConsumptionController {
      * @return returns the List of Grids in the given house.
      */
 
-    public EnergyGridList getHouseGridList(House programHouse) {
+    public EnergyGridService getHouseGridList(House programHouse) {
         return programHouse.getGridList();
     }
 

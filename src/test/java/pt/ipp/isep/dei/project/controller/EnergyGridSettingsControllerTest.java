@@ -103,11 +103,12 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addGrid(validGrid);
-        validHouse.setGridList(energyGridList);
+        EnergyGridService energyGridService = new EnergyGridService();
+        validGrid.setId(123);
+        energyGridService.addGrid(validGrid);
+        validHouse.setGridList(energyGridService);
         String expectedResult = "---------------\n" +
-                "0) Designation: validGrid | Max Power: 300.0\n" +
+                "123) Designation: validGrid | Max Power: 300.0\n" +
                 "---------------\n";
 
         // Act
@@ -140,7 +141,7 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
-        EnergyGridList gridList = new EnergyGridList();
+        EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
         RoomList rl = new RoomList();
         validGrid.setRoomList(rl);
@@ -159,7 +160,7 @@ class EnergyGridSettingsControllerTest {
     void ensureThatWeDoNotAddRoomToTheGrid() {
         // Arrange
 
-        EnergyGridList gridList = new EnergyGridList();
+        EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
         RoomList roomList = new RoomList();
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
@@ -232,13 +233,14 @@ class EnergyGridSettingsControllerTest {
 
         EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400,"34576");
         EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400,"34576");
-
+        expectedResult1.setId(1);
+        expectedResult2.setId(2);
         // Act
 
         EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400,"34576");
-        validHouse.addGrid(expectedResult2);
+        actualResult1.setId(1);
         EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400,"34576");
-
+        actualResult2.setId(2);
         // Assert
 
         assertEquals(expectedResult1, actualResult1);
