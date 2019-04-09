@@ -15,10 +15,7 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -80,6 +77,7 @@ class ReaderControllerTest {
     GeographicAreaRepository geographicAreaRepository;
 
     private AreaSensorService areaSensorService;
+    private ReadingService readingService;
     private HouseService houseService;
 
 
@@ -87,7 +85,7 @@ class ReaderControllerTest {
     void arrangeArtifacts() {
         areaSensorService = new AreaSensorService(areaSensorRepository);
 
-        validReader = new ReaderController(areaSensorService, houseService);
+        validReader = new ReaderController(areaSensorService, readingService, houseService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {

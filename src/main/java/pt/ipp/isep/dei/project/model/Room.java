@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingList;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -256,8 +256,8 @@ public class Room implements Metered {
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        ReadingList houseReadingList = tempSensors.getReadings();
-        return houseReadingList.getMostRecentValue();
+        ReadingService houseReadingService = tempSensors.getReadings();
+        return houseReadingService.getMostRecentValue();
     }
 
     /**

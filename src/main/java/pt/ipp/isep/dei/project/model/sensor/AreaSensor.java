@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.sensor;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.services.units.Unit;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,7 +30,7 @@ public class AreaSensor {
     private Date dateStartedFunctioning;
 
     @Transient
-    private ReadingList readingList;
+    private ReadingService readingService;
 
     private Long geographicAreaId;
 
@@ -42,7 +41,7 @@ public class AreaSensor {
      * Empty constructor to import Sensors from a XML file.
      */
     public AreaSensor() {
-        readingList = new ReadingList();
+        readingService = new ReadingService();
         this.active = true;
     }
 
@@ -61,8 +60,8 @@ public class AreaSensor {
         setName(name);
         this.sensorType = sensorType;
         this.local = local;
-        this.dateStartedFunctioning=dateStartedFunctioning;
-        readingList = new ReadingList();
+        this.dateStartedFunctioning = dateStartedFunctioning;
+        readingService = new ReadingService();
         this.active = true;
         this.geographicAreaId = geographicAreaId;
     }
@@ -142,18 +141,18 @@ public class AreaSensor {
      *
      * @return the areaReadingList of the sensor.
      */
-    public ReadingList getReadingList() {
-        return readingList;
+    public ReadingService getReadingService() {
+        return readingService;
     }
 
     /**
      * Setter: reading list
      *
-     * @param readingList is the areaReadingList we want to set to the sensor.
+     * @param readingService is the areaReadingList we want to set to the sensor.
      */
-    public void setReadingList(ReadingList readingList) {
-        if (readingList != null) {
-            this.readingList = readingList;
+    public void setReadingService(ReadingService readingService) {
+        if (readingService != null) {
+            this.readingService = readingService;
         }
     }
 
@@ -193,7 +192,7 @@ public class AreaSensor {
      **/
     public boolean addReading(Reading reading) {
         if (this.active) {
-            return readingList.addReading(reading);
+            return readingService.addReading(reading);
         }
         return false;
     }
@@ -274,7 +273,7 @@ public class AreaSensor {
      **/
 
     Date getMostRecentReadingDate() {
-        return this.readingList.getMostRecentReadingDate();
+        return this.readingService.getMostRecentReadingDate();
     }
 
     /**
@@ -293,7 +292,7 @@ public class AreaSensor {
      * @return true if valid, false if invalid.
      **/
     public boolean isReadingListEmpty() {
-        return this.readingList.isEmpty();
+        return this.readingService.isEmpty();
     }
 
     /**
@@ -306,7 +305,7 @@ public class AreaSensor {
      * @author Daniela - US623
      ***/
     public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
+        return this.readingService.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -319,7 +318,7 @@ public class AreaSensor {
      * @author Daniela - US633
      ***/
     public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+        return this.readingService.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -331,7 +330,7 @@ public class AreaSensor {
      * @author Daniela - US633
      ***/
     public double getHighestAmplitudeInDate(Date date) {
-        return this.readingList.getAmplitudeValueFromDate(date);
+        return this.readingService.getAmplitudeValueFromDate(date);
     }
 
 
@@ -347,7 +346,7 @@ public class AreaSensor {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
+        return this.readingService.getLastColdestDayInGivenInterval(initialDate, endDate);
     }
 
     /**
@@ -361,7 +360,7 @@ public class AreaSensor {
      */
 
     public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
-        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
+        return this.readingService.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
     /**
@@ -372,7 +371,7 @@ public class AreaSensor {
      * @return total reading values of that day
      ***/
     public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.readingList.getValueReadingsInDay(day);
+        return this.readingService.getValueReadingsInDay(day);
     }
 
     /**
@@ -382,7 +381,7 @@ public class AreaSensor {
      * @return sensor's most recent reading value.
      ***/
     public double getMostRecentValueReading() {
-        return this.readingList.getMostRecentValue();
+        return this.readingService.getMostRecentValue();
     }
 
 

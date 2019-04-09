@@ -15,6 +15,7 @@ import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 import pt.ipp.isep.dei.project.services.HouseService;
@@ -41,6 +42,9 @@ public class MainUI {
 
     @Autowired
     AreaSensorService areaSensorService;
+
+    @Autowired
+    ReadingService readingService;
 
     GeographicAreaList geographicAreaList;
 
@@ -166,13 +170,13 @@ public class MainUI {
                     this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService, houseService);
+                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService, readingService, houseService);
                             view1.runGASettings(areaTypeService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(geographicAreaList, areaSensorService, houseService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(geographicAreaList, areaSensorService, readingService, houseService);
                             houseC.run(mockHouse);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

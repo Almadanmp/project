@@ -22,7 +22,7 @@ public class HouseSensor {
     private Date dateStartedFunctioning;
 
     @Transient
-    private ReadingList readingList;
+    private ReadingService readingService;
 
     private boolean active;
 
@@ -46,7 +46,7 @@ public class HouseSensor {
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
-        this.readingList = new ReadingList();
+        this.readingService = new ReadingService();
         this.active = true;
     }
 
@@ -126,18 +126,18 @@ public class HouseSensor {
      *
      * @return the readingList of the sensor.
      */
-    public ReadingList getReadingList() {
-        return readingList;
+    public ReadingService getReadingService() {
+        return readingService;
     }
 
     /**
      * Setter: reading list
      *
-     * @param readingList is the readingList we want to set to the sensor.
+     * @param readingService is the readingList we want to set to the sensor.
      */
-    public void setReadingList(ReadingList readingList) {
-        if (readingList != null) {
-            this.readingList = readingList;
+    public void setReadingService(ReadingService readingService) {
+        if (readingService != null) {
+            this.readingService = readingService;
         }
     }
 
@@ -177,7 +177,7 @@ public class HouseSensor {
      **/
     public boolean addReading(Reading reading) {
         if (this.active) {
-            return readingList.addReading(reading);
+            return readingService.addReading(reading);
         }
         return false;
     }

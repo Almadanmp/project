@@ -60,10 +60,10 @@ public class HouseSensorMapper {
 
         // Update the reading list
 
-        ReadingList objectAreaReadingList = new ReadingList();
+        ReadingService objectAreaReadingService = new ReadingService();
         for (ReadingDTO r: dtoToConvert.getReadingList()){
             Reading tempAreaReading = ReadingMapper.dtoToObject(r);
-            objectAreaReadingList.addReading(tempAreaReading);
+            objectAreaReadingService.addReading(tempAreaReading);
         }
 
         // Update status
@@ -74,7 +74,7 @@ public class HouseSensorMapper {
 
         HouseSensor resultObject = new HouseSensor(objectName, new SensorType(objectType, objectUnit), objectDate);
         resultObject.setActive(objectStatus);
-        resultObject.setReadingList(objectAreaReadingList);
+        resultObject.setReadingService(objectAreaReadingService);
 
         return resultObject;
     }
@@ -110,7 +110,7 @@ public class HouseSensorMapper {
         // Update the reading list
 
         List<ReadingDTO> dtoReadingList = new ArrayList<>();
-        for (Reading r: objectToConvert.getReadingList().getReadings()){
+        for (Reading r: objectToConvert.getReadingService().getReadings()){
             ReadingDTO tempReadingDTO = ReadingMapper.objectToDTO(r);
             if(!dtoReadingList.contains(tempReadingDTO)){
                 dtoReadingList.add(tempReadingDTO);

@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * AreaReadingList tests class.
  */
 
-class ReadingListTest {
+class ReadingServiceTest {
 
-    private ReadingList validReadingList;
+    private ReadingService validReadingService;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // 31/09/2018 23:59:59
@@ -40,7 +40,7 @@ class ReadingListTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReadingList = new ReadingList();
+        validReadingService = new ReadingService();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -76,7 +76,7 @@ class ReadingListTest {
 
         // Act
 
-        boolean actualResult = validReadingList.addReading(reading1);
+        boolean actualResult = validReadingService.addReading(reading1);
 
         // Assert
 
@@ -93,7 +93,7 @@ class ReadingListTest {
 
         // Act
 
-        double actualResult = validReadingList.getListSum(list);
+        double actualResult = validReadingService.getListSum(list);
 
         // Assert
 
@@ -108,7 +108,7 @@ class ReadingListTest {
 
         // Act
 
-        double actualResult = validReadingList.getListSum(list);
+        double actualResult = validReadingService.getListSum(list);
 
         // Assert
 
@@ -121,11 +121,11 @@ class ReadingListTest {
 
         Reading reading1 = new Reading(17, validDate1, "C", "TEST");
         Reading reading2 = new Reading(29, validDate2, "C", "TEST");
-        validReadingList.addReading(reading1);
+        validReadingService.addReading(reading1);
 
         // Act
 
-        boolean actualResult = validReadingList.addReading(reading2);
+        boolean actualResult = validReadingService.addReading(reading2);
 
         // Assert
 
@@ -138,11 +138,11 @@ class ReadingListTest {
 
         Reading reading1 = new Reading(17, validDate1, "C", "TEST");
         Reading reading2 = new Reading(17, validDate1, "C", "TEST");
-        validReadingList.addReading(reading1);
+        validReadingService.addReading(reading1);
 
         // Act
 
-        boolean actualResult = validReadingList.addReading(reading2);
+        boolean actualResult = validReadingService.addReading(reading2);
 
         // Assert
 
@@ -155,13 +155,13 @@ class ReadingListTest {
 
         Reading reading1 = new Reading(15, validDate1, "C", "TEST");
         Reading reading2 = new Reading(29, validDate2, "C", "TEST");
-        validReadingList.addReading(reading1);
-        validReadingList.addReading(reading2);
+        validReadingService.addReading(reading1);
+        validReadingService.addReading(reading2);
         double expectedResult = 15;
 
         // Act
 
-        double actualResult = validReadingList.get(0).getValue();
+        double actualResult = validReadingService.get(0).getValue();
 
         // Assert
 
@@ -174,13 +174,13 @@ class ReadingListTest {
 
         Reading reading1 = new Reading(15, validDate1, "C", "TEST");
         Reading reading2 = new Reading(29, validDate2, "C", "TEST");
-        validReadingList.addReading(reading1);
-        validReadingList.addReading(reading2);
+        validReadingService.addReading(reading1);
+        validReadingService.addReading(reading2);
         double expectedResult = 29;
 
         // Act
 
-        double actualResult = validReadingList.get(1).getValue();
+        double actualResult = validReadingService.get(1).getValue();
 
         // Assert
 
@@ -202,17 +202,17 @@ class ReadingListTest {
         Reading r8 = new Reading(22, validDate11, "C", "TEST"); // 01 Nov 01:00:00 "
         Reading r9 = new Reading(23, validDate18, "C", "TEST"); // 13 Oct 12:12:12 (2019)
         Reading r10 = new Reading(22, validDate19, "C", "TEST"); // 13 Oct 23:59:59 "
-        validReadingList.addReading(r0);
-        validReadingList.addReading(r1);
-        validReadingList.addReading(r2);
-        validReadingList.addReading(r3);
-        validReadingList.addReading(r4);
-        validReadingList.addReading(r5);
-        validReadingList.addReading(r6);
-        validReadingList.addReading(r7);
-        validReadingList.addReading(r8);
-        validReadingList.addReading(r9);
-        validReadingList.addReading(r10);
+        validReadingService.addReading(r0);
+        validReadingService.addReading(r1);
+        validReadingService.addReading(r2);
+        validReadingService.addReading(r3);
+        validReadingService.addReading(r4);
+        validReadingService.addReading(r5);
+        validReadingService.addReading(r6);
+        validReadingService.addReading(r7);
+        validReadingService.addReading(r8);
+        validReadingService.addReading(r9);
+        validReadingService.addReading(r10);
         List<Date> expectedResult = new ArrayList<>();
         expectedResult.add(validDate4);
         expectedResult.add(validDate5);
@@ -226,7 +226,7 @@ class ReadingListTest {
 
         // Act
 
-        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate19);
+        List<Date> actualResult = validReadingService.getDaysWithReadingsBetweenDates(validDate4, validDate19);
 
         // Assert
 
@@ -248,17 +248,17 @@ class ReadingListTest {
         Reading r8 = new Reading(22, validDate11, "C", "TEST"); // 01 Nov 01:00:00 "
         Reading r9 = new Reading(23, validDate18, "C", "TEST"); // 13 Oct 12:12:12 (2019)
         Reading r10 = new Reading(22, validDate19, "C", "TEST"); // 13 Oct 23:59:59 "
-        validReadingList.addReading(r10);
-        validReadingList.addReading(r9);
-        validReadingList.addReading(r8);
-        validReadingList.addReading(r7);
-        validReadingList.addReading(r6);
-        validReadingList.addReading(r5);
-        validReadingList.addReading(r4);
-        validReadingList.addReading(r3);
-        validReadingList.addReading(r2);
-        validReadingList.addReading(r1);
-        validReadingList.addReading(r0);
+        validReadingService.addReading(r10);
+        validReadingService.addReading(r9);
+        validReadingService.addReading(r8);
+        validReadingService.addReading(r7);
+        validReadingService.addReading(r6);
+        validReadingService.addReading(r5);
+        validReadingService.addReading(r4);
+        validReadingService.addReading(r3);
+        validReadingService.addReading(r2);
+        validReadingService.addReading(r1);
+        validReadingService.addReading(r0);
         List<Date> expectedResult = new ArrayList<>();
         expectedResult.add(validDate19);
         expectedResult.add(validDate11);
@@ -272,7 +272,7 @@ class ReadingListTest {
 
         // Act
 
-        List<Date> actualResult = validReadingList.getDaysWithReadingsBetweenDates(validDate4, validDate19);
+        List<Date> actualResult = validReadingService.getDaysWithReadingsBetweenDates(validDate4, validDate19);
 
         // Assert
 
@@ -291,7 +291,7 @@ class ReadingListTest {
 
         // Act
 
-        double actualResult = validReadingList.getAvgFromList(doubleList);
+        double actualResult = validReadingService.getAvgFromList(doubleList);
 
         // Assert
 
@@ -306,7 +306,7 @@ class ReadingListTest {
 
         // Act
 
-        double actualResult = validReadingList.getAvgFromList(doubleList);
+        double actualResult = validReadingService.getAvgFromList(doubleList);
 
         // Assert
 
@@ -320,13 +320,13 @@ class ReadingListTest {
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
         Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
         Reading laterReading = new Reading(30, testDate, "C", "TEST");
-        validReadingList.addReading(earlierReading);
-        validReadingList.addReading(laterReading);
+        validReadingService.addReading(earlierReading);
+        validReadingService.addReading(laterReading);
         double expectedResult = 30.0;
 
         // Act
 
-        double result = validReadingList.getMostRecentValue();
+        double result = validReadingService.getMostRecentValue();
 
         // Assert
 
@@ -338,7 +338,7 @@ class ReadingListTest {
     void seeIfGetMostRecentValueWorksEmptyList() {
         // Assert
 
-        assertThrows(IllegalArgumentException.class, validReadingList::getMostRecentValue);
+        assertThrows(IllegalArgumentException.class, validReadingService::getMostRecentValue);
     }
 
     @Test
@@ -349,13 +349,13 @@ class ReadingListTest {
                 0).getTime();
         Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
         Reading laterReading = new Reading(30, testDate, "C", "TEST");
-        validReadingList.addReading(earlierReading);
-        validReadingList.addReading(laterReading);
+        validReadingService.addReading(earlierReading);
+        validReadingService.addReading(laterReading);
         double expectedResult = 15.0;
 
         // Act
 
-        double result = validReadingList.getMostRecentValue();
+        double result = validReadingService.getMostRecentValue();
 
         // Assert
 
@@ -376,20 +376,20 @@ class ReadingListTest {
         Reading r6 = new Reading(22, validDate9, "C", "TEST");
         Reading r7 = new Reading(23, validDate10, "C", "TEST");
         Reading r8 = new Reading(22, validDate11, "C", "TEST");
-        validReadingList.addReading(r0);
-        validReadingList.addReading(r1);
-        validReadingList.addReading(r2);
-        validReadingList.addReading(r3);
-        validReadingList.addReading(r4);
-        validReadingList.addReading(r5);
-        validReadingList.addReading(r6);
-        validReadingList.addReading(r7);
-        validReadingList.addReading(r8);
+        validReadingService.addReading(r0);
+        validReadingService.addReading(r1);
+        validReadingService.addReading(r2);
+        validReadingService.addReading(r3);
+        validReadingService.addReading(r4);
+        validReadingService.addReading(r5);
+        validReadingService.addReading(r6);
+        validReadingService.addReading(r7);
+        validReadingService.addReading(r8);
         double expectedResult = 24.25;
 
         // Act
 
-        double actualResult = validReadingList.getAverageReadingsBetweenDates(validDate4, validDate16);
+        double actualResult = validReadingService.getAverageReadingsBetweenDates(validDate4, validDate16);
 
         // Assert
 
@@ -400,7 +400,7 @@ class ReadingListTest {
     void getAverageReadingsBetweenDatesExceptionTest() {
         // Assert
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> validReadingList.getAverageReadingsBetweenDates(validDate4, validDate16));
+                () -> validReadingService.getAverageReadingsBetweenDates(validDate4, validDate16));
     }
 
     @Test
@@ -408,7 +408,7 @@ class ReadingListTest {
 
         // Act
 
-        boolean actualResult = validReadingList.isEmpty();
+        boolean actualResult = validReadingService.isEmpty();
 
         // Assert
 
@@ -420,11 +420,11 @@ class ReadingListTest {
         // Arrange
 
         Reading testReading = new Reading(31, validDate3, "C", "TEST");
-        validReadingList.addReading(testReading);
+        validReadingService.addReading(testReading);
 
         // Act
 
-        boolean actualResult = validReadingList.isEmpty();
+        boolean actualResult = validReadingService.isEmpty();
 
         // Assert
 
@@ -439,15 +439,15 @@ class ReadingListTest {
         Reading reading2 = new Reading(20, validDate3, "C", "TEST");
         Reading reading3 = new Reading(20, validDate7, "C", "TEST");
         Reading reading4 = new Reading(20, validDate14, "C", "TEST");
-        validReadingList.addReading(reading);
-        validReadingList.addReading(reading2);
-        validReadingList.addReading(reading3);
-        validReadingList.addReading(reading4);
+        validReadingService.addReading(reading);
+        validReadingService.addReading(reading2);
+        validReadingService.addReading(reading3);
+        validReadingService.addReading(reading4);
         double expectedResult = 20;
 
         // Act
 
-        double actualResult = validReadingList.getValueReadingsInDay(validDate13);
+        double actualResult = validReadingService.getValueReadingsInDay(validDate13);
 
         // Assert
 
@@ -460,7 +460,7 @@ class ReadingListTest {
         // Act
 
         Throwable exception = assertThrows(IllegalStateException.class,
-                () -> validReadingList.getValueReadingsInDay(validDate13));
+                () -> validReadingService.getValueReadingsInDay(validDate13));
 
         // Assert
 
@@ -474,34 +474,34 @@ class ReadingListTest {
 
         // Arrange
 
-        ReadingList readingList2 = new ReadingList();
-        ReadingList readingList3 = new ReadingList();
-        ReadingList readingList4 = new ReadingList();
-        ReadingList readingList5 = new ReadingList();
+        ReadingService readingService2 = new ReadingService();
+        ReadingService readingService3 = new ReadingService();
+        ReadingService readingService4 = new ReadingService();
+        ReadingService readingService5 = new ReadingService();
         Reading secondMostRecentReading = new Reading(22, validDate14, "C", "TEST");
         Reading mostRecentReading = new Reading(25, validDate15, "C", "TEST");
         Reading oldestReading = new Reading(27, validDate3, "C", "TEST");
-        validReadingList.addReading(oldestReading);
-        validReadingList.addReading(secondMostRecentReading);
-        validReadingList.addReading(mostRecentReading);
-        readingList2.addReading(mostRecentReading);
-        readingList2.addReading(oldestReading);
-        readingList2.addReading(secondMostRecentReading);
-        readingList3.addReading(mostRecentReading);
-        readingList3.addReading(secondMostRecentReading);
-        readingList3.addReading(oldestReading);
-        readingList4.addReading(oldestReading);
-        readingList4.addReading(secondMostRecentReading);
-        readingList4.addReading(oldestReading);
+        validReadingService.addReading(oldestReading);
+        validReadingService.addReading(secondMostRecentReading);
+        validReadingService.addReading(mostRecentReading);
+        readingService2.addReading(mostRecentReading);
+        readingService2.addReading(oldestReading);
+        readingService2.addReading(secondMostRecentReading);
+        readingService3.addReading(mostRecentReading);
+        readingService3.addReading(secondMostRecentReading);
+        readingService3.addReading(oldestReading);
+        readingService4.addReading(oldestReading);
+        readingService4.addReading(secondMostRecentReading);
+        readingService4.addReading(oldestReading);
         Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "TEST");
 
         // Act
 
-        Reading actualResult1 = validReadingList.getMostRecentReading();
-        Reading actualResult2 = readingList2.getMostRecentReading();
-        Reading actualResult3 = readingList3.getMostRecentReading();
-        Reading actualResult4 = readingList4.getMostRecentReading();
-        Reading actualResult5 = readingList5.getMostRecentReading();
+        Reading actualResult1 = validReadingService.getMostRecentReading();
+        Reading actualResult2 = readingService2.getMostRecentReading();
+        Reading actualResult3 = readingService3.getMostRecentReading();
+        Reading actualResult4 = readingService4.getMostRecentReading();
+        Reading actualResult5 = readingService5.getMostRecentReading();
 
         // Assert
 
@@ -516,23 +516,23 @@ class ReadingListTest {
     void seeAllEqualsConditions() {
         // Arrange
 
-        ReadingList readingList2 = new ReadingList();
-        ReadingList readingList3 = new ReadingList();
+        ReadingService readingService2 = new ReadingService();
+        ReadingService readingService3 = new ReadingService();
         Reading reading1 = new Reading(22, validDate14, "C", "TEST");
         Reading reading2 = new Reading(25, validDate15, "C", "TEST");
-        validReadingList.addReading(reading1);
-        validReadingList.addReading(reading2);
-        readingList2.addReading(reading1);
-        readingList2.addReading(reading2);
-        readingList3.addReading(reading2);
-        readingList3.addReading(reading1);
+        validReadingService.addReading(reading1);
+        validReadingService.addReading(reading2);
+        readingService2.addReading(reading1);
+        readingService2.addReading(reading2);
+        readingService3.addReading(reading2);
+        readingService3.addReading(reading1);
 
         // Act
 
-        boolean actualResult1 = validReadingList.equals(readingList2);
-        boolean actualResult2 = validReadingList.equals(validReadingList); //Necessary for Sonarqube testing purposes.
-        boolean actualResult3 = validReadingList.equals(readingList3);
-        boolean actualResult4 = validReadingList.equals(2D); //Necessary for Sonarqube testing purposes.
+        boolean actualResult1 = validReadingService.equals(readingService2);
+        boolean actualResult2 = validReadingService.equals(validReadingService); //Necessary for Sonarqube testing purposes.
+        boolean actualResult3 = validReadingService.equals(readingService3);
+        boolean actualResult4 = validReadingService.equals(2D); //Necessary for Sonarqube testing purposes.
 
         // Assert
 
@@ -550,7 +550,7 @@ class ReadingListTest {
 
         // Assert
 
-        assertEquals(expectedResult, validReadingList.getFirstSecondOfDay(validDate14));
+        assertEquals(expectedResult, validReadingService.getFirstSecondOfDay(validDate14));
     }
 
 
@@ -562,7 +562,7 @@ class ReadingListTest {
 
         // Assert
 
-        assertEquals(expectedResult, validReadingList.getLastSecondOfDay(validDate14));
+        assertEquals(expectedResult, validReadingService.getLastSecondOfDay(validDate14));
     }
 
     @Test
@@ -570,11 +570,11 @@ class ReadingListTest {
         //Arrange
 
         Reading testReading = new Reading(22, validDate14, "C", "TEST");
-        validReadingList.addReading(testReading);
+        validReadingService.addReading(testReading);
 
         // Act
 
-        boolean actualResult = validReadingList.isReadingDateBetweenTwoDates(testReading.getDate(), validDate12,
+        boolean actualResult = validReadingService.isReadingDateBetweenTwoDates(testReading.getDate(), validDate12,
                 validDate16);
 
         //Assert
@@ -587,11 +587,11 @@ class ReadingListTest {
         //Arrange
 
         Reading testReading = new Reading(22, validDate14, "C", "TEST");
-        validReadingList.addReading(testReading);
+        validReadingService.addReading(testReading);
 
         // Act
 
-        boolean actualResult = validReadingList.isReadingDateBetweenTwoDates(testReading.getDate(), validDate13,
+        boolean actualResult = validReadingService.isReadingDateBetweenTwoDates(testReading.getDate(), validDate13,
                 validDate15);
 
         //Assert
@@ -603,7 +603,7 @@ class ReadingListTest {
     void getByIndexEmptyReadingList() {
         //Arrange
 
-        ReadingList emptyList = new ReadingList();
+        ReadingService emptyList = new ReadingService();
 
         //Act
 
@@ -622,11 +622,11 @@ class ReadingListTest {
         Reading[] expectedResult2 = new Reading[1];
         Reading[] expectedResult3 = new Reading[2];
 
-        ReadingList emptyList = new ReadingList();
-        validReadingList.addReading(new Reading(20, validDate1, "C", "TEST"));
-        ReadingList validReadingList2 = new ReadingList();
-        validReadingList2.addReading(new Reading(20, validDate1, "C", "TEST"));
-        validReadingList2.addReading(new Reading(25, validDate2, "C", "TEST"));
+        ReadingService emptyList = new ReadingService();
+        validReadingService.addReading(new Reading(20, validDate1, "C", "TEST"));
+        ReadingService validReadingService2 = new ReadingService();
+        validReadingService2.addReading(new Reading(20, validDate1, "C", "TEST"));
+        validReadingService2.addReading(new Reading(25, validDate2, "C", "TEST"));
 
         expectedResult2[0] = new Reading(20, validDate1, "C", "TEST");
         expectedResult3[0] = new Reading(20, validDate1, "C", "TEST");
@@ -635,8 +635,8 @@ class ReadingListTest {
         //Act
 
         Reading[] actualResult1 = emptyList.getElementsAsArray();
-        Reading[] actualResult2 = validReadingList.getElementsAsArray();
-        Reading[] actualResult3 = validReadingList2.getElementsAsArray();
+        Reading[] actualResult2 = validReadingService.getElementsAsArray();
+        Reading[] actualResult3 = validReadingService2.getElementsAsArray();
 
         //Assert
 
@@ -649,17 +649,17 @@ class ReadingListTest {
     void appendListNoDuplicates() {
         //Arrange
 
-        ReadingList expectedResult1 = new ReadingList();
-        ReadingList expectedResult2 = new ReadingList();
+        ReadingService expectedResult1 = new ReadingService();
+        ReadingService expectedResult2 = new ReadingService();
 
         Reading reading1 = new Reading(20, validDate1, "C", "TEST");
         Reading reading2 = new Reading(22, validDate2, "C", "TEST");
 
-        ReadingList emptyList = new ReadingList();
-        validReadingList.addReading(reading1);
-        ReadingList validReadingList2 = new ReadingList();
-        validReadingList2.addReading(reading1);
-        validReadingList2.addReading(reading2);
+        ReadingService emptyList = new ReadingService();
+        validReadingService.addReading(reading1);
+        ReadingService validReadingService2 = new ReadingService();
+        validReadingService2.addReading(reading1);
+        validReadingService2.addReading(reading2);
 
         expectedResult1.addReading(reading1);
         expectedResult2.addReading(reading1);
@@ -667,7 +667,7 @@ class ReadingListTest {
 
         //Act
 
-        ReadingList actualResult1 = validReadingList.appendListNoDuplicates(emptyList);
+        ReadingService actualResult1 = validReadingService.appendListNoDuplicates(emptyList);
 
         //Assert
 
@@ -675,8 +675,8 @@ class ReadingListTest {
 
         //Act
 
-        ReadingList actualResult2 = emptyList.appendListNoDuplicates(validReadingList);
-        ReadingList actualResult3 = validReadingList.appendListNoDuplicates(validReadingList2);
+        ReadingService actualResult2 = emptyList.appendListNoDuplicates(validReadingService);
+        ReadingService actualResult3 = validReadingService.appendListNoDuplicates(validReadingService2);
 
         //Assert
 
@@ -689,11 +689,11 @@ class ReadingListTest {
         //Arrange
 
         Reading reading1 = new Reading(22, validDate14, "C", "TEST");
-        validReadingList.addReading(reading1);
+        validReadingService.addReading(reading1);
 
         // Act
 
-        int actualResult = validReadingList.hashCode();
+        int actualResult = validReadingService.hashCode();
 
         // Assert
 
@@ -703,23 +703,23 @@ class ReadingListTest {
     @Test
     void seeIfWeGetMaxValueOfTheDayWorks() {
         //Arrange
-        ReadingList readingList = new ReadingList();
-        ReadingList readingList2 = new ReadingList();
-        ReadingList readingList3 = new ReadingList();
+        ReadingService readingService = new ReadingService();
+        ReadingService readingService2 = new ReadingService();
+        ReadingService readingService3 = new ReadingService();
         Reading reading1 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 10, 0).getTime(), "C", "TEST");
         Reading reading2 = new Reading(22, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 9, 0).getTime(), "C", "TEST");
         Reading reading3 = new Reading(25, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 0).getTime(), "C", "TEST");
         Reading reading4 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C", "TEST");
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList2.addReading(reading2);
-        readingList2.addReading(reading3);
-        readingList3.addReading(reading3);
-        readingList3.addReading(reading4);
+        readingService.addReading(reading1);
+        readingService.addReading(reading2);
+        readingService2.addReading(reading2);
+        readingService2.addReading(reading3);
+        readingService3.addReading(reading3);
+        readingService3.addReading(reading4);
         //Act
-        Reading actualResult = readingList.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
-        Reading actualResult2 = readingList2.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
-        Reading actualResult3 = readingList3.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult = readingService.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult2 = readingService2.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult3 = readingService3.getMaxValueOfTheDay(new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
 
         //Assert
         assertEquals(reading1, actualResult);
@@ -730,25 +730,25 @@ class ReadingListTest {
     @Test
     void seeIfWeGetReadingListWithSpecificValueWorks() {
         //Arrange
-        validReadingList = new ReadingList();
-        ReadingList expectedResult = new ReadingList();
+        validReadingService = new ReadingService();
+        ReadingService expectedResult = new ReadingService();
         Reading r1 = new Reading(22, validDate2, "C", "TEST");
         Reading r2 = new Reading(24, validDate14, "C", "TEST");
         Reading r3 = new Reading(22, validDate2, "C", "TEST");
         Reading r4 = new Reading(21, validDate15, "C", "TEST");
         Reading r5 = new Reading(22, validDate12, "C", "TEST");
         Reading r6 = new Reading(29, validDate2, "C", "TEST");
-        validReadingList.addReading(r1);
-        validReadingList.addReading(r2);
-        validReadingList.addReading(r3);
-        validReadingList.addReading(r4);
-        validReadingList.addReading(r5);
-        validReadingList.addReading(r6);
+        validReadingService.addReading(r1);
+        validReadingService.addReading(r2);
+        validReadingService.addReading(r3);
+        validReadingService.addReading(r4);
+        validReadingService.addReading(r5);
+        validReadingService.addReading(r6);
         expectedResult.addReading(r1);
         expectedResult.addReading(r3);
         expectedResult.addReading(r5);
         //Act
-        ReadingList actualResult = validReadingList.getReadingListOfReadingsWithSpecificValue(22.0);
+        ReadingService actualResult = validReadingService.getReadingListOfReadingsWithSpecificValue(22.0);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -756,27 +756,27 @@ class ReadingListTest {
     @Test
     void seeIfWeGetMinValueInReadingListWorks() {
         //Arrange
-        ReadingList readingList = new ReadingList();
-        ReadingList readingList2 = new ReadingList();
-        ReadingList readingList3 = new ReadingList();
+        ReadingService readingService = new ReadingService();
+        ReadingService readingService2 = new ReadingService();
+        ReadingService readingService3 = new ReadingService();
         Reading reading1 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 2, 30).getTime(), "C", "TEST");
         Reading reading2 = new Reading(20, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 11, 30).getTime(), "C", "TEST");
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 21, 30).getTime(), "C", "TEST");
         Reading reading4 = new Reading(21, new GregorianCalendar(2018, Calendar.OCTOBER, 8, 3, 30).getTime(), "C", "TEST");
-        readingList.addReading(reading1);
-        readingList.addReading(reading4);
-        readingList.addReading(reading2);
-        readingList2.addReading(reading2);
-        readingList2.addReading(reading3);
-        readingList3.addReading(reading3);
-        readingList3.addReading(reading4);
+        readingService.addReading(reading1);
+        readingService.addReading(reading4);
+        readingService.addReading(reading2);
+        readingService2.addReading(reading2);
+        readingService2.addReading(reading3);
+        readingService3.addReading(reading3);
+        readingService3.addReading(reading4);
         double expectedResult1 = 20;
         double expectedResult2 = 19;
         double expectedResult3 = 19;
         //Act
-        double actualResult = readingList.getMinValueInReadingList();
-        double actualResult2 = readingList2.getMinValueInReadingList();
-        double actualResult3 = readingList3.getMinValueInReadingList();
+        double actualResult = readingService.getMinValueInReadingList();
+        double actualResult2 = readingService2.getMinValueInReadingList();
+        double actualResult3 = readingService3.getMinValueInReadingList();
         //Assert
         assertNotSame(expectedResult1, actualResult);
         assertEquals(expectedResult2, actualResult2);
@@ -786,22 +786,22 @@ class ReadingListTest {
     @Test
     void seeIfWeGetReadingWithSpecificDateWorks() {
         //Arrange
-        validReadingList = new ReadingList();
+        validReadingService = new ReadingService();
         Reading r1 = new Reading(22, validDate5, "C", "TEST");
         Reading r2 = new Reading(24, validDate14, "C", "TEST");
         Reading r3 = new Reading(22, validDate2, "C", "TEST");
         Reading r4 = new Reading(21, validDate15, "C", "TEST");
         Reading r5 = new Reading(22, validDate12, "C", "TEST");
         Reading r6 = new Reading(29, validDate2, "C", "TEST");
-        validReadingList.addReading(r1);
-        validReadingList.addReading(r2);
-        validReadingList.addReading(r3);
-        validReadingList.addReading(r4);
-        validReadingList.addReading(r5);
-        validReadingList.addReading(r6);
+        validReadingService.addReading(r1);
+        validReadingService.addReading(r2);
+        validReadingService.addReading(r3);
+        validReadingService.addReading(r4);
+        validReadingService.addReading(r5);
+        validReadingService.addReading(r6);
         //Act
-        Reading actualResult2 = validReadingList.getAReadingWithSpecificDay(validDate7);
-        Reading actualResult = validReadingList.getAReadingWithSpecificDay(validDate2);
+        Reading actualResult2 = validReadingService.getAReadingWithSpecificDay(validDate7);
+        Reading actualResult = validReadingService.getAReadingWithSpecificDay(validDate2);
         //Assert
         assertNull(actualResult2);
         assertEquals(r3, actualResult);
@@ -810,7 +810,7 @@ class ReadingListTest {
     @Test
     void seeIfWeGetListOfMaxValuesForEachDayWorks() {
         //Arrange
-        validReadingList = new ReadingList();
+        validReadingService = new ReadingService();
         Reading r1 = new Reading(22, validDate5, "C", "TEST");
         Reading r2 = new Reading(24, validDate14, "C", "TEST");
         Reading r3 = new Reading(22, validDate2, "C", "TEST");
@@ -820,23 +820,23 @@ class ReadingListTest {
         Reading r7 = new Reading(26, new GregorianCalendar(2018, Calendar.OCTOBER, 2, 10, 0).getTime(), "C", "TEST");
         Reading r8 = new Reading(20, new GregorianCalendar(2018, Calendar.SEPTEMBER, 3, 23, 30).getTime(), "C", "TEST");
         Reading r10 = new Reading(20, validDate12, "C", "TEST");
-        validReadingList.addReading(r1);
-        validReadingList.addReading(r2);
-        validReadingList.addReading(r3);
-        validReadingList.addReading(r4);
-        validReadingList.addReading(r5);
-        validReadingList.addReading(r6);
-        validReadingList.addReading(r7);
-        validReadingList.addReading(r8);
-        validReadingList.addReading(r10);
-        ReadingList expectedResult = new ReadingList();
+        validReadingService.addReading(r1);
+        validReadingService.addReading(r2);
+        validReadingService.addReading(r3);
+        validReadingService.addReading(r4);
+        validReadingService.addReading(r5);
+        validReadingService.addReading(r6);
+        validReadingService.addReading(r7);
+        validReadingService.addReading(r8);
+        validReadingService.addReading(r10);
+        ReadingService expectedResult = new ReadingService();
         expectedResult.addReading(r6);
         expectedResult.addReading(r7);
         expectedResult.addReading(r3);
         expectedResult.addReading(r4);
         expectedResult.addReading(r10);
         //Act
-        ReadingList actualResult = validReadingList.getListOfMaxValuesForEachDay();
+        ReadingService actualResult = validReadingService.getListOfMaxValuesForEachDay();
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -845,7 +845,7 @@ class ReadingListTest {
     void seeIfWeGetLastColdestDayInGivenIntervalWorks() {
         // Arrange
 
-        validReadingList = new ReadingList();
+        validReadingService = new ReadingService();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
@@ -866,30 +866,30 @@ class ReadingListTest {
         Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
         Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
         Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
-        validReadingList.addReading(reading1);
-        validReadingList.addReading(reading2);
-        validReadingList.addReading(reading3);
-        validReadingList.addReading(reading4);
-        validReadingList.addReading(reading5);
-        validReadingList.addReading(reading6);
-        validReadingList.addReading(reading7);
-        validReadingList.addReading(reading8);
-        validReadingList.addReading(reading9);
-        validReadingList.addReading(reading10);
-        validReadingList.addReading(reading11);
-        validReadingList.addReading(reading12);
-        validReadingList.addReading(reading13);
-        validReadingList.addReading(reading14);
-        validReadingList.addReading(reading15);
-        validReadingList.addReading(reading16);
-        validReadingList.addReading(reading17);
-        validReadingList.addReading(reading18);
-        validReadingList.addReading(reading19);
-        validReadingList.addReading(reading20);
+        validReadingService.addReading(reading1);
+        validReadingService.addReading(reading2);
+        validReadingService.addReading(reading3);
+        validReadingService.addReading(reading4);
+        validReadingService.addReading(reading5);
+        validReadingService.addReading(reading6);
+        validReadingService.addReading(reading7);
+        validReadingService.addReading(reading8);
+        validReadingService.addReading(reading9);
+        validReadingService.addReading(reading10);
+        validReadingService.addReading(reading11);
+        validReadingService.addReading(reading12);
+        validReadingService.addReading(reading13);
+        validReadingService.addReading(reading14);
+        validReadingService.addReading(reading15);
+        validReadingService.addReading(reading16);
+        validReadingService.addReading(reading17);
+        validReadingService.addReading(reading18);
+        validReadingService.addReading(reading19);
+        validReadingService.addReading(reading20);
 
         // Act
 
-        Date actualResult = validReadingList.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
+        Date actualResult = validReadingService.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
 
         // Assert
 
@@ -899,7 +899,7 @@ class ReadingListTest {
     @Test
     void seeIfWeGetReadingListBetweenDates() {
         //Arrange
-        validReadingList = new ReadingList();
+        validReadingService = new ReadingService();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
@@ -920,27 +920,27 @@ class ReadingListTest {
         Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
         Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
         Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
-        validReadingList.addReading(reading1);
-        validReadingList.addReading(reading2);
-        validReadingList.addReading(reading3);
-        validReadingList.addReading(reading4);
-        validReadingList.addReading(reading5);
-        validReadingList.addReading(reading6);
-        validReadingList.addReading(reading7);
-        validReadingList.addReading(reading8);
-        validReadingList.addReading(reading9);
-        validReadingList.addReading(reading10);
-        validReadingList.addReading(reading11);
-        validReadingList.addReading(reading12);
-        validReadingList.addReading(reading13);
-        validReadingList.addReading(reading14);
-        validReadingList.addReading(reading15);
-        validReadingList.addReading(reading16);
-        validReadingList.addReading(reading17);
-        validReadingList.addReading(reading18);
-        validReadingList.addReading(reading19);
-        validReadingList.addReading(reading20);
-        ReadingList expectedResult = new ReadingList();
+        validReadingService.addReading(reading1);
+        validReadingService.addReading(reading2);
+        validReadingService.addReading(reading3);
+        validReadingService.addReading(reading4);
+        validReadingService.addReading(reading5);
+        validReadingService.addReading(reading6);
+        validReadingService.addReading(reading7);
+        validReadingService.addReading(reading8);
+        validReadingService.addReading(reading9);
+        validReadingService.addReading(reading10);
+        validReadingService.addReading(reading11);
+        validReadingService.addReading(reading12);
+        validReadingService.addReading(reading13);
+        validReadingService.addReading(reading14);
+        validReadingService.addReading(reading15);
+        validReadingService.addReading(reading16);
+        validReadingService.addReading(reading17);
+        validReadingService.addReading(reading18);
+        validReadingService.addReading(reading19);
+        validReadingService.addReading(reading20);
+        ReadingService expectedResult = new ReadingService();
         expectedResult.addReading(reading5);
         expectedResult.addReading(reading6);
         expectedResult.addReading(reading7);
@@ -950,47 +950,47 @@ class ReadingListTest {
         expectedResult.addReading(reading11);
         expectedResult.addReading(reading12);
         //Act
-        ReadingList actualResult = validReadingList.getReadingListBetweenDates(new GregorianCalendar(2018, Calendar.JULY, 3, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 7, 10, 29).getTime());
+        ReadingService actualResult = validReadingService.getReadingListBetweenDates(new GregorianCalendar(2018, Calendar.JULY, 3, 9, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 7, 10, 29).getTime());
         //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDates() {
-        validReadingList.addReading(new Reading(22, validDate9, "C", "TEST"));
-        validReadingList.addReading(new Reading(30, validDate16, "C", "TEST"));
-        validReadingList.addReading(new Reading(5, validDate18, "C", "TEST"));
-        validReadingList.addReading(new Reading(50, validDate19, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate9, "C", "TEST"));
+        validReadingService.addReading(new Reading(30, validDate16, "C", "TEST"));
+        validReadingService.addReading(new Reading(5, validDate18, "C", "TEST"));
+        validReadingService.addReading(new Reading(50, validDate19, "C", "TEST"));
         Date expectedResult = validDate18;
 
-        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
+        Date result = validReadingService.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChange() {
-        validReadingList.addReading(new Reading(22, validDate9, "C", "TEST"));
-        validReadingList.addReading(new Reading(22, validDate16, "C", "TEST"));
-        validReadingList.addReading(new Reading(22, validDate18, "C", "TEST"));
-        validReadingList.addReading(new Reading(22, validDate19, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate9, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate16, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate18, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate19, "C", "TEST"));
         Date expectedResult = validDate18;
 
-        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
+        Date result = validReadingService.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChangeInverted() {
-        validReadingList.addReading(new Reading(22, validDate18, "C", "TEST"));
-        validReadingList.addReading(new Reading(22, validDate19, "C", "TEST"));
-        validReadingList.addReading(new Reading(22, validDate9, "C", "TEST"));
-        validReadingList.addReading(new Reading(22, validDate16, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate18, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate19, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate9, "C", "TEST"));
+        validReadingService.addReading(new Reading(22, validDate16, "C", "TEST"));
 
         Date expectedResult = validDate18;
 
-        Date result = validReadingList.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
+        Date result = validReadingService.getDateHighestAmplitudeBetweenDates(validDate9, validDate19);
 
         assertEquals(expectedResult, result);
     }
@@ -1002,7 +1002,7 @@ class ReadingListTest {
         GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                validReadingList.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime()));
+                validReadingService.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime()));
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
@@ -1012,7 +1012,7 @@ class ReadingListTest {
     void seeIfGetValueReadingThrowsException() {
         //Arrange
 
-        ReadingList emptyList = new ReadingList();
+        ReadingService emptyList = new ReadingService();
 
         //Act
 
@@ -1027,7 +1027,7 @@ class ReadingListTest {
     void seeIfGetDateReadingThrowsException() {
         //Arrange
 
-        ReadingList emptyList = new ReadingList();
+        ReadingService emptyList = new ReadingService();
 
         //Act
 
@@ -1041,7 +1041,7 @@ class ReadingListTest {
     @Test
     void seeIfGetLastColdestDayInIntervalThrowsException() {
         //Arrange
-        ReadingList emptyList = new ReadingList();
+        ReadingService emptyList = new ReadingService();
         Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
         Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
 
@@ -1055,7 +1055,7 @@ class ReadingListTest {
     @Test
     void seeIfGetLastColdestDayInIntervalThrowsExceptionWithReadingOutOfTheInterval() {
         //Arrange
-        ReadingList emptyList = new ReadingList();
+        ReadingService emptyList = new ReadingService();
         Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
         Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
         Reading reading = new Reading(20, new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), "C", "TEST");
@@ -1077,15 +1077,15 @@ class ReadingListTest {
 
         //Act
 
-        boolean actualResult1 = validReadingList.contains(validReading1);
+        boolean actualResult1 = validReadingService.contains(validReading1);
 
         //Arrange
 
-        validReadingList.addReading(validReading1);
+        validReadingService.addReading(validReading1);
 
         //Act
 
-        boolean actualResult2 = validReadingList.contains(validReading2);
+        boolean actualResult2 = validReadingService.contains(validReading2);
 
         //Assert
 
@@ -1102,8 +1102,8 @@ class ReadingListTest {
 
         //Act
 
-        boolean actualResult1 = validReadingList.addReading(validReading1);
-        boolean actualResult2 = validReadingList.addReading(validReading2);
+        boolean actualResult1 = validReadingService.addReading(validReading1);
+        boolean actualResult2 = validReadingService.addReading(validReading2);
 
         //Assert
 
@@ -1118,12 +1118,12 @@ class ReadingListTest {
         Date expectedResult = new GregorianCalendar(2018, Calendar.SEPTEMBER, 3).getTime();
         Reading firstReading = new Reading(15, validDate3, "C", "TEST");
         Reading secondReading = new Reading(29, validDate2, "C", "TEST");
-        validReadingList.addReading(firstReading);
-        validReadingList.addReading(secondReading);
+        validReadingService.addReading(firstReading);
+        validReadingService.addReading(secondReading);
 
         // Act
 
-        Date actualResult = validReadingList.getFirstHottestDayInGivenPeriod(validDate12, validDate1);
+        Date actualResult = validReadingService.getFirstHottestDayInGivenPeriod(validDate12, validDate1);
 
         // Assert
 
@@ -1136,10 +1136,10 @@ class ReadingListTest {
         // Arrange
 
         Reading outOfBoundsReading = new Reading(1, validDate1, "C", "TEST");
-        validReadingList.addReading(outOfBoundsReading);
+        validReadingService.addReading(outOfBoundsReading);
 
         // Assert
 
-        assertThrows(IllegalArgumentException.class, () -> validReadingList.getFirstHottestDayInGivenPeriod(validDate12, validDate2));
+        assertThrows(IllegalArgumentException.class, () -> validReadingService.getFirstHottestDayInGivenPeriod(validDate12, validDate2));
     }
 }

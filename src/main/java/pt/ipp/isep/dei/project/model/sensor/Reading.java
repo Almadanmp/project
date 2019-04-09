@@ -86,6 +86,10 @@ public class Reading {
         this.sensorId = sensorId;
     }
 
+    public String getSensorId() {
+        return sensorId;
+    }
+
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'AreaReadingList'.
      *

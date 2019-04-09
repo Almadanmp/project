@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.HouseService;
 
@@ -30,6 +31,7 @@ public class ReaderController {
 
 
     private AreaSensorService areaSensorService;
+    private ReadingService readingService;
     private HouseService houseService;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
@@ -38,8 +40,8 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
-    public ReaderController(AreaSensorService areaSensorService, HouseService houseService) {
-
+    public ReaderController(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+        this.readingService = readingService;
         this.areaSensorService = areaSensorService;
         this.houseService = houseService;
     }
@@ -50,7 +52,6 @@ public class ReaderController {
     /**
      * This method only accepts a path that ends with .json or .xml
      *
-     * @param input    - the user input
      * @param filePath - the path to the file if it exists
      * @param list     - the geographic area list
      * @return - number of geoareas imported
@@ -64,7 +65,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, houseService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, readingService, houseService);
             return areasRead;
         }
         return -1;
@@ -365,7 +366,7 @@ public class ReaderController {
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (areaSensorService.addAreaReadingToAreaSensor(sensorID, value, date, unit, logger)) {
+            if (readingService.addAreaReadingToRepository(sensorID, value, date, unit, logger, areaSensorService)) {
                 addedReadings++;
             }
         }
