@@ -104,16 +104,16 @@ class ReaderControllerTest {
                 new Local(41.178553, 8.608035, 117));
         validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
-                validDate1);
+                validDate1,6008L);
         AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 125),
-                validDate2);
+                validDate2,6008L);
         AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
-                validDate3);
+                validDate3,6008L);
         AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
-                validDate4);
+                validDate4,6008L);
         AreaSensorService validAreaSensorService = new AreaSensorService();
         AreaSensorService validAreaSensorService2 = new AreaSensorService();
         validAreaSensorService.add(validAreaSensor1);

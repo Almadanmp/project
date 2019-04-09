@@ -28,13 +28,13 @@ class AreaSensorServiceTest {
     void arrangeArtifacts() {
         validAreaSensorService = new AreaSensorService();
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
-                31, 1, 2), new Date());
+                31, 1, 2), new Date(),6008L);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,10),
-                new Date());
+                new Date(),6008L);
         secondValidAreaSensor.setActive(true);
         thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10,10,10),
-                new Date());
+                new Date(),6008L);
         validAreaSensorService.add(firstValidAreaSensor);
     }
 
@@ -386,8 +386,8 @@ class AreaSensorServiceTest {
 
         //Sensors
 
-        AreaSensor areaSensorSameLocalHouse = new AreaSensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date);
-        AreaSensor areaSensorDiffLocalHouse = new AreaSensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date);
+        AreaSensor areaSensorSameLocalHouse = new AreaSensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date,6008L);
+        AreaSensor areaSensorDiffLocalHouse = new AreaSensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date,6008L);
 
         AreaSensorService validAreaSensorService = new AreaSensorService();
         validAreaSensorService.add(areaSensorDiffLocalHouse);

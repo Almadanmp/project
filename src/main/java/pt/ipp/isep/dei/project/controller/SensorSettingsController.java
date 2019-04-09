@@ -84,8 +84,8 @@ public class SensorSettingsController {
      */
 
 
-    public AreaSensor createSensor(String id, String name, SensorType type, Local local, Date date) {
-        return new AreaSensor(id, name, type, local, date);
+    public AreaSensor createSensor(String id, String name, SensorType type, Local local, Date date, Long geographicAreaID) {
+        return new AreaSensor(id, name, type, local, date, geographicAreaID);
     }
 
     /**

@@ -33,7 +33,7 @@ public class AreaSensor {
     @Transient
     private ReadingList readingList;
 
-    private long geographicAreaId;
+    private Long geographicAreaId;
 
     private boolean active;
 
@@ -53,7 +53,8 @@ public class AreaSensor {
      * @param local                  is the Local of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
+    public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning,
+                      Long geographicAreaId) {
         setId(id);
         setName(name);
         this.sensorType = sensorType;
@@ -61,6 +62,7 @@ public class AreaSensor {
         this.dateStartedFunctioning=dateStartedFunctioning;
         readingList = new ReadingList();
         this.active = true;
+        this.geographicAreaId = geographicAreaId;
     }
 
     /**
@@ -98,8 +100,12 @@ public class AreaSensor {
         return (this.id);
     }
 
-    public void setGeographicAreaId(long geographicAreaId) {
+    public void setGeographicAreaId(Long geographicAreaId) {
         this.geographicAreaId = geographicAreaId;
+    }
+
+    public Long getGeographicAreaId() {
+        return this.geographicAreaId;
     }
 
     /**

@@ -68,9 +68,9 @@ class GASettingsControllerTest {
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
         validAreaSensor1 = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), date);
+                new Local(31, 15, 3), date,6008L);
         validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
-                new Local(21, 65, 3), date);
+                new Local(21, 65, 3), date,6008L);
         firstValidArea.addSensor(validAreaSensor1);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);

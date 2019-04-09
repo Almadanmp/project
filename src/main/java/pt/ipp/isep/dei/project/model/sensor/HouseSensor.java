@@ -26,7 +26,7 @@ public class HouseSensor {
 
     private boolean active;
 
-    private long roomId;
+    private String roomId;
 
     /**
      * Empty constructor to import Sensors from a XML file.
