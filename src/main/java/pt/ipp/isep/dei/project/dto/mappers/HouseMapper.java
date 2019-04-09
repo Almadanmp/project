@@ -70,7 +70,7 @@ public class HouseMapper {
 
         EnergyGridList objectGridList = new EnergyGridList();
         for (EnergyGridDTO y : dtoToConvert.getEnergyGridList()) {
-            EnergyGrid grid = EnergyGridMapper.dtoToObject(y);
+            EnergyGrid grid = EnergyGridMapper.dtoToObjectUS100(y);
             objectGridList.addGrid(grid);
         }
 
@@ -80,9 +80,12 @@ public class HouseMapper {
             objectRoomList.add(room);
         }
 
+        //empty list
+        List<String> objectDeviceTypeConfigList = new ArrayList<>();
+
         // Create, update and return new object
 
-        House resultObject = new House(objectId,objectAddress);
+        House resultObject = new House(objectId,objectAddress,objectDeviceTypeConfigList);
         resultObject.setRoomList(objectRoomList);
         resultObject.setGridList(objectGridList);
 

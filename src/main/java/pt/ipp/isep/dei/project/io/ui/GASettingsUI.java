@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
+import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,9 +28,9 @@ class GASettingsUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
-    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService areaSensorService) {
+    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService areaSensorService, HouseService houseService) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(areaSensorService);
+        this.readerController = new ReaderController(areaSensorService, houseService);
         this.geographicAreaList = geographicAreaList;
     }
 

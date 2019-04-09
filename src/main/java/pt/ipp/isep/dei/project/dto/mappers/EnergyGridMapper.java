@@ -59,6 +59,36 @@ public final class EnergyGridMapper {
         return resultObject;
     }
 
+    public static EnergyGrid dtoToObjectUS100(EnergyGridDTO dtoToConvert){
+        // Update the name
+
+        String objectName = dtoToConvert.getName();
+
+        // Update the RoomList
+
+        RoomList objectRoomList = new RoomList();
+        for (RoomDTO y : dtoToConvert.getRoomDTOS()){
+            Room tempRoom = RoomMapper.dtoToObjectUS100(y);
+            objectRoomList.add(tempRoom);
+        }
+
+        // Update the PowerSourceList
+
+        PowerSourceList objectPowerSourceList = new PowerSourceList();
+
+        // Update the maximum contracted power.
+
+
+        // Create, update and return the new model object.
+
+        EnergyGrid resultObject = new EnergyGrid();
+        resultObject.setName(objectName);
+        resultObject.setRoomList(objectRoomList);
+        resultObject.setPowerSourceList(objectPowerSourceList);
+
+        return resultObject;
+    }
+
     /**
      * This is the method that converts energy grid model objects into DTOs with the same data.
      * @param objectToConvert is the object we want to convert.

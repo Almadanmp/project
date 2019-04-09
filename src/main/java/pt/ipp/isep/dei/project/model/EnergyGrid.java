@@ -57,6 +57,10 @@ public class EnergyGrid implements Metered {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * Getter for list of rooms that are contained in the energy grid.
      *

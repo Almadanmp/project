@@ -20,10 +20,9 @@ public class HouseService {
         House house2 = houseRepository.findByAddress(house.getAddress());
         if (house2 != null) {
             houseRepository.delete(house);
-            houseRepository.save(house);
-            return true;
         }
-        return false;
+        houseRepository.save(house);
+        return true;
     }
 }
 

@@ -16,6 +16,9 @@ import java.util.*;
 public class House implements Metered {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long ID2;
+
     private String id;
 
     @Embedded
@@ -70,11 +73,13 @@ public class House implements Metered {
      * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
      *                             the zip code the house is in.
      */
-    public House(String id, Address address) {
+    public House(String id, Address address, List<String> deviceTypeConfig) {
         this.id = id;
         this.address = address;
         this.roomList = new RoomList();
         this.energyGridList = new EnergyGridList();
+        buildDeviceTypeList(deviceTypeConfig);
+
     }
 
 

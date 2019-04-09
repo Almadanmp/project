@@ -40,9 +40,10 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
-    public ReaderController(AreaSensorService areaSensorService) {
+    public ReaderController(AreaSensorService areaSensorService, HouseService houseService) {
 
         this.areaSensorService = areaSensorService;
+        this.houseService = houseService;
     }
 
     //
@@ -65,7 +66,7 @@ public class ReaderController {
         }
         if (input.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, houseService);
             return areasRead;
         }
         return -1;
