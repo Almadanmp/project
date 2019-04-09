@@ -181,9 +181,9 @@ class HouseConfigurationUI {
     private void runUS101(HouseService houseService, GeographicAreaService geographicAreaService) {
         House house = houseService.getHouse();
         Scanner scanner = new Scanner(System.in);
-
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First select the geographic area where this house is located.");
-        GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService);
+        GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
 
 //        // get house address
 //        System.out.print("Please, type the street where the house is located: ");

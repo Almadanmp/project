@@ -46,10 +46,10 @@ public class InputHelperUI {
      * @param geographicAreaService is the list of geographic areas available to the program.
      * @return is the selected geographic area.
      */
-    public static GeographicArea getGeographicAreaByList(GeographicAreaService geographicAreaService) {
+    public static GeographicArea getGeographicAreaByList(GeographicAreaService geographicAreaService, List<GeographicArea> geoAreas) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
-            System.out.println(geographicAreaService.buildStringRepository());
+            System.out.println(geographicAreaService.buildStringRepository(geoAreas));
             int aux = InputHelperUI.getInputAsInt();
             try {
                 GeographicArea geographicArea = geographicAreaService.get(aux);

@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 class SensorSettingsUI {
@@ -106,12 +107,13 @@ class SensorSettingsUI {
     }
 
     private AreaSensor createSensor(SensorTypeService sensorTypeList, GeographicAreaService geographicAreaService) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
         String id = getInputSensorId();
         String name = getInputSensorName();
         SensorType sensorType = getInputTypeSensor(sensorTypeList);
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService);
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geoAreas);
         Long geoID = geographicArea.getId();
         return controller.createSensor(id, name, sensorType, local, startDate, geoID);
     }
@@ -168,7 +170,8 @@ class SensorSettingsUI {
     }
 
     private void addSensor(AreaSensor areaSensor, GeographicAreaService geographicAreaService) {
-        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService);
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geoAreas);
         if (controller.addSensorToGeographicArea(areaSensor, geographicArea)) {
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {

@@ -236,18 +236,18 @@ class GASettingsUI {
             return;
         }
         TypeAreaDTO typeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
-        GeographicAreaService gaFinalList = matchGAByTypeArea(geographicAreaService, typeAreaDTO);
-        displayGAListByTypeArea(gaFinalList, typeAreaDTO);
+        List<GeographicArea> gaFinalList = matchGAByTypeArea(geographicAreaService, typeAreaDTO);
+        displayGAListByTypeArea(geographicAreaService, gaFinalList, typeAreaDTO);
     }
 
-    private GeographicAreaService matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+    private List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
         return gaController.matchGAByTypeArea(geographicAreaService, typeArea);
     }
 
-    private void displayGAListByTypeArea(GeographicAreaService gaFinalList, TypeAreaDTO typeArea) {
+    private void displayGAListByTypeArea(GeographicAreaService geoAreaService, List<GeographicArea> gaFinalList, TypeAreaDTO typeArea) {
         String taName = gaController.getTypeAreaName(typeArea);
         System.out.println("Geographic Areas of the type " + taName + ":\n");
-        System.out.println(gaController.buildGAListString(gaFinalList));
+        System.out.println(gaController.buildGAListString(geoAreaService, gaFinalList));
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
@@ -262,14 +262,16 @@ class GASettingsUI {
         displayStateUS07(motherGA, daughterGA);
     }
 
-    private GeographicArea getInputMotherGeographicArea(GeographicAreaService programGAList) {
+    private GeographicArea getInputMotherGeographicArea(GeographicAreaService geographicAreaService) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First you need to select the geographic area you wish to set as container.");
-        return InputHelperUI.getGeographicAreaByList(programGAList);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
     }
 
-    private GeographicArea getInputDaughterGeographicArea(GeographicAreaService programGAList) {
+    private GeographicArea getInputDaughterGeographicArea(GeographicAreaService geographicAreaService) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("Second you need to select the geographic area you wish to set as contained.");
-        return InputHelperUI.getGeographicAreaByList(programGAList);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
     }
 
     private void updateStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {
@@ -300,8 +302,9 @@ class GASettingsUI {
      * this method makes the user define the NAME of the GeographicArea CONTAINER
      */
     private GeographicArea getMotherArea(GeographicAreaService geographicAreaService) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
-        return InputHelperUI.getGeographicAreaByList(geographicAreaService);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
     }
 
     /**
@@ -309,8 +312,9 @@ class GASettingsUI {
      * this method makes the user define the NAME of the GeographicArea CONTAINED
      */
     private GeographicArea getDaughterArea(GeographicAreaService geographicAreaService) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
-        return InputHelperUI.getGeographicAreaByList(geographicAreaService);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
     }
 
     /**

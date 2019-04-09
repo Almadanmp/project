@@ -65,6 +65,5 @@ public class HouseService {
         roomRepository.save(room);
         return true;
     }
-
 }
 

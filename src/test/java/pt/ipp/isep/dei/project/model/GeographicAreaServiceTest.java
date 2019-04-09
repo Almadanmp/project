@@ -88,23 +88,6 @@ class GeographicAreaServiceTest {
 
 
     @Test
-    void seeIfGetGeoAreaByTypeWorks() {
-        // Arrange
-
-        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
-        expectedResult.addGeographicArea(firstValidArea);
-
-        // Act
-
-        GeographicAreaService actualResult = validService.getGeoAreasByType("Country");
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-
-    @Test
     void seeIfEqualsWorksFalse() {
         // Arrange
 
@@ -138,12 +121,12 @@ class GeographicAreaServiceTest {
     @Test
     void seeIfPrintsGeoAList() {
         // Arrange
-
+        List<GeographicArea> geographicAreas = new ArrayList<>();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String result = validService.buildStringRepository();
+        String result = validService.buildStringRepository(geographicAreas);
 
         // Assert
 
@@ -154,12 +137,12 @@ class GeographicAreaServiceTest {
     void seeIfPrintsGeoAListIfEmpty() {
         // Arrange
 
-        GeographicAreaService testList = new GeographicAreaService(geographicAreaRepository);
+        List<GeographicArea> geoAreas = new ArrayList<>();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String actualResult = testList.buildStringRepository();
+        String actualResult = validService.buildStringRepository(geoAreas);
 
         // Assert
 
@@ -290,21 +273,14 @@ class GeographicAreaServiceTest {
 
     @Test
     void seeIfGetsGeoAreasByType() {
-        // Arrange
-
-        validService.addGeographicArea(firstValidArea);
-
-        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
-        expectedResult.addGeographicArea(firstValidArea);
-
 
         // Act
 
-        GeographicAreaService actualResult = validService.getGeoAreasByType("Country");
+        List<GeographicArea> actualResult = validService.getGeoAreasByType(validList, "Country");
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(actualResult.size(), 1);
     }
 
     @Test

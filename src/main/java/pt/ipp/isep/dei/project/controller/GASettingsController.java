@@ -12,6 +12,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
+import java.util.List;
+
 /**
  * Controller class for Geographical Area Settings UI
  */
@@ -29,8 +31,8 @@ public class GASettingsController {
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGAListString(GeographicAreaService geoAreaService) {
-        return geoAreaService.buildStringRepository();
+    public String buildGAListString(GeographicAreaService geoAreaService, List<GeographicArea> geoAreas) {
+        return geoAreaService.buildStringRepository(geoAreas);
     }
 
     /**
@@ -82,9 +84,9 @@ public class GASettingsController {
         if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 LocalMapper.dtoToObject(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
-            return newGeoList.addGeographicArea(geoToAdd);
+            return newGeoList.addAndPersistGA(geoToAdd);
         } else {
-            return newGeoList.addGeographicArea(geoToAdd);
+            return newGeoList.addAndPersistGA(geoToAdd);
         }
     }
 
@@ -124,9 +126,10 @@ public class GASettingsController {
      * @param typeArea              is the type that we want to look for.
      * @return is a list of all the objects in the original list with a type that matches the given type.
      */
-    public GeographicAreaService matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+    public List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         String typeAreaName = typeArea.getName();
-        return geographicAreaService.getGeoAreasByType(typeAreaName);
+        return geographicAreaService.getGeoAreasByType(geographicAreas, typeAreaName);
     }
 
     /**
@@ -199,7 +202,8 @@ public class GASettingsController {
     /* USER STORY 11 */
 
     public GeographicAreaDTO inputArea(GeographicAreaService geographicAreaService) {
-        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService);
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
         return GeographicAreaMapper.objectToDTO(geographicArea);
     }
 
