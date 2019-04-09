@@ -114,7 +114,7 @@ class EnergyConsumptionUI {
             return;
         }
         EnergyGrid grid = InputHelperUI.getInputGridByList(house);
-        RoomList selectedRooms = new RoomList();
+        RoomService selectedRooms = new RoomService();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
             printSelection(selectedDevices, selectedRooms);
@@ -144,7 +144,7 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void allRoomDevicesSelection(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+    private void allRoomDevicesSelection(EnergyGrid grid, RoomService selectedRooms, DeviceList selectedDevices) {
         boolean active = true;
         while (active) {
             printSelection(selectedDevices, selectedRooms);
@@ -153,7 +153,7 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void devicesSelection(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+    private void devicesSelection(EnergyGrid grid, RoomService selectedRooms, DeviceList selectedDevices) {
         boolean active = true;
         while (active) {
             printSelection(selectedDevices, selectedRooms);
@@ -169,7 +169,7 @@ class EnergyConsumptionUI {
      * @param selectedRooms   the list of currently selected rooms.
      */
 
-    private void printSelection(DeviceList selectedDevices, RoomList selectedRooms) {
+    private void printSelection(DeviceList selectedDevices, RoomService selectedRooms) {
         if (selectedDevices.isEmpty() && selectedRooms.isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
@@ -185,7 +185,7 @@ class EnergyConsumptionUI {
      * @param selectedDevices is the devices already selected, including devices contained in the rooms already selected.
      */
 
-    private void selectRooms(EnergyGrid grid, RoomList selectedRooms, DeviceList selectedDevices) {
+    private void selectRooms(EnergyGrid grid, RoomService selectedRooms, DeviceList selectedDevices) {
         Room r1 = InputHelperUI.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to removeGeographicArea it from the list? (Y/N)\n";

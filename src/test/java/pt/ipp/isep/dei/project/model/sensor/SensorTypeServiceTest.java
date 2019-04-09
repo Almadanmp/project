@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.ArrayList;
@@ -190,7 +190,7 @@ class SensorTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validList.equals(new RoomList()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validList.equals(new RoomService()); // Needed for sonarqube testing purposes.
 
         // Assert
 

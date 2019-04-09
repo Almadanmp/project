@@ -184,7 +184,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksDifferentObject() {
         // Arrange
 
-        RoomList testList = new RoomList();
+        RoomService testList = new RoomService();
 
         // Act
 

@@ -20,13 +20,13 @@ class EnergyGridMapperTest {
     @BeforeEach
     void arrangeArtifacts() {
         validGrid = new EnergyGrid("GridOne", 21,"34576");
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
         Room roomOne = new Room("Kitchen","Equipped Kitchen", 1, 20, 30, 10);
-        roomList.add(roomOne);
+        roomService.add(roomOne);
         PowerSourceList powerSourceList = new PowerSourceList();
         PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
         powerSourceList.add(powerSourceOne);
-        validGrid.setRoomList(roomList);
+        validGrid.setRoomService(roomService);
         validGrid.setPowerSourceList(powerSourceList);
     }
 

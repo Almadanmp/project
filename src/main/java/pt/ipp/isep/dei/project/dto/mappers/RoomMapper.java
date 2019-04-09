@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
@@ -179,7 +179,7 @@ public final class RoomMapper {
      */
     public static Room updateHouseRoom(RoomDTO roomDTO, House house) {
         Room room = null;
-        RoomList roomlist = house.getRoomList();
+        RoomService roomlist = house.getRoomService();
         for (Room r : roomlist.getRooms()) {
             if (roomDTO.getName().compareTo(r.getName()) == 0) {
                 r = RoomMapper.dtoToObject(roomDTO);

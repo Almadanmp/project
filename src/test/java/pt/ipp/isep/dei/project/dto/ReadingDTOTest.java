@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -106,6 +106,6 @@ class ReadingDTOTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance(){
-        assertNotEquals(validDTO, new RoomList());
+        assertNotEquals(validDTO, new RoomService());
     }
 }

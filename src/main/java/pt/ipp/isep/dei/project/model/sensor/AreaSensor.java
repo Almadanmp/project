@@ -55,8 +55,8 @@ public class AreaSensor {
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
     public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning,
-                      Long geographicAreaId) {
-        setId(id);
+                Long geographicAreaId) {
+            setId(id);
         setName(name);
         this.sensorType = sensorType;
         this.local = local;

@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
@@ -118,7 +118,7 @@ public class HouseConfigurationController {
     public int readSensors(String filepath, House programHouse) {
         JSONSensorsReader reader = new JSONSensorsReader();
         int addedSensors = 0;
-        RoomList houseRooms = programHouse.getRoomList();
+        RoomService houseRooms = programHouse.getRoomService();
         if (houseRooms.isEmpty()) {
             return addedSensors;
         }

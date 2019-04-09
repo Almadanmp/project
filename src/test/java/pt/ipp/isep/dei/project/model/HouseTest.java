@@ -632,15 +632,15 @@ class HouseTest {
         // Arrange
 
         Room testRoom = new Room("Office", "1st Floor Office", 1, 20, 15, 10);
-        RoomList roomList = new RoomList();
-        roomList.add(testRoom);
-        RoomList expectedResult = new RoomList();
+        RoomService roomService = new RoomService();
+        roomService.add(testRoom);
+        RoomService expectedResult = new RoomService();
         expectedResult.add(testRoom);
-        validHouse.setRoomList(roomList);
+        validHouse.setRoomService(roomService);
 
         // Act
 
-        RoomList actualResult = validHouse.getRoomList();
+        RoomService actualResult = validHouse.getRoomService();
 
 
         // Assert
@@ -652,12 +652,12 @@ class HouseTest {
     void seeIfGetRoomListWorksNull() {
         // Arrange
 
-        RoomList expectedResult = new RoomList();
-        validHouse.setRoomList(null);
+        RoomService expectedResult = new RoomService();
+        validHouse.setRoomService(null);
 
         // Act
 
-        RoomList actualResult = validHouse.getRoomList();
+        RoomService actualResult = validHouse.getRoomService();
 
 
         // Assert
@@ -669,13 +669,13 @@ class HouseTest {
     void seeIfGetRoomListWorksEmpty() {
         // Arrange
 
-        RoomList roomList = new RoomList();
-        RoomList expectedResult = new RoomList();
-        validHouse.setRoomList(roomList);
+        RoomService roomService = new RoomService();
+        RoomService expectedResult = new RoomService();
+        validHouse.setRoomService(roomService);
 
         // Act
 
-        RoomList actualResult = validHouse.getRoomList();
+        RoomService actualResult = validHouse.getRoomService();
 
 
         // Assert
@@ -687,12 +687,12 @@ class HouseTest {
     void seeIfSetRoomListWorksNull() {
         // Arrange
 
-        RoomList expectedResult = new RoomList();
-        validHouse.setRoomList(null);
+        RoomService expectedResult = new RoomService();
+        validHouse.setRoomService(null);
 
         // Act
 
-        RoomList actualResult = validHouse.getRoomList();
+        RoomService actualResult = validHouse.getRoomService();
 
 
         // Assert

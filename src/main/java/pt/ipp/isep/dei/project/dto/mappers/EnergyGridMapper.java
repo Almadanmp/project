@@ -36,10 +36,10 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()){
             Room tempRoom = RoomMapper.dtoToObject(y);
-            objectRoomList.add(tempRoom);
+            objectRoomService.add(tempRoom);
         }
 
         // Update the PowerSourceList
@@ -57,7 +57,7 @@ public final class EnergyGridMapper {
         // Create, update and return the new model object.
 
         EnergyGrid resultObject = new EnergyGrid(objectName, objectMaxContractedPower, objectHouseID);
-        resultObject.setRoomList(objectRoomList);
+        resultObject.setRoomService(objectRoomService);
         resultObject.setPowerSourceList(objectPowerSourceList);
 
         return resultObject;
@@ -70,10 +70,10 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()){
             Room tempRoom = RoomMapper.dtoToObjectUS100(y);
-            objectRoomList.add(tempRoom);
+            objectRoomService.add(tempRoom);
         }
 
         // Update the PowerSourceList
@@ -87,7 +87,7 @@ public final class EnergyGridMapper {
 
         EnergyGrid resultObject = new EnergyGrid();
         resultObject.setName(objectName);
-        resultObject.setRoomList(objectRoomList);
+        resultObject.setRoomService(objectRoomService);
         resultObject.setPowerSourceList(objectPowerSourceList);
 
         return resultObject;
@@ -115,7 +115,7 @@ public final class EnergyGridMapper {
         // Update the RoomList
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (Room y : objectToConvert.getRoomList().getRooms()){
+        for (Room y : objectToConvert.getRoomService().getRooms()){
             RoomDTO tempRoomDTO = RoomMapper.objectToDTO(y);
             if (!(dtoRoomList.contains(tempRoomDTO))){
                 dtoRoomList.add(tempRoomDTO);

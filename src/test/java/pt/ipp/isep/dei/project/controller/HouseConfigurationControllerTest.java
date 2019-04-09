@@ -58,10 +58,10 @@ class HouseConfigurationControllerTest {
 
         Room roomOne = new Room("Kitchen","Equipped Kitchen" ,1, 15, 20, 10);
         Room roomTwo = new Room("LivingRoom","1st Floor Living Room", 1, 40, 40, 10);
-        RoomList roomList = new RoomList();
-        roomList.add(roomOne);
-        roomList.add(roomTwo);
-        validHouse.setRoomList(roomList);
+        RoomService roomService = new RoomService();
+        roomService.add(roomOne);
+        roomService.add(roomTwo);
+        validHouse.setRoomService(roomService);
         String expectedResult = "---------------\n" +
                 "0) Designation: Kitchen | Description: Equipped Kitchen | House Floor: 1 | Width: 15.0 | Length: 20.0 | Height: 10.0\n" +
                 "1) Designation: LivingRoom | Description: 1st Floor Living Room | House Floor: 1 | Width: 40.0 | Length: 40.0 | Height: 10.0\n" +

@@ -146,10 +146,10 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomToListWorks() {
 
         //Arrange
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
 
         //Act
-        boolean actualResult = controller.addRoomToList(validRoom1, roomList);
+        boolean actualResult = controller.addRoomToList(validRoom1, roomService);
 
         //Assert
         assertTrue(actualResult);
@@ -160,11 +160,11 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomFromListWorks() {
 
         //Arrange
-        RoomList roomList = new RoomList();
-        roomList.add(validRoom1);
+        RoomService roomService = new RoomService();
+        roomService.add(validRoom1);
 
         //Act
-        boolean actualResult = controller.removeRoomFromList(validRoom1, roomList);
+        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
 
         //Assert
         assertTrue(actualResult);
@@ -176,11 +176,11 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
         EnergyConsumptionController controller = new EnergyConsumptionController();
 
         //Act
-        boolean actualResult = controller.removeRoomFromList(validRoom1, roomList);
+        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
 
         //Assert
         assertFalse(actualResult);
@@ -192,11 +192,11 @@ class EnergyConsumptionControllerTest {
 
         //Arrange
 
-        RoomList roomList = new RoomList();
-        roomList.add(validRoom1);
+        RoomService roomService = new RoomService();
+        roomService.add(validRoom1);
 
         //Act
-        boolean actualResult = controller.addRoomToList(validRoom1, roomList);
+        boolean actualResult = controller.addRoomToList(validRoom1, roomService);
 
         //Assert
         assertFalse(actualResult);
@@ -472,10 +472,10 @@ class EnergyConsumptionControllerTest {
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
-        RoomList roomList = new RoomList();
-        validGrid.setRoomList(roomList);
-        roomList.add(validRoom2);
-        roomList.add(validRoom1);
+        RoomService roomService = new RoomService();
+        validGrid.setRoomService(roomService);
+        roomService.add(validRoom2);
+        roomService.add(validRoom1);
         house.addRoom(validRoom1);
         house.addRoom(validRoom2);
         double expectedResult = 86;
@@ -501,8 +501,8 @@ class EnergyConsumptionControllerTest {
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
 
-        RoomList roomList = new RoomList();
-        validGrid.setRoomList(roomList);
+        RoomService roomService = new RoomService();
+        validGrid.setRoomService(roomService);
         house.addRoom(validRoom2);
         double expectedResult = 0;
 

@@ -36,7 +36,8 @@ public class Room implements Metered {
     @Transient
     private DeviceList deviceList;
 
-    private String houseID;
+    private long houseID;
+
     private long energyGridId;
 
     /**

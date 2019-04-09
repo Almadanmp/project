@@ -41,7 +41,7 @@ public class EnergyConsumptionController {
      * @return true if the room was added, false if it was already in the list.
      */
 
-    public boolean addRoomToList(Room room, RoomList list) {
+    public boolean addRoomToList(Room room, RoomService list) {
         return list.add(room);
     }
 
@@ -84,12 +84,12 @@ public class EnergyConsumptionController {
      * Calls for the roomList's method in the model to removeGeographicArea a given room from itself.
      *
      * @param room     is the room we want to removeGeographicArea.
-     * @param roomList is the list we want to removeGeographicArea it from.
+     * @param roomService is the list we want to removeGeographicArea it from.
      * @return true if the room was removed, false if it wasn't on the list.
      */
 
-    public boolean removeRoomFromList(Room room, RoomList roomList) {
-        return roomList.removeRoom(room);
+    public boolean removeRoomFromList(Room room, RoomService roomService) {
+        return roomService.removeRoom(room);
     }
 
     /**

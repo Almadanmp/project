@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -493,7 +493,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        assertNotEquals(validHeater, new RoomList());
+        assertNotEquals(validHeater, new RoomService());
     }
 
     @Test

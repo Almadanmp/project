@@ -80,7 +80,7 @@ class AreaTypeTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validType.equals(new RoomList()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validType.equals(new RoomService()); // Needed for sonarqube testing purposes.
 
         // Assert
 

@@ -76,7 +76,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.getRoomList().buildString();
+        String actualResult = validGrid.getRoomService().buildString();
 
         // Assert
 
@@ -485,12 +485,12 @@ class EnergyGridTest {
     @Test
     void setRoomList() {
         // Arrange
-        RoomList expectedResult1 = new RoomList();
-        RoomList expectedResult2 = new RoomList();
-        RoomList emptyList = new RoomList();
-        RoomList oneRoomList = new RoomList();
+        RoomService expectedResult1 = new RoomService();
+        RoomService expectedResult2 = new RoomService();
+        RoomService emptyList = new RoomService();
+        RoomService oneRoomService = new RoomService();
 
-        oneRoomList.add(validRoom);
+        oneRoomService.add(validRoom);
         expectedResult2.add(validRoom);
 
         EnergyGrid gridNoRooms1 = new EnergyGrid("noRooms1", 200,"34576");
@@ -499,15 +499,15 @@ class EnergyGridTest {
 
         // Act
 
-        gridNoRooms1.setRoomList(emptyList);
-        gridNoRooms2.setRoomList(null);
-        gridNoRooms3.setRoomList(oneRoomList);
+        gridNoRooms1.setRoomService(emptyList);
+        gridNoRooms2.setRoomService(null);
+        gridNoRooms3.setRoomService(oneRoomService);
 
         // Assert
 
-        assertEquals(expectedResult1, gridNoRooms1.getRoomList());
-        assertEquals(expectedResult1, gridNoRooms2.getRoomList());
-        assertEquals(expectedResult2, gridNoRooms3.getRoomList());
+        assertEquals(expectedResult1, gridNoRooms1.getRoomService());
+        assertEquals(expectedResult1, gridNoRooms2.getRoomService());
+        assertEquals(expectedResult2, gridNoRooms3.getRoomService());
     }
     @Test
     void getByIndexWithEmptyDeviceList() {

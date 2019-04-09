@@ -37,10 +37,10 @@ public class HouseMapper {
             objectGridList.addGrid(grid);
         }
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomList()) {
             Room room = RoomMapper.dtoToObject(y);
-            objectRoomList.add(room);
+            objectRoomService.add(room);
         }
 
         GeographicArea objectGeoArea = GeographicAreaMapper.dtoToObject(dtoToConvert.getMotherArea());
@@ -72,10 +72,10 @@ public class HouseMapper {
             objectGridList.addGrid(grid);
         }
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomList()) {
             Room room = RoomMapper.dtoToObjectUS100(y);
-            objectRoomList.add(room);
+            objectRoomService.add(room);
         }
 
         //empty list
@@ -86,7 +86,7 @@ public class HouseMapper {
         Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
 
         House resultObject = new House(objectAddress, objectDeviceTypeConfigList, objectLocal);
-        resultObject.setRoomList(objectRoomList);
+        resultObject.setRoomService(objectRoomService);
         resultObject.setGridList(objectGridList);
 
         return resultObject;
@@ -113,8 +113,8 @@ public class HouseMapper {
         }
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (int y = 0; y < objectToConvert.getRoomList().size(); y++) {
-            Room room = objectToConvert.getRoomList().get(y);
+        for (int y = 0; y < objectToConvert.getRoomService().size(); y++) {
+            Room room = objectToConvert.getRoomService().get(y);
             dtoRoomList.add(RoomMapper.objectToDTO(room));
         }
 

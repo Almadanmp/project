@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -95,6 +95,6 @@ class PowerSourceDTOTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance(){
-        assertNotEquals(validDTO, new RoomList());
+        assertNotEquals(validDTO, new RoomService());
     }
 }

@@ -10,29 +10,29 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
  * RoomList tests class.
  */
 
-class RoomListTest {
+class RoomServiceTest {
 
-    private RoomList validRoomList;
-    private RoomList emptyRoomList;
+    private RoomService validRoomService;
+    private RoomService emptyRoomService;
     private Room validRoomKitchen;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoomList = new RoomList();
-        emptyRoomList = new RoomList();
+        validRoomService = new RoomService();
+        emptyRoomService = new RoomService();
         validRoomKitchen = new Room("Kitchen","1st Floor Kitchen", 1, 4, 5, 3);
-        validRoomList.add(validRoomKitchen);
+        validRoomService.add(validRoomKitchen);
     }
 
     @Test
     void seeIfAddRoomFailsDuplicateRoom() {
         // Arrange
 
-        validRoomList.add(validRoomKitchen);
+        validRoomService.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.add(validRoomKitchen);
+        boolean actualResult = validRoomService.add(validRoomKitchen);
 
         // Assert
 
@@ -43,7 +43,7 @@ class RoomListTest {
     void seeIfAddRoomWorks() {
         // Act
 
-        boolean actualResult = emptyRoomList.add(validRoomKitchen);
+        boolean actualResult = emptyRoomService.add(validRoomKitchen);
 
         // Assert
 
@@ -54,7 +54,7 @@ class RoomListTest {
     void seeIfBuildRoomListStringWorksEmptyList() {
         // Act
 
-        String result = emptyRoomList.buildString();
+        String result = emptyRoomService.buildString();
 
         // Assert
 
@@ -66,11 +66,11 @@ class RoomListTest {
     void seeIfEqualsWorksSameContent() {
         // Arrange
 
-        emptyRoomList.add(validRoomKitchen);
+        emptyRoomService.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(emptyRoomList);
+        boolean actualResult = validRoomService.equals(emptyRoomService);
 
         // Assert
 
@@ -81,11 +81,11 @@ class RoomListTest {
     void seeIfEqualsWorksSameObject() {
         // Arrange
 
-        validRoomList.add(validRoomKitchen);
+        validRoomService.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(validRoomList); // Needed for Sonarqube testing purposes.
+        boolean actualResult = validRoomService.equals(validRoomService); // Needed for Sonarqube testing purposes.
 
         // Assert
 
@@ -97,12 +97,12 @@ class RoomListTest {
         // Arrange
 
         Room testRoom = new Room("Balcony","4th Floor Balcony", 4, 2, 4, 3);
-        validRoomList.add(testRoom);
-        emptyRoomList.add(validRoomKitchen);
+        validRoomService.add(testRoom);
+        emptyRoomService.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(emptyRoomList);
+        boolean actualResult = validRoomService.equals(emptyRoomService);
 
         // Assert
 
@@ -114,11 +114,11 @@ class RoomListTest {
         // Arrange
 
         Room room2 = new Room("Balcony","3rd Floor Balcony", 3, 2, 4, 3);
-        validRoomList.add(validRoomKitchen);
+        validRoomService.add(validRoomKitchen);
 
         // Act
 
-        boolean actualResult = validRoomList.equals(room2); // Necessary for Sonarqube testing purposes.
+        boolean actualResult = validRoomService.equals(room2); // Necessary for Sonarqube testing purposes.
 
         //Assert
 
@@ -129,17 +129,17 @@ class RoomListTest {
     void seeIfIsEmptyWorks() {
         //Arrange
 
-        RoomList roomList3 = new RoomList(); //Has two rooms.
+        RoomService roomService3 = new RoomService(); //Has two rooms.
 
         Room room2 = new Room("Balcony","2nd Floor Balcony", 2, 21, 21, 4);
-        roomList3.add(validRoomKitchen);
-        roomList3.add(room2);
+        roomService3.add(validRoomKitchen);
+        roomService3.add(room2);
 
         // Act
 
-        boolean actualResult1 = validRoomList.isEmpty();
-        boolean actualResult2 = emptyRoomList.isEmpty();
-        boolean actualResult3 = roomList3.isEmpty();
+        boolean actualResult1 = validRoomService.isEmpty();
+        boolean actualResult2 = emptyRoomService.isEmpty();
+        boolean actualResult3 = roomService3.isEmpty();
 
         // Assert
 
@@ -152,12 +152,12 @@ class RoomListTest {
     void seeIfGetByIndexWorks() {
         //Arrange
         Room room = new Room("room","Double Bedroom", 2, 20, 20, 4);
-        validRoomList.add(room);
+        validRoomService.add(room);
 
         //Act
 
-        Room actualResult1 = validRoomList.get(0);
-        Room actualResult2 = validRoomList.get(1);
+        Room actualResult1 = validRoomService.get(0);
+        Room actualResult2 = validRoomService.get(1);
 
         //Assert
 
@@ -169,11 +169,11 @@ class RoomListTest {
     void getByIndexEmptyRoomList() {
         //Arrange
 
-        RoomList emptyRoomList = new RoomList();
+        RoomService emptyRoomService = new RoomService();
 
         //Act
 
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyRoomList.get(0));
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyRoomService.get(0));
 
         //Assert
 
@@ -184,11 +184,11 @@ class RoomListTest {
     void ListSize() {
         //Arrange
 
-        RoomList emptyRoomList = new RoomList();
+        RoomService emptyRoomService = new RoomService();
 
         //Act
 
-        int actualResult1 = emptyRoomList.size();
+        int actualResult1 = emptyRoomService.size();
 
         //Assert Empty List
 
@@ -196,7 +196,7 @@ class RoomListTest {
 
         //Act
 
-        int actualResult2 = validRoomList.size();
+        int actualResult2 = validRoomService.size();
 
         //Assert One Grid
 
@@ -211,9 +211,9 @@ class RoomListTest {
         Room[] expectedResult2 = new Room[1];
         Room[] expectedResult3 = new Room[2];
 
-        RoomList validRoomList2 = new RoomList();
-        validRoomList2.add(validRoomKitchen);
-        validRoomList2.add(new Room("room","Single Bedroom", 2, 20, 20, 3));
+        RoomService validRoomService2 = new RoomService();
+        validRoomService2.add(validRoomKitchen);
+        validRoomService2.add(new Room("room","Single Bedroom", 2, 20, 20, 3));
 
         expectedResult2[0] = validRoomKitchen;
         expectedResult3[0] = validRoomKitchen;
@@ -221,9 +221,9 @@ class RoomListTest {
 
         //Act
 
-        Room[] actualResult1 = emptyRoomList.getElementsAsArray();
-        Room[] actualResult2 = validRoomList.getElementsAsArray();
-        Room[] actualResult3 = validRoomList2.getElementsAsArray();
+        Room[] actualResult1 = emptyRoomService.getElementsAsArray();
+        Room[] actualResult2 = validRoomService.getElementsAsArray();
+        Room[] actualResult3 = validRoomService2.getElementsAsArray();
 
         //Assert
 
@@ -241,7 +241,7 @@ class RoomListTest {
 
         //Act
 
-        Room roomActual1 = validRoomList.createRoom("kitchen", "Ground Floor Kitchen",0, 15, 10, 2);
+        Room roomActual1 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen",0, 15, 10, 2);
 
         //Assert
 
@@ -249,11 +249,11 @@ class RoomListTest {
 
         //Arrange to check if room is created when it already exists in list
 
-        validRoomList.add(room);
+        validRoomService.add(room);
 
         //Act
 
-        Room roomActual2 = validRoomList.createRoom("kitchen","Ground Floor Kitchen", 0, 15, 10, 2);
+        Room roomActual2 = validRoomService.createRoom("kitchen","Ground Floor Kitchen", 0, 15, 10, 2);
 
         //Assert
         assertEquals(roomExpected, roomActual2);
@@ -270,7 +270,7 @@ class RoomListTest {
 
         // Act
 
-        int actualResult = validRoomList.hashCode();
+        int actualResult = validRoomService.hashCode();
 
         // Assert
 

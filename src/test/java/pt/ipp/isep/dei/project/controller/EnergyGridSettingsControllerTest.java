@@ -47,17 +47,17 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
-        roomList.add(room);
-        validHouse.setRoomList(roomList);
+        roomService.add(room);
+        validHouse.setRoomService(roomService);
         String expectedResult = "---------------\n" +
                 "0) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
 
         // Act
 
-        String actualResult = controller.buildRoomsString(roomList);
+        String actualResult = controller.buildRoomsString(roomService);
 
         // Assert
 
@@ -143,8 +143,8 @@ class EnergyGridSettingsControllerTest {
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
         EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
-        RoomList rl = new RoomList();
-        validGrid.setRoomList(rl);
+        RoomService rl = new RoomService();
+        validGrid.setRoomService(rl);
         RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 
         // Act
@@ -162,11 +162,11 @@ class EnergyGridSettingsControllerTest {
 
         EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
-        roomList.add(room);
-        validGrid.setRoomList(roomList);
-        validHouse.setRoomList(roomList);
+        roomService.add(room);
+        validGrid.setRoomService(roomService);
+        validHouse.setRoomService(roomService);
         RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 
         // Act
@@ -286,10 +286,10 @@ class EnergyGridSettingsControllerTest {
         house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333,"34576");
-        RoomList rl = new RoomList();
+        RoomService rl = new RoomService();
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);
-        eg.setRoomList(rl);
+        eg.setRoomService(rl);
         rl.add(room1EdC);
         //Act
         String expectedResult = "---------------\n" +

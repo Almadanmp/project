@@ -31,7 +31,7 @@ public class House implements Metered {
     private EnergyGridService energyGridService;
 
     @Transient
-    private RoomList roomList;
+    private RoomService roomService;
 
     @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
@@ -59,7 +59,7 @@ public class House implements Metered {
         this.name = name;
         this.address = address;
         this.location = mLocation;
-        this.roomList = new RoomList();
+        this.roomService = new RoomService();
         this.energyGridService = new EnergyGridService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
@@ -69,7 +69,7 @@ public class House implements Metered {
     public House(Address address, List<String> deviceTypeConfig, Local local) {
         this.address = address;
         this.location = local;
-        this.roomList = new RoomList();
+        this.roomService = new RoomService();
         this.energyGridService = new EnergyGridService();
         buildDeviceTypeList(deviceTypeConfig);
     }
@@ -112,7 +112,7 @@ public class House implements Metered {
      * @return the string with the nominal power of all the devices active in the House.
      */
     public double getNominalPower() {
-        return this.roomList.getNominalPower();
+        return this.roomService.getNominalPower();
     }
 
     /**
@@ -195,11 +195,11 @@ public class House implements Metered {
     /**
      * Standard setter method, to define the list of rooms to be added to the House.
      *
-     * @param roomList is the room list to be set.
+     * @param roomService is the room list to be set.
      */
-    public void setRoomList(RoomList roomList) {
-        if (roomList != null) {
-            this.roomList = roomList;
+    public void setRoomService(RoomService roomService) {
+        if (roomService != null) {
+            this.roomService = roomService;
         }
     }
 
@@ -235,8 +235,8 @@ public class House implements Metered {
      *
      * @return the RoomList associated to the House.
      */
-    public RoomList getRoomList() {
-        return this.roomList;
+    public RoomService getRoomService() {
+        return this.roomService;
     }
 
     /**
@@ -272,7 +272,7 @@ public class House implements Metered {
      * @param room the Room to be added to the House.
      */
     public boolean addRoom(Room room) {
-        return this.roomList.add(room);
+        return this.roomService.add(room);
     }
 
     /**
@@ -371,7 +371,7 @@ public class House implements Metered {
      * @return builds a string from the House's room list.
      */
     public String buildRoomListString() {
-        return this.roomList.buildString();
+        return this.roomService.buildString();
     }
 
 
@@ -413,7 +413,7 @@ public class House implements Metered {
      * @return the sum of all estimate daily consumptions for devices of that type.
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
-        return roomList.getDailyConsumptionByDeviceType(deviceType, time);
+        return roomService.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
     public boolean addGrid(EnergyGrid energyGrid) {
@@ -448,7 +448,7 @@ public class House implements Metered {
      * @return room with characteristics given as parameters
      **/
     public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height) {
-        return this.roomList.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height);
+        return this.roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height);
     }
 
     /**
@@ -457,7 +457,7 @@ public class House implements Metered {
      * @return true if house's RoomList is empty, false otherwise
      **/
     public boolean isRoomListEmpty() {
-        return this.roomList.isEmpty();
+        return this.roomService.isEmpty();
     }
 
 
@@ -485,7 +485,7 @@ public class House implements Metered {
      * @return returns the house's room list size as int.
      */
     public int roomListSize() {
-        return this.roomList.size();
+        return this.roomService.size();
     }
 
     /**
@@ -495,10 +495,10 @@ public class House implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoomByIndex(int index) {
-        if (this.roomList.isEmpty()) {
+        if (this.roomService.isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
-        return this.roomList.get(index);
+        return this.roomService.get(index);
     }
 
 
@@ -531,7 +531,7 @@ public class House implements Metered {
      * @return DeviceList with every device in house.
      **/
     public DeviceList getDeviceList() {
-        return this.roomList.getDeviceList();
+        return this.roomService.getDeviceList();
     }
 
     /**

@@ -3,8 +3,7 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.RoomList;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -408,7 +407,7 @@ class FixedTimeProgramTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        assertNotEquals(validFixedTimeProgram, new RoomList());
+        assertNotEquals(validFixedTimeProgram, new RoomService());
     }
 
     @Test
