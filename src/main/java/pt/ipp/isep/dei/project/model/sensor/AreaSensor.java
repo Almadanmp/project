@@ -42,6 +42,8 @@ public class AreaSensor {
      * Empty constructor to import Sensors from a XML file.
      */
     public AreaSensor() {
+        readingList = new ReadingList();
+        this.active = true;
     }
 
     /**
@@ -192,26 +194,6 @@ public class AreaSensor {
     public boolean addReading(Reading reading) {
         if (this.active) {
             return readingList.addReading(reading);
-        }
-        return false;
-    }
-
-    /**
-     * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
-     * to the date when the sensor was activated.
-     *
-     * @param value is the value read on the reading.
-     * @param date  is the read date of the reading.
-     * @return returns true if the reading was successfully added.
-     * @author André
-     */
-    public boolean addReading(Date date, Double value, String unit, String sensorId) {
-        if (this.active) {
-            Date startingDate = this.getDateStartedFunctioning();
-            if (date.after(startingDate) || date.equals(startingDate)) {
-                Reading areaReading = new Reading(value, date, unit, sensorId);
-                return this.addReading(areaReading);
-            }
         }
         return false;
     }

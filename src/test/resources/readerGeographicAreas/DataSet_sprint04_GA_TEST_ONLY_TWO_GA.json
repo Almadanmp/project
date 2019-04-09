@@ -11,6 +11,18 @@
           "longitude": -8.608035,
           "altitude": 111
         }
+      },
+      {
+        "id": "Porto",
+        "description": "City of Porto",
+        "type": "city",
+        "width": 10.09,
+        "length": 3.30,
+        "location": {
+          "latitude": 41.149935,
+          "longitude": -8.610857,
+          "altitude": 118
+        }
       }
     ]
 }

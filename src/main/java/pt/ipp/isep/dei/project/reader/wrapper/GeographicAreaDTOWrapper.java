@@ -35,8 +35,11 @@ public class GeographicAreaDTOWrapper {
     @JsonProperty("altitude")
     private double altitude;
 
-   // @JsonProperty("area_sensor")
-    private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
+    @JsonProperty("location")
+    private LocalDTO localDTO = new LocalDTO(latitude, longitude, altitude);
+
+    @JsonProperty("area_sensor")
+    private List<AreaSensorDTOWrapper> areaSensorDTOList = new ArrayList<>();
 
 
     public void setName(String name) {
@@ -72,10 +75,10 @@ public class GeographicAreaDTOWrapper {
     }
 
     public List<AreaSensorDTO> getAreaSensorDTOList() {
-        return areaSensorDTOList;
+        return areaSensorDTOWrapperConversion(areaSensorDTOList);
     }
 
-    public void setAreaSensorDTOList(List<AreaSensorDTO> listToStore) {
+    public void setAreaSensorDTOList(List<AreaSensorDTOWrapper> listToStore) {
         this.areaSensorDTOList = listToStore;
     }
 
@@ -87,18 +90,12 @@ public class GeographicAreaDTOWrapper {
         this.description = description;
     }
 
-    public void setLocalDTO(double latitude, double longitude, double altitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.altitude = altitude;
+    public void setLocalDTO(LocalDTO localDTO) {
+        this.localDTO = localDTO;
     }
 
-    public LocalDTO getLocalDTO(){
-        LocalDTO local = new LocalDTO();
-        local.setLongitude(this.longitude);
-        local.setLatitude(this.latitude);
-        local.setAltitude(this.altitude);
-        return local;
+    public LocalDTO getLocalDTO() {
+        return this.localDTO;
     }
 
     /**
@@ -112,7 +109,6 @@ public class GeographicAreaDTOWrapper {
         List<GeographicAreaDTO> finalList = new ArrayList<>();
         for (GeographicAreaDTOWrapper wrapper : geographicAreaDTOWrappers) {
             GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-            //       geographicAreaDTO.setId(wrapper.getId());
             geographicAreaDTO.setTypeArea(wrapper.getTypeArea());
             geographicAreaDTO.setLength(wrapper.getLength());
             geographicAreaDTO.setWidth(wrapper.getWidth());
@@ -120,8 +116,34 @@ public class GeographicAreaDTOWrapper {
             geographicAreaDTO.setName(wrapper.getName());
             geographicAreaDTO.setLocalDTO(wrapper.getLocalDTO());
             geographicAreaDTO.setAreaSensorDTOList(wrapper.getAreaSensorDTOList());
-            if(!finalList.contains(geographicAreaDTO)) {
+            if (!finalList.contains(geographicAreaDTO)) {
                 finalList.add(geographicAreaDTO);
+            }
+        }
+        return finalList;
+    }
+
+    /**
+     * This method receives a List of Geographic Area DTO Wrappers and returns a HashMap that contains Geographic Area DTO
+     * with its corresponding id.
+     *
+     * @param areaSensorDTOWrappers list of areas Dto wrappers
+     * @return hashmap containing Reading DTOs with its corresponding sensor ID
+     **/
+    private static List<AreaSensorDTO> areaSensorDTOWrapperConversion(List<AreaSensorDTOWrapper> areaSensorDTOWrappers) {
+        List<AreaSensorDTO> finalList = new ArrayList<>();
+        for (AreaSensorDTOWrapper wrapper : areaSensorDTOWrappers) {
+            AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+            areaSensorDTO.setId(wrapper.getId());
+            areaSensorDTO.setName(wrapper.getName());
+            areaSensorDTO.setActive(wrapper.getActive());
+            areaSensorDTO.setDateStartedFunctioning(wrapper.getDateStartedFunctioning());
+            areaSensorDTO.setTypeSensor(wrapper.getType());
+            areaSensorDTO.setUnits(wrapper.getUnits());
+            areaSensorDTO.setReadingList(wrapper.getReadingList());
+            areaSensorDTO.setLocalDTO(wrapper.getLocalDTO());
+            if (!finalList.contains(areaSensorDTO)) {
+                finalList.add(areaSensorDTO);
             }
         }
         return finalList;
@@ -139,7 +161,7 @@ public class GeographicAreaDTOWrapper {
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(new LocalDTO(this.latitude,this.longitude,this.altitude)) &&
+                && testDTOLocal.equals(new LocalDTO(this.latitude, this.longitude, this.altitude)) &&
                 localVariable.getAreaSensorDTOList().equals(this.areaSensorDTOList));
     }
 

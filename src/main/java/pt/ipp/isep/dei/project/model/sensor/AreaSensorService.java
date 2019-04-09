@@ -248,7 +248,7 @@ public class AreaSensorService {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
-            Reading reading = new Reading(readingValue, readingDate, unit, areaSensor.getId());
+            Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
             ReadingList sensorReadingList = areaSensor.getReadingList();
             if (sensorReadingList.contains(reading)) {
                 return false;
@@ -272,11 +272,10 @@ public class AreaSensorService {
      * @param unit         is the Unit of the reading we want to add.
      * @return true in case the reading was added false otherwise.
      */
-    public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, Unit unit, Logger logger) {
+    public boolean addAreaReadingToAreaSensor(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger) {
         try {
             AreaSensor areaSensor = getAreaSensorFromRepository(sensorID);
-            Reading reading = new Reading(readingValue, readingDate, "Should receive the variable unit", areaSensor.getId());  //TODO Change the Reading parameter unit from STRING to UNIT
-            if (addReadingToSensorInRepository(reading, areaSensor)) {
+            if (addReadingToSensorInRepository(readingDate, readingValue, unit, sensorID, areaSensor)) {
                 return true;
             }
             logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
@@ -311,8 +310,8 @@ public class AreaSensorService {
      *
      * @return true in case the reading is added to sensor, false otherwise.
      **/
-    private boolean addReadingToSensorInRepository(Reading reading, AreaSensor areaSensor) {
-        if (areaSensor.addReading(reading)) {
+    private boolean addReadingToSensorInRepository(Date readingDate, double readingValue, String unit, String sensorId, AreaSensor areaSensor) {
+        if (areaSensor.addReading(new Reading(readingValue, readingDate, unit, sensorId))) {
             areaSensorRepository.save(areaSensor);
             return true;
         }

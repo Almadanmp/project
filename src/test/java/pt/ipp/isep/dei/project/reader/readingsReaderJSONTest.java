@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.reader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
-import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,34 +46,34 @@ class readingsReaderJSONTest {
         ReadingDTOWithUnitAndSensorID readingDTO1 = new ReadingDTOWithUnitAndSensorID();
         readingDTO1.setDate(validDate1);
         readingDTO1.setValue(14D);
-        readingDTO1.setUnit(new Celsius());
+        readingDTO1.setUnit("C");
         readingDTO1.setSensorID("xxxx");
 
         ReadingDTOWithUnitAndSensorID readingDTO2 = new ReadingDTOWithUnitAndSensorID();
         readingDTO2.setDate(validDate2);
         readingDTO2.setValue(13.66D);
-        readingDTO2.setUnit(new Celsius());
+        readingDTO2.setUnit("C");
         String sensorID2 = "TT12346";
         readingDTO2.setSensorID(sensorID2);
 
         ReadingDTOWithUnitAndSensorID readingDTO3 = new ReadingDTOWithUnitAndSensorID();
         readingDTO3.setDate(validDate3);
         readingDTO3.setValue(16.27D);
-        readingDTO3.setUnit(new Celsius());
+        readingDTO3.setUnit("C");
         String sensorID3 = "TT1236A";
         readingDTO3.setSensorID(sensorID3);
 
         ReadingDTOWithUnitAndSensorID readingDTO4 = new ReadingDTOWithUnitAndSensorID();
         readingDTO4.setDate(validDate4);
         readingDTO4.setValue(15.41D);
-        readingDTO4.setUnit(new Celsius());
+        readingDTO4.setUnit("C");
         String sensorID4 = "RF12334";
         readingDTO4.setSensorID(sensorID4);
 
         ReadingDTOWithUnitAndSensorID readingDTO5 = new ReadingDTOWithUnitAndSensorID();
         readingDTO5.setDate(validDate5);
         readingDTO5.setValue(13.8D);
-        readingDTO5.setUnit(new Celsius());
+        readingDTO5.setUnit("C");
         String sensorID5 = "RF12345";
         readingDTO5.setSensorID(sensorID5);
 
@@ -126,7 +125,7 @@ class readingsReaderJSONTest {
         ReadingDTOWithUnitAndSensorID readingDTO1 = new ReadingDTOWithUnitAndSensorID();
         readingDTO1.setDate(validDate1);
         readingDTO1.setValue(14.0D);
-        readingDTO1.setUnit(new Celsius());
+        readingDTO1.setUnit("C");
         readingDTO1.setSensorID("TT12346");
         expectedResult.add(readingDTO1);
 
@@ -137,8 +136,6 @@ class readingsReaderJSONTest {
         //Assert
 
         assertEquals(expectedResult, actualResult);
-        assertEquals(expectedResult.get(0).getValue(), actualResult.get(0).getValue(), 0.01);
-        assertEquals(expectedResult.get(0).getUnit(), actualResult.get(0).getUnit());
     }
 
     @Test
