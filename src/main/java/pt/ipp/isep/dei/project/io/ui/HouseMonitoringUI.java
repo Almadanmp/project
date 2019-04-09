@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(House programHouse) {
+    void run(HouseService houseService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -31,35 +32,35 @@ public class HouseMonitoringUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS610(programHouse);
+                    runUS610(houseService);
                     activeInput = true;
                     break;
                 case 2:
-                    runUS605(programHouse);
+                    runUS605(houseService);
                     activeInput = true;
                     break;
                 case 3:
-                    runUS600(programHouse);
+                    runUS600(houseService);
                     activeInput = true;
                     break;
                 case 4:
-                    runUS620(programHouse);
+                    runUS620(houseService);
                     activeInput = true;
                     break;
                 case 5:
-                    runUS623(programHouse);
+                    runUS623(houseService);
                     activeInput = true;
                     break;
                 case 6:
-                    runUS630(programHouse);
+                    runUS630(houseService);
                     activeInput = true;
                     break;
                 case 7:
-                    runUS631(programHouse);
+                    runUS631(houseService);
                     activeInput = true;
                     break;
                 case 8:
-                    runUS633(programHouse);
+                    runUS633(houseService);
                     activeInput = true;
                     break;
                 case 0:
@@ -78,7 +79,8 @@ public class HouseMonitoringUI {
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
      */
-    private void runUS600(House house) {
+    private void runUS600(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
@@ -99,7 +101,8 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
-    private void runUS605(House house) {
+    private void runUS605(HouseService houseService) {
+        House house = houseService.getHouse();
         UtilsUI utilsUI = new UtilsUI();
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -129,7 +132,8 @@ public class HouseMonitoringUI {
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
      */
-    private void runUS610(House house) {
+    private void runUS610(HouseService houseService) {
+        House house = houseService.getHouse();
         UtilsUI utilsUI = new UtilsUI();
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -161,7 +165,8 @@ public class HouseMonitoringUI {
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
-    private void runUS620(House house) {
+    private void runUS620(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
@@ -190,7 +195,8 @@ public class HouseMonitoringUI {
      /* US623: As a Regular User, I want to get the average daily rainfall in the house area for a
       given period (days), as it is needed to assess the garden’s watering needs.*/
 
-    private void runUS623(House house) {
+    private void runUS623(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
@@ -240,7 +246,8 @@ public class HouseMonitoringUI {
      * in the house area in a given period.
      */
 
-    private void runUS630(House house) {
+    private void runUS630(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
@@ -269,7 +276,8 @@ public class HouseMonitoringUI {
      * in the house area in a given period.
      */
 
-    private void runUS631(House house) {
+    private void runUS631(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
@@ -293,7 +301,8 @@ public class HouseMonitoringUI {
 
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
     given period. */
-    private void runUS633(House house) {
+    private void runUS633(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }

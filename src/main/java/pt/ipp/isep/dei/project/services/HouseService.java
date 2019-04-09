@@ -9,6 +9,8 @@ import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -23,10 +25,11 @@ public class HouseService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public HouseService(HouseRepository houseRepository) {
+    public HouseService(HouseRepository houseRepository, RoomRepository roomRepository, EnergyGridRepository energyGridRepository) {
         this.houseRepository = houseRepository;
+        this.roomRepository = roomRepository;
+        this.energyGridRepository = energyGridRepository;
     }
-
 
     public boolean saveHouse(House house) {
         House house1 = houseRepository.findByAddress(house.getAddress());
@@ -35,6 +38,14 @@ public class HouseService {
         }
         houseRepository.save(house);
         return true;
+    }
+
+    public House getHouse() {
+        List<House> houses = houseRepository.findAll();
+        if (!houses.isEmpty()) {
+            return houses.get(0);
+        }
+        throw new NoSuchElementException("ERROR: No house found.");
     }
 
     public boolean saveEnergyGrid(EnergyGrid energyGrid) {

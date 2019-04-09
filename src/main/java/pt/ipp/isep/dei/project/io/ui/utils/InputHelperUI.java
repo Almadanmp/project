@@ -17,6 +17,7 @@ import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 
 import java.io.File;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -49,17 +50,18 @@ public class InputHelperUI {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
             System.out.println(geographicAreaService.buildStringRepository());
-            int aux = getInputAsInt();
-            if (aux >= 0 && aux < geographicAreaService.size()) {
-                GeographicArea result = geographicAreaService.get(aux);
+            int aux = InputHelperUI.getInputAsInt();
+            try {
+                GeographicArea geographicArea = geographicAreaService.get(aux);
                 System.out.println("You have chosen the following geographic area: ");
-                System.out.println(result.buildString() + "\n");
-                return result;
-            } else {
+                System.out.println(geographicArea.buildString() + "\n");
+                return geographicArea;
+            } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
     }
+
 
     /**
      * Method that returns a particular Room from a list of the program's house available rooms, according to the user's

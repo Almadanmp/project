@@ -8,7 +8,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +26,17 @@ class HouseServiceTest {
     @Mock
     private HouseRepository houseRepository;
 
+    @Mock
+    private RoomRepository roomRepository;
+
+    @Mock
+    private EnergyGridRepository energyGridRepository;
+
     private HouseService houseService;
 
     @BeforeEach
     void arrangeArtifacts() {
-        houseService = new HouseService(houseRepository);
+        houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         List<String> deviceTypeConfig = new ArrayList<>();
         firstValidHouse = new House("TestHouse", new Address("Rua das Flores", "12", "445",
                 "Porto", "Portugal"), new Local(10, 10, 10), 10,
@@ -38,7 +46,6 @@ class HouseServiceTest {
     @Test
     void seeIfSaveHouseWorksTrue() {
         assertTrue(houseService.saveHouse(firstValidHouse));
-
     }
 
 }

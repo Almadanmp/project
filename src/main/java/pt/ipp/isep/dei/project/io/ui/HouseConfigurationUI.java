@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.services.HouseService;
 
+import java.util.List;
 import java.util.Scanner;
 
 class HouseConfigurationUI {
@@ -28,16 +29,14 @@ class HouseConfigurationUI {
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
 
-    private HouseService houseService;
-
-    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService) {
         this.controller = new HouseConfigurationController();
         this.areaSensorService = areaSensorService;
         this.readingService = readingService;
-        this.houseService = houseService;
+
     }
 
-    void run(House house, GeographicAreaService geographicAreaService) {
+    void run(HouseService houseService, GeographicAreaService geographicAreaService, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -48,31 +47,31 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2(geographicAreaService);
+                    runUS15v2(geographicAreaService, houseService);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS20v2(geographicAreaService);
+                    runUS20v2(geographicAreaService, houseService);
                     activeInput = false;
                     break;
                 case 3:
-                    runUS100();
+                    runUS100(gridMetPeriod, devMetPeriod, deviceTypes, houseService);
                     activeInput = false;
                     break;
                 case 4:
-                    runUS101(house, geographicAreaService);
+                    runUS101(houseService, geographicAreaService);
                     activeInput = false;
                     break;
                 case 5:
-                    runUS105(house);
+                    runUS105(houseService);
                     activeInput = false;
                     break;
                 case 6:
-                    runUS108(house);
+                    runUS108(houseService);
                     activeInput = false;
                     break;
                 case 7:
-                    runUS260(house);
+                    runUS260(houseService);
                     activeInput = false;
                     break;
                 case 0:
@@ -92,7 +91,7 @@ class HouseConfigurationUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2(GeographicAreaService geographicAreaService) {
+    private void runUS15v2(GeographicAreaService geographicAreaService, HouseService houseService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
@@ -116,19 +115,19 @@ class HouseConfigurationUI {
      * <p>
      * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
-    private void runUS20v2(GeographicAreaService geographicAreaService) {
+    private void runUS20v2(GeographicAreaService geographicAreaService, HouseService houseService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String path = inputHelperUI.getInputJsonXmlCsv();
         if (path.endsWith(".csv")) {
-            readReadingsFromCSV(path, VALID_LOG_PATH, geographicAreaService);
+            readReadingsFromCSV(path, VALID_LOG_PATH, geographicAreaService, houseService);
         } else if (path.endsWith(".json")) {
-            readReadingsFromJSON(path, VALID_LOG_PATH, geographicAreaService);
+            readReadingsFromJSON(path, VALID_LOG_PATH, geographicAreaService, houseService);
         } else if (path.endsWith(".xml")) {
-            readReadingsFromXML(path, VALID_LOG_PATH, geographicAreaService);
+            readReadingsFromXML(path, VALID_LOG_PATH, geographicAreaService, houseService);
         }
     }
 
-    private void readReadingsFromCSV(String filePath, String logFilePath, GeographicAreaService geographicAreaService) {
+    private void readReadingsFromCSV(String filePath, String logFilePath, GeographicAreaService geographicAreaService, HouseService houseService) {
         int result = 0;
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         try {
@@ -139,7 +138,7 @@ class HouseConfigurationUI {
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private void readReadingsFromJSON(String filePath, String logFilePath, GeographicAreaService geographicAreaService) {
+    private void readReadingsFromJSON(String filePath, String logFilePath, GeographicAreaService geographicAreaService, HouseService houseService) {
         int result = 0;
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         try {
@@ -150,7 +149,7 @@ class HouseConfigurationUI {
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private void readReadingsFromXML(String filePath, String logFilePath, GeographicAreaService geographicAreaService) {
+    private void readReadingsFromXML(String filePath, String logFilePath, GeographicAreaService geographicAreaService, HouseService houseService) {
         int result = 0;
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         try {
@@ -163,14 +162,14 @@ class HouseConfigurationUI {
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100() {
+    private void runUS100(int gridMetPeriod, int devMetPeriod, List<String> deviceTypes, HouseService houseService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJson(result);
-        if (ctrl.readJSONAndDefineHouse(filePath)) {
+        if (ctrl.readJSONAndDefineHouse(filePath, gridMetPeriod, devMetPeriod, deviceTypes)) {
             System.out.println("House Data Successfully imported.");
         }
         System.out.println("The JSON file is invalid.");
@@ -178,32 +177,33 @@ class HouseConfigurationUI {
 
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
-
-    private void runUS101(House house, GeographicAreaService geographicAreaService) {
+//TODO Location is just location ot Adress etc, doest make much sense with the new data.
+    private void runUS101(HouseService houseService, GeographicAreaService geographicAreaService) {
+        House house = houseService.getHouse();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("First select the geographic area where this house is located.");
         GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService);
 
-        // get house address
-        System.out.print("Please, type the street where the house is located: ");
-        String street = scanner.nextLine();
-
-        // get number
-        System.out.print("Please, type the number where the house is located: ");
-        String number = scanner.nextLine();
-
-        // get zip code
-        System.out.print("Please, type the address's zip code: ");
-        String zip = scanner.nextLine();
-
-        // get town
-        System.out.println("Please, type the town where the house is located: ");
-        String town = scanner.nextLine();
-
-        // get country
-        System.out.println("Please, type the country where the house is located: ");
-        String country = scanner.nextLine();
+//        // get house address
+//        System.out.print("Please, type the street where the house is located: ");
+//        String street = scanner.nextLine();
+//
+//        // get number
+//        System.out.print("Please, type the number where the house is located: ");
+//        String number = scanner.nextLine();
+//
+//        // get zip code
+//        System.out.print("Please, type the address's zip code: ");
+//        String zip = scanner.nextLine();
+//
+//        // get town
+//        System.out.println("Please, type the town where the house is located: ");
+//        String town = scanner.nextLine();
+//
+//        // get country
+//        System.out.println("Please, type the country where the house is located: ");
+//        String country = scanner.nextLine();
 
         //get latitude
         System.out.print("Please, type the latitude: ");
@@ -218,19 +218,24 @@ class HouseConfigurationUI {
         double houseAlt = InputHelperUI.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
-        controller.setHouseAddress(street, number, zip, town, country, house);
+//        controller.setHouseAddress(street, number, zip, town, country, house);
         controller.setHouseMotherArea(house, motherArea);
+        houseService.saveHouse(house);
 
-        String houseId = controller.getHouseName(house);
-        System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
-                street + ". \n" + "Number: " + number + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Country: " + country + ". \n" + "Latitude: " + houseLat + ". \n" +
+        //       String houseId = controller.getHouseName(house);
+//        System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
+//                street + ". \n" + "Number: " + number + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Country: " + country + ". \n" + "Latitude: " + houseLat + ". \n" +
+//                "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
+
+        System.out.println("\nYou have successfully configured the location of the house with the following Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }
 
 
-    // USER STORY 105 - As an Administrator, I want to addWithoutPersisting a new room to the house, in order to configure it (name,
+    // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(House house) {
+    private void runUS105(HouseService houseService) {
+        House house = houseService.getHouse();
         getInputRoomCharacteristics();
         Room room = createNewRoom(house);
         displayRoom();
@@ -309,7 +314,8 @@ class HouseConfigurationUI {
 
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
      * - MARIA MEIRELES, TERESA VARELA */
-    private void runUS108(House house) {
+    private void runUS108(HouseService houseService) {
+        House house = houseService.getHouse();
         if (!house.isRoomListEmpty()) {
             printRoomList(house);
         } else {
@@ -324,7 +330,8 @@ class HouseConfigurationUI {
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.
     // Sensors without a valid room shouldn’t be imported but registered in the application log.
 
-    private void runUS260(House house) {
+    private void runUS260(HouseService houseService) {
+        House house = houseService.getHouse();
         InputHelperUI inputs = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);

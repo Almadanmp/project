@@ -80,10 +80,13 @@ public class ReaderController {
      * @param filePath is the file path.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(String filePath) {
+    public boolean readJSONAndDefineHouse(String filePath, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
         House house = HouseMapper.dtoToObjectUS100(houseDTO);
+        house.setGridMeteringPeriod(gridMetPeriod);
+        house.setDeviceMeteringPeriod(devMetPeriod);
+        house.setDeviceTypeList(deviceTypes);
         return houseService.saveHouse(house);
     }
 

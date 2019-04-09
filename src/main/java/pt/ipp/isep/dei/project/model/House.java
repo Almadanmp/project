@@ -67,7 +67,6 @@ public class House implements Metered {
     }
 
     public House(Address address, List<String> deviceTypeConfig, Local local) {
-
         this.address = address;
         this.location = local;
         this.roomList = new RoomList();
@@ -75,9 +74,15 @@ public class House implements Metered {
         buildDeviceTypeList(deviceTypeConfig);
     }
 
+    protected House() {
+    }
 
     //SETTERS AND GETTERS
 
+
+    public void setDeviceTypeList(List<String> deviceTypeConfig) {
+        buildDeviceTypeList(deviceTypeConfig);
+    }
 
     public void setName(String name) {
         this.name = name;
