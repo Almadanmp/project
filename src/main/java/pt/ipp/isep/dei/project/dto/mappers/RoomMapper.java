@@ -79,6 +79,40 @@ public final class RoomMapper {
         return resultObject;
     }
 
+    public static Room dtoToObjectUS100(RoomDTO dtoToConvert) {
+        // Update the name
+
+        String objectName = dtoToConvert.getName();
+
+        // Update the description
+
+        String objectDescription = dtoToConvert.getDescription();
+
+        // Update the floor
+
+        int objectFloor = dtoToConvert.getFloor();
+
+        // Update the width
+
+        double objectWidth = dtoToConvert.getWidth();
+
+        // Update the length
+
+        double objectLength = dtoToConvert.getLength();
+
+        // Update the height
+
+        double objectHeight = dtoToConvert.getHeight();
+
+
+        // Create, update and return the converted object.
+
+        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
+
+
+        return resultObject;
+    }
+
     /**
      * This is the method that converts Room model objects into DTOs with the same data.
      *

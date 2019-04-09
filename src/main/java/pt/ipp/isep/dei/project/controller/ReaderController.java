@@ -80,7 +80,7 @@ public class ReaderController {
     public boolean readJSONAndDefineHouse(String filePath) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
-        House house = HouseMapper.dtoToObject(houseDTO);
+        House house = HouseMapper.dtoToObjectUS100(houseDTO);
         return houseService.saveHouse(house);
     }
 

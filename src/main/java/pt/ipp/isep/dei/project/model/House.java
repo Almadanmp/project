@@ -62,6 +62,21 @@ public class House implements Metered {
         buildDeviceTypeList(deviceTypeConfig);
     }
 
+    /**
+     * Constructor for a house object. Created for US100. Since the file we receive to import data only contained
+     * ID, Address, RoomList and EnergyGridList.
+     *
+     * @param id                   is the id of the house.
+     * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
+     *                             the zip code the house is in.
+     */
+    public House(String id, Address address) {
+        this.id = id;
+        this.address = address;
+        this.roomList = new RoomList();
+        this.energyGridList = new EnergyGridList();
+    }
+
 
     //SETTERS AND GETTERS
 
