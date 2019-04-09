@@ -52,7 +52,7 @@ public class ReadingDTO {
             return false;
         } else {
             ReadingDTO reading = (ReadingDTO) o;
-            return (this.date.equals(reading.getDate()));
+            return (this.date.equals(reading.getDate()) && this.sensorId.equals(reading.getSensorId()));
         }
     }
 

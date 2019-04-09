@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 import pt.ipp.isep.dei.project.services.units.Adapter;
 import java.io.File;
@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ReadingsReaderCSV implements ReadingsReader {
 
-    public List<ReadingDTOWithUnitAndSensorID> readFile(String filePath) {
-        List<ReadingDTOWithUnitAndSensorID> finalList;
+    public List<ReadingDTO> readFile(String filePath) {
+        List<ReadingDTO> finalList;
         List<ReadingDTOWrapper> readingDTOWrappers;
         CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
         ObjectMapper csvMapper = new CsvMapper();
