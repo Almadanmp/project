@@ -1,0 +1,48 @@
+@startuml
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title Add Reading To Geographic Area Sensor (SensorService)
+ReadingsController -> SensorService: addReadingToMatchingSensor\n(String sensorID, Double readingValue, Date readingDate, String unit)
+activate SensorService
+SensorService -> AreaReading: AreaReading areaReading = new AreaReading(readingValue, readingDate, unit, sensorId)
+
+SensorService -> AreaSensorRepository: findById(sensorId)
+activate AreaSensorRepository
+create ":areaSensor"
+AreaSensorRepository -> ":areaSensor"
+activate ":areaSensor"
+
+AreaSensorRepository -> SensorService: areaSensor
+
+SensorService -> ":areaSensor": addReading(areaReading)
+deactivate ":areaSensor"
+SensorService -> AreaSensorRepository: save(areaSensor)
+deactivate AreaSensorRepository
+
+SensorService -> ReadingsController: int addedReadings
+deactivate SensorService
+
+@enduml

@@ -27,30 +27,24 @@ skinparam component {
 
 
 title JSONFileReading
--> ReaderController: readReadingsFromJSON(geographicAreaList, filePath, logPath)
-activate ReaderController
+-> ReadingsReaderJSON: readFile(filePath)
+activate ReadingsReaderJSON
 
-ReaderController -> ReaderController: SensorList areaSensorList = geographicAreaList.getAreaListSensors();
-create "jsonRead :ReaderJSONReadings"
-ReaderController -> "jsonRead :ReaderJSONReadings": new ReaderJSONReadings();
-activate "jsonRead :ReaderJSONReadings"
-ref over "jsonRead :ReaderJSONReadings"
-Read readings from
-JSON file reading
-end ref
-ReaderController -> "jsonRead :ReaderJSONReadings": JSONArray array = jsonRead.readFile(path);
 
-deactivate "jsonRead :ReaderJSONReadings"
 
-loop  JSONArray reading CONTAINED IN array
-ReaderController -> ReaderController: parseAndLogJSONReading(areaSensorList, reading, logger);
-ref over ReaderController
-Parse and Add Readings To Sensors
-end ref
+ReadingsReaderJSON -> File: file = new File(filePath);
 
-end
+create ":objectMapper"
+ReadingsReaderJSON -> ":objectMapper": new XmlMapper();
+ReadingsReaderJSON -> ":objectMapper": objectMapper.readValue(file, ReadingDTOLWrapperList.class);
+":objectMapper" -> ReadingsReaderJSON: ReadingDTOWrapperList
 
-<- ReaderController: int added Readings
-deactivate "ReaderController"
+ReadingsReaderJSON -> ReadingDTOWrapperList: List<ReadingDTOWrapper> = getReadingDTOWrapperList();
+
+ReadingsReaderJSON -> Adapter: readingDTOWrapperConversion(List<ReadingDTOWrapper>)
+Adapter -> ReadingsReaderJSON: List<ReadingDTO>
+
+<- ReadingsReaderJSON: List<ReadingDTO>
+deactivate "ReadingsReaderJSON"
 
 @enduml

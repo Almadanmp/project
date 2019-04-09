@@ -7,38 +7,40 @@ skinparam titleBackgroundColor ivory
 skinparam FontName quicksand
 
 skinparam actor {
- 	BorderColor indianred
- 	}
+  BorderColor indianred
+  }
 
- skinparam sequence {
- 	LifeLineBackgroundColor indianred
- 	ParticipantBackgroundColor ivory
- }
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
 
- skinparam roundcorner 10
+skinparam roundcorner 10
 
- skinparam component {
-   arrowThickness 1
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
- }
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title Add Readings To Geographic Area Sensors
+GASettingsUI -> ReadingsController: addReadingsToGeographicAreaSensors\n(List<ReadingDTO>)
+activate ReadingsController
+ReadingsController -> ReadingsController: Logger logger = getLogger(logPath);
 
 
-title AddReadingToMatchingSensor
--> ReaderController: addReadingToMatchingSensor(logger, areaSensorList, sensorID, readingValue, readingDate)
-activate ReaderController
+loop for each ReadingDTO
+alt if Reading is Added
+ReadingsController -> SensorService: addAreaReadingToAreaSensor\n(sensorID, value, date, unit, logger);
 
-ReaderController -> ReaderController: logger.isLoggable(Level.WARNING)
-ReaderController -> SensorList: areaSensorList.addReadingToMatchingSensor(sensorID, readingValue, readingDate)
+ReadingsController -> ReadingsController: addedReadings++
 
-alt if loggable && add Reading
-
-<- ReaderController: return 1
-
-else else
-<- ReaderController: return 0
-deactivate ReaderController
 end
+
+end
+
+ReadingsController -> GASettingsUI: int addedReadings
+deactivate ReadingsController
 
 @enduml

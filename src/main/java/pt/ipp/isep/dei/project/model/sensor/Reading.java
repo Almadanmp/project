@@ -18,7 +18,7 @@ public class Reading {
     private Long id;
     private double value;
     private Date date;
-    private Unit unit;
+    private String unit;
     private String sensorId;
 
     /**
@@ -27,7 +27,7 @@ public class Reading {
      * @param value value received
      * @param date  date received
      */
-    public Reading(double value, Date date, Unit unit, String sensorId) {
+    public Reading(double value, Date date, String unit, String sensorId) {
         setValue(value);
         setDate(date);
         setUnit(unit);
@@ -68,7 +68,7 @@ public class Reading {
      *
      * @param unit string of unit
      **/
-    public void setUnit(Unit unit) {
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 
@@ -77,7 +77,7 @@ public class Reading {
      *
      * @return unit as string
      **/
-    public Unit getUnit() {
+    public String getUnit() {
         return this.unit;
     }
 

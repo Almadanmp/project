@@ -3,8 +3,6 @@ package pt.ipp.isep.dei.project.dto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.RoomList;
-import pt.ipp.isep.dei.project.services.units.Celsius;
-import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -56,15 +54,15 @@ class ReadingDTOTest {
     }
 
     @Test
-    void seeIfSetGetUnitWorks() {
+    void seeIfSetGetStringWorks() {
         // Arrange
 
-        validDTO.setUnit(new Celsius());
-        Unit expectedResult = new Celsius();
+        validDTO.setUnit("C");
+        String expectedResult = "C";
 
         // Act
 
-        Unit actualResult = validDTO.getUnit();
+        String actualResult = validDTO.getUnit();
 
         // Assert
 

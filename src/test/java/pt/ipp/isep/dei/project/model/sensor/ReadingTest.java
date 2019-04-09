@@ -3,9 +3,6 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.services.units.Celsius;
-import pt.ipp.isep.dei.project.services.units.Fahrenheit;
-import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -135,7 +132,7 @@ class ReadingTest {
     void seeIfSetAndGetUnitWorks() {
         //Arrange
 
-        Unit expectedResult = new Fahrenheit();
+        String expectedResult = "F";
 
         // Act
 

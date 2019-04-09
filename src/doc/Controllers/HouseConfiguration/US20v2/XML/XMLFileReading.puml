@@ -27,31 +27,24 @@ skinparam component {
 
 
 title XMLFileReading
--> ReaderController: readReadingsFromXML(geographicAreaList, filePath, logPath)
-activate ReaderController
+-> ReadingsReaderXML: readFile(filePath)
+activate ReadingsReaderXML
 
-ReaderController -> ReaderController: SensorList areaSensorList = geographicAreaList.getAreaListSensors();
-create "xmlRead :ReaderXML"
-ReaderController -> "xmlRead :ReaderXML": new ReaderXML();
-activate "xmlRead :ReaderXML"
-ref over "xmlRead :ReaderXML"
-Read readings from
-XML file reading
-end ref
-ReaderController -> "xmlRead :ReaderXML": Document doc = xmlRead.readFile(filePath);
-deactivate "xmlRead :ReaderXML"
 
-ReaderController -> ReaderController: NodeList list = doc.getElementsByTagName("reading");
 
-loop  Element reading CONTAINED IN list
-ReaderController -> ReaderController: parseAndLogXMLReading(areaSensorList, reading, logger);
-ref over ReaderController
-Parse and Add Readings To Sensors
-end ref
+ReadingsReaderXML -> File: file = new File(filePath);
 
-end
+create ":objectMapper"
+ReadingsReaderXML -> ":objectMapper": new ObjectMapper();
+ReadingsReaderXML -> ":objectMapper": objectMapper.readValue(file, ReadingDTOLWrapperList.class);
+":objectMapper" -> ReadingsReaderXML: ReadingDTOWrapperList
 
-<- ReaderController: int added Readings
-deactivate "ReaderController"
+ReadingsReaderXML -> ReadingDTOWrapperList: List<ReadingDTOWrapper> = getReadingDTOWrapperList();
+
+ReadingsReaderXML -> Adapter: readingDTOWrapperConversion(List<ReadingDTOWrapper>)
+Adapter -> ReadingsReaderXML: List<ReadingDTO>
+
+<- ReadingsReaderXML: List<ReadingDTO>
+deactivate "ReadingsReaderXML"
 
 @enduml

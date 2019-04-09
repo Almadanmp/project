@@ -27,30 +27,23 @@ skinparam component {
 
 
 title CSVFileReading
--> ReaderController: readReadingsFromCSV(geographicAreaList, filePath, logPath)
-activate ReaderController
+-> ReadingsReaderCSV: readFile(filePath)
+activate ReadingsReaderCSV
 
-ReaderController -> ReaderController: SensorList areaSensorList = geographicAreaList.getAreaListSensors();
-create "csvRead :ReaderCSVReadings"
-ReaderController -> "csvRead :ReaderCSVReadings": new ReaderCSVReadings();
-activate "csvRead :ReaderCSVReadings"
-ref over "csvRead :ReaderCSVReadings"
-Read readings from
-CSV file reading
-end ref
-ReaderController -> "csvRead :ReaderCSVReadings": List<String[]> list = csvRead.readFile(filePath);
 
-deactivate "csvRead :ReaderCSVReadings"
+ReadingsReaderCSV -> CsvSchema: csvSchema = CsvSchema.emptySchema().withHeader();
 
-loop  String[] reading CONTAINED IN list
-ReaderController -> ReaderController: parseAndLogCSVReading(reading, logger, areaSensorList);
-ref over ReaderController
-Parse and Add Readings To Sensors
-end ref
+ReadingsReaderCSV -> File: csvFile = new File(filePath);
 
-end
+create ":csvMapper"
+ReadingsReaderCSV -> ":csvMapper": new CsvMapper();
+ReadingsReaderCSV -> ":csvMapper": csvMapper.readerFor(ReadingDTOWrapper.class).with(csvSchema).readValues(csvFile);
+":csvMapper" -> ReadingsReaderCSV: List<ReadingDTOWrapper>
 
-<- ReaderController: int added Readings
-deactivate "ReaderController"
+ReadingsReaderCSV -> Adapter: readingDTOWrapperConversion(readingDTOWrappers)
+Adapter -> ReadingsReaderCSV: List<ReadingDTO>
+
+<- ReadingsReaderCSV: List<ReadingDTO>
+deactivate "ReadingsReaderCSV"
 
 @enduml

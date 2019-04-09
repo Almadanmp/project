@@ -199,11 +199,11 @@ public class AreaSensor {
      * @return returns true if the reading was successfully added.
      * @author André
      */
-    public boolean addReading(Date date, Double value, String unit) {
+    public boolean addReading(Date date, Double value, String unit, String sensorId) {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
-                AreaReading areaReading = new AreaReading(value, date, unit);
+                Reading areaReading = new Reading(value, date, unit, sensorId);
                 return this.addReading(areaReading);
             }
         }

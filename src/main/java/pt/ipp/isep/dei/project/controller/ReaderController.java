@@ -167,8 +167,7 @@ public class ReaderController {
                 Date readingDate = pattern.parse(readings[1]);
                 Double readingValue = Double.parseDouble(readings[2]);
                 String readingUnit = readings[3];
-                Unit unit = UnitHelper.convertStringToUnit(readingUnit);
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, unit);
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -242,8 +241,7 @@ public class ReaderController {
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
                 String readingUnit = reading.getString("unit");
-                Unit unit = UnitHelper.convertStringToUnit(readingUnit);
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, unit);
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -261,7 +259,7 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, Unit readingUnit) {
+    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
         if (areaSensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
             return 1;
         }
@@ -338,8 +336,7 @@ public class ReaderController {
                 Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
                 String readingUnit = element.getElementsByTagName("unit").item(0).getTextContent();
-                Unit unit = UnitHelper.convertStringToUnit(readingUnit);
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, unit);
+                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
