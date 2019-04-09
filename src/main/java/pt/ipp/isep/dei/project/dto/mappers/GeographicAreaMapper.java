@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
 import java.util.ArrayList;
@@ -57,10 +57,10 @@ public final class GeographicAreaMapper {
 
         // Update the AreaSensorList
 
-        AreaSensorList objectAreaSensorList = new AreaSensorList();
+        AreaSensorService objectAreaSensorService = new AreaSensorService();
         for (AreaSensorDTO y : dtoToConvert.getAreaSensorDTOList()) {
             AreaSensor tempAreaSensor = AreaSensorMapper.dtoToObject(y);
-            objectAreaSensorList.add(tempAreaSensor);
+            objectAreaSensorService.add(tempAreaSensor);
         }
 
         // Create, update and return the converted object.
@@ -69,7 +69,8 @@ public final class GeographicAreaMapper {
                 objectLocal);
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
-        resultObject.setSensorList(objectAreaSensorList);
+        resultObject.setSensorList(objectAreaSensorService);
+
 
         return resultObject;
     }

@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
 import java.util.ArrayList;
@@ -39,7 +39,6 @@ class RoomMapperTest {
     void seeIfDTOToObjectWorks() {
         // Arrange
 
-        validDTO.setId(15L);
         validDTO.setName("Kitchen");
         validDTO.setFloor(2);
         validDTO.setWidth(30);
@@ -55,11 +54,10 @@ class RoomMapperTest {
         Device d1 = new WashingMachine(new WashingMachineSpec());
         deviceList.add(d1);
         validDTO.setDeviceList(deviceList);
-        HouseSensorList testList = new HouseSensorList();
+        HouseSensorService testList = new HouseSensorService();
         testList.add(HouseSensorMapper.dtoToObject(dto));
         validRoom.setSensorList(testList);
         validRoom.setDeviceList(deviceList);
-        validRoom.setId(15L);
 
         // Act
 
@@ -73,6 +71,6 @@ class RoomMapperTest {
 
         assertEquals(validRoom.getSensorList(), (result.getSensorList()));
         assertEquals(validRoom.getDeviceList(), result.getDeviceList());
-        assertEquals(validRoom.getId(), result.getId());
+        assertEquals(validRoom.getName(), result.getName());
     }
 }

@@ -11,7 +11,7 @@ class FileInputUtils {
     int gridMeteringPeriod;
 
     /**
-     * This method will read the configuration file and validate the value that corresponds
+     * This method will readSensors the configuration file and validate the value that corresponds
      * to the grid metering period. In case of a valid value, the value will be stored has a
      * class attribute
      *
@@ -27,7 +27,7 @@ class FileInputUtils {
     }
 
     /**
-     * This method will read the configuration file, get the string that corresponds to the
+     * This method will readSensors the configuration file, get the string that corresponds to the
      * grid metering period and turn it into an integer
      *
      * @return the integer that corresponds to the grid metering period

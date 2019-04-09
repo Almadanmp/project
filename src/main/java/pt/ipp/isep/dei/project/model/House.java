@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.model;
 
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import javax.persistence.*;
@@ -14,20 +14,28 @@ import java.util.*;
  */
 @Entity
 public class House implements Metered {
+
     @Id
     private String id;
+
     @Embedded
     private Address address;
+
     @Embedded
     private Local location;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @Transient
     private EnergyGridList energyGridList;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @Transient
     private RoomList roomList;
+
     @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
+
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
+
     @Transient
     private List<DeviceType> deviceTypeList;
 
@@ -104,7 +112,7 @@ public class House implements Metered {
      *
      * @return the value of the period of time where the energy consumption will be calculated.
      */
-    double getGridMeteringPeriod() {
+    public int getGridMeteringPeriod() {
         return gridMeteringPeriod;
     }
 
@@ -123,7 +131,7 @@ public class House implements Metered {
      *
      * @return the value of the period of time where the energy consumption will be calculated.
      */
-    double getDeviceMeteringPeriod() {
+    public int getDeviceMeteringPeriod() {
         return deviceMeteringPeriod;
     }
 
@@ -152,13 +160,13 @@ public class House implements Metered {
     /**
      * Standard setter method, to define the Address of the House.
      *
-     * @param street is the street of the address.
-     * @param number is the number of the address.
-     * @param zip    is the zip-code of the address.
-     * @param town   is the town of the address.
+     * @param street  is the street of the address.
+     * @param number  is the number of the address.
+     * @param zip     is the zip-code of the address.
+     * @param town    is the town of the address.
      * @param country is the country of the address.
      */
-    public void setAddress(String street,String number, String zip, String town, String country) {
+    public void setAddress(String street, String number, String zip, String town, String country) {
         address.setStreet(street);
         address.setNumber(number);
         address.setZip(zip);
@@ -277,7 +285,7 @@ public class House implements Metered {
      * @return is the value of the distance of the house to sensor of the given type closest to it.
      */
 
-    double getMinDistanceToSensorOfGivenType(AreaSensorList type) {
+    double getMinDistanceToSensorOfGivenType(AreaSensorService type) {
         List<Double> arrayList = type.getSensorsDistanceToHouse(this);
         return Collections.min(arrayList);
     }
@@ -291,11 +299,11 @@ public class House implements Metered {
      */
     public AreaSensor getClosestSensorOfGivenType(String sensorType) {
         AreaSensor areaSensor;
-        AreaSensorList minDistSensor = new AreaSensorList();
+        AreaSensorService minDistSensor = new AreaSensorService();
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime());
-        AreaSensorList sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
+        AreaSensorService sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);
             minDistSensor = sensorsType.getSensorsByDistanceToHouse(this, minDist);

@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,14 +11,12 @@ import java.util.List;
 /**
  * Class that groups a number of energy Grids of a House.
  */
-@Entity
+@Service
 public class EnergyGridList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Autowired
+    EnergyGridRepository energyGridRepository;
 
-    @OneToMany(mappedBy = "energyGridList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EnergyGrid> energyGrids;
 
     /**
@@ -51,7 +52,8 @@ public class EnergyGridList {
             String name = e.getName();
             if (name.equals(designation)) {
                 return e;
-            } }
+            }
+        }
         return new EnergyGrid(designation, maxPower);
     }
 
@@ -103,6 +105,7 @@ public class EnergyGridList {
     /**
      * Method that builds a string of every grid contained in the grid list, using their name and maximum contracted power,
      * and assigning an index to each one of them.
+     *
      * @return a string that is the list of all grids present in the grid list.
      */
     public String buildString() {

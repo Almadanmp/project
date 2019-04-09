@@ -9,13 +9,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaReading;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
@@ -29,7 +31,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,15 +79,14 @@ class ReaderControllerTest {
     @Mock
     GeographicAreaRepository geographicAreaRepository;
 
-    private AreaSensorList areaSensorList;
-
     private AreaSensorService areaSensorService;
+
 
     @BeforeEach
     void arrangeArtifacts() {
-        areaSensorList = new AreaSensorList(areaSensorRepository);
         areaSensorService = new AreaSensorService(areaSensorRepository);
-        validReader = new ReaderController(areaSensorService, areaSensorList);
+
+        validReader = new ReaderController(areaSensorService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -112,14 +115,14 @@ class ReaderControllerTest {
         AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
-        AreaSensorList validAreaSensorList = new AreaSensorList();
-        AreaSensorList validAreaSensorList2 = new AreaSensorList();
-        validAreaSensorList.add(validAreaSensor1);
-        validAreaSensorList.add(validAreaSensor2);
-        validAreaSensorList2.add(validAreaSensor3);
-        validAreaSensorList2.add(validAreaSensor4);
-        validGeographicArea.setSensorList(validAreaSensorList);
-        validGeographicArea2.setSensorList(validAreaSensorList2);
+        AreaSensorService validAreaSensorService = new AreaSensorService();
+        AreaSensorService validAreaSensorService2 = new AreaSensorService();
+        validAreaSensorService.add(validAreaSensor1);
+        validAreaSensorService.add(validAreaSensor2);
+        validAreaSensorService2.add(validAreaSensor3);
+        validAreaSensorService2.add(validAreaSensor4);
+        validGeographicArea.setSensorList(validAreaSensorService);
+        validGeographicArea2.setSensorList(validAreaSensorService2);
         validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
         validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
         emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
@@ -308,7 +311,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerReadings/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService);
 
         // Assert
 
@@ -325,7 +328,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService);
 
         // Assert
 
@@ -427,7 +430,7 @@ class ReaderControllerTest {
         readings[2] = "23";
         readings[3] = "C";
 
-        validAreaSensor1.addReading(new AreaReading(32, validDate, new Celsius()));
+        validAreaSensor1.addReading(new Reading(32, validDate, "C", validAreaSensor1.getId()));
 
         // Act
 
@@ -623,6 +626,30 @@ class ReaderControllerTest {
 
         assertEquals(actualResult, 0);
     }
+
+//    @Test
+//    void seeIfReadFileWorks() {
+//        //Arrange
+//        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+//
+//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+//        geographicAreaDTO.setName("ISEP");
+//        geographicAreaDTO.setLocalDTO(new LocalDTO(41.178553,-8.608035,111));
+//        geographicAreaDTO.setDescription("Campus do ISEP");
+//        geographicAreaDTO.setWidth(0.261);
+//        geographicAreaDTO.setLength(0.249);
+//        geographicAreaDTO.setTypeArea("urban area");
+//
+//        expectedResult.add(geographicAreaDTO);
+//
+//        //Act
+//
+//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+//
+//        //Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
 //    @Test
 //    void seeIfReadFileXMLGeoAreaWorks() {

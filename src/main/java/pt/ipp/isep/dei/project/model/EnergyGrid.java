@@ -20,17 +20,13 @@ public class EnergyGrid implements Metered {
     private Long id;
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Transient
     private RoomList roomList;
 
     @Transient
     private PowerSourceList listPowerSources;
 
     private double maxContractedPower;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "energy_grid_list_id")
-    private EnergyGridList energyGridList;
 
     /**
      * Empty Constructor to use when importing Energy Grids from XML files.

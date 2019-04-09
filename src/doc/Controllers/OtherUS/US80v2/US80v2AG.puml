@@ -1,0 +1,42 @@
+@startuml
+title US015v2 \n REF XML file.
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+
+title US80v2 \n As an administrator, I want the data related to GeographicAreas, including sensors and their readings,\n to be persisted in a relational database.
+
+autonumber
+
+Controller -> ":GeographicAreaService": add(GeographicArea)
+activate Controller
+deactivate Controller
+create ":GeographicArea"
+activate ":GeographicAreaService"
+":GeographicAreaService" ->> ":GeographicArea": create(String, Local, AreaType)
+":GeographicAreaService" -> "GeographicAreaRepository": save(GeographicArea)
+activate "GeographicAreaRepository"
+deactivate "GeographicAreaRepository"
+deactivate ":GeographicAreaService"
+@enduml

@@ -1,10 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -291,11 +290,11 @@ class GeographicAreaListTest {
     @Test
     void seeIfGetsAreaListSensors() {
         // Arrange
-        AreaSensorList validAreaSensorList = new AreaSensorList();
+        AreaSensorService validAreaSensorService = new AreaSensorService();
         AreaSensor firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), new Date());
         firstValidAreaSensor.setActive(true);
-        AreaSensor secondValidAreaSensor = new AreaSensor("SensorTwo", new SensorType("Temperature", "Celsius"),
+        AreaSensor secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,10),
                 new Date());
         secondValidAreaSensor.setActive(true);
 
@@ -303,11 +302,11 @@ class GeographicAreaListTest {
 
         // Act
 
-        AreaSensorList actualResult = geographicAreaList.getAreaListSensors();
+        AreaSensorService actualResult = geographicAreaList.getAreaListSensors();
 
         // Assert
 
-        assertEquals(validAreaSensorList, actualResult);
+        assertEquals(validAreaSensorService, actualResult);
     }
 
     @Test
@@ -344,15 +343,15 @@ class GeographicAreaListTest {
     void seeIfGetAreaListSensorsWorks() {
         // Arrange
 
-        AreaSensor firstValidAreaSensor = new AreaSensor("SensOne", new SensorType("Temperature", "Celsius"), new Date());
-        AreaSensor secondValidAreaSensor = new AreaSensor("SensTwo", new SensorType("Temperature", "Celsius"), new Date());
-        AreaSensorList expectedResult = new AreaSensorList();
+        AreaSensor firstValidAreaSensor = new AreaSensor("SensOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date());
+        AreaSensor secondValidAreaSensor = new AreaSensor("SensTwo", "SensTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,20),new Date());
+        AreaSensorService expectedResult = new AreaSensorService();
         expectedResult.add(firstValidAreaSensor);
         firstValidArea.addSensor(firstValidAreaSensor);
 
         // Act
 
-        AreaSensorList actualResult = validList.getAreaListSensors();
+        AreaSensorService actualResult = validList.getAreaListSensors();
 
         // Assert
 
@@ -374,7 +373,7 @@ class GeographicAreaListTest {
 
         // Arrange to make the first area get skipped (empty sensor list)
 
-        firstValidArea.setSensorList(new AreaSensorList());
+        firstValidArea.setSensorList(new AreaSensorService());
         expectedResult.remove(firstValidAreaSensor);
 
         // Act

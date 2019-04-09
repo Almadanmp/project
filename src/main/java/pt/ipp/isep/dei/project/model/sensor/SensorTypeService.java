@@ -96,8 +96,4 @@ public class SensorTypeService {
         throw new NoSuchElementException("ERROR: There is no Sensor Type with the selected ID.");
     }
 
-    @Override
-    public int hashCode() {
-        return 1;
-    }
 }

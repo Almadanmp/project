@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
 import pt.ipp.isep.dei.project.services.units.Celsius;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -9,32 +12,35 @@ import java.util.*;
  * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
 @Service
-public class AreaReadingList {
+public class ReadingList {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
-    private List<AreaReading> areaReadings;
+    @Autowired
+    ReadingRepository readingRepository;
+
+    private List<Reading> readings;
 
     /**
      * /**
      * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
-    public AreaReadingList() {
-        this.areaReadings = new ArrayList<>();
+    public ReadingList() {
+        this.readings = new ArrayList<>();
     }
 
     /**
      * Method to Add a reading only if it's not contained in the list already.
      *
-     * @param areaReading receives a reading.
+     * @param reading receives a reading.
      * @return returns true if the input reading was added successfully.
      * returns false if the input reading was rejected.
      */
-    public boolean addReading(AreaReading areaReading) {
-        if (contains(areaReading)) {
+    public boolean addReading(Reading reading) {
+        if (contains(reading)) {
             return false;
         }
-        return this.areaReadings.add(areaReading);
+        return this.readings.add(reading);
     }
 
     /**
@@ -43,11 +49,11 @@ public class AreaReadingList {
      * @param index the index of the Reading
      * @return returns reading that corresponds to index.
      */
-    public AreaReading get(int index) {
-        if (this.areaReadings.isEmpty()) {
+    public Reading get(int index) {
+        if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
-        return this.areaReadings.get(index);
+        return this.readings.get(index);
     }
 
     /**
@@ -56,16 +62,16 @@ public class AreaReadingList {
      * @param index the index of the Reading we want to get value from
      * @return returns value reading that corresponds to index.
      */
-     double getValueReading(int index) {
-        if (this.areaReadings.isEmpty()) {
+    double getValueReading(int index) {
+        if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
-        AreaReading areaReading = this.areaReadings.get(index);
-        return areaReading.getValue();
+        Reading reading = this.readings.get(index);
+        return reading.getValue();
     }
 
-    public List<AreaReading> getAreaReadings() {
-        return areaReadings;
+    public List<Reading> getReadings() {
+        return readings;
     }
 
     /**
@@ -74,12 +80,12 @@ public class AreaReadingList {
      * @param index the index of the Reading we want to get date from
      * @return returns date reading that corresponds to index.
      */
-     Date getValueDate(int index) {
-        if (this.areaReadings.isEmpty()) {
+    Date getValueDate(int index) {
+        if (this.readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
-        AreaReading areaReading = this.areaReadings.get(index);
-        return areaReading.getDate();
+        Reading reading = this.readings.get(index);
+        return reading.getDate();
     }
 
 
@@ -89,7 +95,7 @@ public class AreaReadingList {
      * @return whether the list is empty or not.
      */
     public boolean isEmpty() {
-        return areaReadings.isEmpty();
+        return readings.isEmpty();
     }
 
     /**
@@ -98,7 +104,7 @@ public class AreaReadingList {
      * @return AreaReadingList size as int
      **/
     public int size() {
-        return this.areaReadings.size();
+        return this.readings.size();
     }
 
     /**
@@ -108,21 +114,21 @@ public class AreaReadingList {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    AreaReading getMostRecentReading() {
-        AreaReading error = new AreaReading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), new Celsius());
+    Reading getMostRecentReading() {
+        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
         if (isEmpty()) {
             return error;
         }
-        AreaReading recentAreaReading = this.areaReadings.get(0);
-        Date mostRecent = recentAreaReading.getDate();
-        for (AreaReading r : this.areaReadings) {
+        Reading recentReading = this.readings.get(0);
+        Date mostRecent = recentReading.getDate();
+        for (Reading r : this.readings) {
             Date testDate = r.getDate();
             if (testDate.after(mostRecent)) {
                 mostRecent = testDate;
-                recentAreaReading = r;
+                recentReading = r;
             }
         }
-        return recentAreaReading;
+        return recentReading;
     }
 
     /**
@@ -132,7 +138,7 @@ public class AreaReadingList {
      * @return most recent reading date
      **/
 
-     Date getMostRecentReadingDate() {
+    Date getMostRecentReadingDate() {
         return getMostRecentReading().getDate();
     }
 
@@ -143,8 +149,8 @@ public class AreaReadingList {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-     double getMostRecentValue() {
-        if (this.areaReadings.isEmpty()) {
+    public double getMostRecentValue() {
+        if (this.readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
         return getMostRecentReading().getValue();
@@ -157,7 +163,7 @@ public class AreaReadingList {
      * @return sum
      * @author André (US620)
      */
-     double getValueReadingsInDay(Date givenDate) {
+    double getValueReadingsInDay(Date givenDate) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
         List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
@@ -227,7 +233,7 @@ public class AreaReadingList {
         Date startDate = getFirstSecondOfDay(dayMin);
         Date endDate = getLastSecondOfDay(dayMax);
 
-        for (int i = 0; i < areaReadings.size(); i++) {
+        for (int i = 0; i < readings.size(); i++) {
             Date currentReadingDate = this.getValueDate(i);
             if (isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
 
@@ -268,13 +274,13 @@ public class AreaReadingList {
      * @author Daniela (US623)
      */
     double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
-        AreaReadingList areaReadingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
-        if (areaReadingListBetweenDates.isEmpty()) {
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
+        if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
-        for (int i = 0; i < areaReadingListBetweenDates.size(); i++) {
-            Date day = areaReadingListBetweenDates.get(i).getDate();
+        for (int i = 0; i < readingListBetweenDates.size(); i++) {
+            Date day = readingListBetweenDates.get(i).getDate();
             List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
             double avgDay = getAvgFromList(specificDayValues);
             avgDailyValues.add(avgDay);
@@ -327,7 +333,7 @@ public class AreaReadingList {
      *
      * @return returns the average of all values contained within that List. If List is empty it will return 0.
      */
-     double getAvgFromList(List<Double> valueList) {
+    double getAvgFromList(List<Double> valueList) {
         if (valueList.isEmpty()) {
             return 0;
         }
@@ -345,7 +351,7 @@ public class AreaReadingList {
      * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
      * @author Daniela (US633)
      */
-     Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
+    Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
 
         List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
@@ -377,7 +383,7 @@ public class AreaReadingList {
      * @return highest amplitude value
      * @author Daniela (US633)
      */
-     double getAmplitudeValueFromDate(Date date) {
+    double getAmplitudeValueFromDate(Date date) {
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(date);
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
@@ -387,12 +393,12 @@ public class AreaReadingList {
     /**
      * Adds all readings of a given AreaReadingList to target list, rejecting duplicates.
      *
-     * @param areaReadingList The list to be added to the target list
+     * @param readingList The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      **/
-     AreaReadingList appendListNoDuplicates(AreaReadingList areaReadingList) {
-        AreaReading[] readingsArray = areaReadingList.getElementsAsArray();
-        for (AreaReading r : readingsArray) {
+    ReadingList appendListNoDuplicates(ReadingList readingList) {
+        Reading[] readingsArray = readingList.getElementsAsArray();
+        for (Reading r : readingsArray) {
             this.addReading(r);
         }
         return this;
@@ -461,11 +467,11 @@ public class AreaReadingList {
      *
      * @return array of readings
      */
-    public AreaReading[] getElementsAsArray() {
+    public Reading[] getElementsAsArray() {
         int sizeOfResultArray = size();
-        AreaReading[] result = new AreaReading[sizeOfResultArray];
+        Reading[] result = new Reading[sizeOfResultArray];
         for (int i = 0; i < size(); i++) {
-            result[i] = areaReadings.get(i);
+            result[i] = readings.get(i);
         }
         return result;
     }
@@ -477,9 +483,9 @@ public class AreaReadingList {
      * @param value is the value we want to choose.
      * @return a AreaReadingList with a chosen value.
      */
-    AreaReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
-        AreaReadingList result = new AreaReadingList();
-        for (AreaReading r : this.areaReadings) {
+    ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
+        ReadingList result = new ReadingList();
+        for (Reading r : this.readings) {
             if (Double.compare(r.getValue(), value) == 0) {
                 result.addReading(r);
             }
@@ -494,9 +500,9 @@ public class AreaReadingList {
      * @param date is the Day of the reading we want to get.
      * @return a Reading from the AreaReadingList with a Specific Date.
      */
-    AreaReading getAReadingWithSpecificDay(Date date) {
-        AreaReading result = null;
-        for (AreaReading r : this.areaReadings) {
+    Reading getAReadingWithSpecificDay(Date date) {
+        Reading result = null;
+        for (Reading r : this.readings) {
             if (compareDayMonthAndYearBetweenDates(r.getDate(), date)) {
                 result = r;
                 break;
@@ -520,14 +526,14 @@ public class AreaReadingList {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        AreaReadingList areaReadingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
-        if (areaReadingListBetweenDates.isEmpty()) {
+        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
+        if (readingListBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
-        AreaReadingList listOfMaxValuesForEachDay = areaReadingListBetweenDates.getListOfMaxValuesForEachDay();
+        ReadingList listOfMaxValuesForEachDay = readingListBetweenDates.getListOfMaxValuesForEachDay();
         double minValueInList = listOfMaxValuesForEachDay.getMinValueInReadingList();
-        AreaReadingList areaReadingListWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
-        return areaReadingListWithSpecificValue.getMostRecentReadingDate();
+        ReadingList readingListWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
+        return readingListWithSpecificValue.getMostRecentReadingDate();
     }
 
 
@@ -539,11 +545,11 @@ public class AreaReadingList {
      * @param day is the day we want to know the maximum value.
      * @return a double that represents the maximum value of the day.
      */
-    AreaReading getMaxValueOfTheDay(Date day) {
+    Reading getMaxValueOfTheDay(Date day) {
         double auxValue = getValuesOfSpecificDayReadings(day).get(0);
-        AreaReading result = getAReadingWithSpecificDay(day);
+        Reading result = getAReadingWithSpecificDay(day);
         Date auxDay = getFirstSecondOfDay(day);
-        for (AreaReading r : this.areaReadings) {
+        for (Reading r : this.readings) {
             Date readingDate = getFirstSecondOfDay(r.getDate());
             if (readingDate.equals(auxDay) && r.getValue() > auxValue) {
                 result = r;
@@ -560,9 +566,9 @@ public class AreaReadingList {
      * @param finalDate   is the final date of the interval.
      * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
-    AreaReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
-        AreaReadingList result = new AreaReadingList();
-        for (AreaReading r : this.areaReadings) {
+    ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
+        ReadingList result = new ReadingList();
+        for (Reading r : this.readings) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
                 result.addReading(r);
             }
@@ -578,13 +584,13 @@ public class AreaReadingList {
      * @return a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      */
-    AreaReadingList getListOfMaxValuesForEachDay() {
-        AreaReadingList result = new AreaReadingList();
+    ReadingList getListOfMaxValuesForEachDay() {
+        ReadingList result = new ReadingList();
         List<Date> dateList = new ArrayList<>();
-        for (AreaReading r : this.areaReadings) {
+        for (Reading r : this.readings) {
             Date aux = getFirstSecondOfDay(r.getDate());
             if (!dateList.contains(aux)) {
-                AreaReading maxOfTheDay = getMaxValueOfTheDay(r.getDate());
+                Reading maxOfTheDay = getMaxValueOfTheDay(r.getDate());
                 dateList.add(aux);
                 result.addReading(maxOfTheDay);
             }
@@ -597,9 +603,9 @@ public class AreaReadingList {
      *
      * @return a double value that represents the minimum value in a AreaReadingList.
      */
-   double getMinValueInReadingList() {
-        double result = this.areaReadings.get(0).getValue();
-        for (AreaReading r : this.areaReadings) {
+    double getMinValueInReadingList() {
+        double result = this.readings.get(0).getValue();
+        for (Reading r : this.readings) {
             result = Math.min(r.getValue(), result);
         }
         return result;
@@ -610,8 +616,8 @@ public class AreaReadingList {
      *
      * @return true if the reading already exists, false otherwise
      */
-    public boolean contains(AreaReading areaReading) {
-        return (areaReadings.contains(areaReading));
+    public boolean contains(Reading reading) {
+        return (readings.contains(reading));
     }
 
     @Override
@@ -619,10 +625,10 @@ public class AreaReadingList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof AreaReadingList)) {
+        if (!(testObject instanceof ReadingList)) {
             return false;
         }
-        AreaReadingList list = (AreaReadingList) testObject;
+        ReadingList list = (ReadingList) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

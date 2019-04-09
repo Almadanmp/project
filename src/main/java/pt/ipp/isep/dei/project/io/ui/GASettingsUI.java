@@ -10,12 +10,10 @@ import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
-import pt.ipp.isep.dei.project.reader.GeographicAreaReaderJSON;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
-import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,12 +23,13 @@ class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
     private GeographicAreaList geographicAreaList;
+
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
-    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService sensorService, AreaSensorList areaSensorList) {
+    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService areaSensorService) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(sensorService, areaSensorList);
+        this.readerController = new ReaderController(areaSensorService);
         this.geographicAreaList = geographicAreaList;
     }
 
@@ -120,10 +119,6 @@ class GASettingsUI {
     /* USER STORY 001 - As an Administrator, I want to addWithoutPersisting a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01(AreaTypeService areaTypeService) {
-//        if (areaTypeList == null) { //TODO unnecessary with repository approach
-//            System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
-//            return;
-//        }
         String typeAreaName = getInputUS01();
         boolean created = updateModelUS01(areaTypeService, typeAreaName);
         displayStateUS01(created);
@@ -434,6 +429,7 @@ class GASettingsUI {
     private void runUS15v3() {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter a valid path.");
         String result = scanner.next();
         String filePath = inputHelperUI.getInputPathJsonOrXML(result);
         if (filePath.endsWith(".json")) {
@@ -442,15 +438,10 @@ class GASettingsUI {
     }
 
     private void importGeoAreasFromJSON(String filePath) {
-        int result = 0;
-        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
-        try {
-            List<GeographicAreaDTO> list = readerJSON.readFile(filePath);
-            result = addGeoAreasDTOToList(list, geographicAreaList);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The JSON file is invalid. Please fix before continuing.");
-        }
-        System.out.println(result + READINGS_IMPORTED);
+        int result;
+        List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
+        result = addGeoAreasDTOToList(list, geographicAreaList);
+        System.out.println(result + " geographic area(s) successfully imported.");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

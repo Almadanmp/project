@@ -15,7 +15,7 @@ public class DateUtils {
     }
 
     /**
-     * Method will read a group of values from user and return a date (year, month, day, hour and
+     * Method will readSensors a group of values from user and return a date (year, month, day, hour and
      * minute). It will only accept valid numbers.
      *
      * @return date introduced by user
@@ -47,7 +47,7 @@ public class DateUtils {
     }
 
     /**
-     * Method will read a group of values from user and return a date (year, month, day, hour and
+     * Method will readSensors a group of values from user and return a date (year, month, day, hour and
      * minute). It will only accept valid numbers.
      *
      * @return date introduced by user
@@ -197,9 +197,9 @@ public class DateUtils {
     /**
      * Method to get a date as an int.
      *
-     * @param scan     the scanner to read input
-     * @param dataType the type of date to read (year, month or day)
-     * @return value read from the user
+     * @param scan     the scanner to readSensors input
+     * @param dataType the type of date to readSensors (year, month or day)
+     * @return value readSensors from the user
      */
     private static int getInputDateAsInt(Scanner scan, String dataType) {
         System.out.println("Enter a " + dataType + ":");

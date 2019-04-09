@@ -32,8 +32,8 @@ class MicrowaveOvenTest {
     private MicrowaveOven validMicrowaveOven; // A generic Microwave Oven.
     private ProgramList validEmptyProgramList; // A program list containing no programs.
     private LogList validEmptyLogList; // a log list containing no logs.
-    private Log validLog; // A log of a reading made of the device with a value of 200, read between the validDate1 and validDate2.
-    private Log validLog2; // A log of a reading made of the device with a value of 2000, read between the validDate3 and validDate2.
+    private Log validLog; // A log of a reading made of the device with a value of 200, readSensors between the validDate1 and validDate2.
+    private Log validLog2; // A log of a reading made of the device with a value of 2000, readSensors between the validDate3 and validDate2.
     private Date validDate1; // Date 20/10/2018 09:02:00
     private Date validDate2; // Date 20/10/2018 10:02:00
     private Date validDate3; // Date 20/10/2017 09:02:00

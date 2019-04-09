@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomList;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorList;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public final class RoomMapper {
 
         // Update the AreaSensorList
 
-        HouseSensorList objectSensorList = new HouseSensorList();
+        HouseSensorService objectSensorList = new HouseSensorService();
         for (HouseSensorDTO y : dtoToConvert.getSensorList()) {
             HouseSensor tempAreaSensor = HouseSensorMapper.dtoToObject(y);
             objectSensorList.add(tempAreaSensor);
@@ -68,16 +68,13 @@ public final class RoomMapper {
         DeviceList objectDeviceList = dtoToConvert.getDeviceList(); // TODO Implement a solution for polymorphic device DTOs (visitor pattern?)
 
 
-        // Update the UUID
-
-        Long objectID = dtoToConvert.getId();
 
         // Create, update and return the converted object.
 
         Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
         resultObject.setDeviceList(objectDeviceList);
         resultObject.setSensorList(objectSensorList);
-        resultObject.setId(objectID);
+
 
         return resultObject;
     }
@@ -124,10 +121,6 @@ public final class RoomMapper {
 
         DeviceList dtoDeviceList = objectToConvert.getDeviceList(); // TODO Implement a solution for polymorphic device DTOs (visitor pattern?)
 
-        // Update the UUID
-
-        Long dtoID = objectToConvert.getId();
-
         // Create, update and return the converted DTO.
 
         RoomDTO resultDTO = new RoomDTO();
@@ -138,7 +131,6 @@ public final class RoomMapper {
         resultDTO.setWidth(dtoWidth);
         resultDTO.setSensorList(dtoSensorList);
         resultDTO.setDeviceList(dtoDeviceList);
-        resultDTO.setId(dtoID);
 
         return resultDTO;
     }
@@ -155,7 +147,7 @@ public final class RoomMapper {
         Room room = null;
         RoomList roomlist = house.getRoomList();
         for (Room r : roomlist.getRooms()) {
-            if (roomDTO.getId().compareTo(r.getId()) == 0) {
+            if (roomDTO.getName().compareTo(r.getName()) == 0) {
                 r = RoomMapper.dtoToObject(roomDTO);
                 room = r;
             }

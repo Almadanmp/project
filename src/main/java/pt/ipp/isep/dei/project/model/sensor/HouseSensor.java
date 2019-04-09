@@ -12,9 +12,7 @@ import java.util.Date;
 public class HouseSensor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private String id;
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -23,14 +21,12 @@ public class HouseSensor {
 
     private Date dateStartedFunctioning;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private HouseReadingList houseReadingList;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sensor_list_id")
-    private HouseSensorList houseSensorList;
+    @Transient
+    private ReadingList readingList;
 
     private boolean active;
+
+    private long roomId;
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -50,7 +46,7 @@ public class HouseSensor {
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
-        houseReadingList = new HouseReadingList();
+        this.readingList = new ReadingList();
         this.active = true;
     }
 
@@ -65,6 +61,24 @@ public class HouseSensor {
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
+    }
+
+    /**
+     * Setter: Id
+     *
+     * @param id is the id we want to set to the sensor.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Getter: Id
+     *
+     * @return a string that represents the name of the sensor.
+     */
+    public String getId() {
+        return (this.id);
     }
 
     /**
@@ -112,18 +126,18 @@ public class HouseSensor {
      *
      * @return the readingList of the sensor.
      */
-    public HouseReadingList getReadingList() {
-        return houseReadingList;
+    public ReadingList getReadingList() {
+        return readingList;
     }
 
     /**
      * Setter: reading list
      *
-     * @param houseReadingList is the readingList we want to set to the sensor.
+     * @param readingList is the readingList we want to set to the sensor.
      */
-    public void setReadingList(HouseReadingList houseReadingList) {
-        if (houseReadingList != null) {
-            this.houseReadingList = houseReadingList;
+    public void setReadingList(ReadingList readingList) {
+        if (readingList != null) {
+            this.readingList = readingList;
         }
     }
 
@@ -138,13 +152,6 @@ public class HouseSensor {
         this.active = status;
     }
 
-    public void setSensorList(HouseSensorList houseSensorList) {
-        this.houseSensorList = houseSensorList;
-    }
-
-    public HouseSensorList getSensorList() {
-        return houseSensorList;
-    }
 
     /**
      * Method to activate an deactivated sensor, and vice versa
@@ -168,9 +175,9 @@ public class HouseSensor {
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/
-    public boolean addReading(HouseReading reading) {
+    public boolean addReading(Reading reading) {
         if (this.active) {
-            return houseReadingList.addReading(reading);
+            return readingList.addReading(reading);
         }
         return false;
     }
@@ -179,16 +186,16 @@ public class HouseSensor {
      * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
      * to the date when the sensor was activated.
      *
-     * @param value is the value read on the reading.
-     * @param date  is the read date of the reading.
+     * @param value is the value readSensors on the reading.
+     * @param date  is the readSensors date of the reading.
      * @return returns true if the reading was successfully added.
      * @author André
      */
-    public boolean addReading(Date date, Double value, String unit) {
+    public boolean addReading(Date date, Double value, String unit, String sensorId) {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
-                HouseReading reading = new HouseReading(value, date, unit);
+                Reading reading = new Reading(value, date, unit, sensorId);
                 return this.addReading(reading);
             }
         }

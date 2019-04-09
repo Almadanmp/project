@@ -1,8 +1,21 @@
 package pt.ipp.isep.dei.project.controller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Controller class for House Configuration UI
@@ -97,5 +110,55 @@ public class HouseConfigurationController {
 
     public String buildRoomsString(House house) {
         return house.buildRoomListString();
+    }
+
+    /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.
+       Sensors without a valid room shouldn’t be imported but registered in the application log. */
+
+    public int readSensors(String filepath, House programHouse) {
+        JSONSensorsReader reader = new JSONSensorsReader();
+        int addedSensors = 0;
+        RoomList houseRooms = programHouse.getRoomList();
+        if (houseRooms.isEmpty()) {
+            return addedSensors;
+        }
+        JSONArray importedArray = reader.readFile(filepath);
+        String roomID;
+        for (int x = 0; x < importedArray.length(); x++) {
+            JSONObject sensorToImport = importedArray.getJSONObject(x);
+            try {
+                roomID = sensorToImport.getString("room");
+            } catch (NullPointerException ok) {
+                continue;
+            }
+            try {
+                String sensorName = sensorToImport.getString("name");
+                String sensorType = sensorToImport.getString("type");
+                String sensorUnit = sensorToImport.getString("units");
+                String sensorStartDate = sensorToImport.getString("start_date");
+                Date objectDate = null;
+                List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+                knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy", new Locale("en", "US")));
+                knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "US")));
+                knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US")));
+                for (SimpleDateFormat pattern : knownPatterns) {
+                    try {
+                        objectDate = pattern.parse(sensorStartDate);
+                    } catch (ParseException c) {
+                        c.getErrorOffset();
+                    }
+                }
+                HouseSensor importedSensor = new HouseSensor(sensorName, new SensorType(sensorType, sensorUnit), objectDate);
+                for (Room r : houseRooms.getRooms()) {
+                    if (r.getName().equals(roomID)) {
+                        r.addSensor(importedSensor);
+                        addedSensors++;
+                    }
+                }
+            } catch (NullPointerException ok) {
+                // Do stuff}
+            }
+        }
+        return addedSensors;
     }
 }

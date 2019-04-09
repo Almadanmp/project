@@ -14,12 +14,12 @@ public class DeviceTypeConfig {
      * @param p   - properties file
      * @param key - key to the value we want to get
      * @return - string "value" from the key
-     * @throws IOException - will throw an IOException if we cannot read the input key
+     * @throws IOException - will throw an IOException if we cannot readSensors the input key
      */
     String getPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
-            throw new IOException("Could not read " + key + " property value.");
+            throw new IOException("Could not readSensors " + key + " property value.");
         }
         return result;
     }

@@ -14,13 +14,12 @@ import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorList;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
-import pt.ipp.isep.dei.project.services.AreaSensorService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -41,9 +40,6 @@ public class MainUI {
 
     @Autowired
     AreaTypeService areaTypeService;
-
-    @Autowired
-    AreaSensorList areaSensorList;
 
     @Autowired
     AreaSensorService areaSensorService;
@@ -168,13 +164,13 @@ public class MainUI {
                     this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService, areaSensorList);
+                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService);
                             view1.runGASettings(areaTypeService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, geographicAreaList, areaSensorList);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(geographicAreaList, areaSensorService);
                             houseC.run(mockHouse);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;

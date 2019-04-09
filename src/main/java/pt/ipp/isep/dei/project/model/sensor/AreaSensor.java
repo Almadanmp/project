@@ -31,7 +31,7 @@ public class AreaSensor {
     private Date dateStartedFunctioning;
 
     @Transient
-    private AreaReadingList areaReadingList;
+    private ReadingList readingList;
 
     private long geographicAreaId;
 
@@ -56,26 +56,10 @@ public class AreaSensor {
     public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
         setId(id);
         setName(name);
-        setSensorType(sensorType);
-        setLocal(local);
-        setDateStartedFunctioning(dateStartedFunctioning);
-        areaReadingList = new AreaReadingList();
-        this.active = true;
-    }
-
-    /**
-     * Sensor() constructor with 3 parameters (Used When A Sensor is in a Room already. So the Location is the same as
-     * the room/house).
-     *
-     * @param name                   is the name we want to set to the Sensor.
-     * @param sensorType             is the Type of the Sensor.
-     * @param dateStartedFunctioning is the Date that the Sensor Started Working.
-     */
-    public AreaSensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
-        setName(name);
-        setSensorType(sensorType);
-        setDateStartedFunctioning(dateStartedFunctioning);
-        areaReadingList = new AreaReadingList();
+        this.sensorType = sensorType;
+        this.local = local;
+        this.dateStartedFunctioning=dateStartedFunctioning;
+        readingList = new ReadingList();
         this.active = true;
     }
 
@@ -99,33 +83,6 @@ public class AreaSensor {
         } else {
             throw new IllegalArgumentException("Please Insert Valid Name");
         }
-    }
-
-    /**
-     * Setter: local
-     *
-     * @param local is the local we want to set to the sensor.
-     */
-    public void setLocal(Local local) {
-        this.local = local;
-    }
-
-    /**
-     * Setter: type sensor
-     *
-     * @param sensor is the Type we want to set to the sensor.
-     */
-    public void setSensorType(SensorType sensor) {
-        this.sensorType = sensor;
-    }
-
-    /**
-     * Setter: date started functioning
-     *
-     * @param dateStartedFunctioning is the date that the sensor started functioning.
-     */
-    public void setDateStartedFunctioning(Date dateStartedFunctioning) {
-        this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
     public Date getDateStartedFunctioning() {
@@ -177,25 +134,24 @@ public class AreaSensor {
      *
      * @return the areaReadingList of the sensor.
      */
-    public AreaReadingList getAreaReadingList() {
-        return areaReadingList;
+    public ReadingList getReadingList() {
+        return readingList;
     }
 
     /**
      * Setter: reading list
      *
-     * @param areaReadingList is the areaReadingList we want to set to the sensor.
+     * @param readingList is the areaReadingList we want to set to the sensor.
      */
-    public void setAreaReadingList(AreaReadingList areaReadingList) {
-        if (areaReadingList != null) {
-            this.areaReadingList = areaReadingList;
+    public void setReadingList(ReadingList readingList) {
+        if (readingList != null) {
+            this.readingList = readingList;
         }
     }
 
     public boolean isActive() {
         return this.active;
     }
-
 
     /**
      * Settter: sets the sensor active
@@ -223,13 +179,13 @@ public class AreaSensor {
      * Checks if reading already exists in reading list and in case the
      * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
      *
-     * @param areaReading the reading to be added to the list
+     * @param reading the reading to be added to the list
      * @return true in case the reading is new and it is added
      * or false in case the reading already exists
      **/
-    public boolean addReading(AreaReading areaReading) {
+    public boolean addReading(Reading reading) {
         if (this.active) {
-            return areaReadingList.addReading(areaReading);
+            return readingList.addReading(reading);
         }
         return false;
     }
@@ -243,7 +199,7 @@ public class AreaSensor {
      * @return returns true if the reading was successfully added.
      * @author André
      */
-    public boolean addReading(Date date, Double value, Unit unit) {
+    public boolean addReading(Date date, Double value, String unit) {
         if (this.active) {
             Date startingDate = this.getDateStartedFunctioning();
             if (date.after(startingDate) || date.equals(startingDate)) {
@@ -330,7 +286,7 @@ public class AreaSensor {
      **/
 
     Date getMostRecentReadingDate() {
-        return this.areaReadingList.getMostRecentReadingDate();
+        return this.readingList.getMostRecentReadingDate();
     }
 
     /**
@@ -349,7 +305,7 @@ public class AreaSensor {
      * @return true if valid, false if invalid.
      **/
     public boolean isReadingListEmpty() {
-        return this.areaReadingList.isEmpty();
+        return this.readingList.isEmpty();
     }
 
     /**
@@ -362,7 +318,7 @@ public class AreaSensor {
      * @author Daniela - US623
      ***/
     public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.areaReadingList.getAverageReadingsBetweenDates(initialDate, endDate);
+        return this.readingList.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -375,7 +331,7 @@ public class AreaSensor {
      * @author Daniela - US633
      ***/
     public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.areaReadingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
+        return this.readingList.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -387,7 +343,7 @@ public class AreaSensor {
      * @author Daniela - US633
      ***/
     public double getHighestAmplitudeInDate(Date date) {
-        return this.areaReadingList.getAmplitudeValueFromDate(date);
+        return this.readingList.getAmplitudeValueFromDate(date);
     }
 
 
@@ -403,7 +359,7 @@ public class AreaSensor {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.areaReadingList.getLastColdestDayInGivenInterval(initialDate, endDate);
+        return this.readingList.getLastColdestDayInGivenInterval(initialDate, endDate);
     }
 
     /**
@@ -417,7 +373,7 @@ public class AreaSensor {
      */
 
     public Date getFirstHottestDayInGivenPeriod(Date startDate, Date endDate) {
-        return this.areaReadingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
+        return this.readingList.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
     /**
@@ -428,7 +384,7 @@ public class AreaSensor {
      * @return total reading values of that day
      ***/
     public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.areaReadingList.getValueReadingsInDay(day);
+        return this.readingList.getValueReadingsInDay(day);
     }
 
     /**
@@ -438,7 +394,7 @@ public class AreaSensor {
      * @return sensor's most recent reading value.
      ***/
     public double getMostRecentValueReading() {
-        return this.areaReadingList.getMostRecentValue();
+        return this.readingList.getMostRecentValue();
     }
 
 

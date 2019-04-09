@@ -10,7 +10,7 @@ public class HouseSensorDTO {
     private String units;
     private String dateStartedFunctioning;
     private boolean active;
-    private List<HouseReadingDTO> readingList;
+    private List<ReadingDTO> readingList;
 
     public HouseSensorDTO(){
         readingList = new ArrayList<>();
@@ -103,11 +103,11 @@ public class HouseSensorDTO {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
-    public List<HouseReadingDTO> getReadingList() {
+    public List<ReadingDTO> getReadingList() {
         return readingList;
     }
 
-    public void setReadingList(List<HouseReadingDTO> readingList) {
+    public void setReadingList(List<ReadingDTO> readingList) {
         this.readingList = readingList;
     }
 

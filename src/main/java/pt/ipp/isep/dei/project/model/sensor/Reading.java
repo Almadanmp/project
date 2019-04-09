@@ -2,14 +2,17 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import pt.ipp.isep.dei.project.services.units.Unit;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * This class will contain a value read by a Sensor, associated with a date of said reading.
+ * This class will contain a value readSensors by a Sensor, associated with a date of said reading.
  */
 @Entity
-public class AreaReading {
+public class Reading {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,13 +27,14 @@ public class AreaReading {
      * @param value value received
      * @param date  date received
      */
-    public AreaReading(double value, Date date, Unit unit) {
+    public Reading(double value, Date date, Unit unit, String sensorId) {
         setValue(value);
         setDate(date);
         setUnit(unit);
+        this.sensorId = sensorId;
     }
 
-    protected AreaReading() {
+    protected Reading() {
     }
 
     /**
@@ -93,11 +97,11 @@ public class AreaReading {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AreaReading)) {
+        if (!(o instanceof Reading)) {
             return false;
         } else {
-            AreaReading areaReading = (AreaReading) o;
-            return (this.date.equals(areaReading.getDate()));
+            Reading reading = (Reading) o;
+            return (this.date.equals(reading.getDate()));
         }
     }
 

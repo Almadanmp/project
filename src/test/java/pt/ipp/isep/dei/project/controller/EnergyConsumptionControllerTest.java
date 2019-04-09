@@ -806,7 +806,7 @@ class EnergyConsumptionControllerTest {
         //Act
 
         validDevice1.addLog(validLog1);
-        LogList actualResult = controller.getRoomLogsInInterval(roomDTO, validDate1,validDate2,validHouse);
+        LogList actualResult = controller.getRoomLogsInInterval(roomDTO, validDate1, validDate2,validHouse);
 
         //Assert
 

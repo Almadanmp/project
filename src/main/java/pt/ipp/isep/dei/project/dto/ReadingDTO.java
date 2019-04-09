@@ -9,6 +9,7 @@ public class ReadingDTO {
     private Date date;
     private double value;
     private Unit unit;
+    private String sensorId;
 
     public Date getDate() {
         return date;
@@ -32,6 +33,14 @@ public class ReadingDTO {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public String getSensorId() {
+        return sensorId;
+    }
+
+    public void setSensorId(String sensorId) {
+        this.sensorId = sensorId;
     }
 
     @Override

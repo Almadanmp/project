@@ -16,14 +16,14 @@ public class HouseService {
     }
 
 
-    public void saveHouse(House house) {
+    public boolean saveHouse(House house) {
         House house2 = houseRepository.findByAddress(house.getAddress());
         if (house2 != null) {
             houseRepository.delete(house);
             houseRepository.save(house);
-
+            return true;
         }
-        houseRepository.save(house);
+        return false;
     }
 }
 
