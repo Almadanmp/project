@@ -34,7 +34,7 @@ public final class GeographicAreaMapper {
     public static GeographicArea dtoToObject(GeographicAreaDTO dtoToConvert) {
         // Update generic parameters
 
-        long objectId = -1;
+        Long objectId = null;
 
         try {
             objectId = dtoToConvert.getId();
@@ -89,11 +89,10 @@ public final class GeographicAreaMapper {
         // Update generic parameters
 
         try {
-            long dtoID = objectToConvert.getId();
+            Long dtoID = objectToConvert.getId();
             resultDTO.setId(dtoID);
 
-        } catch (NullPointerException ok) {
-            ok.printStackTrace();
+        } catch (NullPointerException ignored) {
         }
 
         String dtoName = objectToConvert.getName();

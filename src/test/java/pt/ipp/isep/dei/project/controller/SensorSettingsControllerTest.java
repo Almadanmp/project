@@ -167,13 +167,13 @@ class SensorSettingsControllerTest {
         int month = 8;
         int day = 9;
         Date date1 = controller.createDate(year, month, day);
-        controller.createSensor(idString, nameString, type1, loc1, date1);
+        controller.createSensor(idString, nameString, type1, loc1, date1,6008L);
         SensorType t1 = new SensorType(typeStr, "kg/m³");
         AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", t1, loc1,
-                validDate1);
+                validDate1,6008L);
 
         //Act
-        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1);
+        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1,6008L);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -189,10 +189,10 @@ class SensorSettingsControllerTest {
         AreaSensor firstAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType
                 ("Temperature", "Celsius"),
                 new Local(1, 1, 1),
-                validDate1);
+                validDate1,6008L);
         AreaSensor secondAreaSensor = new AreaSensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Local(1, 1, 1),
-                validDate1);
+                validDate1,6008L);
         AreaSensorService areaSensorService = new AreaSensorService(areaSensorRepository);
         areaSensorService.add(firstAreaSensor);
         geoArea.setSensorList(areaSensorService);
@@ -310,7 +310,7 @@ class SensorSettingsControllerTest {
         // Arrange
 
         AreaSensor areaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
-                validDate1);
+                validDate1,6008L);
         String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long \n";
 
 

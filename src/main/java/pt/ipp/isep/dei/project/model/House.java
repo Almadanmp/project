@@ -322,7 +322,7 @@ public class House implements Metered {
         AreaSensorService minDistSensor = new AreaSensorService();
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime());
+                1).getTime(),  2356L);
         AreaSensorService sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
         if (!sensorsType.isEmpty()) {
             double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);

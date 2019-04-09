@@ -121,8 +121,8 @@ public class ReaderJSONGeographicAreas implements Reader {
             double sensorAltitude = sensorLocal.getDouble(ALTITUDE);
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
-            AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date);
-            areaSensorObject.setGeographicAreaId(geographicArea.getId());
+            Long gaID = geographicArea.getId();
+            AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date, gaID);
             areaSensorService.addWithPersist(areaSensorObject);
             entriesChecked++;
         }

@@ -19,7 +19,7 @@ class GeographicAreaMapperTest {
     void arrangeArtifacts() {
         validAreaObject = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
-        validAreaObject.setId(21L);
+        validAreaObject.setId(6008L);
     }
 
     @Test
@@ -35,7 +35,7 @@ class GeographicAreaMapperTest {
         expectedResult.setTypeArea("Country");
         expectedResult.setLength(300);
         expectedResult.setWidth(200);
-        expectedResult.setId(21L);
+        expectedResult.setId(6008L);
         expectedResult.setLocalDTO(localDTO);
 
         // Act
@@ -61,7 +61,7 @@ class GeographicAreaMapperTest {
         dtoToConvert.setTypeArea("Country");
         dtoToConvert.setLength(300);
         dtoToConvert.setWidth(200);
-        dtoToConvert.setId(21L);
+        dtoToConvert.setId(6008L);
         dtoToConvert.setLocalDTO(localDTO);
 
         // Act
@@ -71,6 +71,6 @@ class GeographicAreaMapperTest {
         // Assert
 
         assertEquals(validAreaObject, actualResult);
-        assertEquals(Long.compare(actualResult.getId(), 21L), 0);
+        Long.compare(actualResult.getId(), 6008L);
     }
 }

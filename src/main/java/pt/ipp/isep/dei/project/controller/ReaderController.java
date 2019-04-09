@@ -57,14 +57,14 @@ public class ReaderController {
      * @param list     - the geographic area list
      * @return - number of geoareas imported
      */
-    public int acceptPath(String input, String filePath, GeographicAreaList list) {
+    public int acceptPath(String filePath, GeographicAreaList list) {
         int areasRead;
-        if (input.endsWith(".json")) {
+        if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
             areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorService);
             return areasRead;
         }
-        if (input.endsWith(".xml")) {
+        if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
             areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, houseService);
             return areasRead;

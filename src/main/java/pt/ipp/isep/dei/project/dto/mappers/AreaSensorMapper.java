@@ -84,6 +84,10 @@ public final class AreaSensorMapper {
             objectReadingList.addReading(tempReading);
         }
 
+        // Update Geographic Area ID
+
+        Long objectGeographicAreaID = dtoToConvert.getGeographicAreaID();
+
         // Update status
 
         boolean objectStatus = dtoToConvert.getActive();
@@ -91,7 +95,7 @@ public final class AreaSensorMapper {
         // Create, update and return converted object
 
         AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
-                objectLatitude, objectLongitude, objectAltitude), objectDate);
+                objectLatitude, objectLongitude, objectAltitude), objectDate, objectGeographicAreaID);
         resultObject.setActive(objectStatus);
         resultObject.setReadingList(objectReadingList);
 
@@ -145,6 +149,10 @@ public final class AreaSensorMapper {
             }
         }
 
+        // Update the GA ID
+
+        Long dtoGeographicAreaID = objectToConvert.getGeographicAreaId();
+
         // Create, update and return the converted DTO.
 
         AreaSensorDTO resultDTO = new AreaSensorDTO();
@@ -158,6 +166,7 @@ public final class AreaSensorMapper {
         resultDTO.setId(dtoID);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
         resultDTO.setReadingList(dtoReadingList);
+        resultDTO.setGeographicAreaID(dtoGeographicAreaID);
 
         return resultDTO;
     }

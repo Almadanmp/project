@@ -70,22 +70,6 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetApplicationTemperatureDefaultWorks(){
-        // Arrange
-
-        String propFileName = "invalid_path";
-
-        // Act
-
-        Throwable exception = assertThrows(IOException.class, () -> UnitHelper.getApplicationTemperatureDefault(propFileName));
-
-        // Assert
-
-        assertEquals("ERROR: Unable to process configuration file.", exception.getMessage());
-
-    }
-
-    @Test
     void seeIfGetApplicationRainfallDefaultWorks(){
         // Arrange
 
@@ -94,22 +78,6 @@ class UnitHelperTest {
         // Act
 
         Throwable exception = assertThrows(IOException.class, () -> UnitHelper.getApplicationRainfallDefault(propFileName));
-
-        // Assert
-
-        assertEquals("ERROR: Unable to process configuration file.", exception.getMessage());
-
-    }
-
-    @Test
-    void seeIfGetUserTemperatureDefaultWorks(){
-        // Arrange
-
-        String propFileName = "invalid_path";
-
-        // Act
-
-        Throwable exception = assertThrows(IOException.class, () -> UnitHelper.getUserTemperatureDefault(propFileName));
 
         // Assert
 

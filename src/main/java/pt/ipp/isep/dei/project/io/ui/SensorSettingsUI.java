@@ -96,20 +96,22 @@ class SensorSettingsUI {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        AreaSensor areaSensor = createSensor(sensorTypeList);
+        AreaSensor areaSensor = createSensor(sensorTypeList, geographicAreaList);
         if (!getConfirmation(areaSensor)) {
             return;
         }
         addSensor(areaSensor, geographicAreaList);
     }
 
-    private AreaSensor createSensor(SensorTypeService sensorTypeList) {
+    private AreaSensor createSensor(SensorTypeService sensorTypeList, GeographicAreaList geographicAreaList) {
         String id = getInputSensorId();
         String name = getInputSensorName();
         SensorType sensorType = getInputTypeSensor(sensorTypeList);
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        return controller.createSensor(id, name, sensorType, local, startDate);
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
+        Long geoID = geographicArea.getId();
+        return controller.createSensor(id, name, sensorType, local, startDate, geoID);
     }
 
     private String getInputSensorId() {

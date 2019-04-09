@@ -15,6 +15,7 @@ public class AreaSensorDTO {
     private String dateStartedFunctioning;
     private boolean active;
     private List<ReadingDTO> readingList;
+    private Long geographicAreaID;
 
     public AreaSensorDTO(){
         readingList = new ArrayList<>();
@@ -139,6 +140,27 @@ public class AreaSensorDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Method that retrieves the DTO's geographical area ID as a string.
+     *
+     * @return is the DTO's geographical area annotation.
+     */
+
+    public Long getGeographicAreaID() {
+        return geographicAreaID;
+    }
+
+    /**
+     * Method that stores a String as the DTO's geographicArea annotation.
+     *
+     * @param geographicAreaID is the string we want to store.
+     */
+
+    public void setGeographicAreaID(Long geographicAreaID) {
+        this.geographicAreaID = geographicAreaID;
+    }
+
 
     /**
      * Method that retrieves the DTO's type's name as a string.

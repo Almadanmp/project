@@ -1,22 +1,22 @@
 @startuml
 actor Administrator
-Administrator->MainUI: Import a list of sensors for the house rooms.
-MainUI->HouseConfigurationUI: runUS260
+Administrator->MainUI: Import a list of sensors \n for the house rooms.
+MainUI->HouseConfigurationUI: runUS260(programHouse)
 ref over HouseConfigurationUI
 getInputPath
 end
 HouseConfigurationUI-> HouseConfigurationController: read(filePath)
 HouseConfigurationController -> ":Reader": read(filePath)
-":Reader" -> ":House": add(List<Sensor>)
+":Reader" -> "programHouse :House": add(List<HouseSensor>)
 loop
-":House" -> ":RoomList": getRoomById(Sensor.getRoomID)
+"programHouse :House" -> ":RoomList": getRoomById(Sensor.getRoomID)
 alt if a room with that ID Exists
-":RoomList" -> ":Room": add (Sensor)
+":RoomList" -> ":Room": add (HouseSensor)
 else if a room with that ID doesn't exist or the Sensor has no Room
 ":RoomList" -> ":RoomList": continue
 end
-":RoomList" --> ":House": return (int) sensorsImported
-":House" --> ":Reader": return (int) sensorsImported
+":RoomList" --> "programHouse :House": return (int) sensorsImported
+"programHouse :House" --> ":Reader": return (int) sensorsImported
 ":Reader" --> HouseConfigurationController: return (int) sensorsImported
 HouseConfigurationController --> HouseConfigurationUI: return (int) sensorsImported
 HouseConfigurationUI -> Administrator: display feedback message

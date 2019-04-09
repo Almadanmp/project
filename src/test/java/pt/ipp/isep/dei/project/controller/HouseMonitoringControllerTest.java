@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
-import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,7 +116,7 @@ class HouseMonitoringControllerTest {
 
         validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
-                new Date());
+                new Date(),6008L);
         validTemperatureHouseSensor = new HouseSensor("TempOne", new SensorType("temperature", "Celsius"),
                 new Date());
         Reading firstTempReading = new Reading(15, validDate1, "C", "TEST");
@@ -173,7 +172,7 @@ class HouseMonitoringControllerTest {
         // Sets up a valid rainfall sensor with valid readings.
 
         AreaSensor validRainfallAreaSensor = new AreaSensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
-                (21, 41, 11), new Date());
+                (21, 41, 11), new Date(),6008L);
         Reading firstRainReading = new Reading(40, validDate4, "C", "TEST");
         Reading secondRainReading = new Reading(10, validDate5, "C", "TEST");
         Reading thirdRainReading = new Reading(10, validDate6, "C", "TEST");
@@ -338,7 +337,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         AreaSensorService temperatureList = new AreaSensorService();
-        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date);
+        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date,6008L);
         temperatureList.add(temperatureAreaSensor);
         validHouseArea.setSensorList(temperatureList);
 
@@ -361,7 +360,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         AreaSensorService rainFallAreaSensorService = new AreaSensorService();
-        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date);
+        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date,6008L);
         rainFallAreaSensorService.add(rainfallAreaSensor);
         validHouseArea.setSensorList(rainFallAreaSensorService);
 
