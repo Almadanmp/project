@@ -94,7 +94,7 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(result, filePath, geographicAreaList);
+        int areas = ctrl.acceptPath(filePath, geographicAreaList);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 

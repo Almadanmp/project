@@ -339,7 +339,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_no_GAs.xml";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(input, absolutePath, validGeographicAreaList);
+        int result = validReader.acceptPath(absolutePath, validGeographicAreaList);
         assertEquals(result, 0);
     }
 
@@ -348,7 +348,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/wrong_path";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(input, absolutePath, validGeographicAreaList);
+        int result = validReader.acceptPath(absolutePath, validGeographicAreaList);
         assertEquals(result, -1);
     }
 

@@ -364,8 +364,8 @@ public class InputHelperUI {
             System.out.println(UtilsUI.INVALID_OPTION);
             scan.next();
         }
-        Double option = scan.nextDouble();
-        return option.intValue();
+        double option = scan.nextDouble();
+        return (int) option;
     }
 
     /**
@@ -434,11 +434,13 @@ public class InputHelperUI {
      * @param input - input of user
      */
     public String getInputPathJsonOrXML(String input) {
-        String filePath = "";
-        if ((input.endsWith(".json") || (input.endsWith(".xml")))) {
-            filePath = getInputPath(input);
+        while (!((input.endsWith(".json") || input.endsWith(".xml")))) {
+            System.out.println("Please insert a valid path.");
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextLine();
+            //TODO Check if file exists
         }
-        return filePath;
+        return input;
     }
 
     public String getInputPathJson(String input) {
