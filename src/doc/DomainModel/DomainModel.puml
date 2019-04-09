@@ -28,8 +28,10 @@ Room "1" -- "0,n" Device : may have >
 House "1" -- "1" Location :  is in >
 Location "1" -- "1" GeographicArea: is in >
 GeographicArea "0,n" -- "1" AreaType: is of >
-GeographicArea "1" -- "0,n" Sensor: may have>
-Sensor "n" -- "1" SensorType: is of >
+SensorGeographicArea "0,n" -- "1" GeographicArea: is on >
+SensorGeographicArea "n" -- "1" SensorType: is of >
+SensorRoom "0,n" -- "1" Room: is on >
+SensorRoom "n" -- "1" SensorType: is of >
 Device "1" .. "1" WaterHeater
 Device "1" .. "1" Fridge
 Device "1" .. "1" etc
