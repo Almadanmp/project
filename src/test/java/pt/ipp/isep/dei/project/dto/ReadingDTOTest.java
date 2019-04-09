@@ -74,8 +74,10 @@ class ReadingDTOTest {
         // Arrange
 
         validDTO.setDate(new GregorianCalendar(2018, Calendar.JULY, 12).getTime());
+        validDTO.setSensorId("TT");
         ReadingDTO testDTO = new ReadingDTO();
         testDTO.setDate(new GregorianCalendar(2018, Calendar.JULY, 12).getTime());
+        testDTO.setSensorId("TT");
 
         // Act and Assert
 

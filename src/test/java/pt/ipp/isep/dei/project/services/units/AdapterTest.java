@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.services.units;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
@@ -94,18 +94,18 @@ class AdapterTest {
 
         //Dto
 
-        ReadingDTOWithUnitAndSensorID readingDTOWithUnitAndSensorID = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO readingDTOWithUnitAndSensorID = new ReadingDTO();
         readingDTOWithUnitAndSensorID.setValue(20D);
         readingDTOWithUnitAndSensorID.setDate(validDate);
         readingDTOWithUnitAndSensorID.setUnit("C");
-        readingDTOWithUnitAndSensorID.setSensorID("TT12");
+        readingDTOWithUnitAndSensorID.setSensorId("TT12");
 
-        List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
+        List<ReadingDTO> expectedResult = new ArrayList<>();
         expectedResult.add(readingDTOWithUnitAndSensorID);
 
         // Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = Adapter.readingDTOWrapperConversion(readingDTOWrapperList);
+        List<ReadingDTO> actualResult = Adapter.readingDTOWrapperConversion(readingDTOWrapperList);
 
         // Assert
 
@@ -150,26 +150,26 @@ class AdapterTest {
         //Dtos
 
         Unit celsius = new Fahrenheit();
-        ReadingDTOWithUnitAndSensorID dtoCelsius1 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO dtoCelsius1 = new ReadingDTO();
         dtoCelsius1.setValue(20D);
         dtoCelsius1.setDate(validDate1);
         dtoCelsius1.setUnit("C");
-        dtoCelsius1.setSensorID("TT12");
+        dtoCelsius1.setSensorId("TT12");
 
-        ReadingDTOWithUnitAndSensorID dtoCelsius2 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO dtoCelsius2 = new ReadingDTO();
         dtoCelsius2.setValue(24.44D);
         dtoCelsius2.setDate(validDate2);
         dtoCelsius2.setUnit("C");
-        dtoCelsius2.setSensorID("TT55");
+        dtoCelsius2.setSensorId("TT55");
 
-        List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
+        List<ReadingDTO> expectedResult = new ArrayList<>();
         expectedResult.add(dtoCelsius1);
         expectedResult.add(dtoCelsius2);
 
 
         // Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = Adapter.readingDTOWrapperConversion(readingDTOWrapperList);
+        List<ReadingDTO> actualResult = Adapter.readingDTOWrapperConversion(readingDTOWrapperList);
 
         // Assert
 

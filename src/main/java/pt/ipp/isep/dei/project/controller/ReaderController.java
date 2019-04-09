@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.GeographicAreaList;
@@ -358,11 +358,11 @@ public class ReaderController {
      * @param logPath  log file path
      * @return number of Area Readings added to corresponding Area Sensor
      **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings, String logPath) {
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath) {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
-        for (ReadingDTOWithUnitAndSensorID r : readings) {
-            String sensorID = r.getSensorID();
+        for (ReadingDTO r : readings) {
+            String sensorID = r.getSensorId();
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();

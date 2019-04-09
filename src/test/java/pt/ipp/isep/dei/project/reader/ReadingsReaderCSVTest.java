@@ -2,8 +2,7 @@ package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
-import pt.ipp.isep.dei.project.services.units.Celsius;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,43 +40,43 @@ class ReadingsReaderCSVTest {
             c.printStackTrace();
         }
 
-        List<ReadingDTOWithUnitAndSensorID> expectedResult = new ArrayList<>();
+        List<ReadingDTO> expectedResult = new ArrayList<>();
 
-        ReadingDTOWithUnitAndSensorID readingDTO1 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO readingDTO1 = new ReadingDTO();
         readingDTO1.setDate(validDate1);
         readingDTO1.setValue(14D);
         readingDTO1.setUnit("C");
-        readingDTO1.setSensorID("xxxx");
+        readingDTO1.setSensorId("xxxx");
 
-        ReadingDTOWithUnitAndSensorID readingDTO2 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO readingDTO2 = new ReadingDTO();
         readingDTO2.setDate(validDate2);
         readingDTO2.setValue(13.66D);
         readingDTO2.setUnit("C");
         String sensorID2 = "TT12346";
-        readingDTO2.setSensorID(sensorID2);
+        readingDTO2.setSensorId(sensorID2);
 
-        ReadingDTOWithUnitAndSensorID readingDTO3 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO readingDTO3 = new ReadingDTO();
         readingDTO3.setDate(validDate3);
         readingDTO3.setValue(16.27D);
         readingDTO3.setUnit("C");
         String sensorID3 = "TT1236A";
-        readingDTO3.setSensorID(sensorID3);
+        readingDTO3.setSensorId(sensorID3);
 
 
-        ReadingDTOWithUnitAndSensorID readingDTO4 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO readingDTO4 = new ReadingDTO();
         readingDTO4.setDate(validDate4);
         readingDTO4.setValue(15.41D);
         readingDTO4.setUnit("C");
         String sensorID4 = "RF12334";
-        readingDTO4.setSensorID(sensorID4);
+        readingDTO4.setSensorId(sensorID4);
 
 
-        ReadingDTOWithUnitAndSensorID readingDTO5 = new ReadingDTOWithUnitAndSensorID();
+        ReadingDTO readingDTO5 = new ReadingDTO();
         readingDTO5.setDate(validDate5);
         readingDTO5.setValue(13.8D);
         readingDTO5.setUnit("C");
         String sensorID5 = "RF12345";
-        readingDTO5.setSensorID(sensorID5);
+        readingDTO5.setSensorId(sensorID5);
 
         expectedResult.add(readingDTO1);
         expectedResult.add(readingDTO2);
@@ -87,7 +86,7 @@ class ReadingsReaderCSVTest {
 
         //Act
 
-        List<ReadingDTOWithUnitAndSensorID> actualResult = readingsReaderCSV.readFile("src/test/resources/readerReadings/test2CSVReadings.csv");
+        List<ReadingDTO> actualResult = readingsReaderCSV.readFile("src/test/resources/readerReadings/test2CSVReadings.csv");
 
         //Assert
 
