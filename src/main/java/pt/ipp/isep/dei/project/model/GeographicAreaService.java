@@ -70,9 +70,8 @@ public class GeographicAreaService {
      *
      * @return a string with the names of the geographic areas
      */
-    public String buildStringRepository() {
+    public String buildStringRepository(List<GeographicArea> geographicAreas) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
-        List<GeographicArea> geographicAreas = getAll();
         if (geographicAreas.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -136,12 +135,12 @@ public class GeographicAreaService {
      * @param typeAreaName is the type of the area we want to get all the geographicAreas.
      * @return a GeographicAreaList with a given type.
      */
-    public GeographicAreaService getGeoAreasByType(String typeAreaName) {
-        GeographicAreaService finalList = new GeographicAreaService(geographicAreaRepository);
+    public List<GeographicArea> getGeoAreasByType(List<GeographicArea> geographicAreas, String typeAreaName) {
+        List<GeographicArea> finalList = new ArrayList<>();
         AreaType areaTypeToTest = new AreaType(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsTypeArea(areaTypeToTest)) {
-                finalList.addGeographicArea(ga);
+                finalList.add(ga);
             }
         }
         return finalList;
