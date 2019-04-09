@@ -11,8 +11,10 @@ import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
@@ -56,7 +58,7 @@ public class ReaderController {
      * @param list     - the geographic area list
      * @return - number of geoareas imported
      */
-    public int acceptPath(String filePath, GeographicAreaList list) {
+    public int acceptPath(String filePath, GeographicAreaService list) {
         int areasRead;
         if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
@@ -93,7 +95,7 @@ public class ReaderController {
      * @param list         - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list, AreaSensorService areaSensorService) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaService list, AreaSensorService areaSensorService) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
@@ -109,7 +111,7 @@ public class ReaderController {
         return readerJSON.readFile(filePath);
     }
 
-    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaList list) {
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
@@ -126,10 +128,11 @@ public class ReaderController {
      *
      * @return the number of readings added to the geographic area sensors
      **/
-    public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
-        AreaSensorService areaSensorService2 = geographicAreaList.getAreaListSensors();
+    public int readReadingsFromCSV(GeographicAreaService geographicAreaService, String path, String logPath) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        List<AreaSensor> areaSensors = geographicAreaService.getAreaListSensors(geoAreas);
         int addedReadings = 0;
-        if (areaSensorService2.isEmpty()) {
+        if (areaSensors.isEmpty()) {
             return addedReadings;
         }
         ReaderCSV csvRead = new ReaderCSV();
@@ -187,10 +190,11 @@ public class ReaderController {
      *
      * @return the total number of readings added
      ***/
-    public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
+    public int readReadingsFromJSON(GeographicAreaService geographicAreaService, String path, String logPath) {
         int addedReadings = 0;
-        AreaSensorService areaSensorService = geographicAreaList.getAll().getAreaListSensors();
-        if (areaSensorService.isEmpty()) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        List<AreaSensor> areaSensors = geographicAreaService.getAreaListSensors(geoAreas);
+        if (areaSensors.isEmpty()) {
             return addedReadings;
         }
         ReaderJSONReadings reader = new ReaderJSONReadings();
@@ -276,10 +280,11 @@ public class ReaderController {
      *
      * @return the total number of readings added
      ***/
-    public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
+    public int readReadingsFromXML(GeographicAreaService geographicAreaService, String path, String logPath) {
         int addedReadings = 0;
-        AreaSensorService areaSensorService = geographicAreaList.getAll().getAreaListSensors();
-        if (areaSensorService.isEmpty()) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        List<AreaSensor> areaSensors = geographicAreaService.getAreaListSensors(geoAreas);
+        if (areaSensors.isEmpty()) {
             return addedReadings;
         }
         ReaderXML reader = new ReaderXML();

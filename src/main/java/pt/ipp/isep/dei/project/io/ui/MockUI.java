@@ -26,7 +26,7 @@ class MockUI {
     private static final String GLASSES = "Glasses";
     private static final String DISHES = "Dishes";
 
-    private GeographicAreaList geoAreaList;
+    private GeographicAreaService geoAreaList;
 
     //GLOBAL VARIABLES TO BE USED BY CLASS METHODS
 
@@ -41,7 +41,7 @@ class MockUI {
 //Getter Methods to use on MAINUI
 
 
-    GeographicAreaList getGeoAreaList() {
+    GeographicAreaService getGeoAreaList() {
         return geoAreaList;
     }
 
@@ -49,14 +49,14 @@ class MockUI {
         this.geoAreaList = mockGeographicAreaList();
     }
 
-    private GeographicAreaList mockGeographicAreaList() {
+    private GeographicAreaService mockGeographicAreaList() {
 
-        return new GeographicAreaList(geographicAreaRepository);
+        return new GeographicAreaService(geographicAreaRepository);
     }
 
     House mockHouse(int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         House mockHouse = new House("Edificio B", new Address("Rua Dr António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal"), new Local(41.177748, -8.607745, 112), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
-        EnergyGrid mainGrid = new EnergyGrid("Main Grid", 0,"546L");
+        EnergyGrid mainGrid = new EnergyGrid("Main Grid", 0, "546L");
         EnergyGridService mockEGList = new EnergyGridService();
         mockEGList.addGrid(mainGrid);
         mockHouse.setGridList(mockEGList);

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaTypeService;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -46,7 +46,7 @@ public class MainUI {
     @Autowired
     ReadingService readingService;
 
-    GeographicAreaList geographicAreaList;
+    GeographicAreaService geographicAreaService;
 
     @Autowired
     AreaSensorRepository areaSensorRepository;
@@ -118,14 +118,13 @@ public class MainUI {
             MockUI mockUI = new MockUI(geographicAreaRepository);
             mockUI.initializeMockUI();
 
-            GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
             HouseService houseService = new HouseService(houseRepository);
             this.areaTypeService = new AreaTypeService(areaTypeRepository);
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
             House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
-            this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
+            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository);
 
             //MAIN CODE
 
@@ -167,17 +166,16 @@ public class MainUI {
 
                 while (activeInput) {
                     option = InputHelperUI.getInputAsInt();
-                    this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService, readingService, houseService);
-                            view1.runGASettings(areaTypeService);
+                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService);
+                            view1.runGASettings(areaTypeService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(geographicAreaList, areaSensorService, readingService, houseService);
-                            houseC.run(mockHouse);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService);
+                            houseC.run(mockHouse, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -189,7 +187,7 @@ public class MainUI {
                             break;
                         case 4:
                             SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(geographicAreaList, mockSensorTypeList);
+                            sensorSettings.run(geographicAreaService, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
@@ -24,18 +24,16 @@ import java.util.Scanner;
 class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
-    private GeographicAreaList geographicAreaList;
 
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
-    GASettingsUI(GeographicAreaList geographicAreaList, AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+    GASettingsUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
         this.gaController = new GASettingsController();
         this.readerController = new ReaderController(areaSensorService, readingService, houseService);
-        this.geographicAreaList = geographicAreaList;
     }
 
-    void runGASettings(AreaTypeService areaTypeService) {
+    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -52,31 +50,31 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS03(areaTypeService);
+                    runUS03(areaTypeService, geographicAreaService);
                     activeInput = false;
                     break;
                 case 4:
-                    runUS04(areaTypeService);
+                    runUS04(areaTypeService, geographicAreaService);
                     activeInput = false;
                     break;
                 case 5:
-                    runUS07();
+                    runUS07(geographicAreaService);
                     activeInput = false;
                     break;
                 case 6:
-                    runUS08();
+                    runUS08(geographicAreaService);
                     activeInput = false;
                     break;
                 case 7:
-                    runUS10();
+                    runUS10(geographicAreaService);
                     activeInput = false;
                     break;
                 case 8:
-                    runUS11();
+                    runUS11(geographicAreaService);
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15v3();
+                    runUS15v3(geographicAreaService);
                     activeInput = false;
                     break;
                 case 10:
@@ -161,15 +159,15 @@ class GASettingsUI {
     }
 
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
-    private void runUS03(AreaTypeService areaTypeService) {
+    private void runUS03(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         if (areaTypeService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
-        getAreaInputUS03(areaTypeService);
+        getAreaInputUS03(areaTypeService, geographicAreaService);
     }
 
-    private void getAreaInputUS03(AreaTypeService areaTypeService) {
+    private void getAreaInputUS03(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         Scanner scanner = new Scanner(System.in);
         TypeAreaDTO geoTypeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
         String gaTypeAreaName = gaController.getTypeAreaName(geoTypeAreaDTO);
@@ -193,7 +191,7 @@ class GASettingsUI {
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
-            gaController.addNewGeoAreaToList(geographicAreaList, geoAreaDTO, localDTO);
+            gaController.addNewGeoAreaToList(geographicAreaService, geoAreaDTO, localDTO);
 
         }
     }
@@ -228,48 +226,48 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
-    private void runUS04(AreaTypeService areaTypeService) {
+    private void runUS04(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         if (areaTypeService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
-        if (geographicAreaList.isEmpty()) {
+        if (geographicAreaService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
         TypeAreaDTO typeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
-        GeographicAreaList gaFinalList = matchGAByTypeArea(geographicAreaList, typeAreaDTO);
+        GeographicAreaService gaFinalList = matchGAByTypeArea(geographicAreaService, typeAreaDTO);
         displayGAListByTypeArea(gaFinalList, typeAreaDTO);
     }
 
-    private GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeAreaDTO typeArea) {
-        return gaController.matchGAByTypeArea(geographicAreaList, typeArea);
+    private GeographicAreaService matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+        return gaController.matchGAByTypeArea(geographicAreaService, typeArea);
     }
 
-    private void displayGAListByTypeArea(GeographicAreaList gaFinalList, TypeAreaDTO typeArea) {
+    private void displayGAListByTypeArea(GeographicAreaService gaFinalList, TypeAreaDTO typeArea) {
         String taName = gaController.getTypeAreaName(typeArea);
         System.out.println("Geographic Areas of the type " + taName + ":\n");
         System.out.println(gaController.buildGAListString(gaFinalList));
     }
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
-    private void runUS07() {
-        if (geographicAreaList.isEmpty()) {
+    private void runUS07(GeographicAreaService geographicAreaService) {
+        if (geographicAreaService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        GeographicArea motherGA = getInputMotherGeographicArea(geographicAreaList);
-        GeographicArea daughterGA = getInputDaughterGeographicArea(geographicAreaList);
+        GeographicArea motherGA = getInputMotherGeographicArea(geographicAreaService);
+        GeographicArea daughterGA = getInputDaughterGeographicArea(geographicAreaService);
         updateStateUS07(motherGA, daughterGA);
         displayStateUS07(motherGA, daughterGA);
     }
 
-    private GeographicArea getInputMotherGeographicArea(GeographicAreaList programGAList) {
+    private GeographicArea getInputMotherGeographicArea(GeographicAreaService programGAList) {
         System.out.println("First you need to select the geographic area you wish to set as container.");
         return InputHelperUI.getGeographicAreaByList(programGAList);
     }
 
-    private GeographicArea getInputDaughterGeographicArea(GeographicAreaList programGAList) {
+    private GeographicArea getInputDaughterGeographicArea(GeographicAreaService programGAList) {
         System.out.println("Second you need to select the geographic area you wish to set as contained.");
         return InputHelperUI.getGeographicAreaByList(programGAList);
     }
@@ -287,13 +285,13 @@ class GASettingsUI {
 
     /* US08 - As an Administrator, I want to find out if a geographical area is included, directly
     or indirectly, in another one. */
-    private void runUS08() {
-        if (geographicAreaList.isEmpty()) {
+    private void runUS08(GeographicAreaService geographicAreaService) {
+        if (geographicAreaService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        GeographicArea motherGA = getMotherArea(geographicAreaList);
-        GeographicArea daughterGA = getDaughterArea(geographicAreaList);
+        GeographicArea motherGA = getMotherArea(geographicAreaService);
+        GeographicArea daughterGA = getDaughterArea(geographicAreaService);
         checkIfContained(motherGA, daughterGA);
     }
 
@@ -301,18 +299,18 @@ class GASettingsUI {
      * getInputGeographicContainer()
      * this method makes the user define the NAME of the GeographicArea CONTAINER
      */
-    private GeographicArea getMotherArea(GeographicAreaList geographicAreaList) {
+    private GeographicArea getMotherArea(GeographicAreaService geographicAreaService) {
         System.out.println("First you need to select the geographic area you wish to test if contains another geographic area.");
-        return InputHelperUI.getGeographicAreaByList(geographicAreaList);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaService);
     }
 
     /**
      * getInputGeographicContainer()
      * this method makes the user define the NAME of the GeographicArea CONTAINED
      */
-    private GeographicArea getDaughterArea(GeographicAreaList geographicAreaList) {
+    private GeographicArea getDaughterArea(GeographicAreaService geographicAreaService) {
         System.out.println("Second you need to select the geographic area you wish to test if is contained in the first one.");
-        return InputHelperUI.getGeographicAreaByList(geographicAreaList);
+        return InputHelperUI.getGeographicAreaByList(geographicAreaService);
     }
 
     /**
@@ -330,10 +328,10 @@ class GASettingsUI {
     /**
      * This method deactivates a sensor selected from a list of sensor of an selected geographic area
      */
-    private void runUS10() {
-        GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaList);
+    private void runUS10(GeographicAreaService geographicAreaService) {
+        GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
         AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
-        if (!gaController.deactivateSensor(geographicAreaList, areaSensorDTO, geographicAreaDTO)) {
+        if (!gaController.deactivateSensor(geographicAreaService, areaSensorDTO, geographicAreaDTO)) {
             System.out.println("Sensor already deactivated.");
         } else {
             System.out.println("Sensor successfully deactivated!");
@@ -348,14 +346,14 @@ class GASettingsUI {
     /**
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      */
-    private void runUS11() {
-        GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaList);
+    private void runUS11(GeographicAreaService geographicAreaService) {
+        GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
         AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
-        updateUS11(areaSensorDTO, geographicAreaDTO);
+        updateUS11(geographicAreaService, areaSensorDTO, geographicAreaDTO);
     }
 
-    private void updateUS11(AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(geographicAreaList, areaSensorDTO, geographicAreaDTO);
+    private void updateUS11(GeographicAreaService geographicAreaService, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
+        gaController.removeSensor(geographicAreaService, areaSensorDTO, geographicAreaDTO);
         System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getName() + " has ceased to be.");
     }
@@ -424,25 +422,25 @@ class GASettingsUI {
         return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
     }
 
-    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaList list) {
+    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
     }
 
-    private void runUS15v3() {
+    private void runUS15v3(GeographicAreaService geographicAreaService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a valid path.");
         String result = scanner.next();
         String filePath = inputHelperUI.getInputPathJsonOrXML(result);
         if (filePath.endsWith(".json")) {
-            importGeoAreasFromJSON(filePath);
+            importGeoAreasFromJSON(filePath, geographicAreaService);
         }
     }
 
-    private void importGeoAreasFromJSON(String filePath) {
+    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService) {
         int result;
         List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
-        result = addGeoAreasDTOToList(list, geographicAreaList);
+        result = addGeoAreasDTOToList(list, geographicAreaService);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
 

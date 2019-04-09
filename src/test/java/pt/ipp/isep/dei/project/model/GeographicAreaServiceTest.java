@@ -2,26 +2,30 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
-import java.util.Date;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * GeographicAreaList tests class.
  */
-
-class GeographicAreaListTest {
+@ExtendWith(MockitoExtension.class)
+class GeographicAreaServiceTest {
     // Common testing artifacts for this class.
 
-    private GeographicAreaList validList;
+    private GeographicAreaService validService;
     private GeographicArea firstValidArea;
     private GeographicArea secondValidArea;
+    private List<GeographicArea> validList;
 
     @Mock
     GeographicAreaRepository geographicAreaRepository;
@@ -33,15 +37,17 @@ class GeographicAreaListTest {
                 new Local(50, 50, 10));
         secondValidArea = new GeographicArea("Europe", new AreaType("Continent"), 3000, 2000,
                 new Local(90, 100, 10));
-        validList = new GeographicAreaList(geographicAreaRepository);
-        validList.addGeographicArea(firstValidArea);
+        validService = new GeographicAreaService(geographicAreaRepository);
+        validService.addGeographicArea(firstValidArea);
+        validList = new ArrayList<>();
+        validList.add(firstValidArea);
     }
 
     @Test
     void seeIfAddGAToListWorksAlreadyContained() {
         //Act
 
-        boolean actualResult = validList.addGeographicArea(firstValidArea);
+        boolean actualResult = validService.addGeographicArea(firstValidArea);
         //Assert
 
         assertFalse(actualResult);
@@ -51,7 +57,7 @@ class GeographicAreaListTest {
     void seeIfAddGAToListWorks() {
         //Act
 
-        boolean actualResult = validList.addGeographicArea(secondValidArea);
+        boolean actualResult = validService.addGeographicArea(secondValidArea);
 
         //Assert
 
@@ -62,7 +68,7 @@ class GeographicAreaListTest {
     void seeIfContainsWorksTrue() {
         // Act
 
-        boolean actualResult = validList.contains(firstValidArea);
+        boolean actualResult = validService.contains(firstValidArea);
 
         // Assert
 
@@ -73,7 +79,7 @@ class GeographicAreaListTest {
     void seeIfFalseWhenGivenGeoAreaIsNotContainedInGeographicAreaList() {
         // Act
 
-        boolean actualResult = validList.contains(secondValidArea);
+        boolean actualResult = validService.contains(secondValidArea);
 
         // Assert
 
@@ -85,12 +91,12 @@ class GeographicAreaListTest {
     void seeIfGetGeoAreaByTypeWorks() {
         // Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
         // Act
 
-        GeographicAreaList actualResult = validList.getGeoAreasByType("Country");
+        GeographicAreaService actualResult = validService.getGeoAreasByType("Country");
 
         // Assert
 
@@ -102,12 +108,12 @@ class GeographicAreaListTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaService testList = new GeographicAreaService(geographicAreaRepository);
         testList.addGeographicArea(secondValidArea);
 
         //Act
 
-        boolean actualResult = validList.equals(testList);
+        boolean actualResult = validService.equals(testList);
 
         // Assert
 
@@ -122,7 +128,7 @@ class GeographicAreaListTest {
 
         //Act
 
-        boolean actualResult = validList.equals(testList); // Needed for SonarQube testing purposes.
+        boolean actualResult = validService.equals(testList); // Needed for SonarQube testing purposes.
 
         // Assert
 
@@ -133,13 +139,11 @@ class GeographicAreaListTest {
     void seeIfPrintsGeoAList() {
         // Arrange
 
-        String expectedResult = "---------------\n" +
-                "0) Name: Portugal | Type: Country | Latitude: 50.0 | Longitude: 50.0\n" +
-                "---------------\n";
+        String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String result = validList.buildString();
+        String result = validService.buildStringRepository();
 
         // Assert
 
@@ -150,12 +154,12 @@ class GeographicAreaListTest {
     void seeIfPrintsGeoAListIfEmpty() {
         // Arrange
 
-        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaService testList = new GeographicAreaService(geographicAreaRepository);
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String actualResult = testList.buildString();
+        String actualResult = testList.buildStringRepository();
 
         // Assert
 
@@ -167,7 +171,7 @@ class GeographicAreaListTest {
     void seeIfContainsGAByParametersFalse() {
         // Act
 
-        boolean actualResult = validList.containsObjectMatchesParameters("Lisboa", new AreaType("City"), new Local(21,
+        boolean actualResult = validService.containsObjectMatchesParameters("Lisboa", new AreaType("City"), new Local(21,
                 30, 40));
 
 
@@ -180,7 +184,7 @@ class GeographicAreaListTest {
     void seeIfContainsGAByParametersTrue() {
         // Act
 
-        boolean actualResult = validList.containsObjectMatchesParameters("Portugal", new AreaType("Country"), new Local(50,
+        boolean actualResult = validService.containsObjectMatchesParameters("Portugal", new AreaType("Country"), new Local(50,
                 50, 10));
 
 
@@ -190,73 +194,49 @@ class GeographicAreaListTest {
     }
 
     @Test
-    void checkIfGAExistsIfEmptyList() {
-        // Arrange
+    void seeIfIsEmptyFalse() {
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        geographicAreas.add(firstValidArea);
 
-        GeographicAreaList testList = new GeographicAreaList(geographicAreaRepository);
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
 
-        // Act
+        assertFalse(validService.isEmpty());
 
-        boolean actualResult = testList.containsObjectMatchesParameters("Lisboa", new AreaType("City"), new Local(21,
-                30, 40));
-
-
-        // Assert
-
-        assertFalse(actualResult);
     }
 
     @Test
-    void isEmpty() {
-        //Arrange
+    void seeIfIsEmptyTrue() {
 
-        GeographicAreaList emptyTestList = new GeographicAreaList(geographicAreaRepository);
+        List<GeographicArea> geographicAreas = new ArrayList<>();
 
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
 
-        // Act
-
-        boolean actualResult1 = emptyTestList.isEmpty();
-        boolean actualResult2 = validList.isEmpty();
-
-        // Assert
-
-        assertTrue(actualResult1);
-        assertFalse(actualResult2);
+        assertTrue(validService.isEmpty());
     }
 
     @Test
-    void seeIfGetByIndexWorks() {
-        //Arrange
+    void seeIfGetTypeAreaByIdRepository() {
+        long mockId = 1234;
+        firstValidArea.setId(mockId);
 
-        validList.addGeographicArea(secondValidArea);
+        Mockito.when(geographicAreaRepository.findById(mockId)).thenReturn(Optional.of(firstValidArea));
 
-        //Act
+        GeographicArea result = validService.get(mockId);
 
-        GeographicArea actualResult1 = validList.get(0);
-        GeographicArea actualResult2 = validList.get(1);
+        assertEquals(result.getId(), firstValidArea.getId());
 
-        //Assert
-
-        assertEquals(firstValidArea, actualResult1);
-        assertEquals(secondValidArea, actualResult2);
     }
-
 
     @Test
-    void getByIndexEmptyGAList() {
-        //Arrange
+    void seeIfGetTypeAreaByIdRepositoryNull() {
+        long mockId = 1234;
 
-        GeographicAreaList emptyList = new GeographicAreaList(geographicAreaRepository);
+        Mockito.when(geographicAreaRepository.findById(mockId)).thenReturn(Optional.empty());
 
-        //Act
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validService.get(mockId));
 
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyList.get(0));
-
-        //Assert
-
-        assertEquals("The geographic area list is empty.", exception.getMessage());
+        assertEquals("ERROR: There is no Geographic Area with the selected ID.", exception.getMessage());
     }
-
 
     @Test
     void createGA() {
@@ -265,7 +245,7 @@ class GeographicAreaListTest {
         Local local = new Local(12, 12, 12);
         GeographicArea expectedResult = new GeographicArea(iD, areaType, 12, 12, local);
 
-        GeographicArea actualResult = validList.createGA(iD, areaType, 12, 12, local);
+        GeographicArea actualResult = validService.createGA(iD, areaType, 12, 12, local);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -274,7 +254,7 @@ class GeographicAreaListTest {
     void seeIfDoesNotAddWithoutPersisting() {
         // Arrange
 
-        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
         // Act
@@ -290,19 +270,18 @@ class GeographicAreaListTest {
     @Test
     void seeIfGetsAreaListSensors() {
         // Arrange
-        AreaSensorService validAreaSensorService = new AreaSensorService();
+        List<AreaSensor> validAreaSensorService = new ArrayList<>();
         AreaSensor firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
-                31, 1, 2), new Date(),6008L);
+                31, 1, 2), new Date(), 6008L);
         firstValidAreaSensor.setActive(true);
-        AreaSensor secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,10),
-                new Date(),6008L);
+        AreaSensor secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
+                new Date(), 6008L);
         secondValidAreaSensor.setActive(true);
 
-        GeographicAreaList geographicAreaList = new GeographicAreaList(geographicAreaRepository);
 
         // Act
 
-        AreaSensorService actualResult = geographicAreaList.getAreaListSensors();
+        List<AreaSensor> actualResult = validService.getAreaListSensors(validList);
 
         // Assert
 
@@ -313,15 +292,15 @@ class GeographicAreaListTest {
     void seeIfGetsGeoAreasByType() {
         // Arrange
 
-        validList.addGeographicArea(firstValidArea);
+        validService.addGeographicArea(firstValidArea);
 
-        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
 
         // Act
 
-        GeographicAreaList actualResult = validList.getGeoAreasByType("Country");
+        GeographicAreaService actualResult = validService.getGeoAreasByType("Country");
 
         // Assert
 
@@ -332,7 +311,7 @@ class GeographicAreaListTest {
     void seeIfRemovesGeographicAreaTrue() {
         // Act
 
-        boolean actualResult = validList.removeGeographicArea(firstValidArea);
+        boolean actualResult = validService.removeGeographicArea(firstValidArea);
 
         // Assert
 
@@ -343,15 +322,15 @@ class GeographicAreaListTest {
     void seeIfGetAreaListSensorsWorks() {
         // Arrange
 
-        AreaSensor firstValidAreaSensor = new AreaSensor("SensOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date(),6008L);
-        AreaSensor secondValidAreaSensor = new AreaSensor("SensTwo", "SensTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,20),new Date(),6008L);
-        AreaSensorService expectedResult = new AreaSensorService();
+        AreaSensor firstValidAreaSensor = new AreaSensor("SensOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor secondValidAreaSensor = new AreaSensor("SensTwo", "SensTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 20), new Date(), 6008L);
+        List<AreaSensor> expectedResult = new ArrayList<>();
         expectedResult.add(firstValidAreaSensor);
         firstValidArea.addSensor(firstValidAreaSensor);
 
         // Act
 
-        AreaSensorService actualResult = validList.getAreaListSensors();
+        List<AreaSensor> actualResult = validService.getAreaListSensors(validList);
 
         // Assert
 
@@ -359,13 +338,13 @@ class GeographicAreaListTest {
 
         // Add new Area
 
-        validList.addGeographicArea(secondValidArea);
+        validList.add(secondValidArea);
         secondValidArea.addSensor(secondValidAreaSensor);
         expectedResult.add(secondValidAreaSensor);
 
         // Act
 
-        actualResult = validList.getAreaListSensors();
+        actualResult = validService.getAreaListSensors(validList);
 
         // Assert
 
@@ -378,7 +357,7 @@ class GeographicAreaListTest {
 
         // Act
 
-        actualResult = validList.getAreaListSensors();
+        actualResult = validService.getAreaListSensors(validList);
 
         // Assert
 
@@ -389,7 +368,7 @@ class GeographicAreaListTest {
     void seeIfRemovesGeographicAreaFalse() {
         // Act
 
-        boolean actualResult = validList.removeGeographicArea(secondValidArea);
+        boolean actualResult = validService.removeGeographicArea(secondValidArea);
 
         // Assert
 
@@ -400,7 +379,7 @@ class GeographicAreaListTest {
     void seeIfRemovesGeographicAreaEmptyList() {
         // Act
 
-        GeographicAreaList emptyList = new GeographicAreaList(geographicAreaRepository);
+        GeographicAreaService emptyList = new GeographicAreaService(geographicAreaRepository);
         boolean actualResult = emptyList.removeGeographicArea(secondValidArea);
 
         // Assert

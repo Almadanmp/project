@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,17 +10,18 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.services.HouseService;
-import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
@@ -45,10 +43,10 @@ class ReaderControllerTest {
 
     // Common artifacts for testing in this class.
 
-    private GeographicAreaList validGeographicAreaList;
-    private GeographicAreaList validGeographicAreaList2;
-    private GeographicAreaList emptyGeographicAreaList;
-    private GeographicAreaList validGeographicAreaListNoSensors;
+    private GeographicAreaService validGeographicAreaService;
+    private GeographicAreaService validGeographicAreaService2;
+    private GeographicAreaService emptyGeographicAreaService;
+    private GeographicAreaService validGeographicAreaServiceNoSensors;
     private GeographicArea validGeographicArea;
     private ReaderXMLGeoArea validReaderXMLGeoArea;
     private Date validDate1 = new Date();
@@ -122,14 +120,14 @@ class ReaderControllerTest {
         validAreaSensorService2.add(validAreaSensor4);
         validGeographicArea.setSensorList(validAreaSensorService);
         validGeographicArea2.setSensorList(validAreaSensorService2);
-        validGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
-        validGeographicAreaList2 = new GeographicAreaList(geographicAreaRepository);
-        emptyGeographicAreaList = new GeographicAreaList(geographicAreaRepository);
-        validGeographicAreaListNoSensors = new GeographicAreaList(geographicAreaRepository);
-        validGeographicAreaListNoSensors.addGeographicArea(emptyGeographicArea);
-        validGeographicAreaList.addGeographicArea(validGeographicArea);
-        validGeographicAreaList.addGeographicArea(validGeographicArea2);
-        validGeographicAreaList2.addGeographicArea(validGeographicArea);
+        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository);
+        validGeographicAreaService2 = new GeographicAreaService(geographicAreaRepository);
+        emptyGeographicAreaService = new GeographicAreaService(geographicAreaRepository);
+        validGeographicAreaServiceNoSensors = new GeographicAreaService(geographicAreaRepository);
+        validGeographicAreaServiceNoSensors.addGeographicArea(emptyGeographicArea);
+        validGeographicAreaService.addGeographicArea(validGeographicArea);
+        validGeographicAreaService.addGeographicArea(validGeographicArea2);
+        validGeographicAreaService2.addGeographicArea(validGeographicArea);
     }
 
     private final InputStream systemIn = System.in;

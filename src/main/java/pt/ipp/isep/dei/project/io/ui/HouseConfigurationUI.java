@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -25,21 +25,19 @@ class HouseConfigurationUI {
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private GeographicAreaList geographicAreaList;
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
 
     private HouseService houseService;
 
-    HouseConfigurationUI(GeographicAreaList geographicAreaList, AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
         this.controller = new HouseConfigurationController();
-        this.geographicAreaList = geographicAreaList;
         this.areaSensorService = areaSensorService;
         this.readingService = readingService;
         this.houseService = houseService;
     }
 
-    void run(House house) {
+    void run(House house, GeographicAreaService geographicAreaService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -50,11 +48,11 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2();
+                    runUS15v2(geographicAreaService);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS20v2();
+                    runUS20v2(geographicAreaService);
                     activeInput = false;
                     break;
                 case 3:
@@ -62,7 +60,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 4:
-                    runUS101(house);
+                    runUS101(house, geographicAreaService);
                     activeInput = false;
                     break;
                 case 5:
@@ -94,14 +92,14 @@ class HouseConfigurationUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2() {
+    private void runUS15v2(GeographicAreaService geographicAreaService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(filePath, geographicAreaList);
+        int areas = ctrl.acceptPath(filePath, geographicAreaService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 
@@ -118,45 +116,45 @@ class HouseConfigurationUI {
      * <p>
      * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
-    private void runUS20v2() {
+    private void runUS20v2(GeographicAreaService geographicAreaService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String path = inputHelperUI.getInputJsonXmlCsv();
         if (path.endsWith(".csv")) {
-            readReadingsFromCSV(path, VALID_LOG_PATH);
+            readReadingsFromCSV(path, VALID_LOG_PATH, geographicAreaService);
         } else if (path.endsWith(".json")) {
-            readReadingsFromJSON(path, VALID_LOG_PATH);
+            readReadingsFromJSON(path, VALID_LOG_PATH, geographicAreaService);
         } else if (path.endsWith(".xml")) {
-            readReadingsFromXML(path, VALID_LOG_PATH);
+            readReadingsFromXML(path, VALID_LOG_PATH, geographicAreaService);
         }
     }
 
-    private void readReadingsFromCSV(String filePath, String logFilePath) {
+    private void readReadingsFromCSV(String filePath, String logFilePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         try {
-            result = ctrl.readReadingsFromCSV(geographicAreaList, filePath, logFilePath);
+            result = ctrl.readReadingsFromCSV(geographicAreaService, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid.");
         }
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private void readReadingsFromJSON(String filePath, String logFilePath) {
+    private void readReadingsFromJSON(String filePath, String logFilePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         try {
-            result = ctrl.readReadingsFromJSON(geographicAreaList, filePath, logFilePath);
+            result = ctrl.readReadingsFromJSON(geographicAreaService, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid.");
         }
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private void readReadingsFromXML(String filePath, String logFilePath) {
+    private void readReadingsFromXML(String filePath, String logFilePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         try {
-            result = ctrl.readReadingsFromXML(geographicAreaList, filePath, logFilePath);
+            result = ctrl.readReadingsFromXML(geographicAreaService, filePath, logFilePath);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid.");
         }
@@ -181,11 +179,11 @@ class HouseConfigurationUI {
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 
-    private void runUS101(House house) {
+    private void runUS101(House house, GeographicAreaService geographicAreaService) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("First select the geographic area where this house is located.");
-        GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
+        GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService);
 
         // get house address
         System.out.print("Please, type the street where the house is located: ");

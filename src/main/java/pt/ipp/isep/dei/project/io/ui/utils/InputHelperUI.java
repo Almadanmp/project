@@ -2,15 +2,18 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 
 import java.io.File;
 import java.util.List;
@@ -39,16 +42,16 @@ public class InputHelperUI {
     /**
      * Method to select a particular geographic area from the list of geographic areas available to the program.
      *
-     * @param geographicAreaList is the list of geographic areas available to the program.
+     * @param geographicAreaService is the list of geographic areas available to the program.
      * @return is the selected geographic area.
      */
-    public static GeographicArea getGeographicAreaByList(GeographicAreaList geographicAreaList) {
+    public static GeographicArea getGeographicAreaByList(GeographicAreaService geographicAreaService) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
-            System.out.println(geographicAreaList.buildString());
+            System.out.println(geographicAreaService.buildStringRepository());
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < geographicAreaList.size()) {
-                GeographicArea result = geographicAreaList.get(aux);
+            if (aux >= 0 && aux < geographicAreaService.size()) {
+                GeographicArea result = geographicAreaService.get(aux);
                 System.out.println("You have chosen the following geographic area: ");
                 System.out.println(result.buildString() + "\n");
                 return result;
