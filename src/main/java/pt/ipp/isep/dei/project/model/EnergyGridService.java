@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Class that groups a number of energy Grids of a House.
@@ -44,9 +47,9 @@ public class EnergyGridService {
         return false;
     }
 
-    public boolean addPersistenceGrid (EnergyGrid energyGrid){
+    public boolean addPersistenceGrid(EnergyGrid energyGrid) {
         EnergyGrid grid = energyGridRepository.findByName(energyGrid.getName());
-        if (grid !=null){
+        if (grid != null) {
             energyGridRepository.delete(grid);
         }
         energyGridRepository.save(energyGrid);
@@ -60,13 +63,7 @@ public class EnergyGridService {
      * @param maxPower    - maximum power of the to be created EnergyGrid.
      * @return a new EnergyGrid or an existing one if the designation is the same.
      */
-    EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
-        for (EnergyGrid e : this.energyGrids) {
-            String name = e.getName();
-            if (name.equals(designation)) {
-                return e;
-            }
-        }
+    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
         return new EnergyGrid(designation, maxPower, houseID);
     }
 
@@ -82,7 +79,7 @@ public class EnergyGridService {
         if (isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (EnergyGrid eg: this.energyGrids) {
+        for (EnergyGrid eg : this.energyGrids) {
             result.append(eg.getId()).append(") Designation: ").append(eg.getName()).append(" | ");
             result.append("Max Power: ").append(eg.getMaxContractedPower()).append("\n");
         }

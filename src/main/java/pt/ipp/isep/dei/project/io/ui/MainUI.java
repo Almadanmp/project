@@ -16,7 +16,10 @@ import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.HouseRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -31,46 +34,36 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    SensorTypeService sensorTypeService;
+    private SensorTypeService sensorTypeService;
 
     @Autowired
-    AreaTypeRepository areaTypeRepository;
+    private AreaTypeService areaTypeService;
 
     @Autowired
-    AreaTypeService areaTypeService;
+    private AreaSensorService areaSensorService;
 
     @Autowired
-    AreaSensorService areaSensorService;
-
+    private ReadingService readingService;
     @Autowired
-    ReadingService readingService;
-
-    GeographicAreaService geographicAreaService;
-
-    @Autowired
-    AreaSensorRepository areaSensorRepository;
-
-    @Autowired
-    GeographicAreaRepository geographicAreaRepository;
-
-    @Autowired
-    SensorTypeRepository sensorTypeRepository;
-
-    @Autowired
-    HouseRepository houseRepository;
-
-    @Autowired
-    private EnergyGridRepository energyGridRepository;
+    private GeographicAreaService geographicAreaService;
 
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private RoomService roomService;
+    @Autowired
+    private HouseSensorService houseSensorService;
 
     @Autowired
-    private HouseSensorRepository houseSensorRepository;
-
-    private RoomService roomService;
-
-    private HouseSensorService houseSensorService;
+    private EnergyGridService energyGridService;
+    @Autowired
+    private HouseRepository houseRepository;
+    @Autowired
+    private HouseService houseService;
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -126,10 +119,7 @@ public class MainUI {
             // *************************
             // ******* < MOCK DATA FOR TESTING PURPOSES >*******
             // *************************
-            HouseService houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
-            this.areaTypeService = new AreaTypeService(areaTypeRepository);
-            this.roomService = new RoomService(roomRepository);
-            this.houseSensorService = new HouseSensorService(houseSensorRepository);
+
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
 
 
@@ -205,7 +195,7 @@ public class MainUI {
                             break;
                         case 5:
                             EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                            energyGridSettings.run(houseService);
+                            energyGridSettings.run(house, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

@@ -49,6 +49,7 @@ public class EnergyGrid implements Metered {
         this.listPowerSources = new PowerSourceList();
         this.name = name;
         this.maxContractedPower = maxContractedPower;
+        this.houseId = houseId;
     }
 
     /**

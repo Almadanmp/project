@@ -4,11 +4,7 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.PowerSource;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.HouseService;
+import pt.ipp.isep.dei.project.model.*;
 
 import java.util.Scanner;
 
@@ -19,7 +15,7 @@ class EnergyGridSettingsUI {
         this.controller = new EnergyGridSettingsController();
     }
 
-    void run(HouseService houseService) {
+    void run(House house, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -30,27 +26,27 @@ class EnergyGridSettingsUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US130
-                    runUS130(houseService);
+                    runUS130(house, energyGridService);
                     activeInput = false;
                     break;
                 case 2: //US135
-                    runUS135(houseService);
+                    runUS135(house);
                     activeInput = false;
                     break;
                 case 3: //US145
-                    runUS145(houseService);
+                    runUS145(house);
                     activeInput = false;
                     break;
                 case 4: //US147
-                    runUS147(houseService);
+                    runUS147(house);
                     activeInput = false;
                     break;
                 case 5: //US149
-                    runUS149(houseService);
+                    runUS149(house);
                     activeInput = false;
                     break;
                 case 6: //US160
-                    runUS160(houseService);
+                    runUS160(house);
                     activeInput = false;
                     break;
                 case 0:
@@ -65,24 +61,24 @@ class EnergyGridSettingsUI {
 
     // USER STORY 130 UI -  As an Administrator, I want to create a house grid, so that I can define the rooms that are
     // attached to it and the contracted maximum power for that grid - DANIEL OLIVEIRA .
-    private void runUS130(HouseService houseService) {
-        House house = houseService.getHouse();
-        EnergyGrid energyGrid = getInputUS130(house);
-        updateHouse(house, energyGrid);
+    private void runUS130(House house, EnergyGridService energyGridService) {
+
+        EnergyGrid energyGrid = getInputUS130(house, energyGridService);
+        updateHouse(energyGrid, energyGridService);
     }
 
-    private EnergyGrid getInputUS130(House programHouse) {
+    private EnergyGrid getInputUS130(House house, EnergyGridService energyGridService) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum contracted power for this energy grid.");
         double power = InputHelperUI.getInputAsDoubleZeroOrPositive();
-        return controller.createEnergyGrid(programHouse, name, power, programHouse.getId());
+        return controller.createEnergyGrid(name, power, house.getId(), energyGridService);
     }
 
 
-    private void updateHouse(House house, EnergyGrid energyGrid) {
-        if (controller.addEnergyGridToHouse(house, energyGrid)) {
+    private void updateHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
+        if (controller.addEnergyGridToHouse(energyGrid, energyGridService)) {
             System.out.println("The energy grid was successfully created and added to the house.");
         } else {
             System.out.println("The energy grid wasn't added to the house. There is already an energy grid with " +
@@ -93,8 +89,7 @@ class EnergyGridSettingsUI {
     /* USER STORY 135 UI - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
-    private void runUS135(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS135(House house) {
         if (!house.isEnergyGridListEmpty()) {
             EnergyGrid energyGrid = InputHelperUI.getInputGridByList(house);
             PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
@@ -128,8 +123,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.
-    private void runUS145(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS145(House house) {
         if (house.isEnergyGridListEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -145,8 +139,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
-    private void runUS147(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS147(House house) {
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -170,8 +163,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
-    private void runUS149(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS149(House house) {
         if (house.isEnergyGridListEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -197,8 +189,7 @@ class EnergyGridSettingsUI {
     I want to get a list of all devices in a grid, grouped by device type.
     It must include device location
     DANIEL OLIVEIRA*/
-    private void runUS160(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS160(House house) {
         if (house.isEnergyGridListEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
