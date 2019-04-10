@@ -196,9 +196,9 @@ class AreaSensorServiceTest {
         areaSensors.add(thirdValidAreaSensor);
         String expectedResult =
                 "---------------\n" +
-                "SensorTwo) Name: SensorTwo | Type: Temperature | Active\n" +
-                "SensorThree) Name: SensorThree | Type: Rainfall | Active\n" +
-                "---------------\n";
+                        "SensorTwo) Name: SensorTwo | Type: Temperature | Active\n" +
+                        "SensorThree) Name: SensorThree | Type: Rainfall | Active\n" +
+                        "---------------\n";
 
         // Act
 
@@ -528,12 +528,6 @@ class AreaSensorServiceTest {
 //
 //    }
 
-    @Test
-    void seeIfRemoveSensor() {
-        //Assert
-        assertTrue(validAreaSensorService.remove(firstValidAreaSensor));
-        assertFalse(validAreaSensorService.remove(firstValidAreaSensor));
-    }
 
     @Test
     void seeIfGetSensors() {

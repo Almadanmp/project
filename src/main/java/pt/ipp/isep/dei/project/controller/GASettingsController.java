@@ -210,13 +210,9 @@ public class GASettingsController {
         return AreaSensorMapper.objectToDTO(areaSensor);
     }
 
-    public void removeSensor(GeographicAreaService geographicAreaService, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
+    public void removeSensor(AreaSensorDTO areaSensorDTO, AreaSensorService areaSensorService) {
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
-        for (GeographicArea g : geographicAreaService.getElementsAsArray()) {
-            if (g.getName().equals(geographicAreaDTO.getName())) {
-                g.removeSensor(areaSensor);
-            }
-        }
+        areaSensorService.remove(areaSensor);
     }
-
 }
+

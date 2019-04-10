@@ -312,8 +312,9 @@ public class AreaSensorService {
     }
 
     public boolean remove(AreaSensor areaSensor) {
-        if (this.contains(areaSensor)) {
-            areaSensors.remove(areaSensor);
+        Optional<AreaSensor> areaSensor2 = areaSensorRepository.findById(areaSensor.getId());
+        if (areaSensor2.isPresent()) {
+            areaSensorRepository.delete(areaSensor);
             return true;
         }
         return false;

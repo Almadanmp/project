@@ -277,23 +277,6 @@ class GASettingsControllerTest {
         assertEquals(expectedResult.size(), actualResult.size());
     }
 
-//    @Test
-//    void seeIfMatchGAByTypeCity() {
-//
-//        //Arrange
-//
-//        List<GeographicArea>  expectedResult = new ArrayList<>();
-//        expectedResult.add(secondValidArea);
-//
-//        //Act
-//
-//        List<GeographicArea>  actualResult = controller.matchGAByTypeArea(validGeographicAreaService, TypeAreaMapper.objectToDTO(typeCity));
-//
-//        //Assert
-//
-//        assertEquals(expectedResult.size(), actualResult.size());
-//    }
-
     @Test
     void seeMatchGAByTypeNotInList() {
 
@@ -555,23 +538,6 @@ class GASettingsControllerTest {
 //        assertEquals(expectedResult, actualResult);
 //    }
 
-//    @Test
-//    void seeIfRemoveSensorWorksWhenSecondInList() {
-//
-//        //Arrange
-//
-//        GeographicAreaService expectedResult = validGeographicAreaService;
-//        expectedResult.get(0).removeSensor(validAreaSensor2);
-//
-//        //Act
-//
-//        controller.removeSensor(validGeographicAreaService, validAreaSensorDTO2, validGeographicAreaDTO);
-//        GeographicAreaService actualResult = validGeographicAreaService;
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
 
     @Test
     void seeIfAddNewGeoAreaToListWorksAlreadyThere() {
@@ -585,20 +551,4 @@ class GASettingsControllerTest {
         assertTrue(result);
     }
 
-    @Test
-    void seeIfRemoveSensorFails() {
-
-        //Arrange
-
-        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
-
-        //Act
-
-        controller.removeSensor(validGeographicAreaService, validAreaSensorDTO1, validGeographicAreaDTO);
-        GeographicAreaService actualResult = validGeographicAreaService;
-
-        //Assert
-
-        assertNotEquals(expectedResult, actualResult);
-    }
 }

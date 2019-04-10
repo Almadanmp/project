@@ -112,7 +112,7 @@ class GASettingsUI {
         }
     }
 
-    /* USER STORY 001 - As an Administrator, I want to addWithoutPersisting a new type of geographical area, in order to be able to create a
+    /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01(AreaTypeService areaTypeService) {
         String typeAreaName = getInputUS01();
@@ -350,13 +350,13 @@ class GASettingsUI {
     private void runUS11(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
         AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, areaSensorService);
-        updateUS11(geographicAreaService, areaSensorDTO, geographicAreaDTO);
+        updateUS11(areaSensorDTO, areaSensorService, geographicAreaDTO);
     }
 
-    private void updateUS11(GeographicAreaService geographicAreaService, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(geographicAreaService, areaSensorDTO, geographicAreaDTO);
+    private void updateUS11(AreaSensorDTO areaSensorDTO, AreaSensorService areaSensorService, GeographicAreaDTO geographicAreaDTO) {
+        gaController.removeSensor(areaSensorDTO, areaSensorService);
         System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
-                geographicAreaDTO.getName() + " has ceased to be.");
+                geographicAreaDTO.getName() + " has been deleted.");
     }
 
     /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
@@ -424,7 +424,7 @@ class GASettingsUI {
     }
 
     private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
-        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list, areaSensorDTOS,listSensors);
+        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list, areaSensorDTOS, listSensors);
     }
 
 
