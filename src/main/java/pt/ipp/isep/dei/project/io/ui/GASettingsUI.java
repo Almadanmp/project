@@ -70,7 +70,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15v3(geographicAreaService, areaSensorService);
+                    runUS15v2(geographicAreaService);
                     activeInput = false;
                     break;
                 case 10:
