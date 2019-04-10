@@ -32,9 +32,9 @@ Administrator -> MainUI:run()
 activate MainUI
 MainUI -> HouseConfigurationUI: runUS265
 activate HouseConfigurationUI
-HouseConfigurationUI -> "HouseConfigurationController": importHouseSensorReadingList
+HouseConfigurationUI -> "HouseConfigurationController": importHouseSensorReadingService
 activate HouseConfigurationController
-HouseConfigurationController -> "Reader": importHouseSensorReadingList
+HouseConfigurationController -> "Reader": importHouseSensorReadingService
 activate Reader
 Reader -> HouseConfigurationUI: Request File Path
 HouseConfigurationUI -> Administrator: Request File Path
@@ -47,23 +47,23 @@ activate House
 activate Sensor
 loop
 alt if a sensor with that ID exists
-"Sensor" -> "ReadingList": add (ReadingList)
-activate ReadingList
+"Sensor" -> "ReadingService": add (ReadingService)
+activate ReadingService
 else if a sensor with that ID doesn't exist or the Sensor has no Room, \n or outside the valid sensor operation period
-"ReadingList" -> "Log": add(Log)
+"ReadingService" -> "Log": add(Log)
 activate Log
-"Sensor" -> "ReadingList": continue
+"Sensor" -> "ReadingService": continue
 deactivate Log
 end
-"ReadingList" --> "Sensor": return (int) importedReadingLists
-deactivate ReadingList
-"Sensor" --> "House": return (int) importedReadingLists
+"ReadingService" --> "Sensor": return (int) importedReadingServices
+deactivate ReadingService
+"Sensor" --> "House": return (int) importedReadingServices
 deactivate Sensor
-"House" --> "Reader": return (int) importedReadingLists
+"House" --> "Reader": return (int) importedReadingServices
 deactivate House
-"Reader" --> "HouseConfigurationController": return (int) importedReadingLists
+"Reader" --> "HouseConfigurationController": return (int) importedReadingServices
 deactivate Reader
-HouseConfigurationController --> HouseConfigurationUI: return (int) importedReadingLists
+HouseConfigurationController --> HouseConfigurationUI: return (int) importedReadingServices
 deactivate HouseConfigurationController
 HouseConfigurationUI -> Administrator: display feedback message
 deactivate HouseConfigurationUI
