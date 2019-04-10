@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LiterPerSquareMeterTest {
 
@@ -124,6 +124,44 @@ class LiterPerSquareMeterTest {
         // Act
 
         double actualResult = unit.toUserDefault(valueToConvert);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfEqualsConditionsWork(){
+        // Arrange
+
+        LiterPerSquareMeter literPerSquareMeter = new LiterPerSquareMeter();
+        Millimeter millimeter = new Millimeter();
+
+        // Act
+
+        boolean actualResult1 = literPerSquareMeter.equals(millimeter); // Necessary for sonarqube coverage
+        boolean actualResult2 = literPerSquareMeter.equals(null); // Necessary for sonarqube coverage
+        boolean actualResult3 = literPerSquareMeter.equals(new LiterPerSquareMeter());
+
+        // Assert
+
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertTrue(actualResult3);
+
+    }
+
+    @Test
+    void hashcodeDummyTest(){
+        // Arrange
+
+        LiterPerSquareMeter literPerSquareMeter = new LiterPerSquareMeter();
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = literPerSquareMeter.hashCode();
 
         // Assert
 

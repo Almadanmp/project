@@ -186,6 +186,22 @@ class UnitHelperTest {
     }
 
     @Test
+    void seeIfConvertUnitToSystemDefaultRainfallWorks() {
+        // Arrange
+
+        Unit expectedResult = new Millimeter();
+        Unit givenUnit = new LiterPerSquareMeter();
+
+        // Act
+
+        Unit actualResult = UnitHelper.convertUnitToSystemDefault(givenUnit);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfConvertStringToUnitWorks() {
         // Arrange
 

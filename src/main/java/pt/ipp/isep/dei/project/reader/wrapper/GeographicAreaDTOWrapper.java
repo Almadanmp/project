@@ -10,7 +10,6 @@ import java.util.List;
 
 public class GeographicAreaDTOWrapper {
 
-
     @JsonProperty("id")
     private String name;
 
@@ -133,12 +132,12 @@ public class GeographicAreaDTOWrapper {
         List<AreaSensorDTO> finalList = new ArrayList<>();
         for (AreaSensorDTOWrapper wrapper : areaSensorDTOWrappers) {
             AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-            areaSensorDTO.setId(wrapper.getId());
-            areaSensorDTO.setName(wrapper.getName());
+            areaSensorDTO.setId(wrapper.getSensorAttributeWrapper().getId());
+            areaSensorDTO.setName(wrapper.getSensorAttributeWrapper().getName());
             areaSensorDTO.setActive(wrapper.getActive());
-            areaSensorDTO.setDateStartedFunctioning(wrapper.getDateStartedFunctioning());
-            areaSensorDTO.setTypeSensor(wrapper.getType());
-            areaSensorDTO.setUnits(wrapper.getUnits());
+            areaSensorDTO.setDateStartedFunctioning(wrapper.getSensorAttributeWrapper().getDateStartedFunctioning());
+            areaSensorDTO.setTypeSensor(wrapper.getSensorAttributeWrapper().getType());
+            areaSensorDTO.setUnits(wrapper.getSensorAttributeWrapper().getUnits());
             areaSensorDTO.setReadingList(wrapper.getReadingList());
             areaSensorDTO.setLocalDTO(wrapper.getLocalDTO());
             if (!finalList.contains(areaSensorDTO)) {

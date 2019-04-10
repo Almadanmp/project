@@ -47,9 +47,9 @@ class HouseTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date(),6008L);
+                30, 20, 10), new Date(), 6008L);
         AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
-                40, 15), new Date(),6008L);
+                40, 15), new Date(), 6008L);
         validArea.addSensor(firstValidAreaSensor);
         validArea.addSensor(secondValidAreaSensor);
         validHouse.setMotherArea(validArea);
@@ -99,7 +99,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor testAreaSensor = new AreaSensor("RF12666", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(20,
-                20, 20), new Date(),6008L);
+                20, 20), new Date(), 6008L);
         validArea.addSensor(testAreaSensor);
         double expectedResult = 0;
 
@@ -194,7 +194,7 @@ class HouseTest {
     void seeIfEqualsWorksNotInstanceOf() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10,"Room1","Grid1");
 
         // Act
 
@@ -209,7 +209,7 @@ class HouseTest {
     void seeIfAddRoomWorks() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10,"Room1","Grid1");
 
         // Act
 
@@ -224,7 +224,7 @@ class HouseTest {
     void seeIfAddRoomWorksDuplicate() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 30, 10,"Room1","Grid1");
         validHouse.addRoom(testRoom);
 
         // Act
@@ -258,8 +258,8 @@ class HouseTest {
         String expectedResult = "---------------\n" +
                 "34) Designation: Home | Max Power: 440.0\n" +
                 "---------------\n";
-        EnergyGrid testGrid = new EnergyGrid("Home", 440,"34576");
-        testGrid.setId(34);
+        EnergyGrid testGrid = new EnergyGrid("Home", 440, "34576");
+        testGrid.setId(34L);
         validHouse.addGrid(testGrid);
 
         // Act
@@ -307,7 +307,7 @@ class HouseTest {
     void seeIfGetNominalPowerWorks() {
         //Arrange
 
-        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 12, 30, 10);
+        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 12, 30, 10,"Room1","Grid1");
         Device testDevice = new WaterHeater(new WaterHeaterSpec());
         testDevice.setNominalPower(30.0);
         testRoom.addDevice(testDevice);
@@ -328,8 +328,8 @@ class HouseTest {
         // Arrange
 
         EnergyGridService gridList = new EnergyGridService();
-        EnergyGrid testGrid = new EnergyGrid("Garden", 300,"34576");
-        testGrid.setId(23);
+        EnergyGrid testGrid = new EnergyGrid("Garden", 300, "34576");
+        testGrid.setId(23L);
         gridList.addGrid(testGrid);
         validHouse.setGridList(gridList);
 
@@ -352,7 +352,7 @@ class HouseTest {
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 15D);
-        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10);
+        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10,"Room1","Grid1");
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         double expectedResult = 0.4;
@@ -386,7 +386,7 @@ class HouseTest {
 
         Device waterHeater = new WaterHeater(new WaterHeaterSpec());
         waterHeater.setName("WaterHeaterOne");
-        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10);
+        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10,"Room1","Grid1");
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         DeviceList expectedResult = new DeviceList();
@@ -444,7 +444,7 @@ class HouseTest {
         firstValidAreaSensor.setReadingService(readingService);
 
         AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date(),6008L);
+                30, 20, 10), new Date(), 6008L);
         secondAreaSensor.addReading(new Reading(15, earlierDate, "C", firstValidAreaSensor.getId()));
         validArea.addSensor(secondAreaSensor);
 
@@ -462,7 +462,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
-                21, 20), new Date(),6008L);
+                21, 20), new Date(), 6008L);
         validArea.addSensor(testAreaSensor);
 
         // Act
@@ -480,7 +480,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor expectedResult = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", ""),
-                new Local(0, 0, 0), new Date(),6008L);
+                new Local(0, 0, 0), new Date(), 6008L);
 
         // Act
 
@@ -592,9 +592,9 @@ class HouseTest {
     void seeIfAddGridToHouseWorks() {
         // Arrange
 
-        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25,"34576");
-        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55,"34576");
-        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25,"34576");
+        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25, "34576");
+        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55, "34576");
+        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25, "34576");
 
         // Act
 
@@ -615,12 +615,12 @@ class HouseTest {
     void seeIfCreateRoomWorks() {
         // Arrange
 
-        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1);
+        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1,"Room1","Grid1");
 
         // Act
 
         Room actualResult = validHouse.createRoom("Kitchen", "1st Floor Kitchen", 1, 1, 1,
-                1);
+                1,"Room1","Grid1");
 
         // Assert
 
@@ -631,7 +631,7 @@ class HouseTest {
     void seeIfGetRoomListWorks() {
         // Arrange
 
-        Room testRoom = new Room("Office", "1st Floor Office", 1, 20, 15, 10);
+        Room testRoom = new Room("Office", "1st Floor Office", 1, 20, 15, 10,"Room1","Grid1");
         RoomService roomService = new RoomService();
         roomService.add(testRoom);
         RoomService expectedResult = new RoomService();
@@ -704,8 +704,8 @@ class HouseTest {
     void seeIfGetRoomByIndexWorks() {
         //Arrange
 
-        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10);
-        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10);
+        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10,"Room1","Grid1");
+        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10,"Room1","Grid1");
         validHouse.addRoom(room1);
         validHouse.addRoom(room2);
 
@@ -725,8 +725,8 @@ class HouseTest {
     void seeIfGetEnergyGridByIndexWorks() {
         //Arrange
 
-        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200,"34576");
-        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200,"34576");
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200, "34576");
+        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200, "34576");
         validHouse.addGrid(energyGrid1);
         validHouse.addGrid(energyGrid2);
 
@@ -785,7 +785,7 @@ class HouseTest {
         double expectedResult = 310;
         Device device = new Fridge(new FridgeSpec());
         device.setNominalPower(31);
-        Room tempRoom = new Room("tempRoom", "Sensor's Room", 1, 20, 20, 10);
+        Room tempRoom = new Room("tempRoom", "Sensor's Room", 1, 20, 20, 10,"Room1","Grid1");
         validHouse.addRoom(tempRoom);
         tempRoom.addDevice(device);
 
@@ -834,7 +834,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3));
+        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
 
         //Act
 
@@ -857,7 +857,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3));
+        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
 
         //Act
 
@@ -880,7 +880,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addGrid(new EnergyGrid("energyGrid", 230,"34576"));
+        validHouse.addGrid(new EnergyGrid("energyGrid", 230, "34576"));
 
         //Act
 
@@ -903,15 +903,6 @@ class HouseTest {
     }
 
     @Test
-    void seeIfSetIDWorks() {
-        //Act
-        validHouse.setName("valid house");
-
-        //Assert
-        assertEquals(validHouse.getHouseName(), "valid house");
-    }
-
-    @Test
     void seeIfSetMotherAreaWorks() {
         //Act
         GeographicArea geoArea = new GeographicArea("Porto", new AreaType("City"), 50, 13, new Local(5, 5, 5));
@@ -924,7 +915,8 @@ class HouseTest {
     @Test
     void seeIfSetGetAddressWorks() {
         //Act
-        validHouse.setAddress("Rua do ISEP", "431", "4400", "Campus", "Portugal");
+        Address address = new Address("Rua do ISEP", "431", "4400", "Campus", "Portugal");
+        validHouse.setAddress(address);
 
         //Assert
         assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431", "4400", "Campus", "Portugal"));

@@ -10,18 +10,21 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.AreaTypeService;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.HouseService;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.HouseRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -31,39 +34,36 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    SensorTypeService sensorTypeService;
+    private SensorTypeService sensorTypeService;
 
     @Autowired
-    AreaTypeRepository areaTypeRepository;
+    private AreaTypeService areaTypeService;
 
     @Autowired
-    AreaTypeService areaTypeService;
+    private AreaSensorService areaSensorService;
 
     @Autowired
-    AreaSensorService areaSensorService;
-
+    private ReadingService readingService;
     @Autowired
-    ReadingService readingService;
-
-    GeographicAreaService geographicAreaService;
-
-    @Autowired
-    AreaSensorRepository areaSensorRepository;
-
-    @Autowired
-    GeographicAreaRepository geographicAreaRepository;
-
-    @Autowired
-    SensorTypeRepository sensorTypeRepository;
-
-    @Autowired
-    HouseRepository houseRepository;
-
-    @Autowired
-    private EnergyGridRepository energyGridRepository;
+    private GeographicAreaService geographicAreaService;
 
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private RoomService roomService;
+    @Autowired
+    private HouseSensorService houseSensorService;
+
+    @Autowired
+    private EnergyGridService energyGridService;
+    @Autowired
+    private HouseRepository houseRepository;
+    @Autowired
+    private HouseService houseService;
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -119,10 +119,11 @@ public class MainUI {
             // *************************
             // ******* < MOCK DATA FOR TESTING PURPOSES >*******
             // *************************
-            HouseService houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
-            this.areaTypeService = new AreaTypeService(areaTypeRepository);
+
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
 
+
+            House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
             this.geographicAreaService = new GeographicAreaService(geographicAreaRepository);
@@ -145,7 +146,7 @@ public class MainUI {
                 // Submenus Input selection
 
                 String[] menu = {
-                        " 1. Geographic Area Settings\n",
+                        "1. Geographic Area Settings\n",
                         "2. House Settings.\n",
                         "3. Room Settings.\n",
                         "4. Sensor Settings.\n",
@@ -170,13 +171,13 @@ public class MainUI {
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService);
-                            view1.runGASettings(areaTypeService, geographicAreaService);
+                            view1.runGASettings(areaTypeService, geographicAreaService, areaSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
-                            houseC.run(houseService, geographicAreaService, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -194,7 +195,7 @@ public class MainUI {
                             break;
                         case 5:
                             EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                            energyGridSettings.run(houseService);
+                            energyGridSettings.run(house, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -225,5 +226,20 @@ public class MainUI {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
+    }
+
+    private static House mainHouse(HouseRepository houseRepository, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+        House house;
+        Optional<House> aux = houseRepository.findById("01");
+        if (aux.isPresent()) {
+            house = aux.get();
+            house.setGridMeteringPeriod(gridMeteringPeriod);
+            house.setDeviceMeteringPeriod(deviceMeteringPeriod);
+            house.setDeviceTypeList(deviceTypeConfig);
+            houseRepository.save(house);
+            return house;
+        }
+        house = new House("01", new Local(0, 0, 0), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        return houseRepository.save(house);
     }
 }

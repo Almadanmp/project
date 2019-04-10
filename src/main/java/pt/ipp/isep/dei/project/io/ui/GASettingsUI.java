@@ -29,7 +29,7 @@ class GASettingsUI {
         this.readerController = new ReaderController(areaSensorService, readingService, houseService);
     }
 
-    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
+    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -62,15 +62,15 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS10(geographicAreaService);
+                    runUS10(geographicAreaService, areaSensorService);
                     activeInput = false;
                     break;
                 case 8:
-                    runUS11(geographicAreaService);
+                    runUS11(geographicAreaService, areaSensorService);
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15v3(geographicAreaService);
+                    runUS15v2(geographicAreaService);
                     activeInput = false;
                     break;
                 case 10:
@@ -112,7 +112,7 @@ class GASettingsUI {
         }
     }
 
-    /* USER STORY 001 - As an Administrator, I want to addWithoutPersisting a new type of geographical area, in order to be able to create a
+    /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
     private void runUS01(AreaTypeService areaTypeService) {
         String typeAreaName = getInputUS01();
@@ -328,10 +328,11 @@ class GASettingsUI {
     /**
      * This method deactivates a sensor selected from a list of sensor of an selected geographic area
      */
-    private void runUS10(GeographicAreaService geographicAreaService) {
+    private void runUS10(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
+
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
-        if (!gaController.deactivateSensor(geographicAreaService, areaSensorDTO, geographicAreaDTO)) {
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, areaSensorService);
+        if (!gaController.deactivateSensor(areaSensorDTO, areaSensorService)) {
             System.out.println("Sensor already deactivated.");
         } else {
             System.out.println("Sensor successfully deactivated!");
@@ -346,16 +347,16 @@ class GASettingsUI {
     /**
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      */
-    private void runUS11(GeographicAreaService geographicAreaService) {
+    private void runUS11(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
-        updateUS11(geographicAreaService, areaSensorDTO, geographicAreaDTO);
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, areaSensorService);
+        updateUS11(areaSensorDTO, areaSensorService, geographicAreaDTO);
     }
 
-    private void updateUS11(GeographicAreaService geographicAreaService, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(geographicAreaService, areaSensorDTO, geographicAreaDTO);
+    private void updateUS11(AreaSensorDTO areaSensorDTO, AreaSensorService areaSensorService, GeographicAreaDTO geographicAreaDTO) {
+        gaController.removeSensor(areaSensorDTO, areaSensorService);
         System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
-                geographicAreaDTO.getName() + " has ceased to be.");
+                geographicAreaDTO.getName() + " has been deleted.");
     }
 
     /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
@@ -422,25 +423,43 @@ class GASettingsUI {
         return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
     }
 
-    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
-        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
+    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
+        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list, areaSensorDTOS, listSensors);
     }
 
-    private void runUS15v3(GeographicAreaService geographicAreaService) {
+
+    /**
+     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
+     * <p>
+     * list is the static, program list of geographic areas that comes from mainUI.
+     */
+
+    private void runUS15v2(GeographicAreaService geographicAreaService) {
+        InputHelperUI input = new InputHelperUI();
+        System.out.println("Please insert the location of the file you want to import:");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = input.getInputPathJsonOrXML(result);
+        int areas = readerController.acceptPath(filePath, geographicAreaService);
+        System.out.println(areas + " Geographic Areas have been successfully imported.");
+    }
+
+    private void runUS15v3(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a valid path.");
         String result = scanner.next();
         String filePath = inputHelperUI.getInputPathJsonOrXML(result);
         if (filePath.endsWith(".json")) {
-            importGeoAreasFromJSON(filePath, geographicAreaService);
+            importGeoAreasFromJSON(filePath, geographicAreaService, areaSensorService);
         }
     }
 
-    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService) {
+    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         int result;
         List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
-        result = addGeoAreasDTOToList(list, geographicAreaService);
+        List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
+        result = addGeoAreasDTOToList(list, geographicAreaService, listSensor, areaSensorService);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
 

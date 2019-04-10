@@ -278,20 +278,21 @@ public class InputHelperUI {
     /**
      * Method that shows the user a given sensor list, then prompts him to choose one of the sensors by index.
      *
-     * @param areaSensorService is the sensor list we want to choose a sensor from.
+     * @param areaSensors is the sensor list we want to choose a sensor from.
      * @return is the chosen sensor.
      */
-    public static AreaSensor getInputSensorByList(AreaSensorService areaSensorService) {
+    public static AreaSensor getInputSensorByList(AreaSensorService areaSensorService, List<AreaSensor> areaSensors) {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select a sensor from the list:");
-            System.out.println(areaSensorService.toString());
-            int aux = getInputAsInt();
-            if (aux >= 0 && aux < areaSensorService.size()) {
-                AreaSensor result = areaSensorService.get(aux);
+            System.out.println(areaSensorService.buildString(areaSensors));
+            String aux = scanner.nextLine();
+            try {
+                AreaSensor result = areaSensorService.getById(aux);
                 System.out.println("You have chosen the following sensor:");
                 System.out.println(result.buildString() + "\n");
                 return result;
-            } else {
+            } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }

@@ -55,8 +55,8 @@ public class AreaSensor {
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
     public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning,
-                Long geographicAreaId) {
-            setId(id);
+                      Long geographicAreaId) {
+        setId(id);
         setName(name);
         this.sensorType = sensorType;
         this.local = local;
@@ -215,7 +215,7 @@ public class AreaSensor {
      * @param area is the area we want to check if the sensor is in.
      * @return true if the sensor is in the given area, false otherwise.
      */
-    public boolean isContainedInArea(GeographicArea area) {
+    boolean isContainedInArea(GeographicArea area) {
         double latS = this.getLocal().getLatitude();
         double longS = this.getLocal().getLongitude();
         Local areaLocal = area.getLocal();
@@ -232,7 +232,7 @@ public class AreaSensor {
      * @param house is the house we want to calculate the distance to.
      * @return a double that represents the distance between the house and the sensor.
      */
-    public double getDistanceToHouse(House house) {
+    double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }
@@ -258,7 +258,7 @@ public class AreaSensor {
     /**
      * Method to print info if a sensor is active or not.
      */
-    public String printActive() {
+    String printActive() {
         if (!this.active) {
             return "Deactivated";
         }

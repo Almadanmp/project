@@ -6,15 +6,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.HouseDTO;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.HouseService;
+import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.mappers.*;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
@@ -56,7 +50,7 @@ public class ReaderController {
     /**
      * This method only accepts a path that ends with .json or .xml
      *
-     * @param     - the user input
+     * @param -        the user input
      * @param filePath - the path to the file if it exists
      * @param list     - the geographic area list
      * @return - number of geoareas imported
@@ -83,13 +77,32 @@ public class ReaderController {
      * @param filePath is the file path.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(String filePath, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
+    public boolean readJSONAndDefineHouse(House house, String filePath) {
+        //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
-        House house = HouseMapper.dtoToObjectUS100(houseDTO);
-        house.setGridMeteringPeriod(gridMetPeriod);
-        house.setDeviceMeteringPeriod(devMetPeriod);
-        house.setDeviceTypeList(deviceTypes);
+        House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
+        house.setAddress(house2.getAddress());
+
+        //EnergyGrid
+
+        List<EnergyGridDTO> gridDTOS = readerJSONHouse.readGridsJSON();
+        for (EnergyGridDTO eg : gridDTOS) {
+            EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
+            energyGrid.setHouseId(house.getId());
+            houseService.saveEnergyGrid(energyGrid);
+        }
+
+        //ROOMS
+        for (EnergyGridDTO eg : gridDTOS) {
+            List<RoomDTO> roomDTOS = eg.getRoomDTOS();
+            for (RoomDTO rt : roomDTOS) {
+                rt.setEnergyGridName(eg.getName());
+                rt.setHouseId(house.getId());
+                Room aux = RoomMapper.dtoToObjectUS100(rt);
+                houseService.saveRoom(aux);
+            }
+        }
         return houseService.saveHouse(house);
     }
 
@@ -115,6 +128,7 @@ public class ReaderController {
     /**
      * This is the method that reads geographic areas fromJSON files and return a list of
      * geographic areas DTO
+     *
      * @param filePath - the path to the file
      * @return - a list of geo areas dto
      */
@@ -124,19 +138,54 @@ public class ReaderController {
     }
 
     /**
+     * This is the method that reads geographic areas fromJSON files and return a list of
+     * geographic areas DTO
+     *
+     * @param filePath - the path to the file
+     * @return - a list of geo areas dto
+     */
+    public List<AreaSensorDTO> readFileJSONAreaSensors(String filePath) {
+        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
+        return readerJSON.readAreaSensorDTOS(filePath);
+    }
+
+    /**
      * This method adds the dtos to the geographic area service
+     *
      * @param geographicAreaDTOS - the dtos imported from the file
-     * @param list - the service we want to add the dtos to
+     * @param list               - the service we want to add the dtos to
      * @return - number of areas added
      */
-    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
         int counter = 0;
+        List<GeographicArea> geographicAreaList = new ArrayList<>();
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
-            list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
-            System.out.println(GeographicAreaMapper.dtoToObject(dto).toString());
+            GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
+            list.addAndPersistGA(geoArea);
+            geographicAreaList.add(geoArea);
+            addSensorsDTOToList(areaSensorDTOS, listSensors, geographicAreaList);
+            System.out.println(geoArea.toString());
             counter++;
         }
         return counter;
+    }
+
+    /**
+     * This method adds the dtos to the geographic area service
+     *
+     * @param areaSensorDTOS - the dtos imported from the file
+     * @param list           - the service we want to add the dtos to
+     * @return - number of areas added
+     */
+    private void addSensorsDTOToList(List<AreaSensorDTO> areaSensorDTOS, AreaSensorService list, List<GeographicArea> geographicAreas) {
+        for (AreaSensorDTO dto : areaSensorDTOS) {
+            AreaSensor sensor = AreaSensorMapper.dtoToObject(dto);
+            for (GeographicArea geographicArea : geographicAreas) {
+                sensor.setGeographicAreaId(geographicArea.getId());
+            }
+            System.out.println(sensor.buildString());
+            list.addWithPersist(sensor);
+        }
     }
 
     /**

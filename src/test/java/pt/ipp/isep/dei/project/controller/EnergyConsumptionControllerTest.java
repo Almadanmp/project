@@ -46,8 +46,8 @@ class EnergyConsumptionControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoom1 = new Room("Kitchen","Ground Floor Kitchen" ,0, 35, 40, 20);
-        validRoom2 = new Room("Bathroom","2nd Floor Bathroom", 2, 15, 20, 10);
+        validRoom1 = new Room("Kitchen","Ground Floor Kitchen" ,0, 35, 40, 20,"Room1","Grid1");
+        validRoom2 = new Room("Bathroom","2nd Floor Bathroom", 2, 15, 20, 10,"Room1","Grid1");
         validDevice1.setName("WaterHeater");
         validDevice1.setNominalPower(21.0);
         validDevice1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
@@ -124,7 +124,7 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomDevicesToDeviceList(){
         // Arrange
 
-        Room room = new Room("Room","Single Bedroom", 10, 2, 5, 4);
+        Room room = new Room("Room","Single Bedroom", 10, 2, 5, 4,"Room1","Grid1");
         room.addDevice(validDevice1);
         room.addDevice(validDevice2);
         DeviceList actualResult = new DeviceList();
@@ -313,7 +313,7 @@ class EnergyConsumptionControllerTest {
                 deviceTypeString);
         house.setMotherArea(validArea);
         EnergyGrid testGrid = new EnergyGrid("GridOne", 300,"34576");
-        testGrid.setId(23);
+        testGrid.setId(23L);
         EnergyGridService houseGrid = new EnergyGridService();
         houseGrid.addGrid(testGrid);
         house.setGridList(houseGrid);

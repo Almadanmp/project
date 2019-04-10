@@ -2,13 +2,16 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
-
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * EnergyGridSettingsController tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class EnergyGridSettingsControllerTest {
 
     // Common artifacts for testing in this class.
@@ -27,15 +30,19 @@ class EnergyGridSettingsControllerTest {
     private House validHouse;
     private EnergyGrid validGrid;
     private EnergyGridSettingsController controller = new EnergyGridSettingsController();
+    @Mock
+    private EnergyGridRepository energyGridRepository;
+    private EnergyGridService energyGridService;
 
     @BeforeEach
     void arrangeArtifacts() {
-        Address address = new Address("Rua Dr. António Bernardino de Almeida","431", "4200-072", "Porto","Portugal");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto",
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
-        validGrid = new EnergyGrid("validGrid", 300,"34576");
+        validGrid = new EnergyGrid("validGrid", 300, "34576");
+        this.energyGridService = new EnergyGridService(energyGridRepository);
     }
 
 
@@ -48,7 +55,7 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         RoomService roomService = new RoomService();
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         roomService.add(room);
         validHouse.setRoomService(roomService);
         String expectedResult = "---------------\n" +
@@ -86,7 +93,7 @@ class EnergyGridSettingsControllerTest {
 
         //Arrange
 
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         validGrid.addRoom(room);
 
         //Act
@@ -104,7 +111,7 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         EnergyGridService energyGridService = new EnergyGridService();
-        validGrid.setId(123);
+        validGrid.setId(123L);
         energyGridService.addGrid(validGrid);
         validHouse.setGridList(energyGridService);
         String expectedResult = "---------------\n" +
@@ -125,7 +132,7 @@ class EnergyGridSettingsControllerTest {
 
         //Arrange
 
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
 
         //Act
 
@@ -140,7 +147,7 @@ class EnergyGridSettingsControllerTest {
     void ensureThatWeAddRoomToTheGrid() {
         // Arrange
 
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
         RoomService rl = new RoomService();
@@ -149,7 +156,7 @@ class EnergyGridSettingsControllerTest {
 
         // Act
 
-        boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO,validHouse);
+        boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO, validHouse);
 
         // Assert
 
@@ -163,7 +170,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
         RoomService roomService = new RoomService();
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         roomService.add(room);
         validGrid.setRoomService(roomService);
         validHouse.setRoomService(roomService);
@@ -215,12 +222,12 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        EnergyGrid energyGrid = new EnergyGrid("grid", 400,"34576");
+        EnergyGrid energyGrid = new EnergyGrid("grid", 400, "34576");
 
 
         // Act
 
-        boolean actualResult = controller.addEnergyGridToHouse(validHouse, energyGrid);
+        boolean actualResult = controller.addEnergyGridToHouse(energyGrid, energyGridService);
 
         // Assert
 
@@ -231,16 +238,16 @@ class EnergyGridSettingsControllerTest {
     void seeIfCreateGridTrue() {
         // Arrange
 
-        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400,"34576");
-        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400,"34576");
-        expectedResult1.setId(1);
-        expectedResult2.setId(2);
+        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400, "34576");
+        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400, "34576");
+        expectedResult1.setId(1L);
+        expectedResult2.setId(2L);
         // Act
 
-        EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400,"34576");
-        actualResult1.setId(1);
-        EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400,"34576");
-        actualResult2.setId(2);
+        EnergyGrid actualResult1 = controller.createEnergyGrid("EG1", 400, "34576", energyGridService);
+        actualResult1.setId(1L);
+        EnergyGrid actualResult2 = controller.createEnergyGrid("EG2", 400, "34576", energyGridService);
+        actualResult2.setId(2L);
         // Assert
 
         assertEquals(expectedResult1, actualResult1);
@@ -276,16 +283,17 @@ class EnergyGridSettingsControllerTest {
         //Arrange
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void testBuildListOfDevicesOrderedByTypeStringWithDevices() {
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        Address address = new Address("Rua das Flores","431", "4512", "Porto","Portugal");
+        Address address = new Address("Rua das Flores", "431", "4512", "Porto", "Portugal");
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
-        Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333,"34576");
+        Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1", "Grid1");
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333, "34576");
         RoomService rl = new RoomService();
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);

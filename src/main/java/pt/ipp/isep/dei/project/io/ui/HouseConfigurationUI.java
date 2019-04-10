@@ -1,20 +1,15 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.model.HouseService;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,7 +34,7 @@ class HouseConfigurationUI {
 
     }
 
-    void run(HouseService houseService, GeographicAreaService geographicAreaService, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
+    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -58,7 +53,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS100(gridMetPeriod, devMetPeriod, deviceTypes, houseService);
+                    runUS100(house, houseService);
                     activeInput = false;
                     break;
                 case 4:
@@ -74,7 +69,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS260(houseService);
+                    runUS260(sensorService, roomService);
                     activeInput = false;
                     break;
                 case 8:
@@ -169,19 +164,19 @@ class HouseConfigurationUI {
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100(int gridMetPeriod, int devMetPeriod, List<String> deviceTypes, HouseService houseService) {
+    private void runUS100(House house, HouseService houseService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJson(result);
-        if (ctrl.readJSONAndDefineHouse(filePath, gridMetPeriod, devMetPeriod, deviceTypes)) {
+        if (ctrl.readJSONAndDefineHouse(house, filePath)) {
             System.out.println("House Data Successfully imported.");
+        } else {
+            System.out.println("The JSON file is invalid.");
         }
-        System.out.println("The JSON file is invalid.");
     }
-
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 //TODO Location is just location ot Adress etc, doest make much sense with the new data.
@@ -244,7 +239,8 @@ class HouseConfigurationUI {
     private void runUS105(HouseService houseService) {
         House house = houseService.getHouse();
         getInputRoomCharacteristics();
-        Room room = createNewRoom(house);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
+        Room room = createNewRoom(house,grid);
         displayRoom();
         boolean added = addRoomToHouse(house, room);
         displayFinalState(added);
@@ -279,8 +275,8 @@ class HouseConfigurationUI {
         this.roomHeight = InputHelperUI.getInputAsDoublePositive();
     }
 
-    private Room createNewRoom(House house) {
-        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight);
+    private Room createNewRoom(House house,EnergyGrid grid) {
+        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight,house.getId(),grid.getName());
     }
 
     /**
@@ -337,14 +333,13 @@ class HouseConfigurationUI {
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.
     // Sensors without a valid room shouldn’t be imported but registered in the application log.
 
-    private void runUS260(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS260(HouseSensorService sensorService, RoomService roomService) {
         InputHelperUI inputs = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
-        int importedSensors = controller.readSensors(filePath, house);
+        int importedSensors = controller.readSensors(filePath, roomService, sensorService);
         System.out.println(importedSensors + " Sensors successfully imported.");
     }
 

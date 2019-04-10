@@ -1,21 +1,42 @@
-package pt.ipp.isep.dei.project.dto;
+package pt.ipp.isep.dei.project.reader.wrapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HouseSensorDTO {
-
+public class AreaSensorAttributeWrapper {
+    @JsonProperty("id")
     private String id;
-    private String name;
-    private String typeSensor;
-    private String units;
-    private String dateStartedFunctioning;
-    private String roomID;
-    private boolean active;
-    private List<ReadingDTO> readingList;
 
-    public HouseSensorDTO() {
-        readingList = new ArrayList<>();
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("type")
+    private String typeSensor;
+
+    @JsonProperty("units")
+    private String units;
+
+    @JsonProperty("start_date")
+ //   @JsonDeserialize(using = CustomDateDeserializer.class)
+    private String dateStartedFunctioning;
+
+    /**
+     * Method that retrieves the DTO's id.
+     *
+     * @return is the DTO's id.
+     */
+
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Method that stores a String as the DTO's id.
+     *
+     * @param id is the string we want to store.
+     */
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -48,18 +69,6 @@ public class HouseSensorDTO {
         return name;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getRoomID() {
-        return roomID;
-    }
-
-    public void setRoomID(String roomID) {
-        this.roomID = roomID;
-    }
-
     /**
      * Method that stores a String as the DTO's name.
      *
@@ -89,14 +98,6 @@ public class HouseSensorDTO {
         this.typeSensor = typeSensor;
     }
 
-    public boolean getActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     /**
      * Method that retrieves the date at which the sensorDTO started functioning, as a string.
      *
@@ -115,30 +116,5 @@ public class HouseSensorDTO {
 
     public void setDateStartedFunctioning(String dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
-    }
-
-    public List<ReadingDTO> getReadingList() {
-        return readingList;
-    }
-
-    public void setReadingList(List<ReadingDTO> readingList) {
-        this.readingList = readingList;
-    }
-
-    @Override
-    public boolean equals(Object testDTO) {
-        if (this == testDTO) {
-            return true;
-        }
-        if (!(testDTO instanceof HouseSensorDTO)) {
-            return false;
-        }
-        HouseSensorDTO localVariable = (HouseSensorDTO) testDTO;
-        return (localVariable.getName().equals(this.name));
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
     }
 }

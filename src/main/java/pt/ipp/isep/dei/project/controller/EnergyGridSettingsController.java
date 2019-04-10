@@ -47,18 +47,17 @@ public class EnergyGridSettingsController {
      * @param energyGrid   the grid to addWithoutPersisting to the House.
      * @return true if the grid was added to the house.
      */
-    public boolean addEnergyGridToHouse(House programHouse, EnergyGrid energyGrid) {
-        return programHouse.addGrid(energyGrid);
+    public boolean addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
+        return energyGridService.addPersistenceGrid(energyGrid);
     }
 
     /**
-     * @param designation  is the name we're going to give to the new EnergyGrid.
-     * @param maxPower     is the new grid's maxPower.
-     * @param programHouse the house.
+     * @param designation is the name we're going to give to the new EnergyGrid.
+     * @param maxPower    is the new grid's maxPower.
      * @return a new EnergyGrid.
      */
-    public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower, String houseID) {
-        return programHouse.createEnergyGrid(designation, maxPower, houseID);
+    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID, EnergyGridService energyGridService) {
+        return energyGridService.createEnergyGrid(designation, maxPower, houseID);
     }
 
     /* USER STORY 135 - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced

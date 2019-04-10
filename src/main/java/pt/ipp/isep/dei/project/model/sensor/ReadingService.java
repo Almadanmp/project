@@ -36,6 +36,11 @@ public class ReadingService {
         this.readings = new ArrayList<>();
     }
 
+    public ReadingService(ReadingRepository readingRepository) {
+        this.readingRepository = readingRepository;
+        this.readings = new ArrayList<>();
+    }
+
     /**
      * Method to Add a reading only if it's not contained in the list already.
      *
@@ -619,14 +624,19 @@ public class ReadingService {
      */
     public boolean addAreaReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, AreaSensorService areaSensorService) {
         if (areaSensorService.sensorExistsInRepository(sensorID)) {
-            if (readingExistsInRepository(sensorID, readingDate)) {
-                logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                        + sensorID + " wasn't added because it already exists.");
-                return false;
+            if (areaSensorService.sensorFromRepositoryIsActive(sensorID, readingDate)) {
+                if (readingExistsInRepository(sensorID, readingDate)) {
+                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                            + sensorID + " wasn't added because it already exists.");
+                    return false;
+                }
+                Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
+                readingRepository.save(reading);
+                return true;
             }
-            Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
-            readingRepository.save(reading);
-            return true;
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added because the reading is from before the sensor's starting date.");
+            return false;
         }
         logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                 + sensorID + " wasn't added because a sensor with that ID wasn't found.");
@@ -642,7 +652,7 @@ public class ReadingService {
      * @param date     reading date
      * @return true in case the reading exists in the repository, false otherwise.
      **/
-    private boolean readingExistsInRepository(String sensorID, Date date) {
+    boolean readingExistsInRepository(String sensorID, Date date) {
         Reading reading = readingRepository.findReadingByDateEqualsAndSensorId(date, sensorID);
         return reading != null;
     }

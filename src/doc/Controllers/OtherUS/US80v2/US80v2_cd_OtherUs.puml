@@ -83,7 +83,7 @@ int houseFloor
 double width
 double length
 double height
-long energyGridId
+long energyGridName
 }
 
 class EnergyGrid {

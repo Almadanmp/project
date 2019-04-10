@@ -111,6 +111,14 @@ public class AreaSensorService {
         return false;
     }
 
+    public AreaSensor updateSensor(AreaSensor areaSensor) {
+        return areaSensorRepository.save(areaSensor);
+    }
+
+    public List<AreaSensor> findByGeoAreaSensorsByID(Long geoAreaId) {
+        return areaSensorRepository.findByGeographicAreaId(geoAreaId);
+    }
+
     /**
      * Method to Add a sensor only if it's not contained in the list already.
      *
@@ -149,15 +157,14 @@ public class AreaSensorService {
      * @return a string of the sensors contained in the list.
      */
 
-    @Override
-    public String toString() {
+    public String buildString(List<AreaSensor> areaSensors) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
         if (areaSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
-        for (AreaSensor as : this.areaSensors) {
+        for (AreaSensor as : areaSensors) {
             result.append(as.getId()).append(") Name: ").append(as.getName()).append(" | ");
             result.append("Type: ").append(as.getSensorTypeName()).append(" | ")
                     .append(as.printActive()).append("\n");
@@ -205,14 +212,28 @@ public class AreaSensorService {
     /**
      * This method receives an index as parameter and gets a sensor from sensor list.
      *
-     * @param index the index of the Sensor.
+     * @param id the index of the Sensor.
      * @return returns sensor that corresponds to index.
      */
-    public AreaSensor get(int index) {
+    public AreaSensor get(int id) {
         if (this.areaSensors.isEmpty()) {
             throw new IndexOutOfBoundsException("The sensor list is empty.");
         }
-        return this.areaSensors.get(index);
+        return this.areaSensors.get(id);
+    }
+
+    /**
+     * This method receives an index as parameter and gets a sensor from sensor list.
+     *
+     * @param id the index of the Sensor.
+     * @return returns sensor that corresponds to index.
+     */
+    public AreaSensor getById(String id) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(id);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        throw new NoSuchElementException("ERROR: There is no Sensor with the selected ID.");
     }
 
     /**
@@ -270,23 +291,30 @@ public class AreaSensorService {
     }
 
     /**
-     * This method receives a Area Reading and a Area Sensor and tries to add the reading to the
-     * area sensor.
+     * This method receives a sensor ID and a Date checks if that sensor exists in the repository
+     * and if it was active at the moment of the given date.
      *
-     * @return true in case the reading is added to sensor, false otherwise.
+     * @param sensorID String of sensor ID
+     * @param date     date to test
+     * @return true in case the sensor exists and it was active during the given date, false otherwise.
      **/
-    public boolean addReadingToSensorInRepository(Reading reading, AreaSensor areaSensor) {
-        if (areaSensor.addReading(reading)) {
-            areaSensorRepository.save(areaSensor);
-            return true;
+    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            AreaSensor areaSensor = value.get();
+            Date startDate = areaSensor.getDateStartedFunctioning();
+            if (date.equals(startDate) || date.after(startDate)) {
+                return true;
+            }
+            return false;
         }
         return false;
     }
 
-
     public boolean remove(AreaSensor areaSensor) {
-        if (this.contains(areaSensor)) {
-            areaSensors.remove(areaSensor);
+        Optional<AreaSensor> areaSensor2 = areaSensorRepository.findById(areaSensor.getId());
+        if (areaSensor2.isPresent()) {
+            areaSensorRepository.delete(areaSensor);
             return true;
         }
         return false;

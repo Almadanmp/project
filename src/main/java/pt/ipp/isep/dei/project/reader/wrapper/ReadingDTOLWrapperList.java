@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.reader.wrapper;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,8 +14,8 @@ public class ReadingDTOLWrapperList {
     @JacksonXmlElementWrapper(useWrapping = false)
     private List<ReadingDTOWrapper> readingDTOList;
 
-    public ReadingDTOLWrapperList(List<ReadingDTOWrapper> readingDTOS) {
-        this.readingDTOList = readingDTOS;
+    public ReadingDTOLWrapperList(List<ReadingDTOWrapper> list) {
+        this.readingDTOList = list;
     }
 
     public ReadingDTOLWrapperList() {
@@ -25,10 +24,6 @@ public class ReadingDTOLWrapperList {
 
     public List<ReadingDTOWrapper> getReadingDTOWrapperList() {
         return this.readingDTOList;
-    }
-
-    public void setReadingDTOWrapperList(List<ReadingDTOWrapper> readingDTOList) {
-        this.readingDTOList = readingDTOList;
     }
 
     /**
@@ -40,13 +35,11 @@ public class ReadingDTOLWrapperList {
         int sizeOfResultArray = readingDTOList.size();
         ReadingDTOWrapper[] result = new ReadingDTOWrapper[sizeOfResultArray];
         for (int i = 0; i < readingDTOList.size(); i++) {
-            result[i] = readingDTOList.get(i);
-        }
-        return result;
-    }
+            result[i] = readingDTOList.get(i); }
+        return result; }
 
     /**
-     * Method to check if an instance of this class is equal to another object.
+     * * Method to check if an instance of this class is equal to another object.
      *
      * @param testObject is the object we want to check for equality.
      * @return is true if the object is a power source list with the same contents.
@@ -56,7 +49,7 @@ public class ReadingDTOLWrapperList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof GeographicAreaService)) {
+        if (!(testObject instanceof ReadingDTOLWrapperList)) {
             return false;
         }
         ReadingDTOLWrapperList list = (ReadingDTOLWrapperList) testObject;

@@ -25,7 +25,7 @@ skinparam component {
 }
 
 
-title US80v2 \n As an administrator, I want the data related to GeographicAreas, including sensors and their readings,\n to be persisted in a relational database.
+title US80v2 \n I want the data related to GeographicAreas, including sensors and their readings,\n to be persisted in a relational database.\n - Geographic Area Example -
 
 autonumber
 

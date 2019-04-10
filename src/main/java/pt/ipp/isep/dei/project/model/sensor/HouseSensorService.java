@@ -24,6 +24,11 @@ public class HouseSensorService {
         this.houseSensors = new ArrayList<>();
     }
 
+    public HouseSensorService(HouseSensorRepository sensorRepository) {
+        this.houseSensorRepository = sensorRepository;
+        this.houseSensors = new ArrayList<>();
+    }
+
     public List<HouseSensor> getSensors() {
         return houseSensors;
     }
@@ -61,6 +66,10 @@ public class HouseSensorService {
         return false;
     }
 
+    public void save(HouseSensor sensor) {
+        this.houseSensorRepository.save(sensor);
+    }
+
     public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
         Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
         if (value.isPresent()) {
@@ -76,6 +85,7 @@ public class HouseSensorService {
         }
         return false;
     }
+
     /**
      * Method to print a Whole Sensor List.
      * It will print the attributes needed to check if a Sensor is different from another Sensor

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CelsiusTest {
 
@@ -110,6 +110,44 @@ class CelsiusTest {
         // Act
 
         double actualResult = unit.toUserDefault(valueToConvert);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfEqualsConditionsWork(){
+        // Arrange
+
+        Celsius celsius = new Celsius();
+        Fahrenheit fahrenheit = new Fahrenheit();
+
+        // Act
+
+        boolean actualResult1 = celsius.equals(fahrenheit); // Necessary for sonarqube coverage
+        boolean actualResult2 = celsius.equals(null); // Necessary for sonarqube coverage
+        boolean actualResult3 = celsius.equals(new Celsius());
+
+        // Assert
+
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertTrue(actualResult3);
+
+    }
+
+    @Test
+    void hashcodeDummyTest(){
+        // Arrange
+
+        Celsius celsius = new Celsius();
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = celsius.hashCode();
 
         // Assert
 

@@ -18,6 +18,7 @@ public class EnergyGrid implements Metered {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
 
     @Transient
@@ -48,6 +49,7 @@ public class EnergyGrid implements Metered {
         this.listPowerSources = new PowerSourceList();
         this.name = name;
         this.maxContractedPower = maxContractedPower;
+        this.houseId = houseId;
     }
 
     /**
@@ -68,9 +70,11 @@ public class EnergyGrid implements Metered {
      *
      * @return returns attribute grid of the energy grid.
      */
-    public long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

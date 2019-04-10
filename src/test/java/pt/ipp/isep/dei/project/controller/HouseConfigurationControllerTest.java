@@ -25,7 +25,7 @@ class HouseConfigurationControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         List<String> deviceTypeList = new ArrayList<>();
-        Address address = new Address("Rua Dr. António Bernardino de Almeida","431", "4200-072", "Porto","Portugal");
+        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
@@ -42,7 +42,7 @@ class HouseConfigurationControllerTest {
     void seeIfGetHouseName() {
         //Act
 
-        String actualResult = controller.getHouseName(validHouse);
+        String actualResult = controller.getHouseId(validHouse);
 
         // Assert
 
@@ -56,8 +56,8 @@ class HouseConfigurationControllerTest {
     void seeIfPrintsRoomList() {
         // Arrange
 
-        Room roomOne = new Room("Kitchen","Equipped Kitchen" ,1, 15, 20, 10);
-        Room roomTwo = new Room("LivingRoom","1st Floor Living Room", 1, 40, 40, 10);
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 15, 20, 10,"Room1","Grid1");
+        Room roomTwo = new Room("LivingRoom", "1st Floor Living Room", 1, 40, 40, 10,"Room1","Grid1");
         RoomService roomService = new RoomService();
         roomService.add(roomOne);
         roomService.add(roomTwo);
@@ -80,9 +80,9 @@ class HouseConfigurationControllerTest {
     void createsRoom() {
         // Act
 
-        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen","Not equipped Kitchen", 1, 10, 15, 10);
-        Room actualResult2 = controller.createNewRoom(validHouse, "Room","Double Bedroom",1, 10, 15, 10);
-        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen","Fully Equipped Kitchen", 1, 10, 15, 10);
+        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen", "Not equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
+        Room actualResult2 = controller.createNewRoom(validHouse, "Room", "Double Bedroom", 1, 10, 15, 10,"Room1","Grid1");
+        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
 
         // Assert
 
@@ -94,9 +94,9 @@ class HouseConfigurationControllerTest {
     @Test
     void addsRoom() {
         //Arrange
-        Room room1 = new Room("Kitchen","Not equipped Kitchen", 1, 10, 15, 10);
-        Room room2 = new Room("Room","Double Bedroom", 1, 10, 15, 10);
-        Room room3 = new Room("Kitchen", "Fully Equipped Kitchen",1, 10, 15, 10);
+        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
+        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10,"Room1","Grid1");
+        Room room3 = new Room("Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
 
         // Act
         boolean actualResult1 = controller.addRoomToHouse(validHouse, room1);
@@ -113,11 +113,11 @@ class HouseConfigurationControllerTest {
     void seeIfSetHouseAddress() {
         //Act
 
-        controller.setHouseAddress("Rua do ISEP", "431","4400", "City","Portugal", validHouse);
+        controller.setHouseAddress("Rua do ISEP", "431", "4400", "City", "Portugal", validHouse);
 
         // Assert
 
-        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431","4400", "City","Portugal"));
+        assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431", "4400", "City", "Portugal"));
     }
 
     @Test
@@ -130,7 +130,6 @@ class HouseConfigurationControllerTest {
 
         assertEquals(validHouse.getLocation(), new Local(10, 51, 2));
     }
-
 
 
     @Test

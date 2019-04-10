@@ -55,6 +55,14 @@ public final class RoomMapper {
 
         double objectHeight = dtoToConvert.getHeight();
 
+        // Update the Energy Grid ID
+
+        String objectEnergyGridID = dtoToConvert.getEnergyGridID();
+
+        // Update the House ID
+
+        String objectHouseID = dtoToConvert.getHouseId();
+
         // Update the AreaSensorList
 
         HouseSensorService objectSensorList = new HouseSensorService();
@@ -71,7 +79,7 @@ public final class RoomMapper {
 
         // Create, update and return the converted object.
 
-        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
+        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
         resultObject.setDeviceList(objectDeviceList);
         resultObject.setSensorList(objectSensorList);
 
@@ -104,11 +112,18 @@ public final class RoomMapper {
 
         double objectHeight = dtoToConvert.getHeight();
 
+        // Update the houseID
+
+        String objectHouseID = dtoToConvert.getHouseId();
+
+        // Update the energy grid ID
+
+        String objectEnergyGridID = dtoToConvert.getEnergyGridID();
 
         // Create, update and return the converted object.
 
-        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight);
-
+        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight,
+                objectHouseID, objectEnergyGridID);
 
         return resultObject;
     }
@@ -141,6 +156,14 @@ public final class RoomMapper {
 
         double dtoLength = objectToConvert.getLength();
 
+        // Update the houseID
+
+        String dtoHouseID = objectToConvert.getHouseID();
+
+        // Update the energyGridID
+
+        String dtoEnergyGridID = objectToConvert.getEnergyGridID();
+
         // Update the AreaSensorList
 
         List<HouseSensorDTO> dtoSensorList = new ArrayList<>();
@@ -165,6 +188,8 @@ public final class RoomMapper {
         resultDTO.setWidth(dtoWidth);
         resultDTO.setSensorList(dtoSensorList);
         resultDTO.setDeviceList(dtoDeviceList);
+        resultDTO.setEnergyGridName(dtoEnergyGridID);
+        resultDTO.setHouseId(dtoHouseID);
 
         return resultDTO;
     }
