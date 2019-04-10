@@ -30,12 +30,12 @@ class SensorTypeServiceTest {
     @Mock
     private SensorTypeRepository sensorTypeRepository;
 
-    private SensorTypeService validList;
+    private SensorTypeService sensorTypeService;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validList = new SensorTypeService(this.sensorTypeRepository);
+        sensorTypeService = new SensorTypeService(this.sensorTypeRepository);
         firstValidType = new SensorType("Temperature","Celsius");
         secondValidType = new SensorType("Rainfall", "l/m2");
     }
@@ -45,7 +45,7 @@ class SensorTypeServiceTest {
     void seeIfCreateAreaType() {
         SensorType expectedResult = new SensorType("Movement", "Celsius");
 
-        SensorType result = validList.createTypeSensor("Movement", "Celsius");
+        SensorType result = sensorTypeService.createTypeSensor("Movement", "Celsius");
 
         assertEquals(expectedResult, result);
     }
@@ -57,7 +57,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findByName(sensorType.getName())).thenReturn(sensorType);
 
-        assertTrue(validList.add(sensorType));
+        assertTrue(sensorTypeService.add(sensorType));
     }
 
     @Test
@@ -69,7 +69,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.of(sensorType));
 
-        SensorType result = validList.getById(mockId);
+        SensorType result = sensorTypeService.getById(mockId);
 
         assertEquals(result.getId(), sensorType.getId());
         assertEquals(result.getName(), sensorType.getName());
@@ -81,7 +81,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.empty());
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> validList.getById(mockId));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> sensorTypeService.getById(mockId));
 
         assertEquals("ERROR: There is no Sensor Type with the selected ID.", exception.getMessage());
     }
@@ -96,7 +96,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
-        int result = validList.size();
+        int result = sensorTypeService.size();
 
         assertEquals(result, 1);
     }
@@ -109,7 +109,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
-        int result = validList.size();
+        int result = sensorTypeService.size();
 
         assertEquals(result, 1);
     }
@@ -124,7 +124,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
-        assertFalse(validList.isEmpty());
+        assertFalse(sensorTypeService.isEmpty());
 
     }
 
@@ -135,7 +135,7 @@ class SensorTypeServiceTest {
 
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
-        assertTrue(validList.isEmpty());
+        assertTrue(sensorTypeService.isEmpty());
     }
 
     @Test
@@ -151,7 +151,7 @@ class SensorTypeServiceTest {
                 "0) Name: Temperature | Unit: Celsius \n" +
                 "---------------\n";
 
-        String result = validList.buildString();
+        String result = sensorTypeService.buildString();
 
         assertEquals(expectedResult, result);
     }
@@ -164,7 +164,7 @@ class SensorTypeServiceTest {
 
         String expectedResult = "Invalid List - List is Empty\n";
 
-        String result = validList.buildString();
+        String result = sensorTypeService.buildString();
 
         assertEquals(expectedResult, result);
     }
@@ -179,7 +179,7 @@ class SensorTypeServiceTest {
 
         // Act
 
-        boolean actualResult = validList.equals(testList);
+        boolean actualResult = sensorTypeService.equals(testList);
 
         // Assert
 
@@ -190,7 +190,7 @@ class SensorTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validList.equals(new RoomService()); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeService.equals(new RoomService()); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -201,7 +201,7 @@ class SensorTypeServiceTest {
     void seeIfEqualsWorksForItself() {
         // Act
 
-        boolean actualResult = validList.equals(validList); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeService.equals(sensorTypeService); // Needed for sonarqube testing purposes.
 
         // Assert
 

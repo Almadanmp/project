@@ -2,7 +2,13 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
@@ -14,27 +20,34 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * AreaSensorList tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class AreaSensorServiceTest {
 
     // Common artifacts for testing in this class.
 
-    private AreaSensorService validAreaSensorService; // Contains the first valid sensor by default.
+
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor thirdValidAreaSensor;
 
+    @Mock
+    private AreaSensorRepository areaSensorRepository;
+
+    private AreaSensorService validAreaSensorService; // Contains the first valid sensor by default.
+
+
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaSensorService = new AreaSensorService();
+        MockitoAnnotations.initMocks(this);
+        validAreaSensorService = new AreaSensorService(this.areaSensorRepository);
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
-                31, 1, 2), new Date(),6008L);
+                31, 1, 2), new Date(), 6008L);
         firstValidAreaSensor.setActive(true);
-        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10,10,10),
-                new Date(),6008L);
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
+                new Date(), 6008L);
         secondValidAreaSensor.setActive(true);
-        thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10,10,10),
-                new Date(),6008L);
+        thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
+                new Date(), 6008L);
         validAreaSensorService.add(firstValidAreaSensor);
     }
 
@@ -78,6 +91,20 @@ class AreaSensorServiceTest {
     }
 
     @Test
+    void seeIfSensorExistsInRepository() {
+        //Arrange
+        AreaSensor areaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
+                31, 1, 2), new Date(), 6008L);
+        areaSensor.setActive(true);
+
+        validAreaSensorService.addWithPersist(areaSensor);
+
+
+        //Assert
+        assertFalse(validAreaSensorService.sensorExistsInRepository("SensorOne"));
+    }
+
+    @Test
     void seeIfEqualsWorksOnSensorListWithDifferentContent() {
         // Arrange
 
@@ -106,6 +133,16 @@ class AreaSensorServiceTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddPersist() {
+        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(
+                31, 1, 2), new Date(), 6008L);
+        areaSensor.setActive(true);
+
+        assertTrue(validAreaSensorService.addWithPersist(areaSensor));
+        assertFalse(validAreaSensorService.addWithPersist(areaSensor));
     }
 
     @Test
@@ -269,6 +306,7 @@ class AreaSensorServiceTest {
         AreaSensorService twoSensorsList = new AreaSensorService();
         twoSensorsList.add(firstValidAreaSensor);
         twoSensorsList.add(secondValidAreaSensor);
+        twoSensorsList.add(secondValidAreaSensor);
 
         // Act
 
@@ -386,8 +424,8 @@ class AreaSensorServiceTest {
 
         //Sensors
 
-        AreaSensor areaSensorSameLocalHouse = new AreaSensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date,6008L);
-        AreaSensor areaSensorDiffLocalHouse = new AreaSensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date,6008L);
+        AreaSensor areaSensorSameLocalHouse = new AreaSensor("123", "sameLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 20, 20), date, 6008L);
+        AreaSensor areaSensorDiffLocalHouse = new AreaSensor("125", "DiffLocalAsHouse", new SensorType("Temperature", "K"), new Local(20, 25, 20), date, 6008L);
 
         AreaSensorService validAreaSensorService = new AreaSensorService();
         validAreaSensorService.add(areaSensorDiffLocalHouse);
@@ -457,6 +495,57 @@ class AreaSensorServiceTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
     }
+
+    @Test
+    void seeIfGetSensorsDistanceToHouse() {
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        GeographicArea validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
+                new Local(20, 12, 33));
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, deviceTypeString);
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+                2, 3, new Local(4, 4, 100)));
+        List<Double> expectedResult = new ArrayList<>();
+        expectedResult.add(2259.92026088549);
+
+        //Act
+        List<Double> actualResult = validAreaSensorService.getSensorsDistanceToHouse(validHouse);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddReadingToSensorInRepository() {
+        //Arrange
+        Date date = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
+        Reading reading = new Reading(31, date, "C", "TEST");
+
+        //Assert
+        assertTrue(validAreaSensorService.addReadingToSensorInRepository(reading, firstValidAreaSensor));
+        assertFalse(validAreaSensorService.addReadingToSensorInRepository(reading, firstValidAreaSensor));
+
+    }
+
+    @Test
+    void seeIfRemoveSensor() {
+        //Assert
+        assertTrue(validAreaSensorService.remove(firstValidAreaSensor));
+        assertFalse(validAreaSensorService.remove(firstValidAreaSensor));
+    }
+
+    @Test
+    void seeIfGetSensors(){
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(firstValidAreaSensor);
+        assertEquals(expectedResult, validAreaSensorService.getAreaSensors());
+    }
+
 
 //    @Test
 //    void seeIfAddReadingToMatchingSensorWorks() {
