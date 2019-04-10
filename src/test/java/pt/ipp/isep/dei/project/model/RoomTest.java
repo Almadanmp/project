@@ -34,7 +34,7 @@ class RoomTest {
     @BeforeEach
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom","Double Bedroom", 2, 30, 40, 10);
-        validSensor = new HouseSensor("tempOne", new SensorType("temperature", "Celsius"), new Date());
+        validSensor = new HouseSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
         validSensor.setActive(true);
         validRoom.addSensor(validSensor);
         validDevice = new WaterHeater(new WaterHeaterSpec());
@@ -166,8 +166,8 @@ class RoomTest {
     void seeIfAddSensorWorks() {
         // Arrange
 
-        HouseSensor testSensor = new HouseSensor("testSensor", new SensorType("Temperature", "Celsius"),
-                new Date());
+        HouseSensor testSensor = new HouseSensor("T56654", "testSensor", new SensorType("Temperature", "Celsius"),
+                new Date(),"RoomDSF");
 
         // Act
 
@@ -512,9 +512,9 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksMultipleSensors() {
         // Arrange
 
-        HouseSensor firstAreaSensor = new HouseSensor("firstSensor", new SensorType("temperature", "Celsius"), new Date()); // Has one reading, not the most recent.
-        HouseSensor secondAreaSensor = new HouseSensor("secondSensor", new SensorType("temperature", "Celsius"), new Date()); // Has the most recent reading and another reading.
-        HouseSensor thirdAreaSensor = new HouseSensor("secondSensor", new SensorType("temperature", "Celsius"), new Date()); // Has no readings.
+        HouseSensor firstAreaSensor = new HouseSensor("T123123", "firstSensor", new SensorType("temperature", "Celsius"), new Date(), "RoomDFS"); // Has one reading, not the most recent.
+        HouseSensor secondAreaSensor = new HouseSensor("T123124", "secondSensor", new SensorType("temperature", "Celsius"), new Date(), "RoomDFS"); // Has the most recent reading and another reading.
+        HouseSensor thirdAreaSensor = new HouseSensor("T123125", "secondSensor", new SensorType("temperature", "Celsius"), new Date(), "RoomDFS"); // Has no readings.
         firstAreaSensor.setActive(true);
         secondAreaSensor.setActive(true);
         thirdAreaSensor.setActive(true);
@@ -590,7 +590,7 @@ class RoomTest {
     void seeIfGetSensorListWorksMultipleSensors() {
         // Arrange
 
-        HouseSensor testSensor = new HouseSensor("Mock", new SensorType("Temperature", "Celsius"), new Date());
+        HouseSensor testSensor = new HouseSensor("T3409", "Mock", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
         validRoom.addSensor(testSensor);
         HouseSensorService expectedResult = new HouseSensorService();
         expectedResult.add(validSensor);

@@ -166,7 +166,7 @@
 //        //Act
 //
 //
-//        int actualResult = validReader.addReadingToMatchingSensor(logger, "TT12346", 20D, validDate1, "C");
+//        int actualResult = validReader.addReadingToMatchingAreaSensor(logger, "TT12346", 20D, validDate1, "C");
 //
 //        // Assert
 //

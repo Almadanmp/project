@@ -389,6 +389,10 @@ class RoomConfigurationUI {
 
     private void getInput253(Room room, SensorType sensorType) {
         Scanner input = new Scanner(System.in);
+        // Id Getter
+        System.out.println("\nEnter Sensor Id:\t");
+        String sensorID = input.nextLine();
+        System.out.println("You entered sensor " + sensorID);
         // Name Getter
         System.out.println("\nEnter Sensor Name:\t");
         String sensorName = input.nextLine();
@@ -416,14 +420,15 @@ class RoomConfigurationUI {
         }
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
-        updateAndDisplay253(sensorType, room, dateYear, dateMonth, dateDay, sensorName);
+        String idRoom = room.getName();
+        updateAndDisplay253(sensorID, sensorType, room, dateYear, dateMonth, dateDay, sensorName, idRoom);
 
     }
 
-    private void updateAndDisplay253(SensorType sensorType, Room room, int dateYear, int dateMonth, int dateDay, String sensorName) {
+    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, int dateYear, int dateMonth, int dateDay, String sensorName, String idRoom) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
-        HouseSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorName, sensorType, mDate);
+        HouseSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorID, sensorName, sensorType, mDate, idRoom);
         if (controller.addSensorToRoom(mAreaSensor, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");

@@ -42,13 +42,16 @@ public class HouseSensor {
      * @param sensorType             is the Type of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public HouseSensor(String name, SensorType sensorType, Date dateStartedFunctioning) {
+    public HouseSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
+        setId(id);
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
         this.readingService = new ReadingService();
         this.active = true;
+        this.roomId = roomId;
     }
+
 
     /**
      * Setter: name
@@ -72,6 +75,10 @@ public class HouseSensor {
         this.id = id;
     }
 
+    public void setRoomId(String roomId){
+        this.roomId = roomId;
+    }
+
     /**
      * Getter: Id
      *
@@ -81,6 +88,9 @@ public class HouseSensor {
         return (this.id);
     }
 
+    public String getRoomId(){
+        return this.roomId;
+    }
     /**
      * Setter: type sensor
      *

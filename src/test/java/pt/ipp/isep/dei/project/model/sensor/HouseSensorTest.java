@@ -25,7 +25,7 @@ class HouseSensorTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validHouseSensor = new HouseSensor( "SensOne",  new SensorType("Temperature", "Celsius"), new Date());
+        validHouseSensor = new HouseSensor("T32875", "SensOne",  new SensorType("Temperature", "Celsius"), new Date(), "RoomAD");
         validHouseSensor.setActive(true);
     }
 
@@ -55,7 +55,7 @@ class HouseSensorTest {
             e.printStackTrace();
         }
 
-        HouseSensor areaSensor = new HouseSensor( "Sensor", new SensorType("Temperature", "Celsius"), startDate);
+        HouseSensor areaSensor = new HouseSensor("T32875", "Sensor", new SensorType("Temperature", "Celsius"), startDate, "RoomFD");
 
         // Act
 
@@ -139,8 +139,8 @@ class HouseSensorTest {
     void seeIfEqualsWorksFalseDifferentSensor() {
         // Arrange
 
-        HouseSensor s2 = new HouseSensor( "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
-                 new Date());
+        HouseSensor s2 = new HouseSensor("T54654", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
+                 new Date(), "RoomFD");
 
         // Act
 
@@ -155,7 +155,7 @@ class HouseSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        HouseSensor testAreaSensor = new HouseSensor("SensOne", new SensorType("Temperature", "Celsius"),new Date());
+        HouseSensor testAreaSensor = new HouseSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"),new Date(), "RoomHG");
 
         // Act
 
@@ -239,7 +239,7 @@ class HouseSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validHouseSensor = new HouseSensor("SensOne", new SensorType("Temperature", "Kelvin"), new Date());
+        validHouseSensor = new HouseSensor("T45", "SensOne", new SensorType("Temperature", "Kelvin"), new Date(), "RoomGK");
         SensorType expectedResult = new SensorType("Temperature", "Kelvin");
 
         // Act

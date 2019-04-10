@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Sensors.
@@ -64,6 +61,21 @@ public class HouseSensorService {
         return false;
     }
 
+    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            HouseSensor houseSensor = value.get();
+            Reading reading = new Reading(readingValue, readingDate, unit, houseSensor.getId());
+            ReadingService sensorReadingList = houseSensor.getReadingService();
+            if (sensorReadingList.contains(reading)) {
+                return false;
+            }
+            houseSensor.addReading(reading);
+            houseSensorRepository.save(houseSensor);
+            return true;
+        }
+        return false;
+    }
     /**
      * Method to print a Whole Sensor List.
      * It will print the attributes needed to check if a Sensor is different from another Sensor

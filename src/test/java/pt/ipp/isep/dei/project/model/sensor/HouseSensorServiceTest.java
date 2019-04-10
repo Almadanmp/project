@@ -22,11 +22,11 @@ class HouseSensorServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         validHouseSensorService = new HouseSensorService();
-        firstValidHouseSensor = new HouseSensor("SensorOne", new SensorType("Temperature", "Celsius"),new Date());
+        firstValidHouseSensor = new HouseSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"),new Date(), "RoomDFS");
         firstValidHouseSensor.setActive(true);
-        secondValidHouseSensor = new HouseSensor("SensorTwo", new SensorType("Temperature", "Celsius"), new Date());
+        secondValidHouseSensor = new HouseSensor("T32876", "SensorTwo", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
         secondValidHouseSensor.setActive(true);
-        thirdValidHouseSensor = new HouseSensor("SensorThree", new SensorType("Rainfall", "l/m2"), new Date());
+        thirdValidHouseSensor = new HouseSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
         validHouseSensorService.add(firstValidHouseSensor);
     }
 

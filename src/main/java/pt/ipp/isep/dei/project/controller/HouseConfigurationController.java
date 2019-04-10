@@ -2,13 +2,12 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomService;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
+import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -132,6 +131,7 @@ public class HouseConfigurationController {
                 continue;
             }
             try {
+                String sensorID = sensorToImport.getString("id");
                 String sensorName = sensorToImport.getString("name");
                 String sensorType = sensorToImport.getString("type");
                 String sensorUnit = sensorToImport.getString("units");
@@ -148,7 +148,7 @@ public class HouseConfigurationController {
                         c.getErrorOffset();
                     }
                 }
-                HouseSensor importedSensor = new HouseSensor(sensorName, new SensorType(sensorType, sensorUnit), objectDate);
+                HouseSensor importedSensor = new HouseSensor(sensorID, sensorName, new SensorType(sensorType, sensorUnit), objectDate, roomID);
                 for (Room r : houseRooms.getRooms()) {
                     if (r.getName().equals(roomID)) {
                         r.addSensor(importedSensor);
@@ -160,5 +160,82 @@ public class HouseConfigurationController {
             }
         }
         return addedSensors;
+    }
+
+        /*
+        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
+        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
+        registered in the application log.
+     */
+
+    public int readReadingListFromFile(ReadingService readingService, String filePath, HouseService house, String logPath) {
+      //  AreaSensorService aSService = new AreaSensorService();
+        House programHouse = house.getHouse();
+        ReaderJSONReadings reader = new ReaderJSONReadings();
+        int addedReadings = 0;
+        RoomService houseRooms = programHouse.getRoomService();
+       // if (roomList.isEmpty()) {
+         //   return addedReadings;
+        //}
+        JSONArray importedReadingList = reader.readFile(filePath);
+      //  ReaderController rCtrl = new ReaderController(aSService);
+    /*    try {
+            Logger logger = Logger.getLogger(ReaderController.class.getName());
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            addedReadings = rCtrl.parseAndLogJSONReadings(importedReadingList, logger);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        } */
+      //  String sensorID;
+        for (int i = 0; i < importedReadingList.length(); i++) {
+            JSONObject readingToImport = importedReadingList.getJSONObject(i);
+    /*        try {
+                sensorID = readingToImport.getString("id");
+            } catch (NullPointerException ok) {
+                continue;
+            }*/
+            try {
+                String readingSensorID = readingToImport.getString("id");
+                String readingDate = readingToImport.getString("timestamp/date");
+                String readingValue = readingToImport.getString("value");
+                double doubleReadingValue = Double.parseDouble(readingValue);
+                String readingUnit = readingToImport.getString("unit");
+                Date objectDate = null;
+                List<SimpleDateFormat> simpleDateArray = knownDatePatterns();
+                for(SimpleDateFormat pattern : simpleDateArray) {
+                    try {
+                        objectDate = pattern.parse(readingDate);
+                    } catch (ParseException c) {
+                        c.getErrorOffset();
+                    }
+                }
+                Reading importedReading = new Reading(doubleReadingValue, objectDate, readingUnit, readingSensorID);
+                HouseSensor[] sensors;
+                for (Room r : houseRooms.getRooms()) {
+                    sensors = r.getSensorList().getElementsAsArray();
+                    for (HouseSensor sensor : sensors) {
+                        String sensorID = importedReading.getId();
+                        if (sensor.getId().equals(sensorID)) {
+                            readingService.addReadingToMatchingSensor(readingSensorID, doubleReadingValue, objectDate, readingUnit);
+                            addedReadings++;
+                        }
+                    }
+                }
+                } catch (NullPointerException ok) {
+
+                }
+            }
+            return addedReadings;
+        }
+
+    public List<SimpleDateFormat> knownDatePatterns() {
+        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
+        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy", new Locale("en", "US")));
+        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "US")));
+        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US")));
+        return knownPatterns;
     }
 }

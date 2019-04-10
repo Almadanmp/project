@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -9,9 +10,11 @@ import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.HouseService;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,6 +75,10 @@ class HouseConfigurationUI {
                     break;
                 case 7:
                     runUS260(houseService);
+                    activeInput = false;
+                    break;
+                case 8:
+                    runUS265(houseService);
                     activeInput = false;
                     break;
                 case 0:
@@ -341,6 +348,23 @@ class HouseConfigurationUI {
         System.out.println(importedSensors + " Sensors successfully imported.");
     }
 
+    /*
+        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
+        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
+        registered in the application log.
+     */
+
+    private void runUS265(HouseService houseService) {
+        String logPath = VALID_LOG_PATH;
+        InputHelperUI inputHUI = new InputHelperUI();
+        System.out.println("Please insert the location of the file you want to import:");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = inputHUI.getInputPathJsonOrXML(result);
+        int importedReadings = controller.readReadingListFromFile(readingService, filePath, houseService, logPath);
+        System.out.println(importedReadings + " Readings successfully imported.");
+    }
+
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
@@ -352,6 +376,7 @@ class HouseConfigurationUI {
         System.out.println("5) Add a new room to the house. (US105)");
         System.out.println("6) List the existing rooms. (US108)");
         System.out.println("7) Import House Sensors from a file. (US260)");
+        System.out.println("8) Import House Sensor Reading List from a file. (US265)");
         System.out.println("0) (Return to main menu)\n");
     }
 }

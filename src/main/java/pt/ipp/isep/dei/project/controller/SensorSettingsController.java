@@ -106,8 +106,8 @@ public class SensorSettingsController {
      * @param date
      * @return a created Sensor
      */
-    public HouseSensor createRoomSensor(String name, SensorType type, Date date) {
-        return new HouseSensor(name, type, date);
+    public HouseSensor createRoomSensor(String id, String name, SensorType type, Date date, String idRoom) {
+        return new HouseSensor(id, name, type, date, idRoom);
     }
 
     /**

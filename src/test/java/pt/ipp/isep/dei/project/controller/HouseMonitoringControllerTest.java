@@ -117,8 +117,8 @@ class HouseMonitoringControllerTest {
         validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
                 new Date(),6008L);
-        validTemperatureHouseSensor = new HouseSensor("TempOne", new SensorType("temperature", "Celsius"),
-                new Date());
+        validTemperatureHouseSensor = new HouseSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
+                new Date(), "RoomAB");
         Reading firstTempReading = new Reading(15, validDate1, "C", "TEST");
         Reading secondTempReading = new Reading(20, validDate2, "C", "TEST");
         Reading thirdTempReading = new Reading(30, validDate3, "C", "TEST");
