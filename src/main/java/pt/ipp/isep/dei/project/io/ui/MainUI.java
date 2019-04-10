@@ -12,12 +12,12 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
-import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.io.IOException;
 import java.util.Arrays;

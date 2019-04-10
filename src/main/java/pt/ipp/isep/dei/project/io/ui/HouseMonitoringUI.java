@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.services.HouseService;
+import pt.ipp.isep.dei.project.model.HouseService;
 
 import java.util.Date;
 

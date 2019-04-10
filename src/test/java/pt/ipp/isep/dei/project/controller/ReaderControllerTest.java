@@ -6,12 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.model.AreaType;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
@@ -19,7 +17,6 @@ import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -782,6 +779,40 @@ class ReaderControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+//    @Test
+//    void seeIfReadFileWorksWithOneGAAndOneSensor() {
+//        //Arrange
+//        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+//
+//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+//        geographicAreaDTO.setName("ISEP");
+//        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
+//        geographicAreaDTO.setLocalDTO(localDTO);
+//        geographicAreaDTO.setDescription("Campus do ISEP");
+//        geographicAreaDTO.setWidth(0.261);
+//        geographicAreaDTO.setLength(0.249);
+//        geographicAreaDTO.setTypeArea("urban area");
+//
+//        expectedResult.add(geographicAreaDTO);
+//
+//        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+//        LocalDTO localSensorDTO = new LocalDTO(41.179230, -8.606409, 125);
+//        areaSensorDTO.setLocalDTO(localSensorDTO);
+//        areaSensorDTO.setUnits("l/m2");
+//        areaSensorDTO.setDateStartedFunctioning("2016-11-15");
+//        areaSensorDTO.setTypeSensor("rainfall");
+//        areaSensorDTO.setName("Meteo station ISEP - rainfall");
+//        areaSensorDTO.setId("RF12345");
+//
+//
+//        //Act
+//
+//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+//
+//        //Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     @Test
     void seeIfReadFileWorksWithTwoGA() {

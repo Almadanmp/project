@@ -15,7 +15,7 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
-import pt.ipp.isep.dei.project.services.HouseService;
+import pt.ipp.isep.dei.project.model.HouseService;
 
 import java.util.Date;
 import java.util.List;

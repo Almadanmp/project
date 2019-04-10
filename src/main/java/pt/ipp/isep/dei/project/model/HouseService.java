@@ -1,10 +1,7 @@
-package pt.ipp.isep.dei.project.services;
+package pt.ipp.isep.dei.project.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;

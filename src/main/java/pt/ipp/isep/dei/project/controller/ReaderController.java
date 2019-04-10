@@ -14,11 +14,11 @@ import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
-import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -54,6 +54,7 @@ public class ReaderController {
     /**
      * This method only accepts a path that ends with .json or .xml
      *
+     * @param     - the user input
      * @param filePath - the path to the file if it exists
      * @param list     - the geographic area list
      * @return - number of geoareas imported
@@ -109,11 +110,23 @@ public class ReaderController {
         return result;
     }
 
+    /**
+     * This is the method that reads geographic areas fromJSON files and return a list of
+     * geographic areas DTO
+     * @param filePath - the path to the file
+     * @return - a list of geo areas dto
+     */
     public List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath) {
         GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
         return readerJSON.readFile(filePath);
     }
 
+    /**
+     * This method adds the dtos to the geographic area service
+     * @param geographicAreaDTOS - the dtos imported from the file
+     * @param list - the service we want to add the dtos to
+     * @return - number of areas added
+     */
     public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {

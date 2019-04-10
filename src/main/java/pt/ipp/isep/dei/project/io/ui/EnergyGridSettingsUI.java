@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.PowerSource;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.services.HouseService;
+import pt.ipp.isep.dei.project.model.HouseService;
 
 import java.util.Scanner;
 

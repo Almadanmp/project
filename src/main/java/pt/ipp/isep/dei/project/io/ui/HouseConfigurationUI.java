@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.services.HouseService;
+import pt.ipp.isep.dei.project.model.HouseService;
 
 import java.util.List;
 import java.util.Scanner;
