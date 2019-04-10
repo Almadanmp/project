@@ -12,13 +12,13 @@ public class AreaSensorDTO {
     private double latitude;
     private double longitude;
     private double altitude;
-    private LocalDTO localDTO = new LocalDTO(latitude,longitude,altitude);
+    private LocalDTO localDTO = new LocalDTO(latitude, longitude, altitude);
     private String dateStartedFunctioning;
     private boolean active;
     private List<ReadingDTO> readingList;
     private Long geographicAreaID;
 
-    public AreaSensorDTO(){
+    public AreaSensorDTO() {
         readingList = new ArrayList<>();
     }
 

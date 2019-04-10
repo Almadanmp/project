@@ -168,13 +168,11 @@ public class RoomDTO {
     }
 
 
-
     /**
      * Method that stores a double as the DTO's height.
      *
      * @param height is the height we want to store.
      */
-
 
 
     public void setHeight(double height) {
@@ -220,6 +218,7 @@ public class RoomDTO {
     public void setHouseId(String houseId) {
         this.houseID = houseId;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

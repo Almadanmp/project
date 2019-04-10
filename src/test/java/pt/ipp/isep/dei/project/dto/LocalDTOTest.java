@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.dto;
+
 import org.junit.jupiter.api.Assertions;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +15,12 @@ class LocalDTOTest {
     private LocalDTO validDTO;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         validDTO = new LocalDTO();
     }
 
     @Test
-    void seeIfGetSetLatitudeWorks(){
+    void seeIfGetSetLatitudeWorks() {
         // Arrange
 
         validDTO.setLatitude(12D);
@@ -33,7 +35,7 @@ class LocalDTOTest {
     }
 
     @Test
-    void seeIfGetSetLongitudeWorks(){
+    void seeIfGetSetLongitudeWorks() {
         // Arrange
 
         validDTO.setLongitude(5D);
@@ -48,7 +50,7 @@ class LocalDTOTest {
     }
 
     @Test
-    void seeIfGetSetAltitudeWorks(){
+    void seeIfGetSetAltitudeWorks() {
         // Arrange
 
         validDTO.setAltitude(31D);
@@ -63,7 +65,7 @@ class LocalDTOTest {
     }
 
     @Test
-    void seeIfSetGetIDWorks(){
+    void seeIfSetGetIDWorks() {
         // Arrange
 
         validDTO.setId(99L);
@@ -78,7 +80,7 @@ class LocalDTOTest {
     }
 
     @Test
-    void seeIfEqualsWorks(){
+    void seeIfEqualsWorks() {
         // Arrange
 
         validDTO.setAltitude(9D);
@@ -110,4 +112,10 @@ class LocalDTOTest {
         assertFalse(actualResult3);
         assertFalse(actualResult4);
     }
+
+    @Test
+    void seeIfHashcodeWorks() {
+        assertEquals(1, validDTO.hashCode());
+    }
+
 }

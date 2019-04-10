@@ -7,6 +7,8 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HouseDTOTest {
@@ -141,6 +143,58 @@ class HouseDTOTest {
         List<DeviceType> actualResult = validHouseDTO.getDeviceTypeList();
         //Assert
         assertEquals(deviceTypeList, actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorks() {
+        //Arrange
+        AddressDTO addressDTO1 = new AddressDTO();
+        addressDTO1.setStreet("Street1");
+        addressDTO1.setTown("Town1");
+        addressDTO1.setZip("Zip1");
+
+        AddressDTO addressDTO2 = new AddressDTO();
+        addressDTO2.setStreet("Street2");
+        addressDTO2.setTown("Town2");
+        addressDTO2.setZip("Zip2");
+
+        List<DeviceType> deviceTypeList = new ArrayList<>();
+        validHouseDTO.setDeviceTypeList(deviceTypeList);
+        validHouseDTO.setAddress(addressDTO1);
+
+        HouseDTO validHouseDTO2 = new HouseDTO();
+        validHouseDTO2.setAddress(addressDTO2);
+
+        HouseDTO validHouseDTO3 = new HouseDTO();
+        validHouseDTO3.setAddress(addressDTO1);
+
+
+        //Act
+
+        boolean actualResult1 = validHouseDTO.equals(validHouseDTO);
+        boolean actualResult2 = validHouseDTO.equals(validHouseDTO2);
+        boolean actualResult3 = validHouseDTO.equals(validHouseDTO3);
+        boolean actualResult4 = validHouseDTO.equals(2D);
+
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertTrue(actualResult3);
+        assertFalse(actualResult4);
+    }
+
+    @Test
+    void seeIfHashcodeWorks() {
+        //Arrange
+
+        List<DeviceType> deviceTypeList = new ArrayList<>();
+        validHouseDTO.setDeviceTypeList(deviceTypeList);
+
+        //Assert
+
+        assertEquals(1, validHouseDTO.hashCode());
     }
 
 }

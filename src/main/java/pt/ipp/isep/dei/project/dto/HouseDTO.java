@@ -80,7 +80,7 @@ public class HouseDTO {
         this.deviceMeteringPeriod = deviceMeteringPeriod;
     }
 
-    public List<DeviceType> getDeviceTypeList() {
+    List<DeviceType> getDeviceTypeList() {
         return deviceTypeList;
     }
 

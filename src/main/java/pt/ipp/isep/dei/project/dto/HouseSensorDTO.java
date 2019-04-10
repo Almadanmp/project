@@ -14,7 +14,7 @@ public class HouseSensorDTO {
     private boolean active;
     private List<ReadingDTO> readingList;
 
-    public HouseSensorDTO(){
+    public HouseSensorDTO() {
         readingList = new ArrayList<>();
     }
 
@@ -56,9 +56,10 @@ public class HouseSensorDTO {
         return roomID;
     }
 
-    public void setRoomID(String roomID){
+    public void setRoomID(String roomID) {
         this.roomID = roomID;
     }
+
     /**
      * Method that stores a String as the DTO's name.
      *
