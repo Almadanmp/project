@@ -70,10 +70,7 @@ public class Kelvin implements TemperatureUnit {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return true;
+        return o != null && getClass() == o.getClass();
     }
 
     @Override

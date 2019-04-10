@@ -12,9 +12,8 @@ public class Fahrenheit implements TemperatureUnit {
      *
      * @param valueToConvert refers to the temperature value.
      * @return value converted into the default Unit.
-     * @throws IOException in case the properties file is missing or doesn't have the property.
      */
-    public double toApplicationDefault(double valueToConvert) throws IOException {
+    public double toApplicationDefault(double valueToConvert) {
         String defaultUnit = getApplicationTemperatureConfig();
         return toDefaultTemperatureUnit(defaultUnit, valueToConvert, this);
     }
@@ -70,10 +69,7 @@ public class Fahrenheit implements TemperatureUnit {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return true;
+        return o != null && getClass() == o.getClass();
     }
 
     @Override
