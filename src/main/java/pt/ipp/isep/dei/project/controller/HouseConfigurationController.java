@@ -38,7 +38,8 @@ public class HouseConfigurationController {
      */
 
     void setHouseAddress(String street, String number, String zip, String town, String country, House house) {
-        house.setAddress(street, number, zip, town, country);
+        Address address = new Address(street, number, zip, town, country);
+        house.setAddress(address);
     }
 
     /**
@@ -65,8 +66,8 @@ public class HouseConfigurationController {
      * @return is the name of the given house.
      */
 
-    String getHouseName(House house) {
-        return house.getHouseName();
+    String getHouseId(House house) {
+        return house.getId();
     }
 
 

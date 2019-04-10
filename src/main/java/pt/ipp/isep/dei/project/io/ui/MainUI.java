@@ -12,6 +12,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaTypeService;
 import pt.ipp.isep.dei.project.model.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -22,6 +24,7 @@ import pt.ipp.isep.dei.project.repository.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -124,6 +127,9 @@ public class MainUI {
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
 
 
+            House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+
+
             //LOAD PERSISTED GA DATA
             this.geographicAreaService = new GeographicAreaService(geographicAreaRepository);
 
@@ -176,7 +182,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
-                            houseC.run(houseService, geographicAreaService, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+                            houseC.run(house, houseService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -225,5 +231,20 @@ public class MainUI {
         String pressEnter = "\nPress ENTER to return.";
         System.out.println(pressEnter);
         scanner.nextLine();
+    }
+
+    private static House mainHouse(HouseRepository houseRepository, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+        House house;
+        Optional<House> aux = houseRepository.findById("01");
+        if (aux.isPresent()) {
+            house = aux.get();
+            house.setGridMeteringPeriod(gridMeteringPeriod);
+            house.setDeviceMeteringPeriod(deviceMeteringPeriod);
+            house.setDeviceTypeList(deviceTypeConfig);
+            houseRepository.save(house);
+            return house;
+        }
+        house = new House("01", new Local(0, 0, 0), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+        return houseRepository.save(house);
     }
 }

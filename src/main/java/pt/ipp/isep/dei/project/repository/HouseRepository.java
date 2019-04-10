@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.House;
 import java.util.List;
 
 @Repository
-public interface HouseRepository extends CrudRepository<House, Long> {
+public interface HouseRepository extends CrudRepository<House, String> {
 
     House findByAddress(Address address);
 

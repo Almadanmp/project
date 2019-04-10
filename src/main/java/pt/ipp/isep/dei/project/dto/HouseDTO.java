@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class HouseDTO {
-    private String name;
+    private String id;
     private AddressDTO address;
     private LocalDTO location;
     private List<EnergyGridDTO> energyGridList;
@@ -16,12 +16,12 @@ public class HouseDTO {
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public AddressDTO getAddress() {

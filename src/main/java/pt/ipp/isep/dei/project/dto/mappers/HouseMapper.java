@@ -25,7 +25,7 @@ public class HouseMapper {
     public static House dtoToObject(HouseDTO dtoToConvert) {
         // Update parameters
 
-        String objectName = dtoToConvert.getName();
+        String objectId = dtoToConvert.getId();
 
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
@@ -55,7 +55,7 @@ public class HouseMapper {
 
         // Create, update and return new object
 
-        House resultObject = new House(objectName, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
+        House resultObject = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
         resultObject.setMotherArea(objectGeoArea);
 
         return resultObject;
@@ -78,14 +78,11 @@ public class HouseMapper {
             objectRoomService.add(room);
         }
 
-        //empty list
-        List<String> objectDeviceTypeConfigList = new ArrayList<>();
 
         // Create, update and return new object
 
-        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
-
-        House resultObject = new House(objectAddress, objectDeviceTypeConfigList, objectLocal);
+        House resultObject = new House();
+        resultObject.setAddress(objectAddress);
         resultObject.setRoomService(objectRoomService);
         resultObject.setGridList(objectGridList);
 
@@ -100,7 +97,7 @@ public class HouseMapper {
      * @return is the converted DTO.
      */
     public static HouseDTO objectToDTO(House objectToConvert) {
-        String dtoName = objectToConvert.getHouseName();
+        String dtoName = objectToConvert.getId();
 
         AddressDTO dtoAddress = AddressMapper.objectToDTO(objectToConvert.getAddress());
 
@@ -131,7 +128,7 @@ public class HouseMapper {
         // Create, update and return new object
 
         HouseDTO resultObject = new HouseDTO();
-        resultObject.setName(dtoName);
+        resultObject.setId(dtoName);
         resultObject.setAddress(dtoAddress);
         resultObject.setLocation(dtoLocal);
         resultObject.setMotherArea(dtoGeoArea);

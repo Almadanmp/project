@@ -16,10 +16,7 @@ import java.util.*;
 public class House implements Metered {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    private String name;
+    private String id;
 
     @Embedded
     private Address address;
@@ -46,36 +43,40 @@ public class House implements Metered {
     /**
      * Standard constructor for a house object.
      *
-     * @param name                 is the name of the house.
-     * @param address              is the address of the house. An address is made up of several pieces of data, like the street and
-     *                             the zip code the house is in.
-     * @param mLocation            is the location of the central point of the house, in latitude, longitude and altitude coordinates.
+     * @param id                   is the id of the house.
+     * @param local                is the location of the central point of the house, in latitude, longitude and altitude coordinates.
      * @param gridMeteringPeriod   is the metering period of grids contained in the house.
      * @param deviceMeteringPeriod is the metering period of devices contained in the house.
      * @param deviceTypeConfig     is the list of possible device types that the house supports.
      */
-    public House(String name, Address address, Local mLocation, int gridMeteringPeriod,
-                 int deviceMeteringPeriod, List<String> deviceTypeConfig) {
-        this.name = name;
-        this.address = address;
-        this.location = mLocation;
+
+    public House(String id, Local local, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+        this.id = id;
         this.roomService = new RoomService();
         this.energyGridService = new EnergyGridService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
+        this.location = local;
         buildDeviceTypeList(deviceTypeConfig);
     }
 
-    public House(Address address, List<String> deviceTypeConfig, Local local) {
+
+    public House(String id, Address address, Local local, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+        this.id = id;
         this.address = address;
-        this.location = local;
         this.roomService = new RoomService();
         this.energyGridService = new EnergyGridService();
+        this.gridMeteringPeriod = gridMeteringPeriod;
+        this.deviceMeteringPeriod = deviceMeteringPeriod;
+        this.location = local;
         buildDeviceTypeList(deviceTypeConfig);
     }
 
-    protected House() {
+    public House() {
+        this.roomService = new RoomService();
+        this.energyGridService = new EnergyGridService();
     }
+
 
     //SETTERS AND GETTERS
 
@@ -84,18 +85,6 @@ public class House implements Metered {
         buildDeviceTypeList(deviceTypeConfig);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Standard getter method, to return the Id of the House.
-     *
-     * @return the string with the Id of the House.
-     */
-    public String getHouseName() {
-        return this.name;
-    }
 
     /**
      * Standard getter method, to return the Address of the House.
@@ -104,6 +93,10 @@ public class House implements Metered {
      */
     public Address getAddress() {
         return address;
+    }
+
+    public String getId() {
+        return id;
     }
 
     /**
@@ -177,19 +170,9 @@ public class House implements Metered {
 
     /**
      * Standard setter method, to define the Address of the House.
-     *
-     * @param street  is the street of the address.
-     * @param number  is the number of the address.
-     * @param zip     is the zip-code of the address.
-     * @param town    is the town of the address.
-     * @param country is the country of the address.
      */
-    public void setAddress(String street, String number, String zip, String town, String country) {
-        address.setStreet(street);
-        address.setNumber(number);
-        address.setZip(zip);
-        address.setTown(town);
-        address.setCountry(country);
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     /**

@@ -47,9 +47,9 @@ class HouseTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date(),6008L);
+                30, 20, 10), new Date(), 6008L);
         AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
-                40, 15), new Date(),6008L);
+                40, 15), new Date(), 6008L);
         validArea.addSensor(firstValidAreaSensor);
         validArea.addSensor(secondValidAreaSensor);
         validHouse.setMotherArea(validArea);
@@ -99,7 +99,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor testAreaSensor = new AreaSensor("RF12666", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(20,
-                20, 20), new Date(),6008L);
+                20, 20), new Date(), 6008L);
         validArea.addSensor(testAreaSensor);
         double expectedResult = 0;
 
@@ -258,7 +258,7 @@ class HouseTest {
         String expectedResult = "---------------\n" +
                 "34) Designation: Home | Max Power: 440.0\n" +
                 "---------------\n";
-        EnergyGrid testGrid = new EnergyGrid("Home", 440,"34576");
+        EnergyGrid testGrid = new EnergyGrid("Home", 440, "34576");
         testGrid.setId(34);
         validHouse.addGrid(testGrid);
 
@@ -328,7 +328,7 @@ class HouseTest {
         // Arrange
 
         EnergyGridService gridList = new EnergyGridService();
-        EnergyGrid testGrid = new EnergyGrid("Garden", 300,"34576");
+        EnergyGrid testGrid = new EnergyGrid("Garden", 300, "34576");
         testGrid.setId(23);
         gridList.addGrid(testGrid);
         validHouse.setGridList(gridList);
@@ -444,7 +444,7 @@ class HouseTest {
         firstValidAreaSensor.setReadingService(readingService);
 
         AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date(),6008L);
+                30, 20, 10), new Date(), 6008L);
         secondAreaSensor.addReading(new Reading(15, earlierDate, "C", firstValidAreaSensor.getId()));
         validArea.addSensor(secondAreaSensor);
 
@@ -462,7 +462,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor testAreaSensor = new AreaSensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
-                21, 20), new Date(),6008L);
+                21, 20), new Date(), 6008L);
         validArea.addSensor(testAreaSensor);
 
         // Act
@@ -480,7 +480,7 @@ class HouseTest {
         // Arrange
 
         AreaSensor expectedResult = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", ""),
-                new Local(0, 0, 0), new Date(),6008L);
+                new Local(0, 0, 0), new Date(), 6008L);
 
         // Act
 
@@ -592,9 +592,9 @@ class HouseTest {
     void seeIfAddGridToHouseWorks() {
         // Arrange
 
-        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25,"34576");
-        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55,"34576");
-        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25,"34576");
+        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25, "34576");
+        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55, "34576");
+        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25, "34576");
 
         // Act
 
@@ -725,8 +725,8 @@ class HouseTest {
     void seeIfGetEnergyGridByIndexWorks() {
         //Arrange
 
-        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200,"34576");
-        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200,"34576");
+        EnergyGrid energyGrid1 = new EnergyGrid("energyGrid1", 200, "34576");
+        EnergyGrid energyGrid2 = new EnergyGrid("energyGrid2", 200, "34576");
         validHouse.addGrid(energyGrid1);
         validHouse.addGrid(energyGrid2);
 
@@ -880,7 +880,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addGrid(new EnergyGrid("energyGrid", 230,"34576"));
+        validHouse.addGrid(new EnergyGrid("energyGrid", 230, "34576"));
 
         //Act
 
@@ -903,15 +903,6 @@ class HouseTest {
     }
 
     @Test
-    void seeIfSetIDWorks() {
-        //Act
-        validHouse.setName("valid house");
-
-        //Assert
-        assertEquals(validHouse.getHouseName(), "valid house");
-    }
-
-    @Test
     void seeIfSetMotherAreaWorks() {
         //Act
         GeographicArea geoArea = new GeographicArea("Porto", new AreaType("City"), 50, 13, new Local(5, 5, 5));
@@ -924,7 +915,8 @@ class HouseTest {
     @Test
     void seeIfSetGetAddressWorks() {
         //Act
-        validHouse.setAddress("Rua do ISEP", "431", "4400", "Campus", "Portugal");
+        Address address = new Address("Rua do ISEP", "431", "4400", "Campus", "Portugal");
+        validHouse.setAddress(address);
 
         //Assert
         assertEquals(validHouse.getAddress(), new Address("Rua do ISEP", "431", "4400", "Campus", "Portugal"));

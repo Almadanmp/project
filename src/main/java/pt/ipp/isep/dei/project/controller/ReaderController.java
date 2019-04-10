@@ -82,10 +82,10 @@ public class ReaderController {
      * @param filePath is the file path.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(String filePath, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
+    public boolean readJSONAndDefineHouse(House house, String filePath) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
-        House house = HouseMapper.dtoToObjectUS100(houseDTO);
+        House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
         EnergyGridService houseGrids = house.getGridList();
         for (int i = 0; i < houseGrids.size(); i++) {
             houseService.saveEnergyGrid(houseGrids.get(i));
@@ -94,10 +94,7 @@ public class ReaderController {
         for (int i = 0; i < roomList.size(); i++){
             houseService.saveRoom(roomList.get(i));
         }
-        house.setGridMeteringPeriod(gridMetPeriod);
-        house.setDeviceMeteringPeriod(devMetPeriod);
-        house.setDeviceTypeList(deviceTypes);
-
+        house.setAddress(house2.getAddress());
         return houseService.saveHouse(house);
     }
 

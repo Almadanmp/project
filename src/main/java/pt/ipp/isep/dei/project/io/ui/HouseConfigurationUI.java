@@ -32,7 +32,7 @@ class HouseConfigurationUI {
 
     }
 
-    void run(HouseService houseService, GeographicAreaService geographicAreaService, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
+    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -51,7 +51,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS100(gridMetPeriod, devMetPeriod, deviceTypes, houseService);
+                    runUS100(house, houseService);
                     activeInput = false;
                     break;
                 case 4:
@@ -162,14 +162,14 @@ class HouseConfigurationUI {
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100(int gridMetPeriod, int devMetPeriod, List<String> deviceTypes, HouseService houseService) {
+    private void runUS100(House house, HouseService houseService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJson(result);
-        if (ctrl.readJSONAndDefineHouse(filePath, gridMetPeriod, devMetPeriod, deviceTypes)) {
+        if (ctrl.readJSONAndDefineHouse(house, filePath)) {
             System.out.println("House Data Successfully imported.");
         } else {
             System.out.println("The JSON file is invalid.");
