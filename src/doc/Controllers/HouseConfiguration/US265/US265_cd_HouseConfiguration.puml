@@ -26,9 +26,9 @@ MainUI -- HouseConfigurationUI : >
 HouseConfigurationUI -- HouseConfigurationController : >
 HouseConfigurationController -- Reader : >
 Reader -- House : >
-House -- Sensor : >
-Sensor -- RoomService : >
-RoomService -- ReadingService : >
+Reader -- Sensor : >
+Reader -- RoomService : >
+Reader -- ReadingService : >
 
 class HouseConfigurationUI{
 
