@@ -74,8 +74,8 @@ public class GeographicAreaDTOWrapper {
         this.width = width;
     }
 
-    public List<AreaSensorDTO> getAreaSensorDTOList() {
-        return areaSensorDTOWrapperConversion(areaSensorDTOList);
+    public List<AreaSensorDTOWrapper> getAreaSensorDTOList() {
+        return areaSensorDTOList;
     }
 
     public void setAreaSensorDTOList(List<AreaSensorDTOWrapper> listToStore) {
@@ -115,7 +115,6 @@ public class GeographicAreaDTOWrapper {
             geographicAreaDTO.setDescription(wrapper.getDescription());
             geographicAreaDTO.setName(wrapper.getName());
             geographicAreaDTO.setLocalDTO(wrapper.getLocalDTO());
-            geographicAreaDTO.setAreaSensorDTOList(wrapper.getAreaSensorDTOList());
             if (!finalList.contains(geographicAreaDTO)) {
                 finalList.add(geographicAreaDTO);
             }
@@ -130,7 +129,7 @@ public class GeographicAreaDTOWrapper {
      * @param areaSensorDTOWrappers list of areas Dto wrappers
      * @return hashmap containing Reading DTOs with its corresponding sensor ID
      **/
-    private static List<AreaSensorDTO> areaSensorDTOWrapperConversion(List<AreaSensorDTOWrapper> areaSensorDTOWrappers) {
+    public static List<AreaSensorDTO> areaSensorDTOWrapperConversion(List<AreaSensorDTOWrapper> areaSensorDTOWrappers) {
         List<AreaSensorDTO> finalList = new ArrayList<>();
         for (AreaSensorDTOWrapper wrapper : areaSensorDTOWrappers) {
             AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
