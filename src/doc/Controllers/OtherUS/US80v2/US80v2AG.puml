@@ -29,12 +29,12 @@ title US80v2 \n I want the data related to GeographicAreas, including sensors an
 
 autonumber
 
-Controller -> ":GeographicAreaService": add(GeographicArea)
+Controller -> ":GeographicAreaService": add(String, local, AreaTypeID)
 activate Controller
 deactivate Controller
 create ":GeographicArea"
 activate ":GeographicAreaService"
-":GeographicAreaService" ->> ":GeographicArea": create(String, Local, AreaType)
+":GeographicAreaService" ->> ":GeographicArea": create(String, local, AreaTypeID)
 ":GeographicAreaService" -> "GeographicAreaRepository": save(GeographicArea)
 activate "GeographicAreaRepository"
 deactivate "GeographicAreaRepository"
