@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Address;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.HouseRepository;

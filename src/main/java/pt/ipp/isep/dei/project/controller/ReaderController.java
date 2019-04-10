@@ -14,11 +14,11 @@ import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
-import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.io.IOException;
 import java.text.ParseException;

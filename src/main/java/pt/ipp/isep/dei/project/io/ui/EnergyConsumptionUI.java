@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.services.HouseService;
+import pt.ipp.isep.dei.project.model.HouseService;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

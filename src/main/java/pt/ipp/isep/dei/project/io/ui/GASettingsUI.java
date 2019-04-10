@@ -6,16 +6,12 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.AreaType;
-import pt.ipp.isep.dei.project.model.AreaTypeService;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
-import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.util.List;
 import java.util.NoSuchElementException;

@@ -5,15 +5,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
-import pt.ipp.isep.dei.project.model.AreaType;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
