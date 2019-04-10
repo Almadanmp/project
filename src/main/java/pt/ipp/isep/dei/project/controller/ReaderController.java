@@ -6,9 +6,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.GeographicArea;
@@ -124,20 +126,53 @@ public class ReaderController {
     }
 
     /**
+     * This is the method that reads geographic areas fromJSON files and return a list of
+     * geographic areas DTO
+     * @param filePath - the path to the file
+     * @return - a list of geo areas dto
+     */
+    public List<AreaSensorDTO> readFileJSONAreaSensors(String filePath) {
+        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
+        return readerJSON.setAreaSensorDTOS(filePath);
+    }
+
+    /**
      * This method adds the dtos to the geographic area service
      * @param geographicAreaDTOS - the dtos imported from the file
      * @param list - the service we want to add the dtos to
      * @return - number of areas added
      */
-    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors ) {
         int counter = 0;
+        List<GeographicArea> geographicAreaList = new ArrayList<>();
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
-            list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
+            GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
+            list.addAndPersistGA(geoArea);
+            geographicAreaList.add(geoArea);
+            addSensorsDTOToList(areaSensorDTOS,listSensors,geographicAreaList);
             System.out.println(GeographicAreaMapper.dtoToObject(dto).toString());
             counter++;
         }
         return counter;
     }
+
+    /**
+     * This method adds the dtos to the geographic area service
+     * @param areaSensorDTOS - the dtos imported from the file
+     * @param list - the service we want to add the dtos to
+     * @return - number of areas added
+     */
+    private void addSensorsDTOToList(List<AreaSensorDTO> areaSensorDTOS, AreaSensorService list, List<GeographicArea> geographicAreas) {
+        for (AreaSensorDTO dto : areaSensorDTOS) {
+            AreaSensor sensor = AreaSensorMapper.dtoToObject(dto);
+            for (GeographicArea geographicArea: geographicAreas){
+            sensor.setGeographicAreaId(geographicArea.getId());}
+            list.addWithPersist(sensor);
+            System.out.println(AreaSensorMapper.dtoToObject(dto).toString());
+        }
+    }
+
+
 
     /**
      * This method goes receives a geographic area list, a string with a path to a CSV file and

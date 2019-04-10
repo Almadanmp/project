@@ -70,7 +70,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15v3(geographicAreaService);
+                    runUS15v2(geographicAreaService);
                     activeInput = false;
                     break;
                 case 10:
@@ -422,25 +422,43 @@ class GASettingsUI {
         return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
     }
 
-    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
-        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
+    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
+        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list, areaSensorDTOS,listSensors);
     }
 
-    private void runUS15v3(GeographicAreaService geographicAreaService) {
+
+    /**
+     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
+     * <p>
+     * list is the static, program list of geographic areas that comes from mainUI.
+     */
+
+    private void runUS15v2(GeographicAreaService geographicAreaService) {
+        InputHelperUI input = new InputHelperUI();
+        System.out.println("Please insert the location of the file you want to import:");
+        Scanner scanner = new Scanner(System.in);
+        String result = scanner.next();
+        String filePath = input.getInputPathJsonOrXML(result);
+        int areas = readerController.acceptPath(filePath, geographicAreaService);
+        System.out.println(areas + " Geographic Areas have been successfully imported.");
+    }
+
+    private void runUS15v3(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a valid path.");
         String result = scanner.next();
         String filePath = inputHelperUI.getInputPathJsonOrXML(result);
         if (filePath.endsWith(".json")) {
-            importGeoAreasFromJSON(filePath, geographicAreaService);
+            importGeoAreasFromJSON(filePath, geographicAreaService, areaSensorService);
         }
     }
 
-    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService) {
+    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         int result;
         List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
-        result = addGeoAreasDTOToList(list, geographicAreaService);
+        List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
+        result = addGeoAreasDTOToList(list, geographicAreaService, listSensor, areaSensorService);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
 
