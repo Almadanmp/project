@@ -71,12 +71,12 @@ class HouseMonitoringControllerTest {
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
         Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10);
-        RoomList validRoomList = new RoomList();
-        validRoomList.add(validRoom1);
+        RoomService validRoomService = new RoomService();
+        validRoomService.add(validRoom1);
         validAreaSensorService = new AreaSensorService();
         validHouseSensorService = new HouseSensorService();
         validRoom1.setSensorList(validHouseSensorService);
-        validHouse.setRoomList(validRoomList);
+        validHouse.setRoomService(validRoomService);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         try {
@@ -466,10 +466,10 @@ class HouseMonitoringControllerTest {
         //Arrange
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validAreaSensorService);
-        ReadingList readingList = new ReadingList();
+        ReadingService readingService = new ReadingService();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
-        readingList.addReading(reading1);
-        validTemperatureAreaSensor.setReadingList(readingList);
+        readingService.addReading(reading1);
+        validTemperatureAreaSensor.setReadingService(readingService);
 
         //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
@@ -495,7 +495,7 @@ class HouseMonitoringControllerTest {
         //Arrange
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validAreaSensorService);
-        ReadingList readingList = new ReadingList();
+        ReadingService readingService = new ReadingService();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
@@ -516,27 +516,27 @@ class HouseMonitoringControllerTest {
         Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
         Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
         Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
-        readingList.addReading(reading5);
-        readingList.addReading(reading6);
-        readingList.addReading(reading7);
-        readingList.addReading(reading8);
-        readingList.addReading(reading9);
-        readingList.addReading(reading10);
-        readingList.addReading(reading11);
-        readingList.addReading(reading12);
-        readingList.addReading(reading13);
-        readingList.addReading(reading14);
-        readingList.addReading(reading15);
-        readingList.addReading(reading16);
-        readingList.addReading(reading17);
-        readingList.addReading(reading18);
-        readingList.addReading(reading19);
-        readingList.addReading(reading20);
-        validTemperatureAreaSensor.setReadingList(readingList);
+        readingService.addReading(reading1);
+        readingService.addReading(reading2);
+        readingService.addReading(reading3);
+        readingService.addReading(reading4);
+        readingService.addReading(reading5);
+        readingService.addReading(reading6);
+        readingService.addReading(reading7);
+        readingService.addReading(reading8);
+        readingService.addReading(reading9);
+        readingService.addReading(reading10);
+        readingService.addReading(reading11);
+        readingService.addReading(reading12);
+        readingService.addReading(reading13);
+        readingService.addReading(reading14);
+        readingService.addReading(reading15);
+        readingService.addReading(reading16);
+        readingService.addReading(reading17);
+        readingService.addReading(reading18);
+        readingService.addReading(reading19);
+        readingService.addReading(reading20);
+        validTemperatureAreaSensor.setReadingService(readingService);
         //Act
         Date actualResult = controller.getLastColdestDayInInterval(validHouse, (new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
         //Assert
@@ -675,8 +675,8 @@ class HouseMonitoringControllerTest {
         house.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         HouseSensorService sList = new HouseSensorService();
-        RoomList roomL = new RoomList();
-        house.setRoomList(roomL);
+        RoomService roomL = new RoomService();
+        house.setRoomService(roomL);
         Room roomD = new Room("Bedroom", "Single Bedroom", 2, 15, 15, 10);
         roomL.add(roomD);
         roomD.setSensorList(sList);

@@ -7,11 +7,13 @@ import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,8 +32,8 @@ public class ReaderXMLGeoArea {
      * @param filePath path to the xml file
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaList list, AreaSensorService areaSensorService) {
-        ReaderController ctrl = new ReaderController(areaSensorService);
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
@@ -45,7 +47,7 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    public boolean readGeographicAreasXML(Node node, GeographicAreaList list, AreaSensorService areaSensorService) {
+    public boolean readGeographicAreasXML(Node node, GeographicAreaService list, AreaSensorService areaSensorService) {
         boolean result = false;
         GeographicArea geoArea;
         if (node.getNodeType() == Node.ELEMENT_NODE) {

@@ -4,15 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of energy Grids of a House.
  */
 @Service
-public class EnergyGridList {
+public class EnergyGridService {
 
     @Autowired
     EnergyGridRepository energyGridRepository;
@@ -22,9 +20,15 @@ public class EnergyGridList {
     /**
      * Empty constructor to use on UIs.
      */
-    public EnergyGridList() {
+    public EnergyGridService(EnergyGridRepository energyGridRepository) {
+        this.energyGridRepository = energyGridRepository;
+        this.energyGrids = new ArrayList<>();
+    }
+
+    public EnergyGridService() {
         energyGrids = new ArrayList<>();
     }
+
 
     /**
      * Method adds an energy grid to the a energy grid list if the input grid isn't already contained in said list.
@@ -40,6 +44,15 @@ public class EnergyGridList {
         return false;
     }
 
+    public boolean addPersistenceGrid (EnergyGrid energyGrid){
+        EnergyGrid grid = energyGridRepository.findByName(energyGrid.getName());
+        if (grid !=null){
+            energyGridRepository.delete(grid);
+        }
+        energyGridRepository.save(energyGrid);
+        return true;
+    }
+
     /**
      * This method creates a new EnergyGrid using its constructor.
      *
@@ -47,14 +60,34 @@ public class EnergyGridList {
      * @param maxPower    - maximum power of the to be created EnergyGrid.
      * @return a new EnergyGrid or an existing one if the designation is the same.
      */
-    EnergyGrid createEnergyGrid(String designation, double maxPower) {
+    EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
         for (EnergyGrid e : this.energyGrids) {
             String name = e.getName();
             if (name.equals(designation)) {
                 return e;
             }
         }
-        return new EnergyGrid(designation, maxPower);
+        return new EnergyGrid(designation, maxPower, houseID);
+    }
+
+    /**
+     * Method that builds a string of every grid contained in the grid list, using their name and maximum contracted power,
+     * and assigning an index to each one of them.
+     *
+     * @return a string that is the list of all grids present in the grid list.
+     */
+    public String buildString() {
+        String mStringEnhancer = "---------------\n";
+        StringBuilder result = new StringBuilder(mStringEnhancer);
+        if (isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (EnergyGrid eg: this.energyGrids) {
+            result.append(eg.getId()).append(") Designation: ").append(eg.getName()).append(" | ");
+            result.append("Max Power: ").append(eg.getMaxContractedPower()).append("\n");
+        }
+        result.append(mStringEnhancer);
+        return result.toString();
     }
 
     /**
@@ -66,14 +99,16 @@ public class EnergyGridList {
         return this.energyGrids.isEmpty();
     }
 
+
     /**
-     * This method checks the energy grid list size.
+     * Method to get the EnergyGrid Repository Size
      *
-     * @return returns the list size as int.
+     * @return repository size
      */
     public int size() {
-        return this.energyGrids.size();
+        return energyGridRepository.findAll().size();
     }
+
 
     /**
      * This method receives an index as parameter and gets energy grid from energy grid list.
@@ -93,48 +128,22 @@ public class EnergyGridList {
      *
      * @return array of energy grids
      */
-    public EnergyGrid[] getElementsAsArray() {
-        int size = this.size();
-        EnergyGrid[] result = new EnergyGrid[size];
-        for (int i = 0; i < size; i++) {
-            result[i] = this.energyGrids.get(i);
-        }
-        return result;
-    }
+
 
     /**
-     * Method that builds a string of every grid contained in the grid list, using their name and maximum contracted power,
-     * and assigning an index to each one of them.
+     * Method to get a EnergyGrid from the Repository through a given id
      *
-     * @return a string that is the list of all grids present in the grid list.
+     * @param id selected id
+     * @return Energy Grid corresponding to the given id
      */
-    public String buildString() {
-        String mStringEnhancer = "---------------\n";
-        StringBuilder result = new StringBuilder(mStringEnhancer);
-        if (this.energyGrids.isEmpty()) {
-            return "Invalid List - List is Empty\n";
+    public EnergyGrid getById(long id) {
+        Optional<EnergyGrid> value = energyGridRepository.findById(id);
+        if (value.isPresent()) {
+            return value.get();
         }
-        for (int i = 0; i < this.energyGrids.size(); i++) {
-            EnergyGrid aux = this.energyGrids.get(i);
-            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
-            result.append("Max Power: ").append(aux.getMaxContractedPower()).append("\n");
-        }
-        result.append(mStringEnhancer);
-        return result.toString();
+        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 
-
-    @Override
-    public boolean equals(Object testObject) {
-        if (this == testObject) {
-            return true;
-        }
-        if (!(testObject instanceof EnergyGridList)) {
-            return false;
-        }
-        EnergyGridList list = (EnergyGridList) testObject;
-        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
-    }
 
     @Override
     public int hashCode() {

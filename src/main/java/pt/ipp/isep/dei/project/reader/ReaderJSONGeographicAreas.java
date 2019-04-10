@@ -6,7 +6,7 @@ import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -50,7 +50,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaList list, AreaSensorService areaSensorService) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaService list, AreaSensorService areaSensorService) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
         return readGeoAreasJSON(geoAreas, list, areaSensorService);
@@ -63,7 +63,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaList list, AreaSensorService areaSensorService) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaService list, AreaSensorService areaSensorService) {
         int result = 0;
 
         for (int i = 0; i < geoAreas.length(); i++) {

@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.List;
  * Class that groups a number of Rooms in a House.
  */
 @Service
-public class RoomList {
+public class RoomService {
 
     @Autowired
     RoomRepository roomRepository;
@@ -26,7 +25,7 @@ public class RoomList {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomList() {
+    public RoomService() {
         this.rooms = new ArrayList<>();
     }
 
@@ -291,10 +290,10 @@ public class RoomList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof RoomList)) {
+        if (!(testObject instanceof RoomService)) {
             return false;
         }
-        RoomList list = (RoomList) testObject;
+        RoomService list = (RoomService) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

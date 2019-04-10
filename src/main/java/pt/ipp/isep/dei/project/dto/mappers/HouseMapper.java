@@ -25,22 +25,22 @@ public class HouseMapper {
     public static House dtoToObject(HouseDTO dtoToConvert) {
         // Update parameters
 
-        String objectId = dtoToConvert.getId();
+        String objectName = dtoToConvert.getName();
 
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
         Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
 
-        EnergyGridList objectGridList = new EnergyGridList();
+        EnergyGridService objectGridList = new EnergyGridService();
         for (EnergyGridDTO y : dtoToConvert.getEnergyGridList()) {
             EnergyGrid grid = EnergyGridMapper.dtoToObject(y);
             objectGridList.addGrid(grid);
         }
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomList()) {
             Room room = RoomMapper.dtoToObject(y);
-            objectRoomList.add(room);
+            objectRoomService.add(room);
         }
 
         GeographicArea objectGeoArea = GeographicAreaMapper.dtoToObject(dtoToConvert.getMotherArea());
@@ -55,7 +55,7 @@ public class HouseMapper {
 
         // Create, update and return new object
 
-        House resultObject = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
+        House resultObject = new House(objectName, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
         resultObject.setMotherArea(objectGeoArea);
 
         return resultObject;
@@ -64,26 +64,29 @@ public class HouseMapper {
     public static House dtoToObjectUS100(HouseDTO dtoToConvert) {
         // Update parameters
 
-        String objectId = dtoToConvert.getId();
-
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
-        EnergyGridList objectGridList = new EnergyGridList();
+        EnergyGridService objectGridList = new EnergyGridService();
         for (EnergyGridDTO y : dtoToConvert.getEnergyGridList()) {
-            EnergyGrid grid = EnergyGridMapper.dtoToObject(y);
+            EnergyGrid grid = EnergyGridMapper.dtoToObjectUS100(y);
             objectGridList.addGrid(grid);
         }
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomList()) {
             Room room = RoomMapper.dtoToObjectUS100(y);
-            objectRoomList.add(room);
+            objectRoomService.add(room);
         }
+
+        //empty list
+        List<String> objectDeviceTypeConfigList = new ArrayList<>();
 
         // Create, update and return new object
 
-        House resultObject = new House(objectId,objectAddress);
-        resultObject.setRoomList(objectRoomList);
+        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
+
+        House resultObject = new House(objectAddress, objectDeviceTypeConfigList, objectLocal);
+        resultObject.setRoomService(objectRoomService);
         resultObject.setGridList(objectGridList);
 
         return resultObject;
@@ -97,7 +100,7 @@ public class HouseMapper {
      * @return is the converted DTO.
      */
     public static HouseDTO objectToDTO(House objectToConvert) {
-        String dtoId = objectToConvert.getHouseId();
+        String dtoName = objectToConvert.getHouseName();
 
         AddressDTO dtoAddress = AddressMapper.objectToDTO(objectToConvert.getAddress());
 
@@ -110,8 +113,8 @@ public class HouseMapper {
         }
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (int y = 0; y < objectToConvert.getRoomList().size(); y++) {
-            Room room = objectToConvert.getRoomList().get(y);
+        for (int y = 0; y < objectToConvert.getRoomService().size(); y++) {
+            Room room = objectToConvert.getRoomService().get(y);
             dtoRoomList.add(RoomMapper.objectToDTO(room));
         }
 
@@ -128,11 +131,9 @@ public class HouseMapper {
         // Create, update and return new object
 
         HouseDTO resultObject = new HouseDTO();
-        resultObject.setId(dtoId);
+        resultObject.setName(dtoName);
         resultObject.setAddress(dtoAddress);
         resultObject.setLocation(dtoLocal);
-        resultObject.setEnergyGridList(dtoGridList);
-        resultObject.setRoomList(dtoRoomList);
         resultObject.setMotherArea(dtoGeoArea);
         resultObject.setGridMeteringPeriod(dtoGridMeteringPeriod);
         resultObject.setDeviceMeteringPeriod(dtoDeviceMeteringPeriod);

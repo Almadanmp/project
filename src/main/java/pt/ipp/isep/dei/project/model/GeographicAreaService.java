@@ -1,25 +1,22 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Geographical Areas.
  */
 @Service
-public class GeographicAreaList {
+public class GeographicAreaService {
 
     private List<GeographicArea> geographicAreas;
 
     private GeographicAreaRepository geographicAreaRepository;
 
-    public GeographicAreaList(GeographicAreaRepository geographicAreaRepository) {
+    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository) {
         geographicAreas = new ArrayList<>();
         this.geographicAreaRepository = geographicAreaRepository;
     }
@@ -29,16 +26,11 @@ public class GeographicAreaList {
      *
      * @return a GeographicAreaList with all the Geographical Areas saved in the repository.
      */
-    public GeographicAreaList getAll() {
-        Iterable<GeographicArea> geoAreas = this.geographicAreaRepository.findAll();
-        GeographicAreaList result = new GeographicAreaList(this.geographicAreaRepository);
-        for (GeographicArea g : geoAreas) {
-            result.addGeographicArea(g);
-        }
-        return result;
+    public List<GeographicArea> getAll() {
+        return this.geographicAreaRepository.findAll();
     }
 
-     /**
+    /**
      * Method that receives a geographic area as a parameter and adds that
      * GA to the list in case it is not contained in that list already.
      *
@@ -69,6 +61,7 @@ public class GeographicAreaList {
         return false;
     }
 
+//TODO need to receive list
 
     /**
      * Method to print a Whole Geographic Area List.
@@ -77,19 +70,17 @@ public class GeographicAreaList {
      *
      * @return a string with the names of the geographic areas
      */
-    public String buildString() {
+    public String buildStringRepository(List<GeographicArea> geographicAreas) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
-
-        if (this.isEmpty()) {
+        if (geographicAreas.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
 
-        for (int i = 0; i < this.size(); i++) {
-            GeographicArea aux = this.get(i);
-            result.append(i).append(") Name: ").append(aux.getName()).append(" | ");
-            result.append("Type: ").append(aux.getAreaType().getName()).append(" | ");
-            result.append("Latitude: ").append(aux.getLocal().getLatitude()).append(" | ");
-            result.append("Longitude: ").append(aux.getLocal().getLongitude()).append("\n");
+        for (GeographicArea ga : geographicAreas) {
+            result.append(ga.getId()).append(") Name: ").append(ga.getName()).append(" | ");
+            result.append("Type: ").append(ga.getAreaType().getName()).append(" | ");
+            result.append("Latitude: ").append(ga.getLocal().getLatitude()).append(" | ");
+            result.append("Longitude: ").append(ga.getLocal().getLongitude()).append("\n");
         }
         result.append("---------------\n");
         return result.toString();
@@ -144,12 +135,12 @@ public class GeographicAreaList {
      * @param typeAreaName is the type of the area we want to get all the geographicAreas.
      * @return a GeographicAreaList with a given type.
      */
-    public GeographicAreaList getGeoAreasByType(String typeAreaName) {
-        GeographicAreaList finalList = new GeographicAreaList(geographicAreaRepository);
+    public List<GeographicArea> getGeoAreasByType(List<GeographicArea> geographicAreas, String typeAreaName) {
+        List<GeographicArea> finalList = new ArrayList<>();
         AreaType areaTypeToTest = new AreaType(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
             if (ga.equalsTypeArea(areaTypeToTest)) {
-                finalList.addGeographicArea(ga);
+                finalList.add(ga);
             }
         }
         return finalList;
@@ -177,21 +168,22 @@ public class GeographicAreaList {
      * @return GeographicAreaList size as int
      **/
     public int size() {
-        return this.geographicAreas.size();
+        return getAll().size();
     }
 
     /**
      * This method receives an index as parameter and gets a geographic area from geographic
      * area list.
      *
-     * @param index the index of the GA.
+     * @param id the index of the GA.
      * @return returns geographic area that corresponds to index.
      */
-    public GeographicArea get(int index) {
-        if (this.geographicAreas.isEmpty()) {
-            throw new IndexOutOfBoundsException("The geographic area list is empty.");
+    public GeographicArea get(long id) {
+        Optional<GeographicArea> value = geographicAreaRepository.findById(id);
+        if (value.isPresent()) {
+            return value.get();
         }
-        return this.geographicAreas.get(index);
+        throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
     }
 
     /**
@@ -200,12 +192,12 @@ public class GeographicAreaList {
      * @return returns a AreaSensorList of the geographical areas of the geographical area list.
      * @author Andre
      */
-    public AreaSensorService getAreaListSensors() {
-        AreaSensorService fullAreaSensorService = new AreaSensorService();
-        if (this.geographicAreas.isEmpty()) {
+    public List<AreaSensor> getAreaListSensors(List<GeographicArea> geographicAreas) {
+        List<AreaSensor> fullAreaSensorService = new ArrayList<>();
+        if (geographicAreas.isEmpty()) {
             return fullAreaSensorService;
         }
-        for (GeographicArea ga : this.geographicAreas) {
+        for (GeographicArea ga : geographicAreas) {
             if (ga.getSensorList().isEmpty()) {
                 continue;
             }
@@ -236,7 +228,7 @@ public class GeographicAreaList {
      * @return true if empty, false otherwise
      **/
     public boolean isEmpty() {
-        return this.geographicAreas.isEmpty();
+        return size() == 0;
     }
 
 
@@ -252,10 +244,10 @@ public class GeographicAreaList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof GeographicAreaList)) {
+        if (!(testObject instanceof GeographicAreaService)) {
             return false;
         }
-        GeographicAreaList list = (GeographicAreaList) testObject;
+        GeographicAreaService list = (GeographicAreaService) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

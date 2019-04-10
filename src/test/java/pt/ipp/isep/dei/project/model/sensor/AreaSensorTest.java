@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -171,33 +170,33 @@ class AreaSensorTest {
     @Test
     void seeIfSeTAndGetReadingList() {
         // Arrange
-        ReadingList expectedResult1 = new ReadingList();
-        ReadingList expectedResult2 = new ReadingList();
-        ReadingList emptyList = new ReadingList();
-        ReadingList readingList = new ReadingList();
+        ReadingService expectedResult1 = new ReadingService();
+        ReadingService expectedResult2 = new ReadingService();
+        ReadingService emptyList = new ReadingService();
+        ReadingService readingService = new ReadingService();
         Reading reading1 = new Reading(15, new Date(), "C", "TEST");
 
         AreaSensor areaSensor1 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10,10,10), new Date(),6008L);
         AreaSensor areaSensor2 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12,12,12),new Date(),6008L);
 
-        readingList.addReading(reading1);
+        readingService.addReading(reading1);
         expectedResult2.addReading(reading1);
 
 
         // Act
 
-        validAreaSensor.setReadingList(readingList);
-        areaSensor1.setReadingList(null);
-        areaSensor2.setReadingList(emptyList);
+        validAreaSensor.setReadingService(readingService);
+        areaSensor1.setReadingService(null);
+        areaSensor2.setReadingService(emptyList);
 
 
-        ReadingList actualResult = validAreaSensor.getReadingList();
-        ReadingList actualResultNull = areaSensor1.getReadingList();
-        ReadingList actualResultEmpty = areaSensor2.getReadingList();
+        ReadingService actualResult = validAreaSensor.getReadingService();
+        ReadingService actualResultNull = areaSensor1.getReadingService();
+        ReadingService actualResultEmpty = areaSensor2.getReadingService();
 
         // Assert
 
-        assertEquals(readingList, actualResult);
+        assertEquals(readingService, actualResult);
         assertEquals(expectedResult1, actualResultNull);
         assertEquals(expectedResult1, actualResultEmpty);
     }
@@ -896,7 +895,7 @@ class AreaSensorTest {
     @Test
     void seeIfGetLastColdestDayInIntervalWorks() {
         //Arrange
-        ReadingList readingList = new ReadingList();
+        ReadingService readingService = new ReadingService();
         Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
         Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
         Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
@@ -917,27 +916,27 @@ class AreaSensorTest {
         Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
         Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
         Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
-        readingList.addReading(reading1);
-        readingList.addReading(reading2);
-        readingList.addReading(reading3);
-        readingList.addReading(reading4);
-        readingList.addReading(reading5);
-        readingList.addReading(reading6);
-        readingList.addReading(reading7);
-        readingList.addReading(reading8);
-        readingList.addReading(reading9);
-        readingList.addReading(reading10);
-        readingList.addReading(reading11);
-        readingList.addReading(reading12);
-        readingList.addReading(reading13);
-        readingList.addReading(reading14);
-        readingList.addReading(reading15);
-        readingList.addReading(reading16);
-        readingList.addReading(reading17);
-        readingList.addReading(reading18);
-        readingList.addReading(reading19);
-        readingList.addReading(reading20);
-        validAreaSensor.setReadingList(readingList);
+        readingService.addReading(reading1);
+        readingService.addReading(reading2);
+        readingService.addReading(reading3);
+        readingService.addReading(reading4);
+        readingService.addReading(reading5);
+        readingService.addReading(reading6);
+        readingService.addReading(reading7);
+        readingService.addReading(reading8);
+        readingService.addReading(reading9);
+        readingService.addReading(reading10);
+        readingService.addReading(reading11);
+        readingService.addReading(reading12);
+        readingService.addReading(reading13);
+        readingService.addReading(reading14);
+        readingService.addReading(reading15);
+        readingService.addReading(reading16);
+        readingService.addReading(reading17);
+        readingService.addReading(reading18);
+        readingService.addReading(reading19);
+        readingService.addReading(reading20);
+        validAreaSensor.setReadingService(readingService);
         //Act
         Date actualResult = validAreaSensor.getLastColdestDayInGivenInterval(new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime(), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
         //Assert
@@ -1110,8 +1109,8 @@ class AreaSensorTest {
     @Test
     void seeIfGetAverageReadingsBetweenDates() {
         // Arrange
-        ReadingList validReadingList1;
-        validReadingList1 = new ReadingList();
+        ReadingService validReadingService1;
+        validReadingService1 = new ReadingService();
         Date validDate3 = new Date(); // 31/09/2018 23:59:59
         Date validDate4 = new Date(); // 07/10/2018 00:00:00
         Date validDate5 = new Date(); // 08/10/2018 23:26:21
@@ -1126,14 +1125,14 @@ class AreaSensorTest {
         Reading r0 = new Reading(20, validDate3, "C", "TEST");
         Reading r1 = new Reading(25, validDate4, "C", "TEST");
         Reading r2 = new Reading(30, validDate5, "C", "TEST");
-        validReadingList1.addReading(r0);
-        validReadingList1.addReading(r1);
-        validReadingList1.addReading(r2);
+        validReadingService1.addReading(r0);
+        validReadingService1.addReading(r1);
+        validReadingService1.addReading(r2);
         double expectedResult = 25;
 
         // Act
 
-        double actualResult = validReadingList1.getAverageReadingsBetweenDates(validDate3, validDate5);
+        double actualResult = validReadingService1.getAverageReadingsBetweenDates(validDate3, validDate5);
 
         // Assert
 
@@ -1143,8 +1142,8 @@ class AreaSensorTest {
     @Test
     void seeIfGetDateHighestAmplitudeBetweenDates() {
         // Arrange
-        ReadingList validReadingList1;
-        validReadingList1 = new ReadingList();
+        ReadingService validReadingService1;
+        validReadingService1 = new ReadingService();
         Date validDate3 = new Date(); // 31/09/2018 23:59:59
         Date validDate4 = new Date(); // 07/10/2018 00:00:00
         Date validDate5 = new Date(); // 08/10/2018 23:26:21
@@ -1168,17 +1167,17 @@ class AreaSensorTest {
         Reading r3 = new Reading(10, validDate6, "C", "TEST");
         Reading r4 = new Reading(10, validDate7, "C", "TEST");
         Reading r5 = new Reading(10, validDate8, "C", "TEST");
-        validReadingList1.addReading(r0);
-        validReadingList1.addReading(r1);
-        validReadingList1.addReading(r2);
-        validReadingList1.addReading(r3);
-        validReadingList1.addReading(r4);
-        validReadingList1.addReading(r5);
+        validReadingService1.addReading(r0);
+        validReadingService1.addReading(r1);
+        validReadingService1.addReading(r2);
+        validReadingService1.addReading(r3);
+        validReadingService1.addReading(r4);
+        validReadingService1.addReading(r5);
         Date expectedResult = validDate5;
 
         // Act
 
-        Date actualResult = validReadingList1.getDateHighestAmplitudeBetweenDates(validDate6, validDate5);
+        Date actualResult = validReadingService1.getDateHighestAmplitudeBetweenDates(validDate6, validDate5);
 
         // Assert
 
@@ -1188,7 +1187,7 @@ class AreaSensorTest {
     @Test
     void seeIfGetTotalValueReadingsOnGivenDay() {
         // Arrange
-        ReadingList validReadingList = new ReadingList();
+        ReadingService validReadingService = new ReadingService();
         Date validDate15 = new Date();
         Date validDate3 = new Date();
         Date validDate7 = new Date();
@@ -1210,14 +1209,14 @@ class AreaSensorTest {
         Reading reading2 = new Reading(20, validDate3, "C", "TEST");
         Reading reading3 = new Reading(20, validDate7, "C", "TEST");
         Reading reading4 = new Reading(20, validDate14, "C", "TEST");
-        validReadingList.addReading(reading);
-        validReadingList.addReading(reading2);
-        validReadingList.addReading(reading3);
-        validReadingList.addReading(reading4);
+        validReadingService.addReading(reading);
+        validReadingService.addReading(reading2);
+        validReadingService.addReading(reading3);
+        validReadingService.addReading(reading4);
         double expectedResult = 20;
         // Act
 
-        double actualResult = validReadingList.getValueReadingsInDay(validDate13);
+        double actualResult = validReadingService.getValueReadingsInDay(validDate13);
 
         // Assert
 
@@ -1227,9 +1226,9 @@ class AreaSensorTest {
     @Test
     void seeIfGetMostRecentValueReading() {
         // Arrange
-        ReadingList validReadingList;
+        ReadingService validReadingService;
         Date validDate12 = new Date();
-        validReadingList = new ReadingList();
+        validReadingService = new ReadingService();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate12 = validSdf.parse("02/11/2015 20:00:00");
@@ -1240,12 +1239,12 @@ class AreaSensorTest {
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
         Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
         Reading laterReading = new Reading(30, testDate, "C", "TEST");
-        validReadingList.addReading(earlierReading);
-        validReadingList.addReading(laterReading);
+        validReadingService.addReading(earlierReading);
+        validReadingService.addReading(laterReading);
         double expectedResult = 30.0;
 
         // Act
-        double result = validReadingList.getMostRecentValue();
+        double result = validReadingService.getMostRecentValue();
 
         // Assert
         assertEquals(expectedResult, result, 0.01);

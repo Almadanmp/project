@@ -1,23 +1,26 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import pt.ipp.isep.dei.project.services.units.Celsius;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 
-import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
 @Service
-public class ReadingList {
+public class ReadingService {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
     @Autowired
     ReadingRepository readingRepository;
+
+    @Autowired
+    AreaSensorRepository areaSensorRepository;
 
     private List<Reading> readings;
 
@@ -25,7 +28,7 @@ public class ReadingList {
      * /**
      * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
-    public ReadingList() {
+    public ReadingService() {
         this.readings = new ArrayList<>();
     }
 
@@ -274,13 +277,13 @@ public class ReadingList {
      * @author Daniela (US623)
      */
     double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(minDate, maxDate);
-        if (readingListBetweenDates.isEmpty()) {
+        ReadingService readingServiceBetweenDates = getReadingListBetweenDates(minDate, maxDate);
+        if (readingServiceBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
-        for (int i = 0; i < readingListBetweenDates.size(); i++) {
-            Date day = readingListBetweenDates.get(i).getDate();
+        for (int i = 0; i < readingServiceBetweenDates.size(); i++) {
+            Date day = readingServiceBetweenDates.get(i).getDate();
             List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
             double avgDay = getAvgFromList(specificDayValues);
             avgDailyValues.add(avgDay);
@@ -393,11 +396,11 @@ public class ReadingList {
     /**
      * Adds all readings of a given AreaReadingList to target list, rejecting duplicates.
      *
-     * @param readingList The list to be added to the target list
+     * @param readingService The list to be added to the target list
      * @return A parallel deviceList with all the devices that could be added
      **/
-    ReadingList appendListNoDuplicates(ReadingList readingList) {
-        Reading[] readingsArray = readingList.getElementsAsArray();
+    ReadingService appendListNoDuplicates(ReadingService readingService) {
+        Reading[] readingsArray = readingService.getElementsAsArray();
         for (Reading r : readingsArray) {
             this.addReading(r);
         }
@@ -483,8 +486,8 @@ public class ReadingList {
      * @param value is the value we want to choose.
      * @return a AreaReadingList with a chosen value.
      */
-    ReadingList getReadingListOfReadingsWithSpecificValue(Double value) {
-        ReadingList result = new ReadingList();
+    ReadingService getReadingListOfReadingsWithSpecificValue(Double value) {
+        ReadingService result = new ReadingService();
         for (Reading r : this.readings) {
             if (Double.compare(r.getValue(), value) == 0) {
                 result.addReading(r);
@@ -526,14 +529,14 @@ public class ReadingList {
         if (isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        ReadingList readingListBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
-        if (readingListBetweenDates.isEmpty()) {
+        ReadingService readingServiceBetweenDates = getReadingListBetweenDates(initialDate, finalDate);
+        if (readingServiceBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
-        ReadingList listOfMaxValuesForEachDay = readingListBetweenDates.getListOfMaxValuesForEachDay();
+        ReadingService listOfMaxValuesForEachDay = readingServiceBetweenDates.getListOfMaxValuesForEachDay();
         double minValueInList = listOfMaxValuesForEachDay.getMinValueInReadingList();
-        ReadingList readingListWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
-        return readingListWithSpecificValue.getMostRecentReadingDate();
+        ReadingService readingServiceWithSpecificValue = getReadingListOfReadingsWithSpecificValue(minValueInList);
+        return readingServiceWithSpecificValue.getMostRecentReadingDate();
     }
 
 
@@ -566,8 +569,8 @@ public class ReadingList {
      * @param finalDate   is the final date of the interval.
      * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
-    ReadingList getReadingListBetweenDates(Date initialDate, Date finalDate) {
-        ReadingList result = new ReadingList();
+    ReadingService getReadingListBetweenDates(Date initialDate, Date finalDate) {
+        ReadingService result = new ReadingService();
         for (Reading r : this.readings) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
                 result.addReading(r);
@@ -584,8 +587,8 @@ public class ReadingList {
      * @return a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      */
-    ReadingList getListOfMaxValuesForEachDay() {
-        ReadingList result = new ReadingList();
+    ReadingService getListOfMaxValuesForEachDay() {
+        ReadingService result = new ReadingService();
         List<Date> dateList = new ArrayList<>();
         for (Reading r : this.readings) {
             Date aux = getFirstSecondOfDay(r.getDate());
@@ -596,6 +599,48 @@ public class ReadingList {
             }
         }
         return result;
+    }
+
+    /**
+     * This method receives the parameters to create a reading and tries to add that
+     * reading to the repository. It also receives a Logger so that it can register every
+     * reading that was not added to its corresponding sensor.
+     * This method will look for the sensor in the repository by its ID.
+     *
+     * @param sensorID     is the ID of the area sensor we want to add a reading to.
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @param unit         is the Unit of the reading we want to add.
+     * @return true in case the reading was added false otherwise.
+     */
+    public boolean addAreaReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, AreaSensorService areaSensorService) {
+        if (areaSensorService.sensorExistsInRepository(sensorID)) {
+            if (readingExistsInRepository(sensorID, readingDate)) {
+                logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                        + sensorID + " wasn't added because it already exists.");
+                return false;
+            }
+            Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
+            readingRepository.save(reading);
+            return true;
+        }
+        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                + sensorID + " wasn't added because a sensor with that ID wasn't found.");
+        return false;
+    }
+
+    /**
+     * This method receives a String that corresponds to the reading's sensor ID and a Date that
+     * corresponds to the reading's date, and checks that a reading with those characteristics
+     * exists in the repository.
+     *
+     * @param sensorID reading's sensor Id
+     * @param date     reading date
+     * @return true in case the reading exists in the repository, false otherwise.
+     **/
+    private boolean readingExistsInRepository(String sensorID, Date date) {
+        Reading reading = readingRepository.findReadingByDateEqualsAndSensorId(date, sensorID);
+        return reading != null;
     }
 
     /**
@@ -625,10 +670,10 @@ public class ReadingList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof ReadingList)) {
+        if (!(testObject instanceof ReadingService)) {
             return false;
         }
-        ReadingList list = (ReadingList) testObject;
+        ReadingService list = (ReadingService) testObject;
         return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
     }
 

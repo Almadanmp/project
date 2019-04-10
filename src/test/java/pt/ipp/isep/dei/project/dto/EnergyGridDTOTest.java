@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.dto.mappers.PowerSourceMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.PowerSource;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ class EnergyGridDTOTest {
 
     @Test
     void seeIfEqualsWorksDifferentObject() {
-        assertNotEquals(validDTO, new RoomList()); // Needed for sonarqube testing purposes.
+        assertNotEquals(validDTO, new RoomService()); // Needed for sonarqube testing purposes.
     }
 
     @Test

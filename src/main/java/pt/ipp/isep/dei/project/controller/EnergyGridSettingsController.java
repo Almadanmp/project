@@ -15,15 +15,15 @@ public class EnergyGridSettingsController {
 
 
     /**
-     * @param roomList is the list of Rooms we want to print.
+     * @param roomService is the list of Rooms we want to print.
      * @return builds a string of all the individual rooms contained in the list.
      */
 
-    public String buildRoomsString(RoomList roomList) {
-        if (roomList == null) {
+    public String buildRoomsString(RoomService roomService) {
+        if (roomService == null) {
             return "The Room List wasn't properly initialized. Please try again.";
         }
-        return roomList.buildString();
+        return roomService.buildString();
     }
 
 
@@ -57,8 +57,8 @@ public class EnergyGridSettingsController {
      * @param programHouse the house.
      * @return a new EnergyGrid.
      */
-    public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower) {
-        return programHouse.createEnergyGrid(designation, maxPower);
+    public EnergyGrid createEnergyGrid(House programHouse, String designation, double maxPower, String houseID) {
+        return programHouse.createEnergyGrid(designation, maxPower, houseID);
     }
 
     /* USER STORY 135 - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced

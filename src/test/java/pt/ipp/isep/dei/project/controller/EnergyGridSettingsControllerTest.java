@@ -35,7 +35,7 @@ class EnergyGridSettingsControllerTest {
                 60, 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto",
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
-        validGrid = new EnergyGrid("validGrid", 300);
+        validGrid = new EnergyGrid("validGrid", 300,"34576");
     }
 
 
@@ -47,17 +47,17 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
-        roomList.add(room);
-        validHouse.setRoomList(roomList);
+        roomService.add(room);
+        validHouse.setRoomService(roomService);
         String expectedResult = "---------------\n" +
                 "0) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
 
         // Act
 
-        String actualResult = controller.buildRoomsString(roomList);
+        String actualResult = controller.buildRoomsString(roomService);
 
         // Assert
 
@@ -103,11 +103,12 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        EnergyGridList energyGridList = new EnergyGridList();
-        energyGridList.addGrid(validGrid);
-        validHouse.setGridList(energyGridList);
+        EnergyGridService energyGridService = new EnergyGridService();
+        validGrid.setId(123);
+        energyGridService.addGrid(validGrid);
+        validHouse.setGridList(energyGridService);
         String expectedResult = "---------------\n" +
-                "0) Designation: validGrid | Max Power: 300.0\n" +
+                "123) Designation: validGrid | Max Power: 300.0\n" +
                 "---------------\n";
 
         // Act
@@ -140,10 +141,10 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
-        EnergyGridList gridList = new EnergyGridList();
+        EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
-        RoomList rl = new RoomList();
-        validGrid.setRoomList(rl);
+        RoomService rl = new RoomService();
+        validGrid.setRoomService(rl);
         RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 
         // Act
@@ -159,13 +160,13 @@ class EnergyGridSettingsControllerTest {
     void ensureThatWeDoNotAddRoomToTheGrid() {
         // Arrange
 
-        EnergyGridList gridList = new EnergyGridList();
+        EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
-        RoomList roomList = new RoomList();
+        RoomService roomService = new RoomService();
         Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
-        roomList.add(room);
-        validGrid.setRoomList(roomList);
-        validHouse.setRoomList(roomList);
+        roomService.add(room);
+        validGrid.setRoomService(roomService);
+        validHouse.setRoomService(roomService);
         RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 
         // Act
@@ -214,7 +215,7 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        EnergyGrid energyGrid = new EnergyGrid("grid", 400);
+        EnergyGrid energyGrid = new EnergyGrid("grid", 400,"34576");
 
 
         // Act
@@ -230,15 +231,16 @@ class EnergyGridSettingsControllerTest {
     void seeIfCreateGridTrue() {
         // Arrange
 
-        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400);
-        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400);
-
+        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400,"34576");
+        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400,"34576");
+        expectedResult1.setId(1);
+        expectedResult2.setId(2);
         // Act
 
-        EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400);
-        validHouse.addGrid(expectedResult2);
-        EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400);
-
+        EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400,"34576");
+        actualResult1.setId(1);
+        EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400,"34576");
+        actualResult2.setId(2);
         // Assert
 
         assertEquals(expectedResult1, actualResult1);
@@ -283,11 +285,11 @@ class EnergyGridSettingsControllerTest {
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333);
-        RoomList rl = new RoomList();
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333,"34576");
+        RoomService rl = new RoomService();
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);
-        eg.setRoomList(rl);
+        eg.setRoomService(rl);
         rl.add(room1EdC);
         //Act
         String expectedResult = "---------------\n" +

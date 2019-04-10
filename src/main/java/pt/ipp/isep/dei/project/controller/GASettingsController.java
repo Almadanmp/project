@@ -12,6 +12,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 
+import java.util.List;
+
 /**
  * Controller class for Geographical Area Settings UI
  */
@@ -25,12 +27,12 @@ public class GASettingsController {
     }
 
     /**
-     * @param geoAreaList is the list of Geographic Areas we want to print.
+     * @param geoAreaService is the list of Geographic Areas we want to print.
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGAListString(GeographicAreaList geoAreaList) {
-        return geoAreaList.buildString();
+    public String buildGAListString(GeographicAreaService geoAreaService, List<GeographicArea> geoAreas) {
+        return geoAreaService.buildStringRepository(geoAreas);
     }
 
     /**
@@ -76,15 +78,15 @@ public class GASettingsController {
      * @param localDTO   the latitude, longitude and altitude of the GA
      * @return success if a new GA is added, false otherwise
      */
-    public boolean addNewGeoAreaToList(GeographicAreaList newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
+    public boolean addNewGeoAreaToList(GeographicAreaService newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
         GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), LocalMapper.dtoToObject(localDTO));
         if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 LocalMapper.dtoToObject(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
-            return newGeoList.addGeographicArea(geoToAdd);
+            return newGeoList.addAndPersistGA(geoToAdd);
         } else {
-            return newGeoList.addGeographicArea(geoToAdd);
+            return newGeoList.addAndPersistGA(geoToAdd);
         }
     }
 
@@ -120,13 +122,14 @@ public class GASettingsController {
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
 
     /**
-     * @param geographicAreaList is the Geographic Area List where we want to search for objects with a given type.
-     * @param typeArea           is the type that we want to look for.
+     * @param geographicAreaService is the Geographic Area List where we want to search for objects with a given type.
+     * @param typeArea              is the type that we want to look for.
      * @return is a list of all the objects in the original list with a type that matches the given type.
      */
-    public GeographicAreaList matchGAByTypeArea(GeographicAreaList geographicAreaList, TypeAreaDTO typeArea) {
+    public List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         String typeAreaName = typeArea.getName();
-        return geographicAreaList.getGeoAreasByType(typeAreaName);
+        return geographicAreaService.getGeoAreasByType(geographicAreas, typeAreaName);
     }
 
     /**
@@ -176,16 +179,16 @@ public class GASettingsController {
     /**
      * Deactivates a sensor from a sensor list
      *
-     * @param geographicAreaList the geographic area list that contains the geographic area with sensors
-     * @param areaSensorDTO      selected sensor from the geographic area, list of sensors
-     * @param geographicAreaDTO  selected geographicAreaDTO from the geographic area list
+     * @param geographicAreaService the geographic area list that contains the geographic area with sensors
+     * @param areaSensorDTO         selected sensor from the geographic area, list of sensors
+     * @param geographicAreaDTO     selected geographicAreaDTO from the geographic area list
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
-    public boolean deactivateSensor(GeographicAreaList geographicAreaList, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
+    public boolean deactivateSensor(GeographicAreaService geographicAreaService, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
         if (areaSensor.isActive()) {
             areaSensor.deactivateSensor();
-            for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
+            for (GeographicArea g : geographicAreaService.getElementsAsArray()) {
                 if (g.getName().equals(geographicAreaDTO.getName())) {
                     g.removeSensor(areaSensor);
                     g.addSensor(areaSensor);
@@ -198,8 +201,9 @@ public class GASettingsController {
 
     /* USER STORY 11 */
 
-    public GeographicAreaDTO inputArea(GeographicAreaList geographicAreaList) {
-        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaList);
+    public GeographicAreaDTO inputArea(GeographicAreaService geographicAreaService) {
+        List<GeographicArea> geographicAreas = geographicAreaService.getAll();
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
         return GeographicAreaMapper.objectToDTO(geographicArea);
     }
 
@@ -209,9 +213,9 @@ public class GASettingsController {
         return AreaSensorMapper.objectToDTO(areaSensor);
     }
 
-    public void removeSensor(GeographicAreaList geographicAreaList, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
+    public void removeSensor(GeographicAreaService geographicAreaService, AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
-        for (GeographicArea g : geographicAreaList.getElementsAsArray()) {
+        for (GeographicArea g : geographicAreaService.getElementsAsArray()) {
             if (g.getName().equals(geographicAreaDTO.getName())) {
                 g.removeSensor(areaSensor);
             }

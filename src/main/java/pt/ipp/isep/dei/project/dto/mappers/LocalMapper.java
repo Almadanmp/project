@@ -35,9 +35,7 @@ public final class LocalMapper {
 
         // Create, update and return new object
 
-        Local resultObject = new Local(objectLatitude, objectLongitude, objectAltitude);
-
-        return resultObject;
+        return new Local(objectLatitude, objectLongitude, objectAltitude);
     }
 
     /**

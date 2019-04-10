@@ -8,16 +8,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
-import pt.ipp.isep.dei.project.dto.ReadingDTOWithUnitAndSensorID;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.services.HouseService;
-import pt.ipp.isep.dei.project.services.units.Unit;
-import pt.ipp.isep.dei.project.services.units.UnitHelper;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -32,6 +33,7 @@ public class ReaderController {
 
 
     private AreaSensorService areaSensorService;
+    private ReadingService readingService;
     private HouseService houseService;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
@@ -40,9 +42,10 @@ public class ReaderController {
     private static final String VALID_DATE_FORMAT2 = "dd/MM/yyyy";
     private static final String VALID_DATE_FORMAT3 = "yyyy-MM-dd";
 
-    public ReaderController(AreaSensorService areaSensorService) {
-
+    public ReaderController(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+        this.readingService = readingService;
         this.areaSensorService = areaSensorService;
+        this.houseService = houseService;
     }
 
     //
@@ -51,12 +54,11 @@ public class ReaderController {
     /**
      * This method only accepts a path that ends with .json or .xml
      *
-     * @param input    - the user input
      * @param filePath - the path to the file if it exists
      * @param list     - the geographic area list
      * @return - number of geoareas imported
      */
-    public int acceptPath(String filePath, GeographicAreaList list) {
+    public int acceptPath(String filePath, GeographicAreaService list) {
         int areasRead;
         if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
@@ -65,7 +67,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, readingService, houseService);
             return areasRead;
         }
         return -1;
@@ -78,10 +80,13 @@ public class ReaderController {
      * @param filePath is the file path.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(String filePath) {
+    public boolean readJSONAndDefineHouse(String filePath, int gridMetPeriod, int devMetPeriod, List<String> deviceTypes) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
         House house = HouseMapper.dtoToObjectUS100(houseDTO);
+        house.setGridMeteringPeriod(gridMetPeriod);
+        house.setDeviceMeteringPeriod(devMetPeriod);
+        house.setDeviceTypeList(deviceTypes);
         return houseService.saveHouse(house);
     }
 
@@ -93,7 +98,7 @@ public class ReaderController {
      * @param list         - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaList list, AreaSensorService areaSensorService) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaService list, AreaSensorService areaSensorService) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
@@ -109,7 +114,7 @@ public class ReaderController {
         return readerJSON.readFile(filePath);
     }
 
-    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaList list) {
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             list.addAndPersistGA(GeographicAreaMapper.dtoToObject(dto));
@@ -126,10 +131,11 @@ public class ReaderController {
      *
      * @return the number of readings added to the geographic area sensors
      **/
-    public int readReadingsFromCSV(GeographicAreaList geographicAreaList, String path, String logPath) {
-        AreaSensorService areaSensorService2 = geographicAreaList.getAreaListSensors();
+    public int readReadingsFromCSV(GeographicAreaService geographicAreaService, String path, String logPath) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        List<AreaSensor> areaSensors = geographicAreaService.getAreaListSensors(geoAreas);
         int addedReadings = 0;
-        if (areaSensorService2.isEmpty()) {
+        if (areaSensors.isEmpty()) {
             return addedReadings;
         }
         ReaderCSV csvRead = new ReaderCSV();
@@ -187,10 +193,11 @@ public class ReaderController {
      *
      * @return the total number of readings added
      ***/
-    public int readReadingsFromJSON(GeographicAreaList geographicAreaList, String path, String logPath) {
+    public int readReadingsFromJSON(GeographicAreaService geographicAreaService, String path, String logPath) {
         int addedReadings = 0;
-        AreaSensorService areaSensorService = geographicAreaList.getAll().getAreaListSensors();
-        if (areaSensorService.isEmpty()) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        List<AreaSensor> areaSensors = geographicAreaService.getAreaListSensors(geoAreas);
+        if (areaSensors.isEmpty()) {
             return addedReadings;
         }
         ReaderJSONReadings reader = new ReaderJSONReadings();
@@ -276,10 +283,11 @@ public class ReaderController {
      *
      * @return the total number of readings added
      ***/
-    public int readReadingsFromXML(GeographicAreaList geographicAreaList, String path, String logPath) {
+    public int readReadingsFromXML(GeographicAreaService geographicAreaService, String path, String logPath) {
         int addedReadings = 0;
-        AreaSensorService areaSensorService = geographicAreaList.getAll().getAreaListSensors();
-        if (areaSensorService.isEmpty()) {
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        List<AreaSensor> areaSensors = geographicAreaService.getAreaListSensors(geoAreas);
+        if (areaSensors.isEmpty()) {
             return addedReadings;
         }
         ReaderXML reader = new ReaderXML();
@@ -358,15 +366,15 @@ public class ReaderController {
      * @param logPath  log file path
      * @return number of Area Readings added to corresponding Area Sensor
      **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTOWithUnitAndSensorID> readings, String logPath) {
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath) {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
-        for (ReadingDTOWithUnitAndSensorID r : readings) {
-            String sensorID = r.getSensorID();
+        for (ReadingDTO r : readings) {
+            String sensorID = r.getSensorId();
             double value = r.getValue();
             Date date = r.getDate();
-            Unit unit = r.getUnit();
-            if (areaSensorService.addAreaReadingToAreaSensor(sensorID, value, date, unit, logger)) {
+            String unit = r.getUnit();
+            if (readingService.addAreaReadingToRepository(sensorID, value, date, unit, logger, areaSensorService)) {
                 addedReadings++;
             }
         }

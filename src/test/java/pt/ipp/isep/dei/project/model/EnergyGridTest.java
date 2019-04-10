@@ -40,7 +40,7 @@ class EnergyGridTest {
         validHouse.setMotherArea( new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.addGrid(validGrid);
-        validGrid = new EnergyGrid("FirstGrid", 400);
+        validGrid = new EnergyGrid("FirstGrid", 400,"34576");
         validFridge = new Fridge(new FridgeSpec());
         validFridge.setNominalPower(20);
         validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
@@ -76,7 +76,7 @@ class EnergyGridTest {
 
         // Act
 
-        String actualResult = validGrid.getRoomList().buildString();
+        String actualResult = validGrid.getRoomService().buildString();
 
         // Assert
 
@@ -146,7 +146,7 @@ class EnergyGridTest {
     void seeIfEqualsWorksTrue() {
         // Arrange
 
-        EnergyGrid testGrid = new EnergyGrid("FirstGrid", 400);
+        EnergyGrid testGrid = new EnergyGrid("FirstGrid", 400,"34576");
 
         // Act
 
@@ -161,7 +161,7 @@ class EnergyGridTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        EnergyGrid testGrid = new EnergyGrid("SecondGrid", 400);
+        EnergyGrid testGrid = new EnergyGrid("SecondGrid", 400,"34576");
 
         // Act
 
@@ -220,7 +220,7 @@ class EnergyGridTest {
     void seeIfEqualsSameContentWorks() {
         // Arrange
 
-        EnergyGrid testGrid = new EnergyGrid("FirstGrid", 400);
+        EnergyGrid testGrid = new EnergyGrid("FirstGrid", 400,"34576");
 
         // Act
 
@@ -281,7 +281,7 @@ class EnergyGridTest {
     void seeIfPrintRoomListWorksEmptyList() {
         // Arrange
 
-        EnergyGrid emptyGrid = new EnergyGrid("Main Energy Grid Edificio C", 330);
+        EnergyGrid emptyGrid = new EnergyGrid("Main Energy Grid Edificio C", 330,"34576");
 
         // Act
 
@@ -339,7 +339,7 @@ class EnergyGridTest {
     void seeIfDeviceListPrintsByTypeWorksEmpty() {
         // Arrange
 
-        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100);
+        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100,"34576");
         String expectedResult = "---------------\n" +
                 "---------------\n";
 
@@ -356,7 +356,7 @@ class EnergyGridTest {
     void seeIfDeviceListPrintsByTypeWorksNullRoom() throws IOException {
         // Arrange
 
-        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100);
+        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100,"34576");
         Room nullRoom = null;
         testGrid.addRoom(nullRoom);
         String expectedResult = "---------------\n" +
@@ -485,35 +485,35 @@ class EnergyGridTest {
     @Test
     void setRoomList() {
         // Arrange
-        RoomList expectedResult1 = new RoomList();
-        RoomList expectedResult2 = new RoomList();
-        RoomList emptyList = new RoomList();
-        RoomList oneRoomList = new RoomList();
+        RoomService expectedResult1 = new RoomService();
+        RoomService expectedResult2 = new RoomService();
+        RoomService emptyList = new RoomService();
+        RoomService oneRoomService = new RoomService();
 
-        oneRoomList.add(validRoom);
+        oneRoomService.add(validRoom);
         expectedResult2.add(validRoom);
 
-        EnergyGrid gridNoRooms1 = new EnergyGrid("noRooms1", 200);
-        EnergyGrid gridNoRooms2 = new EnergyGrid("noRooms2", 200);
-        EnergyGrid gridNoRooms3 = new EnergyGrid("noRooms3", 200);
+        EnergyGrid gridNoRooms1 = new EnergyGrid("noRooms1", 200,"34576");
+        EnergyGrid gridNoRooms2 = new EnergyGrid("noRooms2", 200,"34576");
+        EnergyGrid gridNoRooms3 = new EnergyGrid("noRooms3", 200,"34576");
 
         // Act
 
-        gridNoRooms1.setRoomList(emptyList);
-        gridNoRooms2.setRoomList(null);
-        gridNoRooms3.setRoomList(oneRoomList);
+        gridNoRooms1.setRoomService(emptyList);
+        gridNoRooms2.setRoomService(null);
+        gridNoRooms3.setRoomService(oneRoomService);
 
         // Assert
 
-        assertEquals(expectedResult1, gridNoRooms1.getRoomList());
-        assertEquals(expectedResult1, gridNoRooms2.getRoomList());
-        assertEquals(expectedResult2, gridNoRooms3.getRoomList());
+        assertEquals(expectedResult1, gridNoRooms1.getRoomService());
+        assertEquals(expectedResult1, gridNoRooms2.getRoomService());
+        assertEquals(expectedResult2, gridNoRooms3.getRoomService());
     }
     @Test
     void getByIndexWithEmptyDeviceList() {
         //Arrange
 
-        EnergyGrid emptyGrid = new EnergyGrid("emptyGrid", 330);
+        EnergyGrid emptyGrid = new EnergyGrid("emptyGrid", 330,"34576");
 
         //Act
 
@@ -539,7 +539,7 @@ class EnergyGridTest {
     void ListRoomSize() {
         //Arrange
 
-        EnergyGrid emptyList = new EnergyGrid("noRooms", 200);
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200,"34576");
 
         //Act
 
@@ -573,7 +573,7 @@ class EnergyGridTest {
     void seeIfGetRoomThrowsException() {
         //Arrange
 
-        EnergyGrid emptyGrid = new EnergyGrid("noRooms", 330);
+        EnergyGrid emptyGrid = new EnergyGrid("noRooms", 330,"34576");
 
         //Act
 
@@ -588,7 +588,7 @@ class EnergyGridTest {
     void seeIfGetNumberOfDevicesWorks() {
         //Arrange
 
-        EnergyGrid emptyList = new EnergyGrid("noDevices", 200);
+        EnergyGrid emptyList = new EnergyGrid("noDevices", 200,"34576");
 
         //Act
 
@@ -606,7 +606,7 @@ class EnergyGridTest {
     void seeIfIsDeviceListEmptyWorks() {
         //Arrange
 
-        EnergyGrid emptyList = new EnergyGrid("noDevices", 200);
+        EnergyGrid emptyList = new EnergyGrid("noDevices", 200,"34576");
 
         //Act
 
@@ -624,7 +624,7 @@ class EnergyGridTest {
     void seeIfRoomListEmptyWorks() {
         //Arrange
 
-        EnergyGrid emptyList = new EnergyGrid("noRooms", 200);
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200,"34576");
 
         //Act
 

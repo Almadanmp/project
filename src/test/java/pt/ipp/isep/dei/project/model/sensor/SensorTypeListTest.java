@@ -47,7 +47,7 @@
 //        String expectedResult = "Invalid List - List is Empty\n";
 //        // Act
 //        SensorTypeService sensorTypeList = new SensorTypeService(sensorTypeRepository);
-//        String actualResult = sensorTypeList.buildString();
+//        String actualResult = sensorTypeList.buildStringRepository();
 //        // Assert
 //
 //        assertEquals(expectedResult, actualResult);
@@ -90,7 +90,7 @@
 //
 //        // Act
 //
-//        String actualResult1 = validList.buildString();
+//        String actualResult1 = validList.buildStringRepository();
 //
 //        // Assert
 //
@@ -106,7 +106,7 @@
 //
 //        // Act
 //
-//        String actualResult = testList.buildString();
+//        String actualResult = testList.buildStringRepository();
 //
 //        // Assert
 //

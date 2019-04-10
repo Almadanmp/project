@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
@@ -188,7 +187,7 @@ class AreaTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validList.equals(new RoomList()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validList.equals(new RoomService()); // Needed for sonarqube testing purposes.
 
         // Assert
 

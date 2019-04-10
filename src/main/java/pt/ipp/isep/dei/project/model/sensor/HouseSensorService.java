@@ -97,10 +97,10 @@ public class HouseSensorService {
      *
      * @return a list with all readings from sensor list
      **/
-    public ReadingList getReadings() {
-        ReadingList finalList = new ReadingList();
+    public ReadingService getReadings() {
+        ReadingService finalList = new ReadingService();
         for (HouseSensor s : this.houseSensors) {
-            finalList.appendListNoDuplicates(s.getReadingList());
+            finalList.appendListNoDuplicates(s.getReadingService());
         }
         return finalList;
     }
@@ -155,8 +155,8 @@ public class HouseSensorService {
      * @return returns value readings from every sensor from given day
      **/
     public List<Double> getValuesOfSpecificDayReadings(Date day) {
-        ReadingList readingList = getReadings();
-        return readingList.getValuesOfSpecificDayReadings(day);
+        ReadingService readingService = getReadings();
+        return readingService.getValuesOfSpecificDayReadings(day);
     }
 
     /**

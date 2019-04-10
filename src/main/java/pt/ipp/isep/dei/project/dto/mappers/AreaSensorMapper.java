@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.ReadingList;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
@@ -78,10 +78,10 @@ public final class AreaSensorMapper {
 
         // Update the reading list
 
-        ReadingList objectReadingList = new ReadingList();
+        ReadingService objectReadingService = new ReadingService();
         for (ReadingDTO r: dtoToConvert.getReadingList()){
             Reading tempReading = ReadingMapper.dtoToObject(r);
-            objectReadingList.addReading(tempReading);
+            objectReadingService.addReading(tempReading);
         }
 
         // Update Geographic Area ID
@@ -97,7 +97,7 @@ public final class AreaSensorMapper {
         AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate, objectGeographicAreaID);
         resultObject.setActive(objectStatus);
-        resultObject.setReadingList(objectReadingList);
+        resultObject.setReadingService(objectReadingService);
 
         return resultObject;
     }
@@ -142,7 +142,7 @@ public final class AreaSensorMapper {
         // Update the reading list
 
         List<ReadingDTO> dtoReadingList = new ArrayList<>();
-        for (Reading r: objectToConvert.getReadingList().getReadings()){
+        for (Reading r: objectToConvert.getReadingService().getReadings()){
             ReadingDTO tempReadingDTO = ReadingMapper.objectToDTO(r);
             if(!dtoReadingList.contains(tempReadingDTO)){
                 dtoReadingList.add(tempReadingDTO);

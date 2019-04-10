@@ -11,15 +11,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.AreaTypeService;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
-import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.services.HouseService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -44,7 +42,10 @@ public class MainUI {
     @Autowired
     AreaSensorService areaSensorService;
 
-    GeographicAreaList geographicAreaList;
+    @Autowired
+    ReadingService readingService;
+
+    GeographicAreaService geographicAreaService;
 
     @Autowired
     AreaSensorRepository areaSensorRepository;
@@ -54,6 +55,15 @@ public class MainUI {
 
     @Autowired
     SensorTypeRepository sensorTypeRepository;
+
+    @Autowired
+    HouseRepository houseRepository;
+
+    @Autowired
+    private EnergyGridRepository energyGridRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -95,7 +105,6 @@ public class MainUI {
             }
 
             //DeviceTypeConfiguration - US70
-
             try {
                 DeviceTypeConfig devTConfig = new DeviceTypeConfig();
                 deviceTypeConfig = devTConfig.getDeviceTypeConfig();
@@ -110,16 +119,13 @@ public class MainUI {
             // *************************
             // ******* < MOCK DATA FOR TESTING PURPOSES >*******
             // *************************
-            MockUI mockUI = new MockUI(geographicAreaRepository);
-            mockUI.initializeMockUI();
-
-            GeographicAreaList mockGeographicAreaList = mockUI.getGeoAreaList();
+            HouseService houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
             this.areaTypeService = new AreaTypeService(areaTypeRepository);
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
-            House mockHouse = mockUI.mockHouse(gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+
 
             //LOAD PERSISTED GA DATA
-            this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
+            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository);
 
             //MAIN CODE
 
@@ -161,47 +167,46 @@ public class MainUI {
 
                 while (activeInput) {
                     option = InputHelperUI.getInputAsInt();
-                    this.geographicAreaList = (new GeographicAreaList(geographicAreaRepository)).getAll();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(geographicAreaList, areaSensorService);
-                            view1.runGASettings(areaTypeService);
+                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService);
+                            view1.runGASettings(areaTypeService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(geographicAreaList, areaSensorService);
-                            houseC.run(mockHouse);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
+                            houseC.run(houseService, geographicAreaService, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 3:
                             RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                            roomConfiguration.run(mockHouse, mockSensorTypeList);
+                            roomConfiguration.run(houseService, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 4:
                             SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(geographicAreaList, mockSensorTypeList);
+                            sensorSettings.run(geographicAreaService, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 5:
                             EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                            energyGridSettings.run(mockHouse);
+                            energyGridSettings.run(houseService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 6:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(mockHouse);
+                            houseM.run(houseService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 7:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                            energyConsumptionUI.run(mockHouse);
+                            energyConsumptionUI.run(houseService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

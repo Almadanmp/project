@@ -30,12 +30,16 @@ public final class EnergyGridMapper {
 
         String objectName = dtoToConvert.getName();
 
+        // Update the houseID
+
+        String objectHouseID = dtoToConvert.getHouseID();
+
         // Update the RoomList
 
-        RoomList objectRoomList = new RoomList();
+        RoomService objectRoomService = new RoomService();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()){
             Room tempRoom = RoomMapper.dtoToObject(y);
-            objectRoomList.add(tempRoom);
+            objectRoomService.add(tempRoom);
         }
 
         // Update the PowerSourceList
@@ -52,8 +56,38 @@ public final class EnergyGridMapper {
 
         // Create, update and return the new model object.
 
-        EnergyGrid resultObject = new EnergyGrid(objectName, objectMaxContractedPower);
-        resultObject.setRoomList(objectRoomList);
+        EnergyGrid resultObject = new EnergyGrid(objectName, objectMaxContractedPower, objectHouseID);
+        resultObject.setRoomService(objectRoomService);
+        resultObject.setPowerSourceList(objectPowerSourceList);
+
+        return resultObject;
+    }
+
+    public static EnergyGrid dtoToObjectUS100(EnergyGridDTO dtoToConvert){
+        // Update the name
+
+        String objectName = dtoToConvert.getName();
+
+        // Update the RoomList
+
+        RoomService objectRoomService = new RoomService();
+        for (RoomDTO y : dtoToConvert.getRoomDTOS()){
+            Room tempRoom = RoomMapper.dtoToObjectUS100(y);
+            objectRoomService.add(tempRoom);
+        }
+
+        // Update the PowerSourceList
+
+        PowerSourceList objectPowerSourceList = new PowerSourceList();
+
+        // Update the maximum contracted power.
+
+
+        // Create, update and return the new model object.
+
+        EnergyGrid resultObject = new EnergyGrid();
+        resultObject.setName(objectName);
+        resultObject.setRoomService(objectRoomService);
         resultObject.setPowerSourceList(objectPowerSourceList);
 
         return resultObject;
@@ -70,6 +104,10 @@ public final class EnergyGridMapper {
 
         String dtoName = objectToConvert.getName();
 
+        // Update the houseID
+
+        String dtoHouseID = objectToConvert.getHouseId();
+
         // Update the maximum contracted power
 
         double dtoMaxContractedPower = objectToConvert.getMaxContractedPower();
@@ -77,7 +115,7 @@ public final class EnergyGridMapper {
         // Update the RoomList
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (Room y : objectToConvert.getRoomList().getRooms()){
+        for (Room y : objectToConvert.getRoomService().getRooms()){
             RoomDTO tempRoomDTO = RoomMapper.objectToDTO(y);
             if (!(dtoRoomList.contains(tempRoomDTO))){
                 dtoRoomList.add(tempRoomDTO);
@@ -101,6 +139,7 @@ public final class EnergyGridMapper {
         resultDTO.setName(dtoName);
         resultDTO.setPowerSourceDTOS(dtoPowerSourceList);
         resultDTO.setRoomDTOS(dtoRoomList);
+        resultDTO.setHouseID(dtoHouseID);
 
         return resultDTO;
     }

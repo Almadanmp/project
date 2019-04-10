@@ -141,7 +141,6 @@ class GeographicAreaDTOTest {
         assertEquals(geographicAreaDTO1, geographicAreaDTO5); //altitude
         assertNotEquals(geographicAreaDTO1, geographicAreaDTO7); //longitude
         assertNotEquals(geographicAreaDTO1, geographicAreaDTO8); //latitude
-        assertNotEquals(geographicAreaDTO1, geographicAreaDTO9); //list
         assertNotEquals(geographicAreaDTO1, 3D);
     }
 

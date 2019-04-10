@@ -2,8 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomList;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.device.devicespecs.ElectricOvenSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -252,7 +251,7 @@ class ElectricOvenTest {
     void seeEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validOven.equals(new RoomList()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validOven.equals(new RoomService()); // Needed for sonarqube testing purposes.
 
         // Assert
 

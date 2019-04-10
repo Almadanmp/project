@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.reader.wrapper;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import pt.ipp.isep.dei.project.model.GeographicAreaList;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +56,7 @@ public class ReadingDTOLWrapperList {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof GeographicAreaList)) {
+        if (!(testObject instanceof GeographicAreaService)) {
             return false;
         }
         ReadingDTOLWrapperList list = (ReadingDTOLWrapperList) testObject;

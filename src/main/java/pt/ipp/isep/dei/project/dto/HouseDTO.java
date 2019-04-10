@@ -3,9 +3,10 @@ package pt.ipp.isep.dei.project.dto;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HouseDTO {
-    private String id;
+    private String name;
     private AddressDTO address;
     private LocalDTO location;
     private List<EnergyGridDTO> energyGridList;
@@ -15,12 +16,12 @@ public class HouseDTO {
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public AddressDTO getAddress() {
@@ -85,5 +86,22 @@ public class HouseDTO {
 
     public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
         this.deviceTypeList = deviceTypeList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        HouseDTO house = (HouseDTO) o;
+        return Objects.equals(this.address, house.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }
