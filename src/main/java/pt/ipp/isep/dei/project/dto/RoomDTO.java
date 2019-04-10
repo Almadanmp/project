@@ -15,6 +15,8 @@ public class RoomDTO {
     private double height;
     private List<HouseSensorDTO> sensorList;
     private DeviceList deviceList;
+    private String houseID;
+    private String energyGridId;
 
     /**
      * Method that retrieves the DTO's sensor list.
@@ -175,6 +177,45 @@ public class RoomDTO {
         this.height = height;
     }
 
+    /**
+     * Method that retrieves the DTO's energy grid ID.
+     *
+     * @return is the energy grid annotation of the DTO.
+     */
+
+    public String getEnergyGridID() {
+        return energyGridId;
+    }
+
+    /**
+     * Method that stores a particular long as the DTO's energy grid ID.
+     *
+     * @param energyGridId is the energy grid annotation of the DTO.
+     */
+
+    public void setEnergyGridId(String energyGridId) {
+        this.energyGridId = energyGridId;
+    }
+
+    /**
+     * Method that retrieves the DTO's house ID.
+     *
+     * @return is the house annotation of the DTO.
+     */
+
+    public String getHouseId() {
+        return houseID;
+    }
+
+    /**
+     * Method that stores a particular long as the DTO's house ID.
+     *
+     * @param houseId is the house annotation of the DTO.
+     */
+
+    public void setHouseId(String houseId) {
+        this.houseID = houseId;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

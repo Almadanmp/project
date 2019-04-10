@@ -36,9 +36,8 @@ public class Room implements Metered {
     @Transient
     private DeviceList deviceList;
 
-    private long houseID;
-
-    private long energyGridId;
+    private String houseID;
+    private String energyGridId;
 
     /**
      * Room() Constructor receiving 5 parameters and initializing 2 Lists, AreaSensorList and DeviceList.
@@ -49,7 +48,8 @@ public class Room implements Metered {
      * @param length     of the room
      * @param height     of the room
      */
-    public Room(String name, String description, int houseFloor, double width, double length, double height) {
+    public Room(String name, String description, int houseFloor, double width, double length, double height,
+                String houseID, String energyGridId) {
         this.roomName = name;
         this.description = description;
         this.houseFloor = houseFloor;
@@ -58,6 +58,8 @@ public class Room implements Metered {
         this.roomHeight = height;
         this.roomSensorList = new HouseSensorService();
         this.deviceList = new DeviceList();
+        this.houseID = houseID;
+        this.energyGridId = energyGridId;
     }
 
     protected Room() {
@@ -124,6 +126,14 @@ public class Room implements Metered {
      */
     public String getName() {
         return roomName;
+    }
+
+    public String getHouseID() {
+        return houseID;
+    }
+
+    public String getEnergyGridID() {
+        return energyGridId;
     }
 
     /**

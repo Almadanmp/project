@@ -194,7 +194,7 @@ class HouseTest {
     void seeIfEqualsWorksNotInstanceOf() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10,"Room1","Grid1");
 
         // Act
 
@@ -209,7 +209,7 @@ class HouseTest {
     void seeIfAddRoomWorks() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10,"Room1","Grid1");
 
         // Act
 
@@ -224,7 +224,7 @@ class HouseTest {
     void seeIfAddRoomWorksDuplicate() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 30, 10);
+        Room testRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 30, 10,"Room1","Grid1");
         validHouse.addRoom(testRoom);
 
         // Act
@@ -307,7 +307,7 @@ class HouseTest {
     void seeIfGetNominalPowerWorks() {
         //Arrange
 
-        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 12, 30, 10);
+        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 12, 30, 10,"Room1","Grid1");
         Device testDevice = new WaterHeater(new WaterHeaterSpec());
         testDevice.setNominalPower(30.0);
         testRoom.addDevice(testDevice);
@@ -352,7 +352,7 @@ class HouseTest {
         waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
         waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
         waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 15D);
-        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10);
+        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10,"Room1","Grid1");
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         double expectedResult = 0.4;
@@ -386,7 +386,7 @@ class HouseTest {
 
         Device waterHeater = new WaterHeater(new WaterHeaterSpec());
         waterHeater.setName("WaterHeaterOne");
-        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10);
+        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10,"Room1","Grid1");
         testRoom.addDevice(waterHeater);
         validHouse.addRoom(testRoom);
         DeviceList expectedResult = new DeviceList();
@@ -615,12 +615,12 @@ class HouseTest {
     void seeIfCreateRoomWorks() {
         // Arrange
 
-        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1);
+        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1,"Room1","Grid1");
 
         // Act
 
         Room actualResult = validHouse.createRoom("Kitchen", "1st Floor Kitchen", 1, 1, 1,
-                1);
+                1,"Room1","Grid1");
 
         // Assert
 
@@ -631,7 +631,7 @@ class HouseTest {
     void seeIfGetRoomListWorks() {
         // Arrange
 
-        Room testRoom = new Room("Office", "1st Floor Office", 1, 20, 15, 10);
+        Room testRoom = new Room("Office", "1st Floor Office", 1, 20, 15, 10,"Room1","Grid1");
         RoomService roomService = new RoomService();
         roomService.add(testRoom);
         RoomService expectedResult = new RoomService();
@@ -704,8 +704,8 @@ class HouseTest {
     void seeIfGetRoomByIndexWorks() {
         //Arrange
 
-        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10);
-        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10);
+        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10,"Room1","Grid1");
+        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10,"Room1","Grid1");
         validHouse.addRoom(room1);
         validHouse.addRoom(room2);
 
@@ -785,7 +785,7 @@ class HouseTest {
         double expectedResult = 310;
         Device device = new Fridge(new FridgeSpec());
         device.setNominalPower(31);
-        Room tempRoom = new Room("tempRoom", "Sensor's Room", 1, 20, 20, 10);
+        Room tempRoom = new Room("tempRoom", "Sensor's Room", 1, 20, 20, 10,"Room1","Grid1");
         validHouse.addRoom(tempRoom);
         tempRoom.addDevice(device);
 
@@ -834,7 +834,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3));
+        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
 
         //Act
 
@@ -857,7 +857,7 @@ class HouseTest {
 
         //Arrange
 
-        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3));
+        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
 
         //Act
 

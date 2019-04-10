@@ -33,7 +33,7 @@ class RoomTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoom = new Room("Bedroom","Double Bedroom", 2, 30, 40, 10);
+        validRoom = new Room("Bedroom","Double Bedroom", 2, 30, 40, 10,"Room1","Grid1");
         validSensor = new HouseSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
         validSensor.setActive(true);
         validRoom.addSensor(validSensor);
@@ -477,7 +477,7 @@ class RoomTest {
 
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
-        Room noSensorRoom = new Room("Mock","Mock", 1, 2, 3, 4);
+        Room noSensorRoom = new Room("Mock","Mock", 1, 2, 3, 4,"Room1","Grid1");
         validSensor.setReadingService(new ReadingService()); // validSensor has proper sensors, but they have no readings.
 
 
@@ -545,7 +545,7 @@ class RoomTest {
     void seeIfGetCurrentRoomTemperatureWorksIllegalArguments() {
         //Arrange
 
-        Room noSensorsRoom = new Room("Mock","Mock", 1, 2, 3, 4);
+        Room noSensorsRoom = new Room("Mock","Mock", 1, 2, 3, 4,"Room1","Grid1");
         validSensor.setReadingService(new ReadingService()); // Valid Sensor now has sensors, but no readings.
 
         //Act and Assert
@@ -609,7 +609,7 @@ class RoomTest {
     void getByIndexWithEmptyDeviceList() {
         //Arrange
 
-        Room noDevicesRoom = new Room("noDevices","noDevices", 3, 24, 25, 3);
+        Room noDevicesRoom = new Room("noDevices","noDevices", 3, 24, 25, 3,"Room1","Grid1");
 
         //Act
 
@@ -624,7 +624,7 @@ class RoomTest {
     void deviceListSize() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3);
+        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
 
         //Act
 
@@ -647,7 +647,7 @@ class RoomTest {
     void seeIfIsSensorListEmptyWorks() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3);
+        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
 
         //Act
 
@@ -664,7 +664,7 @@ class RoomTest {
     void seeIfIsDeviceListEmptyWorks() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3);
+        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
 
         //Act
 
@@ -694,7 +694,7 @@ class RoomTest {
 
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3);
+        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
 
         //Assert
 
@@ -708,7 +708,7 @@ class RoomTest {
 
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3);
+        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
         Device kettler = new Kettler(new KettlerSpec());
         validRoom.addDevice(kettler);
         //Act

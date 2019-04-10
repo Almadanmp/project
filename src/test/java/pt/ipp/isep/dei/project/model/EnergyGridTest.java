@@ -46,7 +46,7 @@ class EnergyGridTest {
         validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
         validFridge.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
         validFridge.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
-        validRoom = new Room("Office","2nd Floor Office", 2, 30, 30, 10);
+        validRoom = new Room("Office","2nd Floor Office", 2, 30, 30, 10,"Room1","Grid1");
         validRoom.addDevice(validFridge);
         validGrid.addRoom(validRoom);
     }
@@ -194,7 +194,7 @@ class EnergyGridTest {
     void seeIfAddRoomToGridWorks() {
         // Arrange
 
-        Room testRoom = new Room("Kitchen","Equipped Kitchen", 1, 20, 20, 10);
+        Room testRoom = new Room("Kitchen","Equipped Kitchen", 1, 20, 20, 10,"Room1","Grid1");
 
         // Act
 
@@ -247,7 +247,7 @@ class EnergyGridTest {
         //Arrange
 
         double expectedResult = 40;
-        Room extraRoom = new Room("Kitchen","Equipped Kitchen", 0, 12, 30, 10);
+        Room extraRoom = new Room("Kitchen","Equipped Kitchen", 0, 12, 30, 10,"Room1","Grid1");
         extraRoom.addDevice(validFridge);
         validGrid.addRoom(extraRoom);
 

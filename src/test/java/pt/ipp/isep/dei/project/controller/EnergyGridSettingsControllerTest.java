@@ -48,7 +48,7 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         RoomService roomService = new RoomService();
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2,"Room1","Grid1");
         roomService.add(room);
         validHouse.setRoomService(roomService);
         String expectedResult = "---------------\n" +
@@ -86,7 +86,7 @@ class EnergyGridSettingsControllerTest {
 
         //Arrange
 
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2,"Room1","Grid1");
         validGrid.addRoom(room);
 
         //Act
@@ -125,7 +125,7 @@ class EnergyGridSettingsControllerTest {
 
         //Arrange
 
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2,"Room1","Grid1");
 
         //Act
 
@@ -140,7 +140,7 @@ class EnergyGridSettingsControllerTest {
     void ensureThatWeAddRoomToTheGrid() {
         // Arrange
 
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2,"Room1","Grid1");
         EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
         RoomService rl = new RoomService();
@@ -163,7 +163,7 @@ class EnergyGridSettingsControllerTest {
         EnergyGridService gridList = new EnergyGridService();
         gridList.addGrid(validGrid);
         RoomService roomService = new RoomService();
-        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2);
+        Room room = new Room("Room","Double Bedroom", 1, 20, 2, 2,"Room1","Grid1");
         roomService.add(room);
         validGrid.setRoomService(roomService);
         validHouse.setRoomService(roomService);
@@ -284,7 +284,7 @@ class EnergyGridSettingsControllerTest {
         Address address = new Address("Rua das Flores","431", "4512", "Porto","Portugal");
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
-        Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5);
+        Room room1EdC = new Room("B107","Classroom", 1, 7, 11, 3.5,"Room1","Grid1");
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333,"34576");
         RoomService rl = new RoomService();
         Device fridge = new Fridge(new FridgeSpec());

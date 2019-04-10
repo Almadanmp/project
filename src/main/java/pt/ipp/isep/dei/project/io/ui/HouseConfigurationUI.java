@@ -237,7 +237,8 @@ class HouseConfigurationUI {
     private void runUS105(HouseService houseService) {
         House house = houseService.getHouse();
         getInputRoomCharacteristics();
-        Room room = createNewRoom(house);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
+        Room room = createNewRoom(house,grid);
         displayRoom();
         boolean added = addRoomToHouse(house, room);
         displayFinalState(added);
@@ -272,8 +273,8 @@ class HouseConfigurationUI {
         this.roomHeight = InputHelperUI.getInputAsDoublePositive();
     }
 
-    private Room createNewRoom(House house) {
-        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight);
+    private Room createNewRoom(House house,EnergyGrid grid) {
+        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight,house.getId(),grid.getName());
     }
 
     /**

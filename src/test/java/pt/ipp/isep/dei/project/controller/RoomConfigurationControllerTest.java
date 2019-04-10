@@ -34,8 +34,8 @@ class RoomConfigurationControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoomWithDevices = new Room("Office","2nd Floor Office", 2, 15, 15, 10);
-        validRoomNoDevices = new Room("Kitchen","Fully Equipped Kitchen", 1, 20, 20, 10);
+        validRoomWithDevices = new Room("Office","2nd Floor Office", 2, 15, 15, 10,"Room1","Grid1");
+        validRoomNoDevices = new Room("Kitchen","Fully Equipped Kitchen", 1, 20, 20, 10,"Room1","Grid1");
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.FREEZER_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
@@ -465,7 +465,7 @@ class RoomConfigurationControllerTest {
                 180, deviceTypeString);
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList" ,2, 20, 20, 3);
+        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList" ,2, 20, 20, 3,"Room1","Grid1");
         validHouse.addRoom(emptyDeviceList);
 
         //Act
@@ -488,7 +488,7 @@ class RoomConfigurationControllerTest {
                 180, deviceTypeString);
         validHouse.setMotherArea( new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        Room validRoom = new Room("Bedroom","Single Bedroom", 2, 30, 40, 10);
+        Room validRoom = new Room("Bedroom","Single Bedroom", 2, 30, 40, 10,"Room1","Grid1");
         Device validDevice = new WaterHeater(new WaterHeaterSpec());
         validRoom.addDevice(validDevice);
         validHouse.addRoom(validRoom);
