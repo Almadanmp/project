@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
 
-
 public class LocalDTO {
 
     private double latitude;
@@ -9,9 +8,10 @@ public class LocalDTO {
     private double altitude;
     private long id;
 
-    public LocalDTO(){}
+    public LocalDTO() {
+    }
 
-    public LocalDTO(double latitude, double longitude, double altitude){
+    public LocalDTO(double latitude, double longitude, double altitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;

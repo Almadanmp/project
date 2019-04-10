@@ -105,7 +105,15 @@ class ReadingDTOTest {
     }
 
     @Test
-    void seeIfEqualsWorksNotAnInstance(){
+        //Assert
+
+    void seeIfHashcodeWorks() {
+        assertEquals(1, validDTO.hashCode());
+    }
+
+
+    @Test
+    void seeIfEqualsWorksNotAnInstance() {
         assertNotEquals(validDTO, new RoomService());
     }
 }

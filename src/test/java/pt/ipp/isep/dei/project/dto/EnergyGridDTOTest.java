@@ -25,7 +25,7 @@ class EnergyGridDTOTest {
         validDTO.setName("GridOne");
         validDTO.setMaxContractedPower(21);
         List<RoomDTO> roomList = new ArrayList<>();
-        Room roomOne = new Room("Kitchen","1st Floor Kitchen", 1, 20, 30, 10,"Room1","Grid1");
+        Room roomOne = new Room("Kitchen", "1st Floor Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
         roomList.add(RoomMapper.objectToDTO(roomOne));
         validDTO.setRoomDTOS(roomList);
         List<PowerSourceDTO> powerSources = new ArrayList<>();
@@ -51,7 +51,7 @@ class EnergyGridDTOTest {
     }
 
     @Test
-    void seeIfGetSetMaxContractedPowerWorks(){
+    void seeIfGetSetMaxContractedPowerWorks() {
         // Arrange
 
         validDTO.setMaxContractedPower(10);
@@ -66,7 +66,7 @@ class EnergyGridDTOTest {
     }
 
     @Test
-    void seeIfGetSetPowerSourceListWorks(){
+    void seeIfGetSetPowerSourceListWorks() {
         // Arrange
 
         List<PowerSourceDTO> powerSources = new ArrayList<>();
@@ -82,7 +82,7 @@ class EnergyGridDTOTest {
     }
 
     @Test
-    void seeIfGetSetRoomListWorks(){
+    void seeIfGetSetRoomListWorks() {
         // Arrange
 
         List<RoomDTO> rooms = new ArrayList<>();

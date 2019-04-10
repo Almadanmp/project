@@ -12,12 +12,12 @@ class PowerSourceDTOTest {
     private PowerSourceDTO validDTO;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         validDTO = new PowerSourceDTO();
     }
 
     @Test
-    void seeIfGetSetNameWorks(){
+    void seeIfGetSetNameWorks() {
         // Arrange
 
         validDTO.setName("Test");
@@ -33,7 +33,7 @@ class PowerSourceDTOTest {
     }
 
     @Test
-    void seeIfGetSetMaxPowerOutputWorks(){
+    void seeIfGetSetMaxPowerOutputWorks() {
         // Arrange
 
         validDTO.setMaxPowerOutput(31);
@@ -48,7 +48,7 @@ class PowerSourceDTOTest {
     }
 
     @Test
-    void seeIfGetSetMaxEnergyStorageWorks(){
+    void seeIfGetSetMaxEnergyStorageWorks() {
         // Arrange
 
         validDTO.setMaxEnergyStorage(14);
@@ -63,7 +63,7 @@ class PowerSourceDTOTest {
     }
 
     @Test
-    void seeIfEqualsWorks(){
+    void seeIfEqualsWorks() {
         // Arrange
 
         validDTO.setName("Mock");
@@ -76,7 +76,7 @@ class PowerSourceDTOTest {
     }
 
     @Test
-    void seeIfEqualsWorksFalse(){
+    void seeIfEqualsWorksFalse() {
         // Arrange
 
         validDTO.setName("Mock");
@@ -89,12 +89,18 @@ class PowerSourceDTOTest {
     }
 
     @Test
-    void seeIfEqualsWorksOnItself(){
-        assertEquals(validDTO,validDTO);
+    void seeIfEqualsWorksOnItself() {
+        assertEquals(validDTO, validDTO);
     }
 
     @Test
-    void seeIfEqualsWorksNotAnInstance(){
+    void seeIfHashcodeWorks() {
+        assertEquals(1, validDTO.hashCode());
+    }
+
+
+    @Test
+    void seeIfEqualsWorksNotAnInstance() {
         assertNotEquals(validDTO, new RoomService());
     }
 }

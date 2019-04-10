@@ -16,7 +16,7 @@ class GeographicAreaDTOTest {
     private GeographicAreaDTO validDTO;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         validDTO = new GeographicAreaDTO();
     }
 
@@ -145,7 +145,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetIDWorks(){
+    void seeIfSetGetIDWorks() {
         // Arrange
 
         Long expectedresult = 6008L;
@@ -162,7 +162,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetNameWorks(){
+    void seeIfSetGetNameWorks() {
         // Arrange
 
         validDTO.setName("Test");
@@ -179,7 +179,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetTypeAreaWorks(){
+    void seeIfSetGetTypeAreaWorks() {
         // Arrange
 
         validDTO.setTypeArea("Mock");
@@ -195,7 +195,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetLengthWorks(){
+    void seeIfSetGetLengthWorks() {
         // Arrange
 
         validDTO.setLength(21D);
@@ -210,7 +210,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetWidthWorks(){
+    void seeIfSetGetWidthWorks() {
         // Arrange
 
         validDTO.setWidth(13D);
@@ -225,7 +225,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetLocalWorks(){
+    void seeIfSetGetLocalWorks() {
         // Arrange
         LocalDTO expectedResult = new LocalDTO();
         LocalDTO localDTO = new LocalDTO();
@@ -266,7 +266,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetSensorDTOListWorks(){
+    void seeIfSetGetSensorDTOListWorks() {
         // Arrange
 
         List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
@@ -282,7 +282,7 @@ class GeographicAreaDTOTest {
     }
 
     @Test
-    void seeIfSetGetDescriptionWorks(){
+    void seeIfSetGetDescriptionWorks() {
         // Arrange
 
         validDTO.setDescription("A geographic area.");

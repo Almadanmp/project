@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.project.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
@@ -18,12 +21,12 @@ class RoomDTOTest {
     private RoomDTO validDTO;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         validDTO = new RoomDTO();
     }
 
     @Test
-    void seeIfSetGetNameWorks(){
+    void seeIfSetGetNameWorks() {
         // Arrange
 
         validDTO.setName("Mock");
@@ -39,7 +42,7 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetFloorWorks(){
+    void seeIfSetGetFloorWorks() {
         // Arrange
 
         validDTO.setFloor(3);
@@ -54,7 +57,7 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetWidthWorks(){
+    void seeIfSetGetWidthWorks() {
         // Arrange
 
         validDTO.setWidth(12.5);
@@ -69,7 +72,7 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetLengthWorks(){
+    void seeIfSetGetLengthWorks() {
         // Arrange
 
         validDTO.setLength(16.5);
@@ -84,7 +87,7 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetHeightWorks(){
+    void seeIfSetGetHeightWorks() {
         // Arrange
 
         validDTO.setHeight(31.1);
@@ -99,7 +102,7 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetSensorListWorks(){
+    void seeIfSetGetSensorListWorks() {
         // Arrange
 
         List<HouseSensorDTO> list = new ArrayList<>();
@@ -118,7 +121,7 @@ class RoomDTOTest {
     }
 
     @Test
-    void seeIfSetGetDeviceListWorks(){
+    void seeIfSetGetDeviceListWorks() {
         // Arrange
 
         DeviceList list = new DeviceList();
@@ -134,4 +137,41 @@ class RoomDTOTest {
 
         assertEquals(list, result);
     }
+
+    @Test
+    void seeIfEqualsWorks() {
+        // Arrange
+
+        validDTO.setName("Room1");
+
+        RoomDTO roomDTO2 = new RoomDTO();
+        roomDTO2.setName("Room1");
+
+        RoomDTO roomDTO3 = new RoomDTO();
+        roomDTO3.setName("Room2");
+
+        // Act
+
+        boolean actualResult1 = validDTO.equals(validDTO);
+        boolean actualResult2 = validDTO.equals(roomDTO2);
+        boolean actualResult3 = validDTO.equals(roomDTO3);
+        boolean actualResult4 = validDTO.equals(4D);
+
+
+        // Assert
+
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
+    }
+
+    @Test
+    void seeIfHashcodeWorks() {
+        // Assert
+
+        assertEquals(1, validDTO.hashCode());
+
+    }
+
 }

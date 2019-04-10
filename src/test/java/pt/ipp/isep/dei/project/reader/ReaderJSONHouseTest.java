@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-//TODO comentei este teste porque estava a correr em loopM
+//TODO comentei este teste porque estava a correr em loop
 public class ReaderJSONHouseTest {
 //
 //    @Test

@@ -1,4 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,7 +143,6 @@ public class GeographicAreaDTO {
 
     /**
      * Method that receives a Local Dto and sets it as an attribute.
-     *
      */
     public void setLocalDTO(LocalDTO localDTO) {
         this.localDTO = localDTO;
@@ -153,7 +153,7 @@ public class GeographicAreaDTO {
      *
      * @return is the object's Local Dto.
      */
-    public LocalDTO getLocalDTO(){
+    public LocalDTO getLocalDTO() {
         return this.localDTO;
     }
 
