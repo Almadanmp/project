@@ -1,20 +1,13 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.model.HouseService;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Scanner;
 
@@ -178,10 +171,10 @@ class HouseConfigurationUI {
         String filePath = input.getInputPathJson(result);
         if (ctrl.readJSONAndDefineHouse(filePath, gridMetPeriod, devMetPeriod, deviceTypes)) {
             System.out.println("House Data Successfully imported.");
+        } else {
+            System.out.println("The JSON file is invalid.");
         }
-        System.out.println("The JSON file is invalid.");
     }
-
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 //TODO Location is just location ot Adress etc, doest make much sense with the new data.
