@@ -95,14 +95,14 @@ public class ReaderController {
 
         //ROOMS
         for (EnergyGridDTO eg : gridDTOS) {
-            List<Room> rooms = readerJSONHouse.addRoomToGrid(eg.getName());
-
-
-            for (Room r : rooms) {
-                houseService.saveRoom(r);
+            List<RoomDTO> roomDTOS = eg.getRoomDTOS();
+            for (RoomDTO rt : roomDTOS) {
+                rt.setEnergyGridName(eg.getName());
+                rt.setHouseId(house.getId());
+                Room aux = RoomMapper.dtoToObjectUS100(rt);
+                houseService.saveRoom(aux);
             }
         }
-
         return houseService.saveHouse(house);
     }
 

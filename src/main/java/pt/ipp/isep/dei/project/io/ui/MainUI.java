@@ -135,7 +135,6 @@ public class MainUI {
 
             House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
-
             //LOAD PERSISTED GA DATA
             this.geographicAreaService = new GeographicAreaService(geographicAreaRepository);
 

@@ -16,8 +16,7 @@ import java.util.Objects;
 public class EnergyGrid implements Metered {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -70,7 +69,9 @@ public class EnergyGrid implements Metered {
      *
      * @return returns attribute grid of the energy grid.
      */
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
