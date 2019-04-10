@@ -85,7 +85,7 @@ class readingsReaderJSONTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readerReadings/test2JSONReadings.json");
+        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readingsFiles/test2JSONReadings.json");
 
         //Assert
 
@@ -100,7 +100,7 @@ class readingsReaderJSONTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readerReadings/test1JSONReadings.json");
+        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readingsFiles/test1JSONReadings.json");
 
         //Assert
 
@@ -131,7 +131,7 @@ class readingsReaderJSONTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readerReadings/test3JSONReadings.json");
+        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readingsFiles/test3JSONReadings.json");
 
         //Assert
 
@@ -143,6 +143,6 @@ class readingsReaderJSONTest {
        //Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> readingsReaderJSON.readFile("src/test/resources/readerReadings/test4JSONReadings.json"));
+                () -> readingsReaderJSON.readFile("src/test/resources/readingsFiles/test4JSONReadings.json"));
     }
 }

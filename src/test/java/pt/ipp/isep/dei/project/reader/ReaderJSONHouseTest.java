@@ -101,7 +101,7 @@ public class ReaderJSONHouseTest {
         expectedResult.setRoomList(roomListExpectedResult);
         expectedResult.setEnergyGridList(energyGridListExpectedResult);
         expectedResult.setAddress(addressExpectedResult);
-        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readerReadings/DataSet_sprint06_HouseData.json");
+        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readingsFiles/DataSet_sprint06_HouseData.json");
         assertEquals(expectedResult, houseDTO);
     }
 }

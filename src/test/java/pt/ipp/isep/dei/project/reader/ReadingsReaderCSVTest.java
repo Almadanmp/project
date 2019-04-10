@@ -86,7 +86,7 @@ class ReadingsReaderCSVTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderCSV.readFile("src/test/resources/readerReadings/test2CSVReadings.csv");
+        List<ReadingDTO> actualResult = readingsReaderCSV.readFile("src/test/resources/readingsFiles/test2CSVReadings.csv");
 
         //Assert
 

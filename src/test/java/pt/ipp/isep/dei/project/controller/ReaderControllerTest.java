@@ -776,7 +776,7 @@ class ReaderControllerTest {
 
         //Act
 
-        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
 
         //Assert
 
@@ -812,7 +812,7 @@ class ReaderControllerTest {
 
         //Act
 
-        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_TWO_GA.json");
+        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_TWO_GA.json");
 
         //Assert
 

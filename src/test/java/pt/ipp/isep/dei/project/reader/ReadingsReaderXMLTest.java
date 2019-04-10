@@ -85,7 +85,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test2XMLReadings.xml");
+        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test2XMLReadings.xml");
 
         //Assert
 
@@ -100,7 +100,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test1XMLReadings.xml");
+        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test1XMLReadings.xml");
 
         //Assert
 
@@ -131,7 +131,7 @@ class ReadingsReaderXMLTest {
 
         //Act
 
-        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test3XMLReadings.xml");
+        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test3XMLReadings.xml");
 
         //Assert
 
