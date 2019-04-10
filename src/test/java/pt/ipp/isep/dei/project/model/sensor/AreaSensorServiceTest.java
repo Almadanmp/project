@@ -14,7 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -50,7 +49,7 @@ class AreaSensorServiceTest {
             e.printStackTrace();
         }
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2,2,2), validDate1, 6008L);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
                 validDate1, 6008L);
@@ -192,17 +191,18 @@ class AreaSensorServiceTest {
     void seeIfToStringWorks() {
         // Arrange
 
-        validAreaSensorService.add(secondValidAreaSensor);
-        validAreaSensorService.add(thirdValidAreaSensor);
-        String expectedResult = "---------------\n" +
-                "SensorOne) Name: SensorOne | Type: Temperature | Active\n" +
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(secondValidAreaSensor);
+        areaSensors.add(thirdValidAreaSensor);
+        String expectedResult =
+                "---------------\n" +
                 "SensorTwo) Name: SensorTwo | Type: Temperature | Active\n" +
                 "SensorThree) Name: SensorThree | Type: Rainfall | Active\n" +
                 "---------------\n";
 
         // Act
 
-        String actualResult = validAreaSensorService.toString();
+        String actualResult = validAreaSensorService.buildString(areaSensors);
 
         // Assert
 
@@ -212,13 +212,12 @@ class AreaSensorServiceTest {
     @Test
     void seeIfToStringWorksEmpty() {
         // Arrange
-
-        validAreaSensorService = new AreaSensorService();
+        List<AreaSensor> areaSensors = new ArrayList<>();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String actualResult = validAreaSensorService.toString();
+        String actualResult = validAreaSensorService.buildString(areaSensors);
 
         // Assert
 
