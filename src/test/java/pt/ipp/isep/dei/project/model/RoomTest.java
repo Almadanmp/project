@@ -51,6 +51,21 @@ class RoomTest {
     }
 
     @Test
+    void seeIfConstructorIsAccessed(){
+        // Assert
+
+        Room room = new Room();
+
+        // Act
+
+        String actualResult = room.getName();
+
+        // Assert
+
+        assertNull(actualResult);
+    }
+
+    @Test
     void seeIfRemoveDeviceWorks() {
         // Act
 

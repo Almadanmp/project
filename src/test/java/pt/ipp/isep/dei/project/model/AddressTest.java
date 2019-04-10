@@ -19,7 +19,7 @@ class AddressTest {
     }
 
     @Test
-    void testGetStreet() {
+    void seeIfGetStreet() {
         // Arrange
         String expectedResult = "Rua Dr. António Bernardino de Almeida";
 
@@ -27,6 +27,38 @@ class AddressTest {
         String actualResult = validAddress.getStreet();
 
         // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetNumber(){
+        // Arrange
+
+        String expectedResult = "431";
+
+        // Act
+
+        String actualResult = validAddress.getNumber();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetCountry(){
+        // Arrange
+
+        Address address = new Address();
+        address.setCountry("Portugal");
+        String expectedResult = "Portugal";
+
+        // Act
+
+        String actualResult = validAddress.getCountry();
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 

@@ -38,6 +38,23 @@ class LocalTest {
     }
 
     @Test
+    void protectedConstructorDummyTest(){
+        // Arrange
+
+        Local local = new Local();
+        local.setLongitude(10);
+        double expectedResult = 10;
+
+        // Act
+
+        double actualResult = local.getLongitude();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetLatitudeWorks() {
         // Arrange
 

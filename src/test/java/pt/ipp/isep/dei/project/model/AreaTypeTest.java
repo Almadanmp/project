@@ -25,10 +25,12 @@ class AreaTypeTest {
         // Arrange
 
         String expectedResult = "Country";
+        AreaType areaType = new AreaType();
+        areaType.setName("Country");
 
         // Act
 
-        String actualResult = validType.getName();
+        String actualResult = areaType.getName();
 
         // Assert
 
