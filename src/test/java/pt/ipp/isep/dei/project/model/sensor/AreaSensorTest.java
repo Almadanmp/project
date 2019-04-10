@@ -1226,6 +1226,7 @@ class AreaSensorTest {
     @Test
     void seeIfGetMostRecentValueReading() {
         // Arrange
+
         ReadingService validReadingService;
         Date validDate12 = new Date();
         validReadingService = new ReadingService();
@@ -1244,9 +1245,45 @@ class AreaSensorTest {
         double expectedResult = 30.0;
 
         // Act
+
         double result = validReadingService.getMostRecentValue();
 
         // Assert
+
         assertEquals(expectedResult, result, 0.01);
     }
+
+    @Test
+    void seeIfSetGeographicAreaIdWorks(){
+        // Arrange
+
+        validAreaSensor.setGeographicAreaId(20L);
+        long expectedResult = 20;
+
+        // Act
+
+        long actualResult = validAreaSensor.getGeographicAreaId();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfBuildStringWorksWithNullLocal(){
+        // Arrange
+
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne",  new SensorType("Temperature", "Celsius"), null, new Date(),6008L);
+        String expectedResult = "SensOne, Temperature. ";
+
+        // Act
+
+        String actualResult = areaSensor.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
 }

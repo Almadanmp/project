@@ -301,4 +301,106 @@ class HouseSensorTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfBuildStringWorks(){
+        // Arrange
+
+        String expectedResult = "SensOne, Temperature\n";
+
+        // Act
+
+        String actualResult = validHouseSensor.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintActiveFalseWorks(){
+        // Arrange
+
+        String expectedResult = "Active";
+        validHouseSensor.setActive(true);
+
+        // Act
+
+        String actualResult = validHouseSensor.printActive();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingWorks(){
+        // Act
+
+        boolean actualResult = validHouseSensor.addReading(new Date(), 20D, "Temperature", "132");
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingFalseWorks(){
+        // Assert
+
+        validHouseSensor.setActive(false);
+
+        // Act
+
+        boolean actualResult = validHouseSensor.addReading(new Date(), 20D, "Temperature", "132");
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsSameObjectWorks(){
+        // Act
+
+        boolean actualResult = validHouseSensor.equals(validHouseSensor);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorTypeNameWorks(){
+        // Arrange
+
+        String expectedResult = "Temperature";
+
+        // Act
+
+        String actualResult = validHouseSensor.getSensorTypeName();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetReadingServiceWorks(){
+        // Assert
+
+        ReadingService expectedResult = new ReadingService();
+        validHouseSensor.setReadingService(null);
+        validHouseSensor.setReadingService(new ReadingService());
+
+        // Act
+
+        ReadingService actualResult = validHouseSensor.getReadingService();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
 }

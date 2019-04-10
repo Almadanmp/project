@@ -130,6 +130,7 @@ public class HouseSensor {
         return readingService;
     }
 
+
     /**
      * Setter: reading list
      *
@@ -146,7 +147,7 @@ public class HouseSensor {
     }
 
     /**
-     * Settter: sets the sensor active
+     * Setter: sets the sensor active
      */
     public void setActive(boolean status) {
         this.active = status;
@@ -219,14 +220,13 @@ public class HouseSensor {
      * @return returns a string with Sensor Parameters
      */
     public String buildString() {
-        String result = this.name + ", " + this.sensorType.getName() + "\n";
-        return result;
+        return this.name + ", " + this.sensorType.getName() + "\n";
     }
 
     /**
      * Method to print info if a sensor is active or not.
      */
-    public String printActive() {
+    String printActive() {
         if (!this.active) {
             return "Deactivated";
         }
