@@ -19,7 +19,7 @@ public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
     private JSONArray roomList;
     private JSONArray gridList;
-    private String gridRoomName;
+    private String gridName;
 
     public HouseDTO readFile(String filePath) {
         try {
@@ -49,7 +49,7 @@ public class ReaderJSONHouse implements Reader {
         return houseDTO;
     }
 
-   private  List<RoomDTO> readRoomsJSON() {
+    private List<RoomDTO> readRoomsJSON() {
         List<RoomDTO> roomArray = new ArrayList<>();
         for (int i = 0; i < this.roomList.length(); i++) {
             JSONObject room = this.roomList.getJSONObject(i);
@@ -77,14 +77,14 @@ public class ReaderJSONHouse implements Reader {
         for (int i = 0; i < this.gridList.length(); i++) {
             int e = this.gridList.getJSONObject(i).getJSONArray("rooms").length();
             JSONObject grid = this.gridList.getJSONObject(i);
-            String gridName = grid.getString("name");
+            this.gridName = grid.getString("name");
             EnergyGridDTO energyGridObject = new EnergyGridDTO();
             energyGridObject.setName(gridName);
 
             for (int y = 0; y < e; y++) {
                 Object jsonArray = grid.getJSONArray("rooms").get(y);
-                this.gridRoomName = jsonArray.toString();
-                addRoomToGrid();
+                String roomName = jsonArray.toString();
+                addRoomToGrid(roomName);
             }
             energyGridObject.setRoomDTOS(this.roomDTOS);
             energyGridDTOList.add(energyGridObject);
@@ -92,13 +92,12 @@ public class ReaderJSONHouse implements Reader {
         return energyGridDTOList;
     }
 
-   public  List<Room> addRoomToGrid( ) {
+    public List<Room> addRoomToGrid(String roomName) {
         List<Room> roomFinalList = new ArrayList<>();
         for (int x = 0; x < roomDTOS.size(); x++) {
-            if (roomDTOS.get(x).getName().equals(this.gridRoomName)) {
+            if (roomDTOS.get(x).getName().equals(roomName)) {
                 RoomDTO roomDTO = roomDTOS.get(x);
-                roomDTO.setEnergyGridName(this.gridRoomName);
-                this.roomDTOS.add(roomDTO);
+                roomDTO.setEnergyGridName(this.gridName);
                 roomFinalList.add(RoomMapper.dtoToObjectUS100(roomDTO));
             }
         }

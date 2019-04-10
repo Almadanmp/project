@@ -87,16 +87,20 @@ public class ReaderController {
         //EnergyGrid
 
         List<EnergyGridDTO> gridDTOS = readerJSONHouse.readGridsJSON();
-        for (EnergyGridDTO eg: gridDTOS) {
+        for (EnergyGridDTO eg : gridDTOS) {
             EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
             energyGrid.setHouseId(house.getId());
             houseService.saveEnergyGrid(energyGrid);
         }
 
         //ROOMS
-        List<Room> rooms = readerJSONHouse.addRoomToGrid();
-        for (Room r: rooms) {
-            houseService.saveRoom(r);
+        for (EnergyGridDTO eg : gridDTOS) {
+            List<Room> rooms = readerJSONHouse.addRoomToGrid(eg.getName());
+
+
+            for (Room r : rooms) {
+                houseService.saveRoom(r);
+            }
         }
 
         return houseService.saveHouse(house);
@@ -136,6 +140,7 @@ public class ReaderController {
     /**
      * This is the method that reads geographic areas fromJSON files and return a list of
      * geographic areas DTO
+     *
      * @param filePath - the path to the file
      * @return - a list of geo areas dto
      */
@@ -151,14 +156,14 @@ public class ReaderController {
      * @param list               - the service we want to add the dtos to
      * @return - number of areas added
      */
-    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors ) {
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
         int counter = 0;
         List<GeographicArea> geographicAreaList = new ArrayList<>();
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
             list.addAndPersistGA(geoArea);
             geographicAreaList.add(geoArea);
-            addSensorsDTOToList(areaSensorDTOS,listSensors,geographicAreaList);
+            addSensorsDTOToList(areaSensorDTOS, listSensors, geographicAreaList);
             System.out.println(geoArea.toString());
             counter++;
         }
@@ -167,15 +172,17 @@ public class ReaderController {
 
     /**
      * This method adds the dtos to the geographic area service
+     *
      * @param areaSensorDTOS - the dtos imported from the file
-     * @param list - the service we want to add the dtos to
+     * @param list           - the service we want to add the dtos to
      * @return - number of areas added
      */
     private void addSensorsDTOToList(List<AreaSensorDTO> areaSensorDTOS, AreaSensorService list, List<GeographicArea> geographicAreas) {
         for (AreaSensorDTO dto : areaSensorDTOS) {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(dto);
-            for (GeographicArea geographicArea: geographicAreas){
-            sensor.setGeographicAreaId(geographicArea.getId());}
+            for (GeographicArea geographicArea : geographicAreas) {
+                sensor.setGeographicAreaId(geographicArea.getId());
+            }
             System.out.println(sensor.buildString());
             list.addWithPersist(sensor);
         }

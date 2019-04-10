@@ -104,7 +104,7 @@ class EnergyGridSettingsControllerTest {
         // Arrange
 
         EnergyGridService energyGridService = new EnergyGridService();
-        validGrid.setId(123);
+        validGrid.setId(123L);
         energyGridService.addGrid(validGrid);
         validHouse.setGridList(energyGridService);
         String expectedResult = "---------------\n" +
@@ -233,14 +233,14 @@ class EnergyGridSettingsControllerTest {
 
         EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400,"34576");
         EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400,"34576");
-        expectedResult1.setId(1);
-        expectedResult2.setId(2);
+        expectedResult1.setId(1L);
+        expectedResult2.setId(2L);
         // Act
 
         EnergyGrid actualResult1 = controller.createEnergyGrid(validHouse, "EG1", 400,"34576");
-        actualResult1.setId(1);
+        actualResult1.setId(1L);
         EnergyGrid actualResult2 = controller.createEnergyGrid(validHouse, "EG2", 400,"34576");
-        actualResult2.setId(2);
+        actualResult2.setId(2L);
         // Assert
 
         assertEquals(expectedResult1, actualResult1);

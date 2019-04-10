@@ -313,7 +313,7 @@ class EnergyConsumptionControllerTest {
                 deviceTypeString);
         house.setMotherArea(validArea);
         EnergyGrid testGrid = new EnergyGrid("GridOne", 300,"34576");
-        testGrid.setId(23);
+        testGrid.setId(23L);
         EnergyGridService houseGrid = new EnergyGridService();
         houseGrid.addGrid(testGrid);
         house.setGridList(houseGrid);

@@ -259,7 +259,7 @@ class HouseTest {
                 "34) Designation: Home | Max Power: 440.0\n" +
                 "---------------\n";
         EnergyGrid testGrid = new EnergyGrid("Home", 440, "34576");
-        testGrid.setId(34);
+        testGrid.setId(34L);
         validHouse.addGrid(testGrid);
 
         // Act
@@ -329,7 +329,7 @@ class HouseTest {
 
         EnergyGridService gridList = new EnergyGridService();
         EnergyGrid testGrid = new EnergyGrid("Garden", 300, "34576");
-        testGrid.setId(23);
+        testGrid.setId(23L);
         gridList.addGrid(testGrid);
         validHouse.setGridList(gridList);
 

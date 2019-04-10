@@ -62,7 +62,7 @@ class EnergyGridServiceTest {
         long mockId = 1234;
 
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
-        energyGrid.setId(1234);
+        energyGrid.setId(1234L);
         validGridList.addPersistenceGrid(energyGrid);
 
         Mockito.when(energyGridRepository.findById(mockId)).thenReturn(Optional.of(energyGrid));
@@ -134,7 +134,7 @@ class EnergyGridServiceTest {
     void getAllAsString() {
 
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
-        energyGrid.setId(20);
+        energyGrid.setId(20L);
         validGridList.addGrid(energyGrid);
 
         String expectedResult = "---------------\n" +
