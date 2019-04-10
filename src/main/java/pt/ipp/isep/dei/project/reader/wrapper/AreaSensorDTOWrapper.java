@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.reader.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 
@@ -47,8 +46,8 @@ public class AreaSensorDTOWrapper {
         return sensorAttributeWrapper;
     }
 
-    public void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAtributeWrapper) {
-        this.sensorAttributeWrapper = sensorAttributeWrapper;
+    public void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAttributeWrapper1) {
+        this.sensorAttributeWrapper = sensorAttributeWrapper1;
     }
 
     /**

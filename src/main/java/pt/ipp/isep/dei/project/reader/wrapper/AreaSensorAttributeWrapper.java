@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.reader.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import pt.ipp.isep.dei.project.reader.deserializer.CustomDateDeserializer;
 
 public class AreaSensorAttributeWrapper {
     @JsonProperty("id")
@@ -18,7 +16,7 @@ public class AreaSensorAttributeWrapper {
     private String units;
 
     @JsonProperty("start_date")
-    @JsonDeserialize(using = CustomDateDeserializer.class)
+ //   @JsonDeserialize(using = CustomDateDeserializer.class)
     private String dateStartedFunctioning;
 
     /**

@@ -141,7 +141,7 @@ public class ReaderController {
      */
     public List<AreaSensorDTO> readFileJSONAreaSensors(String filePath) {
         GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
-        return readerJSON.setAreaSensorDTOS(filePath);
+        return readerJSON.readAreaSensorDTOS(filePath);
     }
 
     /**
@@ -159,7 +159,7 @@ public class ReaderController {
             list.addAndPersistGA(geoArea);
             geographicAreaList.add(geoArea);
             addSensorsDTOToList(areaSensorDTOS,listSensors,geographicAreaList);
-            System.out.println(GeographicAreaMapper.dtoToObject(dto).toString());
+            System.out.println(geoArea.toString());
             counter++;
         }
         return counter;
@@ -176,12 +176,10 @@ public class ReaderController {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(dto);
             for (GeographicArea geographicArea: geographicAreas){
             sensor.setGeographicAreaId(geographicArea.getId());}
+            System.out.println(sensor.buildString());
             list.addWithPersist(sensor);
-            System.out.println(AreaSensorMapper.dtoToObject(dto).toString());
         }
     }
-
-
 
     /**
      * This method goes receives a geographic area list, a string with a path to a CSV file and

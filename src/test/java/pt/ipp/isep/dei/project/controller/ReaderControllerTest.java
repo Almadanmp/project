@@ -19,6 +19,7 @@ import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
@@ -73,12 +74,14 @@ class ReaderControllerTest {
 
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
+    private GeographicAreaService geographicAreaService;
     private HouseService houseService;
 
 
     @BeforeEach
     void arrangeArtifacts() {
         areaSensorService = new AreaSensorService(areaSensorRepository);
+        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository);
 
         validReader = new ReaderController(areaSensorService, readingService, houseService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
@@ -620,58 +623,57 @@ class ReaderControllerTest {
 //
 //        assertEquals(actualResult, 0);
 //    }
+
+    @Test
+    void seeIfReadFileWorks() {
+        //Arrange
+        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setName("ISEP");
+        LocalDTO localDTO = new LocalDTO(41.178553,-8.608035,111);
+        geographicAreaDTO.setLocalDTO(localDTO);
+        geographicAreaDTO.setDescription("Campus do ISEP");
+        geographicAreaDTO.setWidth(0.261);
+        geographicAreaDTO.setLength(0.249);
+        geographicAreaDTO.setAreaSensorDTOList(null);
+        geographicAreaDTO.setTypeArea("urban area");
+
+        expectedResult.add(geographicAreaDTO);
+
+        //Act
+
+        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileXMLGeoAreaWorks() {
+        // Arrange
+
+        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository);
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService, houseService);
+
+        // Assert
+
+        assertEquals(2, areasAdded);
+
+        // Get one of the areas to  check its contents.
 //
-//    @Test
-//    void seeIfReadFileWorks() {
-//        //Arrange
-//        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
-//
-//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-//        geographicAreaDTO.setName("ISEP");
-//        LocalDTO localDTO = new LocalDTO(41.178553,-8.608035,111);
-//        geographicAreaDTO.setLocalDTO(localDTO);
-//        geographicAreaDTO.setDescription("Campus do ISEP");
-//        geographicAreaDTO.setWidth(0.261);
-//        geographicAreaDTO.setLength(0.249);
-//        geographicAreaDTO.setAreaSensorDTOList(null);
-//        geographicAreaDTO.setTypeArea("urban area");
-//
-//        expectedResult.add(geographicAreaDTO);
-//
-//        //Act
-//
-//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfReadFileXMLGeoAreaWorks() {
-//        // Arrange
-//
-//        GeographicAreaList actualResult = new GeographicAreaList(geographicAreaRepository);
-//
-//
-//        // Act
-//
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA.xml");
-//        String absolutePath = fileToRead.getAbsolutePath();
-//        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
-//
-//        // Assert
-//
-//        assertEquals(2, areasAdded);
-//
-//        // Get one of the areas to  check its contents.
-//
-//        GeographicArea actualArea = actualResult.get(0);
-//        AreaSensorList firstAreaSensors = actualArea.getSensorList();
+//        GeographicArea actualArea = actualResult.getAll().get(0);
+//        AreaSensorService firstAreaSensors = actualArea.getSensorList();
 //
 //        // Declare expected area / sensors.
 //
-//        AreaSensorList expectedSensors = new AreaSensorList();
+//        AreaSensorService expectedSensors = new AreaSensorService();
 //        expectedSensors.add(actualArea.getSensorList().get(0));
 //        expectedSensors.add(actualArea.getSensorList().get(1));
 //
@@ -682,77 +684,76 @@ class ReaderControllerTest {
 //
 //        assertEquals(expectedArea, actualArea);
 //        assertEquals(expectedSensors, firstAreaSensors);
-//    }
-//
-//
-//    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat() {
-//        // Arrange
-//
-//        GeographicAreaList geographicAreaList3 = new GeographicAreaList(geographicAreaRepository);
-//
-//        // Act
-//
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_date.xml");
-//        String absolutePath = fileToRead.getAbsolutePath();
-//        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaList3, areaSensorService, areaSensorList);
-//
-//        // Assert
-//
-//        assertEquals(2, areasAdded);
-//
-//        // Get one of the areas to  check its contents.
-//
-//        GeographicArea actualArea = geographicAreaList3.get(0);
-//        AreaSensorList firstAreaSensors = actualArea.getSensorList();
-//
-//        // Declare expected area / sensors.
-//
-//        AreaSensorList expectedSensors = new AreaSensorList();
-//        expectedSensors.add(actualArea.getSensorList().get(0));
-//        expectedSensors.add(actualArea.getSensorList().get(1));
-//
-//        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
-//                0.261, new Local(41.178553, -8.608035, 139));
-//
-//        // Assert
-//
-//        assertEquals(expectedArea, actualArea);
-//        assertEquals(expectedSensors, firstAreaSensors);
-//    }
-//
-//    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate() {
-//        // Arrange
-//
-//        // Act
-//
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_wrong_and_correct_date.xml");
-//        String absolutePath = fileToRead.getAbsolutePath();
-//        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, validGeographicAreaList2, areaSensorService, areaSensorList);
-//
-//        // Assert
-//
-//        assertEquals(1, areasAdded);
-//
-//    }
-//
-//    @Test
-//    void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
-//        // Arrange
-//
-//        GeographicAreaList actualResult = new GeographicAreaList(geographicAreaRepository);
-//
-//        // Act
-//
-//        File fileToRead = new File("src/test/resources/readerGeographicAreas/DataSet_sprint05_GA_test_one_GA.xml");
-//        String absolutePath = fileToRead.getAbsolutePath();
-//        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, areaSensorList);
-//
-//        // Assert
-//
-//        assertEquals(1, areasAdded);
-//    }
+    }
+
+
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat() {
+        // Arrange
+
+        GeographicAreaService geographicAreaList3 = new GeographicAreaService(geographicAreaRepository);
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaList3, areaSensorService, readingService, houseService);
+
+        // Assert
+
+        assertEquals(2, areasAdded);
+
+        // Get one of the areas to  check its contents.
+
+    //    GeographicArea actualArea = geographicAreaList3.getAll().get(0);
+    //    AreaSensorService firstAreaSensors = actualArea.getSensorList();
+
+        // Declare expected area / sensors.
+
+    //    AreaSensorService expectedSensors = new AreaSensorService();
+     //   expectedSensors.add(actualArea.getSensorList().get(0));
+     //   expectedSensors.add(actualArea.getSensorList().get(1));
+
+     //   GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
+     //           0.261, new Local(41.178553, -8.608035, 139));
+
+        // Assert
+
+     //   assertEquals(expectedArea, actualArea);
+     //   assertEquals(expectedSensors, firstAreaSensors);
+    }
+
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate() {
+        // Arrange
+        // Act
+
+        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, areaSensorService, readingService, houseService);
+
+        // Assert
+
+        assertEquals(2, areasAdded);
+
+    }
+
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
+        // Arrange
+
+        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository);
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService, houseService);
+
+        // Assert
+
+        assertEquals(1, areasAdded);
+    }
 
 
     @Test
@@ -779,40 +780,40 @@ class ReaderControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-//    @Test
-//    void seeIfReadFileWorksWithOneGAAndOneSensor() {
-//        //Arrange
-//        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
-//
-//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-//        geographicAreaDTO.setName("ISEP");
-//        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
-//        geographicAreaDTO.setLocalDTO(localDTO);
-//        geographicAreaDTO.setDescription("Campus do ISEP");
-//        geographicAreaDTO.setWidth(0.261);
-//        geographicAreaDTO.setLength(0.249);
-//        geographicAreaDTO.setTypeArea("urban area");
-//
-//        expectedResult.add(geographicAreaDTO);
-//
-//        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-//        LocalDTO localSensorDTO = new LocalDTO(41.179230, -8.606409, 125);
-//        areaSensorDTO.setLocalDTO(localSensorDTO);
-//        areaSensorDTO.setUnits("l/m2");
-//        areaSensorDTO.setDateStartedFunctioning("2016-11-15");
-//        areaSensorDTO.setTypeSensor("rainfall");
-//        areaSensorDTO.setName("Meteo station ISEP - rainfall");
-//        areaSensorDTO.setId("RF12345");
-//
-//
-//        //Act
-//
-//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/readerGeographicAreas/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfReadFileWorksWithOneGAAndOneSensor() {
+        //Arrange
+        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setName("ISEP");
+        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
+        geographicAreaDTO.setLocalDTO(localDTO);
+        geographicAreaDTO.setDescription("Campus do ISEP");
+        geographicAreaDTO.setWidth(0.261);
+        geographicAreaDTO.setLength(0.249);
+        geographicAreaDTO.setTypeArea("urban area");
+
+        expectedResult.add(geographicAreaDTO);
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        LocalDTO localSensorDTO = new LocalDTO(41.179230, -8.606409, 125);
+        areaSensorDTO.setLocalDTO(localSensorDTO);
+        areaSensorDTO.setUnits("l/m2");
+        areaSensorDTO.setDateStartedFunctioning("2016-11-15");
+        areaSensorDTO.setTypeSensor("rainfall");
+        areaSensorDTO.setName("Meteo station ISEP - rainfall");
+        areaSensorDTO.setId("RF12345");
+
+
+        //Act
+
+        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfReadFileWorksWithTwoGA() {

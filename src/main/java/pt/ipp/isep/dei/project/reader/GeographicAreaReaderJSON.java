@@ -26,14 +26,14 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
             GeographicAreaDTOWrapperList geographicAreaDTOWrapperList = objectMapper.readValue(file, GeographicAreaDTOWrapperList.class);
             geoAreaDTOWrapperList = geographicAreaDTOWrapperList.getGeoAreaDTOWrapperList();
             geographicAreaDTOS = GeographicAreaDTOWrapper.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
-           // setAreaSensorDTOS(file,geographicAreaDTOS);
+           // readAreaSensorDTOS(file,geographicAreaDTOS);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
         return geographicAreaDTOS;
     }
 
-    public List<AreaSensorDTO> setAreaSensorDTOS(String filePath) {
+    public List<AreaSensorDTO> readAreaSensorDTOS(String filePath) {
         List<AreaSensorDTOWrapper> areaSensorDTOWrappers;
         List<AreaSensorDTO> sensorDTOS;
         ObjectMapper objectMapper = new ObjectMapper();

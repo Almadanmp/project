@@ -176,7 +176,7 @@ public class MainUI {
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService);
-                            view1.runGASettings(areaTypeService, geographicAreaService);
+                            view1.runGASettings(areaTypeService, geographicAreaService, areaSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

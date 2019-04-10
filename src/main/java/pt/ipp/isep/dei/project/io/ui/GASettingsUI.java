@@ -29,7 +29,7 @@ class GASettingsUI {
         this.readerController = new ReaderController(areaSensorService, readingService, houseService);
     }
 
-    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
+    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -70,7 +70,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15v2(geographicAreaService);
+                    runUS15v3(geographicAreaService, areaSensorService);
                     activeInput = false;
                     break;
                 case 10:
