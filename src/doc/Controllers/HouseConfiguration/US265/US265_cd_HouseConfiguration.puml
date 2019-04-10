@@ -25,10 +25,10 @@ MainUI -- HouseConfigurationUI : >
 
 HouseConfigurationUI -- HouseConfigurationController : >
 HouseConfigurationController -- Reader : >
-Reader -- House : >
-Reader -- Sensor : >
-Reader -- RoomService : >
-Reader -- ReadingService : >
+HouseConfigurationController -- House : >
+HouseConfigurationController -- Sensor : >
+HouseConfigurationController -- RoomService : >
+HouseConfigurationController -- ReadingService : >
 
 class HouseConfigurationUI{
 
