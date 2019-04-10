@@ -6,13 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.HouseDTO;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
+import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -83,18 +78,27 @@ public class ReaderController {
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
     public boolean readJSONAndDefineHouse(House house, String filePath) {
+        //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
         House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
-        EnergyGridService houseGrids = house.getGridList();
-        for (int i = 0; i < houseGrids.size(); i++) {
-            houseService.saveEnergyGrid(houseGrids.get(i));
-        }
-        RoomService roomList = house.getRoomService();
-        for (int i = 0; i < roomList.size(); i++){
-            houseService.saveRoom(roomList.get(i));
-        }
         house.setAddress(house2.getAddress());
+
+        //EnergyGrid
+
+        List<EnergyGridDTO> gridDTOS = readerJSONHouse.readGridsJSON();
+        for (EnergyGridDTO eg: gridDTOS) {
+            EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
+            energyGrid.setHouseId(house.getId());
+            houseService.saveEnergyGrid(energyGrid);
+        }
+
+        //ROOMS
+        List<Room> rooms = readerJSONHouse.addRoomToGrid();
+        for (Room r: rooms) {
+            houseService.saveRoom(r);
+        }
+
         return houseService.saveHouse(house);
     }
 

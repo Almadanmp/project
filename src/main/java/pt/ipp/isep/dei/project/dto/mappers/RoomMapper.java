@@ -188,7 +188,7 @@ public final class RoomMapper {
         resultDTO.setWidth(dtoWidth);
         resultDTO.setSensorList(dtoSensorList);
         resultDTO.setDeviceList(dtoDeviceList);
-        resultDTO.setEnergyGridId(dtoEnergyGridID);
+        resultDTO.setEnergyGridName(dtoEnergyGridID);
         resultDTO.setHouseId(dtoHouseID);
 
         return resultDTO;

@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.Room;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +17,9 @@ import java.util.List;
 
 public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
+    private JSONArray roomList;
+    private JSONArray gridList;
+    private String gridRoomName;
 
     public HouseDTO readFile(String filePath) {
         try {
@@ -29,14 +34,14 @@ public class ReaderJSONHouse implements Reader {
         return new HouseDTO();
     }
 
-    public HouseDTO readHouseJSON(JSONObject jsonObject) {
+    private HouseDTO readHouseJSON(JSONObject jsonObject) {
         HouseDTO houseDTO = new HouseDTO();
-        JSONArray roomList = jsonObject.getJSONArray("room");
+        this.roomList = jsonObject.getJSONArray("room");
         JSONObject address = jsonObject.getJSONObject("adress");
-        JSONArray gridList = jsonObject.getJSONArray("grid");
-        List<RoomDTO> roomDTOList = readRoomsJSON(roomList);
+        this.gridList = jsonObject.getJSONArray("grid");
+        List<RoomDTO> roomDTOList = readRoomsJSON();
         AddressDTO addressDTO = readAddressJSON(address);
-        List<EnergyGridDTO> energyGridDTOList = readGridsJSON(gridList);
+        List<EnergyGridDTO> energyGridDTOList = readGridsJSON();
         houseDTO.setAddress(addressDTO);
         houseDTO.setLocation(new LocalDTO(0.0, 0.0, 0.0));
         houseDTO.setRoomList(roomDTOList);
@@ -44,10 +49,10 @@ public class ReaderJSONHouse implements Reader {
         return houseDTO;
     }
 
-    public List<RoomDTO> readRoomsJSON(JSONArray rooms) {
+   private  List<RoomDTO> readRoomsJSON() {
         List<RoomDTO> roomArray = new ArrayList<>();
-        for (int i = 0; i < rooms.length(); i++) {
-            JSONObject room = rooms.getJSONObject(i);
+        for (int i = 0; i < this.roomList.length(); i++) {
+            JSONObject room = this.roomList.getJSONObject(i);
             String roomName = room.getString("id");
             String roomDescription = room.getString("description");
             int roomFloor = Integer.parseInt(room.getString("floor"));
@@ -67,37 +72,40 @@ public class ReaderJSONHouse implements Reader {
         return roomArray;
     }
 
-    public List<EnergyGridDTO> readGridsJSON(JSONArray energyGrid) {
+    public List<EnergyGridDTO> readGridsJSON() {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
-        for (int i = 0; i < energyGrid.length(); i++) {
-            List<RoomDTO> roomDTOList = new ArrayList<>();
-            int e = energyGrid.getJSONObject(i).getJSONArray("rooms").length();
-            JSONObject grid = energyGrid.getJSONObject(i);
+        for (int i = 0; i < this.gridList.length(); i++) {
+            int e = this.gridList.getJSONObject(i).getJSONArray("rooms").length();
+            JSONObject grid = this.gridList.getJSONObject(i);
             String gridName = grid.getString("name");
             EnergyGridDTO energyGridObject = new EnergyGridDTO();
             energyGridObject.setName(gridName);
+
             for (int y = 0; y < e; y++) {
                 Object jsonArray = grid.getJSONArray("rooms").get(y);
-                String gridRoomName = jsonArray.toString();
-                addRoomToGrid(roomDTOList, gridRoomName);
+                this.gridRoomName = jsonArray.toString();
+                addRoomToGrid();
             }
-            energyGridObject.setRoomDTOS(roomDTOList);
+            energyGridObject.setRoomDTOS(this.roomDTOS);
             energyGridDTOList.add(energyGridObject);
         }
         return energyGridDTOList;
     }
 
-    public void addRoomToGrid(List<RoomDTO> roomDTOList, String gridRoomName) {
+   public  List<Room> addRoomToGrid( ) {
+        List<Room> roomFinalList = new ArrayList<>();
         for (int x = 0; x < roomDTOS.size(); x++) {
-            if (roomDTOS.get(x).getName().equals(gridRoomName)) {
+            if (roomDTOS.get(x).getName().equals(this.gridRoomName)) {
                 RoomDTO roomDTO = roomDTOS.get(x);
-                roomDTOList.add(roomDTO);
+                roomDTO.setEnergyGridName(this.gridRoomName);
+                this.roomDTOS.add(roomDTO);
+                roomFinalList.add(RoomMapper.dtoToObjectUS100(roomDTO));
             }
         }
+        return roomFinalList;
     }
 
-
-    public AddressDTO readAddressJSON(JSONObject address) {
+    private AddressDTO readAddressJSON(JSONObject address) {
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setStreet(address.getString("street"));
         addressDTO.setNumber(address.getString("number"));
