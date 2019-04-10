@@ -25,7 +25,10 @@ public class House implements Metered {
     private Local location;
 
     @Transient
-    private EnergyGridService energyGridService;
+    private int deviceMeteringPeriod;
+
+    @Transient
+    EnergyGridService energyGridService;
 
     @Transient
     private RoomService roomService;
@@ -35,7 +38,6 @@ public class House implements Metered {
 
     private int gridMeteringPeriod;
 
-    private int deviceMeteringPeriod;
 
     @Transient
     private List<DeviceType> deviceTypeList;
@@ -527,6 +529,7 @@ public class House implements Metered {
     public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
         return this.energyGridService.createEnergyGrid(designation, maxPower, houseID);
     }
+
 
     /**
      * Method to check if an instance of this class is equal to another object.

@@ -10,13 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.AreaTypeService;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.HouseService;
+import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
@@ -67,6 +64,13 @@ public class MainUI {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private HouseSensorRepository houseSensorRepository;
+
+    private RoomService roomService;
+
+    private HouseSensorService houseSensorService;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -124,6 +128,8 @@ public class MainUI {
             // *************************
             HouseService houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
             this.areaTypeService = new AreaTypeService(areaTypeRepository);
+            this.roomService = new RoomService(roomRepository);
+            this.houseSensorService = new HouseSensorService(houseSensorRepository);
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
 
 
@@ -182,7 +188,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
-                            houseC.run(house, houseService, geographicAreaService);
+                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

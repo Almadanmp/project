@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.List;
@@ -32,7 +34,7 @@ class HouseConfigurationUI {
 
     }
 
-    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService) {
+    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -67,7 +69,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS260(houseService);
+                    runUS260(sensorService, roomService);
                     activeInput = false;
                     break;
                 case 8:
@@ -331,14 +333,13 @@ class HouseConfigurationUI {
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.
     // Sensors without a valid room shouldn’t be imported but registered in the application log.
 
-    private void runUS260(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS260(HouseSensorService sensorService, RoomService roomService) {
         InputHelperUI inputs = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
-        int importedSensors = controller.readSensors(filePath, house);
+        int importedSensors = controller.readSensors(filePath, roomService, sensorService);
         System.out.println(importedSensors + " Sensors successfully imported.");
     }
 

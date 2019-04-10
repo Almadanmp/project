@@ -248,6 +248,7 @@ class GASettingsUI {
 
     /* USER STORY 07 -  Add an existing geographical area to another one. */
     private void runUS07(GeographicAreaService geographicAreaService) {
+        //TODO update to persistent data
         if (geographicAreaService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;

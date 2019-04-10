@@ -6,10 +6,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that groups a number of Rooms in a House.
@@ -26,6 +23,14 @@ public class RoomService {
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
     public RoomService() {
+        this.rooms = new ArrayList<>();
+    }
+
+    /**
+     * RoomList() empty constructor that initializes an ArrayList of Rooms.
+     */
+    public RoomService(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
         this.rooms = new ArrayList<>();
     }
 
@@ -275,6 +280,29 @@ public class RoomService {
             result[i] = rooms.get(i);
         }
         return result;
+    }
+
+    /**
+     * Method to check if a room with the given ID exists in the repository.
+     * @param idToCheck is the id that we want to check for being present.
+     * @return is true if a room with the given ID exists, false if it doesn't.
+     */
+    public boolean idExists(String idToCheck){
+        for (Room r : roomRepository.findAll()){
+            if (r.getName().equals(idToCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Method that finds a given object in the repository by its ID.
+     * @param idToFind is the ID that we want to look for.
+     * @return is an Optional that either contains the object if it existed, or a null.
+     */
+    public Optional<Room> findByID(String idToFind){
+        return roomRepository.findById(idToFind);
     }
 
     /**
