@@ -1,0 +1,68 @@
+@startuml
+title US265 \n  As an Administrator, I want to import a list of sensor readings of the house sensors. \n Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but registered in the application log.
+
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 2
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName verdana
+skinparam titleFontSize 10
+
+
+skinparam class {
+ 	BorderColor indianred
+ 	BackgroundColor indianred
+ 	BackgroundColor ivory
+    roundcorner 10
+    ArrowFontName Verdana
+    ArrowColor indianred
+    ArrowFontColor darkslategrey
+    FontSize 12
+ }
+
+
+MainUI -- HouseConfigurationUI : >
+
+HouseConfigurationUI -- HouseConfigurationController : >
+HouseConfigurationController -- Reader : >
+HouseConfigurationController -- House : >
+HouseConfigurationController -- Sensor : >
+HouseConfigurationController -- RoomService : >
+HouseConfigurationController -- ReadingService : >
+
+class HouseConfigurationUI{
+
+runUS265(HouseService houseService)
+}
+
+class HouseConfigurationController{
+readReadingListFromFile(ReadingService readingService, String filePath, HouseService house, String logPath)
+knownDatePatterns()
+}
+
+class Reader{
+readFile(String filePath)
+}
+
+class House{
+getHouse()
+getRoomService()
+}
+
+class RoomService{
+getRooms()
+
+
+class Sensor{
+getId()
+}
+
+class ReadingService{
+addReadingToMatchingSensor(readingSensorID, doubleReadingValue, objectDate, readingUnit)
+
+format(LogRecord record)
+getHead(Handler h)
+getTail(Handler h)
+}
+
+@enduml
