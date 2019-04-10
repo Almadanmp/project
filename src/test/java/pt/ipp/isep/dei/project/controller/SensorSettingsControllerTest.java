@@ -235,6 +235,8 @@ class SensorSettingsControllerTest {
 
         // Arrange
 
+        String idString = "T289738";
+        String roomID = "RoomDA";
         String nameString = "XV-56D";
         String typeStr = "Temperatura";
         String unit = "Celsius";
@@ -244,13 +246,13 @@ class SensorSettingsControllerTest {
         int month = 8;
         int day = 9;
         Date date1 = controller.createDate(year, month, day);
-        controller.createRoomSensor(nameString, firstType, date1);
+        controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
         SensorType t1 = new SensorType(typeStr, "Celsius³");
-        HouseSensor expectedResult = new HouseSensor("XV-56D", t1, validDate1);
+        HouseSensor expectedResult = new HouseSensor("T289738", "XV-56D", t1, validDate1, "RoomDA");
 
         // Act
 
-        HouseSensor actualResult = controller.createRoomSensor(nameString, firstType, date1);
+        HouseSensor actualResult = controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
 
         // Assert
 

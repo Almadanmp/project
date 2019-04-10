@@ -144,10 +144,10 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HouseSensor s1 = new HouseSensor("SensorOne", new SensorType("Wind", "km/h"),
-                date);
-        HouseSensor s2 = new HouseSensor("SensorTwo", new SensorType("Rain", "l/m2"),
-                date);
+        HouseSensor s1 = new HouseSensor("T1292u37","SensorOne", new SensorType("Wind", "km/h"),
+                date, "RoomABD");
+        HouseSensor s2 = new HouseSensor("T1292u37", "SensorTwo", new SensorType("Rain", "l/m2"),
+                date, "RoomABD");
         HouseSensorService areaSensorList = new HouseSensorService();
         areaSensorList.add(s1);
         areaSensorList.add(s2);
@@ -190,7 +190,7 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HouseSensor testAreaSensor = new HouseSensor("SensorOne", new SensorType("Rain", "mm"), date);
+        HouseSensor testAreaSensor = new HouseSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
         // Act
 
         boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomWithDevices);

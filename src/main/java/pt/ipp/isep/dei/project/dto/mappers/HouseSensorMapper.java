@@ -30,6 +30,8 @@ public class HouseSensorMapper {
      */
     public static HouseSensor dtoToObject(HouseSensorDTO dtoToConvert){
 
+        String sensorID = dtoToConvert.getId();
+
         // Update name
 
         String objectName = dtoToConvert.getName();
@@ -41,6 +43,10 @@ public class HouseSensorMapper {
         // Update units
 
         String objectUnit = dtoToConvert.getUnits();
+
+        // Update roomID
+
+        String objectRoomID = dtoToConvert.getRoomID();
 
         // Update date of activation
 
@@ -72,7 +78,7 @@ public class HouseSensorMapper {
 
         // Create, update and return converted object
 
-        HouseSensor resultObject = new HouseSensor(objectName, new SensorType(objectType, objectUnit), objectDate);
+        HouseSensor resultObject = new HouseSensor(sensorID, objectName, new SensorType(objectType, objectUnit), objectDate, objectRoomID);
         resultObject.setActive(objectStatus);
         resultObject.setReadingService(objectAreaReadingService);
 
@@ -90,6 +96,10 @@ public class HouseSensorMapper {
         // Update the name
 
         String dtoName = objectToConvert.getName();
+
+        // Update the roomID
+
+        String dtoRoomID = objectToConvert.getRoomId();
 
         // Update the date of activation
 
@@ -126,6 +136,7 @@ public class HouseSensorMapper {
         resultDTO.setName(dtoName);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
         resultDTO.setReadingList(dtoReadingList);
+        resultDTO.setRoomID(dtoRoomID);
 
         return resultDTO;
     }

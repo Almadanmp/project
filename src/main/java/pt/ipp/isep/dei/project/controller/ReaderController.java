@@ -17,6 +17,7 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
 
@@ -35,6 +36,7 @@ public class ReaderController {
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private HouseService houseService;
+    private HouseSensorService houseSensorService;
 
     private static final String INVALID_DATE = "The reading date format is invalid.";
     private static final String INVALID_READING_VALUE = "The reading values are not numeric.";
@@ -186,7 +188,7 @@ public class ReaderController {
                 Date readingDate = pattern.parse(readings[1]);
                 Double readingValue = Double.parseDouble(readings[2]);
                 String readingUnit = readings[3];
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
+                return addReadingToMatchingAreaSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -261,7 +263,7 @@ public class ReaderController {
                 Date readingDate = pattern.parse(reading.getString("timestamp/date"));
                 Double readingValue = Double.parseDouble(reading.getString("value"));
                 String readingUnit = reading.getString("unit");
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
+                return addReadingToMatchingAreaSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;
@@ -279,8 +281,23 @@ public class ReaderController {
      *
      * @return 1 in case the reading is added, 0 in case the reading isn't added.
      **/
-    int addReadingToMatchingSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
+    int addReadingToMatchingAreaSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
         if (areaSensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
+            return 1;
+        }
+        String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
+        logger.warning(message);
+        return 0;
+    }
+
+    /**
+     * This method receives a logger, a sensor list, and reading features (sensor Id, reading value, reading date)
+     * and tries to addWithoutPersisting the corresponding reading to the sensor list.
+     *
+     * @return 1 in case the reading is added, 0 in case the reading isn't added.
+     **/
+    int addReadingToMatchingHouseSensor(Logger logger, String sensorID, Double readingValue, Date readingDate, String readingUnit) {
+        if (houseSensorService.addReadingToMatchingSensor(sensorID, readingValue, readingDate, readingUnit)) {
             return 1;
         }
         String message = "The reading with value " + readingValue + " from " + readingDate + " could not be added to the sensor.";
@@ -357,7 +374,7 @@ public class ReaderController {
                 Date readingDate = pattern.parse(element.getElementsByTagName("timestamp_date").item(0).getTextContent());
                 Double readingValue = Double.parseDouble(element.getElementsByTagName("value").item(0).getTextContent());
                 String readingUnit = element.getElementsByTagName("unit").item(0).getTextContent();
-                return addReadingToMatchingSensor(logger, sensorID, readingValue, readingDate, readingUnit);
+                return addReadingToMatchingAreaSensor(logger, sensorID, readingValue, readingDate, readingUnit);
             } catch (NumberFormatException nfe) {
                 logger.warning(INVALID_READING_VALUE);
                 return 0;

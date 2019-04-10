@@ -5,10 +5,12 @@ import java.util.List;
 
 public class HouseSensorDTO {
 
+    private String id;
     private String name;
     private String typeSensor;
     private String units;
     private String dateStartedFunctioning;
+    private String roomID;
     private boolean active;
     private List<ReadingDTO> readingList;
 
@@ -46,6 +48,17 @@ public class HouseSensorDTO {
         return name;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(String roomID){
+        this.roomID = roomID;
+    }
     /**
      * Method that stores a String as the DTO's name.
      *

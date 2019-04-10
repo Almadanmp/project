@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class ReadingService {
 
     @Autowired
     AreaSensorRepository areaSensorRepository;
+
+    @Autowired
+    HouseSensorRepository houseSensorRepository;
 
     private List<Reading> readings;
 
@@ -654,6 +658,21 @@ public class ReadingService {
             result = Math.min(r.getValue(), result);
         }
         return result;
+    }
+
+    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String readingUnit) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            HouseSensor houseSensor = value.get();
+            Reading reading = new Reading(readingValue, readingDate, readingUnit, houseSensor.getId());
+            ReadingService sensorReadingList = houseSensor.getReadingService();
+            if (sensorReadingList.contains(reading)) {
+                return false;
+            }
+            readingRepository.save(reading);
+            return true;
+        }
+        return false;
     }
 
     /**
