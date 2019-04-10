@@ -212,6 +212,7 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 0:
+                            System.exit(0);
                             return;
                         default:
                             System.out.println(UtilsUI.INVALID_OPTION);
