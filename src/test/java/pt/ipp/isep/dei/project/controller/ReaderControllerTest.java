@@ -7,15 +7,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,6 +73,9 @@ class ReaderControllerTest {
     AreaSensorRepository areaSensorRepository;
 
     @Mock
+    ReadingRepository readingRepository;
+
+    @Mock
     GeographicAreaRepository geographicAreaRepository;
 
     private AreaSensorService areaSensorService;
@@ -80,8 +87,8 @@ class ReaderControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         areaSensorService = new AreaSensorService(areaSensorRepository);
+        readingService = new ReadingService(readingRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository);
-
         validReader = new ReaderController(areaSensorService, readingService, houseService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -815,38 +822,41 @@ class ReaderControllerTest {
     }
 
     @Test
-    void seeIfReadFileWorksWithTwoGA() {
+    void addReadingsToGeographicAreaSensorsWorks() { //TODO TERESA revisitar este teste
         //Arrange
-        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
 
-        GeographicAreaDTO firstGeographicAreaDTO = new GeographicAreaDTO();
-        firstGeographicAreaDTO.setName("ISEP");
-        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
-        firstGeographicAreaDTO.setLocalDTO(localDTO);
-        firstGeographicAreaDTO.setDescription("Campus do ISEP");
-        firstGeographicAreaDTO.setWidth(0.261);
-        firstGeographicAreaDTO.setLength(0.249);
-        firstGeographicAreaDTO.setAreaSensorDTOList(null);
-        firstGeographicAreaDTO.setTypeArea("urban area");
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setSensorId("TT");
+        readingDTO1.setUnit("C");
+        readingDTO1.setValue(2D);
+        readingDTO1.setDate(validDate1);
 
-        GeographicAreaDTO secondGeographicAreaDTO = new GeographicAreaDTO();
-        secondGeographicAreaDTO.setName("Porto");
-        LocalDTO localDTO2 = new LocalDTO(41.149935, -8.610857, 118);
-        secondGeographicAreaDTO.setLocalDTO(localDTO2);
-        secondGeographicAreaDTO.setDescription("City of Porto");
-        secondGeographicAreaDTO.setWidth(10.09);
-        secondGeographicAreaDTO.setLength(3.30);
-        secondGeographicAreaDTO.setTypeArea("city");
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setSensorId("TT");
+        readingDTO2.setUnit("C");
+        readingDTO2.setValue(2D);
+        readingDTO2.setDate(validDate3);
 
-        expectedResult.add(firstGeographicAreaDTO);
-        expectedResult.add(secondGeographicAreaDTO);
+        readingDTOS.add(readingDTO1);
+        readingDTOS.add(readingDTO2);
+
+        AreaSensor sensor = new AreaSensor("TT", "Sensor", new SensorType(), new Local(2,2,2), validDate1,2L);
+
+        Mockito.when(areaSensorRepository.findById("TT")).thenReturn(Optional.of(sensor));
+        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, "TT")).thenReturn((null));
 
         //Act
 
-        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_TWO_GA.json");
+        int actualResult = validReader.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath);
 
         //Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(2, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileWorksWithTwoGA() {
+
     }
 }

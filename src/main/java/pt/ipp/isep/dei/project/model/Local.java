@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import javax.persistence.Embeddable;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -26,7 +27,7 @@ public class Local {
         setAltitude(altitude);
     }
 
-    protected Local() {
+    protected Local(SimpleDateFormat simpleDateFormat) {
     }
 
     /**

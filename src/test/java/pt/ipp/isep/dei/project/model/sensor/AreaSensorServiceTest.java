@@ -9,11 +9,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.services.units.Celsius;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,9 +29,11 @@ class AreaSensorServiceTest {
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor thirdValidAreaSensor;
+    private Date validDate1; // Date 21/11/2018
+    private Date validDate2; // Date 03/09/2018
 
     @Mock
-    private AreaSensorRepository areaSensorRepository;
+    AreaSensorRepository areaSensorRepository;
 
     private AreaSensorService validAreaSensorService; // Contains the first valid sensor by default.
 
@@ -39,15 +41,22 @@ class AreaSensorServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validAreaSensorService = new AreaSensorService(this.areaSensorRepository);
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
-                31, 1, 2), new Date(), 6008L);
+        validAreaSensorService = new AreaSensorService(areaSensorRepository);
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate2 = validSdf.parse("03/09/2018 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2,2,2), validDate1, 6008L);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
-                new Date(), 6008L);
+                validDate1, 6008L);
         secondValidAreaSensor.setActive(true);
         thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
-                new Date(), 6008L);
+                validDate1, 6008L);
         validAreaSensorService.add(firstValidAreaSensor);
     }
 
@@ -496,41 +505,29 @@ class AreaSensorServiceTest {
         assertFalse(actualResult3);
     }
 
-    @Test
-    void seeIfGetSensorsDistanceToHouse() {
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        GeographicArea validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
-                new Local(20, 12, 33));
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
-                2, 3, new Local(4, 4, 100)));
-        List<Double> expectedResult = new ArrayList<>();
-        expectedResult.add(2259.92026088549);
-
-        //Act
-        List<Double> actualResult = validAreaSensorService.getSensorsDistanceToHouse(validHouse);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-
-    }
-
-    @Test
-    void seeIfAddReadingToSensorInRepository() {
-        //Arrange
-        Date date = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-        Reading reading = new Reading(31, date, "C", "TEST");
-
-        //Assert
-        assertTrue(validAreaSensorService.addReadingToSensorInRepository(reading, firstValidAreaSensor));
-        assertFalse(validAreaSensorService.addReadingToSensorInRepository(reading, firstValidAreaSensor));
-
-    }
+//    @Test
+//    void seeIfGetSensorsDistanceToHouse() {
+//        //Arrange
+//        List<String> deviceTypeString = new ArrayList<>();
+//        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+//        GeographicArea validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
+//                new Local(20, 12, 33));
+//        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+//                "4455-125", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, deviceTypeString);
+//        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+//                2, 3, new Local(4, 4, 100)));
+//        List<Double> expectedResult = new ArrayList<>();
+//        expectedResult.add(2259.92026088549);
+//
+//        //Act
+//        List<Double> actualResult = validAreaSensorService.getSensorsDistanceToHouse(validHouse);
+//
+//        //Assert
+//        assertEquals(expectedResult, actualResult);
+//
+//    }
 
     @Test
     void seeIfRemoveSensor() {
@@ -540,7 +537,7 @@ class AreaSensorServiceTest {
     }
 
     @Test
-    void seeIfGetSensors(){
+    void seeIfGetSensors() {
         List<AreaSensor> expectedResult = new ArrayList<>();
         expectedResult.add(firstValidAreaSensor);
         assertEquals(expectedResult, validAreaSensorService.getAreaSensors());
@@ -576,4 +573,86 @@ class AreaSensorServiceTest {
 //        assertFalse(failedResult);
 //        assertFalse(failedResult2);
 //    }
+
+    @Test
+    void seeIfSensorExistsInRepositoryWorks() {
+        //Arrange
+
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.sensorExistsInRepository(sensorId);
+
+        //Assert
+
+        assertTrue(actualResult1);
+    }
+
+    @Test
+    void seeIfSensorExistsInRepositoryWorksWhenSensorIsNotInRepository() {
+        //Arrange
+
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.empty());
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.sensorExistsInRepository(sensorId);
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+    @Test
+    void seeIfSensorFromRepositoryIsActiveWorks() {
+        //Arrange
+
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.sensorFromRepositoryIsActive(sensorId, validDate1);
+
+        //Assert
+
+        assertTrue(actualResult1);
+    }
+
+    @Test
+    void seeIfSensorFromRepositoryIsActiveWorksWhenSensorStartsAfterReading() {
+        //Arrange
+
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.sensorFromRepositoryIsActive(sensorId, validDate2);
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+    @Test
+    void seeIfSensorFromRepositoryIsActiveWorksWhenSensorDoesNotExist() {
+        //Arrange
+
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.sensorFromRepositoryIsActive(sensorId, validDate1);
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+
 }

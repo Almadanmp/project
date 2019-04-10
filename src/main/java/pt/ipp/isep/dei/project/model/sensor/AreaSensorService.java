@@ -270,19 +270,25 @@ public class AreaSensorService {
     }
 
     /**
-     * This method receives a Area Reading and a Area Sensor and tries to add the reading to the
-     * area sensor.
+     * This method receives a sensor ID and a Date checks if that sensor exists in the repository
+     * and if it was active at the moment of the given date.
      *
-     * @return true in case the reading is added to sensor, false otherwise.
+     * @param sensorID String of sensor ID
+     * @param date date to test
+     * @return true in case the sensor exists and it was active during the given date, false otherwise.
      **/
-    public boolean addReadingToSensorInRepository(Reading reading, AreaSensor areaSensor) {
-        if (areaSensor.addReading(reading)) {
-            areaSensorRepository.save(areaSensor);
-            return true;
+    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
+        if(value.isPresent()){
+            AreaSensor areaSensor = value.get();
+            Date startDate = areaSensor.getDateStartedFunctioning();
+            if(date.equals(startDate) || date.after(startDate)){
+                return true;
+            }
+            return false;
         }
         return false;
     }
-
 
     public boolean remove(AreaSensor areaSensor) {
         if (this.contains(areaSensor)) {
