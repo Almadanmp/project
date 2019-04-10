@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class KelvinTest {
 
@@ -110,6 +110,44 @@ class KelvinTest {
         // Act
 
         double actualResult = unit.toUserDefault(valueToConvert);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfEqualsConditionsWork(){
+        // Arrange
+
+        Celsius celsius = new Celsius();
+        Kelvin kelvin = new Kelvin();
+
+        // Act
+
+        boolean actualResult1 = kelvin.equals(celsius); // Necessary for sonarqube coverage
+        boolean actualResult2 = kelvin.equals(null); // Necessary for sonarqube coverage
+        boolean actualResult3 = kelvin.equals(new Kelvin());
+
+        // Assert
+
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertTrue(actualResult3);
+
+    }
+
+    @Test
+    void hashcodeDummyTest(){
+        // Arrange
+
+        Kelvin kelvin = new Kelvin();
+        int expectedResult = 1;
+
+        // Act
+
+        int actualResult = kelvin.hashCode();
 
         // Assert
 

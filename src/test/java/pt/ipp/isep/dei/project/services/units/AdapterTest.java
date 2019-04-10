@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AdapterTest {
 
@@ -174,7 +174,7 @@ class AdapterTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
-    }
 
+    }
 
 }
