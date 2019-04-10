@@ -17,7 +17,6 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
 
     public List<GeographicAreaDTO> readFile(String filePath) {
         List<GeographicAreaDTO> geographicAreaDTOS;
-
         List<GeographicAreaDTOWrapper> geoAreaDTOWrapperList;
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -27,29 +26,32 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
             GeographicAreaDTOWrapperList geographicAreaDTOWrapperList = objectMapper.readValue(file, GeographicAreaDTOWrapperList.class);
             geoAreaDTOWrapperList = geographicAreaDTOWrapperList.getGeoAreaDTOWrapperList();
             geographicAreaDTOS = GeographicAreaDTOWrapper.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
-            setAreaSensorDTOS(file,geographicAreaDTOS);
+           // setAreaSensorDTOS(file,geographicAreaDTOS);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
         return geographicAreaDTOS;
     }
 
-    private void setAreaSensorDTOS(File file, List<GeographicAreaDTO> geographicAreaDTOS) {
+    public List<AreaSensorDTO> setAreaSensorDTOS(String filePath) {
         List<AreaSensorDTOWrapper> areaSensorDTOWrappers;
         List<AreaSensorDTO> sensorDTOS;
-
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
+            File file = new File(filePath);
             AreaSensorDTOWrapperList areaSensorDTOWrapperList = objectMapper.readValue(file, AreaSensorDTOWrapperList.class);
             areaSensorDTOWrappers = areaSensorDTOWrapperList.getGeoAreaDTOWrapperList();
             sensorDTOS = GeographicAreaDTOWrapper.areaSensorDTOWrapperConversion(areaSensorDTOWrappers);
-            for (GeographicAreaDTO dto : geographicAreaDTOS) {
-                dto.setAreaSensorDTOList(sensorDTOS);
-            }
+        //    for (AreaSensorDTO sensorDTO : sensorDTOS) {
+         //       for (GeographicAreaDTO dto : geographicAreaDTOS) {
+          //          sensorDTO.setGeographicAreaID(dto.getId());
+          //      }
+          //  }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
+        return sensorDTOS;
     }
 }
