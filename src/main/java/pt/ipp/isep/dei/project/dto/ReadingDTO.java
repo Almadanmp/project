@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.services.units.Unit;
 
 import java.util.Date;
 

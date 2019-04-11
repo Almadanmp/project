@@ -5,9 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class JSONSensorsReader implements Reader {
                 importedSensor.setUnits(sensorUnit);
                 importedSensor.setRoomID(roomID);
                 importedSensor.setId(sensorID);
+                importedSensor.setActive(true);
                 result.add(importedSensor);
             }
             catch (NullPointerException ok){
@@ -52,11 +54,14 @@ public class JSONSensorsReader implements Reader {
 
     public JSONArray readFile(String filePath) {
         try {
-            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(filePath);
+            File file = new File(filePath);
+            String absolutePath = file.getAbsolutePath();
+            File abFile = new File(absolutePath);
+            InputStream stream = new FileInputStream(abFile);
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             return getElementArray(object);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | FileNotFoundException e) {
             throw new IllegalArgumentException();
         }
     }

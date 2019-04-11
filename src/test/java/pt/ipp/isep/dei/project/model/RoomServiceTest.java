@@ -48,7 +48,7 @@ class RoomServiceTest {
 //    void seeIfAddPersistenceRoomWorks() {
 //        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3);
 //
-//        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
+//        Mockito.when(roomRepository.findByRoomName(room.getName())).thenReturn(room);
 ////Assert
 //        assertTrue(validRoomService.addPersistence(room));
 //    }

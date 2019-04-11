@@ -261,13 +261,12 @@ class HouseConfigurationUI {
      */
 
     private void runUS265(HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
-        String logPath = VALID_LOG_PATH;
         InputHelperUI inputHUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputHUI.getInputPathJsonOrXML(result);
-        int importedReadings = controller.readReadingListFromFile(readingService, filePath, logPath, houseSensorRepository, readingRepository);
+        int importedReadings = controller.readReadingListFromFile(readingService, filePath, VALID_LOG_PATH, houseSensorRepository, readingRepository);
         System.out.println(importedReadings + " Readings successfully imported.");
     }
 
