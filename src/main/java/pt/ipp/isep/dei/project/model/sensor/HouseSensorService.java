@@ -121,6 +121,19 @@ public class HouseSensorService {
         return false;
     }
 
+
+    public boolean addWithPersistence(HouseSensor sensorToAdd) {
+        Optional<HouseSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
+        if (aux.isPresent()) {
+            HouseSensor sensor = aux.get();
+            sensor = sensorToAdd;
+            houseSensorRepository.save(sensor);
+        }
+        houseSensorRepository.save(sensorToAdd);
+        return true;
+    }
+
+
     public boolean sensorExistsInRepository(String sensorID) {
         Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
         return value.isPresent();

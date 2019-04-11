@@ -79,7 +79,7 @@ public final class AreaSensorMapper {
         // Update the reading list
 
         ReadingService objectReadingService = new ReadingService();
-        for (ReadingDTO r: dtoToConvert.getReadingList()){
+        for (ReadingDTO r: dtoToConvert.getReadingDTOS()){
             Reading tempReading = ReadingMapper.dtoToObject(r);
             objectReadingService.addReading(tempReading);
         }
@@ -165,7 +165,7 @@ public final class AreaSensorMapper {
         resultDTO.setName(dtoName);
         resultDTO.setId(dtoID);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
-        resultDTO.setReadingList(dtoReadingList);
+        resultDTO.setReadingDTOS(dtoReadingList);
         resultDTO.setGeographicAreaID(dtoGeographicAreaID);
 
         return resultDTO;

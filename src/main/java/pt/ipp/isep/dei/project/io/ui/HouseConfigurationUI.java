@@ -263,12 +263,14 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
-        int importedSensors = controller.readSensors(filePath, roomService, sensorService);
-        if(importedSensors==-1){
+        try {
+            int[] importedSensors = controller.readSensors(filePath, roomService, sensorService);
+            System.out.println(importedSensors[0] + " Sensors successfully imported and " + importedSensors[1] + " rejected." +
+                    " Check the application log for more info.");
+        } catch (IllegalArgumentException ok) {
             System.out.println("There's something wrong with the file provided. Please check it for syntax errors or " +
                     "empty elements.");
         }
-        System.out.println(importedSensors + " Sensors successfully imported.");
     }
 
     /*
@@ -301,40 +303,46 @@ class HouseConfigurationUI {
         }
     }
 
+    /*
+        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
+        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
+        registered in the application log.
+     */
+
     private void importReadingsFromCSV(String filePath) {
-        int result = 0;
+        int addedReadings = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
-            result = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
-        System.out.println(result + READINGS_IMPORTED);
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private void importReadingsFromJSON(String filePath) {
-        int result = 0;
+        int addedReadings = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
-            result = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
-        System.out.println(result + READINGS_IMPORTED);
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private void importReadingsFromXML(String filePath) {
-        int result = 0;
+        int addedReadings = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
-            result = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
-        System.out.println(result + READINGS_IMPORTED);
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings) {

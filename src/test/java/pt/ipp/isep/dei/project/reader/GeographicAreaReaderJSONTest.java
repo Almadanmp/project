@@ -56,7 +56,7 @@ class GeographicAreaReaderJSONTest {
         expectedResult.add(firstSensor);
         expectedResult.add(secondSensor);
 
-        List<AreaSensorDTO> result = validReader.readAreaSensorDTOS("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONE_GA_TWO_SENSORS.json");
+        //List<AreaSensorDTO> result = validReader.readAreaSensorDTOS("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONE_GA_TWO_SENSORS.json");
 
     //    assertEquals(expectedResult,result);
     }

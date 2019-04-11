@@ -15,11 +15,11 @@ public class AreaSensorDTO {
     private LocalDTO localDTO = new LocalDTO(latitude, longitude, altitude);
     private String dateStartedFunctioning;
     private boolean active;
-    private List<ReadingDTO> readingList;
+    private List<ReadingDTO> readingDTOS;
     private Long geographicAreaID;
 
     public AreaSensorDTO() {
-        readingList = new ArrayList<>();
+        readingDTOS = new ArrayList<>();
     }
 
     /**
@@ -218,12 +218,12 @@ public class AreaSensorDTO {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
-    public List<ReadingDTO> getReadingList() {
-        return readingList;
+    public List<ReadingDTO> getReadingDTOS() {
+        return readingDTOS;
     }
 
-    public void setReadingList(List<ReadingDTO> readingList) {
-        this.readingList = readingList;
+    public void setReadingDTOS(List<ReadingDTO> readingDTOS) {
+        this.readingDTOS = readingDTOS;
     }
 
     @Override

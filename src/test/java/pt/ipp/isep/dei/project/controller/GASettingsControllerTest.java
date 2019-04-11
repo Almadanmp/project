@@ -527,41 +527,41 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfInputSensorWorks() {
-//
-//        // Arrange
-//
-//        InputStream in = new ByteArrayInputStream("0".getBytes());
-//        System.setIn(in);
-//        AreaSensorDTO expectedResult = validAreaSensorDTO1;
-//
-//        // Act
-//
-//        AreaSensorDTO actualResult = controller.inputSensor(validGeographicAreaDTO, areaSensorService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfInputSensorWorks() {
+        // Arrange
 
-//    @Test
-//    void seeIfRemoveSensorWorks() {
-//
-//        // Arrange
-//
-//        GeographicAreaService expectedResult = validGeographicAreaService;
-//        expectedResult.get(0).removeSensor(validAreaSensor1);
-//
-//        // Act
-//
-//        controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
-//        GeographicAreaService actualResult = validGeographicAreaService;
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        AreaSensorDTO expectedResult = validAreaSensorDTO1;
+        areaSensorRepository.save(validAreaSensor1);
+
+        // Act
+
+        Mockito.when(areaSensorRepository.findById(validAreaSensor1.getId())).thenReturn(Optional.of(validAreaSensor1));
+        InputStream in = new ByteArrayInputStream(validAreaSensor1.getId().getBytes());
+        System.setIn(in);
+        AreaSensorDTO actualResult = controller.inputSensor(validGeographicAreaDTO, areaSensorService);
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+   @Test
+   void seeIfRemoveSensorWorks() {
+       // Arrange
+
+       List<AreaSensor> expectedResult = new ArrayList<>();
+
+       // Act
+
+       controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
+       List<AreaSensor> actualResult = areaSensorRepository.findAll();
+
+       // Assert
+
+       assertEquals(expectedResult.size(), actualResult.size());
+   }
 
 
     @Test

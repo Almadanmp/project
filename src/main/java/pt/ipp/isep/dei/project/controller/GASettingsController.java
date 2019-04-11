@@ -213,4 +213,3 @@ public class GASettingsController {
         areaSensorService.remove(areaSensor);
     }
 }
-
