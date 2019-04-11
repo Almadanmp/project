@@ -145,6 +145,10 @@ public class Room implements Metered {
         return houseFloor;
     }
 
+    public String getId() {
+        return roomName;
+    }
+
     /**
      * Method that gets the room's device list.
      *

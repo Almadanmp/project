@@ -121,13 +121,6 @@ public class EnergyGridService {
     }
 
     /**
-     * Getter (array of energy grids)
-     *
-     * @return array of energy grids
-     */
-
-
-    /**
      * Method to get a EnergyGrid from the Repository through a given id
      *
      * @param id selected id

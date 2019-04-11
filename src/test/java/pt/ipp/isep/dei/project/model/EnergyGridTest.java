@@ -71,7 +71,7 @@ class EnergyGridTest {
         // Arrange
 
         String expectedResult = "---------------\n" +
-                "0) Designation: Office | Description: 2nd Floor Office | House Floor: 2 | Width: 30.0 | Length: 30.0 | Height: 10.0\n" +
+                "Office) Designation: Office | Description: 2nd Floor Office | House Floor: 2 | Width: 30.0 | Length: 30.0 | Height: 10.0\n" +
                 "---------------\n";
 
         // Act

@@ -51,7 +51,7 @@ getRoomService()
 
 class RoomService{
 getRooms()
-
+}
 
 class Sensor{
 getId()

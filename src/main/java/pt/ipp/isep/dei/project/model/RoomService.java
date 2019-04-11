@@ -53,6 +53,15 @@ public class RoomService {
         }
     }
 
+    public boolean addPersistence (Room room){
+        Room room2 = roomRepository.findByName(room.getName());
+        if (room2 != null){
+            roomRepository.delete(room2);
+        }
+        roomRepository.save(room);
+        return true;
+    }
+
     /**
      * Method that returns a DeviceList with all the devices of the RoomList.
      *
@@ -85,7 +94,7 @@ public class RoomService {
                 return r;
             }
         }
-        return new Room(roomDesignation, roomDescription,roomHouseFloor, width, length, height, houseID, energyGridID);
+        return new Room(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
     }
 
     /**
@@ -98,14 +107,13 @@ public class RoomService {
         if (this.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < this.size(); i++) {
-            Room aux = this.get(i);
-            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
-            result.append("Description: ").append(aux.getDescription()).append(" | ");
-            result.append("House Floor: ").append(aux.getFloor()).append(" | ");
-            result.append("Width: ").append(aux.getWidth()).append(" | ");
-            result.append("Length: ").append(aux.getLength()).append(" | ");
-            result.append("Height: ").append(aux.getHeight()).append("\n");
+        for (Room r: this.rooms) {
+            result.append(r.getId()).append(") Designation: ").append(r.getName()).append(" | ");
+            result.append("Description: ").append(r.getDescription()).append(" | ");
+            result.append("House Floor: ").append(r.getFloor()).append(" | ");
+            result.append("Width: ").append(r.getWidth()).append(" | ");
+            result.append("Length: ").append(r.getLength()).append(" | ");
+            result.append("Height: ").append(r.getHeight()).append("\n");
 
         }
         result.append("---------------\n");
