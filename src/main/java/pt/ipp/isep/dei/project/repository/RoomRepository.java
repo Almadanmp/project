@@ -10,4 +10,5 @@ import java.util.List;
 public interface RoomRepository extends CrudRepository<Room, String> {
     List<Room> findAll();
 
+    Room findByRoomName(String name);
 }
