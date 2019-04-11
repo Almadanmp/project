@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONSensorsReader implements Reader {
+    /**
+     * Method that returns all the valid sensors in a given .json file. It filters out sensors without proper roomIDs
+     * and sensors with null elements.
+     * @param filepath is the path of the file where we want to import the sensors from.
+     * @return is the list of HouseSensorDTOs that were imported.
+     */
     public List<HouseSensorDTO> importSensors(String filepath) {
         List<HouseSensorDTO> result = new ArrayList<>();
         JSONArray importedArray = readFile(filepath); // Imports the whole file as an array.
@@ -46,12 +52,11 @@ public class JSONSensorsReader implements Reader {
 
     public JSONArray readFile(String filePath) {
         try {
-            File file = new File(filePath);
-            InputStream stream = new FileInputStream(file);
+            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(filePath);
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             return getElementArray(object);
-        } catch (IOException e) {
+        } catch (NullPointerException e) {
             throw new IllegalArgumentException();
         }
     }
