@@ -9,7 +9,7 @@ public final class AddressMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private AddressMapper() {
+    AddressMapper() {
     }
 
     /**
