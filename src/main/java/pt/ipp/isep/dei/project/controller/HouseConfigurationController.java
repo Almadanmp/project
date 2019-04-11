@@ -201,12 +201,18 @@ public class HouseConfigurationController {
                         c.getErrorOffset();
                     }
                 }
-                Reading importedReading = new Reading(doubleReadingValue, objectDate, readingUnit, readingSensorID);
+           //     List<Reading> dBreadings = readingRepository.findAll();
                 List<HouseSensor> sensors = houseSensorRepository.findAll();
+           //     for (Reading test : dBreadings) {
+           //         if (!sensor.getDateStartedFunctioning().after(objectDate) && test.getSensorId().equals(readingSensorID)) {
                 for (HouseSensor sensor : sensors) {
                     if (sensor.getId().equals(readingSensorID)) {
-                        if (readingService.addReadingToDB(importedReading, readingRepository)) {
-                            addedReadings++;
+                        if (!sensor.getDateStartedFunctioning().after(objectDate)) {
+                            Reading importedReading = new Reading(doubleReadingValue, objectDate, readingUnit, readingSensorID);
+                            //if (!readingService.readingExistsInRepository(readingSensorID,objectDate)) {
+                                readingService.addReadingToDB(importedReading,readingRepository);
+                                addedReadings++;
+                       //     }
                         }
                     }
                 }
@@ -218,9 +224,12 @@ public class HouseConfigurationController {
 
     public List<SimpleDateFormat> knownDatePatterns() {
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy", new Locale("en", "US")));
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "US")));
-        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US")));
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+        knownPatterns.add(dateFormat1);
+        knownPatterns.add(dateFormat2);
+        knownPatterns.add(dateFormat3);
         return knownPatterns;
     }
 }
