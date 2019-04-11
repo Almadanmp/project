@@ -14,9 +14,7 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
+import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -67,6 +66,18 @@ class ReaderControllerTest {
     @Mock
     GeographicAreaRepository geographicAreaRepository;
 
+    @Mock
+    HouseRepository houseRepository;
+
+    @Mock
+    RoomRepository roomRepository;
+
+    @Mock
+    EnergyGridRepository energyGridRepository;
+
+    @Mock
+    HouseSensorRepository houseSensorRepository;
+
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private GeographicAreaService geographicAreaService;
@@ -78,7 +89,9 @@ class ReaderControllerTest {
     void arrangeArtifacts() {
         areaSensorService = new AreaSensorService(areaSensorRepository);
         readingService = new ReadingService(readingRepository);
+        houseService = new HouseService(houseRepository,roomRepository,energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository);
+        houseSensorService = new HouseSensorService(houseSensorRepository);
         validReader = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -360,13 +373,24 @@ class ReaderControllerTest {
 
         expectedResult.add(geographicAreaDTO);
 
+        List<AreaSensorDTO> sensorDTOS = new ArrayList<>();
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setLocalDTO(localDTO);
+        areaSensorDTO.setUnits("C");
+        areaSensorDTO.setName("sensor");
+        areaSensorDTO.setDateStartedFunctioning("2015-05-21");
+        areaSensorDTO.setTypeSensor("temperature");
+
         //Act
 
         List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+        int result = validReader.addGeoAreasDTOToList(expectedResult,validGeographicAreaService,sensorDTOS,areaSensorService);
 
         //Assert
 
         assertEquals(expectedResult, actualResult);
+        assertEquals(1,result);
     }
     @Test
     void seeIfReadFileWorksWithOneGAAndOneSensor() {
@@ -392,7 +416,6 @@ class ReaderControllerTest {
         areaSensorDTO.setTypeSensor("rainfall");
         areaSensorDTO.setName("Meteo station ISEP - rainfall");
         areaSensorDTO.setId("RF12345");
-
 
         //Act
 
@@ -438,7 +461,13 @@ class ReaderControllerTest {
     }
 
     @Test
-    void seeIfReadFileWorksWithTwoGA() {
+    void readJSONAndDefineHouse(){
+        House house = new House();
 
+        boolean result = validReader.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_House.json");
+
+        assertTrue(result);
     }
+
+
 }

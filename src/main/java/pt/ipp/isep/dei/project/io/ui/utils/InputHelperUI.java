@@ -99,12 +99,12 @@ public class InputHelperUI {
             System.out.println(roomService.buildStringDB());
             String aux = scanner.nextLine();
             try {
-             Optional<Room> result = roomService.findByID(aux);
-             if(result.isPresent()) {
-                 System.out.println(SELECT_ROOMS);
-                 System.out.println(result.get().buildString() + "\n");
-                 return result.get();
-             }
+                Optional<Room> result = roomService.findByID(aux);
+                if (result.isPresent()) {
+                    System.out.println(SELECT_ROOMS);
+                    System.out.println(result.get().buildString() + "\n");
+                    return result.get();
+                }
 
             } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
@@ -267,13 +267,13 @@ public class InputHelperUI {
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(sensorTypeService.buildString());
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < sensorTypeService.size()) {
+            try {
                 SensorType result = sensorTypeService.getById(aux);
                 System.out.println("You have chosen the following sensor type:");
                 System.out.println("SensorType: " + result.getName());
                 System.out.println(result.buildString() + "\n");
                 return result;
-            } else {
+            } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }

@@ -424,9 +424,7 @@ class GASettingsUI {
         return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
     }
 
-    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
-        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list, areaSensorDTOS, listSensors);
-    }
+
 
 
     /**
@@ -445,24 +443,7 @@ class GASettingsUI {
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 
-    private void runUS15v3(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
-        InputHelperUI inputHelperUI = new InputHelperUI();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter a valid path.");
-        String result = scanner.next();
-        String filePath = inputHelperUI.getInputPathJsonOrXML(result);
-        if (filePath.endsWith(".json")) {
-            importGeoAreasFromJSON(filePath, geographicAreaService, areaSensorService);
-        }
-    }
 
-    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
-        int result;
-        List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
-        List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
-        result = addGeoAreasDTOToList(list, geographicAreaService, listSensor, areaSensorService);
-        System.out.println(result + " geographic area(s) successfully imported.");
-    }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
     private void printOptionMessage() {

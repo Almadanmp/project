@@ -204,7 +204,7 @@ class RoomConfigurationControllerTest {
         HouseSensor testAreaSensor = new HouseSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
         // Act
 
-        boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomWithDevices);
+        boolean actualResult = controller.addSensorToRoom(testAreaSensor, houseSensorService);
 
         // Assert
 

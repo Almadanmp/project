@@ -85,7 +85,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 8:
-                    runUS265v2(houseService);
+                    runUS265v2();
                     activeInput = false;
                     break;
                 case 0:
@@ -293,7 +293,7 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265v2(HouseService houseService) {
+    private void runUS265v2() {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
