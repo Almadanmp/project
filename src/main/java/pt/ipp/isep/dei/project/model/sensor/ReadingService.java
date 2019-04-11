@@ -652,7 +652,7 @@ public class ReadingService {
      * @param date     reading date
      * @return true in case the reading exists in the repository, false otherwise.
      **/
-    boolean readingExistsInRepository(String sensorID, Date date) {
+    public boolean readingExistsInRepository(String sensorID, Date date) {
         Reading reading = readingRepository.findReadingByDateEqualsAndSensorId(date, sensorID);
         return reading != null;
     }
@@ -671,10 +671,6 @@ public class ReadingService {
     }
 
     public boolean addReadingToDB(Reading reading, ReadingRepository readingRepository) {
-        Reading readingDB = readingRepository.findReadingByDateEqualsAndSensorId(reading.getDate(), reading.getSensorId());
-        if (readingDB != null) {
-            return false;
-        }
         readingRepository.save(reading);
         return true;
     }

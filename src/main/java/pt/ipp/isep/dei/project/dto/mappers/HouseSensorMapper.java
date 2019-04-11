@@ -53,9 +53,12 @@ public class HouseSensorMapper {
         Date objectDate = null;
         String objectDateStartedFunctioningString = dtoToConvert.getDateStartedFunctioning();
         List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy", new Locale("en", "US")));
-        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US")));
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "US")));
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+        knownPatterns.add(dateFormat1);
+        knownPatterns.add(dateFormat2);
+        knownPatterns.add(dateFormat3);
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 objectDate = pattern.parse(objectDateStartedFunctioningString);
