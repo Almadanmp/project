@@ -32,7 +32,7 @@ Administrator -> MainUI:run()
 activate MainUI
 MainUI -> HouseConfigurationUI: runUS265
 activate HouseConfigurationUI
-HouseConfigurationUI -> "HouseConfigurationController": importReadingListFromFile
+HouseConfigurationUI -> "HouseConfigurationController": readReadingListFromFile
 activate HouseConfigurationController
 HouseConfigurationController -> "Reader": importHouseSensorReadingService
 activate Reader

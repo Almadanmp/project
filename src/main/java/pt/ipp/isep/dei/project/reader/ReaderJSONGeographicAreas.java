@@ -4,13 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -71,14 +69,16 @@ public class ReaderJSONGeographicAreas implements Reader {
             JSONObject local = geoAreas.getJSONObject(i).getJSONObject("location");
             String areaID = area.getString("id");
             String areaDescription = area.getString("description");
-            AreaType areaType = new AreaType(area.getString("type"));
+            String areaType = (area.getString("type"));
             double areaWidth = area.getDouble("width");
             double areaLength = (area.getDouble("length"));
             double areaLatitude = local.getDouble(LATITUDE);
             double areaLongitude = local.getDouble(LONGITUDE);
             double areaAltitude = local.getDouble(ALTITUDE);
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
-            GeographicArea areaObject = new GeographicArea(areaID, areaType, areaWidth, areaLength, location);
+
+            GeographicArea areaObject = list.createGA(areaID, areaType, areaWidth, areaLength, location);
+
             areaObject.setDescription(areaDescription);
             JSONArray areaSensors = area.getJSONArray("area_sensor");
             if (list.addAndPersistGA(areaObject)) {
@@ -114,7 +114,6 @@ public class ReaderJSONGeographicAreas implements Reader {
             }
             String sensorType = sensor.getString("type");
             String sensorUnits = sensor.getString("units");
-            SensorType type = new SensorType(sensorType, sensorUnits);
             JSONObject sensorLocal = areaSensor.getJSONObject("location");
             double sensorLatitude = sensorLocal.getDouble(LATITUDE);
             double sensorLongitude = sensorLocal.getDouble(LONGITUDE);
@@ -122,7 +121,9 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             Long gaID = geographicArea.getId();
-            AreaSensor areaSensorObject = new AreaSensor(sensorId, sensorName, type, local, date, gaID);
+
+            AreaSensor areaSensorObject = areaSensorService.createSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+
             areaSensorService.addWithPersist(areaSensorObject);
             entriesChecked++;
         }

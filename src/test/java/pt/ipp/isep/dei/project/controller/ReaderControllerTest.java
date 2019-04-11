@@ -29,8 +29,9 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -78,6 +79,9 @@ class ReaderControllerTest {
     @Mock
     HouseSensorRepository houseSensorRepository;
 
+    @Mock
+    AreaTypeRepository areaTypeRepository;
+
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private GeographicAreaService geographicAreaService;
@@ -89,8 +93,8 @@ class ReaderControllerTest {
     void arrangeArtifacts() {
         areaSensorService = new AreaSensorService(areaSensorRepository);
         readingService = new ReadingService(readingRepository);
-        houseService = new HouseService(houseRepository,roomRepository,energyGridRepository);
-        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository);
+        houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
+        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository);
         houseSensorService = new HouseSensorService(houseSensorRepository);
         validReader = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
@@ -129,9 +133,9 @@ class ReaderControllerTest {
         validAreaSensorService2.add(validAreaSensor4);
         validGeographicArea.setSensorList(validAreaSensorService);
         validGeographicArea2.setSensorList(validAreaSensorService2);
-        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository);
-        validGeographicAreaService2 = new GeographicAreaService(geographicAreaRepository);
-        validGeographicAreaServiceNoSensors = new GeographicAreaService(geographicAreaRepository);
+        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+        validGeographicAreaService2 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+        validGeographicAreaServiceNoSensors = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         validGeographicAreaServiceNoSensors.addGeographicArea(emptyGeographicArea);
         validGeographicAreaService.addGeographicArea(validGeographicArea);
         validGeographicAreaService.addGeographicArea(validGeographicArea2);
@@ -158,13 +162,13 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksZeroAreas() {
         // Arrange
 
-        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
         // Act
 
         File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService,readingService,houseService, houseSensorService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService, houseService, houseSensorService);
 
         // Assert
 
@@ -175,13 +179,13 @@ class ReaderControllerTest {
     @Test
     void seeIfReadFileXMLGeoAreaWorksWithoutGeoAreas() {
         // Arrange
-        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
         // Act
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService,houseService, houseSensorService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService, houseService, houseSensorService);
 
         // Assert
 
@@ -206,24 +210,24 @@ class ReaderControllerTest {
         assertEquals(result, -1);
     }
 
-    @Test
-    void seeIfAcceptPathWorksJSON() {
-        // Arrange
-
-        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-        GeographicAreaService geographicAreaList1 = new GeographicAreaService(geographicAreaRepository);
-        ReaderController readerController = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
-
-        // Act
-
-        int result = readerController.acceptPath(absolutePath, geographicAreaList1);
-
-        // Assert
-
-        assertEquals(result, 2);
-    }
+//    @Test
+//    void seeIfAcceptPathWorksJSON() {
+//        // Arrange
+//
+//        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
+//        File fileToRead = new File(input);
+//        String absolutePath = fileToRead.getAbsolutePath();
+//        GeographicAreaService geographicAreaList1 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+//        ReaderController readerController = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
+//
+//        // Act
+//
+//        int result = readerController.acceptPath(absolutePath, geographicAreaList1);
+//
+//        // Assert
+//
+//        assertEquals(result, 2);
+//    }
 
     @Test
     void seeIfReadFileWorks() {
@@ -232,7 +236,7 @@ class ReaderControllerTest {
 
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
         geographicAreaDTO.setName("ISEP");
-        LocalDTO localDTO = new LocalDTO(41.178553,-8.608035,111);
+        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
         geographicAreaDTO.setLocalDTO(localDTO);
         geographicAreaDTO.setDescription("Campus do ISEP");
         geographicAreaDTO.setWidth(0.261);
@@ -255,7 +259,7 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorks() {
         // Arrange
 
-        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
         // Act
 
@@ -292,7 +296,7 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksWithAnotherDateFormat() {
         // Arrange
 
-        GeographicAreaService geographicAreaList3 = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService geographicAreaList3 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
         // Act
 
@@ -306,22 +310,22 @@ class ReaderControllerTest {
 
         // Get one of the areas to  check its contents.
 
-    //    GeographicArea actualArea = geographicAreaList3.getAll().get(0);
-    //    AreaSensorService firstAreaSensors = actualArea.getSensorList();
+        //    GeographicArea actualArea = geographicAreaList3.getAll().get(0);
+        //    AreaSensorService firstAreaSensors = actualArea.getSensorList();
 
         // Declare expected area / sensors.
 
-    //    AreaSensorService expectedSensors = new AreaSensorService();
-     //   expectedSensors.add(actualArea.getSensorList().get(0));
-     //   expectedSensors.add(actualArea.getSensorList().get(1));
+        //    AreaSensorService expectedSensors = new AreaSensorService();
+        //   expectedSensors.add(actualArea.getSensorList().get(0));
+        //   expectedSensors.add(actualArea.getSensorList().get(1));
 
-     //   GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
-     //           0.261, new Local(41.178553, -8.608035, 139));
+        //   GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
+        //           0.261, new Local(41.178553, -8.608035, 139));
 
         // Assert
 
-     //   assertEquals(expectedArea, actualArea);
-     //   assertEquals(expectedSensors, firstAreaSensors);
+        //   assertEquals(expectedArea, actualArea);
+        //   assertEquals(expectedSensors, firstAreaSensors);
     }
 
     @Test
@@ -343,7 +347,7 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
         // Arrange
 
-        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
         // Act
 
@@ -385,13 +389,14 @@ class ReaderControllerTest {
         //Act
 
         List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-        int result = validReader.addGeoAreasDTOToList(expectedResult,validGeographicAreaService,sensorDTOS,areaSensorService);
+        int result = validReader.addGeoAreasDTOToList(expectedResult, validGeographicAreaService, sensorDTOS, areaSensorService);
 
         //Assert
 
         assertEquals(expectedResult, actualResult);
-        assertEquals(1,result);
+        assertEquals(1, result);
     }
+
     @Test
     void seeIfReadFileWorksWithOneGAAndOneSensor() {
         //Arrange
@@ -446,7 +451,7 @@ class ReaderControllerTest {
         readingDTOS.add(readingDTO1);
         readingDTOS.add(readingDTO2);
 
-        AreaSensor sensor = new AreaSensor("TT", "Sensor", new SensorType(), new Local(2,2,2), validDate1,2L);
+        AreaSensor sensor = new AreaSensor("TT", "Sensor", new SensorType(), new Local(2, 2, 2), validDate1, 2L);
 
         Mockito.when(areaSensorRepository.findById("TT")).thenReturn(Optional.of(sensor));
         Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, "TT")).thenReturn((null));
@@ -461,13 +466,20 @@ class ReaderControllerTest {
     }
 
     @Test
-    void readJSONAndDefineHouse(){
-        House house = new House();
-
-        boolean result = validReader.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_House.json");
-
-        assertTrue(result);
+    void seeIfReadJSONAndDefineHouseWorks() {
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
+        assertTrue(validReader.readJSONAndDefineHouse(house, filePath));
     }
+    @Test
+    void seeIfReadJSONAndDefineHouseThrowsException() {
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
+        assertThrows(IllegalArgumentException.class,
+                () -> validReader.readJSONAndDefineHouse(house,filePath));
 
+    }
 
 }

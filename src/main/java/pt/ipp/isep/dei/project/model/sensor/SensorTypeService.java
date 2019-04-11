@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * This class represents a collection of Sensor Types
@@ -33,9 +35,9 @@ public class SensorTypeService {
      * @return true in case the type sensor is added, false otherwise
      **/
     public boolean add(SensorType type) {
-        SensorType sensorType = sensorTypeRepository.findByName(type.getName());
-        if (sensorType != null) {
-            sensorTypeRepository.delete(sensorType);
+        Optional<SensorType> sensorType = sensorTypeRepository.findByName(type.getName());
+        if (sensorType.isPresent()) {
+            sensorTypeRepository.delete(sensorType.get());
         }
         sensorTypeRepository.save(type);
         return true;

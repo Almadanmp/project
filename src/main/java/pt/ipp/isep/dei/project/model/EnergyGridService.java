@@ -109,6 +109,10 @@ public class EnergyGridService {
         return energyGridRepository.findAll().size();
     }
 
+    public int gridsSize() {
+        return energyGrids.size();
+    }
+
 
     /**
      * This method receives an index as parameter and gets energy grid from energy grid list.

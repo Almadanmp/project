@@ -115,4 +115,22 @@ public class AreaSensorAttributeWrapper {
     public void setDateStartedFunctioning(String dateStartedFunctioning) {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
+
+
+    @Override
+    public boolean equals(Object testDTO) {
+        if (this == testDTO) {
+            return true;
+        }
+        if (!(testDTO instanceof AreaSensorAttributeWrapper)) {
+            return false;
+        }
+        AreaSensorAttributeWrapper localVariable = (AreaSensorAttributeWrapper) testDTO;
+        return (localVariable.getId().equals(this.id));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

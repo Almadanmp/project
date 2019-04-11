@@ -5,7 +5,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.HouseService;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
@@ -42,7 +45,6 @@ public class ReaderXMLGeoArea {
      */
     public boolean readGeographicAreasXML(Node node, GeographicAreaService list, AreaSensorService areaSensorService) {
         boolean result = false;
-        GeographicArea geoArea;
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             String description = getTagValue("description", element);
@@ -52,14 +54,14 @@ public class ReaderXMLGeoArea {
             Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
                     Double.parseDouble(getTagValue(ALTITUDE, element)));
-            AreaType areaType = new AreaType(getTagValue("type", element));
-            geoArea = new GeographicArea(id, areaType, length, width, local);
-            geoArea.setDescription(description);
+            String areaType = (getTagValue("type", element));
+            GeographicArea areaObject = list.createGA(id, areaType, width, length, local);
+            areaObject.setDescription(description);
             NodeList nListSensor = element.getElementsByTagName("sensor");
-            result = list.addAndPersistGA(geoArea);
+            result = list.addAndPersistGA(areaObject);
             if (result) {
                 for (int j = 0; j < nListSensor.getLength(); j++) {
-                    areaSensorService.addWithPersist(readSensorsXML(nListSensor.item(j), geoArea));
+                    areaSensorService.addWithPersist(readSensorsXML(nListSensor.item(j), areaObject));
                 }
             }
         }

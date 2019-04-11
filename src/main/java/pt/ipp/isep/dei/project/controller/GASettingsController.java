@@ -80,7 +80,7 @@ public class GASettingsController {
      * @return success if a new GA is added, false otherwise
      */
     public boolean addNewGeoAreaToList(GeographicAreaService newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
-        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
+        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), geoAreaDTO.getTypeArea(),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), LocalMapper.dtoToObject(localDTO));
         if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 LocalMapper.dtoToObject(localDTO)))) {

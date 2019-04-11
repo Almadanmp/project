@@ -9,7 +9,7 @@ public final class AddressMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private AddressMapper() {
+    AddressMapper() {
     }
 
     /**
@@ -35,10 +35,7 @@ public final class AddressMapper {
 
         // Create, update and return new object
 
-        Address resultObject = new Address(objectStreet, objectNumber, objectZip, objectTown, objectCountry);
-
-
-        return resultObject;
+        return new Address(objectStreet, objectNumber, objectZip, objectTown, objectCountry);
     }
 
     /**

@@ -5,11 +5,12 @@ import org.springframework.stereotype.Repository;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SensorTypeRepository extends CrudRepository<SensorType, Long> {
 
-    SensorType findByName(String name);
+    Optional<SensorType> findByName(String name);
 
     List<SensorType> findAll();
 }

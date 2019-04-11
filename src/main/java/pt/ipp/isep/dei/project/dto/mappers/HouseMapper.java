@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HouseMapper {
+public final class HouseMapper {
 
     /**
      * Don't let anyone instantiate this class.
@@ -104,15 +104,14 @@ public class HouseMapper {
         LocalDTO dtoLocal = LocalMapper.objectToDTO(objectToConvert.getLocation());
 
         List<EnergyGridDTO> dtoGridList = new ArrayList<>();
-        for (int y = 0; y < objectToConvert.getGridList().size(); y++) {
+        for (int y = 0; y < objectToConvert.getGridList().gridsSize(); y++) {
             EnergyGrid energyGrid = objectToConvert.getGridList().get(y);
             dtoGridList.add(EnergyGridMapper.objectToDTO(energyGrid));
         }
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (int y = 0; y < objectToConvert.getRoomService().sizeDB(); y++) {
-            Room room = objectToConvert.getRoomService().get(y);
-            dtoRoomList.add(RoomMapper.objectToDTO(room));
+        for(Room r: objectToConvert.getRoomService().getRooms()){
+            dtoRoomList.add(RoomMapper.objectToDTO(r));
         }
 
         GeographicAreaDTO dtoGeoArea = GeographicAreaMapper.objectToDTO(objectToConvert.getMotherArea());

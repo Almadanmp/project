@@ -45,8 +45,8 @@ public class AreaTypeService {
      * @return true or false if the save was successful
      */
     public boolean add(AreaType type) {
-        AreaType typeArea = areaTypeRepository.findByName(type.getName());
-        if (typeArea != null) {
+        Optional<AreaType> value = areaTypeRepository.findByName(type.getName());
+        if (value.isPresent()) {
             return false;
         }
         areaTypeRepository.save(type);

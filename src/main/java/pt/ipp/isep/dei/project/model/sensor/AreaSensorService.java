@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.model.sensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.*;
 
@@ -15,6 +17,9 @@ public class AreaSensorService {
 
     @Autowired
     AreaSensorRepository areaSensorRepository;
+
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
 
     private List<AreaSensor> areaSensors;
 
@@ -68,7 +73,7 @@ public class AreaSensorService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-     AreaSensorService getSensorsWithReadings() {
+    AreaSensorService getSensorsWithReadings() {
         AreaSensorService finalList = new AreaSensorService();
         if (this.areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -251,7 +256,7 @@ public class AreaSensorService {
      * if there is no sensor with that ID.
      */
 
-     boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
+    boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
@@ -274,7 +279,7 @@ public class AreaSensorService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-     boolean sensorExistsInRepository(String sensorID) {
+    boolean sensorExistsInRepository(String sensorID) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         return value.isPresent();
     }
@@ -287,7 +292,7 @@ public class AreaSensorService {
      * @param date     date to test
      * @return true in case the sensor exists and it was active during the given date, false otherwise.
      **/
-     boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+    boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
@@ -309,6 +314,28 @@ public class AreaSensorService {
         return false;
     }
 
+    public AreaSensor createSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
+                                   Long geographicAreaId) {
+
+        SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
+        sensorTypeRepository.save(sensorType);
+
+        return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
+    }
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param name selected name
+     * @return Type Area corresponding to the given id
+     */
+    public SensorType getTypeSensorByName(String name, String unit) {
+        Optional<SensorType> value = sensorTypeRepository.findByName(name);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        return new SensorType(name, unit);
+    }
 
     /**
      * Getter (array of sensors)

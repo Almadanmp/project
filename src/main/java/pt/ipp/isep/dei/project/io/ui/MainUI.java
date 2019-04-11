@@ -68,6 +68,8 @@ public class MainUI {
     SensorTypeRepository sensorTypeRepository;
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
+    @Autowired
+    AreaTypeRepository areaTypeRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -130,7 +132,7 @@ public class MainUI {
             House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
-            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository);
+            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
             //MAIN CODE
 
