@@ -136,6 +136,15 @@ public class HouseConfigurationController {
         }
     }
 
+    /**
+     * Method that takes a list of houseSensorDTOs, checks if the rooms they belong to exist in the program's
+     * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
+     * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
+     * @param roomRepository is the service making the connection to the room repository.
+     * @param sensorRepository is the service making the connection to the houseSensor repository.
+     * @return is the number of sensors successfully added to the persistence layer.
+     */
+
     private int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
             sensorRepository) {
         int addedSensors = 0;
