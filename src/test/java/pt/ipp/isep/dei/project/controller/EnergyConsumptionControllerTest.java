@@ -3,6 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
@@ -14,17 +18,21 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * EnergyConsumptionController tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class EnergyConsumptionControllerTest {
 
     // Common artifacts for testing in this class.
@@ -44,8 +52,14 @@ class EnergyConsumptionControllerTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
 
+    @Mock
+    private RoomRepository roomRepository;
+
+    private RoomService roomService;
+
     @BeforeEach
     void arrangeArtifacts() {
+        roomService = new RoomService(this.roomRepository);
         validRoom1 = new Room("Kitchen","Ground Floor Kitchen" ,0, 35, 40, 20,"Room1","Grid1");
         validRoom2 = new Room("Bathroom","2nd Floor Bathroom", 2, 15, 20, 10,"Room1","Grid1");
         validDevice1.setName("WaterHeater");
@@ -82,40 +96,43 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void seeIfRoomDevicesGetRemovedFromDeviceList() {
-
-        //Arrange
+        // Arrange
 
         DeviceList deviceList1 = new DeviceList();
         deviceList1.add(validDevice1);
         deviceList1.add(validDevice2);
         deviceList1.add(validDevice3);
 
-        //Act
+        // Act
+
         boolean actualResult = controller.removeRoomDevicesFromDeviceList(validRoom1, deviceList1);
 
-        //Assert
+        // Assert
+        
         assertTrue(actualResult);
 
     }
 
     @Test
     void seeIfRemoveRoomDevicesFromDeviceListIsFalseNullList() {
-
-        //Act
+        // Act
+        
         boolean actualResult = controller.removeRoomDevicesFromDeviceList(validRoom1, null);
 
-        //Assert
+        // Assert
+        
         assertFalse(actualResult);
 
     }
 
     @Test
     void seeIfAddRoomDevicesToDeviceListIsFalseNullList() {
-
-        //Act
+        // Act
+        
         boolean actualResult = controller.removeRoomDevicesFromDeviceList(validRoom1, null);
 
-        //Assert
+        // Assert
+        
         assertFalse(actualResult);
 
     }
@@ -144,122 +161,130 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void seeIfAddRoomToListWorks() {
-
-        //Arrange
+        // Arrange
+        
         RoomService roomService = new RoomService();
 
-        //Act
+        // Act
+        
         boolean actualResult = controller.addRoomToList(validRoom1, roomService);
 
-        //Assert
+        // Assert
+        
         assertTrue(actualResult);
 
     }
 
-//    @Test
-//    void seeIfRemoveRoomFromListWorks() {
-//
-//        //Arrange
-//        RoomService roomService = new RoomService();
-//        roomService.add(validRoom1);
-//
-//        //Act
-//        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
-//
-//        //Assert
-//        assertTrue(actualResult);
-//
-//    }
+    @Test
+    void seeIfRemoveRoomFromListWorks() {
+        // Arrange
 
-//    @Test
-//    void seeIfRemoveRoomFromListWorksFalse() {
-//
-//        //Arrange
-//
-//        RoomService roomService = new RoomService();
-//        EnergyConsumptionController controller = new EnergyConsumptionController();
-//
-//        //Act
-//        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
-//
-//        //Assert
-//        assertFalse(actualResult);
-//
-//    }
+        roomService.add(validRoom1);
+        Mockito.when(roomRepository.findById(validRoom1.getId())).thenReturn(Optional.of(validRoom1));
+
+        // Act
+
+        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
+
+        // Assert
+
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveRoomFromListWorksFalse() {
+        // Act
+
+        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
+
+        // Assert
+
+        assertFalse(actualResult);
+
+    }
 
     @Test
     void seeIfAddRoomToListWorksFalse() {
-
-        //Arrange
+        // Arrange
 
         RoomService roomService = new RoomService();
         roomService.add(validRoom1);
 
-        //Act
+        // Act
+        
         boolean actualResult = controller.addRoomToList(validRoom1, roomService);
 
-        //Assert
+        // Assert
+        
         assertFalse(actualResult);
 
     }
 
     @Test
     void seeIfAddDeviceToListWorks() {
-
-        //Arrange
+        // Arrange
+        
         DeviceList deviceList = new DeviceList();
 
-        //Act
+        // Act
+        
         boolean actualResult = controller.addDeviceToList(validDevice1, deviceList);
 
-        //Assert
+        // Assert
+        
         assertTrue(actualResult);
 
     }
 
+
+
     @Test
     void seeIfAddDeviceToListWorksFalse() {
-
-        //Arrange
+        // Arrange
 
         DeviceList deviceList = new DeviceList();
         deviceList.add(validDevice1);
 
-        //Act
+        // Act
+        
         boolean actualResult = controller.addDeviceToList(validDevice1, deviceList);
 
-        //Assert
+        // Assert
+        
         assertFalse(actualResult);
 
     }
 
     @Test
     void seeIfRemoveDeviceFromListWorksFalse() {
-
-        //Arrange
+        // Arrange
 
         DeviceList deviceList = new DeviceList();
 
-        //Act
+        // Act
+        
         boolean actualResult = controller.removeDeviceFromList(validDevice1, deviceList);
 
-        //Assert
+        // Assert
+        
         assertFalse(actualResult);
 
     }
 
     @Test
     void seeIfRemoveDeviceFromListWorks() {
-
-        //Arrange
+        // Arrange
 
         DeviceList deviceList = new DeviceList();
         deviceList.add(validDevice1);
 
-        //Act
+        // Act
+        
         boolean actualResult = controller.removeDeviceFromList(validDevice1, deviceList);
 
-        //Assert
+        // Assert
+        
         assertTrue(actualResult);
 
     }
@@ -267,8 +292,7 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void seeIfGetSumNominalPowerFromListWorks() {
-
-        //Arrange
+        // Arrange
 
         DeviceList deviceList = new DeviceList();
         deviceList.add(validDevice1);
@@ -276,34 +300,38 @@ class EnergyConsumptionControllerTest {
         deviceList.add(validDevice3);
         double expectedResult = 86;
 
-        //Act
+        // Act
+        
         double actualResult = controller.getSelectionNominalPower(deviceList);
 
-        //Assert
+        // Assert
+        
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetSumNominalPowerFromListWorksZero() {
-
-        //Arrange
+        // Arrange
 
         DeviceList deviceList = new DeviceList();
         double expectedResult = 0;
 
-        //Act
+        // Act
+        
         double actualResult = controller.getSelectionNominalPower(deviceList);
 
-        //Assert
+        // Assert
+        
         assertEquals(expectedResult, actualResult);
+        
     }
 
     //US721 TESTS
 
     @Test
     void seeIfGetHouseGridListWorks() {
-
-        //Arrange
+        // Arrange
+        
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431","4200-072", "Porto","Portugal");
@@ -318,18 +346,20 @@ class EnergyConsumptionControllerTest {
         houseGrid.addGrid(testGrid);
         house.setGridList(houseGrid);
 
-        //Act
+        // Act
 
         EnergyGridService actualResult = controller.getHouseGridList(house);
 
-        //Assert
+        // Assert
 
         assertEquals(houseGrid, actualResult);
+        
     }
 
     @Test
     void seeIfGetRoomConsumptionInIntervalWorks() {
-        //Arrange
+        // Arrange
+        
         Date initialTime = new Date();
         try {
             initialTime = validSdf.parse("20/11/2018 10:02:00");
@@ -347,11 +377,13 @@ class EnergyConsumptionControllerTest {
         validRoom1.addDevice(validDevice1);
         double expectedResult = 56;
 
-        //Act
+        // Act
+        
         double actualResult = controller.getRoomConsumptionInInterval(validRoom1, initialTime, finalTime);
 
 
-        //Assert
+        // Assert
+        
         assertEquals(expectedResult, actualResult);
     }
 
@@ -360,8 +392,7 @@ class EnergyConsumptionControllerTest {
 
     @Test
     void getDailyHouseConsumptionTestZero() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -378,19 +409,19 @@ class EnergyConsumptionControllerTest {
         house.addRoom(validRoom2);
         double expectedResult = 0.0;
 
-        //Act
+        // Act
 
         double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDailyHouseConsumptionNoRoomsTest() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -401,19 +432,19 @@ class EnergyConsumptionControllerTest {
         house.setMotherArea(validArea);
         double expectedResult = 0;
 
-        //Act
+        // Act
 
         double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDailyHouseConsumptionNoDevicesTest() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -426,19 +457,19 @@ class EnergyConsumptionControllerTest {
         house.addRoom(validRoom2);
         double expectedResult = 0;
 
-        //Act
+        // Act
 
         double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDailyHouseConsumptionNoHeaterDevicesTest() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -452,19 +483,19 @@ class EnergyConsumptionControllerTest {
         house.addRoom(validRoom2);
         double expectedResult = 0;
 
-        //Act
+        // Act
 
         double actualResult = controller.getDailyWaterHeaterConsumption(house);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getTotalNominalPowerFromGridTest() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -480,19 +511,19 @@ class EnergyConsumptionControllerTest {
         house.addRoom(validRoom2);
         double expectedResult = 86;
 
-        //Act
+        // Act
 
         double actualResult = controller.getTotalPowerFromGrid(validGrid);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getTotalNominalPowerFromGridNoDevicesTest() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -506,19 +537,19 @@ class EnergyConsumptionControllerTest {
         house.addRoom(validRoom2);
         double expectedResult = 0;
 
-        //Act
+        // Act
 
         double actualResult = controller.getTotalPowerFromGrid(validGrid);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getWaterHeaterDeviceListTestTwoDevices() {
-
-        //Arrange
+        // Arrange
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -533,131 +564,134 @@ class EnergyConsumptionControllerTest {
         expectedResult.add(validDevice1);
         expectedResult.add(validDevice2);
 
-        //Act
+        // Act
 
         DeviceList actualResult = controller.getWaterHeaterDeviceList(house);
 
-        //Assert
+        // Assert
 
         Assertions.assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void seeIfGetWHNameWorks() {
-
-        //Act
+        // Act
 
         String actualResult = controller.getWHName(validDevice1);
 
-        //Assert
+        // Assert
 
         Assertions.assertEquals("WaterHeater", actualResult);
+        
     }
 
     @Test
     void configureOneHeaterTestFalse() {
-
-        //Arrange
+        // Arrange
 
         Double attributeValue2 = 30.0;
 
-        //Act
+        // Act
 
         boolean actualResult = controller.configureWH(validDevice1, null, attributeValue2);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
+        
     }
 
     @Test
     void configureOneHeaterTestFalseSecondElement() {
-
-        //Arrange
+        // Arrange
 
         Double attributeValue2 = 30.0;
 
-        //Act
+        // Act
 
         boolean actualResult = controller.configureWH(validDevice1, attributeValue2, null);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
+        
     }
 
     @Test
     void configureOneHeaterTestFalseBothElement() {
-
-        //Act
+        // Act
 
         boolean actualResult = controller.configureWH(validDevice1, null, null);
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
+        
     }
 
     @Test
     void configureOneHeaterTestNegative() {
-
-        //Act
+        // Act
 
         boolean actualResult = controller.configureWH(validDevice1, -2D, -2.5);
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
+        
     }
 
     @Test
     void configureOneHeaterTestTrue() {
-
-        //Act
+        // Act
 
         boolean actualResult = controller.configureWH(validDevice1, 2D, 30D);
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
+        
     }
 
     @Test
     void getDeviceConsumptionInIntervalTest() {
-
-        //Arrange
+        // Arrange
 
         String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
         validDevice1.addLog(validLog1);
 
-        //Act
+        // Act
 
         String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, validDate1, validDate2);
 
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDeviceConsumptionInIntervalEmptyLogListTest() {
-
-        //Arrange
+        // Arrange
+        
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
-        //Act
+        // Act
 
         String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, validDate1,validDate2);
 
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDeviceConsumptionInIntervalOutsideIntervalBeforeTest() {
-
+        // Arrange
+        
         Date initialTime = new Date();
         try {
             initialTime = validSdf.parse("20/10/2014 10:02:00");
@@ -673,20 +707,20 @@ class EnergyConsumptionControllerTest {
         validDevice1.addLog(validLog1);
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
-        //Act
+        // Act
 
         String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, initialTime,finalTime);
 
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
 
     }
 
     @Test
     void getDeviceConsumptionInIntervalOutsideIntervalAfterTest() {
-
-        //Arrange
+        // Arrange
+        
         Date initialTime = new Date();
         try {
             initialTime = validSdf.parse("20/10/2020 10:02:00");
@@ -702,36 +736,38 @@ class EnergyConsumptionControllerTest {
         validDevice1.addLog(validLog1);
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
-        //Act
+        // Act
 
         String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, initialTime,finalTime);
 
-
-        //Assert
+        // Assert
+        
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDeviceConsumptionInIntervalSameTime() {
-
-        //Arrange
+        // Arrange
+        
         validDevice1.addLog(validLog1);
         String expectedResult = "The total Energy Consumption for the given device is: 56.0 kW/h.";
 
-        //Act
+        // Act
 
         String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, validDate1,validDate2);
 
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void getDeviceConsumptionInIntervalSameTimeNoLogs() {
-
-        //Arrange
+        // Arrange
+        
         Date time = new Date();
         try {
            time = validSdf.parse("20/10/2014 10:02:00");
@@ -741,55 +777,58 @@ class EnergyConsumptionControllerTest {
         validDevice1.addLog(validLog1);
         String expectedResult = "This device has no energy consumption logs in the given interval.";
 
-        //Act
+        // Act
 
         String actualResult = controller.getDeviceConsumptionInInterval(validDevice1, time, time);
 
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void seeIfGetGridConsumptionInIntervalWorks() {
-
-        //Arrange
+        // Arrange
+        
         validGrid.addRoom(validRoom1);
         double expectedResult = 56.0;
 
-        //Act
+        // Act
 
         validDevice1.addLog(validLog1);
         double actualResult = controller.getGridConsumptionInInterval(validGrid, validDate1,validDate2);
 
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void seeIfGetGridLogsInIntervalWorks() {
-
-        //Arrange
+        // Arrange
+        
         validGrid.addRoom(validRoom1);
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
 
-        //Act
+        // Act
 
         validDevice1.addLog(validLog1);
         LogList actualResult = controller.getGridLogsInInterval(validGrid, validDate1, validDate2);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void seeIfGetRoomLogsInIntervalWorks() {
-        //Arrange
+        // Arrange
 
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
@@ -802,50 +841,51 @@ class EnergyConsumptionControllerTest {
         validHouse.addRoom(validRoom1);
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
-        //Act
+        // Act
 
         validDevice1.addLog(validLog1);
         LogList actualResult = controller.getRoomLogsInInterval(roomDTO, validDate1, validDate2,validHouse);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void seeIfGetDeviceLogsInInterval() {
-
-        //Arrange
+        // Arrange
 
         LogList expectedResult = new LogList();
         expectedResult.addLog(validLog1);
 
-        //Act
+        // Act
 
         validDevice1.addLog(validLog1);
         LogList actualResult = controller.getDeviceLogsInInterval(validDevice1, validDate1,validDate2);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
     void seeIfBuildLogListStringWorks() {
-
-        //Arrange
+        // Arrange
 
         LogList list = new LogList();
         list.addLog(validLog1);
         String expectedResult = "\n0) Start Date: 20/11/2018 10:10:00 | End Date: 21/11/2014 10:20:00 | Value: 56.0";
 
-        //Act
+        // Act
 
         String actualResult = controller.buildLogListString(list);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
+        
     }
 
     @Test
@@ -865,6 +905,6 @@ class EnergyConsumptionControllerTest {
         // Assert
 
         assertEquals(expectedResult,actualResult);
+        
     }
-
 }
