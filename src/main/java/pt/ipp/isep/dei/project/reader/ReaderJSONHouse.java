@@ -27,9 +27,8 @@ public class ReaderJSONHouse implements Reader {
             JSONObject object = new JSONObject(tokener);
             return readHouseJSON(object);
         } catch (FileNotFoundException | JSONException | IllegalArgumentException e) {
-            UtilsUI.printMessage("The JSON file is invalid.");
+           throw new IllegalArgumentException(UtilsUI.printMessage("The JSON file is invalid."));
         }
-        return new HouseDTO();
     }
 
     private HouseDTO readHouseJSON(JSONObject jsonObject) {
