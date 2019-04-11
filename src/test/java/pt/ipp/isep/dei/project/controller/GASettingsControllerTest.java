@@ -90,7 +90,7 @@ class GASettingsControllerTest {
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
 
-        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository);
+        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         validGeographicAreaService.addAndPersistGA(firstValidArea);
         validGeographicAreaService.addAndPersistGA(secondValidArea);
 
@@ -146,7 +146,7 @@ class GASettingsControllerTest {
 
         List<GeographicArea> expectedResult = new ArrayList<>();
         expectedResult.add(secondValidArea);
-        GeographicAreaService service = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService service = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         service.addGeographicArea(secondValidArea);
 
         Mockito.when(geographicAreaRepository.findAll()).thenReturn(expectedResult);
@@ -280,10 +280,10 @@ class GASettingsControllerTest {
     void seeIfMatchGAByTypeCountry() {
         // Arrange
 
-        GeographicAreaService gaL1 = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService gaL1 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         gaL1.addGeographicArea(firstValidArea);
         gaL1.addGeographicArea(secondValidArea);
-        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
         // Act
@@ -299,7 +299,7 @@ class GASettingsControllerTest {
     void seeMatchGAByTypeNotInList() {
         // Arrange
 
-        GeographicAreaService gaL1 = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService gaL1 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         gaL1.addGeographicArea(firstValidArea);
 
         List<GeographicArea> expectedResult = new ArrayList<>();
@@ -547,21 +547,21 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-   @Test
-   void seeIfRemoveSensorWorks() {
-       // Arrange
+    @Test
+    void seeIfRemoveSensorWorks() {
+        // Arrange
 
-       List<AreaSensor> expectedResult = new ArrayList<>();
+        List<AreaSensor> expectedResult = new ArrayList<>();
 
-       // Act
+        // Act
 
-       controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
-       List<AreaSensor> actualResult = areaSensorRepository.findAll();
+        controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
+        List<AreaSensor> actualResult = areaSensorRepository.findAll();
 
-       // Assert
+        // Assert
 
-       assertEquals(expectedResult.size(), actualResult.size());
-   }
+        assertEquals(expectedResult.size(), actualResult.size());
+    }
 
 
     @Test

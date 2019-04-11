@@ -189,8 +189,7 @@ public class HouseConfigurationController {
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
                 sensorRepository.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
-            }
-            else{
+            } else {
                 logger.warning("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
                         + " - there is no room with that ID.");
                 rejectedSensors++;
@@ -212,32 +211,38 @@ public class HouseConfigurationController {
     public void readReadingListFromFile(String filePath) {
         int addedReadings = 0;
         //If from CSV
-        ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
-        try {
-            List<ReadingDTO> list = readerCSV.readFile(filePath);
-            addedReadings = addReadingsToHouseSensors(list);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The CSV file is invalid. Please fix before continuing.");
+        if (filePath.endsWith(".csv")) {
+            ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
+            try {
+                List<ReadingDTO> list = readerCSV.readFile(filePath);
+                addedReadings = addReadingsToHouseSensors(list);
+            } catch (IllegalArgumentException illegal) {
+                System.out.println("The CSV file is invalid. Please fix before continuing.");
+            }
+            System.out.println(addedReadings + READINGS_IMPORTED);
         }
-        System.out.println(addedReadings + READINGS_IMPORTED);
         //If from JSON
-        ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
-        try {
-            List<ReadingDTO> list = readerJSON.readFile(filePath);
-            addedReadings = addReadingsToHouseSensors(list);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The JSON file is invalid. Please fix before continuing.");
+        else if (filePath.endsWith(".json")) {
+            ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
+            try {
+                List<ReadingDTO> list = readerJSON.readFile(filePath);
+                addedReadings = addReadingsToHouseSensors(list);
+            } catch (IllegalArgumentException illegal) {
+                System.out.println("The JSON file is invalid. Please fix before continuing.");
+            }
+            System.out.println(addedReadings + READINGS_IMPORTED);
         }
-        System.out.println(addedReadings + READINGS_IMPORTED);
         //If from XML
-        ReadingsReaderXML readerXML = new ReadingsReaderXML();
-        try {
-            List<ReadingDTO> list = readerXML.readFile(filePath);
-            addedReadings = addReadingsToHouseSensors(list);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The XML file is invalid. Please fix before continuing.");
+        else if (filePath.endsWith(".xml")) {
+            ReadingsReaderXML readerXML = new ReadingsReaderXML();
+            try {
+                List<ReadingDTO> list = readerXML.readFile(filePath);
+                addedReadings = addReadingsToHouseSensors(list);
+            } catch (IllegalArgumentException illegal) {
+                System.out.println("The XML file is invalid. Please fix before continuing.");
+            }
+            System.out.println(addedReadings + READINGS_IMPORTED);
         }
-        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings) {

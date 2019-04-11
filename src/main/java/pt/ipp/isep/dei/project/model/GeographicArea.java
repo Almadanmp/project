@@ -17,7 +17,7 @@ public class GeographicArea {
     private Long id;
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "type_area_id")
     private AreaType areaType;
 
@@ -101,7 +101,7 @@ public class GeographicArea {
      *
      * @param areaType is the type of the Geographical Area.
      */
-     void setAreaType(AreaType areaType) {
+    void setAreaType(AreaType areaType) {
         this.areaType = areaType;
     }
 
