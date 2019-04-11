@@ -16,10 +16,7 @@ import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.HouseRepository;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -54,9 +51,17 @@ public class MainUI {
     private HouseSensorService houseSensorService;
 
     @Autowired
-    private EnergyGridService energyGridService;
-    @Autowired
     private HouseRepository houseRepository;
+
+    @Autowired
+    private HouseSensorRepository houseSensorRepository;
+
+    @Autowired
+    private ReadingRepository readingRepository;
+
+    @Autowired
+    private EnergyGridService energyGridService;
+
     @Autowired
     private HouseService houseService;
     @Autowired
@@ -176,7 +181,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
-                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService, roomRepository);
+                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService, roomRepository, houseSensorRepository, readingRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
