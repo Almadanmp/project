@@ -40,6 +40,8 @@ runUS100(mainHouse, houseService)
 }
 
 class ReaderController{
+House Service
+
 readJSONAndSetHouse(House house, String filePath)
 }
 
