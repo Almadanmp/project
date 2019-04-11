@@ -390,6 +390,13 @@ public class RoomService {
         return this.rooms.get(index);
     }
 
+    /**Method that finds a given object in the repository by its ID
+    @param idToFind is the ID that we want to look for.
+    @return is an Optional that either contains the object if it existed, or a null. */
+
+    public Optional<Room> findByID(String idToFind){
+        return roomRepository.findById(idToFind);}
+
     /**
      * Method to check if an instance of this class is equal to another object.
      * Necessary for adding rooms to list.
