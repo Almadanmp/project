@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Class that groups a number of Sensors.
