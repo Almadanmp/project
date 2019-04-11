@@ -52,6 +52,12 @@ public class JSONSensorsReader implements Reader {
         return result;
     }
 
+    /**
+     * Method that reads the file by its filepath. Returns a JSON Array with all the data contained in the file (the highest
+     * level in the structure hierarchy).
+     * @param filePath is the filepath that we want to check a file from.
+     * @return is the JSON Array with all the data contained in the file.
+     */
     public JSONArray readFile(String filePath) {
         try {
             File file = new File(filePath);
@@ -74,6 +80,12 @@ public class JSONSensorsReader implements Reader {
         }
     }
 
+    /**
+     * Method that retrieves the room's ID from the sensor in the file.
+     * @param sensorToImport is the JSON Object of the sensor to import.
+     * @return is the String that is the roomID parameter in the file, if this parameter exists. If it doesn't (or is null),
+     * the method returns an error convention.
+     */
     private String getRoomID(JSONObject sensorToImport) {
         try {
             return sensorToImport.getString("room");
