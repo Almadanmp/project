@@ -248,6 +248,4 @@ class HouseConfigurationControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-
 }
