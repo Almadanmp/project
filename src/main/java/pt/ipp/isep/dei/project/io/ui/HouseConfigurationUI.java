@@ -7,7 +7,10 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +37,7 @@ class HouseConfigurationUI {
 
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, EnergyGridService energyGridService) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -69,7 +72,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS265(houseService);
+                    runUS265(houseSensorRepository, readingRepository);
                     activeInput = false;
                     break;
                 case 0:
@@ -257,14 +260,14 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265(HouseService houseService) {
+    private void runUS265(HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
         String logPath = VALID_LOG_PATH;
         InputHelperUI inputHUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputHUI.getInputPathJsonOrXML(result);
-        int importedReadings = controller.readReadingListFromFile(readingService, filePath, houseService, logPath);
+        int importedReadings = controller.readReadingListFromFile(readingService, filePath, logPath, houseSensorRepository, readingRepository);
         System.out.println(importedReadings + " Readings successfully imported.");
     }
 

@@ -9,12 +9,18 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 
 /**
  * Controller class for House Configuration UI
@@ -164,35 +170,21 @@ public class HouseConfigurationController {
         registered in the application log.
      */
 
-    public int readReadingListFromFile(ReadingService readingService, String filePath, HouseService house, String logPath) {
-        //  AreaSensorService aSService = new AreaSensorService();
-        House programHouse = house.getHouse();
+    public int readReadingListFromFile(ReadingService readingService, String filePath, String logPath, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
         ReaderJSONReadings reader = new ReaderJSONReadings();
         int addedReadings = 0;
-        RoomService houseRooms = programHouse.getRoomService();
-        // if (roomList.isEmptyDB()) {
-        //   return addedReadings;
-        //}
         JSONArray importedReadingList = reader.readFile(filePath);
-        //  ReaderController rCtrl = new ReaderController(aSService);
-    /*    try {
+       /* try {
             Logger logger = Logger.getLogger(ReaderController.class.getName());
             CustomFormatter myFormat = new CustomFormatter();
             FileHandler fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
-            addedReadings = rCtrl.parseAndLogJSONReadings(importedReadingList, logger);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         } */
-        //  String sensorID;
         for (int i = 0; i < importedReadingList.length(); i++) {
             JSONObject readingToImport = importedReadingList.getJSONObject(i);
-    /*        try {
-                sensorID = readingToImport.getString("id");
-            } catch (NullPointerException ok) {
-                continue;
-            }*/
             try {
                 String readingSensorID = readingToImport.getString("id");
                 String readingDate = readingToImport.getString("timestamp/date");
@@ -209,19 +201,15 @@ public class HouseConfigurationController {
                     }
                 }
                 Reading importedReading = new Reading(doubleReadingValue, objectDate, readingUnit, readingSensorID);
-                HouseSensor[] sensors;
-                for (Room r : houseRooms.getRooms()) {
-                    sensors = r.getSensorList().getElementsAsArray();
-                    for (HouseSensor sensor : sensors) {
-                        String sensorID = importedReading.getId();
-                        if (sensor.getId().equals(sensorID)) {
-                            readingService.addReadingToMatchingSensor(readingSensorID, doubleReadingValue, objectDate, readingUnit);
+                List<HouseSensor> sensors = houseSensorRepository.findAll();
+                for (HouseSensor sensor : sensors) {
+                    if (sensor.getId().equals(readingSensorID)) {
+                        if (readingService.addReadingToDB(importedReading, readingRepository)) {
                             addedReadings++;
                         }
                     }
                 }
             } catch (NullPointerException ok) {
-
             }
         }
         return addedReadings;
