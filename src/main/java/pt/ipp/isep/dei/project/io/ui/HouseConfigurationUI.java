@@ -81,11 +81,11 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS265(houseSensorRepository, readingRepository);
+                    runUS265();
                     activeInput = false;
                     break;
                 case 8:
-                    runUS265v2(houseService);
+                    runUS265v2();
                     activeInput = false;
                     break;
                 case 0:
@@ -277,14 +277,10 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265(HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
+    private void runUS265() {
         InputHelperUI inputHUI = new InputHelperUI();
-        System.out.println("Please insert the location of the file you want to import:");
-        Scanner scanner = new Scanner(System.in);
-        String result = scanner.next();
-        String filePath = inputHUI.getInputPathJsonOrXML(result);
-        int importedReadings = controller.readReadingListFromFile(readingService, filePath, VALID_LOG_PATH, houseSensorRepository, readingRepository);
-        System.out.println(importedReadings + " Readings successfully imported.");
+        String filePath = inputHUI.getInputJsonXmlCsv();
+        controller.readReadingListFromFile(filePath);
     }
 
     /*
@@ -293,7 +289,7 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265v2(HouseService houseService) {
+    private void runUS265v2() {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {

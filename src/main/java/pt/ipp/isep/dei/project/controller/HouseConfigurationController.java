@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
@@ -10,8 +11,7 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
-import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
-import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
+import pt.ipp.isep.dei.project.reader.*;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
@@ -29,6 +29,9 @@ import java.util.*;
 
 public class HouseConfigurationController {
 
+    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
+    private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
+    private ReaderController readerController;
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
@@ -120,8 +123,9 @@ public class HouseConfigurationController {
 
     /**
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
-     * @param filepath is the path of the file we want to import sensors from.
-     * @param roomRepository is the service making the connection to the room repository.
+     *
+     * @param filepath         is the path of the file we want to import sensors from.
+     * @param roomRepository   is the service making the connection to the room repository.
      * @param sensorRepository is the service making the connection to the house sensor repository.
      * @return is the number of imported sensors.
      */
@@ -136,8 +140,7 @@ public class HouseConfigurationController {
         try {
             List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
             return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
-        }
-        catch (IllegalArgumentException ok){
+        } catch (IllegalArgumentException ok) {
             return -1;
         }
     }
@@ -145,8 +148,9 @@ public class HouseConfigurationController {
     /**
      * Method that takes a list of houseSensorDTOs, checks if the rooms they belong to exist in the program's
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
-     * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
-     * @param roomRepository is the service making the connection to the room repository.
+     *
+     * @param importedSensors  is the list of houseSensorDTOs that we're trying to import into the program.
+     * @param roomRepository   is the service making the connection to the room repository.
      * @param sensorRepository is the service making the connection to the houseSensor repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
@@ -165,71 +169,45 @@ public class HouseConfigurationController {
         return addedSensors;
     }
 
+
         /*
         US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
         Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
         registered in the application log.
      */
 
-    public int readReadingListFromFile(ReadingService readingService, String filePath, String logPath, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
-        ReaderJSONReadings reader = new ReaderJSONReadings();
+    public void readReadingListFromFile(String filePath) {
         int addedReadings = 0;
-        JSONArray importedReadingList = reader.readFile(filePath);
-       /* try {
-            Logger logger = Logger.getLogger(ReaderController.class.getName());
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler(logPath);
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(myFormat);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        } */
-        for (int i = 0; i < importedReadingList.length(); i++) {
-            JSONObject readingToImport = importedReadingList.getJSONObject(i);
-            try {
-                String readingSensorID = readingToImport.getString("id");
-                String readingDate = readingToImport.getString("timestamp/date");
-                String readingValue = readingToImport.getString("value");
-                double doubleReadingValue = Double.parseDouble(readingValue);
-                String readingUnit = readingToImport.getString("unit");
-                Date objectDate = null;
-                List<SimpleDateFormat> simpleDateArray = knownDatePatterns();
-                for (SimpleDateFormat pattern : simpleDateArray) {
-                    try {
-                        objectDate = pattern.parse(readingDate);
-                    } catch (ParseException c) {
-                        c.getErrorOffset();
-                    }
-                }
-           //     List<Reading> dBreadings = readingRepository.findAll();
-                List<HouseSensor> sensors = houseSensorRepository.findAll();
-           //     for (Reading test : dBreadings) {
-           //         if (!sensor.getDateStartedFunctioning().after(objectDate) && test.getSensorId().equals(readingSensorID)) {
-                for (HouseSensor sensor : sensors) {
-                    if (sensor.getId().equals(readingSensorID)) {
-                        if (!sensor.getDateStartedFunctioning().after(objectDate)) {
-                            Reading importedReading = new Reading(doubleReadingValue, objectDate, readingUnit, readingSensorID);
-                            //if (!readingService.readingExistsInRepository(readingSensorID,objectDate)) {
-                                readingService.addReadingToDB(importedReading,readingRepository);
-                                addedReadings++;
-                       //     }
-                        }
-                    }
-                }
-            } catch (NullPointerException ok) {
-            }
+        //If from CSV
+        ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
+        try {
+            List<ReadingDTO> list = readerCSV.readFile(filePath);
+            addedReadings = addReadingsToHouseSensors(list);
+        } catch (IllegalArgumentException illegal) {
+            System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
-        return addedReadings;
+        System.out.println(addedReadings + READINGS_IMPORTED);
+        //If from JSON
+        ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
+        try {
+            List<ReadingDTO> list = readerJSON.readFile(filePath);
+            addedReadings = addReadingsToHouseSensors(list);
+        } catch (IllegalArgumentException illegal) {
+            System.out.println("The JSON file is invalid. Please fix before continuing.");
+        }
+        System.out.println(addedReadings + READINGS_IMPORTED);
+        //If from XML
+        ReadingsReaderXML readerXML = new ReadingsReaderXML();
+        try {
+            List<ReadingDTO> list = readerXML.readFile(filePath);
+            addedReadings = addReadingsToHouseSensors(list);
+        } catch (IllegalArgumentException illegal) {
+            System.out.println("The XML file is invalid. Please fix before continuing.");
+        }
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
-    public List<SimpleDateFormat> knownDatePatterns() {
-        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-        SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
-        knownPatterns.add(dateFormat1);
-        knownPatterns.add(dateFormat2);
-        knownPatterns.add(dateFormat3);
-        return knownPatterns;
+    private int addReadingsToHouseSensors(List<ReadingDTO> readings) {
+        return readerController.addReadingsToHouseSensors(readings, VALID_LOG_PATH);
     }
 }
