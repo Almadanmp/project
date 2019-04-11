@@ -15,7 +15,7 @@ public class HouseSensor {
     private String id;
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "type_sensor_id")
     private SensorType sensorType;
 

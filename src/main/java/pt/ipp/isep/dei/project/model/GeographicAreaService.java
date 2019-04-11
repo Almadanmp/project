@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.*;
@@ -16,9 +17,12 @@ public class GeographicAreaService {
 
     private GeographicAreaRepository geographicAreaRepository;
 
-    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository) {
+    private AreaTypeRepository areaTypeRepository;
+
+    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository) {
         geographicAreas = new ArrayList<>();
         this.geographicAreaRepository = geographicAreaRepository;
+        this.areaTypeRepository = areaTypeRepository;
     }
 
     /**
@@ -108,14 +112,16 @@ public class GeographicAreaService {
     /**
      * Method to create a new geographic area before adding it to a GA List.
      *
-     * @param newName  input string for geographic area name for the new geographic area
-     * @param areaType input string for type area for the new geographic area
-     * @param length   input number for length for the new geographic area
-     * @param width    input number for width for the new geographic area
-     * @param local    input number for latitude, longitude and altitude of the new geographic area
+     * @param newName      input string for geographic area name for the new geographic area
+     * @param areaTypeName input string for type area for the new geographic area
+     * @param length       input number for length for the new geographic area
+     * @param width        input number for width for the new geographic area
+     * @param local        input number for latitude, longitude and altitude of the new geographic area
      * @return a new geographic area.
      */
-    public GeographicArea createGA(String newName, AreaType areaType, double length, double width, Local local) {
+    public GeographicArea createGA(String newName, String areaTypeName, double length, double width, Local local) {
+        AreaType areaType = getAreaTypeByName(areaTypeName);
+        areaTypeRepository.save(areaType);
         return new GeographicArea(newName, areaType, length, width, local);
     }
 
@@ -229,6 +235,20 @@ public class GeographicAreaService {
      **/
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param name selected name
+     * @return Type Area corresponding to the given id
+     */
+    public AreaType getAreaTypeByName(String name) {
+        Optional<AreaType> value = areaTypeRepository.findByName(name);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        return new AreaType(name);
     }
 
 

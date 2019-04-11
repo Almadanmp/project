@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
 import java.util.*;
@@ -30,6 +31,9 @@ class GeographicAreaServiceTest {
     @Mock
     GeographicAreaRepository geographicAreaRepository;
 
+    @Mock
+    AreaTypeRepository areaTypeRepository;
+
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -37,7 +41,7 @@ class GeographicAreaServiceTest {
                 new Local(50, 50, 10));
         secondValidArea = new GeographicArea("Europe", new AreaType("Continent"), 3000, 2000,
                 new Local(90, 100, 10));
-        validService = new GeographicAreaService(geographicAreaRepository);
+        validService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         validService.addGeographicArea(firstValidArea);
         validList = new ArrayList<>();
         validList.add(firstValidArea);
@@ -91,7 +95,7 @@ class GeographicAreaServiceTest {
     void seeIfEqualsWorksFalse() {
         // Arrange
 
-        GeographicAreaService testList = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService testList = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         testList.addGeographicArea(secondValidArea);
 
         //Act
@@ -228,7 +232,7 @@ class GeographicAreaServiceTest {
         Local local = new Local(12, 12, 12);
         GeographicArea expectedResult = new GeographicArea(iD, areaType, 12, 12, local);
 
-        GeographicArea actualResult = validService.createGA(iD, areaType, 12, 12, local);
+        GeographicArea actualResult = validService.createGA(iD, areaType.getName(), 12, 12, local);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -237,7 +241,7 @@ class GeographicAreaServiceTest {
     void seeIfDoesNotAddWithoutPersisting() {
         // Arrange
 
-        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         expectedResult.addGeographicArea(firstValidArea);
 
         // Act
@@ -355,7 +359,7 @@ class GeographicAreaServiceTest {
     void seeIfRemovesGeographicAreaEmptyList() {
         // Act
 
-        GeographicAreaService emptyList = new GeographicAreaService(geographicAreaRepository);
+        GeographicAreaService emptyList = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         boolean actualResult = emptyList.removeGeographicArea(secondValidArea);
 
         // Assert
