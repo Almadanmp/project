@@ -2,10 +2,8 @@ package pt.ipp.isep.dei.project.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.reader.wrapper.AreaSensorDTOWrapper;
-import pt.ipp.isep.dei.project.reader.wrapper.AreaSensorDTOWrapperList;
+
 import pt.ipp.isep.dei.project.reader.wrapper.GeographicAreaDTOWrapper;
 import pt.ipp.isep.dei.project.reader.wrapper.GeographicAreaDTOWrapperList;
 
@@ -33,25 +31,5 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
         return geographicAreaDTOS;
     }
 
-    public List<AreaSensorDTO> readAreaSensorDTOS(String filePath) {
-        List<AreaSensorDTOWrapper> areaSensorDTOWrappers;
-        List<AreaSensorDTO> sensorDTOS;
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        try {
-            File file = new File(filePath);
-            AreaSensorDTOWrapperList areaSensorDTOWrapperList = objectMapper.readValue(file, AreaSensorDTOWrapperList.class);
-            areaSensorDTOWrappers = areaSensorDTOWrapperList.getGeoAreaDTOWrapperList();
-            sensorDTOS = GeographicAreaDTOWrapper.areaSensorDTOWrapperConversion(areaSensorDTOWrappers);
-        //    for (AreaSensorDTO sensorDTO : sensorDTOS) {
-         //       for (GeographicAreaDTO dto : geographicAreaDTOS) {
-          //          sensorDTO.setGeographicAreaID(dto.getId());
-          //      }
-          //  }
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-        return sensorDTOS;
-    }
 }
