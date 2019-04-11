@@ -15,7 +15,6 @@ import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 
 import java.io.IOException;
@@ -25,9 +24,6 @@ import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static java.util.logging.Logger.getLogger;
-
 
 /**
  * Controller class for House Configuration UI
@@ -41,14 +37,13 @@ public class HouseConfigurationController {
     /**
      * This method creates a Logger.
      *
-     * @param logPath log file path.
      * @return object of class Logger.
      **/
-    private Logger getLogger(String logPath) {
+    private Logger getLogger() {
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         try {
             CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler(logPath);
+            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImport.log");
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             logger.setLevel(Level.WARNING);
@@ -182,7 +177,7 @@ public class HouseConfigurationController {
 
     private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
             sensorRepository) {
-        Logger logger = getLogger("resources/logs/sensorsImport.log"); // Creates the logger for when things go wrong.
+        Logger logger = getLogger(); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
