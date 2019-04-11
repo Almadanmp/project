@@ -23,7 +23,6 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
-    private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
 
@@ -49,30 +48,26 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS20v2(geographicAreaService, houseService);
-                    activeInput = false;
-                    break;
-                case 3:
                     runUS100(house, houseService);
                     activeInput = false;
                     break;
-                case 4:
+                case 3:
                     runUS101(houseService, geographicAreaService);
                     activeInput = false;
                     break;
-                case 5:
+                case 4:
                     runUS105(houseService);
                     activeInput = false;
                     break;
-                case 6:
+                case 5:
                     runUS108(houseService);
                     activeInput = false;
                     break;
-                case 7:
+                case 6:
                     runUS260(sensorService, roomService);
                     activeInput = false;
                     break;
-                case 8:
+                case 7:
                     runUS265(houseService);
                     activeInput = false;
                     break;
@@ -102,64 +97,6 @@ class HouseConfigurationUI {
         String filePath = input.getInputPathJsonOrXML(result);
         int areas = ctrl.acceptPath(filePath, geographicAreaService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
-    }
-
-
-    /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
-     from a either a CSV, JSON or XML file.
-     Data outside the valid sensor operation period should not be imported but registered in the
-     application log. */
-
-    /**
-     * As an Administrator, I want to import geographic area sensor readings into the application
-     * from a a CSV, JSON and XML file and display a message to the user of how many readings were
-     * successfully imported.
-     * <p>
-     * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
-     */
-    private void runUS20v2(GeographicAreaService geographicAreaService, HouseService houseService) {
-        InputHelperUI inputHelperUI = new InputHelperUI();
-        String path = inputHelperUI.getInputJsonXmlCsv();
-        if (path.endsWith(".csv")) {
-            readReadingsFromCSV(path, VALID_LOG_PATH, geographicAreaService, houseService);
-        } else if (path.endsWith(".json")) {
-            readReadingsFromJSON(path, VALID_LOG_PATH, geographicAreaService, houseService);
-        } else if (path.endsWith(".xml")) {
-            readReadingsFromXML(path, VALID_LOG_PATH, geographicAreaService, houseService);
-        }
-    }
-
-    private void readReadingsFromCSV(String filePath, String logFilePath, GeographicAreaService geographicAreaService, HouseService houseService) {
-        int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
-        try {
-            result = ctrl.readReadingsFromCSV(geographicAreaService, filePath, logFilePath);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The CSV file is invalid.");
-        }
-        System.out.println(result + READINGS_IMPORTED);
-    }
-
-    private void readReadingsFromJSON(String filePath, String logFilePath, GeographicAreaService geographicAreaService, HouseService houseService) {
-        int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
-        try {
-            result = ctrl.readReadingsFromJSON(geographicAreaService, filePath, logFilePath);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The JSON file is invalid.");
-        }
-        System.out.println(result + READINGS_IMPORTED);
-    }
-
-    private void readReadingsFromXML(String filePath, String logFilePath, GeographicAreaService geographicAreaService, HouseService houseService) {
-        int result = 0;
-        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
-        try {
-            result = ctrl.readReadingsFromXML(geographicAreaService, filePath, logFilePath);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println("The XML file is invalid.");
-        }
-        System.out.println(result + READINGS_IMPORTED);
     }
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
@@ -364,14 +301,13 @@ class HouseConfigurationUI {
     private void printHouseConfigMenu() {
         System.out.println("House Controller Options:\n");
         System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
-        System.out.println("2) Import Geographic Area Sensor readings from a file - json, xml, csv. (US20v2)");
-        System.out.println("3) As an Administrator, I want to configure the house from a file containing basic house " +
+        System.out.println("2) As an Administrator, I want to configure the house from a file containing basic house " +
                 "information, grids and rooms)(US100)");
-        System.out.println("4) Configure the location of the house. (US101)");
-        System.out.println("5) Add a new room to the house. (US105)");
-        System.out.println("6) List the existing rooms. (US108)");
-        System.out.println("7) Import House Sensors from a file. (US260)");
-        System.out.println("8) Import House Sensor Reading List from a file. (US265)");
+        System.out.println("3) Configure the location of the house. (US101)");
+        System.out.println("4) Add a new room to the house. (US105)");
+        System.out.println("5) List the existing rooms. (US108)");
+        System.out.println("6) Import House Sensors from a file. (US260)");
+        System.out.println("7) Import House Sensor Reading List from a file. (US265)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
