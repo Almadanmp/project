@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
@@ -20,6 +21,8 @@ import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ class GASettingsControllerTest {
     private AreaSensor validAreaSensor1;
     private AreaSensor validAreaSensor2;
     private GeographicAreaService validGeographicAreaService;
+    private AreaSensorService validAreaSensorService;
     private AreaTypeService validAreaTypeService;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
     private AreaSensorService areaSensorService;
@@ -67,6 +71,7 @@ class GASettingsControllerTest {
             e.printStackTrace();
         }
         validAreaTypeService = new AreaTypeService(areaTypeRepository);
+        validAreaSensorService =new AreaSensorService(areaSensorRepository);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -91,43 +96,67 @@ class GASettingsControllerTest {
         areaSensorService = new AreaSensorService(areaSensorRepository);
     }
 
-//    @Test
-//    void seeIfPrintGATypeListWorks() {
-//        // Arrange
-//
-//        validAreaTypeList.addTypeArea(typeCountry);
-//        validAreaTypeList.addTypeArea(typeCity);
-//        String expectedResult = "---------------\n" +
-//                "0) Description: Country \n" +
-//                "1) Description: City \n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = controller.buildGATypeListString(validAreaTypeList);
-//
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfPrintGATypeListWorks() {
+        // Arrange
+        List<AreaType> areaTypes = new ArrayList<>();
+        areaTypes.add(typeCountry);
+        areaTypes.add(typeCity);
 
-//    @Test
-//    void seeIfMatchGAByTypeAreaWorks() {
-//        // Arrange
-//
-//        validGeographicAreaList.addAndPersistGA(secondValidArea);
-//        GeographicAreaList expectedResult = new GeographicAreaList(geographicAreaRepository);
-//        expectedResult.addGeographicArea(secondValidArea);
-//
-//        // Act
-//
-//        GeographicAreaList actualResult = controller.matchGAByTypeArea(validGeographicAreaList, TypeAreaMapper.objectToDTO(typeCity));
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        typeCountry.setId(0);
+        typeCity.setId(1);
+
+        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+
+        String expectedResult = "---------------\n" +
+                "0) Name: Country \n" +
+                "1) Name: City \n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = controller.buildGATypeListString(validAreaTypeService);
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintGATypeListWorksIfListIsEmpty() {
+        // Arrange
+
+        String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String actualResult = controller.buildGATypeListString(validAreaTypeService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfMatchGAByTypeAreaWorks() {
+        // Arrange
+
+        List<GeographicArea> expectedResult = new ArrayList<>();
+        expectedResult.add(secondValidArea);
+        GeographicAreaService service = new GeographicAreaService(geographicAreaRepository);
+        service.addGeographicArea(secondValidArea);
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(expectedResult);
+
+        // Act
+
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(service, TypeAreaMapper.objectToDTO(typeCity));
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfGetTypeAreaName() {
@@ -159,86 +188,75 @@ class GASettingsControllerTest {
     }
 
 
-    //TODO review immutable objects approach. it now works since it is using it on AreaTypes, so it will never assertFalse
-//    @Test
-//    void seeIfNewTAGDoesntWorkWhenDuplicatedISAdded() {
-//
-//        // Arrange
-//        validAreaTypeList.addTypeArea(typeCountry);
-//        validAreaTypeList.addTypeArea(typeCountry);
-//
-//        // Act
-//
-//        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeList, "Country");
-//
-//        // Assert
-//
-//        assertFalse(result);
-//    }
+    @Test
+    void seeIfNewTAGDoesNotWorkWhenDuplicatedISAdded() {
+
+        // Arrange
+        List<AreaType> areaTypes = new ArrayList<>();
+        areaTypes.add(typeCountry);
+        areaTypes.add(typeCity);
+
+        // Act
+
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeService, "Country");
+
+        // Assert
+
+        assertTrue(result);
+    }
 
     //USER STORY 002 TESTS
 
-//    @Test
-//    void seeIfPrintTypeAreaListWorks() {
-//
-//        // Arrange
-//
-//        validAreaTypeList.addTypeArea(typeCountry);
-//        String expectedResult = "---------------\n" +
-//                "0) Description: Country \n" +
-//                "---------------\n";
-//
-//        // Act
-//        Mockito.when(controller.getTypeAreaList(validAreaTypeList))
-//
-//        String actualResult = controller.getTypeAreaList(validAreaTypeList);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfPrintTypeAreaListWorks() {
 
-//    @Test
-//    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
-//
-//        // Arrange
-//
-//        validAreaTypeList.addTypeArea(typeCountry);
-//        validAreaTypeList.addTypeArea(typeCity);
-//        String expectedResult = "---------------\n" +
-//                "0) Description: Country \n" +
-//                "1) Description: City \n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = controller.getTypeAreaList(validAreaTypeList);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        // Arrange
+        List<AreaType> areaTypes = new ArrayList<>();
+        areaTypes.add(typeCountry);
 
-//    @Test
-//    void seeIfPrintTypeAreaListWorksWithThreeTypes() {
-//
-//        // Arrange
-//
-//        validAreaTypeList.addTypeArea(typeCity);
-//        validAreaTypeList.addTypeArea(typeCountry);
-//        String expectedResult = "---------------\n" +
-//                "0) Description: City \n" +
-//                "1) Description: Country \n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = controller.getTypeAreaList(validAreaTypeList);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        typeCountry.setId(0);
+
+        String expectedResult = "---------------\n" +
+                "0) Name: Country \n" +
+                "---------------\n";
+        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+
+        // Act
+
+        String actualResult = controller.getTypeAreaList(validAreaTypeService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfPrintTypeAreaListWorksWithTwoTypes() {
+
+        // Arrange
+
+        List<AreaType> areaTypes = new ArrayList<>();
+        areaTypes.add(typeCountry);
+        areaTypes.add(typeCity);
+
+        typeCountry.setId(0);
+        typeCity.setId(1);
+
+        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+
+        String expectedResult = "---------------\n" +
+                "0) Name: Country \n" +
+                "1) Name: City \n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = controller.getTypeAreaList(validAreaTypeService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
 
     //USER STORY 003 TESTS
@@ -351,21 +369,22 @@ class GASettingsControllerTest {
     @Test
     void seeIfPrintGAList() {
 
-//        //Arrange
-//
-//        validGeographicAreaService.addGeographicArea(secondValidArea);
-//        String expectedResult = "---------------\n" +
-//                "0) Name: Portugal | Type: Country | Latitude: 21.0 | Longitude: 33.0\n" +
-//                "1) Name: Portugal | Type: City | Latitude: 21.0 | Longitude: 33.0\n" +
-//                "---------------\n";
-//
-//        //Act
-//
-//        String result = controller.buildGAListString(validGeographicAreaService);
-//
-//        //Assert
-//
-//        assertEquals(expectedResult, result);
+        //Arrange
+
+        List<GeographicArea> list = new ArrayList<>();
+        list.add(secondValidArea);
+        secondValidArea.setId(new Long(0));
+        String expectedResult = "---------------\n" +
+                "0) Name: Portugal | Type: City | Latitude: 21.0 | Longitude: 33.0\n" +
+                "---------------\n";
+
+        //Act
+
+        String result = controller.buildGAListString(validGeographicAreaService,list);
+
+        //Assert
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -530,7 +549,7 @@ class GASettingsControllerTest {
 //
 //        //Act
 //
-//        controller.removeSensor(validGeographicAreaService, validAreaSensorDTO1, validGeographicAreaDTO);
+//        controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
 //        GeographicAreaService actualResult = validGeographicAreaService;
 //
 //        //Assert
