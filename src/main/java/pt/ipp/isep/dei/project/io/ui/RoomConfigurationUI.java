@@ -32,12 +32,12 @@ class RoomConfigurationUI {
         this.roomService = roomService;
     }
 
-    void run(House house, SensorTypeService sensorTypeService) {
+    void run(House house, SensorTypeService sensorTypeService, HouseSensorService houseSensorService) {
 
-//        if (house.isRoomListEmpty()) {
-//            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-//            return;
-//        }
+        if (roomService.isEmptyDB()) {
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
+            return;
+        }
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -64,19 +64,19 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 5: //US222
-                    runUS222(house);
+                    runUS222();
                     activeInput = false;
                     break;
                 case 6: //US230
-                    runUS230(house);
+                    runUS230();
                     activeInput = false;
                     break;
                 case 7: //US250
-                    runUS250(house);
+                    runUS250(houseSensorService);
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(house, sensorTypeService);
+                    runUS253(sensorTypeService);
                     activeInput = false;
                     break;
                 case 0:
@@ -112,7 +112,7 @@ class RoomConfigurationUI {
     }
 
     /**
-     * US210 As an Administrator, I want to addWithoutPersisting a new device to a room from the list of available device types, so that I can configure it.
+     * US210 As an Administrator, I want to add a new device to a room from the list of available device types, so that I can configure it.
      *
      * @param house
      */
@@ -183,12 +183,12 @@ class RoomConfigurationUI {
             return;
         }
         Device device = InputHelperUI.getInputRoomDevicesByList(room);
-        getInputDeviceCharacteristicsUS215(device, room, house);
+        getInputDeviceCharacteristicsUS215(device, room);
     }
 
     //* gets the input of the new device name, room, attributes and nominal power. If the device is programmable,
     // it shows the list of programs, and allows for the user to choose one or more to edit.
-    private void getInputDeviceCharacteristicsUS215(Device device, Room room, House house) {
+    private void getInputDeviceCharacteristicsUS215(Device device, Room room) {
         Scanner scanner = new Scanner(System.in);
 
         // get device name
@@ -322,7 +322,7 @@ class RoomConfigurationUI {
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
-    private void runUS222(House house) {
+    private void runUS222() {
         Room room = InputHelperUI.getHouseRoomByList(roomService);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
@@ -345,7 +345,7 @@ class RoomConfigurationUI {
      * nominal power of a room, i.e. the sum of the nominal power of all devices in the
      * room.
      **/
-    private void runUS230(House house) {
+    private void runUS230() {
         Room room = InputHelperUI.getHouseRoomByList(roomService);
         getRoomNominalPower(room);
     }
@@ -358,18 +358,18 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
-    private void runUS250(House house) {
+    private void runUS250(HouseSensorService houseSensorService) {
         Room room = InputHelperUI.getHouseRoomByList(roomService);
-        displaySensorListUS250(room);
+        displaySensorListUS250(room, houseSensorService);
     }
 
-    private void displaySensorListUS250(Room room) {
-        if (room.isSensorListEmpty()) {
+    private void displaySensorListUS250(Room room, HouseSensorService houseSensorService) {
+        if (houseSensorService.getAllSensor().isEmpty()) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        HouseSensorService areaSensorList = room.getSensorList();
-        System.out.println(controller.buildSensorListString(areaSensorList));
+        List<HouseSensor> roomSensors = houseSensorService.getAllByRoomId(room.getName());
+        System.out.println(controller.buildSensorListString(houseSensorService, roomSensors));
     }
 
 
@@ -379,7 +379,7 @@ class RoomConfigurationUI {
      * <p>
      * //  * @param typeSensorList is
      */
-    private void runUS253(House house, SensorTypeService sensorTypeList) {
+    private void runUS253(SensorTypeService sensorTypeList) {
         if (sensorTypeList.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;

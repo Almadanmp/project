@@ -2,10 +2,14 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * House Monitoring - controller Tests
  */
-
+@ExtendWith(MockitoExtension.class)
 class HouseMonitoringControllerTest {
 
     // Common artifacts for testing in this class.
@@ -57,6 +61,9 @@ class HouseMonitoringControllerTest {
     private Date validDate24;
     private Date validDate25;
 
+    @Mock
+    AreaSensorRepository areaSensorRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
@@ -70,10 +77,10 @@ class HouseMonitoringControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
-        Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10,"Room1","Grid1");
+        Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
-        validAreaSensorService = new AreaSensorService();
+        validAreaSensorService = new AreaSensorService(areaSensorRepository);
         validHouseSensorService = new HouseSensorService();
         validRoom1.setSensorList(validHouseSensorService);
         validHouse.setRoomService(validRoomService);
@@ -116,7 +123,7 @@ class HouseMonitoringControllerTest {
 
         validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
-                new Date(),6008L);
+                new Date(), 6008L);
         validTemperatureHouseSensor = new HouseSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
                 new Date(), "RoomAB");
         Reading firstTempReading = new Reading(15, validDate1, "C", "TEST");
@@ -172,7 +179,7 @@ class HouseMonitoringControllerTest {
         // Sets up a valid rainfall sensor with valid readings.
 
         AreaSensor validRainfallAreaSensor = new AreaSensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
-                (21, 41, 11), new Date(),6008L);
+                (21, 41, 11), new Date(), 6008L);
         Reading firstRainReading = new Reading(40, validDate4, "C", "TEST");
         Reading secondRainReading = new Reading(10, validDate5, "C", "TEST");
         Reading thirdRainReading = new Reading(10, validDate6, "C", "TEST");
@@ -337,7 +344,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         AreaSensorService temperatureList = new AreaSensorService();
-        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date,6008L);
+        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date, 6008L);
         temperatureList.add(temperatureAreaSensor);
         validHouseArea.setSensorList(temperatureList);
 
@@ -360,7 +367,7 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         AreaSensorService rainFallAreaSensorService = new AreaSensorService();
-        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date,6008L);
+        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date, 6008L);
         rainFallAreaSensorService.add(rainfallAreaSensor);
         validHouseArea.setSensorList(rainFallAreaSensorService);
 
@@ -373,7 +380,7 @@ class HouseMonitoringControllerTest {
         assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
     }
 
-//    @Test
+    //  @Test
 //    void roomMaxTemperatureInGivenDay() {
 //        // Arrange
 //
@@ -677,7 +684,7 @@ class HouseMonitoringControllerTest {
         HouseSensorService sList = new HouseSensorService();
         RoomService roomL = new RoomService();
         house.setRoomService(roomL);
-        Room roomD = new Room("Bedroom", "Single Bedroom", 2, 15, 15, 10,"Room1","Grid1");
+        Room roomD = new Room("Bedroom", "Single Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         roomL.add(roomD);
         roomD.setSensorList(sList);
         // Act

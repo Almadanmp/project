@@ -187,7 +187,7 @@ public class MainUI {
                             break;
                         case 3:
                             RoomConfigurationUI roomConfiguration = new RoomConfigurationUI(roomService);
-                            roomConfiguration.run(house, mockSensorTypeList);
+                            roomConfiguration.run(house, sensorTypeService, houseSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
