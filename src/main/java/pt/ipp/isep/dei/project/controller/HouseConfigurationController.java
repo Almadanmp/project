@@ -145,7 +145,7 @@ public class HouseConfigurationController {
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
+    int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
             sensorRepository) {
         int addedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {

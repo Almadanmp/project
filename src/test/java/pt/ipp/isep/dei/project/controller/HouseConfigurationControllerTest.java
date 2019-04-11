@@ -172,8 +172,7 @@ class HouseConfigurationControllerTest {
     void seeIfReadSensorsWorks(){
         // Arrange
 
-        String filePath = "C:\\Users\\JCachada\\Documents\\Development\\Switch2018-19\\src\\test\\resources\\sensorFiles" +
-                "\\DataSet_sprint06_HouseSensors.json";
+        String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
 
         // Mock the checking for Rooms
 
@@ -211,4 +210,25 @@ class HouseConfigurationControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfReadSensorsWorksEmptyDB(){
+        // Arrange
+
+        String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
+
+        Mockito.when(mockRoomRepository.isEmptyDB()).thenReturn(true);
+
+        int expectedResult = 0;
+
+        // Act
+
+        int actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
 }
