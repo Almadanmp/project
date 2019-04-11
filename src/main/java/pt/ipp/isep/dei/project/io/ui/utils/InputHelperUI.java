@@ -449,6 +449,11 @@ public class InputHelperUI {
         return input;
     }
 
+    /**
+     * Verification of .json path
+     * @param input String input pathFile
+     * @return String pathFile
+     */
     public String getInputPathJson(String input) {
         while (!(input.endsWith(".json"))) {
             System.out.println("Please enter a valid path.");
