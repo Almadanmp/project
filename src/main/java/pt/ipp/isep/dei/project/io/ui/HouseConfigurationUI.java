@@ -110,10 +110,15 @@ class HouseConfigurationUI {
         String result = scanner.next();
         String input = inputHelperUI.getInputPathJson(result);
         String filePath = inputHelperUI.getInputPath(input);
-        if (ctrl.readJSONAndDefineHouse(house, filePath)) {
-            System.out.println("House Data Successfully imported.");
-        } else {
-            System.out.println("The JSON file is invalid.");
+        try {
+            if (ctrl.readJSONAndDefineHouse(house, filePath)) {
+                System.out.println("House Data Successfully imported.");
+            } else {
+                System.out.println("The JSON file is invalid.");
+            }
+        }
+        catch (IllegalArgumentException ill) {
+            ill.getMessage();
         }
     }
 

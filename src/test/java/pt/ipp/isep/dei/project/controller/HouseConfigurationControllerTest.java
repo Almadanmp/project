@@ -4,23 +4,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 
 
 /**
  * HouseConfigurationController tests class.
  */
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class HouseConfigurationControllerTest {
 
     // Common artifacts for testing in this class.
+
+    @Mock
+    private RoomService mockRoomRepository;
+
+    @Mock
+    private HouseSensorService mockHouseSensorRepository;
 
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private HouseConfigurationController controller = new HouseConfigurationController();
@@ -153,4 +168,47 @@ class HouseConfigurationControllerTest {
         assertTrue(actualResult2);
     }
 
+    @Test
+    void seeIfReadSensorsWorks(){
+        // Arrange
+
+        String filePath = "C:\\Users\\JCachada\\Documents\\Development\\Switch2018-19\\src\\test\\resources\\sensorFiles" +
+                "\\DataSet_sprint06_HouseSensors.json";
+
+        // Mock the checking for Rooms
+
+        Room B106 = new Room("B106", "Classroom", 3, 20, 20, 20,
+                "Mock", "Mock");
+        Optional<Room> optionalRoomB106 = Optional.of(B106);
+        Mockito.when(mockRoomRepository.findByID("B106")).thenReturn(optionalRoomB106);
+
+        Room B109 = new Room("B109", "Classroom", 3, 20, 20, 20,
+                "Mock", "Mock");
+        Optional<Room> optionalRoomB109 = Optional.of(B109);
+        Mockito.when(mockRoomRepository.findByID("B109")).thenReturn(optionalRoomB109);
+
+        Room B107 = new Room("B107", "Classroom", 3, 20, 20, 20,
+                "Mock", "Mock");
+        Optional<Room> optionalRoomB107 = Optional.of(B107);
+        Mockito.when(mockRoomRepository.findByID("B107")).thenReturn(optionalRoomB107);
+
+        Optional<Room> optionalRoomB405 = Optional.empty();
+        Mockito.when(mockRoomRepository.findByID("B405")).thenReturn(optionalRoomB405);
+
+        // Ignore the .save call, which is void.
+
+        doNothing().when(mockHouseSensorRepository).save(isA(HouseSensor.class));
+
+        // Expected result
+
+        int expectedResult = 3;
+
+        // Act
+
+        int actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
