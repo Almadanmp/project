@@ -81,11 +81,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS265(houseSensorRepository, readingRepository);
-                    activeInput = false;
-                    break;
-                case 8:
-                    runUS265v2();
+                    runUS265();
                     activeInput = false;
                     break;
                 case 0:
@@ -279,25 +275,9 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265(HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
+    private void runUS265() {
         InputHelperUI inputHUI = new InputHelperUI();
-        System.out.println("Please insert the location of the file you want to import:");
-        Scanner scanner = new Scanner(System.in);
-        String result = scanner.next();
-        String filePath = inputHUI.getInputPathJsonOrXML(result);
-        int importedReadings = controller.readReadingListFromFile(readingService, filePath, VALID_LOG_PATH, houseSensorRepository, readingRepository);
-        System.out.println(importedReadings + " Readings successfully imported.");
-    }
-
-    /*
-        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
-        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
-        registered in the application log.
-     */
-
-    private void runUS265v2() {
-        InputHelperUI inputHelperUI = new InputHelperUI();
-        String filePath = inputHelperUI.getInputJsonXmlCsv();
+        String filePath = inputHUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
             importReadingsFromCSV(filePath);
         } else if (filePath.endsWith(".json")) {
@@ -307,40 +287,46 @@ class HouseConfigurationUI {
         }
     }
 
+    /*
+        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
+        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
+        registered in the application log.
+     */
+
     private void importReadingsFromCSV(String filePath) {
-        int result = 0;
+        int addedReadings = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
-            result = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
-        System.out.println(result + READINGS_IMPORTED);
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private void importReadingsFromJSON(String filePath) {
-        int result = 0;
+        int addedReadings = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
-            result = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
-        System.out.println(result + READINGS_IMPORTED);
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private void importReadingsFromXML(String filePath) {
-        int result = 0;
+        int addedReadings = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
-            result = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
-        System.out.println(result + READINGS_IMPORTED);
+        System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings) {
@@ -358,7 +344,6 @@ class HouseConfigurationUI {
         System.out.println("5) List the existing rooms. (US108)");
         System.out.println("6) Import House Sensors from a file. (US260)");
         System.out.println("7) Import House Sensor Reading List from a file. (US265)");
-        System.out.println("8) Import House Sensor Reading List from a file. (US265v2)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
