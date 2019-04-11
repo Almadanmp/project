@@ -3,11 +3,9 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
-import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
@@ -61,7 +59,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 5:
-                    runUS108(roomService, roomRepository);
+                    runUS108(roomService);
                     activeInput = false;
                     break;
                 case 6:
@@ -178,7 +176,7 @@ class HouseConfigurationUI {
         House house = houseService.getHouse();
         getInputRoomCharacteristics();
         EnergyGrid grid = InputHelperUI.getInputGridByList(house);
-        Room room = createNewRoom(house,grid);
+        Room room = createNewRoom(house, grid);
         displayRoom();
         boolean added = addRoomToHouse(house, room);
         displayFinalState(added);
@@ -213,8 +211,8 @@ class HouseConfigurationUI {
         this.roomHeight = InputHelperUI.getInputAsDoublePositive();
     }
 
-    private Room createNewRoom(House house,EnergyGrid grid) {
-        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight,house.getId(),grid.getName());
+    private Room createNewRoom(House house, EnergyGrid grid) {
+        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
     }
 
     /**
@@ -255,11 +253,11 @@ class HouseConfigurationUI {
 
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
      * - MARIA MEIRELES, TERESA VARELA */
-    private void runUS108(RoomService roomService, RoomRepository roomRepository) {
+    private void runUS108(RoomService roomService) {
         //        if (){
 //            System.out.println(UtilsUI.INVALID_ROOM_LIST);
 //        }
-        System.out.println(controller.buildRoomsString(roomService, roomRepository));
+        System.out.println(controller.buildRoomsString(roomService));
     }
 
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.

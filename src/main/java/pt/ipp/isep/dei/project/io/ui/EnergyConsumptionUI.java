@@ -27,7 +27,7 @@ class EnergyConsumptionUI {
         this.controller = new EnergyConsumptionController();
     }
 
-    void run(HouseService houseService) {
+    void run(HouseService houseService, RoomService roomService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -50,7 +50,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 4:
-                    runUS721(houseService);
+                    runUS721(houseService,roomService);
                     activeInput = false;
                     break;
                 case 5:
@@ -287,12 +287,12 @@ class EnergyConsumptionUI {
        the interval.
      */
 
-    private void runUS721(HouseService houseService) {
+    private void runUS721(HouseService houseService, RoomService roomService) {
         House programHouse = houseService.getHouse();
         if (programHouse.isRoomListEmpty()) {
             System.out.print(UtilsUI.INVALID_ROOM_LIST);
         }
-        Room room = InputHelperUI.getHouseRoomByList(programHouse);
+        Room room = InputHelperUI.getHouseRoomByList(roomService);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");

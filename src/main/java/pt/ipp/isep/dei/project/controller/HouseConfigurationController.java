@@ -105,12 +105,11 @@ public class HouseConfigurationController {
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it. */
 
     /**
-     * @param house is the house.
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String buildRoomsString(RoomService roomService, RoomRepository roomRepository) {
-        return roomService.buildStringFromRepo(roomRepository);
+    public String buildRoomsString(RoomService roomService) {
+        return roomService.buildStringDB();
     }
 
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.

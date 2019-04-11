@@ -64,9 +64,9 @@ public class RoomService {
         return false;
     }
 
-    public boolean addPersistence (Room room){
+    public boolean addPersistence(Room room) {
         Room room2 = roomRepository.findByRoomName(room.getName());
-        if (room2 != null){
+        if (room2 != null) {
             roomRepository.delete(room2);
         }
         roomRepository.save(room);
@@ -78,12 +78,13 @@ public class RoomService {
      *
      * @return a String of the Rooms in the RoomList.
      */
-    public String buildStringDB(List<Room> roomList) {
+    public String buildStringDB() {
+        List<Room> rooms = getAllRooms();
         StringBuilder result = new StringBuilder("---------------\n");
-        if (roomList.isEmpty()) {
+        if (rooms.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (Room r : roomList) {
+        for (Room r : rooms) {
             result.append(r.getName()).append(") Description: ").append(r.getDescription()).append(" | ");
             result.append("House Floor: ").append(r.getFloor()).append(" | ");
             result.append("Width: ").append(r.getWidth()).append(" | ");
@@ -199,21 +200,6 @@ public class RoomService {
             result.append("Length: ").append(aux.getLength()).append(" | ");
             result.append("Height: ").append(aux.getHeight()).append("\n");
 
-        }
-        result.append("---------------\n");
-        return result.toString();
-    }
-
-    public String buildStringFromRepo(RoomRepository roomRepository) {
-        StringBuilder result = new StringBuilder("---------------\n");
-        List<Room> roomList = roomRepository.findAll();
-        for (Room r: roomList) {
-            result.append(r.getId()).append(") Designation: ").append(r.getName()).append(" | ");
-            result.append("Description: ").append(r.getDescription()).append(" | ");
-            result.append("House Floor: ").append(r.getFloor()).append(" | ");
-            result.append("Width: ").append(r.getWidth()).append(" | ");
-            result.append("Length: ").append(r.getLength()).append(" | ");
-            result.append("Height: ").append(r.getHeight()).append("\n");
         }
         result.append("---------------\n");
         return result.toString();
@@ -390,12 +376,16 @@ public class RoomService {
         return this.rooms.get(index);
     }
 
-    /**Method that finds a given object in the repository by its ID
-    @param idToFind is the ID that we want to look for.
-    @return is an Optional that either contains the object if it existed, or a null. */
+    /**
+     * Method that finds a given object in the repository by its ID
+     *
+     * @param idToFind is the ID that we want to look for.
+     * @return is an Optional that either contains the object if it existed, or a null.
+     */
 
-    public Optional<Room> findByID(String idToFind){
-        return roomRepository.findById(idToFind);}
+    public Optional<Room> findByID(String idToFind) {
+        return roomRepository.findById(idToFind);
+    }
 
     /**
      * Method to check if an instance of this class is equal to another object.

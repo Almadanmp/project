@@ -89,20 +89,21 @@ public class InputHelperUI {
     /**
      * Method that shows the user a list of the house's available rooms, then prompts him to choose one by index.
      *
-     * @param house is the program's house.
      * @return is the chosen room.
      */
-    public static Room getHouseRoomByList(House house) {
+    public static Room getHouseRoomByList(RoomService roomService) {
+        List<Room> rooms = roomService.getAllRooms();
         while (true) {
-            System.out.println("Please select one of the existing rooms: ");
-            System.out.println(house.buildRoomListString());
-            int aux = getInputAsInt();
-            if (aux >= 0 && aux < house.roomListSize()) {
-                Room result = house.getRoomByIndex(aux);
-                System.out.println(SELECT_ROOMS);
-                System.out.println(result.buildString() + "\n");
-                return result;
-            } else {
+            try {
+                System.out.println("Please select one of the existing rooms: ");
+                System.out.println(roomService.buildStringDB());
+                for (Room r : rooms) {
+                    Room result = roomService.getDB(r.getName());
+                    System.out.println(SELECT_ROOMS);
+                    System.out.println(result.buildString() + "\n");
+                    return result;
+                }
+            } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }

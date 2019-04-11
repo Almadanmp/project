@@ -181,8 +181,8 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 3:
-                            RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                            roomConfiguration.run(houseService, mockSensorTypeList);
+                            RoomConfigurationUI roomConfiguration = new RoomConfigurationUI(roomService);
+                            roomConfiguration.run(house, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -206,7 +206,7 @@ public class MainUI {
                             break;
                         case 7:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                            energyConsumptionUI.run(houseService);
+                            energyConsumptionUI.run(houseService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
