@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -33,7 +34,7 @@ class HouseConfigurationUI {
 
     }
 
-    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService) {
+    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -60,7 +61,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 5:
-                    runUS108(houseService);
+                    runUS108(roomService, roomRepository);
                     activeInput = false;
                     break;
                 case 6:
@@ -254,17 +255,11 @@ class HouseConfigurationUI {
 
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
      * - MARIA MEIRELES, TERESA VARELA */
-    private void runUS108(HouseService houseService) {
-        House house = houseService.getHouse();
-        if (!house.isRoomListEmpty()) {
-            printRoomList(house);
-        } else {
-            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-        }
-    }
-
-    private void printRoomList(House house) {
-        System.out.println(controller.buildRoomsString(house));
+    private void runUS108(RoomService roomService, RoomRepository roomRepository) {
+        //        if (){
+//            System.out.println(UtilsUI.INVALID_ROOM_LIST);
+//        }
+        System.out.println(controller.buildRoomsString(roomService, roomRepository));
     }
 
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.

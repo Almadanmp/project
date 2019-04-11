@@ -205,6 +205,21 @@ public class RoomService {
         return result.toString();
     }
 
+    public String buildStringFromRepo(RoomRepository roomRepository) {
+        StringBuilder result = new StringBuilder("---------------\n");
+        List<Room> roomList = roomRepository.findAll();
+        for (Room r: roomList) {
+            result.append(r.getId()).append(") Designation: ").append(r.getName()).append(" | ");
+            result.append("Description: ").append(r.getDescription()).append(" | ");
+            result.append("House Floor: ").append(r.getFloor()).append(" | ");
+            result.append("Width: ").append(r.getWidth()).append(" | ");
+            result.append("Length: ").append(r.getLength()).append(" | ");
+            result.append("Height: ").append(r.getHeight()).append("\n");
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+
     /**
      * Method that checks if a Room is contained in the RoomList.
      *

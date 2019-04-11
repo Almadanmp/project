@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -108,8 +109,8 @@ public class HouseConfigurationController {
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String buildRoomsString(House house) {
-        return house.buildRoomListString();
+    public String buildRoomsString(RoomService roomService, RoomRepository roomRepository) {
+        return roomService.buildStringFromRepo(roomRepository);
     }
 
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.

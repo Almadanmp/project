@@ -46,7 +46,6 @@ public class MainUI {
     private ReadingService readingService;
     @Autowired
     private GeographicAreaService geographicAreaService;
-
     @Autowired
     private RoomRepository roomRepository;
     @Autowired
@@ -177,7 +176,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
-                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService);
+                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService, roomRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
