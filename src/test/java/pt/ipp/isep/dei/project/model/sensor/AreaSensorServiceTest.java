@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -97,6 +98,24 @@ class AreaSensorServiceTest {
 
         assertTrue(actualResult);
     }
+
+//    @Test
+//    void seeIfUpdateSensor() {
+//        // Arrange
+//        AreaSensor sensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+//        sensor.setActive(true);
+//        AreaSensorService areaSensors = new AreaSensorService();
+//        areaSensors.add(sensor);
+//
+//
+//        // Act
+//        Mockito.when(areaSensorRepository.findByName("SensorOne")).thenReturn(sensor);
+//
+//
+//        // Assert
+//
+//        assertEquals(sensor, validAreaSensorService.updateSensor(sensor));
+//    }
 
     @Test
     void seeIfSensorExistsInRepository() {
@@ -647,5 +666,104 @@ class AreaSensorServiceTest {
         assertFalse(actualResult1);
     }
 
+    @Test
+    void seeIfRemoveSensor() {
+        //Arrange
+
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.remove(firstValidAreaSensor);
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+    @Test
+    void seeIfRemoveSensorTrue() {
+        //Arrange
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.of(firstValidAreaSensor)));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.remove(firstValidAreaSensor);
+
+        //Assert
+
+        assertTrue(actualResult1);
+    }
+
+    @Test
+    void seeIfAddReadingToSensor() {
+        //Arrange
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.of(firstValidAreaSensor)));
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor("SensorOne",4.0, validDate1, "Temperature");
+
+        //Assert
+
+        assertTrue(actualResult1);
+    }
+
+    @Test
+    void seeIfAddReadingToSensorFalse() {
+        //Arrange
+        Reading reading = new Reading(4.0,validDate1, "Temperature", "SensorOne");
+        String sensorId = "SensorOne";
+        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.of(firstValidAreaSensor)));
+        firstValidAreaSensor.addReading(reading);
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor("SensorOne",4.0, validDate1, "Temperature");
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+    @Test
+    void seeIfAddReadingToSensorFalseValueNotPresent() {
+
+        //Act
+
+        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor(null,4.0, validDate1, "Temperature");
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+    @Test
+    void seeIfGetById(){
+        String mockId = "SensorOne";
+
+        AreaSensor areaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+        areaSensor.setId("SensorOne");
+
+        Mockito.when(areaSensorRepository.findById(mockId)).thenReturn(Optional.of(areaSensor));
+
+        AreaSensor result = validAreaSensorService.getById(mockId);
+
+        assertEquals(result.getId(), areaSensor.getId());
+        assertEquals(result.getName(), areaSensor.getName());
+
+    }
+
+    @Test
+    void seeIfGetByIdNoSensor(){
+        String mockId = "SensorOne";
+
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
+            validAreaSensorService.getById(mockId);
+        });
+
+    }
 
 }

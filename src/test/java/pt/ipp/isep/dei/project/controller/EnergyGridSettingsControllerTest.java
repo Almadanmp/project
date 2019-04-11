@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
@@ -12,9 +14,11 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,47 +33,55 @@ class EnergyGridSettingsControllerTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private House validHouse;
     private EnergyGrid validGrid;
+    private Room validRoom;
     private EnergyGridSettingsController controller = new EnergyGridSettingsController();
     @Mock
     private EnergyGridRepository energyGridRepository;
     private EnergyGridService energyGridService;
 
+    @Mock
+    private RoomRepository roomRepository;
+    private RoomService roomService;
+
     @BeforeEach
     void arrangeArtifacts() {
+        this.roomService = new RoomService(roomRepository);
+        this.energyGridService = new EnergyGridService(energyGridRepository);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, new ArrayList<>());
         validHouse.setMotherArea(new GeographicArea("Porto",
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
         validGrid = new EnergyGrid("validGrid", 300, "34576");
-        this.energyGridService = new EnergyGridService(energyGridRepository);
+        validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
+        roomService.add(validRoom);
+
     }
 
 
     //US145
 
 
-//    @Test
-//    void seeIfRoomsPrint() {
-//
-//        // Arrange
-//
-//        RoomService roomService = new RoomService();
-//        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-//        roomService.add(room);
-//        validHouse.setRoomService(roomService);
-//        String expectedResult = "---------------\n" +
-//                "Room) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = controller.buildRoomsString(roomService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfRoomsPrint() {
+
+        // Arrange
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+
+        String expectedResult = "---------------\n" +
+                "0) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
+                "---------------\n";
+
+        // Act
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+
+        String actualResult = controller.buildRoomsString(roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfRoomsPrintNull() {
