@@ -112,6 +112,13 @@ public class HouseConfigurationController {
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.
        Sensors without a valid room shouldn’t be imported but registered in the application log. */
 
+    /**
+     * Method that reads all the sensors from a given file and imports them into the persistence layer.
+     * @param filepath is the path of the file we want to import sensors from.
+     * @param roomRepository is the service making the connection to the room repository.
+     * @param sensorRepository is the service making the connection to the house sensor repository.
+     * @return is the number of imported sensors.
+     */
 
     public int readSensors(String filepath, RoomService roomRepository, HouseSensorService sensorRepository) {
         // Initialize needed variables.
