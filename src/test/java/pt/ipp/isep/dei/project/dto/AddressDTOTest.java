@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,5 +51,74 @@ class AddressDTOTest {
         String actualResult = validAddressDTO.getTown();
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeGetNumberWorks() {
+
+        //Arrange
+
+        validAddressDTO.setNumber("300");
+
+        //Act
+
+        String actualResult = validAddressDTO.getNumber();
+
+        //Assert
+
+        assertEquals("300", actualResult);
+    }
+
+    @Test
+    void seeIfGetCountryWorks() {
+
+        //Arrange
+
+        validAddressDTO.setCountry("Portugal");
+
+        //Act
+
+        String actualResult = validAddressDTO.getCountry();
+
+        //Assert
+
+        assertEquals("Portugal", actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorks() {
+
+        //Arrange
+
+        AddressDTO validAddressDTO2 = new AddressDTO();
+        validAddressDTO2.setTown("Porto");
+        validAddressDTO2.setStreet("Rua R. Dr. António Bernardino de Almeida 431");
+        validAddressDTO2.setZip("4200-072");
+
+        AddressDTO validAddressDTO3 = new AddressDTO();
+        validAddressDTO3.setTown("Lisbon");
+        validAddressDTO3.setStreet("Rua R. Dr. António Bernardino de Almeida 431");
+        validAddressDTO3.setZip("4200-072");
+
+        //Act
+
+        boolean actualResult1 = validAddressDTO.equals(validAddressDTO);
+        boolean actualResult2 = validAddressDTO.equals(validAddressDTO2);
+        boolean actualResult3 = validAddressDTO.equals(validAddressDTO3);
+        boolean actualResult4 = validAddressDTO.equals(4D);
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertTrue(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
+    }
+
+    @Test
+    void seeIfHashcodeWorks() {
+        //Assert
+
+        assertEquals(1, validAddressDTO.hashCode());
     }
 }

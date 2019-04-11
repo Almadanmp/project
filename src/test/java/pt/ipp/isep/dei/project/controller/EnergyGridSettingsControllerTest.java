@@ -6,7 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.jmx.export.annotation.ManagedOperation;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
@@ -53,9 +52,9 @@ class EnergyGridSettingsControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto",
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
         validGrid = new EnergyGrid("validGrid", 300, "34576");
+        validGrid.setId(2L);
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         roomService.add(validRoom);
-
     }
 
 
@@ -316,6 +315,28 @@ class EnergyGridSettingsControllerTest {
                 "---------------\n";
         String actualResult = controller.buildListOfDevicesOrderedByTypeString(eg, house);
         //Arrange
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfBuildGridListStringWorks() {
+        //Arrange
+
+        List<EnergyGrid> returnList = new ArrayList<>();
+        returnList.add(validGrid);
+
+        Mockito.when(energyGridRepository.findAll()).thenReturn(returnList);
+
+        String expectedResult = "---------------\n" +
+                "2) Designation: validGrid | Max Power: 300.0\n" +
+                "---------------\n";
+
+        //Act
+
+        String actualResult = controller.buildGridListString(energyGridService);
+
+        //Arrange
+
         assertEquals(expectedResult, actualResult);
     }
 }

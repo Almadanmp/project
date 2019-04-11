@@ -15,7 +15,6 @@ import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 
 import java.io.IOException;

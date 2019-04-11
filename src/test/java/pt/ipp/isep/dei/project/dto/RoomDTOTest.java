@@ -139,6 +139,21 @@ class RoomDTOTest {
     }
 
     @Test
+    void seeIfSetDescriptionWorks() {
+        // Arrange
+
+        validDTO.setDescription("Description");
+
+        // Act
+
+        String actualResult = validDTO.getDescription();
+
+        // Assert
+
+        assertEquals("Description", actualResult);
+    }
+
+    @Test
     void seeIfEqualsWorks() {
         // Arrange
 

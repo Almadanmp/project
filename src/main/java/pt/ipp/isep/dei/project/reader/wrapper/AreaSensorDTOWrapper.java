@@ -22,20 +22,19 @@ public class AreaSensorDTOWrapper {
     private double altitude;
 
     @JsonProperty("location")
-    private LocalDTO localDTO = new LocalDTO(latitude,longitude,altitude);
+    private LocalDTO localDTO = new LocalDTO(latitude, longitude, altitude);
 
     private boolean active;
 
     private List<ReadingDTO> readingList;
 
-    public AreaSensorDTOWrapper(){
+    public AreaSensorDTOWrapper() {
         readingList = new ArrayList<>();
     }
 
-    public void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAttributeWrapper) {
+public void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAttributeWrapper) {
         this.sensorAttributeWrapper = sensorAttributeWrapper;
     }
-
     public LocalDTO getLocalDTO() {
         return localDTO;
     }
@@ -49,6 +48,7 @@ public class AreaSensorDTOWrapper {
     }
 
 
+
     public boolean getActive() {
         return this.active;
     }
@@ -56,7 +56,6 @@ public class AreaSensorDTOWrapper {
     public void setActive(boolean active) {
         this.active = active;
     }
-
 
 
     public List<ReadingDTO> getReadingList() {
