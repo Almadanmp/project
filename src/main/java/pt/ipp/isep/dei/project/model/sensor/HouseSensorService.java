@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Class that groups a number of Sensors.
@@ -119,6 +120,19 @@ public class HouseSensorService {
         }
         return false;
     }
+
+
+    public boolean addWithPersistence(HouseSensor sensorToAdd) {
+        Optional<HouseSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
+        if (aux.isPresent()) {
+            HouseSensor sensor = aux.get();
+            sensor = sensorToAdd;
+            houseSensorRepository.save(sensor);
+        }
+        houseSensorRepository.save(sensorToAdd);
+        return true;
+    }
+
 
     public boolean sensorExistsInRepository(String sensorID) {
         Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);

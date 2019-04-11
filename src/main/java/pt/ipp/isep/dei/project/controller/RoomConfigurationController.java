@@ -65,7 +65,7 @@ public class RoomConfigurationController {
      * @param room is the room we want to choose.
      * @return AreaSensorList of the Room.
      */
-     HouseSensorService getRoomSensorList(Room room) {
+    HouseSensorService getRoomSensorList(Room room) {
         return room.getSensorList();
     }
 
@@ -309,10 +309,9 @@ public class RoomConfigurationController {
      * Method to addWithoutPersisting a Sensor to the Room.
      *
      * @param houseSensor is the sensor we want to addWithoutPersisting.
-     * @param room        is the room we want to addWithoutPersisting the sensor to.
      * @return if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensorToRoom(HouseSensor houseSensor, Room room) {
-        return (room.addSensor(houseSensor));
+    public boolean addSensorToRoom(HouseSensor houseSensor, HouseSensorService houseSensorService) {
+        return (houseSensorService.addWithPersistence(houseSensor));
     }
 }

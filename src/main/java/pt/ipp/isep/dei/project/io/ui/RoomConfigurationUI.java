@@ -60,7 +60,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US220
-                    runUS220(house);
+                    runUS220();
                     activeInput = false;
                     break;
                 case 5: //US222
@@ -76,7 +76,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(sensorTypeService);
+                    runUS253(sensorTypeService, houseSensorService);
                     activeInput = false;
                     break;
                 case 0:
@@ -379,17 +379,17 @@ class RoomConfigurationUI {
      * <p>
      * //  * @param typeSensorList is
      */
-    private void runUS253(SensorTypeService sensorTypeList) {
-        if (sensorTypeList.isEmpty()) {
+    private void runUS253(SensorTypeService sensorService, HouseSensorService houseSensorService) {
+        if (sensorService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
         Room room = InputHelperUI.getHouseRoomByList(roomService);
-        SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorTypeList);
-        getInput253(room, sensorType);
+        SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorService);
+        getInput253(room, sensorType, houseSensorService);
     }
 
-    private void getInput253(Room room, SensorType sensorType) {
+    private void getInput253(Room room, SensorType sensorType, HouseSensorService houseSensorService) {
         Scanner input = new Scanner(System.in);
         // Id Getter
         System.out.println("\nEnter Sensor Id:\t");
@@ -423,15 +423,16 @@ class RoomConfigurationUI {
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
         String idRoom = room.getName();
-        updateAndDisplay253(sensorID, sensorType, room, dateYear, dateMonth, dateDay, sensorName, idRoom);
+        updateAndDisplay253(sensorID, sensorType, room, dateYear, dateMonth, dateDay, sensorName, idRoom, houseSensorService);
 
     }
 
-    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, int dateYear, int dateMonth, int dateDay, String sensorName, String idRoom) {
+    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, int dateYear, int dateMonth,
+                                     int dateDay, String sensorName, String idRoom, HouseSensorService houseSensorService) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
         HouseSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorID, sensorName, sensorType, mDate, idRoom);
-        if (controller.addSensorToRoom(mAreaSensor, room)) {
+        if (controller.addSensorToRoom(mAreaSensor, houseSensorService)) {
             System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");
     }
@@ -440,7 +441,7 @@ class RoomConfigurationUI {
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
-    private void runUS220(House house) {
+    private void runUS220() {
         Room room = InputHelperUI.getHouseRoomByList(roomService);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
