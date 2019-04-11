@@ -23,6 +23,7 @@ public class JSONSensorsReader implements Reader {
                 continue;
             }
             try {
+                String sensorID = sensorToImport.getString("id");
                 String sensorName = sensorToImport.getString("name");
                 String sensorType = sensorToImport.getString("type");
                 String sensorUnit = sensorToImport.getString("units");
@@ -33,6 +34,7 @@ public class JSONSensorsReader implements Reader {
                 importedSensor.setTypeSensor(sensorType);
                 importedSensor.setUnits(sensorUnit);
                 importedSensor.setRoomID(roomID);
+                importedSensor.setId(sensorID);
                 result.add(importedSensor);
             }
             catch (NullPointerException ok){

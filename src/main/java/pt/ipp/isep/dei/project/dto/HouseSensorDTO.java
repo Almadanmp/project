@@ -52,6 +52,10 @@ public class HouseSensorDTO {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getRoomID() {
         return roomID;
     }

@@ -132,7 +132,7 @@ public class HouseConfigurationController {
             sensorRepository) {
         int addedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
-            Optional<Room> roomToAddTo = roomRepository.getAllRoomsWithSameID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
+            Optional<Room> roomToAddTo = roomRepository.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
                 sensorRepository.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
