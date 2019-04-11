@@ -28,11 +28,10 @@ public class EnergyGridSettingsController {
 
 
     /**
-     * @param house is the house of which we're going to print the GridList.
      * @return builds a string of all the individual EnergyGrids contained in the house's EnergyGridList.
      */
-    public String buildGridListString(House house) {
-        return house.buildGridListString();
+    public String buildGridListString(EnergyGridService energyGridService) {
+        return energyGridService.buildString();
     }
 
     /*
@@ -43,8 +42,7 @@ public class EnergyGridSettingsController {
     /**
      * This method directly adds the desired energy grid to the energy grid list from a selected house;
      *
-     * @param programHouse the house to which the grid will be added to.
-     * @param energyGrid   the grid to addWithoutPersisting to the House.
+     * @param energyGrid the grid to addWithoutPersisting to the House.
      * @return true if the grid was added to the house.
      */
     public boolean addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {

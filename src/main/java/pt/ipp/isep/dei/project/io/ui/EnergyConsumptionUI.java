@@ -27,7 +27,7 @@ class EnergyConsumptionUI {
         this.controller = new EnergyConsumptionController();
     }
 
-    void run(HouseService houseService) {
+    void run(House house, RoomService roomService, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -38,31 +38,31 @@ class EnergyConsumptionUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS172(houseService);
+                    runUS172(energyGridService);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS705(houseService);
+                    runUS705(energyGridService);
                     activeInput = false;
                     break;
                 case 3:
-                    runUS720(houseService);
+                    runUS720(house);
                     activeInput = false;
                     break;
                 case 4:
-                    runUS721(houseService);
+                    runUS721(roomService);
                     activeInput = false;
                     break;
                 case 5:
-                    runUS722(houseService);
+                    runUS722(house, energyGridService);
                     activeInput = false;
                     break;
                 case 6:
-                    runUS730(houseService);
+                    runUS730(house, energyGridService);
                     activeInput = false;
                     break;
                 case 7:
-                    runUS752(houseService);
+                    runUS752(house);
                     activeInput = false;
                     break;
                 case 0:
@@ -78,13 +78,12 @@ class EnergyConsumptionUI {
     // connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
     // in the grid.
 
-    private void runUS172(HouseService houseService) {
-        House house = houseService.getHouse();
-        if (house.isEnergyGridListEmpty()) {
+    private void runUS172(EnergyGridService energyGridService) {
+        if (energyGridService.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
         if (grid.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -106,13 +105,12 @@ class EnergyConsumptionUI {
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
     // and/or devices of my choosing connected to a grid.
 
-    private void runUS705(HouseService houseService) {
-        House house = houseService.getHouse();
-        if (house.isEnergyGridListEmpty()) {
+    private void runUS705(EnergyGridService energyGridService) {
+        if (energyGridService.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
         RoomService selectedRooms = new RoomService();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
@@ -257,11 +255,11 @@ class EnergyConsumptionUI {
      * This run makes the validation of the Room Device  List and the Device  Log List.
      * Then it calls the controller to get the total metered energy consumption for the given time interval.
      *
-     * @param houseService - Is the parameter which is used to get all the parameters needed for this User Story (720)
+     * @param house - Is the parameter which is used to get all the parameters needed for this User Story (720)
      */
 
-    private void runUS720(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS720(House house) {
+
         UtilsUI utilsUI = new UtilsUI();
         RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
         if (!utilsUI.roomDTODeviceListIsValid(room, house)) {
@@ -287,12 +285,12 @@ class EnergyConsumptionUI {
        the interval.
      */
 
-    private void runUS721(HouseService houseService) {
-        House programHouse = houseService.getHouse();
-        if (programHouse.isRoomListEmpty()) {
+    private void runUS721(RoomService roomService) {
+
+        if (roomService.getAllRooms().isEmpty()) {
             System.out.print(UtilsUI.INVALID_ROOM_LIST);
         }
-        Room room = InputHelperUI.getHouseRoomByList(programHouse);
+        Room room = InputHelperUI.getHouseRoomByList(roomService);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
@@ -305,14 +303,13 @@ class EnergyConsumptionUI {
     given time interval, i.e. the sum of the energy consumption of all energy-metered rooms in the grid in the
     interval.*/
 
-    private void runUS722(HouseService houseService) {
-        House programHouse = houseService.getHouse();
-        EnergyGridService gridList = controller.getHouseGridList(programHouse);
+    private void runUS722(House house, EnergyGridService energyGridService) {
+        EnergyGridService gridList = controller.getHouseGridList(house);
         if (gridList.isEmpty()) {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
             return;
         }
-        EnergyGrid eGrid = InputHelperUI.getInputGridByList(programHouse);
+        EnergyGrid eGrid = InputHelperUI.getInputGridByList(energyGridService);
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
         System.out.println("Please insert the date at which you want to start the interval.");
@@ -329,19 +326,18 @@ class EnergyConsumptionUI {
      *  consumption chart of the metered energy consumption of a device/room/grid in a given time interval.
      */
 
-    private void runUS730(HouseService houseService) {
-        House programHouse = houseService.getHouse();
+    private void runUS730(House house, EnergyGridService energyGridService) {
         this.printUS730Menu();
         int option = InputHelperUI.getInputAsInt();
         switch (option) {
             case 1:
-                setGridData(programHouse);
+                setGridData(energyGridService);
                 break;
             case 2:
-                setRoomData(programHouse);
+                setRoomData(house);
                 break;
             case 3:
-                setDeviceData(programHouse);
+                setDeviceData(house);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
@@ -350,8 +346,8 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void setGridData(House programHouse) {
-        EnergyGrid grid = InputHelperUI.getInputGridByList(programHouse);
+    private void setGridData(EnergyGridService energyGridService) {
+        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
         System.out.println(INSERT_START_DATE);
         Date startDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println(INSERT_END_DATE);
@@ -394,8 +390,7 @@ class EnergyConsumptionUI {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
-    private void runUS752(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS752(House house) {
         List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house).getList();
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");

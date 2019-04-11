@@ -66,9 +66,14 @@ public class ReaderController {
     public boolean readJSONAndDefineHouse(House house, String filePath) {
         //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
-        HouseDTO houseDTO = readerJSONHouse.readFile(filePath);
-        House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
-        house.setAddress(house2.getAddress());
+        HouseDTO houseDTO;
+        try {
+            houseDTO = readerJSONHouse.readFile(filePath);
+            House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
+            house.setAddress(house2.getAddress());
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
 
         //EnergyGrid
 

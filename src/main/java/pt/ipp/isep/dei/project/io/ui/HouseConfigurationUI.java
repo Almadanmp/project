@@ -9,7 +9,6 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -26,15 +25,17 @@ class HouseConfigurationUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
+    private HouseService houseService;
 
-    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService) {
+    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
         this.controller = new HouseConfigurationController();
         this.areaSensorService = areaSensorService;
         this.readingService = readingService;
+        this.houseService = houseService;
 
     }
 
-    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -53,15 +54,15 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS101(houseService, geographicAreaService);
+                    runUS101(house, geographicAreaService);
                     activeInput = false;
                     break;
                 case 4:
-                    runUS105(houseService);
+                    runUS105(house, roomService, energyGridService);
                     activeInput = false;
                     break;
                 case 5:
-                    runUS108(roomService, roomRepository);
+                    runUS108(roomService);
                     activeInput = false;
                     break;
                 case 6:
@@ -104,46 +105,30 @@ class HouseConfigurationUI {
 
     private void runUS100(House house, HouseService houseService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
-        InputHelperUI input = new InputHelperUI();
+        InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        String filePath = input.getInputPathJson(result);
-        if (ctrl.readJSONAndDefineHouse(house, filePath)) {
-            System.out.println("House Data Successfully imported.");
-        } else {
-            System.out.println("The JSON file is invalid.");
+        String input = inputHelperUI.getInputPathJson(result);
+        String filePath = inputHelperUI.getInputPath(input);
+        try {
+            if (ctrl.readJSONAndDefineHouse(house, filePath)) {
+                System.out.println("House Data Successfully imported.");
+            } else {
+                System.out.println("The JSON file is invalid.");
+            }
+        }
+        catch (IllegalArgumentException ill) {
+            ill.getMessage();
         }
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 //TODO Location is just location ot Adress etc, doest make much sense with the new data.
-    private void runUS101(HouseService houseService, GeographicAreaService geographicAreaService) {
-        House house = houseService.getHouse();
-        Scanner scanner = new Scanner(System.in);
+    private void runUS101(House house, GeographicAreaService geographicAreaService) {
         List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First select the geographic area where this house is located.");
         GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
-
-//        // get house address
-//        System.out.print("Please, type the street where the house is located: ");
-//        String street = scanner.nextLine();
-//
-//        // get number
-//        System.out.print("Please, type the number where the house is located: ");
-//        String number = scanner.nextLine();
-//
-//        // get zip code
-//        System.out.print("Please, type the address's zip code: ");
-//        String zip = scanner.nextLine();
-//
-//        // get town
-//        System.out.println("Please, type the town where the house is located: ");
-//        String town = scanner.nextLine();
-//
-//        // get country
-//        System.out.println("Please, type the country where the house is located: ");
-//        String country = scanner.nextLine();
 
         //get latitude
         System.out.print("Please, type the latitude: ");
@@ -158,14 +143,8 @@ class HouseConfigurationUI {
         double houseAlt = InputHelperUI.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
-//        controller.setHouseAddress(street, number, zip, town, country, house);
         controller.setHouseMotherArea(house, motherArea);
         houseService.saveHouse(house);
-
-        //       String houseId = controller.getHouseName(house);
-//        System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
-//                street + ". \n" + "Number: " + number + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Country: " + country + ". \n" + "Latitude: " + houseLat + ". \n" +
-//                "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
 
         System.out.println("\nYou have successfully configured the location of the house with the following Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
@@ -174,13 +153,12 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS105(House house, RoomService roomService, EnergyGridService energyGridService) {
         getInputRoomCharacteristics();
-        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
-        Room room = createNewRoom(house,grid);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
+        Room room = createNewRoom(roomService, house, grid);
         displayRoom();
-        boolean added = addRoomToHouse(house, room);
+        boolean added = addRoomToHouse(roomService, room);
         displayFinalState(added);
     }
 
@@ -213,8 +191,8 @@ class HouseConfigurationUI {
         this.roomHeight = InputHelperUI.getInputAsDoublePositive();
     }
 
-    private Room createNewRoom(House house,EnergyGrid grid) {
-        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight,house.getId(),grid.getName());
+    private Room createNewRoom(RoomService roomService, House house, EnergyGrid grid) {
+        return controller.createNewRoom(roomService, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
     }
 
     /**
@@ -240,8 +218,8 @@ class HouseConfigurationUI {
         }
     }
 
-    private boolean addRoomToHouse(House house, Room room) {
-        return controller.addRoomToHouse(house, room);
+    private boolean addRoomToHouse(RoomService roomService, Room room) {
+        return controller.addRoomToHouse(roomService, room);
     }
 
     private void displayFinalState(boolean addedRoom) {
@@ -252,14 +230,13 @@ class HouseConfigurationUI {
         }
     }
 
-
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
      * - MARIA MEIRELES, TERESA VARELA */
-    private void runUS108(RoomService roomService, RoomRepository roomRepository) {
-        //        if (){
-//            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-//        }
-        System.out.println(controller.buildRoomsString(roomService, roomRepository));
+    private void runUS108(RoomService roomService) {
+        if (roomService.getAllRooms().isEmpty()) {
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
+        }
+        System.out.println(controller.buildRoomsString(roomService));
     }
 
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.

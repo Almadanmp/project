@@ -344,15 +344,6 @@ public class House implements Metered {
 
 
     /**
-     * This method builds a String for the GridList in the house.
-     *
-     * @return string with energy grid list
-     */
-    public String buildGridListString() {
-        return this.energyGridService.buildString();
-    }
-
-    /**
      * @return builds a string from the House's room list.
      */
     public String buildRoomListString() {
@@ -421,22 +412,6 @@ public class House implements Metered {
     }
 
     /**
-     * This method receives room parameters, checks if room exists in house and
-     * returns room with same designation in case it does. In case the room does not
-     * exit, a new room will be created and returned.
-     *
-     * @param roomDesignation the designation of the room.
-     * @param roomHouseFloor  the floor of the room.
-     * @param width           the width of the room.
-     * @param height          the height of the room.
-     * @param length          the length of the room.
-     * @return room with characteristics given as parameters
-     **/
-    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
-        return this.roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
-    }
-
-    /**
      * This method checks if house's RoomList is empty.
      *
      * @return true if house's RoomList is empty, false otherwise
@@ -455,14 +430,6 @@ public class House implements Metered {
         return this.energyGridService.isEmpty();
     }
 
-    /**
-     * This method checks the house's energy grid list size.
-     *
-     * @return returns the house's energy grid list size as int.
-     */
-    public int energyGridListSize() {
-        return this.energyGridService.size();
-    }
 
     /**
      * This method checks the house's room list size.
@@ -494,19 +461,6 @@ public class House implements Metered {
      */
     public int deviceTypeListSize() {
         return this.deviceTypeList.size();
-    }
-
-    /**
-     * This method receives an index as parameter and gets energy grid from house's energy grid list.
-     *
-     * @param index the index of the Energy Grid
-     * @return returns Energy grid that corresponds to index.
-     */
-    public EnergyGrid getEnergyGridByIndex(int index) {
-        if (this.energyGridService.isEmpty()) {
-            throw new IndexOutOfBoundsException("The energy grid list is empty.");
-        }
-        return this.energyGridService.get(index);
     }
 
     /**
