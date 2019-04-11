@@ -49,27 +49,27 @@ class EnergyGridSettingsControllerTest {
     //US145
 
 
-    @Test
-    void seeIfRoomsPrint() {
-
-        // Arrange
-
-        RoomService roomService = new RoomService();
-        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-        roomService.add(room);
-        validHouse.setRoomService(roomService);
-        String expectedResult = "---------------\n" +
-                "Room) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
-                "---------------\n";
-
-        // Act
-
-        String actualResult = controller.buildRoomsString(roomService);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
+//    @Test
+//    void seeIfRoomsPrint() {
+//
+//        // Arrange
+//
+//        RoomService roomService = new RoomService();
+//        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
+//        roomService.add(room);
+//        validHouse.setRoomService(roomService);
+//        String expectedResult = "---------------\n" +
+//                "Room) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
+//                "---------------\n";
+//
+//        // Act
+//
+//        String actualResult = controller.buildRoomsString(roomService);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     @Test
     void seeIfRoomsPrintNull() {
@@ -88,22 +88,22 @@ class EnergyGridSettingsControllerTest {
 
     //USER STORY 149
 
-    @Test
-    void seeIfRoomIsRemovedFromGrid() {
-
-        //Arrange
-
-        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-        validGrid.addRoom(room);
-
-        //Act
-
-        boolean actualresult = controller.removeRoomFromGrid(validGrid, room);
-
-        //Assert
-
-        assertTrue(actualresult);
-    }
+//    @Test
+//    void seeIfRoomIsRemovedFromGrid() {
+//
+//        //Arrange
+//
+//        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
+//        validGrid.addRoom(room);
+//
+//        //Act
+//
+//        boolean actualresult = controller.removeRoomFromGrid(validGrid, room);
+//
+//        //Assert
+//
+//        assertTrue(actualresult);
+//    }
 
     @Test
     void seeIfGridListPrints() {

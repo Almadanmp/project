@@ -156,36 +156,36 @@ class EnergyConsumptionControllerTest {
 
     }
 
-    @Test
-    void seeIfRemoveRoomFromListWorks() {
+//    @Test
+//    void seeIfRemoveRoomFromListWorks() {
+//
+//        //Arrange
+//        RoomService roomService = new RoomService();
+//        roomService.add(validRoom1);
+//
+//        //Act
+//        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
+//
+//        //Assert
+//        assertTrue(actualResult);
+//
+//    }
 
-        //Arrange
-        RoomService roomService = new RoomService();
-        roomService.add(validRoom1);
-
-        //Act
-        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
-
-        //Assert
-        assertTrue(actualResult);
-
-    }
-
-    @Test
-    void seeIfRemoveRoomFromListWorksFalse() {
-
-        //Arrange
-
-        RoomService roomService = new RoomService();
-        EnergyConsumptionController controller = new EnergyConsumptionController();
-
-        //Act
-        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
-
-        //Assert
-        assertFalse(actualResult);
-
-    }
+//    @Test
+//    void seeIfRemoveRoomFromListWorksFalse() {
+//
+//        //Arrange
+//
+//        RoomService roomService = new RoomService();
+//        EnergyConsumptionController controller = new EnergyConsumptionController();
+//
+//        //Act
+//        boolean actualResult = controller.removeRoomFromList(validRoom1, roomService);
+//
+//        //Assert
+//        assertFalse(actualResult);
+//
+//    }
 
     @Test
     void seeIfAddRoomToListWorksFalse() {

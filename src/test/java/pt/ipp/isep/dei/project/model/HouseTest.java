@@ -4,6 +4,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -24,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * House tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class HouseTest {
 
     // Common artifacts for testing in this class.
@@ -33,6 +36,8 @@ class HouseTest {
     private House validHouse;
     private GeographicArea validArea;
     private AreaSensor firstValidAreaSensor;
+
+
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -611,21 +616,21 @@ class HouseTest {
         assertFalse(actualResult4);
     }
 
-    @Test
-    void seeIfCreateRoomWorks() {
-        // Arrange
-
-        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1,"Room1","Grid1");
-
-        // Act
-
-        Room actualResult = validHouse.createRoom("Kitchen", "1st Floor Kitchen", 1, 1, 1,
-                1,"Room1","Grid1");
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
+//    @Test
+//    void seeIfCreateRoomWorks() {
+//        // Arrange
+//
+//        Room expectedResult = new Room("Kitchen", "1st Floor Kitchen", 1, 1, 1, 1,"Room1","Grid1");
+//
+//        // Act
+//
+//        Room actualResult = validHouse.createRoom("Kitchen", "1st Floor Kitchen", 1, 1, 1,
+//                1,"Room1","Grid1");
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     @Test
     void seeIfGetRoomListWorks() {
@@ -700,25 +705,25 @@ class HouseTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfGetRoomByIndexWorks() {
-        //Arrange
-
-        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10,"Room1","Grid1");
-        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10,"Room1","Grid1");
-        validHouse.addRoom(room1);
-        validHouse.addRoom(room2);
-
-        //Act
-
-        Room actualResult1 = validHouse.getRoomByIndex(0);
-        Room actualResult2 = validHouse.getRoomByIndex(1);
-
-        //Assert
-
-        assertEquals(room1, actualResult1);
-        assertEquals(room2, actualResult2);
-    }
+//    @Test
+//    void seeIfGetRoomByIndexWorks() {
+//        //Arrange
+//
+//        Room room1 = new Room("room1", "Single Bedroom", 1, 20, 15, 10,"Room1","Grid1");
+//        Room room2 = new Room("room2", "Double Bedroom", 2, 20, 15, 10,"Room1","Grid1");
+//        validHouse.addRoom(room1);
+//        validHouse.addRoom(room2);
+//
+//        //Act
+//
+//        Room actualResult1 = validHouse.getRoomByIndex(0);
+//        Room actualResult2 = validHouse.getRoomByIndex(1);
+//
+//        //Assert
+//
+//        assertEquals(room1, actualResult1);
+//        assertEquals(room2, actualResult2);
+//    }
 
 
     @Test
@@ -752,16 +757,16 @@ class HouseTest {
         Assertions.assertEquals("The energy grid list is empty.", exception.getMessage());
     }
 
-    @Test
-    void getByIndexEmptyRoomList() {
-        //Act
-
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validHouse.getRoomByIndex(0));
-
-        //Assert
-
-        Assertions.assertEquals("The room list is empty.", exception.getMessage());
-    }
+//    @Test
+//    void getByIndexEmptyRoomList() {
+//        //Act
+//
+//        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validHouse.getId(0));
+//
+//        //Assert
+//
+//        Assertions.assertEquals("The room list is empty.", exception.getMessage());
+//    }
 
     @Test
     void seeIfGetEnergyConsumptionWorksZero() {
@@ -822,51 +827,51 @@ class HouseTest {
 //        Assertions.assertEquals(1, actualResult2);
 //    }
 
-    @Test
-    void roomListSize() {
-        //Act
+//    @Test
+//    void roomListSize() {
+//        //Act
+//
+//        int actualResult1 = validHouse.roomListSize();
+//
+//        //Assert Empty List
+//
+//        Assertions.assertEquals(0, actualResult1);
+//
+//        //Arrange
+//
+//        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
+//
+//        //Act
+//
+//        int actualResult2 = validHouse.roomListSize();
+//
+//        //Assert One Room
+//
+//        Assertions.assertEquals(1, actualResult2);
+//    }
 
-        int actualResult1 = validHouse.roomListSize();
-
-        //Assert Empty List
-
-        Assertions.assertEquals(0, actualResult1);
-
-        //Arrange
-
-        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
-
-        //Act
-
-        int actualResult2 = validHouse.roomListSize();
-
-        //Assert One Room
-
-        Assertions.assertEquals(1, actualResult2);
-    }
-
-    @Test
-    void seeIfIsRoomListEmptyWorks() {
-        //Act
-
-        boolean actualResult1 = validHouse.isRoomListEmpty();
-
-        //Assert Empty List
-
-        assertTrue(actualResult1);
-
-        //Arrange
-
-        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
-
-        //Act
-
-        boolean actualResult2 = validHouse.isRoomListEmpty();
-
-        //Assert One Room
-
-        assertFalse(actualResult2);
-    }
+//    @Test
+//    void seeIfIsRoomListEmptyWorks() {
+//        //Act
+//
+//        boolean actualResult1 = validHouse.isRoomListEmpty();
+//
+//        //Assert Empty List
+//
+//        assertTrue(actualResult1);
+//
+//        //Arrange
+//
+//        validHouse.addRoom(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
+//
+//        //Act
+//
+//        boolean actualResult2 = validHouse.isRoomListEmpty();
+//
+//        //Assert One Room
+//
+//        assertFalse(actualResult2);
+//    }
 
     @Test
     void seeIfIsEnergyGridListEmptyWorks() {

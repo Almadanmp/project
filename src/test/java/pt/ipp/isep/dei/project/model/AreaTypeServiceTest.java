@@ -60,14 +60,14 @@ class AreaTypeServiceTest {
     }
 
 
-    @Test
-    void seeIfAddAreaType() {
-        AreaType areaType = new AreaType("Street");
-
-        Mockito.when(areaTypeRepository.findByName(areaType.getName())).thenReturn(areaType);
-
-        assertTrue(validList.add(areaType));
-    }
+//    @Test
+//    void seeIfAddAreaType() {
+//        AreaType areaType = new AreaType("Street");
+//
+//        Mockito.when(areaTypeRepository.findByName(areaType.getName())).thenReturn(areaType);
+//
+//        assertTrue(validList.add(areaType));
+//    }
 
     @Test
     void seeIfGetTypeAreaByIdRepository() {
