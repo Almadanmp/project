@@ -251,6 +251,10 @@ class HouseConfigurationUI {
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
         int importedSensors = controller.readSensors(filePath, roomService, sensorService);
+        if(importedSensors==-1){
+            System.out.println("There's something wrong with the file provided. Please check it for syntax errors or " +
+                    "empty elements.");
+        }
         System.out.println(importedSensors + " Sensors successfully imported.");
     }
 
