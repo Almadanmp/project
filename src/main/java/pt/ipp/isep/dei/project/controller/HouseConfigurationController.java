@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -78,7 +77,6 @@ public class HouseConfigurationController {
     /**
      * This method receives the house and room parameters and creates a new roomDTO.
      *
-     * @param house           house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.
@@ -86,19 +84,18 @@ public class HouseConfigurationController {
      * @param height          is the height of the room we're going to create.
      * @return a new Room
      */
-    public Room createNewRoom(House house, String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
-        return house.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
+    public Room createNewRoom(RoomService roomService, String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
+        return roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
     }
 
     /**
      * The method receives a house and a roomDTO, transforms it into a room, and tries to addWithoutPersisting it to house.
      *
-     * @param house the project House.
-     * @param room  the DTO of a Room.
+     * @param room the DTO of a Room.
      * @return true if room was added, false otherwise.
      **/
-    public boolean addRoomToHouse(House house, Room room) {
-        return house.addRoom(room);
+    public boolean addRoomToHouse(RoomService roomService, Room room) {
+        return roomService.addPersistence(room);
     }
 
 

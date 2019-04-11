@@ -3,8 +3,10 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,10 @@ class HouseConfigurationControllerTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private HouseConfigurationController controller = new HouseConfigurationController();
     private House validHouse;
+    private RoomService roomService;
+
+    @Mock
+    private RoomRepository roomRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -34,6 +40,7 @@ class HouseConfigurationControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
+        roomService = new RoomService(roomRepository);
     }
 
 
@@ -53,62 +60,50 @@ class HouseConfigurationControllerTest {
 
 
     // US108
-//
-//    @Test
-//    void seeIfPrintsRoomList() {
-//        // Arrange
-//
-//        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 15, 20, 10,"Room1","Grid1");
-//        Room roomTwo = new Room("LivingRoom", "1st Floor Living Room", 1, 40, 40, 10,"Room1","Grid1");
-//        RoomService roomService = new RoomService();
-//        roomService.add(roomOne);
-//        roomService.add(roomTwo);
-//        validHouse.setRoomService(roomService);
-//        String expectedResult = "---------------\n" +
-//                "Kitchen) Designation: Kitchen | Description: Equipped Kitchen | House Floor: 1 | Width: 15.0 | Length: 20.0 | Height: 10.0\n" +
-//                "LivingRoom) Designation: LivingRoom | Description: 1st Floor Living Room | House Floor: 1 | Width: 40.0 | Length: 40.0 | Height: 10.0\n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String result = controller.buildRoomsString(validHouse);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, result);
-//    }
 
-//    @Test
-//    void createsRoom() {
-//        // Act
-//
-//        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen", "Not equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
-//        Room actualResult2 = controller.createNewRoom(validHouse, "Room", "Double Bedroom", 1, 10, 15, 10,"Room1","Grid1");
-//        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
-//
-//        // Assert
-//
-//        assertTrue(actualResult1 instanceof Room);
-//        assertTrue(actualResult2 instanceof Room);
-//        assertTrue(actualResult3 instanceof Room);
-//    }
+    @Test
+    void seeIfPrintsRoomList() {
+        // Arrange
+
+              String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String result = controller.buildRoomsString(roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void createsRoom() {
+        // Act
+
+        Room actualResult1 = controller.createNewRoom(roomService, "Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+        Room actualResult2 = controller.createNewRoom(roomService, "Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
+        Room actualResult3 = controller.createNewRoom(roomService, "Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+
+        // Assert
+
+        assertTrue(actualResult1 instanceof Room);
+        assertTrue(actualResult2 instanceof Room);
+        assertTrue(actualResult3 instanceof Room);
+    }
 
     @Test
     void addsRoom() {
         //Arrange
-        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
-        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10,"Room1","Grid1");
-        Room room3 = new Room("Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
+        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
 
         // Act
-        boolean actualResult1 = controller.addRoomToHouse(validHouse, room1);
-        boolean actualResult2 = controller.addRoomToHouse(validHouse, room2);
-        boolean actualResult3 = controller.addRoomToHouse(validHouse, room3);
+        boolean actualResult1 = controller.addRoomToHouse(roomService, room1);
+        boolean actualResult2 = controller.addRoomToHouse(roomService, room2);
 
         // Assert
         assertTrue(actualResult1);
         assertTrue(actualResult2);
-        assertFalse(actualResult3);
     }
 
     @Test

@@ -232,21 +232,20 @@ public class InputHelperUI {
      * Method that shows the user a list of all the grids that exist in the program's house, and then prompts him
      * to choose based on index.
      *
-     * @param house is the program's house.
      * @return is the chosen energy grid.
      */
-    public static EnergyGrid getInputGridByList(House house) {
+    public static EnergyGrid getInputGridByList(EnergyGridService energyGridService) {
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
-            System.out.println(controller.buildGridListString(house));
+            System.out.println(controller.buildGridListString(energyGridService));
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < house.energyGridListSize()) {
-                EnergyGrid result = house.getEnergyGridByIndex(aux);
+            try {
+                EnergyGrid result = energyGridService.getById(aux);
                 System.out.println("You have chosen the following grid:");
                 System.out.println(result.buildString() + "\n");
                 return result;
-            } else {
+            } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }

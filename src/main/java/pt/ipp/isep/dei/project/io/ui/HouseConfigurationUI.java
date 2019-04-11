@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,15 +23,17 @@ class HouseConfigurationUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
+    private HouseService houseService;
 
-    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService) {
+    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
         this.controller = new HouseConfigurationController();
         this.areaSensorService = areaSensorService;
         this.readingService = readingService;
+        this.houseService = houseService;
 
     }
 
-    void run(House house, HouseService houseService, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -55,7 +56,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 4:
-                    runUS105(houseService);
+                    runUS105(house, roomService, energyGridService);
                     activeInput = false;
                     break;
                 case 5:
@@ -173,13 +174,12 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS105(House house, RoomService roomService, EnergyGridService energyGridService) {
         getInputRoomCharacteristics();
-        EnergyGrid grid = InputHelperUI.getInputGridByList(house);
-        Room room = createNewRoom(house, grid);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
+        Room room = createNewRoom(roomService, house, grid);
         displayRoom();
-        boolean added = addRoomToHouse(house, room);
+        boolean added = addRoomToHouse(roomService, room);
         displayFinalState(added);
     }
 
@@ -212,8 +212,8 @@ class HouseConfigurationUI {
         this.roomHeight = InputHelperUI.getInputAsDoublePositive();
     }
 
-    private Room createNewRoom(House house, EnergyGrid grid) {
-        return controller.createNewRoom(house, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
+    private Room createNewRoom(RoomService roomService, House house, EnergyGrid grid) {
+        return controller.createNewRoom(roomService, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
     }
 
     /**
@@ -239,8 +239,8 @@ class HouseConfigurationUI {
         }
     }
 
-    private boolean addRoomToHouse(House house, Room room) {
-        return controller.addRoomToHouse(house, room);
+    private boolean addRoomToHouse(RoomService roomService, Room room) {
+        return controller.addRoomToHouse(roomService, room);
     }
 
     private void displayFinalState(boolean addedRoom) {
