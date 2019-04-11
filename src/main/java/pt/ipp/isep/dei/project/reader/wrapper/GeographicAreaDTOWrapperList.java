@@ -25,6 +25,9 @@ public class GeographicAreaDTOWrapperList {
         return this.areaDTOWrappers;
     }
 
+    public void setAreaDTOWrappers(List<GeographicAreaDTOWrapper> areaDTOWrappers) {
+        this.areaDTOWrappers = areaDTOWrappers;
+    }
 
     /**
      * Getter (array of GeographicAreaDTOWrappers)
