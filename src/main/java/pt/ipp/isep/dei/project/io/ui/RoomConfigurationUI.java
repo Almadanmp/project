@@ -33,10 +33,11 @@ class RoomConfigurationUI {
     }
 
     void run(House house, SensorTypeService sensorTypeService) {
-        if (house.isRoomListEmpty()) {
-            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-            return;
-        }
+
+//        if (house.isRoomListEmpty()) {
+//            System.out.println(UtilsUI.INVALID_ROOM_LIST);
+//            return;
+//        }
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
