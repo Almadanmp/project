@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 
 import java.util.*;
@@ -71,7 +71,7 @@ public class ReadingService {
     /**
      * This method receives an index as parameter and gets a value reading from reading list.
      *
-     * @param index the index of the Reading we want to get value from
+     * @param index the index of the Reading we want to getDB value from
      * @return returns value reading that corresponds to index.
      */
     double getValueReading(int index) {
@@ -89,7 +89,7 @@ public class ReadingService {
     /**
      * This method receives an index as parameter and gets a reading date from reading list.
      *
-     * @param index the index of the Reading we want to get date from
+     * @param index the index of the Reading we want to getDB date from
      * @return returns date reading that corresponds to index.
      */
     Date getValueDate(int index) {
@@ -111,9 +111,9 @@ public class ReadingService {
     }
 
     /**
-     * Checks the reading list size and returns the size as int.\
+     * Checks the reading list sizeDB and returns the sizeDB as int.\
      *
-     * @return AreaReadingList size as int
+     * @return AreaReadingList sizeDB as int
      **/
     public int size() {
         return this.readings.size();
@@ -509,7 +509,7 @@ public class ReadingService {
      * US630
      * This method returns a Reading with a specific day from a given AreaReadingList.
      *
-     * @param date is the Day of the reading we want to get.
+     * @param date is the Day of the reading we want to getDB.
      * @return a Reading from the AreaReadingList with a Specific Date.
      */
     Reading getAReadingWithSpecificDay(Date date) {
@@ -526,7 +526,7 @@ public class ReadingService {
     /**
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
-     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * I want to getDB the last coldest day (lower maximum temperature) in the house area in a given period) and
      * it returns a Date within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *

@@ -5,17 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 /**
  * RoomList tests class.
@@ -37,7 +32,7 @@ class RoomServiceTest {
 
         validRoomService = new RoomService(this.roomRepository);
         emptyRoomService = new RoomService();
-        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3,"Room1","Grid1");
+        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         validRoomService.add(validRoom);
     }
 
@@ -104,7 +99,7 @@ class RoomServiceTest {
     }
 
     @Test
-    void seeIfGetDeviceList(){
+    void seeIfGetDeviceList() {
         DeviceList deviceList = new DeviceList();
         validRoom.setDeviceList(deviceList);
 
@@ -115,7 +110,7 @@ class RoomServiceTest {
     void seeIfEqualsDifferentListContents() {
         // Arrange
 
-        Room testRoom = new Room("Balcony", "4th Floor Balcony", 4, 2, 4, 3,"Room1","Grid1");
+        Room testRoom = new Room("Balcony", "4th Floor Balcony", 4, 2, 4, 3, "Room1", "Grid1");
         validRoomService.add(testRoom);
         emptyRoomService.add(validRoom);
 
@@ -132,7 +127,7 @@ class RoomServiceTest {
     void seeIfEqualsDifferentObjectTypes() {
         // Arrange
 
-        Room room2 = new Room("Balcony", "3rd Floor Balcony", 3, 2, 4, 3,"Room1","Grid1");
+        Room room2 = new Room("Balcony", "3rd Floor Balcony", 3, 2, 4, 3, "Room1", "Grid1");
         validRoomService.add(validRoom);
 
         // Act
@@ -150,15 +145,15 @@ class RoomServiceTest {
 
         RoomService roomService3 = new RoomService(); //Has two rooms.
 
-        Room room2 = new Room("Balcony", "2nd Floor Balcony", 2, 21, 21, 4,"Room1","Grid1");
+        Room room2 = new Room("Balcony", "2nd Floor Balcony", 2, 21, 21, 4, "Room1", "Grid1");
         roomService3.add(validRoom);
         roomService3.add(room2);
 
         // Act
 
-        boolean actualResult1 = validRoomService.isEmpty();
-        boolean actualResult2 = emptyRoomService.isEmpty();
-        boolean actualResult3 = roomService3.isEmpty();
+        boolean actualResult1 = validRoomService.isEmptyDB();
+        boolean actualResult2 = emptyRoomService.isEmptyDB();
+        boolean actualResult3 = roomService3.isEmptyDB();
 
         // Assert
 
@@ -170,7 +165,7 @@ class RoomServiceTest {
     @Test
     void seeIfGetByIndexWorks() {
         //Arrange
-        Room room = new Room("room", "Double Bedroom", 2, 20, 20, 4,"Room1","Grid1");
+        Room room = new Room("room", "Double Bedroom", 2, 20, 20, 4, "Room1", "Grid1");
         validRoomService.add(room);
 
         //Act
@@ -207,7 +202,7 @@ class RoomServiceTest {
 //
 //        //Act
 //
-//        int actualResult1 = emptyRoomService.size();
+//        int actualResult1 = emptyRoomService.sizeDB();
 //
 //        //Assert Empty List
 //
@@ -219,7 +214,7 @@ class RoomServiceTest {
 //        rooms.add(room);
 //
 //
-//        int actualResult2 = rooms.size();
+//        int actualResult2 = rooms.sizeDB();
 //
 //        //Assert One Grid
 //
@@ -236,11 +231,11 @@ class RoomServiceTest {
 
         RoomService validRoomService2 = new RoomService();
         validRoomService2.add(validRoom);
-        validRoomService2.add(new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1"));
+        validRoomService2.add(new Room("room", "Single Bedroom", 2, 20, 20, 3, "Room1", "Grid1"));
 
         expectedResult2[0] = validRoom;
         expectedResult3[0] = validRoom;
-        expectedResult3[1] = new Room("room", "Single Bedroom", 2, 20, 20, 3,"Room1","Grid1");
+        expectedResult3[1] = new Room("room", "Single Bedroom", 2, 20, 20, 3, "Room1", "Grid1");
 
         //Act
 
@@ -259,12 +254,12 @@ class RoomServiceTest {
     void seeIfCreateRoomWorks() {
         //Arrange
 
-        Room room = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2,"Room1","Grid1");
-        Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2,"Room1","Grid1");
+        Room room = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
+        Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
 
         //Act
 
-        Room roomActual1 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2,"Room1","Grid1");
+        Room roomActual1 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
 
         //Assert
 
@@ -276,7 +271,7 @@ class RoomServiceTest {
 
         //Act
 
-        Room roomActual2 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2,"Room1","Grid1");
+        Room roomActual2 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
 
         //Assert
         assertEquals(roomExpected, roomActual2);

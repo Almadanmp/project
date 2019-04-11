@@ -47,7 +47,7 @@ public class AreaTypeService {
     public boolean add(AreaType type) {
         AreaType typeArea = areaTypeRepository.findByName(type.getName());
         if (typeArea != null) {
-            areaTypeRepository.delete(typeArea);
+            return false;
         }
         areaTypeRepository.save(type);
         return true;

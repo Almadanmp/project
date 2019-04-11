@@ -442,7 +442,7 @@ public class House implements Metered {
      * @return true if house's RoomList is empty, false otherwise
      **/
     public boolean isRoomListEmpty() {
-        return this.roomService.isEmpty();
+        return this.roomService.isEmptyDB();
     }
 
 
@@ -470,7 +470,7 @@ public class House implements Metered {
      * @return returns the house's room list size as int.
      */
     public int roomListSize() {
-        return this.roomService.size();
+        return this.roomService.sizeDB();
     }
 
     /**
@@ -480,7 +480,7 @@ public class House implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoomByIndex(int index) {
-        if (this.roomService.isEmpty()) {
+        if (this.roomService.isEmptyDB()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
         return this.roomService.get(index);

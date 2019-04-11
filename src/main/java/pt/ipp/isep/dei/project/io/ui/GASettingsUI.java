@@ -90,7 +90,7 @@ class GASettingsUI {
     // SHARED METHODS //
 
     /**
-     * Method to get a AreaType DTO By List
+     * Method to getDB a AreaType DTO By List
      *
      * @return Type area DTO
      * used on US 03 and 04
@@ -183,7 +183,7 @@ class GASettingsUI {
         }
 
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + gaTypeAreaName +
-                " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area size" +
+                " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area sizeDB" +
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
@@ -221,7 +221,7 @@ class GASettingsUI {
         return InputHelperUI.getInputAsDoublePositive();
     }
 
-    /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
+    /* USER STORY 04 -  As an Administrator, I want to getDB a list of existing geographical areas of a given type. */
     private void runUS04(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         if (areaTypeService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);

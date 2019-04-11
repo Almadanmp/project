@@ -110,7 +110,7 @@ public class HouseMapper {
         }
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (int y = 0; y < objectToConvert.getRoomService().size(); y++) {
+        for (int y = 0; y < objectToConvert.getRoomService().sizeDB(); y++) {
             Room room = objectToConvert.getRoomService().get(y);
             dtoRoomList.add(RoomMapper.objectToDTO(room));
         }

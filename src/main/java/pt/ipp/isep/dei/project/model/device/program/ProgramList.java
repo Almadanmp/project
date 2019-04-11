@@ -83,9 +83,9 @@ public class ProgramList {
     }
 
     /**
-     * Checks the program list size and returns the size as int.\
+     * Checks the program list sizeDB and returns the sizeDB as int.\
      *
-     * @return ProgramList size as int
+     * @return ProgramList sizeDB as int
      **/
     public int size() {
         return this.programs.size();

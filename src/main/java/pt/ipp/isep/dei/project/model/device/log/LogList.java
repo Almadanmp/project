@@ -36,7 +36,7 @@ public class LogList {
     }
 
     /**
-     * This method is used to get a List of objects of the class Log.
+     * This method is used to getDB a List of objects of the class Log.
      *
      * @return List with Logs
      */
@@ -68,10 +68,11 @@ public class LogList {
         return (this.logs.contains(log));
     }
 
-    /** This method checks if a LogList is empty.
+    /**
+     * This method checks if a LogList is empty.
      *
      * @return true if empty, false otherwise.
-     * **/
+     **/
     public boolean isEmpty() {
         return this.logs.isEmpty();
     }

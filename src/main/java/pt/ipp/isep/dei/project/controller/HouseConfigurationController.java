@@ -6,7 +6,9 @@ import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
 
@@ -118,7 +120,7 @@ public class HouseConfigurationController {
         // Initialize needed variables.
         JSONSensorsReader reader = new JSONSensorsReader();
         int addedSensors = 0;
-        if (roomRepository.isEmpty()) { // If there are no rooms to add sensors to, no sensors will be added.
+        if (roomRepository.isEmptyDB()) { // If there are no rooms to add sensors to, no sensors will be added.
             return addedSensors;
         }
         List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
@@ -129,7 +131,7 @@ public class HouseConfigurationController {
             sensorRepository) {
         int addedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
-            Optional<Room> roomToAddTo = roomRepository.findByID(importedSensor.getRoomID()); // Attempts to get a room in the repository with an ID that matches the sensor.
+            Optional<Room> roomToAddTo = roomRepository.getAllRoomsWithSameID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
                 sensorRepository.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
@@ -150,7 +152,7 @@ public class HouseConfigurationController {
         ReaderJSONReadings reader = new ReaderJSONReadings();
         int addedReadings = 0;
         RoomService houseRooms = programHouse.getRoomService();
-        // if (roomList.isEmpty()) {
+        // if (roomList.isEmptyDB()) {
         //   return addedReadings;
         //}
         JSONArray importedReadingList = reader.readFile(filePath);

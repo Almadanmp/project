@@ -9,7 +9,6 @@ import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.HouseService;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -170,7 +169,7 @@ class EnergyConsumptionUI {
      */
 
     private void printSelection(DeviceList selectedDevices, RoomService selectedRooms) {
-        if (selectedDevices.isEmpty() && selectedRooms.isEmpty()) {
+        if (selectedDevices.isEmpty() && selectedRooms.isEmptyDB()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
             System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildString()

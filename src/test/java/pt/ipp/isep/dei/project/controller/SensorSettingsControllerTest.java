@@ -10,12 +10,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
-import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * SensorSettingsController tests class.
@@ -83,7 +81,7 @@ class SensorSettingsControllerTest {
 //
 //        // Act
 //
-//        SensorType actualResult = tySList.get(0);
+//        SensorType actualResult = tySList.getDB(0);
 //
 //        // Assert
 //
@@ -167,13 +165,13 @@ class SensorSettingsControllerTest {
         int month = 8;
         int day = 9;
         Date date1 = controller.createDate(year, month, day);
-        controller.createSensor(idString, nameString, type1, loc1, date1,6008L);
+        controller.createSensor(idString, nameString, type1, loc1, date1, 6008L);
         SensorType t1 = new SensorType(typeStr, "kg/m³");
         AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", t1, loc1,
-                validDate1,6008L);
+                validDate1, 6008L);
 
         //Act
-        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1,6008L);
+        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1, 6008L);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -189,10 +187,10 @@ class SensorSettingsControllerTest {
         AreaSensor firstAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType
                 ("Temperature", "Celsius"),
                 new Local(1, 1, 1),
-                validDate1,6008L);
+                validDate1, 6008L);
         AreaSensor secondAreaSensor = new AreaSensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Local(1, 1, 1),
-                validDate1,6008L);
+                validDate1, 6008L);
         AreaSensorService areaSensorService = new AreaSensorService(areaSensorRepository);
         areaSensorService.add(firstAreaSensor);
         geoArea.setSensorList(areaSensorService);
@@ -312,7 +310,7 @@ class SensorSettingsControllerTest {
         // Arrange
 
         AreaSensor areaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
-                validDate1,6008L);
+                validDate1, 6008L);
         String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long \n";
 
 

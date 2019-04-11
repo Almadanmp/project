@@ -326,7 +326,7 @@ class GeographicAreaServiceTest {
 
         assertEquals(expectedResult, actualResult);
 
-        // Arrange to make the first area get skipped (empty sensor list)
+        // Arrange to make the first area getDB skipped (empty sensor list)
 
         firstValidArea.setSensorList(new AreaSensorService());
         expectedResult.remove(firstValidAreaSensor);

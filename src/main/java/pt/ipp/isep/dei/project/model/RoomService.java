@@ -34,6 +34,187 @@ public class RoomService {
         this.rooms = new ArrayList<>();
     }
 
+
+//TODO UPDATED METHODS
+
+
+    public List<Room> getAllRooms() {
+        List<Room> finalList = new ArrayList<>();
+        Iterable<Room> rooms = roomRepository.findAll();
+
+        for (Room r : rooms) {
+            finalList.add(r);
+        }
+        return finalList;
+    }
+
+
+    /**
+     * Method to check if a room with the given ID exists in the repository.
+     *
+     * @param idToCheck is the id that we want to check for being present.
+     * @return is true if a room with the given ID exists, false if it doesn't.
+     */
+    public boolean idExists(String idToCheck) {
+        for (Room r : roomRepository.findAll()) {
+            if (r.getName().equals(idToCheck)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Method that finds a given object in the repository by its ID.
+     *
+     * @param idToFind is the ID that we want to look for.
+     * @return is an Optional that either contains the object if it existed, or a null.
+     */
+    public Optional<Room> getAllRoomsWithSameID(String idToFind) {
+        return roomRepository.findById(idToFind);
+    }
+
+    /**
+     * String Builder of the RoomList.
+     *
+     * @return a String of the Rooms in the RoomList.
+     */
+    public String buildStringDB(List<Room> roomList) {
+        StringBuilder result = new StringBuilder("---------------\n");
+        if (roomList.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (Room r : roomList) {
+            result.append(r.getName()).append(") Description: ").append(r.getDescription()).append(" | ");
+            result.append("House Floor: ").append(r.getFloor()).append(" | ");
+            result.append("Width: ").append(r.getWidth()).append(" | ");
+            result.append("Length: ").append(r.getLength()).append(" | ");
+            result.append("Height: ").append(r.getHeight()).append("\n");
+
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+
+    /**
+     * Method for creating a new room with all it's parameters,
+     * the method checks the room name to see if it already exists before creating it
+     *
+     * @param roomDesignation room name
+     * @param roomHouseFloor  floor of the house where room is located
+     * @param width           from room sizeDB
+     * @param length          from room sizeDB
+     * @param height          from room sizeDB
+     * @return new created room
+     */
+
+    Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
+        for (Room r : getAllRooms()) {
+            String designation = r.getName();
+            if (roomDesignation.equals(designation)) {
+                return r;
+            }
+        }
+        return new Room(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
+    }
+
+    /**
+     * Method that save a Room to the RoomRepository.
+     * <p>
+     * It is also adding to the local list while the project is being refactored an lists removed
+     *
+     * @param room is the room we want to save.
+     * @return true if the room was successfully saved to the repository, false otherwise.
+     */
+    public void addWithPersistence(Room room) {
+        roomRepository.save(room);
+    }
+
+    /**
+     * Method that removes a Room from the RoomList.
+     *
+     * @param room is the room we want to removeGeographicArea from the roomList.
+     * @return true if room was successfully removed from the roomList, false otherwise.
+     */
+    public boolean removeRoom(Room room) {
+        Optional<Room> aux = roomRepository.findById(room.getName());
+        if (aux.isPresent()) {
+            roomRepository.delete(room);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This method checks if room list is empty.
+     *
+     * @return true if list is empty, false otherwise.
+     **/
+    public boolean isEmptyDB() {
+        return getAllRooms().isEmpty();
+    }
+
+    /**
+     * Checks the room list sizeDB and returns the sizeDB as int.\
+     *
+     * @return RoomList sizeDB as int
+     **/
+    public int sizeDB() {
+        return getAllRooms().size();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a room from room list.
+     *
+     * @param name the name of the room
+     * @return returns room that corresponds to index.
+     */
+    public Room getDB(String name) {
+        Room room;
+        Optional<Room> aux = roomRepository.findById(name);
+        if (aux.isPresent()) {
+            room = aux.get();
+            return room;
+        }
+        throw new IndexOutOfBoundsException("ERROR: No Room was file with the following name: " + name + " .");
+    }
+
+//TODO OLD METHODS
+
+    /**
+     * String Builder of the RoomList.
+     *
+     * @return a String of the Rooms in the RoomList.
+     */
+    public String buildString() {
+        StringBuilder result = new StringBuilder("---------------\n");
+        if (this.isEmptyDB()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < this.sizeDB(); i++) {
+            Room aux = this.get(i);
+            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
+            result.append("Description: ").append(aux.getDescription()).append(" | ");
+            result.append("House Floor: ").append(aux.getFloor()).append(" | ");
+            result.append("Width: ").append(aux.getWidth()).append(" | ");
+            result.append("Length: ").append(aux.getLength()).append(" | ");
+            result.append("Height: ").append(aux.getHeight()).append("\n");
+
+        }
+        result.append("---------------\n");
+        return result.toString();
+    }
+
+    /**
+     * Method that checks if a Room is contained in the RoomList.
+     *
+     * @param room is the room that we want to see if it's contained in the roomList.
+     * @return true if room is contained in the RoomList, false otherwise.
+     */
+    public boolean contains(Room room) {
+        return (this.rooms.contains(room));
+    }
+
     public List<Room> getRooms() {
         return rooms;
     }
@@ -53,15 +234,6 @@ public class RoomService {
         }
     }
 
-    public boolean addPersistence (Room room){
-        Room room2 = roomRepository.findByName(room.getName());
-        if (room2 != null){
-            roomRepository.delete(room2);
-        }
-        roomRepository.save(room);
-        return true;
-    }
-
     /**
      * Method that returns a DeviceList with all the devices of the RoomList.
      *
@@ -73,75 +245,6 @@ public class RoomService {
             finalList.appendListNoDuplicates(r.getDeviceList());
         }
         return finalList;
-    }
-
-    /**
-     * Method for creating a new room with all it's parameters,
-     * the method checks the room name to see if it already exists before creating it
-     *
-     * @param roomDesignation room name
-     * @param roomHouseFloor  floor of the house where room is located
-     * @param width           from room size
-     * @param length          from room size
-     * @param height          from room size
-     * @return new created room
-     */
-
-    Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
-        for (Room r : this.rooms) {
-            String designation = r.getName();
-            if (roomDesignation.equals(designation)) {
-                return r;
-            }
-        }
-        return new Room(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
-    }
-
-    /**
-     * String Builder of the RoomList.
-     *
-     * @return a String of the Rooms in the RoomList.
-     */
-    public String buildString() {
-        StringBuilder result = new StringBuilder("---------------\n");
-        if (this.isEmpty()) {
-            return "Invalid List - List is Empty\n";
-        }
-        for (Room r: this.rooms) {
-            result.append(r.getId()).append(") Designation: ").append(r.getName()).append(" | ");
-            result.append("Description: ").append(r.getDescription()).append(" | ");
-            result.append("House Floor: ").append(r.getFloor()).append(" | ");
-            result.append("Width: ").append(r.getWidth()).append(" | ");
-            result.append("Length: ").append(r.getLength()).append(" | ");
-            result.append("Height: ").append(r.getHeight()).append("\n");
-
-        }
-        result.append("---------------\n");
-        return result.toString();
-    }
-
-    /**
-     * Method that checks if a Room is contained in the RoomList.
-     *
-     * @param room is the room that we want to see if it's contained in the roomList.
-     * @return true if room is contained in the RoomList, false otherwise.
-     */
-    public boolean contains(Room room) {
-        return (this.rooms.contains(room));
-    }
-
-    /**
-     * Method that removes a Room from the RoomList.
-     *
-     * @param room is the room we want to removeGeographicArea from the roomList.
-     * @return true if room was successfully removed from the roomList, false otherwise.
-     */
-    public boolean removeRoom(Room room) {
-        if (this.contains(room)) {
-            this.rooms.remove(room);
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -207,37 +310,6 @@ public class RoomService {
     }
 
     /**
-     * This method checks if room list is empty.
-     *
-     * @return true if list is empty, false otherwise.
-     **/
-    public boolean isEmpty() {
-        return this.rooms.isEmpty();
-    }
-
-    /**
-     * Checks the room list size and returns the size as int.\
-     *
-     * @return RoomList size as int
-     **/
-    public int size() {
-        return this.rooms.size();
-    }
-
-    /**
-     * This method receives an index as parameter and gets a room from room list.
-     *
-     * @param index the index of the room
-     * @return returns room that corresponds to index.
-     */
-    public Room get(int index) {
-        if (this.rooms.isEmpty()) {
-            throw new IndexOutOfBoundsException("The room list is empty.");
-        }
-        return this.rooms.get(index);
-    }
-
-    /**
      * This method checks if every room in room list has no devices.
      *
      * @return true if list has no devices, false otherwise.
@@ -290,27 +362,18 @@ public class RoomService {
         return result;
     }
 
-    /**
-     * Method to check if a room with the given ID exists in the repository.
-     * @param idToCheck is the id that we want to check for being present.
-     * @return is true if a room with the given ID exists, false if it doesn't.
-     */
-    public boolean idExists(String idToCheck){
-        for (Room r : roomRepository.findAll()){
-            if (r.getName().equals(idToCheck)){
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
-     * Method that finds a given object in the repository by its ID.
-     * @param idToFind is the ID that we want to look for.
-     * @return is an Optional that either contains the object if it existed, or a null.
+     * This method receives an index as parameter and gets a room from room list.
+     *
+     * @param index the index of the room
+     * @return returns room that corresponds to index.
      */
-    public Optional<Room> findByID(String idToFind){
-        return roomRepository.findById(idToFind);
+    public Room get(int index) {
+        if (this.rooms.isEmpty()) {
+            throw new IndexOutOfBoundsException("The room list is empty.");
+        }
+        return this.rooms.get(index);
     }
 
     /**

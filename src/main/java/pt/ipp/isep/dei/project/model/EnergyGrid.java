@@ -194,7 +194,7 @@ public class EnergyGrid implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoom(int index) {
-        if (this.roomService.isEmpty()) {
+        if (this.roomService.isEmptyDB()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
         return this.roomService.get(index);
@@ -322,7 +322,7 @@ public class EnergyGrid implements Metered {
      * @return true if energy grid's RoomList is empty, false otherwise.
      **/
     public boolean isRoomListEmpty() {
-        return roomService.isEmpty();
+        return roomService.isEmptyDB();
     }
 
     /**
@@ -331,7 +331,7 @@ public class EnergyGrid implements Metered {
      * @return energy grid's RoomList size as int
      **/
     public int roomListSize() {
-        return roomService.size();
+        return roomService.sizeDB();
     }
 
     /**

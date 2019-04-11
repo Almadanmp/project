@@ -148,7 +148,7 @@
 ////
 ////        // Get one of the areas to  check its contents.
 ////
-////        GeographicArea actualArea = actualResult.get(0);
+////        GeographicArea actualArea = actualResult.getDB(0);
 ////        AreaSensorList firstAreaSensors = actualArea.getSensorList();
 ////
 ////
@@ -270,13 +270,13 @@
 ////
 ////        // Get one of the areas to  check its contents.
 ////
-////        GeographicArea actualArea = actualResult.get(0);
+////        GeographicArea actualArea = actualResult.getDB(0);
 ////        AreaSensorList firstAreaSensors = actualArea.getSensorList();
 ////
 ////        // Declare expected area / sensors.
 ////
 ////        AreaSensorList expectedSensors = new AreaSensorList();
-////        expectedSensors.add(firstAreaSensors.get(0));
+////        expectedSensors.add(firstAreaSensors.getDB(0));
 ////
 ////        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
 ////                0.261, new Local(41.178553, -8.608035, 139));
