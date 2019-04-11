@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
@@ -24,9 +25,9 @@ class GASettingsUI {
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
-    GASettingsUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+    GASettingsUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(areaSensorService, readingService, houseService);
+        this.readerController = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
     }
 
     void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {

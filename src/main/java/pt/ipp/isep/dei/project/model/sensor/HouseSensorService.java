@@ -203,6 +203,24 @@ public class HouseSensorService {
         return false;
     }
 
+    public boolean sensorExistsInRepository(String sensorID) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        return value.isPresent();
+    }
+
+    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            HouseSensor houseSensor = value.get();
+            Date startDate = houseSensor.getDateStartedFunctioning();
+            if (date.equals(startDate) || date.after(startDate)) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
 
     /**
      * Method 'equals' for comparison between objects of the same class
