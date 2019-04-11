@@ -303,12 +303,6 @@ class HouseConfigurationUI {
         }
     }
 
-    /*
-        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
-        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
-        registered in the application log.
-     */
-
     private void importReadingsFromCSV(String filePath) {
         int addedReadings = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
