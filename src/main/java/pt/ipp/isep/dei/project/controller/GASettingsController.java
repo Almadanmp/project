@@ -85,10 +85,8 @@ public class GASettingsController {
         if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
                 LocalMapper.dtoToObject(localDTO)))) {
             newGeoList.removeGeographicArea(geoToAdd);
-            return newGeoList.addAndPersistGA(geoToAdd);
-        } else {
-            return newGeoList.addAndPersistGA(geoToAdd);
         }
+        return newGeoList.addAndPersistGA(geoToAdd);
     }
 
     /**

@@ -120,6 +120,24 @@ public class HouseSensorService {
         return false;
     }
 
+    public boolean sensorExistsInRepository(String sensorID) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        return value.isPresent();
+    }
+
+    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            HouseSensor houseSensor = value.get();
+            Date startDate = houseSensor.getDateStartedFunctioning();
+            if (date.equals(startDate) || date.after(startDate)) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
 
     /**
      * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.

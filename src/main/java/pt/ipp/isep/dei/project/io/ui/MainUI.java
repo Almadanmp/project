@@ -174,13 +174,13 @@ public class MainUI {
                     option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService);
+                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService, houseSensorService);
                             view1.runGASettings(areaTypeService, geographicAreaService, areaSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService, houseSensorService);
                             houseC.run(house, geographicAreaService, houseSensorService, roomService, roomRepository, houseSensorRepository, readingRepository, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
