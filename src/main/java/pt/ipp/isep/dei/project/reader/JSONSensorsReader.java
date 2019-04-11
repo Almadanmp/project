@@ -72,6 +72,12 @@ public class JSONSensorsReader implements Reader {
         }
     }
 
+    /**
+     * Method that reads the file by its filepath. Returns a JSON Array with all the data contained in the file (the highest
+     * level in the structure hierarchy).
+     * @param fileObject is the JSON Object we want to get an array from.
+     * @return is the JSON Array with all the data contained in the file, or an exception.
+     */
     private JSONArray getElementArray(JSONObject fileObject) {
         try {
             return fileObject.getJSONArray("sensor");
