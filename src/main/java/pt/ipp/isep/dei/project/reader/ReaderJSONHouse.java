@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.reader;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.*;
@@ -8,10 +9,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Room;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class ReaderJSONHouse implements Reader {
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             return readHouseJSON(object);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | JSONException e) {
             UtilsUI.printMessage("The file wasn't found.");
         }
         return new HouseDTO();
@@ -36,9 +34,15 @@ public class ReaderJSONHouse implements Reader {
 
     private HouseDTO readHouseJSON(JSONObject jsonObject) {
         HouseDTO houseDTO = new HouseDTO();
-        this.roomList = jsonObject.getJSONArray("room");
-        JSONObject address = jsonObject.getJSONObject("adress");
-        this.gridList = jsonObject.getJSONArray("grid");
+        JSONObject address = new JSONObject();
+        try {
+            this.roomList = jsonObject.getJSONArray("room");
+            address = jsonObject.getJSONObject("adress");
+            this.gridList = jsonObject.getJSONArray("grid");
+
+        } catch (JSONException e) {
+            System.out.println(e.getMessage());
+        }
         List<RoomDTO> roomDTOList = readRoomsJSON();
         AddressDTO addressDTO = readAddressJSON(address);
         List<EnergyGridDTO> energyGridDTOList = readGridsJSON();

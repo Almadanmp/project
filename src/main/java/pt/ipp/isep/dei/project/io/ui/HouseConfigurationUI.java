@@ -102,11 +102,12 @@ class HouseConfigurationUI {
 
     private void runUS100(House house, HouseService houseService) {
         ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
-        InputHelperUI input = new InputHelperUI();
+        InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
-        String filePath = input.getInputPathJson(result);
+        String input = inputHelperUI.getInputPathJson(result);
+        String filePath = inputHelperUI.getInputPath(input);
         if (ctrl.readJSONAndDefineHouse(house, filePath)) {
             System.out.println("House Data Successfully imported.");
         } else {

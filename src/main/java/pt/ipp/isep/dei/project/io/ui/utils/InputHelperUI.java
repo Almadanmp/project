@@ -424,7 +424,7 @@ public class InputHelperUI {
      *
      * @return returns a filepath.
      */
-    private static String getInputPath(String filePath) {
+    public String getInputPath(String filePath) {
         String result = filePath;
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
@@ -451,11 +451,12 @@ public class InputHelperUI {
     }
 
     public String getInputPathJson(String input) {
-        String filePath = "";
-        if (input.endsWith(".json")) {
-            filePath = getInputPath(input);
+        while (!(input.endsWith(".json"))) {
+            System.out.println("Please enter a valid path.");
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextLine();
         }
-        return filePath;
+        return input;
     }
 
 
