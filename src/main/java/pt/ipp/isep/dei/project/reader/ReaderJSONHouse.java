@@ -26,22 +26,22 @@ public class ReaderJSONHouse implements Reader {
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             return readHouseJSON(object);
-        } catch (FileNotFoundException | JSONException e) {
-            UtilsUI.printMessage("The file wasn't found.");
+        } catch (FileNotFoundException | JSONException | IllegalArgumentException e) {
+            UtilsUI.printMessage("The JSON file is invalid.");
         }
         return new HouseDTO();
     }
 
     private HouseDTO readHouseJSON(JSONObject jsonObject) {
         HouseDTO houseDTO = new HouseDTO();
-        JSONObject address = new JSONObject();
+        JSONObject address;
         try {
             this.roomList = jsonObject.getJSONArray("room");
             address = jsonObject.getJSONObject("adress");
             this.gridList = jsonObject.getJSONArray("grid");
 
         } catch (JSONException e) {
-            System.out.println(e.getMessage());
+           throw new IllegalArgumentException();
         }
         List<RoomDTO> roomDTOList = readRoomsJSON();
         AddressDTO addressDTO = readAddressJSON(address);
