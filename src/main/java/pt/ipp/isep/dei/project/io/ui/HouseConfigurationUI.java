@@ -3,12 +3,14 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -35,7 +37,7 @@ class HouseConfigurationUI {
 
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, EnergyGridService energyGridService) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
