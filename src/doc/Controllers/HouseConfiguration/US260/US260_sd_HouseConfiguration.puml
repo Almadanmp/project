@@ -1,23 +1,31 @@
 @startuml
 actor Administrator
 Administrator->MainUI: Import a list of sensors \n for the house rooms.
-MainUI->HouseConfigurationUI: runUS260(programHouse)
+MainUI->HouseConfigurationUI: runUS260(sensorService, roomService)
 ref over HouseConfigurationUI
 getInputPath
 end
-HouseConfigurationUI-> HouseConfigurationController: read(filePath)
-HouseConfigurationController -> ":Reader": read(filePath)
-":Reader" -> "programHouse :House": add(List<HouseSensor>)
-loop
-"programHouse :House" -> ":RoomList": getRoomById(Sensor.getRoomID)
-alt if a room with that ID Exists
-":RoomList" -> ":Room": add (HouseSensor)
-else if a room with that ID doesn't exist or the Sensor has no Room
-":RoomList" -> ":RoomList": continue
+HouseConfigurationUI-> HouseConfigurationController: readSensors(filePath)
+HouseConfigurationController -> RoomRepository: isEmpty();
+RoomRepository --> HouseConfigurationController: false
+create ":JSONSensorsReader"
+HouseConfigurationController -> ":JSONSensorsReader": importSensors(filepath)
+":JSONSensorsReader" --> HouseConfigurationController: List<HouseSensorDTO>
+loop over HouseConfigurationController
+HouseConfigurationController -> RoomRepository: findById(houseSensorDTO.roomID)
+return Optional<Room>
+alt if Optional<Room>.isPresent
+HouseConfigurationController -> SensorMapper: dtoToObject(housesSensorDTO)
+return houseSensor
+HouseConfigurationController -> SensorRepository: save(houseSensor)
+HouseConfigurationController -> HouseConfigurationController: counter++;
+else if Optional<Room> is not present
+ref over HouseConfigurationController
+logFailedImport(houseSensorDTO)
 end
-":RoomList" --> "programHouse :House": return (int) sensorsImported
-"programHouse :House" --> ":Reader": return (int) sensorsImported
-":Reader" --> HouseConfigurationController: return (int) sensorsImported
-HouseConfigurationController --> HouseConfigurationUI: return (int) sensorsImported
-HouseConfigurationUI -> Administrator: display feedback message
+end
+end
+HouseConfigurationController --> HouseConfigurationUI: return counter
+
+HouseConfigurationUI -> Administrator: Display feedback message.
 @enduml
