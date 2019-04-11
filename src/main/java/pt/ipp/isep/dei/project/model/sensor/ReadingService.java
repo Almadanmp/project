@@ -643,6 +643,28 @@ public class ReadingService {
         return false;
     }
 
+    public boolean addHouseReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, HouseSensorService houseSensorService) {
+        if (houseSensorService.sensorExistsInRepository(sensorID)) {
+            if (houseSensorService.sensorFromRepositoryIsActive(sensorID, readingDate)) {
+                if (readingExistsInRepository(sensorID, readingDate)) {
+                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                            + sensorID + " wasn't added because it already exists.");
+                    return false;
+                }
+                Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
+                readingRepository.save(reading);
+                return true;
+            }
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added because the reading is from before the sensor's starting date.");
+            return false;
+        }
+        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                + sensorID + " wasn't added because a sensor with that ID wasn't found.");
+        return false;
+    }
+
+
     /**
      * This method receives a String that corresponds to the reading's sensor ID and a Date that
      * corresponds to the reading's date, and checks that a reading with those characteristics
@@ -652,7 +674,7 @@ public class ReadingService {
      * @param date     reading date
      * @return true in case the reading exists in the repository, false otherwise.
      **/
-    boolean readingExistsInRepository(String sensorID, Date date) {
+    public boolean readingExistsInRepository(String sensorID, Date date) {
         Reading reading = readingRepository.findReadingByDateEqualsAndSensorId(date, sensorID);
         return reading != null;
     }
@@ -670,20 +692,11 @@ public class ReadingService {
         return result;
     }
 
-    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String readingUnit) {
-        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
-        if (value.isPresent()) {
-            HouseSensor houseSensor = value.get();
-            Reading reading = new Reading(readingValue, readingDate, readingUnit, houseSensor.getId());
-            ReadingService sensorReadingList = houseSensor.getReadingService();
-            if (sensorReadingList.contains(reading)) {
-                return false;
-            }
-            readingRepository.save(reading);
-            return true;
-        }
-        return false;
+    public boolean addReadingToDB(Reading reading, ReadingRepository readingRepository) {
+        readingRepository.save(reading);
+        return true;
     }
+
 
     /**
      * This method checks if a reading exists in a given reading list.

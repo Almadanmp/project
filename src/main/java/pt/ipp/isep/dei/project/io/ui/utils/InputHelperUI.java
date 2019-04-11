@@ -18,6 +18,7 @@ import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import java.io.File;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -92,20 +93,23 @@ public class InputHelperUI {
      * @return is the chosen room.
      */
     public static Room getHouseRoomByList(RoomService roomService) {
-        List<Room> rooms = roomService.getAllRooms();
+        Scanner scanner = new Scanner(System.in);
         while (true) {
+            System.out.println("Please select one of the existing rooms: ");
+            System.out.println(roomService.buildStringDB());
+            String aux = scanner.nextLine();
             try {
-                System.out.println("Please select one of the existing rooms: ");
-                System.out.println(roomService.buildStringDB());
-                for (Room r : rooms) {
-                    Room result = roomService.getDB(r.getName());
-                    System.out.println(SELECT_ROOMS);
-                    System.out.println(result.buildString() + "\n");
-                    return result;
-                }
+             Optional<Room> result = roomService.findByID(aux);
+             if(result.isPresent()) {
+                 System.out.println(SELECT_ROOMS);
+                 System.out.println(result.get().buildString() + "\n");
+                 return result.get();
+             }
+
             } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
+
         }
     }
 
@@ -440,7 +444,7 @@ public class InputHelperUI {
      * @param input - input of user
      */
     public String getInputPathJsonOrXML(String input) {
-        while (!((input.endsWith(".json") || input.endsWith(".xml")))) {
+        while (!(input.endsWith(".json") || input.endsWith(".xml"))) {
             System.out.println("Please insert a valid path.");
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
@@ -449,6 +453,12 @@ public class InputHelperUI {
         return input;
     }
 
+    /**
+     * Verification of .json path
+     *
+     * @param input String input pathFile
+     * @return String pathFile
+     */
     public String getInputPathJson(String input) {
         while (!(input.endsWith(".json"))) {
             System.out.println("Please enter a valid path.");

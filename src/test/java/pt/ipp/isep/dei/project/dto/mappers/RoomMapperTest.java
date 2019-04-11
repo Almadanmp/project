@@ -31,7 +31,7 @@ class RoomMapperTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoom = new Room("Kitchen", "2nd Floor Kitchen", 2, 30, 20, 10,"Room1","Grid1");
+        validRoom = new Room("Kitchen", "2nd Floor Kitchen", 2, 30, 20, 10, "Room1", "Grid1");
         validDTO = new RoomDTO();
     }
 
@@ -69,7 +69,6 @@ class RoomMapperTest {
 
         // We also need to test the elements that aren't present in Room's .equals.
 
-        assertEquals(validRoom.getSensorList(), (result.getSensorList()));
         assertEquals(validRoom.getDeviceList(), result.getDeviceList());
         assertEquals(validRoom.getName(), result.getName());
     }

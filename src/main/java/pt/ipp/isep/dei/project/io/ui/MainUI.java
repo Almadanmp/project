@@ -16,10 +16,7 @@ import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.HouseRepository;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -54,9 +51,17 @@ public class MainUI {
     private HouseSensorService houseSensorService;
 
     @Autowired
-    private EnergyGridService energyGridService;
-    @Autowired
     private HouseRepository houseRepository;
+
+    @Autowired
+    private HouseSensorRepository houseSensorRepository;
+
+    @Autowired
+    private ReadingRepository readingRepository;
+
+    @Autowired
+    private EnergyGridService energyGridService;
+
     @Autowired
     private HouseService houseService;
     @Autowired
@@ -169,20 +174,20 @@ public class MainUI {
                     option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService);
+                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService, houseSensorService);
                             view1.runGASettings(areaTypeService, geographicAreaService, areaSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService);
-                            houseC.run(house, geographicAreaService, houseSensorService, roomService, energyGridService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService, houseSensorService);
+                            houseC.run(house, geographicAreaService, houseSensorService, roomService, roomRepository, houseSensorRepository, readingRepository, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 3:
                             RoomConfigurationUI roomConfiguration = new RoomConfigurationUI(roomService);
-                            roomConfiguration.run(house, mockSensorTypeList);
+                            roomConfiguration.run(house, sensorTypeService, houseSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

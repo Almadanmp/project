@@ -172,7 +172,7 @@ class HouseConfigurationControllerTest {
     void seeIfReadSensorsWorks(){
         // Arrange
 
-        String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
+        String filePath = "src/test/resources/sensorFiles/DataSet_sprint06_HouseSensors.json";
 
         // Mock the checking for Rooms
 

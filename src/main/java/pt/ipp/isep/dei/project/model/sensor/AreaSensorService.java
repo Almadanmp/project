@@ -68,7 +68,7 @@ public class AreaSensorService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    public AreaSensorService getSensorsWithReadings() {
+     AreaSensorService getSensorsWithReadings() {
         AreaSensorService finalList = new AreaSensorService();
         if (this.areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -237,17 +237,6 @@ public class AreaSensorService {
     }
 
     /**
-     * Method checks if sensor list contains sensor given as parameter.
-     *
-     * @param areaSensor sensor to check.
-     * @return returns true if list contains sensor, false if it does not contain sensor.
-     */
-
-    public boolean contains(AreaSensor areaSensor) {
-        return areaSensors.contains(areaSensor);
-    }
-
-    /**
      * Method to add a reading to a matching sensor contained in the repository. The sensor is found by its ID.
      * <p>
      * sensorList   is the sensorList we want to add a reading to.
@@ -262,7 +251,7 @@ public class AreaSensorService {
      * if there is no sensor with that ID.
      */
 
-    public boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
+     boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
@@ -285,7 +274,7 @@ public class AreaSensorService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-    public boolean sensorExistsInRepository(String sensorID) {
+     boolean sensorExistsInRepository(String sensorID) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         return value.isPresent();
     }
@@ -298,7 +287,7 @@ public class AreaSensorService {
      * @param date     date to test
      * @return true in case the sensor exists and it was active during the given date, false otherwise.
      **/
-    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+     boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();

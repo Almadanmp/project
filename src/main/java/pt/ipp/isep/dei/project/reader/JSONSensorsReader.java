@@ -5,9 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,26 +42,42 @@ public class JSONSensorsReader implements Reader {
                 importedSensor.setUnits(sensorUnit);
                 importedSensor.setRoomID(roomID);
                 importedSensor.setId(sensorID);
+                importedSensor.setActive(true);
                 result.add(importedSensor);
             }
-            catch (NullPointerException ok){
+            catch (JSONException ok){
                 continue;
             }
         }
         return result;
     }
 
+    /**
+     * Method that reads the file by its filepath. Returns a JSON Array with all the data contained in the file (the highest
+     * level in the structure hierarchy).
+     * @param filePath is the filepath that we want to check a file from.
+     * @return is the JSON Array with all the data contained in the file.
+     */
     public JSONArray readFile(String filePath) {
         try {
-            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(filePath);
+            File file = new File(filePath);
+            String absolutePath = file.getAbsolutePath();
+            File abFile = new File(absolutePath);
+            InputStream stream = new FileInputStream(abFile);
             JSONTokener tokener = new JSONTokener(stream);
             JSONObject object = new JSONObject(tokener);
             return getElementArray(object);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | FileNotFoundException e) {
             throw new IllegalArgumentException();
         }
     }
 
+    /**
+     * Method that reads the file by its filepath. Returns a JSON Array with all the data contained in the file (the highest
+     * level in the structure hierarchy).
+     * @param fileObject is the JSON Object we want to get an array from.
+     * @return is the JSON Array with all the data contained in the file, or an exception.
+     */
     private JSONArray getElementArray(JSONObject fileObject) {
         try {
             return fileObject.getJSONArray("sensor");
@@ -69,10 +86,16 @@ public class JSONSensorsReader implements Reader {
         }
     }
 
+    /**
+     * Method that retrieves the room's ID from the sensor in the file.
+     * @param sensorToImport is the JSON Object of the sensor to import.
+     * @return is the String that is the roomID parameter in the file, if this parameter exists. If it doesn't (or is null),
+     * the method returns an error convention.
+     */
     private String getRoomID(JSONObject sensorToImport) {
         try {
             return sensorToImport.getString("room");
-        } catch (NullPointerException ok) {
+        } catch (JSONException ok) {
             return "error"; // Error convention is returned if the room isn't properly defined in the file. This is intended.
         }
     }

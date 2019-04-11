@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
@@ -9,7 +12,10 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * RoomConfigurationController tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class RoomConfigurationControllerTest {
 
     // Common artifacts for testing in this class.
@@ -31,16 +37,21 @@ class RoomConfigurationControllerTest {
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
+    private HouseSensorService houseSensorService;
+
+    @Mock
+    HouseSensorRepository houseSensorRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoomWithDevices = new Room("Office","2nd Floor Office", 2, 15, 15, 10,"Room1","Grid1");
-        validRoomNoDevices = new Room("Kitchen","Fully Equipped Kitchen", 1, 20, 20, 10,"Room1","Grid1");
+        validRoomWithDevices = new Room("Office", "2nd Floor Office", 2, 15, 15, 10, "Room1", "Grid1");
+        validRoomNoDevices = new Room("Kitchen", "Fully Equipped Kitchen", 1, 20, 20, 10, "Room1", "Grid1");
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.FREEZER_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
+        houseSensorService = new HouseSensorService(houseSensorRepository);
     }
 
     @Test
@@ -144,21 +155,21 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HouseSensor s1 = new HouseSensor("T1292u37","SensorOne", new SensorType("Wind", "km/h"),
+        HouseSensor s1 = new HouseSensor("T1292u37", "SensorOne", new SensorType("Wind", "km/h"),
                 date, "RoomABD");
         HouseSensor s2 = new HouseSensor("T1292u37", "SensorTwo", new SensorType("Rain", "l/m2"),
                 date, "RoomABD");
-        HouseSensorService areaSensorList = new HouseSensorService();
-        areaSensorList.add(s1);
-        areaSensorList.add(s2);
+        List<HouseSensor> houseSensorList = new ArrayList<>();
+        houseSensorList.add(s1);
+        houseSensorList.add(s2);
         String expectedResult = "---------------\n" +
-                "0) Name: SensorOne | Type: Wind | Active\n" +
-                "1) Name: SensorTwo | Type: Rain | Active\n" +
+                "T1292u37SensorOne | Type: Wind | Active\n" +
+                "T1292u37SensorTwo | Type: Rain | Active\n" +
                 "---------------\n";
 
         //Act
 
-        String actualResult = controller.buildSensorListString(areaSensorList);
+        String actualResult = controller.buildSensorListString(houseSensorService, houseSensorList);
 
         //Assert
 
@@ -459,13 +470,13 @@ class RoomConfigurationControllerTest {
         String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList" ,2, 20, 20, 3,"Room1","Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
         validHouse.addRoom(emptyDeviceList);
 
         //Act
@@ -478,24 +489,24 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void see(){
+    void see() {
         String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea( new GeographicArea("Porto", new AreaType("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
-        Room validRoom = new Room("Bedroom","Single Bedroom", 2, 30, 40, 10,"Room1","Grid1");
+        Room validRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
         Device validDevice = new WaterHeater(new WaterHeaterSpec());
         validRoom.addDevice(validDevice);
         validHouse.addRoom(validRoom);
 
         //Act
 
-        Device actualResult = controller.getDeviceByIndex(RoomMapper.objectToDTO(validRoom),validHouse,0);
+        Device actualResult = controller.getDeviceByIndex(RoomMapper.objectToDTO(validRoom), validHouse, 0);
 
         //Assert
 

@@ -19,6 +19,7 @@ public class HouseSensor {
     @JoinColumn(name = "type_sensor_id")
     private SensorType sensorType;
 
+    @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
 
     @Transient
@@ -75,11 +76,7 @@ public class HouseSensor {
         this.id = id;
     }
 
-    public void setRoomId(String roomId){
-        this.roomId = roomId;
-    }
-
-    /**
+        /**
      * Getter: Id
      *
      * @return a string that represents the name of the sensor.
@@ -88,9 +85,10 @@ public class HouseSensor {
         return (this.id);
     }
 
-    public String getRoomId(){
+    public String getRoomId() {
         return this.roomId;
     }
+
     /**
      * Setter: type sensor
      *

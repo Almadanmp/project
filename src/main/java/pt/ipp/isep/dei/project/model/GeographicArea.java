@@ -101,7 +101,7 @@ public class GeographicArea {
      *
      * @param areaType is the type of the Geographical Area.
      */
-    public void setAreaType(AreaType areaType) {
+     void setAreaType(AreaType areaType) {
         this.areaType = areaType;
     }
 
@@ -323,16 +323,6 @@ public class GeographicArea {
 
     boolean equalsTypeArea(AreaType areaType) {
         return (this.areaType.equals(areaType));
-    }
-
-    /**
-     * Method that removes a Sensor from the Geographical Area.
-     *
-     * @param areaSensor is the sensor we want to remove.
-     * @return true if the sensor was successfully removed from the geographical area, false otherwise.
-     */
-    public boolean removeSensor(AreaSensor areaSensor) {
-        return areaSensors.remove(areaSensor);
     }
 
     /**

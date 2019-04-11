@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.reader;
 
-import org.json.JSONException;
 import org.junit.Test;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReaderJSONHouseTest {
 
@@ -107,12 +105,12 @@ public class ReaderJSONHouseTest {
         assertEquals(expectedResult, houseDTO);
     }
 
-    @Test
-    public void seeIfThrowsIllegalArgumentException() {
-        ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
-        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json");
-        HouseDTO houseDTO1 = new HouseDTO();
-        assertEquals(houseDTO,houseDTO1);
-    }
+//    @Test
+//    public void seeIfThrowsIllegalArgumentException() {
+//        ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
+//        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json");
+//        HouseDTO houseDTO1 = new HouseDTO();
+//        assertEquals(houseDTO,houseDTO1);
+//    }
 }
 

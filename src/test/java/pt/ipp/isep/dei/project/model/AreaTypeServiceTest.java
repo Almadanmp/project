@@ -64,7 +64,7 @@ class AreaTypeServiceTest {
 //    void seeIfAddAreaType() {
 //        AreaType areaType = new AreaType("Street");
 //
-//        Mockito.when(areaTypeRepository.findByName(areaType.getName())).thenReturn(areaType);
+//        Mockito.when(areaTypeRepository.findByRoomName(areaType.getName())).thenReturn(areaType);
 //
 //        assertTrue(areaTypeService.add(areaType));
 //    }

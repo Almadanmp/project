@@ -55,7 +55,7 @@ public class HouseService {
     }
 
     public boolean saveRoom(Room room) {
-        Optional<Room> room1 = roomRepository.findById(room.getName());
+        Optional<Room> room1 = roomRepository.findByRoomName(room.getName());
         if (room1.isPresent()) {
             return false;
         }
