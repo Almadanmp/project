@@ -32,6 +32,9 @@ public class EnergyGridService {
         energyGrids = new ArrayList<>();
     }
 
+    public List<EnergyGrid> getAllGrids() {
+        return energyGridRepository.findAll();
+    }
 
     /**
      * Method adds an energy grid to the a energy grid list if the input grid isn't already contained in said list.
@@ -79,7 +82,7 @@ public class EnergyGridService {
         if (isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (EnergyGrid eg : this.energyGrids) {
+        for (EnergyGrid eg : getAllGrids()) {
             result.append(eg.getId()).append(") Designation: ").append(eg.getName()).append(" | ");
             result.append("Max Power: ").append(eg.getMaxContractedPower()).append("\n");
         }
@@ -93,7 +96,7 @@ public class EnergyGridService {
      * @return returns true if the list is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return this.energyGrids.isEmpty();
+        return getAllGrids().isEmpty();
     }
 
 

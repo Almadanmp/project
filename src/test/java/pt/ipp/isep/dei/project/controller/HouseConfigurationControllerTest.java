@@ -3,26 +3,47 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 
 
 /**
  * HouseConfigurationController tests class.
  */
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class HouseConfigurationControllerTest {
 
     // Common artifacts for testing in this class.
 
+    @Mock
+    private RoomService mockRoomRepository;
+
+    @Mock
+    private HouseSensorService mockHouseSensorRepository;
+
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private HouseConfigurationController controller = new HouseConfigurationController();
     private House validHouse;
+    private RoomService roomService;
+
+    @Mock
+    private RoomRepository roomRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -34,6 +55,7 @@ class HouseConfigurationControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
+        roomService = new RoomService(roomRepository);
     }
 
 
@@ -53,62 +75,50 @@ class HouseConfigurationControllerTest {
 
 
     // US108
-//
-//    @Test
-//    void seeIfPrintsRoomList() {
-//        // Arrange
-//
-//        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 15, 20, 10,"Room1","Grid1");
-//        Room roomTwo = new Room("LivingRoom", "1st Floor Living Room", 1, 40, 40, 10,"Room1","Grid1");
-//        RoomService roomService = new RoomService();
-//        roomService.add(roomOne);
-//        roomService.add(roomTwo);
-//        validHouse.setRoomService(roomService);
-//        String expectedResult = "---------------\n" +
-//                "Kitchen) Designation: Kitchen | Description: Equipped Kitchen | House Floor: 1 | Width: 15.0 | Length: 20.0 | Height: 10.0\n" +
-//                "LivingRoom) Designation: LivingRoom | Description: 1st Floor Living Room | House Floor: 1 | Width: 40.0 | Length: 40.0 | Height: 10.0\n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String result = controller.buildRoomsString(validHouse);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, result);
-//    }
 
-//    @Test
-//    void createsRoom() {
-//        // Act
-//
-//        Room actualResult1 = controller.createNewRoom(validHouse, "Kitchen", "Not equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
-//        Room actualResult2 = controller.createNewRoom(validHouse, "Room", "Double Bedroom", 1, 10, 15, 10,"Room1","Grid1");
-//        Room actualResult3 = controller.createNewRoom(validHouse, "Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
-//
-//        // Assert
-//
-//        assertTrue(actualResult1 instanceof Room);
-//        assertTrue(actualResult2 instanceof Room);
-//        assertTrue(actualResult3 instanceof Room);
-//    }
+    @Test
+    void seeIfPrintsRoomList() {
+        // Arrange
+
+              String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String result = controller.buildRoomsString(roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void createsRoom() {
+        // Act
+
+        Room actualResult1 = controller.createNewRoom(roomService, "Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+        Room actualResult2 = controller.createNewRoom(roomService, "Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
+        Room actualResult3 = controller.createNewRoom(roomService, "Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+
+        // Assert
+
+        assertTrue(actualResult1 instanceof Room);
+        assertTrue(actualResult2 instanceof Room);
+        assertTrue(actualResult3 instanceof Room);
+    }
 
     @Test
     void addsRoom() {
         //Arrange
-        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
-        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10,"Room1","Grid1");
-        Room room3 = new Room("Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10,"Room1","Grid1");
+        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
 
         // Act
-        boolean actualResult1 = controller.addRoomToHouse(validHouse, room1);
-        boolean actualResult2 = controller.addRoomToHouse(validHouse, room2);
-        boolean actualResult3 = controller.addRoomToHouse(validHouse, room3);
+        boolean actualResult1 = controller.addRoomToHouse(roomService, room1);
+        boolean actualResult2 = controller.addRoomToHouse(roomService, room2);
 
         // Assert
         assertTrue(actualResult1);
         assertTrue(actualResult2);
-        assertFalse(actualResult3);
     }
 
     @Test
@@ -157,5 +167,87 @@ class HouseConfigurationControllerTest {
         assertFalse(actualResult1);
         assertTrue(actualResult2);
     }
+
+    @Test
+    void seeIfReadSensorsWorks(){
+        // Arrange
+
+        String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
+
+        // Mock the checking for Rooms
+
+        Room B106 = new Room("B106", "Classroom", 3, 20, 20, 20,
+                "Mock", "Mock");
+        Optional<Room> optionalRoomB106 = Optional.of(B106);
+        Mockito.when(mockRoomRepository.findByID("B106")).thenReturn(optionalRoomB106);
+
+        Room B109 = new Room("B109", "Classroom", 3, 20, 20, 20,
+                "Mock", "Mock");
+        Optional<Room> optionalRoomB109 = Optional.of(B109);
+        Mockito.when(mockRoomRepository.findByID("B109")).thenReturn(optionalRoomB109);
+
+        Room B107 = new Room("B107", "Classroom", 3, 20, 20, 20,
+                "Mock", "Mock");
+        Optional<Room> optionalRoomB107 = Optional.of(B107);
+        Mockito.when(mockRoomRepository.findByID("B107")).thenReturn(optionalRoomB107);
+
+        Optional<Room> optionalRoomB405 = Optional.empty();
+        Mockito.when(mockRoomRepository.findByID("B405")).thenReturn(optionalRoomB405);
+
+        // Ignore the .save call, which is void.
+
+        doNothing().when(mockHouseSensorRepository).save(isA(HouseSensor.class));
+
+        // Expected result
+
+        int expectedResult = 3;
+
+        // Act
+
+        int actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadSensorsWorksEmptyDB(){
+        // Arrange
+
+        String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
+
+        Mockito.when(mockRoomRepository.isEmptyDB()).thenReturn(true);
+
+        int expectedResult = 0;
+
+        // Act
+
+        int actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadSensorsWorksInvalidFile(){
+        // Arrange
+
+        String filePath = "houseFiles/DataSet_sprint06_HouseData.json";
+
+        Mockito.when(mockRoomRepository.isEmptyDB()).thenReturn(false);
+
+        int expectedResult = -1;
+
+        // Act
+
+        int actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
 }

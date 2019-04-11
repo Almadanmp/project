@@ -175,8 +175,8 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService);
-                            houseC.run(house, houseService, geographicAreaService, houseSensorService, roomService, roomRepository);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService);
+                            houseC.run(house, geographicAreaService, houseSensorService, roomService, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -206,7 +206,7 @@ public class MainUI {
                             break;
                         case 7:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                            energyConsumptionUI.run(houseService, roomService);
+                            energyConsumptionUI.run(house, roomService, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

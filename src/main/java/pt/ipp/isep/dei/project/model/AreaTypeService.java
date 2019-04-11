@@ -24,7 +24,7 @@ public class AreaTypeService {
         this.areaTypeRepository = areaTypeRepository;
     }
 
-    public List<AreaType> getAreaTypes() {
+    List<AreaType> getAreaTypes() {
         return areaTypeRepository.findAll();
     }
 

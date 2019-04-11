@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -78,7 +77,6 @@ public class HouseConfigurationController {
     /**
      * This method receives the house and room parameters and creates a new roomDTO.
      *
-     * @param house           house that will create the room
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
      * @param width           is the width of the room we're going to create.
@@ -86,19 +84,18 @@ public class HouseConfigurationController {
      * @param height          is the height of the room we're going to create.
      * @return a new Room
      */
-    public Room createNewRoom(House house, String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
-        return house.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
+    public Room createNewRoom(RoomService roomService, String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
+        return roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
     }
 
     /**
      * The method receives a house and a roomDTO, transforms it into a room, and tries to addWithoutPersisting it to house.
      *
-     * @param house the project House.
-     * @param room  the DTO of a Room.
+     * @param room the DTO of a Room.
      * @return true if room was added, false otherwise.
      **/
-    public boolean addRoomToHouse(House house, Room room) {
-        return house.addRoom(room);
+    public boolean addRoomToHouse(RoomService roomService, Room room) {
+        return roomService.addPersistence(room);
     }
 
 
@@ -115,6 +112,13 @@ public class HouseConfigurationController {
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.
        Sensors without a valid room shouldn’t be imported but registered in the application log. */
 
+    /**
+     * Method that reads all the sensors from a given file and imports them into the persistence layer.
+     * @param filepath is the path of the file we want to import sensors from.
+     * @param roomRepository is the service making the connection to the room repository.
+     * @param sensorRepository is the service making the connection to the house sensor repository.
+     * @return is the number of imported sensors.
+     */
 
     public int readSensors(String filepath, RoomService roomRepository, HouseSensorService sensorRepository) {
         // Initialize needed variables.
@@ -123,11 +127,25 @@ public class HouseConfigurationController {
         if (roomRepository.isEmptyDB()) { // If there are no rooms to add sensors to, no sensors will be added.
             return addedSensors;
         }
-        List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
-        return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
+        try {
+            List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
+            return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
+        }
+        catch (IllegalArgumentException ok){
+            return -1;
+        }
     }
 
-    private int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
+    /**
+     * Method that takes a list of houseSensorDTOs, checks if the rooms they belong to exist in the program's
+     * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
+     * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
+     * @param roomRepository is the service making the connection to the room repository.
+     * @param sensorRepository is the service making the connection to the houseSensor repository.
+     * @return is the number of sensors successfully added to the persistence layer.
+     */
+
+    int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
             sensorRepository) {
         int addedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {

@@ -67,9 +67,12 @@ public class RoomService {
     public boolean addPersistence(Room room) {
         Room room2 = roomRepository.findByRoomName(room.getName());
         if (room2 != null) {
-            roomRepository.delete(room2);
+            room2 = room;
+            roomRepository.save(room2);
+            add(room2);
         }
         roomRepository.save(room);
+        add(room);
         return true;
     }
 
@@ -108,7 +111,7 @@ public class RoomService {
      * @return new created room
      */
 
-    Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
+    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
         for (Room r : getAllRooms()) {
             String designation = r.getName();
             if (roomDesignation.equals(designation)) {
