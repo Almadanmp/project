@@ -263,12 +263,14 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
-        int importedSensors = controller.readSensors(filePath, roomService, sensorService);
-        if(importedSensors==-1){
+        try {
+            int[] importedSensors = controller.readSensors(filePath, roomService, sensorService);
+            System.out.println(importedSensors[0] + " Sensors successfully imported and " + importedSensors[1] + " rejected." +
+                    "Check the application log for more info.");
+        } catch (IllegalArgumentException ok) {
             System.out.println("There's something wrong with the file provided. Please check it for syntax errors or " +
                     "empty elements.");
         }
-        System.out.println(importedSensors + " Sensors successfully imported.");
     }
 
     /*

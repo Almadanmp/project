@@ -20,6 +20,9 @@ import pt.ipp.isep.dei.project.repository.RoomRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
+
+import static java.util.logging.Logger.getLogger;
 
 
 /**
@@ -126,19 +129,19 @@ public class HouseConfigurationController {
      * @return is the number of imported sensors.
      */
 
-    public int readSensors(String filepath, RoomService roomRepository, HouseSensorService sensorRepository) {
+    public int[] readSensors(String filepath, RoomService roomRepository, HouseSensorService sensorRepository) {
         // Initialize needed variables.
         JSONSensorsReader reader = new JSONSensorsReader();
-        int addedSensors = 0;
+        int[] result = new int[2];
         if (roomRepository.isEmptyDB()) { // If there are no rooms to add sensors to, no sensors will be added.
-            return addedSensors;
+            return result;
         }
         try {
             List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
             return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
         }
-        catch (IllegalArgumentException ok){
-            return -1;
+        catch (IllegalArgumentException ok){ // Throws an exception if the file is corrupt or non existent.
+            throw new IllegalArgumentException();
         }
     }
 
@@ -151,18 +154,27 @@ public class HouseConfigurationController {
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
+    private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
             sensorRepository) {
+        Logger logger = getLogger("resources/logs/sensorsImport.log"); // Creates the logger for when things go wrong.
         int addedSensors = 0;
+        int rejectedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
             Optional<Room> roomToAddTo = roomRepository.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
                 sensorRepository.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             }
-
+            else{
+                logger.warning("The sensor " + importedSensor.getId() + "wasn't added to room " + importedSensor.getRoomID()
+                        + " - there is no room with that ID.");
+                rejectedSensors++;
+            }
         }
-        return addedSensors;
+        int[] result = new int[2];
+        result[0] = addedSensors;
+        result[1] = rejectedSensors;
+        return result;
     }
 
         /*
