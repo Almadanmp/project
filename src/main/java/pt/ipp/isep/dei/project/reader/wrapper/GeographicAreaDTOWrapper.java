@@ -73,14 +73,6 @@ public class GeographicAreaDTOWrapper {
         this.width = width;
     }
 
-    public List<AreaSensorDTOWrapper> getAreaSensorDTOList() {
-        return areaSensorDTOList;
-    }
-
-    public void setAreaSensorDTOList(List<AreaSensorDTOWrapper> listToStore) {
-        this.areaSensorDTOList = listToStore;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -152,15 +144,14 @@ public class GeographicAreaDTOWrapper {
         if (this == testDTO) {
             return true;
         }
-        if (!(testDTO instanceof GeographicAreaDTO)) {
+        if (!(testDTO instanceof GeographicAreaDTOWrapper)) {
             return false;
         }
 
-        GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
+        GeographicAreaDTOWrapper localVariable = (GeographicAreaDTOWrapper) testDTO;
         LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(new LocalDTO(this.latitude, this.longitude, this.altitude)) &&
-                localVariable.getAreaSensorDTOList().equals(this.areaSensorDTOList));
+                && testDTOLocal.equals(new LocalDTO(this.latitude, this.longitude, this.altitude)));
     }
 
     @Override
