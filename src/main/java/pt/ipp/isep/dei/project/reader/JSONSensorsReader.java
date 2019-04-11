@@ -45,7 +45,7 @@ public class JSONSensorsReader implements Reader {
                 importedSensor.setActive(true);
                 result.add(importedSensor);
             }
-            catch (NullPointerException ok){
+            catch (JSONException ok){
                 continue;
             }
         }
@@ -77,7 +77,7 @@ public class JSONSensorsReader implements Reader {
     private String getRoomID(JSONObject sensorToImport) {
         try {
             return sensorToImport.getString("room");
-        } catch (NullPointerException ok) {
+        } catch (JSONException ok) {
             return "error"; // Error convention is returned if the room isn't properly defined in the file. This is intended.
         }
     }
