@@ -191,20 +191,17 @@ class HouseMonitoringControllerTest {
     }
 
 
-//    @Test
-//    void seeIfGetCurrentRoomTemperatureWorks() {
-//        // Arrange
-//
-//        double expectedResult = 20.0;
-//
-//        // Act
-//
-//        double actualResult = controller.getCurrentRoomTemperature(validRoom, validHouse);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult, 0.01);
-//    }
+    @Test
+    void seeIfGetCurrentRoomTemperatureThrowsException() {
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoom, validHouse));
+
+        // Assert
+
+        assertEquals("There aren't any temperature readings available.", exception.getMessage());
+
+    }
 
     @Test
     void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
@@ -227,21 +224,23 @@ class HouseMonitoringControllerTest {
     @Test
     void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         // Arrange
-//        Date intervalStart = new GregorianCalendar(2017, Calendar.DECEMBER, 2).getTime();
-//        Date intervalEnd = new GregorianCalendar(2017, Calendar.DECEMBER, 20).getTime();
+
         validHouseArea.setSensorList(validAreaSensorService);
         double expectedResult = 25;
 
         // Act
+
         double actualResult = controller.getAverageRainfallInterval(validHouse, validDate4, validDate5);
 
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getAverageRainfallIntervalThrowsExceptionReadingListEmpty() {
-        //Act
+        // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             Date day = new Date();
             try {
@@ -251,15 +250,20 @@ class HouseMonitoringControllerTest {
             }
             controller.getAverageRainfallInterval(validHouse, day, day);
         });
-        //Assert
+
+        // Assert
+
         assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
     }
 
     @Test
     void getAverageRainfallIntervalThrowsExceptionReadingListNull() {
-        //Arrange
+        // Arrange
+
         validAreaSensorService = null;
-        //Act
+
+        // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             Date date = new Date();
             try {
@@ -275,13 +279,16 @@ class HouseMonitoringControllerTest {
             }
             controller.getAverageRainfallInterval(validHouse, date, date2);
         });
-        //Assert
+
+        // Assert
+
         assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
     }
 
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDay() {
         // Arrange
+
         Date date = new Date();
         try {
             date = validSdf.parse("03/12/2017 10:02:00");
@@ -292,18 +299,22 @@ class HouseMonitoringControllerTest {
         double expectedResult = 40;
 
         // Act
+
         double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, date);
 
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void ensureThatWeGetTotalReadingsOnGivenDayNoRainfall() {
         // Arrange
+
         validHouseArea.setSensorList(validAreaSensorService);
 
         // Act
+
         Throwable exception = assertThrows(IllegalStateException.class, () -> {
             Date date = new Date();
             try {
@@ -315,6 +326,7 @@ class HouseMonitoringControllerTest {
         });
 
         // Assert
+
         assertEquals("Warning: Total value was not calculated - No readings were available.", exception.getMessage());
     }
 
@@ -337,6 +349,7 @@ class HouseMonitoringControllerTest {
     @Test
     void ensureThatWeGetTotalReadingsWithoutRainFallSensorsAndWithoutReadings() {
         // Arrange
+
         Date date = new Date();
         try {
             date = validSdf.parse("02/02/2015 10:02:00");
@@ -380,26 +393,6 @@ class HouseMonitoringControllerTest {
         assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
     }
 
-    //  @Test
-//    void roomMaxTemperatureInGivenDay() {
-//        // Arrange
-//
-//        Reading secondReading = new Reading(30, validDate4, "C", "TEST");
-//        Reading thirdReading = new Reading(3, validDate5, "C", "TEST");
-//        validTemperatureAreaSensor.addReading(secondReading);
-//        validTemperatureAreaSensor.addReading(thirdReading);
-//        double expectedResult = 30;
-//
-//        // Act
-//
-//        double actualResult = controller.getDayMaxTemperature(validRoom, validDate4, validHouse);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
-
     @Test
     void getRoomName() {
         // Arrange
@@ -430,14 +423,19 @@ class HouseMonitoringControllerTest {
 
     @Test
     void seeIfGetHighestTempAmplitudeDateThrowsException() {
-        //Test if it throws exception when there is no readings available for the period requested
+        // Arrange
+
         AreaSensorService invalidAreaSensorService = new AreaSensorService();
         validHouseArea.setSensorList(invalidAreaSensorService);
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
 
+        // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getHighestTempAmplitudeDate(validHouse, startDate.getTime(), endDate.getTime()));
+
+        // Assert
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
@@ -445,24 +443,34 @@ class HouseMonitoringControllerTest {
 
     @Test
     void seeIfGetHighestTempAmplitudeValueSuccess() {
-        validHouseArea.setSensorList(validAreaSensorService);
+        // Arrange
 
+        validHouseArea.setSensorList(validAreaSensorService);
         double expectedResult = 15.0;
 
+        // Act
+
         double actualResult = controller.getTempAmplitudeValueByDate(validHouse, validDate1);
+
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetHighestTempAmplitudeValueThrowsException() {
-        //Test if it throws exception when there is no readings available for the period requested
+        // Arrange
+
         AreaSensorService invalidAreaSensorService = new AreaSensorService();
         validHouseArea.setSensorList(invalidAreaSensorService);
         GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
 
+        // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getTempAmplitudeValueByDate(validHouse, startDate.getTime()));
+
+        // Assert
 
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
                 exception.getMessage());
@@ -470,7 +478,8 @@ class HouseMonitoringControllerTest {
 
     @Test
     void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException2() {
-        //Arrange
+        // Arrange
+
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validAreaSensorService);
         ReadingService readingService = new ReadingService();
@@ -478,9 +487,12 @@ class HouseMonitoringControllerTest {
         readingService.addReading(reading1);
         validTemperatureAreaSensor.setReadingService(readingService);
 
-        //Act
+        // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
+
+        // Assert
 
         assertEquals("No readings available in the chosen interval.",
                 exception.getMessage());
@@ -489,9 +501,12 @@ class HouseMonitoringControllerTest {
 
     @Test
     void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException1() {
-        //Act
+        // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1));
+
+        // Assert
 
         assertEquals("No readings available.",
                 exception.getMessage());
@@ -499,7 +514,8 @@ class HouseMonitoringControllerTest {
 
     @Test
     void seeIfGetLastColdestDayInIntervalWorks() {
-        //Arrange
+        // Arrange
+
         validHouse.setMotherArea(validHouseArea);
         validHouseArea.setSensorList(validAreaSensorService);
         ReadingService readingService = new ReadingService();
@@ -544,9 +560,13 @@ class HouseMonitoringControllerTest {
         readingService.addReading(reading19);
         readingService.addReading(reading20);
         validTemperatureAreaSensor.setReadingService(readingService);
-        //Act
+
+        // Act
+
         Date actualResult = controller.getLastColdestDayInInterval(validHouse, (new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime());
-        //Assert
+
+        // Assert
+
         assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
     }
 
@@ -561,6 +581,7 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayInPeriod() {
         // Arrange
+
         Reading r01 = new Reading(20, validDate01, "C", "TEST"); // MaxAmplitude First Date
         Reading r02 = new Reading(1, validDate02, "C", "TEST"); // MaxAmplitude First Date
         Reading r03 = new Reading(22, validDate03, "C", "TEST");
@@ -584,9 +605,13 @@ class HouseMonitoringControllerTest {
         validTemperatureAreaSensor.addReading(r10);
         validHouseArea.setSensorList(validAreaSensorService);
         Date expectedResult = validDate06;
+
         // Act
+
         Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
@@ -598,6 +623,7 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayInPeriod2() {
         // Arrange
+
         Reading r02 = new Reading(1, validDate02, "C", "TEST"); // MaxAmplitude First Date
         Reading r03 = new Reading(22, validDate03, "C", "TEST");
         Reading r04 = new Reading(10, validDate04, "C", "TEST"); // Cold First Date
@@ -621,20 +647,29 @@ class HouseMonitoringControllerTest {
         validTemperatureAreaSensor.addReading(r01);
         validHouseArea.setSensorList(validAreaSensorService);
         Date expectedResult = validDate06;
+
         // Act
+
         Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void testGetFirstHottestDayInPeriodIfUnorganizedReadings() {
         // Arrange
+
         validHouseArea.setSensorList(validAreaSensorService);
         Date expectedResult = validDate4;
+
         // Act
+
         Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate4, validDate2);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
@@ -647,6 +682,7 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayMultipleReadingsSameDay() {
         // Arrange
+
         Reading r20 = new Reading(20, validDate20, "C", "TEST");
         Reading r21 = new Reading(22, validDate21, "C", "TEST");
         Reading r22 = new Reading(30, validDate22, "C", "TEST");
@@ -660,10 +696,14 @@ class HouseMonitoringControllerTest {
         validTemperatureAreaSensor.addReading(r24);
         validTemperatureAreaSensor.addReading(r25);
         validHouseArea.setSensorList(validAreaSensorService);
+
         // Act
+
         Date expectedResult = validDate22;
         Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate20, validDate25);
+
         // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
@@ -675,6 +715,7 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayHouseWithoutSensors() {
         // Arrange
+
         House house = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
@@ -687,10 +728,14 @@ class HouseMonitoringControllerTest {
         Room roomD = new Room("Bedroom", "Single Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         roomL.add(roomD);
         roomD.setSensorList(sList);
+
         // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(house, validDate01, validDate02));
+
         // Assert
+
         assertEquals("No readings available.",
                 exception.getMessage());
     }
@@ -703,11 +748,16 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayInPeriodThrowsExceptionMessage() {
         // Arrange
+
         validHouseArea.setSensorList(validAreaSensorService);
+
         // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate02));
+
         // Assert
+
         assertEquals("Warning: No temperature readings available in given period.",
                 exception.getMessage());
     }
@@ -720,6 +770,7 @@ class HouseMonitoringControllerTest {
     @Test
     void testGetFirstHottestDayValidReadingsNotContained() {
         // Arrange
+
         Reading r20 = new Reading(20, validDate20, "C", "TEST");
         Reading r21 = new Reading(22, validDate21, "C", "TEST");
         Reading r25 = new Reading(20, validDate25, "C", "TEST");
@@ -727,84 +778,119 @@ class HouseMonitoringControllerTest {
         validTemperatureAreaSensor.addReading(r21);
         validTemperatureAreaSensor.addReading(r25);
         validHouseArea.setSensorList(validAreaSensorService);
+
         // Act
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
                 controller.getFirstHottestDayInPeriod(validHouse, validDate22, validDate24));
+
         // Assert
+
         assertEquals("Warning: No temperature readings available in given period.",
                 exception.getMessage());
     }
 
     @Test
     void seeIfIsMotherAreaValidHappyCase() {
+        // Arrange
+
         validHouseArea.setSensorList(validAreaSensorService);
-        assertTrue(controller.isMotherAreaValid(validHouse));
+
+        // Act
+
+        boolean actualResult = controller.isMotherAreaValid(validHouse);
+
+        // Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
     void seeIfIsMotherAreaValidNoSensorList() {
-        assertFalse(controller.isMotherAreaValid(validHouse));
+        // Act
+
+        boolean actualResult = controller.isMotherAreaValid(validHouse);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
     void seeIfIsMotherAreaValidNoMotherArea() {
+        // Arrange
+
         House invalidHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"), new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        assertFalse(controller.isMotherAreaValid(invalidHouse));
-    }
 
-//    @Test
-//    void seeIfGetDayMaxTemperatureWorks() {
-//        //Arrange
-//        double expectedResult = 30.0;
-//        //Act
-//        double actualResult = controller.getDayMaxTemperature(validRoom, validDate3, validHouse);
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
+        // Act
+
+        boolean actualResult = controller.isMotherAreaValid(invalidHouse);
+
+        assertFalse(actualResult);
+    }
 
     @Test
     void seeIfGetAverageRainfallIntervalWorks() {
-        //Arrange
+        // Arrange
+
         double expectedResult = 20.0;
         validHouse.getMotherArea().setSensorList(validAreaSensorService);
-        //Actual
+
+        // Actual
+
         double actualResult = controller.getAverageRainfallInterval(validHouse, validDate01, validDate10);
-        //Assert
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetTotalRainfallOnGivenDayWorks() {
-        //Arrange
+        // Arrange
+
         double expectedResult = 40.0;
         validHouse.getMotherArea().setSensorList(validAreaSensorService);
-        //Actual
+
+        // Actual
+
         double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, validDate4);
-        //Assert
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetHighestTempAmplitudeDateWorks() {
-        //Arrange
+        // Arrange
+
         Date expectedResult = validDate1;
         validHouse.getMotherArea().setSensorList(validAreaSensorService);
-        //Actual
+
+        // Actual
+
         Date actualResult = controller.getHighestTempAmplitudeDate(validHouse, validDate01, validDate10);
-        //Assert
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetHouseAreaTemperatureWorks() {
-        //Arrange
+        // Arrange
+
         double expectedResult = 20.0;
         validHouse.getMotherArea().setSensorList(validAreaSensorService);
-        //Actual
+
+        // Actual
+
         double actualResult = controller.getHouseAreaTemperature(validHouse);
-        //Assert
+
+        // Assert
+
         assertEquals(expectedResult, actualResult);
     }
 }
