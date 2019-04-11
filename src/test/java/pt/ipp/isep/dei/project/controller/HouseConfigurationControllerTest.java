@@ -234,7 +234,7 @@ class HouseConfigurationControllerTest {
     void seeIfReadSensorsWorksInvalidFile(){
         // Arrange
 
-        String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
+        String filePath = "houseFiles/DataSet_sprint06_HouseData.json";
 
         Mockito.when(mockRoomRepository.isEmptyDB()).thenReturn(false);
 
