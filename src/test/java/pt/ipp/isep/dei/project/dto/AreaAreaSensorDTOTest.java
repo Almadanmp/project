@@ -1,12 +1,195 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class AreaAreaSensorDTOTest {
+
+    /**
+     * Sensor tests class.
+     */
+
+    // Common artifacts for testing in this class.
+
+    private AreaSensorDTO validAreaSensorDTO;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validAreaSensorDTO = new AreaSensorDTO();
+        validAreaSensorDTO.setActive(true);
+        validAreaSensorDTO.setId("12");
+        validAreaSensorDTO.setName("SensorDTO1");
+        validAreaSensorDTO.setTypeSensor("Temperature");
+        validAreaSensorDTO.setUnits("Celsius");
+        validAreaSensorDTO.setLocalDTO(new LocalDTO(2, 4, 5));
+        validAreaSensorDTO.setLatitude(2);
+        validAreaSensorDTO.setLongitude(4);
+        validAreaSensorDTO.setAltitude(5);
+        validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
+        validAreaSensorDTO.setGeographicAreaID(2L);
+    }
+
+    @Test
+    void seeIfGetLocalDTOWorks() {
+        //Arrange
+
+        LocalDTO expectedResult = new LocalDTO(2, 4, 5);
+
+        //Act
+
+        LocalDTO actualResult = validAreaSensorDTO.getLocalDTO();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetUnitsWorks() {
+        //Act
+
+        String actualResult = validAreaSensorDTO.getUnits();
+
+        //Assert
+
+        assertEquals("Celsius", actualResult);
+    }
+
+    @Test
+    void seeIfGetAltitudeWorks() {
+        //Act
+
+        double actualResult = validAreaSensorDTO.getAltitude();
+
+        //Assert
+
+        assertEquals(5D, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetLatitudeWorks() {
+        //Act
+
+        double actualResult = validAreaSensorDTO.getLatitude();
+
+        //Assert
+
+        assertEquals(2D, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetLongitudeWorks() {
+        //Act
+
+        double actualResult = validAreaSensorDTO.getLongitude();
+
+        //Assert
+
+        assertEquals(4D, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetGAIDWorks() {
+        //Act
+
+        double actualResult = validAreaSensorDTO.getGeographicAreaID();
+
+        //Assert
+
+        assertEquals(2L, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetTypeWorks() {
+        //Act
+
+        String actualResult = validAreaSensorDTO.getType();
+
+        //Assert
+
+        assertEquals("Temperature", actualResult);
+    }
+
+    @Test
+    void seeIfGetActiveWorks() {
+        //Act
+
+        boolean actualResult = validAreaSensorDTO.getActive();
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfGetActiveWorksWhenInactive() {
+        //Arrange
+
+        validAreaSensorDTO.setActive(false);
+
+        //Act
+
+        boolean actualResult = validAreaSensorDTO.getActive();
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetDateStartedFunctioningWorks() {
+        //Act
+
+        String actualResult = validAreaSensorDTO.getDateStartedFunctioning();
+
+        //Assert
+
+        assertEquals("21/03/2018 10:02:00", actualResult);
+    }
+
+    @Test
+    void seeIfGetReading() {
+        //Arrange
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+
+        try {
+            date = validSdf.parse("11/01/2018 10:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        ReadingDTO readingDTO = new ReadingDTO();
+        readingDTO.setSensorId("ID1");
+        readingDTO.setDate(date);
+
+        List<ReadingDTO> expectedResult = new ArrayList<>();
+        expectedResult.add(readingDTO);
+        readingDTOS.add(readingDTO);
+        validAreaSensorDTO.setReadingDTOS(readingDTOS);
+
+
+        //Act
+
+        List<ReadingDTO> actualResult = validAreaSensorDTO.getReadingDTOS();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfEqualsWorks() {

@@ -41,6 +41,4 @@ public class TypeAreaDTO {
 
         return 1;
     }
-
-
 }

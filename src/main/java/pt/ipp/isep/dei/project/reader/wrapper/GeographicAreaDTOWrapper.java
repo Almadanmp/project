@@ -130,7 +130,7 @@ public class GeographicAreaDTOWrapper {
             areaSensorDTO.setDateStartedFunctioning(wrapper.getSensorAttributeWrapper().getDateStartedFunctioning());
             areaSensorDTO.setTypeSensor(wrapper.getSensorAttributeWrapper().getType());
             areaSensorDTO.setUnits(wrapper.getSensorAttributeWrapper().getUnits());
-            areaSensorDTO.setReadingList(wrapper.getReadingList());
+            areaSensorDTO.setReadingDTOS(wrapper.getReadingList());
             areaSensorDTO.setLocalDTO(wrapper.getLocalDTO());
             if (!finalList.contains(areaSensorDTO)) {
                 finalList.add(areaSensorDTO);
