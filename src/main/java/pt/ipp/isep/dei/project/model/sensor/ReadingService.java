@@ -643,6 +643,28 @@ public class ReadingService {
         return false;
     }
 
+    public boolean addHouseReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, HouseSensorService houseSensorService) {
+        if (houseSensorService.sensorExistsInRepository(sensorID)) {
+            if (houseSensorService.sensorFromRepositoryIsActive(sensorID, readingDate)) {
+                if (readingExistsInRepository(sensorID, readingDate)) {
+                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                            + sensorID + " wasn't added because it already exists.");
+                    return false;
+                }
+                Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
+                readingRepository.save(reading);
+                return true;
+            }
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensorID + " wasn't added because the reading is from before the sensor's starting date.");
+            return false;
+        }
+        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                + sensorID + " wasn't added because a sensor with that ID wasn't found.");
+        return false;
+    }
+
+
     /**
      * This method receives a String that corresponds to the reading's sensor ID and a Date that
      * corresponds to the reading's date, and checks that a reading with those characteristics

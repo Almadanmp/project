@@ -6,10 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,8 +25,8 @@ public class ReaderXMLGeoArea {
      * @param filePath path to the xml file
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
-        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService);
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();

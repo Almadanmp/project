@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
 
@@ -14,20 +15,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReaderController {
 
 
     private AreaSensorService areaSensorService;
+    private HouseSensorService houseSensorService;
     private ReadingService readingService;
     private HouseService houseService;
 
 
-    public ReaderController(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService) {
+    public ReaderController(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
         this.readingService = readingService;
         this.areaSensorService = areaSensorService;
         this.houseService = houseService;
+        this.houseSensorService = houseSensorService;
     }
 
     //
@@ -50,7 +54,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, readingService, houseService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, readingService, houseService, houseSensorService);
             return areasRead;
         }
         return -1;
@@ -219,9 +223,25 @@ public class ReaderController {
             FileHandler fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
+            logger.setLevel(Level.WARNING);
         } catch (IOException io) {
             io.getMessage();
         }
         return logger;
+    }
+
+    public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath) {
+        Logger logger = getLogger(logPath);
+        int addedReadings = 0;
+        for (ReadingDTO r : readings) {
+            String sensorID = r.getSensorId();
+            double value = r.getValue();
+            Date date = r.getDate();
+            String unit = r.getUnit();
+            if (readingService.addHouseReadingToRepository(sensorID, value, date, unit, logger, houseSensorService)) {
+                addedReadings++;
+            }
+        }
+        return addedReadings;
     }
 }
