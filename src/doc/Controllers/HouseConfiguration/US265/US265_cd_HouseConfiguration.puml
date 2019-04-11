@@ -25,40 +25,29 @@ MainUI -- HouseConfigurationUI : >
 
 HouseConfigurationUI -- HouseConfigurationController : >
 HouseConfigurationController -- Reader : >
-HouseConfigurationController -- House : >
-HouseConfigurationController -- Sensor : >
-HouseConfigurationController -- RoomService : >
+HouseConfigurationController -- HouseSensorService : >
 HouseConfigurationController -- ReadingService : >
 
 class HouseConfigurationUI{
 
-runUS265(HouseService houseService)
+runUS265(HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository)
 }
 
 class HouseConfigurationController{
-readReadingListFromFile(ReadingService readingService, String filePath, HouseService house, String logPath)
+readReadingListFromFile(ReadingService readingService, String filePath, String logPath, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository)
 knownDatePatterns()
 }
 
 class Reader{
-readFile(String filePath)
+readFile(filePath)
 }
 
-class House{
-getHouse()
-getRoomService()
-}
-
-class RoomService{
-getRooms()
-}
-
-class Sensor{
-getId()
+class HouseSensorRepository{
+findAll()
 }
 
 class ReadingService{
-addReadingToMatchingSensor(readingSensorID, doubleReadingValue, objectDate, readingUnit)
+addReadingToDB(importedReading, readingRepository)
 
 format(LogRecord record)
 getHead(Handler h)
