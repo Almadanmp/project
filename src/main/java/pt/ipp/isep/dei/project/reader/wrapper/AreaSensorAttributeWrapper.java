@@ -39,6 +39,12 @@ public class AreaSensorAttributeWrapper {
         this.id = id;
     }
 
+
+
+    public void setTypeSensor(String typeSensor) {
+        this.typeSensor = typeSensor;
+    }
+
     /**
      * Method that retrieves the units the Sensor stores readings in, as a String.
      *
@@ -89,14 +95,6 @@ public class AreaSensorAttributeWrapper {
         return typeSensor;
     }
 
-    /**
-     * Method that stores a String as the DTO's type.
-     *
-     * @param typeSensor is the string we want to store.
-     */
-    public void setTypeSensor(String typeSensor) {
-        this.typeSensor = typeSensor;
-    }
 
     /**
      * Method that retrieves the date at which the sensorDTO started functioning, as a string.

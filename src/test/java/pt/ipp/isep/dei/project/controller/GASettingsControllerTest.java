@@ -547,26 +547,21 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//   @Test
-//   void seeIfRemoveSensorWorks() {
+   @Test
+   void seeIfRemoveSensorWorks() {
+       // Arrange
 
-//       // Arrange
+       List<AreaSensor> expectedResult = new ArrayList<>();
 
-//       List<GeographicArea> geographicAreas = new ArrayList<>();
-//       List<AreaSensor> expectedResult = new ArrayList<>();
-//       firstValidArea.addSensor(validAreaSensor1);
-//       geographicAreas.add(firstValidArea);
+       // Act
 
-//       // Act
+       controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
+       List<AreaSensor> actualResult = areaSensorRepository.findAll();
 
-//       validAreaSensorService.add(validAreaSensor1);
-//       controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
-//       List<AreaSensor> actualResult = validGeographicAreaService.getAreaListSensors(geographicAreas);
+       // Assert
 
-//       // Assert
-
-//       assertEquals(expectedResult, actualResult);
-//   }
+       assertEquals(expectedResult.size(), actualResult.size());
+   }
 
 
     @Test

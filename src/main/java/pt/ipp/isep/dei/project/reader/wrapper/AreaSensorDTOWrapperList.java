@@ -12,21 +12,11 @@ public class AreaSensorDTOWrapperList {
     @JacksonXmlElementWrapper(useWrapping = false)
     private List<AreaSensorDTOWrapper> areaDTOWrappers;
 
-    public AreaSensorDTOWrapperList(List<AreaSensorDTOWrapper> areaSensorDTOWrappers) {
-        this.areaDTOWrappers = areaSensorDTOWrappers;
-    }
-
-    public AreaSensorDTOWrapperList() {
-        this.areaDTOWrappers = new ArrayList<>();
-    }
 
     public List<AreaSensorDTOWrapper> getGeoAreaDTOWrapperList() {
         return this.areaDTOWrappers;
     }
 
-    public void setGeoAreaDTOWrapperList(List<AreaSensorDTOWrapper> areaSensorDTOWrappers) {
-        this.areaDTOWrappers = areaSensorDTOWrappers;
-    }
 
     /**
      * Getter (array of GeographicAreaDTOWrappers)
