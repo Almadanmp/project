@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
@@ -52,7 +53,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS101(houseService, geographicAreaService);
+                    runUS101(house, geographicAreaService);
                     activeInput = false;
                     break;
                 case 4:
@@ -123,32 +124,10 @@ class HouseConfigurationUI {
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 //TODO Location is just location ot Adress etc, doest make much sense with the new data.
-    private void runUS101(HouseService houseService, GeographicAreaService geographicAreaService) {
-        House house = houseService.getHouse();
-        Scanner scanner = new Scanner(System.in);
+    private void runUS101(House house, GeographicAreaService geographicAreaService) {
         List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First select the geographic area where this house is located.");
         GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
-
-//        // get house address
-//        System.out.print("Please, type the street where the house is located: ");
-//        String street = scanner.nextLine();
-//
-//        // get number
-//        System.out.print("Please, type the number where the house is located: ");
-//        String number = scanner.nextLine();
-//
-//        // get zip code
-//        System.out.print("Please, type the address's zip code: ");
-//        String zip = scanner.nextLine();
-//
-//        // get town
-//        System.out.println("Please, type the town where the house is located: ");
-//        String town = scanner.nextLine();
-//
-//        // get country
-//        System.out.println("Please, type the country where the house is located: ");
-//        String country = scanner.nextLine();
 
         //get latitude
         System.out.print("Please, type the latitude: ");
@@ -163,14 +142,8 @@ class HouseConfigurationUI {
         double houseAlt = InputHelperUI.getInputAsDouble();
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
-//        controller.setHouseAddress(street, number, zip, town, country, house);
         controller.setHouseMotherArea(house, motherArea);
         houseService.saveHouse(house);
-
-        //       String houseId = controller.getHouseName(house);
-//        System.out.println("\nYou have successfully configured the location of the house " + houseId + ". \n" + "Street: " +
-//                street + ". \n" + "Number: " + number + ". \n" + "ZipCode: " + zip + ". \n" + "Town: " + town + ". \n" + "Country: " + country + ". \n" + "Latitude: " + houseLat + ". \n" +
-//                "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
 
         System.out.println("\nYou have successfully configured the location of the house with the following Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
@@ -256,13 +229,12 @@ class HouseConfigurationUI {
         }
     }
 
-
     /* USER STORY 108 - As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
      * - MARIA MEIRELES, TERESA VARELA */
     private void runUS108(RoomService roomService) {
-        //        if (){
-//            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-//        }
+        if (roomService.getAllRooms().isEmpty()) {
+            System.out.println(UtilsUI.INVALID_ROOM_LIST);
+        }
         System.out.println(controller.buildRoomsString(roomService));
     }
 
