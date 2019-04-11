@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
+import pt.ipp.isep.dei.project.reader.CustomFormatter;
 import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.reader.ReaderJSONReadings;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
@@ -17,9 +18,12 @@ import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.util.logging.Logger.getLogger;
@@ -31,6 +35,28 @@ import static java.util.logging.Logger.getLogger;
 
 
 public class HouseConfigurationController {
+
+    // Common methods
+
+    /**
+     * This method creates a Logger.
+     *
+     * @param logPath log file path.
+     * @return object of class Logger.
+     **/
+    private Logger getLogger(String logPath) {
+        Logger logger = Logger.getLogger(ReaderController.class.getName());
+        try {
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            logger.setLevel(Level.WARNING);
+        } catch (IOException io) {
+            io.getMessage();
+        }
+        return logger;
+    }
 
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
@@ -166,7 +192,7 @@ public class HouseConfigurationController {
                 addedSensors++;
             }
             else{
-                logger.warning("The sensor " + importedSensor.getId() + "wasn't added to room " + importedSensor.getRoomID()
+                logger.warning("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
                         + " - there is no room with that ID.");
                 rejectedSensors++;
             }
