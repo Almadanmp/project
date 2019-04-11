@@ -24,7 +24,7 @@ public final class AreaSensorMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private AreaSensorMapper(){}
+    private AreaSensorMapper (){}
 
     /**
      * This is the method that converts Sensor DTOs into model objects with the same data.
