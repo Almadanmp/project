@@ -151,7 +151,7 @@ public class HouseConfigurationController {
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
+    private int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
             sensorRepository) {
         int addedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
@@ -160,6 +160,7 @@ public class HouseConfigurationController {
                 sensorRepository.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             }
+
         }
         return addedSensors;
     }
