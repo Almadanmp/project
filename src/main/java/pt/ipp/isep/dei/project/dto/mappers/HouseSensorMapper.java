@@ -14,7 +14,7 @@ import java.util.List;
  * This class is responsible for converting Sensors and Sensor DTOs into one another.
  */
 
-public class HouseSensorMapper {
+public final class HouseSensorMapper {
 
     /**
      * Don't let anyone instantiate this class.

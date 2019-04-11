@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HouseMapper {
+public final class HouseMapper {
 
     /**
      * Don't let anyone instantiate this class.
