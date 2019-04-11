@@ -145,7 +145,7 @@ public class MainUI {
                 // Submenus Input selection
 
                 String[] menu = {
-                        "1. Geographic Area Settings\n",
+                        " 1. Geographic Area Settings\n",
                         "2. House Settings.\n",
                         "3. Room Settings.\n",
                         "4. Sensor Settings.\n",

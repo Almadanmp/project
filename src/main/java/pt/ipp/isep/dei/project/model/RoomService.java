@@ -64,14 +64,13 @@ public class RoomService {
         return false;
     }
 
-    /**
-     * Method that finds a given object in the repository by its ID.
-     *
-     * @param idToFind is the ID that we want to look for.
-     * @return is an Optional that either contains the object if it existed, or a null.
-     */
-    public Optional<Room> getAllRoomsWithSameID(String idToFind) {
-        return roomRepository.findById(idToFind);
+    public boolean addPersistence (Room room){
+        Room room2 = roomRepository.findByRoomName(room.getName());
+        if (room2 != null){
+            roomRepository.delete(room2);
+        }
+        roomRepository.save(room);
+        return true;
     }
 
     /**
