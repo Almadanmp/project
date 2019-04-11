@@ -5,9 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.Room;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -109,7 +107,7 @@ public class ReaderJSONHouse implements Reader {
             for (int y = 0; y < e; y++) {
                 Object jsonArray = grid.getJSONArray("rooms").get(y);
                 String roomName = jsonArray.toString();
-                addRoomToRoomList(roomName);
+                setEnergyGridNameToRoom(roomName);
             }
             energyGridObject.setRoomDTOS(this.roomDTOS);
             energyGridDTOList.add(energyGridObject);
@@ -118,20 +116,15 @@ public class ReaderJSONHouse implements Reader {
     }
 
     /**
-     * Method that add's every room to the roomList and sets the energyGridName for each one.
+     * Sets the energyGridName for each room.
      * @param roomName String roomName
-     * @return List of Room
      */
-    public List<Room> addRoomToRoomList(String roomName) {
-        List<Room> roomFinalList = new ArrayList<>();
-        for (int x = 0; x < roomDTOS.size(); x++) {
-            if (roomDTOS.get(x).getName().equals(roomName)) {
-                RoomDTO roomDTO = roomDTOS.get(x);
-                roomDTO.setEnergyGridName(this.gridName);
-                roomFinalList.add(RoomMapper.dtoToObjectUS100(roomDTO));
+    private void setEnergyGridNameToRoom(String roomName) {
+        for (RoomDTO r: roomDTOS) {
+            if (r.getName().equals(roomName)) {
+                r.setEnergyGridName(this.gridName);
             }
         }
-        return roomFinalList;
     }
 
     /**

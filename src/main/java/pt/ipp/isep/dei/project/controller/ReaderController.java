@@ -38,7 +38,6 @@ public class ReaderController {
     /**
      * This method only accepts a path that ends with .json or .xml
      *
-     * @param -        the user input
      * @param filePath - the path to the file if it exists
      * @param list     - the geographic area list
      * @return - number of geoareas imported
@@ -75,7 +74,7 @@ public class ReaderController {
             houseDTO = readerJSONHouse.readFile(filePath);
             House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
             house.setAddress(house2.getAddress());
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new IllegalArgumentException();
         }
 
