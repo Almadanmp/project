@@ -57,10 +57,12 @@ public class ReaderController {
     }
 
     /**
-     * This method reads a JSON file that represents the class House() and sets House attributes from the file and
-     * saves it into the repository.
+     * This method reads a JSON file that represents the class House() and sets House attributes(US100 Attributes)
+     * from the file and saves it into the repository.
      *
      * @param filePath is the file path.
+     * @param house is the House that this method receives from the MainUI(), with houseRepository,
+     * gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
     public boolean readJSONAndDefineHouse(House house, String filePath) {

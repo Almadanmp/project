@@ -19,6 +19,12 @@ public class ReaderJSONHouse implements Reader {
     private JSONArray gridList;
     private String gridName;
 
+    /**
+     * Method that Reads a .json file and returns a House DTO.
+     *
+     * @param filePath .json file filePath.
+     * @return a House DTO for US100.
+     */
     public HouseDTO readFile(String filePath) {
         try {
             File file = new File(filePath);
@@ -27,10 +33,16 @@ public class ReaderJSONHouse implements Reader {
             JSONObject object = new JSONObject(tokener);
             return readHouseJSON(object);
         } catch (FileNotFoundException | JSONException | IllegalArgumentException e) {
-           throw new IllegalArgumentException(UtilsUI.printMessage("The JSON file is invalid."));
+            throw new IllegalArgumentException(UtilsUI.printMessage("The JSON file is invalid."));
         }
     }
 
+    /**
+     * Method that returns a House DTO from a JSONObject.
+     *
+     * @param jsonObject is the json object with the information of the house.
+     * @return a House DTO for US100.
+     */
     private HouseDTO readHouseJSON(JSONObject jsonObject) {
         HouseDTO houseDTO = new HouseDTO();
         JSONObject address;
@@ -40,7 +52,7 @@ public class ReaderJSONHouse implements Reader {
             this.gridList = jsonObject.getJSONArray("grid");
 
         } catch (JSONException e) {
-           throw new IllegalArgumentException();
+            throw new IllegalArgumentException();
         }
         List<RoomDTO> roomDTOList = readRoomsJSON();
         AddressDTO addressDTO = readAddressJSON(address);
@@ -52,6 +64,11 @@ public class ReaderJSONHouse implements Reader {
         return houseDTO;
     }
 
+    /**
+     * Method that returns a List of RoomDTO from a JSONObject.
+     *
+     * @return a List of RoomDTO.
+     */
     private List<RoomDTO> readRoomsJSON() {
         List<RoomDTO> roomArray = new ArrayList<>();
         for (int i = 0; i < this.roomList.length(); i++) {
@@ -75,6 +92,11 @@ public class ReaderJSONHouse implements Reader {
         return roomArray;
     }
 
+    /**
+     * Method that returns a List of EnergyGridDTO from a JSONObject.
+     *
+     * @return a List of EnergyGridDTO.
+     */
     public List<EnergyGridDTO> readGridsJSON() {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
         for (int i = 0; i < this.gridList.length(); i++) {
@@ -87,7 +109,7 @@ public class ReaderJSONHouse implements Reader {
             for (int y = 0; y < e; y++) {
                 Object jsonArray = grid.getJSONArray("rooms").get(y);
                 String roomName = jsonArray.toString();
-                addRoomToGrid(roomName);
+                addRoomToRoomList(roomName);
             }
             energyGridObject.setRoomDTOS(this.roomDTOS);
             energyGridDTOList.add(energyGridObject);
@@ -95,7 +117,12 @@ public class ReaderJSONHouse implements Reader {
         return energyGridDTOList;
     }
 
-    public List<Room> addRoomToGrid(String roomName) {
+    /**
+     * Method that add's every room to the roomList and sets the energyGridName for each one.
+     * @param roomName String roomName
+     * @return List of Room
+     */
+    public List<Room> addRoomToRoomList(String roomName) {
         List<Room> roomFinalList = new ArrayList<>();
         for (int x = 0; x < roomDTOS.size(); x++) {
             if (roomDTOS.get(x).getName().equals(roomName)) {
@@ -107,13 +134,18 @@ public class ReaderJSONHouse implements Reader {
         return roomFinalList;
     }
 
-    private AddressDTO readAddressJSON(JSONObject address) {
+    /**
+     * Method that reads a JSONObject and returns the House Address DTO
+     * @param jsonObject JSONObject
+     * @return House Address DTO
+     */
+    private AddressDTO readAddressJSON(JSONObject jsonObject) {
         AddressDTO addressDTO = new AddressDTO();
-        addressDTO.setStreet(address.getString("street"));
-        addressDTO.setNumber(address.getString("number"));
-        addressDTO.setZip(address.getString("zip"));
-        addressDTO.setTown(address.getString("town"));
-        addressDTO.setCountry(address.getString("country"));
+        addressDTO.setStreet(jsonObject.getString("street"));
+        addressDTO.setNumber(jsonObject.getString("number"));
+        addressDTO.setZip(jsonObject.getString("zip"));
+        addressDTO.setTown(jsonObject.getString("town"));
+        addressDTO.setCountry(jsonObject.getString("country"));
         return addressDTO;
     }
 }
