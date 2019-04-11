@@ -127,8 +127,13 @@ public class HouseConfigurationController {
         if (roomRepository.isEmptyDB()) { // If there are no rooms to add sensors to, no sensors will be added.
             return addedSensors;
         }
-        List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
-        return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
+        try {
+            List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
+            return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
+        }
+        catch (IllegalArgumentException ok){
+            return -1;
+        }
     }
 
     private int addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
