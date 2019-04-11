@@ -166,6 +166,18 @@ class AddressTest {
     }
 
     @Test
+    void seeIfSetNumberWorks() {
+        // Act
+
+        validAddress.setNumber("300");
+        String actualResult = validAddress.getNumber();
+
+        // Assert
+
+        assertEquals("300", actualResult);
+    }
+
+    @Test
     void seeIfEqualsWorks() {
         //Assert
         assertEquals(validAddress, validAddress);
