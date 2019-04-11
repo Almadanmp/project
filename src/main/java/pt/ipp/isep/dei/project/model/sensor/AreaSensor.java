@@ -27,6 +27,7 @@ public class AreaSensor {
     @JoinColumn(name = "local_id")
     private Local local;
 
+    @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
 
     @Transient

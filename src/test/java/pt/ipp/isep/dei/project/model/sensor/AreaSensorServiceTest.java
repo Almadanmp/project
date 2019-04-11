@@ -503,25 +503,6 @@ class AreaSensorServiceTest {
         assertEquals(2, actualResult3);
     }
 
-    @Test
-    void seeIfContainsWorks() {
-
-        //Arrange
-
-        AreaSensorService emptyList = new AreaSensorService();
-
-        //Act
-
-        boolean actualResult1 = emptyList.contains(firstValidAreaSensor);
-        boolean actualResult2 = validAreaSensorService.contains(firstValidAreaSensor);
-        boolean actualResult3 = validAreaSensorService.contains(secondValidAreaSensor);
-
-        //Assert
-
-        assertFalse(actualResult1);
-        assertTrue(actualResult2);
-        assertFalse(actualResult3);
-    }
 
 //    @Test
 //    void seeIfGetSensorsDistanceToHouse() {
@@ -705,7 +686,7 @@ class AreaSensorServiceTest {
 
         //Act
 
-        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor("SensorOne",4.0, validDate1, "Temperature");
+        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor("SensorOne", 4.0, validDate1, "Temperature");
 
         //Assert
 
@@ -715,13 +696,13 @@ class AreaSensorServiceTest {
     @Test
     void seeIfAddReadingToSensorFalse() {
         //Arrange
-        Reading reading = new Reading(4.0,validDate1, "Temperature", "SensorOne");
+        Reading reading = new Reading(4.0, validDate1, "Temperature", "SensorOne");
         String sensorId = "SensorOne";
         Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.of(firstValidAreaSensor)));
         firstValidAreaSensor.addReading(reading);
         //Act
 
-        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor("SensorOne",4.0, validDate1, "Temperature");
+        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor("SensorOne", 4.0, validDate1, "Temperature");
 
         //Assert
 
@@ -733,7 +714,7 @@ class AreaSensorServiceTest {
 
         //Act
 
-        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor(null,4.0, validDate1, "Temperature");
+        boolean actualResult1 = validAreaSensorService.addReadingToMatchingSensor(null, 4.0, validDate1, "Temperature");
 
         //Assert
 
@@ -741,7 +722,7 @@ class AreaSensorServiceTest {
     }
 
     @Test
-    void seeIfGetById(){
+    void seeIfGetById() {
         String mockId = "SensorOne";
 
         AreaSensor areaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
@@ -757,7 +738,7 @@ class AreaSensorServiceTest {
     }
 
     @Test
-    void seeIfGetByIdNoSensor(){
+    void seeIfGetByIdNoSensor() {
         String mockId = "SensorOne";
 
         Assertions.assertThrows(NoSuchElementException.class, () -> {

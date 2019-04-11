@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Kettler;
@@ -10,6 +13,7 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -21,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Room tests class.
  */
-
+@ExtendWith(MockitoExtension.class)
 class RoomTest {
     // Common testing artifacts for this class.
 
@@ -31,9 +35,12 @@ class RoomTest {
     private Device validDevice; // Valid device, namely of WaterHeater type.
     private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
 
+    @Mock
+    HouseSensorRepository houseSensorRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
-        validRoom = new Room("Bedroom","Double Bedroom", 2, 30, 40, 10,"Room1","Grid1");
+        validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
         validSensor = new HouseSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
         validSensor.setActive(true);
         validRoom.addSensor(validSensor);
@@ -51,7 +58,7 @@ class RoomTest {
     }
 
     @Test
-    void seeIfConstructorIsAccessed(){
+    void seeIfConstructorIsAccessed() {
         // Assert
 
         Room room = new Room();
@@ -167,7 +174,7 @@ class RoomTest {
         // Arrange
 
         HouseSensor testSensor = new HouseSensor("T56654", "testSensor", new SensorType("Temperature", "Celsius"),
-                new Date(),"RoomDSF");
+                new Date(), "RoomDSF");
 
         // Act
 
@@ -416,22 +423,6 @@ class RoomTest {
     }
 
     @Test
-    void seeIfGetSensorsByTypeWorks() {
-        // Arrange
-
-        HouseSensorService expectedResult = new HouseSensorService();
-        expectedResult.add(validSensor);
-
-        // Act
-
-        HouseSensorService actualResult = validRoom.getSensorsOfGivenType("temperature");
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfGetMaxTemperatureGivenDayWorks() {
         // Arrange
 
@@ -453,9 +444,9 @@ class RoomTest {
         // Arrange
 
         Reading secondAreaReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 0).getTime(), "C","TestID");
+                12, 2, 0).getTime(), "C", "TestID");
         Reading thirdAreaReading = new Reading(28, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                11, 2, 0).getTime(), "C","TestID");
+                11, 2, 0).getTime(), "C", "TestID");
         validSensor.addReading(secondAreaReading);
         validSensor.addReading(thirdAreaReading);
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
@@ -477,7 +468,7 @@ class RoomTest {
 
         Date dayToTest = new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime();
-        Room noSensorRoom = new Room("Mock","Mock", 1, 2, 3, 4,"Room1","Grid1");
+        Room noSensorRoom = new Room("Mock", "Mock", 1, 2, 3, 4, "Room1", "Grid1");
         validSensor.setReadingService(new ReadingService()); // validSensor has proper sensors, but they have no readings.
 
 
@@ -492,9 +483,9 @@ class RoomTest {
         // Arrange
 
         Reading secondAreaReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 2).getTime(), "C","TestID");
+                12, 2, 2).getTime(), "C", "TestID");
         Reading thirdAreaReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 13).getTime(), "C","TestID");
+                12, 2, 13).getTime(), "C", "TestID");
         validSensor.addReading(secondAreaReading);
         validSensor.addReading(thirdAreaReading);
         double expectedResult = 21;
@@ -522,11 +513,11 @@ class RoomTest {
         validRoom.addSensor(secondAreaSensor);
         validRoom.addSensor(thirdAreaSensor);
         Reading secondAreaReading = new Reading(18, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 2).getTime(), "C","TestID");
+                12, 2, 2).getTime(), "C", "TestID");
         Reading thirdAreaReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                12, 2, 13).getTime(), "C","TestID");
+                12, 2, 13).getTime(), "C", "TestID");
         Reading mostRecentAreaReading = new Reading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2,
-                15, 2, 13).getTime(), "C","TestID");
+                15, 2, 13).getTime(), "C", "TestID");
         firstAreaSensor.addReading(secondAreaReading);
         secondAreaSensor.addReading(thirdAreaReading);
         secondAreaSensor.addReading(mostRecentAreaReading);
@@ -542,74 +533,10 @@ class RoomTest {
     }
 
     @Test
-    void seeIfGetCurrentRoomTemperatureWorksIllegalArguments() {
-        //Arrange
-
-        Room noSensorsRoom = new Room("Mock","Mock", 1, 2, 3, 4,"Room1","Grid1");
-        validSensor.setReadingService(new ReadingService()); // Valid Sensor now has sensors, but no readings.
-
-        //Act and Assert
-
-        assertThrows(IllegalArgumentException.class, noSensorsRoom::getCurrentRoomTemperature);
-        assertThrows(IllegalArgumentException.class, validRoom::getCurrentRoomTemperature);
-    }
-
-
-    @Test
-    void seeIfGetSensorListWorks() {
-        // Arrange
-
-        HouseSensorService expectedResult = new HouseSensorService();
-        expectedResult.add(validSensor);
-
-        // Act
-
-        HouseSensorService actualResult = validRoom.getSensorList();
-
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
-
-    @Test
-    void seeIfGetSensorListWorksNoSensors() {
-        // Arrange
-
-        HouseSensorService expectedResult = new HouseSensorService();
-        validRoom.setSensorList(new HouseSensorService());
-
-        // Act
-
-        HouseSensorService actualResult = validRoom.getSensorList();
-
-        // Assert
-
-        assertEquals(actualResult, expectedResult);
-    }
-
-    @Test
-    void seeIfGetSensorListWorksMultipleSensors() {
-        // Arrange
-
-        HouseSensor testSensor = new HouseSensor("T3409", "Mock", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
-        validRoom.addSensor(testSensor);
-        HouseSensorService expectedResult = new HouseSensorService();
-        expectedResult.add(validSensor);
-        expectedResult.add(testSensor);
-
-        // Act
-
-        HouseSensorService actualResult = validRoom.getSensorList();
-
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
-
-
-    @Test
     void getByIndexWithEmptyDeviceList() {
         //Arrange
 
-        Room noDevicesRoom = new Room("noDevices","noDevices", 3, 24, 25, 3,"Room1","Grid1");
+        Room noDevicesRoom = new Room("noDevices", "noDevices", 3, 24, 25, 3, "Room1", "Grid1");
 
         //Act
 
@@ -624,7 +551,7 @@ class RoomTest {
     void deviceListSize() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
 
         //Act
 
@@ -647,7 +574,7 @@ class RoomTest {
     void seeIfIsSensorListEmptyWorks() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
 
         //Act
 
@@ -664,7 +591,7 @@ class RoomTest {
     void seeIfIsDeviceListEmptyWorks() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
 
         //Act
 
@@ -694,7 +621,7 @@ class RoomTest {
 
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
 
         //Assert
 
@@ -708,7 +635,7 @@ class RoomTest {
 
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList","emptyDeviceList", 2, 20, 20, 3,"Room1","Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
         Device kettler = new Kettler(new KettlerSpec());
         validRoom.addDevice(kettler);
         //Act

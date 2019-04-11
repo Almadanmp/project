@@ -65,7 +65,7 @@ public class RoomConfigurationController {
      * @param room is the room we want to choose.
      * @return AreaSensorList of the Room.
      */
-    public HouseSensorService getRoomSensorList(Room room) {
+     HouseSensorService getRoomSensorList(Room room) {
         return room.getSensorList();
     }
 
@@ -74,12 +74,11 @@ public class RoomConfigurationController {
     sensor types, in order to configure it. - ANDRÉ RUA */
 
     /**
-     * @param areaSensorList is the sensor list to print.
      * @return builds a string from given sensor list.
      */
 
-    public String buildSensorListString(HouseSensorService areaSensorList) {
-        return areaSensorList.toString();
+    public String buildSensorListString(HouseSensorService houseSensorService, List<HouseSensor> houseSensors) {
+        return houseSensorService.buildString(houseSensors);
     }
 
     /**
@@ -133,9 +132,10 @@ public class RoomConfigurationController {
     }
 
     /**
-     *This method returns a int that represents the size of the deviceList.
+     * This method returns a int that represents the size of the deviceList.
+     *
      * @param roomDTO is the room we want to get the device list size.
-     * @param house is the house we want to get the device list size.
+     * @param house   is the house we want to get the device list size.
      * @return a int that represents the size of the deviceList.
      */
     public int getDeviceListSize(RoomDTO roomDTO, House house) {
@@ -145,10 +145,10 @@ public class RoomConfigurationController {
 
     /**
      * Method that returns a device by it's index.
+     *
      * @param roomDTO is the room we want to get the device from.
-     * @param house is the house we want to get the device from.
-     * @param index is the index of the device in the device list
-     * @return
+     * @param house   is the house we want to get the device from.
+     * @param index   is the index of the device in the device list
      */
     public Device getDeviceByIndex(RoomDTO roomDTO, House house, int index) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, house);
@@ -307,8 +307,9 @@ public class RoomConfigurationController {
     /**
      * /**
      * Method to addWithoutPersisting a Sensor to the Room.
+     *
      * @param houseSensor is the sensor we want to addWithoutPersisting.
-     * @param room is the room we want to addWithoutPersisting the sensor to.
+     * @param room        is the room we want to addWithoutPersisting the sensor to.
      * @return if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensorToRoom(HouseSensor houseSensor, Room room) {
