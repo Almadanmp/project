@@ -180,7 +180,7 @@ public class ReadingService {
      **/
     Reading getMostRecentReadingDb(List<Reading> readings) {
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
-        if (isEmpty()) {
+        if (readings.isEmpty()) {
             return error;
         }
         Reading recentReading = readings.get(0);
@@ -403,7 +403,7 @@ public class ReadingService {
         for (int i = 0; i < readings.size(); i++) {
 
             if (compareDayMonthAndYearBetweenDates(getValueDateDc(readings, i), day)) {
-                valueReadingsFromGivenDay.add(getValueReadingDb(readings,i));
+                valueReadingsFromGivenDay.add(getValueReadingDb(readings, i));
             }
 
         }

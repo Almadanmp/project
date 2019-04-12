@@ -544,7 +544,7 @@ public class AreaSensorService {
     public List<AreaSensor> getSensorsOfGivenTypeDb(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {
-            if (aS.getSensorType().equals(sensorType)) {
+            if (aS.getSensorType().getName().equals(sensorType)) {
                 sensorsOfGivenType.add(aS);
             }
 
