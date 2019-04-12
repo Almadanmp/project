@@ -29,8 +29,9 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -81,6 +82,9 @@ class ReaderControllerTest {
     @Mock
     AreaTypeRepository areaTypeRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private GeographicAreaService geographicAreaService;
@@ -94,7 +98,7 @@ class ReaderControllerTest {
         readingService = new ReadingService(readingRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository);
-        houseSensorService = new HouseSensorService(houseSensorRepository);
+        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         validReader = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -465,13 +469,54 @@ class ReaderControllerTest {
     }
 
     @Test
-    void readJSONAndDefineHouse() {
-        House house = new House();
+    void seeIfAddReadingsToHouseSensorsWorks() {
+        //Arrange
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
 
-        boolean result = validReader.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_House.json");
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setSensorId("TT");
+        readingDTO1.setUnit("C");
+        readingDTO1.setValue(2D);
+        readingDTO1.setDate(validDate1);
 
-        assertTrue(result);
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setSensorId("TT");
+        readingDTO2.setUnit("C");
+        readingDTO2.setValue(2D);
+        readingDTO2.setDate(validDate3);
+
+        readingDTOS.add(readingDTO1);
+        readingDTOS.add(readingDTO2);
+
+        HouseSensor sensor = new HouseSensor("TT", "Sensor", new SensorType("temperature", "C"), validDate1, "B104");
+
+        Mockito.when(houseSensorRepository.findById("TT")).thenReturn(Optional.of(sensor));
+        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, "TT")).thenReturn((null));
+
+        //Act
+
+        int actualResult = validReader.addReadingsToHouseSensors(readingDTOS, validLogPath);
+
+        //Assert
+
+        assertEquals(2, actualResult);
     }
 
+    @Test
+    void seeIfReadJSONAndDefineHouseWorks() {
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
+        assertTrue(validReader.readJSONAndDefineHouse(house, filePath));
+    }
+    @Test
+    void seeIfReadJSONAndDefineHouseThrowsException() {
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
+        assertThrows(IllegalArgumentException.class,
+                () -> validReader.readJSONAndDefineHouse(house,filePath));
+
+    }
 
 }

@@ -16,6 +16,7 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +43,9 @@ class RoomConfigurationControllerTest {
     @Mock
     HouseSensorRepository houseSensorRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
         validRoomWithDevices = new Room("Office", "2nd Floor Office", 2, 15, 15, 10, "Room1", "Grid1");
@@ -51,7 +55,7 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        houseSensorService = new HouseSensorService(houseSensorRepository);
+        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
-public class TypeAreaDTO {
+public class AreaTypeDTO {
 
     private String name;
     private Long id;
@@ -29,10 +29,10 @@ public class TypeAreaDTO {
         if (this == objectToTest) {
             return true;
         }
-        if (!(objectToTest instanceof TypeAreaDTO)) {
+        if (!(objectToTest instanceof AreaTypeDTO)) {
             return false;
         }
-        TypeAreaDTO localVariable = (TypeAreaDTO) objectToTest;
+        AreaTypeDTO localVariable = (AreaTypeDTO) objectToTest;
         return localVariable.getName().equals(this.name);
     }
 

@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -153,7 +153,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(service, TypeAreaMapper.objectToDTO(typeCity));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(service, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -169,7 +169,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.getTypeAreaName(TypeAreaMapper.objectToDTO(typeCity));
+        String actualResult = controller.getTypeAreaName(AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -288,7 +288,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(gaL1, TypeAreaMapper.objectToDTO(typeCountry));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(gaL1, AreaTypeMapper.objectToDTO(typeCountry));
 
         // Assert
 
@@ -306,7 +306,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(gaL1, TypeAreaMapper.objectToDTO(typeCity));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(gaL1, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -322,7 +322,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        actualResult = controller.getTypeAreaName(TypeAreaMapper.objectToDTO(typeCity));
+        actualResult = controller.getTypeAreaName(AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -488,7 +488,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", TypeAreaMapper.objectToDTO(typeCity),
+        GeographicAreaDTO result = controller.createGeoAreaDTO("Joana", AreaTypeMapper.objectToDTO(typeCity),
                 controller.createLocalDTO(12, 13, 13), 12, 13);
 
         // Assert
