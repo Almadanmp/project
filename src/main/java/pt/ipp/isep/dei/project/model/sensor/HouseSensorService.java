@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 

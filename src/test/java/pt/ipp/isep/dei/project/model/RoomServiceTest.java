@@ -76,16 +76,16 @@ class RoomServiceTest {
         //Assert
         assertFalse(validRoomService.removeRoom(validRoom));
     }
-
-    @Test
-    void seeIfAddRoom() {
-        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-
-
-        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
-
-        assertTrue(validRoomService.addPersistence(room));
-    }
+//
+//    @Test
+//    void seeIfAddRoom() {
+//        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+//
+//
+//        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
+//
+//        assertTrue(validRoomService.addPersistence(room));
+//    }
 
     @Test
     void seeIfAddRoomCreate() {
