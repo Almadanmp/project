@@ -340,7 +340,7 @@ class HouseConfigurationUI {
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToHouseSensors(readings, VALID_LOG_PATH);
+        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingLogs.log");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
