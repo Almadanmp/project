@@ -5,10 +5,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.device.log.Log;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoomServiceTest {
 
     private Room validRoom;
+    private Device validDevice;
 
     @Mock
     private RoomRepository roomRepository;
@@ -29,10 +38,17 @@ class RoomServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
 
-        validRoomService = new RoomService(roomRepository);
-        emptyRoomService = new RoomService(roomRepository);
+        validRoomService = new RoomService(this.roomRepository);
+        emptyRoomService = new RoomService(this.roomRepository);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         validRoomService.add(validRoom);
+        validDevice = new WaterHeater(new WaterHeaterSpec());
+        validDevice.setName("WaterHeater");
+        validDevice.setNominalPower(21.0);
+        validDevice.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
+        validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 40D);
+        validDevice.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 234D);
+        validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
     }
 
 
@@ -44,14 +60,49 @@ class RoomServiceTest {
         assertFalse(validRoomService.add(validRoom));
     }
 
-//    @Test
-//    void seeIfAddPersistenceRoomWorks() {
-//        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3);
-//
-//        Mockito.when(roomRepository.findByRoomName(room.getName())).thenReturn(room);
-////Assert
-//        assertTrue(validRoomService.addPersistence(room));
-//    }
+    @Test
+    void seeIfAddPersistenceRoomWorks() {
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+
+        //Assert
+        assertTrue(validRoomService.addPersistence(validRoom));
+        assertTrue(validRoomService.addPersistence(validRoom));
+    }
+
+    @Test
+    void seeIfCreateRoom() {
+
+    }
+
+    @Test
+    void seeIfIdExists() {
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        //Assert
+        assertTrue(validRoomService.idExists(validRoom.getName()));
+    }
+
+    @Test
+    void seeIfIdNotExists() {
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        //Assert
+        assertFalse(validRoomService.idExists("Hall"));
+    }
+
+    @Test
+    void seeIfBuildRoomListStringWorksEmptyListDB() {
+        // Act
+
+        String expectedResult = "Invalid List - List is Empty\n";
+
+        // Assert
+
+        assertEquals(expectedResult, emptyRoomService.buildStringDB());
+    }
 
     @Test
     void seeIfBuildRoomListStringWorksEmptyList() {
@@ -62,6 +113,36 @@ class RoomServiceTest {
         // Assert
 
         assertEquals(expectedResult, emptyRoomService.buildString());
+    }
+
+    @Test
+    void seeIfBuildRoomListStringWorksList() {
+        // Act
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        String expectedResult = "---------------\n" +
+                "0) Designation: Kitchen | Description: 1st Floor Kitchen | House Floor: 1 | Width: 4.0 | Length: 5.0 | Height: 3.0\n" +
+                "---------------\n";
+
+        // Assert
+
+        assertEquals(expectedResult, validRoomService.buildString());
+    }
+
+    @Test
+    void seeIfBuildRoomListStringWorksListDB() {
+        // Act
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        String expectedResult = "---------------\n" +
+                "Kitchen) Description: 1st Floor Kitchen | House Floor: 1 | Width: 4.0 | Length: 5.0 | Height: 3.0\n" +
+                "---------------\n";
+
+        // Assert
+
+        assertEquals(expectedResult, validRoomService.buildStringDB());
     }
 
 
@@ -195,29 +276,135 @@ class RoomServiceTest {
 
 //    @Test
 //    void ListSize() {
-//        //Arrange
 //
-//        RoomService emptyRoomService = new RoomService();
+//        RoomService validRoomService2 = new RoomService();
+//        validRoomService2.add(validRoom);
+//        validRoomService2.add(new Room("room", "Single Bedroom", 2, 20, 20, 3, "Room1", "Grid1"));
+//
 //
 //        //Act
 //
 //        int actualResult1 = emptyRoomService.sizeDB();
+//        int actualResult2 = validRoomService.sizeDB();
+//        int actualResult3 =validRoomService2.sizeDB();
 //
-//        //Assert Empty List
+//        //Assert
 //
 //        assertEquals(0, actualResult1);
+//        assertEquals(1, actualResult2);
+//        assertEquals(2, actualResult3);
+//    }
+
+    @Test
+    void seeItGetDeviceListByTypeWorks() {
+        // Arrange
+
+        DeviceList expectedResult = new DeviceList();
+
+        // Act
+
+        DeviceList actualResult = validRoomService.getDeviceList();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeItGetDailyConsumptionByDevice() {
+        validRoom.addDevice(validDevice);
+        double expectedResult = 6.0;
+
+        // Act
+
+        double actualResult = validRoomService.getDailyConsumptionByDeviceType("WaterHeater", 89);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetNominalPower() {
+        validRoom.addDevice(validDevice);
+        //Assert
+        assertEquals(21.0, validRoomService.getNominalPower());
+    }
+
+    @Test
+    void seeIfGetConsumptionInInterval() {
+        //Logs
+        Log firstLog = new Log(21, new GregorianCalendar(2019, Calendar.JANUARY, 21).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validDevice.addLog(firstLog);
+        validRoom.addDevice(validDevice);
+
+        //Interval
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+        //Assert
+        assertEquals(21.0, validRoomService.getConsumptionInInterval(initialTime, finalTime));
+    }
+
+    @Test
+    void seeIfGetLogsInInterval() {
+        //Logs
+        Log firstLog = new Log(21, new GregorianCalendar(2019, Calendar.JANUARY, 21).getTime(),
+                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
+        validDevice.addLog(firstLog);
+        validRoom.addDevice(validDevice);
+
+        //Interval
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
+                0).getTime();
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
+                0).getTime();
+
+        //Act
+        LogList loglist = new LogList();
+        loglist.addLog(firstLog);
+        //Assert
+        assertEquals(loglist, validRoomService.getLogsInInterval(initialTime, finalTime));
+    }
+
+    @Test
+    void seeIfIsDeviceListEmptyFalse() {
+        // Arrange
+        validRoom.addDevice(validDevice);
+
+        // Assert
+
+        assertFalse(validRoomService.isDeviceListEmpty());
+    }
+
+    @Test
+    void seeIfIsDeviceListEmptyTrue() {
+        assertTrue(validRoomService.isDeviceListEmpty());
+    }
+
+    @Test
+    void seeIfGetNumberOfDevices() {
+        validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
+        validRoom.addDevice(validDevice);
+
+        // Assert
+
+        assertEquals(1, validRoomService.getNumberOfDevices());
+    }
+
+//    @Test
+//    void seeIfBuildDeviceListByType() {
+//        //Arrange
+//        validRoom.addDevice(validDevice);
 //
 //        //Act
-//        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3);
-//        RoomService rooms = new RoomService();
-//        rooms.add(room);
+//        StringBuilder expectedResult = new StringBuilder();
+//        expectedResult.append("Device type: WaterHeater | Device name: WaterHeater | Nominal power: 21.0 | Room: Kitchen | \n");
+//        // Assert
 //
-//
-//        int actualResult2 = rooms.sizeDB();
-//
-//        //Assert One Grid
-//
-//        assertEquals(1, actualResult2);
+//        assertEquals(expectedResult, validRoomService.buildDeviceListByType("WaterHeater"));
 //    }
 
     @Test

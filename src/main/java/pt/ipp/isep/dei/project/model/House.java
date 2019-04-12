@@ -233,6 +233,7 @@ public class House implements Metered {
         return this.energyGridService;
     }
 
+
     /**
      * Standard setter method, to define the list of energy grids to be added to the House.
      *

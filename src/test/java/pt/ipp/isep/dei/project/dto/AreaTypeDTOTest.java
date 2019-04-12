@@ -12,10 +12,10 @@ public class AreaTypeDTOTest {
     public void seeIfEqualsWorks() {
         //Arrange
 
-        TypeAreaDTO typeAreaDTO1 = new TypeAreaDTO();
-        TypeAreaDTO typeAreaDTO2 = new TypeAreaDTO();
-        TypeAreaDTO typeAreaDTO3 = new TypeAreaDTO();
-        TypeAreaDTO typeAreaDTO4 = new TypeAreaDTO();
+        AreaTypeDTO typeAreaDTO1 = new AreaTypeDTO();
+        AreaTypeDTO typeAreaDTO2 = new AreaTypeDTO();
+        AreaTypeDTO typeAreaDTO3 = new AreaTypeDTO();
+        AreaTypeDTO typeAreaDTO4 = new AreaTypeDTO();
 
         typeAreaDTO1.setName("sensorDTO1");
         typeAreaDTO2.setName("sensorDTO1");
@@ -35,7 +35,7 @@ public class AreaTypeDTOTest {
     public void seeIfHashCodeWorks() {
         //Arrange
 
-        TypeAreaDTO typeAreaDTO1 = new TypeAreaDTO();
+        AreaTypeDTO typeAreaDTO1 = new AreaTypeDTO();
 
         //Act
 
@@ -44,5 +44,20 @@ public class AreaTypeDTOTest {
         //Assert
 
         assertEquals(1, actualResult);
+    }
+
+    @Test
+    void setID() {
+        //Arrange
+
+        AreaTypeDTO typeAreaDTO = new AreaTypeDTO();
+        typeAreaDTO.setID(2L);
+
+        //Act
+
+        Long actualResult = typeAreaDTO.getID();
+
+        //Assert
+        assertEquals(2L, actualResult, 0.01);
     }
 }

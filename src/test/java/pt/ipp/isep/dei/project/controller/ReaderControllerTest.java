@@ -29,8 +29,9 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -90,7 +91,6 @@ class ReaderControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        houseSensorService = new HouseSensorService(houseSensorRepository);
         areaSensorService = new AreaSensorService(areaSensorRepository);
         readingService = new ReadingService(readingRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
@@ -140,8 +140,6 @@ class ReaderControllerTest {
         validGeographicAreaService.addGeographicArea(validGeographicArea);
         validGeographicAreaService.addGeographicArea(validGeographicArea2);
         validGeographicAreaService2.addGeographicArea(validGeographicArea);
-
-        HouseSensorService validHouseSensorService = new HouseSensorService();
     }
 
     private final InputStream systemIn = System.in;
@@ -502,13 +500,20 @@ class ReaderControllerTest {
     }
 
     @Test
-    void readJSONAndDefineHouse() {
-        House house = new House();
-
-        boolean result = validReader.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_House.json");
-
-        assertTrue(result);
+    void seeIfReadJSONAndDefineHouseWorks() {
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
+        assertTrue(validReader.readJSONAndDefineHouse(house, filePath));
     }
+    @Test
+    void seeIfReadJSONAndDefineHouseThrowsException() {
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
+        assertThrows(IllegalArgumentException.class,
+                () -> validReader.readJSONAndDefineHouse(house,filePath));
 
+    }
 
 }

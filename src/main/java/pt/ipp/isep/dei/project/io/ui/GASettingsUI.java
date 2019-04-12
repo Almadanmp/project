@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
@@ -96,14 +96,14 @@ class GASettingsUI {
      * @return Type area DTO
      * used on US 03 and 04
      */
-    private TypeAreaDTO getInputTypeAreaDTOByList(AreaTypeService areaTypeService) {
+    private AreaTypeDTO getInputTypeAreaDTOByList(AreaTypeService areaTypeService) {
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(gaController.buildGATypeListString(areaTypeService));
             int aux = InputHelperUI.getInputAsInt();
             try {
                 AreaType areaType = areaTypeService.getById(aux);
-                TypeAreaDTO typeAreaDTO = TypeAreaMapper.objectToDTO(areaType);
+                AreaTypeDTO typeAreaDTO = AreaTypeMapper.objectToDTO(areaType);
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println("AreaType: " + gaController.getTypeAreaName(typeAreaDTO));
                 return typeAreaDTO;
@@ -166,7 +166,7 @@ class GASettingsUI {
 
     private void getAreaInputUS03(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         Scanner scanner = new Scanner(System.in);
-        TypeAreaDTO geoTypeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
+        AreaTypeDTO geoTypeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
         String gaTypeAreaName = gaController.getTypeAreaName(geoTypeAreaDTO);
         String nameOfGeoArea = readInputString("Name");
         double geoAreaLat = readInputNumber("Latitude");
@@ -232,16 +232,16 @@ class GASettingsUI {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        TypeAreaDTO typeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
+        AreaTypeDTO typeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
         List<GeographicArea> gaFinalList = matchGAByTypeArea(geographicAreaService, typeAreaDTO);
         displayGAListByTypeArea(geographicAreaService, gaFinalList, typeAreaDTO);
     }
 
-    private List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+    private List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, AreaTypeDTO typeArea) {
         return gaController.matchGAByTypeArea(geographicAreaService, typeArea);
     }
 
-    private void displayGAListByTypeArea(GeographicAreaService geoAreaService, List<GeographicArea> gaFinalList, TypeAreaDTO typeArea) {
+    private void displayGAListByTypeArea(GeographicAreaService geoAreaService, List<GeographicArea> gaFinalList, AreaTypeDTO typeArea) {
         String taName = gaController.getTypeAreaName(typeArea);
         System.out.println("Geographic Areas of the type " + taName + ":\n");
         System.out.println(gaController.buildGAListString(geoAreaService, gaFinalList));
