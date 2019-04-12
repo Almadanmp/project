@@ -3,11 +3,16 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,12 +30,21 @@ class EnergyGridTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private House validHouse;
     private EnergyGrid validGrid;
+    private EnergyGrid validGrid2;
     private Device validFridge;
     private Room validRoom;
+    private Room validRoom2;
 
+    @Autowired
+    RoomRepository roomRepository;
+
+    private RoomService validRoomService;
 
     @BeforeEach
     void arrangeArtifacts() {
+        MockitoAnnotations.initMocks(this);
+        validRoomService = new RoomService(this.roomRepository);
+
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
@@ -41,6 +55,7 @@ class EnergyGridTest {
                 2, 3, new Local(4, 4, 100)));
         validHouse.addGrid(validGrid);
         validGrid = new EnergyGrid("FirstGrid", 400,"34576");
+
         validFridge = new Fridge(new FridgeSpec());
         validFridge.setNominalPower(20);
         validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
@@ -49,6 +64,11 @@ class EnergyGridTest {
         validRoom = new Room("Office","2nd Floor Office", 2, 30, 30, 10,"Room1","Grid1");
         validRoom.addDevice(validFridge);
         validGrid.addRoom(validRoom);
+        validRoomService.add(validRoom2);
+
+        validGrid2 = new EnergyGrid("FirstGrid", 400,"34576");
+        validRoom2 = new Room("Office","2nd Floor Office", 2, 30, 30, 10,"Room1","Grid1");
+        validGrid2.setRoomService(validRoomService);
     }
 
     @Test
@@ -560,13 +580,19 @@ class EnergyGridTest {
 
 //    @Test
 //    void seeIfGetRoomWorks() {
+//        //Arrange
+//
 //        //Act
 //
-//        Room actualResult1 = validGrid.getRoom(0);
+//        Mockito.when(validGrid.getRoom(0)).thenReturn(validRoom2);
+//
+//
+//        Room actualResult1 = validGrid2.getRoom(0);
+//        String actualResultS = actualResult1.getName();
 //
 //        //Assert
 //
-//        assertEquals(validRoom, actualResult1);
+//        assertEquals(validRoom2, actualResult1);
 //    }
 
 //    @Test
