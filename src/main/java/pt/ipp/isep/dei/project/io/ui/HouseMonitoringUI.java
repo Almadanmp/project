@@ -7,6 +7,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.HouseService;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.Date;
 
@@ -21,7 +23,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(HouseService houseService) {
+    void run(HouseService houseService, House house, AreaSensorService areaSensorService, ReadingService readingService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -52,7 +54,7 @@ public class HouseMonitoringUI {
                     activeInput = true;
                     break;
                 case 6:
-                    runUS630(houseService);
+                    runUS630(house, areaSensorService, readingService);
                     activeInput = true;
                     break;
                 case 7:
@@ -246,20 +248,36 @@ public class HouseMonitoringUI {
      * in the house area in a given period.
      */
 
-    private void runUS630(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS630(House house, AreaSensorService areaSensorService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS630(house, startDate, endDate);
+        updateAndDisplayUS630Db(house, startDate, endDate, areaSensorService, readingService);
     }
+
 
     private void updateAndDisplayUS630(House house, Date startDate, Date endDate) {
         Date dateResult630;
         try {
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(house, startDate, endDate);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        String dateResultFormatted = DateUtils.formatDateNoTime(dateResult630);
+        String dateStartDateFormatted = DateUtils.formatDateNoTime(startDate);
+        String dateEndDateFormatted = DateUtils.formatDateNoTime(endDate);
+        System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
+                + dateResultFormatted + ".");
+    }
+
+
+    private void updateAndDisplayUS630Db(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
+        Date dateResult630;
+        try {
+            dateResult630 = houseMonitoringController.getLastColdestDayInIntervalDb(house, startDate, endDate, areaSensorService, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;

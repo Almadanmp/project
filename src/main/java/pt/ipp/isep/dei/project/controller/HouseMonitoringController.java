@@ -6,8 +6,11 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Controller class for House Monitoring UI
@@ -109,6 +112,20 @@ public class HouseMonitoringController {
         return closestAreaSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
+
+    /**
+     * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
+     * in the house area in a given period.
+     */
+    public Date getLastColdestDayInIntervalDb(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
+
+        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
+
+        AreaSensor closestAreaSensor = areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, TEMPERATURE, house, readingService);
+
+        return readingService.getLastColdestDayInGivenIntervalDb(closestAreaSensor, startDate, endDate, readingService);
+    }
+
     /**
      * US 631 - Controller Methods
      * As a Regular User, I want to get the first hottest day (higher maximum temperature)
@@ -172,10 +189,6 @@ public class HouseMonitoringController {
     public boolean isMotherAreaValid(House house) {
         if (house.isMotherAreaNull()) {
             UtilsUI.printMessage(UtilsUI.INVALID_MOTHER_AREA);
-            return false;
-        }
-        if (house.getMotherArea().isSensorListEmpty()) {
-            UtilsUI.printMessage(UtilsUI.INVALID_SENSOR_LIST);
             return false;
         }
         return true;

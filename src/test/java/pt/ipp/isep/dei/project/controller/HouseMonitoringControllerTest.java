@@ -808,16 +808,6 @@ class HouseMonitoringControllerTest {
         assertTrue(actualResult);
     }
 
-    @Test
-    void seeIfIsMotherAreaValidNoSensorList() {
-        // Act
-
-        boolean actualResult = controller.isMotherAreaValid(validHouse);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
 
     @Test
     void seeIfIsMotherAreaValidNoMotherArea() {

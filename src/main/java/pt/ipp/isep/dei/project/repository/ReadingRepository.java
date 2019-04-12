@@ -13,4 +13,7 @@ public interface ReadingRepository extends CrudRepository<Reading, Long> {
 
     List<Reading> findAll();
 
+    List<Reading> findReadingBySensorId(String id);
+
+
 }
