@@ -82,6 +82,20 @@ public class ReadingService {
         return reading.getValue();
     }
 
+    /**
+     * This method receives an index as parameter and gets a value reading from reading list.
+     *
+     * @param index the index of the Reading we want to getDB value from
+     * @return returns value reading that corresponds to index.
+     */
+    double getValueReadingDb(List<Reading> readings, int index) {
+        if (readings.isEmpty()) {
+            throw new IndexOutOfBoundsException(EMPTY_LIST);
+        }
+        Reading reading = readings.get(index);
+        return reading.getValue();
+    }
+
     public List<Reading> getReadings() {
         return readings;
     }
@@ -97,6 +111,20 @@ public class ReadingService {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
         Reading reading = this.readings.get(index);
+        return reading.getDate();
+    }
+
+    /**
+     * This method receives an index as parameter and gets a reading date from reading list.
+     *
+     * @param index the index of the Reading we want to getDB date from
+     * @return returns date reading that corresponds to index.
+     */
+    Date getValueDateDc(List<Reading> readings, int index) {
+        if (readings.isEmpty()) {
+            throw new IndexOutOfBoundsException(EMPTY_LIST);
+        }
+        Reading reading = readings.get(index);
         return reading.getDate();
     }
 
@@ -357,6 +385,27 @@ public class ReadingService {
             if (compareDayMonthAndYearBetweenDates(this.getValueDate(i), day)) {
                 valueReadingsFromGivenDay.add(this.getValueReading(i));
             }
+        }
+        return valueReadingsFromGivenDay;
+    }
+
+
+    /**
+     * This method will receive a day, go through the reading list for value readings that took place on that day,
+     * and return a list of doubles with those values.
+     *
+     * @param day the day to look for readings
+     * @return returns a list with every value of readings that was recorded on that particular day.
+     * @author Daniela - US623
+     */
+    List<Double> getValuesOfSpecificDayReadingsDb(List<Reading> readings, Date day) {
+        ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
+        for (int i = 0; i < readings.size(); i++) {
+
+            if (compareDayMonthAndYearBetweenDates(getValueDateDc(readings, i), day)) {
+                valueReadingsFromGivenDay.add(getValueReadingDb(readings,i));
+            }
+
         }
         return valueReadingsFromGivenDay;
     }
@@ -690,7 +739,8 @@ public class ReadingService {
      * @return a double that represents the maximum value of the day.
      */
     Reading getMaxValueOfTheDayDb(List<Reading> readings, Date day) {
-        double auxValue = getValuesOfSpecificDayReadings(day).get(0);
+        //TODO E AQUI
+        double auxValue = getValuesOfSpecificDayReadingsDb(readings, day).get(0);
 
         Reading result = getAReadingWithSpecificDayDb(readings, day);
 
@@ -732,10 +782,11 @@ public class ReadingService {
      * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
     List<Reading> getReadingListBetweenDatesDb(AreaSensor areaSensor, Date initialDate, Date finalDate) {
+        List<Reading> finalList = new ArrayList<>();
         List<Reading> result = readingRepository.findReadingBySensorId(areaSensor.getId());
         for (Reading r : result) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
-                result.add(r);
+                finalList.add(r);
             }
         }
         return result;
