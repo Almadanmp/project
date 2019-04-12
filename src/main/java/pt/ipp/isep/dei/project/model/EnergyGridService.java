@@ -109,6 +109,10 @@ public class EnergyGridService {
         return energyGridRepository.findAll().size();
     }
 
+    /**
+     * Method to return the List of EnergyGrids size.
+     * @return list size.
+     */
     public int gridsSize() {
         return energyGrids.size();
     }

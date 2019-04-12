@@ -3,11 +3,11 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.TypeAreaDTO;
+import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.dto.mappers.TypeAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
@@ -99,8 +99,8 @@ public class GASettingsController {
      * @param width       width of the Geographic Area
      * @return Geographic Area DTO
      */
-    public GeographicAreaDTO createGeoAreaDTO(String newName, TypeAreaDTO typeAreaDTO, LocalDTO localDTO, double length, double width) {
-        GeographicArea geoArea = new GeographicArea(newName, TypeAreaMapper.dtoToObject(typeAreaDTO), length, width,
+    public GeographicAreaDTO createGeoAreaDTO(String newName, AreaTypeDTO typeAreaDTO, LocalDTO localDTO, double length, double width) {
+        GeographicArea geoArea = new GeographicArea(newName, AreaTypeMapper.dtoToObject(typeAreaDTO), length, width,
                 LocalMapper.dtoToObject(localDTO));
         return GeographicAreaMapper.objectToDTO(geoArea);
     }
@@ -125,7 +125,7 @@ public class GASettingsController {
      * @param typeArea              is the type that we want to look for.
      * @return is a list of all the objects in the original list with a type that matches the given type.
      */
-    public List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, TypeAreaDTO typeArea) {
+    public List<GeographicArea> matchGAByTypeArea(GeographicAreaService geographicAreaService, AreaTypeDTO typeArea) {
         List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         String typeAreaName = typeArea.getName();
         return geographicAreaService.getGeoAreasByType(geographicAreas, typeAreaName);
@@ -135,7 +135,7 @@ public class GASettingsController {
      * @param typeAreaDTO is the Type of Area we want to getDB the name of.
      * @return is the name of the given type of area.
      */
-    public String getTypeAreaName(TypeAreaDTO typeAreaDTO) {
+    public String getTypeAreaName(AreaTypeDTO typeAreaDTO) {
         return typeAreaDTO.getName();
     }
 
