@@ -31,15 +31,15 @@ class RoomServiceTest {
 
     @Mock
     private RoomRepository roomRepository;
+
     private RoomService validRoomService;
-    private RoomService emptyRoomService;
+
 
 
     @BeforeEach
     void arrangeArtifacts() {
-
+        MockitoAnnotations.initMocks(this);
         validRoomService = new RoomService(this.roomRepository);
-        emptyRoomService = new RoomService(this.roomRepository);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         validRoomService.add(validRoom);
         validDevice = new WaterHeater(new WaterHeaterSpec());
@@ -54,20 +54,52 @@ class RoomServiceTest {
 
     @Test
     void seeIfAddRoomWorks() {
-
+       RoomService emptyRoomService = new RoomService(this.roomRepository);
         // Assert
         assertTrue(emptyRoomService.add(validRoom));
         assertFalse(validRoomService.add(validRoom));
     }
 
     @Test
-    void seeIfAddPersistenceRoomWorks() {
-        List<Room> rooms = new ArrayList<>();
-        rooms.add(validRoom);
+    void seeIfRemoveRoom() {
+
+        Mockito.when(roomRepository.findById(validRoom.getName())).thenReturn((Optional.of(validRoom)));
+
 
         //Assert
-        assertTrue(validRoomService.addPersistence(validRoom));
-        assertTrue(validRoomService.addPersistence(validRoom));
+        assertTrue(validRoomService.removeRoom(validRoom));
+    }
+
+    @Test
+    void seeIfDoNotRemoveRoom(){
+        validRoomService.addWithPersistence(validRoom);
+        //Assert
+        assertFalse(validRoomService.removeRoom(validRoom));
+    }
+
+    @Test
+    void seeIfGetDB (){
+        String mockId = "SensorOne";
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+
+
+        Mockito.when(roomRepository.findById(mockId)).thenReturn(Optional.of(room));
+
+        Room result = validRoomService.getDB(mockId);
+
+        assertEquals(result.getId(), room.getId());
+        assertEquals(result.getName(), room.getName());
+    }
+
+    @Test
+    void seeIfGetDBdNoSensor() {
+        String mockId = "SensorOne";
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+           validRoomService.getDB(mockId);
+        });
+
     }
 
     @Test
@@ -95,6 +127,9 @@ class RoomServiceTest {
 
     @Test
     void seeIfBuildRoomListStringWorksEmptyListDB() {
+
+        RoomService emptyRoomService = new RoomService(this.roomRepository);
+
         // Act
 
         String expectedResult = "Invalid List - List is Empty\n";
@@ -106,6 +141,9 @@ class RoomServiceTest {
 
     @Test
     void seeIfBuildRoomListStringWorksEmptyList() {
+
+        RoomService emptyRoomService = new RoomService(this.roomRepository);
+
         // Act
 
         String expectedResult = "Invalid List - List is Empty\n";
@@ -188,6 +226,9 @@ class RoomServiceTest {
 
     @Test
     void seeIfEqualsDifferentListContents() {
+
+        RoomService emptyRoomService = new RoomService(this.roomRepository);
+
         // Arrange
 
         Room testRoom = new Room("Balcony", "4th Floor Balcony", 4, 2, 4, 3, "Room1", "Grid1");
@@ -409,6 +450,9 @@ class RoomServiceTest {
 
     @Test
     void getElementsAsArray() {
+
+        RoomService emptyRoomService = new RoomService(this.roomRepository);
+
         //Arrange
 
         Room[] expectedResult1 = new Room[0];
