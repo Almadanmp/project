@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,13 +33,16 @@ class HouseSensorServiceTest {
     @Mock
     HouseSensorRepository houseSensorRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     private HouseSensorService validHouseSensorService; // Contains the first valid sensor by default.
 
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validHouseSensorService = new HouseSensorService(houseSensorRepository);
+        validHouseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
@@ -119,7 +123,7 @@ class HouseSensorServiceTest {
 
         // Act
 
-        List<Double> actualResult1 = twoSensorsList.getValuesOfSpecificDayReadings( new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
+        List<Double> actualResult1 = twoSensorsList.getValuesOfSpecificDayReadings(new GregorianCalendar(2018, Calendar.MARCH, 1).getTime());
 
         // Assert
 
@@ -304,11 +308,11 @@ class HouseSensorServiceTest {
 //    }
 
     @Test
-    void seeIfGetSensors(){
+    void seeIfGetSensors() {
         List<HouseSensor> expectedResult = new ArrayList<>();
         expectedResult.add(firstValidHouseSensor);
 
-        assertEquals(expectedResult,validHouseSensorService.getSensors());
+        assertEquals(expectedResult, validHouseSensorService.getSensors());
 
     }
 

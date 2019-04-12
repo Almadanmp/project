@@ -1,29 +1,19 @@
 package pt.ipp.isep.dei.project.controller;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-
-import pt.ipp.isep.dei.project.reader.CustomFormatter;
 import pt.ipp.isep.dei.project.reader.*;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
-
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  * Controller class for House Configuration UI
@@ -173,21 +163,21 @@ public class HouseConfigurationController {
      * Method that takes a list of houseSensorDTOs, checks if the rooms they belong to exist in the program's
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
      *
-     * @param importedSensors  is the list of houseSensorDTOs that we're trying to import into the program.
-     * @param roomRepository   is the service making the connection to the room repository.
-     * @param sensorRepository is the service making the connection to the houseSensor repository.
+     * @param importedSensors    is the list of houseSensorDTOs that we're trying to import into the program.
+     * @param roomRepository     is the service making the connection to the room repository.
+     * @param houseSensorService is the service making the connection to the houseSensor repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
     private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
-            sensorRepository) {
+            houseSensorService) {
         Logger logger = getLogger(); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
             Optional<Room> roomToAddTo = roomRepository.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
-                sensorRepository.save(HouseSensorMapper.dtoToObject(importedSensor));
+                houseSensorService.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             } else {
                 logger.warning("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
