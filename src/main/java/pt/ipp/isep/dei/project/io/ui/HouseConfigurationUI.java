@@ -28,7 +28,6 @@ class HouseConfigurationUI {
     private double roomLength;
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
-    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
@@ -81,11 +80,11 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS265();
+                    runUS265v2();
                     activeInput = false;
                     break;
                 case 8:
-                    runUS265v2();
+                    runUS265();
                     activeInput = false;
                     break;
                 case 0:
@@ -354,7 +353,6 @@ class HouseConfigurationUI {
         System.out.println("5) List the existing rooms. (US108)");
         System.out.println("6) Import House Sensors from a file. (US260)");
         System.out.println("7) Import House Sensor Reading List from a file. (US265)");
-        System.out.println("8) Import House Sensor Reading List from a file. (US265v2)");
         System.out.println("0) (Return to main menu)\n");
     }
 }
