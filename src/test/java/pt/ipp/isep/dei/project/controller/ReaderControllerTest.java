@@ -90,6 +90,7 @@ class ReaderControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        houseSensorService = new HouseSensorService(houseSensorRepository);
         areaSensorService = new AreaSensorService(areaSensorRepository);
         readingService = new ReadingService(readingRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
@@ -139,6 +140,8 @@ class ReaderControllerTest {
         validGeographicAreaService.addGeographicArea(validGeographicArea);
         validGeographicAreaService.addGeographicArea(validGeographicArea2);
         validGeographicAreaService2.addGeographicArea(validGeographicArea);
+
+        HouseSensorService validHouseSensorService = new HouseSensorService();
     }
 
     private final InputStream systemIn = System.in;
@@ -458,6 +461,40 @@ class ReaderControllerTest {
         //Act
 
         int actualResult = validReader.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath);
+
+        //Assert
+
+        assertEquals(2, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToHouseSensorsWorks() {
+        //Arrange
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setSensorId("TT");
+        readingDTO1.setUnit("C");
+        readingDTO1.setValue(2D);
+        readingDTO1.setDate(validDate1);
+
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setSensorId("TT");
+        readingDTO2.setUnit("C");
+        readingDTO2.setValue(2D);
+        readingDTO2.setDate(validDate3);
+
+        readingDTOS.add(readingDTO1);
+        readingDTOS.add(readingDTO2);
+
+        HouseSensor sensor = new HouseSensor("TT", "Sensor", new SensorType("temperature", "C"), validDate1, "B104");
+
+        Mockito.when(houseSensorRepository.findById("TT")).thenReturn(Optional.of(sensor));
+        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, "TT")).thenReturn((null));
+
+        //Act
+
+        int actualResult = validReader.addReadingsToHouseSensors(readingDTOS, validLogPath);
 
         //Assert
 
