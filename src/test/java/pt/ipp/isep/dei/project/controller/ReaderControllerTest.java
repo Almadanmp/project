@@ -82,6 +82,9 @@ class ReaderControllerTest {
     @Mock
     AreaTypeRepository areaTypeRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private GeographicAreaService geographicAreaService;
@@ -95,7 +98,7 @@ class ReaderControllerTest {
         readingService = new ReadingService(readingRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository);
-        houseSensorService = new HouseSensorService(houseSensorRepository);
+        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         validReader = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");

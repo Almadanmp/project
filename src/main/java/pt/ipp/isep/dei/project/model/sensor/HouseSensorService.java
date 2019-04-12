@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.sensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,9 @@ public class HouseSensorService {
     @Autowired
     HouseSensorRepository houseSensorRepository;
 
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
+
     private List<HouseSensor> houseSensors;
 
     /**
@@ -27,16 +31,24 @@ public class HouseSensorService {
         this.houseSensors = new ArrayList<>();
     }
 
-    public HouseSensorService(HouseSensorRepository sensorRepository) {
+    public HouseSensorService(HouseSensorRepository sensorRepository, SensorTypeRepository sensorTypeRepository) {
         this.houseSensorRepository = sensorRepository;
+        this.sensorTypeRepository = sensorTypeRepository;
         this.houseSensors = new ArrayList<>();
     }
 
-
     public void save(HouseSensor sensor) {
+        Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
+
+        if (sensorType.isPresent()) {
+            sensor.setSensorType(sensorType.get());
+        } else {
+            SensorType newSensorType = sensor.getSensorType();
+            sensorTypeRepository.save(newSensorType);
+            sensor.setSensorType(newSensorType);
+        }
         this.houseSensorRepository.save(sensor);
     }
-
 
     public List<HouseSensor> getAllSensor() {
         return houseSensorRepository.findAll();
@@ -121,6 +133,11 @@ public class HouseSensorService {
         return false;
     }
 
+    public boolean addSensorType(SensorType sensorType) {
+        sensorTypeRepository.save(sensorType);
+        return true;
+    }
+
 
     public boolean addWithPersistence(HouseSensor sensorToAdd) {
         Optional<HouseSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
@@ -152,6 +169,29 @@ public class HouseSensorService {
         return false;
     }
 
+    public HouseSensor createSensor(String id, String name, String sensorName, String sensorUnit, Date dateStartedFunctioning,
+                                    String roomId) {
+
+        SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
+        sensorTypeRepository.save(sensorType);
+
+        return new HouseSensor(id, name, sensorType, dateStartedFunctioning, roomId);
+    }
+
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param name selected name
+     * @return Type Area corresponding to the given id
+     */
+    public SensorType getTypeSensorByName(String name, String unit) {
+        Optional<SensorType> value = sensorTypeRepository.findByName(name);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        return new SensorType(name, unit);
+    }
 
     /**
      * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
