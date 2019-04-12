@@ -21,8 +21,6 @@ import java.util.Scanner;
 class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
-
-    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
     GASettingsUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
@@ -421,7 +419,7 @@ class GASettingsUI {
     }
 
     private int addReadingsToAreaSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
+        return readerController.addReadingsToGeographicAreaSensors(readings, "resources/logs/areaReadingLogs.log");
     }
 
 
