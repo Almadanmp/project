@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
@@ -13,10 +15,7 @@ import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -888,6 +887,42 @@ class HouseMonitoringControllerTest {
         // Actual
 
         double actualResult = controller.getHouseAreaTemperature(validHouse);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDayMaxTemperature(){
+        // Arrange
+
+        double expectedResult = 15;
+        Room room = RoomMapper.dtoToObject(validRoom);
+        validRoom.setName("Bedroom");
+        validHouse.addRoom(room);
+        ReadingDTO reading = new ReadingDTO();
+        reading.setDate(validDate4);
+        reading.setSensorId("Bedroom");
+        reading.setValue(15);
+        reading.setUnit("C");
+        List<ReadingDTO> readingList = new ArrayList<>();
+        readingList.add(reading);
+        HouseSensorDTO houseSensorDTO = new HouseSensorDTO();
+        houseSensorDTO.setName("Name");
+        houseSensorDTO.setDateStartedFunctioning("12-10-2000");
+        houseSensorDTO.setRoomID(validRoom.getHouseId());
+        houseSensorDTO.setTypeSensor("temperature");
+        houseSensorDTO.setUnits("C");
+        houseSensorDTO.setId("10");
+        houseSensorDTO.setReadingList(readingList);
+        List<HouseSensorDTO> sensorList = new ArrayList<>();
+        sensorList.add(houseSensorDTO);
+        validRoom.setSensorList(sensorList);
+
+        // Act
+
+        double actualResult = controller.getDayMaxTemperature(validRoom,validDate4, validHouse);
 
         // Assert
 
