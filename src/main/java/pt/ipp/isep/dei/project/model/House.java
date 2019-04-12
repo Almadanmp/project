@@ -79,6 +79,11 @@ public class House implements Metered {
         this.energyGridService = new EnergyGridService();
     }
 
+    public House(RoomService roomService, EnergyGridService energyGridService) {  //FOR TESTING PURPOSES USING MOCKITO
+        this.roomService = roomService;
+        this.energyGridService = energyGridService;
+    }
+
 
     //SETTERS AND GETTERS
 
@@ -99,6 +104,10 @@ public class House implements Metered {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -447,7 +456,7 @@ public class House implements Metered {
      * @param index the Index of the room
      * @return returns room that corresponds to index.
      */
-    public Room getRoomByIndex(int index) {
+    public Room getRoomByIndex(int index) { //METHOD CHECKS IF DATABASE IS EMPTY BUT THEN RETURNS A ROOM FROM LOCAL LIST (NOW CALLED SERVICE). FIX!
         if (this.roomService.isEmptyDB()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
@@ -472,17 +481,6 @@ public class House implements Metered {
      **/
     public DeviceList getDeviceList() {
         return this.roomService.getDeviceList();
-    }
-
-    /**
-     * This method call EnergyGridList method which creates an EnergyGrid.
-     *
-     * @param designation - EnergyGrid designation
-     * @param maxPower    - EnergyGrid Maximum Power
-     * @return a new EnergyGrid or the EnergyGrid with the same designation
-     */
-    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
-        return this.energyGridService.createEnergyGrid(designation, maxPower, houseID);
     }
 
 

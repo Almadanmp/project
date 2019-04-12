@@ -89,6 +89,10 @@ public class HouseSensor {
         return this.roomId;
     }
 
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
     /**
      * Setter: type sensor
      *

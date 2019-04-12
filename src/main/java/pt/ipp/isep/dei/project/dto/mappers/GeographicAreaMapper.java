@@ -39,6 +39,7 @@ public final class GeographicAreaMapper {
         try {
             objectId = dtoToConvert.getId();
         } catch (NullPointerException ignored) {
+            ignored.getMessage();
         }
 
         String objectName = dtoToConvert.getName();
@@ -91,6 +92,7 @@ public final class GeographicAreaMapper {
             resultDTO.setId(dtoID);
 
         } catch (NullPointerException ignored) {
+            ignored.getMessage();
         }
 
         String dtoName = objectToConvert.getName();

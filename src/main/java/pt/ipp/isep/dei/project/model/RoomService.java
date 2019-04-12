@@ -41,9 +41,10 @@ public class RoomService {
     public List<Room> getAllRooms() {
         List<Room> finalList = new ArrayList<>();
         Iterable<Room> rooms = roomRepository.findAll();
-
-        for (Room r : rooms) {
-            finalList.add(r);
+        if (rooms != null) {
+            for (Room r : rooms) {
+                finalList.add(r);
+            }
         }
         return finalList;
     }

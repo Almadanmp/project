@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -14,8 +16,11 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
 import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,11 +40,21 @@ class HouseTest {
     private House validHouse;
     private GeographicArea validArea;
     private AreaSensor firstValidAreaSensor;
+    private RoomService roomService;
+    private EnergyGridService energyGridService;
+    private List<String> deviceTypeString;
 
+    @Mock
+    RoomRepository roomRepository;
+
+    @Mock
+    EnergyGridRepository energyGridRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-        List<String> deviceTypeString = new ArrayList<>();
+        roomService = new RoomService(roomRepository);
+        energyGridService = new EnergyGridService(energyGridRepository);
+        deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
@@ -57,6 +72,269 @@ class HouseTest {
         validArea.addSensor(secondValidAreaSensor);
         validHouse.setMotherArea(validArea);
     }
+
+    @Test
+    void seeIfConstructorWorks() {
+        //Arrange
+
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        Local expectedLocal = new Local(2, 2, 2);
+        List<DeviceType> expectedList = new ArrayList<>();
+        expectedList.add(new FridgeType());
+
+        // Act
+
+        String actualResult1 = house.getId();
+        Local actualResult2 = house.getLocation();
+        int actualResult3 = house.getGridMeteringPeriod();
+        int actualResult4 = house.getDeviceMeteringPeriod();
+        List<DeviceType> actualResult5 = house.getDeviceTypeList();
+
+
+        // Assert
+        assertEquals("12", actualResult1);
+        assertEquals(expectedLocal, actualResult2);
+        assertEquals(2, actualResult3);
+        assertEquals(2, actualResult4);
+        assertEquals(expectedList.get(0).getDeviceType(), actualResult5.get(0).getDeviceType());
+    }
+
+
+    @Test
+    void seeIfGetsId() {
+        //Arrange
+
+        House house = new House(); //Want to test constructor as well
+        house.setId("ISEP");
+
+        // Act
+
+        String actualResult = house.getId();
+
+        // Assert
+
+        assertEquals("ISEP", actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomByIndexWorks() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
+        List<Room> list = new ArrayList<>();
+        list.add(roomOne);
+        house.addRoom(roomOne);
+
+        Mockito.when(roomRepository.findAll()).thenReturn((list));
+
+        // Act
+
+        Room actualResult = house.getRoomByIndex(0);
+        ;
+
+        // Assert
+
+        assertEquals(roomOne, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomByIndexThrowsExceptionWhenEmptyDataBase() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+        Mockito.when(roomRepository.findAll()).thenReturn(null);
+
+        // Assert
+
+        assertThrows(IndexOutOfBoundsException.class, () -> house.getRoomByIndex(0));
+    }
+
+    @Test
+    void seeIfRoomListSizeWorks() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+        Mockito.when(roomRepository.findAll()).thenReturn(null);
+
+        // Act
+
+        int actualResult = house.roomListSize();
+        ;
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfRoomListSizeWorksWhenIsNotEmpty() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
+        List<Room> list = new ArrayList<>();
+        list.add(roomOne);
+        house.addRoom(roomOne);
+
+        Mockito.when(roomRepository.findAll()).thenReturn((list));
+
+        // Act
+
+        int actualResult = house.roomListSize();
+        ;
+
+        // Assert
+
+        assertEquals(1, actualResult);
+    }
+
+    @Test
+    void seeIfIsRoomListEmptyWorks() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+        Mockito.when(roomRepository.findAll()).thenReturn(null);
+
+        // Act
+
+        boolean actualResult = house.isRoomListEmpty();
+        ;
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfIsRoomListEmptyWorksWhenListIsNotEmpty() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
+        List<Room> list = new ArrayList<>();
+        list.add(roomOne);
+        house.addRoom(roomOne);
+
+        Mockito.when(roomRepository.findAll()).thenReturn((list));
+
+        // Act
+
+        boolean actualResult = house.isRoomListEmpty();
+        ;
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfIsEnergyGridListEmptyWorksWhenListIsNotEmpty() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        EnergyGrid energyGrid = new EnergyGrid("Grid1", 300D, "HouseId");
+        List<EnergyGrid> list = new ArrayList<>();
+        list.add(energyGrid);
+        house.addGrid(energyGrid);
+
+        Mockito.when(energyGridRepository.findAll()).thenReturn((list));
+
+        // Act
+
+        boolean actualResult = house.isEnergyGridListEmpty();
+        ;
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfIsEnergyGridListEmptyWorks() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        Mockito.when(energyGridRepository.findAll()).thenReturn((null));
+
+        // Act
+
+        boolean actualResult = house.isEnergyGridListEmpty();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfSetIdWorks() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
+        List<Room> list = new ArrayList<>();
+        list.add(roomOne);
+        house.addRoom(roomOne);
+
+        Mockito.when(roomRepository.findAll()).thenReturn((list));
+
+        String expectedResult = "---------------\n" + "0) Designation: Kitchen | Description: Equipped Kitchen | House Floor: 1 | Width: 20.0 | Length: 30.0 | Height: 10.0\n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = house.buildRoomListString();
+        ;
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetIdWorksWhenListIsEmpty() {
+        //Arrange
+
+        House house = new House(roomService, energyGridService);
+
+        String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String actualResult = house.buildRoomListString();
+        ;
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetDeviceTypeListWorks() {
+        //Arrange
+
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add(PATH_TO_FRIDGE);
+
+        List<DeviceType> expectedResult = new ArrayList<>();
+        expectedResult.add(new FridgeType());
+
+        // Act
+
+        validHouse.setDeviceTypeList(deviceTypeString);
+        List<DeviceType> actualResult = validHouse.getDeviceTypeList();
+
+        // Assert
+
+        assertEquals(expectedResult.get(0).getDeviceType(), actualResult.get(0).getDeviceType());
+    }
+
 
     @Test
     void seeDistanceToSensor() {
