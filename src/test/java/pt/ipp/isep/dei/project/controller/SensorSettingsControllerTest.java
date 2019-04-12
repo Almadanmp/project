@@ -178,7 +178,7 @@ class SensorSettingsControllerTest {
         AreaSensor secondAreaSensor = new AreaSensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
                 new Local(1, 1, 1),
                 validDate1, 6008L);
-        AreaSensorService areaSensorService = new AreaSensorService(areaSensorRepository);
+        AreaSensorService areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         areaSensorService.add(firstAreaSensor);
         geoArea.setSensorList(areaSensorService);
 

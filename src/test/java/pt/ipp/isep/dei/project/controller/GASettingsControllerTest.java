@@ -20,6 +20,7 @@ import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -62,6 +63,9 @@ class GASettingsControllerTest {
     @Mock
     AreaSensorRepository areaSensorRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
 
@@ -72,7 +76,7 @@ class GASettingsControllerTest {
             e.printStackTrace();
         }
         validAreaTypeService = new AreaTypeService(areaTypeRepository);
-        validAreaSensorService = new AreaSensorService(areaSensorRepository);
+        validAreaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -94,7 +98,7 @@ class GASettingsControllerTest {
         validGeographicAreaService.addAndPersistGA(firstValidArea);
         validGeographicAreaService.addAndPersistGA(secondValidArea);
 
-        areaSensorService = new AreaSensorService(areaSensorRepository);
+        areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
     }
 
     @Test

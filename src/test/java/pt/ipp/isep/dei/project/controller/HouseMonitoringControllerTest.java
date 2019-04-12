@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,6 +64,9 @@ class HouseMonitoringControllerTest {
     @Mock
     AreaSensorRepository areaSensorRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
@@ -79,7 +83,7 @@ class HouseMonitoringControllerTest {
         Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
-        validAreaSensorService = new AreaSensorService(areaSensorRepository);
+        validAreaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         validHouseSensorService = new HouseSensorService();
         validRoom1.setSensorList(validHouseSensorService);
         validHouse.setRoomService(validRoomService);

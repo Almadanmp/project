@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.reader;
 
-import org.eclipse.persistence.internal.oxm.record.json.JSONReader;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 

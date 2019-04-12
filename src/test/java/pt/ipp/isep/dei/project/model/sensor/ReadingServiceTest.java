@@ -12,6 +12,8 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,10 +60,13 @@ class ReadingServiceTest {
     @Mock
     AreaSensorRepository areaSensorRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
         readingService = new ReadingService(readingRepository);
-        areaSensorService = new AreaSensorService(areaSensorRepository);
+        areaSensorService = new AreaSensorService(areaSensorRepository,sensorTypeRepository);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {

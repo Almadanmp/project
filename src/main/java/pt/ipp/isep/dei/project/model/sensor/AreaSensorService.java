@@ -31,9 +31,10 @@ public class AreaSensorService {
         this.areaSensors = new ArrayList<>();
     }
 
-    public AreaSensorService(AreaSensorRepository areaSensorRepository) {
+    public AreaSensorService(AreaSensorRepository areaSensorRepository, SensorTypeRepository sensorTypeRepository) {
         this.areaSensors = new ArrayList<>();
         this.areaSensorRepository = areaSensorRepository;
+        this.sensorTypeRepository = sensorTypeRepository;
     }
 
     public List<AreaSensor> getAreaSensors() {

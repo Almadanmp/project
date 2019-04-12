@@ -94,7 +94,7 @@ class ReaderControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        areaSensorService = new AreaSensorService(areaSensorRepository);
+        areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         readingService = new ReadingService(readingRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository);

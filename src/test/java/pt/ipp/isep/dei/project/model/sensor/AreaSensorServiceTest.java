@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,13 +36,16 @@ class AreaSensorServiceTest {
     @Mock
     AreaSensorRepository areaSensorRepository;
 
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     private AreaSensorService validAreaSensorService; // Contains the first valid sensor by default.
 
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validAreaSensorService = new AreaSensorService(areaSensorRepository);
+        validAreaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
