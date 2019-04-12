@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +38,7 @@ public class HouseConfigurationController {
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         try {
             CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImport.log");
+            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImport.log", true);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             logger.setLevel(Level.WARNING);
@@ -184,6 +185,10 @@ public class HouseConfigurationController {
                         + " - there is no room with that ID.");
                 rejectedSensors++;
             }
+        }
+        Handler[] handlers = logger.getHandlers(); //TODO Included in Issue #235.
+        for (Handler h : handlers){
+            h.close();
         }
         int[] result = new int[2];
         result[0] = addedSensors;

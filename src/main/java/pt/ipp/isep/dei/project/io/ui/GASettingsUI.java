@@ -21,8 +21,6 @@ import java.util.Scanner;
 class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
-
-    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
     GASettingsUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
@@ -421,7 +419,7 @@ class GASettingsUI {
     }
 
     private int addReadingsToAreaSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToGeographicAreaSensors(readings, VALID_LOG_PATH);
+        return readerController.addReadingsToGeographicAreaSensors(readings, "resources/logs/areaReadingLogs.log");
     }
 
 
@@ -456,7 +454,7 @@ class GASettingsUI {
         System.out.println("6) See if a geographical area is included, directly or indirectly, in another one. (US008)");
         System.out.println("7) Deactivate or activate a sensor (US010)");
         System.out.println("8) Remove a sensor from the Geographical Area. (US011)");
-        System.out.println("9) Import Geographic Areas and Sensors from a JSON or XML file.(US15v3");
+        System.out.println("9) Import Geographic Areas and Sensors from a JSON or XML file.(US15v3)");
         System.out.println("10) Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v3)");
         System.out.println("0) (Return to main menu)\n");
     }
