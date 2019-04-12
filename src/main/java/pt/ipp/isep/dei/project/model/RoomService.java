@@ -65,14 +65,11 @@ public class RoomService {
     }
 
     public boolean addPersistence(Room room) {
-        Optional<Room> room2 = roomRepository.findByRoomName(room.getName());
-        if (room2.isPresent()) {
-            Room room3 = room2.get();
-            roomRepository.save(room3);
-            add(room3);
+        Room room2 = roomRepository.findByName(room.getName());
+        if (room2 != null) {
+            roomRepository.delete(room2);
         }
         roomRepository.save(room);
-        add(room);
         return true;
     }
 

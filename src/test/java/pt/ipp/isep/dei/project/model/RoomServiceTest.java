@@ -78,6 +78,43 @@ class RoomServiceTest {
     }
 
     @Test
+    void seeIfAddRoom() {
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+
+
+        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
+
+        assertTrue(validRoomService.addPersistence(room));
+    }
+
+    @Test
+    void seeIfAddRoomCreate() {
+
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+
+        validRoomService.addPersistence(room);
+
+
+
+        assertTrue(validRoomService.contains(room));
+    }
+
+    @Test
+    void seeIfgetlistOfRooms() {
+
+List<Room> roomList = new ArrayList<>();
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+roomList.add(room);
+        validRoomService.addPersistence(room);
+
+
+
+        assertEquals(roomList, validRoomService.getRooms());
+    }
+
+    @Test
     void seeIfGetDB (){
         String mockId = "SensorOne";
 
@@ -521,5 +558,52 @@ class RoomServiceTest {
         // Assert
 
         Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorks() {
+        // Arrange
+
+        RoomService testList = new RoomService(roomRepository);
+        testList.add(validRoom);
+
+        //Act
+
+        boolean actualResult =validRoomService.equals(testList);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalse() {
+        // Arrange
+
+        RoomService testList = new RoomService(roomRepository);
+
+
+        //Act
+
+        boolean actualResult =validRoomService.equals(testList);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksFalseDifferentObject() {
+        // Arrange
+
+        EnergyGridService testList = new EnergyGridService();
+
+        //Act
+
+        boolean actualResult = validRoomService.equals(testList); // Needed for SonarQube testing purposes.
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 }

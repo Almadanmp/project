@@ -12,4 +12,6 @@ public interface RoomRepository extends CrudRepository<Room, String> {
     List<Room> findAll();
 
     Optional<Room> findByRoomName(String name);
+
+    Room findByName (String name);
 }
