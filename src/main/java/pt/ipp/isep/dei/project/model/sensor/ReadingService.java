@@ -178,7 +178,7 @@ public class ReadingService {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReadingDb(List<Reading> readings) {
+    public Reading getMostRecentReadingDb(List<Reading> readings) {
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
         if (readings.isEmpty()) {
             return error;
@@ -194,7 +194,6 @@ public class ReadingService {
         }
         return recentReading;
     }
-
 
     /**
      * Method that goes through every Reading in the list and

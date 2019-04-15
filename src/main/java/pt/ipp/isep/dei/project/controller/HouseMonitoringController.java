@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.Date;
@@ -97,14 +98,14 @@ public class HouseMonitoringController {
     }
 
     /**
-     * @param house is the house we want to get the temperature from.
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 
-    public double getHouseAreaTemperature(House house, AreaSensorService areaSensorService, ReadingService readingService) {
-        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
-        AreaSensor closestAreaSensor = areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, TEMPERATURE, house, readingService);
-        return closestAreaSensor.getMostRecentValueReading();
+    public double getHouseAreaTemperature(AreaSensor closestAreaSensor, ReadingService readingService) {
+
+        List<Reading> sensorReadings = readingService.findReadingsBySensorID(closestAreaSensor.getId());
+
+        return readingService.getMostRecentReadingDb(sensorReadings).getValue();
     }
 
     /**

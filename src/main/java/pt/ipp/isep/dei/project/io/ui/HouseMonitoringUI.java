@@ -90,8 +90,10 @@ public class HouseMonitoringUI {
     }
 
     private void updateModel600(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+        AreaSensor closestSensorToHouse;
         try {
-            double currentTemp = houseMonitoringController.getHouseAreaTemperature(house, areaSensorService, readingService);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorToHouse(house, areaSensorService, readingService);
+            double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse, readingService);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
