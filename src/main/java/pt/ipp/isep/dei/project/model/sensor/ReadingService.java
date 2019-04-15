@@ -392,15 +392,15 @@ public class ReadingService {
      * @return the average of all values in the reading list between the two given dates
      * @author Daniela (US623)
      */
-    double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
-        ReadingService readingServiceBetweenDates = getReadingListBetweenDates(minDate, maxDate);
-        if (readingServiceBetweenDates.isEmpty()) {
+    public double getAverageReadingsBetweenDates(AreaSensor areaSensor, Date minDate, Date maxDate) {
+        List<Reading> sensorReadingsBetweenDates = getReadingListBetweenDatesDb(areaSensor, minDate, maxDate);
+        if (sensorReadingsBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
-        for (int i = 0; i < readingServiceBetweenDates.size(); i++) {
-            Date day = readingServiceBetweenDates.get(i).getDate();
-            List<Double> specificDayValues = getValuesOfSpecificDayReadings(day);
+        for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
+            Date day = sensorReadingsBetweenDates.get(i).getDate();
+            List<Double> specificDayValues = getValuesOfSpecificDayReadingsDb(sensorReadingsBetweenDates, day);
             double avgDay = getAvgFromList(specificDayValues);
             avgDailyValues.add(avgDay);
         }

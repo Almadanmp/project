@@ -297,19 +297,6 @@ public class AreaSensor {
     }
 
     /**
-     * This method receives an interval, goes through the sensor's reading list and returns the
-     * average reading values between the interval given.
-     *
-     * @param initialDate start of interval
-     * @param endDate     end of interval
-     * @return average reading value between interval
-     * @author Daniela - US623
-     ***/
-    public double getAverageReadingsBetweenDates(Date initialDate, Date endDate) {
-        return this.readingService.getAverageReadingsBetweenDates(initialDate, endDate);
-    }
-
-    /**
      * US631
      * This method returns a DATE for the first hottest day (higher maximum temperature) in the house area in a given period
      * (higher maximum temperature).

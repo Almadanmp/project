@@ -67,18 +67,12 @@ public class HouseMonitoringController {
     is needed to assess the garden’s watering needs. */
 
     /**
-     * @param house       is the house we want to get the average rainfall from.
      * @param initialDate is the date where we want to start measuring average rainfall (lower limit).
      * @param endDate     is the date where we want to stop measuring average rainfall (upper limit).
      * @Author Daniela
      */
-    public double getAverageRainfallInterval(House house, Date initialDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
-        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
-        AreaSensor closestAreaSensor = areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, RAINFALL, house, readingService);
-        if (closestAreaSensor.isReadingListEmpty()) {
-            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
-        }
-        return closestAreaSensor.getAverageReadingsBetweenDates(initialDate, endDate);
+    public double getAverageRainfallInterval(AreaSensor closestAreaSensor, Date initialDate, Date endDate, ReadingService readingService) {
+        return readingService.getAverageReadingsBetweenDates(closestAreaSensor, initialDate, endDate);
     }
 
     /**

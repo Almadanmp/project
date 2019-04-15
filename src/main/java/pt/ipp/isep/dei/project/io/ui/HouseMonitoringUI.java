@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.HouseService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
@@ -26,7 +25,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(HouseService houseService, House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    void run(House house, AreaSensorService areaSensorService, ReadingService readingService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -233,8 +232,10 @@ public class HouseMonitoringUI {
 
     private void updateAndDisplayUS623(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
         double result623;
+        AreaSensor closestAreaSensor;
         try {
-            result623 = houseMonitoringController.getAverageRainfallInterval(house, startDate, endDate, areaSensorService, readingService);
+            closestAreaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, RAINFALL);
+            result623 = houseMonitoringController.getAverageRainfallInterval(closestAreaSensor, startDate, endDate, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;

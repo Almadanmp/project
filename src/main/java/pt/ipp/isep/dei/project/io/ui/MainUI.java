@@ -207,7 +207,7 @@ public class MainUI {
                             break;
                         case 6:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(houseService, house, areaSensorService, readingService);
+                            houseM.run(house, areaSensorService, readingService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
