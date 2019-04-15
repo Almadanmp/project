@@ -245,9 +245,9 @@ public class ReadingService {
      * @return sum
      * @author André (US620)
      */
-    double getValueReadingsInDay(Date givenDate) {
+    public double getValueReadingsInDay(Date givenDate, List<Reading> sensorReadings) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
-        List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(givenDate);
+        List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadingsDb(sensorReadings, givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
             throw new IllegalStateException("Warning: Total value was not calculated - No readings were available.");
         }
@@ -256,6 +256,7 @@ public class ReadingService {
         totalValuesFromDaysWithReadings.add(givenD);
         return getListSum(totalValuesFromDaysWithReadings);
     }
+
 
     /**
      * This method receives a list of doubles that correspond to value readings and

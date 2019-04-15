@@ -323,28 +323,6 @@ public class AreaSensor {
         return this.readingService.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
-    /**
-     * This method receives a date of a given day, goes through the sensor's reading list and
-     * returns the total reading values of that day.
-     *
-     * @param day date of day
-     * @return total reading values of that day
-     ***/
-    public double getTotalValueReadingsOnGivenDay(Date day) {
-        return this.readingService.getValueReadingsInDay(day);
-    }
-
-    /**
-     * This method goes through the sensor's reading list and
-     * returns the most recent reading value.
-     *
-     * @return sensor's most recent reading value.
-     ***/
-    public double getMostRecentValueReading() {
-        return this.readingService.getMostRecentValue();
-    }
-
-
     @Override
     public boolean equals(Object testObject) {
         if (this == testObject) {

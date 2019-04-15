@@ -463,19 +463,20 @@ class ReadingServiceTest {
     void seeIfGetsTotalReadings() {
         // Arrange
 
+        List<Reading> readings = new ArrayList<>();
         Reading reading = new Reading(20, validDate15, "C", "TEST");
         Reading reading2 = new Reading(20, validDate3, "C", "TEST");
         Reading reading3 = new Reading(20, validDate7, "C", "TEST");
         Reading reading4 = new Reading(20, validDate14, "C", "TEST");
-        validReadingService.addReading(reading);
-        validReadingService.addReading(reading2);
-        validReadingService.addReading(reading3);
-        validReadingService.addReading(reading4);
+        readings.add(reading);
+        readings.add(reading2);
+        readings.add(reading3);
+        readings.add(reading4);
         double expectedResult = 20;
 
         // Act
 
-        double actualResult = validReadingService.getValueReadingsInDay(validDate13);
+        double actualResult = validReadingService.getValueReadingsInDay(validDate13, readings);
 
         // Assert
 
@@ -486,9 +487,9 @@ class ReadingServiceTest {
     void seeIfGetsTotalReadingsInDayWorksNoReadings() {
 
         // Act
-
+        List<Reading> readings = new ArrayList<>();
         Throwable exception = assertThrows(IllegalStateException.class,
-                () -> validReadingService.getValueReadingsInDay(validDate13));
+                () -> validReadingService.getValueReadingsInDay(validDate13, readings));
 
         // Assert
 

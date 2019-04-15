@@ -82,19 +82,15 @@ public class HouseMonitoringController {
     }
 
     /**
-     * @param house is the house we want to get the total rainfall from.
-     * @param day   is the date where we want to  measure total rainfall.
+     * @param day is the date where we want to  measure total rainfall.
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
      * @Author André
      */
-    public double getTotalRainfallOnGivenDay(House house, Date day, AreaSensorService areaSensorService, ReadingService readingService) {
-        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
-        AreaSensor closestAreaSensor = areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, RAINFALL, house, readingService);
+    public double getTotalRainfallOnGivenDay(Date day, ReadingService readingService, AreaSensor closestAreaSensor) {
 
-        if (closestAreaSensor.isReadingListEmpty()) {
-            throw new IllegalStateException("Warning: Total value could not be calculated - No readings were available.");
-        }
-        return closestAreaSensor.getTotalValueReadingsOnGivenDay(day);
+        List<Reading> sensorReadings = readingService.findReadingsBySensorID(closestAreaSensor.getId());
+
+        return readingService.getValueReadingsInDay(day, sensorReadings);
     }
 
     /**
@@ -139,10 +135,10 @@ public class HouseMonitoringController {
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
-    public AreaSensor getClosesSensorToHouse(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    public AreaSensor getClosesSensorByTypeToHouse(House house, AreaSensorService areaSensorService, ReadingService readingService, String sensorType) {
         List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
 
-        return areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, TEMPERATURE, house, readingService);
+        return areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, sensorType, house, readingService);
     }
 
     /**

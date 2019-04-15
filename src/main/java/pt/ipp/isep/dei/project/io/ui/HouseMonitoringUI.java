@@ -19,6 +19,8 @@ import static java.lang.System.out;
 public class HouseMonitoringUI {
     private HouseMonitoringController houseMonitoringController;
     private String was = " was ";
+    private static final String RAINFALL = "rainfall";
+    private static final String TEMPERATURE = "temperature";
 
     public HouseMonitoringUI() {
         this.houseMonitoringController = new HouseMonitoringController();
@@ -35,11 +37,11 @@ public class HouseMonitoringUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS610(houseService);
+                    runUS610(house);
                     activeInput = true;
                     break;
                 case 2:
-                    runUS605(houseService);
+                    runUS605(house);
                     activeInput = true;
                     break;
                 case 3:
@@ -92,7 +94,7 @@ public class HouseMonitoringUI {
     private void updateModel600(House house, AreaSensorService areaSensorService, ReadingService readingService) {
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorToHouse(house, areaSensorService, readingService);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
             double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse, readingService);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
@@ -105,8 +107,7 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
-    private void runUS605(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS605(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -136,8 +137,7 @@ public class HouseMonitoringUI {
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
      */
-    private void runUS610(HouseService houseService) {
-        House house = houseService.getHouse();
+    private void runUS610(House house) {
         UtilsUI utilsUI = new UtilsUI();
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -180,8 +180,10 @@ public class HouseMonitoringUI {
 
     private void updateAndDisplayModelUS620(House house, Date date, AreaSensorService areaSensorService, ReadingService readingService) {
         double result;
+        AreaSensor areaSensor;
         try {
-            result = houseMonitoringController.getTotalRainfallOnGivenDay(house, date, areaSensorService, readingService);
+            areaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, RAINFALL);
+            result = houseMonitoringController.getTotalRainfallOnGivenDay(date, readingService, areaSensor);
         } catch (IllegalStateException ex) {
             System.out.println(ex.getMessage());
             return;
@@ -261,7 +263,7 @@ public class HouseMonitoringUI {
         Date dateResult630;
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorToHouse(house, areaSensorService, readingService);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(closestSensorToHouse, startDate, endDate, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -318,7 +320,7 @@ public class HouseMonitoringUI {
         AreaSensor closestSensorToHouse;
 
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorToHouse(house, areaSensorService, readingService);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
             resultDate633 = houseMonitoringController.getHighestTempAmplitudeDate(closestSensorToHouse, startDate, endDate, readingService);
             resultValue633 = houseMonitoringController.getTempAmplitudeValueByDate(closestSensorToHouse, resultDate633, readingService);
         } catch (IllegalArgumentException e) {

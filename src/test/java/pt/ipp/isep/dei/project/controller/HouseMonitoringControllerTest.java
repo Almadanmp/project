@@ -317,91 +317,91 @@ class HouseMonitoringControllerTest {
 //        assertEquals(expectedResult, actualResult);
 //    }
 
-    @Test
-    void ensureThatWeGetTotalReadingsOnGivenDayNoRainfall() {
-        // Arrange
+//    @Test
+//    void ensureThatWeGetTotalReadingsOnGivenDayNoRainfall() {
+//        // Arrange
+//
+//        validHouseArea.setSensorList(validAreaSensorService);
+//
+//        // Act
+//
+//        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+//            Date date = new Date();
+//            try {
+//                date = validSdf.parse("03/12/2018 10:02:00");
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            controller.getTotalRainfallOnGivenDay(validHouse, date, validAreaSensorService, readingService);
+//        });
+//
+//        // Assert
+//
+//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
+//    }
 
-        validHouseArea.setSensorList(validAreaSensorService);
+//    @Test
+//    void ensureThatWeGetTotalReadingsWithoutSensors() {
+//        // Arrange
+//
+//        AreaSensorService emptyList = new AreaSensorService();
+//        validHouseArea.setSensorList(emptyList);
+//
+//        // Act
+//
+//        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
+//
+//        // Assert
+//
+//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
+//    }
 
-        // Act
+//    @Test
+//    void ensureThatWeGetTotalReadingsWithoutRainFallSensorsAndWithoutReadings() {
+//        // Arrange
+//
+//        Date date = new Date();
+//        try {
+//            date = validSdf.parse("02/02/2015 10:02:00");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        AreaSensorService temperatureList = new AreaSensorService();
+//        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date, 6008L);
+//        temperatureList.add(temperatureAreaSensor);
+//        validHouseArea.setSensorList(temperatureList);
+//
+//        // Act
+//
+//        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
+//
+//        // Assert
+//
+//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
+//    }
 
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-            Date date = new Date();
-            try {
-                date = validSdf.parse("03/12/2018 10:02:00");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            controller.getTotalRainfallOnGivenDay(validHouse, date, validAreaSensorService, readingService);
-        });
-
-        // Assert
-
-        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-    }
-
-    @Test
-    void ensureThatWeGetTotalReadingsWithoutSensors() {
-        // Arrange
-
-        AreaSensorService emptyList = new AreaSensorService();
-        validHouseArea.setSensorList(emptyList);
-
-        // Act
-
-        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
-
-        // Assert
-
-        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-    }
-
-    @Test
-    void ensureThatWeGetTotalReadingsWithoutRainFallSensorsAndWithoutReadings() {
-        // Arrange
-
-        Date date = new Date();
-        try {
-            date = validSdf.parse("02/02/2015 10:02:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        AreaSensorService temperatureList = new AreaSensorService();
-        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date, 6008L);
-        temperatureList.add(temperatureAreaSensor);
-        validHouseArea.setSensorList(temperatureList);
-
-        // Act
-
-        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
-
-        // Assert
-
-        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-    }
-
-    @Test
-    void ensureThatWeGetTotalReadingsWithoutWithoutReadings() {
-        // Arrange
-        Date date = new Date();
-        try {
-            date = validSdf.parse("02/02/2015 10:02:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        AreaSensorService rainFallAreaSensorService = new AreaSensorService();
-        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date, 6008L);
-        rainFallAreaSensorService.add(rainfallAreaSensor);
-        validHouseArea.setSensorList(rainFallAreaSensorService);
-
-        // Act
-
-        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
-
-        // Assert
-
-        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-    }
+//    @Test
+//    void ensureThatWeGetTotalReadingsWithoutWithoutReadings() {
+//        // Arrange
+//        Date date = new Date();
+//        try {
+//            date = validSdf.parse("02/02/2015 10:02:00");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        AreaSensorService rainFallAreaSensorService = new AreaSensorService();
+//        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date, 6008L);
+//        rainFallAreaSensorService.add(rainfallAreaSensor);
+//        validHouseArea.setSensorList(rainFallAreaSensorService);
+//
+//        // Act
+//
+//        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
+//
+//        // Assert
+//
+//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
+//    }
 
     @Test
     void getRoomName() {

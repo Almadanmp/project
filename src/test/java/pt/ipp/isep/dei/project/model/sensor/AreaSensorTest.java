@@ -1133,44 +1133,6 @@ class AreaSensorTest {
 //        assertEquals(expectedResult, actualResult);
 //    }
 
-    @Test
-    void seeIfGetTotalValueReadingsOnGivenDay() {
-        // Arrange
-        ReadingService validReadingService = new ReadingService();
-        Date validDate15 = new Date();
-        Date validDate3 = new Date();
-        Date validDate7 = new Date();
-        Date validDate14 = new Date();
-        Date validDate13 = new Date();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            validDate3 = validSdf.parse("31/09/2018 23:59:59");
-            validDate14 = validSdf.parse("02/10/2018 23:59:00");
-            validDate15 = validSdf.parse("03/10/2018 00:00:00");
-            validDate7 = validSdf.parse("10/10/2018 18:14:03");
-            validDate13 = validSdfDay.parse("03/10/2018");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Reading reading = new Reading(20, validDate15, "C", "TEST");
-        Reading reading2 = new Reading(20, validDate3, "C", "TEST");
-        Reading reading3 = new Reading(20, validDate7, "C", "TEST");
-        Reading reading4 = new Reading(20, validDate14, "C", "TEST");
-        validReadingService.addReading(reading);
-        validReadingService.addReading(reading2);
-        validReadingService.addReading(reading3);
-        validReadingService.addReading(reading4);
-        double expectedResult = 20;
-        // Act
-
-        double actualResult = validReadingService.getValueReadingsInDay(validDate13);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfGetMostRecentValueReading() {
