@@ -4,10 +4,12 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * House Class. Defines de House
@@ -302,36 +304,6 @@ public class House implements Metered {
         List<Double> arrayList = type.getSensorsDistanceToHouse(this);
         return Collections.min(arrayList);
     }
-
-    /**
-     * This method returns the sensor closest to the house. If more than one sensor is close to it,
-     * the one with the most recent reading should be used.
-     *
-     * @param sensorType the type of sensor to check
-     * @return the closest sensor.
-     */
-    public AreaSensor getClosestSensorOfGivenType(String sensorType) {
-        AreaSensor areaSensor;
-        AreaSensorService minDistSensor = new AreaSensorService();
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
-                ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime(), 2356L);
-        AreaSensorService sensorsType = this.motherArea.getSensorsOfGivenType(sensorType);
-        if (!sensorsType.isEmpty()) {
-            double minDist = this.getMinDistanceToSensorOfGivenType(sensorsType);
-            minDistSensor = sensorsType.getSensorsByDistanceToHouse(this, minDist);
-        }
-        if (minDistSensor.isEmpty()) {
-            return areaSensorError;
-        }
-        if (minDistSensor.size() > 1) {
-            areaSensor = minDistSensor.getMostRecentlyUsedSensor();
-        } else {
-            areaSensor = minDistSensor.get(0);
-        }
-        return areaSensor;
-    }
-
 
     /**
      * Method that will instantiate an object from each device Type path in device.properties file

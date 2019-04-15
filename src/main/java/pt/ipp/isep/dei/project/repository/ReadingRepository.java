@@ -9,11 +9,11 @@ import java.util.List;
 
 @Repository
 public interface ReadingRepository extends CrudRepository<Reading, Long> {
+
     Reading findReadingByDateEqualsAndSensorId(Date date, String sensorID);
 
     List<Reading> findAll();
 
     List<Reading> findReadingBySensorId(String id);
-
 
 }

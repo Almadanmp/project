@@ -18,13 +18,15 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -349,17 +351,6 @@ class HouseTest {
 
 
     @Test
-    void seeIfGetClosestSensorOfGivenTypeWorks() {
-        // Act
-
-        AreaSensor result = validHouse.getClosestSensorOfGivenType("Temperature");
-
-        // Assert
-
-        assertEquals(firstValidAreaSensor, result);
-    }
-
-    @Test
     void getMinDistanceToSensorOfGivenType() {
         // Arrange
 
@@ -646,97 +637,6 @@ class HouseTest {
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
-
-    @Test
-    void seeIfGetClosestSensorOfTypeWorks() {
-        // Arrange
-
-        Date laterDate = new GregorianCalendar(21, Calendar.MARCH, 2018).getTime();
-        Date earlierDate = new GregorianCalendar(21, Calendar.FEBRUARY, 2018).getTime();
-        ReadingService readingService = new ReadingService();
-        Reading firstReading = new Reading(15, laterDate, "C", firstValidAreaSensor.getId());
-        Reading secondReading = new Reading(12, earlierDate, "C", firstValidAreaSensor.getId());
-        readingService.addReading(firstReading);
-        readingService.addReading(secondReading);
-        firstValidAreaSensor.setReadingService(readingService);
-
-        // Act
-
-        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
-
-        // Assert
-
-        assertEquals(firstValidAreaSensor, actualResult);
-    }
-
-    @Test
-    void seeIfGetClosestSensorOfTypeWorksWithTwoSensors() {
-        // Arrange
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date earlierDate = new Date();
-        Date laterDate = new Date();
-
-        try {
-            earlierDate = validSdf.parse("21/02/2018 10:02:00");
-            laterDate = validSdf.parse("21/03/2018 10:02:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        ReadingService readingService = new ReadingService();
-        Reading firstReading = new Reading(15, laterDate, "C", firstValidAreaSensor.getId());
-        Reading secondReading = new Reading(12, earlierDate, "C", firstValidAreaSensor.getId());
-        readingService.addReading(firstReading);
-        readingService.addReading(secondReading);
-        firstValidAreaSensor.setReadingService(readingService);
-
-        AreaSensor secondAreaSensor = new AreaSensor("RF4321", "tempTwo", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date(), 6008L);
-        secondAreaSensor.addReading(new Reading(15, earlierDate, "C", firstValidAreaSensor.getId()));
-        validArea.addSensor(secondAreaSensor);
-
-        // Act
-
-        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Temperature");
-
-        // Assert
-
-        assertEquals(firstValidAreaSensor, actualResult);
-    }
-
-    @Test
-    void seeIfGetClosestSensorOfTypeWorksByDistance() {
-        // Arrange
-
-        AreaSensor testAreaSensor = new AreaSensor("RF12345", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(20,
-                21, 20), new Date(), 6008L);
-        validArea.addSensor(testAreaSensor);
-
-        // Act
-
-        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Rainfall");
-
-        // Assert
-
-        assertEquals(testAreaSensor, actualResult);
-    }
-
-
-    @Test
-    void seeIfGetClosestSensorOfTypeWorksNoSensor() {
-        // Arrange
-
-        AreaSensor expectedResult = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", ""),
-                new Local(0, 0, 0), new Date(), 6008L);
-
-        // Act
-
-        AreaSensor actualResult = validHouse.getClosestSensorOfGivenType("Movement");
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
 
     @Test
     void seeIfGetDeviceListWorksEmptyList() {

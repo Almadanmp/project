@@ -310,47 +310,6 @@ public class AreaSensor {
     }
 
     /**
-     * This method receives an interval, goes through the sensor's reading list and returns the date with the
-     * highest amplitude reading value between the interval given.
-     *
-     * @param initialDate start of interval
-     * @param endDate     end of interval
-     * @return date with the highest amplitude reading value between interval
-     * @author Daniela - US633
-     ***/
-    public Date getDateHighestAmplitudeBetweenDates(Date initialDate, Date endDate) {
-        return this.readingService.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
-    }
-
-    /**
-     * This method receives a date, goes through the sensor's reading list and returns the highest amplitude reading
-     * value on that date.
-     *
-     * @param date start of interval
-     * @return highest amplitude reading value on date
-     * @author Daniela - US633
-     ***/
-    public double getHighestAmplitudeInDate(Date date) {
-        return this.readingService.getAmplitudeValueFromDate(date);
-    }
-
-
-    /**
-     * US630
-     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
-     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
-     * it returns a Reading within an interval from a AreaReadingList that represents the last coldest day in the
-     * given period (lower maximum temperature).
-     *
-     * @param initialDate is the Initial Date of the period.
-     * @param endDate     is the Final Date of the period.
-     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
-     */
-    public Date getLastColdestDayInGivenInterval(Date initialDate, Date endDate) {
-        return this.readingService.getLastColdestDayInGivenInterval(initialDate, endDate);
-    }
-
-    /**
      * US631
      * This method returns a DATE for the first hottest day (higher maximum temperature) in the house area in a given period
      * (higher maximum temperature).
