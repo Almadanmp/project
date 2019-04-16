@@ -10,8 +10,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +35,9 @@ class ReadingServiceTest {
 
     private ReadingService validReadingService;
     private AreaSensorService areaSensorService;
+    private HouseSensorService houseSensorService;
     private AreaSensor firstValidAreaSensor;
+    private HouseSensor firstValidHouseSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // 31/09/2018 23:59:59
@@ -58,12 +66,16 @@ class ReadingServiceTest {
     AreaSensorRepository areaSensorRepository;
 
     @Mock
+    HouseSensorRepository houseSensorRepository;
+
+    @Mock
     SensorTypeRepository sensorTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
         validReadingService = new ReadingService(readingRepository);
         areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
+        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -93,6 +105,7 @@ class ReadingServiceTest {
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), validDate1, 6008L);
         firstValidAreaSensor.setActive(true);
+        firstValidHouseSensor = new HouseSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomID");
     }
 
     @Test
@@ -521,6 +534,73 @@ class ReadingServiceTest {
         // Act
 
         boolean actualResult = validReadingService.addAreaReadingToRepository(sensorId, 2D, validDate1, "C", logger, areaSensorService);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddHouseReadingToRepositoryWorksWhenSensorDoesNotExist() {
+        // Arrange
+
+        String sensorId = "SensorID";
+        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
+
+        // Act
+
+        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 20D, validDate1, "C", logger, houseSensorService);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddHouseReadingToRepositoryWorksWhenSensorWasNotActiveDuringRead() {
+        // Arrange
+
+        String sensorId = "SensorID";
+        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+
+        // Act
+
+        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 20D, validDate2, "C", logger, houseSensorService);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddHouseReadingToRepositoryWorksWhenReadingAlreadyExists() {
+        // Arrange
+
+        String sensorId = "SensorID";
+        Reading reading = new Reading(2D, validDate1, "C", sensorId);
+        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((reading));
+
+        // Act
+
+        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 2D, validDate1, "C", logger, houseSensorService);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddHouseReadingToRepositoryWorks() {
+        // Arrange
+
+        String sensorId = "SensorID";
+        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((null));
+
+        // Act
+
+        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 2D, validDate1, "C", logger, houseSensorService);
 
         // Assert
 

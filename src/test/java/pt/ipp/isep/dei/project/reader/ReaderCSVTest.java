@@ -31,25 +31,6 @@ class ReaderCSVTest {
     }
 
     @Test
-    void seeIfReadCSVWorks() {
-
-        //Arrange
-
-        String[] readings = new String[3];
-        readings[0] = "Sensor1";
-        readings[1] = "2020-12-30T14:00:00+00:00";
-        readings[2] = "16.5";
-        validList.add(readings);
-
-        // Act
-
-        List<String[]> actualResult = validReader.readFile(validLocation2);
-
-        //Assert
-        assertArrayEquals(validList.toArray(), actualResult.toArray());
-    }
-
-    @Test
     void seeIfReadCSVWorksWhenFileHasOnlyOneLine() {
 
         //Arrange

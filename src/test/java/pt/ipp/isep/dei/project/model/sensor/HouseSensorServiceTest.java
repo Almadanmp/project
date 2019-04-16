@@ -296,4 +296,35 @@ class HouseSensorServiceTest {
 //        assertEquals(expectedResult, actualResult);
 //    }
 
+    @Test
+    void seeIfSensorExistsInRepositoryWorks() {
+        //Arrange
+        HouseSensor houseSensor = new HouseSensor();
+        houseSensor.setId("SensorID");
+
+        Mockito.when(houseSensorRepository.findById("SensorID")).thenReturn(Optional.of(houseSensor));
+
+        //Act
+
+        boolean actualResult = validHouseSensorService.sensorExistsInRepository("SensorID");
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfSensorExistsInRepositoryWorksWhenSensorIsNotInRepository() {
+        //Arrange
+
+        Mockito.when(houseSensorRepository.findById("SensorID")).thenReturn(Optional.empty());
+
+        //Act
+
+        boolean actualResult = validHouseSensorService.sensorExistsInRepository("SensorID");
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
 }

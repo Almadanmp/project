@@ -552,12 +552,12 @@ public class ReadingService {
      * This method receives the parameters to create a reading and tries to add that
      * reading to the repository. It also receives a Logger so that it can register every
      * reading that was not added to its corresponding sensor.
-     * This method will look for the sensor in the repository by its ID.
+     * This method will look for the area sensor in the repository by its ID.
      *
      * @param sensorID     is the ID of the area sensor we want to add a reading to.
      * @param readingValue is the value of the reading we want to add.
      * @param readingDate  is the date of the reading we want to add.
-     * @param unit         is the Unit of the reading we want to add.
+     * @param unit         is the unit of the reading we want to add.
      * @return true in case the reading was added false otherwise.
      */
     public boolean addAreaReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, AreaSensorService areaSensorService) {
@@ -581,6 +581,18 @@ public class ReadingService {
         return false;
     }
 
+    /**
+     * This method receives the parameters to create a reading and tries to add that
+     * reading to the repository. It also receives a Logger so that it can register every
+     * reading that was not added to its corresponding sensor.
+     * This method will look for the house sensor in the repository by its ID.
+     *
+     * @param sensorID     is the ID of the house sensor we want to add a reading to.
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @param unit         is the unit of the reading we want to add.
+     * @return true in case the reading was added false otherwise.
+     */
     public boolean addHouseReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, HouseSensorService houseSensorService) {
         if (houseSensorService.sensorExistsInRepository(sensorID)) {
             if (houseSensorService.sensorFromRepositoryIsActive(sensorID, readingDate)) {

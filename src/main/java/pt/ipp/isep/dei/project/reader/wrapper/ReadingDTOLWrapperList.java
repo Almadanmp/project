@@ -35,8 +35,10 @@ public class ReadingDTOLWrapperList {
         int sizeOfResultArray = readingDTOList.size();
         ReadingDTOWrapper[] result = new ReadingDTOWrapper[sizeOfResultArray];
         for (int i = 0; i < readingDTOList.size(); i++) {
-            result[i] = readingDTOList.get(i); }
-        return result; }
+            result[i] = readingDTOList.get(i);
+        }
+        return result;
+    }
 
     /**
      * * Method to check if an instance of this class is equal to another object.

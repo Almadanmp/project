@@ -1,10 +1,9 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Utility class that aggregates common Date methods used by other classes.
@@ -242,4 +241,39 @@ public class DateUtils {
         return month == 9 || month == 11;
     }
 
+    /**
+     * This method receives a String of a date as tries to parse it to a Date.
+     *
+     * @param dateString a String of a date
+     * @return the Date that as been parsed
+     */
+    public static Date dateParser(String dateString) {
+        List<SimpleDateFormat> simpleDateFormats = getSimpleDateFormats();
+        for (SimpleDateFormat format : simpleDateFormats) {
+            try {
+                return format.parse(dateString);
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    /**
+     * This returns an ArrayList of Simple Date Formats (yyyy-MM-dd'T'HH:mm:ss'+00:00', dd/MM/yyyy,
+     * yyyy-MM-dd).
+     *
+     * @return ArrayList of SimpleDateFormats
+     */
+    private static List<SimpleDateFormat> getSimpleDateFormats() {
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+
+        List<SimpleDateFormat> simpleDateFormats = new ArrayList<>();
+        simpleDateFormats.add(dateFormat1);
+        simpleDateFormats.add(dateFormat2);
+        simpleDateFormats.add(dateFormat3);
+        return simpleDateFormats;
+    }
 }

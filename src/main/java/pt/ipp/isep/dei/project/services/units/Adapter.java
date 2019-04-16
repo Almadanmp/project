@@ -44,6 +44,9 @@ public final class Adapter {
     public static List<ReadingDTO> readingDTOWrapperConversion(List<ReadingDTOWrapper> readingDTOWrapperList) {
         List<ReadingDTO> finalList = new ArrayList<>();
         for (ReadingDTOWrapper wrapper : readingDTOWrapperList) {
+            if (wrapper == null) {
+                continue;
+            }
             ReadingDTO readingDTO = new ReadingDTO();
             String startUnitString = wrapper.getUnit();
             Unit startUnit = UnitHelper.convertStringToUnit(startUnitString);
@@ -59,7 +62,7 @@ public final class Adapter {
             readingDTO.setUnit(defaultUnit.buildString());
             readingDTO.setDate(wrapper.getDate());
             readingDTO.setSensorId(wrapper.getSensorId());
-            if(!finalList.contains(readingDTO)) {
+            if (!finalList.contains(readingDTO)) {
                 finalList.add(readingDTO);
             }
         }
