@@ -100,4 +100,36 @@ class ReadingsReaderCSVTest {
         assertThrows(IllegalArgumentException.class,
                 () -> readingsReaderCSV.readFile("src/test/resources/readerReadings/test3CSVReadings.csv"));
     }
+
+    @Test
+    void seeIfReadFileWorksWhenFileHasWrongDate() {
+        //Arrange
+
+        Date validDate1 = new Date();
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate1 = simpleDate.parse("2020-12-30T14:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+        List<ReadingDTO> expectedResult = new ArrayList<>();
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setDate(validDate1);
+        readingDTO1.setValue(-8.61);
+        readingDTO1.setUnit("Celsius");
+        readingDTO1.setSensorId("Sensor1");
+
+        expectedResult.add(readingDTO1);
+
+        //Act
+
+        List<ReadingDTO> actualResult = readingsReaderCSV.readFile("src/test/resources/readingsFiles/test4CSVReadings.csv");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }

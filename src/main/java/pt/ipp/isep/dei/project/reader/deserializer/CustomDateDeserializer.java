@@ -35,7 +35,7 @@ public class CustomDateDeserializer extends StdDeserializer<Date> {
                 e.getMessage();
             }
         }
-        throw new RuntimeException();
+        return Date.from(null);
     }
 
     private List<SimpleDateFormat> getSimpleDateFormats() {

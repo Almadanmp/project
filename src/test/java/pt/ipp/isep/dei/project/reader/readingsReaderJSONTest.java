@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class readingsReaderJSONTest {
 
@@ -140,9 +139,32 @@ class readingsReaderJSONTest {
 
     @Test
     void seeIfReadFileWorksWhenContentsAreWrong() {
-       //Assert
+        //Arrange
 
-        assertThrows(IllegalArgumentException.class,
-                () -> readingsReaderJSON.readFile("src/test/resources/readingsFiles/test4JSONReadings.json"));
+        Date validDate1 = new Date();
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate1 = simpleDate.parse("2018-12-30T02:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+        List<ReadingDTO> expectedResult = new ArrayList<>();
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setDate(validDate1);
+        readingDTO1.setValue(-5.0D);
+        readingDTO1.setUnit("Celsius");
+        readingDTO1.setSensorId("readingWithNotNumericValue");
+        expectedResult.add(readingDTO1);
+
+        //Act
+
+        List<ReadingDTO> actualResult = readingsReaderJSON.readFile("src/test/resources/readingsFiles/test4JSONReadings.json");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }

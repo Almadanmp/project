@@ -140,12 +140,32 @@ class ReadingsReaderXMLTest {
 
     @Test
     void seeIfReadFileWorksWhenContentsAreWrong() {
+        //Arrange
+
+        Date validDate1 = new Date();
+
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate1 = simpleDate.parse("2018-12-30T02:00:00+00:00");
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+        List<ReadingDTO> expectedResult = new ArrayList<>();
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setDate(validDate1);
+        readingDTO1.setValue(-5.0);
+        readingDTO1.setUnit("Celsius");
+        readingDTO1.setSensorId("TT12346");
+        expectedResult.add(readingDTO1);
+
+        //Act
+
+        List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readingsFiles/test4XMLReadings.xml");
+
         //Assert
 
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    List<ReadingDTO> actualResult = readingsReaderXML.readFile("src/test/resources/readerReadings/test4XMLReadings.xml");
-
-                });
+        assertEquals(expectedResult, actualResult);
     }
 }
