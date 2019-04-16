@@ -7,9 +7,7 @@ import pt.ipp.isep.dei.project.model.Local;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +23,7 @@ class HouseSensorTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validHouseSensor = new HouseSensor("T32875", "SensOne",  new SensorType("Temperature", "Celsius"), new Date(), "RoomAD");
+        validHouseSensor = new HouseSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomAD");
         validHouseSensor.setActive(true);
     }
 
@@ -140,7 +138,7 @@ class HouseSensorTest {
         // Arrange
 
         HouseSensor s2 = new HouseSensor("T54654", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
-                 new Date(), "RoomFD");
+                new Date(), "RoomFD");
 
         // Act
 
@@ -155,7 +153,7 @@ class HouseSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        HouseSensor testAreaSensor = new HouseSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"),new Date(), "RoomHG");
+        HouseSensor testAreaSensor = new HouseSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomHG");
 
         // Act
 
@@ -252,40 +250,6 @@ class HouseSensorTest {
     }
 
     @Test
-    void seeIfAddReadingsWorks() {
-        // Arrange
-
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "TEST");
-
-        // Act
-
-        boolean actualResult1 = validHouseSensor.addReading(reading1);
-        boolean actualResult3 = validHouseSensor.addReading(reading1);
-
-        // Assert
-
-        assertTrue(actualResult1);
-        assertFalse(actualResult3);
-    }
-
-    @Test
-    void seeIfAddReadingsWorksNotActiveResult() {
-        // Arrange
-
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "TEST");
-        validHouseSensor.deactivateSensor();
-        // Act
-
-        boolean actualResult1 = validHouseSensor.addReading(reading1);
-        boolean actualResult3 = validHouseSensor.addReading(reading1);
-
-        // Assert
-
-        assertFalse(actualResult1);
-        assertFalse(actualResult3);
-    }
-
-    @Test
     void seeIfSetGetIdWorks() {
         // Arrange
 
@@ -302,7 +266,7 @@ class HouseSensorTest {
     }
 
     @Test
-    void seeIfBuildStringWorks(){
+    void seeIfBuildStringWorks() {
         // Arrange
 
         String expectedResult = "SensOne, Temperature\n";
@@ -317,7 +281,7 @@ class HouseSensorTest {
     }
 
     @Test
-    void seeIfPrintActiveFalseWorks(){
+    void seeIfPrintActiveFalseWorks() {
         // Arrange
 
         String expectedResult = "Active";
@@ -333,33 +297,7 @@ class HouseSensorTest {
     }
 
     @Test
-    void seeIfAddReadingWorks(){
-        // Act
-
-        boolean actualResult = validHouseSensor.addReading(new Date(), 20D, "Temperature", "132");
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddReadingFalseWorks(){
-        // Assert
-
-        validHouseSensor.setActive(false);
-
-        // Act
-
-        boolean actualResult = validHouseSensor.addReading(new Date(), 20D, "Temperature", "132");
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsSameObjectWorks(){
+    void seeIfEqualsSameObjectWorks() {
         // Act
 
         boolean actualResult = validHouseSensor.equals(validHouseSensor);
@@ -370,7 +308,7 @@ class HouseSensorTest {
     }
 
     @Test
-    void seeIfGetSensorTypeNameWorks(){
+    void seeIfGetSensorTypeNameWorks() {
         // Arrange
 
         String expectedResult = "Temperature";
@@ -384,23 +322,4 @@ class HouseSensorTest {
         assertEquals(expectedResult, actualResult);
 
     }
-
-    @Test
-    void seeIfGetReadingServiceWorks(){
-        // Assert
-
-        ReadingService expectedResult = new ReadingService();
-        validHouseSensor.setReadingService(null);
-        validHouseSensor.setReadingService(new ReadingService());
-
-        // Act
-
-        ReadingService actualResult = validHouseSensor.getReadingService();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-
-    }
-
 }

@@ -195,27 +195,6 @@ class GeographicAreaTest {
         assertFalse(actualResult);
     }
 
-
-    @Test
-    void seeIfGetSetSensorListWork() {
-        // Arrange
-
-        AreaSensor testAreaSensor = new AreaSensor("RF12345", "Vento", new SensorType("Atmosférico", "km/h"),
-                new Local(12, 31, 21), new Date(), 6008L);
-        validArea.addSensor(testAreaSensor);
-        AreaSensorService expectedResult = new AreaSensorService();
-        expectedResult.add(testAreaSensor);
-
-        // Act
-
-        AreaSensorService actualResult = validArea.getSensorList();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-
     @Test
     void seeIfGetSetMotherAreaWorks() {
         // Arrange
@@ -314,51 +293,6 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeAddSensorToGA() {
-        // Arrange
-
-        AreaSensor firstTestAreaSensor = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date(), 6008L);
-        AreaSensor secondTestAreaSensor = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date(), 6008L);
-        AreaSensor thirdTestAreaSensor = new AreaSensor("Sensor 3", "Sensor 3", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date(), 6008L);
-
-        // Act
-
-        boolean result1 = validArea.addSensor(firstTestAreaSensor);
-        boolean result2 = validArea.addSensor(secondTestAreaSensor);
-        boolean result3 = validArea.addSensor(thirdTestAreaSensor);
-
-        // Assert
-
-        assertTrue(result1);
-        assertFalse(result2);
-        assertTrue(result3);
-    }
-
-    @Test
-    void seeIfIsSensorListEmptyWorks() {
-        // Act With No Sensors
-
-        boolean actualResult1 = validArea.isSensorListEmpty();
-
-        // Assert With No Sensors
-
-        assertTrue(actualResult1);
-
-        // Arrange
-
-        AreaSensor areaSensor = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date(), 6008L);
-        validArea.addSensor(areaSensor);
-
-        // Act
-
-        boolean actualResult2 = validArea.isSensorListEmpty();
-
-        // Assert
-
-        assertFalse(actualResult2);
-    }
-
-    @Test
     void seeIfToStringWorks() {
         // Arrange
 
@@ -404,56 +338,6 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetTypeArea() {
-        // Arrange
-
-        AreaType type = new AreaType("Island");
-        validArea.setAreaType(type);
-
-        // Act
-
-        AreaType actualType = validArea.getAreaType();
-
-        // Assert
-
-        assertEquals(type, actualType);
-    }
-
-    @Test
-    void seeIfEqualsTypeAreaWorks() {
-        // Arrange
-
-        AreaType areaType1 = new AreaType("City");
-        validArea.setAreaType(areaType1);
-
-        // Act
-
-        boolean actualResult = validArea.equalsTypeArea(areaType1);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsTypeAreaWorksFalse() {
-        // Arrange
-
-        AreaType areaType1 = new AreaType("City");
-        validArea.setAreaType(areaType1);
-        AreaType areaType2 = new AreaType("Street");
-
-        // Act
-
-        boolean actualResult = validArea.equalsTypeArea(areaType2);
-
-        // Assert
-
-        assertFalse(actualResult);
-
-    }
-
-    @Test
     void seeIfGetLocation() {
         // Arrange
 
@@ -471,23 +355,7 @@ class GeographicAreaTest {
     }
 
 
-    @Test
-    void seeIfGetSensorList() {
-        // Arrange
-
-        AreaSensorService areaSensorService = new AreaSensorService();
-        validArea.setSensorList(areaSensorService);
-
-        // Act
-
-        AreaSensorService actualAreaSensorService = validArea.getSensorList();
-
-        // Assert
-
-        assertEquals(areaSensorService, actualAreaSensorService);
-    }
-
-    @Test
+      @Test
     void seeIfGetLengthWidth() {
         // Arrange
 
@@ -550,26 +418,6 @@ class GeographicAreaTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfGetSensorsOfGivenTypeWorks() {
-        //Arrange
-        GeographicArea geographicArea = new GeographicArea();
-        AreaSensorService areaSensorService = new AreaSensorService();
-        AreaSensor areaSensor1 = new AreaSensor("Sensor 1", "Sensor 1", new SensorType("temperature", "C"), new Local(12, 12, 12), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), 6008L);
-        AreaSensor areaSensor2 = new AreaSensor("Sensor 2", "Sensor 2", new SensorType("rainfall", "mm"), new Local(12, 12, 12), new GregorianCalendar(2018, Calendar.JANUARY, 2).getTime(), 6008L);
-        AreaSensor areaSensor3 = new AreaSensor("Sensor 3", "Sensor 3", new SensorType("temperature", "C"), new Local(12, 12, 12), new GregorianCalendar(2018, Calendar.JANUARY, 3).getTime(), 6008L);
-        areaSensorService.add(areaSensor1);
-        areaSensorService.add(areaSensor2);
-        areaSensorService.add(areaSensor3);
-        geographicArea.setSensorList(areaSensorService);
-        AreaSensorService expectedResult = new AreaSensorService();
-        expectedResult.add(areaSensor1);
-        expectedResult.add(areaSensor3);
-        //Act
-        AreaSensorService actualResult = geographicArea.getSensorsOfGivenType("temperature");
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void seeIfGetLocationWorks() {

@@ -1,16 +1,10 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is responsible for converting Geographic Areas and Geographic Area DTOs into one another.
@@ -54,13 +48,6 @@ public final class GeographicAreaMapper {
 
         String objectDescription = dtoToConvert.getDescription();
 
-        // Update the AreaSensorList
-
-        AreaSensorService objectAreaSensorService = new AreaSensorService();
-        for (AreaSensorDTO y : dtoToConvert.getAreaSensorDTOList()) {
-            AreaSensor tempAreaSensor = AreaSensorMapper.dtoToObject(y);
-            objectAreaSensorService.add(tempAreaSensor);
-        }
 
         // Create, update and return the converted object.
 
@@ -68,8 +55,6 @@ public final class GeographicAreaMapper {
                 objectLocal);
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
-        resultObject.setSensorList(objectAreaSensorService);
-
 
         return resultObject;
     }
@@ -107,16 +92,6 @@ public final class GeographicAreaMapper {
 
         String dtoDescription = objectToConvert.getDescription();
 
-        // Update the AreaSensorList
-
-        List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
-        for (AreaSensor b : objectToConvert.getSensorList().getAreaSensors()) {
-            AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(b);
-            if (!areaSensorDTOList.contains(tempDTO)) {
-                areaSensorDTOList.add(tempDTO);
-            }
-        }
-
         // Update and return the converted DTO.
 
 
@@ -126,7 +101,6 @@ public final class GeographicAreaMapper {
         resultDTO.setDescription(dtoDescription);
         resultDTO.setName(dtoName);
         resultDTO.setLocalDTO(localDTO);
-        resultDTO.setAreaSensorDTOList(areaSensorDTOList);
 
         return resultDTO;
     }

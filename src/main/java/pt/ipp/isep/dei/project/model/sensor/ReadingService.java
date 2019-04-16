@@ -26,60 +26,15 @@ public class ReadingService {
     @Autowired
     HouseSensorRepository houseSensorRepository;
 
-    private List<Reading> readings;
-
     /**
      * /**
      * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
     public ReadingService() {
-        this.readings = new ArrayList<>();
     }
 
     public ReadingService(ReadingRepository readingRepository) {
         this.readingRepository = readingRepository;
-        this.readings = new ArrayList<>();
-    }
-
-    /**
-     * Method to Add a reading only if it's not contained in the list already.
-     *
-     * @param reading receives a reading.
-     * @return returns true if the input reading was added successfully.
-     * returns false if the input reading was rejected.
-     */
-    public boolean addReading(Reading reading) {
-        if (contains(reading)) {
-            return false;
-        }
-        return this.readings.add(reading);
-    }
-
-    /**
-     * This method receives an index as parameter and gets a reading from reading list.
-     *
-     * @param index the index of the Reading
-     * @return returns reading that corresponds to index.
-     */
-    public Reading get(int index) {
-        if (this.readings.isEmpty()) {
-            throw new IndexOutOfBoundsException(EMPTY_LIST);
-        }
-        return this.readings.get(index);
-    }
-
-    /**
-     * This method receives an index as parameter and gets a value reading from reading list.
-     *
-     * @param index the index of the Reading we want to getDB value from
-     * @return returns value reading that corresponds to index.
-     */
-    double getValueReading(int index) {
-        if (this.readings.isEmpty()) {
-            throw new IndexOutOfBoundsException(EMPTY_LIST);
-        }
-        Reading reading = this.readings.get(index);
-        return reading.getValue();
     }
 
     /**
@@ -94,24 +49,6 @@ public class ReadingService {
         }
         Reading reading = readings.get(index);
         return reading.getValue();
-    }
-
-    public List<Reading> getReadings() {
-        return readings;
-    }
-
-    /**
-     * This method receives an index as parameter and gets a reading date from reading list.
-     *
-     * @param index the index of the Reading we want to getDB date from
-     * @return returns date reading that corresponds to index.
-     */
-    Date getValueDate(int index) {
-        if (this.readings.isEmpty()) {
-            throw new IndexOutOfBoundsException(EMPTY_LIST);
-        }
-        Reading reading = this.readings.get(index);
-        return reading.getDate();
     }
 
     /**
@@ -130,55 +67,13 @@ public class ReadingService {
 
 
     /**
-     * Simple method to indicate if this reading list is empty i.e. has no registered readings.
-     *
-     * @return whether the list is empty or not.
-     */
-    public boolean isEmpty() {
-        return readings.isEmpty();
-    }
-
-    /**
-     * Checks the reading list sizeDB and returns the sizeDB as int.\
-     *
-     * @return AreaReadingList sizeDB as int
-     **/
-    public int size() {
-        return this.readings.size();
-    }
-
-    /**
      * Method that goes through every Reading in the list and
      * returns the reading with the most recent Date.
      *
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReading() {
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
-        if (isEmpty()) {
-            return error;
-        }
-        Reading recentReading = this.readings.get(0);
-        Date mostRecent = recentReading.getDate();
-        for (Reading r : this.readings) {
-            Date testDate = r.getDate();
-            if (testDate.after(mostRecent)) {
-                mostRecent = testDate;
-                recentReading = r;
-            }
-        }
-        return recentReading;
-    }
-
-    /**
-     * Method that goes through every Reading in the list and
-     * returns the reading with the most recent Date.
-     *
-     * @return most recent reading
-     * @author Carina (US600 e US605)
-     **/
-    public Reading getMostRecentReadingDb(List<Reading> readings) {
+    public Reading getMostRecentReading(List<Reading> readings) {
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
         if (readings.isEmpty()) {
             return error;
@@ -202,20 +97,8 @@ public class ReadingService {
      * @return most recent reading date
      **/
 
-    Date getMostRecentReadingDate() {
-        return getMostRecentReading().getDate();
-    }
-
-
-    /**
-     * Method that goes through every Reading in the list and
-     * returns the most recent reading Date.
-     *
-     * @return most recent reading date
-     **/
-
     Date getMostRecentReadingDateDb(List<Reading> readings) {
-        return getMostRecentReadingDb(readings).getDate();
+        return getMostRecentReading(readings).getDate();
     }
 
 
@@ -229,7 +112,7 @@ public class ReadingService {
         if (readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
-        return getMostRecentReadingDb(readings).getValue();
+        return getMostRecentReading(readings).getValue();
     }
 
 
@@ -247,7 +130,7 @@ public class ReadingService {
      */
     public double getValueReadingsInDay(Date givenDate, List<Reading> sensorReadings) {
         List<Double> totalValuesFromDaysWithReadings = new ArrayList<>();
-        List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadingsDb(sensorReadings, givenDate);
+        List<Double> valueReadingsThatMatchDay = getValuesOfSpecificDayReadings(sensorReadings, givenDate);
         if (valueReadingsThatMatchDay.isEmpty()) {
             throw new IllegalStateException("Warning: Total value was not calculated - No readings were available.");
         }
@@ -309,7 +192,7 @@ public class ReadingService {
      * @return list of dates of readings between the given dates
      * @author Daniela - US623 & US633
      */
-    List<Date> getDaysWithReadingsBetweenDatesDb(AreaSensor areaSensor, Date dayMin, Date dayMax) {
+    List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
         List<Reading> sensorReadings = findReadingsBySensorID(areaSensor.getId());
 
         List<Date> daysWithReadings = new ArrayList<>();
@@ -332,40 +215,6 @@ public class ReadingService {
         }
         return daysWithReadings;
     }
-
-
-    /**
-     * Returns return a list with every day with readings between two given dates.
-     * Returns the date of the first reading for each day (no duplicated days - same day, month, year).
-     *
-     * @param dayMin start date given by user, will be the start of the  date interval;
-     * @param dayMax end date given by user, will be the end of the date interval;
-     * @return list of dates of readings between the given dates
-     * @author Daniela - US623 & US633
-     */
-    List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
-
-        List<Date> daysWithReadings = new ArrayList<>();
-        List<Date> daysProcessed = new ArrayList<>();
-
-        Date startDate = getFirstSecondOfDay(dayMin);
-        Date endDate = getLastSecondOfDay(dayMax);
-
-        for (int i = 0; i < this.size(); i++) {
-            Date currentReadingDate = getValueDate(i);
-            if (isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
-
-                Date readingDay = getFirstSecondOfDay(currentReadingDate);
-
-                if (!daysProcessed.contains(readingDay)) {
-                    daysProcessed.add(readingDay);
-                    daysWithReadings.add(currentReadingDate);
-                }
-            }
-        }
-        return daysWithReadings;
-    }
-
 
     /**
      * Method to see if a reading date is between two dates
@@ -393,14 +242,14 @@ public class ReadingService {
      * @author Daniela (US623)
      */
     public double getAverageReadingsBetweenDates(AreaSensor areaSensor, Date minDate, Date maxDate) {
-        List<Reading> sensorReadingsBetweenDates = getReadingListBetweenDatesDb(areaSensor, minDate, maxDate);
+        List<Reading> sensorReadingsBetweenDates = getReadingListBetweenDates(areaSensor, minDate, maxDate);
         if (sensorReadingsBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
         for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
             Date day = sensorReadingsBetweenDates.get(i).getDate();
-            List<Double> specificDayValues = getValuesOfSpecificDayReadingsDb(sensorReadingsBetweenDates, day);
+            List<Double> specificDayValues = getValuesOfSpecificDayReadings(sensorReadingsBetweenDates, day);
             double avgDay = getAvgFromList(specificDayValues);
             avgDailyValues.add(avgDay);
         }
@@ -415,26 +264,7 @@ public class ReadingService {
      * @return returns a list with every value of readings that was recorded on that particular day.
      * @author Daniela - US623
      */
-    List<Double> getValuesOfSpecificDayReadings(Date day) {
-        ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
-        for (int i = 0; i < size(); i++) {
-            if (compareDayMonthAndYearBetweenDates(this.getValueDate(i), day)) {
-                valueReadingsFromGivenDay.add(this.getValueReading(i));
-            }
-        }
-        return valueReadingsFromGivenDay;
-    }
-
-
-    /**
-     * This method will receive a day, go through the reading list for value readings that took place on that day,
-     * and return a list of doubles with those values.
-     *
-     * @param day the day to look for readings
-     * @return returns a list with every value of readings that was recorded on that particular day.
-     * @author Daniela - US623
-     */
-    List<Double> getValuesOfSpecificDayReadingsDb(List<Reading> readings, Date day) {
+    List<Double> getValuesOfSpecificDayReadings(List<Reading> readings, Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
 
@@ -493,7 +323,7 @@ public class ReadingService {
      */
     public Date getDateHighestAmplitudeBetweenDates(AreaSensor areaSensor, Date minDate, Date maxDate) {
 
-        List<Date> daysWithReadings = getDaysWithReadingsBetweenDatesDb(areaSensor, minDate, maxDate);
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(areaSensor, minDate, maxDate);
 
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
@@ -526,26 +356,11 @@ public class ReadingService {
      */
     public double getAmplitudeValueFromDate(AreaSensor areaSensor, Date date) {
         List<Reading> daySensorReadings = readingRepository.findReadingBySensorId(areaSensor.getId());
-        List<Double> specificDayValues = getValuesOfSpecificDayReadingsDb(daySensorReadings, date);
+        List<Double> specificDayValues = getValuesOfSpecificDayReadings(daySensorReadings, date);
 
         double maxTemp = Collections.max(specificDayValues);
         double lowestTemp = Collections.min(specificDayValues);
         return maxTemp - lowestTemp;
-    }
-
-
-    /**
-     * Adds all readings of a given AreaReadingList to target list, rejecting duplicates.
-     *
-     * @param readingService The list to be added to the target list
-     * @return A parallel deviceList with all the devices that could be added
-     **/
-    ReadingService appendListNoDuplicates(ReadingService readingService) {
-        Reading[] readingsArray = readingService.getElementsAsArray();
-        for (Reading r : readingsArray) {
-            this.addReading(r);
-        }
-        return this;
     }
 
     /**
@@ -566,7 +381,7 @@ public class ReadingService {
         if (sensorReadings.isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        List<Date> daysWithReadings = getDaysWithReadingsBetweenDatesDb(areaSensor, minDate, maxDate);
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(areaSensor, minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available in given period.");
         }
@@ -585,7 +400,7 @@ public class ReadingService {
     private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates, List<Reading> sensorReadings) {
         List<Date> daysWithTemperature = new ArrayList<>();
         for (Date date : dates) {
-            if (getValuesOfSpecificDayReadingsDb(sensorReadings, date).contains(temperature)) {
+            if (getValuesOfSpecificDayReadings(sensorReadings, date).contains(temperature)) {
                 daysWithTemperature.add(date);
             }
         }
@@ -602,23 +417,9 @@ public class ReadingService {
     private double getMaxValue(List<Date> list, List<Reading> sensorReadings) {
         ArrayList<Double> values = new ArrayList<>();
         for (Date day : list) {
-            values.addAll(getValuesOfSpecificDayReadingsDb(sensorReadings, day));
+            values.addAll(getValuesOfSpecificDayReadings(sensorReadings, day));
         }
         return Collections.max(values);
-    }
-
-    /**
-     * Getter (array of readings)
-     *
-     * @return array of readings
-     */
-    public Reading[] getElementsAsArray() {
-        int sizeOfResultArray = size();
-        Reading[] result = new Reading[sizeOfResultArray];
-        for (int i = 0; i < size(); i++) {
-            result[i] = readings.get(i);
-        }
-        return result;
     }
 
     /**
@@ -628,7 +429,7 @@ public class ReadingService {
      * @param value is the value we want to choose.
      * @return a AreaReadingList with a chosen value.
      */
-    List<Reading> getReadingListOfReadingsWithSpecificValueDb(List<Reading> readings, Double value) {
+    List<Reading> getReadingListOfReadingsWithSpecificValue(List<Reading> readings, Double value) {
         List<Reading> result = new ArrayList<>();
         for (Reading r : readings) {
             if (Double.compare(r.getValue(), value) == 0) {
@@ -645,7 +446,7 @@ public class ReadingService {
      * @param date is the Day of the reading we want to getDB.
      * @return a Reading from the AreaReadingList with a Specific Date.
      */
-    Reading getAReadingWithSpecificDayDb(List<Reading> readings, Date date) {
+    Reading getAReadingWithSpecificDay(List<Reading> readings, Date date) {
         Reading result = null;
         for (Reading r : readings) {
             if (compareDayMonthAndYearBetweenDates(r.getDate(), date)) {
@@ -667,23 +468,20 @@ public class ReadingService {
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    public Date getLastColdestDayInGivenIntervalDb(AreaSensor areaSensor, Date initialDate, Date finalDate, ReadingService readingService) {
+    public Date getLastColdestDayInGivenInterval(AreaSensor areaSensor, Date initialDate, Date finalDate, ReadingService readingService) {
 
-        List<Reading> readingsBetweenDates = getReadingListBetweenDatesDb(areaSensor, initialDate, finalDate);
-
+        List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, initialDate, finalDate);
 
         if (readingsBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
-        List<Reading> listOfMaxValuesForEachDay = getListOfMaxValuesForEachDayDb(readingsBetweenDates);
-
+        List<Reading> listOfMaxValuesForEachDay = getListOfMaxValuesForEachDay(readingsBetweenDates);
 
         double minValueInList = readingService.getMinValueInReadingListDb(listOfMaxValuesForEachDay);
 
-        List<Reading> readingsWithSpecificValue = getReadingListOfReadingsWithSpecificValueDb(listOfMaxValuesForEachDay, minValueInList);
+        List<Reading> readingsWithSpecificValue = getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
 
-
-        return readingService.getMostRecentReadingDb(readingsWithSpecificValue).getDate();
+        return readingService.getMostRecentReading(readingsWithSpecificValue).getDate();
     }
 
     /**
@@ -694,10 +492,10 @@ public class ReadingService {
      * @param day is the day we want to know the maximum value.
      * @return a double that represents the maximum value of the day.
      */
-    Reading getMaxValueOfTheDayDb(List<Reading> readings, Date day) {
-        double auxValue = getValuesOfSpecificDayReadingsDb(readings, day).get(0);
+    Reading getMaxValueOfTheDay(List<Reading> readings, Date day) {
+        double auxValue = getValuesOfSpecificDayReadings(readings, day).get(0);
 
-        Reading result = getAReadingWithSpecificDayDb(readings, day);
+        Reading result = getAReadingWithSpecificDay(readings, day);
 
         Date auxDay = getFirstSecondOfDay(day);
         for (Reading r : readings) {
@@ -710,7 +508,6 @@ public class ReadingService {
         return result;
     }
 
-
     /**
      * This method filters a AreaReadingList and returns the AreaReadingList but within an interval of given dates.
      *
@@ -718,25 +515,7 @@ public class ReadingService {
      * @param finalDate   is the final date of the interval.
      * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
-    ReadingService getReadingListBetweenDates(Date initialDate, Date finalDate) {
-        ReadingService result = new ReadingService();
-        for (Reading r : this.readings) {
-            if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
-                result.addReading(r);
-            }
-        }
-        return result;
-    }
-
-
-    /**
-     * This method filters a AreaReadingList and returns the AreaReadingList but within an interval of given dates.
-     *
-     * @param initialDate is the initial date of the interval.
-     * @param finalDate   is the final date of the interval.
-     * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
-     */
-    List<Reading> getReadingListBetweenDatesDb(AreaSensor areaSensor, Date initialDate, Date finalDate) {
+    List<Reading> getReadingListBetweenDates(AreaSensor areaSensor, Date initialDate, Date finalDate) {
         List<Reading> finalList = new ArrayList<>();
         List<Reading> result = readingRepository.findReadingBySensorId(areaSensor.getId());
         for (Reading r : result) {
@@ -755,20 +534,19 @@ public class ReadingService {
      * @return a AreaReadingList that represents a List of maximum values of the AreaReadingList for each
      * day within a given period.
      */
-    List<Reading> getListOfMaxValuesForEachDayDb(List<Reading> readings) {
+    List<Reading> getListOfMaxValuesForEachDay(List<Reading> readings) {
         List<Reading> result = new ArrayList<>();
         List<Date> dateList = new ArrayList<>();
         for (Reading r : readings) {
             Date aux = getFirstSecondOfDay(r.getDate());
             if (!dateList.contains(aux)) {
-                Reading maxOfTheDay = getMaxValueOfTheDayDb(readings, r.getDate());
+                Reading maxOfTheDay = getMaxValueOfTheDay(readings, r.getDate());
                 dateList.add(aux);
                 result.add(maxOfTheDay);
             }
         }
         return result;
     }
-
 
     /**
      * This method receives the parameters to create a reading and tries to add that
@@ -844,58 +622,12 @@ public class ReadingService {
      *
      * @return a double value that represents the minimum value in a AreaReadingList.
      */
-    double getMinValueInReadingList() {
-        double result = this.readings.get(0).getValue();
-        for (Reading r : this.readings) {
-            result = Math.min(r.getValue(), result);
-        }
-        return result;
-    }
-
-
-    /**
-     * This method returns a double value that represents the minimum value in a AreaReadingList.
-     *
-     * @return a double value that represents the minimum value in a AreaReadingList.
-     */
     double getMinValueInReadingListDb(List<Reading> readings) {
         double result = readings.get(0).getValue();
         for (Reading r : readings) {
             result = Math.min(r.getValue(), result);
         }
         return result;
-    }
-
-    public boolean addReadingToDB(Reading reading, ReadingRepository readingRepository) {
-        readingRepository.save(reading);
-        return true;
-    }
-
-
-    /**
-     * This method checks if a reading exists in a given reading list.
-     *
-     * @return true if the reading already exists, false otherwise
-     */
-    public boolean contains(Reading reading) {
-        return (readings.contains(reading));
-    }
-
-    @Override
-    public boolean equals(Object testObject) {
-        if (this == testObject) {
-            return true;
-        }
-        if (!(testObject instanceof ReadingService)) {
-            return false;
-        }
-        ReadingService list = (ReadingService) testObject;
-        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
     }
 }
 

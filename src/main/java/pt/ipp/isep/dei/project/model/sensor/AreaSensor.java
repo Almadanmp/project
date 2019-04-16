@@ -30,9 +30,6 @@ public class AreaSensor {
     @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
 
-    @Transient
-    private ReadingService readingService;
-
     private Long geographicAreaId;
 
     private boolean active;
@@ -42,7 +39,6 @@ public class AreaSensor {
      * Empty constructor to import Sensors from a XML file.
      */
     public AreaSensor() {
-        readingService = new ReadingService();
         this.active = true;
     }
 
@@ -62,7 +58,6 @@ public class AreaSensor {
         this.sensorType = sensorType;
         this.local = local;
         this.dateStartedFunctioning = dateStartedFunctioning;
-        readingService = new ReadingService();
         this.active = true;
         this.geographicAreaId = geographicAreaId;
     }
@@ -137,26 +132,6 @@ public class AreaSensor {
         return (this.local);
     }
 
-    /**
-     * Getter: reading list
-     *
-     * @return the areaReadingList of the sensor.
-     */
-    public ReadingService getReadingService() {
-        return readingService;
-    }
-
-    /**
-     * Setter: reading list
-     *
-     * @param readingService is the areaReadingList we want to set to the sensor.
-     */
-    public void setReadingService(ReadingService readingService) {
-        if (readingService != null) {
-            this.readingService = readingService;
-        }
-    }
-
     public boolean isActive() {
         return this.active;
     }
@@ -181,23 +156,6 @@ public class AreaSensor {
             return false;
         }
     }
-
-
-    /**
-     * Checks if reading already exists in reading list and in case the
-     * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
-     *
-     * @param reading the reading to be added to the list
-     * @return true in case the reading is new and it is added
-     * or false in case the reading already exists
-     **/
-    public boolean addReading(Reading reading) {
-        if (this.active) {
-            return readingService.addReading(reading);
-        }
-        return false;
-    }
-
 
     /**
      * Method to restrain input name so they cant be null or empty.
@@ -267,17 +225,6 @@ public class AreaSensor {
     }
 
     /**
-     * This method goes through the sensor reading list and return
-     * the most recent reading date.
-     *
-     * @return most recent reading date in sensor
-     **/
-
-    Date getMostRecentReadingDate() {
-        return this.readingService.getMostRecentReadingDate();
-    }
-
-    /**
      * This method returns the sensor type name.
      *
      * @return he sensor type name.
@@ -285,15 +232,6 @@ public class AreaSensor {
 
     String getSensorTypeName() {
         return this.sensorType.getName();
-    }
-
-    /**
-     * This method checks if the sensor's reading list is valid.
-     *
-     * @return true if valid, false if invalid.
-     **/
-    public boolean isReadingListEmpty() {
-        return this.readingService.isEmpty();
     }
 
     @Override

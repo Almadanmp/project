@@ -1,8 +1,5 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-
 import javax.persistence.*;
 
 /**
@@ -31,9 +28,6 @@ public class GeographicArea {
     @Embedded
     private Local location;
 
-    @Transient
-//    @OneToOne(cascade = CascadeType.ALL)
-    private AreaSensorService areaSensors;
 
     private String description;
 
@@ -45,7 +39,6 @@ public class GeographicArea {
      * Empty Constructor to use when importing Geographic Areas from XML files.
      */
     public GeographicArea() {
-        this.areaSensors = new AreaSensorService();
     }
 
     /**
@@ -64,7 +57,6 @@ public class GeographicArea {
         this.length = length;
         this.width = width;
         this.location = location;
-        this.areaSensors = new AreaSensorService();
     }
 
     /**
@@ -94,15 +86,6 @@ public class GeographicArea {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Standard setter method, to define the Area type.
-     *
-     * @param areaType is the type of the Geographical Area.
-     */
-    void setAreaType(AreaType areaType) {
-        this.areaType = areaType;
     }
 
     /**
@@ -170,15 +153,6 @@ public class GeographicArea {
     }
 
     /**
-     * Setter for Sensor List.
-     *
-     * @param listToSet list to set
-     */
-    public void setSensorList(AreaSensorService listToSet) {
-        this.areaSensors = listToSet;
-    }
-
-    /**
      * Standard setter method, to define the Geographical Area that contains the current Geographic Area.
      *
      * @param geoArea is the Geographical Area that contains this Geographical Area.
@@ -241,15 +215,6 @@ public class GeographicArea {
     }
 
     /**
-     * Getter for Geographic Area sensor list.
-     *
-     * @return returns the attribute sensorList from an object of the class Geographic Area
-     */
-    public AreaSensorService getSensorList() {
-        return this.areaSensors;
-    }
-
-    /**
      * Method to print details that are required for a Geographic Area to be different from another GA (equals -
      * name, type area and local).
      *
@@ -269,25 +234,6 @@ public class GeographicArea {
 
     public double getLength() {
         return this.length;
-    }
-
-    /**
-     * Method adds sensor to geographic area sensor list.
-     *
-     * @param areaSensor to addWithoutPersisting
-     * @return true in case the sensor is added, false otherwise.
-     **/
-    public boolean addSensor(AreaSensor areaSensor) {
-        return this.areaSensors.add(areaSensor);
-    }
-
-    /**
-     * Method checks if geographic area's sensor list is empty.
-     *
-     * @return true if AreaSensorList is empty, false otherwise
-     */
-    public boolean isSensorListEmpty() {
-        return areaSensors.isEmpty();
     }
 
     /**
@@ -324,19 +270,6 @@ public class GeographicArea {
     boolean equalsTypeArea(AreaType areaType) {
         return (this.areaType.equals(areaType));
     }
-
-    /**
-     * This method receives the string type name and returns a list of sensors
-     * from geographic area of that type.
-     *
-     * @param type the type of Sensor to test.
-     * @return AreaSensorList of given type
-     **/
-
-    AreaSensorService getSensorsOfGivenType(String type) {
-        return this.areaSensors.getSensorListByType(type);
-    }
-
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two

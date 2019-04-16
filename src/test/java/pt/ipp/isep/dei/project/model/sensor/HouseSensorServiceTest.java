@@ -13,7 +13,10 @@ import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,8 +62,6 @@ class HouseSensorServiceTest {
         secondValidHouseSensor = new HouseSensor("T32876", "SensorTwo", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
         secondValidHouseSensor.setActive(true);
         thirdValidHouseSensor = new HouseSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
-        validHouseSensorService.add(firstValidHouseSensor);
-
     }
 
     @Test
@@ -153,22 +154,6 @@ class HouseSensorServiceTest {
         boolean actualResult = validHouseSensorService.equals(20D); // Required for Sonarqube testing purposes.
 
         //Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfEqualsWorksOnSensorListWithDifferentContent() {
-        // Arrange
-
-        HouseSensorService expectedResult = new HouseSensorService();
-        expectedResult.add(secondValidHouseSensor);
-
-        // Act
-
-        boolean actualResult = validHouseSensorService.equals(expectedResult);
-
-        // Assert
 
         assertFalse(actualResult);
     }
@@ -310,15 +295,5 @@ class HouseSensorServiceTest {
 //
 //        assertEquals(expectedResult, actualResult);
 //    }
-
-    @Test
-    void seeIfGetSensors() {
-        List<HouseSensor> expectedResult = new ArrayList<>();
-        expectedResult.add(firstValidHouseSensor);
-
-        assertEquals(expectedResult, validHouseSensorService.getSensors());
-
-    }
-
 
 }

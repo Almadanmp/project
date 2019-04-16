@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Class that groups a number of Geographical Areas.
@@ -13,14 +15,11 @@ import java.util.*;
 @Service
 public class GeographicAreaService {
 
-    private List<GeographicArea> geographicAreas;
-
     private GeographicAreaRepository geographicAreaRepository;
 
     private AreaTypeRepository areaTypeRepository;
 
     public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository) {
-        geographicAreas = new ArrayList<>();
         this.geographicAreaRepository = geographicAreaRepository;
         this.areaTypeRepository = areaTypeRepository;
     }
@@ -42,6 +41,7 @@ public class GeographicAreaService {
      * @return returns true in case the geographic area is added and false if not
      **/
     public boolean addAndPersistGA(GeographicArea geographicAreaToAdd) {
+        List<GeographicArea> geographicAreas = getAll();
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             geographicAreaRepository.save(geographicAreaToAdd);
@@ -49,23 +49,6 @@ public class GeographicAreaService {
         }
         return false;
     }
-
-    /**
-     * Method that receives a geographic area as a parameter and adds that
-     * GA to the list in case it is not contained in that list already.
-     *
-     * @param geographicAreaToAdd geographic area to be added
-     * @return returns true in case the geographic area is added and false if not
-     **/
-    public boolean addGeographicArea(GeographicArea geographicAreaToAdd) {
-        if (!(geographicAreas.contains(geographicAreaToAdd))) {
-            geographicAreas.add(geographicAreaToAdd);
-            return true;
-        }
-        return false;
-    }
-
-//TODO need to receive list
 
     /**
      * Method to print a Whole Geographic Area List.
@@ -91,25 +74,6 @@ public class GeographicAreaService {
     }
 
     /**
-     * Method to check if a GA not exists and can be Created (if it has at least a different attribute from the following (name,
-     * typearea or local)
-     *
-     * @param newName  the name of the GA
-     * @param areaType the type of the GA
-     * @param local    the latitude, longitude and altitude of the GA
-     * @return will return true if a Geographic Area matching given parameters already
-     * exists, false if it doesn't.
-     */
-    public boolean containsObjectMatchesParameters(String newName, AreaType areaType, Local local) {
-        for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsParameters(newName, areaType, local)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Method to create a new geographic area before adding it to a GA List.
      *
      * @param newName      input string for geographic area name for the new geographic area
@@ -123,16 +87,6 @@ public class GeographicAreaService {
         AreaType areaType = getAreaTypeByName(areaTypeName);
         areaTypeRepository.save(areaType);
         return new GeographicArea(newName, areaType, length, width, local);
-    }
-
-    /**
-     * Checks if a the Geographic Area given as a parameter is inside the Geographic Area List
-     *
-     * @param geoArea geographic area to test
-     * @return returns true in case the GA is contained in the list and false otherwise
-     */
-    boolean contains(GeographicArea geoArea) {
-        return geographicAreas.contains(geoArea);
     }
 
     /**
@@ -150,22 +104,6 @@ public class GeographicAreaService {
             }
         }
         return finalList;
-    }
-
-    /**
-     * Method to removeGeographicArea a geographic area if it is equal to another area (same id, type area and localization)
-     *
-     * @param geoArea geo area we want to removeGeographicArea
-     * @return true if removed, false if failed
-     */
-    public boolean removeGeographicArea(GeographicArea geoArea) {
-        for (GeographicArea gA : this.geographicAreas) {
-            if (gA.equalsParameters(geoArea.getName(), geoArea.getAreaType(), geoArea.getLocal())) {
-                this.geographicAreas.remove(gA);
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -193,42 +131,6 @@ public class GeographicAreaService {
     }
 
     /**
-     * Gets the list of sensors that exist in a Geographic Area List.
-     *
-     * @return returns a AreaSensorList of the geographical areas of the geographical area list.
-     * @author Andre
-     */
-    public List<AreaSensor> getAreaListSensors(List<GeographicArea> geographicAreas) {
-        List<AreaSensor> fullAreaSensorService = new ArrayList<>();
-        if (geographicAreas.isEmpty()) {
-            return fullAreaSensorService;
-        }
-        for (GeographicArea ga : geographicAreas) {
-            if (ga.getSensorList().isEmpty()) {
-                continue;
-            }
-            for (AreaSensor areaSensor : ga.getSensorList().getElementsAsArray()) {
-                fullAreaSensorService.add(areaSensor);
-            }
-        }
-        return fullAreaSensorService;
-    }
-
-    /**
-     * Getter (array of geographic area)
-     *
-     * @return array of geographic area
-     */
-    public GeographicArea[] getElementsAsArray() {
-        int sizeOfResultArray = geographicAreas.size();
-        GeographicArea[] result = new GeographicArea[sizeOfResultArray];
-        for (int i = 0; i < geographicAreas.size(); i++) {
-            result[i] = geographicAreas.get(i);
-        }
-        return result;
-    }
-
-    /**
      * This method checks if a geographic area list is empty
      *
      * @return true if empty, false otherwise
@@ -249,30 +151,5 @@ public class GeographicAreaService {
             return value.get();
         }
         return new AreaType(name);
-    }
-
-
-    /**
-     * Method to check if an instance of this class is equal to another object.
-     *
-     * @param testObject is the object we want to check for equality.
-     * @return is true if the object is a power source list with the same contents.
-     */
-
-    @Override
-    public boolean equals(Object testObject) {
-        if (this == testObject) {
-            return true;
-        }
-        if (!(testObject instanceof GeographicAreaService)) {
-            return false;
-        }
-        GeographicAreaService list = (GeographicAreaService) testObject;
-        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
     }
 }

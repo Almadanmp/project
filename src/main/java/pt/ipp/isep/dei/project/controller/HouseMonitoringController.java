@@ -86,7 +86,7 @@ public class HouseMonitoringController {
 
         List<Reading> sensorReadings = readingService.findReadingsBySensorID(closestAreaSensor.getId());
 
-        return readingService.getMostRecentReadingDb(sensorReadings).getValue();
+        return readingService.getMostRecentReading(sensorReadings).getValue();
     }
 
     /**
@@ -96,7 +96,7 @@ public class HouseMonitoringController {
     public Date getLastColdestDayInInterval(AreaSensor closestAreaSensor, Date startDate, Date endDate, ReadingService readingService) {
 
 
-        return readingService.getLastColdestDayInGivenIntervalDb(closestAreaSensor, startDate, endDate, readingService);
+        return readingService.getLastColdestDayInGivenInterval(closestAreaSensor, startDate, endDate, readingService);
     }
 
     /**
@@ -120,7 +120,7 @@ public class HouseMonitoringController {
     public AreaSensor getClosesSensorByTypeToHouse(House house, AreaSensorService areaSensorService, ReadingService readingService, String sensorType) {
         List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
 
-        return areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, sensorType, house, readingService);
+        return areaSensorService.getClosestSensorOfGivenType(areaSensors, sensorType, house, readingService);
     }
 
     /**

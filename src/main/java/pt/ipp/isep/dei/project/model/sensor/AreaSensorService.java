@@ -21,52 +21,17 @@ public class AreaSensorService {
     @Autowired
     SensorTypeRepository sensorTypeRepository;
 
-    private List<AreaSensor> areaSensors;
-
-
     /**
      * AreaSensorList() empty constructor that initializes an ArrayList of Sensors.
      */
     public AreaSensorService() {
-        this.areaSensors = new ArrayList<>();
     }
 
     public AreaSensorService(AreaSensorRepository areaSensorRepository, SensorTypeRepository sensorTypeRepository) {
-        this.areaSensors = new ArrayList<>();
         this.areaSensorRepository = areaSensorRepository;
         this.sensorTypeRepository = sensorTypeRepository;
     }
 
-    public List<AreaSensor> getAreaSensors() {
-        return areaSensors;
-    }
-
-    /**
-     * Method that goes through the sensor list and looks for the sensor
-     * that was most recently used (that as the most recent reading).
-     *
-     * @return the most recently used sensor
-     */
-    public AreaSensor getMostRecentlyUsedSensor() {
-        if (this.areaSensors.isEmpty()) {
-            throw new IllegalArgumentException("The sensor list is empty.");
-        }
-        AreaSensorService areaSensorService = getSensorsWithReadings();
-        if (areaSensorService.isEmpty()) {
-            throw new IllegalArgumentException("The sensor list has no readings available.");
-        }
-        AreaSensor mostRecent = areaSensorService.get(0);
-        Date recent = mostRecent.getMostRecentReadingDate();
-        for (AreaSensor s : this.areaSensors) {
-            Date test = s.getMostRecentReadingDate();
-            if (recent.before(test)) {
-                recent = test;
-                mostRecent = s;
-            }
-        }
-        return mostRecent;
-    }
-
     /**
      * Method that goes through the sensor list and returns a list of those which
      * have readings. The method throws an exception in case the sensorList is empty.
@@ -74,27 +39,7 @@ public class AreaSensorService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    AreaSensorService getSensorsWithReadings() {
-        AreaSensorService finalList = new AreaSensorService();
-        if (this.areaSensors.isEmpty()) {
-            throw new IllegalArgumentException("The sensor list is empty");
-        }
-        for (AreaSensor s : this.areaSensors) {
-            if (!s.isReadingListEmpty()) {
-                finalList.add(s);
-            }
-        }
-        return finalList;
-    }
-
-    /**
-     * Method that goes through the sensor list and returns a list of those which
-     * have readings. The method throws an exception in case the sensorList is empty.
-     *
-     * @return AreaSensorList of every sensor that has readings. It will return an empty list in
-     * case the original list was empty from readings.
-     */
-    List<AreaSensor> getSensorsWithReadingsDb(List<AreaSensor> areaSensors, ReadingService readingService) {
+    List<AreaSensor> getSensorsWithReadings(List<AreaSensor> areaSensors, ReadingService readingService) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -107,36 +52,6 @@ public class AreaSensorService {
             }
         }
         return finalList;
-    }
-
-    /**
-     * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
-     * @return builds a list of sensors with the same type as the one introduced as parameter.
-     */
-
-    public AreaSensorService getSensorListByType(String name) {
-        AreaSensorService containedTypeSensors = new AreaSensorService();
-        for (AreaSensor areaSensor : this.areaSensors) {
-            if (name.equals(areaSensor.getSensorTypeName())) {
-                containedTypeSensors.add(areaSensor);
-            }
-        }
-        return containedTypeSensors;
-    }
-
-
-    /**
-     * Method to Add a sensor only if it's not contained in the list already.
-     *
-     * @param areaSensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
-     * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
-     */
-
-    public boolean add(AreaSensor areaSensorToAdd) {
-        if (!(areaSensors.contains(areaSensorToAdd))) {
-            return areaSensors.add(areaSensorToAdd);
-        }
-        return false;
     }
 
     public AreaSensor updateSensor(AreaSensor areaSensor) {
@@ -155,9 +70,10 @@ public class AreaSensorService {
      */
 
     public boolean addWithPersist(AreaSensor areaSensorToAdd) {
-        if (!(areaSensors.contains(areaSensorToAdd))) {
+        AreaSensor areaSensor = areaSensorRepository.findByName(areaSensorToAdd.getName());
+        if (areaSensor == null) {
             areaSensorRepository.save(areaSensorToAdd);
-            return areaSensors.add(areaSensorToAdd);
+            return true;
         }
         return false;
     }
@@ -195,25 +111,7 @@ public class AreaSensorService {
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    public AreaSensorService getSensorsByDistanceToHouse(House house, double minDist) {
-        AreaSensorService finalList = new AreaSensorService();
-        for (AreaSensor s : this.areaSensors) {
-            if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
-                finalList.add(s);
-            }
-        }
-        return finalList;
-    }
-
-    /**
-     * This method receives a house and the distance of the sensor closest to it,
-     * goes through the sensor list and returns the sensors closest to house.
-     *
-     * @param house   the House of the project
-     * @param minDist the distance to the sensor
-     * @return AreaSensorList with sensors closest to house.
-     **/
-    public List<AreaSensor> getSensorsByDistanceToHouseDb(List<AreaSensor> areaSensors, House house, double minDist) {
+    public List<AreaSensor> getSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -221,38 +119,6 @@ public class AreaSensorService {
             }
         }
         return finalList;
-    }
-
-
-    /**
-     * Method checks if sensor list is empty.
-     *
-     * @return true if empty, false otherwise.
-     **/
-    public boolean isEmpty() {
-        return this.areaSensors.isEmpty();
-    }
-
-    /**
-     * Checks the sensor list size and returns the size as int.\
-     *
-     * @return AreaSensorList size as int
-     **/
-    public int size() {
-        return this.areaSensors.size();
-    }
-
-    /**
-     * This method receives an index as parameter and gets a sensor from sensor list.
-     *
-     * @param id the index of the Sensor.
-     * @return returns sensor that corresponds to index.
-     */
-    public AreaSensor get(int id) {
-        if (this.areaSensors.isEmpty()) {
-            throw new IndexOutOfBoundsException("The sensor list is empty.");
-        }
-        return this.areaSensors.get(id);
     }
 
     /**
@@ -268,38 +134,6 @@ public class AreaSensorService {
         }
         throw new NoSuchElementException("ERROR: There is no Sensor with the selected ID.");
     }
-
-    /**
-     * Method to add a reading to a matching sensor contained in the repository. The sensor is found by its ID.
-     * <p>
-     * sensorList   is the sensorList we want to add a reading to.
-     * <p>
-     * to avoid duplicated readings we will check first if the reading list of the sensor already has the reading to import
-     * (has the same date) and will only add it if false.
-     *
-     * @param sensorID     is the ID of the sensor we want to add a reading to.
-     * @param readingValue is the value of the reading we want to add.
-     * @param readingDate  is the date of the reading we want to add.
-     * @return is true if the reading is added (if there is a sensor with an ID that matches the given ID), false
-     * if there is no sensor with that ID.
-     */
-
-    boolean addReadingToMatchingSensor(String sensorID, Double readingValue, Date readingDate, String unit) {
-        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
-        if (value.isPresent()) {
-            AreaSensor areaSensor = value.get();
-            Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
-            ReadingService sensorReadingService = areaSensor.getReadingService();
-            if (sensorReadingService.contains(reading)) {
-                return false;
-            }
-            areaSensor.addReading(reading);
-            areaSensorRepository.save(areaSensor);
-            return true;
-        }
-        return false;
-    }
-
 
     /**
      * This method receives a sensor ID, checks if that sensor exists in the repository.
@@ -366,32 +200,13 @@ public class AreaSensorService {
     }
 
     /**
-     * Getter (array of sensors)
-     *
-     * @return array of sensors
-     */
-    public AreaSensor[] getElementsAsArray() {
-        int sizeOfResultArray = areaSensors.size();
-        AreaSensor[] result = new AreaSensor[sizeOfResultArray];
-        for (int i = 0; i < areaSensors.size(); i++) {
-            result[i] = areaSensors.get(i);
-        }
-        return result;
-    }
-
-
-    List<AreaSensor> findSensorsOfaGivenArea(long id) {
-        return areaSensors = areaSensorRepository.findByGeographicAreaId(id);
-    }
-
-    /**
      * This method returns the sensor closest to the house. If more than one sensor is close to it,
      * the one with the most recent reading should be used.
      *
      * @param sensorType the type of sensor to check
      * @return the closest sensor.
      */
-    public AreaSensor getClosestSensorOfGivenTypeDb(List<AreaSensor> areaSensors, String sensorType, House house, ReadingService readingService) {
+    public AreaSensor getClosestSensorOfGivenType(List<AreaSensor> areaSensors, String sensorType, House house, ReadingService readingService) {
 
         AreaSensor areaSensor;
 
@@ -402,19 +217,19 @@ public class AreaSensorService {
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime(), 2356L);
 
-        List<AreaSensor> sensorsOfGivenType = getSensorsOfGivenTypeDb(areaSensors, sensorType);
+        List<AreaSensor> sensorsOfGivenType = getSensorsOfGivenType(areaSensors, sensorType);
 
         if (!sensorsOfGivenType.isEmpty()) {
-            double minDist = getMinDistanceToSensorOfGivenTypeDb(sensorsOfGivenType, house);
+            double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);
 
-            minDistSensor = getSensorsByDistanceToHouseDb(sensorsOfGivenType, house, minDist);
+            minDistSensor = getSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
         }
         if (minDistSensor.isEmpty()) {
             return areaSensorError;
         }
         if (minDistSensor.size() > 1) {
 
-            areaSensor = getMostRecentlyUsedSensorDb(minDistSensor, readingService);
+            areaSensor = getMostRecentlyUsedSensor(minDistSensor, readingService);
         } else {
             areaSensor = minDistSensor.get(0);
         }
@@ -428,18 +243,18 @@ public class AreaSensorService {
      *
      * @return the most recently used sensor
      */
-    public AreaSensor getMostRecentlyUsedSensorDb(List<AreaSensor> areaSensors, ReadingService readingService) {
+    public AreaSensor getMostRecentlyUsedSensor(List<AreaSensor> areaSensors, ReadingService readingService) {
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        List<AreaSensor> areaSensors2 = getSensorsWithReadingsDb(areaSensors, readingService);
+        List<AreaSensor> areaSensors2 = getSensorsWithReadings(areaSensors, readingService);
         if (areaSensors2.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
 
         AreaSensor mostRecent = areaSensors2.get(0);
 
-        Reading recentReading = getMostRecentReadingDb(mostRecent, readingService);
+        Reading recentReading = getMostRecentReading(mostRecent, readingService);
         Date recent = recentReading.getDate();
 
 
@@ -463,12 +278,12 @@ public class AreaSensorService {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReadingDb(AreaSensor areaSensor, ReadingService readingService) {
+    Reading getMostRecentReading(AreaSensor areaSensor, ReadingService readingService) {
 
         List<Reading> sensorReadings = readingService.findReadingsBySensorID(areaSensor.getId());
 
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
-        if (isEmpty()) {
+        if (sensorReadings.isEmpty()) {
             return error;
         }
         Reading recentReading = sensorReadings.get(0);
@@ -492,20 +307,7 @@ public class AreaSensorService {
      */
 
     double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
-        List<Double> arrayList = getSensorsDistanceToHouse(house);
-        return Collections.min(arrayList);
-    }
-
-
-    /**
-     * Searches within the list of sensors of a given type in a given geographic area for the distance to
-     * the closest sensor the house.
-     *
-     * @return is the value of the distance of the house to sensor of the given type closest to it.
-     */
-
-    double getMinDistanceToSensorOfGivenTypeDb(List<AreaSensor> areaSensors, House house) {
-        List<Double> arrayList = getSensorsDistanceToHouseDb(house, areaSensors);
+        List<Double> arrayList = getSensorsDistanceToHouse(house, areaSensors);
         return Collections.min(arrayList);
     }
 
@@ -517,7 +319,7 @@ public class AreaSensorService {
      * @param house to calculate closest distance
      * @return List of sensors distance to house
      */
-    public List<Double> getSensorsDistanceToHouse(House house) {
+    public List<Double> getSensorsDistanceToHouse(House house, List<AreaSensor> areaSensors) {
         ArrayList<Double> arrayList = new ArrayList<>();
         for (AreaSensor areaSensor : areaSensors) {
             arrayList.add(house.calculateDistanceToSensor(areaSensor));
@@ -525,23 +327,7 @@ public class AreaSensorService {
         return arrayList;
     }
 
-
-    /**
-     * Goes through the sensor list, calculates sensors distance to house and
-     * returns values in ArrayList.
-     *
-     * @param house to calculate closest distance
-     * @return List of sensors distance to house
-     */
-    public List<Double> getSensorsDistanceToHouseDb(House house, List<AreaSensor> areaSensors) {
-        ArrayList<Double> arrayList = new ArrayList<>();
-        for (AreaSensor areaSensor : areaSensors) {
-            arrayList.add(house.calculateDistanceToSensor(areaSensor));
-        }
-        return arrayList;
-    }
-
-    public List<AreaSensor> getSensorsOfGivenTypeDb(List<AreaSensor> areaSensors, String sensorType) {
+    public List<AreaSensor> getSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {
             if (aS.getSensorType().getName().equals(sensorType)) {
@@ -551,30 +337,4 @@ public class AreaSensorService {
         }
         return sensorsOfGivenType;
     }
-
-
-    /**
-     * Method 'equals' for comparison between objects of the same class
-     *
-     * @param testObject is the object we want to test.
-     * @return true if it's equal, false otherwise.
-     */
-
-    @Override
-    public boolean equals(Object testObject) {
-        if (this == testObject) {
-            return true;
-        }
-        if (!(testObject instanceof AreaSensorService)) {
-            return false;
-        }
-        AreaSensorService list = (AreaSensorService) testObject;
-        return Arrays.equals(this.getElementsAsArray(), list.getElementsAsArray());
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
-
 }

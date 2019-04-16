@@ -130,19 +130,9 @@ class ReaderControllerTest {
                 validDate4, 6008L);
         AreaSensorService validAreaSensorService = new AreaSensorService();
         AreaSensorService validAreaSensorService2 = new AreaSensorService();
-        validAreaSensorService.add(validAreaSensor1);
-        validAreaSensorService.add(validAreaSensor2);
-        validAreaSensorService2.add(validAreaSensor3);
-        validAreaSensorService2.add(validAreaSensor4);
-        validGeographicArea.setSensorList(validAreaSensorService);
-        validGeographicArea2.setSensorList(validAreaSensorService2);
         validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         validGeographicAreaService2 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
         validGeographicAreaServiceNoSensors = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        validGeographicAreaServiceNoSensors.addGeographicArea(emptyGeographicArea);
-        validGeographicAreaService.addGeographicArea(validGeographicArea);
-        validGeographicAreaService.addGeographicArea(validGeographicArea2);
-        validGeographicAreaService2.addGeographicArea(validGeographicArea);
     }
 
     private final InputStream systemIn = System.in;
@@ -509,13 +499,14 @@ class ReaderControllerTest {
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
         assertTrue(validReader.readJSONAndDefineHouse(house, filePath));
     }
+
     @Test
     void seeIfReadJSONAndDefineHouseThrowsException() {
         List<String> deviceTypes = new ArrayList<>();
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
         assertThrows(IllegalArgumentException.class,
-                () -> validReader.readJSONAndDefineHouse(house,filePath));
+                () -> validReader.readJSONAndDefineHouse(house, filePath));
 
     }
 

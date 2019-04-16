@@ -8,8 +8,6 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.AreaType;
 import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,9 +50,6 @@ class GeographicAreaMapperTest {
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
         validAreaSensorDTO.setGeographicAreaID(2L);
-
-        AreaSensor areaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2,4,5), date, 2L);
-        validAreaObject.addSensor(areaSensor);
     }
 
     @Test
@@ -84,7 +79,7 @@ class GeographicAreaMapperTest {
     }
 
     @Test
-    void seeIfDTOToObjectWorks(){
+    void seeIfDTOToObjectWorks() {
         // Arrange
 
         GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();
@@ -110,7 +105,7 @@ class GeographicAreaMapperTest {
     }
 
     @Test
-    void seeIfDTOToObjectWorksWhenIDNull(){
+    void seeIfDTOToObjectWorksWhenIDNull() {
         // Arrange
 
         GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();

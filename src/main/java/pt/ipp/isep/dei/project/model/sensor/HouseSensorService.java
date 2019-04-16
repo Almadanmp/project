@@ -24,19 +24,17 @@ public class HouseSensorService {
     private static final String TEMPERATURE = "temperature";
     private static final String noTempReadings = "There aren't any temperature readings available.";
 
-    private List<HouseSensor> houseSensors;
 
     /**
      * AreaSensorList() empty constructor that initializes an ArrayList of House Sensors.
      */
     public HouseSensorService() {
-        this.houseSensors = new ArrayList<>();
     }
 
     public HouseSensorService(HouseSensorRepository sensorRepository, SensorTypeRepository sensorTypeRepository) {
         this.houseSensorRepository = sensorRepository;
         this.sensorTypeRepository = sensorTypeRepository;
-        this.houseSensors = new ArrayList<>();
+
     }
 
     public void save(HouseSensor sensor) {
@@ -121,7 +119,7 @@ public class HouseSensorService {
         for (HouseSensor hS : houseSensor) {
             sensorReadings.addAll(readingService.findReadingsBySensorID(hS.getId()));
         }
-        return readingService.getValuesOfSpecificDayReadingsDb(sensorReadings, day);
+        return readingService.getValuesOfSpecificDayReadings(sensorReadings, day);
     }
 
     /**
@@ -130,13 +128,6 @@ public class HouseSensorService {
      * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
-
-    public boolean add(HouseSensor sensorToAdd) {
-        if (!(houseSensors.contains(sensorToAdd))) {
-            return houseSensors.add(sensorToAdd);
-        }
-        return false;
-    }
 
     public boolean addWithPersistence(HouseSensor sensorToAdd) {
         Optional<HouseSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
@@ -211,20 +202,6 @@ public class HouseSensorService {
 
 
     /**
-     * Method to get a TypeArea from the Repository through a given id
-     *
-     * @param name selected name
-     * @return Type Area corresponding to the given id
-     */
-    public SensorType getTypeSensorByName(String name, String unit) {
-        Optional<SensorType> value = sensorTypeRepository.findByName(name);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        return new SensorType(name, unit);
-    }
-
-    /**
      * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
@@ -238,10 +215,4 @@ public class HouseSensorService {
         }
         return containedTypeSensors;
     }
-
-    public List<HouseSensor> getSensors() {
-        return houseSensors;
-    }
-
-
 }

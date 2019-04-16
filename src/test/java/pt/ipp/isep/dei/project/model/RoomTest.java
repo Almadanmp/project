@@ -44,7 +44,6 @@ class RoomTest {
         validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
         validSensor = new HouseSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
         validSensor.setActive(true);
-        validRoom.addSensor(validSensor);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
         validDevice.setNominalPower(21.0);
@@ -55,7 +54,7 @@ class RoomTest {
         validRoom.addDevice(validDevice);
         validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime(), "C", "TestID");
-        validSensor.addReading(validReading);
+
     }
 
     @Test
@@ -114,33 +113,6 @@ class RoomTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfAddSensorWorks() {
-        // Arrange
-
-        HouseSensor testSensor = new HouseSensor("T56654", "testSensor", new SensorType("Temperature", "Celsius"),
-                new Date(), "RoomDSF");
-
-        // Act
-
-        boolean actualResult = validRoom.addSensor(testSensor);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddSensorWorksFalse() {
-        // Act
-
-        boolean actualResult = validRoom.addSensor(validSensor);
-
-        // Assert
-
-        assertFalse(actualResult);
     }
 
     @Test

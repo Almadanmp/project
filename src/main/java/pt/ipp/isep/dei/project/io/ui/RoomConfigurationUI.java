@@ -52,7 +52,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 2: //US210
-                    runUS210(house);
+                    runUS210(house, roomService);
                     activeInput = false;
                     break;
                 case 3: //US215
@@ -117,8 +117,8 @@ class RoomConfigurationUI {
      * @param house
      */
 
-    private void runUS210(House house) {
-        if (house.isRoomListEmpty()) {
+    private void runUS210(House house, RoomService roomService) {
+        if (roomService.isEmptyDB()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }

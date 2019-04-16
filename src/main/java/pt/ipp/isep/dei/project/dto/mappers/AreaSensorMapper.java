@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
@@ -24,14 +21,16 @@ public final class AreaSensorMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private AreaSensorMapper (){}
+    private AreaSensorMapper() {
+    }
 
     /**
      * This is the method that converts Sensor DTOs into model objects with the same data.
+     *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static AreaSensor dtoToObject(AreaSensorDTO dtoToConvert){
+    public static AreaSensor dtoToObject(AreaSensorDTO dtoToConvert) {
         // Update id
 
         String objectID = dtoToConvert.getId();
@@ -76,14 +75,6 @@ public final class AreaSensorMapper {
             }
         }
 
-        // Update the reading list
-
-        ReadingService objectReadingService = new ReadingService();
-        for (ReadingDTO r: dtoToConvert.getReadingDTOS()){
-            Reading tempReading = ReadingMapper.dtoToObject(r);
-            objectReadingService.addReading(tempReading);
-        }
-
         // Update Geographic Area ID
 
         Long objectGeographicAreaID = dtoToConvert.getGeographicAreaID();
@@ -97,18 +88,18 @@ public final class AreaSensorMapper {
         AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate, objectGeographicAreaID);
         resultObject.setActive(objectStatus);
-        resultObject.setReadingService(objectReadingService);
 
         return resultObject;
     }
 
     /**
      * This is the method that converts Sensors into DTOs with the same data.
+     *
      * @param objectToConvert is the model object we want to convert.
      * @return is the converted model object.
      */
 
-    public static AreaSensorDTO objectToDTO(AreaSensor objectToConvert){
+    public static AreaSensorDTO objectToDTO(AreaSensor objectToConvert) {
         // Update the ID
 
         String dtoID = objectToConvert.getId();
@@ -139,16 +130,6 @@ public final class AreaSensorMapper {
 
         String dtoUnits = objectToConvert.getSensorType().getUnits();
 
-        // Update the reading list
-
-        List<ReadingDTO> dtoReadingList = new ArrayList<>();
-        for (Reading r: objectToConvert.getReadingService().getReadings()){
-            ReadingDTO tempReadingDTO = ReadingMapper.objectToDTO(r);
-            if(!dtoReadingList.contains(tempReadingDTO)){
-                dtoReadingList.add(tempReadingDTO);
-            }
-        }
-
         // Update the GA ID
 
         Long dtoGeographicAreaID = objectToConvert.getGeographicAreaId();
@@ -165,7 +146,6 @@ public final class AreaSensorMapper {
         resultDTO.setName(dtoName);
         resultDTO.setId(dtoID);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
-        resultDTO.setReadingDTOS(dtoReadingList);
         resultDTO.setGeographicAreaID(dtoGeographicAreaID);
 
         return resultDTO;

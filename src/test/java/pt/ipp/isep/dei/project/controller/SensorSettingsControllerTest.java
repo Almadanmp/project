@@ -7,10 +7,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.AreaType;
-import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
@@ -21,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -165,33 +165,6 @@ class SensorSettingsControllerTest {
     }
 
     @Test
-    void seeIfAddSensorToSensorListTrue() {
-        // Arrange
-
-        GeographicArea geoArea = new GeographicArea("Portugal",
-                new AreaType("Country"), 300, 200,
-                new Local(30, 30, 50));
-        AreaSensor firstAreaSensor = new AreaSensor("RF12345", "SensorOne", new SensorType
-                ("Temperature", "Celsius"),
-                new Local(1, 1, 1),
-                validDate1, 6008L);
-        AreaSensor secondAreaSensor = new AreaSensor("RF12777", "SensorTwo", new SensorType("Temperature", "Celsius"),
-                new Local(1, 1, 1),
-                validDate1, 6008L);
-        AreaSensorService areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
-        areaSensorService.add(firstAreaSensor);
-        geoArea.setSensorList(areaSensorService);
-
-        // Act
-
-        boolean actualResult = geoArea.addSensor(secondAreaSensor);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
     void ensureThatWeCreateARoomSensor() {
 
         // Arrange
@@ -241,30 +214,6 @@ class SensorSettingsControllerTest {
         assertTrue(actualResult1);
         assertTrue(actualResult2);
         assertTrue(actualResult4);
-    }
-
-    @Test
-    void addSensorToGeographicArea() {
-        // Arrange
-
-        GeographicArea ga1 = new GeographicArea("Porto", new AreaType("City"), 2, 3, new Local(4, 4, 100));
-        ga1.setId(2000L);
-        AreaSensor areaSensor1 = new AreaSensor("RF12345", "sensor1", new SensorType("temperature", "celsius"), new Local(1, 1, 1), validDate1, ga1.getId());
-        AreaSensor areaSensor2 = new AreaSensor("RF12345", "sensor1", new SensorType("temperature", "celsius"), new Local(1, 1, 1), validDate1, ga1.getId());
-        AreaSensor areaSensor3 = new AreaSensor("RF12345", "sensor3", new SensorType("temperature", "celsius"), new Local(1, 1, 1), validDate1, ga1.getId());
-
-
-        // Act
-
-        boolean actualResult1 = controller.addSensorToGeographicArea(areaSensor1, ga1);
-        boolean actualResult2 = controller.addSensorToGeographicArea(areaSensor2, ga1);
-        boolean actualResult3 = controller.addSensorToGeographicArea(areaSensor3, ga1);
-
-        // Assert
-
-        assertTrue(actualResult1);
-        assertFalse(actualResult2);
-        assertTrue(actualResult3);
     }
 
     @Test

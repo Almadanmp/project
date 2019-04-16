@@ -10,9 +10,9 @@ import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -89,7 +89,6 @@ class GASettingsControllerTest {
                 new Local(31, 15, 3), date, new Long(01));
         validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
                 new Local(21, 65, 3), date, new Long(02));
-        firstValidArea.addSensor(validAreaSensor1);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
@@ -151,7 +150,6 @@ class GASettingsControllerTest {
         List<GeographicArea> expectedResult = new ArrayList<>();
         expectedResult.add(secondValidArea);
         GeographicAreaService service = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        service.addGeographicArea(secondValidArea);
 
         Mockito.when(geographicAreaRepository.findAll()).thenReturn(expectedResult);
 
@@ -284,15 +282,13 @@ class GASettingsControllerTest {
     void seeIfMatchGAByTypeCountry() {
         // Arrange
 
-        GeographicAreaService gaL1 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        gaL1.addGeographicArea(firstValidArea);
-        gaL1.addGeographicArea(secondValidArea);
-        GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        expectedResult.addGeographicArea(firstValidArea);
+
+        List<GeographicArea> expectedResult = new ArrayList<>();
+
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(gaL1, AreaTypeMapper.objectToDTO(typeCountry));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCountry));
 
         // Assert
 
@@ -303,14 +299,11 @@ class GASettingsControllerTest {
     void seeMatchGAByTypeNotInList() {
         // Arrange
 
-        GeographicAreaService gaL1 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        gaL1.addGeographicArea(firstValidArea);
-
         List<GeographicArea> expectedResult = new ArrayList<>();
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(gaL1, AreaTypeMapper.objectToDTO(typeCity));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 

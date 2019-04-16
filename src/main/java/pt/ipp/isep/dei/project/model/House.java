@@ -3,11 +3,9 @@ package pt.ipp.isep.dei.project.model;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -293,19 +291,6 @@ public class House implements Metered {
     }
 
     /**
-     * Searches within the list of sensors of a given type in a given geographic area for the distance to
-     * the closest sensor the house.
-     *
-     * @param type is the type we want to search for.
-     * @return is the value of the distance of the house to sensor of the given type closest to it.
-     */
-
-    double getMinDistanceToSensorOfGivenType(AreaSensorService type) {
-        List<Double> arrayList = type.getSensorsDistanceToHouse(this);
-        return Collections.min(arrayList);
-    }
-
-    /**
      * Method that will instantiate an object from each device Type path in device.properties file
      * and addWithoutPersisting it to the List<DeviceType> attribute in House class.
      *
@@ -323,15 +308,6 @@ public class House implements Metered {
             deviceTypeList.add(aux);
         }
     }
-
-
-    /**
-     * @return builds a string from the House's room list.
-     */
-    public String buildRoomListString() {
-        return this.roomService.buildString();
-    }
-
 
     /**
      * Returns a list of devices of a given type, in all rooms of this house.
@@ -410,29 +386,6 @@ public class House implements Metered {
      **/
     public boolean isEnergyGridListEmpty() {
         return this.energyGridService.isEmpty();
-    }
-
-
-    /**
-     * This method checks the house's room list size.
-     *
-     * @return returns the house's room list size as int.
-     */
-    public int roomListSize() {
-        return this.roomService.sizeDB();
-    }
-
-    /**
-     * This method receives an index as parameter and gets a room from the house's room list.
-     *
-     * @param index the Index of the room
-     * @return returns room that corresponds to index.
-     */
-    public Room getRoomByIndex(int index) { //METHOD CHECKS IF DATABASE IS EMPTY BUT THEN RETURNS A ROOM FROM LOCAL LIST (NOW CALLED SERVICE). FIX!
-        if (this.roomService.isEmptyDB()) {
-            throw new IndexOutOfBoundsException("The room list is empty.");
-        }
-        return this.roomService.get(index);
     }
 
 

@@ -4,20 +4,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.File;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -67,9 +67,9 @@ class ReaderJSONGeographicAreasTest {
         readingService = new ReadingService(readingRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository);
-        houseSensorService = new HouseSensorService(houseSensorRepository,sensorTypeRepository);
+        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         sensorTypeService = new SensorTypeService(sensorTypeRepository);
-        ctrl = new ReaderController(areaSensorService, readingService,houseService, houseSensorService);
+        ctrl = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
 
     }
 
@@ -77,9 +77,9 @@ class ReaderJSONGeographicAreasTest {
     void seeIfReadFileWorks() {
         // Arrange
 
-     //   GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-       // GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-     //   AreaSensorService actualSensorService = new AreaSensorService(areaSensorRepository);
+        //   GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+        // GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+        //   AreaSensorService actualSensorService = new AreaSensorService(areaSensorRepository);
 
         // First Area
 
@@ -100,7 +100,7 @@ class ReaderJSONGeographicAreasTest {
         firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
         firstAreaFirstSensor.setTypeSensor("rainfall");
         firstAreaFirstSensor.setUnits("l/m2");
-        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230,-8.606409,125));
+        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
 
 
         // Second sensor in First Area
@@ -111,7 +111,7 @@ class ReaderJSONGeographicAreasTest {
         firstAreaSecondSensor.setDateStartedFunctioning("2016-11-15");
         firstAreaSecondSensor.setTypeSensor("temperature");
         firstAreaSecondSensor.setUnits("C");
-        firstAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230,-8.606409,125));
+        firstAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
 
         // Second Area
 
@@ -142,7 +142,7 @@ class ReaderJSONGeographicAreasTest {
         secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
         secondAreaSecondSensor.setTypeSensor("temperature");
         secondAreaSecondSensor.setUnits("C");
-        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230,-8.606409,139));
+        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
 
 
         // Populate expectedResult array
@@ -164,12 +164,12 @@ class ReaderJSONGeographicAreasTest {
         double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaService, areaSensorService);
         // Assert
 
-        assertEquals(1, areasAdded);
+        assertEquals(2, areasAdded);
 
         // Get one of the areas to  check its contents.
 
-      //  GeographicArea actualArea = geographicAreaService.getAll().get(0);
-     //   AreaSensorService firstAreaSensors = actualArea.getSensorList();
+        //  GeographicArea actualArea = geographicAreaService.getAll().get(0);
+        //   AreaSensorService firstAreaSensors = actualArea.getSensorList();
 
 
         GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
@@ -177,10 +177,9 @@ class ReaderJSONGeographicAreasTest {
 
         // Assert
 
-      //  assertEquals(expectedArea, actualArea);
-      //  assertEquals(actualArea.getSensorList(), firstAreaSensors);
+        //  assertEquals(expectedArea, actualArea);
+        //  assertEquals(actualArea.getSensorList(), firstAreaSensors);
     }
-
 
 
     @Test

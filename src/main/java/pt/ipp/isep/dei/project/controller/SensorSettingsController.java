@@ -1,11 +1,9 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.springframework.stereotype.Controller;
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
+import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -111,13 +109,14 @@ public class SensorSettingsController {
     }
 
     /**
-     * @param areaSensor  the sensor we want to addWithoutPersisting to the geographic area.
-     * @param geoArea is the area we want to addWithoutPersisting the sensor to.
+     * @param areaSensor the sensor we want to add to the geographic area.
+     * @param geoArea    is the area we want to add the sensor to.
      * @return is true if successfully added, false if not.
      */
 
-    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geoArea) {
-        return (geoArea.addSensor(areaSensor));
+    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geoArea, AreaSensorService areaSensorService) {
+        areaSensor.setGeographicAreaId(geoArea.getId());
+        return (areaSensorService.addWithPersist(areaSensor));
     }
 
 

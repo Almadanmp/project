@@ -140,7 +140,7 @@ class EnergyGridSettingsUI {
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
     private void runUS147(House house, EnergyGridService energyGridService, RoomService roomService) {
-        if (house.isRoomListEmpty()) {
+        if (roomService.isEmptyDB()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }

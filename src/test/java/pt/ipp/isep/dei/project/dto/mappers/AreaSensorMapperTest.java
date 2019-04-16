@@ -7,8 +7,6 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 
 import java.text.ParseException;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AreaSensorMapperTest {
 
@@ -37,7 +35,7 @@ class AreaSensorMapperTest {
             e.printStackTrace();
         }
 
-        areaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2,4,5), date, 2L);
+        areaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), date, 2L);
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
         validAreaSensorDTO.setId("12");
@@ -57,13 +55,8 @@ class AreaSensorMapperTest {
         List<ReadingDTO> readingDTOList = new ArrayList<>();
         readingDTOList.add(readingDTO);
 
-
         validAreaSensorDTO.setReadingDTOS(readingDTOList);
 
-        ReadingService readingService = new ReadingService();
-        Reading reading = new Reading(20D, date, "C", "SensorID");
-        readingService.addReading(reading);
-        areaSensor.setReadingService(readingService);
     }
 
     @Test

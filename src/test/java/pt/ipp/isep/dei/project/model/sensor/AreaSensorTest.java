@@ -164,40 +164,6 @@ class AreaSensorTest {
         assertEquals("Please Insert Valid Name", exception.getMessage());
     }
 
-    @Test
-    void seeIfSeTAndGetReadingList() {
-        // Arrange
-        ReadingService expectedResult1 = new ReadingService();
-        ReadingService expectedResult2 = new ReadingService();
-        ReadingService emptyList = new ReadingService();
-        ReadingService readingService = new ReadingService();
-        Reading reading1 = new Reading(15, new Date(), "C", "TEST");
-
-        AreaSensor areaSensor1 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
-        AreaSensor areaSensor2 = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date(), 6008L);
-
-        readingService.addReading(reading1);
-        expectedResult2.addReading(reading1);
-
-
-        // Act
-
-        validAreaSensor.setReadingService(readingService);
-        areaSensor1.setReadingService(null);
-        areaSensor2.setReadingService(emptyList);
-
-
-        ReadingService actualResult = validAreaSensor.getReadingService();
-        ReadingService actualResultNull = areaSensor1.getReadingService();
-        ReadingService actualResultEmpty = areaSensor2.getReadingService();
-
-        // Assert
-
-        assertEquals(readingService, actualResult);
-        assertEquals(expectedResult1, actualResultNull);
-        assertEquals(expectedResult1, actualResultEmpty);
-    }
-
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
@@ -839,41 +805,7 @@ class AreaSensorTest {
         assertEquals(expectedResult, actualResult, 0.01);
     }
 
-    @Test
-    void seeIfAddReadingsWorks() {
-        // Arrange
-
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "TEST");
-
-        // Act
-
-        boolean actualResult1 = validAreaSensor.addReading(reading1);
-        boolean actualResult3 = validAreaSensor.addReading(reading1);
-
-        // Assert
-
-        assertTrue(actualResult1);
-        assertFalse(actualResult3);
-    }
-
-    @Test
-    void seeIfAddReadingsWorksNotActiveResult() {
-        // Arrange
-
-        Reading reading1 = new Reading(20, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "TEST");
-        validAreaSensor.deactivateSensor();
-        // Act
-
-        boolean actualResult1 = validAreaSensor.addReading(reading1);
-        boolean actualResult3 = validAreaSensor.addReading(reading1);
-
-        // Assert
-
-        assertFalse(actualResult1);
-        assertFalse(actualResult3);
-    }
-
-    @Test
+      @Test
     void seeIfSetGetIdWorks() {
         // Arrange
 

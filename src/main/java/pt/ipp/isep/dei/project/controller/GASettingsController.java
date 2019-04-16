@@ -1,13 +1,13 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
@@ -82,10 +82,6 @@ public class GASettingsController {
     public boolean addNewGeoAreaToList(GeographicAreaService newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
         GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), geoAreaDTO.getTypeArea(),
                 geoAreaDTO.getLength(), geoAreaDTO.getLength(), LocalMapper.dtoToObject(localDTO));
-        if ((newGeoList.containsObjectMatchesParameters(geoAreaDTO.getName(), new AreaType(geoAreaDTO.getTypeArea()),
-                LocalMapper.dtoToObject(localDTO)))) {
-            newGeoList.removeGeographicArea(geoToAdd);
-        }
         return newGeoList.addAndPersistGA(geoToAdd);
     }
 

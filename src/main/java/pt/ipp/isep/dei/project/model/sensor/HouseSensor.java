@@ -22,9 +22,6 @@ public class HouseSensor {
     @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
 
-    @Transient
-    private ReadingService readingService;
-
     private boolean active;
 
     private String roomId;
@@ -48,7 +45,6 @@ public class HouseSensor {
         setName(name);
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
-        this.readingService = new ReadingService();
         this.active = true;
         this.roomId = roomId;
     }
@@ -76,7 +72,7 @@ public class HouseSensor {
         this.id = id;
     }
 
-        /**
+    /**
      * Getter: Id
      *
      * @return a string that represents the name of the sensor.
@@ -133,27 +129,6 @@ public class HouseSensor {
         return (this.sensorType);
     }
 
-    /**
-     * Getter: reading list
-     *
-     * @return the readingList of the sensor.
-     */
-    public ReadingService getReadingService() {
-        return readingService;
-    }
-
-
-    /**
-     * Setter: reading list
-     *
-     * @param readingService is the readingList we want to set to the sensor.
-     */
-    public void setReadingService(ReadingService readingService) {
-        if (readingService != null) {
-            this.readingService = readingService;
-        }
-    }
-
     public boolean isActive() {
         return this.active;
     }
@@ -178,41 +153,6 @@ public class HouseSensor {
         } else {
             return false;
         }
-    }
-
-    /**
-     * Checks if reading already exists in reading list and in case the
-     * reading is new, adds it to the reading list. Only adds readings if the sensor is active.
-     *
-     * @param reading the reading to be added to the list
-     * @return true in case the reading is new and it is added
-     * or false in case the reading already exists
-     **/
-    public boolean addReading(Reading reading) {
-        if (this.active) {
-            return readingService.addReading(reading);
-        }
-        return false;
-    }
-
-    /**
-     * Adds a new Reading to a sensor with the date and value received as parameter, but only if that date is posterior
-     * to the date when the sensor was activated.
-     *
-     * @param value is the value readSensors on the reading.
-     * @param date  is the readSensors date of the reading.
-     * @return returns true if the reading was successfully added.
-     * @author André
-     */
-    public boolean addReading(Date date, Double value, String unit, String sensorId) {
-        if (this.active) {
-            Date startingDate = this.getDateStartedFunctioning();
-            if (date.after(startingDate) || date.equals(startingDate)) {
-                Reading reading = new Reading(value, date, unit, sensorId);
-                return this.addReading(reading);
-            }
-        }
-        return false;
     }
 
     /**

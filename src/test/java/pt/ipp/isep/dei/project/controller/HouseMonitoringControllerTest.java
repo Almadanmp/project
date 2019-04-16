@@ -17,11 +17,9 @@ import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * House Monitoring - controller Tests
@@ -148,13 +146,6 @@ class HouseMonitoringControllerTest {
         Reading thirdTempReading = new Reading(30, validDate3, "C", "TEST");
         Reading fourthTempReading = new Reading(30, validDate4, "C", "TEST");
         Reading fifthTempReading = new Reading(-5, validDate5, "C", "TEST");
-        validTemperatureAreaSensor.addReading(firstTempReading);
-        validTemperatureAreaSensor.addReading(secondTempReading);
-        validTemperatureAreaSensor.addReading(thirdTempReading);
-        validTemperatureAreaSensor.addReading(fourthTempReading);
-        validTemperatureAreaSensor.addReading(fifthTempReading);
-        validAreaSensorService.add(validTemperatureAreaSensor);
-
 
         // Copy past to TEST for using the organized dates and readings
         /*
@@ -200,10 +191,6 @@ class HouseMonitoringControllerTest {
         Reading firstRainReading = new Reading(40, validDate4, "C", "TEST");
         Reading secondRainReading = new Reading(10, validDate5, "C", "TEST");
         Reading thirdRainReading = new Reading(10, validDate6, "C", "TEST");
-        validRainfallAreaSensor.addReading(firstRainReading);
-        validRainfallAreaSensor.addReading(secondRainReading);
-        validRainfallAreaSensor.addReading(thirdRainReading);
-        validAreaSensorService.add(validRainfallAreaSensor);
         validRoom = RoomMapper.objectToDTO(validRoom1);
     }
 
@@ -438,27 +425,7 @@ class HouseMonitoringControllerTest {
 //    }
 
 
-    @Test
-    void seeIfGetHighestTempAmplitudeDateThrowsException() {
-        // Arrange
-
-        AreaSensorService invalidAreaSensorService = new AreaSensorService();
-        validHouseArea.setSensorList(invalidAreaSensorService);
-        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
-
-        // Act
-
-        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                controller.getHighestTempAmplitudeDate(validTemperatureAreaSensor, startDate.getTime(), endDate.getTime(), readingService));
-
-        // Assert
-
-        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
-                exception.getMessage());
-    }
-
-//    @Test
+    //    @Test
 //    void seeIfGetHighestTempAmplitudeValueSuccess() {
 //        // Arrange
 //
@@ -774,22 +741,6 @@ class HouseMonitoringControllerTest {
 //        assertEquals("Warning: No temperature readings available in given period.",
 //                exception.getMessage());
 //    }
-    @Test
-    void seeIfIsMotherAreaValidHappyCase() {
-        // Arrange
-
-        validHouseArea.setSensorList(validAreaSensorService);
-
-        // Act
-
-        boolean actualResult = controller.isMotherAreaValid(validHouse);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-
     @Test
     void seeIfIsMotherAreaValidNoMotherArea() {
         // Arrange

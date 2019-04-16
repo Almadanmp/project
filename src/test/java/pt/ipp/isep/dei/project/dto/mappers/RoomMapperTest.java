@@ -14,8 +14,6 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
@@ -73,19 +71,13 @@ class RoomMapperTest {
         validDTO.setDeviceList(deviceList);
 
         HouseSensor houseSensor = new HouseSensor();
-        ReadingService readingService = new ReadingService();
-        HouseSensorService houseSensorList = new HouseSensorService();
-        houseSensorList.add(houseSensor);
 
         houseSensor.setName("Test");
         houseSensor.setActive(true);
         houseSensor.setDateStartedFunctioning(date);
         houseSensor.setId("Id");
         houseSensor.setRoomId("RoomId");
-        houseSensor.setReadingService(readingService);
         houseSensor.setSensorType(new SensorType("Temperature", "Celsius"));
-
-        validRoom.setSensorList(houseSensorList);
         validRoom.setDeviceList(deviceList);
     }
 

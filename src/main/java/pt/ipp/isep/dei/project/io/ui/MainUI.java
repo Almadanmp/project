@@ -195,7 +195,7 @@ public class MainUI {
                             break;
                         case 4:
                             SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(geographicAreaService, mockSensorTypeList);
+                            sensorSettings.run(geographicAreaService, mockSensorTypeList, areaSensorService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
