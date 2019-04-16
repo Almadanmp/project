@@ -114,12 +114,9 @@ public class HouseMonitoringController {
      * in the house area in a given period.
      **/
 
-    public Date getFirstHottestDayInPeriod(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
-        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
+    public Date getFirstHottestDayInPeriod(AreaSensor closestAreaSensor, Date startDate, Date endDate, ReadingService readingService) {
 
-        AreaSensor closestAreaSensor = areaSensorService.getClosestSensorOfGivenTypeDb(areaSensors, TEMPERATURE, house, readingService);
-
-        return closestAreaSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
+        return readingService.getFirstHottestDayInGivenPeriod(closestAreaSensor, startDate, endDate);
     }
 
 

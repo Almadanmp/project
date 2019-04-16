@@ -390,47 +390,6 @@ class ReadingServiceTest {
 
     }
 
-//    @Test
-//    void seeIfGetsAverageBetweenTwoDates() {
-//        // Arrange
-//
-//        List<Reading> readings = new ArrayList<>();
-//        Reading r0 = new Reading(23, validDate3, "C", "TEST");
-//        Reading r1 = new Reading(23, validDate2, "C", "TEST");
-//        Reading r2 = new Reading(24, validDate5, "C", "TEST");
-//        Reading r3 = new Reading(25, validDate6, "C", "TEST");
-//        Reading r4 = new Reading(26, validDate7, "C", "TEST");
-//        Reading r5 = new Reading(23, validDate8, "C", "TEST");
-//        Reading r6 = new Reading(22, validDate9, "C", "TEST");
-//        Reading r7 = new Reading(23, validDate10, "C", "TEST");
-//        Reading r8 = new Reading(22, validDate11, "C", "TEST");
-//        readings.add(r0);
-//        readings.add(r1);
-//        readings.add(r2);
-//        readings.add(r3);
-//        readings.add(r4);
-//        readings.add(r5);
-//        readings.add(r6);
-//        readings.add(r7);
-//        readings.add(r8);
-//        double expectedResult = 24.25;
-//
-//        // Act
-//
-//        double actualResult = validReadingService.getAverageReadingsBetweenDates(validDate4, validDate16);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-
-//    @Test
-//    void getAverageReadingsBetweenDatesExceptionTest() {
-//        // Assert
-//        Assertions.assertThrows(IllegalArgumentException.class,
-//                () -> validReadingService.getAverageReadingsBetweenDates(validDate4, validDate16));
-//    }
-
     @Test
     void seeIfReadingListIsEmpty() {
 
@@ -870,59 +829,6 @@ class ReadingServiceTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfGetDateHighestAmplitudeBetweenDates() {
-//        validReadingService.addReading(new Reading(22, validDate9, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(30, validDate16, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(5, validDate18, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(50, validDate19, "C", "SensorOne"));
-//        Date expectedResult = validDate18;
-//
-//        Date result = validReadingService.getDateHighestAmplitudeBetweenDates(firstValidAreaSensor, validDate9, validDate19);
-//
-//        assertEquals(expectedResult, result);
-//    }
-
-//    @Test
-//    void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChange() {
-//        validReadingService.addReading(new Reading(22, validDate9, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(22, validDate16, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(22, validDate18, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(22, validDate19, "C", "SensorOne"));
-//        Date expectedResult = validDate18;
-//
-//        Date result = validReadingService.getDateHighestAmplitudeBetweenDates(firstValidAreaSensor, validDate9, validDate19);
-//
-//        assertEquals(expectedResult, result);
-//    }
-//
-//    @Test
-//    void seeIfGetDateHighestAmplitudeBetweenDatesIfReadingsDontChangeInverted() {
-//        validReadingService.addReading(new Reading(22, validDate18, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(22, validDate19, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(22, validDate9, "C", "SensorOne"));
-//        validReadingService.addReading(new Reading(22, validDate16, "C", "SensorOne"));
-//
-//        Date expectedResult = validDate18;
-//
-//        Date result = validReadingService.getDateHighestAmplitudeBetweenDates(firstValidAreaSensor, validDate9, validDate19);
-//
-//        assertEquals(expectedResult, result);
-//    }
-
-//    @Test
-//    void seeIfGetDateHighestAmplitudeBetweenDatesThrowsException() {
-//        //Test if it throws exception when there is no readings available for the period requested
-//        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
-//        GregorianCalendar endDate = new GregorianCalendar(2014, Calendar.JANUARY, 1);
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                validReadingService.getDateHighestAmplitudeBetweenDates(startDate.getTime(), endDate.getTime()));
-//
-//        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
-//                exception.getMessage());
-//    }
-
     @Test
     void seeIfGetValueReadingThrowsException() {
         //Arrange
@@ -952,36 +858,6 @@ class ReadingServiceTest {
 
         assertEquals("The reading list is empty.", exception.getMessage());
     }
-
-//    @Test
-//    void seeIfGetLastColdestDayInIntervalThrowsException() {
-//        //Arrange
-//        List<Reading> emptyList = new ArrayList<>();
-//        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
-//        Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
-//
-//        //Act
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validReadingService.getLastColdestDayInGivenIntervalDb(date1, date2));
-//
-//        //Assert
-//        assertEquals("No readings available.", exception.getMessage());
-//    }
-
-//    @Test
-//    void seeIfGetLastColdestDayInIntervalThrowsExceptionWithReadingOutOfTheInterval() {
-//        //Arrange
-//        List<Reading> emptyList = new ArrayList<>();
-//        Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
-//        Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
-//        Reading reading = new Reading(20, new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), "C", "TEST");
-//        emptyList.add(reading);
-//
-//        //Act
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validReadingService.getLastColdestDayInGivenIntervalDb(date1, date2));
-//
-//        //Assert
-//        assertEquals("No readings available in the chosen interval.", exception.getMessage());
-//    }
 
     @Test
     void seeIfContainsWorks() {
@@ -1027,35 +903,15 @@ class ReadingServiceTest {
     }
 
     @Test
-    void seeIfGetHottestDayInGivenPeriodWorks() {
-        // Arrange
-
-        Date expectedResult = new GregorianCalendar(2018, Calendar.SEPTEMBER, 3).getTime();
-        Reading firstReading = new Reading(15, validDate3, "C", "TEST");
-        Reading secondReading = new Reading(29, validDate2, "C", "TEST");
-        validReadingService.addReading(firstReading);
-        validReadingService.addReading(secondReading);
-
-        // Act
-
-        Date actualResult = validReadingService.getFirstHottestDayInGivenPeriod(validDate12, validDate1);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-
-    }
-
-    @Test
     void seeIfGetHottestDayInGivenPeriodWorksNoReadings() {
         // Arrange
 
-        Reading outOfBoundsReading = new Reading(1, validDate1, "C", "TEST");
+        Reading outOfBoundsReading = new Reading(1, validDate1, "C", "SensorOne");
         validReadingService.addReading(outOfBoundsReading);
 
         // Assert
 
-        assertThrows(IllegalArgumentException.class, () -> validReadingService.getFirstHottestDayInGivenPeriod(validDate12, validDate2));
+        assertThrows(IllegalArgumentException.class, () -> validReadingService.getFirstHottestDayInGivenPeriod(firstValidAreaSensor, validDate12, validDate2));
     }
 
     @Test

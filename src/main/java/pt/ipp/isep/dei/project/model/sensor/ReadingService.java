@@ -561,16 +561,17 @@ public class ReadingService {
      * @author Nuno (US631)
      */
 
-    Date getFirstHottestDayInGivenPeriod(Date minDate, Date maxDate) {
-        if (isEmpty()) {
+    public Date getFirstHottestDayInGivenPeriod(AreaSensor areaSensor, Date minDate, Date maxDate) {
+        List<Reading> sensorReadings = readingRepository.findReadingBySensorId(areaSensor.getId());
+        if (sensorReadings.isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
-        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDatesDb(areaSensor, minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: No temperature readings available in given period.");
         }
-        double maxTemperature = getMaxValue(daysWithReadings);
-        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings);
+        double maxTemperature = getMaxValue(daysWithReadings, sensorReadings);
+        return getFirstDayForGivenTemperature(maxTemperature, daysWithReadings, sensorReadings);
     }
 
     /**
@@ -581,10 +582,10 @@ public class ReadingService {
      * @return first date where given temperature was registered
      */
 
-    private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates) {
+    private Date getFirstDayForGivenTemperature(double temperature, List<Date> dates, List<Reading> sensorReadings) {
         List<Date> daysWithTemperature = new ArrayList<>();
         for (Date date : dates) {
-            if (getValuesOfSpecificDayReadings(date).contains(temperature)) {
+            if (getValuesOfSpecificDayReadingsDb(sensorReadings, date).contains(temperature)) {
                 daysWithTemperature.add(date);
             }
         }
@@ -598,10 +599,10 @@ public class ReadingService {
      * @return highest value from list of readings
      */
 
-    private double getMaxValue(List<Date> list) {
+    private double getMaxValue(List<Date> list, List<Reading> sensorReadings) {
         ArrayList<Double> values = new ArrayList<>();
         for (Date day : list) {
-            values.addAll(getValuesOfSpecificDayReadings(day));
+            values.addAll(getValuesOfSpecificDayReadingsDb(sensorReadings, day));
         }
         return Collections.max(values);
     }

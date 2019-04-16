@@ -717,38 +717,6 @@ class HouseMonitoringControllerTest {
 //        assertEquals(expectedResult, actualResult);
 //    }
 
-    /**
-     * Given a valid house without sensors on list:
-     * -Should return message to User
-     */
-
-    @Test
-    void testGetFirstHottestDayHouseWithoutSensors() {
-        // Arrange
-
-        House house = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-        house.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
-                2, 3, new Local(4, 4, 100)));
-        HouseSensorService sList = new HouseSensorService();
-        RoomService roomL = new RoomService();
-        house.setRoomService(roomL);
-        Room roomD = new Room("Bedroom", "Single Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
-        roomL.add(roomD);
-        roomD.setSensorList(sList);
-
-        // Act
-
-        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                controller.getFirstHottestDayInPeriod(house, validDate01, validDate02, validAreaSensorService, readingService));
-
-        // Assert
-
-        assertEquals("No readings available.",
-                exception.getMessage());
-    }
 
     /**
      * Given a valid house with sensor without readings:

@@ -293,8 +293,10 @@ public class HouseMonitoringUI {
 
     private void updateAndDisplayUS631(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
         Date dateUS631;
+        AreaSensor closestSensorToHouse;
         try {
-            dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(house, startDate, endDate, areaSensorService, readingService);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
+            dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(closestSensorToHouse, startDate, endDate, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
