@@ -15,7 +15,7 @@ class EnergyGridSettingsUI {
         this.controller = new EnergyGridSettingsController();
     }
 
-    void run(House house, EnergyGridService energyGridService) {
+    void run(House house, EnergyGridService energyGridService, RoomService roomService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -38,7 +38,7 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 4: //US147
-                    runUS147(house, energyGridService);
+                    runUS147(house, energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 5: //US149
@@ -139,7 +139,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
-    private void runUS147(House house, EnergyGridService energyGridService) {
+    private void runUS147(House house, EnergyGridService energyGridService, RoomService roomService) {
         if (house.isRoomListEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -148,13 +148,13 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridService);
-        updateGridUS147(energyGrid, room, house);
+        updateGridUS147(energyGrid, room, roomService);
     }
 
-    private void updateGridUS147(EnergyGrid grid, RoomDTO room, House house) {
-        if (controller.addRoomToGrid(grid, room, house)) {
+    private void updateGridUS147(EnergyGrid grid, RoomDTO room, RoomService roomService) {
+        if (controller.addRoomToGrid(grid, room, roomService)) {
             System.out.println("Room successfully added to the grid!");
         } else {
             System.out.println("It wasn't possible to addWithoutPersisting the room. Please try again.");

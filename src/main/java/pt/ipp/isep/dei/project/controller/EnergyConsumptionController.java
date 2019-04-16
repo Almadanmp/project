@@ -83,7 +83,7 @@ public class EnergyConsumptionController {
     /**
      * Calls for the roomList's method in the model to removeGeographicArea a given room from itself.
      *
-     * @param room     is the room we want to removeGeographicArea.
+     * @param room        is the room we want to removeGeographicArea.
      * @param roomService is the list we want to removeGeographicArea it from.
      * @return true if the room was removed, false if it wasn't on the list.
      */
@@ -147,7 +147,7 @@ public class EnergyConsumptionController {
     /**
      * Accesses model and returns a Room's Energy Consumption in a given interval.
      *
-     * @param room     the room we want to access.
+     * @param room        the room we want to access.
      * @param initialDate the start of the interval.
      * @param finalDate   the end of the interval.
      * @return the energy consumption of all metered devices' logs that fall fully within the given interval.
@@ -187,12 +187,11 @@ public class EnergyConsumptionController {
      * @param roomDTO   is the room we want to get logs from.
      * @param startDate the start of the interval.
      * @param endDate   the end of the interval.
-     * @param house     the project's house.
      * @return a List of Logs with the wanted logs.
      */
 
-    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getLogsInInterval(startDate, endDate);
     }
 

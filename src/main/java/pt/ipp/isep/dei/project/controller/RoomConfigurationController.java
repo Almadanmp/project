@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -135,11 +136,10 @@ public class RoomConfigurationController {
      * This method returns a int that represents the size of the deviceList.
      *
      * @param roomDTO is the room we want to get the device list size.
-     * @param house   is the house we want to get the device list size.
      * @return a int that represents the size of the deviceList.
      */
-    public int getDeviceListSize(RoomDTO roomDTO, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+    public int getDeviceListSize(RoomDTO roomDTO , RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getDeviceListSize();
     }
 
@@ -147,11 +147,10 @@ public class RoomConfigurationController {
      * Method that returns a device by it's index.
      *
      * @param roomDTO is the room we want to get the device from.
-     * @param house   is the house we want to get the device from.
      * @param index   is the index of the device in the device list
      */
-    public Device getDeviceByIndex(RoomDTO roomDTO, House house, int index) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+    public Device getDeviceByIndex(RoomDTO roomDTO , int index, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getDeviceByIndex(index);
     }
 

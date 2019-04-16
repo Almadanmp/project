@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
+import pt.ipp.isep.dei.project.model.RoomService;
 
 /**
  * Utility class that aggregates common methods used by the UI classes.
@@ -16,21 +16,16 @@ public class UtilsUI {
     public static final String INVALID_ROOM_LIST = "Invalid Room List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_GRID_LIST = "Invalid Grid List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_DEVICE_LIST = "Invalid Device List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    public  static final String INVALID_GA_LIST = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
-    public  static final String INVALID_GA_TYPE_LIST = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_GA_LIST = "Invalid Geographic Area List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
+    public static final String INVALID_GA_TYPE_LIST = "Invalid Geographic Area Type List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_SENSOR_LIST = "Invalid Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_TYPE_SENSOR_LIST = "Invalid Type Sensor List - List is empty.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_MOTHER_AREA = "The selected House does not have a Geographical Area defined.\n" + RETURNING_TO_MAIN_MENU;
     public static final String INVALID_PROGRAM_LIST = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
 
-    public  boolean roomDTOSensorListIsValid(RoomDTO roomDTO, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
-        return room.getSensorList() != null && !room.isSensorListEmpty();
-    }
-
-    public   boolean roomDTODeviceListIsValid(RoomDTO roomDTO, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+    public boolean roomDTODeviceListIsValid(RoomDTO roomDTO, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 
@@ -44,7 +39,7 @@ public class UtilsUI {
      * @param strings for being printed
      * @author Nuno
      */
-    public  static void printBox(String... strings) {
+    public static void printBox(String... strings) {
         int maxBoxWidth = getStringMaxLength(strings);
         String line = " " + fill('-', maxBoxWidth + 2) + " ";
         System.out.println(line);
@@ -72,7 +67,7 @@ public class UtilsUI {
     /**
      * Auxiliary method for printBox for padding spaces for printBox method
      *
-     * @param str string
+     * @param str    string
      * @param length for padding
      * @return padded string
      * @author Nuno
@@ -85,7 +80,7 @@ public class UtilsUI {
     /**
      * Auxiliary printBox method for filling string
      *
-     * @param ch for filling/drawing box
+     * @param ch     for filling/drawing box
      * @param length for filling
      * @return filled string with char
      * @author Nuno
@@ -100,7 +95,6 @@ public class UtilsUI {
     // End of methods for printBox
 
     /**
-     *
      * @param string is the message we want to print.
      * @return string is the message we want to print.
      * @author André Rua

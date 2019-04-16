@@ -225,11 +225,11 @@ public class ReadingService {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-    public double getMostRecentValue() {
-        if (this.readings.isEmpty()) {
+    public double getMostRecentValue(List<Reading> readings) {
+        if (readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
-        return getMostRecentReading().getValue();
+        return getMostRecentReadingDb(readings).getValue();
     }
 
 

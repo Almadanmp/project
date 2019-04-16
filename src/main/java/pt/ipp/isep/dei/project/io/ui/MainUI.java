@@ -201,13 +201,13 @@ public class MainUI {
                             break;
                         case 5:
                             EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                            energyGridSettings.run(house, energyGridService);
+                            energyGridSettings.run(house, energyGridService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 6:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(house, areaSensorService, readingService);
+                            houseM.run(house, areaSensorService, houseSensorService, readingService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

@@ -1,15 +1,10 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
-import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,26 +58,15 @@ public final class RoomMapper {
 
         String objectHouseID = dtoToConvert.getHouseId();
 
-        // Update the AreaSensorList
-
-        HouseSensorService objectSensorList = new HouseSensorService();
-        for (HouseSensorDTO y : dtoToConvert.getSensorList()) {
-            HouseSensor tempAreaSensor = HouseSensorMapper.dtoToObject(y);
-            objectSensorList.add(tempAreaSensor);
-        }
-
         // Update the device list
 
         DeviceList objectDeviceList = dtoToConvert.getDeviceList(); // TODO Implement a solution for polymorphic device DTOs (visitor pattern?)
-
 
 
         // Create, update and return the converted object.
 
         Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
         resultObject.setDeviceList(objectDeviceList);
-        resultObject.setSensorList(objectSensorList);
-
 
         return resultObject;
     }
@@ -166,14 +150,6 @@ public final class RoomMapper {
 
         // Update the AreaSensorList
 
-        List<HouseSensorDTO> dtoSensorList = new ArrayList<>();
-        for (HouseSensor y : objectToConvert.getSensorList().getSensors()) {
-            HouseSensorDTO tempAreaSensorDTO = HouseSensorMapper.objectToDTO(y);
-            if (!(dtoSensorList.contains(tempAreaSensorDTO))) {
-                dtoSensorList.add(tempAreaSensorDTO);
-            }
-        }
-
         // Update the device list
 
         DeviceList dtoDeviceList = objectToConvert.getDeviceList(); // TODO Implement a solution for polymorphic device DTOs (visitor pattern?)
@@ -186,7 +162,6 @@ public final class RoomMapper {
         resultDTO.setHeight(dtoHeight);
         resultDTO.setLength(dtoLength);
         resultDTO.setWidth(dtoWidth);
-        resultDTO.setSensorList(dtoSensorList);
         resultDTO.setDeviceList(dtoDeviceList);
         resultDTO.setEnergyGridName(dtoEnergyGridID);
         resultDTO.setHouseId(dtoHouseID);
@@ -199,13 +174,12 @@ public final class RoomMapper {
      * DTO to the object through UUID.
      *
      * @param roomDTO is the DTO that contains the data we want to use to update the model object.
-     * @param house   is the house that contains the room we want to update.
      * @return is the updated room if the update was successful, is null if it wasn't.
      */
-    public static Room updateHouseRoom(RoomDTO roomDTO, House house) {
+    public static Room updateHouseRoom(RoomDTO roomDTO, RoomService roomService) {
         Room room = null;
-        RoomService roomlist = house.getRoomService();
-        for (Room r : roomlist.getRooms()) {
+        List<Room> rooms = roomService.getAllRooms();
+        for (Room r : rooms) {
             if (roomDTO.getName().compareTo(r.getName()) == 0) {
                 r = RoomMapper.dtoToObject(roomDTO);
                 room = r;

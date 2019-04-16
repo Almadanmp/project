@@ -68,20 +68,20 @@ public class InputHelperUI {
      * Method that returns a particular Room from a list of the program's house available rooms, according to the user's
      * choice by index.
      *
-     * @param house is the program's house.
      * @return is the chosen room.
      */
-    public static RoomDTO getHouseRoomDTOByList(House house) {
+    public static RoomDTO getHouseRoomDTOByList(RoomService roomService) {
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Please select one of the existing rooms in the house: ");
-            System.out.println(house.buildRoomListString());
-            int aux = getInputAsInt();
-            if (aux >= 0 && aux < house.roomListSize()) {
-                Room result = house.getRoomByIndex(aux);
+            System.out.println(roomService.buildStringDB());
+            String aux = scanner.nextLine();
+            try {
+                Optional<Room> result = roomService.findByID(aux);
                 System.out.println(SELECT_ROOMS);
-                System.out.println(result.buildString() + "\n");
-                return RoomMapper.objectToDTO(result);
-            } else {
+                System.out.println(result.get().buildString() + "\n");
+                return RoomMapper.objectToDTO(result.get());
+            } catch (NoSuchElementException e){
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
@@ -191,14 +191,14 @@ public class InputHelperUI {
      * @param house is the program's house.
      * @return is the selected Device.
      */
-    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house) {
+    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house, RoomService roomService) {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
-            System.out.println(controller.buildDeviceListString(RoomMapper.updateHouseRoom(room, house)));
+            System.out.println(controller.buildDeviceListString(RoomMapper.updateHouseRoom(room, roomService)));
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < controller.getDeviceListSize(room, house)) {
-                Device result = controller.getDeviceByIndex(room, house, aux);
+            if (aux >= 0 && aux < controller.getDeviceListSize(room, roomService)) {
+                Device result = controller.getDeviceByIndex(room, aux, roomService);
                 System.out.println("You have chosen the following device:");
                 System.out.println(result.buildString() + "\n");
                 return result;

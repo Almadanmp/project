@@ -6,8 +6,10 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.Date;
@@ -25,7 +27,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    void run(House house, AreaSensorService areaSensorService, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -36,11 +38,11 @@ public class HouseMonitoringUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS610(house);
+                    runUS610(house, houseSensorService, roomService, readingService);
                     activeInput = true;
                     break;
                 case 2:
-                    runUS605(house);
+                    runUS605(house, roomService, houseSensorService, readingService);
                     activeInput = true;
                     break;
                 case 3:
@@ -106,25 +108,21 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
-    private void runUS605(House house) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (house.isRoomListEmpty()) {
+    private void runUS605(House house, RoomService roomService, HouseSensorService houseSensorService, ReadingService readingService) {
+        if (houseSensorService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
-        if (!utilsUI.roomDTOSensorListIsValid(room, house)) {
-            System.out.println(UtilsUI.INVALID_SENSOR_LIST);
-            return;
-        }
-        updateModelDisplayState605(room, house);
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+
+        updateModelDisplayState605(room, house, houseSensorService, readingService, roomService);
 
     }
 
-    private void updateModelDisplayState605(RoomDTO room, House house) {
+    private void updateModelDisplayState605(RoomDTO room, House house, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
         try {
-            double currentTemp = houseMonitoringController.getCurrentRoomTemperature(room, house);
-            out.println("The current temperature in the room " + houseMonitoringController.getRoomName(room, house) +
+            double currentTemp = houseMonitoringController.getCurrentRoomTemperature(room, houseSensorService, readingService, roomService);
+            out.println("The current temperature in the room " + houseMonitoringController.getRoomName(room, roomService) +
                     " is " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -136,27 +134,23 @@ public class HouseMonitoringUI {
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
      */
-    private void runUS610(House house) {
-        UtilsUI utilsUI = new UtilsUI();
-        if (house.isRoomListEmpty()) {
+    private void runUS610(House house, HouseSensorService houseSensorService, RoomService roomService, ReadingService readingService) {
+        if (houseSensorService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
-        if (!(utilsUI.roomDTOSensorListIsValid(room, house))) {
-            System.out.println(UtilsUI.INVALID_SENSOR_LIST);
-            return;
-        }
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+
         Date date = DateUtils.getInputYearMonthDay();
-        updateModel610(room, date, house);
+        updateModel610(room, date, houseSensorService, readingService, roomService);
     }
 
-    private void updateModel610(RoomDTO room, Date date, House house) {
+    private void updateModel610(RoomDTO room, Date date, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         try {
-            double temperature = ctrl.getDayMaxTemperature(room, date, house);
+            double temperature = ctrl.getDayMaxTemperature(room, date, houseSensorService, readingService, roomService);
             String dateFormatted = DateUtils.formatDateNoTime(date);
-            String message = "The maximum temperature in the room " + ctrl.getRoomName(room, house) +
+            String message = "The maximum temperature in the room " + ctrl.getRoomName(room, roomService) +
                     " on the day " + dateFormatted + was + temperature + "°C.";
             System.out.println(message);
         } catch (IllegalArgumentException illegal) {

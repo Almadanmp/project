@@ -90,12 +90,11 @@ public class EnergyGridSettingsController {
      *
      * @param grid    is the grid we're going to addWithoutPersisting a room to.
      * @param roomDTO is the room we're going to addWithoutPersisting to a grid.
-     * @param house   the project's house.
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomToGrid(EnergyGrid grid, RoomDTO roomDTO, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+    public boolean addRoomToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return grid.addRoom(room);
     }
 

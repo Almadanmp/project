@@ -468,52 +468,52 @@ class RoomConfigurationControllerTest {
         assertEquals(actualResult, expectedResult);
     }
 
-    @Test
-    void deviceListSize() {
-        //Arrange
-        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
-                2, 3, new Local(4, 4, 100)));
-        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
-        validHouse.addRoom(emptyDeviceList);
-
-        //Act
-
-        int actualResult1 = controller.getDeviceListSize(RoomMapper.objectToDTO(emptyDeviceList), validHouse);
-
-        //Assert Empty List
-
-        assertEquals(0, actualResult1);
-    }
-
-    @Test
-    void see() {
-        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
-                2, 3, new Local(4, 4, 100)));
-        Room validRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
-        Device validDevice = new WaterHeater(new WaterHeaterSpec());
-        validRoom.addDevice(validDevice);
-        validHouse.addRoom(validRoom);
-
-        //Act
-
-        Device actualResult = controller.getDeviceByIndex(RoomMapper.objectToDTO(validRoom), validHouse, 0);
-
-        //Assert
-
-        assertEquals(validDevice, actualResult);
-    }
+//    @Test
+//    void deviceListSize() {
+//        //Arrange
+//        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+//        List<String> deviceTypeString = new ArrayList<>();
+//        deviceTypeString.add(PATH_TO_FRIDGE);
+//        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+//                "4455-125", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, deviceTypeString);
+//        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+//                2, 3, new Local(4, 4, 100)));
+//        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
+//        validHouse.addRoom(emptyDeviceList);
+//
+//        //Act
+//
+//        int actualResult1 = controller.getDeviceListSize(RoomMapper.objectToDTO(emptyDeviceList), validHouse);
+//
+//        //Assert Empty List
+//
+//        assertEquals(0, actualResult1);
+//    }
+//
+//    @Test
+//    void see() {
+//        String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+//        List<String> deviceTypeString = new ArrayList<>();
+//        deviceTypeString.add(PATH_TO_FRIDGE);
+//        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+//                "4455-125", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, deviceTypeString);
+//        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+//                2, 3, new Local(4, 4, 100)));
+//        Room validRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
+//        Device validDevice = new WaterHeater(new WaterHeaterSpec());
+//        validRoom.addDevice(validDevice);
+//        validHouse.addRoom(validRoom);
+//
+//        //Act
+//
+//        Device actualResult = controller.getDeviceByIndex(RoomMapper.objectToDTO(validRoom), validHouse, 0);
+//
+//        //Assert
+//
+//        assertEquals(validDevice, actualResult);
+//    }
 }

@@ -46,7 +46,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS720(house);
+                    runUS720(house, roomService);
                     activeInput = false;
                     break;
                 case 4:
@@ -58,7 +58,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 6:
-                    runUS730(house, energyGridService);
+                    runUS730(house, energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 7:
@@ -258,15 +258,15 @@ class EnergyConsumptionUI {
      * @param house - Is the parameter which is used to get all the parameters needed for this User Story (720)
      */
 
-    private void runUS720(House house) {
+    private void runUS720(House house, RoomService roomService) {
 
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(house);
-        if (!utilsUI.roomDTODeviceListIsValid(room, house)) {
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        if (!utilsUI.roomDTODeviceListIsValid(room, roomService)) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        Device device = InputHelperUI.getInputRoomDTODevicesByList(room, house);
+        Device device = InputHelperUI.getInputRoomDTODevicesByList(room, house, roomService);
         if (device.isLogListEmpty()) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -326,7 +326,7 @@ class EnergyConsumptionUI {
      *  consumption chart of the metered energy consumption of a device/room/grid in a given time interval.
      */
 
-    private void runUS730(House house, EnergyGridService energyGridService) {
+    private void runUS730(House house, EnergyGridService energyGridService, RoomService roomService) {
         this.printUS730Menu();
         int option = InputHelperUI.getInputAsInt();
         switch (option) {
@@ -334,10 +334,10 @@ class EnergyConsumptionUI {
                 setGridData(energyGridService);
                 break;
             case 2:
-                setRoomData(house);
+                setRoomData(roomService);
                 break;
             case 3:
-                setDeviceData(house);
+                setDeviceData(house, roomService);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
@@ -357,17 +357,17 @@ class EnergyConsumptionUI {
 
     }
 
-    private void setRoomData(House programHouse) {
-        RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(programHouse);
+    private void setRoomData(RoomService roomService) {
+        RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(roomService);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
-        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, programHouse);
+        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, roomService);
         System.out.println(controller.buildLogListString(roomLogs));
     }
 
-    private void setDeviceData(House programHouse) {
-        RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(programHouse);
-        Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, programHouse);
+    private void setDeviceData(House programHouse, RoomService roomService) {
+        RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, programHouse, roomService);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);

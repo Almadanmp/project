@@ -347,25 +347,19 @@ class ReadingServiceTest {
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
         Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
         Reading laterReading = new Reading(30, testDate, "C", "TEST");
-        validReadingService.addReading(earlierReading);
-        validReadingService.addReading(laterReading);
+        List<Reading>readings = new ArrayList<>();
+        readings.add(earlierReading);
+        readings.add(laterReading);
         double expectedResult = 30.0;
 
         // Act
 
-        double result = validReadingService.getMostRecentValue();
+        double result = validReadingService.getMostRecentValue(readings);
 
         // Assert
 
         assertEquals(expectedResult, result, 0.01);
 
-    }
-
-    @Test
-    void seeIfGetMostRecentValueWorksEmptyList() {
-        // Assert
-
-        assertThrows(IllegalArgumentException.class, validReadingService::getMostRecentValue);
     }
 
     @Test
@@ -376,13 +370,14 @@ class ReadingServiceTest {
                 0).getTime();
         Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
         Reading laterReading = new Reading(30, testDate, "C", "TEST");
-        validReadingService.addReading(earlierReading);
-        validReadingService.addReading(laterReading);
+        List<Reading>readings = new ArrayList<>();
+        readings.add(earlierReading);
+        readings.add(laterReading);
         double expectedResult = 15.0;
 
         // Act
 
-        double result = validReadingService.getMostRecentValue();
+        double result = validReadingService.getMostRecentValue(readings);
 
         // Assert
 

@@ -8,10 +8,7 @@ import pt.ipp.isep.dei.project.model.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -1118,13 +1115,14 @@ class AreaSensorTest {
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
         Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
         Reading laterReading = new Reading(30, testDate, "C", "TEST");
-        validReadingService.addReading(earlierReading);
-        validReadingService.addReading(laterReading);
+        List<Reading> readings = new ArrayList<>();
+        readings.add(earlierReading);
+        readings.add(laterReading);
         double expectedResult = 30.0;
 
         // Act
 
-        double result = validReadingService.getMostRecentValue();
+        double result = validReadingService.getMostRecentValue(readings);
 
         // Assert
 

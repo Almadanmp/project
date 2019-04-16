@@ -2,14 +2,11 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Class that groups a number of Sensors.
@@ -22,6 +19,10 @@ public class HouseSensorService {
 
     @Autowired
     SensorTypeRepository sensorTypeRepository;
+
+
+    private static final String TEMPERATURE = "temperature";
+    private static final String noTempReadings = "There aren't any temperature readings available.";
 
     private List<HouseSensor> houseSensors;
 
@@ -90,10 +91,10 @@ public class HouseSensorService {
      *
      * @return a list with all readings from sensor list
      **/
-    public ReadingService getReadings() {
-        ReadingService finalList = new ReadingService();
-        for (HouseSensor s : this.houseSensors) {
-            finalList.appendListNoDuplicates(s.getReadingService());
+    public List<Reading> getReadings(List<HouseSensor> roomSensors, ReadingService readingService) {
+        List<Reading> finalList = new ArrayList<>();
+        for (HouseSensor s : roomSensors) {
+            finalList.addAll(readingService.findReadingsBySensorID(s.getId()));
         }
         return finalList;
     }
@@ -104,7 +105,7 @@ public class HouseSensorService {
      * @return true if empty, false otherwise.
      **/
     public boolean isEmpty() {
-        return this.houseSensors.isEmpty();
+        return getAllSensor().isEmpty();
     }
 
 
@@ -115,9 +116,12 @@ public class HouseSensorService {
      * @param day date of day the method will use to get reading values
      * @return returns value readings from every sensor from given day
      **/
-    public List<Double> getValuesOfSpecificDayReadings(Date day) {
-        ReadingService readingService = getReadings();
-        return readingService.getValuesOfSpecificDayReadings(day);
+    public List<Double> getValuesOfSpecificDayReadings(List<HouseSensor> houseSensor, Date day, ReadingService readingService) {
+        List<Reading> sensorReadings = new ArrayList<>();
+        for (HouseSensor hS : houseSensor) {
+            sensorReadings.addAll(readingService.findReadingsBySensorID(hS.getId()));
+        }
+        return readingService.getValuesOfSpecificDayReadingsDb(sensorReadings, day);
     }
 
     /**
@@ -133,12 +137,6 @@ public class HouseSensorService {
         }
         return false;
     }
-
-    public boolean addSensorType(SensorType sensorType) {
-        sensorTypeRepository.save(sensorType);
-        return true;
-    }
-
 
     public boolean addWithPersistence(HouseSensor sensorToAdd) {
         Optional<HouseSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
@@ -170,13 +168,45 @@ public class HouseSensorService {
         return false;
     }
 
-    public HouseSensor createSensor(String id, String name, String sensorName, String sensorUnit, Date dateStartedFunctioning,
-                                    String roomId) {
+    /**
+     * Method receives a date of a given day and looks for the max temperature
+     * recorded in every sensor that measure temperature, in the room.
+     *
+     * @param day where we want to look for max temperature
+     * @return the max temperature recorded in a sensor that measures temperature or
+     * NaN in case there are no readings in the given day or
+     * in case the room has no readings whatsoever
+     **/
+    public double getMaxTemperatureOnGivenDayDb(Room room, Date day, ReadingService readingService) throws NoSuchElementException {
+        List<HouseSensor> houseSensors = houseSensorRepository.findAllByRoomId(room.getId());
+        List<HouseSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, houseSensors);
+        if (tempSensors.isEmpty()) {
+            throw new IllegalArgumentException(noTempReadings);
+        } else {
+            List<Double> values = getValuesOfSpecificDayReadings(tempSensors, day, readingService);
+            if (!values.isEmpty()) {
+                return Collections.max(values);
+            }
+            throw new NoSuchElementException(noTempReadings);
+        }
+    }
 
-        SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
-        sensorTypeRepository.save(sensorType);
+    /**
+     * Method that goes through every Sensor in the room of the type "temperature" returning
+     * the value of the most recent reading.
+     *
+     * @return the most recent temperature reading or NaN in case the room has no temperature
+     * sensors and/or when temperature sensors have no readings
+     */
 
-        return new HouseSensor(id, name, sensorType, dateStartedFunctioning, roomId);
+    public double getCurrentRoomTemperature(Room room, ReadingService readingService) {
+        List<HouseSensor> houseSensors = houseSensorRepository.findAllByRoomId(room.getName());
+        List<HouseSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, houseSensors);
+        if (tempSensors.isEmpty()) {
+            throw new IllegalArgumentException(noTempReadings);
+        }
+        List<Reading> sensorReadings = getReadings(tempSensors, readingService);
+        return readingService.getMostRecentValue(sensorReadings);
     }
 
 
@@ -199,9 +229,9 @@ public class HouseSensorService {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public HouseSensorService getSensorListByType(String name) {
-        HouseSensorService containedTypeSensors = new HouseSensorService();
-        for (HouseSensor sensor : this.houseSensors) {
+    public List<HouseSensor> getSensorsOfGivenType(String name, List<HouseSensor> houseSensors) {
+        List<HouseSensor> containedTypeSensors = new ArrayList<>();
+        for (HouseSensor sensor : houseSensors) {
             if (name.equals(sensor.getSensorTypeName())) {
                 containedTypeSensors.add(sensor);
             }

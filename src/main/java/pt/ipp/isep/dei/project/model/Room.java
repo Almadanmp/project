@@ -18,9 +18,6 @@ import java.util.*;
 @Entity
 public class Room implements Metered {
 
-    private static final String TEMPERATURE = "temperature";
-    private static final String noTempReadings = "There aren't any temperature readings available.";
-
     @Id
     private String roomName;
 
@@ -198,38 +195,6 @@ public class Room implements Metered {
     }
 
     /**
-     * Method receives a date of a given day and looks for the max temperature
-     * recorded in every sensor that measure temperature, in the room.
-     *
-     * @param day where we want to look for max temperature
-     * @return the max temperature recorded in a sensor that measures temperature or
-     * NaN in case there are no readings in the given day or
-     * in case the room has no readings whatsoever
-     **/
-    public double getMaxTemperatureOnGivenDay(Date day) {
-        HouseSensorService tempSensors = getSensorsOfGivenType(TEMPERATURE);
-        if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException(noTempReadings);
-        } else {
-            List<Double> values = tempSensors.getValuesOfSpecificDayReadings(day);
-            if (!values.isEmpty()) {
-                return Collections.max(values);
-            }
-            throw new NoSuchElementException(noTempReadings);
-        }
-    }
-
-    /**
-     * Method that looks in sensor list for sensors of given type and returns a list of
-     * those sensors. Method will look at the sensor's type.
-     *
-     * @return a sensor list that contains sensors of given type
-     **/
-    HouseSensorService getSensorsOfGivenType(String type) {
-        return this.roomSensorList.getSensorListByType(type);
-    }
-
-    /**
      * Method that removes a Device from the Room.
      *
      * @param device is the device we want to removeGeographicArea.
@@ -257,23 +222,6 @@ public class Room implements Metered {
      */
     public boolean addDevice(Device device) {
         return deviceList.add(device);
-    }
-
-    /**
-     * Method that goes through every Sensor in the room of the type "temperature" returning
-     * the value of the most recent reading.
-     *
-     * @return the most recent temperature reading or NaN in case the room has no temperature
-     * sensors and/or when temperature sensors have no readings
-     */
-
-    public double getCurrentRoomTemperature() {
-        HouseSensorService tempSensors = getSensorsOfGivenType(TEMPERATURE);
-        if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException(noTempReadings);
-        }
-        ReadingService houseReadingService = tempSensors.getReadings();
-        return houseReadingService.getMostRecentValue();
     }
 
     /**

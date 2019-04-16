@@ -5,10 +5,8 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.RoomService;
+import pt.ipp.isep.dei.project.model.sensor.*;
 
 import java.util.Date;
 import java.util.List;
@@ -20,46 +18,39 @@ import java.util.List;
 
 public class HouseMonitoringController {
 
-    private static final String RAINFALL = "rainfall";
-    private static final String TEMPERATURE = "temperature";
-
     /**
      * Returns the current temperature in a given Room.
      *
      * @param roomDTO is the roomDTO we want to get the room from, so that we can get the temperature.
-     * @param house   the house of the project.
      * @return is the most recent temperature recorded in a room.
      */
 
-    public double getCurrentRoomTemperature(RoomDTO roomDTO, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
-        return room.getCurrentRoomTemperature();
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        return houseSensorService.getCurrentRoomTemperature(room, readingService);
     }
 
     /**
      * @param day     is the day we want to check the temperature in.
      * @param roomDTO is the room we want to check the temperature in.
-     * @param house   the project's house.
      * @return is the max temperature recorded in a room
      */
 
-    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
-        return room.getMaxTemperatureOnGivenDay(day);
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        return houseSensorService.getMaxTemperatureOnGivenDayDb(room, day, readingService);
     }
 
     /**
      * This method receives a room and return the room's name
      *
      * @param roomDTO the DTO of the chosen Room.
-     * @param house   the House of the project.
      * @return room's name as a string
      **/
-    public String getRoomName(RoomDTO roomDTO, House house) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, house);
+    public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getName();
     }
-
 
 
     /* US 623 - Controller Methods
