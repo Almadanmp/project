@@ -131,8 +131,7 @@ class HouseConfigurationUI {
             } else {
                 System.out.println("The JSON file is invalid.");
             }
-        }
-        catch (IllegalArgumentException ill) {
+        } catch (IllegalArgumentException ill) {
             ill.getMessage();
         }
     }

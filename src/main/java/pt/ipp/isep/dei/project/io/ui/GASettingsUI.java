@@ -423,8 +423,6 @@ class GASettingsUI {
     }
 
 
-
-
     /**
      * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
      * <p>
@@ -440,7 +438,6 @@ class GASettingsUI {
         int areas = readerController.acceptPath(filePath, geographicAreaService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
-
 
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

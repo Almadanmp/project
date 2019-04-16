@@ -153,7 +153,7 @@ public class ReaderController {
     /**
      * This method will receive a List of AreaReadingDTOs and a log file path and will try to add
      * every reading in the list to its corresponding area sensor.
-     * The method returns the number of readings that were correctly added and logs every readings
+     * The method returns the number of readings that were correctly added and logs every reading
      * that wasn't added.
      *
      * @param readings List of Area Reading DTOs
@@ -169,6 +169,31 @@ public class ReaderController {
             Date date = r.getDate();
             String unit = r.getUnit();
             if (readingService.addAreaReadingToRepository(sensorID, value, date, unit, logger, areaSensorService)) {
+                addedReadings++;
+            }
+        }
+        return addedReadings;
+    }
+
+    /**
+     * This method will receive a List of AreaReadingDTOs and a log file path and will try to add
+     * every reading in the list to its corresponding house sensor.
+     * The method returns the number of readings that were correctly added and logs every reading
+     * that wasn't added.
+     *
+     * @param readings List of Area Reading DTOs
+     * @param logPath  log file path
+     * @return number of Area Readings added to corresponding House Sensor
+     **/
+    public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath) {
+        Logger logger = getLogger(logPath);
+        int addedReadings = 0;
+        for (ReadingDTO r : readings) {
+            String sensorID = r.getSensorId();
+            double value = r.getValue();
+            Date date = r.getDate();
+            String unit = r.getUnit();
+            if (readingService.addHouseReadingToRepository(sensorID, value, date, unit, logger, houseSensorService)) {
                 addedReadings++;
             }
         }
@@ -193,20 +218,5 @@ public class ReaderController {
             io.getMessage();
         }
         return logger;
-    }
-
-    public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath) {
-        Logger logger = getLogger(logPath);
-        int addedReadings = 0;
-        for (ReadingDTO r : readings) {
-            String sensorID = r.getSensorId();
-            double value = r.getValue();
-            Date date = r.getDate();
-            String unit = r.getUnit();
-            if (readingService.addHouseReadingToRepository(sensorID, value, date, unit, logger, houseSensorService)) {
-                addedReadings++;
-            }
-        }
-        return addedReadings;
     }
 }

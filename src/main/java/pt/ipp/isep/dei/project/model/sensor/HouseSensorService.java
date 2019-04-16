@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
@@ -152,11 +151,27 @@ public class HouseSensorService {
     }
 
 
+    /**
+     * This method receives a sensor ID, checks if that sensor exists in the repository.
+     *
+     * @param sensorID String of sensor ID
+     * @return true in case the sensor exists, false otherwise.
+     **/
     public boolean sensorExistsInRepository(String sensorID) {
         Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
         return value.isPresent();
     }
 
+    /**
+     * This method receives a string of a sensor ID and a Date that corresponds to a
+     * reading Date.
+     * The method will look for the sensor with the corresponding ID in repository
+     * and check if the sensor's was active when the reading was recorded.
+     *
+     * @param sensorID string of the sensor's ID
+     * @param date reading Date
+     * @return true in case the sensor was active when the reading was created, false otherwise.
+     * **/
     public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
         if (value.isPresent()) {

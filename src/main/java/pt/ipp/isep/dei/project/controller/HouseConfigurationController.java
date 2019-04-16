@@ -187,7 +187,7 @@ public class HouseConfigurationController {
             }
         }
         Handler[] handlers = logger.getHandlers(); //TODO Included in Issue #235.
-        for (Handler h : handlers){
+        for (Handler h : handlers) {
             h.close();
         }
         int[] result = new int[2];
