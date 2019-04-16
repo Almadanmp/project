@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class readingsReaderJSONTest {
 
@@ -166,5 +167,13 @@ class readingsReaderJSONTest {
         //Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadFileThrowsExceptionWithInvalidFile() {
+        //Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> readingsReaderJSON.readFile("src/test/resources/readingsFiles/invalidFile.json"));
     }
 }

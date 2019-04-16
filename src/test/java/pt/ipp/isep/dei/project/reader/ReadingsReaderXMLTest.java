@@ -168,4 +168,12 @@ class ReadingsReaderXMLTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfReadFileThrowsExceptionWithInvalidFile() {
+        //Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> readingsReaderXML.readFile("src/test/resources/readingsFiles/invalidFile.xml"));
+    }
 }

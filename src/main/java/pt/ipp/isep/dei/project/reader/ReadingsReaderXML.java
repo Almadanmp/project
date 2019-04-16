@@ -38,29 +38,4 @@ public class ReadingsReaderXML implements ReadingsReader {
         }
         return finalList;
     }
-
-//    public List<ReadingDTO> readFile(String filePath) {
-//        List<ReadingDTO> finalList;
-//        List<ReadingDTOWrapper> readingDTOWrapper2 = new ArrayList<>();
-//        ObjectMapper objectMapper = new XmlMapper();
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES, false);
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-//
-//        SimpleModule module = new SimpleModule();
-//        module.addDeserializer(ReadingDTOWrapper.class, new ReadingDTOWrapperCustomDeserializer());
-//        objectMapper.registerModule(module);
-//
-//        try {
-//            File file = new File(filePath);
-//            ReadingDTOWrapper[] readingDTOWrapper = objectMapper.readValue(file, ReadingDTOWrapper[].class);
-//            for(ReadingDTOWrapper r : readingDTOWrapper){
-//                readingDTOWrapper2.add(r);
-//            }
-//            finalList = Adapter.readingDTOWrapperConversion(readingDTOWrapper2);
-//        } catch (IOException e) {
-//            throw new IllegalArgumentException(e.getMessage());
-//        }
-//        return finalList;
-//    }
 }

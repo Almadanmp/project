@@ -23,7 +23,7 @@ public class ReadingsReaderCSV implements ReadingsReader {
         CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
         ObjectMapper csvMapper = new CsvMapper();
         MappingIterator<ReadingDTOWrapper> matchOutcomeIterator;
-
+        csvMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         csvMapper.configure(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES, false);
         csvMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
 
