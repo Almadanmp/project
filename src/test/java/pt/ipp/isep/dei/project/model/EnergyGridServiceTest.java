@@ -142,30 +142,6 @@ class EnergyGridServiceTest {
     }
 
     @Test
-    void seeIfAddEnergyGridToEnergyGridListTrue() {
-        // Act
-        boolean actualResult = validGridList.addGrid(firstValidGrid);
-
-
-        // Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddEnergyGridToEnergyGridListFalseAlreadyInList() {
-        // Arrange
-        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
-        validGridList.addGrid(energyGrid);
-
-
-        // Act
-        boolean actualResult = validGridList.addGrid(energyGrid);
-
-        // Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
     void seeIfEqualsWorks() {
         // Arrange
         EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
@@ -274,35 +250,6 @@ class EnergyGridServiceTest {
         assertFalse(actualResult);
     }
 
-    @Test
-    void getGridByIndex() {
-        //Arrange
-
-        validGridList.addGrid(firstValidGrid);
-        validGridList.addGrid(secondValidGrid);
-
-        // Act
-
-        EnergyGrid actualResult1 = validGridList.get(0);
-        EnergyGrid actualResult2 = validGridList.get(1);
-
-        // Assert
-
-        assertEquals(firstValidGrid, actualResult1);
-        assertEquals(secondValidGrid, actualResult2);
-    }
-
-    @Test
-    void getByIndexEmptyGridList() {
-
-        //Act
-
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validGridList.get(0));
-
-        //Assert
-
-        assertEquals("The energy grid list is empty.", exception.getMessage());
-    }
 
 //    @Test
 //    void gridListSize() {
@@ -326,37 +273,6 @@ class EnergyGridServiceTest {
 //
 //        assertEquals(1, actualResult2);
 //    }
-
-    @Test
-    void seeIfCreateEnergyWorks() {
-        //Act
-
-        EnergyGrid actualResult1 = validGridList.createEnergyGrid("Primary Grid", 500, "CasaUm");
-
-        //Assert Empty List
-
-        assertEquals(firstValidGrid, actualResult1);
-
-        //Arrange
-
-        validGridList.addGrid(firstValidGrid);
-
-        //Act When Grid Exists
-
-        EnergyGrid actualResult2 = validGridList.createEnergyGrid("Primary Grid", 500, "CasaUm");
-
-        //Assert
-
-        assertEquals(firstValidGrid, actualResult2);
-
-        //Act When Grid Doesn't Exist
-
-        EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100, "CasaUm");
-
-        //Assert
-
-        assertEquals(secondValidGrid, actualResult3);
-    }
 
     @Test
     void hashCodeDummyTest() {

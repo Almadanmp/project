@@ -155,45 +155,6 @@ class HouseTest {
         assertFalse(actualResult);
     }
 
-    @Test
-    void seeIfIsEnergyGridListEmptyWorksWhenListIsNotEmpty() {
-        //Arrange
-
-        House house = new House(roomService, energyGridService);
-
-        EnergyGrid energyGrid = new EnergyGrid("Grid1", 300D, "HouseId");
-        List<EnergyGrid> list = new ArrayList<>();
-        list.add(energyGrid);
-        house.addGrid(energyGrid);
-
-        Mockito.when(energyGridRepository.findAll()).thenReturn((list));
-
-        // Act
-
-        boolean actualResult = house.isEnergyGridListEmpty();
-        ;
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfIsEnergyGridListEmptyWorks() {
-        //Arrange
-
-        House house = new House(roomService, energyGridService);
-
-        Mockito.when(energyGridRepository.findAll()).thenReturn((null));
-
-        // Act
-
-        boolean actualResult = house.isEnergyGridListEmpty();
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
 
     @Test
     void seeIfSetDeviceTypeListWorks() {
@@ -404,26 +365,6 @@ class HouseTest {
     }
 
     @Test
-    void seeSetEnergyGridList() {
-        // Arrange
-
-        EnergyGridService gridList = new EnergyGridService();
-        EnergyGrid testGrid = new EnergyGrid("Garden", 300, "34576");
-        testGrid.setId(23L);
-        gridList.addGrid(testGrid);
-        validHouse.setGridList(gridList);
-
-        // Act
-
-        EnergyGridService actualResult = validHouse.getGridList();
-
-        // Assert
-
-        assertEquals(gridList, actualResult);
-    }
-
-
-    @Test
     void getDailyHouseConsumptionPerTypeTest() {
         // Arrange
 
@@ -575,29 +516,6 @@ class HouseTest {
 
         assertEquals(8, actualResultGrid);
         assertEquals(10, actualResultDevice);
-    }
-
-    @Test
-    void seeIfAddGridToHouseWorks() {
-        // Arrange
-
-        EnergyGrid firstGrid = new EnergyGrid("GridHome", 25, "34576");
-        EnergyGrid secondGrid = new EnergyGrid("GridGarden", 55, "34576");
-        EnergyGrid repeatedFirstGrid = new EnergyGrid("GridHome", 25, "34576");
-
-        // Act
-
-        boolean actualResult1 = validHouse.addGrid(firstGrid);
-        boolean actualResult2 = validHouse.addGrid(secondGrid);
-        boolean actualResult3 = validHouse.addGrid(repeatedFirstGrid);
-        boolean actualResult4 = validHouse.addGrid(firstGrid);
-
-        // Assert
-
-        assertTrue(actualResult1);
-        assertTrue(actualResult2);
-        assertFalse(actualResult3);
-        assertFalse(actualResult4);
     }
 
 //    @Test

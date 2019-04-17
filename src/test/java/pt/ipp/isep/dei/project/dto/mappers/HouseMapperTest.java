@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HouseMapperTest {
     @Test
@@ -17,14 +17,11 @@ class HouseMapperTest {
                 "4440-616", "Porto", "Portugal");
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
-        EnergyGridService energyGridService = new EnergyGridService();
-        energyGridService.addGrid(new EnergyGrid("EG1", 0, "01"));
         RoomService roomService = new RoomService();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
         expectedResult.setMotherArea(geographicArea);
-        expectedResult.setGridList(energyGridService);
         expectedResult.setRoomService(roomService);
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId("01");
@@ -81,14 +78,11 @@ class HouseMapperTest {
                 "4440-616", "Porto", "Portugal");
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
-        EnergyGridService energyGridService = new EnergyGridService();
-        energyGridService.addGrid(new EnergyGrid("EG1", 0, "01"));
         RoomService roomService = new RoomService();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
         expectedResult.setMotherArea(geographicArea);
-        expectedResult.setGridList(energyGridService);
         expectedResult.setRoomService(roomService);
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId("01");
@@ -145,14 +139,11 @@ class HouseMapperTest {
                 "4440-616", "Porto", "Portugal");
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
-        EnergyGridService energyGridService = new EnergyGridService();
-        energyGridService.addGrid(new EnergyGrid("EG1", 0, "01"));
         RoomService roomService = new RoomService();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
         House house = new House("01", address, local, 15, 15, deviceTypes);
         house.setMotherArea(geographicArea);
-        house.setGridList(energyGridService);
         house.setRoomService(roomService);
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId("01");

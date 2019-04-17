@@ -6,8 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -134,26 +132,6 @@ class EnergyGridSettingsControllerTest {
         assertFalse(actualresult);
     }
 
-    @Test
-    void ensureThatWeAddRoomToTheGrid() {
-        // Arrange
-
-        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-        EnergyGridService gridList = new EnergyGridService();
-        gridList.addGrid(validGrid);
-        RoomService rl = new RoomService();
-        validGrid.setRoomService(rl);
-        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
-
-        // Act
-
-        boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO, roomService);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
 //    @Test
 //    void ensureThatWeDoNotAddRoomToTheGrid() {
 //        // Arrange
@@ -266,7 +244,6 @@ class EnergyGridSettingsControllerTest {
     @Test
     void testBuildListOfDevicesOrderedByTypeStringEmptyString() {
         //Arrange
-        validHouse.addGrid(validGrid);
         //Act
         String expectedResult = "---------------\n" +
                 "---------------\n";

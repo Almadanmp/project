@@ -217,23 +217,6 @@ class RoomServiceTest {
     }
 
 
-//    @Test
-//    void seeIfEqualsWorksSameContent() {
-//        // Arrange
-//
-//        validRoomService.add(validRoom);
-//        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3);
-//
-//
-//        // Act
-//
-//        boolean actualResult = validRoom.equals(room);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-
     @Test
     void seeIfEqualsWorksSameObject() {
         // Arrange
@@ -293,29 +276,6 @@ class RoomServiceTest {
         assertFalse(actualResult);
     }
 
-//    @Test
-//    void seeIfIsEmptyWorks() {
-//        //Arrange
-//
-//        RoomService roomService3 = new RoomService(roomRepository); //Has two rooms.
-//
-//        Room room2 = new Room("Balcony", "2nd Floor Balcony", 2, 21, 21, 4, "Room1", "Grid1");
-//        roomService3.add(validRoom);
-//        roomService3.add(room2);
-//
-//        // Act
-//
-//        boolean actualResult1 = validRoomService.isEmpty();
-//        boolean actualResult2 = emptyRoomService.isEmptyDB();
-//        boolean actualResult3 = roomService3.isEmptyDB();
-//
-//        // Assert
-//
-//        assertFalse(actualResult1);
-//        assertTrue(actualResult2);
-//        assertFalse(actualResult3);
-//    }
-
     @Test
     void seeIfGetByIndexWorks() {
         //Arrange
@@ -347,27 +307,6 @@ class RoomServiceTest {
 
         assertEquals("The room list is empty.", exception.getMessage());
     }
-
-//    @Test
-//    void ListSize() {
-//
-//        RoomService validRoomService2 = new RoomService();
-//        validRoomService2.add(validRoom);
-//        validRoomService2.add(new Room("room", "Single Bedroom", 2, 20, 20, 3, "Room1", "Grid1"));
-//
-//
-//        //Act
-//
-//        int actualResult1 = emptyRoomService.sizeDB();
-//        int actualResult2 = validRoomService.sizeDB();
-//        int actualResult3 =validRoomService2.sizeDB();
-//
-//        //Assert
-//
-//        assertEquals(0, actualResult1);
-//        assertEquals(1, actualResult2);
-//        assertEquals(2, actualResult3);
-//    }
 
     @Test
     void seeItGetDeviceListByTypeWorks() {
@@ -475,7 +414,7 @@ class RoomServiceTest {
 //
 //        //Act
 //        StringBuilder expectedResult = new StringBuilder();
-//        expectedResult.append("Device type: WaterHeater | Device name: WaterHeater | Nominal power: 21.0 | Room: Kitchen | \n");
+//        expectedResult.append("Device type: WaterHeater | Device name: WaterHeater | Nominal power: 21.0 | Room: Kitchen | ");
 //        // Assert
 //
 //        assertEquals(expectedResult, validRoomService.buildDeviceListByType("WaterHeater"));

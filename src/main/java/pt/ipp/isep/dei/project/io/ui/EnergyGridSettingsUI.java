@@ -39,11 +39,11 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 4: //US147
-                    runUS147(house, energyGridService, roomService);
+                    runUS147(energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 5: //US149
-                    runUS149(house, energyGridService);
+                    runUS149(energyGridService);
                     activeInput = false;
                     break;
                 case 6: //US160
@@ -140,12 +140,12 @@ class EnergyGridSettingsUI {
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
-    private void runUS147(House house, EnergyGridService energyGridService, RoomService roomService) {
+    private void runUS147(EnergyGridService energyGridService, RoomService roomService) {
         if (roomService.isEmptyDB()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        if (house.isEnergyGridListEmpty()) {
+        if (energyGridService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
@@ -165,8 +165,8 @@ class EnergyGridSettingsUI {
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
-    private void runUS149(House house, EnergyGridService energyGridService) {
-        if (house.isEnergyGridListEmpty()) {
+    private void runUS149(EnergyGridService energyGridService) {
+        if (energyGridService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
@@ -192,7 +192,7 @@ class EnergyGridSettingsUI {
     It must include device location
     DANIEL OLIVEIRA*/
     private void runUS160(House house, EnergyGridService energyGridService) {
-        if (house.isEnergyGridListEmpty()) {
+        if (energyGridService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }

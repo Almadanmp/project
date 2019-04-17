@@ -18,18 +18,14 @@ public class EnergyGridService {
     @Autowired
     EnergyGridRepository energyGridRepository;
 
-    private List<EnergyGrid> energyGrids;
-
     /**
      * Empty constructor to use on UIs.
      */
     public EnergyGridService(EnergyGridRepository energyGridRepository) {
         this.energyGridRepository = energyGridRepository;
-        this.energyGrids = new ArrayList<>();
     }
 
     public EnergyGridService() {
-        energyGrids = new ArrayList<>();
     }
 
     public List<EnergyGrid> getAllGrids() {
@@ -43,19 +39,6 @@ public class EnergyGridService {
         return finalList;
     }
 
-    /**
-     * Method adds an energy grid to the a energy grid list if the input grid isn't already contained in said list.
-     *
-     * @param energyGridToAdd the energy grid we want to addWithoutPersisting to the list.
-     * @return returns true if the addition to the list is successful.
-     */
-    public boolean addGrid(EnergyGrid energyGridToAdd) {
-        if (!(energyGrids.contains(energyGridToAdd))) {
-            energyGrids.add(energyGridToAdd);
-            return true;
-        }
-        return false;
-    }
 
     public boolean addPersistenceGrid(EnergyGrid energyGrid) {
         EnergyGrid grid = energyGridRepository.findByName(energyGrid.getName());
@@ -114,29 +97,6 @@ public class EnergyGridService {
      */
     public int size() {
         return energyGridRepository.findAll().size();
-    }
-
-    /**
-     * Method to return the List of EnergyGrids size.
-     *
-     * @return list size.
-     */
-    public int gridsSize() {
-        return energyGrids.size();
-    }
-
-
-    /**
-     * This method receives an index as parameter and gets energy grid from energy grid list.
-     *
-     * @param index the index of the energy grid.
-     * @return returns Energy grid that corresponds to index.
-     */
-    public EnergyGrid get(int index) {
-        if (this.energyGrids.isEmpty()) {
-            throw new IndexOutOfBoundsException("The energy grid list is empty.");
-        }
-        return this.energyGrids.get(index);
     }
 
     /**

@@ -28,9 +28,6 @@ public class House implements Metered {
     private int deviceMeteringPeriod;
 
     @Transient
-    EnergyGridService energyGridService;
-
-    @Transient
     private RoomService roomService;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -55,7 +52,6 @@ public class House implements Metered {
     public House(String id, Local local, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.id = id;
         this.roomService = new RoomService();
-        this.energyGridService = new EnergyGridService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         this.location = local;
@@ -67,7 +63,6 @@ public class House implements Metered {
         this.id = id;
         this.address = address;
         this.roomService = new RoomService();
-        this.energyGridService = new EnergyGridService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         this.location = local;
@@ -76,12 +71,10 @@ public class House implements Metered {
 
     public House() {
         this.roomService = new RoomService();
-        this.energyGridService = new EnergyGridService();
     }
 
     public House(RoomService roomService, EnergyGridService energyGridService) {  //FOR TESTING PURPOSES USING MOCKITO
         this.roomService = roomService;
-        this.energyGridService = energyGridService;
     }
 
 
@@ -234,25 +227,6 @@ public class House implements Metered {
     }
 
     /**
-     * Standard getter method, to return the list of energy grids present on the House.
-     *
-     * @return the EnergyGridList associated to the House.
-     */
-    public EnergyGridService getGridList() {
-        return this.energyGridService;
-    }
-
-
-    /**
-     * Standard setter method, to define the list of energy grids to be added to the House.
-     *
-     * @param energyGridService is the Energy grid list to be set.
-     */
-    public void setGridList(EnergyGridService energyGridService) {
-        this.energyGridService = energyGridService;
-    }
-
-    /**
      * Standard getter method, to return the list of device types that can be created in the house.
      *
      * @return the list of Device Types associated to the House.
@@ -350,10 +324,6 @@ public class House implements Metered {
         return roomService.getDailyConsumptionByDeviceType(deviceType, time);
     }
 
-    public boolean addGrid(EnergyGrid energyGrid) {
-        return this.energyGridService.addGrid(energyGrid);
-    }
-
     /**
      * Method to get the energy consumption of the house
      *
@@ -376,16 +346,6 @@ public class House implements Metered {
      **/
     public boolean isRoomListEmpty() {
         return this.roomService.isEmptyDB();
-    }
-
-
-    /**
-     * This method checks if house's list of Energy Grids is empty.
-     *
-     * @return true if house's EnergyGridList is empty, false otherwise.
-     **/
-    public boolean isEnergyGridListEmpty() {
-        return this.energyGridService.isEmpty();
     }
 
 

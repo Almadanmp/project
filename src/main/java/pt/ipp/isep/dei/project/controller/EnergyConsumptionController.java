@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Controller class for Energy Consumption UI
@@ -134,14 +135,13 @@ public class EnergyConsumptionController {
 
 
     /**
-     * Acesses model and returns a House's list of grids.
+     * Accesses model and returns a House's list of grids.
      *
-     * @param programHouse the house we want to get the roomList from.
      * @return returns the List of Grids in the given house.
      */
 
-    public EnergyGridService getHouseGridList(House programHouse) {
-        return programHouse.getGridList();
+    public List<EnergyGrid> getHouseGridList(EnergyGridService energyGridService) {
+        return energyGridService.getAllGrids();
     }
 
     /**
