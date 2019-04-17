@@ -18,7 +18,7 @@ class FileInputUtilsTest {
 
         // Act
 
-        boolean result1 = fileInputUtils.validGridMetering();
+        boolean result1 = fileInputUtils.gridMeteringPeriodIsValid();
 
         // Assert
 

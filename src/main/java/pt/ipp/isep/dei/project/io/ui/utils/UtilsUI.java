@@ -5,6 +5,8 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomService;
 
+import java.util.Scanner;
+
 /**
  * Utility class that aggregates common methods used by the UI classes.
  */
@@ -93,6 +95,15 @@ public class UtilsUI {
         return sBuilder.toString();
     }
     // End of methods for printBox
+
+    public static int numberOnMenu(int numInput, int menuSize, Scanner scanner) {
+        int input = numInput;
+        while ((input) > menuSize || input < 0) {
+            System.out.println("Please insert a valid number.");
+            input = scanner.nextInt();
+        }
+        return input;
+    }
 
     /**
      * @param string is the message we want to print.

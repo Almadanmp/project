@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
@@ -19,10 +20,7 @@ import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "pt.ipp.isep.dei.project")
@@ -84,7 +82,7 @@ public class MainUI {
             int gridMeteringPeriod;
             String fixConfigFile = "Please fix Configuration File before continuing.";
             try {
-                if (fileUtils.validGridMetering()) {
+                if (fileUtils.gridMeteringPeriodIsValid()) {
                     gridMeteringPeriod = fileUtils.gridMeteringPeriod;
                 } else {
                     System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
@@ -131,6 +129,7 @@ public class MainUI {
             House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
+
             this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
             //MAIN CODE
@@ -150,25 +149,19 @@ public class MainUI {
 
                 // Submenus Input selection
 
-                String[] menu = {
-                        " 1. Geographic Area Settings\n",
-                        "2. House Settings.\n",
-                        "3. Room Settings.\n",
-                        "4. Sensor Settings.\n",
-                        "5. Energy Grid Settings.\n",
-                        "6. House Monitoring.\n",
-                        "7. Energy Consumption Management.\n",
-                        "0. Exit Application\n"};
+                List<String> mainMenuOptions = new ArrayList<>();
+                        mainMenuOptions.add("Geographic Area Settings");
+                        mainMenuOptions.add("House Settings.");
+                        mainMenuOptions.add("Room Settings.");
+                        mainMenuOptions.add("Sensor Settings.");
+                        mainMenuOptions.add("Energy Grid Settings.");
+                        mainMenuOptions.add("House Monitoring.");
+                        mainMenuOptions.add("Energy Consumption Management.");
+                        mainMenuOptions.add("Exit Application");
 
-                System.out.println("Select the task you want to do:");
+                        MenuFormatter.showMenu("Main Menu", mainMenuOptions);
 
-                String formattedString = Arrays.toString(menu)
-                        .replace(",", "")  //removeGeographicArea the commas
-                        .replace("[", "")  //removeGeographicArea the right bracket
-                        .replace("]", "");  //removeGeographicArea the left bracket
 
-                System.out.print(formattedString);
-                System.out.print("\nEnter option number:\n");
                 boolean activeInput = true;
 
                 while (activeInput) {

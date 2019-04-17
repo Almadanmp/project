@@ -17,7 +17,7 @@ class FileInputUtils {
      *
      * @return it will return true in case the value is valid and false if not
      **/
-    boolean validGridMetering() throws IOException {
+    boolean gridMeteringPeriodIsValid() throws IOException {
         int gridMetPeriod = readGridMeteringPeriod();
         if (gridMeteringPeriodValidation(gridMetPeriod)) {
             this.gridMeteringPeriod = gridMetPeriod;
