@@ -36,7 +36,7 @@ class EnergyGridServiceTest {
         MockitoAnnotations.initMocks(this);
         validGridList = new EnergyGridService(this.energyGridRepository);
         firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
-        secondValidGrid = new EnergyGrid("Secondary Grid", 100,"CasaUm");
+        secondValidGrid = new EnergyGrid("Secondary Grid", 100, "CasaUm");
     }
 
     @Test
@@ -46,15 +46,6 @@ class EnergyGridServiceTest {
         EnergyGrid result = validGridList.createEnergyGrid("Primary Grid", 500, "CasaUm");
 
         assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfAddEnergyGrid() {
-        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
-
-        Mockito.when(energyGridRepository.findByName(energyGrid.getName())).thenReturn(energyGrid);
-
-        assertTrue(validGridList.addPersistenceGrid(energyGrid));
     }
 
     @Test
@@ -163,7 +154,7 @@ class EnergyGridServiceTest {
     @Test
     void seeIfAddEnergyGridToEnergyGridListFalseAlreadyInList() {
         // Arrange
-        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500,"CasaUm");
+        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
         validGridList.addGrid(energyGrid);
 
 
@@ -360,7 +351,7 @@ class EnergyGridServiceTest {
 
         //Act When Grid Doesn't Exist
 
-        EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100,"CasaUm");
+        EnergyGrid actualResult3 = validGridList.createEnergyGrid("Secondary Grid", 100, "CasaUm");
 
         //Assert
 

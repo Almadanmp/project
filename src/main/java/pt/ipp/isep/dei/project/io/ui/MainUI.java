@@ -128,7 +128,6 @@ public class MainUI {
 
             SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
 
-
             House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA

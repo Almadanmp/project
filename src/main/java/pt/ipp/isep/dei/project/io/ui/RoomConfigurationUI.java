@@ -56,7 +56,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //US215
-                    runUS215(house);
+                    runUS215(house, roomService);
                     activeInput = false;
                     break;
                 case 4: //US220
@@ -97,7 +97,8 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
@@ -122,7 +123,8 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         DeviceType deviceType = InputHelperUI.getInputDeviceTypeByList(house);
         createDevice(room, deviceType);
     }
@@ -176,8 +178,9 @@ class RoomConfigurationUI {
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
-    private void runUS215(House house) {
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+    private void runUS215(House house, RoomService roomService) {
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
@@ -198,7 +201,8 @@ class RoomConfigurationUI {
         //get room
         controller.removeDevice(room, device);
         Room room1;
-        room1 = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        room1 = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         controller.addDevice(room1, device);
         List<String> attributeNames = controller.getAttributeNames(device);
         for (int i = 0; i < attributeNames.size(); i++) {
@@ -318,12 +322,12 @@ class RoomConfigurationUI {
 
     }
 
-
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
     private void runUS222() {
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
@@ -346,7 +350,8 @@ class RoomConfigurationUI {
      * room.
      **/
     private void runUS230() {
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         getRoomNominalPower(room);
     }
 
@@ -359,7 +364,8 @@ class RoomConfigurationUI {
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
     private void runUS250(HouseSensorService houseSensorService) {
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         displaySensorListUS250(room, houseSensorService);
     }
 
@@ -384,7 +390,8 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorService);
         getInput253(room, sensorType, houseSensorService);
     }
@@ -442,7 +449,8 @@ class RoomConfigurationUI {
     Its activity log is also removed.
     MARIA MEIRELES*/
     private void runUS220() {
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;

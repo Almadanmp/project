@@ -252,13 +252,11 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorks() {
         // Arrange
 
-        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-
         // Act
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService, houseService, houseSensorService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, areaSensorService, readingService, houseService, houseSensorService);
 
         // Assert
 
@@ -340,13 +338,11 @@ class ReaderControllerTest {
     void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
         // Arrange
 
-        GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-
         // Act
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, actualResult, areaSensorService, readingService, houseService, houseSensorService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, areaSensorService, readingService, houseService, houseSensorService);
 
         // Assert
 

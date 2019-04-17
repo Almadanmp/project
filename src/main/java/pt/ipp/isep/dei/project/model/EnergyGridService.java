@@ -60,7 +60,7 @@ public class EnergyGridService {
     public boolean addPersistenceGrid(EnergyGrid energyGrid) {
         EnergyGrid grid = energyGridRepository.findByName(energyGrid.getName());
         if (grid != null) {
-            energyGridRepository.delete(grid);
+            return false;
         }
         energyGridRepository.save(energyGrid);
         return true;
@@ -118,6 +118,7 @@ public class EnergyGridService {
 
     /**
      * Method to return the List of EnergyGrids size.
+     *
      * @return list size.
      */
     public int gridsSize() {

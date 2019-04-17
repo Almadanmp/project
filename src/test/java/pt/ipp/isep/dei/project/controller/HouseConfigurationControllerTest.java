@@ -10,8 +10,8 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,11 +80,12 @@ class HouseConfigurationControllerTest {
     void seeIfPrintsRoomList() {
         // Arrange
 
-              String expectedResult = "Invalid List - List is Empty\n";
+        List<Room> rooms = new ArrayList<>();
+        String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String result = controller.buildRoomsString(roomService);
+        String result = controller.buildRoomsString(roomService, rooms);
 
         // Assert
 
@@ -169,7 +170,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfReadSensorsWorks(){
+    void seeIfReadSensorsWorks() {
         // Arrange
 
         String filePath = "src/test/resources/sensorFiles/DataSet_sprint06_HouseSensors.json";
@@ -200,13 +201,13 @@ class HouseConfigurationControllerTest {
 
         // Expected result
 
-        int [] expectedResult = new int[2];
+        int[] expectedResult = new int[2];
         expectedResult[0] = 3;
         expectedResult[1] = 1;
 
         // Act
 
-        int [] actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
+        int[] actualResult = controller.readSensors(filePath, mockRoomRepository, mockHouseSensorRepository);
 
         // Assert
 
@@ -214,7 +215,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfReadSensorsWorksEmptyDB(){
+    void seeIfReadSensorsWorksEmptyDB() {
         // Arrange
 
         String filePath = "sensorFiles/DataSet_sprint06_HouseSensors.json";
@@ -233,7 +234,7 @@ class HouseConfigurationControllerTest {
     }
 
     @Test
-    void seeIfReadSensorsWorksInvalidFile(){
+    void seeIfReadSensorsWorksInvalidFile() {
         // Arrange
 
         String filePath = "houseFiles/DataSet_sprint06_HouseData.json";

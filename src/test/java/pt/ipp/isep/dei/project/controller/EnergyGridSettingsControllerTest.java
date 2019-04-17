@@ -68,30 +68,12 @@ class EnergyGridSettingsControllerTest {
         rooms.add(validRoom);
 
         String expectedResult = "---------------\n" +
-                "0) Designation: Room | Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
+                "Room) Description: Double Bedroom | House Floor: 1 | Width: 20.0 | Length: 2.0 | Height: 2.0\n" +
                 "---------------\n";
 
-        // Act
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-
-        String actualResult = controller.buildRoomsString(roomService);
+        String actualResult = controller.buildRoomsString(roomService, rooms);
 
         // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfRoomsPrintNull() {
-        //Arrange
-
-        String expectedResult = "The Room List wasn't properly initialized. Please try again.";
-
-        //Act
-
-        String actualResult = controller.buildRoomsString(null);
-
-        //Assert
 
         assertEquals(expectedResult, actualResult);
     }

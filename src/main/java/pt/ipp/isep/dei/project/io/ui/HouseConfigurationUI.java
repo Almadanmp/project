@@ -8,12 +8,12 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
@@ -249,7 +249,8 @@ class HouseConfigurationUI {
         if (roomService.getAllRooms().isEmpty()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
         }
-        System.out.println(controller.buildRoomsString(roomService));
+        List<Room> houseRooms = roomService.getAllRooms();
+        System.out.println(controller.buildRoomsString(roomService, houseRooms));
     }
 
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.

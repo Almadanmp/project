@@ -70,18 +70,18 @@ public class InputHelperUI {
      *
      * @return is the chosen room.
      */
-    public static RoomDTO getHouseRoomDTOByList(RoomService roomService) {
+    public static RoomDTO getHouseRoomDTOByList(RoomService roomService, List<Room> rooms) {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please select one of the existing rooms in the house: ");
-            System.out.println(roomService.buildStringDB());
+            System.out.println(roomService.buildStringDB(rooms));
             String aux = scanner.nextLine();
             try {
                 Optional<Room> result = roomService.findByID(aux);
                 System.out.println(SELECT_ROOMS);
                 System.out.println(result.get().buildString() + "\n");
                 return RoomMapper.objectToDTO(result.get());
-            } catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println(UtilsUI.INVALID_OPTION);
             }
         }
@@ -92,11 +92,11 @@ public class InputHelperUI {
      *
      * @return is the chosen room.
      */
-    public static Room getHouseRoomByList(RoomService roomService) {
+    public static Room getHouseRoomByList(RoomService roomService, List<Room> houseRooms) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select one of the existing rooms: ");
-            System.out.println(roomService.buildStringDB());
+            System.out.println(roomService.buildStringDB(houseRooms));
             String aux = scanner.nextLine();
             try {
                 Optional<Room> result = roomService.findByID(aux);
@@ -415,7 +415,7 @@ public class InputHelperUI {
      */
     public static Double getInputAsDoubleZeroOrPositive() {
         double input = -1.0;
-        while (input <= 0) {
+        while (input < 0) {
             input = getInputAsDouble();
         }
         return input;

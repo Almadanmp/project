@@ -77,13 +77,17 @@ public class RoomService {
         return true;
     }
 
+    public List<Room> getAllByEnergyGridName(String energyGridName) {
+        return roomRepository.findAllByEnergyGridId(energyGridName);
+    }
+
+
     /**
      * String Builder of the RoomList.
      *
      * @return a String of the Rooms in the RoomList.
      */
-    public String buildStringDB() {
-        List<Room> rooms = getAllRooms();
+    public String buildStringDB(List<Room> rooms) {
         StringBuilder result = new StringBuilder("---------------\n");
         if (rooms.isEmpty()) {
             return "Invalid List - List is Empty\n";

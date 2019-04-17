@@ -13,4 +13,6 @@ public interface RoomRepository extends CrudRepository<Room, String> {
 
     Optional<Room> findByRoomName(String name);
 
+    List<Room> findAllByEnergyGridId(String name);
+
 }

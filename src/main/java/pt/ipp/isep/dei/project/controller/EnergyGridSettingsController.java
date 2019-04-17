@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.List;
+
 /**
  * Controller class for Energy Grid Settings UI
  */
@@ -19,13 +21,9 @@ public class EnergyGridSettingsController {
      * @return builds a string of all the individual rooms contained in the list.
      */
 
-    public String buildRoomsString(RoomService roomService) {
-        if (roomService == null) {
-            return "The Room List wasn't properly initialized. Please try again.";
-        }
-        return roomService.buildString();
+    public String buildRoomsString(RoomService roomService, List<Room> roomsOnGrid) {
+        return roomService.buildStringDB(roomsOnGrid);
     }
-
 
     /**
      * @return builds a string of all the individual EnergyGrids contained in the house's EnergyGridList.

@@ -149,13 +149,12 @@ class GASettingsControllerTest {
 
         List<GeographicArea> expectedResult = new ArrayList<>();
         expectedResult.add(secondValidArea);
-        GeographicAreaService service = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
 
         Mockito.when(geographicAreaRepository.findAll()).thenReturn(expectedResult);
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(service, AreaTypeMapper.objectToDTO(typeCity));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 

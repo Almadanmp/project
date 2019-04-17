@@ -129,8 +129,8 @@ public class HouseConfigurationController {
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String buildRoomsString(RoomService roomService) {
-        return roomService.buildStringDB();
+    public String buildRoomsString(RoomService roomService, List<Room> houseRooms) {
+        return roomService.buildStringDB(houseRooms);
     }
 
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.

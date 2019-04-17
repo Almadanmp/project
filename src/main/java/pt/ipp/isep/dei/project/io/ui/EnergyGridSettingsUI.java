@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 class EnergyGridSettingsUI {
@@ -30,11 +31,11 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 2: //US135
-                    runUS135(house, energyGridService);
+                    runUS135(energyGridService);
                     activeInput = false;
                     break;
                 case 3: //US145
-                    runUS145(house, energyGridService);
+                    runUS145(energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 4: //US147
@@ -71,11 +72,10 @@ class EnergyGridSettingsUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the energy grid you want to create: ");
         String name = scanner.next();
-        System.out.println("Now let's set the maximum contracted power for this energy grid.");
+        System.out.println("Insert the maximum contracted power for this energy grid.");
         double power = InputHelperUI.getInputAsDoubleZeroOrPositive();
         return controller.createEnergyGrid(name, power, house.getId(), energyGridService);
     }
-
 
     private void updateHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
         if (controller.addEnergyGridToHouse(energyGrid, energyGridService)) {
@@ -86,11 +86,11 @@ class EnergyGridSettingsUI {
         }
     }
 
-    /* USER STORY 135 UI - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced
+    /* USER STORY 135 UI - As an Administrator, I want to add a power source to an energy grid, so that the produced
     energy may be used by all devices on that grid - DANIEL OLIVEIRA.
      */
-    private void runUS135(House house, EnergyGridService energyGridService) {
-        if (!house.isEnergyGridListEmpty()) {
+    private void runUS135(EnergyGridService energyGridService) {
+        if (!energyGridService.getAllGrids().isEmpty()) {
             EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridService);
             PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
             updateGridAndDisplayState(energyGrid, powerSource);
@@ -101,7 +101,7 @@ class EnergyGridSettingsUI {
 
     private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type the designation of the power source you want to addWithoutPersisting: ");
+        System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
         System.out.println("Now let's set the maximum power output of this power source.");
         double maxPowerOutput = InputHelperUI.getInputAsDoubleZeroOrPositive();
@@ -123,18 +123,19 @@ class EnergyGridSettingsUI {
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.
-    private void runUS145(House house, EnergyGridService energyGridService) {
-        if (house.isEnergyGridListEmpty()) {
+    private void runUS145(EnergyGridService energyGridService, RoomService roomService) {
+        if (energyGridService.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridService);
-        displayRoomList(energyGrid);
+        List<Room> roomsOnGrid = roomService.getAllByEnergyGridName(energyGrid.getName());
+        displayRoomList(roomsOnGrid, roomService);
 
     }
 
-    private void displayRoomList(EnergyGrid energyGrid) {
-        System.out.println(controller.buildRoomsString(energyGrid.getRoomService()));
+    private void displayRoomList(List<Room> roomsOnGrid, RoomService roomService) {
+        System.out.println(controller.buildRoomsString(roomService, roomsOnGrid));
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
@@ -148,7 +149,8 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridService);
         updateGridUS147(energyGrid, room, roomService);
     }

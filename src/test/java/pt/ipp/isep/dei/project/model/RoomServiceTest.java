@@ -35,7 +35,6 @@ class RoomServiceTest {
     private RoomService validRoomService;
 
 
-
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
@@ -54,7 +53,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfAddRoomWorks() {
-       RoomService emptyRoomService = new RoomService(this.roomRepository);
+        RoomService emptyRoomService = new RoomService(this.roomRepository);
         // Assert
         assertTrue(emptyRoomService.add(validRoom));
         assertFalse(validRoomService.add(validRoom));
@@ -71,7 +70,7 @@ class RoomServiceTest {
     }
 
     @Test
-    void seeIfDoNotRemoveRoom(){
+    void seeIfDoNotRemoveRoom() {
         validRoomService.addWithPersistence(validRoom);
         //Assert
         assertFalse(validRoomService.removeRoom(validRoom));
@@ -96,26 +95,24 @@ class RoomServiceTest {
         validRoomService.addPersistence(room);
 
 
-
         assertTrue(validRoomService.contains(room));
     }
 
     @Test
     void seeIfgetlistOfRooms() {
 
-List<Room> roomList = new ArrayList<>();
+        List<Room> roomList = new ArrayList<>();
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-roomList.add(room);
+        roomList.add(room);
         validRoomService.addPersistence(room);
-
 
 
         assertEquals(roomList, validRoomService.getRooms());
     }
 
     @Test
-    void seeIfGetDB (){
+    void seeIfGetDB() {
         String mockId = "SensorOne";
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
@@ -134,7 +131,7 @@ roomList.add(room);
         String mockId = "SensorOne";
 
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-           validRoomService.getDB(mockId);
+            validRoomService.getDB(mockId);
         });
 
     }
@@ -165,7 +162,7 @@ roomList.add(room);
     @Test
     void seeIfBuildRoomListStringWorksEmptyListDB() {
 
-        RoomService emptyRoomService = new RoomService(this.roomRepository);
+        List<Room> rooms = new ArrayList<>();
 
         // Act
 
@@ -173,7 +170,7 @@ roomList.add(room);
 
         // Assert
 
-        assertEquals(expectedResult, emptyRoomService.buildStringDB());
+        assertEquals(expectedResult, validRoomService.buildStringDB(rooms));
     }
 
     @Test
@@ -210,14 +207,13 @@ roomList.add(room);
         // Act
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
         String expectedResult = "---------------\n" +
                 "Kitchen) Description: 1st Floor Kitchen | House Floor: 1 | Width: 4.0 | Length: 5.0 | Height: 3.0\n" +
                 "---------------\n";
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildStringDB());
+        assertEquals(expectedResult, validRoomService.buildStringDB(rooms));
     }
 
 
@@ -569,7 +565,7 @@ roomList.add(room);
 
         //Act
 
-        boolean actualResult =validRoomService.equals(testList);
+        boolean actualResult = validRoomService.equals(testList);
 
         // Assert
 
@@ -585,7 +581,7 @@ roomList.add(room);
 
         //Act
 
-        boolean actualResult =validRoomService.equals(testList);
+        boolean actualResult = validRoomService.equals(testList);
 
         // Assert
 

@@ -261,7 +261,8 @@ class EnergyConsumptionUI {
     private void runUS720(House house, RoomService roomService) {
 
         UtilsUI utilsUI = new UtilsUI();
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
         if (!utilsUI.roomDTODeviceListIsValid(room, roomService)) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
@@ -290,7 +291,8 @@ class EnergyConsumptionUI {
         if (roomService.getAllRooms().isEmpty()) {
             System.out.print(UtilsUI.INVALID_ROOM_LIST);
         }
-        Room room = InputHelperUI.getHouseRoomByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         System.out.println("Please insert the date at which you want to start the interval.");
         Date initialDate = DateUtils.getInputYearMonthDayHourMin();
         System.out.println("Please insert the date at which you want to end the interval.");
@@ -358,7 +360,8 @@ class EnergyConsumptionUI {
     }
 
     private void setRoomData(RoomService roomService) {
-        RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, roomService);
@@ -366,7 +369,8 @@ class EnergyConsumptionUI {
     }
 
     private void setDeviceData(House programHouse, RoomService roomService) {
-        RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
         Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, programHouse, roomService);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();

@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.House;
+import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
@@ -13,6 +14,7 @@ import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.Date;
+import java.util.List;
 
 import static java.lang.System.out;
 
@@ -113,7 +115,8 @@ public class HouseMonitoringUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
 
         updateModelDisplayState605(room, house, houseSensorService, readingService, roomService);
 
@@ -139,7 +142,8 @@ public class HouseMonitoringUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService);
+        List<Room> houseRooms = roomService.getAllRooms();
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
 
         Date date = DateUtils.getInputYearMonthDay();
         updateModel610(room, date, houseSensorService, readingService, roomService);
