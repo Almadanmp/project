@@ -3,6 +3,12 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;

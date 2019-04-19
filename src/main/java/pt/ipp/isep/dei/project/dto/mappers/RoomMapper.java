@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomService;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.List;

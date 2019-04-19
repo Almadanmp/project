@@ -7,11 +7,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +45,15 @@ class EnergyGridSettingsControllerTest {
 
     @Mock
     private RoomRepository roomRepository;
+    @Mock
+    HouseSensorRepository houseSensorRepository;
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
     private RoomService roomService;
 
     @BeforeEach
     void arrangeArtifacts() {
-        this.roomService = new RoomService(roomRepository);
+        this.roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
         this.energyGridService = new EnergyGridService(energyGridRepository);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),

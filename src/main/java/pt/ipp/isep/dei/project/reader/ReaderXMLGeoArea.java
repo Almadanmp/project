@@ -5,14 +5,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
-import pt.ipp.isep.dei.project.model.GeographicArea;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.HouseService;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.house.HouseService;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,8 +31,8 @@ public class ReaderXMLGeoArea {
      * @param filePath path to the xml file
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
-        ReaderController ctrl = new ReaderController(readingService, houseService, houseSensorService);
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, ReadingService readingService, HouseService houseService, RoomService roomService) {
+        ReaderController ctrl = new ReaderController(readingService, houseService, roomService);
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();

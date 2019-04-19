@@ -3,14 +3,13 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomService;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.Reading;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingService;
 
 import java.util.Date;
 import java.util.List;
@@ -29,9 +28,9 @@ public class HouseMonitoringController {
      * @return is the most recent temperature recorded in a room.
      */
 
-    public double getCurrentRoomTemperature(RoomDTO roomDTO, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, ReadingService readingService, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return houseSensorService.getCurrentRoomTemperature(room, readingService);
+        return roomService.getCurrentRoomTemperature(room, readingService);
     }
 
     /**
@@ -40,9 +39,9 @@ public class HouseMonitoringController {
      * @return is the max temperature recorded in a room
      */
 
-    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day , ReadingService readingService, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return houseSensorService.getMaxTemperatureOnGivenDayDb(room, day, readingService);
+        return roomService.getMaxTemperatureOnGivenDayDb(room, day, readingService);
     }
 
     /**

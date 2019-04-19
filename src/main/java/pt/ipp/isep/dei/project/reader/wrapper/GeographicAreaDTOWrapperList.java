@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.reader.wrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import pt.ipp.isep.dei.project.model.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 
 import java.util.ArrayList;
 import java.util.Arrays;

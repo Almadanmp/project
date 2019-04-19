@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.AddressDTO;
-import pt.ipp.isep.dei.project.model.Address;
+import pt.ipp.isep.dei.project.model.house.Address;
 
 public final class AddressMapper {
 

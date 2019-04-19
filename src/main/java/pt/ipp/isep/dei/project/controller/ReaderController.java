@@ -7,10 +7,15 @@ import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseService;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
@@ -22,16 +27,16 @@ import java.util.logging.Logger;
 
 public class ReaderController {
 
-
-    private HouseSensorService houseSensorService;
     private ReadingService readingService;
     private HouseService houseService;
+    private RoomService roomService;
 
 
-    public ReaderController(ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+    public ReaderController(ReadingService readingService, HouseService houseService, RoomService roomService) {
         this.readingService = readingService;
         this.houseService = houseService;
-        this.houseSensorService = houseSensorService;
+        this.roomService = roomService;
+
     }
 
     //
@@ -44,7 +49,7 @@ public class ReaderController {
      * @param list     - the geographic area list
      * @return - number of geoareas imported
      */
-    public int acceptPath(String filePath, GeographicAreaService list) {
+    public int acceptPath(String filePath, GeographicAreaService list, RoomService roomService) {
         int areasRead;
         if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
@@ -53,7 +58,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingService, houseService, houseSensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingService, houseService, roomService);
             return areasRead;
         }
         return -1;
@@ -191,11 +196,11 @@ public class ReaderController {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
-            HouseSensor sensor = houseSensorService.getById(r.getSensorId());
+            HouseSensor sensor = roomService.getById(r.getSensorId());
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (readingService.addHouseReadingToRepository(sensor, value, date, unit, logger, houseSensorService)) {
+            if (readingService.addHouseReadingToRepository(sensor, value, date, unit, logger, roomService)) {
                 addedReadings++;
             }
         }

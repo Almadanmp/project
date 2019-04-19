@@ -9,7 +9,7 @@
 //import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 //import pt.ipp.isep.dei.project.model.device.log.Log;
 //import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
-//import pt.ipp.isep.dei.project.model.sensor.SensorType;
+//import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 //import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 //
 //import java.util.Calendar;

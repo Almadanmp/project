@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -18,10 +20,14 @@ public class UtilsUITest {
 
     @Mock
     RoomRepository roomRepository;
+    @Mock
+    HouseSensorRepository houseSensorRepository;
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository);
+        roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
     }
 
 //    @Test

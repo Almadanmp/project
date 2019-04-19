@@ -4,6 +4,9 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -194,7 +197,7 @@ public class EnergyGrid implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoom(int index) {
-        if (this.roomService.isEmptyDB()) {
+        if (this.roomService.isEmptyRooms()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
         return this.roomService.get(index);
@@ -322,7 +325,7 @@ public class EnergyGrid implements Metered {
      * @return true if energy grid's RoomList is empty, false otherwise.
      **/
     public boolean isRoomListEmpty() {
-        return roomService.isEmptyDB();
+        return roomService.isEmptyRooms();
     }
 
     /**

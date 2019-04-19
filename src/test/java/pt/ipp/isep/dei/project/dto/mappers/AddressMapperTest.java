@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
-import pt.ipp.isep.dei.project.model.Address;
+import pt.ipp.isep.dei.project.model.house.Address;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -8,8 +8,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +42,6 @@ class HouseMonitoringControllerTest {
     private RoomDTO validRoom;
     private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
     private HouseSensor validTemperatureHouseSensor; // Is a temperature sensor with valid readings.
-    private HouseSensorService validHouseSensorService; // Contains the mock sensors mentioned above.
     private ReadingService readingService;
     private RoomService roomService;
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
@@ -62,6 +71,10 @@ class HouseMonitoringControllerTest {
 
     @Mock
     RoomRepository roomRepository;
+    @Mock
+    HouseSensorRepository houseSensorRepository;
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -79,10 +92,8 @@ class HouseMonitoringControllerTest {
         Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
-        validHouseSensorService = new HouseSensorService();
-        validRoom1.setSensorList(validHouseSensorService);
         readingService = new ReadingService();
-        roomService = new RoomService(roomRepository);
+        roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
         validHouse.setRoomService(validRoomService);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 

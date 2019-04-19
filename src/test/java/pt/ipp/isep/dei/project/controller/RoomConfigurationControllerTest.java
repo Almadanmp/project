@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
@@ -38,13 +38,16 @@ class RoomConfigurationControllerTest {
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
-    private HouseSensorService houseSensorService;
+    private RoomService roomService;
 
     @Mock
     HouseSensorRepository houseSensorRepository;
 
     @Mock
     SensorTypeRepository sensorTypeRepository;
+
+    @Mock
+    RoomRepository roomRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -55,7 +58,7 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
+        this.roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
     }
 
     @Test
@@ -173,7 +176,7 @@ class RoomConfigurationControllerTest {
 
         //Act
 
-        String actualResult = controller.buildSensorListString(houseSensorService, houseSensorList);
+        String actualResult = controller.buildSensorListString(roomService, houseSensorList);
 
         //Assert
 
@@ -208,7 +211,7 @@ class RoomConfigurationControllerTest {
         HouseSensor testAreaSensor = new HouseSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
         // Act
 
-        boolean actualResult = controller.addSensorToRoom(testAreaSensor, houseSensorService);
+        boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomService);
 
         // Assert
 
@@ -454,19 +457,6 @@ class RoomConfigurationControllerTest {
         assertEquals(actualResult, "Not a Washing Machine");
     }
 
-    @Test
-    void seeIfGetSensorListWorks() {
-        // Arrange
-
-        HouseSensorService expectedResult = new HouseSensorService();
-        validRoomNoDevices.setSensorList(expectedResult);
-        // Act
-
-        HouseSensorService actualResult = controller.getRoomSensorList(validRoomNoDevices);
-
-        // Assert
-        assertEquals(actualResult, expectedResult);
-    }
 
 //    @Test
 //    void deviceListSize() {

@@ -3,8 +3,11 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
@@ -140,21 +143,20 @@ public class HouseConfigurationController {
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
      *
      * @param filepath         is the path of the file we want to import sensors from.
-     * @param roomRepository   is the service making the connection to the room repository.
-     * @param sensorRepository is the service making the connection to the house sensor repository.
+     * @param roomService  is the service making the connection to the room repository.
      * @return is the number of imported sensors.
      */
 
-    public int[] readSensors(String filepath, RoomService roomRepository, HouseSensorService sensorRepository) {
+    public int[] readSensors(String filepath, RoomService roomService) {
         // Initialize needed variables.
         JSONSensorsReader reader = new JSONSensorsReader();
         int[] result = new int[2];
-        if (roomRepository.isEmptyDB()) { // If there are no rooms to add sensors to, no sensors will be added.
+        if (roomService.isEmptyRooms()) { // If there are no rooms to add sensors to, no sensors will be added.
             return result;
         }
         try {
             List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
-            return addSensorsToModelRooms(importedSensors, roomRepository, sensorRepository);
+            return addSensorsToModelRooms(importedSensors, roomService);
         } catch (IllegalArgumentException ok) { // Throws an exception if the file is corrupt or non existent.
             throw new IllegalArgumentException();
         }
@@ -165,20 +167,18 @@ public class HouseConfigurationController {
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
      *
      * @param importedSensors    is the list of houseSensorDTOs that we're trying to import into the program.
-     * @param roomRepository     is the service making the connection to the room repository.
-     * @param houseSensorService is the service making the connection to the houseSensor repository.
+     * @param roomService     is the service making the connection to the room repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomRepository, HouseSensorService
-            houseSensorService) {
+    private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomService) {
         Logger logger = getLogger(); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
-            Optional<Room> roomToAddTo = roomRepository.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
+            Optional<Room> roomToAddTo = roomService.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
-                houseSensorService.save(HouseSensorMapper.dtoToObject(importedSensor));
+                roomService.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             } else {
                 logger.warning("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()

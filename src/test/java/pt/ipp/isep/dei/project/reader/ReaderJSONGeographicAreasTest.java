@@ -11,9 +11,12 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
+import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.house.HouseService;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.ReadingService;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.File;
@@ -51,17 +54,17 @@ class ReaderJSONGeographicAreasTest {
     private ReadingService readingService;
     private GeographicAreaService geographicAreaService;
     private HouseService houseService;
-    private HouseSensorService houseSensorService;
+    private RoomService roomService;
 
     private ReaderController ctrl;
 
     @BeforeEach
     void arrangeArtifacts() {
         readingService = new ReadingService();
+        roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-        houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
-        ctrl = new ReaderController(readingService, houseService, houseSensorService);
+        ctrl = new ReaderController(readingService, houseService, roomService);
 
     }
 

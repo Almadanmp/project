@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -16,8 +17,15 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,6 +61,10 @@ class EnergyConsumptionControllerTest {
 
     @Mock
     private RoomRepository roomRepository;
+    @Mock
+    HouseSensorRepository houseSensorRepository;
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
 
     private RoomService roomService;
 
@@ -61,7 +73,7 @@ class EnergyConsumptionControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(this.roomRepository);
+        roomService = new RoomService(this.roomRepository, houseSensorRepository, sensorTypeRepository);
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
         validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1", "Grid1");
         validDevice1.setName("WaterHeater");

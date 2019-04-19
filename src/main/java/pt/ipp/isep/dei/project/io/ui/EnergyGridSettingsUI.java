@@ -5,6 +5,9 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -141,7 +144,7 @@ class EnergyGridSettingsUI {
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
     private void runUS147(EnergyGridService energyGridService, RoomService roomService) {
-        if (roomService.isEmptyDB()) {
+        if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }

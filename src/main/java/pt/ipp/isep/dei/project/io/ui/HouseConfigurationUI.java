@@ -6,8 +6,13 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseService;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -28,18 +33,16 @@ class HouseConfigurationUI {
     private ReadingService readingService;
     private HouseService houseService;
     private ReaderController readerController;
-    private HouseSensorService houseSensorService;
 
 
-    HouseConfigurationUI(ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+    HouseConfigurationUI(ReadingService readingService, HouseService houseService, RoomService roomService2) {
         this.controller = new HouseConfigurationController();
         this.readingService = readingService;
         this.houseService = houseService;
-        this.readerController = new ReaderController(readingService, houseService, houseSensorService);
-        this.houseSensorService = houseSensorService;
+        this.readerController = new ReaderController(readingService, houseService, roomService2);
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, EnergyGridService energyGridService) {
+    void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -50,11 +53,11 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2(geographicAreaService, houseService);
+                    runUS15v2(geographicAreaService, houseService, roomService);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS100(house, houseService);
+                    runUS100(house, houseService, roomService);
                     activeInput = false;
                     break;
                 case 3:
@@ -70,7 +73,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 6:
-                    runUS260(sensorService, roomService);
+                    runUS260(roomService);
                     activeInput = false;
                     break;
                 case 7:
@@ -98,21 +101,21 @@ class HouseConfigurationUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2(GeographicAreaService geographicAreaService, HouseService houseService) {
-        ReaderController ctrl = new ReaderController(readingService, houseService, houseSensorService);
+    private void runUS15v2(GeographicAreaService geographicAreaService, HouseService houseService, RoomService roomService) {
+        ReaderController ctrl = new ReaderController(readingService, houseService, roomService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(filePath, geographicAreaService);
+        int areas = ctrl.acceptPath(filePath, geographicAreaService, roomService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100(House house, HouseService houseService) {
-        ReaderController ctrl = new ReaderController(readingService, houseService, houseSensorService);
+    private void runUS100(House house, HouseService houseService, RoomService roomService) {
+        ReaderController ctrl = new ReaderController(readingService, houseService, roomService);
         InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -250,14 +253,14 @@ class HouseConfigurationUI {
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.
     // Sensors without a valid room shouldn’t be imported but registered in the application log.
 
-    private void runUS260(HouseSensorService sensorService, RoomService roomService) {
+    private void runUS260(RoomService roomService) {
         InputHelperUI inputs = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
         try {
-            int[] importedSensors = controller.readSensors(filePath, roomService, sensorService);
+            int[] importedSensors = controller.readSensors(filePath, roomService);
             System.out.println(importedSensors[0] + " Sensors successfully imported and " + importedSensors[1] + " rejected." +
                     " Check the application log for more info.");
         } catch (IllegalArgumentException ok) {

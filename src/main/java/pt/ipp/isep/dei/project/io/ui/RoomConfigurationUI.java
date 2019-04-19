@@ -4,18 +4,17 @@ import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.House;
-import pt.ipp.isep.dei.project.model.Room;
-import pt.ipp.isep.dei.project.model.RoomService;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.SensorType;
-import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
+import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
 
 import java.util.Date;
 import java.util.List;
@@ -32,9 +31,9 @@ class RoomConfigurationUI {
         this.roomService = roomService;
     }
 
-    void run(House house, SensorTypeService sensorTypeService, HouseSensorService houseSensorService) {
+    void run(House house, SensorTypeService sensorTypeService) {
 
-        if (roomService.isEmptyDB()) {
+        if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -72,11 +71,11 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 7: //US250
-                    runUS250(houseSensorService);
+                    runUS250();
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(sensorTypeService, houseSensorService);
+                    runUS253(sensorTypeService);
                     activeInput = false;
                     break;
                 case 0:
@@ -93,7 +92,7 @@ class RoomConfigurationUI {
      * Prints device List in that room.
      */
     private void runUS201() {
-        if (roomService.isEmptyDB()) {
+        if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -119,7 +118,7 @@ class RoomConfigurationUI {
      */
 
     private void runUS210(House house, RoomService roomService) {
-        if (roomService.isEmptyDB()) {
+        if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -363,19 +362,19 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
-    private void runUS250(HouseSensorService houseSensorService) {
+    private void runUS250() {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
-        displaySensorListUS250(room, houseSensorService);
+        displaySensorListUS250(room);
     }
 
-    private void displaySensorListUS250(Room room, HouseSensorService houseSensorService) {
-        if (houseSensorService.getAllSensor().isEmpty()) {
+    private void displaySensorListUS250(Room room) {
+        if (roomService.getAllSensor().isEmpty()) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        List<HouseSensor> roomSensors = houseSensorService.getAllByRoomId(room.getName());
-        System.out.println(controller.buildSensorListString(houseSensorService, roomSensors));
+        List<HouseSensor> roomSensors = roomService.getAllByRoomId(room.getName());
+        System.out.println(controller.buildSensorListString(roomService, roomSensors));
     }
 
 
@@ -385,7 +384,7 @@ class RoomConfigurationUI {
      * <p>
      * //  * @param typeSensorList is
      */
-    private void runUS253(SensorTypeService sensorService, HouseSensorService houseSensorService) {
+    private void runUS253(SensorTypeService sensorService) {
         if (sensorService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
@@ -393,10 +392,10 @@ class RoomConfigurationUI {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorService);
-        getInput253(room, sensorType, houseSensorService);
+        getInput253(room, sensorType);
     }
 
-    private void getInput253(Room room, SensorType sensorType, HouseSensorService houseSensorService) {
+    private void getInput253(Room room, SensorType sensorType) {
         Scanner input = new Scanner(System.in);
         // Id Getter
         System.out.println("\nEnter Sensor Id:\t");
@@ -430,16 +429,16 @@ class RoomConfigurationUI {
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
         String idRoom = room.getName();
-        updateAndDisplay253(sensorID, sensorType, room, dateYear, dateMonth, dateDay, sensorName, idRoom, houseSensorService);
+        updateAndDisplay253(sensorID, sensorType, room, dateYear, dateMonth, dateDay, sensorName, idRoom);
 
     }
 
     private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, int dateYear, int dateMonth,
-                                     int dateDay, String sensorName, String idRoom, HouseSensorService houseSensorService) {
+                                     int dateDay, String sensorName, String idRoom) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
         HouseSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorID, sensorName, sensorType, mDate, idRoom);
-        if (controller.addSensorToRoom(mAreaSensor, houseSensorService)) {
+        if (controller.addSensorToRoom(mAreaSensor, roomService)) {
             System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");
     }

@@ -6,9 +6,13 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.areaType.AreaTypeService;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.house.HouseService;
+import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -21,10 +25,12 @@ class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
+    private RoomService roomService;
 
-    GASettingsUI(ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+    GASettingsUI(ReadingService readingService, HouseService houseService, RoomService roomService) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(readingService, houseService, houseSensorService);
+        this.readerController = new ReaderController(readingService, houseService, roomService);
+        this.roomService = roomService;
     }
 
     void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
@@ -434,7 +440,7 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = readerController.acceptPath(filePath, geographicAreaService);
+        int areas = readerController.acceptPath(filePath, geographicAreaService, roomService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 
