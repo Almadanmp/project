@@ -20,7 +20,10 @@ import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "pt.ipp.isep.dei.project")
@@ -38,6 +41,9 @@ public class MainUI {
     private AreaSensorService areaSensorService;
 
     @Autowired
+    private AreaSensorRepository areaSensorRepository;
+
+    @Autowired
     private ReadingService readingService;
     @Autowired
     private GeographicAreaService geographicAreaService;
@@ -53,9 +59,6 @@ public class MainUI {
 
     @Autowired
     private HouseSensorRepository houseSensorRepository;
-
-    @Autowired
-    private ReadingRepository readingRepository;
 
     @Autowired
     private EnergyGridService energyGridService;
@@ -130,7 +133,7 @@ public class MainUI {
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository);
 
             //MAIN CODE
 
@@ -150,16 +153,16 @@ public class MainUI {
                 // Submenus Input selection
 
                 List<String> mainMenuOptions = new ArrayList<>();
-                        mainMenuOptions.add("Geographic Area Settings");
-                        mainMenuOptions.add("House Settings.");
-                        mainMenuOptions.add("Room Settings.");
-                        mainMenuOptions.add("Sensor Settings.");
-                        mainMenuOptions.add("Energy Grid Settings.");
-                        mainMenuOptions.add("House Monitoring.");
-                        mainMenuOptions.add("Energy Consumption Management.");
-                        mainMenuOptions.add("Exit Application");
+                mainMenuOptions.add("Geographic Area Settings");
+                mainMenuOptions.add("House Settings.");
+                mainMenuOptions.add("Room Settings.");
+                mainMenuOptions.add("Sensor Settings.");
+                mainMenuOptions.add("Energy Grid Settings.");
+                mainMenuOptions.add("House Monitoring.");
+                mainMenuOptions.add("Energy Consumption Management.");
+                mainMenuOptions.add("Exit Application");
 
-                        MenuFormatter.showMenu("Main Menu", mainMenuOptions);
+                MenuFormatter.showMenu("Main Menu", mainMenuOptions);
 
 
                 boolean activeInput = true;
@@ -175,7 +178,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService, houseSensorService);
-                            houseC.run(house, geographicAreaService, houseSensorService, roomService, roomRepository, houseSensorRepository, readingRepository, energyGridService);
+                            houseC.run(house, geographicAreaService, houseSensorService, roomService, roomRepository, houseSensorRepository, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

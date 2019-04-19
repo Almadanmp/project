@@ -2,11 +2,12 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.*;
+import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
-import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
-import pt.ipp.isep.dei.project.model.sensor.ReadingService;
+import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
@@ -62,8 +63,8 @@ public class ReaderController {
      * from the file and saves it into the repository.
      *
      * @param filePath is the file path.
-     * @param house is the House that this method receives from the MainUI(), with houseRepository,
-     * gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
+     * @param house    is the House that this method receives from the MainUI(), with houseRepository,
+     *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
     public boolean readJSONAndDefineHouse(House house, String filePath) {
@@ -139,7 +140,7 @@ public class ReaderController {
      * @param list               - the service we want to add the dtos to
      * @return - number of areas added
      */
-    int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS, AreaSensorService listSensors) {
+    int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
@@ -160,15 +161,15 @@ public class ReaderController {
      * @param logPath  log file path
      * @return number of Area Readings added to corresponding Area Sensor
      **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath) {
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath, GeographicAreaService geographicAreaService) {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
-            String sensorID = r.getSensorId();
+            AreaSensor sensor = areaSensorService.getById(r.getSensorId());
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (readingService.addAreaReadingToRepository(sensorID, value, date, unit, logger, areaSensorService)) {
+            if (geographicAreaService.addAreaReadingToRepository(sensor, value, date, unit, logger, areaSensorService)) {
                 addedReadings++;
             }
         }
@@ -189,11 +190,11 @@ public class ReaderController {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
-            String sensorID = r.getSensorId();
+            HouseSensor sensor = houseSensorService.getById(r.getSensorId());
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (readingService.addHouseReadingToRepository(sensorID, value, date, unit, logger, houseSensorService)) {
+            if (readingService.addHouseReadingToRepository(sensor, value, date, unit, logger, houseSensorService)) {
                 addedReadings++;
             }
         }

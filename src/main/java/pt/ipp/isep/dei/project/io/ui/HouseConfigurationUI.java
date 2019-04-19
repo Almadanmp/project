@@ -13,7 +13,6 @@ import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
@@ -45,7 +44,7 @@ class HouseConfigurationUI {
         this.houseSensorService = houseSensorService;
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, ReadingRepository readingRepository, EnergyGridService energyGridService) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");

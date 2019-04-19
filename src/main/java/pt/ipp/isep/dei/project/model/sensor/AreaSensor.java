@@ -5,7 +5,9 @@ import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Local;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents a Sensor.
@@ -32,6 +34,9 @@ public class AreaSensor {
 
     private Long geographicAreaId;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Reading> areaReadings;
+
     private boolean active;
 
 
@@ -40,6 +45,7 @@ public class AreaSensor {
      */
     public AreaSensor() {
         this.active = true;
+        areaReadings = new ArrayList<>();
     }
 
     /**
@@ -60,6 +66,7 @@ public class AreaSensor {
         this.dateStartedFunctioning = dateStartedFunctioning;
         this.active = true;
         this.geographicAreaId = geographicAreaId;
+        areaReadings = new ArrayList<>();
     }
 
     /**
@@ -103,6 +110,14 @@ public class AreaSensor {
 
     public Long getGeographicAreaId() {
         return this.geographicAreaId;
+    }
+
+    public List<Reading> getAreaReadings() {
+        return areaReadings;
+    }
+
+    public void setAreaReadings(List<Reading> readings) {
+        this.areaReadings = readings;
     }
 
     /**
@@ -223,6 +238,26 @@ public class AreaSensor {
         }
         return "Active";
     }
+
+//TODO test this method manualy on h2
+
+    /**
+     * This method receives a String that corresponds to the reading's sensor ID and a Date that
+     * corresponds to the reading's date, and checks that a reading with those characteristics
+     * exists in the repository.
+     *
+     * @param date reading date
+     * @return true in case the reading exists in the repository, false otherwise.
+     **/
+    public boolean readingExists(Date date) {
+        for (Reading r : this.areaReadings) {
+            if (r.getDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * This method returns the sensor type name.

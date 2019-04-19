@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import pt.ipp.isep.dei.project.services.units.Unit;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +14,11 @@ public class Reading {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String sensorID;
     private double value;
     private Date date;
     private String unit;
-    private String sensorId;
+
 
     /**
      * Builder with 'value' and 'date'
@@ -27,11 +26,11 @@ public class Reading {
      * @param value value received
      * @param date  date received
      */
-    public Reading(double value, Date date, String unit, String sensorId) {
+    public Reading(double value, Date date, String unit, String sensorID) {
         setValue(value);
         setDate(date);
         setUnit(unit);
-        this.sensorId = sensorId;
+        this.sensorID = sensorID;
     }
 
     protected Reading() {
@@ -63,6 +62,14 @@ public class Reading {
         return this.date;
     }
 
+    public String getSensorID() {
+        return sensorID;
+    }
+
+    public void setSensorID(String sensorID) {
+        this.sensorID = sensorID;
+    }
+
     /**
      * Setter for unit. Receives a string and sets it as a parameter.
      *
@@ -81,19 +88,6 @@ public class Reading {
         return this.unit;
     }
 
-
-    public void setSensorId(String sensorId) {
-        this.sensorId = sensorId;
-    }
-
-    public String getSensorId() {
-        return sensorId;
-    }
-
-    public String getId() {
-        return this.sensorId;
-    }
-
     /**
      * Method 'equals' is required so that each 'Reading' can be added to a 'AreaReadingList'.
      *
@@ -109,7 +103,7 @@ public class Reading {
             return false;
         } else {
             Reading reading = (Reading) o;
-            return (this.date.equals(reading.getDate()));
+            return (this.date.equals(reading.getDate()) && this.sensorID.equals(reading.getSensorID()));
         }
     }
 

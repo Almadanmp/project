@@ -29,9 +29,6 @@ class ReaderJSONGeographicAreasTest {
     AreaSensorRepository areaSensorRepository;
 
     @Mock
-    ReadingRepository readingRepository;
-
-    @Mock
     GeographicAreaRepository geographicAreaRepository;
 
     @Mock
@@ -64,9 +61,9 @@ class ReaderJSONGeographicAreasTest {
     @BeforeEach
     void arrangeArtifacts() {
         areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
-        readingService = new ReadingService(readingRepository);
+        readingService = new ReadingService();
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
-        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository);
+        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository);
         houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         sensorTypeService = new SensorTypeService(sensorTypeRepository);
         ctrl = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
@@ -191,7 +188,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, new GeographicAreaService(geographicAreaRepository, areaTypeRepository), areaSensorService);
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath,geographicAreaService, areaSensorService);
 
         // Assert
 

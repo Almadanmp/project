@@ -73,7 +73,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 10:
-                    runUS20v3();
+                    runUS20v3(geographicAreaService);
                     activeInput = false;
                     break;
                 case 0:
@@ -370,56 +370,56 @@ class GASettingsUI {
      * <p>
      * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
-    private void runUS20v3() {
+    private void runUS20v3(GeographicAreaService geographicAreaService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
-            importReadingsFromCSV(filePath);
+            importReadingsFromCSV(filePath, geographicAreaService);
         } else if (filePath.endsWith(".json")) {
-            importReadingsFromJSON(filePath);
+            importReadingsFromJSON(filePath, geographicAreaService);
         } else if (filePath.endsWith(".xml")) {
-            importReadingsFromXML(filePath);
+            importReadingsFromXML(filePath, geographicAreaService);
         }
     }
 
-    private void importReadingsFromCSV(String filePath) {
+    private void importReadingsFromCSV(String filePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
-            result = addReadingsToAreaSensors(list);
+            result = addReadingsToAreaSensors(list, geographicAreaService);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private void importReadingsFromJSON(String filePath) {
+    private void importReadingsFromJSON(String filePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
-            result = addReadingsToAreaSensors(list);
+            result = addReadingsToAreaSensors(list, geographicAreaService);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private void importReadingsFromXML(String filePath) {
+    private void importReadingsFromXML(String filePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
-            result = addReadingsToAreaSensors(list);
+            result = addReadingsToAreaSensors(list, geographicAreaService);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
     }
 
-    private int addReadingsToAreaSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToGeographicAreaSensors(readings, "resources/logs/areaReadingLogs.log");
+    private int addReadingsToAreaSensors(List<ReadingDTO> readings, GeographicAreaService geographicAreaService) {
+        return readerController.addReadingsToGeographicAreaSensors(readings, "resources/logs/areaReadingLogs.log", geographicAreaService);
     }
 
 

@@ -27,11 +27,11 @@ public final class ReadingMapper {
         double objectValue = dtoToConvert.getValue();
         Date objectDate = dtoToConvert.getDate();
         String objectUnit = dtoToConvert.getUnit();
-        String objectSensorId = dtoToConvert.getSensorId();
+        String objectSensorID = dtoToConvert.getSensorId();
 
         // Create, update and return the converted object
 
-        return new Reading(objectValue, objectDate, objectUnit, objectSensorId);
+        return new Reading(objectValue, objectDate, objectUnit, objectSensorID);
     }
 
     /**
@@ -46,12 +46,14 @@ public final class ReadingMapper {
 
         double dtoValue = objectToConvert.getValue();
         Date dtoDate = objectToConvert.getDate();
+        String dtoSensorID = objectToConvert.getSensorID();
 
         // Create, update and return the converted DTO
 
         ReadingDTO resultDTO = new ReadingDTO();
         resultDTO.setDate(dtoDate);
         resultDTO.setValue(dtoValue);
+        resultDTO.setSensorId(dtoSensorID);
         return resultDTO;
     }
 }

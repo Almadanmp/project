@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
@@ -71,9 +70,6 @@ class HouseMonitoringControllerTest {
     SensorTypeRepository sensorTypeRepository;
 
     @Mock
-    ReadingRepository readingRepository;
-
-    @Mock
     RoomRepository roomRepository;
 
     @BeforeEach
@@ -95,7 +91,7 @@ class HouseMonitoringControllerTest {
         validAreaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         validHouseSensorService = new HouseSensorService();
         validRoom1.setSensorList(validHouseSensorService);
-        readingService = new ReadingService(readingRepository);
+        readingService = new ReadingService();
         roomService = new RoomService(roomRepository);
         validHouse.setRoomService(validRoomService);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -141,11 +137,11 @@ class HouseMonitoringControllerTest {
                 new Date(), 6008L);
         validTemperatureHouseSensor = new HouseSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
                 new Date(), "RoomAB");
-        Reading firstTempReading = new Reading(15, validDate1, "C", "TEST");
-        Reading secondTempReading = new Reading(20, validDate2, "C", "TEST");
-        Reading thirdTempReading = new Reading(30, validDate3, "C", "TEST");
-        Reading fourthTempReading = new Reading(30, validDate4, "C", "TEST");
-        Reading fifthTempReading = new Reading(-5, validDate5, "C", "TEST");
+        Reading firstTempReading = new Reading(15, validDate1, "C", "Test");
+        Reading secondTempReading = new Reading(20, validDate2, "C", "Test");
+        Reading thirdTempReading = new Reading(30, validDate3, "C", "Test");
+        Reading fourthTempReading = new Reading(30, validDate4, "C", "Test");
+        Reading fifthTempReading = new Reading(-5, validDate5, "C", "Test");
 
         // Copy past to TEST for using the organized dates and readings
         /*
@@ -188,9 +184,9 @@ class HouseMonitoringControllerTest {
 
         AreaSensor validRainfallAreaSensor = new AreaSensor("RF12366", "RainOne", new SensorType("rainfall", "l/m2 "), new Local
                 (21, 41, 11), new Date(), 6008L);
-        Reading firstRainReading = new Reading(40, validDate4, "C", "TEST");
-        Reading secondRainReading = new Reading(10, validDate5, "C", "TEST");
-        Reading thirdRainReading = new Reading(10, validDate6, "C", "TEST");
+        Reading firstRainReading = new Reading(40, validDate4, "C", "Test");
+        Reading secondRainReading = new Reading(10, validDate5, "C", "Test");
+        Reading thirdRainReading = new Reading(10, validDate6, "C", "Test");
         validRoom = RoomMapper.objectToDTO(validRoom1);
     }
 

@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model.sensor;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,13 +7,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,12 +40,16 @@ class AreaSensorServiceTest {
 
     @Mock
     AreaSensorRepository areaSensorRepository;
-
+    @Mock
+    GeographicAreaRepository geographicAreaRepository;
+    @Mock
+    AreaTypeRepository areaTypeRepository;
     @Mock
     SensorTypeRepository sensorTypeRepository;
 
     private AreaSensorService validAreaSensorService; // Contains the first valid sensor by default.
 
+    private GeographicAreaService geographicAreaService;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -61,6 +70,7 @@ class AreaSensorServiceTest {
         secondValidAreaSensor.setActive(true);
         thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
                 validDate1, 6008L);
+        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository);
     }
 
 
@@ -262,7 +272,7 @@ class AreaSensorServiceTest {
 
         //Act
 
-        boolean actualResult1 = validAreaSensorService.sensorFromRepositoryIsActive(sensorId, validDate1);
+        boolean actualResult1 = geographicAreaService.sensorFromRepositoryIsActive(sensorId, validDate1);
 
         //Assert
 
@@ -278,7 +288,7 @@ class AreaSensorServiceTest {
 
         //Act
 
-        boolean actualResult1 = validAreaSensorService.sensorFromRepositoryIsActive(sensorId, validDate2);
+        boolean actualResult1 = geographicAreaService.sensorFromRepositoryIsActive(sensorId, validDate2);
 
         //Assert
 
@@ -294,7 +304,7 @@ class AreaSensorServiceTest {
 
         //Act
 
-        boolean actualResult1 = validAreaSensorService.sensorFromRepositoryIsActive(sensorId, validDate1);
+        boolean actualResult1 = geographicAreaService.sensorFromRepositoryIsActive(sensorId, validDate1);
 
         //Assert
 
@@ -345,16 +355,6 @@ class AreaSensorServiceTest {
 
         assertEquals(result.getId(), areaSensor.getId());
         assertEquals(result.getName(), areaSensor.getName());
-
-    }
-
-    @Test
-    void seeIfGetByIdNoSensor() {
-        String mockId = "SensorOne";
-
-        Assertions.assertThrows(NoSuchElementException.class, () -> {
-            validAreaSensorService.getById(mockId);
-        });
 
     }
 

@@ -45,7 +45,7 @@ public class AreaSensorService {
             throw new IllegalArgumentException("The sensor list is empty");
         }
         for (AreaSensor s : areaSensors) {
-            List<Reading> sensorReadings = readingService.findReadingsBySensorID(s.getId());
+            List<Reading> sensorReadings = s.getAreaReadings();
 
             if (!sensorReadings.isEmpty()) {
                 finalList.add(s);
@@ -132,7 +132,7 @@ public class AreaSensorService {
         if (value.isPresent()) {
             return value.get();
         }
-        throw new NoSuchElementException("ERROR: There is no Sensor with the selected ID.");
+        return null;
     }
 
     /**
@@ -141,31 +141,11 @@ public class AreaSensorService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-    boolean sensorExistsInRepository(String sensorID) {
+    public boolean sensorExistsInRepository(String sensorID) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         return value.isPresent();
     }
 
-    /**
-     * This method receives a sensor ID and a Date checks if that sensor exists in the repository
-     * and if it was active at the moment of the given date.
-     *
-     * @param sensorID String of sensor ID
-     * @param date     date to test
-     * @return true in case the sensor exists and it was active during the given date, false otherwise.
-     **/
-    boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
-        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
-        if (value.isPresent()) {
-            AreaSensor areaSensor = value.get();
-            Date startDate = areaSensor.getDateStartedFunctioning();
-            if (date.equals(startDate) || date.after(startDate)) {
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
 
     public boolean remove(AreaSensor areaSensor) {
         Optional<AreaSensor> areaSensor2 = areaSensorRepository.findById(areaSensor.getId());
@@ -280,9 +260,9 @@ public class AreaSensorService {
      **/
     Reading getMostRecentReading(AreaSensor areaSensor, ReadingService readingService) {
 
-        List<Reading> sensorReadings = readingService.findReadingsBySensorID(areaSensor.getId());
+        List<Reading> sensorReadings = areaSensor.getAreaReadings();
 
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
+        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "ERROR");
         if (sensorReadings.isEmpty()) {
             return error;
         }
@@ -337,4 +317,8 @@ public class AreaSensorService {
         }
         return sensorsOfGivenType;
     }
+
+    //READING SERVICE METHODS - REFACTOR
+
+
 }

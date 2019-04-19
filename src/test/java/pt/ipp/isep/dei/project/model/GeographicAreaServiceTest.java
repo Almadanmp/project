@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
@@ -32,6 +33,9 @@ class GeographicAreaServiceTest {
     GeographicAreaRepository geographicAreaRepository;
 
     @Mock
+    AreaSensorRepository areaSensorRepository;
+
+    @Mock
     AreaTypeRepository areaTypeRepository;
 
 
@@ -41,7 +45,7 @@ class GeographicAreaServiceTest {
                 new Local(50, 50, 10));
         secondValidArea = new GeographicArea("Europe", new AreaType("Continent"), 3000, 2000,
                 new Local(90, 100, 10));
-        validService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
+        validService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository);
         validList = new ArrayList<>();
         validList.add(firstValidArea);
     }

@@ -92,7 +92,7 @@ public class HouseSensorService {
     public List<Reading> getReadings(List<HouseSensor> roomSensors, ReadingService readingService) {
         List<Reading> finalList = new ArrayList<>();
         for (HouseSensor s : roomSensors) {
-            finalList.addAll(readingService.findReadingsBySensorID(s.getId()));
+            finalList.addAll(s.getHouseReadings());
         }
         return finalList;
     }
@@ -117,9 +117,14 @@ public class HouseSensorService {
     public List<Double> getValuesOfSpecificDayReadings(List<HouseSensor> houseSensor, Date day, ReadingService readingService) {
         List<Reading> sensorReadings = new ArrayList<>();
         for (HouseSensor hS : houseSensor) {
-            sensorReadings.addAll(readingService.findReadingsBySensorID(hS.getId()));
+            sensorReadings.addAll(hS.getHouseReadings());
         }
         return readingService.getValuesOfSpecificDayReadings(sensorReadings, day);
+    }
+
+
+    public HouseSensor updateSensor(HouseSensor houseSensor) {
+        return houseSensorRepository.save(houseSensor);
     }
 
     /**
@@ -153,15 +158,30 @@ public class HouseSensorService {
     }
 
     /**
+     * This method receives an index as parameter and gets a sensor from sensor list.
+     *
+     * @param id the index of the Sensor.
+     * @return returns sensor that corresponds to index.
+     */
+    public HouseSensor getById(String id) {
+        Optional<HouseSensor> value = houseSensorRepository.findById(id);
+        if (value.isPresent()) {
+            return value.get();
+        }
+        return null;
+    }
+
+
+    /**
      * This method receives a string of a sensor ID and a Date that corresponds to a
      * reading Date.
      * The method will look for the sensor with the corresponding ID in repository
      * and check if the sensor's was active when the reading was recorded.
      *
      * @param sensorID string of the sensor's ID
-     * @param date reading Date
+     * @param date     reading Date
      * @return true in case the sensor was active when the reading was created, false otherwise.
-     * **/
+     **/
     public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
         if (value.isPresent()) {

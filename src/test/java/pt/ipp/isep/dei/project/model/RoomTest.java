@@ -53,7 +53,7 @@ class RoomTest {
         validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
         validRoom.addDevice(validDevice);
         validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
-                getTime(), "C", "TestID");
+                getTime(), "C", "Test");
 
     }
 

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.sensor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents a House Sensor.
@@ -25,6 +26,9 @@ public class HouseSensor {
     private boolean active;
 
     private String roomId;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Reading> houseReadings;
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -87,6 +91,14 @@ public class HouseSensor {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public List<Reading> getHouseReadings() {
+        return houseReadings;
+    }
+
+    public void setHouseReadings(List<Reading> houseReadings) {
+        this.houseReadings = houseReadings;
     }
 
     /**
@@ -184,6 +196,25 @@ public class HouseSensor {
         }
         return "Active";
     }
+
+
+    /**
+     * This method receives a String that corresponds to the reading's sensor ID and a Date that
+     * corresponds to the reading's date, and checks that a reading with those characteristics
+     * exists in the repository.
+     *
+     * @param date reading date
+     * @return true in case the reading exists in the repository, false otherwise.
+     **/
+    public boolean readingExists(Date date) {
+        for (Reading r : this.houseReadings) {
+            if (r.getDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * This method returns the sensor type name.

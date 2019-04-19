@@ -805,7 +805,7 @@ class AreaSensorTest {
         assertEquals(expectedResult, actualResult, 0.01);
     }
 
-      @Test
+    @Test
     void seeIfSetGetIdWorks() {
         // Arrange
 
@@ -1045,8 +1045,8 @@ class AreaSensorTest {
             e.printStackTrace();
         }
         Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
-        Reading earlierReading = new Reading(15, validDate12, "C", "TEST");
-        Reading laterReading = new Reading(30, testDate, "C", "TEST");
+        Reading earlierReading = new Reading(15, validDate12, "C", "Test");
+        Reading laterReading = new Reading(30, testDate, "C", "Test");
         List<Reading> readings = new ArrayList<>();
         readings.add(earlierReading);
         readings.add(laterReading);

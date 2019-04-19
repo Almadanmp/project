@@ -1,27 +1,34 @@
 package pt.ipp.isep.dei.project.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Geographical Areas.
  */
 @Service
 public class GeographicAreaService {
-
+    @Autowired
     private GeographicAreaRepository geographicAreaRepository;
-
+    @Autowired
     private AreaTypeRepository areaTypeRepository;
 
-    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository) {
+    @Autowired
+    AreaSensorRepository areaSensorRepository;
+
+    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository, AreaSensorRepository areaSensorRepository) {
         this.geographicAreaRepository = geographicAreaRepository;
         this.areaTypeRepository = areaTypeRepository;
+        this.areaSensorRepository = areaSensorRepository;
     }
 
     /**
@@ -151,5 +158,76 @@ public class GeographicAreaService {
             return value.get();
         }
         return new AreaType(name);
+    }
+
+
+    //METHODS FROM AREA SENSOR REPOSITORY
+
+    /**
+     * This method receives a sensor ID and a Date checks if that sensor exists in the repository
+     * and if it was active at the moment of the given date.
+     *
+     * @param sensorID String of sensor ID
+     * @param date     date to test
+     * @return true in case the sensor exists and it was active during the given date, false otherwise.
+     **/
+    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
+        if (value.isPresent()) {
+            AreaSensor areaSensor = value.get();
+            Date startDate = areaSensor.getDateStartedFunctioning();
+            if (date.equals(startDate) || date.after(startDate)) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * This method receives a sensor ID, checks if that sensor exists in the repository.
+     *
+     * @param sensorID String of sensor ID
+     * @return true in case the sensor exists, false otherwise.
+     **/
+    boolean sensorExistsInRepository(String sensorID) {
+        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
+        return value.isPresent();
+    }
+
+
+    //METHODS FROM READING SERVICE
+
+    /**
+     * This method receives the parameters to create a reading and tries to add that
+     * reading to the repository. It also receives a Logger so that it can register every
+     * reading that was not added to its corresponding sensor.
+     * This method will look for the area sensor in the repository by its ID.
+     *
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @param unit         is the unit of the reading we want to add.
+     * @return true in case the reading was added false otherwise.
+     */
+    //TODO reading should be created in a method on AreaSensor and added there
+    public boolean addAreaReadingToRepository(AreaSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger, AreaSensorService areaSensorService) {
+        if (sensor != null && sensorExistsInRepository(sensor.getId())) {
+            if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
+                if (sensor.readingExists(readingDate)) {
+                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                            + sensor.getId() + " wasn't added because it already exists.");
+                    return false;
+                }
+                Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
+                sensor.getAreaReadings().add(reading);
+                areaSensorService.updateSensor(sensor);
+                return true;
+            }
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+            return false;
+        }
+        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        return false;
     }
 }

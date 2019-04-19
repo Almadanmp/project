@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
-import pt.ipp.isep.dei.project.repository.ReadingRepository;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -18,9 +17,6 @@ public class ReadingService {
     private static final String EMPTY_LIST = "The reading list is empty.";
 
     @Autowired
-    ReadingRepository readingRepository;
-
-    @Autowired
     AreaSensorRepository areaSensorRepository;
 
     @Autowired
@@ -31,10 +27,6 @@ public class ReadingService {
      * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
     public ReadingService() {
-    }
-
-    public ReadingService(ReadingRepository readingRepository) {
-        this.readingRepository = readingRepository;
     }
 
     /**
@@ -74,7 +66,7 @@ public class ReadingService {
      * @author Carina (US600 e US605)
      **/
     public Reading getMostRecentReading(List<Reading> readings) {
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "null");
+        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "ERROR");
         if (readings.isEmpty()) {
             return error;
         }
@@ -114,12 +106,6 @@ public class ReadingService {
         }
         return getMostRecentReading(readings).getValue();
     }
-
-
-    public List<Reading> findReadingsBySensorID(String id) {
-        return readingRepository.findReadingBySensorId(id);
-    }
-
 
     /**
      * Method that gives the Total Value of readings on a given day (Date).
@@ -193,7 +179,7 @@ public class ReadingService {
      * @author Daniela - US623 & US633
      */
     List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
-        List<Reading> sensorReadings = findReadingsBySensorID(areaSensor.getId());
+        List<Reading> sensorReadings = areaSensor.getAreaReadings();
 
         List<Date> daysWithReadings = new ArrayList<>();
         List<Date> daysProcessed = new ArrayList<>();
@@ -355,7 +341,7 @@ public class ReadingService {
      * @author Daniela (US633)
      */
     public double getAmplitudeValueFromDate(AreaSensor areaSensor, Date date) {
-        List<Reading> daySensorReadings = readingRepository.findReadingBySensorId(areaSensor.getId());
+        List<Reading> daySensorReadings = areaSensor.getAreaReadings();
         List<Double> specificDayValues = getValuesOfSpecificDayReadings(daySensorReadings, date);
 
         double maxTemp = Collections.max(specificDayValues);
@@ -377,7 +363,7 @@ public class ReadingService {
      */
 
     public Date getFirstHottestDayInGivenPeriod(AreaSensor areaSensor, Date minDate, Date maxDate) {
-        List<Reading> sensorReadings = readingRepository.findReadingBySensorId(areaSensor.getId());
+        List<Reading> sensorReadings = areaSensor.getAreaReadings();
         if (sensorReadings.isEmpty()) {
             throw new IllegalArgumentException("No readings available.");
         }
@@ -517,7 +503,7 @@ public class ReadingService {
      */
     List<Reading> getReadingListBetweenDates(AreaSensor areaSensor, Date initialDate, Date finalDate) {
         List<Reading> finalList = new ArrayList<>();
-        List<Reading> result = readingRepository.findReadingBySensorId(areaSensor.getId());
+        List<Reading> result = areaSensor.getAreaReadings();
         for (Reading r : result) {
             if (isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
                 finalList.add(r);
@@ -548,38 +534,6 @@ public class ReadingService {
         return result;
     }
 
-    /**
-     * This method receives the parameters to create a reading and tries to add that
-     * reading to the repository. It also receives a Logger so that it can register every
-     * reading that was not added to its corresponding sensor.
-     * This method will look for the area sensor in the repository by its ID.
-     *
-     * @param sensorID     is the ID of the area sensor we want to add a reading to.
-     * @param readingValue is the value of the reading we want to add.
-     * @param readingDate  is the date of the reading we want to add.
-     * @param unit         is the unit of the reading we want to add.
-     * @return true in case the reading was added false otherwise.
-     */
-    public boolean addAreaReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, AreaSensorService areaSensorService) {
-        if (areaSensorService.sensorExistsInRepository(sensorID)) {
-            if (areaSensorService.sensorFromRepositoryIsActive(sensorID, readingDate)) {
-                if (readingExistsInRepository(sensorID, readingDate)) {
-                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                            + sensorID + " wasn't added because it already exists.");
-                    return false;
-                }
-                Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
-                readingRepository.save(reading);
-                return true;
-            }
-            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                    + sensorID + " wasn't added because the reading is from before the sensor's starting date.");
-            return false;
-        }
-        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                + sensorID + " wasn't added because a sensor with that ID wasn't found.");
-        return false;
-    }
 
     /**
      * This method receives the parameters to create a reading and tries to add that
@@ -587,46 +541,31 @@ public class ReadingService {
      * reading that was not added to its corresponding sensor.
      * This method will look for the house sensor in the repository by its ID.
      *
-     * @param sensorID     is the ID of the house sensor we want to add a reading to.
      * @param readingValue is the value of the reading we want to add.
      * @param readingDate  is the date of the reading we want to add.
      * @param unit         is the unit of the reading we want to add.
      * @return true in case the reading was added false otherwise.
      */
-    public boolean addHouseReadingToRepository(String sensorID, Double readingValue, Date readingDate, String unit, Logger logger, HouseSensorService houseSensorService) {
-        if (houseSensorService.sensorExistsInRepository(sensorID)) {
-            if (houseSensorService.sensorFromRepositoryIsActive(sensorID, readingDate)) {
-                if (readingExistsInRepository(sensorID, readingDate)) {
+    public boolean addHouseReadingToRepository(HouseSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger, HouseSensorService houseSensorService) {
+        if (sensor != null && houseSensorService.sensorExistsInRepository(sensor.getId())) {
+
+            if (houseSensorService.sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
+                if (sensor.readingExists(readingDate)) {
                     logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                            + sensorID + " wasn't added because it already exists.");
+                            + sensor.getId() + " wasn't added because it already exists.");
                     return false;
                 }
-                Reading reading = new Reading(readingValue, readingDate, unit, sensorID);
-                readingRepository.save(reading);
+                Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
+                sensor.getHouseReadings().add(reading);
+                houseSensorService.updateSensor(sensor);
                 return true;
             }
             logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                    + sensorID + " wasn't added because the reading is from before the sensor's starting date.");
+                    + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
             return false;
         }
-        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                + sensorID + " wasn't added because a sensor with that ID wasn't found.");
+        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
         return false;
-    }
-
-
-    /**
-     * This method receives a String that corresponds to the reading's sensor ID and a Date that
-     * corresponds to the reading's date, and checks that a reading with those characteristics
-     * exists in the repository.
-     *
-     * @param sensorID reading's sensor Id
-     * @param date     reading date
-     * @return true in case the reading exists in the repository, false otherwise.
-     **/
-    public boolean readingExistsInRepository(String sensorID, Date date) {
-        Reading reading = readingRepository.findReadingByDateEqualsAndSensorId(date, sensorID);
-        return reading != null;
     }
 
     /**

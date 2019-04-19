@@ -103,7 +103,7 @@ class HouseSensorServiceTest {
 //
 //        // Act
 //
-//        List<Reading> actualResult1 = readingService.getReadings();
+//        List<Reading> actualResult1 = readingService.getAreaReadings();
 //
 //        // Assert
 //
