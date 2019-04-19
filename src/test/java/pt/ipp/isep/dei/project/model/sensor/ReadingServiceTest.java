@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReadingServiceTest {
 
     private ReadingService validReadingService;
-    private AreaSensorService areaSensorService;
     private HouseSensorService houseSensorService;
     private AreaSensor firstValidAreaSensor;
     private HouseSensor firstValidHouseSensor;
@@ -67,7 +66,6 @@ class ReadingServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         validReadingService = new ReadingService();
-        areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");

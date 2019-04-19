@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 
 import java.util.List;
 
@@ -177,11 +176,11 @@ public class GASettingsController {
      * @param areaSensorDTO selected sensor from the geographic area, list of sensors
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
-    public boolean deactivateSensor(AreaSensorDTO areaSensorDTO, AreaSensorService areaSensorService) {
+    public boolean deactivateSensor(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService) {
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
         if (areaSensor.isActive()) {
             areaSensor.deactivateSensor();
-            areaSensorService.updateSensor(areaSensor);
+            geographicAreaService.updateSensor(areaSensor);
             return true;
         }
         return false;
@@ -195,17 +194,17 @@ public class GASettingsController {
         return GeographicAreaMapper.objectToDTO(geographicArea);
     }
 
-    public AreaSensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO, AreaSensorService areaSensorService) {
+    public AreaSensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO, GeographicAreaService geographicAreaService) {
         GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
-        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(geographicArea.getId());
+        List<AreaSensor> areaSensors = geographicAreaService.findByGeoAreaSensorsByID(geographicArea.getId());
 
-        AreaSensor areaSensor = InputHelperUI.getInputSensorByList(areaSensorService, areaSensors);
+        AreaSensor areaSensor = InputHelperUI.getInputSensorByList(geographicAreaService, areaSensors);
 
         return AreaSensorMapper.objectToDTO(areaSensor);
     }
 
-    public void removeSensor(AreaSensorDTO areaSensorDTO, AreaSensorService areaSensorService) {
+    public void removeSensor(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService) {
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
-        areaSensorService.remove(areaSensor);
+        geographicAreaService.remove(areaSensor);
     }
 }

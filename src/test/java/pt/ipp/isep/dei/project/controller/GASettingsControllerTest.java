@@ -15,7 +15,6 @@ import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
@@ -49,10 +48,8 @@ class GASettingsControllerTest {
     private AreaSensor validAreaSensor1;
     private AreaSensor validAreaSensor2;
     private GeographicAreaService validGeographicAreaService;
-    private AreaSensorService validAreaSensorService;
     private AreaTypeService validAreaTypeService;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
-    private AreaSensorService areaSensorService;
 
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
@@ -76,7 +73,6 @@ class GASettingsControllerTest {
             e.printStackTrace();
         }
         validAreaTypeService = new AreaTypeService(areaTypeRepository);
-        validAreaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -93,11 +89,9 @@ class GASettingsControllerTest {
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
 
-        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository);
+        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
         validGeographicAreaService.addAndPersistGA(firstValidArea);
         validGeographicAreaService.addAndPersistGA(secondValidArea);
-
-        areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
     }
 
     @Test
@@ -329,7 +323,7 @@ class GASettingsControllerTest {
     void seeIfDeactivateSensor() {
         // Act
 
-        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO1, areaSensorService);
+        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO1, validGeographicAreaService);
 
         // Assert
 
@@ -340,7 +334,7 @@ class GASettingsControllerTest {
     void seeIfDeactivateSensorWhenSecondInList() {
         // Act
 
-        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO2, areaSensorService);
+        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO2, validGeographicAreaService);
 
         // Assert
 
@@ -356,7 +350,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean actualResult = controller.deactivateSensor(areaSensorDTO, areaSensorService);
+        boolean actualResult = controller.deactivateSensor(areaSensorDTO, validGeographicAreaService);
 
         // Assert
 
@@ -535,7 +529,7 @@ class GASettingsControllerTest {
         Mockito.when(areaSensorRepository.findById(validAreaSensor1.getId())).thenReturn(Optional.of(validAreaSensor1));
         InputStream in = new ByteArrayInputStream(validAreaSensor1.getId().getBytes());
         System.setIn(in);
-        AreaSensorDTO actualResult = controller.inputSensor(validGeographicAreaDTO, areaSensorService);
+        AreaSensorDTO actualResult = controller.inputSensor(validGeographicAreaDTO, validGeographicAreaService);
 
 
         // Assert
@@ -551,7 +545,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        controller.removeSensor(validAreaSensorDTO1, validAreaSensorService);
+        controller.removeSensor(validAreaSensorDTO1, validGeographicAreaService);
         List<AreaSensor> actualResult = areaSensorRepository.findAll();
 
         // Assert

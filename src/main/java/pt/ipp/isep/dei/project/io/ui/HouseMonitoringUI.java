@@ -5,11 +5,11 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomService;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
@@ -29,7 +29,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(House house, AreaSensorService areaSensorService, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService houseSensorService, ReadingService readingService, RoomService roomService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -48,27 +48,27 @@ public class HouseMonitoringUI {
                     activeInput = true;
                     break;
                 case 3:
-                    runUS600(house, areaSensorService, readingService);
+                    runUS600(house, geographicAreaService, readingService);
                     activeInput = true;
                     break;
                 case 4:
-                    runUS620(house, areaSensorService, readingService);
+                    runUS620(house, geographicAreaService, readingService);
                     activeInput = true;
                     break;
                 case 5:
-                    runUS623(house, areaSensorService, readingService);
+                    runUS623(house, geographicAreaService, readingService);
                     activeInput = true;
                     break;
                 case 6:
-                    runUS630(house, areaSensorService, readingService);
+                    runUS630(house, geographicAreaService, readingService);
                     activeInput = true;
                     break;
                 case 7:
-                    runUS631(house, areaSensorService, readingService);
+                    runUS631(house, geographicAreaService, readingService);
                     activeInput = true;
                     break;
                 case 8:
-                    runUS633(house, areaSensorService, readingService);
+                    runUS633(house, geographicAreaService, readingService);
                     activeInput = true;
                     break;
                 case 0:
@@ -87,17 +87,17 @@ public class HouseMonitoringUI {
      * includes the house, there is more than one temperature sensor, the nearest one
      * should be used.
      */
-    private void runUS600(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void runUS600(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
-        updateModel600(house, areaSensorService, readingService);
+        updateModel600(house, geographicAreaService, readingService);
     }
 
-    private void updateModel600(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void updateModel600(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingService, TEMPERATURE);
             double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse, readingService);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
@@ -166,20 +166,20 @@ public class HouseMonitoringUI {
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.
      */
-    private void runUS620(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void runUS620(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         System.out.println("Please enter the desired date.");
         Date date = DateUtils.getInputYearMonthDay();
-        updateAndDisplayModelUS620(house, date, areaSensorService, readingService);
+        updateAndDisplayModelUS620(house, date, geographicAreaService, readingService);
     }
 
-    private void updateAndDisplayModelUS620(House house, Date date, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void updateAndDisplayModelUS620(House house, Date date, GeographicAreaService geographicAreaService, ReadingService readingService) {
         double result;
         AreaSensor areaSensor;
         try {
-            areaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, RAINFALL);
+            areaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingService, RAINFALL);
             result = houseMonitoringController.getTotalRainfallOnGivenDay(date, readingService, areaSensor);
         } catch (IllegalStateException ex) {
             System.out.println(ex.getMessage());
@@ -197,7 +197,7 @@ public class HouseMonitoringUI {
      /* US623: As a Regular User, I want to get the average daily rainfall in the house area for a
       given period (days), as it is needed to assess the garden’s watering needs.*/
 
-    private void runUS623(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void runUS623(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
@@ -205,7 +205,7 @@ public class HouseMonitoringUI {
         Date startDate = DateUtils.getInputYearMonthDay();
         Date endDate = DateUtils.getInputYearMonthDay();
         System.out.println("Please enter the end date.");
-        updateAndDisplayUS623(house, startDate, endDate, areaSensorService, readingService);
+        updateAndDisplayUS623(house, startDate, endDate, geographicAreaService, readingService);
     }
 
     /**
@@ -228,11 +228,11 @@ public class HouseMonitoringUI {
         return DateUtils.getInputYearMonthDay();
     }
 
-    private void updateAndDisplayUS623(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void updateAndDisplayUS623(House house, Date startDate, Date endDate, GeographicAreaService geographicAreaService, ReadingService readingService) {
         double result623;
         AreaSensor closestAreaSensor;
         try {
-            closestAreaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, RAINFALL);
+            closestAreaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingService, RAINFALL);
             result623 = houseMonitoringController.getAverageRainfallInterval(closestAreaSensor, startDate, endDate, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -249,20 +249,20 @@ public class HouseMonitoringUI {
      * in the house area in a given period.
      */
 
-    private void runUS630(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void runUS630(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS630(house, startDate, endDate, areaSensorService, readingService);
+        updateAndDisplayUS630(house, startDate, endDate, geographicAreaService, readingService);
     }
 
-    private void updateAndDisplayUS630(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void updateAndDisplayUS630(House house, Date startDate, Date endDate, GeographicAreaService geographicAreaService, ReadingService readingService) {
         Date dateResult630;
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingService, TEMPERATURE);
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(closestSensorToHouse, startDate, endDate, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -280,20 +280,20 @@ public class HouseMonitoringUI {
      * in the house area in a given period.
      */
 
-    private void runUS631(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void runUS631(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS631(house, startDate, endDate, areaSensorService, readingService);
+        updateAndDisplayUS631(house, startDate, endDate, geographicAreaService, readingService);
     }
 
-    private void updateAndDisplayUS631(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void updateAndDisplayUS631(House house, Date startDate, Date endDate, GeographicAreaService geographicAreaService, ReadingService readingService) {
         Date dateUS631;
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingService, TEMPERATURE);
             dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(closestSensorToHouse, startDate, endDate, readingService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -306,22 +306,22 @@ public class HouseMonitoringUI {
 
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
     given period. */
-    private void runUS633(House house, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void runUS633(House house, GeographicAreaService geographicAreaService, ReadingService readingService) {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS633(house, startDate, endDate, areaSensorService, readingService);
+        updateAndDisplayUS633(house, startDate, endDate, geographicAreaService, readingService);
     }
 
-    private void updateAndDisplayUS633(House house, Date startDate, Date endDate, AreaSensorService areaSensorService, ReadingService readingService) {
+    private void updateAndDisplayUS633(House house, Date startDate, Date endDate, GeographicAreaService geographicAreaService, ReadingService readingService) {
         Date resultDate633;
         double resultValue633;
         AreaSensor closestSensorToHouse;
 
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, areaSensorService, readingService, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingService, TEMPERATURE);
             resultDate633 = houseMonitoringController.getHighestTempAmplitudeDate(closestSensorToHouse, startDate, endDate, readingService);
             resultValue633 = houseMonitoringController.getTempAmplitudeValueByDate(closestSensorToHouse, resultDate633, readingService);
         } catch (IllegalArgumentException e) {

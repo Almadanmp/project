@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
@@ -23,12 +22,12 @@ class GASettingsUI {
     private ReaderController readerController;
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
 
-    GASettingsUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+    GASettingsUI(ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
+        this.readerController = new ReaderController(readingService, houseService, houseSensorService);
     }
 
-    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
+    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -61,11 +60,11 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS10(geographicAreaService, areaSensorService);
+                    runUS10(geographicAreaService);
                     activeInput = false;
                     break;
                 case 8:
-                    runUS11(geographicAreaService, areaSensorService);
+                    runUS11(geographicAreaService);
                     activeInput = false;
                     break;
                 case 9:
@@ -327,11 +326,11 @@ class GASettingsUI {
     /**
      * This method deactivates a sensor selected from a list of sensor of an selected geographic area
      */
-    private void runUS10(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
+    private void runUS10(GeographicAreaService geographicAreaService) {
 
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, areaSensorService);
-        if (!gaController.deactivateSensor(areaSensorDTO, areaSensorService)) {
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
+        if (!gaController.deactivateSensor(areaSensorDTO, geographicAreaService)) {
             System.out.println("Sensor already deactivated.");
         } else {
             System.out.println("Sensor successfully deactivated!");
@@ -346,14 +345,14 @@ class GASettingsUI {
     /**
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      */
-    private void runUS11(GeographicAreaService geographicAreaService, AreaSensorService areaSensorService) {
+    private void runUS11(GeographicAreaService geographicAreaService) {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, areaSensorService);
-        updateUS11(areaSensorDTO, areaSensorService, geographicAreaDTO);
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
+        updateUS11(areaSensorDTO, geographicAreaService, geographicAreaDTO);
     }
 
-    private void updateUS11(AreaSensorDTO areaSensorDTO, AreaSensorService areaSensorService, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(areaSensorDTO, areaSensorService);
+    private void updateUS11(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService, GeographicAreaDTO geographicAreaDTO) {
+        gaController.removeSensor(areaSensorDTO, geographicAreaService);
         System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getName() + " has been deleted.");
     }

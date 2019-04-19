@@ -6,14 +6,11 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,23 +25,21 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private HouseService houseService;
     private ReaderController readerController;
     private HouseSensorService houseSensorService;
 
 
-    HouseConfigurationUI(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+    HouseConfigurationUI(ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
         this.controller = new HouseConfigurationController();
-        this.areaSensorService = areaSensorService;
         this.readingService = readingService;
         this.houseService = houseService;
-        this.readerController = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
+        this.readerController = new ReaderController(readingService, houseService, houseSensorService);
         this.houseSensorService = houseSensorService;
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, EnergyGridService energyGridService) {
+    void run(House house, GeographicAreaService geographicAreaService, HouseSensorService sensorService, RoomService roomService, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -104,7 +99,7 @@ class HouseConfigurationUI {
      */
 
     private void runUS15v2(GeographicAreaService geographicAreaService, HouseService houseService) {
-        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
+        ReaderController ctrl = new ReaderController(readingService, houseService, houseSensorService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -117,7 +112,7 @@ class HouseConfigurationUI {
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
     private void runUS100(House house, HouseService houseService) {
-        ReaderController ctrl = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
+        ReaderController ctrl = new ReaderController(readingService, houseService, houseSensorService);
         InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);

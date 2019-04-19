@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.SensorType;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 
@@ -285,14 +284,14 @@ public class InputHelperUI {
      * @param areaSensors is the sensor list we want to choose a sensor from.
      * @return is the chosen sensor.
      */
-    public static AreaSensor getInputSensorByList(AreaSensorService areaSensorService, List<AreaSensor> areaSensors) {
+    public static AreaSensor getInputSensorByList(GeographicAreaService geographicAreaService, List<AreaSensor> areaSensors) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select a sensor from the list:");
-            System.out.println(areaSensorService.buildString(areaSensors));
+            System.out.println(geographicAreaService.buildString(areaSensors));
             String aux = scanner.nextLine();
             try {
-                AreaSensor result = areaSensorService.getById(aux);
+                AreaSensor result = geographicAreaService.getById(aux);
                 System.out.println("You have chosen the following sensor:");
                 System.out.println(result.buildString() + "\n");
                 return result;

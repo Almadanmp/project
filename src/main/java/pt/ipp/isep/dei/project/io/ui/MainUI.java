@@ -13,7 +13,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
@@ -37,8 +36,6 @@ public class MainUI {
     @Autowired
     private AreaTypeService areaTypeService;
 
-    @Autowired
-    private AreaSensorService areaSensorService;
 
     @Autowired
     private AreaSensorRepository areaSensorRepository;
@@ -48,17 +45,12 @@ public class MainUI {
     @Autowired
     private GeographicAreaService geographicAreaService;
     @Autowired
-    private RoomRepository roomRepository;
-    @Autowired
     private RoomService roomService;
     @Autowired
     private HouseSensorService houseSensorService;
 
     @Autowired
     private HouseRepository houseRepository;
-
-    @Autowired
-    private HouseSensorRepository houseSensorRepository;
 
     @Autowired
     private EnergyGridService energyGridService;
@@ -133,7 +125,7 @@ public class MainUI {
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository);
+            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
 
             //MAIN CODE
 
@@ -171,14 +163,14 @@ public class MainUI {
                     option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(areaSensorService, readingService, houseService, houseSensorService);
-                            view1.runGASettings(areaTypeService, geographicAreaService, areaSensorService);
+                            GASettingsUI view1 = new GASettingsUI(readingService, houseService, houseSensorService);
+                            view1.runGASettings(areaTypeService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(areaSensorService, readingService, houseService, houseSensorService);
-                            houseC.run(house, geographicAreaService, houseSensorService, roomService, roomRepository, houseSensorRepository, energyGridService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(readingService, houseService, houseSensorService);
+                            houseC.run(house, geographicAreaService, houseSensorService, roomService, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -190,7 +182,7 @@ public class MainUI {
                             break;
                         case 4:
                             SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(geographicAreaService, mockSensorTypeList, areaSensorService);
+                            sensorSettings.run(geographicAreaService, mockSensorTypeList);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -202,7 +194,7 @@ public class MainUI {
                             break;
                         case 6:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(house, areaSensorService, houseSensorService, readingService, roomService);
+                            houseM.run(house, geographicAreaService, houseSensorService, readingService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

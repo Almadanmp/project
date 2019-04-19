@@ -89,7 +89,7 @@ public class ReadingService {
      * @return most recent reading date
      **/
 
-    Date getMostRecentReadingDateDb(List<Reading> readings) {
+    public Date getMostRecentReadingDateDb(List<Reading> readings) {
         return getMostRecentReading(readings).getDate();
     }
 

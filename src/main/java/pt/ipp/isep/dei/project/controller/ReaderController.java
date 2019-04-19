@@ -7,7 +7,10 @@ import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
@@ -20,15 +23,13 @@ import java.util.logging.Logger;
 public class ReaderController {
 
 
-    private AreaSensorService areaSensorService;
     private HouseSensorService houseSensorService;
     private ReadingService readingService;
     private HouseService houseService;
 
 
-    public ReaderController(AreaSensorService areaSensorService, ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
+    public ReaderController(ReadingService readingService, HouseService houseService, HouseSensorService houseSensorService) {
         this.readingService = readingService;
-        this.areaSensorService = areaSensorService;
         this.houseService = houseService;
         this.houseSensorService = houseSensorService;
     }
@@ -47,12 +48,12 @@ public class ReaderController {
         int areasRead;
         if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list, areaSensorService);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list);
             return areasRead;
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, areaSensorService, readingService, houseService, houseSensorService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingService, houseService, houseSensorService);
             return areasRead;
         }
         return -1;
@@ -105,15 +106,15 @@ public class ReaderController {
      * This method receives a list of Geographic Areas to add the given NodeList correspondent to the Geographic Areas
      * imported from the XML File.
      *
-     * @param nListGeoArea - NodeList imported from the XML.
-     * @param list         - list to which we want to add and persist the Geographic areas.
+     * @param nListGeoArea          - NodeList imported from the XML.
+     * @param geographicAreaService - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaService list, AreaSensorService areaSensorService) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaService geographicAreaService) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), list, areaSensorService)) {
+            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaService)) {
                 result++;
             }
         }
@@ -165,11 +166,11 @@ public class ReaderController {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
-            AreaSensor sensor = areaSensorService.getById(r.getSensorId());
+            AreaSensor sensor = geographicAreaService.getById(r.getSensorId());
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (geographicAreaService.addAreaReadingToRepository(sensor, value, date, unit, logger, areaSensorService)) {
+            if (geographicAreaService.addAreaReadingToRepository(sensor, value, date, unit, logger)) {
                 addedReadings++;
             }
         }

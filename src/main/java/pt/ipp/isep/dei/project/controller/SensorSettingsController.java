@@ -2,8 +2,12 @@ package pt.ipp.isep.dei.project.controller;
 
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.GeographicArea;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensor;
+import pt.ipp.isep.dei.project.model.sensor.SensorType;
+import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -114,9 +118,9 @@ public class SensorSettingsController {
      * @return is true if successfully added, false if not.
      */
 
-    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geoArea, AreaSensorService areaSensorService) {
+    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geoArea, GeographicAreaService geographicAreaService) {
         areaSensor.setGeographicAreaId(geoArea.getId());
-        return (areaSensorService.addWithPersist(areaSensor));
+        return (geographicAreaService.addWithPersist(areaSensor));
     }
 
 

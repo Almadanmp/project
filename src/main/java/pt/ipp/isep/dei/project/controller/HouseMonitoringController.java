@@ -3,10 +3,14 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.House;
 import pt.ipp.isep.dei.project.model.Room;
 import pt.ipp.isep.dei.project.model.RoomService;
-import pt.ipp.isep.dei.project.model.sensor.*;
+import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
+import pt.ipp.isep.dei.project.model.sensor.Reading;
+import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 
 import java.util.Date;
 import java.util.List;
@@ -117,10 +121,10 @@ public class HouseMonitoringController {
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
-    public AreaSensor getClosesSensorByTypeToHouse(House house, AreaSensorService areaSensorService, ReadingService readingService, String sensorType) {
-        List<AreaSensor> areaSensors = areaSensorService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
+    public AreaSensor getClosesSensorByTypeToHouse(House house, GeographicAreaService geographicAreaService, ReadingService readingService, String sensorType) {
+        List<AreaSensor> areaSensors = geographicAreaService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
 
-        return areaSensorService.getClosestSensorOfGivenType(areaSensors, sensorType, house, readingService);
+        return geographicAreaService.getClosestSensorOfGivenType(areaSensors, sensorType, house, readingService);
     }
 
     /**

@@ -206,7 +206,7 @@ public class AreaSensor {
      * @param house is the house we want to calculate the distance to.
      * @return a double that represents the distance between the house and the sensor.
      */
-    double getDistanceToHouse(House house) {
+    public double getDistanceToHouse(House house) {
         Local l = house.getLocation();
         return this.local.getLinearDistanceBetweenLocalsInKm(l);
     }
@@ -232,7 +232,7 @@ public class AreaSensor {
     /**
      * Method to print info if a sensor is active or not.
      */
-    String printActive() {
+    public String printActive() {
         if (!this.active) {
             return "Deactivated";
         }
@@ -265,7 +265,7 @@ public class AreaSensor {
      * @return he sensor type name.
      **/
 
-    String getSensorTypeName() {
+    public String getSensorTypeName() {
         return this.sensorType.getName();
     }
 

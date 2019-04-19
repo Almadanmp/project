@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.model.GeographicArea;
 import pt.ipp.isep.dei.project.model.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.sensor.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,16 +41,16 @@ public class ReaderJSONGeographicAreas implements Reader {
      * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
      * from the data in the file.
      *
-     * @param filePath is the absolute filepath of the .json file in the system.
-     * @param list     is the list of Geographic areas that comes from Main, since we still don't have a database, to which
-     *                 we want to addWithoutPersisting the imported geographic areas.
+     * @param filePath              is the absolute filepath of the .json file in the system.
+     * @param geographicAreaService is the list of Geographic areas that comes from Main, since we still don't have a database, to which
+     *                              we want to addWithoutPersisting the imported geographic areas.
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaService list, AreaSensorService areaSensorService) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaService geographicAreaService) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
-        return readGeoAreasJSON(geoAreas, list, areaSensorService);
+        return readGeoAreasJSON(geoAreas, geographicAreaService);
     }
 
     /**
@@ -61,7 +60,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaService list, AreaSensorService areaSensorService) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaService geographicAreaService) {
         int result = 0;
 
         for (int i = 0; i < geoAreas.length(); i++) {
@@ -77,13 +76,13 @@ public class ReaderJSONGeographicAreas implements Reader {
             double areaAltitude = local.getDouble(ALTITUDE);
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
 
-            GeographicArea areaObject = list.createGA(areaID, areaType, areaWidth, areaLength, location);
+            GeographicArea areaObject = geographicAreaService.createGA(areaID, areaType, areaWidth, areaLength, location);
 
             areaObject.setDescription(areaDescription);
             JSONArray areaSensors = area.getJSONArray("area_sensor");
-            if (list.addAndPersistGA(areaObject)) {
+            if (geographicAreaService.addAndPersistGA(areaObject)) {
                 result++;
-                readAreaSensorsJSON(areaSensors, areaObject, areaSensorService);
+                readAreaSensorsJSON(areaSensors, areaObject, geographicAreaService);
             }
         }
         return result;
@@ -96,7 +95,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      *                    that belong to an area.
      */
 
-    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, AreaSensorService areaSensorService) {
+    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -122,9 +121,9 @@ public class ReaderJSONGeographicAreas implements Reader {
                     sensorLongitude, sensorAltitude);
             Long gaID = geographicArea.getId();
 
-            AreaSensor areaSensorObject = areaSensorService.createSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+            AreaSensor areaSensorObject = geographicAreaService.createSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
 
-            areaSensorService.addWithPersist(areaSensorObject);
+            geographicAreaService.addWithPersist(areaSensorObject);
             entriesChecked++;
         }
     }

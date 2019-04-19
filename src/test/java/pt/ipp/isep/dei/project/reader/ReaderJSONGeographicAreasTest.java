@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.sensor.AreaSensorService;
 import pt.ipp.isep.dei.project.model.sensor.HouseSensorService;
 import pt.ipp.isep.dei.project.model.sensor.ReadingService;
 import pt.ipp.isep.dei.project.model.sensor.SensorTypeService;
@@ -49,24 +48,20 @@ class ReaderJSONGeographicAreasTest {
     @Mock
     SensorTypeRepository sensorTypeRepository;
 
-    private AreaSensorService areaSensorService;
     private ReadingService readingService;
     private GeographicAreaService geographicAreaService;
     private HouseService houseService;
     private HouseSensorService houseSensorService;
-    private SensorTypeService sensorTypeService;
 
     private ReaderController ctrl;
 
     @BeforeEach
     void arrangeArtifacts() {
-        areaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         readingService = new ReadingService();
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
-        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository);
+        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
         houseSensorService = new HouseSensorService(houseSensorRepository, sensorTypeRepository);
-        sensorTypeService = new SensorTypeService(sensorTypeRepository);
-        ctrl = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
+        ctrl = new ReaderController(readingService, houseService, houseSensorService);
 
     }
 
@@ -158,7 +153,7 @@ class ReaderJSONGeographicAreasTest {
         String absolutePath = fileToRead.getAbsolutePath();
         ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
 
-        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaService, areaSensorService);
+        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaService);
         // Assert
 
         assertEquals(2, areasAdded);
@@ -188,7 +183,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath,geographicAreaService, areaSensorService);
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath,geographicAreaService);
 
         // Assert
 

@@ -9,9 +9,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.sensor.*;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +32,6 @@ class HouseMonitoringControllerTest {
     private RoomDTO validRoom;
     private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
     private HouseSensor validTemperatureHouseSensor; // Is a temperature sensor with valid readings.
-    private AreaSensorService validAreaSensorService; // Contains the mock sensors mentioned above.
     private HouseSensorService validHouseSensorService; // Contains the mock sensors mentioned above.
     private ReadingService readingService;
     private RoomService roomService;
@@ -64,12 +61,6 @@ class HouseMonitoringControllerTest {
     private Date validDate25;
 
     @Mock
-    AreaSensorRepository areaSensorRepository;
-
-    @Mock
-    SensorTypeRepository sensorTypeRepository;
-
-    @Mock
     RoomRepository roomRepository;
 
     @BeforeEach
@@ -88,7 +79,6 @@ class HouseMonitoringControllerTest {
         Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
-        validAreaSensorService = new AreaSensorService(areaSensorRepository, sensorTypeRepository);
         validHouseSensorService = new HouseSensorService();
         validRoom1.setSensorList(validHouseSensorService);
         readingService = new ReadingService();
