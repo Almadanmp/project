@@ -9,7 +9,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
@@ -182,11 +182,11 @@ class SensorSettingsControllerTest {
         Date date1 = controller.createDate(year, month, day);
         controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
         SensorType t1 = new SensorType(typeStr, "Celsius³");
-        HouseSensor expectedResult = new HouseSensor("T289738", "XV-56D", t1, validDate1, "RoomDA");
+        RoomSensor expectedResult = new RoomSensor("T289738", "XV-56D", t1, validDate1, "RoomDA");
 
         // Act
 
-        HouseSensor actualResult = controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
+        RoomSensor actualResult = controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
 
         // Assert
 

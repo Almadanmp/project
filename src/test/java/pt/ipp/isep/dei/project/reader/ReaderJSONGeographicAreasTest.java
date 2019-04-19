@@ -16,7 +16,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.File;
@@ -51,7 +51,7 @@ class ReaderJSONGeographicAreasTest {
     @Mock
     SensorTypeRepository sensorTypeRepository;
 
-    private ReadingService readingService;
+    private ReadingUtils readingUtils;
     private GeographicAreaService geographicAreaService;
     private HouseService houseService;
     private RoomService roomService;
@@ -60,11 +60,11 @@ class ReaderJSONGeographicAreasTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        readingService = new ReadingService();
+        readingUtils = new ReadingUtils();
         roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-        ctrl = new ReaderController(readingService, houseService, roomService);
+        ctrl = new ReaderController(readingUtils, houseService, roomService);
 
     }
 

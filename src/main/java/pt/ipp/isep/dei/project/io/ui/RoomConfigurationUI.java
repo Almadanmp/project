@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
 
@@ -373,7 +373,7 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        List<HouseSensor> roomSensors = roomService.getAllByRoomId(room.getName());
+        List<RoomSensor> roomSensors = roomService.getAllByRoomId(room.getName());
         System.out.println(controller.buildSensorListString(roomService, roomSensors));
     }
 
@@ -437,7 +437,7 @@ class RoomConfigurationUI {
                                      int dateDay, String sensorName, String idRoom) {
         SensorSettingsController sensorSettingsController = new SensorSettingsController();
         Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
-        HouseSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorID, sensorName, sensorType, mDate, idRoom);
+        RoomSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorID, sensorName, sensorType, mDate, idRoom);
         if (controller.addSensorToRoom(mAreaSensor, roomService)) {
             System.out.println("\nSensor successfully added to the Room " + room.getName());
         } else System.out.println("\nSensor already exists in the room.");

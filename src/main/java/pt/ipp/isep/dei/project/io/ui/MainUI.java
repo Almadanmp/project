@@ -18,7 +18,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 
@@ -45,7 +45,7 @@ public class MainUI {
     private AreaSensorRepository areaSensorRepository;
 
     @Autowired
-    private ReadingService readingService;
+    private ReadingUtils readingUtils;
     @Autowired
     private GeographicAreaService geographicAreaService;
     @Autowired
@@ -165,13 +165,13 @@ public class MainUI {
                     option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(readingService, houseService, roomService);
+                            GASettingsUI view1 = new GASettingsUI(readingUtils, houseService, roomService);
                             view1.runGASettings(areaTypeService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(readingService, houseService, roomService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(readingUtils, houseService, roomService);
                             houseC.run(house, geographicAreaService, roomService, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
@@ -196,7 +196,7 @@ public class MainUI {
                             break;
                         case 6:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(house, geographicAreaService, readingService, roomService);
+                            houseM.run(house, geographicAreaService, readingUtils, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

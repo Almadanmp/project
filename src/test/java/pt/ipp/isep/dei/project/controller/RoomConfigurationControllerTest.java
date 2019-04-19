@@ -11,8 +11,8 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
@@ -162,13 +162,13 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HouseSensor s1 = new HouseSensor("T1292u37", "SensorOne", new SensorType("Wind", "km/h"),
+        RoomSensor s1 = new RoomSensor("T1292u37", "SensorOne", new SensorType("Wind", "km/h"),
                 date, "RoomABD");
-        HouseSensor s2 = new HouseSensor("T1292u37", "SensorTwo", new SensorType("Rain", "l/m2"),
+        RoomSensor s2 = new RoomSensor("T1292u37", "SensorTwo", new SensorType("Rain", "l/m2"),
                 date, "RoomABD");
-        List<HouseSensor> houseSensorList = new ArrayList<>();
-        houseSensorList.add(s1);
-        houseSensorList.add(s2);
+        List<RoomSensor> roomSensorList = new ArrayList<>();
+        roomSensorList.add(s1);
+        roomSensorList.add(s2);
         String expectedResult = "---------------\n" +
                 "T1292u37SensorOne | Type: Wind | Active\n" +
                 "T1292u37SensorTwo | Type: Rain | Active\n" +
@@ -176,7 +176,7 @@ class RoomConfigurationControllerTest {
 
         //Act
 
-        String actualResult = controller.buildSensorListString(roomService, houseSensorList);
+        String actualResult = controller.buildSensorListString(roomService, roomSensorList);
 
         //Assert
 
@@ -208,7 +208,7 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        HouseSensor testAreaSensor = new HouseSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
+        RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
         // Act
 
         boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomService);

@@ -47,7 +47,7 @@ HouseConfigurationController -> SensorRepository: findById(readingDTO.sensorID)
 SensorRepository --> HouseConfigurationController: Optional<Sensor>
 alt if Optional<Sensor>.isPresent
 HouseConfigurationController -> ReadingMapper: dtoToObject(readingDTO)
-return houseSensor
+return roomSensor
 HouseConfigurationController -> ReadingRepository: save(Reading)
 HouseConfigurationController -> HouseConfigurationController: counter++;
 else if Optional<Sensor> is not present

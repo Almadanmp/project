@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import java.text.ParseException;
@@ -31,8 +31,8 @@ public class ReaderXMLGeoArea {
      * @param filePath path to the xml file
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, ReadingService readingService, HouseService houseService, RoomService roomService) {
-        ReaderController ctrl = new ReaderController(readingService, houseService, roomService);
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaService list, ReadingUtils readingUtils, HouseService houseService, RoomService roomService) {
+        ReaderController ctrl = new ReaderController(readingUtils, houseService, roomService);
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();

@@ -13,7 +13,7 @@ import java.util.List;
  * It contains a list with one or more weather readings.
  */
 @Entity
-public class HouseSensor {
+public class RoomSensor {
 
     @Id
     private String id;
@@ -36,7 +36,7 @@ public class HouseSensor {
     /**
      * Empty constructor to import Sensors from a XML file.
      */
-    public HouseSensor() {
+    public RoomSensor() {
     }
 
     /**
@@ -47,7 +47,7 @@ public class HouseSensor {
      * @param sensorType             is the Type of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public HouseSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
+    public RoomSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
         setId(id);
         setName(name);
         setSensorType(sensorType);
@@ -234,10 +234,10 @@ public class HouseSensor {
         if (this == testObject) {
             return true;
         }
-        if (!(testObject instanceof HouseSensor)) {
+        if (!(testObject instanceof RoomSensor)) {
             return false;
         }
-        HouseSensor sensor = (HouseSensor) testObject;
+        RoomSensor sensor = (RoomSensor) testObject;
         return this.getName().equals(sensor.getName());
     }
 

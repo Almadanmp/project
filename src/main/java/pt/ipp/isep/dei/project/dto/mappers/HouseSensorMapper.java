@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import java.text.ParseException;
@@ -29,7 +29,7 @@ public final class HouseSensorMapper {
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static HouseSensor dtoToObject(HouseSensorDTO dtoToConvert) {
+    public static RoomSensor dtoToObject(HouseSensorDTO dtoToConvert) {
 
         String sensorID = dtoToConvert.getId();
 
@@ -74,7 +74,7 @@ public final class HouseSensorMapper {
 
         // Create, update and return converted object
 
-        HouseSensor resultObject = new HouseSensor(sensorID, objectName, new SensorType(objectType, objectUnit), objectDate, objectRoomID);
+        RoomSensor resultObject = new RoomSensor(sensorID, objectName, new SensorType(objectType, objectUnit), objectDate, objectRoomID);
         resultObject.setActive(objectStatus);
         return resultObject;
     }
@@ -86,7 +86,7 @@ public final class HouseSensorMapper {
      * @return is the converted model object.
      */
 
-    public static HouseSensorDTO objectToDTO(HouseSensor objectToConvert) {
+    public static HouseSensorDTO objectToDTO(RoomSensor objectToConvert) {
 
         // Update the name
 

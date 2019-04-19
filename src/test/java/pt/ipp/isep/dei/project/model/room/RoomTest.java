@@ -31,7 +31,7 @@ class RoomTest {
 
 
     private static Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
-    private HouseSensor validSensor; // Valid temperature sensor with valid readings.
+    private RoomSensor validSensor; // Valid temperature sensor with valid readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
     private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
 
@@ -41,7 +41,7 @@ class RoomTest {
     @BeforeEach
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
-        validSensor = new HouseSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
+        validSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
         validSensor.setActive(true);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
@@ -424,7 +424,7 @@ public class RoomService {
     //Methods from RoomSensorService
 
 
-    public void save(HouseSensor sensor) {
+    public void save(RoomSensor sensor) {
         Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
 
         if (sensorType.isPresent()) {
@@ -437,11 +437,11 @@ public class RoomService {
         this.houseSensorRepository.save(sensor);
     }
 
-    public List<HouseSensor> getAllSensor() {
+    public List<RoomSensor> getAllSensor() {
         return houseSensorRepository.findAll();
     }
 
-    public List<HouseSensor> getAllByRoomId(String roomName) {
+    public List<RoomSensor> getAllByRoomId(String roomName) {
         return houseSensorRepository.findAllByRoomId(roomName);
     }
 
@@ -453,13 +453,13 @@ public class RoomService {
      * @return a string of the sensors contained in the list.
      */
 
-    public String buildString(List<HouseSensor> houseSensors) {
+    public String buildString(List<RoomSensor> roomSensors) {
         StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
 
-        if (houseSensors.isEmpty()) {
+        if (roomSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (HouseSensor hS : houseSensors) {
+        for (RoomSensor hS : roomSensors) {
             result.append(hS.getId()).append(hS.getName()).append(" | ");
             result.append("Type: ").append(hS.getSensorTypeName()).append(" | ")
                     .append(hS.printActive()).append("\n");
@@ -476,9 +476,9 @@ public class RoomService {
      *
      * @return a list with all readings from sensor list
      **/
-    public List<Reading> getReadings(List<HouseSensor> roomSensors, ReadingService readingService) {
+    public List<Reading> getReadings(List<RoomSensor> roomSensors, ReadingUtils readingUtils) {
         List<Reading> finalList = new ArrayList<>();
-        for (HouseSensor s : roomSensors) {
+        for (RoomSensor s : roomSensors) {
             finalList.addAll(s.getHouseReadings());
         }
         return finalList;
@@ -500,17 +500,17 @@ public class RoomService {
      * @param day date of day the method will use to get reading values
      * @return returns value readings from every sensor from given day
      **/
-    public List<Double> getValuesOfSpecificDayReadings(List<HouseSensor> houseSensor, Date day, ReadingService readingService) {
+    public List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensor, Date day, ReadingUtils readingUtils) {
         List<Reading> sensorReadings = new ArrayList<>();
-        for (HouseSensor hS : houseSensor) {
+        for (RoomSensor hS : roomSensor) {
             sensorReadings.addAll(hS.getHouseReadings());
         }
-        return readingService.getValuesOfSpecificDayReadings(sensorReadings, day);
+        return readingUtils.getValuesOfSpecificDayReadings(sensorReadings, day);
     }
 
 
-    public HouseSensor updateSensor(HouseSensor houseSensor) {
-        return houseSensorRepository.save(houseSensor);
+    public RoomSensor updateSensor(RoomSensor roomSensor) {
+        return houseSensorRepository.save(roomSensor);
     }
 
     /**
@@ -520,10 +520,10 @@ public class RoomService {
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
-    public boolean addWithPersistence(HouseSensor sensorToAdd) {
-        Optional<HouseSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
+    public boolean addWithPersistence(RoomSensor sensorToAdd) {
+        Optional<RoomSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
         if (aux.isPresent()) {
-            HouseSensor sensor = aux.get();
+            RoomSensor sensor = aux.get();
             sensor = sensorToAdd;
             houseSensorRepository.save(sensor);
         }
@@ -539,7 +539,7 @@ public class RoomService {
      * @return true in case the sensor exists, false otherwise.
      **/
     public boolean sensorExistsInRepository(String sensorID) {
-        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        Optional<RoomSensor> value = houseSensorRepository.findById(sensorID);
         return value.isPresent();
     }
 
@@ -549,8 +549,8 @@ public class RoomService {
      * @param id the index of the Sensor.
      * @return returns sensor that corresponds to index.
      */
-    public HouseSensor getById(String id) {
-        Optional<HouseSensor> value = houseSensorRepository.findById(id);
+    public RoomSensor getById(String id) {
+        Optional<RoomSensor> value = houseSensorRepository.findById(id);
         if (value.isPresent()) {
             return value.get();
         }
@@ -569,10 +569,10 @@ public class RoomService {
      * @return true in case the sensor was active when the reading was created, false otherwise.
      **/
     public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
-        Optional<HouseSensor> value = houseSensorRepository.findById(sensorID);
+        Optional<RoomSensor> value = houseSensorRepository.findById(sensorID);
         if (value.isPresent()) {
-            HouseSensor houseSensor = value.get();
-            Date startDate = houseSensor.getDateStartedFunctioning();
+            RoomSensor roomSensor = value.get();
+            Date startDate = roomSensor.getDateStartedFunctioning();
             if (date.equals(startDate) || date.after(startDate)) {
                 return true;
             }
@@ -590,13 +590,13 @@ public class RoomService {
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
      **/
-    public double getMaxTemperatureOnGivenDayDb(Room room, Date day, ReadingService readingService) throws NoSuchElementException {
-        List<HouseSensor> houseSensors = houseSensorRepository.findAllByRoomId(room.getId());
-        List<HouseSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, houseSensors);
+    public double getMaxTemperatureOnGivenDayDb(Room room, Date day, ReadingUtils readingUtils) throws NoSuchElementException {
+        List<RoomSensor> roomSensors = houseSensorRepository.findAllByRoomId(room.getId());
+        List<RoomSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
-            List<Double> values = getValuesOfSpecificDayReadings(tempSensors, day, readingService);
+            List<Double> values = getValuesOfSpecificDayReadings(tempSensors, day, readingUtils);
             if (!values.isEmpty()) {
                 return Collections.max(values);
             }
@@ -612,14 +612,14 @@ public class RoomService {
      * sensors and/or when temperature sensors have no readings
      */
 
-    public double getCurrentRoomTemperature(Room room, ReadingService readingService) {
-        List<HouseSensor> houseSensors = houseSensorRepository.findAllByRoomId(room.getName());
-        List<HouseSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, houseSensors);
+    public double getCurrentRoomTemperature(Room room, ReadingUtils readingUtils) {
+        List<RoomSensor> roomSensors = houseSensorRepository.findAllByRoomId(room.getName());
+        List<RoomSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        List<Reading> sensorReadings = getReadings(tempSensors, readingService);
-        return readingService.getMostRecentValue(sensorReadings);
+        List<Reading> sensorReadings = getReadings(tempSensors, readingUtils);
+        return readingUtils.getMostRecentValue(sensorReadings);
     }
 
 
@@ -628,9 +628,9 @@ public class RoomService {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public List<HouseSensor> getSensorsOfGivenType(String name, List<HouseSensor> houseSensors) {
-        List<HouseSensor> containedTypeSensors = new ArrayList<>();
-        for (HouseSensor sensor : houseSensors) {
+    public List<RoomSensor> getSensorsOfGivenType(String name, List<RoomSensor> roomSensors) {
+        List<RoomSensor> containedTypeSensors = new ArrayList<>();
+        for (RoomSensor sensor : roomSensors) {
             if (name.equals(sensor.getSensorTypeName())) {
                 containedTypeSensors.add(sensor);
             }

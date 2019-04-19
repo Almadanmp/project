@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import java.text.ParseException;
@@ -697,7 +697,7 @@ class AreaSensorTest {
 
         // Act
 
-        String result = validAreaSensor.buildSensorString();
+        String result = validAreaSensor.buildString();
 
         // Assert
 
@@ -714,7 +714,7 @@ class AreaSensorTest {
 
         // Act
 
-        String result = validAreaSensor.buildSensorString();
+        String result = validAreaSensor.buildString();
 
         // Assert
 
@@ -1040,9 +1040,9 @@ class AreaSensorTest {
     void seeIfGetMostRecentValueReading() {
         // Arrange
 
-        ReadingService validReadingService;
+        ReadingUtils validReadingUtils;
         Date validDate12 = new Date();
-        validReadingService = new ReadingService();
+        validReadingUtils = new ReadingUtils();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate12 = validSdf.parse("02/11/2015 20:00:00");
@@ -1060,7 +1060,7 @@ class AreaSensorTest {
 
         // Act
 
-        double result = validReadingService.getMostRecentValue(readings);
+        double result = validReadingUtils.getMostRecentValue(readings);
 
         // Assert
 
@@ -1092,7 +1092,7 @@ class AreaSensorTest {
 
         // Act
 
-        String actualResult = areaSensor.buildSensorString();
+        String actualResult = areaSensor.buildString();
 
         // Assert
 

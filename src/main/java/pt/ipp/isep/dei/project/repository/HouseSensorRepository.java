@@ -2,20 +2,20 @@ package pt.ipp.isep.dei.project.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface HouseSensorRepository extends CrudRepository<HouseSensor, String> {
+public interface HouseSensorRepository extends CrudRepository<RoomSensor, String> {
 
-    List<HouseSensor> findAll();
+    List<RoomSensor> findAll();
 
-    List<HouseSensor> findAllById(String id);
+    List<RoomSensor> findAllById(String id);
 
-    List<HouseSensor> findAllByRoomId(String name);
+    List<RoomSensor> findAllByRoomId(String name);
 
-    Optional<HouseSensor> findByName(String name);
+    Optional<RoomSensor> findByName(String name);
 
 }

@@ -3,13 +3,13 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class RoomConfigurationController {
      * @param room is the room we want to choose.
      * @return AreaSensorList of the Room.
      */
-    List<HouseSensor> getRoomSensorList(RoomService roomService, Room room) {
+    List<RoomSensor> getRoomSensorList(RoomService roomService, Room room) {
         return roomService.getAllByRoomId(room.getId());
     }
 
@@ -76,8 +76,8 @@ public class RoomConfigurationController {
      * @return builds a string from given sensor list.
      */
 
-    public String buildSensorListString(RoomService roomService, List<HouseSensor> houseSensors) {
-        return roomService.buildString(houseSensors);
+    public String buildSensorListString(RoomService roomService, List<RoomSensor> roomSensors) {
+        return roomService.buildString(roomSensors);
     }
 
     /**
@@ -305,10 +305,10 @@ public class RoomConfigurationController {
      * /**
      * Method to addWithoutPersisting a Sensor to the Room.
      *
-     * @param houseSensor is the sensor we want to addWithoutPersisting.
+     * @param roomSensor is the sensor we want to addWithoutPersisting.
      * @return if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensorToRoom(HouseSensor houseSensor, RoomService roomService) {
-        return (roomService.addWithPersistence(houseSensor));
+    public boolean addSensorToRoom(RoomSensor roomSensor, RoomService roomService) {
+        return (roomService.addWithPersistence(roomSensor));
     }
 }

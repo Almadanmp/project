@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -30,16 +30,16 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private ReadingService readingService;
+    private ReadingUtils readingUtils;
     private HouseService houseService;
     private ReaderController readerController;
 
 
-    HouseConfigurationUI(ReadingService readingService, HouseService houseService, RoomService roomService2) {
+    HouseConfigurationUI(ReadingUtils readingUtils, HouseService houseService, RoomService roomService2) {
         this.controller = new HouseConfigurationController();
-        this.readingService = readingService;
+        this.readingUtils = readingUtils;
         this.houseService = houseService;
-        this.readerController = new ReaderController(readingService, houseService, roomService2);
+        this.readerController = new ReaderController(readingUtils, houseService, roomService2);
     }
 
     void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService) {
@@ -102,7 +102,7 @@ class HouseConfigurationUI {
      */
 
     private void runUS15v2(GeographicAreaService geographicAreaService, HouseService houseService, RoomService roomService) {
-        ReaderController ctrl = new ReaderController(readingService, houseService, roomService);
+        ReaderController ctrl = new ReaderController(readingUtils, houseService, roomService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -115,7 +115,7 @@ class HouseConfigurationUI {
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
     private void runUS100(House house, HouseService houseService, RoomService roomService) {
-        ReaderController ctrl = new ReaderController(readingService, houseService, roomService);
+        ReaderController ctrl = new ReaderController(readingUtils, houseService, roomService);
         InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);

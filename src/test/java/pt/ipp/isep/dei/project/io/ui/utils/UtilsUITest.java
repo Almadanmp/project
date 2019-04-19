@@ -55,7 +55,7 @@ public class UtilsUITest {
 //
 //        Room room1 = new Room("room1","Single Bedroom", 19, 23456789, 5, 3,"Room1","Grid1");
 //        GregorianCalendar date = new GregorianCalendar(2010, Calendar.DECEMBER, 2, 12, 12);
-//        HouseSensor areaSensor1 = new HouseSensor("XV45","sensor", new SensorType("sensor", "celsius"), date.getTime(),"RoomTest");
+//        RoomSensor areaSensor1 = new RoomSensor("XV45","sensor", new SensorType("sensor", "celsius"), date.getTime(),"RoomTest");
 //        room1.addSensor(areaSensor1);
 //        Device device = new Dishwasher(new DishwasherSpec());
 //        room1.addDevice(device);

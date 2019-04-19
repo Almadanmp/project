@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * This is the AreaReadingList Class, a List of readings that the Sensor receives.
  */
 @Service
-public class ReadingService {
+public class ReadingUtils {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
 
@@ -29,7 +29,7 @@ public class ReadingService {
      * /**
      * Empty Constructor to always allow the creation of an ArrayList of readings.
      */
-    public ReadingService() {
+    public ReadingUtils() {
     }
 
     /**
@@ -457,7 +457,7 @@ public class ReadingService {
      * @param finalDate   is the Final Date of the period.
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
-    public Date getLastColdestDayInGivenInterval(AreaSensor areaSensor, Date initialDate, Date finalDate, ReadingService readingService) {
+    public Date getLastColdestDayInGivenInterval(AreaSensor areaSensor, Date initialDate, Date finalDate, ReadingUtils readingUtils) {
 
         List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, initialDate, finalDate);
 
@@ -466,11 +466,11 @@ public class ReadingService {
         }
         List<Reading> listOfMaxValuesForEachDay = getListOfMaxValuesForEachDay(readingsBetweenDates);
 
-        double minValueInList = readingService.getMinValueInReadingListDb(listOfMaxValuesForEachDay);
+        double minValueInList = readingUtils.getMinValueInReadingListDb(listOfMaxValuesForEachDay);
 
         List<Reading> readingsWithSpecificValue = getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
 
-        return readingService.getMostRecentReading(readingsWithSpecificValue).getDate();
+        return readingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
     }
 
     /**
@@ -549,7 +549,7 @@ public class ReadingService {
      * @param unit         is the unit of the reading we want to add.
      * @return true in case the reading was added false otherwise.
      */
-    public boolean addHouseReadingToRepository(HouseSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger, RoomService roomService) {
+    public boolean addHouseReadingToRepository(RoomSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger, RoomService roomService) {
         if (sensor != null && roomService.sensorExistsInRepository(sensor.getId())) {
 
             if (roomService.sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {

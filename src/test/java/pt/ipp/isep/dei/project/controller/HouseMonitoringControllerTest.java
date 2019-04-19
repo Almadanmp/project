@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
@@ -41,8 +41,8 @@ class HouseMonitoringControllerTest {
     private House validHouse;
     private RoomDTO validRoom;
     private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
-    private HouseSensor validTemperatureHouseSensor; // Is a temperature sensor with valid readings.
-    private ReadingService readingService;
+    private RoomSensor validTemperatureRoomSensor; // Is a temperature sensor with valid readings.
+    private ReadingUtils readingUtils;
     private RoomService roomService;
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1;
@@ -92,7 +92,7 @@ class HouseMonitoringControllerTest {
         Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
-        readingService = new ReadingService();
+        readingUtils = new ReadingUtils();
         roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
         validHouse.setRoomService(validRoomService);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -136,7 +136,7 @@ class HouseMonitoringControllerTest {
         validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
                 new Date(), 6008L);
-        validTemperatureHouseSensor = new HouseSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
+        validTemperatureRoomSensor = new RoomSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
                 new Date(), "RoomAB");
         Reading firstTempReading = new Reading(15, validDate1, "C", "Test");
         Reading secondTempReading = new Reading(20, validDate2, "C", "Test");

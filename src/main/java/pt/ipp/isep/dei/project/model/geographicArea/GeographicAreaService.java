@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
@@ -198,7 +198,7 @@ public class GeographicAreaService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-    boolean sensorExistsInRepository(String sensorID) {
+    boolean AreaSensorExistsInRepository(String sensorID) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         return value.isPresent();
     }
@@ -266,7 +266,7 @@ public class GeographicAreaService {
      * @param sensorType the type of sensor to check
      * @return the closest sensor.
      */
-    public AreaSensor getClosestSensorOfGivenType(List<AreaSensor> areaSensors, String sensorType, House house, ReadingService readingService) {
+    public AreaSensor getClosestSensorOfGivenType(List<AreaSensor> areaSensors, String sensorType, House house, ReadingUtils readingUtils) {
 
         AreaSensor areaSensor;
 
@@ -289,32 +289,32 @@ public class GeographicAreaService {
         }
         if (minDistSensor.size() > 1) {
 
-            areaSensor = getMostRecentlyUsedSensor(minDistSensor, readingService);
+            areaSensor = getMostRecentlyUsedSensor(minDistSensor, readingUtils);
         } else {
             areaSensor = minDistSensor.get(0);
         }
         return areaSensor;
     }
 
-    public AreaSensor getMostRecentlyUsedSensor(List<AreaSensor> areaSensors, ReadingService readingService) {
+    public AreaSensor getMostRecentlyUsedSensor(List<AreaSensor> areaSensors, ReadingUtils readingUtils) {
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        List<AreaSensor> areaSensors2 = getSensorsWithReadings(areaSensors, readingService);
+        List<AreaSensor> areaSensors2 = getSensorsWithReadings(areaSensors, readingUtils);
         if (areaSensors2.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
 
         AreaSensor mostRecent = areaSensors2.get(0);
 
-        Reading recentReading = getMostRecentReading(mostRecent, readingService);
+        Reading recentReading = getMostRecentReading(mostRecent, readingUtils);
         Date recent = recentReading.getDate();
 
 
         for (AreaSensor s : areaSensors) {
             List<Reading> sensorReadings = new ArrayList<>();
 
-            Date test = readingService.getMostRecentReadingDateDb(sensorReadings);
+            Date test = readingUtils.getMostRecentReadingDateDb(sensorReadings);
             if (recent.before(test)) {
                 recent = test;
                 mostRecent = s;
@@ -341,7 +341,7 @@ public class GeographicAreaService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    List<AreaSensor> getSensorsWithReadings(List<AreaSensor> areaSensors, ReadingService readingService) {
+    List<AreaSensor> getSensorsWithReadings(List<AreaSensor> areaSensors, ReadingUtils readingUtils) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -458,7 +458,7 @@ public class GeographicAreaService {
      */
     //TODO reading should be created in a method on AreaSensor and added there
     public boolean addAreaReadingToRepository(AreaSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger) {
-        if (sensor != null && sensorExistsInRepository(sensor.getId())) {
+        if (sensor != null && AreaSensorExistsInRepository(sensor.getId())) {
             if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
                 if (sensor.readingExists(readingDate)) {
                     logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
@@ -486,7 +486,7 @@ public class GeographicAreaService {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReading(AreaSensor areaSensor, ReadingService readingService) {
+    Reading getMostRecentReading(AreaSensor areaSensor, ReadingUtils readingUtils) {
 
         List<Reading> sensorReadings = areaSensor.getAreaReadings();
 
@@ -505,12 +505,4 @@ public class GeographicAreaService {
         }
         return recentReading;
     }
-
-
-    /**
-     * Searches within the list of sensors of a given type in a given geographic area for the distance to
-     * the closest sensor the house.
-     *
-     * @return is the value of the distance of the house to sensor of the given type closest to it.
-     */
 }

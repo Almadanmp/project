@@ -17,7 +17,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.*;
@@ -87,7 +87,7 @@ class ReaderControllerTest {
     @Mock
     SensorTypeRepository sensorTypeRepository;
 
-    private ReadingService readingService;
+    private ReadingUtils readingUtils;
     private GeographicAreaService geographicAreaService;
     private HouseService houseService;
     private RoomService roomService;
@@ -95,11 +95,11 @@ class ReaderControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        readingService = new ReadingService();
+        readingUtils = new ReadingUtils();
         houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
 this.roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
-        validReader = new ReaderController(readingService, houseService, roomService);
+        validReader = new ReaderController(readingUtils, houseService, roomService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -156,7 +156,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingService, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
 
         // Assert
 
@@ -172,7 +172,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingService, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
 
         // Assert
 
@@ -250,7 +250,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingService, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
 
         // Assert
 
@@ -285,7 +285,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingService, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
 
         // Assert
 
@@ -318,7 +318,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingService, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
 
         // Assert
 
@@ -334,7 +334,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingService, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
 
         // Assert
 
@@ -466,7 +466,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 //        readingDTOS.add(readingDTO1);
 //        readingDTOS.add(readingDTO2);
 //
-//        HouseSensor sensor = new HouseSensor("TT", "Sensor", new SensorType("temperature", "C"), validDate1, "B104");
+//        RoomSensor sensor = new RoomSensor("TT", "Sensor", new SensorType("temperature", "C"), validDate1, "B104");
 //
 //        Mockito.when(houseSensorRepository.findById("TT")).thenReturn(Optional.of(sensor));
 //        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, "TT")).thenReturn((null));

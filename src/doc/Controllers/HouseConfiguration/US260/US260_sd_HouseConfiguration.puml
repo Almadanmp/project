@@ -16,8 +16,8 @@ HouseConfigurationController -> RoomRepository: findById(houseSensorDTO.roomID)
 return Optional<Room>
 alt if Optional<Room>.isPresent
 HouseConfigurationController -> SensorMapper: dtoToObject(housesSensorDTO)
-return houseSensor
-HouseConfigurationController -> SensorRepository: save(houseSensor)
+return roomSensor
+HouseConfigurationController -> SensorRepository: save(roomSensor)
 HouseConfigurationController -> HouseConfigurationController: counter++;
 else if Optional<Room> is not present
 ref over HouseConfigurationController

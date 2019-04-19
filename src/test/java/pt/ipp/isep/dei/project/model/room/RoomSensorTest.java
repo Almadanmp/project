@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import java.text.ParseException;
@@ -17,26 +16,26 @@ import static org.junit.jupiter.api.Assertions.*;
  * House Sensor tests class.
  */
 
-class HouseSensorTest {
+class RoomSensorTest {
 
     // Common artifacts for testing in this class.
 
-    private HouseSensor validHouseSensor;
+    private RoomSensor validRoomSensor;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validHouseSensor = new HouseSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomAD");
-        validHouseSensor.setActive(true);
+        validRoomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomAD");
+        validRoomSensor.setActive(true);
     }
 
     @Test
     void seeIfEmptyConstructorWorks() {
         // Arrange
-        HouseSensor houseSensorABC = new HouseSensor();
-        houseSensorABC.setId("ABC");
+        RoomSensor roomSensorABC = new RoomSensor();
+        roomSensorABC.setId("ABC");
         String expectedResult = "ABC";
         // Act
-        String actualResult = houseSensorABC.getId();
+        String actualResult = roomSensorABC.getId();
         // Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -55,7 +54,7 @@ class HouseSensorTest {
             e.printStackTrace();
         }
 
-        HouseSensor areaSensor = new HouseSensor("T32875", "Sensor", new SensorType("Temperature", "Celsius"), startDate, "RoomFD");
+        RoomSensor areaSensor = new RoomSensor("T32875", "Sensor", new SensorType("Temperature", "Celsius"), startDate, "RoomFD");
 
         // Act
 
@@ -75,7 +74,7 @@ class HouseSensorTest {
 
         // Act
 
-        SensorType actualResult = validHouseSensor.getSensorType();
+        SensorType actualResult = validRoomSensor.getSensorType();
 
         // Assert
 
@@ -90,8 +89,8 @@ class HouseSensorTest {
 
         // Act
 
-        validHouseSensor.setName("XXB6");
-        String actualResult = validHouseSensor.getName();
+        validRoomSensor.setName("XXB6");
+        String actualResult = validRoomSensor.getName();
 
         // Assert
 
@@ -102,7 +101,7 @@ class HouseSensorTest {
     void seeIfNullSensorNameThrowsStringMessage() {
         // Act
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validHouseSensor.setName(null));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validRoomSensor.setName(null));
 
         // Assert
 
@@ -113,7 +112,7 @@ class HouseSensorTest {
     void seeIfEmptySensorNameThrowsException() {
         // Act
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validHouseSensor.setName(""));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validRoomSensor.setName(""));
 
         // Assert
 
@@ -128,7 +127,7 @@ class HouseSensorTest {
 
         // Act
 
-        boolean actualResult = validHouseSensor.equals(testLocal); // Needed for Sonarqube testing purposes.
+        boolean actualResult = validRoomSensor.equals(testLocal); // Needed for Sonarqube testing purposes.
 
         // Assert
 
@@ -139,12 +138,12 @@ class HouseSensorTest {
     void seeIfEqualsWorksFalseDifferentSensor() {
         // Arrange
 
-        HouseSensor s2 = new HouseSensor("T54654", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
+        RoomSensor s2 = new RoomSensor("T54654", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
                 new Date(), "RoomFD");
 
         // Act
 
-        boolean actualResult = validHouseSensor.equals(s2);
+        boolean actualResult = validRoomSensor.equals(s2);
 
         // Assert
 
@@ -155,11 +154,11 @@ class HouseSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        HouseSensor testAreaSensor = new HouseSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomHG");
+        RoomSensor testAreaSensor = new RoomSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomHG");
 
         // Act
 
-        boolean actualResult = validHouseSensor.equals(testAreaSensor);
+        boolean actualResult = validRoomSensor.equals(testAreaSensor);
 
         // Assert
 
@@ -174,7 +173,7 @@ class HouseSensorTest {
 
         // Act
 
-        int actualResult = validHouseSensor.hashCode();
+        int actualResult = validRoomSensor.hashCode();
 
         // Assert
 
@@ -188,7 +187,7 @@ class HouseSensorTest {
         String expectedResult = "Active";
         // Act
 
-        String result = validHouseSensor.printActive();
+        String result = validRoomSensor.printActive();
 
         // Assert
 
@@ -200,11 +199,11 @@ class HouseSensorTest {
         // Arrange
 
         String expectedResult = "Deactivated";
-        validHouseSensor.deactivateSensor();
+        validRoomSensor.deactivateSensor();
 
         // Act
 
-        String result = validHouseSensor.printActive();
+        String result = validRoomSensor.printActive();
 
         // Assert
 
@@ -215,9 +214,9 @@ class HouseSensorTest {
     void seeIfActive() {
 
         // Act
-        validHouseSensor.deactivateSensor();
+        validRoomSensor.deactivateSensor();
         // Act
-        boolean result = validHouseSensor.deactivateSensor();
+        boolean result = validRoomSensor.deactivateSensor();
 
         // Assert
 
@@ -228,7 +227,7 @@ class HouseSensorTest {
     void seeIfDeactivates() {
 
         // Act
-        boolean result = validHouseSensor.deactivateSensor();
+        boolean result = validRoomSensor.deactivateSensor();
 
         // Assert
 
@@ -239,12 +238,12 @@ class HouseSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validHouseSensor = new HouseSensor("T45", "SensOne", new SensorType("Temperature", "Kelvin"), new Date(), "RoomGK");
+        validRoomSensor = new RoomSensor("T45", "SensOne", new SensorType("Temperature", "Kelvin"), new Date(), "RoomGK");
         SensorType expectedResult = new SensorType("Temperature", "Kelvin");
 
         // Act
 
-        SensorType actualResult = validHouseSensor.getSensorType();
+        SensorType actualResult = validRoomSensor.getSensorType();
 
         // Assert
 
@@ -259,8 +258,8 @@ class HouseSensorTest {
 
         // Act
 
-        validHouseSensor.setId("XXB6");
-        String actualResult = validHouseSensor.getId();
+        validRoomSensor.setId("XXB6");
+        String actualResult = validRoomSensor.getId();
 
         // Assert
 
@@ -275,7 +274,7 @@ class HouseSensorTest {
 
         // Act
 
-        String actualResult = validHouseSensor.buildString();
+        String actualResult = validRoomSensor.buildString();
 
         // Assert
 
@@ -287,11 +286,11 @@ class HouseSensorTest {
         // Arrange
 
         String expectedResult = "Active";
-        validHouseSensor.setActive(true);
+        validRoomSensor.setActive(true);
 
         // Act
 
-        String actualResult = validHouseSensor.printActive();
+        String actualResult = validRoomSensor.printActive();
 
         // Assert
 
@@ -302,7 +301,7 @@ class HouseSensorTest {
     void seeIfEqualsSameObjectWorks() {
         // Act
 
-        boolean actualResult = validHouseSensor.equals(validHouseSensor);
+        boolean actualResult = validRoomSensor.equals(validRoomSensor);
 
         // Assert
 
@@ -317,7 +316,7 @@ class HouseSensorTest {
 
         // Act
 
-        String actualResult = validHouseSensor.getSensorTypeName();
+        String actualResult = validRoomSensor.getSensorTypeName();
 
         // Assert
 

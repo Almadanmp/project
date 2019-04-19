@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
@@ -27,11 +27,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * AreaReadingList tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class ReadingServiceTest {
+class ReadingUtilsTest {
 
-    private ReadingService validReadingService;
+    private ReadingUtils validReadingUtils;
     private AreaSensor firstValidAreaSensor;
-    private HouseSensor firstValidHouseSensor;
+    private RoomSensor firstValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // 31/09/2018 23:59:59
@@ -66,7 +66,7 @@ class ReadingServiceTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReadingService = new ReadingService();
+        validReadingUtils = new ReadingUtils();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -96,7 +96,7 @@ class ReadingServiceTest {
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
                 31, 1, 2), validDate1, 6008L);
         firstValidAreaSensor.setActive(true);
-        firstValidHouseSensor = new HouseSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomID");
+        firstValidRoomSensor = new RoomSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomID");
     }
 
     @Test
@@ -109,7 +109,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double actualResult = validReadingService.getListSum(list);
+        double actualResult = validReadingUtils.getListSum(list);
 
         // Assert
 
@@ -124,7 +124,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double actualResult = validReadingService.getListSum(list);
+        double actualResult = validReadingUtils.getListSum(list);
 
         // Assert
 
@@ -143,7 +143,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double actualResult = validReadingService.getAvgFromList(doubleList);
+        double actualResult = validReadingUtils.getAvgFromList(doubleList);
 
         // Assert
 
@@ -158,7 +158,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double actualResult = validReadingService.getAvgFromList(doubleList);
+        double actualResult = validReadingUtils.getAvgFromList(doubleList);
 
         // Assert
 
@@ -179,7 +179,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double result = validReadingService.getMostRecentValue(readings);
+        double result = validReadingUtils.getMostRecentValue(readings);
 
         // Assert
 
@@ -202,7 +202,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double result = validReadingService.getMostRecentValue(readings);
+        double result = validReadingUtils.getMostRecentValue(readings);
 
         // Assert
 
@@ -227,7 +227,7 @@ class ReadingServiceTest {
 
         // Act
 
-        double actualResult = validReadingService.getValueReadingsInDay(validDate13, readings);
+        double actualResult = validReadingUtils.getValueReadingsInDay(validDate13, readings);
 
         // Assert
 
@@ -240,7 +240,7 @@ class ReadingServiceTest {
         // Act
         List<Reading> readings = new ArrayList<>();
         Throwable exception = assertThrows(IllegalStateException.class,
-                () -> validReadingService.getValueReadingsInDay(validDate13, readings));
+                () -> validReadingUtils.getValueReadingsInDay(validDate13, readings));
 
         // Assert
 
@@ -273,9 +273,9 @@ class ReadingServiceTest {
         // Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "Test");
 
         // Act
-        Reading actualResult2 = validReadingService.getMostRecentReading(readingService2);
-        Reading actualResult3 = validReadingService.getMostRecentReading(readingService3);
-        Reading actualResult4 = validReadingService.getMostRecentReading(readingService4);
+        Reading actualResult2 = validReadingUtils.getMostRecentReading(readingService2);
+        Reading actualResult3 = validReadingUtils.getMostRecentReading(readingService3);
+        Reading actualResult4 = validReadingUtils.getMostRecentReading(readingService4);
         // Reading actualResult5 = validReadingService.getMostRecentReading(readingService5);
 
         // Assert
@@ -293,7 +293,7 @@ class ReadingServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validReadingService.getFirstSecondOfDay(validDate14));
+        assertEquals(expectedResult, validReadingUtils.getFirstSecondOfDay(validDate14));
     }
 
 
@@ -305,7 +305,7 @@ class ReadingServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validReadingService.getLastSecondOfDay(validDate14));
+        assertEquals(expectedResult, validReadingUtils.getLastSecondOfDay(validDate14));
     }
 
     @Test
@@ -325,9 +325,9 @@ class ReadingServiceTest {
         readingService3.add(reading3);
         readingService3.add(reading4);
         //Act
-        Reading actualResult = validReadingService.getMaxValueOfTheDay(readingService, (new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime()));
-        Reading actualResult2 = validReadingService.getMaxValueOfTheDay(readingService2, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
-        Reading actualResult3 = validReadingService.getMaxValueOfTheDay(readingService3, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult = validReadingUtils.getMaxValueOfTheDay(readingService, (new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime()));
+        Reading actualResult2 = validReadingUtils.getMaxValueOfTheDay(readingService2, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult3 = validReadingUtils.getMaxValueOfTheDay(readingService3, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
 
         //Assert
         assertEquals(reading1, actualResult);
@@ -356,7 +356,7 @@ class ReadingServiceTest {
         expectedResult.add(r3);
         expectedResult.add(r5);
         //Act
-        List<Reading> actualResult = validReadingService.getReadingListOfReadingsWithSpecificValue(readingService, 22.0);
+        List<Reading> actualResult = validReadingUtils.getReadingListOfReadingsWithSpecificValue(readingService, 22.0);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -378,8 +378,8 @@ class ReadingServiceTest {
         readingService.add(r5);
         readingService.add(r6);
         //Act
-        Reading actualResult2 = validReadingService.getAReadingWithSpecificDay(readingService, validDate7);
-        Reading actualResult = validReadingService.getAReadingWithSpecificDay(readingService, validDate2);
+        Reading actualResult2 = validReadingUtils.getAReadingWithSpecificDay(readingService, validDate7);
+        Reading actualResult = validReadingUtils.getAReadingWithSpecificDay(readingService, validDate2);
         //Assert
         assertNull(actualResult2);
         assertEquals(r3, actualResult);
@@ -414,7 +414,7 @@ class ReadingServiceTest {
         expectedResult.add(r4);
         expectedResult.add(r10);
         //Act
-        List<Reading> actualResult = validReadingService.getListOfMaxValuesForEachDay(readingService);
+        List<Reading> actualResult = validReadingUtils.getListOfMaxValuesForEachDay(readingService);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -550,7 +550,7 @@ class ReadingServiceTest {
 //        // Arrange
 //
 //        String sensorId = "SensorID";
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 //
 //        // Act
 //
@@ -567,7 +567,7 @@ class ReadingServiceTest {
 //
 //        String sensorId = "SensorID";
 //        Reading reading = new Reading(2D, validDate1, "C", sensorId);
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 //        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((reading));
 //
 //        // Act
@@ -584,7 +584,7 @@ class ReadingServiceTest {
 //        // Arrange
 //
 //        String sensorId = "SensorID";
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 //        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((null));
 //
 //        // Act

@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
 
@@ -108,8 +108,8 @@ public class SensorSettingsController {
      * @param date
      * @return a created Sensor
      */
-    public HouseSensor createRoomSensor(String id, String name, SensorType type, Date date, String idRoom) {
-        return new HouseSensor(id, name, type, date, idRoom);
+    public RoomSensor createRoomSensor(String id, String name, SensorType type, Date date, String idRoom) {
+        return new RoomSensor(id, name, type, date, idRoom);
     }
 
     /**

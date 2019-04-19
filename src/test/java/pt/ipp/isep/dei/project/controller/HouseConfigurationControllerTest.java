@@ -201,7 +201,7 @@ class HouseConfigurationControllerTest {
 //
 //        // Ignore the .save call, which is void.
 //
-//        doNothing().when(houseSensorRepository).save(isA(HouseSensor.class));
+//        doNothing().when(houseSensorRepository).save(isA(RoomSensor.class));
 //
 //        // Expected result
 //

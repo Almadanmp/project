@@ -13,9 +13,9 @@ import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
-import pt.ipp.isep.dei.project.model.ReadingService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.reader.*;
 
 import java.io.IOException;
@@ -27,13 +27,13 @@ import java.util.logging.Logger;
 
 public class ReaderController {
 
-    private ReadingService readingService;
+    private ReadingUtils readingUtils;
     private HouseService houseService;
     private RoomService roomService;
 
 
-    public ReaderController(ReadingService readingService, HouseService houseService, RoomService roomService) {
-        this.readingService = readingService;
+    public ReaderController(ReadingUtils readingUtils, HouseService houseService, RoomService roomService) {
+        this.readingUtils = readingUtils;
         this.houseService = houseService;
         this.roomService = roomService;
 
@@ -58,7 +58,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingService, houseService, roomService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingUtils, houseService, roomService);
             return areasRead;
         }
         return -1;
@@ -196,11 +196,11 @@ public class ReaderController {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
-            HouseSensor sensor = roomService.getById(r.getSensorId());
+            RoomSensor sensor = roomService.getById(r.getSensorId());
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (readingService.addHouseReadingToRepository(sensor, value, date, unit, logger, roomService)) {
+            if (readingUtils.addHouseReadingToRepository(sensor, value, date, unit, logger, roomService)) {
                 addedReadings++;
             }
         }

@@ -15,9 +15,6 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.room.HouseSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
@@ -37,9 +34,9 @@ class RoomServiceTest {
 
     private Room validRoom;
     private Device validDevice;
-    private HouseSensor firstValidHouseSensor;
-    private HouseSensor secondValidHouseSensor;
-    private HouseSensor thirdValidHouseSensor;
+    private RoomSensor firstValidRoomSensor;
+    private RoomSensor secondValidRoomSensor;
+    private RoomSensor thirdValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
 
@@ -74,11 +71,11 @@ class RoomServiceTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidHouseSensor = new HouseSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
-        firstValidHouseSensor.setActive(true);
-        secondValidHouseSensor = new HouseSensor("T32876", "SensorTwo", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
-        secondValidHouseSensor.setActive(true);
-        thirdValidHouseSensor = new HouseSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
+        firstValidRoomSensor.setActive(true);
+        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
+        secondValidRoomSensor.setActive(true);
+        thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
     }
 
 
@@ -548,12 +545,12 @@ class RoomServiceTest {
     @Test
     void seeIfGetAllSensor() {
 
-        List<HouseSensor> houseSensors = new ArrayList<>();
-        validRoomService.save(secondValidHouseSensor);
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        validRoomService.save(secondValidRoomSensor);
 
-        Mockito.when(houseSensorRepository.findAll()).thenReturn(houseSensors);
+        Mockito.when(houseSensorRepository.findAll()).thenReturn(roomSensors);
 
-        assertEquals(houseSensors, validRoomService.getAllSensor());
+        assertEquals(roomSensors, validRoomService.getAllSensor());
     }
 
     @Test
@@ -582,9 +579,9 @@ class RoomServiceTest {
     void seeIfToStringWorks() {
         // Arrange
 
-        List<HouseSensor> houseSensors = new ArrayList<>();
-        houseSensors.add(secondValidHouseSensor);
-        houseSensors.add(thirdValidHouseSensor);
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(secondValidRoomSensor);
+        roomSensors.add(thirdValidRoomSensor);
         String expectedResult = "---------------\n" +
                 "T32876SensorTwo | Type: Temperature | Active\n" +
                 "T32877SensorThree | Type: Rainfall | Active\n" +
@@ -592,7 +589,7 @@ class RoomServiceTest {
 
         // Act
 
-        String actualResult = validRoomService.buildString(houseSensors);
+        String actualResult = validRoomService.buildString(roomSensors);
 
         // Assert
 
@@ -603,12 +600,12 @@ class RoomServiceTest {
     void seeIfToStringWorksEmpty() {
         // Arrange
 
-        List<HouseSensor> houseSensors = new ArrayList<>();
+        List<RoomSensor> roomSensors = new ArrayList<>();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
 
-        String actualResult = validRoomService.buildString(houseSensors);
+        String actualResult = validRoomService.buildString(roomSensors);
 
         // Assert
 
@@ -620,7 +617,7 @@ class RoomServiceTest {
         //Arrange
 
         String sensorId = "SensorOne";
-        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 
         //Act
 
@@ -636,7 +633,7 @@ class RoomServiceTest {
         //Arrange
 
         String sensorId = "SensorOne";
-        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidHouseSensor));
+        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 
         //Act
 
@@ -666,10 +663,10 @@ class RoomServiceTest {
     @Test
     void seeIfSensorExistsInRepositoryWorks() {
         //Arrange
-        HouseSensor houseSensor = new HouseSensor();
-        houseSensor.setId("SensorID");
+        RoomSensor roomSensor = new RoomSensor();
+        roomSensor.setId("SensorID");
 
-        Mockito.when(houseSensorRepository.findById("SensorID")).thenReturn(Optional.of(houseSensor));
+        Mockito.when(houseSensorRepository.findById("SensorID")).thenReturn(Optional.of(roomSensor));
 
         //Act
 
