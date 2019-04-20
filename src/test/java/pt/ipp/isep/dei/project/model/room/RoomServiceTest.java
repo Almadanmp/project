@@ -15,7 +15,7 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
@@ -150,9 +150,7 @@ class RoomServiceTest {
     void seeIfGetDBdNoSensor() {
         String mockId = "SensorOne";
 
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-            validRoomService.getDB(mockId);
-        });
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> validRoomService.getDB(mockId));
 
     }
 

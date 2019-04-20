@@ -14,12 +14,12 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.areaType.AreaTypeService;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.IOException;
@@ -36,33 +36,26 @@ public class MainUI {
 
     @Autowired
     private SensorTypeService sensorTypeService;
-
     @Autowired
     private AreaTypeService areaTypeService;
-
-
     @Autowired
     private AreaSensorRepository areaSensorRepository;
-
     @Autowired
     private ReadingUtils readingUtils;
     @Autowired
     private GeographicAreaService geographicAreaService;
     @Autowired
     private RoomService roomService;
-
     @Autowired
     private HouseRepository houseRepository;
-
     @Autowired
     private EnergyGridService energyGridService;
-
     @Autowired
-    SensorTypeRepository sensorTypeRepository;
+    private SensorTypeRepository sensorTypeRepository;
     @Autowired
-    GeographicAreaRepository geographicAreaRepository;
+    private GeographicAreaRepository geographicAreaRepository;
     @Autowired
-    AreaTypeRepository areaTypeRepository;
+    private AreaTypeRepository areaTypeRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);

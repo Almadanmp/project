@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import static org.junit.jupiter.api.Assertions.*;
 

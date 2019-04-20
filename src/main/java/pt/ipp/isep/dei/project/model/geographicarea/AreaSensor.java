@@ -1,9 +1,9 @@
-package pt.ipp.isep.dei.project.model.geographicArea;
+package pt.ipp.isep.dei.project.model.geographicarea;
 
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -12,13 +12,13 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.*;
 

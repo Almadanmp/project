@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.sensorType;
+package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,35 +53,21 @@ class SensorTypeServiceTest {
 
 //    @Test
 //    void seeIfAddAreaType() {
-//        SensorType sensorType = new SensorType("Temperature","Celsius");
+//        SensorType sensortype = new SensorType("Temperature","Celsius");
 //
-//        Mockito.when(sensorTypeRepository.findByName(sensorType.getName())).thenReturn(sensorType);
+//        Mockito.when(sensorTypeRepository.findByName(sensortype.getName())).thenReturn(sensortype);
 //
-//        assertTrue(sensorTypeService.add(sensorType));
+//        assertTrue(sensorTypeService.add(sensortype));
 //    }
 
-    @Test
-    void seeIfGetTypeAreaByIdRepository() {
-        long mockId = 1234;
-
-        SensorType sensorType = new SensorType("Temperature", "Celsius");
-        sensorType.getId();
-
-        Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.of(sensorType));
-
-        SensorType result = sensorTypeService.getById(mockId);
-
-        assertEquals(result.getId(), sensorType.getId());
-        assertEquals(result.getName(), sensorType.getName());
-    }
 
     @Test
     void seeIfGetTypeAreaByIdRepositoryNull() {
-        long mockId = 1234;
+        String areaName = null;
 
-        Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.empty());
+        Mockito.when(sensorTypeRepository.findById(areaName)).thenReturn(Optional.empty());
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> sensorTypeService.getById(mockId));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> sensorTypeService.getById(areaName));
 
         assertEquals("ERROR: There is no Sensor Type with the selected ID.", exception.getMessage());
     }
@@ -147,8 +133,8 @@ class SensorTypeServiceTest {
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "---------------\n" +
-                "0) Name: Rainfall | Unit: l/m2 \n" +
-                "0) Name: Temperature | Unit: Celsius \n" +
+                "Name: Rainfall | Unit: l/m2 \n" +
+                "Name: Temperature | Unit: Celsius \n" +
                 "---------------\n";
 
         String result = sensorTypeService.buildString();

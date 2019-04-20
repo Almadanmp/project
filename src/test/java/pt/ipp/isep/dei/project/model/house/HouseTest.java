@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -21,11 +21,11 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -137,7 +137,6 @@ class HouseTest {
         // Act
 
         boolean actualResult = house.isRoomListEmpty();
-        ;
 
         // Assert
 

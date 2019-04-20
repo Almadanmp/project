@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.areaType;
+package pt.ipp.isep.dei.project.model.areatype;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -160,36 +160,28 @@ class AreaTypeTest {
     void seeIfSetNameWorksEmptyString() {
         // Assert
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.setName("");
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validType.setName(""));
     }
 
     @Test
     void seeIfSetNameWorksNull() {
         // Assert
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.setName(null);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validType.setName(null));
     }
 
     @Test
     void seeIfSetNameWorksNumbers() {
         // Assert
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.setName("123");
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validType.setName("123"));
     }
 
     @Test
     void seeIfSetNameWorksNumbersAndLetters() {
         // Assert
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            validType.setName("City1");
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validType.setName("City1"));
     }
 
 }

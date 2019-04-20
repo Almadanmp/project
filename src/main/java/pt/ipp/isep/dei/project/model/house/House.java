@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.model.house;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
@@ -348,7 +348,7 @@ public class House implements Metered {
      *
      * @return true if house's RoomList is empty, false otherwise
      **/
-    public boolean isRoomListEmpty() {
+    boolean isRoomListEmpty() {
         return this.roomService.isEmptyRooms();
     }
 

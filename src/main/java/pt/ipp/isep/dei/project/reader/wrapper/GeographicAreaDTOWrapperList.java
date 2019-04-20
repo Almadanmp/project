@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.reader.wrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public class GeographicAreaDTOWrapperList {
         return this.areaDTOWrappers;
     }
 
-    public void setAreaDTOWrappers(List<GeographicAreaDTOWrapper> areaDTOWrappers) {
+    void setAreaDTOWrappers(List<GeographicAreaDTOWrapper> areaDTOWrappers) {
         this.areaDTOWrappers = areaDTOWrappers;
     }
 

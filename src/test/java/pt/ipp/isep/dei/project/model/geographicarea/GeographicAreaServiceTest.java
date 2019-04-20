@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.geographicArea;
+package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,10 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -239,7 +239,7 @@ class GeographicAreaServiceTest {
                 31, 1, 2), new Date(), 6008L);
         areaSensor.setActive(true);
 
-        geographicAreaService.addWithPersist(areaSensor);
+        geographicAreaService.addSensorToDb(areaSensor);
 
 
         //Assert
@@ -252,7 +252,7 @@ class GeographicAreaServiceTest {
                 31, 1, 2), new Date(), 6008L);
         areaSensor.setActive(true);
 
-        assertTrue(geographicAreaService.addWithPersist(areaSensor));
+        assertTrue(geographicAreaService.addSensorToDb(areaSensor));
     }
 
     @Test

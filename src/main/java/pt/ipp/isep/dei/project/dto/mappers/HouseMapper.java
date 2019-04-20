@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.model.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;

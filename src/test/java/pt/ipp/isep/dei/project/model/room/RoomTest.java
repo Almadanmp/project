@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.model.device.Kettler;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 
 import java.util.Calendar;
@@ -433,9 +433,7 @@ class RoomTest {
 
         //Assert
 
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-            emptyDeviceList.getDeviceByIndex(0);
-        });
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> emptyDeviceList.getDeviceByIndex(0));
     }
 
     @Test

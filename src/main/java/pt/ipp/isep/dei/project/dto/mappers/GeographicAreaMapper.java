@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
 
 /**

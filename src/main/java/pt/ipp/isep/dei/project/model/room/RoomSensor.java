@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model.room;
 
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -96,7 +96,7 @@ public class RoomSensor {
         this.roomId = roomId;
     }
 
-    public List<Reading> getHouseReadings() {
+    List<Reading> getHouseReadings() {
         return houseReadings;
     }
 
@@ -193,7 +193,7 @@ public class RoomSensor {
     /**
      * Method to print info if a sensor is active or not.
      */
-    public String printActive() {
+    String printActive() {
         if (!this.active) {
             return "Deactivated";
         }
@@ -209,7 +209,7 @@ public class RoomSensor {
      * @param date reading date
      * @return true in case the reading exists in the repository, false otherwise.
      **/
-    public boolean readingExists(Date date) {
+    boolean readingExists(Date date) {
         for (Reading r : this.houseReadings) {
             if (r.getDate().equals(date)) {
                 return true;
@@ -225,7 +225,7 @@ public class RoomSensor {
      * @return he sensor type name.
      **/
 
-   public String getSensorTypeName() {
+    String getSensorTypeName() {
         return this.sensorType.getName();
     }
 

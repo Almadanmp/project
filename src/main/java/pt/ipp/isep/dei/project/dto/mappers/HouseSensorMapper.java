@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

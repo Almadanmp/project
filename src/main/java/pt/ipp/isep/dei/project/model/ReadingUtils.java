@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
 import java.util.*;
 
@@ -26,7 +26,7 @@ public class ReadingUtils {
      * @param index the index of the Reading we want to getDB value from
      * @return returns value reading that corresponds to index.
      */
-    double getValueReadingDb(List<Reading> readings, int index) {
+    private double getValueReadingDb(List<Reading> readings, int index) {
         if (readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -40,7 +40,7 @@ public class ReadingUtils {
      * @param index the index of the Reading we want to getDB date from
      * @return returns date reading that corresponds to index.
      */
-    Date getValueDateDc(List<Reading> readings, int index) {
+    private Date getValueDateDc(List<Reading> readings, int index) {
         if (readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -169,7 +169,7 @@ public class ReadingUtils {
      * @return list of dates of readings between the given dates
      * @author Daniela - US623 & US633
      */
-    List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
+    private List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
         List<Reading> sensorReadings = areaSensor.getAreaReadings();
 
         List<Date> daysWithReadings = new ArrayList<>();
@@ -202,7 +202,7 @@ public class ReadingUtils {
      * @return true if reading date is between dates, false if it isn't
      * @author Daniela - US623
      */
-    boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
+    private boolean isReadingDateBetweenTwoDates(Date readingDate, Date startDate, Date endDate) {
         return (readingDate.after(startDate) || readingDate.equals(startDate)) &&
                 (readingDate.before(endDate) || readingDate.equals(endDate));
     }
@@ -492,7 +492,7 @@ public class ReadingUtils {
      * @param finalDate   is the final date of the interval.
      * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
      */
-    List<Reading> getReadingListBetweenDates(AreaSensor areaSensor, Date initialDate, Date finalDate) {
+    private List<Reading> getReadingListBetweenDates(AreaSensor areaSensor, Date initialDate, Date finalDate) {
         List<Reading> finalList = new ArrayList<>();
         List<Reading> result = areaSensor.getAreaReadings();
         for (Reading r : result) {
@@ -530,7 +530,7 @@ public class ReadingUtils {
      *
      * @return a double value that represents the minimum value in a AreaReadingList.
      */
-    double getMinValueInReadingListDb(List<Reading> readings) {
+    private double getMinValueInReadingListDb(List<Reading> readings) {
         double result = readings.get(0).getValue();
         for (Reading r : readings) {
             result = Math.min(r.getValue(), result);

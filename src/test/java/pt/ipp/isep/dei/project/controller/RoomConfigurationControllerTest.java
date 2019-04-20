@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;

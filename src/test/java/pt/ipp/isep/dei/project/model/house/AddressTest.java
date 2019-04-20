@@ -2,10 +2,10 @@ package pt.ipp.isep.dei.project.model.house;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.house.Address;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AddressTest {
 
@@ -15,8 +15,8 @@ class AddressTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4440-616", "Porto","Portugal");
+        validAddress = new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4440-616", "Porto", "Portugal");
     }
 
     @Test
@@ -32,7 +32,7 @@ class AddressTest {
     }
 
     @Test
-    void seeIfGetNumber(){
+    void seeIfGetNumber() {
         // Arrange
 
         String expectedResult = "431";
@@ -47,7 +47,7 @@ class AddressTest {
     }
 
     @Test
-    void seeIfGetCountry(){
+    void seeIfGetCountry() {
         // Arrange
 
         Address address = new Address();
@@ -204,8 +204,8 @@ class AddressTest {
     @Test
     void seeIfEqualsWorksSameParameters() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4440-616", "Porto","Portugal");
+        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4440-616", "Porto", "Portugal");
 
         //Assert
         assertEquals(sameAddress, validAddress);
@@ -214,8 +214,8 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsWithDifferentTown() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4440-616", "Lisbon","Portugal");
+        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4440-616", "Lisbon", "Portugal");
 
         //Assert
         assertNotEquals(sameAddress, validAddress);
@@ -224,8 +224,8 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsWithDifferentZip() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4440-666", "Porto","Portugal");
+        Address sameAddress = new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4440-666", "Porto", "Portugal");
 
         //Assert
         assertNotEquals(sameAddress, validAddress);
@@ -234,15 +234,15 @@ class AddressTest {
     @Test
     void seeIfEqualsFailsWithDifferentStreet() {
         //Arrange
-        Address sameAddress = new Address("Rua Dr. José Bernardino de Almeida","431",
-                "4440-616", "Porto","Portugal");
+        Address sameAddress = new Address("Rua Dr. José Bernardino de Almeida", "431",
+                "4440-616", "Porto", "Portugal");
 
         //Assert
         assertNotEquals(sameAddress, validAddress);
     }
 
     @Test
-    public void hashCodeDummyTest() {
+     void hashCodeDummyTest() {
         //Arrange
         int expectedResult = 1;
 

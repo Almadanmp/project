@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.areaType;
+package pt.ipp.isep.dei.project.model.areatype;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,11 +62,11 @@ class AreaTypeServiceTest {
 
 //    @Test
 //    void seeIfAddAreaType() {
-//        AreaType areaType = new AreaType("Street");
+//        AreaType areatype = new AreaType("Street");
 //
-//        Mockito.when(areaTypeRepository.findByRoomName(areaType.getName())).thenReturn(areaType);
+//        Mockito.when(areaTypeRepository.findByRoomName(areatype.getName())).thenReturn(areatype);
 //
-//        assertTrue(areaTypeService.add(areaType));
+//        assertTrue(areaTypeService.add(areatype));
 //    }
 
     @Test
@@ -83,17 +82,6 @@ class AreaTypeServiceTest {
 
         assertEquals(result.getId(), areaType.getId());
         assertEquals(result.getName(), areaType.getName());
-    }
-
-    @Test
-    void seeIfGetTypeAreaByIdRepositoryNull() {
-        long mockId = 1234;
-
-        Mockito.when(areaTypeRepository.findById(mockId)).thenReturn(Optional.empty());
-
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> areaTypeService.getById(mockId));
-
-        assertEquals("ERROR: There is no Area Type with the selected ID.", exception.getMessage());
     }
 
     @Test
@@ -171,11 +159,11 @@ class AreaTypeServiceTest {
 //    void seeIfAddWorks() {
 //        //Arrange
 //
-//        AreaType areaType = new AreaType("Name");
+//        AreaType areatype = new AreaType("Name");
 //        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(null);
 //
 //        //Act
-//        boolean actualResult = areaTypeService.add(areaType);
+//        boolean actualResult = areaTypeService.add(areatype);
 //
 //        assertTrue(actualResult);
 //    }
@@ -184,11 +172,11 @@ class AreaTypeServiceTest {
 //    void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepository() {
 //        //Arrange
 //
-//        AreaType areaType = new AreaType("Name");
-//        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(areaType);
+//        AreaType areatype = new AreaType("Name");
+//        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(areatype);
 //
 //        //Act
-//        boolean actualResult = areaTypeService.add(areaType);
+//        boolean actualResult = areaTypeService.add(areatype);
 //
 //        assertFalse(actualResult);
 //    }

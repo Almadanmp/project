@@ -1,13 +1,12 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.springframework.stereotype.Controller;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
-import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -68,7 +67,7 @@ public class SensorSettingsController {
     /**
      * @param sensorType  is the new type's name.
      * @param sensorUnits is the new type's units.
-     * @return is the newly created sensorType.
+     * @return is the newly created sensortype.
      */
 
     public SensorType createType(SensorTypeService sensorTypeList, String sensorType, String sensorUnits) {
@@ -114,13 +113,11 @@ public class SensorSettingsController {
 
     /**
      * @param areaSensor the sensor we want to add to the geographic area.
-     * @param geoArea    is the area we want to add the sensor to.
      * @return is true if successfully added, false if not.
      */
 
-    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geoArea, GeographicAreaService geographicAreaService) {
-        areaSensor.setGeographicAreaId(geoArea.getId());
-        return (geographicAreaService.addWithPersist(areaSensor));
+    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicAreaService geographicAreaService) {
+        return (geographicAreaService.addSensorToDb(areaSensor));
     }
 
 

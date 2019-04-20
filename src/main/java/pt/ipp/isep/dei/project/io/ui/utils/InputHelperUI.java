@@ -4,20 +4,21 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
-import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
 import java.io.File;
 import java.util.List;
@@ -267,10 +268,11 @@ public class InputHelperUI {
      * @return is the chosen type of sensor.
      */
     public static SensorType getInputSensorTypeByList(SensorTypeService sensorTypeService) {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select a type of sensor from the list:");
             System.out.println(sensorTypeService.buildString());
-            int aux = getInputAsInt();
+            String aux = scanner.nextLine();
             try {
                 SensorType result = sensorTypeService.getById(aux);
                 System.out.println("You have chosen the following sensor type:");
@@ -290,19 +292,18 @@ public class InputHelperUI {
      * @return is the chosen sensor.
      */
     public static AreaSensor getInputSensorByList(GeographicAreaService geographicAreaService, List<AreaSensor> areaSensors) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Please select a sensor from the list:");
             System.out.println(geographicAreaService.buildString(areaSensors));
             String aux = scanner.nextLine();
-            try {
-                AreaSensor result = geographicAreaService.getById(aux);
+            AreaSensor result = geographicAreaService.getById(aux);
+            if (result != null) {
                 System.out.println("You have chosen the following sensor:");
                 System.out.println(result.buildString() + "\n");
                 return result;
-            } catch (NoSuchElementException e) {
-                System.out.println(UtilsUI.INVALID_OPTION);
             }
+            System.out.println(UtilsUI.INVALID_OPTION);
         }
     }
 

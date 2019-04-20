@@ -161,7 +161,7 @@ public class AreaSensorDTO {
     }
 
     /**
-     * Method that stores a String as the DTO's geographicArea annotation.
+     * Method that stores a String as the DTO's geographicarea annotation.
      *
      * @param geographicAreaID is the string we want to store.
      */
@@ -218,7 +218,7 @@ public class AreaSensorDTO {
         this.dateStartedFunctioning = dateStartedFunctioning;
     }
 
-    public List<ReadingDTO> getReadingDTOS() {
+    List<ReadingDTO> getReadingDTOS() {
         return readingDTOS;
     }
 

@@ -1,13 +1,13 @@
-package pt.ipp.isep.dei.project.model.geographicArea;
+package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
@@ -31,6 +31,8 @@ public class GeographicAreaService {
 
     @Autowired
     SensorTypeRepository sensorTypeRepository;
+
+    private static final String BUILDER = "---------------\n";
 
     public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository, AreaSensorRepository areaSensorRepository, SensorTypeRepository sensorTypeRepository) {
         this.geographicAreaRepository = geographicAreaRepository;
@@ -73,7 +75,7 @@ public class GeographicAreaService {
      * @return a string with the names of the geographic areas
      */
     public String buildStringRepository(List<GeographicArea> geographicAreas) {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        StringBuilder result = new StringBuilder(new StringBuilder(BUILDER));
         if (geographicAreas.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -84,7 +86,7 @@ public class GeographicAreaService {
             result.append("Latitude: ").append(ga.getLocal().getLatitude()).append(" | ");
             result.append("Longitude: ").append(ga.getLocal().getLongitude()).append("\n");
         }
-        result.append("---------------\n");
+        result.append(BUILDER);
         return result.toString();
     }
 
@@ -160,12 +162,9 @@ public class GeographicAreaService {
      * @param name selected name
      * @return Type Area corresponding to the given id
      */
-    public AreaType getAreaTypeByName(String name) {
+    private AreaType getAreaTypeByName(String name) {
         Optional<AreaType> value = areaTypeRepository.findByName(name);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        return new AreaType(name);
+        return value.orElseGet(() -> new AreaType(name));
     }
 
 
@@ -179,15 +178,12 @@ public class GeographicAreaService {
      * @param date     date to test
      * @return true in case the sensor exists and it was active during the given date, false otherwise.
      **/
-    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+     boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
             Date startDate = areaSensor.getDateStartedFunctioning();
-            if (date.equals(startDate) || date.after(startDate)) {
-                return true;
-            }
-            return false;
+            return date.equals(startDate) || date.after(startDate);
         }
         return false;
     }
@@ -226,7 +222,7 @@ public class GeographicAreaService {
      */
 
     public String buildString(List<AreaSensor> areaSensors) {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+        StringBuilder result = new StringBuilder(new StringBuilder(BUILDER));
 
         if (areaSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -237,7 +233,7 @@ public class GeographicAreaService {
             result.append("Type: ").append(as.getSensorTypeName()).append(" | ")
                     .append(as.printActive()).append("\n");
         }
-        result.append("---------------\n");
+        result.append(BUILDER);
         return result.toString();
     }
 
@@ -249,10 +245,7 @@ public class GeographicAreaService {
      */
     public AreaSensor getById(String id) {
         Optional<AreaSensor> value = areaSensorRepository.findById(id);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        return null;
+        return value.orElse(null);
     }
 
     public AreaSensor updateSensor(AreaSensor areaSensor) {
@@ -296,11 +289,11 @@ public class GeographicAreaService {
         return areaSensor;
     }
 
-    public AreaSensor getMostRecentlyUsedSensor(List<AreaSensor> areaSensors, ReadingUtils readingUtils) {
+    private AreaSensor getMostRecentlyUsedSensor(List<AreaSensor> areaSensors, ReadingUtils readingUtils) {
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        List<AreaSensor> areaSensors2 = getSensorsWithReadings(areaSensors, readingUtils);
+        List<AreaSensor> areaSensors2 = getSensorsWithReadings(areaSensors);
         if (areaSensors2.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
@@ -323,7 +316,7 @@ public class GeographicAreaService {
         return mostRecent;
     }
 
-    public List<AreaSensor> getSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
+    private List<AreaSensor> getSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {
             if (aS.getSensorType().getName().equals(sensorType)) {
@@ -341,7 +334,7 @@ public class GeographicAreaService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    List<AreaSensor> getSensorsWithReadings(List<AreaSensor> areaSensors, ReadingUtils readingUtils) {
+   private List<AreaSensor> getSensorsWithReadings(List<AreaSensor> areaSensors) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -364,7 +357,7 @@ public class GeographicAreaService {
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
-    public boolean addWithPersist(AreaSensor areaSensorToAdd) {
+    public boolean addSensorToDb(AreaSensor areaSensorToAdd) {
         AreaSensor areaSensor = areaSensorRepository.findByName(areaSensorToAdd.getName());
         if (areaSensor == null) {
             areaSensorRepository.save(areaSensorToAdd);
@@ -382,7 +375,7 @@ public class GeographicAreaService {
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    public List<AreaSensor> getSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
+    private List<AreaSensor> getSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -407,15 +400,12 @@ public class GeographicAreaService {
      * @param name selected name
      * @return Type Area corresponding to the given id
      */
-    public SensorType getTypeSensorByName(String name, String unit) {
+    private SensorType getTypeSensorByName(String name, String unit) {
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        return new SensorType(name, unit);
+        return value.orElseGet(() -> new SensorType(name, unit));
     }
 
-    double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
+    private double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
         List<Double> arrayList = getSensorsDistanceToHouse(house, areaSensors);
         return Collections.min(arrayList);
     }
@@ -427,7 +417,7 @@ public class GeographicAreaService {
      * @param house to calculate closest distance
      * @return List of sensors distance to house
      */
-    public List<Double> getSensorsDistanceToHouse(House house, List<AreaSensor> areaSensors) {
+    private List<Double> getSensorsDistanceToHouse(House house, List<AreaSensor> areaSensors) {
         ArrayList<Double> arrayList = new ArrayList<>();
         for (AreaSensor areaSensor : areaSensors) {
             arrayList.add(house.calculateDistanceToSensor(areaSensor));
@@ -435,13 +425,6 @@ public class GeographicAreaService {
         return arrayList;
     }
 
-
-    /**
-     * Method that goes through the sensor list and looks for the sensor
-     * that was most recently used (that as the most recent reading).
-     *
-     * @return the most recently used sensor
-     */
 
     //METHODS FROM READING SERVICE
 
@@ -486,7 +469,7 @@ public class GeographicAreaService {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    Reading getMostRecentReading(AreaSensor areaSensor, ReadingUtils readingUtils) {
+    private Reading getMostRecentReading(AreaSensor areaSensor, ReadingUtils readingUtils) {
 
         List<Reading> sensorReadings = areaSensor.getAreaReadings();
 

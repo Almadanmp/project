@@ -1,8 +1,7 @@
-package pt.ipp.isep.dei.project.model.sensorType;
+package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.List;
@@ -78,7 +77,7 @@ public class SensorTypeService {
             return "Invalid List - List is Empty\n";
         }
         for (SensorType s : typeSensor) {
-            result.append(s.getId()).append(") Name: ").append(s.getName()).append(" | ").append("Unit: ").
+            result.append("Name: ").append(s.getName()).append(" | ").append("Unit: ").
                     append(s.getUnits()).append(" \n");
         }
         result.append(STRING_BUILDER);
@@ -91,7 +90,7 @@ public class SensorTypeService {
      * @param id selected id
      * @return Type Sensor corresponding to the given id
      */
-    public SensorType getById(long id) {
+    public SensorType getById(String id) {
         Optional<SensorType> value = sensorTypeRepository.findById(id);
         if (value.isPresent()) {
             return value.get();

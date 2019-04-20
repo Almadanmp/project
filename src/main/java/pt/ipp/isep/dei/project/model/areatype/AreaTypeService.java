@@ -1,11 +1,10 @@
-package pt.ipp.isep.dei.project.model.areaType;
+package pt.ipp.isep.dei.project.model.areatype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -101,9 +100,6 @@ public class AreaTypeService {
      */
     public AreaType getById(long id) {
         Optional<AreaType> value = areaTypeRepository.findById(id);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        throw new NoSuchElementException("ERROR: There is no Area Type with the selected ID.");
+        return value.orElse(null);
     }
 }

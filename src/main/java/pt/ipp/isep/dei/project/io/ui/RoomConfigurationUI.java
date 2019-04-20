@@ -13,8 +13,8 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
-import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
 import java.util.Date;
 import java.util.List;

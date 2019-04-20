@@ -5,8 +5,8 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -63,7 +63,7 @@ public class HouseMonitoringController {
     /**
      * @param initialDate is the date where we want to start measuring average rainfall (lower limit).
      * @param endDate     is the date where we want to stop measuring average rainfall (upper limit).
-     * @Author Daniela
+     * @author Daniela
      */
     public double getAverageRainfallInterval(AreaSensor closestAreaSensor, Date initialDate, Date endDate, ReadingUtils readingUtils) {
         return readingUtils.getAverageReadingsBetweenDates(closestAreaSensor, initialDate, endDate);
@@ -72,7 +72,7 @@ public class HouseMonitoringController {
     /**
      * @param day is the date where we want to  measure total rainfall.
      * @return is the total rainfall of the house, as measured by the closest sensor to the house.
-     * @Author André
+     * @author André
      */
     public double getTotalRainfallOnGivenDay(Date day, ReadingUtils readingUtils, AreaSensor closestAreaSensor) {
 
@@ -133,7 +133,7 @@ public class HouseMonitoringController {
      * @param endDate     is the date where we want to stop measuring temperature(upper limit).
      * @return is the highest temperature amplitude in the house area, in given period, as measured by the closest
      * sensor to the house.
-     * @Author Daniela (US633)
+     * @author Daniela (US633)
      */
     public Date getHighestTempAmplitudeDate(AreaSensor closestAreaSensor, Date initialDate, Date endDate, ReadingUtils readingUtils) {
 

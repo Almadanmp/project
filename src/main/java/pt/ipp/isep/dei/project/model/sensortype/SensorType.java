@@ -1,8 +1,6 @@
-package pt.ipp.isep.dei.project.model.sensorType;
+package pt.ipp.isep.dei.project.model.sensortype;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -12,11 +10,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class SensorType {
-
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     private String name;
     private String units;
 
@@ -31,10 +25,6 @@ public class SensorType {
     public SensorType(String name, String units) {
         this.name = name;
         this.units = units;
-    }
-
-    public long getId() {
-        return id;
     }
 
     //GETTER METHODS
@@ -79,8 +69,8 @@ public class SensorType {
      */
     public String toString() {
         return String.format(
-                "SensorType[id=%d, name='%s', units='%s']",
-                id, name, units);
+                "SensorType[name='%s', units='%s']",
+                name, units);
     }
 
     /**

@@ -1,9 +1,8 @@
-package pt.ipp.isep.dei.project.model.sensorType;
+package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -153,18 +152,10 @@ class SensorTypeTest {
     }
 
     @Test
-    void seeIfGetIdWorks() {
-        SensorType sensorType = new SensorType();
-        Long expectedResult = 0L;
-        Long actualResult = sensorType.getId();
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfToStringWorks() {
-        SensorType sensorType = new SensorType("temperature","C");
-        String expectedResult = "SensorType[id=0, name='temperature', units='C']";
+        SensorType sensorType = new SensorType("temperature", "C");
+        String expectedResult = "SensorType[name='temperature', units='C']";
         String actualResult = sensorType.toString();
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }

@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
@@ -75,7 +75,7 @@ public class RoomService {
      * @param idToCheck is the id that we want to check for being present.
      * @return is true if a room with the given ID exists, false if it doesn't.
      */
-    public boolean idExists(String idToCheck) {
+     boolean idExists(String idToCheck) {
         for (Room r : roomRepository.findAll()) {
             if (r.getName().equals(idToCheck)) {
                 return true;
@@ -153,7 +153,7 @@ public class RoomService {
      * @param room is the room we want to save.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-    public void addWithPersistence(Room room) {
+     void addWithPersistence(Room room) {
         roomRepository.save(room);
     }
 
@@ -196,7 +196,7 @@ public class RoomService {
      * @param name the name of the room
      * @return returns room that corresponds to index.
      */
-    public Room getDB(String name) {
+     Room getDB(String name) {
         Room room;
         Optional<Room> aux = roomRepository.findById(name);
         if (aux.isPresent()) {
@@ -483,7 +483,7 @@ public class RoomService {
      *
      * @return a list with all readings from sensor list
      **/
-    public List<Reading> getReadings(List<RoomSensor> roomSensors) {
+    private List<Reading> getReadings(List<RoomSensor> roomSensors) {
         List<Reading> finalList = new ArrayList<>();
         for (RoomSensor s : roomSensors) {
             finalList.addAll(s.getHouseReadings());
@@ -507,7 +507,7 @@ public class RoomService {
      * @param day date of day the method will use to get reading values
      * @return returns value readings from every sensor from given day
      **/
-    public List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensor, Date day, ReadingUtils readingUtils) {
+    private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensor, Date day, ReadingUtils readingUtils) {
         List<Reading> sensorReadings = new ArrayList<>();
         for (RoomSensor hS : roomSensor) {
             sensorReadings.addAll(hS.getHouseReadings());
@@ -516,7 +516,7 @@ public class RoomService {
     }
 
 
-    public RoomSensor updateSensor(RoomSensor roomSensor) {
+    private RoomSensor updateSensor(RoomSensor roomSensor) {
         return roomSensorRepository.save(roomSensor);
     }
 
@@ -545,7 +545,7 @@ public class RoomService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-    public boolean sensorExistsInRepository(String sensorID) {
+     boolean sensorExistsInRepository(String sensorID) {
         Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
         return value.isPresent();
     }
@@ -558,10 +558,7 @@ public class RoomService {
      */
     public RoomSensor getById(String id) {
         Optional<RoomSensor> value = roomSensorRepository.findById(id);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        return null;
+        return value.orElse(null);
     }
 
 
@@ -575,15 +572,12 @@ public class RoomService {
      * @param date     reading Date
      * @return true in case the sensor was active when the reading was created, false otherwise.
      **/
-    public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+     boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             RoomSensor roomSensor = value.get();
             Date startDate = roomSensor.getDateStartedFunctioning();
-            if (date.equals(startDate) || date.after(startDate)) {
-                return true;
-            }
-            return false;
+            return date.equals(startDate) || date.after(startDate);
         }
         return false;
     }
@@ -634,7 +628,7 @@ public class RoomService {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public List<RoomSensor> getRoomSensorsOfGivenType(String name, List<RoomSensor> roomSensors) {
+    private List<RoomSensor> getRoomSensorsOfGivenType(String name, List<RoomSensor> roomSensors) {
         List<RoomSensor> containedTypeSensors = new ArrayList<>();
         for (RoomSensor sensor : roomSensors) {
             if (name.equals(sensor.getSensorTypeName())) {

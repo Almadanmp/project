@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;

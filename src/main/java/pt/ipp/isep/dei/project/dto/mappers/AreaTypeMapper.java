@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
 
 /**
@@ -27,6 +27,7 @@ public final class AreaTypeMapper {
         long objectID = dtoToConvert.getID();
 
         // Create, update and return the converted object.
+
 
         AreaType resultObject = new AreaType(objectName);
 

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.areaType;
+package pt.ipp.isep.dei.project.model.areatype;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -7,11 +7,11 @@ import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,7 +63,7 @@ public class ReaderXMLGeoArea {
             result = geographicAreaService.addAndPersistGA(areaObject);
             if (result) {
                 for (int j = 0; j < nListSensor.getLength(); j++) {
-                    geographicAreaService.addWithPersist(readSensorsXML(nListSensor.item(j), areaObject));
+                    geographicAreaService.addSensorToDb(readSensorsXML(nListSensor.item(j), areaObject));
                 }
             }
         }

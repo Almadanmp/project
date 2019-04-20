@@ -1,6 +1,6 @@
-package pt.ipp.isep.dei.project.model.geographicArea;
+package pt.ipp.isep.dei.project.model.geographicarea;
 
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.Local;
 
 import javax.persistence.*;

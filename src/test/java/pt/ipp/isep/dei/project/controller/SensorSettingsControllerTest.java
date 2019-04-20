@@ -8,10 +8,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensorType.SensorType;
-import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
@@ -65,7 +65,7 @@ class SensorSettingsControllerTest {
         sensorTypes.add(typeA);
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
         String expectedResult = "---------------\n" +
-                "0) Name: Temperature | Unit: Celsius \n" +
+                "Name: Temperature | Unit: Celsius \n" +
                 "---------------\n";
 
         // Act

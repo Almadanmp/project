@@ -7,17 +7,16 @@ import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.areaType.AreaType;
-import pt.ipp.isep.dei.project.model.areaType.AreaTypeService;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 class GASettingsUI {
@@ -93,7 +92,7 @@ class GASettingsUI {
     // SHARED METHODS //
 
     /**
-     * Method to getDB a AreaType DTO By List
+     * Method to get a AreaType DTO By List
      *
      * @return Type area DTO
      * used on US 03 and 04
@@ -103,15 +102,16 @@ class GASettingsUI {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(gaController.buildGATypeListString(areaTypeService));
             int aux = InputHelperUI.getInputAsInt();
-            try {
-                AreaType areaType = areaTypeService.getById(aux);
+
+            AreaType areaType = areaTypeService.getById(aux);
+            if (areaType != null) {
                 AreaTypeDTO typeAreaDTO = AreaTypeMapper.objectToDTO(areaType);
                 System.out.println("You have chosen the following Geographic Area Type:");
                 System.out.println("AreaType: " + gaController.getTypeAreaName(typeAreaDTO));
                 return typeAreaDTO;
-            } catch (NoSuchElementException e) {
-                System.out.println(UtilsUI.INVALID_OPTION);
             }
+
+            System.out.println(UtilsUI.INVALID_OPTION);
         }
     }
 
@@ -186,7 +186,7 @@ class GASettingsUI {
         }
 
         System.out.print("The Geographic Area you want to create is " + nameOfGeoArea + " from the type " + gaTypeAreaName +
-                " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area sizeDB" +
+                " and its " + "localization is on " + geoAreaLat + " latitude " + geoAreaLong + " longitude. The geographic area size" +
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);

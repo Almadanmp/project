@@ -8,8 +8,8 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.EnergyGrid;
 import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -201,7 +201,7 @@ class HouseConfigurationUI {
     }
 
     private Room createNewRoom(RoomService roomService, House house, EnergyGrid grid) {
-        return controller.createNewRoom(roomService, roomDescription, roomName, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
+        return controller.createNewRoom(roomService, roomName, roomDescription, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
     }
 
     /**
