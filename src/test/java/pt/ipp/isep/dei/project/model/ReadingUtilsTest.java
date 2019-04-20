@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ReadingUtilsTest {
 
-    private ReadingUtils validReadingUtils;
     private AreaSensor firstValidAreaSensor;
     private RoomSensor firstValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
@@ -66,8 +65,7 @@ class ReadingUtilsTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validReadingUtils = new ReadingUtils();
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
             validDate12 = validSdf.parse("02/11/2015 20:00:00");
@@ -109,7 +107,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double actualResult = validReadingUtils.getListSum(list);
+        double actualResult = ReadingUtils.getListSum(list);
 
         // Assert
 
@@ -124,7 +122,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double actualResult = validReadingUtils.getListSum(list);
+        double actualResult = ReadingUtils.getListSum(list);
 
         // Assert
 
@@ -143,7 +141,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double actualResult = validReadingUtils.getAvgFromList(doubleList);
+        double actualResult = ReadingUtils.getAvgFromList(doubleList);
 
         // Assert
 
@@ -158,7 +156,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double actualResult = validReadingUtils.getAvgFromList(doubleList);
+        double actualResult = ReadingUtils.getAvgFromList(doubleList);
 
         // Assert
 
@@ -227,7 +225,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double actualResult = validReadingUtils.getValueReadingsInDay(validDate13, readings);
+        double actualResult = ReadingUtils.getValueReadingsInDay(validDate13, readings);
 
         // Assert
 
@@ -240,7 +238,7 @@ class ReadingUtilsTest {
         // Act
         List<Reading> readings = new ArrayList<>();
         Throwable exception = assertThrows(IllegalStateException.class,
-                () -> validReadingUtils.getValueReadingsInDay(validDate13, readings));
+                () -> ReadingUtils.getValueReadingsInDay(validDate13, readings));
 
         // Assert
 
@@ -293,7 +291,7 @@ class ReadingUtilsTest {
 
         // Assert
 
-        assertEquals(expectedResult, validReadingUtils.getFirstSecondOfDay(validDate14));
+        assertEquals(expectedResult, ReadingUtils.getFirstSecondOfDay(validDate14));
     }
 
 
@@ -305,7 +303,7 @@ class ReadingUtilsTest {
 
         // Assert
 
-        assertEquals(expectedResult, validReadingUtils.getLastSecondOfDay(validDate14));
+        assertEquals(expectedResult, ReadingUtils.getLastSecondOfDay(validDate14));
     }
 
     @Test
@@ -325,9 +323,9 @@ class ReadingUtilsTest {
         readingService3.add(reading3);
         readingService3.add(reading4);
         //Act
-        Reading actualResult = validReadingUtils.getMaxValueOfTheDay(readingService, (new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime()));
-        Reading actualResult2 = validReadingUtils.getMaxValueOfTheDay(readingService2, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
-        Reading actualResult3 = validReadingUtils.getMaxValueOfTheDay(readingService3, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult = ReadingUtils.getMaxValueOfTheDay(readingService, (new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime()));
+        Reading actualResult2 = ReadingUtils.getMaxValueOfTheDay(readingService2, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
+        Reading actualResult3 = ReadingUtils.getMaxValueOfTheDay(readingService3, new GregorianCalendar(2018, Calendar.OCTOBER, 8).getTime());
 
         //Assert
         assertEquals(reading1, actualResult);
@@ -356,7 +354,7 @@ class ReadingUtilsTest {
         expectedResult.add(r3);
         expectedResult.add(r5);
         //Act
-        List<Reading> actualResult = validReadingUtils.getReadingListOfReadingsWithSpecificValue(readingService, 22.0);
+        List<Reading> actualResult = ReadingUtils.getReadingListOfReadingsWithSpecificValue(readingService, 22.0);
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -378,8 +376,8 @@ class ReadingUtilsTest {
         readingService.add(r5);
         readingService.add(r6);
         //Act
-        Reading actualResult2 = validReadingUtils.getAReadingWithSpecificDay(readingService, validDate7);
-        Reading actualResult = validReadingUtils.getAReadingWithSpecificDay(readingService, validDate2);
+        Reading actualResult2 = ReadingUtils.getAReadingWithSpecificDay(readingService, validDate7);
+        Reading actualResult = ReadingUtils.getAReadingWithSpecificDay(readingService, validDate2);
         //Assert
         assertNull(actualResult2);
         assertEquals(r3, actualResult);
@@ -414,7 +412,7 @@ class ReadingUtilsTest {
         expectedResult.add(r4);
         expectedResult.add(r10);
         //Act
-        List<Reading> actualResult = validReadingUtils.getListOfMaxValuesForEachDay(readingService);
+        List<Reading> actualResult = ReadingUtils.getListOfMaxValuesForEachDay(readingService);
         //Assert
         assertEquals(expectedResult, actualResult);
     }

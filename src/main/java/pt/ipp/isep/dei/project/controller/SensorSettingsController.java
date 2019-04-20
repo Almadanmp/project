@@ -93,7 +93,7 @@ public class SensorSettingsController {
      */
 
     public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicAreaService geographicAreaService) {
-        return (geographicAreaService.addSensorToDb(areaSensor));
+        return (geographicAreaService.addAreaSensorToDb(areaSensor));
     }
 
 

@@ -239,7 +239,7 @@ class GeographicAreaServiceTest {
                 31, 1, 2), new Date(), 6008L);
         areaSensor.setActive(true);
 
-        geographicAreaService.addSensorToDb(areaSensor);
+        geographicAreaService.addAreaSensorToDb(areaSensor);
 
 
         //Assert
@@ -252,7 +252,7 @@ class GeographicAreaServiceTest {
                 31, 1, 2), new Date(), 6008L);
         areaSensor.setActive(true);
 
-        assertTrue(geographicAreaService.addSensorToDb(areaSensor));
+        assertTrue(geographicAreaService.addAreaSensorToDb(areaSensor));
     }
 
     @Test

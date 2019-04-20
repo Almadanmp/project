@@ -2,12 +2,10 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -58,7 +56,6 @@ public class RoomService {
 
 //TODO UPDATED METHODS
 
-
     public List<Room> getAllRooms() {
         List<Room> finalList = new ArrayList<>();
         Iterable<Room> rooms = roomRepository.findAll();
@@ -77,7 +74,7 @@ public class RoomService {
      * @param idToCheck is the id that we want to check for being present.
      * @return is true if a room with the given ID exists, false if it doesn't.
      */
-     boolean idExists(String idToCheck) {
+    boolean idExists(String idToCheck) {
         for (Room r : roomRepository.findAll()) {
             if (r.getId().equals(idToCheck)) {
                 return true;
@@ -155,7 +152,7 @@ public class RoomService {
      * @param room is the room we want to save.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-     void addRoomSensortoDb(Room room) {
+    void addRoomSensortoDb(Room room) {
         roomRepository.save(room);
     }
 
@@ -198,7 +195,7 @@ public class RoomService {
      * @param name the name of the room
      * @return returns room that corresponds to index.
      */
-     Room getDB(String name) {
+    Room getDB(String name) {
         Room room;
         Optional<Room> aux = roomRepository.findById(name);
         if (aux.isPresent()) {
@@ -425,7 +422,6 @@ public class RoomService {
     }
 
 
-
     //Methods from RoomSensorService
 
     public void save(RoomSensor sensor) {
@@ -509,7 +505,7 @@ public class RoomService {
         for (RoomSensor hS : roomSensor) {
             sensorReadings.addAll(hS.getHouseReadings());
         }
-        return readingUtils.getValuesOfSpecificDayReadings(sensorReadings, day);
+        return ReadingUtils.getValuesOfSpecificDayReadings(sensorReadings, day);
     }
 
 
@@ -525,7 +521,7 @@ public class RoomService {
      */
     private SensorType getTypeSensorByName(String name) {
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
-        if(value.isPresent()){
+        if (value.isPresent()) {
             return value.get();
         }
         return null;
@@ -540,7 +536,7 @@ public class RoomService {
     public RoomSensor createRoomSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
 
         SensorType aux = getTypeSensorByName(sensorType.getName());
-        if(aux!=null){
+        if (aux != null) {
             sensorType = aux;
         }
         return new RoomSensor(id, name, sensorType, dateStartedFunctioning, roomId);
@@ -572,7 +568,7 @@ public class RoomService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-     boolean sensorExistsInRepository(String sensorID) {
+    boolean sensorExistsInRepository(String sensorID) {
         Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
         return value.isPresent();
     }
@@ -599,7 +595,7 @@ public class RoomService {
      * @param date     reading Date
      * @return true in case the sensor was active when the reading was created, false otherwise.
      **/
-     boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+    boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             RoomSensor roomSensor = value.get();

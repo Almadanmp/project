@@ -63,7 +63,7 @@ public class ReaderXMLGeoArea {
             result = geographicAreaService.addAndPersistGA(areaObject);
             if (result) {
                 for (int j = 0; j < nListSensor.getLength(); j++) {
-                    geographicAreaService.addSensorToDb(readSensorsXML(nListSensor.item(j), areaObject));
+                    geographicAreaService.addAreaSensorToDb(readSensorsXML(nListSensor.item(j), areaObject));
                 }
             }
         }

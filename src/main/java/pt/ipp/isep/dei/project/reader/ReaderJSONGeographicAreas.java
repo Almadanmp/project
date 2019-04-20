@@ -121,9 +121,9 @@ public class ReaderJSONGeographicAreas implements Reader {
                     sensorLongitude, sensorAltitude);
             Long gaID = geographicArea.getId();
 
-            AreaSensor areaSensorObject = geographicAreaService.createSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+            AreaSensor areaSensorObject = geographicAreaService.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
 
-            geographicAreaService.addSensorToDb(areaSensorObject);
+            geographicAreaService.addAreaSensorToDb(areaSensorObject);
             entriesChecked++;
         }
     }

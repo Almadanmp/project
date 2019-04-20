@@ -259,7 +259,7 @@ public class GeographicAreaService {
      * @param sensorType the type of sensor to check
      * @return the closest sensor.
      */
-    public AreaSensor getClosestSensorOfGivenType(List<AreaSensor> areaSensors, String sensorType, House house, ReadingUtils readingUtils) {
+    public AreaSensor getClosestAreaSensorOfGivenType(List<AreaSensor> areaSensors, String sensorType, House house) {
 
         AreaSensor areaSensor;
 
@@ -270,44 +270,45 @@ public class GeographicAreaService {
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime(), 2356L);
 
-        List<AreaSensor> sensorsOfGivenType = getSensorsOfGivenType(areaSensors, sensorType);
+        List<AreaSensor> sensorsOfGivenType = getAreaSensorsOfGivenType(areaSensors, sensorType);
 
         if (!sensorsOfGivenType.isEmpty()) {
             double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);
 
-            minDistSensor = getSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
+            minDistSensor = getAreaSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
         }
         if (minDistSensor.isEmpty()) {
             return areaSensorError;
         }
         if (minDistSensor.size() > 1) {
 
-            areaSensor = getMostRecentlyUsedSensor(minDistSensor, readingUtils);
+            areaSensor = getMostRecentlyUsedAreaSensor(minDistSensor);
         } else {
             areaSensor = minDistSensor.get(0);
         }
         return areaSensor;
     }
 
-    private AreaSensor getMostRecentlyUsedSensor(List<AreaSensor> areaSensors, ReadingUtils readingUtils) {
+    private AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> areaSensors) {
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        List<AreaSensor> areaSensors2 = getSensorsWithReadings(areaSensors);
+        List<AreaSensor> areaSensors2 = getAreaSensorsWithReadings(areaSensors);
         if (areaSensors2.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
 
         AreaSensor mostRecent = areaSensors2.get(0);
+        List<Reading> mostRecentSensorReadings = mostRecent.getAreaReadings();
 
-        Reading recentReading = getMostRecentReading(mostRecent, readingUtils);
+        Reading recentReading = ReadingUtils.getMostRecentReading(mostRecentSensorReadings);
         Date recent = recentReading.getDate();
 
 
         for (AreaSensor s : areaSensors) {
             List<Reading> sensorReadings = new ArrayList<>();
 
-            Date test = readingUtils.getMostRecentReadingDateDb(sensorReadings);
+            Date test = ReadingUtils.getMostRecentReadingDate(sensorReadings);
             if (recent.before(test)) {
                 recent = test;
                 mostRecent = s;
@@ -316,7 +317,7 @@ public class GeographicAreaService {
         return mostRecent;
     }
 
-    private List<AreaSensor> getSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
+    private List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {
             if (aS.getSensorType().getName().equals(sensorType)) {
@@ -334,7 +335,7 @@ public class GeographicAreaService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-   private List<AreaSensor> getSensorsWithReadings(List<AreaSensor> areaSensors) {
+   private List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -357,7 +358,7 @@ public class GeographicAreaService {
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
-    public boolean addSensorToDb(AreaSensor areaSensorToAdd) {
+    public boolean addAreaSensorToDb(AreaSensor areaSensorToAdd) {
         AreaSensor areaSensor = areaSensorRepository.findByName(areaSensorToAdd.getName());
         if (areaSensor == null) {
             areaSensorRepository.save(areaSensorToAdd);
@@ -375,7 +376,7 @@ public class GeographicAreaService {
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    private List<AreaSensor> getSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
+    private List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -385,8 +386,8 @@ public class GeographicAreaService {
         return finalList;
     }
 
-    public AreaSensor createSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
-                                   Long geographicAreaId) {
+    public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
+                                       Long geographicAreaId) {
 
         SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
         sensorTypeRepository.save(sensorType);
@@ -461,31 +462,187 @@ public class GeographicAreaService {
         return false;
     }
 
+    /**
+     * US630
+     * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
+     * I want to getDB the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * it returns a Date within an interval from a AreaReadingList that represents the last coldest day in the
+     * given period (lower maximum temperature).
+     *
+     * @param initialDate is the Initial Date of the period.
+     * @param finalDate   is the Final Date of the period.
+     * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
+     */
+    public Date getLastColdestDayInGivenInterval(AreaSensor areaSensor, Date initialDate, Date finalDate) {
+
+        List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, initialDate, finalDate);
+
+        if (readingsBetweenDates.isEmpty()) {
+            throw new IllegalArgumentException("No readings available in the chosen interval.");
+        }
+        List<Reading> listOfMaxValuesForEachDay =ReadingUtils.getListOfMaxValuesForEachDay(readingsBetweenDates);
+
+        double minValueInList = ReadingUtils.getMinValueInReadingList(listOfMaxValuesForEachDay);
+
+        List<Reading> readingsWithSpecificValue =ReadingUtils.getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
+
+        return ReadingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
+    }
 
     /**
-     * Method that goes through every Reading in the list and
-     * returns the reading with the most recent Date.
+     * This method filters a AreaReadingList and returns the AreaReadingList but within an interval of given dates.
      *
-     * @return most recent reading
-     * @author Carina (US600 e US605)
-     **/
-    private Reading getMostRecentReading(AreaSensor areaSensor, ReadingUtils readingUtils) {
-
-        List<Reading> sensorReadings = areaSensor.getAreaReadings();
-
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "ERROR");
-        if (sensorReadings.isEmpty()) {
-            return error;
-        }
-        Reading recentReading = sensorReadings.get(0);
-        Date mostRecent = recentReading.getDate();
-        for (Reading r : sensorReadings) {
-            Date testDate = r.getDate();
-            if (testDate.after(mostRecent)) {
-                mostRecent = testDate;
-                recentReading = r;
+     * @param initialDate is the initial date of the interval.
+     * @param finalDate   is the final date of the interval.
+     * @return a AreaReadingList that represents the initial AreaReadingList but only with readings within the given interval.
+     */
+    private List<Reading> getReadingListBetweenDates(AreaSensor areaSensor, Date initialDate, Date finalDate) {
+        List<Reading> finalList = new ArrayList<>();
+        List<Reading> result = areaSensor.getAreaReadings();
+        for (Reading r : result) {
+            if (ReadingUtils.isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
+                finalList.add(r);
             }
         }
-        return recentReading;
+        return result;
     }
+
+
+    /**
+     * Method that gives the Average of readings between two dates (given days)
+     * It calculates the average of all days, considering the average of each day.
+     * It will throw an IllegalArgumentException if there are no readings between the selected dates
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the average of all values in the reading list between the two given dates
+     * @author Daniela (US623)
+     */
+    public double getAverageReadingsBetweenDates(AreaSensor areaSensor, Date minDate, Date maxDate) {
+        List<Reading> sensorReadingsBetweenDates = getReadingListBetweenDates(areaSensor, minDate, maxDate);
+        if (sensorReadingsBetweenDates.isEmpty()) {
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+        }
+        List<Double> avgDailyValues = new ArrayList<>();
+        for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
+            Date day = sensorReadingsBetweenDates.get(i).getDate();
+            List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(sensorReadingsBetweenDates, day);
+            double avgDay = ReadingUtils.getAvgFromList(specificDayValues);
+            avgDailyValues.add(avgDay);
+        }
+        return ReadingUtils.getAvgFromList(avgDailyValues);
+    }
+
+    /**
+     * Method that gives the Date with the First Hottest Day Reading in given period
+     * It will throw an IllegalArgumentException if there are no available readings between the dates
+     * This method runs the array of dates in the given period, storing the first hottest temperature Date,
+     * only overwriting if there's a day with a higher temperature, ensuring the final return will be
+     * the first hottest day in period.
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the Date with First Hottest Day in given period.
+     * @author Nuno (US631)
+     */
+
+    public Date getFirstHottestDayInGivenPeriod(AreaSensor areaSensor, Date minDate, Date maxDate) {
+        List<Reading> sensorReadings = areaSensor.getAreaReadings();
+        if (sensorReadings.isEmpty()) {
+            throw new IllegalArgumentException("No readings available.");
+        }
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(areaSensor, minDate, maxDate);
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: No temperature readings available in given period.");
+        }
+        double maxTemperature = ReadingUtils.getMaxValue(daysWithReadings, sensorReadings);
+        return ReadingUtils.getFirstDayForGivenTemperature(maxTemperature, daysWithReadings, sensorReadings);
+    }
+
+    /**
+     * Returns return a list with every day with readings between two given dates.
+     * Returns the date of the first reading for each day (no duplicated days - same day, month, year).
+     *
+     * @param dayMin start date given by user, will be the start of the  date interval;
+     * @param dayMax end date given by user, will be the end of the date interval;
+     * @return list of dates of readings between the given dates
+     * @author Daniela - US623 & US633
+     */
+     List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
+        List<Reading> sensorReadings = areaSensor.getAreaReadings();
+
+        List<Date> daysWithReadings = new ArrayList<>();
+        List<Date> daysProcessed = new ArrayList<>();
+
+        Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
+        Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
+
+        for (int i = 0; i < sensorReadings.size(); i++) {
+            Date currentReadingDate = ReadingUtils.getValueDate(sensorReadings, i);
+            if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
+
+                Date readingDay = ReadingUtils.getFirstSecondOfDay(currentReadingDate);
+
+                if (!daysProcessed.contains(readingDay)) {
+                    daysProcessed.add(readingDay);
+                    daysWithReadings.add(currentReadingDate);
+                }
+            }
+        }
+        return daysWithReadings;
+    }
+
+    /**
+     * Method that gives the Date with the Highest Amplitude of readings between two dates (given days).
+     * If there is more than one day with the same temperature amplitude, the return will be the most recent day.
+     * It will throw an IllegalArgumentException if there are no readings between the selected dates.
+     *
+     * @param minDate the lower (min) date for interval comparison
+     * @param maxDate the upper (max) date for interval comparison
+     * @return the Date with Highest Amplitude of all values in the reading list between the two given dates
+     * @author Daniela (US633)
+     */
+    public Date getDateHighestAmplitudeBetweenDates(AreaSensor areaSensor, Date minDate, Date maxDate) {
+
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(areaSensor, minDate, maxDate);
+
+        if (daysWithReadings.isEmpty()) {
+            throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
+        }
+
+        Date dateMaxAmplitude = daysWithReadings.get(0);
+
+        double maxAmplitude = getAmplitudeValueFromDate(areaSensor, dateMaxAmplitude);
+
+        for (int i = 1; i < daysWithReadings.size(); i++) {
+            Date day = daysWithReadings.get(i);
+            double amplitudeTemperature = getAmplitudeValueFromDate(areaSensor, day);
+
+            if (maxAmplitude < amplitudeTemperature) {
+                maxAmplitude = amplitudeTemperature;
+                dateMaxAmplitude = day;
+            } else if ((Double.compare(maxAmplitude, amplitudeTemperature) == 0) && (day.after(dateMaxAmplitude))) {
+                dateMaxAmplitude = day;
+            }
+        }
+        return dateMaxAmplitude;
+    }
+
+    /**
+     * Method that gives the highest amplitude value on a given date
+     *
+     * @param date for each we want the amplitude value
+     * @return highest amplitude value
+     * @author Daniela (US633)
+     */
+    public double getAmplitudeValueFromDate(AreaSensor areaSensor, Date date) {
+        List<Reading> daySensorReadings = areaSensor.getAreaReadings();
+        List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(daySensorReadings, date);
+
+        double maxTemp = Collections.max(specificDayValues);
+        double lowestTemp = Collections.min(specificDayValues);
+        return maxTemp - lowestTemp;
+    }
+
+
 }
