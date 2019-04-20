@@ -4,12 +4,12 @@ package pt.ipp.isep.dei.project.model.geographicArea;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 
 import java.text.ParseException;
@@ -1060,7 +1060,7 @@ class AreaSensorTest {
 
         // Act
 
-        double result = validReadingUtils.getMostRecentValue(readings);
+        double result = ReadingUtils.getMostRecentValue(readings);
 
         // Assert
 

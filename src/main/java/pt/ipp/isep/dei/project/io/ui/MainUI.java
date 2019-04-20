@@ -11,14 +11,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areaType.AreaTypeService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.*;
 
@@ -57,8 +57,6 @@ public class MainUI {
     @Autowired
     private EnergyGridService energyGridService;
 
-    @Autowired
-    private HouseService houseService;
     @Autowired
     SensorTypeRepository sensorTypeRepository;
     @Autowired
@@ -165,14 +163,14 @@ public class MainUI {
                     option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI(readingUtils, houseService, roomService);
+                            GASettingsUI view1 = new GASettingsUI(readingUtils, roomService);
                             view1.runGASettings(areaTypeService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI(readingUtils, houseService, roomService);
-                            houseC.run(house, geographicAreaService, roomService, energyGridService);
+                            HouseConfigurationUI houseC = new HouseConfigurationUI(readingUtils, roomService);
+                            houseC.run(house, geographicAreaService, roomService, energyGridService, houseRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

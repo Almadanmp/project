@@ -6,7 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.PowerSource;
 import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -17,8 +20,8 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.ArrayList;
@@ -46,14 +49,14 @@ class EnergyGridSettingsControllerTest {
     @Mock
     private RoomRepository roomRepository;
     @Mock
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
     @Mock
     SensorTypeRepository sensorTypeRepository;
     private RoomService roomService;
 
     @BeforeEach
     void arrangeArtifacts() {
-        this.roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
+        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         this.energyGridService = new EnergyGridService(energyGridRepository);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),

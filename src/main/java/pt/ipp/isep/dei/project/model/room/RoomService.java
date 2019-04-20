@@ -2,16 +2,17 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Rooms in a House.
@@ -23,7 +24,7 @@ public class RoomService {
     RoomRepository roomRepository;
 
     @Autowired
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
 
     @Autowired
     SensorTypeRepository sensorTypeRepository;
@@ -45,9 +46,9 @@ public class RoomService {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomService(RoomRepository roomRepository, HouseSensorRepository houseSensorRepository, SensorTypeRepository sensorTypeRepository) {
+    public RoomService(RoomRepository roomRepository, RoomSensorRepository roomSensorRepository, SensorTypeRepository sensorTypeRepository) {
         this.roomRepository = roomRepository;
-        this.houseSensorRepository = houseSensorRepository;
+        this.roomSensorRepository = roomSensorRepository;
         this.sensorTypeRepository = sensorTypeRepository;
         this.rooms = new ArrayList<>();
     }
@@ -265,7 +266,7 @@ public class RoomService {
      *
      * @return a DeviceList of all the devices in the RoomList.
      */
-   public DeviceList getDeviceList() {
+    public DeviceList getDeviceList() {
         DeviceList finalList = new DeviceList();
         for (Room r : this.rooms) {
             finalList.appendListNoDuplicates(r.getDeviceList());
@@ -311,7 +312,7 @@ public class RoomService {
      * @return total metered energy consumption of a room list in a given time interval.
      */
 
-   public double getConsumptionInInterval(Date initialDate, Date finalDate) {
+    public double getConsumptionInInterval(Date initialDate, Date finalDate) {
         double consumption = 0;
         for (Room r : this.rooms) {
             consumption += r.getConsumptionInInterval(initialDate, finalDate);
@@ -340,7 +341,7 @@ public class RoomService {
      *
      * @return true if list has no devices, false otherwise.
      **/
-   public boolean isDeviceListEmpty() {
+    public boolean isDeviceListEmpty() {
         return this.getDeviceList().isEmpty();
     }
 
@@ -364,7 +365,7 @@ public class RoomService {
      * @return list of devices of that type param
      */
 
-   public StringBuilder buildDeviceListByType(String deviceType) {
+    public StringBuilder buildDeviceListByType(String deviceType) {
         StringBuilder result = new StringBuilder();
         for (Room r : this.rooms) {
             if (r != null) {
@@ -388,6 +389,14 @@ public class RoomService {
         return result;
     }
 
+    public boolean saveRoom(Room room) {
+        Optional<Room> room1 = roomRepository.findByRoomName(room.getName());
+        if (room1.isPresent()) {
+            return false;
+        }
+        roomRepository.save(room);
+        return true;
+    }
 
     /**
      * This method receives an index as parameter and gets a room from room list.
@@ -422,8 +431,6 @@ public class RoomService {
 
 
     //Methods from RoomSensorService
-
-
     public void save(RoomSensor sensor) {
         Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
 
@@ -434,15 +441,15 @@ public class RoomService {
             sensorTypeRepository.save(newSensorType);
             sensor.setSensorType(newSensorType);
         }
-        this.houseSensorRepository.save(sensor);
+        this.roomSensorRepository.save(sensor);
     }
 
     public List<RoomSensor> getAllSensor() {
-        return houseSensorRepository.findAll();
+        return roomSensorRepository.findAll();
     }
 
     public List<RoomSensor> getAllByRoomId(String roomName) {
-        return houseSensorRepository.findAllByRoomId(roomName);
+        return roomSensorRepository.findAllByRoomId(roomName);
     }
 
     /**
@@ -476,7 +483,7 @@ public class RoomService {
      *
      * @return a list with all readings from sensor list
      **/
-    public List<Reading> getReadings(List<RoomSensor> roomSensors, ReadingUtils readingUtils) {
+    public List<Reading> getReadings(List<RoomSensor> roomSensors) {
         List<Reading> finalList = new ArrayList<>();
         for (RoomSensor s : roomSensors) {
             finalList.addAll(s.getHouseReadings());
@@ -510,7 +517,7 @@ public class RoomService {
 
 
     public RoomSensor updateSensor(RoomSensor roomSensor) {
-        return houseSensorRepository.save(roomSensor);
+        return roomSensorRepository.save(roomSensor);
     }
 
     /**
@@ -521,13 +528,13 @@ public class RoomService {
      */
 
     public boolean addWithPersistence(RoomSensor sensorToAdd) {
-        Optional<RoomSensor> aux = houseSensorRepository.findById(sensorToAdd.getId());
+        Optional<RoomSensor> aux = roomSensorRepository.findById(sensorToAdd.getId());
         if (aux.isPresent()) {
             RoomSensor sensor = aux.get();
             sensor = sensorToAdd;
-            houseSensorRepository.save(sensor);
+            roomSensorRepository.save(sensor);
         }
-        houseSensorRepository.save(sensorToAdd);
+        roomSensorRepository.save(sensorToAdd);
         return true;
     }
 
@@ -539,7 +546,7 @@ public class RoomService {
      * @return true in case the sensor exists, false otherwise.
      **/
     public boolean sensorExistsInRepository(String sensorID) {
-        Optional<RoomSensor> value = houseSensorRepository.findById(sensorID);
+        Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
         return value.isPresent();
     }
 
@@ -550,7 +557,7 @@ public class RoomService {
      * @return returns sensor that corresponds to index.
      */
     public RoomSensor getById(String id) {
-        Optional<RoomSensor> value = houseSensorRepository.findById(id);
+        Optional<RoomSensor> value = roomSensorRepository.findById(id);
         if (value.isPresent()) {
             return value.get();
         }
@@ -569,7 +576,7 @@ public class RoomService {
      * @return true in case the sensor was active when the reading was created, false otherwise.
      **/
     public boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
-        Optional<RoomSensor> value = houseSensorRepository.findById(sensorID);
+        Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             RoomSensor roomSensor = value.get();
             Date startDate = roomSensor.getDateStartedFunctioning();
@@ -591,8 +598,8 @@ public class RoomService {
      * in case the room has no readings whatsoever
      **/
     public double getMaxTemperatureOnGivenDayDb(Room room, Date day, ReadingUtils readingUtils) throws NoSuchElementException {
-        List<RoomSensor> roomSensors = houseSensorRepository.findAllByRoomId(room.getId());
-        List<RoomSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, roomSensors);
+        List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
+        List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         } else {
@@ -612,23 +619,22 @@ public class RoomService {
      * sensors and/or when temperature sensors have no readings
      */
 
-    public double getCurrentRoomTemperature(Room room, ReadingUtils readingUtils) {
-        List<RoomSensor> roomSensors = houseSensorRepository.findAllByRoomId(room.getName());
-        List<RoomSensor> tempSensors = getSensorsOfGivenType(TEMPERATURE, roomSensors);
+    public double getCurrentRoomTemperature(Room room) {
+        List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getName());
+        List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);
         }
-        List<Reading> sensorReadings = getReadings(tempSensors, readingUtils);
-        return readingUtils.getMostRecentValue(sensorReadings);
+        List<Reading> sensorReadings = getReadings(tempSensors);
+        return ReadingUtils.getMostRecentValue(sensorReadings);
     }
-
 
     /**
      * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    public List<RoomSensor> getSensorsOfGivenType(String name, List<RoomSensor> roomSensors) {
+    public List<RoomSensor> getRoomSensorsOfGivenType(String name, List<RoomSensor> roomSensors) {
         List<RoomSensor> containedTypeSensors = new ArrayList<>();
         for (RoomSensor sensor : roomSensors) {
             if (name.equals(sensor.getSensorTypeName())) {
@@ -637,5 +643,42 @@ public class RoomService {
         }
         return containedTypeSensors;
     }
+
+
+    //METHODS FROM READING SERVICE
+
+    /**
+     * This method receives the parameters to create a reading and tries to add that
+     * reading to the repository. It also receives a Logger so that it can register every
+     * reading that was not added to its corresponding sensor.
+     * This method will look for the house sensor in the repository by its ID.
+     *
+     * @param readingValue is the value of the reading we want to add.
+     * @param readingDate  is the date of the reading we want to add.
+     * @param unit         is the unit of the reading we want to add.
+     * @return true in case the reading was added false otherwise.
+     */
+    public boolean addHouseReadingToRepository(RoomSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger) {
+        if (sensor != null && sensorExistsInRepository(sensor.getId())) {
+
+            if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
+                if (sensor.readingExists(readingDate)) {
+                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                            + sensor.getId() + " wasn't added because it already exists.");
+                    return false;
+                }
+                Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
+                sensor.getHouseReadings().add(reading);
+                updateSensor(sensor);
+                return true;
+            }
+            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+            return false;
+        }
+        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        return false;
+    }
+
 }
 

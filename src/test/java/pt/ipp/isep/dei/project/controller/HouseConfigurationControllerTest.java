@@ -8,15 +8,15 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ class HouseConfigurationControllerTest {
     @Mock
     private RoomService mockRoomRepository;
     @Mock
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
     @Mock
     SensorTypeRepository sensorTypeRepository;
 
@@ -59,7 +59,7 @@ class HouseConfigurationControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
-        roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
+        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
     }
 
 

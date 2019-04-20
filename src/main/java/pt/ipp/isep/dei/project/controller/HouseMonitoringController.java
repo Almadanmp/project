@@ -3,13 +3,13 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -28,9 +28,9 @@ public class HouseMonitoringController {
      * @return is the most recent temperature recorded in a room.
      */
 
-    public double getCurrentRoomTemperature(RoomDTO roomDTO, ReadingUtils readingUtils, RoomService roomService) {
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return roomService.getCurrentRoomTemperature(room, readingUtils);
+        return roomService.getCurrentRoomTemperature(room);
     }
 
     /**
@@ -39,7 +39,7 @@ public class HouseMonitoringController {
      * @return is the max temperature recorded in a room
      */
 
-    public double getDayMaxTemperature(RoomDTO roomDTO, Date day , ReadingUtils readingUtils, RoomService roomService) {
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, ReadingUtils readingUtils, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return roomService.getMaxTemperatureOnGivenDayDb(room, day, readingUtils);
     }
@@ -85,11 +85,11 @@ public class HouseMonitoringController {
      * @return is the most recent temperature reading as measured by the closest sensor to the house.
      */
 
-    public double getHouseAreaTemperature(AreaSensor closestAreaSensor, ReadingUtils readingUtils) {
+    public double getHouseAreaTemperature(AreaSensor closestAreaSensor) {
 
         List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
 
-        return readingUtils.getMostRecentReading(sensorReadings).getValue();
+        return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }
 
     /**

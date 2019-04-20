@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
+import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
@@ -56,7 +56,7 @@ class ReadingUtilsTest {
     AreaSensorRepository areaSensorRepository;
 
     @Mock
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
 
     @Mock
     SensorTypeRepository sensorTypeRepository;
@@ -179,7 +179,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double result = validReadingUtils.getMostRecentValue(readings);
+        double result = ReadingUtils.getMostRecentValue(readings);
 
         // Assert
 
@@ -202,7 +202,7 @@ class ReadingUtilsTest {
 
         // Act
 
-        double result = validReadingUtils.getMostRecentValue(readings);
+        double result = ReadingUtils.getMostRecentValue(readings);
 
         // Assert
 
@@ -273,9 +273,9 @@ class ReadingUtilsTest {
         // Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "Test");
 
         // Act
-        Reading actualResult2 = validReadingUtils.getMostRecentReading(readingService2);
-        Reading actualResult3 = validReadingUtils.getMostRecentReading(readingService3);
-        Reading actualResult4 = validReadingUtils.getMostRecentReading(readingService4);
+        Reading actualResult2 = ReadingUtils.getMostRecentReading(readingService2);
+        Reading actualResult3 = ReadingUtils.getMostRecentReading(readingService3);
+        Reading actualResult4 = ReadingUtils.getMostRecentReading(readingService4);
         // Reading actualResult5 = validReadingService.getMostRecentReading(readingService5);
 
         // Assert

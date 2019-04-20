@@ -6,17 +6,18 @@ import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.reader.*;
+import pt.ipp.isep.dei.project.repository.HouseRepository;
 
 import java.io.IOException;
 import java.util.Date;
@@ -28,13 +29,11 @@ import java.util.logging.Logger;
 public class ReaderController {
 
     private ReadingUtils readingUtils;
-    private HouseService houseService;
     private RoomService roomService;
 
 
-    public ReaderController(ReadingUtils readingUtils, HouseService houseService, RoomService roomService) {
+    public ReaderController(ReadingUtils readingUtils, RoomService roomService) {
         this.readingUtils = readingUtils;
-        this.houseService = houseService;
         this.roomService = roomService;
 
     }
@@ -58,7 +57,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingUtils, houseService, roomService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingUtils, roomService);
             return areasRead;
         }
         return -1;
@@ -73,7 +72,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath) {
+    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridService energyGridService, HouseRepository houseRepository) {
         //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO;
@@ -91,7 +90,7 @@ public class ReaderController {
         for (EnergyGridDTO eg : gridDTOS) {
             EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
             energyGrid.setHouseId(house.getId());
-            houseService.saveEnergyGrid(energyGrid);
+            energyGridService.saveEnergyGrid(energyGrid);
         }
 
         //ROOMS
@@ -101,10 +100,11 @@ public class ReaderController {
                 rt.setEnergyGridName(eg.getName());
                 rt.setHouseId(house.getId());
                 Room aux = RoomMapper.dtoToObjectUS100(rt);
-                houseService.saveRoom(aux);
+                roomService.saveRoom(aux);
             }
         }
-        return houseService.saveHouse(house);
+        houseRepository.save(house);
+        return true;
     }
 
     /**
@@ -200,7 +200,7 @@ public class ReaderController {
             double value = r.getValue();
             Date date = r.getDate();
             String unit = r.getUnit();
-            if (readingUtils.addHouseReadingToRepository(sensor, value, date, unit, logger, roomService)) {
+            if (roomService.addHouseReadingToRepository(sensor, value, date, unit, logger)) {
                 addedReadings++;
             }
         }

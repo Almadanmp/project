@@ -5,12 +5,12 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +28,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(House house, GeographicAreaService geographicAreaService , ReadingUtils readingUtils, RoomService roomService) {
+    void run(House house, GeographicAreaService geographicAreaService, ReadingUtils readingUtils, RoomService roomService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -97,7 +97,7 @@ public class HouseMonitoringUI {
         AreaSensor closestSensorToHouse;
         try {
             closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, readingUtils, TEMPERATURE);
-            double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse, readingUtils);
+            double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -123,7 +123,7 @@ public class HouseMonitoringUI {
 
     private void updateModelDisplayState605(RoomDTO room, ReadingUtils readingUtils, RoomService roomService) {
         try {
-            double currentTemp = houseMonitoringController.getCurrentRoomTemperature(room, readingUtils, roomService);
+            double currentTemp = houseMonitoringController.getCurrentRoomTemperature(room, roomService);
             out.println("The current temperature in the room " + houseMonitoringController.getRoomName(room, roomService) +
                     " is " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {

@@ -10,13 +10,12 @@ import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.File;
@@ -43,7 +42,7 @@ class ReaderJSONGeographicAreasTest {
     EnergyGridRepository energyGridRepository;
 
     @Mock
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
 
     @Mock
     AreaTypeRepository areaTypeRepository;
@@ -53,7 +52,6 @@ class ReaderJSONGeographicAreasTest {
 
     private ReadingUtils readingUtils;
     private GeographicAreaService geographicAreaService;
-    private HouseService houseService;
     private RoomService roomService;
 
     private ReaderController ctrl;
@@ -61,10 +59,9 @@ class ReaderJSONGeographicAreasTest {
     @BeforeEach
     void arrangeArtifacts() {
         readingUtils = new ReadingUtils();
-        roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
-        houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
+        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-        ctrl = new ReaderController(readingUtils, houseService, roomService);
+        ctrl = new ReaderController(readingUtils, roomService);
 
     }
 
@@ -186,7 +183,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath,geographicAreaService);
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, geographicAreaService);
 
         // Assert
 

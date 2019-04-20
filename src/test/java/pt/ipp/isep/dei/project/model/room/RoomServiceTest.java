@@ -16,8 +16,8 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
@@ -44,7 +44,7 @@ class RoomServiceTest {
     @Mock
     private RoomRepository roomRepository;
     @Mock
-    private HouseSensorRepository houseSensorRepository;
+    private RoomSensorRepository roomSensorRepository;
     @Mock
     private SensorTypeRepository sensorTypeRepository;
 
@@ -54,7 +54,7 @@ class RoomServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomService = new RoomService(this.roomRepository, this.houseSensorRepository, this.sensorTypeRepository);
+        validRoomService = new RoomService(this.roomRepository, this.roomSensorRepository, this.sensorTypeRepository);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         validRoomService.add(validRoom);
         validDevice = new WaterHeater(new WaterHeaterSpec());
@@ -77,7 +77,6 @@ class RoomServiceTest {
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
     }
-
 
 
     @Test
@@ -548,7 +547,7 @@ class RoomServiceTest {
         List<RoomSensor> roomSensors = new ArrayList<>();
         validRoomService.save(secondValidRoomSensor);
 
-        Mockito.when(houseSensorRepository.findAll()).thenReturn(roomSensors);
+        Mockito.when(roomSensorRepository.findAll()).thenReturn(roomSensors);
 
         assertEquals(roomSensors, validRoomService.getAllSensor());
     }
@@ -617,7 +616,7 @@ class RoomServiceTest {
         //Arrange
 
         String sensorId = "SensorOne";
-        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
+        Mockito.when(roomSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 
         //Act
 
@@ -633,7 +632,7 @@ class RoomServiceTest {
         //Arrange
 
         String sensorId = "SensorOne";
-        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
+        Mockito.when(roomSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
 
         //Act
 
@@ -649,7 +648,7 @@ class RoomServiceTest {
         //Arrange
 
         String sensorId = "SensorOne";
-        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
+        Mockito.when(roomSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
 
         //Act
 
@@ -666,7 +665,7 @@ class RoomServiceTest {
         RoomSensor roomSensor = new RoomSensor();
         roomSensor.setId("SensorID");
 
-        Mockito.when(houseSensorRepository.findById("SensorID")).thenReturn(Optional.of(roomSensor));
+        Mockito.when(roomSensorRepository.findById("SensorID")).thenReturn(Optional.of(roomSensor));
 
         //Act
 
@@ -681,7 +680,7 @@ class RoomServiceTest {
     void seeIfSensorExistsInRepositoryWorksWhenSensorIsNotInRepository() {
         //Arrange
 
-        Mockito.when(houseSensorRepository.findById("SensorID")).thenReturn(Optional.empty());
+        Mockito.when(roomSensorRepository.findById("SensorID")).thenReturn(Optional.empty());
 
         //Act
 

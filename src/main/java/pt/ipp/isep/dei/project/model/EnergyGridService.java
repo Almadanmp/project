@@ -113,6 +113,14 @@ public class EnergyGridService {
         throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 
+    public EnergyGrid saveEnergyGrid(EnergyGrid energyGrid) {
+        EnergyGrid energyGrid1 = energyGridRepository.findByName(energyGrid.getName());
+        if (energyGrid1 != null) {
+            energyGrid1 = energyGrid;
+            return energyGrid1;
+        }
+        return energyGridRepository.save(energyGrid);
+    }
 
     @Override
     public int hashCode() {

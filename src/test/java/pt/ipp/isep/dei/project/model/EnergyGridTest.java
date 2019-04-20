@@ -16,8 +16,8 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.io.IOException;
@@ -45,7 +45,7 @@ class EnergyGridTest {
     @Mock
     RoomRepository roomRepository;
     @Mock
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
     @Mock
     SensorTypeRepository sensorTypeRepository;
 
@@ -54,7 +54,7 @@ class EnergyGridTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomService = new RoomService(this.roomRepository, houseSensorRepository, sensorTypeRepository);
+        validRoomService = new RoomService(this.roomRepository, roomSensorRepository, sensorTypeRepository);
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);

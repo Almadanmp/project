@@ -9,15 +9,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areaType.AreaType;
+import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.sensorType.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.*;
@@ -48,8 +48,7 @@ class ReaderControllerTest {
     // Common artifacts for testing in this class.
 
     private GeographicAreaService validGeographicAreaService;
-    private GeographicAreaService validGeographicAreaService2;
-    private GeographicAreaService validGeographicAreaServiceNoSensors;
+    private EnergyGridService energyGridService;
     private ReaderXMLGeoArea validReaderXMLGeoArea;
     private Date validDate1 = new Date();
     private Date validDate2 = new Date();
@@ -79,7 +78,7 @@ class ReaderControllerTest {
     EnergyGridRepository energyGridRepository;
 
     @Mock
-    HouseSensorRepository houseSensorRepository;
+    RoomSensorRepository roomSensorRepository;
 
     @Mock
     AreaTypeRepository areaTypeRepository;
@@ -89,17 +88,16 @@ class ReaderControllerTest {
 
     private ReadingUtils readingUtils;
     private GeographicAreaService geographicAreaService;
-    private HouseService houseService;
     private RoomService roomService;
 
 
     @BeforeEach
     void arrangeArtifacts() {
         readingUtils = new ReadingUtils();
-        houseService = new HouseService(houseRepository, roomRepository, energyGridRepository);
+        energyGridService = new EnergyGridService(energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-this.roomService = new RoomService(roomRepository, houseSensorRepository, sensorTypeRepository);
-        validReader = new ReaderController(readingUtils, houseService, roomService);
+        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        validReader = new ReaderController(readingUtils, roomService);
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -129,8 +127,6 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
                 new Local(41.179230, -8.606409, 139),
                 validDate4, 6008L);
         validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-        validGeographicAreaService2 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-        validGeographicAreaServiceNoSensors = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
     }
 
     private final InputStream systemIn = System.in;
@@ -156,7 +152,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
 
         // Assert
 
@@ -172,7 +168,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
 
         // Assert
 
@@ -250,7 +246,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
 
         // Assert
 
@@ -285,7 +281,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
 
         // Assert
 
@@ -318,7 +314,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
 
         // Assert
 
@@ -334,7 +330,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, houseService, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
 
         // Assert
 
@@ -485,7 +481,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
         List<String> deviceTypes = new ArrayList<>();
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
-        assertTrue(validReader.readJSONAndDefineHouse(house, filePath));
+        assertTrue(validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository));
     }
 
     @Test
@@ -494,7 +490,7 @@ this.roomService = new RoomService(roomRepository, houseSensorRepository, sensor
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
         assertThrows(IllegalArgumentException.class,
-                () -> validReader.readJSONAndDefineHouse(house, filePath));
+                () -> validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository));
 
     }
 

@@ -6,13 +6,12 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areaType.AreaType;
 import pt.ipp.isep.dei.project.model.areaType.AreaTypeService;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -27,9 +26,9 @@ class GASettingsUI {
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private RoomService roomService;
 
-    GASettingsUI(ReadingUtils readingUtils, HouseService houseService, RoomService roomService) {
+    GASettingsUI(ReadingUtils readingUtils, RoomService roomService) {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(readingUtils, houseService, roomService);
+        this.readerController = new ReaderController(readingUtils, roomService);
         this.roomService = roomService;
     }
 

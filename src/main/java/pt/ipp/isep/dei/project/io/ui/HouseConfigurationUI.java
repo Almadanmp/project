@@ -5,17 +5,18 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicArea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.house.HouseService;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
+import pt.ipp.isep.dei.project.repository.HouseRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -31,18 +32,16 @@ class HouseConfigurationUI {
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private ReadingUtils readingUtils;
-    private HouseService houseService;
     private ReaderController readerController;
 
 
-    HouseConfigurationUI(ReadingUtils readingUtils, HouseService houseService, RoomService roomService2) {
+    HouseConfigurationUI(ReadingUtils readingUtils, RoomService roomService2) {
         this.controller = new HouseConfigurationController();
         this.readingUtils = readingUtils;
-        this.houseService = houseService;
-        this.readerController = new ReaderController(readingUtils, houseService, roomService2);
+        this.readerController = new ReaderController(readingUtils, roomService2);
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService) {
+    void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService, HouseRepository houseRepository) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -53,15 +52,15 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2(geographicAreaService, houseService, roomService);
+                    runUS15v2(geographicAreaService, roomService);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS100(house, houseService, roomService);
+                    runUS100(house, roomService, energyGridService, houseRepository);
                     activeInput = false;
                     break;
                 case 3:
-                    runUS101(house, geographicAreaService);
+                    runUS101(house, geographicAreaService, houseRepository);
                     activeInput = false;
                     break;
                 case 4:
@@ -101,8 +100,8 @@ class HouseConfigurationUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2(GeographicAreaService geographicAreaService, HouseService houseService, RoomService roomService) {
-        ReaderController ctrl = new ReaderController(readingUtils, houseService, roomService);
+    private void runUS15v2(GeographicAreaService geographicAreaService, RoomService roomService) {
+        ReaderController ctrl = new ReaderController(readingUtils, roomService);
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -114,8 +113,8 @@ class HouseConfigurationUI {
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100(House house, HouseService houseService, RoomService roomService) {
-        ReaderController ctrl = new ReaderController(readingUtils, houseService, roomService);
+    private void runUS100(House house, RoomService roomService, EnergyGridService energyGridService, HouseRepository houseRepository) {
+        ReaderController ctrl = new ReaderController(readingUtils, roomService);
         InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -123,7 +122,7 @@ class HouseConfigurationUI {
         String input = inputHelperUI.getInputPathJson(result);
         String filePath = inputHelperUI.getInputPath(input);
         try {
-            if (ctrl.readJSONAndDefineHouse(house, filePath)) {
+            if (ctrl.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository)) {
                 System.out.println("House Data Successfully imported.");
             } else {
                 System.out.println("The JSON file is invalid.");
@@ -135,7 +134,7 @@ class HouseConfigurationUI {
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
 //TODO Location is just location ot Adress etc, doest make much sense with the new data.
-    private void runUS101(House house, GeographicAreaService geographicAreaService) {
+    private void runUS101(House house, GeographicAreaService geographicAreaService, HouseRepository houseRepository) {
         List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First select the geographic area where this house is located.");
         GeographicArea motherArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
@@ -154,7 +153,7 @@ class HouseConfigurationUI {
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
         controller.setHouseMotherArea(house, motherArea);
-        houseService.saveHouse(house);
+        houseRepository.save(house);
 
         System.out.println("\nYou have successfully configured the location of the house with the following Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");

@@ -1,15 +1,9 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.geographicArea.AreaSensor;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.HouseSensorRepository;
 
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * This is the AreaReadingList Class, a List of readings that the Sensor receives.
@@ -18,12 +12,6 @@ import java.util.logging.Logger;
 public class ReadingUtils {
 
     private static final String EMPTY_LIST = "The reading list is empty.";
-
-    @Autowired
-    AreaSensorRepository areaSensorRepository;
-
-    @Autowired
-    HouseSensorRepository houseSensorRepository;
 
     /**
      * /**
@@ -68,7 +56,7 @@ public class ReadingUtils {
      * @return most recent reading
      * @author Carina (US600 e US605)
      **/
-    public Reading getMostRecentReading(List<Reading> readings) {
+    public static Reading getMostRecentReading(List<Reading> readings) {
         Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "ERROR");
         if (readings.isEmpty()) {
             return error;
@@ -103,7 +91,7 @@ public class ReadingUtils {
      * @return the most recent reading value or NaN when the Reading List is empty
      * @author Carina (US600 e US605)
      */
-    public double getMostRecentValue(List<Reading> readings) {
+    public static double getMostRecentValue(List<Reading> readings) {
         if (readings.isEmpty()) {
             throw new IllegalArgumentException("There aren't any readings available.");
         }
@@ -253,7 +241,7 @@ public class ReadingUtils {
      * @return returns a list with every value of readings that was recorded on that particular day.
      * @author Daniela - US623
      */
-   public List<Double> getValuesOfSpecificDayReadings(List<Reading> readings, Date day) {
+    public List<Double> getValuesOfSpecificDayReadings(List<Reading> readings, Date day) {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
 
@@ -470,7 +458,7 @@ public class ReadingUtils {
 
         List<Reading> readingsWithSpecificValue = getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
 
-        return readingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
+        return ReadingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
     }
 
     /**
@@ -535,40 +523,6 @@ public class ReadingUtils {
             }
         }
         return result;
-    }
-
-
-    /**
-     * This method receives the parameters to create a reading and tries to add that
-     * reading to the repository. It also receives a Logger so that it can register every
-     * reading that was not added to its corresponding sensor.
-     * This method will look for the house sensor in the repository by its ID.
-     *
-     * @param readingValue is the value of the reading we want to add.
-     * @param readingDate  is the date of the reading we want to add.
-     * @param unit         is the unit of the reading we want to add.
-     * @return true in case the reading was added false otherwise.
-     */
-    public boolean addHouseReadingToRepository(RoomSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger, RoomService roomService) {
-        if (sensor != null && roomService.sensorExistsInRepository(sensor.getId())) {
-
-            if (roomService.sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
-                if (sensor.readingExists(readingDate)) {
-                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                            + sensor.getId() + " wasn't added because it already exists.");
-                    return false;
-                }
-                Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
-                sensor.getHouseReadings().add(reading);
-                roomService.updateSensor(sensor);
-                return true;
-            }
-            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                    + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
-            return false;
-        }
-        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
-        return false;
     }
 
     /**

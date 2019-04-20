@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface HouseSensorRepository extends CrudRepository<RoomSensor, String> {
+public interface RoomSensorRepository extends CrudRepository<RoomSensor, String> {
 
     List<RoomSensor> findAll();
 
