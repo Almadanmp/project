@@ -5,7 +5,8 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -57,7 +58,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 5:
-                    runUS722(house, energyGridService);
+                    runUS722(energyGridService);
                     activeInput = false;
                     break;
                 case 6:
@@ -65,7 +66,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS752(house);
+                    runUS752(roomService);
                     activeInput = false;
                     break;
                 case 0:
@@ -308,7 +309,7 @@ class EnergyConsumptionUI {
     given time interval, i.e. the sum of the energy consumption of all energy-metered rooms in the grid in the
     interval.*/
 
-    private void runUS722(House house, EnergyGridService energyGridService) {
+    private void runUS722(EnergyGridService energyGridService) {
         List<EnergyGrid> gridList = controller.getHouseGridList(energyGridService);
         if (gridList.isEmpty()) {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
@@ -397,8 +398,8 @@ class EnergyConsumptionUI {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
-    private void runUS752(House house) {
-        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(house).getList();
+    private void runUS752(RoomService roomService) {
+        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(roomService).getList();
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
             return;
@@ -418,7 +419,7 @@ class EnergyConsumptionUI {
             System.out.println("Options registered for water heater: " + controller.getWHName(d) + ".\n----------------" +
                     "-----------------------------\n");
         }
-        double result = controller.getDailyWaterHeaterConsumption(house);
+        double result = controller.getDailyWaterHeaterConsumption(roomService);
         System.out.println("The estimated total energy used in heating water in a day is: " + result + " kW.");
     }
 

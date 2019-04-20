@@ -133,7 +133,7 @@ public class HouseConfigurationController {
      */
 
     public String buildRoomsString(RoomService roomService, List<Room> houseRooms) {
-        return roomService.buildStringDB(houseRooms);
+        return roomService.buildRoomsAsString(houseRooms);
     }
 
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.

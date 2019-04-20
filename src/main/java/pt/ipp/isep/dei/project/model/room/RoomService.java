@@ -31,10 +31,11 @@ public class RoomService {
 
     private List<Room> rooms;
 
+    private static final String STRING_BUILDER = "---------------\n";
+
 
     private static final String TEMPERATURE = "temperature";
-    private static final String noTempReadings = "There aren't any temperature readings available.";
-
+    private static final String NO_TEMP_READINGS = "There aren't any temperature readings available.";
 
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
@@ -58,9 +59,9 @@ public class RoomService {
 
     public List<Room> getAllRooms() {
         List<Room> finalList = new ArrayList<>();
-        Iterable<Room> rooms = roomRepository.findAll();
-        if (rooms != null) {
-            for (Room r : rooms) {
+        Iterable<Room> roomsAux = roomRepository.findAll();
+        if (roomsAux != null) {
+            for (Room r : roomsAux) {
                 finalList.add(r);
             }
         }
@@ -105,8 +106,8 @@ public class RoomService {
      *
      * @return a String of the Rooms in the RoomList.
      */
-    public String buildStringDB(List<Room> rooms) {
-        StringBuilder result = new StringBuilder("---------------\n");
+    public String buildRoomsAsString(List<Room> rooms) {
+        StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (rooms.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -118,7 +119,7 @@ public class RoomService {
             result.append("Height: ").append(r.getHeight()).append("\n");
 
         }
-        result.append("---------------\n");
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 
@@ -213,7 +214,7 @@ public class RoomService {
      * @return a String of the Rooms in the RoomList.
      */
     public String buildString() {
-        StringBuilder result = new StringBuilder("---------------\n");
+        StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (this.isEmptyRooms()) {
             return "Invalid List - List is Empty\n";
         }
@@ -227,7 +228,7 @@ public class RoomService {
             result.append("Height: ").append(aux.getHeight()).append("\n");
 
         }
-        result.append("---------------\n");
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 
@@ -453,8 +454,8 @@ public class RoomService {
      * @return a string of the sensors contained in the list.
      */
 
-    public String buildString(List<RoomSensor> roomSensors) {
-        StringBuilder result = new StringBuilder(new StringBuilder("---------------\n"));
+    public String buildRoomSensorsAsString(List<RoomSensor> roomSensors) {
+        StringBuilder result = new StringBuilder(new StringBuilder(STRING_BUILDER));
 
         if (roomSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -464,7 +465,7 @@ public class RoomService {
             result.append("Type: ").append(hS.getSensorTypeName()).append(" | ")
                     .append(hS.printActive()).append("\n");
         }
-        result.append("---------------\n");
+        result.append(STRING_BUILDER);
         return result.toString();
     }
 
@@ -485,22 +486,13 @@ public class RoomService {
     }
 
     /**
-     * Method checks if sensor list is empty.
-     *
-     * @return true if empty, false otherwise.
-     **/
-    public boolean isEmptySensors() {
-        return getAllSensor().isEmpty();
-    }
-
-    /**
      * This method goes through every sensor reading list and returns the
      * reading values of a given day. This day is given to method as parameter.
      *
      * @param day date of day the method will use to get reading values
      * @return returns value readings from every sensor from given day
      **/
-    private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensor, Date day, ReadingUtils readingUtils) {
+    private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensor, Date day) {
         List<Reading> sensorReadings = new ArrayList<>();
         for (RoomSensor hS : roomSensor) {
             sensorReadings.addAll(hS.getHouseReadings());
@@ -614,19 +606,20 @@ public class RoomService {
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
      **/
-    public double getMaxTemperatureOnGivenDayDb(Room room, Date day, ReadingUtils readingUtils) throws NoSuchElementException {
+    public double getMaxTemperatureOnGivenDay(Room room, Date day) throws NoSuchElementException {
         List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException(noTempReadings);
+            throw new IllegalArgumentException(NO_TEMP_READINGS);
         } else {
-            List<Double> values = getValuesOfSpecificDayReadings(tempSensors, day, readingUtils);
+            List<Double> values = getValuesOfSpecificDayReadings(tempSensors, day);
             if (!values.isEmpty()) {
                 return Collections.max(values);
             }
-            throw new NoSuchElementException(noTempReadings);
+            throw new NoSuchElementException(NO_TEMP_READINGS);
         }
-    }
+        }
+
 
     /**
      * Method that goes through every Sensor in the room of the type "temperature" returning
@@ -640,7 +633,7 @@ public class RoomService {
         List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException(noTempReadings);
+            throw new IllegalArgumentException(NO_TEMP_READINGS);
         }
         List<Reading> sensorReadings = getReadings(tempSensors);
         return ReadingUtils.getMostRecentValue(sensorReadings);

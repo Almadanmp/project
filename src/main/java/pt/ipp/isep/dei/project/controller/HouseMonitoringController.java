@@ -39,9 +39,9 @@ public class HouseMonitoringController {
      * @return is the max temperature recorded in a room
      */
 
-    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, ReadingUtils readingUtils, RoomService roomService) {
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return roomService.getMaxTemperatureOnGivenDayDb(room, day, readingUtils);
+        return roomService.getMaxTemperatureOnGivenDay(room, day);
     }
 
     /**

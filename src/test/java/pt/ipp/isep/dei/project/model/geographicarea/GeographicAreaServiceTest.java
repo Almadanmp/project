@@ -243,7 +243,7 @@ class GeographicAreaServiceTest {
 
 
         //Assert
-        assertFalse(geographicAreaService.AreaSensorExistsInRepository("SensorOne"));
+        assertFalse(geographicAreaService.areaSensorExistsInRepository("SensorOne"));
     }
 
     @Test
@@ -357,7 +357,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        boolean actualResult1 = geographicAreaService.AreaSensorExistsInRepository(sensorId);
+        boolean actualResult1 = geographicAreaService.areaSensorExistsInRepository(sensorId);
 
         //Assert
 
@@ -373,7 +373,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        boolean actualResult1 = geographicAreaService.AreaSensorExistsInRepository(sensorId);
+        boolean actualResult1 = geographicAreaService.areaSensorExistsInRepository(sensorId);
 
         //Assert
 

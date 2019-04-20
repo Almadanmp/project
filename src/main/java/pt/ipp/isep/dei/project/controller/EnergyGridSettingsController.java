@@ -25,7 +25,7 @@ public class EnergyGridSettingsController {
      */
 
     public String buildRoomsString(RoomService roomService, List<Room> roomsOnGrid) {
-        return roomService.buildStringDB(roomsOnGrid);
+        return roomService.buildRoomsAsString(roomsOnGrid);
     }
 
     /**

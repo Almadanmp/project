@@ -1,22 +1,14 @@
 package pt.ipp.isep.dei.project.model.house;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Fridge;
-import pt.ipp.isep.dei.project.model.device.WaterHeater;
-import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
-import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
@@ -126,46 +118,6 @@ class HouseTest {
 
         assertEquals("ISEP", actualResult);
     }
-
-    @Test
-    void seeIfIsRoomListEmptyWorks() {
-        //Arrange
-
-        House house = new House(roomService, energyGridService);
-        Mockito.when(roomRepository.findAll()).thenReturn(null);
-
-        // Act
-
-        boolean actualResult = house.isRoomListEmpty();
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfIsRoomListEmptyWorksWhenListIsNotEmpty() {
-        //Arrange
-
-        House house = new House(roomService, energyGridService);
-
-        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
-        List<Room> list = new ArrayList<>();
-        list.add(roomOne);
-        house.addRoom(roomOne);
-
-        Mockito.when(roomRepository.findAll()).thenReturn((list));
-
-        // Act
-
-        boolean actualResult = house.isRoomListEmpty();
-        ;
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
 
     @Test
     void seeIfSetDeviceTypeListWorks() {
@@ -292,36 +244,6 @@ class HouseTest {
         assertFalse(actualResult);
     }
 
-    @Test
-    void seeIfAddRoomWorks() {
-        // Arrange
-
-        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10, "Room1", "Grid1");
-
-        // Act
-
-        boolean actualResult = validHouse.addRoom(testRoom);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddRoomWorksDuplicate() {
-        // Arrange
-
-        Room testRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 30, 10, "Room1", "Grid1");
-        validHouse.addRoom(testRoom);
-
-        // Act
-
-        boolean actualResult = validHouse.addRoom(testRoom);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
 
     @Test
     void seeIfGetSetHouseLocationWorks() {
@@ -355,48 +277,27 @@ class HouseTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfGetNominalPowerWorks() {
-        //Arrange
-
-        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 12, 30, 10, "Room1", "Grid1");
-        Device testDevice = new WaterHeater(new WaterHeaterSpec());
-        testDevice.setNominalPower(30.0);
-        testRoom.addDevice(testDevice);
-        validHouse.addRoom(testRoom);
-        double expectedResult = 30;
-
-        // Act
-
-        double actualResult = validHouse.getNominalPower();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getDailyHouseConsumptionPerTypeTest() {
-        // Arrange
-
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
-        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 15D);
-        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "Grid1");
-        testRoom.addDevice(waterHeater);
-        validHouse.addRoom(testRoom);
-        double expectedResult = 0.4;
-
-        // Act
-
-        double result = validHouse.getDailyConsumptionByDeviceType("WaterHeater", 1440);
-
-        // Assert
-
-        assertEquals(expectedResult, result);
-    }
+//     @Test
+//    void getDailyHouseConsumptionPerTypeTest() {
+//        // Arrange
+//
+//        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+//        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER, 200D);
+//        waterHeater.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 30D);
+//        waterHeater.setAttributeValue(WaterHeaterSpec.PERFORMANCE_RATIO, 0.9D);
+//        waterHeater.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 15D);
+//        Room testRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "Grid1");
+//        testRoom.addDevice(waterHeater);
+//        double expectedResult = 0.4;
+//
+//        // Act
+//
+//        double result = validHouse.getDailyConsumptionByDeviceType("WaterHeater", 1440);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, result);
+//    }
 
     @Test
     void seeIfIsMotherAreaNullBothConditions() {
@@ -412,41 +313,40 @@ class HouseTest {
         assertTrue(actualResult2);
     }
 
-    @Test
-    void getHouseDevicesOfGivenType() {
-        // Arrange
+//    @Test
+//    void getHouseDevicesOfGivenType() {
+//        // Arrange
+//
+//        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
+//        waterHeater.setName("WaterHeaterOne");
+//        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10, "Room1", "Grid1");
+//        testRoom.addDevice(waterHeater);
+//        DeviceList expectedResult = new DeviceList();
+//        expectedResult.add(waterHeater);
+//
+//        // Act
+//
+//        DeviceList actualResult = validHouse.getDevicesOfGivenType("WaterHeater");
+//
+//        // Assert
+//
+//        Assertions.assertEquals(expectedResult, actualResult);
+//    }
 
-        Device waterHeater = new WaterHeater(new WaterHeaterSpec());
-        waterHeater.setName("WaterHeaterOne");
-        Room testRoom = new Room("Kitchen", "Ground Floor Kitchen", 0, 15, 15, 10, "Room1", "Grid1");
-        testRoom.addDevice(waterHeater);
-        validHouse.addRoom(testRoom);
-        DeviceList expectedResult = new DeviceList();
-        expectedResult.add(waterHeater);
-
-        // Act
-
-        DeviceList actualResult = validHouse.getDevicesOfGivenType("WaterHeater");
-
-        // Assert
-
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetDeviceListWorksEmptyList() {
-        // Arrange
-
-        List<Device> expectedResult = new ArrayList<>();
-
-        // Act
-
-        List<Device> actualResult = validHouse.getDeviceList().getList();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
+//    @Test
+//    void seeIfGetDeviceListWorksEmptyList() {
+//        // Arrange
+//
+//        List<Device> expectedResult = new ArrayList<>();
+//
+//        // Act
+//
+//        List<Device> actualResult = validHouse.getDeviceList().getList();
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
 
     @Test
     void seeIfBuildDeviceTypeStringWorks() {
@@ -544,41 +444,6 @@ class HouseTest {
 //
 //        assertEquals(expectedResult, actualResult);
 //    }
-
-    @Test
-    void seeIfGetEnergyConsumptionWorksZero() {
-        // Arrange
-
-        double expectedResult = 0.0;
-
-        // Act
-
-        double result = validHouse.getEnergyConsumption(10);
-
-        // Assert
-
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void seeIfGetEnergyConsumptionWorks() {
-        // Arrange
-
-        double expectedResult = 310;
-        Device device = new Fridge(new FridgeSpec());
-        device.setNominalPower(31);
-        Room tempRoom = new Room("tempRoom", "Sensor's Room", 1, 20, 20, 10, "Room1", "Grid1");
-        validHouse.addRoom(tempRoom);
-        tempRoom.addDevice(device);
-
-        // Act
-
-        double result = validHouse.getEnergyConsumption(10);
-
-        // Assert
-
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     void seeIfDeviceTypeListSizeWorks() {

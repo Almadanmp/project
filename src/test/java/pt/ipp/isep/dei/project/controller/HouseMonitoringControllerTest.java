@@ -96,7 +96,6 @@ class HouseMonitoringControllerTest {
         validRoomService.add(validRoom1);
         readingUtils = new ReadingUtils();
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        validHouse.setRoomService(validRoomService);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 

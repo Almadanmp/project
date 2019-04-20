@@ -79,7 +79,7 @@ public class InputHelperUI {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please select one of the existing rooms in the house: ");
-            System.out.println(roomService.buildStringDB(rooms));
+            System.out.println(roomService.buildRoomsAsString(rooms));
             String aux = scanner.nextLine();
             try {
                 Optional<Room> result = roomService.findByID(aux);
@@ -101,7 +101,7 @@ public class InputHelperUI {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select one of the existing rooms: ");
-            System.out.println(roomService.buildStringDB(houseRooms));
+            System.out.println(roomService.buildRoomsAsString(houseRooms));
             String aux = scanner.nextLine();
             try {
                 Optional<Room> result = roomService.findByID(aux);

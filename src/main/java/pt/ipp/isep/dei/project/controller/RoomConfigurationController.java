@@ -2,14 +2,14 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
@@ -79,7 +79,7 @@ public class RoomConfigurationController {
      */
 
     public String buildSensorListString(RoomService roomService, List<RoomSensor> roomSensors) {
-        return roomService.buildString(roomSensors);
+        return roomService.buildRoomSensorsAsString(roomSensors);
     }
 
     /**
@@ -138,7 +138,7 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device list size.
      * @return a int that represents the size of the deviceList.
      */
-    public int getDeviceListSize(RoomDTO roomDTO , RoomService roomService) {
+    public int getDeviceListSize(RoomDTO roomDTO, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getDeviceListSize();
     }
@@ -149,7 +149,7 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device from.
      * @param index   is the index of the device in the device list
      */
-    public Device getDeviceByIndex(RoomDTO roomDTO , int index, RoomService roomService) {
+    public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getDeviceByIndex(index);
     }

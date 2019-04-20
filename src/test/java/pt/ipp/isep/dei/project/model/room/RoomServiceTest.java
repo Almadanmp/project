@@ -188,7 +188,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildStringDB(rooms));
+        assertEquals(expectedResult, validRoomService.buildRoomsAsString(rooms));
     }
 
     @Test
@@ -230,7 +230,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildStringDB(rooms));
+        assertEquals(expectedResult, validRoomService.buildRoomsAsString(rooms));
     }
 
 
@@ -586,7 +586,7 @@ class RoomServiceTest {
 
         // Act
 
-        String actualResult = validRoomService.buildString(roomSensors);
+        String actualResult = validRoomService.buildRoomSensorsAsString(roomSensors);
 
         // Assert
 
@@ -602,7 +602,7 @@ class RoomServiceTest {
 
         // Act
 
-        String actualResult = validRoomService.buildString(roomSensors);
+        String actualResult = validRoomService.buildRoomSensorsAsString(roomSensors);
 
         // Assert
 

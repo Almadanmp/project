@@ -2,12 +2,12 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.EnergyGrid;
+import pt.ipp.isep.dei.project.model.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
@@ -32,7 +32,6 @@ public class EnergyConsumptionController {
      * @param room       is the room where the devices we want to addWithoutPersisting are.
      * @param deviceList is the deviceList we want to addWithoutPersisting devices to.
      */
-
     public void addRoomDevicesToDeviceList(Room room, DeviceList deviceList) {
         room.addRoomDevicesToDeviceList(deviceList);
     }
@@ -44,7 +43,6 @@ public class EnergyConsumptionController {
      * @param list the list we want to addWithoutPersisting the room to.
      * @return true if the room was added, false if it was already in the list.
      */
-
     public boolean addRoomToList(Room room, RoomService list) {
         return list.add(room);
     }
@@ -56,7 +54,6 @@ public class EnergyConsumptionController {
      * @param list   the list we want to addWithoutPersisting the device to.
      * @return true if the device was added, false if it was already in the list.
      */
-
     public boolean addDeviceToList(Device device, DeviceList list) {
         return list.add(device);
     }
@@ -67,7 +64,6 @@ public class EnergyConsumptionController {
      * @param selectedDevices is the subset of devices we want to include in the calculation.
      * @return is the total nominal power of given devices.
      */
-
     public double getSelectionNominalPower(DeviceList selectedDevices) {
         return selectedDevices.getNominalPower();
     }
@@ -79,7 +75,6 @@ public class EnergyConsumptionController {
      * @param deviceList is the list we want to removeGeographicArea the devices from.
      * @return true if the devices were successfully removed, false if they were not on the list.
      */
-
     public boolean removeRoomDevicesFromDeviceList(Room room, DeviceList deviceList) {
         return room.removeRoomDevicesFromDeviceList(deviceList);
     }
@@ -103,7 +98,6 @@ public class EnergyConsumptionController {
      * @param deviceList is the list we want to removeGeographicArea the device from.
      * @return true if the device was removed, false if it wasn't on the list.
      */
-
     public boolean removeDeviceFromList(Device d, DeviceList deviceList) {
         return deviceList.removeDevice(d);
     }
@@ -131,18 +125,16 @@ public class EnergyConsumptionController {
                 device.getConsumptionInInterval(initialTime, finalTime) + " kW/h.";
     }
 
-    /* US721As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a
+    /* US721 - As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a
        given time interval, i.e. the sum of the energy consumption of all energy-metered devices in the room in
        the interval.
      */
-
 
     /**
      * Accesses model and returns a House's list of grids.
      *
      * @return returns the List of Grids in the given house.
      */
-
     public List<EnergyGrid> getHouseGridList(EnergyGridService energyGridService) {
         return energyGridService.getAllGrids();
     }
@@ -179,7 +171,6 @@ public class EnergyConsumptionController {
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
-
     public LogList getGridLogsInInterval(EnergyGrid grid, Date startDate, Date endDate) {
         return grid.getLogsInInterval(startDate, endDate);
     }
@@ -192,7 +183,6 @@ public class EnergyConsumptionController {
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
-
     public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getLogsInInterval(startDate, endDate);
@@ -206,7 +196,6 @@ public class EnergyConsumptionController {
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
-
     public LogList getDeviceLogsInInterval(Device device, Date startDate, Date endDate) {
         return device.getLogsInInterval(startDate, endDate);
     }
@@ -217,7 +206,6 @@ public class EnergyConsumptionController {
      * @param logList is the logList we want to query.
      * @return is the LogList converted into a string.
      */
-
     public String buildLogListString(LogList logList) {
         return logList.toString();
     }
@@ -231,11 +219,15 @@ public class EnergyConsumptionController {
     /**
      * Gets a List of Devices from a House of the Water heater Type
      *
-     * @param house user house
      * @return returns a list of water heaters from a house
      */
-    public DeviceList getWaterHeaterDeviceList(House house) {
-        return house.getDevicesOfGivenType("WaterHeater");
+    public DeviceList getWaterHeaterDeviceList(RoomService roomService) {
+        List<Room> rooms = roomService.getAllRooms();
+        DeviceList roomDevicesOfGivenType = new DeviceList();
+        for (Room r : rooms) {
+            roomDevicesOfGivenType.addDevicesToDeviceList(r.getDevicesOfGivenType("WaterHeater"));
+        }
+        return roomDevicesOfGivenType;
     }
 
     /**
@@ -264,12 +256,11 @@ public class EnergyConsumptionController {
      * Get the estimate consumption on all water heaters available in the users house
      * time a day (in minutes - 24 h = 1440 min)
      *
-     * @param house user house
      * @return estimate energy consumption on the water heaters
      */
-    public double getDailyWaterHeaterConsumption(House house) {
+    public double getDailyWaterHeaterConsumption(RoomService roomService) {
         int time = 1440;
-        return house.getDailyConsumptionByDeviceType("WaterHeater", time);
+        return roomService.getDailyConsumptionByDeviceType("WaterHeater", time);
     }
 
     /**
@@ -278,7 +269,6 @@ public class EnergyConsumptionController {
      * @param grid the grid in which we want to get the total nominal power from
      * @return the value of the nominal power of all the devices in this grid
      */
-
     public double getTotalPowerFromGrid(EnergyGrid grid) {
         return grid.getNominalPower();
     }

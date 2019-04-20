@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -28,7 +27,7 @@ public class HouseMonitoringUI {
         this.houseMonitoringController = new HouseMonitoringController();
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, ReadingUtils readingUtils, RoomService roomService) {
+    void run(House house, GeographicAreaService geographicAreaService, RoomService roomService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -39,11 +38,11 @@ public class HouseMonitoringUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS610(roomService, readingUtils);
+                    runUS610(roomService);
                     activeInput = true;
                     break;
                 case 2:
-                    runUS605(roomService, readingUtils);
+                    runUS605(roomService);
                     activeInput = true;
                     break;
                 case 3:
@@ -109,7 +108,7 @@ public class HouseMonitoringUI {
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
      * if it meets my personal comfort requirements.
      */
-    private void runUS605(RoomService roomService, ReadingUtils readingUtils) {
+    private void runUS605(RoomService roomService) {
         if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -136,7 +135,7 @@ public class HouseMonitoringUI {
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
      */
-    private void runUS610(RoomService roomService, ReadingUtils readingUtils) {
+    private void runUS610(RoomService roomService) {
         if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -145,13 +144,13 @@ public class HouseMonitoringUI {
         RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
 
         Date date = DateUtils.getInputYearMonthDay();
-        updateModel610(room, date, readingUtils, roomService);
+        updateModel610(room, date, roomService);
     }
 
-    private void updateModel610(RoomDTO room, Date date, ReadingUtils readingUtils, RoomService roomService) {
+    private void updateModel610(RoomDTO room, Date date, RoomService roomService) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         try {
-            double temperature = ctrl.getDayMaxTemperature(room, date, readingUtils, roomService);
+            double temperature = ctrl.getDayMaxTemperature(room, date, roomService);
             String dateFormatted = DateUtils.formatDateNoTime(date);
             String message = "The maximum temperature in the room " + ctrl.getRoomName(room, roomService) +
                     " on the day " + dateFormatted + was + temperature + "°C.";
@@ -174,7 +173,7 @@ public class HouseMonitoringUI {
         updateAndDisplayModelUS620(house, date, geographicAreaService);
     }
 
-    private void updateAndDisplayModelUS620(House house, Date date, GeographicAreaService geographicAreaService ) {
+    private void updateAndDisplayModelUS620(House house, Date date, GeographicAreaService geographicAreaService) {
         double result;
         AreaSensor areaSensor;
         try {

@@ -178,7 +178,7 @@ public class GeographicAreaService {
      * @param date     date to test
      * @return true in case the sensor exists and it was active during the given date, false otherwise.
      **/
-     boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
+    boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         if (value.isPresent()) {
             AreaSensor areaSensor = value.get();
@@ -194,7 +194,7 @@ public class GeographicAreaService {
      * @param sensorID String of sensor ID
      * @return true in case the sensor exists, false otherwise.
      **/
-    boolean AreaSensorExistsInRepository(String sensorID) {
+    boolean areaSensorExistsInRepository(String sensorID) {
         Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
         return value.isPresent();
     }
@@ -335,7 +335,7 @@ public class GeographicAreaService {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-   private List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
+    private List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -442,7 +442,7 @@ public class GeographicAreaService {
      */
     //TODO reading should be created in a method on AreaSensor and added there
     public boolean addAreaReadingToRepository(AreaSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger) {
-        if (sensor != null && AreaSensorExistsInRepository(sensor.getId())) {
+        if (sensor != null && areaSensorExistsInRepository(sensor.getId())) {
             if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
                 if (sensor.readingExists(readingDate)) {
                     logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
@@ -480,11 +480,11 @@ public class GeographicAreaService {
         if (readingsBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
-        List<Reading> listOfMaxValuesForEachDay =ReadingUtils.getListOfMaxValuesForEachDay(readingsBetweenDates);
+        List<Reading> listOfMaxValuesForEachDay = ReadingUtils.getListOfMaxValuesForEachDay(readingsBetweenDates);
 
         double minValueInList = ReadingUtils.getMinValueInReadingList(listOfMaxValuesForEachDay);
 
-        List<Reading> readingsWithSpecificValue =ReadingUtils.getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
+        List<Reading> readingsWithSpecificValue = ReadingUtils.getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
 
         return ReadingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
     }
@@ -568,7 +568,7 @@ public class GeographicAreaService {
      * @return list of dates of readings between the given dates
      * @author Daniela - US623 & US633
      */
-     List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
+    List<Date> getDaysWithReadingsBetweenDates(AreaSensor areaSensor, Date dayMin, Date dayMax) {
         List<Reading> sensorReadings = areaSensor.getAreaReadings();
 
         List<Date> daysWithReadings = new ArrayList<>();

@@ -1,12 +1,9 @@
 package pt.ipp.isep.dei.project.model.house;
 
-import pt.ipp.isep.dei.project.model.*;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import java.util.Objects;
  * House Class. Defines de House
  */
 @Entity
-public class House implements Metered {
+public class House {
 
     @Id
     private String id;
@@ -31,14 +28,10 @@ public class House implements Metered {
     @Transient
     private int deviceMeteringPeriod;
 
-    @Transient
-    private RoomService roomService;
-
     @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
 
     private int gridMeteringPeriod;
-
 
     @Transient
     private List<DeviceType> deviceTypeList;
@@ -55,7 +48,6 @@ public class House implements Metered {
 
     public House(String id, Local local, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.id = id;
-        this.roomService = new RoomService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         this.location = local;
@@ -66,7 +58,6 @@ public class House implements Metered {
     public House(String id, Address address, Local local, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         this.id = id;
         this.address = address;
-        this.roomService = new RoomService();
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         this.location = local;
@@ -74,11 +65,6 @@ public class House implements Metered {
     }
 
     public House() {
-        this.roomService = new RoomService();
-    }
-
-    public House(RoomService roomService, EnergyGridService energyGridService) {  //FOR TESTING PURPOSES USING MOCKITO
-        this.roomService = roomService;
     }
 
 
@@ -105,15 +91,6 @@ public class House implements Metered {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * Standard getter method, to return the total nominal power of the devices in the House.
-     *
-     * @return the string with the nominal power of all the devices active in the House.
-     */
-    public double getNominalPower() {
-        return this.roomService.getNominalPower();
     }
 
     /**
@@ -184,17 +161,6 @@ public class House implements Metered {
     }
 
     /**
-     * Standard setter method, to define the list of rooms to be added to the House.
-     *
-     * @param roomService is the room list to be set.
-     */
-    public void setRoomService(RoomService roomService) {
-        if (roomService != null) {
-            this.roomService = roomService;
-        }
-    }
-
-    /**
      * Standard getter method, to return value of the Altitude of the location of the house
      *
      * @return the double value of the altitude.
@@ -222,30 +188,12 @@ public class House implements Metered {
     }
 
     /**
-     * Standard getter method, to return the list of rooms present on the House.
-     *
-     * @return the RoomList associated to the House.
-     */
-    public RoomService getRoomService() {
-        return this.roomService;
-    }
-
-    /**
      * Standard getter method, to return the list of device types that can be created in the house.
      *
      * @return the list of Device Types associated to the House.
      */
     public List<DeviceType> getDeviceTypeList() {
         return deviceTypeList;
-    }
-
-    /**
-     * Standard setter method, to add a Room to the House.
-     *
-     * @param room the Room to be added to the House.
-     */
-    public boolean addRoom(Room room) {
-        return this.roomService.add(room);
     }
 
     /**
@@ -288,17 +236,6 @@ public class House implements Metered {
     }
 
     /**
-     * Returns a list of devices of a given type, in all rooms of this house.
-     *
-     * @param deviceType the device type
-     * @return the list with all devices of a given type
-     */
-    public DeviceList getDevicesOfGivenType(String deviceType) {
-        DeviceList houseDevices = getDeviceList();
-        return houseDevices.getDevicesOfGivenType(deviceType);
-    }
-
-    /**
      * this method builds a String for the deviceTypes available in the house
      *
      * @return string with device types
@@ -317,43 +254,6 @@ public class House implements Metered {
     }
 
     /**
-     * Returns an estimate of what the house's energy consumption would be in a full day, for the devices of a given
-     * type.
-     *
-     * @param deviceType the given device type.
-     * @param time       represents a day in minutes.
-     * @return the sum of all estimate daily consumptions for devices of that type.
-     */
-    public double getDailyConsumptionByDeviceType(String deviceType, int time) {
-        return roomService.getDailyConsumptionByDeviceType(deviceType, time);
-    }
-
-    /**
-     * Method to get the energy consumption of the house
-     *
-     * @param time the consumption will be calculated for the input time
-     * @return energy consumption on all house devices on a given time.
-     */
-    public double getEnergyConsumption(float time) {
-        DeviceList deviceList = getDeviceList();
-        double result = 0.0;
-        for (int i = 0; i < deviceList.size(); i++) {
-            result += deviceList.get(i).getEnergyConsumption(time);
-        }
-        return result;
-    }
-
-    /**
-     * This method checks if house's RoomList is empty.
-     *
-     * @return true if house's RoomList is empty, false otherwise
-     **/
-    boolean isRoomListEmpty() {
-        return this.roomService.isEmptyRooms();
-    }
-
-
-    /**
      * This method checks the house's device type list size.
      *
      * @return returns the house's device type list size as int.
@@ -361,17 +261,6 @@ public class House implements Metered {
     public int deviceTypeListSize() {
         return this.deviceTypeList.size();
     }
-
-    /**
-     * This method gets every device in house. To do this, the method
-     * goes through every room in house and gets every device in room.
-     *
-     * @return DeviceList with every device in house.
-     **/
-    public DeviceList getDeviceList() {
-        return this.roomService.getDeviceList();
-    }
-
 
     /**
      * Method to check if an instance of this class is equal to another object.
