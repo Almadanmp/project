@@ -52,7 +52,7 @@ public class HouseMonitoringController {
      **/
     public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return room.getName();
+        return room.getId();
     }
 
 

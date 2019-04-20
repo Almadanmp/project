@@ -82,7 +82,7 @@ class RoomServiceTest {
     @Test
     void seeIfRemoveRoom() {
 
-        Mockito.when(roomRepository.findById(validRoom.getName())).thenReturn((Optional.of(validRoom)));
+        Mockito.when(roomRepository.findById(validRoom.getId())).thenReturn((Optional.of(validRoom)));
 
 
         //Assert
@@ -91,7 +91,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfDoNotRemoveRoom() {
-        validRoomService.addWithPersistence(validRoom);
+        validRoomService.addRoomSensortoDb(validRoom);
         //Assert
         assertFalse(validRoomService.removeRoom(validRoom));
     }
@@ -143,7 +143,7 @@ class RoomServiceTest {
         Room result = validRoomService.getDB(mockId);
 
         assertEquals(result.getId(), room.getId());
-        assertEquals(result.getName(), room.getName());
+        assertEquals(result.getId(), room.getId());
     }
 
     @Test
@@ -165,7 +165,7 @@ class RoomServiceTest {
         rooms.add(validRoom);
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
         //Assert
-        assertTrue(validRoomService.idExists(validRoom.getName()));
+        assertTrue(validRoomService.idExists(validRoom.getId()));
     }
 
     @Test
@@ -580,8 +580,8 @@ class RoomServiceTest {
         roomSensors.add(secondValidRoomSensor);
         roomSensors.add(thirdValidRoomSensor);
         String expectedResult = "---------------\n" +
-                "T32876SensorTwo | Type: Temperature | Active\n" +
-                "T32877SensorThree | Type: Rainfall | Active\n" +
+                "ID: T32876 | SensorTwo | Type: Temperature | Active\n" +
+                "ID: T32877 | SensorThree | Type: Rainfall | Active\n" +
                 "---------------\n";
 
         // Act

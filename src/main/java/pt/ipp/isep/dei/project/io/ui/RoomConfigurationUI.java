@@ -1,18 +1,18 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
-import pt.ipp.isep.dei.project.controller.SensorSettingsController;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
+import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
@@ -55,7 +55,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 3: //US215
-                    runUS215(house, roomService);
+                    runUS215(roomService);
                     activeInput = false;
                     break;
                 case 4: //US220
@@ -106,7 +106,7 @@ class RoomConfigurationUI {
     }
 
     private void printRoomDeviceList(Room room) {
-        System.out.println("Available Devices in Room " + room.getName());
+        System.out.println("Available Devices in Room " + room.getId());
         System.out.println("Please select one of the existing Devices in the selected Room: ");
         System.out.println(controller.buildDeviceListString(room));
     }
@@ -167,7 +167,7 @@ class RoomConfigurationUI {
             loopToSetAttributeValuesProgram(program, programAttributesNames);
             controller.setProgramName(program, programName);
             loopToBuildFinalStringProgram(program, programAttributesNames);
-            String message = "Would you like to addWithoutPersisting another FixedTimeProgram? (y/n)";
+            String message = "Would you like to add another FixedTimeProgram? (y/n)";
             controller.addProgramToProgramList(programList, program);
             loopForCreatingProgram(message, programList);
             controller.configureDeviceProgramList(device, programList);
@@ -177,7 +177,7 @@ class RoomConfigurationUI {
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
-    private void runUS215(House house, RoomService roomService) {
+    private void runUS215(RoomService roomService) {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {
@@ -243,7 +243,7 @@ class RoomConfigurationUI {
     private void displayDeviceUS215(Device device, Room room, String deviceName) {
         List<String> attributeNames = controller.getAttributeNames(device);
         System.out.println("\nYou have successfully changed the device name to " + deviceName + "." +
-                "\nThe room is " + room.getName() + "\n");
+                "\nThe room is " + room.getId() + "\n");
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("You have changed the : " + attributeNames.get(i) + " to: "
                     + controller.getAttributeValue(device, i) + " "
@@ -373,16 +373,14 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        List<RoomSensor> roomSensors = roomService.getAllByRoomId(room.getName());
+        List<RoomSensor> roomSensors = roomService.getAllByRoomId(room.getId());
         System.out.println(controller.buildSensorListString(roomService, roomSensors));
     }
 
 
     /**
-     * runs US253, As an Administrator, I want to addWithoutPersisting a new sensor to a room from the list of available
+     * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      * sensor types, in order to configure it.
-     * <p>
-     * //  * @param typeSensorList is
      */
     private void runUS253(SensorTypeService sensorService) {
         if (sensorService.isEmpty()) {
@@ -393,6 +391,7 @@ class RoomConfigurationUI {
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorService);
         getInput253(room, sensorType);
+
     }
 
     private void getInput253(Room room, SensorType sensorType) {
@@ -428,18 +427,16 @@ class RoomConfigurationUI {
         }
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
-        String idRoom = room.getName();
-        updateAndDisplay253(sensorID, sensorType, room, dateYear, dateMonth, dateDay, sensorName, idRoom);
+        String idRoom = room.getId();
+        Date mDate = DateUtils.createDate(dateYear, dateMonth, dateDay);
+        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, idRoom);
 
     }
 
-    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, int dateYear, int dateMonth,
-                                     int dateDay, String sensorName, String idRoom) {
-        SensorSettingsController sensorSettingsController = new SensorSettingsController();
-        Date mDate = sensorSettingsController.createDate(dateYear, dateMonth, dateDay);
-        RoomSensor mAreaSensor = sensorSettingsController.createRoomSensor(sensorID, sensorName, sensorType, mDate, idRoom);
+    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, String idRoom) {
+        RoomSensor mAreaSensor = controller.createRoomSensor(roomService, sensorID, sensorName, sensorType, date, idRoom);
         if (controller.addSensorToRoom(mAreaSensor, roomService)) {
-            System.out.println("\nSensor successfully added to the Room " + room.getName());
+            System.out.println("\nSensor successfully added to the Room " + room.getId());
         } else System.out.println("\nSensor already exists in the room.");
     }
 
@@ -464,7 +461,7 @@ class RoomConfigurationUI {
             return;
         }
         controller.removeDevice(room, device);
-        System.out.println("The device " + device.getName() + " on room " + room.getName() + " has ceased to be.");
+        System.out.println("The device " + device.getName() + " on room " + room.getId() + " has been removed.");
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

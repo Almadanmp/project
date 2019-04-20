@@ -2,10 +2,12 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -77,7 +79,7 @@ public class RoomService {
      */
      boolean idExists(String idToCheck) {
         for (Room r : roomRepository.findAll()) {
-            if (r.getName().equals(idToCheck)) {
+            if (r.getId().equals(idToCheck)) {
                 return true;
             }
         }
@@ -85,7 +87,7 @@ public class RoomService {
     }
 
     public boolean addPersistence(Room room) {
-        Optional<Room> room2 = roomRepository.findByRoomName(room.getName());
+        Optional<Room> room2 = roomRepository.findByRoomName(room.getId());
         if (room2.isPresent()) {
             Room room3 = room2.get();
             roomRepository.save(room3);
@@ -112,7 +114,7 @@ public class RoomService {
             return "Invalid List - List is Empty\n";
         }
         for (Room r : rooms) {
-            result.append(r.getName()).append(") Description: ").append(r.getDescription()).append(" | ");
+            result.append(r.getId()).append(") Description: ").append(r.getDescription()).append(" | ");
             result.append("House Floor: ").append(r.getFloor()).append(" | ");
             result.append("Width: ").append(r.getWidth()).append(" | ");
             result.append("Length: ").append(r.getLength()).append(" | ");
@@ -137,7 +139,7 @@ public class RoomService {
 
     public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
         for (Room r : getAllRooms()) {
-            String designation = r.getName();
+            String designation = r.getId();
             if (roomDesignation.equals(designation)) {
                 return r;
             }
@@ -153,7 +155,7 @@ public class RoomService {
      * @param room is the room we want to save.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-     void addWithPersistence(Room room) {
+     void addRoomSensortoDb(Room room) {
         roomRepository.save(room);
     }
 
@@ -164,7 +166,7 @@ public class RoomService {
      * @return true if room was successfully removed from the roomList, false otherwise.
      */
     public boolean removeRoom(Room room) {
-        Optional<Room> aux = roomRepository.findById(room.getName());
+        Optional<Room> aux = roomRepository.findById(room.getId());
         if (aux.isPresent()) {
             roomRepository.delete(room);
             return true;
@@ -220,7 +222,7 @@ public class RoomService {
         }
         for (int i = 0; i < this.sizeDB(); i++) {
             Room aux = this.get(i);
-            result.append(i).append(") Designation: ").append(aux.getName()).append(" | ");
+            result.append(i).append(") Designation: ").append(aux.getId()).append(" | ");
             result.append("Description: ").append(aux.getDescription()).append(" | ");
             result.append("House Floor: ").append(aux.getFloor()).append(" | ");
             result.append("Width: ").append(aux.getWidth()).append(" | ");
@@ -390,7 +392,7 @@ public class RoomService {
     }
 
     public boolean saveRoom(Room room) {
-        Optional<Room> room1 = roomRepository.findByRoomName(room.getName());
+        Optional<Room> room1 = roomRepository.findByRoomName(room.getId());
         if (room1.isPresent()) {
             return false;
         }
@@ -422,15 +424,10 @@ public class RoomService {
         return roomRepository.findById(idToFind);
     }
 
-    /**
-     * Method to check if an instance of this class is equal to another object.
-     * Necessary for adding rooms to list.
-     *
-     * @return is true if the object is a power source list with the same contents.
-     */
 
 
     //Methods from RoomSensorService
+
     public void save(RoomSensor sensor) {
         Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
 
@@ -467,7 +464,7 @@ public class RoomService {
             return "Invalid List - List is Empty\n";
         }
         for (RoomSensor hS : roomSensors) {
-            result.append(hS.getId()).append(hS.getName()).append(" | ");
+            result.append("ID: ").append(hS.getId()).append(" | ").append(hS.getName()).append(" | ");
             result.append("Type: ").append(hS.getSensorTypeName()).append(" | ")
                     .append(hS.printActive()).append("\n");
         }
@@ -521,13 +518,43 @@ public class RoomService {
     }
 
     /**
+     * Method to get a TypeSensor from the Repository through a given id
+     *
+     * @param name selected name
+     * @return Type Sensor corresponding to the given id
+     */
+    private SensorType getTypeSensorByName(String name) {
+        Optional<SensorType> value = sensorTypeRepository.findByName(name);
+        if(value.isPresent()){
+            return value.get();
+        }
+        return null;
+    }
+
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     * Necessary for adding rooms to list.
+     *
+     * @return is true if the object is a power source list with the same contents.
+     */
+    public RoomSensor createRoomSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
+
+        SensorType aux = getTypeSensorByName(sensorType.getName());
+        if(aux!=null){
+            sensorType = aux;
+        }
+        return new RoomSensor(id, name, sensorType, dateStartedFunctioning, roomId);
+    }
+
+
+    /**
      * Method to Add a sensor only if it's not contained in the list already.
      *
      * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
-    public boolean addWithPersistence(RoomSensor sensorToAdd) {
+    public boolean addRoomSensortoDb(RoomSensor sensorToAdd) {
         Optional<RoomSensor> aux = roomSensorRepository.findById(sensorToAdd.getId());
         if (aux.isPresent()) {
             RoomSensor sensor = aux.get();
@@ -614,7 +641,7 @@ public class RoomService {
      */
 
     public double getCurrentRoomTemperature(Room room) {
-        List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getName());
+        List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(noTempReadings);

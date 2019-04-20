@@ -100,7 +100,7 @@ class RoomMapperTest {
         // We also need to test the elements that aren't present in Room's .equals.
 
         assertEquals(validRoom.getDeviceList(), actualResult.getDeviceList());
-        assertEquals(validRoom.getName(), actualResult.getName());
+        assertEquals(validRoom.getId(), actualResult.getId());
     }
 
     @Test

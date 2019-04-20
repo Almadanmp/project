@@ -4,12 +4,10 @@ import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Controller class for Sensor Settings UI
@@ -53,16 +51,6 @@ public class SensorSettingsController {
         return new Local(latitude, longitude, altitude);
     }
 
-    /**
-     * @param year  is the new date's year.
-     * @param month is the new date's month.
-     * @param day   is the new date's day.
-     * @return is the newly made Date.
-     */
-
-    public Date createDate(int year, int month, int day) {
-        return new GregorianCalendar(year, month, day).getTime();
-    }
 
     /**
      * @param sensorType  is the new type's name.
@@ -97,18 +85,6 @@ public class SensorSettingsController {
      **/
     public String buildSensorString(AreaSensor areaSensor) {
         return areaSensor.buildString();
-    }
-
-    /**
-     * Method that creates and returns a Sensor with 3 parameters.
-     *
-     * @param name
-     * @param type
-     * @param date
-     * @return a created Sensor
-     */
-    public RoomSensor createRoomSensor(String id, String name, SensorType type, Date date, String idRoom) {
-        return new RoomSensor(id, name, type, date, idRoom);
     }
 
     /**

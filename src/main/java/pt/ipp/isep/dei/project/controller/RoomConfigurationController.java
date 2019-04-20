@@ -10,7 +10,9 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -301,14 +303,27 @@ public class RoomConfigurationController {
         device.setName(name);
     }
 
+
+    /**
+     * Method that creates and returns a Sensor with 3 parameters.
+     *
+     * @param name
+     * @param type
+     * @param date
+     * @return a created Sensor
+     */
+    public RoomSensor createRoomSensor(RoomService roomService, String id, String name, SensorType type, Date date, String idRoom) {
+        return roomService.createRoomSensor(id, name, type, date, idRoom);
+    }
+
     /**
      * /**
-     * Method to addWithoutPersisting a Sensor to the Room.
+     * Method to add Sensor to the Room.
      *
      * @param roomSensor is the sensor we want to addWithoutPersisting.
      * @return if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensorToRoom(RoomSensor roomSensor, RoomService roomService) {
-        return (roomService.addWithPersistence(roomSensor));
+        return (roomService.addRoomSensortoDb(roomSensor));
     }
 }

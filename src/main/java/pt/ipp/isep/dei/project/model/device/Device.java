@@ -10,7 +10,6 @@ import java.util.List;
  * Represents device.
  * Provides methods to get device information.
  */
-
 public interface Device {
 
     String getName();
@@ -62,8 +61,9 @@ public interface Device {
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
+     */
     boolean isLogListEmpty();
 
     /**
@@ -100,6 +100,7 @@ public interface Device {
 
     /**
      * Energy Consumption for a certain time
+     *
      * @param time time for each we want to know the energy consumption of the device
      * @return energy consumption
      */
@@ -110,6 +111,7 @@ public interface Device {
 
     /**
      * get the attribute names
+     *
      * @return will return a list of string with all the attribute names of a specific devie
      */
     List<String> getAttributeNames();

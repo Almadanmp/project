@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
@@ -115,24 +116,6 @@ class SensorSettingsControllerTest {
 
 
     @Test
-    void seeIfDateIsCreated() {
-        // Arrange
-
-        int year = 2018;
-        int month = 3;
-        int day = 01;
-        Date expectedResult = validDate1;
-
-        // Act
-
-        Date actualResult = controller.createDate(year, month, day);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfSensorIsCreated() {
         // Arrange
 
@@ -149,7 +132,7 @@ class SensorSettingsControllerTest {
         int year = 2018;
         int month = 8;
         int day = 9;
-        Date date1 = controller.createDate(year, month, day);
+        Date date1 = DateUtils.createDate(year, month, day);
         controller.createSensor(idString, nameString, type1, loc1, date1, 6008L);
         SensorType t1 = new SensorType(typeStr, "kg/m³");
         AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", t1, loc1,
@@ -164,34 +147,7 @@ class SensorSettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void ensureThatWeCreateARoomSensor() {
 
-        // Arrange
-
-        String idString = "T289738";
-        String roomID = "RoomDA";
-        String nameString = "XV-56D";
-        String typeStr = "Temperatura";
-        String unit = "Celsius";
-        SensorTypeService sensorTypeList = new SensorTypeService(sensorTypeRepository);
-        SensorType firstType = controller.createType(sensorTypeList, typeStr, unit);
-        int year = 2018;
-        int month = 8;
-        int day = 9;
-        Date date1 = controller.createDate(year, month, day);
-        controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
-        SensorType t1 = new SensorType(typeStr, "Celsius³");
-        RoomSensor expectedResult = new RoomSensor("T289738", "XV-56D", t1, validDate1, "RoomDA");
-
-        // Act
-
-        RoomSensor actualResult = controller.createRoomSensor(idString, nameString, firstType, date1, roomID);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void addTypeSensorToList() {

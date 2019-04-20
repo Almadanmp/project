@@ -64,7 +64,7 @@ class RoomTest {
 
         // Act
 
-        String actualResult = room.getName();
+        String actualResult = room.getId();
 
         // Assert
 

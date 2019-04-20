@@ -60,7 +60,7 @@ public final class RoomMapper {
 
         // Update the device list
 
-        DeviceList objectDeviceList = dtoToConvert.getDeviceList(); // TODO Implement a solution for polymorphic device DTOs (visitor pattern?)
+        DeviceList objectDeviceList = dtoToConvert.getDeviceList();
 
 
         // Create, update and return the converted object.
@@ -122,7 +122,7 @@ public final class RoomMapper {
     public static RoomDTO objectToDTO(Room objectToConvert) {
         // Update the name
 
-        String dtoName = objectToConvert.getName();
+        String dtoName = objectToConvert.getId();
 
         // Update the floor
 
@@ -180,7 +180,7 @@ public final class RoomMapper {
         Room room = null;
         List<Room> rooms = roomService.getAllRooms();
         for (Room r : rooms) {
-            if (roomDTO.getName().compareTo(r.getName()) == 0) {
+            if (roomDTO.getName().compareTo(r.getId()) == 0) {
                 r = RoomMapper.dtoToObject(roomDTO);
                 room = r;
             }

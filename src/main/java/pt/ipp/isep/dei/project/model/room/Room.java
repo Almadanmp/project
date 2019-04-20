@@ -55,6 +55,7 @@ public class Room implements Metered {
     }
 
     protected Room() {
+        this.deviceList = new DeviceList();
     }
 
     /**
@@ -91,15 +92,6 @@ public class Room implements Metered {
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Room Name Getter.
-     *
-     * @return a string that represents the room name.
-     */
-    public String getName() {
-        return roomName;
     }
 
     public String getHouseID() {

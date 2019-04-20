@@ -265,7 +265,7 @@ public class DateUtils {
      *
      * @return ArrayList of SimpleDateFormats
      */
-    private static List<SimpleDateFormat> getSimpleDateFormats() {
+    public static List<SimpleDateFormat> getSimpleDateFormats() {
         SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
@@ -275,5 +275,15 @@ public class DateUtils {
         simpleDateFormats.add(dateFormat2);
         simpleDateFormats.add(dateFormat3);
         return simpleDateFormats;
+    }
+
+    /**
+     * @param year  is the new date's year.
+     * @param month is the new date's month.
+     * @param day   is the new date's day.
+     * @return is the newly made Date.
+     */
+    public static Date createDate(int year, int month, int day) {
+        return new GregorianCalendar(year, month, day).getTime();
     }
 }
