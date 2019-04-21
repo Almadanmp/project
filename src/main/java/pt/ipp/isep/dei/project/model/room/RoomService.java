@@ -153,7 +153,7 @@ public class RoomService {
      * @param room is the room we want to save.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-    void addRoomSensortoDb(Room room) {
+    void addRoomToDb(Room room) {
         roomRepository.save(room);
     }
 
@@ -301,61 +301,6 @@ public class RoomService {
             result += r.getNominalPower();
         }
         return result;
-    }
-
-    /**
-     * This method goes through the room list and returns the consumption from every room in the
-     * interval given.
-     *
-     * @param initialDate for metering period.
-     * @param finalDate   for metering period.
-     * @return total metered energy consumption of a room list in a given time interval.
-     */
-
-    public double getConsumptionInInterval(Date initialDate, Date finalDate) {
-        double consumption = 0;
-        for (Room r : this.rooms) {
-            consumption += r.getConsumptionInInterval(initialDate, finalDate);
-        }
-        return consumption;
-    }
-
-    /**
-     * This method goes through every room in list and returns logs contained in interval given.
-     *
-     * @param initialDate the date of the beginning of the interval
-     * @param finalDate   the date of the emd of the interval
-     * @return log list with every log contained in interval given.
-     */
-    public LogList getLogsInInterval(Date initialDate, Date finalDate) {
-        LogList result = new LogList();
-        for (Room r : this.rooms) {
-            LogList tempList = r.getLogsInInterval(initialDate, finalDate);
-            result.addLogList(tempList);
-        }
-        return result;
-    }
-
-    /**
-     * This method checks if every room in room list has no devices.
-     *
-     * @return true if list has no devices, false otherwise.
-     **/
-    public boolean isDeviceListEmpty() {
-        return this.getDeviceList().isEmpty();
-    }
-
-    /**
-     * Checks how many devices are associated to room list.\
-     *
-     * @return number of devices associated to room list as int
-     **/
-    public int getNumberOfDevices() {
-        int sum = 0;
-        for (Room r : rooms) {
-            sum = sum + r.getDeviceListSize();
-        }
-        return sum;
     }
 
     /**
@@ -542,7 +487,7 @@ public class RoomService {
      * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
      */
 
-    public boolean addRoomSensortoDb(RoomSensor sensorToAdd) {
+    public boolean addRoomToDb(RoomSensor sensorToAdd) {
         Optional<RoomSensor> aux = roomSensorRepository.findById(sensorToAdd.getId());
         if (aux.isPresent()) {
             RoomSensor sensor = aux.get();

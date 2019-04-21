@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.energy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

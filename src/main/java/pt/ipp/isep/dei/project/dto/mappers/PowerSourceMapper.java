@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
-import pt.ipp.isep.dei.project.model.PowerSource;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
 
 /**
  * This class is responsible for converting PowerSources and PowerSource DTOs into one another.

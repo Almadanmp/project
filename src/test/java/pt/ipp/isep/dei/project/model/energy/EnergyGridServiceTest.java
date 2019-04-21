@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.energy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 
 import java.util.ArrayList;

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -510,8 +510,8 @@ class EnergyConsumptionControllerTest {
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
-        RoomService roomService = new RoomService();
-        validGrid.setRoomService(roomService);
+        List<Room> roomService = new ArrayList<>();
+        validGrid.setRooms(roomService);
         roomService.add(validRoom2);
         roomService.add(validRoom1);
         double expectedResult = 86;
@@ -537,8 +537,8 @@ class EnergyConsumptionControllerTest {
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
 
-        RoomService roomService = new RoomService();
-        validGrid.setRoomService(roomService);
+        List<Room> roomService = new ArrayList<>();
+        validGrid.setRooms(roomService);
         double expectedResult = 0;
 
         // Act

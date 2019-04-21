@@ -324,6 +324,6 @@ public class RoomConfigurationController {
      * @return if sensor was successfully added to the room, false otherwise.
      */
     public boolean addSensorToRoom(RoomSensor roomSensor, RoomService roomService) {
-        return (roomService.addRoomSensortoDb(roomSensor));
+        return (roomService.addRoomToDb(roomSensor));
     }
 }

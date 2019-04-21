@@ -4,8 +4,8 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -125,10 +125,11 @@ public class InputHelperUI {
      * @param grid is the grid we want to choose rooms from.
      * @return is the chosen room.
      */
-    public static Room getGridRoomByList(EnergyGrid grid) {
+    public static Room getGridRoomByList(EnergyGrid grid, RoomService roomService) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
-            System.out.println(grid.buildRoomListString());
+            List<Room> rooms = grid.getRooms();
+            System.out.println(roomService.buildRoomsAsString(rooms));
             int aux = getInputAsInt();
             if (aux >= 0 && aux < grid.roomListSize()) {
                 Room result = grid.getRoom(aux);

@@ -164,6 +164,14 @@ public class Room implements Metered {
     }
 
     /**
+     * Checks how many devices are associated to room list.\
+     *
+     * @return number of devices associated to room list as int
+     **/
+    public int getNumberOfDevices() {
+        return deviceList.size();
+    }
+    /**
      * Method that removes a Device from the Room.
      *
      * @param device is the device we want to removeGeographicArea.
@@ -195,6 +203,7 @@ public class Room implements Metered {
                 this.getWidth() + ", " + this.getLength() + ", " + this.getHeight() + ".\n";
         return result;
     }
+
 
 
     /**
@@ -290,7 +299,7 @@ public class Room implements Metered {
      * @param type type of device to display
      * @return a string that displays all devices of given type.
      */
-    String buildDevicesStringByType(String type) {
+   public String buildDevicesStringByType(String type) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < deviceList.size(); x++) {
             if (type.equals(deviceList.getTypeByIndex(x))) {

@@ -6,10 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.EnergyGrid;
-import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.PowerSource;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -262,7 +262,7 @@ class EnergyGridSettingsControllerTest {
         //Act
         String expectedResult = "---------------\n" +
                 "---------------\n";
-        String actualResult = controller.buildListOfDevicesOrderedByTypeString(validGrid, validHouse);
+        String actualResult = controller.buildListOfDevicesOrderedByTypeString(validGrid);
         //Arrange
         assertEquals(expectedResult, actualResult);
     }
@@ -277,16 +277,16 @@ class EnergyGridSettingsControllerTest {
         house.setMotherArea(new GeographicArea("porto", new AreaType("cidade"), 2, 3, new Local(4, 4, 100)));
         Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1", "Grid1");
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333, "34576");
-        RoomService rl = new RoomService();
+        List<Room> rl = new ArrayList<>();
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);
-        eg.setRoomService(rl);
         rl.add(room1EdC);
+        eg.setRooms(rl);
         //Act
         String expectedResult = "---------------\n" +
                 "Device type: Fridge | Device name: null | Nominal power: 0.0 | Room: B107 | \n" +
                 "---------------\n";
-        String actualResult = controller.buildListOfDevicesOrderedByTypeString(eg, house);
+        String actualResult = controller.buildListOfDevicesOrderedByTypeString(eg);
         //Arrange
         assertEquals(expectedResult, actualResult);
     }

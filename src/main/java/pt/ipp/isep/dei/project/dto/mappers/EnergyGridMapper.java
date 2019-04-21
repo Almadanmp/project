@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
+import pt.ipp.isep.dei.project.model.energy.PowerSourceList;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
@@ -38,7 +40,7 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        RoomService objectRoomService = new RoomService();
+        List<Room> objectRoomService = new ArrayList<>();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()){
             Room tempRoom = RoomMapper.dtoToObject(y);
             objectRoomService.add(tempRoom);
@@ -59,7 +61,7 @@ public final class EnergyGridMapper {
         // Create, update and return the new model object.
 
         EnergyGrid resultObject = new EnergyGrid(objectName, objectMaxContractedPower, objectHouseID);
-        resultObject.setRoomService(objectRoomService);
+        resultObject.setRooms(objectRoomService);
         resultObject.setPowerSourceList(objectPowerSourceList);
 
         return resultObject;
@@ -72,7 +74,7 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        RoomService objectRoomService = new RoomService();
+        List<Room> objectRoomService = new ArrayList<>();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()){
             Room tempRoom = RoomMapper.dtoToObjectUS100(y);
             objectRoomService.add(tempRoom);
@@ -89,7 +91,7 @@ public final class EnergyGridMapper {
 
         EnergyGrid resultObject = new EnergyGrid();
         resultObject.setName(objectName);
-        resultObject.setRoomService(objectRoomService);
+        resultObject.setRooms(objectRoomService);
         resultObject.setPowerSourceList(objectPowerSourceList);
 
         return resultObject;
@@ -117,7 +119,7 @@ public final class EnergyGridMapper {
         // Update the RoomList
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (Room y : objectToConvert.getRoomService().getRooms()){
+        for (Room y : objectToConvert.getRoomList()){
             RoomDTO tempRoomDTO = RoomMapper.objectToDTO(y);
             if (!(dtoRoomList.contains(tempRoomDTO))){
                 dtoRoomList.add(tempRoomDTO);

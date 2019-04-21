@@ -1,15 +1,15 @@
-package pt.ipp.isep.dei.project.model;
+package pt.ipp.isep.dei.project.model.energy;
 
+import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,8 +24,9 @@ public class EnergyGrid implements Metered {
 
     private String name;
 
-    @Transient
-    private RoomService roomService;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_id")
+    private List<Room> rooms;
 
     @Transient
     private PowerSourceList listPowerSources;
@@ -38,6 +39,7 @@ public class EnergyGrid implements Metered {
      * Empty Constructor to use when importing Energy Grids from XML files.
      */
     public EnergyGrid() {
+        this.rooms = new ArrayList<>();
         this.listPowerSources = new PowerSourceList();
     }
 
@@ -48,11 +50,20 @@ public class EnergyGrid implements Metered {
      * @param maxContractedPower is the value of the maximum power contracted.
      */
     public EnergyGrid(String name, double maxContractedPower, String houseId) {
-        this.roomService = new RoomService();
+        this.rooms = new ArrayList<>();
         this.listPowerSources = new PowerSourceList();
         this.name = name;
         this.maxContractedPower = maxContractedPower;
         this.houseId = houseId;
+    }
+
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     /**
@@ -86,8 +97,8 @@ public class EnergyGrid implements Metered {
      *
      * @return returns a list with all the rooms contained in this energy grid.
      */
-    public RoomService getRoomService() {
-        return roomService;
+    public List<Room> getRoomList() {
+        return rooms;
     }
 
     /**
@@ -105,7 +116,12 @@ public class EnergyGrid implements Metered {
      * @return is the sum of nominal powers of all rooms and devices connected to a grid.
      */
     public double getNominalPower() {
-        return roomService.getNominalPower();
+        double result = 0;
+        for (Room r : rooms) {
+            result += r.getNominalPower();
+
+        }
+        return result;
     }
 
     /**
@@ -139,17 +155,6 @@ public class EnergyGrid implements Metered {
         return true;
     }
 
-    /**
-     * Setter for the list of rooms connected the energy grid.
-     *
-     * @param roomService List of rooms in the energy grid.
-     */
-    public void setRoomService(RoomService roomService) {
-        if (roomService != null) {
-            this.roomService = roomService;
-        }
-    }
-
     public void setHouseId(String houseId) {
         this.houseId = houseId;
     }
@@ -175,7 +180,7 @@ public class EnergyGrid implements Metered {
      * @return returns true if the room is actually added to the energy grid.
      */
     public boolean addRoom(Room room) {
-        return this.roomService.add(room);
+        return this.rooms.add(room);
     }
 
     /**
@@ -197,10 +202,10 @@ public class EnergyGrid implements Metered {
      * @return returns room that corresponds to index.
      */
     public Room getRoom(int index) {
-        if (this.roomService.isEmptyRooms()) {
+        if (this.rooms.isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
-        return this.roomService.get(index);
+        return rooms.get(index);
     }
 
     /**
@@ -209,7 +214,11 @@ public class EnergyGrid implements Metered {
      * @return energy grid's entire DeviceList
      */
     public DeviceList getDeviceList() {
-        return this.roomService.getDeviceList();
+        DeviceList devices = new DeviceList();
+        for (Room r : rooms) {
+            devices.addDevicesToDeviceList(r.getDeviceList());
+        }
+        return devices;
     }
 
     /**
@@ -219,7 +228,12 @@ public class EnergyGrid implements Metered {
      * @return energy grid's associated devices as int
      */
     public int getNumberOfDevices() {
-        return this.roomService.getNumberOfDevices();
+        int sum = 0;
+        for (Room r : rooms) {
+            sum += r.getNumberOfDevices();
+
+        }
+        return sum;
     }
 
     /**
@@ -243,8 +257,8 @@ public class EnergyGrid implements Metered {
      * @return returns true if the room is successfully removed from the energy grid.
      */
     public boolean removeRoom(Room room) {
-        if (this.roomService.contains(room)) {
-            this.roomService.removeRoom(room);
+        if (rooms.contains(room)) {
+            rooms.remove(room);
             return true;
         }
         return false;
@@ -260,32 +274,23 @@ public class EnergyGrid implements Metered {
     }
 
     /**
-     * Creates a string displaying the rooms in the energy grid and the room's attributes.
-     *
-     * @return returns a string displaying the rooms in the energy grid and the room's attributes.
-     */
-    public String buildRoomListString() {
-        return this.roomService.buildString();
-    }
-
-
-    /**
      * Creates a String with the device index, device type, device name and the room in which the device is contained.
      *
-     * @param house the house that contains the device types.
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
-    public String buildDeviceListWithTypeString(House house) {
+    public String buildDeviceListWithTypeString() {
         String stringSpacer = "---------------\n";
         StringBuilder result = new StringBuilder(stringSpacer);
-        for (DeviceType d : house.getDeviceTypeList()) {
-            String deviceType = d.getDeviceType();
-            result.append(roomService.buildDeviceListByType(deviceType));
+        for (Room r : rooms) {
+            DeviceList devices = r.getDeviceList();
+            for (int i = 0; i < devices.size(); i++) {
+                String deviceType = devices.get(i).getType();
+                result.append(r.buildDevicesStringByType(deviceType));
+            }
         }
         result.append(stringSpacer);
         return result.toString();
     }
-
 
     /**
      * US722 As a Power User [or Administrator], I want the sum of the energy consumption of all energy-metered rooms
@@ -296,7 +301,12 @@ public class EnergyGrid implements Metered {
      * @return total metered energy consumption of a grid in a given time interval.
      */
     public double getGridConsumptionInInterval(Date initialDate, Date finalDate) {
-        return this.roomService.getConsumptionInInterval(initialDate, finalDate);
+        double consumption = 0;
+        for (Room r : rooms) {
+           consumption += r.getConsumptionInInterval(initialDate, finalDate);
+
+        }
+        return consumption;
     }
 
     /**
@@ -307,7 +317,11 @@ public class EnergyGrid implements Metered {
      * @return log list with every log contained in interval given.
      */
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return this.roomService.getLogsInInterval(startDate, endDate);
+        LogList logsInInterval = new LogList();
+        for (Room r : rooms) {
+            logsInInterval.addLogList(r.getLogsInInterval(startDate, endDate));
+        }
+        return logsInInterval;
     }
 
     /**
@@ -316,7 +330,13 @@ public class EnergyGrid implements Metered {
      * @return true if energy grid's DeviceList is empty, false otherwise.
      **/
     public boolean isDeviceListEmpty() {
-        return roomService.isDeviceListEmpty();
+        int sum = 0;
+        for (Room r : rooms) {
+            if (r.getDeviceListSize() != 0) {
+                sum = sum + 1;
+            }
+        }
+        return sum == 0;
     }
 
     /**
@@ -325,7 +345,7 @@ public class EnergyGrid implements Metered {
      * @return true if energy grid's RoomList is empty, false otherwise.
      **/
     public boolean isRoomListEmpty() {
-        return roomService.isEmptyRooms();
+        return rooms.isEmpty();
     }
 
     /**
@@ -334,7 +354,7 @@ public class EnergyGrid implements Metered {
      * @return energy grid's RoomList size as int
      **/
     public int roomListSize() {
-        return roomService.sizeDB();
+        return rooms.size();
     }
 
     /**

@@ -4,7 +4,9 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -46,11 +48,11 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 5: //US149
-                    runUS149(energyGridService);
+                    runUS149(energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 6: //US160
-                    runUS160(house, energyGridService);
+                    runUS160(energyGridService);
                     activeInput = false;
                     break;
                 case 0:
@@ -168,7 +170,7 @@ class EnergyGridSettingsUI {
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
-    private void runUS149(EnergyGridService energyGridService) {
+    private void runUS149(EnergyGridService energyGridService, RoomService roomService) {
         if (energyGridService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -178,7 +180,7 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputHelperUI.getGridRoomByList(energyGrid);
+        Room room = InputHelperUI.getGridRoomByList(energyGrid, roomService);
         updateGridUS149(energyGrid, room);
     }
 
@@ -194,7 +196,7 @@ class EnergyGridSettingsUI {
     I want to get a list of all devices in a grid, grouped by device type.
     It must include device location
     DANIEL OLIVEIRA*/
-    private void runUS160(House house, EnergyGridService energyGridService) {
+    private void runUS160(EnergyGridService energyGridService) {
         if (energyGridService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -208,11 +210,11 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        displayUS160(energyGrid, house);
+        displayUS160(energyGrid);
     }
 
-    private void displayUS160(EnergyGrid energyGrid, House house) {
-        System.out.println("\nList of device(s) by type:\n" + controller.buildListOfDevicesOrderedByTypeString(energyGrid, house));
+    private void displayUS160(EnergyGrid energyGrid) {
+        System.out.println("\nList of device(s) by type:\n" + controller.buildListOfDevicesOrderedByTypeString(energyGrid));
     }
 
 

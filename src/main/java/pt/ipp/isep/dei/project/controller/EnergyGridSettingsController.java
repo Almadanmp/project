@@ -2,7 +2,9 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -113,20 +115,17 @@ public class EnergyGridSettingsController {
     }
 
     /*USER STORY 160 - As a Power User (or Administrator),
-    I want to getDB a list of all devices in a grid, grouped by device type.
-    It must include device location
+    I want to get a list of all devices in a grid, grouped by device type.  It must include device location
     DANIEL OLIVEIRA*/
-
     /**
      * This method validates the list of rooms and the list of devices in all rooms.
      * If all the attributes are valid, this method will print the devices, according to their type
      *
-     * @param house      the House containing the devices.
      * @param energyGrid - This will be the parameter in which we want to search all the devices
      * @return a string with the devices ordered by their type.
      */
 
-    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid, House house) {
-        return energyGrid.buildDeviceListWithTypeString(house);
+    public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
+        return energyGrid.buildDeviceListWithTypeString();
     }
 }

@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
@@ -91,7 +91,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfDoNotRemoveRoom() {
-        validRoomService.addRoomSensortoDb(validRoom);
+        validRoomService.addRoomToDb(validRoom);
         //Assert
         assertFalse(validRoomService.removeRoom(validRoom));
     }
@@ -359,68 +359,6 @@ class RoomServiceTest {
         assertEquals(21.0, validRoomService.getNominalPower());
     }
 
-    @Test
-    void seeIfGetConsumptionInInterval() {
-        //Logs
-        Log firstLog = new Log(21, new GregorianCalendar(2019, Calendar.JANUARY, 21).getTime(),
-                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
-        validDevice.addLog(firstLog);
-        validRoom.addDevice(validDevice);
-
-        //Interval
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
-                0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
-                0).getTime();
-        //Assert
-        assertEquals(21.0, validRoomService.getConsumptionInInterval(initialTime, finalTime));
-    }
-
-    @Test
-    void seeIfGetLogsInInterval() {
-        //Logs
-        Log firstLog = new Log(21, new GregorianCalendar(2019, Calendar.JANUARY, 21).getTime(),
-                new GregorianCalendar(2018, Calendar.SEPTEMBER, 21).getTime());
-        validDevice.addLog(firstLog);
-        validRoom.addDevice(validDevice);
-
-        //Interval
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 20, 10, 0,
-                0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 20, 11, 0,
-                0).getTime();
-
-        //Act
-        LogList loglist = new LogList();
-        loglist.addLog(firstLog);
-        //Assert
-        assertEquals(loglist, validRoomService.getLogsInInterval(initialTime, finalTime));
-    }
-
-    @Test
-    void seeIfIsDeviceListEmptyFalse() {
-        // Arrange
-        validRoom.addDevice(validDevice);
-
-        // Assert
-
-        assertFalse(validRoomService.isDeviceListEmpty());
-    }
-
-    @Test
-    void seeIfIsDeviceListEmptyTrue() {
-        assertTrue(validRoomService.isDeviceListEmpty());
-    }
-
-    @Test
-    void seeIfGetNumberOfDevices() {
-        validDevice.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
-        validRoom.addDevice(validDevice);
-
-        // Assert
-
-        assertEquals(1, validRoomService.getNumberOfDevices());
-    }
 
 //    @Test
 //    void seeIfBuildDeviceListByType() {

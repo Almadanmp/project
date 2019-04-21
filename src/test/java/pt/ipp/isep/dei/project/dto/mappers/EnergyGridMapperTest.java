@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
+import pt.ipp.isep.dei.project.model.energy.PowerSourceList;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
@@ -23,13 +25,13 @@ class EnergyGridMapperTest {
     @BeforeEach
     void arrangeArtifacts() {
         validGrid = new EnergyGrid("GridOne", 21,"34576");
-        RoomService roomService = new RoomService();
+        List<Room> roomService = new ArrayList<>();
         Room roomOne = new Room("Kitchen","Equipped Kitchen", 1, 20, 30, 10,"Room1","Grid1");
         roomService.add(roomOne);
         PowerSourceList powerSourceList = new PowerSourceList();
         PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
         powerSourceList.add(powerSourceOne);
-        validGrid.setRoomService(roomService);
+        validGrid.setRooms(roomService);
         validGrid.setPowerSourceList(powerSourceList);
     }
 
