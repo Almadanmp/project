@@ -6,14 +6,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -64,7 +64,6 @@ class EnergyGridSettingsControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto",
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
         validGrid = new EnergyGrid("validGrid", 300, "34576");
-        validGrid.setId(2L);
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         roomService.add(validRoom);
     }
@@ -173,7 +172,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddPowerSourceToEnergyGridWorks() {
         // Arrange
 
-        PowerSource powerSource = new PowerSource("PowerSourceOne", 10, 10);
+        PowerSource powerSource = new PowerSource("PowerSourceOne", 10, 10, "12345L");
 
         // Act
 
@@ -189,7 +188,7 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        PowerSource powerSource = new PowerSource("PowerSource", 20, 20);
+        PowerSource powerSource = new PowerSource("PowerSource", 20, 20, "12345L");
         validGrid.addPowerSource(powerSource);
 
         // Act
@@ -224,14 +223,10 @@ class EnergyGridSettingsControllerTest {
 
         EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400, "34576");
         EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400, "34576");
-        expectedResult1.setId(1L);
-        expectedResult2.setId(2L);
         // Act
 
         EnergyGrid actualResult1 = controller.createEnergyGrid("EG1", 400, "34576", energyGridService);
-        actualResult1.setId(1L);
         EnergyGrid actualResult2 = controller.createEnergyGrid("EG2", 400, "34576", energyGridService);
-        actualResult2.setId(2L);
         // Assert
 
         assertEquals(expectedResult1, actualResult1);
@@ -242,13 +237,13 @@ class EnergyGridSettingsControllerTest {
     void seeCreatePowerSource() {
         // Arrange
 
-        PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
-        PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
+        PowerSource powerSource1 = new PowerSource("powersource1", 10, 10, "12345L");
+        PowerSource powerSource2 = new PowerSource("powersource2", 123, 76, "12345L");
 
         // Act
 
-        PowerSource actualResult1 = controller.createPowerSource(validGrid, "powersource1", 10, 10);
-        PowerSource actualResult2 = controller.createPowerSource(validGrid, "powersource2", 123, 76);
+        PowerSource actualResult1 = controller.createPowerSource(validGrid, "powersource1", 10, 10, energyGridService);
+        PowerSource actualResult2 = controller.createPowerSource(validGrid, "powersource2", 123, 76, energyGridService);
 
         // Assert
 
@@ -301,7 +296,7 @@ class EnergyGridSettingsControllerTest {
         Mockito.when(energyGridRepository.findAll()).thenReturn(returnList);
 
         String expectedResult = "---------------\n" +
-                "2) Designation: validGrid | Max Power: 300.0\n" +
+                "Designation: validGrid | Max Power: 300.0\n" +
                 "---------------\n";
 
         //Act

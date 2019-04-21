@@ -5,18 +5,16 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * This is the AreaReadingList Class, a List of readings that the Sensor receives.
+ * This is a utility class for Readings. All methods are Static.
  */
 @Service
 public class ReadingUtils {
 
+
     private static final String EMPTY_LIST = "The reading list is empty.";
 
-    /**
-     * /**
-     * Empty Constructor to always allow the creation of an ArrayList of readings.
-     */
-    public ReadingUtils() {
+
+    private ReadingUtils() {
     }
 
     /**

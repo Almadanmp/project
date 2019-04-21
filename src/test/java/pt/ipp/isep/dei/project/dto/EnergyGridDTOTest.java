@@ -11,7 +11,8 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 class EnergyGridDTOTest {
@@ -29,7 +30,7 @@ class EnergyGridDTOTest {
         roomList.add(RoomMapper.objectToDTO(roomOne));
         validDTO.setRoomDTOS(roomList);
         List<PowerSourceDTO> powerSources = new ArrayList<>();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
         powerSources.add(PowerSourceMapper.objectToDTO(powerSourceOne));
         validDTO.setPowerSourceDTOS(powerSources);
     }

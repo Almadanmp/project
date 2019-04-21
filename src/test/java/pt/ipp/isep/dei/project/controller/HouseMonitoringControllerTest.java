@@ -94,7 +94,6 @@ class HouseMonitoringControllerTest {
         Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
-        readingUtils = new ReadingUtils();
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 

@@ -4,6 +4,7 @@ public class PowerSourceDTO {
     private String name;
     private double maxPowerOutput;
     private double maxEnergyStorage;
+    private String energyGridId;
 
     public void setName(String name) {
         this.name = name;
@@ -27,6 +28,14 @@ public class PowerSourceDTO {
 
     public double getMaxEnergyStorage() {
         return maxEnergyStorage;
+    }
+
+    public String getEnergyGridId() {
+        return energyGridId;
+    }
+
+    public void setEnergyGridId(String energyGridId) {
+        this.energyGridId = energyGridId;
     }
 
     @Override

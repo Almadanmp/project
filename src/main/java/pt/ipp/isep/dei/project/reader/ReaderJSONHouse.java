@@ -7,7 +7,10 @@ import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +112,13 @@ public class ReaderJSONHouse implements Reader {
                 String roomName = jsonArray.toString();
                 setEnergyGridNameToRoom(roomName);
             }
-            energyGridObject.setRoomDTOS(this.roomDTOS);
+            List<RoomDTO> roomsInGrid = new ArrayList<>();
+            for (RoomDTO r : this.roomDTOS) {
+                if (this.gridList.getJSONObject(i).getJSONArray("rooms").toList().contains(r.getName())) {
+                    roomsInGrid.add(r);
+                }
+            }
+            energyGridObject.setRoomDTOS(roomsInGrid);
             energyGridDTOList.add(energyGridObject);
         }
         return energyGridDTOList;
@@ -117,10 +126,11 @@ public class ReaderJSONHouse implements Reader {
 
     /**
      * Sets the energyGridName for each room.
+     *
      * @param roomName String roomName
      */
     private void setEnergyGridNameToRoom(String roomName) {
-        for (RoomDTO r: roomDTOS) {
+        for (RoomDTO r : roomDTOS) {
             if (r.getName().equals(roomName)) {
                 r.setEnergyGridName(this.gridName);
             }
@@ -129,6 +139,7 @@ public class ReaderJSONHouse implements Reader {
 
     /**
      * Method that reads a JSONObject and returns the House Address DTO
+     *
      * @param jsonObject JSONObject
      * @return House Address DTO
      */

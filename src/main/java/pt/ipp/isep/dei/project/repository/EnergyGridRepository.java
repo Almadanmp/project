@@ -7,8 +7,8 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import java.util.List;
 
 @Repository
-public interface EnergyGridRepository extends CrudRepository<EnergyGrid, Long> {
-   EnergyGrid findByName(String name);
+public interface EnergyGridRepository extends CrudRepository<EnergyGrid, String> {
+    EnergyGrid findByName(String name);
 
     List<EnergyGrid> findAll();
 }

@@ -97,14 +97,14 @@ class EnergyGridSettingsUI {
     private void runUS135(EnergyGridService energyGridService) {
         if (!energyGridService.getAllGrids().isEmpty()) {
             EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridService);
-            PowerSource powerSource = getInputAndCreatePowerSource(energyGrid);
+            PowerSource powerSource = getInputAndCreatePowerSource(energyGrid, energyGridService);
             updateGridAndDisplayState(energyGrid, powerSource);
         } else {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
         }
     }
 
-    private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid) {
+    private PowerSource getInputAndCreatePowerSource(EnergyGrid energyGrid, EnergyGridService energyGridService) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type the designation of the power source you want to add: ");
         String name = scanner.next();
@@ -113,7 +113,7 @@ class EnergyGridSettingsUI {
         System.out.println("Now let's set the maximum energy storage of this power source (it should be 0 in case the " +
                 "power source can't storage any energy).");
         double maxEnergyStorage = InputHelperUI.getInputAsDoubleZeroOrPositive();
-        return controller.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage);
+        return controller.createPowerSource(energyGrid, name, maxPowerOutput, maxEnergyStorage, energyGridService);
     }
 
     private void updateGridAndDisplayState(EnergyGrid energyGrid, PowerSource powerSource) {

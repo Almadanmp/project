@@ -73,7 +73,7 @@ public class EnergyGridService {
             return "Invalid List - List is Empty\n";
         }
         for (EnergyGrid eg : getAllGrids()) {
-            result.append(eg.getId()).append(") Designation: ").append(eg.getName()).append(" | ");
+            result.append("Designation: ").append(eg.getName()).append(" | ");
             result.append("Max Power: ").append(eg.getMaxContractedPower()).append("\n");
         }
         result.append(mStringEnhancer);
@@ -105,7 +105,7 @@ public class EnergyGridService {
      * @param id selected id
      * @return Energy Grid corresponding to the given id
      */
-    public EnergyGrid getById(long id) {
+    public EnergyGrid getById(String id) {
         Optional<EnergyGrid> value = energyGridRepository.findById(id);
         if (value.isPresent()) {
             return value.get();
@@ -117,10 +117,26 @@ public class EnergyGridService {
         EnergyGrid energyGrid1 = energyGridRepository.findByName(energyGrid.getName());
         if (energyGrid1 != null) {
             energyGrid1 = energyGrid;
-            return energyGrid1;
+            return energyGridRepository.save(energyGrid1);
         }
         return energyGridRepository.save(energyGrid);
     }
+
+
+    //POWER SOURCE METHODS
+
+    /**
+     * This method creates a power source
+     *
+     * @param name             the name of the power source to be created
+     * @param maxEnergyStorage the maximum storable energy for the power source
+     * @param maxPowerOutput   the maximum power for the power source
+     * @return creates a new power source.
+     **/
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, String energyGridId) {
+        return new PowerSource(name, maxPowerOutput, maxEnergyStorage, energyGridId);
+    }
+
 
     @Override
     public int hashCode() {

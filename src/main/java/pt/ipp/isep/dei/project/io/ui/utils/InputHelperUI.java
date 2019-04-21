@@ -4,13 +4,13 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -128,7 +128,7 @@ public class InputHelperUI {
     public static Room getGridRoomByList(EnergyGrid grid, RoomService roomService) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
-            List<Room> rooms = grid.getRooms();
+            List<Room> rooms = grid.getRoomList();
             System.out.println(roomService.buildRoomsAsString(rooms));
             int aux = getInputAsInt();
             if (aux >= 0 && aux < grid.roomListSize()) {
@@ -245,11 +245,12 @@ public class InputHelperUI {
      * @return is the chosen energy grid.
      */
     public static EnergyGrid getInputGridByList(EnergyGridService energyGridService) {
+        Scanner scanner = new Scanner(System.in);
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
             System.out.println(controller.buildGridListString(energyGridService));
-            int aux = getInputAsInt();
+            String aux = scanner.nextLine();
             try {
                 EnergyGrid result = energyGridService.getById(aux);
                 System.out.println("You have chosen the following grid:");

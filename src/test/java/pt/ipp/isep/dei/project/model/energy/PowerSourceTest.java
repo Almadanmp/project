@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.energy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.energy.PowerSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,8 +14,8 @@ class PowerSourceTest {
 
 
     @BeforeEach
-    void arrangeArtifacts(){
-        validPowerSource = new PowerSource("Energy", 50, 50);
+    void arrangeArtifacts() {
+        validPowerSource = new PowerSource("Energy", 50, 50, "12345L");
     }
 
     @Test
@@ -38,7 +37,7 @@ class PowerSourceTest {
     void seeIfEqualsPowerSourceWithDifferentContent() {
         // Arrange
 
-        PowerSource pS2 = new PowerSource("Voltage", 50, 50);
+        PowerSource pS2 = new PowerSource("Voltage", 50, 50, "12345L");
 
         // Act
 
@@ -53,7 +52,7 @@ class PowerSourceTest {
     void seeIfEqualsPowerSourceWithSameContent() {
         // Arrange
 
-        PowerSource pS2 = new PowerSource("Energy", 50, 50);
+        PowerSource pS2 = new PowerSource("Energy", 50, 50, "12345L");
 
         // Act
 
@@ -102,7 +101,7 @@ class PowerSourceTest {
     }
 
     @Test
-    void seeIfGetMaxPowerOutputWorks(){
+    void seeIfGetMaxPowerOutputWorks() {
         //Arrange
 
         double expectedResult = 50;
@@ -113,11 +112,11 @@ class PowerSourceTest {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfMaxEnergyStorageWorks(){
+    void seeIfMaxEnergyStorageWorks() {
         //Arrange
 
         double expectedResult = 50;
@@ -128,7 +127,7 @@ class PowerSourceTest {
 
         //Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

@@ -19,16 +19,13 @@ public class Room implements Metered {
 
     @Id
     private String roomName;
-
     private String description;
     private int houseFloor;
     private double roomWidth;
     private double roomLength;
     private double roomHeight;
-
     @Transient
     private DeviceList deviceList;
-
     private String houseID;
     private String energyGridId;
 
@@ -171,6 +168,7 @@ public class Room implements Metered {
     public int getNumberOfDevices() {
         return deviceList.size();
     }
+
     /**
      * Method that removes a Device from the Room.
      *
@@ -203,7 +201,6 @@ public class Room implements Metered {
                 this.getWidth() + ", " + this.getLength() + ", " + this.getHeight() + ".\n";
         return result;
     }
-
 
 
     /**
@@ -299,7 +296,7 @@ public class Room implements Metered {
      * @param type type of device to display
      * @return a string that displays all devices of given type.
      */
-   public String buildDevicesStringByType(String type) {
+    public String buildDevicesStringByType(String type) {
         StringBuilder result = new StringBuilder();
         for (int x = 0; x < deviceList.size(); x++) {
             if (type.equals(deviceList.getTypeByIndex(x))) {

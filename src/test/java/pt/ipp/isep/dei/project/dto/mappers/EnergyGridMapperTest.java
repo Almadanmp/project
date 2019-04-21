@@ -7,9 +7,7 @@ import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
-import pt.ipp.isep.dei.project.model.energy.PowerSourceList;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +22,12 @@ class EnergyGridMapperTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validGrid = new EnergyGrid("GridOne", 21,"34576");
+        validGrid = new EnergyGrid("GridOne", 21, "34576");
         List<Room> roomService = new ArrayList<>();
-        Room roomOne = new Room("Kitchen","Equipped Kitchen", 1, 20, 30, 10,"Room1","Grid1");
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
         roomService.add(roomOne);
-        PowerSourceList powerSourceList = new PowerSourceList();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
+        List<PowerSource> powerSourceList = new ArrayList<>();
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
         powerSourceList.add(powerSourceOne);
         validGrid.setRooms(roomService);
         validGrid.setPowerSourceList(powerSourceList);
@@ -43,11 +41,11 @@ class EnergyGridMapperTest {
         expectedResult.setName("GridOne");
         expectedResult.setMaxContractedPower(21);
         List<RoomDTO> roomList = new ArrayList<>();
-        Room roomOne = new Room("Kitchen","Equipped Kitchen", 1, 20, 30, 10,"Room1","Grid1");
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
         roomList.add(RoomMapper.objectToDTO(roomOne));
         expectedResult.setRoomDTOS(roomList);
         List<PowerSourceDTO> powerSources = new ArrayList<>();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
         powerSources.add(PowerSourceMapper.objectToDTO(powerSourceOne));
         expectedResult.setPowerSourceDTOS(powerSources);
 
@@ -61,18 +59,18 @@ class EnergyGridMapperTest {
     }
 
     @Test
-    void seeIfDTOToObjectWorks(){
+    void seeIfDTOToObjectWorks() {
         // Arrange
 
         EnergyGridDTO dtoToConvert = new EnergyGridDTO();
         dtoToConvert.setName("GridOne");
         dtoToConvert.setMaxContractedPower(21);
         List<RoomDTO> roomList = new ArrayList<>();
-        Room roomOne = new Room("Kitchen","Equipped Kitchen", 1, 20, 30, 10,"Room1","Grid1");
+        Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
         roomList.add(RoomMapper.objectToDTO(roomOne));
         dtoToConvert.setRoomDTOS(roomList);
         List<PowerSourceDTO> powerSources = new ArrayList<>();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
         powerSources.add(PowerSourceMapper.objectToDTO(powerSourceOne));
         dtoToConvert.setPowerSourceDTOS(powerSources);
 

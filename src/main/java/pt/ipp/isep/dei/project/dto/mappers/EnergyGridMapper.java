@@ -5,9 +5,7 @@ import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
-import pt.ipp.isep.dei.project.model.energy.PowerSourceList;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +19,17 @@ public final class EnergyGridMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private EnergyGridMapper(){}
+    private EnergyGridMapper() {
+    }
 
     /**
      * This is the method that converts energy grid DTOs into model objects with the same data.
+     *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
 
-    public static EnergyGrid dtoToObject(EnergyGridDTO dtoToConvert){
+    public static EnergyGrid dtoToObject(EnergyGridDTO dtoToConvert) {
         // Update the name
 
         String objectName = dtoToConvert.getName();
@@ -41,15 +41,15 @@ public final class EnergyGridMapper {
         // Update the RoomList
 
         List<Room> objectRoomService = new ArrayList<>();
-        for (RoomDTO y : dtoToConvert.getRoomDTOS()){
+        for (RoomDTO y : dtoToConvert.getRoomDTOS()) {
             Room tempRoom = RoomMapper.dtoToObject(y);
             objectRoomService.add(tempRoom);
         }
 
         // Update the PowerSourceList
 
-        PowerSourceList objectPowerSourceList = new PowerSourceList();
-        for (PowerSourceDTO y : dtoToConvert.getPowerSourceDTOS()){
+        List<PowerSource> objectPowerSourceList = new ArrayList<>();
+        for (PowerSourceDTO y : dtoToConvert.getPowerSourceDTOS()) {
             PowerSource tempPowerSource = PowerSourceMapper.dtoToObject(y);
             objectPowerSourceList.add(tempPowerSource);
         }
@@ -67,7 +67,7 @@ public final class EnergyGridMapper {
         return resultObject;
     }
 
-    public static EnergyGrid dtoToObjectUS100(EnergyGridDTO dtoToConvert){
+    public static EnergyGrid dtoToObjectUS100(EnergyGridDTO dtoToConvert) {
         // Update the name
 
         String objectName = dtoToConvert.getName();
@@ -75,14 +75,14 @@ public final class EnergyGridMapper {
         // Update the RoomList
 
         List<Room> objectRoomService = new ArrayList<>();
-        for (RoomDTO y : dtoToConvert.getRoomDTOS()){
+        for (RoomDTO y : dtoToConvert.getRoomDTOS()) {
             Room tempRoom = RoomMapper.dtoToObjectUS100(y);
             objectRoomService.add(tempRoom);
         }
 
         // Update the PowerSourceList
 
-        PowerSourceList objectPowerSourceList = new PowerSourceList();
+        List<PowerSource> objectPowerSourceList = new ArrayList<>();
 
         // Update the maximum contracted power.
 
@@ -99,11 +99,12 @@ public final class EnergyGridMapper {
 
     /**
      * This is the method that converts energy grid model objects into DTOs with the same data.
+     *
      * @param objectToConvert is the object we want to convert.
      * @return is the converted DTO.
      */
 
-    public static EnergyGridDTO objectToDTO(EnergyGrid objectToConvert){
+    public static EnergyGridDTO objectToDTO(EnergyGrid objectToConvert) {
         // Update the name
 
         String dtoName = objectToConvert.getName();
@@ -119,9 +120,9 @@ public final class EnergyGridMapper {
         // Update the RoomList
 
         List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (Room y : objectToConvert.getRoomList()){
+        for (Room y : objectToConvert.getRoomList()) {
             RoomDTO tempRoomDTO = RoomMapper.objectToDTO(y);
-            if (!(dtoRoomList.contains(tempRoomDTO))){
+            if (!(dtoRoomList.contains(tempRoomDTO))) {
                 dtoRoomList.add(tempRoomDTO);
             }
         }
@@ -129,9 +130,9 @@ public final class EnergyGridMapper {
         // Update the PowerSourceList
 
         List<PowerSourceDTO> dtoPowerSourceList = new ArrayList<>();
-        for (PowerSource y : objectToConvert.getPowerSourceList().getPowerSources()){
+        for (PowerSource y : objectToConvert.getPowerSourceList()) {
             PowerSourceDTO tempPowerSourceDTO = PowerSourceMapper.objectToDTO(y);
-            if (!(dtoPowerSourceList.contains(tempPowerSourceDTO))){
+            if (!(dtoPowerSourceList.contains(tempPowerSourceDTO))) {
                 dtoPowerSourceList.add(tempPowerSourceDTO);
             }
         }

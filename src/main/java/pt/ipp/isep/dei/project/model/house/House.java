@@ -18,21 +18,14 @@ public class House {
 
     @Id
     private String id;
-
     @Embedded
     private Address address;
-
     @Embedded
     private Local location;
-
-    @Transient
-    private int deviceMeteringPeriod;
-
     @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
-
     private int gridMeteringPeriod;
-
+    private int deviceMeteringPeriod;
     @Transient
     private List<DeviceType> deviceTypeList;
 

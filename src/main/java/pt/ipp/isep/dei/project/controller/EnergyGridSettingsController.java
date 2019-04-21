@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
@@ -72,8 +71,8 @@ public class EnergyGridSettingsController {
      * @return a new power source.
      */
 
-    public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage) {
-        return energyGrid.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+    public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage, EnergyGridService energyGridService) {
+        return energyGridService.createPowerSource(name, maxPowerOutput, maxEnergyStorage, energyGrid.getName());
     }
 
     /**
@@ -117,6 +116,7 @@ public class EnergyGridSettingsController {
     /*USER STORY 160 - As a Power User (or Administrator),
     I want to get a list of all devices in a grid, grouped by device type.  It must include device location
     DANIEL OLIVEIRA*/
+
     /**
      * This method validates the list of rooms and the list of devices in all rooms.
      * If all the attributes are valid, this method will print the devices, according to their type

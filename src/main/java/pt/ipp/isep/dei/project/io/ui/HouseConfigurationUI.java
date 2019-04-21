@@ -5,9 +5,9 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -133,7 +133,6 @@ class HouseConfigurationUI {
     }
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house - MARIA MEIRELES */
-//TODO Location is just location ot Adress etc, doest make much sense with the new data.
     private void runUS101(House house, GeographicAreaService geographicAreaService, HouseRepository houseRepository) {
         List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         System.out.println("First select the geographic area where this house is located.");

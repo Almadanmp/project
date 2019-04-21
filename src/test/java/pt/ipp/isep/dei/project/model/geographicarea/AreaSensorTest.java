@@ -1040,9 +1040,7 @@ class AreaSensorTest {
     void seeIfGetMostRecentValueReading() {
         // Arrange
 
-        ReadingUtils validReadingUtils;
         Date validDate12 = new Date();
-        validReadingUtils = new ReadingUtils();
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate12 = validSdf.parse("02/11/2015 20:00:00");

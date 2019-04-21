@@ -19,20 +19,16 @@ import java.util.Objects;
 public class EnergyGrid implements Metered {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
-
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "energyGridId")
     @Transient
-    private PowerSourceList listPowerSources;
-
+    private List<PowerSource> powerSourceList;
     private double maxContractedPower;
-
     private String houseId;
 
     /**
@@ -40,7 +36,7 @@ public class EnergyGrid implements Metered {
      */
     public EnergyGrid() {
         this.rooms = new ArrayList<>();
-        this.listPowerSources = new PowerSourceList();
+        this.powerSourceList = new ArrayList<>();
     }
 
     /**
@@ -51,15 +47,10 @@ public class EnergyGrid implements Metered {
      */
     public EnergyGrid(String name, double maxContractedPower, String houseId) {
         this.rooms = new ArrayList<>();
-        this.listPowerSources = new PowerSourceList();
+        this.powerSourceList = new ArrayList<>();
         this.name = name;
         this.maxContractedPower = maxContractedPower;
         this.houseId = houseId;
-    }
-
-
-    public List<Room> getRooms() {
-        return rooms;
     }
 
     public void setRooms(List<Room> rooms) {
@@ -77,19 +68,6 @@ public class EnergyGrid implements Metered {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Getter for id of the energy grid
-     *
-     * @return returns attribute grid of the energy grid.
-     */
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**
@@ -129,17 +107,17 @@ public class EnergyGrid implements Metered {
      *
      * @return the list of power sources connected to the energy grid.
      */
-    public PowerSourceList getPowerSourceList() {
-        return listPowerSources;
+    public List<PowerSource> getPowerSourceList() {
+        return powerSourceList;
     }
 
     /**
      * Standard setter method, to define the list of power sources.
      *
-     * @param listPowerSources is the PowerSourceList we want to add to the Energy Grid.
+     * @param powerSourceList is the PowerSourceList we want to add to the Energy Grid.
      */
-    public void setPowerSourceList(PowerSourceList listPowerSources) {
-        this.listPowerSources = listPowerSources;
+    public void setPowerSourceList(List<PowerSource> powerSourceList) {
+        this.powerSourceList = powerSourceList;
     }
 
     /**
@@ -170,7 +148,10 @@ public class EnergyGrid implements Metered {
      * @return returns true case the power source to be added is already associated to the grid.
      */
     public boolean addPowerSource(PowerSource powerSource) {
-        return listPowerSources.add(powerSource);
+        if (powerSourceList.contains(powerSource)) {
+            return false;
+        }
+        return powerSourceList.add(powerSource);
     }
 
     /**
@@ -180,6 +161,9 @@ public class EnergyGrid implements Metered {
      * @return returns true if the room is actually added to the energy grid.
      */
     public boolean addRoom(Room room) {
+        if (rooms.contains(room)) {
+            return false;
+        }
         return this.rooms.add(room);
     }
 
@@ -303,7 +287,7 @@ public class EnergyGrid implements Metered {
     public double getGridConsumptionInInterval(Date initialDate, Date finalDate) {
         double consumption = 0;
         for (Room r : rooms) {
-           consumption += r.getConsumptionInInterval(initialDate, finalDate);
+            consumption += r.getConsumptionInInterval(initialDate, finalDate);
 
         }
         return consumption;
@@ -355,18 +339,6 @@ public class EnergyGrid implements Metered {
      **/
     public int roomListSize() {
         return rooms.size();
-    }
-
-    /**
-     * This method creates a power source
-     *
-     * @param name             the name of the power source to be created
-     * @param maxEnergyStorage the maximum storable energy for the power source
-     * @param maxPowerOutput   the maximum power for the power source
-     * @return creates a new power source.
-     **/
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
-        return this.listPowerSources.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**

@@ -58,7 +58,6 @@ class ReaderJSONGeographicAreasTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        readingUtils = new ReadingUtils();
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
         ctrl = new ReaderController(readingUtils, roomService);

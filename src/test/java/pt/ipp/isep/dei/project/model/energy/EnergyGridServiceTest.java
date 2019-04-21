@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 
 import java.util.ArrayList;
@@ -52,23 +50,20 @@ class EnergyGridServiceTest {
 
     @Test
     void seeIfGetEnergyGridByIdRepository() {
-        long mockId = 1234;
 
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
-        energyGrid.setId(1234L);
         validGridList.addPersistenceGrid(energyGrid);
 
-        Mockito.when(energyGridRepository.findById(mockId)).thenReturn(Optional.of(energyGrid));
+        Mockito.when(energyGridRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
 
-        EnergyGrid result = validGridList.getById(mockId);
+        EnergyGrid result = validGridList.getById(energyGrid.getName());
 
-        assertEquals(result.getId(), energyGrid.getId());
         assertEquals(result.getName(), energyGrid.getName());
     }
 
     @Test
     void seeIfGetEnergyGridByIdRepositoryNull() {
-        long mockId = 1234;
+        String mockId = "1234";
 
         Mockito.when(energyGridRepository.findById(mockId)).thenReturn(Optional.empty());
 

@@ -12,19 +12,14 @@ import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.PowerSource;
-import pt.ipp.isep.dei.project.model.energy.PowerSourceList;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -116,7 +111,7 @@ class EnergyGridTest {
         // Arrange
 
         PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
-                15);
+                15, "12345L");
 
         // Act
 
@@ -132,7 +127,7 @@ class EnergyGridTest {
         // Arrange
 
         PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
-                15);
+                15, "12345L");
         validGrid.addPowerSource(firstPowerSource);
 
         // Act
@@ -204,14 +199,14 @@ class EnergyGridTest {
     void seeIfGetListPowerSourcesIsSuccessful() {
         // Arrange
 
-        PowerSource powerSource = new PowerSource("SourceOne", 400, 400);
+        PowerSource powerSource = new PowerSource("SourceOne", 400, 400, "12345L");
         validGrid.addPowerSource(powerSource);
-        PowerSourceList expectedResult = new PowerSourceList();
+        List<PowerSource> expectedResult = new ArrayList<>();
         expectedResult.add(powerSource);
 
         // Act
 
-        PowerSourceList actualResult = validGrid.getPowerSourceList();
+        List<PowerSource> actualResult = validGrid.getPowerSourceList();
 
         // Assert
 

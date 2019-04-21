@@ -12,15 +12,17 @@ public final class PowerSourceMapper {
      * Don't let anyone instantiate this class.
      */
 
-    private PowerSourceMapper(){}
+    private PowerSourceMapper() {
+    }
 
     /**
      * This is the method that converts PowerSource DTOs into model objects with the same data.
+     *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
 
-    public static PowerSource dtoToObject(PowerSourceDTO dtoToConvert){
+    public static PowerSource dtoToObject(PowerSourceDTO dtoToConvert) {
         // Update name
 
         String objectName = dtoToConvert.getName();
@@ -33,18 +35,24 @@ public final class PowerSourceMapper {
 
         double objectMaxEnergyStorage = dtoToConvert.getMaxEnergyStorage();
 
+        // Update the energy grid Id
+
+        String objectEnergyGridId = dtoToConvert.getName();
+
+
         // Create, update, and return converted object
 
-        return new PowerSource(objectName, objectMaxPowerOutput, objectMaxEnergyStorage);
+        return new PowerSource(objectName, objectMaxPowerOutput, objectMaxEnergyStorage, objectEnergyGridId);
     }
 
     /**
      * This is the method that converts PowerSource model objects into DTOs with the same data.
+     *
      * @param objectToConvert is the object we want to convert.
      * @return is the converted DTO.
      */
 
-    public static PowerSourceDTO objectToDTO(PowerSource objectToConvert){
+    public static PowerSourceDTO objectToDTO(PowerSource objectToConvert) {
         // Update name
 
         String dtoName = objectToConvert.getName();
@@ -57,12 +65,17 @@ public final class PowerSourceMapper {
 
         double dtoMaxPowerOutput = objectToConvert.getMaxPowerOutput();
 
+        // Update the energyGridId
+
+        String dtoEnergyGridId = objectToConvert.getName();
+
         // Create, update and return converted object
 
         PowerSourceDTO resultDTO = new PowerSourceDTO();
         resultDTO.setMaxEnergyStorage(dtoMaxEnergyStorage);
         resultDTO.setMaxPowerOutput(dtoMaxPowerOutput);
         resultDTO.setName(dtoName);
+        resultDTO.setEnergyGridId(dtoEnergyGridId);
 
         return resultDTO;
     }
