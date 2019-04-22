@@ -90,7 +90,7 @@ public class ReaderController {
         for (EnergyGridDTO eg : gridDTOS) {
             EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
             energyGrid.setHouseId(house.getId());
-            energyGridService.saveEnergyGrid(energyGrid);
+            energyGridService.addGrid(energyGrid);
         }
 
         //ROOMS

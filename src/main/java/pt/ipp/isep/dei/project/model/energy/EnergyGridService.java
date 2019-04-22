@@ -39,14 +39,13 @@ public class EnergyGridService {
         return finalList;
     }
 
-
-    public boolean addPersistenceGrid(EnergyGrid energyGrid) {
-        EnergyGrid grid = energyGridRepository.findByName(energyGrid.getName());
-        if (grid != null) {
-            return false;
+    public EnergyGrid addGrid(EnergyGrid energyGrid) {
+        EnergyGrid energyGrid1 = energyGridRepository.findByName(energyGrid.getName());
+        if (energyGrid1 != null) {
+            energyGrid1 = energyGrid;
+            return energyGridRepository.save(energyGrid1);
         }
-        energyGridRepository.save(energyGrid);
-        return true;
+        return energyGridRepository.save(energyGrid);
     }
 
     /**
@@ -113,16 +112,6 @@ public class EnergyGridService {
         throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 
-    public EnergyGrid saveEnergyGrid(EnergyGrid energyGrid) {
-        EnergyGrid energyGrid1 = energyGridRepository.findByName(energyGrid.getName());
-        if (energyGrid1 != null) {
-            energyGrid1 = energyGrid;
-            return energyGridRepository.save(energyGrid1);
-        }
-        return energyGridRepository.save(energyGrid);
-    }
-
-
     //POWER SOURCE METHODS
 
     /**
@@ -136,7 +125,6 @@ public class EnergyGridService {
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, String energyGridId) {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage, energyGridId);
     }
-
 
     @Override
     public int hashCode() {

@@ -83,11 +83,9 @@ class EnergyGridSettingsUI {
     }
 
     private void updateHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
-        if (controller.addEnergyGridToHouse(energyGrid, energyGridService)) {
+        EnergyGrid energyGridAux = controller.addEnergyGridToHouse(energyGrid, energyGridService);
+        if (energyGridAux!=null) {
             System.out.println("The energy grid was successfully created and added to the house.");
-        } else {
-            System.out.println("The energy grid wasn't added to the house. There is already an energy grid with " +
-                    "that name.");
         }
     }
 

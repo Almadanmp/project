@@ -47,8 +47,8 @@ public class EnergyGridSettingsController {
      * @param energyGrid the grid to addWithoutPersisting to the House.
      * @return true if the grid was added to the house.
      */
-    public boolean addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
-        return energyGridService.addPersistenceGrid(energyGrid);
+    public EnergyGrid addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
+        return energyGridService.addGrid(energyGrid);
     }
 
     /**
@@ -114,7 +114,7 @@ public class EnergyGridSettingsController {
     }
 
     public void updateEnergyGrid(EnergyGrid grid, EnergyGridService energyGridService) {
-        energyGridService.saveEnergyGrid(grid);
+        energyGridService.addGrid(grid);
     }
 
     /*USER STORY 160 - As a Power User (or Administrator),

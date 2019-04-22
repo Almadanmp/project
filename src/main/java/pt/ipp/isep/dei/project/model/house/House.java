@@ -215,7 +215,7 @@ public class House {
      *
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */
-    void buildDeviceTypeList(List<String> deviceTypePaths) {
+     void buildDeviceTypeList(List<String> deviceTypePaths) {
         this.deviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;

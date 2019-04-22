@@ -60,7 +60,7 @@ public class AreaTypeService {
      */
     public String getAllAsString() {
         StringBuilder result = new StringBuilder("---------------\n");
-        List<AreaType> typeAreas = areaTypeRepository.findAll();
+        List<AreaType> typeAreas = getAreaTypes();
         if (isEmpty()) {
             return "Invalid List - List is Empty\n";
         }

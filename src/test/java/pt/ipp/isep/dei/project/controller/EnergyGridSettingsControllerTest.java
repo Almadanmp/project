@@ -201,23 +201,6 @@ class EnergyGridSettingsControllerTest {
     }
 
     @Test
-    void seeIfAddEnergyGridToHouseWorks() {
-
-        // Arrange
-
-        EnergyGrid energyGrid = new EnergyGrid("grid", 400, "34576");
-
-
-        // Act
-
-        boolean actualResult = controller.addEnergyGridToHouse(energyGrid, energyGridService);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
     void seeIfCreateGridTrue() {
         // Arrange
 

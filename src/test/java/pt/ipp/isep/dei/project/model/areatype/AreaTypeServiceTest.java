@@ -59,16 +59,6 @@ class AreaTypeServiceTest {
         assertEquals(expectedResult, result);
     }
 
-
-//    @Test
-//    void seeIfAddAreaType() {
-//        AreaType areatype = new AreaType("Street");
-//
-//        Mockito.when(areaTypeRepository.findByRoomName(areatype.getName())).thenReturn(areatype);
-//
-//        assertTrue(areaTypeService.add(areatype));
-//    }
-
     @Test
     void seeIfGetTypeAreaByIdRepository() {
         long mockId = 1234;
@@ -155,31 +145,31 @@ class AreaTypeServiceTest {
         assertEquals(expectedResult, result);
     }
 
-//    @Test
-//    void seeIfAddWorks() {
-//        //Arrange
-//
-//        AreaType areatype = new AreaType("Name");
-//        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(null);
-//
-//        //Act
-//        boolean actualResult = areaTypeService.add(areatype);
-//
-//        assertTrue(actualResult);
-//    }
+    @Test
+    void seeIfAddWorks() {
+        //Arrange
 
-//    @Test
-//    void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepository() {
-//        //Arrange
-//
-//        AreaType areatype = new AreaType("Name");
-//        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(areatype);
-//
-//        //Act
-//        boolean actualResult = areaTypeService.add(areatype);
-//
-//        assertFalse(actualResult);
-//    }
+        AreaType areatype = new AreaType("Name");
+        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(Optional.empty());
+
+        //Act
+        boolean actualResult = areaTypeService.add(areatype);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepository() {
+        //Arrange
+
+        AreaType areatype = new AreaType("Name");
+        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(Optional.of(areatype));
+
+        //Act
+        boolean actualResult = areaTypeService.add(areatype);
+
+        assertFalse(actualResult);
+    }
 
 
     @Test

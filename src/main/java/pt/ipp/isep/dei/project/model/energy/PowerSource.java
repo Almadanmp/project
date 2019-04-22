@@ -45,10 +45,6 @@ public class PowerSource {
         return this.powerSourceName;
     }
 
-    public String getEnergyGridId() {
-        return energyGridId;
-    }
-
     /**
      * Method to check if an instance of this class is equal to another object.
      *

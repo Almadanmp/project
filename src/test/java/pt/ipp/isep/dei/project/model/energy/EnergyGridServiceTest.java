@@ -52,7 +52,7 @@ class EnergyGridServiceTest {
     void seeIfGetEnergyGridByIdRepository() {
 
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
-        validGridList.addPersistenceGrid(energyGrid);
+        validGridList.addGrid(energyGrid);
 
         Mockito.when(energyGridRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
 
