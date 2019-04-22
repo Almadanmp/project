@@ -48,7 +48,7 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 5: //US149
-                    runUS149(energyGridService, roomService);
+                    runUS149(energyGridService);
                     activeInput = false;
                     break;
                 case 6: //US160
@@ -157,20 +157,21 @@ class EnergyGridSettingsUI {
         List<Room> houseRooms = roomService.getAllRooms();
         RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridService);
-        updateGridUS147(energyGrid, room, roomService);
+        updateGridUS147(energyGrid, room, roomService, energyGridService);
     }
 
-    private void updateGridUS147(EnergyGrid grid, RoomDTO room, RoomService roomService) {
+    private void updateGridUS147(EnergyGrid grid, RoomDTO room, RoomService roomService, EnergyGridService energyGridService) {
         if (controller.addRoomToGrid(grid, room, roomService)) {
+            controller.updateEnergyGrid(grid, energyGridService);
             System.out.println("Room successfully added to the grid!");
         } else {
-            System.out.println("It wasn't possible to addWithoutPersisting the room. Please try again.");
+            System.out.println("It wasn't possible to add the room. Please try again.");
         }
     }
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
-    private void runUS149(EnergyGridService energyGridService, RoomService roomService) {
+    private void runUS149(EnergyGridService energyGridService) {
         if (energyGridService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -180,21 +181,21 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputHelperUI.getGridRoomByList(energyGrid, roomService);
-        updateGridUS149(energyGrid, room);
+        Room room = InputHelperUI.getGridRoomByList(energyGrid);
+        updateGridUS149(energyGrid, room, energyGridService);
     }
 
-    private void updateGridUS149(EnergyGrid grid, Room room) {
+    private void updateGridUS149(EnergyGrid grid, Room room, EnergyGridService energyGridService) {
         if (controller.removeRoomFromGrid(grid, room)) {
+            controller.updateEnergyGrid(grid, energyGridService);
             System.out.println("Room successfully removed from grid!");
         } else {
-            System.out.println("It wasn't possible to removeGeographicArea the room. Please try again.");
+            System.out.println("It wasn't possible to remove the room. Please try again.");
         }
     }
 
-    /*USER STORY 160 - As a Power User (or Administrator),
-    I want to get a list of all devices in a grid, grouped by device type.
-    It must include device location
+    /*USER STORY 160 - As a Power User (or Administrator), I want to get a list of all devices in a grid, grouped by
+    device type. It must include device location
     DANIEL OLIVEIRA*/
     private void runUS160(EnergyGridService energyGridService) {
         if (energyGridService.isEmpty()) {

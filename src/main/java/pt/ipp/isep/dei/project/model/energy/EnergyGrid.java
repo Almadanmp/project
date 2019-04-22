@@ -26,10 +26,11 @@ public class EnergyGrid implements Metered {
     private List<Room> rooms;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "energyGridId")
-    @Transient
     private List<PowerSource> powerSourceList;
     private double maxContractedPower;
     private String houseId;
+
+    private static final String BUILDER = "---------------\n";
 
     /**
      * Empty Constructor to use when importing Energy Grids from XML files.
@@ -191,6 +192,27 @@ public class EnergyGrid implements Metered {
         }
         return rooms.get(index);
     }
+
+
+    /**
+     * String Builder of the RoomList.
+     *
+     * @return a String of the Rooms in the RoomList.
+     */
+    public String buildEnergyGridRoomsAsString() {
+        StringBuilder result = new StringBuilder(BUILDER);
+        if (rooms.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (int i = 0; i < rooms.size(); i++) {
+            Room aux = rooms.get(i);
+            result.append(i).append(") ID: ").append(aux.getId()).append(" |").
+                    append(" Description: ").append(aux.getDescription()).append(" |\n");
+        }
+        result.append(BUILDER);
+        return result.toString();
+    }
+
 
     /**
      * Method gets all devices associated to energy grid

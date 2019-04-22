@@ -113,6 +113,10 @@ public class EnergyGridSettingsController {
         return grid.removeRoom(room);
     }
 
+    public void updateEnergyGrid(EnergyGrid grid, EnergyGridService energyGridService) {
+        energyGridService.saveEnergyGrid(grid);
+    }
+
     /*USER STORY 160 - As a Power User (or Administrator),
     I want to get a list of all devices in a grid, grouped by device type.  It must include device location
     DANIEL OLIVEIRA*/

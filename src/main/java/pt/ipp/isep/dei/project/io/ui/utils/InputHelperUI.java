@@ -125,11 +125,10 @@ public class InputHelperUI {
      * @param grid is the grid we want to choose rooms from.
      * @return is the chosen room.
      */
-    public static Room getGridRoomByList(EnergyGrid grid, RoomService roomService) {
+    public static Room getGridRoomByList(EnergyGrid grid) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
-            List<Room> rooms = grid.getRoomList();
-            System.out.println(roomService.buildRoomsAsString(rooms));
+            System.out.println(grid.buildEnergyGridRoomsAsString());
             int aux = getInputAsInt();
             if (aux >= 0 && aux < grid.roomListSize()) {
                 Room result = grid.getRoom(aux);

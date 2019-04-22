@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
 
 import java.util.List;
 
@@ -148,6 +148,9 @@ public final class RoomMapper {
 
         String dtoEnergyGridID = objectToConvert.getEnergyGridID();
 
+        // Update the description
+        String dtoDescription = objectToConvert.getDescription();
+
         // Update the AreaSensorList
 
         // Update the device list
@@ -165,6 +168,7 @@ public final class RoomMapper {
         resultDTO.setDeviceList(dtoDeviceList);
         resultDTO.setEnergyGridName(dtoEnergyGridID);
         resultDTO.setHouseId(dtoHouseID);
+        resultDTO.setDescription(dtoDescription);
 
         return resultDTO;
     }
