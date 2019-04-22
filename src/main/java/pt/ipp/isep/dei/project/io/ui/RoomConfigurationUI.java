@@ -24,14 +24,12 @@ import java.util.Scanner;
 class RoomConfigurationUI {
     private RoomConfigurationController controller;
     private String requestProgramName = "Please, type the new FixedTimeProgram name:";
-    private RoomService roomService;
 
-    RoomConfigurationUI(RoomService roomService) {
+    RoomConfigurationUI() {
         this.controller = new RoomConfigurationController();
-        this.roomService = roomService;
     }
 
-    void run(House house, SensorTypeService sensorTypeService) {
+    void run(House house, SensorTypeService sensorTypeService, RoomService roomService) {
 
         if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -47,7 +45,7 @@ class RoomConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US201
-                    runUS201();
+                    runUS201(roomService);
                     activeInput = false;
                     break;
                 case 2: //US210
@@ -59,23 +57,23 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 4: //US220
-                    runUS220();
+                    runUS220(roomService);
                     activeInput = false;
                     break;
                 case 5: //US222
-                    runUS222();
+                    runUS222(roomService);
                     activeInput = false;
                     break;
                 case 6: //US230
-                    runUS230();
+                    runUS230(roomService);
                     activeInput = false;
                     break;
                 case 7: //US250
-                    runUS250();
+                    runUS250(roomService);
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(sensorTypeService);
+                    runUS253(sensorTypeService, roomService);
                     activeInput = false;
                     break;
                 case 0:
@@ -91,7 +89,7 @@ class RoomConfigurationUI {
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
      * Prints device List in that room.
      */
-    private void runUS201() {
+    private void runUS201(RoomService roomService) {
         if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -185,12 +183,12 @@ class RoomConfigurationUI {
             return;
         }
         Device device = InputHelperUI.getInputRoomDevicesByList(room);
-        getInputDeviceCharacteristicsUS215(device, room);
+        getInputDeviceCharacteristicsUS215(device, room, roomService);
     }
 
     //* gets the input of the new device name, room, attributes and nominal power. If the device is programmable,
     // it shows the list of programs, and allows for the user to choose one or more to edit.
-    private void getInputDeviceCharacteristicsUS215(Device device, Room room) {
+    private void getInputDeviceCharacteristicsUS215(Device device, Room room, RoomService roomService) {
         Scanner scanner = new Scanner(System.in);
 
         // get device name
@@ -324,7 +322,7 @@ class RoomConfigurationUI {
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
-    private void runUS222() {
+    private void runUS222(RoomService roomService) {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {
@@ -348,7 +346,7 @@ class RoomConfigurationUI {
      * nominal power of a room, i.e. the sum of the nominal power of all devices in the
      * room.
      **/
-    private void runUS230() {
+    private void runUS230(RoomService roomService) {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         getRoomNominalPower(room);
@@ -362,13 +360,13 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
-    private void runUS250() {
+    private void runUS250(RoomService roomService) {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
-        displaySensorListUS250(room);
+        displaySensorListUS250(room, roomService);
     }
 
-    private void displaySensorListUS250(Room room) {
+    private void displaySensorListUS250(Room room, RoomService roomService) {
         if (roomService.getAllSensor().isEmpty()) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
@@ -382,7 +380,7 @@ class RoomConfigurationUI {
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      * sensor types, in order to configure it.
      */
-    private void runUS253(SensorTypeService sensorService) {
+    private void runUS253(SensorTypeService sensorService, RoomService roomService) {
         if (sensorService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
@@ -390,11 +388,11 @@ class RoomConfigurationUI {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorService);
-        getInput253(room, sensorType);
+        getInput253(room, sensorType, roomService);
 
     }
 
-    private void getInput253(Room room, SensorType sensorType) {
+    private void getInput253(Room room, SensorType sensorType, RoomService roomService) {
         Scanner input = new Scanner(System.in);
         // Id Getter
         System.out.println("\nEnter Sensor Id:\t");
@@ -429,11 +427,11 @@ class RoomConfigurationUI {
         System.out.println("You entered the date successfully!");
         String idRoom = room.getId();
         Date mDate = DateUtils.createDate(dateYear, dateMonth, dateDay);
-        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, idRoom);
+        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, idRoom, roomService);
 
     }
 
-    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, String idRoom) {
+    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, String idRoom, RoomService roomService) {
         RoomSensor mAreaSensor = controller.createRoomSensor(roomService, sensorID, sensorName, sensorType, date, idRoom);
         if (controller.addSensorToRoom(mAreaSensor, roomService)) {
             System.out.println("\nSensor successfully added to the Room " + room.getId());
@@ -444,7 +442,7 @@ class RoomConfigurationUI {
     /*US220 - As an Administrator, I want to remove a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
-    private void runUS220() {
+    private void runUS220(RoomService roomService) {
         List<Room> houseRooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, houseRooms);
         if (room.isDeviceListEmpty()) {

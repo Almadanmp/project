@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -31,14 +30,13 @@ class HouseConfigurationUI {
     private double roomHeight;
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private ReadingUtils readingUtils;
+    private static final String FILE_LOCATION = "Please insert the location of the file you want to import:";
     private ReaderController readerController;
 
 
-    HouseConfigurationUI(ReadingUtils readingUtils, RoomService roomService2) {
+    HouseConfigurationUI() {
         this.controller = new HouseConfigurationController();
-        this.readingUtils = readingUtils;
-        this.readerController = new ReaderController(readingUtils, roomService2);
+        this.readerController = new ReaderController();
     }
 
     void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService, HouseRepository houseRepository) {
@@ -52,11 +50,11 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2(geographicAreaService, roomService);
+                    runUS15v2(geographicAreaService);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS100(house, roomService, energyGridService, houseRepository);
+                    runUS100(house, energyGridService, houseRepository, roomService);
                     activeInput = false;
                     break;
                 case 3:
@@ -76,11 +74,11 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS265v2();
+                    runUS265v2(roomService);
                     activeInput = false;
                     break;
                 case 8:
-                    runUS265();
+                    runUS265(roomService);
                     activeInput = false;
                     break;
                 case 0:
@@ -100,29 +98,29 @@ class HouseConfigurationUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2(GeographicAreaService geographicAreaService, RoomService roomService) {
-        ReaderController ctrl = new ReaderController(readingUtils, roomService);
+    private void runUS15v2(GeographicAreaService geographicAreaService) {
+        ReaderController ctrl = new ReaderController();
         InputHelperUI input = new InputHelperUI();
-        System.out.println("Please insert the location of the file you want to import:");
+        System.out.println(FILE_LOCATION);
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(filePath, geographicAreaService, roomService);
+        int areas = ctrl.acceptPath(filePath, geographicAreaService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100(House house, RoomService roomService, EnergyGridService energyGridService, HouseRepository houseRepository) {
-        ReaderController ctrl = new ReaderController(readingUtils, roomService);
+    private void runUS100(House house, EnergyGridService energyGridService, HouseRepository houseRepository, RoomService roomService) {
+        ReaderController ctrl = new ReaderController();
         InputHelperUI inputHelperUI = new InputHelperUI();
-        System.out.println("Please insert the location of the file you want to import:");
+        System.out.println(FILE_LOCATION);
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String input = inputHelperUI.getInputPathJson(result);
         String filePath = inputHelperUI.getInputPath(input);
         try {
-            if (ctrl.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository)) {
+            if (ctrl.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService)) {
                 System.out.println("House Data Successfully imported.");
             } else {
                 System.out.println("The JSON file is invalid.");
@@ -154,7 +152,7 @@ class HouseConfigurationUI {
         controller.setHouseMotherArea(house, motherArea);
         houseRepository.save(house);
 
-        System.out.println("\nYou have successfully configured the location of the house with the following Latitude: " + houseLat + ". \n" +
+        System.out.println("\nYou have successfully configured the location of the house with the following\n Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");
     }
 
@@ -253,7 +251,7 @@ class HouseConfigurationUI {
 
     private void runUS260(RoomService roomService) {
         InputHelperUI inputs = new InputHelperUI();
-        System.out.println("Please insert the location of the file you want to import:");
+        System.out.println(FILE_LOCATION);
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
@@ -273,10 +271,10 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265() {
+    private void runUS265(RoomService roomService) {
         InputHelperUI inputHUI = new InputHelperUI();
         String filePath = inputHUI.getInputJsonXmlCsv();
-        controller.readReadingListFromFile(filePath);
+        controller.readReadingListFromFile(filePath, roomService);
     }
 
     /*
@@ -285,56 +283,56 @@ class HouseConfigurationUI {
         registered in the application log.
      */
 
-    private void runUS265v2() {
+    private void runUS265v2(RoomService roomService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
-            importReadingsFromCSV(filePath);
+            importReadingsFromCSV(filePath, roomService);
         } else if (filePath.endsWith(".json")) {
-            importReadingsFromJSON(filePath);
+            importReadingsFromJSON(filePath, roomService);
         } else if (filePath.endsWith(".xml")) {
-            importReadingsFromXML(filePath);
+            importReadingsFromXML(filePath, roomService);
         }
     }
 
-    private void importReadingsFromCSV(String filePath) {
+    private void importReadingsFromCSV(String filePath, RoomService roomService) {
         int addedReadings = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
-            addedReadings = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list, roomService);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
-    private void importReadingsFromJSON(String filePath) {
+    private void importReadingsFromJSON(String filePath, RoomService roomService) {
         int addedReadings = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
-            addedReadings = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list, roomService);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
-    private void importReadingsFromXML(String filePath) {
+    private void importReadingsFromXML(String filePath, RoomService roomService) {
         int addedReadings = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
-            addedReadings = addReadingsToHouseSensors(list);
+            addedReadings = addReadingsToHouseSensors(list, roomService);
         } catch (IllegalArgumentException illegal) {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
     }
 
-    private int addReadingsToHouseSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingLogs.log");
+    private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
+        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingLogs.log", roomService);
     }
 
     /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */

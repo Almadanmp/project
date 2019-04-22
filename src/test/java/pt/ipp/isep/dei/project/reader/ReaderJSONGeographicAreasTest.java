@@ -60,7 +60,7 @@ class ReaderJSONGeographicAreasTest {
     void arrangeArtifacts() {
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
-        ctrl = new ReaderController(readingUtils, roomService);
+        ctrl = new ReaderController();
 
     }
 

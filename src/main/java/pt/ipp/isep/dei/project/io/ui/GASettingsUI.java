@@ -6,12 +6,10 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
@@ -23,12 +21,10 @@ class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private RoomService roomService;
 
-    GASettingsUI(ReadingUtils readingUtils, RoomService roomService) {
+    GASettingsUI() {
         this.gaController = new GASettingsController();
-        this.readerController = new ReaderController(readingUtils, roomService);
-        this.roomService = roomService;
+        this.readerController = new ReaderController();
     }
 
     void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
@@ -353,7 +349,9 @@ class GASettingsUI {
     private void runUS11(GeographicAreaService geographicAreaService) {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
         AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
-        updateUS11(areaSensorDTO, geographicAreaService, geographicAreaDTO);
+        if (areaSensorDTO != null) {
+            updateUS11(areaSensorDTO, geographicAreaService, geographicAreaDTO);
+        }
     }
 
     private void updateUS11(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService, GeographicAreaDTO geographicAreaDTO) {
@@ -439,7 +437,7 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = readerController.acceptPath(filePath, geographicAreaService, roomService);
+        int areas = readerController.acceptPath(filePath, geographicAreaService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
     }
 

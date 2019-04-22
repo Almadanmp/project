@@ -142,8 +142,8 @@ public class HouseConfigurationController {
     /**
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
      *
-     * @param filepath         is the path of the file we want to import sensors from.
-     * @param roomService  is the service making the connection to the room repository.
+     * @param filepath    is the path of the file we want to import sensors from.
+     * @param roomService is the service making the connection to the room repository.
      * @return is the number of imported sensors.
      */
 
@@ -166,7 +166,7 @@ public class HouseConfigurationController {
      * Method that takes a list of houseSensorDTOs, checks if the rooms they belong to exist in the program's
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
      *
-     * @param importedSensors    is the list of houseSensorDTOs that we're trying to import into the program.
+     * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
      * @param roomService     is the service making the connection to the room repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
@@ -203,14 +203,14 @@ public class HouseConfigurationController {
         registered in the application log.
      */
 
-    public void readReadingListFromFile(String filePath) {
+    public void readReadingListFromFile(String filePath, RoomService roomService) {
         int addedReadings = 0;
         //If from CSV
         if (filePath.endsWith(".csv")) {
             ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
             try {
                 List<ReadingDTO> list = readerCSV.readFile(filePath);
-                addedReadings = addReadingsToHouseSensors(list);
+                addedReadings = addReadingsToHouseSensors(list, roomService);
             } catch (IllegalArgumentException illegal) {
                 System.out.println("The CSV file is invalid. Please fix before continuing.");
             }
@@ -221,7 +221,7 @@ public class HouseConfigurationController {
             ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
             try {
                 List<ReadingDTO> list = readerJSON.readFile(filePath);
-                addedReadings = addReadingsToHouseSensors(list);
+                addedReadings = addReadingsToHouseSensors(list, roomService);
             } catch (IllegalArgumentException illegal) {
                 System.out.println("The JSON file is invalid. Please fix before continuing.");
             }
@@ -232,7 +232,7 @@ public class HouseConfigurationController {
             ReadingsReaderXML readerXML = new ReadingsReaderXML();
             try {
                 List<ReadingDTO> list = readerXML.readFile(filePath);
-                addedReadings = addReadingsToHouseSensors(list);
+                addedReadings = addReadingsToHouseSensors(list, roomService);
             } catch (IllegalArgumentException illegal) {
                 System.out.println("The XML file is invalid. Please fix before continuing.");
             }
@@ -240,7 +240,7 @@ public class HouseConfigurationController {
         }
     }
 
-    private int addReadingsToHouseSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToHouseSensors(readings, VALID_LOG_PATH);
+    private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
+        return readerController.addReadingsToHouseSensors(readings, VALID_LOG_PATH, roomService);
     }
 }

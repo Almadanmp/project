@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -28,13 +27,7 @@ import java.util.logging.Logger;
 
 public class ReaderController {
 
-    private ReadingUtils readingUtils;
-    private RoomService roomService;
-
-
-    public ReaderController(ReadingUtils readingUtils, RoomService roomService) {
-        this.readingUtils = readingUtils;
-        this.roomService = roomService;
+    public ReaderController() {
 
     }
 
@@ -48,7 +41,7 @@ public class ReaderController {
      * @param list     - the geographic area list
      * @return - number of geoareas imported
      */
-    public int acceptPath(String filePath, GeographicAreaService list, RoomService roomService) {
+    public int acceptPath(String filePath, GeographicAreaService list) {
         int areasRead;
         if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
@@ -57,7 +50,7 @@ public class ReaderController {
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list, readingUtils, roomService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list);
             return areasRead;
         }
         return -1;
@@ -72,7 +65,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridService energyGridService, HouseRepository houseRepository) {
+    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridService energyGridService, HouseRepository houseRepository, RoomService roomService) {
         //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO;
@@ -192,7 +185,7 @@ public class ReaderController {
      * @param logPath  log file path
      * @return number of Area Readings added to corresponding House Sensor
      **/
-    public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath) {
+    public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath, RoomService roomService) {
         Logger logger = getLogger(logPath);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {

@@ -193,10 +193,9 @@ public class InputHelperUI {
      * to choose one by index.
      *
      * @param room  is the room DTO we want to get the list from.
-     * @param house is the program's house.
      * @return is the selected Device.
      */
-    public static Device getInputRoomDTODevicesByList(RoomDTO room, House house, RoomService roomService) {
+    public static Device getInputRoomDTODevicesByList(RoomDTO room, RoomService roomService) {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
@@ -293,11 +292,11 @@ public class InputHelperUI {
      * @return is the chosen sensor.
      */
     public static AreaSensor getInputSensorByList(GeographicAreaService geographicAreaService, List<AreaSensor> areaSensors) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please select a sensor from the list:");
+        System.out.println(geographicAreaService.buildString(areaSensors));
+        String aux = scanner.nextLine();
         while (true) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Please select a sensor from the list:");
-            System.out.println(geographicAreaService.buildString(areaSensors));
-            String aux = scanner.nextLine();
             AreaSensor result = geographicAreaService.getById(aux);
             if (result != null) {
                 System.out.println("You have chosen the following sensor:");

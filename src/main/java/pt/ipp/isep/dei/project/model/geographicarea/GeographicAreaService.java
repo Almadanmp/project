@@ -223,11 +223,9 @@ public class GeographicAreaService {
 
     public String buildString(List<AreaSensor> areaSensors) {
         StringBuilder result = new StringBuilder(new StringBuilder(BUILDER));
-
         if (areaSensors.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-
         for (AreaSensor as : areaSensors) {
             result.append(as.getId()).append(") Name: ").append(as.getName()).append(" | ");
             result.append("Type: ").append(as.getSensorTypeName()).append(" | ")

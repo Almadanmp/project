@@ -62,7 +62,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 6:
-                    runUS730(house, energyGridService, roomService);
+                    runUS730(energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 7:
@@ -271,7 +271,7 @@ class EnergyConsumptionUI {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }
-        Device device = InputHelperUI.getInputRoomDTODevicesByList(room, house, roomService);
+        Device device = InputHelperUI.getInputRoomDTODevicesByList(room, roomService);
         if (device.isLogListEmpty()) {
             System.out.println("This device has no energy consumption logs.");
             return;
@@ -332,7 +332,7 @@ class EnergyConsumptionUI {
      *  consumption chart of the metered energy consumption of a device/room/grid in a given time interval.
      */
 
-    private void runUS730(House house, EnergyGridService energyGridService, RoomService roomService) {
+    private void runUS730(EnergyGridService energyGridService, RoomService roomService) {
         this.printUS730Menu();
         int option = InputHelperUI.getInputAsInt();
         switch (option) {
@@ -343,7 +343,7 @@ class EnergyConsumptionUI {
                 setRoomData(roomService);
                 break;
             case 3:
-                setDeviceData(house, roomService);
+                setDeviceData(roomService);
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
@@ -372,10 +372,10 @@ class EnergyConsumptionUI {
         System.out.println(controller.buildLogListString(roomLogs));
     }
 
-    private void setDeviceData(House programHouse, RoomService roomService) {
+    private void setDeviceData(RoomService roomService) {
         List<Room> houseRooms = roomService.getAllRooms();
         RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
-        Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, programHouse, roomService);
+        Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, roomService);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         LogList deviceLogs = controller.getDeviceLogsInInterval(device, startDate, endDate);

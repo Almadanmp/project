@@ -96,7 +96,7 @@ class ReaderControllerTest {
         energyGridService = new EnergyGridService(energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
         this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        validReader = new ReaderController(readingUtils, roomService);
+        validReader = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -151,7 +151,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
@@ -167,7 +167,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
@@ -179,7 +179,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(absolutePath, geographicAreaService, roomService);
+        int result = validReader.acceptPath(absolutePath, geographicAreaService);
         assertEquals(result, 0);
     }
 
@@ -188,7 +188,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/wrong_path";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(absolutePath, geographicAreaService, roomService);
+        int result = validReader.acceptPath(absolutePath, geographicAreaService);
         assertEquals(result, -1);
     }
 
@@ -245,7 +245,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
@@ -280,7 +280,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
@@ -313,7 +313,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
@@ -329,7 +329,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService, readingUtils, roomService);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
@@ -480,7 +480,7 @@ class ReaderControllerTest {
         List<String> deviceTypes = new ArrayList<>();
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
-        assertTrue(validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository));
+        assertTrue(validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
     }
 
     @Test
@@ -489,7 +489,7 @@ class ReaderControllerTest {
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
         assertThrows(IllegalArgumentException.class,
-                () -> validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository));
+                () -> validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
 
     }
 
