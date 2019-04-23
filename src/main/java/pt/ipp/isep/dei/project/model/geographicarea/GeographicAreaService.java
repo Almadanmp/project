@@ -172,7 +172,7 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private AreaType getAreaTypeByName(String name) {
-        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogs.log", Level.FINE);
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
         Optional<AreaType> value = areaTypeRepository.findByName(name);
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
@@ -440,7 +440,7 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private SensorType getTypeSensorByName(String name, String unit) {
-        Logger logger = getLogger("resources/logs/sensorTypeLogs.log");
+        Logger logger = getLogger("resources/logs/sensorTypeLogHtml.html");
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
         if (!(value.isPresent())) {
             logger.warning("The Sensor Type " + name + " does not yet exist in the Data Base. Please create the Sensor" +

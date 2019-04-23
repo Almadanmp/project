@@ -222,7 +222,7 @@ public class EnergyGrid implements Metered {
     public DeviceList getDeviceList() {
         DeviceList devices = new DeviceList();
         for (Room r : rooms) {
-            devices.addDevicesToDeviceList(r.getDeviceList());
+            devices.addDevicesToThisDeviceList(r.getDeviceList());
         }
         return devices;
     }
@@ -285,8 +285,7 @@ public class EnergyGrid implements Metered {
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
     public String buildDeviceListWithTypeString() {
-        String stringSpacer = "---------------\n";
-        StringBuilder result = new StringBuilder(stringSpacer);
+        StringBuilder result = new StringBuilder(BUILDER);
         for (Room r : rooms) {
             DeviceList devices = r.getDeviceList();
             for (int i = 0; i < devices.size(); i++) {
@@ -294,7 +293,7 @@ public class EnergyGrid implements Metered {
                 result.append(r.buildDevicesStringByType(deviceType));
             }
         }
-        result.append(stringSpacer);
+        result.append(BUILDER);
         return result.toString();
     }
 
