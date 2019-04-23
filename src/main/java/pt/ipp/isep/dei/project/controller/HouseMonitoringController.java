@@ -75,9 +75,7 @@ public class HouseMonitoringController {
      * @author André
      */
     public double getTotalRainfallOnGivenDay(Date day, AreaSensor closestAreaSensor) {
-
         List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
-
         return ReadingUtils.getValueReadingsInDay(day, sensorReadings);
     }
 
@@ -86,9 +84,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(AreaSensor closestAreaSensor) {
-
         List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
-
         return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }
 
@@ -97,8 +93,6 @@ public class HouseMonitoringController {
      * in the house area in a given period.
      */
     public Date getLastColdestDayInInterval(AreaSensor closestAreaSensor, Date startDate, Date endDate, GeographicAreaService geographicAreaService) {
-
-
         return geographicAreaService.getLastColdestDayInGivenInterval(closestAreaSensor, startDate, endDate);
     }
 
@@ -109,11 +103,12 @@ public class HouseMonitoringController {
      **/
 
     public Date getFirstHottestDayInPeriod(AreaSensor closestAreaSensor, Date startDate, Date endDate, GeographicAreaService geographicAreaService) {
-
         return geographicAreaService.getFirstHottestDayInGivenPeriod(closestAreaSensor, startDate, endDate);
     }
 
-
+    public Double getReadingValueInGivenDay(AreaSensor closestAreaSensor, Date givenDate, GeographicAreaService geographicAreaService){
+        return geographicAreaService.getReadingValueOfGivenDay(closestAreaSensor,givenDate);
+    }
 
 
     /* US 633 - Controller Methods

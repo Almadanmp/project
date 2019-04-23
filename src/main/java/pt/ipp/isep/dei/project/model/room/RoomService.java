@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -575,7 +574,10 @@ public class RoomService {
      */
 
     public double getCurrentRoomTemperature(Room room) {
-        List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        if (room != null) {
+            roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
+        }
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(NO_TEMP_READINGS);
@@ -618,7 +620,7 @@ public class RoomService {
 
             if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
                 if (sensor.readingExists(readingDate)) {
-                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                             + sensor.getId() + " wasn't added because it already exists.");
                     return false;
                 }
@@ -627,11 +629,11 @@ public class RoomService {
                 updateSensor(sensor);
                 return true;
             }
-            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+            logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                     + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
             return false;
         }
-        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
         return false;
     }
 

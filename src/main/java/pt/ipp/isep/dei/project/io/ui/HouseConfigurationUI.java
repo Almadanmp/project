@@ -63,27 +63,27 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS15v2(geographicAreaService);
-                    activeInput = false;
-                    break;
-                case 2:
                     runUS100(house, energyGridService, houseRepository, roomService);
                     activeInput = false;
                     break;
-                case 3:
+                case 2:
                     runUS101(house, geographicAreaService, houseRepository);
                     activeInput = false;
                     break;
-                case 4:
+                case 3:
                     runUS105(house, roomService, energyGridService);
                     activeInput = false;
                     break;
-                case 5:
+                case 4:
                     runUS108(roomService);
                     activeInput = false;
                     break;
-                case 6:
+                case 5:
                     runUS260(roomService);
+                    activeInput = false;
+                    break;
+                case 6:
+                    runUS265(roomService);
                     activeInput = false;
                     break;
                 case 7:
@@ -98,25 +98,7 @@ class HouseConfigurationUI {
             }
         }
     }
-    // USER STORY 15v.2 - As an Administrator, I want to import Geographic Areas and Sensors from a JSON file and a XML file.
 
-
-    /**
-     * As an Administrator, I want to import Geographic Areas and Sensors from a JSON or XML file.
-     * <p>
-     * list is the static, program list of geographic areas that comes from mainUI.
-     */
-
-    private void runUS15v2(GeographicAreaService geographicAreaService) {
-        ReaderController ctrl = new ReaderController();
-        InputHelperUI input = new InputHelperUI();
-        System.out.println(FILE_LOCATION);
-        Scanner scanner = new Scanner(System.in);
-        String result = scanner.next();
-        String filePath = input.getInputPathJsonOrXML(result);
-        int areas = ctrl.acceptPath(filePath, geographicAreaService);
-        System.out.println(areas + " Geographic Areas have been successfully imported.");
-    }
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 

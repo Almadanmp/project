@@ -107,9 +107,9 @@ class CustomFormatterTest {
     @Test
     void seeIfFormatWorks() {
         //Arrange
-        LogRecord logRecord = new LogRecord(Level.WARNING, "test warning");
+        LogRecord logRecord = new LogRecord(Level.FINE, "test warning");
         String date = validDateFormat.format(new Date(logRecord.getMillis()));
-        String expectedResult = date + " - [null.null] - [WARNING] - test warning\n";
+        String expectedResult = date + " - [null.null] - [FINE] - test warning\n";
 
         // Act
         String result = validFormatter.format(logRecord);
@@ -121,7 +121,7 @@ class CustomFormatterTest {
     @Test
     void seeIfFormatFailsWrongString() {
         //Arrange
-        LogRecord logRecord = new LogRecord(Level.WARNING, "test warning");
+        LogRecord logRecord = new LogRecord(Level.FINE, "test warning");
         String date = validDateFormat.format(new Date(logRecord.getMillis()));
         String expectedResult = date + " - [null.null] - [INFO] - test warning\n";
 

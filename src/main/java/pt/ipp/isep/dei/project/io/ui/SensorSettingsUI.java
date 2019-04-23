@@ -32,8 +32,8 @@ class SensorSettingsUI {
 
     void run(GeographicAreaService geographicAreaService, SensorTypeService sensorTypeList) {
         if (geographicAreaService.isEmpty()) {
-            System.out.println(UtilsUI.INVALID_GA_LIST);
-            return;
+       //     System.out.println(UtilsUI.INVALID_GA_LIST);
+         //   return;
         }
 
         boolean activeInput = true;
@@ -84,7 +84,8 @@ class SensorSettingsUI {
         System.out.print("Enter the sensor type's name: ");
         String name = InputHelperUI.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
-        String unit = InputHelperUI.getInputStringAlphabetCharOnly();
+        Scanner scan = new Scanner(System.in);
+        String unit =  scan.nextLine();
         return controller.createType(sensorTypeList, name, unit);
     }
 

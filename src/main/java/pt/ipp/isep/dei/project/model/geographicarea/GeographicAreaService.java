@@ -2,18 +2,23 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.reader.CustomFormatter;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -102,8 +107,12 @@ public class GeographicAreaService {
      */
     public GeographicArea createGA(String newName, String areaTypeName, double length, double width, Local local) {
         AreaType areaType = getAreaTypeByName(areaTypeName);
-        areaTypeRepository.save(areaType);
-        return new GeographicArea(newName, areaType, length, width, local);
+        if (areaType != null) {
+            // areaTypeRepository.save(areaType);
+            return new GeographicArea(newName, areaType, length, width, local);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
@@ -163,11 +172,38 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private AreaType getAreaTypeByName(String name) {
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
         Optional<AreaType> value = areaTypeRepository.findByName(name);
-        return value.orElseGet(() -> new AreaType(name));
+        if (!(value.isPresent())) {
+            logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
+                    "Type first.");
+            LogUtils.closeHandlers(logger);
+            return null;
+        } else {
+            LogUtils.closeHandlers(logger);
+            return value.orElseGet(() -> new AreaType(name));
+        }
     }
 
-
+    /**
+     * This method creates a Logger.
+     *
+     * @param logPath log file path.
+     * @return object of class Logger.
+     **/
+    private Logger getLogger(String logPath) {
+        Logger logger = Logger.getLogger(GeographicAreaService.class.getName());
+        try {
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            logger.setLevel(Level.WARNING);
+        } catch (IOException io) {
+            io.getMessage();
+        }
+        return logger;
+    }
     //METHODS FROM AREA SENSOR REPOSITORY
 
     /**
@@ -388,9 +424,13 @@ public class GeographicAreaService {
                                        Long geographicAreaId) {
 
         SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
-        sensorTypeRepository.save(sensorType);
+        if (sensorType != null) {
+            // sensorTypeRepository.save(sensorType);
+            return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
+        } else {
+            throw new IllegalArgumentException();
+        }
 
-        return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
     }
 
     /**
@@ -400,8 +440,16 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private SensorType getTypeSensorByName(String name, String unit) {
+        Logger logger = getLogger("resources/logs/sensorTypeLogHtml.html");
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
-        return value.orElseGet(() -> new SensorType(name, unit));
+        if (!(value.isPresent())) {
+            logger.warning("The Sensor Type " + name + " does not yet exist in the Data Base. Please create the Sensor" +
+                    "Type first.");
+            return null;
+        } else {
+            return value.orElseGet(() -> new SensorType(name, unit));
+        }
+
     }
 
     private double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
@@ -443,8 +491,9 @@ public class GeographicAreaService {
         if (sensor != null && areaSensorExistsInRepository(sensor.getId())) {
             if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
                 if (sensor.readingExists(readingDate)) {
-                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                             + sensor.getId() + " wasn't added because it already exists.");
+                    LogUtils.closeHandlers(logger);
                     return false;
                 }
                 Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
@@ -452,11 +501,13 @@ public class GeographicAreaService {
                 updateSensor(sensor);
                 return true;
             }
-            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+            logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                     + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+            LogUtils.closeHandlers(logger);
             return false;
         }
-        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        LogUtils.closeHandlers(logger);
         return false;
     }
 
@@ -472,18 +523,13 @@ public class GeographicAreaService {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(AreaSensor areaSensor, Date initialDate, Date finalDate) {
-
         List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, initialDate, finalDate);
-
         if (readingsBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
         List<Reading> listOfMaxValuesForEachDay = ReadingUtils.getListOfMaxValuesForEachDay(readingsBetweenDates);
-
         double minValueInList = ReadingUtils.getMinValueInReadingList(listOfMaxValuesForEachDay);
-
         List<Reading> readingsWithSpecificValue = ReadingUtils.getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
-
         return ReadingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
     }
 
@@ -502,7 +548,7 @@ public class GeographicAreaService {
                 finalList.add(r);
             }
         }
-        return result;
+        return finalList;
     }
 
 
@@ -642,5 +688,10 @@ public class GeographicAreaService {
         return maxTemp - lowestTemp;
     }
 
+    public Double getReadingValueOfGivenDay(AreaSensor areaSensor, Date date) {
 
+        List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, date, date);
+        List<Double> reading = ReadingUtils.getValuesOfSpecificDayReadings(readingsBetweenDates, date);
+        return Collections.max(reading);
+    }
 }

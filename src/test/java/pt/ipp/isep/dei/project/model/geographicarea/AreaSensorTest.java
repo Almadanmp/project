@@ -75,7 +75,7 @@ class AreaSensorTest {
 
         // Act
 
-        Date actualResult = areaSensor.getDateStartedFunctioning();
+        Object actualResult = areaSensor.getDateStartedFunctioning();
 
         // Assert
 
@@ -149,6 +149,65 @@ class AreaSensorTest {
     }
 
     @Test
+    void seeIfGetAreaReadings() {
+        //Arrange
+
+        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+        Reading firstValidReading = new Reading(31, date, "C", "Test");
+        List<Reading> readingList = new ArrayList<>();
+
+        //Act
+
+        validAreaSensor.getAreaReadings().add(firstValidReading);
+        readingList.add(firstValidReading);
+
+        //Assert
+
+        assertEquals(readingList, validAreaSensor.getAreaReadings());
+    }
+
+    @Test
+    void seeIfReadingExists() {
+        //Arrange
+
+        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+        Reading firstValidReading = new Reading(31, date, "C", "Test");
+
+        //Act
+        validAreaSensor.getAreaReadings().add(firstValidReading);
+
+        //Assert
+
+        assertTrue(validAreaSensor.readingExists(date));
+    }
+
+    @Test
+    void seeIfReadingExistsSameDate() {
+        //Arrange
+
+        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+        Reading firstValidReading = new Reading(31, date, "C", "Test");
+
+        //Act
+        validAreaSensor.getAreaReadings().add(firstValidReading);
+
+        //Assert
+
+        assertTrue(validAreaSensor.readingExists(new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime()));
+    }
+
+    @Test
+    void seeIfReadingDoNotExists() {
+        //Arrange
+
+        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+
+        //Assert
+
+        assertFalse(validAreaSensor.readingExists(date));
+    }
+
+    @Test
     void seeIfNullSensorNameThrowsStringMessage() {
         // Act
 
@@ -212,6 +271,17 @@ class AreaSensorTest {
         // Act
 
         boolean actualResult = validAreaSensor.equals(testAreaSensor);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfEqualsWorksTrueSameObject() {
+        // Act
+
+        boolean actualResult = validAreaSensor.equals(validAreaSensor);
 
         // Assert
 
@@ -929,27 +999,7 @@ class AreaSensorTest {
 
     //TODO Review commented tests
 
-//    @Test
-//    void seeIfAddReadingWorksValueDate() {
-//        // Arrange
-//
-//        Date validDate1 = new GregorianCalendar(2016, Calendar.NOVEMBER, 15).getTime();
-//        Date outOfBoundsDate = new GregorianCalendar(2014, Calendar.NOVEMBER, 15).getTime();
-//        Date dateSensorStartedFunctioning = new GregorianCalendar(2015, Calendar.NOVEMBER, 15).getTime();
-//        validAreaSensor.setDateStartedFunctioning(dateSensorStartedFunctioning);
-//        ReadingList expectedResultList = new ReadingList();
-//        expectedResultList.addReading(new Reading(23.3, validDate1, "C","TEST"));
-//
-//        // Act
-//
-//        boolean actualResult = validAreaSensor.addReading(validDate1, 23.3, "C","TEST");
-//        boolean actualResultFailed = validAreaSensor.addReading(outOfBoundsDate, 31D, "C","TEST");
-//
-//        //Assert
-//
-//        Assertions.assertTrue(actualResult);
-//        assertFalse(actualResultFailed);
-//    }
+
 //
 //    @Test
 //    void seeIfAddReadingsWorksValueDate() {

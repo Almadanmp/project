@@ -306,16 +306,19 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS631(House house, Date startDate, Date endDate, GeographicAreaService geographicAreaService) {
         Date dateUS631;
         AreaSensor closestSensorToHouse;
+        Double temperatureValue;
         try {
             closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, geographicAreaService, TEMPERATURE);
             dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(closestSensorToHouse, startDate, endDate, geographicAreaService);
+            temperatureValue = houseMonitoringController.getReadingValueInGivenDay(closestSensorToHouse,dateUS631,geographicAreaService);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
         }
 
         String formattedUS631Date = DateUtils.formatDateNoTime(dateUS631);
-        UtilsUI.printBox("The first day with the hottest temperature in the given", "period was " + formattedUS631Date + ".");
+        UtilsUI.printBox("The first day with the hottest temperature in the given", "period was " + formattedUS631Date
+                + ". The temperature on that day was " + temperatureValue);
     }
 
     /* US633:  As Regular User, I want to get the day with the highest temperature amplitude in the house area in a
