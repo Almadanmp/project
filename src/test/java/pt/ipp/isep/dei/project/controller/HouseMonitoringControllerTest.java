@@ -449,206 +449,35 @@ class HouseMonitoringControllerTest {
 
     }
 
-//    @Test
-//    void seeIfGetLastColdestDayInIntervalWorks() {
-//        // Arrange
-//
-//        validHouse.setMotherArea(validHouseArea);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        ReadingService readingService = new ReadingService();
-//        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
-//        Reading reading2 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 1, 14, 30).getTime(), "C", "TEST");
-//        Reading reading3 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 2, 11, 30).getTime(), "C", "TEST");
-//        Reading reading4 = new Reading(29, new GregorianCalendar(2018, Calendar.JULY, 2, 16, 30).getTime(), "C", "TEST");
-//        Reading reading5 = new Reading(34, new GregorianCalendar(2018, Calendar.JULY, 3, 9, 30).getTime(), "C", "TEST");
-//        Reading reading6 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 30).getTime(), "C", "TEST");
-//        Reading reading7 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 4, 10, 30).getTime(), "C", "TEST");
-//        Reading reading8 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 4, 15, 30).getTime(), "C", "TEST");
-//        Reading reading9 = new Reading(12, new GregorianCalendar(2018, Calendar.JULY, 5, 11, 30).getTime(), "C", "TEST");
-//        Reading reading10 = new Reading(15, new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), "C", "TEST");
-//        Reading reading11 = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 30).getTime(), "C", "TEST");
-//        Reading reading12 = new Reading(19, new GregorianCalendar(2018, Calendar.JULY, 6, 23, 35).getTime(), "C", "TEST");
-//        Reading reading13 = new Reading(20, new GregorianCalendar(2018, Calendar.JULY, 7, 10, 30).getTime(), "C", "TEST");
-//        Reading reading14 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 7, 14, 30).getTime(), "C", "TEST");
-//        Reading reading15 = new Reading(26, new GregorianCalendar(2018, Calendar.JULY, 8, 9, 30).getTime(), "C", "TEST");
-//        Reading reading16 = new Reading(22, new GregorianCalendar(2018, Calendar.JULY, 8, 10, 30).getTime(), "C", "TEST");
-//        Reading reading17 = new Reading(21, new GregorianCalendar(2018, Calendar.JULY, 9, 13, 30).getTime(), "C", "TEST");
-//        Reading reading18 = new Reading(25, new GregorianCalendar(2018, Calendar.JULY, 9, 15, 30).getTime(), "C", "TEST");
-//        Reading reading19 = new Reading(32, new GregorianCalendar(2018, Calendar.JULY, 10, 10, 30).getTime(), "C", "TEST");
-//        Reading reading20 = new Reading(31, new GregorianCalendar(2018, Calendar.JULY, 10, 15, 30).getTime(), "C", "TEST");
-//        readingService.addReading(reading1);
-//        readingService.addReading(reading2);
-//        readingService.addReading(reading3);
-//        readingService.addReading(reading4);
-//        readingService.addReading(reading5);
-//        readingService.addReading(reading6);
-//        readingService.addReading(reading7);
-//        readingService.addReading(reading8);
-//        readingService.addReading(reading9);
-//        readingService.addReading(reading10);
-//        readingService.addReading(reading11);
-//        readingService.addReading(reading12);
-//        readingService.addReading(reading13);
-//        readingService.addReading(reading14);
-//        readingService.addReading(reading15);
-//        readingService.addReading(reading16);
-//        readingService.addReading(reading17);
-//        readingService.addReading(reading18);
-//        readingService.addReading(reading19);
-//        readingService.addReading(reading20);
-//        validTemperatureAreaSensor.setReadingService(readingService);
-//
-//        // Act
-//
-//        Date actualResult = controller.getLastColdestDayInInterval(validHouse, (new GregorianCalendar(2018, Calendar.JULY, 1, 5, 0).getTime()), new GregorianCalendar(2018, Calendar.JULY, 10, 23, 0).getTime(), validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(new GregorianCalendar(2018, Calendar.JULY, 5, 19, 30).getTime(), actualResult);
-//    }
+    @Test
+    void seeIfGetLastColdestDayInIntervalWorks() {
+        // Arrange
 
-    /**
-     * Tests for getFirstHottestDayInPeriod
-     * <p>
-     * Given a valid set of readings in tested period:
-     * Given a valid set of readings in tested period, multiple days have the highest temperature:
-     * -Should return the first day with highest temperature
-     */
+        validHouse.setMotherArea(validHouseArea);
 
-//    @Test
-//    void testGetFirstHottestDayInPeriod() {
-//        // Arrange
-//
-//        Reading r01 = new Reading(20, validDate01, "C", "TEST"); // MaxAmplitude First Date
-//        Reading r02 = new Reading(1, validDate02, "C", "TEST"); // MaxAmplitude First Date
-//        Reading r03 = new Reading(22, validDate03, "C", "TEST");
-//        Reading r04 = new Reading(10, validDate04, "C", "TEST"); // Cold First Date
-//        Reading r05 = new Reading(40, validDate05, "C", "TEST");
-//        Reading r06 = new Reading(40.2, validDate06, "C", "TEST"); // Hottest First Date
-//        Reading r07 = new Reading(10.2, validDate07, "C", "TEST");
-//        Reading r08 = new Reading(12, validDate08, "C", "TEST");
-//        Reading r09 = new Reading(40.2, validDate09, "C", "TEST"); // Hottest Final Date ALSO MaxAmplitude Final Date
-//        Reading r10 = new Reading(21.2, validDate10, "C", "TEST"); // Cold Final Date ALSO MaxAmplitude Final Date
-//
-//        validTemperatureAreaSensor.addReading(r01);
-//        validTemperatureAreaSensor.addReading(r02);
-//        validTemperatureAreaSensor.addReading(r03);
-//        validTemperatureAreaSensor.addReading(r04);
-//        validTemperatureAreaSensor.addReading(r05);
-//        validTemperatureAreaSensor.addReading(r06);
-//        validTemperatureAreaSensor.addReading(r07);
-//        validTemperatureAreaSensor.addReading(r08);
-//        validTemperatureAreaSensor.addReading(r09);
-//        validTemperatureAreaSensor.addReading(r10);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        Date expectedResult = validDate06;
-//
-//        // Act
-//
-//        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        // Act
 
-    /**
-     * Given a valid set of unorganized readings in tested period:
-     * -Should return the first day with highest temperature
-     */
+        Date actualResult = controller.getLastColdestDayInInterval(validTemperatureAreaSensor, validDate01, validDate06, geographicAreaService);
 
-//    @Test
-//    void testGetFirstHottestDayInPeriod2() {
-//        // Arrange
-//
-//        Reading r02 = new Reading(1, validDate02, "C", "TEST"); // MaxAmplitude First Date
-//        Reading r03 = new Reading(22, validDate03, "C", "TEST");
-//        Reading r04 = new Reading(10, validDate04, "C", "TEST"); // Cold First Date
-//        Reading r05 = new Reading(40, validDate05, "C", "TEST");
-//        Reading r07 = new Reading(10.2, validDate07, "C", "TEST");
-//        Reading r08 = new Reading(12, validDate08, "C", "TEST");
-//        Reading r06 = new Reading(40.2, validDate06, "C", "TEST"); // Hottest First Date
-//        Reading r09 = new Reading(40.2, validDate09, "C", "TEST"); // Hottest Final Date ALSO MaxAmplitude Final Date
-//        Reading r10 = new Reading(21.2, validDate10, "C", "TEST"); // Cold Final Date ALSO MaxAmplitude Final Date
-//        Reading r01 = new Reading(40, validDate01, "C", "TEST"); // MaxAmplitude First Date
-//
-//        validTemperatureAreaSensor.addReading(r02);
-//        validTemperatureAreaSensor.addReading(r03);
-//        validTemperatureAreaSensor.addReading(r04);
-//        validTemperatureAreaSensor.addReading(r05);
-//        validTemperatureAreaSensor.addReading(r07);
-//        validTemperatureAreaSensor.addReading(r08);
-//        validTemperatureAreaSensor.addReading(r06);
-//        validTemperatureAreaSensor.addReading(r09);
-//        validTemperatureAreaSensor.addReading(r10);
-//        validTemperatureAreaSensor.addReading(r01);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        Date expectedResult = validDate06;
-//
-//        // Act
-//
-//        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate10, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        // Assert
 
-//    @Test
-//    void testGetFirstHottestDayInPeriodIfUnorganizedReadings() {
-//        // Arrange
-//
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        Date expectedResult = validDate4;
-//
-//        // Act
-//
-//        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate4, validDate2, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        assertEquals(validDate5, actualResult);
+    }
 
-    /**
-     * Given a valid set of readings in tested period, a given day has multiple readings and one of them is the highest
-     * temperature:
-     * -Should return the day with highest temperature
-     */
+    @Test
+    void testGetFirstHottestDayInPeriod() {
+        // Arrange
 
-//    @Test
-//    void testGetFirstHottestDayMultipleReadingsSameDay() {
-//        // Arrange
-//
-//        Reading r20 = new Reading(20, validDate20, "C", "TEST");
-//        Reading r21 = new Reading(22, validDate21, "C", "TEST");
-//        Reading r22 = new Reading(30, validDate22, "C", "TEST");
-//        Reading r23 = new Reading(25, validDate23, "C", "TEST");
-//        Reading r24 = new Reading(21, validDate24, "C", "TEST");
-//        Reading r25 = new Reading(20, validDate25, "C", "TEST");
-//        validTemperatureAreaSensor.addReading(r20);
-//        validTemperatureAreaSensor.addReading(r21);
-//        validTemperatureAreaSensor.addReading(r22);
-//        validTemperatureAreaSensor.addReading(r23);
-//        validTemperatureAreaSensor.addReading(r24);
-//        validTemperatureAreaSensor.addReading(r25);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//
-//        // Act
-//
-//        Date expectedResult = validDate22;
-//        Date actualResult = controller.getFirstHottestDayInPeriod(validHouse, validDate20, validDate25, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        Date expectedResult = validDate4;
 
+        // Act
 
-    /**
-     * Given a valid house with sensor without readings:
-     * -Should return message to User
-     */
+        Date actualResult = controller.getFirstHottestDayInPeriod(validTemperatureAreaSensor, validDate01, validDate06, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
 //    @Test
 //    void testGetFirstHottestDayInPeriodThrowsExceptionMessage() {
