@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
@@ -14,6 +15,7 @@ import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,10 +23,23 @@ class GASettingsUI {
     private GASettingsController gaController;
     private ReaderController readerController;
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
+    private List<String> menuOptions;
 
     GASettingsUI() {
         this.gaController = new GASettingsController();
         this.readerController = new ReaderController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Create a new type of Geographical Area. (US001)");
+        menuOptions.add("List the existing types of Geographical Areas. (US002)");
+        menuOptions.add("Add a new geographical area. (US003)");
+        menuOptions.add("List of existing geographical areas of a given type. (US004)");
+        menuOptions.add("Add an existing geographical area to another one. (US007)");
+        menuOptions.add("See if a geographical area is included, directly or indirectly, in another one. (US008)");
+        menuOptions.add("Activate or deactivate a sensor (US010)");
+        menuOptions.add("Remove a sensor from the Geographical Area. (US011)");
+        menuOptions.add("Import Geographic Areas and Sensors from a JSON or XML file.(US15v3)");
+        menuOptions.add("Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v3)");
+        menuOptions.add("(Return to main menu)");
     }
 
     void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
@@ -32,7 +47,7 @@ class GASettingsUI {
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
         while (activeInput) {
-            printOptionMessage();
+            MenuFormatter.showMenu("Geographic Area Settings", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
@@ -439,22 +454,5 @@ class GASettingsUI {
         String filePath = input.getInputPathJsonOrXML(result);
         int areas = readerController.acceptPath(filePath, geographicAreaService);
         System.out.println(areas + " Geographic Areas have been successfully imported.");
-    }
-
-
-    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
-    private void printOptionMessage() {
-        System.out.println("Geographic Settings Options:\n");
-        System.out.println("1) Create a new type of Geographical Area. (US001)");
-        System.out.println("2) List the existing types of Geographical Areas. (US002)");
-        System.out.println("3) Add a new geographical area. (US003)");
-        System.out.println("4) List of existing geographical areas of a given type. (US004)");
-        System.out.println("5) Add an existing geographical area to another one. (US007)");
-        System.out.println("6) See if a geographical area is included, directly or indirectly, in another one. (US008)");
-        System.out.println("7) Deactivate or activate a sensor (US010)");
-        System.out.println("8) Remove a sensor from the Geographical Area. (US011)");
-        System.out.println("9) Import Geographic Areas and Sensors from a JSON or XML file.(US15v3)");
-        System.out.println("10) Import Geographic Area Sensor Readings from a file - json, xml, csv. (US20v3)");
-        System.out.println("0) (Return to main menu)\n");
     }
 }

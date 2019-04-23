@@ -119,9 +119,8 @@ public final class MenuFormatter {
 
         // The space to the left of the option is a fixed number of 5 characters with whitespace + index, so we subtract that.
 
-        // TODO This will possibly break with more than 10 options because the double digits break the alignment. Test / solve that.
-
         int whiteSpaceToRightOfLine = whiteSpaceInLine - 5;
+        if (indexOnPrintedList >= 10){whiteSpaceToRightOfLine = whiteSpaceInLine - 6;}
 
         String optionLine = BOX_MARGIN + VERTICAL_LINE_BOX_CHARACTER + "  " + formattedLine + repeatString(" ", whiteSpaceToRightOfLine) + VERTICAL_LINE_BOX_CHARACTER;
         System.out.println(optionLine);
