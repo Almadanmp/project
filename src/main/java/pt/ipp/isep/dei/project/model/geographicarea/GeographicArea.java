@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,6 +66,7 @@ public class GeographicArea {
         this.length = length;
         this.width = width;
         this.location = location;
+        this.areaSensors = new ArrayList<>();
     }
 
     /**

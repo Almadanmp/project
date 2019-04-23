@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,7 +61,8 @@ public class ReaderXMLGeoArea {
                 result = geographicAreaService.addAndPersistGA(areaObject);
                 if (result) {
                     for (int j = 0; j < nListSensor.getLength(); j++) {
-                        geographicAreaService.addAreaSensorToDb(readSensorsXML(nListSensor.item(j), areaObject, geographicAreaService));
+                        readSensorsXML(nListSensor.item(j), areaObject,
+                                geographicAreaService);
                     }
                 }
             } catch (IllegalArgumentException ignored) {
@@ -98,8 +98,12 @@ public class ReaderXMLGeoArea {
             } catch (ParseException expected) {
                 expected.getErrorOffset();
             }
-            areaSensor = geographicAreaService.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date, gaID);
-            areaSensor.setGeographicAreaId(geographicArea.getId());
+            try {
+                areaSensor = geographicAreaService.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date, gaID);
+                geographicArea.addSensor(areaSensor);
+                areaSensor.setGeographicAreaId(geographicArea.getId());
+            } catch (IllegalArgumentException ignored) {
+            }
         }
         return areaSensor;
     }

@@ -108,7 +108,7 @@ public class GeographicAreaService {
     public GeographicArea createGA(String newName, String areaTypeName, double length, double width, Local local) {
         AreaType areaType = getAreaTypeByName(areaTypeName);
         if (areaType != null) {
-            areaTypeRepository.save(areaType);
+            // areaTypeRepository.save(areaType);
             return new GeographicArea(newName, areaType, length, width, local);
         } else {
             throw new IllegalArgumentException();
@@ -424,9 +424,13 @@ public class GeographicAreaService {
                                        Long geographicAreaId) {
 
         SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
-        sensorTypeRepository.save(sensorType);
+        if (sensorType != null) {
+            // sensorTypeRepository.save(sensorType);
+            return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
+        } else {
+            throw new IllegalArgumentException();
+        }
 
-        return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
     }
 
     /**
@@ -436,8 +440,16 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private SensorType getTypeSensorByName(String name, String unit) {
+        Logger logger = getLogger("resources/logs/sensorTypeLogs.log");
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
-        return value.orElseGet(() -> new SensorType(name, unit));
+        if (!(value.isPresent())) {
+            logger.warning("The Sensor Type " + name + " does not yet exist in the Data Base. Please create the Sensor" +
+                    "Type first.");
+            return null;
+        } else {
+            return value.orElseGet(() -> new SensorType(name, unit));
+        }
+
     }
 
     private double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
