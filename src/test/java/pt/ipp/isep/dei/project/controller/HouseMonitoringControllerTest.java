@@ -241,7 +241,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
         // Arrange
 
-        double expectedResult = 18;
+        double expectedResult = 12.5;
 
         // Act
 
