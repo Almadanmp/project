@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
 
@@ -53,6 +55,10 @@ public final class GeographicAreaMapper {
 
         GeographicArea resultObject = new GeographicArea(objectName, new AreaType(objectType), objectLength, objectWidth,
                 objectLocal);
+        for(AreaSensorDTO sensorDTO:dtoToConvert.getAreaSensorDTOList()){
+            AreaSensor sensor= AreaSensorMapper.dtoToObject(sensorDTO);
+            resultObject.addSensor(sensor);
+        }
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
 

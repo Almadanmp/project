@@ -461,4 +461,29 @@ class GASettingsUI {
                     "Log for more information");
         }
     }
+
+    private void runUS15v3(GeographicAreaService geographicAreaService) {
+        InputHelperUI inputHelperUI = new InputHelperUI();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter a valid path.");
+        String result = scanner.next();
+        String filePath = inputHelperUI.getInputPathJsonOrXML(result);
+        if (filePath.endsWith(".json")) {
+            importGeoAreasFromJSON(filePath, geographicAreaService);
+        }
+    }
+
+    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService) {
+        int result;
+        List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
+        List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
+        result = addGeoAreasDTOToList(list, geographicAreaService, listSensor);
+        System.out.println(result + " geographic area(s) successfully imported.");
+    }
+
+    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS) {
+        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
+
+    }
+
 }

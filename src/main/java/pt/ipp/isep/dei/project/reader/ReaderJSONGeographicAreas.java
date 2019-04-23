@@ -75,14 +75,17 @@ public class ReaderJSONGeographicAreas implements Reader {
             double areaLongitude = local.getDouble(LONGITUDE);
             double areaAltitude = local.getDouble(ALTITUDE);
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
+            try {
 
-            GeographicArea areaObject = geographicAreaService.createGA(areaID, areaType, areaWidth, areaLength, location);
+                GeographicArea areaObject = geographicAreaService.createGA(areaID, areaType, areaWidth, areaLength, location);
 
-            areaObject.setDescription(areaDescription);
-            JSONArray areaSensors = area.getJSONArray("area_sensor");
-            if (geographicAreaService.addAndPersistGA(areaObject)) {
-                result++;
-                readAreaSensorsJSON(areaSensors, areaObject, geographicAreaService);
+                areaObject.setDescription(areaDescription);
+                JSONArray areaSensors = area.getJSONArray("area_sensor");
+                if (geographicAreaService.addAndPersistGA(areaObject)) {
+                    result++;
+                    readAreaSensorsJSON(areaSensors, areaObject, geographicAreaService);
+                }
+            } catch (IllegalArgumentException ignored) {
             }
         }
         return result;
@@ -120,11 +123,12 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             Long gaID = geographicArea.getId();
+            try {
+                geographicAreaService.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+                entriesChecked++;
 
-            AreaSensor areaSensorObject = geographicAreaService.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
-
-            geographicAreaService.addAreaSensorToDb(areaSensorObject);
-            entriesChecked++;
+            } catch (IllegalArgumentException ignored) {
+            }
         }
     }
 

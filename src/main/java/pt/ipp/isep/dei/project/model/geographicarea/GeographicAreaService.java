@@ -106,7 +106,9 @@ public class GeographicAreaService {
      * @return a new geographic area.
      */
     public GeographicArea createGA(String newName, String areaTypeName, double length, double width, Local local) {
-        AreaType areaType = getAreaTypeByName(areaTypeName);
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
+        AreaType areaType = getAreaTypeByName(areaTypeName, logger);
+        LogUtils.closeHandlers(logger);
         if (areaType != null) {
             // areaTypeRepository.save(areaType);
             return new GeographicArea(newName, areaType, length, width, local);
@@ -171,16 +173,13 @@ public class GeographicAreaService {
      * @param name selected name
      * @return Type Area corresponding to the given id
      */
-    private AreaType getAreaTypeByName(String name) {
-        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
+    private AreaType getAreaTypeByName(String name, Logger logger) {
         Optional<AreaType> value = areaTypeRepository.findByName(name);
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
                     "Type first.");
-            LogUtils.closeHandlers(logger);
             return null;
         } else {
-            LogUtils.closeHandlers(logger);
             return value.orElseGet(() -> new AreaType(name));
         }
     }
@@ -310,7 +309,6 @@ public class GeographicAreaService {
 
         SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
         if (sensorType != null) {
-            // sensorTypeRepository.save(sensorType);
             return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
         } else {
             throw new IllegalArgumentException();

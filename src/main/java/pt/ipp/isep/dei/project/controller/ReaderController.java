@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -128,7 +125,7 @@ public class ReaderController {
      * @param filePath - the path to the file
      * @return - a list of geo areas dto
      */
-    List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath) {
+    public List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath) {
         GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
         return readerJSON.readFile(filePath);
     }
@@ -141,7 +138,7 @@ public class ReaderController {
      * @param list               - the service we want to add the dtos to
      * @return - number of areas added
      */
-    int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
+    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
@@ -149,6 +146,18 @@ public class ReaderController {
             counter++;
         }
         return counter;
+    }
+
+    /**
+     * This is the method that reads geographic area sensors from JSON files and return a list of
+     * area sensor DTO
+     *
+     * @param filePath - the path to the file
+     * @return - a list of geo areas dto
+     */
+    public List<AreaSensorDTO> readFileJSONAreaSensors(String filePath) {
+        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
+        return readerJSON.readAreaSensorDTOS(filePath);
     }
 
 
