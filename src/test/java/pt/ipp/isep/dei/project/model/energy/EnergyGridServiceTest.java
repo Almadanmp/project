@@ -40,7 +40,7 @@ class EnergyGridServiceTest {
     }
 
     @Test
-    void seeIfGetAllGrids() {
+    void seeIfGetAllGridsWorks() {
         // Arrange
         Mockito.when(energyGridRepository.findAll()).thenReturn(null);
 
@@ -48,6 +48,85 @@ class EnergyGridServiceTest {
 
         // Act
         List<EnergyGrid> actualResult = validGridList.getAllGrids();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddGridWorks() {
+        // Arrange
+        String mockId = "Primary Grid";
+
+        Mockito.when(energyGridRepository.findByName(mockId)).thenReturn(firstValidGrid);
+
+        Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+
+        EnergyGrid expectedResult = firstValidGrid;
+
+        // Act
+
+        EnergyGrid actualResult = validGridList.addGrid(firstValidGrid);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddGridWorksNull() {
+        // Arrange
+        String mockId = "Primary Grid";
+
+        Mockito.when(energyGridRepository.findByName(mockId)).thenReturn(null);
+
+        Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+
+        EnergyGrid expectedResult = firstValidGrid;
+
+        // Act
+
+        EnergyGrid actualResult = validGridList.addGrid(firstValidGrid);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    /**
+     * This test tries to have a Grid with powersources and one equal but without them.
+     * Then it saves the grid with powersources in the mockito repository.
+     * Then it saves the grid without PS, to see if by substituting the grid it still keeps the powersources.
+     * The test is positive, meaning it keeps the powersources. We are still not sure if this is
+     * the wanted behaviour, but if it is, it works.
+     */
+
+    @Test
+    void seeIfAddGridWorksAndKeepsPowerSourceList() {
+
+        // Arrange
+        PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
+                15, "12345L");
+
+        List<PowerSource> expectedResult = new ArrayList<>();
+        expectedResult.add(firstPowerSource);
+
+        EnergyGrid firstValidGridWithNoPSList = firstValidGrid;
+
+        firstValidGrid.addPowerSource(firstPowerSource);
+
+        String mockId = "Primary Grid";
+
+        Mockito.when(energyGridRepository.findByName(mockId)).thenReturn(firstValidGrid);
+
+        Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+
+        // Act
+        validGridList.addGrid(firstValidGrid);
+        validGridList.addGrid(firstValidGridWithNoPSList);
+        EnergyGrid copiedGridWithoutPS = energyGridRepository.findByName("Primary Grid");
+
+        List<PowerSource> actualResult = copiedGridWithoutPS.getPowerSourceList();
 
         // Assert
         assertEquals(expectedResult, actualResult);

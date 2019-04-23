@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.controller.utils;
 
-import pt.ipp.isep.dei.project.reader.CustomFormatter;
+import pt.ipp.isep.dei.project.reader.CustomHTMLFormatter;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -25,7 +25,7 @@ public final class LogUtils {
     public static Logger getLogger(String name, String filePath, Level level) {
         Logger logger = Logger.getLogger(name);
         try {
-            CustomFormatter myFormat = new CustomFormatter();
+            CustomHTMLFormatter myFormat = new CustomHTMLFormatter();
             FileHandler fileHandler = new FileHandler(filePath, true);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
