@@ -234,6 +234,19 @@ public class DeviceList {
     }
 
     /**
+     * Adds all devices of a given list to this devices. Skips duplicates.
+     *
+     * @param list is the list we want to add to this devices.
+     */
+    public void addDevicesToThisDeviceList(DeviceList list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (!(this.devices.contains(list.get(i)))) {
+                this.devices.add(list.get(i));
+            }
+        }
+    }
+
+    /**
      * Removes all devices in list from the list given.
      *
      * @param list is the list we want to removeGeographicArea devices from.
