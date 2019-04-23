@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.SensorSettingsController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -11,15 +12,22 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 class SensorSettingsUI {
     private SensorSettingsController controller;
+    private List<String> menuOptions;
 
     SensorSettingsUI() {
         this.controller = new SensorSettingsController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Define a new sensor type. (US05)");
+        menuOptions.add("Add a new sensor and associate it to a geographical area. (US006)");
+        menuOptions.add("Display already defined sensor types.");
+        menuOptions.add("(Return to main menu)");
     }
 
     void run(GeographicAreaService geographicAreaService, SensorTypeService sensorTypeList) {
@@ -34,7 +42,7 @@ class SensorSettingsUI {
         System.out.println("Sensor Settings\n");
         System.out.println("--------------\n");
         while (activeInput) {
-            printOptionMessage();
+            MenuFormatter.showMenu("Sensor Settings", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
@@ -171,14 +179,4 @@ class SensorSettingsUI {
             System.out.println("\nSensor wasn't added to the selected geographic area.");
         }
     }
-
-    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
-    private void printOptionMessage() {
-        System.out.println("Sensor Settings Options:\n");
-        System.out.println("1) Define a new sensor type. (US05)");
-        System.out.println("2) Add a new sensor and associate it to a geographical area. (US006)");
-        System.out.println("3) Display already defined sensor types.");
-        System.out.println("0) (Return to main menu)\n");
-    }
-
 }
