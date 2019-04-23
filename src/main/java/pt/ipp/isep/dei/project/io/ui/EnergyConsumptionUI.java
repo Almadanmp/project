@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -16,6 +17,7 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -26,9 +28,21 @@ class EnergyConsumptionUI {
     private Scanner returnToConsole = new Scanner(System.in);
     private static final String INSERT_START_DATE = "PLEASE INSERT THE START OF THE INTERVAL:";
     private static final String INSERT_END_DATE = "PLEASE INSERT THE END OF THE INTERVAL:";
+    private List<String> menuOptions;
 
     EnergyConsumptionUI() {
         this.controller = new EnergyConsumptionController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Display total nominal power of one of the Energy Grids. (US172)");
+        menuOptions.add("Get total nominal power of a subset of rooms and/or devices connected to a grid." +
+                " (US705)");
+        menuOptions.add("Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
+        menuOptions.add("Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
+        menuOptions.add("Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
+        menuOptions.add("Show data series necessary to design an energy consumption chart of the metered energy " +
+                "consumption of a device/room/grid in a given time interval. (US730)");
+        menuOptions.add("Estimate the total energy used in heating water in a day. (US752)");
+        menuOptions.add("(Return to main menu)");
     }
 
     void run(House house, RoomService roomService, EnergyGridService energyGridService) {
@@ -38,7 +52,7 @@ class EnergyConsumptionUI {
         System.out.println("Energy Consumption Monitoring\n");
         System.out.println("--------------\n");
         while (activeInput) {
-            printOptionMessage();
+            MenuFormatter.showMenu("Energy Consumption Options", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
@@ -421,19 +435,6 @@ class EnergyConsumptionUI {
         }
         double result = controller.getDailyWaterHeaterConsumption(roomService);
         System.out.println("The estimated total energy used in heating water in a day is: " + result + " kW.");
-    }
-
-    private void printOptionMessage() {
-        System.out.println("Energy Consumption Management Options:\n");
-        System.out.println("1) Display total nominal power of one of the Energy Grids. (US172)");
-        System.out.println("2) Get total nominal power of a subset of rooms and/or devices connected to a grid." +
-                " (US705)");
-        System.out.println("3) Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
-        System.out.println("4) Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
-        System.out.println("5) Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
-        System.out.println("6) Show data series necessary to design an energy consumption chart of the metered energy consumption of a device/room/grid in a given time interval. (US730)");
-        System.out.println("7) Estimate the total energy used in heating water in a day. (US752)");
-        System.out.println("0) (Return to main menu)\n");
     }
 
     private void printUS730Menu() {
