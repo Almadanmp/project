@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller.utils;
 
-import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ public final class LogUtils {
     /**
      * Do not allow anyone to instantiate this class.
      */
-    private LogUtils() {
+    LogUtils() {
         throw new UnsupportedOperationException();
     }
 
@@ -23,8 +22,8 @@ public final class LogUtils {
      * @param level is the level of the logger, for instance WARNING.
      * @return is the created Logger.
      */
-    public static Logger getLogger(String filePath, Level level) {
-        Logger logger = Logger.getLogger(ReaderController.class.getName());
+    public static Logger getLogger(String name, String filePath, Level level) {
+        Logger logger = Logger.getLogger(name);
         try {
             CustomFormatter myFormat = new CustomFormatter();
             FileHandler fileHandler = new FileHandler(filePath, true);

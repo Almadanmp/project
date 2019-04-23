@@ -163,7 +163,7 @@ public class ReaderController {
      * @return number of Area Readings added to corresponding Area Sensor
      **/
     public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath, GeographicAreaService geographicAreaService) {
-        Logger logger = LogUtils.getLogger(logPath, Level.FINE);
+        Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
             AreaSensor sensor = geographicAreaService.getById(r.getSensorId());
@@ -189,7 +189,7 @@ public class ReaderController {
      * @return number of Area Readings added to corresponding House Sensor
      **/
     public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath, RoomService roomService) {
-        Logger logger = LogUtils.getLogger(logPath, Level.FINE);
+        Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
             RoomSensor sensor = roomService.getById(r.getSensorId());
