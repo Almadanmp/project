@@ -358,8 +358,10 @@ class RoomSensorTest {
         validRoomSensor.setHouseReadings(readingList);
         //Act
         boolean actualResult = validRoomSensor.readingExists(new GregorianCalendar(2019,Calendar.JANUARY,1).getTime());
+        boolean actualResult1 = validRoomSensor.readingExists(new GregorianCalendar(2018,Calendar.JANUARY,1).getTime());
         //Assert
         assertTrue(actualResult);
+        assertFalse(actualResult1);
     }
 
     @Test
