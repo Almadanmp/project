@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controller;
 
+import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
@@ -8,13 +9,13 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.reader.*;
+import pt.ipp.isep.dei.project.reader.JSONSensorsReader;
+import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
+import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
+import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,28 +29,7 @@ public class HouseConfigurationController {
 
     private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private ReaderController readerController;
-
-    // Common methods
-
-    /**
-     * This method creates a Logger.
-     *
-     * @return object of class Logger.
-     **/
-    private Logger getLogger() {
-        Logger logger = Logger.getLogger(ReaderController.class.getName());
-        try {
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImport.log", true);
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(myFormat);
-            logger.setLevel(Level.WARNING);
-        } catch (IOException io) {
-            io.getMessage();
-        }
-        return logger;
-    }
+    private ReaderController readerController = new ReaderController();
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
@@ -172,7 +152,7 @@ public class HouseConfigurationController {
      */
 
     private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomService) {
-        Logger logger = getLogger(); // Creates the logger for when things go wrong.
+        Logger logger = LogUtils.getLogger("resources/logs/sensorsImport.log", Level.WARNING); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
@@ -186,13 +166,10 @@ public class HouseConfigurationController {
                 rejectedSensors++;
             }
         }
-        Handler[] handlers = logger.getHandlers(); //TODO Included in Issue #235.
-        for (Handler h : handlers) {
-            h.close();
-        }
         int[] result = new int[2];
         result[0] = addedSensors;
         result[1] = rejectedSensors;
+        LogUtils.closeHandlers(logger);
         return result;
     }
 }

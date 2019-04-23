@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.w3c.dom.NodeList;
+import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
@@ -161,7 +162,7 @@ public class ReaderController {
      * @return number of Area Readings added to corresponding Area Sensor
      **/
     public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath, GeographicAreaService geographicAreaService) {
-        Logger logger = getLogger(logPath);
+        Logger logger = LogUtils.getLogger(logPath, Level.WARNING);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
             AreaSensor sensor = geographicAreaService.getById(r.getSensorId());
@@ -172,6 +173,7 @@ public class ReaderController {
                 addedReadings++;
             }
         }
+        LogUtils.closeHandlers(logger);
         return addedReadings;
     }
 
@@ -186,7 +188,7 @@ public class ReaderController {
      * @return number of Area Readings added to corresponding House Sensor
      **/
     public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath, RoomService roomService) {
-        Logger logger = getLogger(logPath);
+        Logger logger = LogUtils.getLogger(logPath, Level.WARNING);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
             RoomSensor sensor = roomService.getById(r.getSensorId());
@@ -197,26 +199,7 @@ public class ReaderController {
                 addedReadings++;
             }
         }
+        LogUtils.closeHandlers(logger);
         return addedReadings;
-    }
-
-    /**
-     * This method creates a Logger.
-     *
-     * @param logPath log file path.
-     * @return object of class Logger.
-     **/
-    private Logger getLogger(String logPath) {
-        Logger logger = Logger.getLogger(ReaderController.class.getName());
-        try {
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler(logPath);
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(myFormat);
-            logger.setLevel(Level.WARNING);
-        } catch (IOException io) {
-            io.getMessage();
-        }
-        return logger;
     }
 }
