@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -11,6 +12,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,9 +24,23 @@ public class HouseMonitoringUI {
     private String was = " was ";
     private static final String RAINFALL = "rainfall";
     private static final String TEMPERATURE = "temperature";
+    private List<String> menuOptions;
 
     public HouseMonitoringUI() {
         this.houseMonitoringController = new HouseMonitoringController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Get Max Temperature in a room in a specific day (US610).");
+        menuOptions.add("Get Current Temperature in a room. (US605).");
+        menuOptions.add("Get Current Temperature in a House Area. (US600)");
+        menuOptions.add("Get The Total Rainfall on a specific day in a House Area. (US620)");
+        menuOptions.add("Get The Average Rainfall on a day interval in a House Area. (US623)");
+        menuOptions.add("Get the Last Coldest Day (lower maximum temperature) in the House" +
+                "Area in a given period. (US630)");
+        menuOptions.add("Get the First Hottest Day (higher maximum temperature) in the House" +
+                "Area in a given period. (US631)");
+        menuOptions.add("Get the day with the highest temperature amplitude in the House Area in a given period." +
+                "(US633)");
+        menuOptions.add("(Return to main menu)");
     }
 
     void run(House house, GeographicAreaService geographicAreaService, RoomService roomService) {
@@ -34,7 +50,7 @@ public class HouseMonitoringUI {
         System.out.println("House Monitoring\n");
         System.out.println("--------------\n");
         while (!activeInput) {
-            printOptionMessage();
+            MenuFormatter.showMenu("House Monitoring", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
@@ -329,24 +345,5 @@ public class HouseMonitoringUI {
         String dateResultFormatted = DateUtils.formatDateNoTime(resultDate633);
         System.out.println("The day with the highest temperature amplitude was " + dateResultFormatted + ", with a" +
                 " temperature amplitude of " + resultValue633 + "ºC.");
-    }
-
-    /**
-     * String Options Display in Menu
-     */
-    private void printOptionMessage() {
-        System.out.println("House Monitoring Options:\n");
-        System.out.println("1) Get Max Temperature in a room in a specific day (US610).");
-        System.out.println("2) Get Current Temperature in a room. (US605).");
-        System.out.println("3) Get Current Temperature in a House Area. (US600)");
-        System.out.println("4) Get The Total Rainfall on a specific day in a House Area. (US620)");
-        System.out.println("5) Get The Average Rainfall on a day interval in a House Area. (US623)");
-        System.out.println("6) Get the Last Coldest Day (lower maximum temperature) in the House" +
-                " Area in a given period. (US630)");
-        System.out.println("7) Get the First Hottest Day (higher maximum temperature) in the House" +
-                " Area in a given period. (US631)");
-        System.out.println("8) Get the day with the highest temperature amplitude in the House Area in a given period."
-                + "(US633)");
-        System.out.println("0) (Return to main menu)\n");
     }
 }
