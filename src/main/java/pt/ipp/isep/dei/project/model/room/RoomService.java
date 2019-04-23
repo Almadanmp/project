@@ -618,7 +618,7 @@ public class RoomService {
 
             if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
                 if (sensor.readingExists(readingDate)) {
-                    logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+                    logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                             + sensor.getId() + " wasn't added because it already exists.");
                     return false;
                 }
@@ -627,11 +627,11 @@ public class RoomService {
                 updateSensor(sensor);
                 return true;
             }
-            logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
+            logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                     + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
             return false;
         }
-        logger.warning("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
         return false;
     }
 

@@ -146,7 +146,7 @@ public class HouseConfigurationController {
      */
 
     private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomService) {
-        Logger logger = LogUtils.getLogger(VALID_LOG_PATH, Level.WARNING); // Creates the logger for when things go wrong.
+        Logger logger = LogUtils.getLogger(VALID_LOG_PATH, Level.FINE); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (HouseSensorDTO importedSensor : importedSensors) {
@@ -155,7 +155,7 @@ public class HouseConfigurationController {
                 roomService.save(HouseSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             } else {
-                logger.warning("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
+                logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
                         + " - there is no room with that ID.");
                 rejectedSensors++;
             }
