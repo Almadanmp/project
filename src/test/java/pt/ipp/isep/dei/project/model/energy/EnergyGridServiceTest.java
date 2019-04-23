@@ -56,9 +56,6 @@ class EnergyGridServiceTest {
     @Test
     void seeIfAddGridWorks() {
         // Arrange
-        String mockId = "Primary Grid";
-
-        Mockito.when(energyGridRepository.findByName(mockId)).thenReturn(firstValidGrid);
 
         Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
@@ -76,9 +73,6 @@ class EnergyGridServiceTest {
     @Test
     void seeIfAddGridWorksNull() {
         // Arrange
-        String mockId = "Primary Grid";
-
-        Mockito.when(energyGridRepository.findByName(mockId)).thenReturn(null);
 
         Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 

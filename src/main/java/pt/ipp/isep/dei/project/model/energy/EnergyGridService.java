@@ -40,10 +40,6 @@ public class EnergyGridService {
     }
 
     public EnergyGrid addGrid(EnergyGrid energyGrid) {
-        EnergyGrid energyGrid1 = energyGridRepository.findByName(energyGrid.getName());
-        if (energyGrid1 != null) {
-            return energyGridRepository.save(energyGrid);
-        }
         return energyGridRepository.save(energyGrid);
     }
 
