@@ -357,20 +357,5 @@ class EnergyGridServiceTest {
 //
 //        assertEquals(1, actualResult2);
 //    }
-
-    @Test
-    void hashCodeDummyTest() {
-        // Arrange
-
-        int expectedResult = 1;
-
-        // Act
-
-        int actualResult = validGridList.hashCode();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
 }
 

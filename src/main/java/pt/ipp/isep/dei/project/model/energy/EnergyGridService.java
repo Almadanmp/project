@@ -120,10 +120,4 @@ public class EnergyGridService {
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, String energyGridId) {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage, energyGridId);
     }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
-
 }
