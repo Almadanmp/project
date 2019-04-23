@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -30,7 +30,7 @@ public class HouseMonitoringController {
 
     public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return roomService.getCurrentRoomTemperature(room);
+        return room.getCurrentRoomTemperature();
     }
 
     /**
@@ -41,7 +41,7 @@ public class HouseMonitoringController {
 
     public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
-        return roomService.getMaxTemperatureOnGivenDay(room, day);
+        return room.getMaxTemperatureOnGivenDay(day);
     }
 
     /**
@@ -65,8 +65,8 @@ public class HouseMonitoringController {
      * @param endDate     is the date where we want to stop measuring average rainfall (upper limit).
      * @author Daniela
      */
-    public double getAverageRainfallInterval(AreaSensor closestAreaSensor, Date initialDate, Date endDate, GeographicAreaService geographicAreaService) {
-        return geographicAreaService.getAverageReadingsBetweenDates(closestAreaSensor, initialDate, endDate);
+    public double getAverageRainfallInterval(AreaSensor closestAreaSensor, Date initialDate, Date endDate) {
+        return closestAreaSensor.getAverageReadingsBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -92,8 +92,8 @@ public class HouseMonitoringController {
      * US630 : As a Regular User, I want to get the last coldest day (lower maximum temperature)
      * in the house area in a given period.
      */
-    public Date getLastColdestDayInInterval(AreaSensor closestAreaSensor, Date startDate, Date endDate, GeographicAreaService geographicAreaService) {
-        return geographicAreaService.getLastColdestDayInGivenInterval(closestAreaSensor, startDate, endDate);
+    public Date getLastColdestDayInInterval(AreaSensor closestAreaSensor, Date startDate, Date endDate) {
+        return closestAreaSensor.getLastColdestDayInGivenInterval(startDate, endDate);
     }
 
     /**
@@ -102,12 +102,12 @@ public class HouseMonitoringController {
      * in the house area in a given period.
      **/
 
-    public Date getFirstHottestDayInPeriod(AreaSensor closestAreaSensor, Date startDate, Date endDate, GeographicAreaService geographicAreaService) {
-        return geographicAreaService.getFirstHottestDayInGivenPeriod(closestAreaSensor, startDate, endDate);
+    public Date getFirstHottestDayInPeriod(AreaSensor closestAreaSensor, Date startDate, Date endDate) {
+        return closestAreaSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
-    public Double getReadingValueInGivenDay(AreaSensor closestAreaSensor, Date givenDate, GeographicAreaService geographicAreaService){
-        return geographicAreaService.getReadingValueOfGivenDay(closestAreaSensor,givenDate);
+    public Double getReadingValueInGivenDay(AreaSensor closestAreaSensor, Date givenDate) {
+        return closestAreaSensor.getReadingValueOfGivenDay(givenDate);
     }
 
 
@@ -115,10 +115,10 @@ public class HouseMonitoringController {
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
-    public AreaSensor getClosesSensorByTypeToHouse(House house, GeographicAreaService geographicAreaService, String sensorType) {
-        List<AreaSensor> areaSensors = geographicAreaService.findByGeoAreaSensorsByID(house.getMotherArea().getId());
+    public AreaSensor getClosesSensorByTypeToHouse(House house, String sensorType) {
+        GeographicArea houseGa = house.getMotherArea();
 
-        return geographicAreaService.getClosestAreaSensorOfGivenType(areaSensors, sensorType, house);
+        return houseGa.getClosestAreaSensorOfGivenType(sensorType, house);
     }
 
     /**
@@ -130,9 +130,9 @@ public class HouseMonitoringController {
      * sensor to the house.
      * @author Daniela (US633)
      */
-    public Date getHighestTempAmplitudeDate(AreaSensor closestAreaSensor, Date initialDate, Date endDate, GeographicAreaService geographicAreaService) {
+    public Date getHighestTempAmplitudeDate(AreaSensor closestAreaSensor, Date initialDate, Date endDate) {
 
-        return geographicAreaService.getDateHighestAmplitudeBetweenDates(closestAreaSensor, initialDate, endDate);
+        return closestAreaSensor.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
     /**
@@ -142,9 +142,9 @@ public class HouseMonitoringController {
      * @return temperature amplitude value
      * @author Daniela (US633)
      */
-    public double getTempAmplitudeValueByDate(AreaSensor closestAreaSensor, Date dateInput, GeographicAreaService geographicAreaService) {
+    public double getTempAmplitudeValueByDate(AreaSensor closestAreaSensor, Date dateInput) {
 
-        return Math.floor(geographicAreaService.getAmplitudeValueFromDate(closestAreaSensor, dateInput) * 10) / 10;
+        return Math.floor(closestAreaSensor.getAmplitudeValueFromDate(dateInput) * 10) / 10;
     }
 
     /**

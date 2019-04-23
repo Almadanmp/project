@@ -171,6 +171,7 @@ class RoomConfigurationControllerTest {
         List<RoomSensor> roomSensorList = new ArrayList<>();
         roomSensorList.add(s1);
         roomSensorList.add(s2);
+        validRoomWithDevices.setAreaSensors(roomSensorList);
         String expectedResult = "---------------\n" +
                 "ID: T1292u37 | SensorOne | Type: Wind | Active\n" +
                 "ID: T1292u37 | SensorTwo | Type: Rain | Active\n" +
@@ -178,7 +179,7 @@ class RoomConfigurationControllerTest {
 
         //Act
 
-        String actualResult = controller.buildSensorListString(roomService, roomSensorList);
+        String actualResult = controller.buildSensorListString(validRoomWithDevices);
 
         //Assert
 

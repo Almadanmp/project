@@ -517,6 +517,7 @@ class RoomServiceTest {
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(secondValidRoomSensor);
         roomSensors.add(thirdValidRoomSensor);
+        validRoom.setAreaSensors(roomSensors);
         String expectedResult = "---------------\n" +
                 "ID: T32876 | SensorTwo | Type: Temperature | Active\n" +
                 "ID: T32877 | SensorThree | Type: Rainfall | Active\n" +
@@ -524,7 +525,7 @@ class RoomServiceTest {
 
         // Act
 
-        String actualResult = validRoomService.buildRoomSensorsAsString(roomSensors);
+        String actualResult = validRoom.buildRoomSensorsAsString();
 
         // Assert
 
@@ -540,7 +541,7 @@ class RoomServiceTest {
 
         // Act
 
-        String actualResult = validRoomService.buildRoomSensorsAsString(roomSensors);
+        String actualResult = validRoom.buildRoomSensorsAsString();
 
         // Assert
 

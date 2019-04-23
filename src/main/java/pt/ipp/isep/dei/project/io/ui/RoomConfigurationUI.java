@@ -384,8 +384,7 @@ class RoomConfigurationUI {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
-        List<RoomSensor> roomSensors = roomService.getAllByRoomId(room.getId());
-        System.out.println(controller.buildSensorListString(roomService, roomSensors));
+        System.out.println(controller.buildSensorListString(room));
     }
 
 

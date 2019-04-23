@@ -71,15 +71,15 @@ public class RoomConfigurationController {
     }
 
 
-    /* USER STORY 253 - As an Administrator, I want to addWithoutPersisting a new sensor to a room from the list of available
+    /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
 
     /**
      * @return builds a string from given sensor list.
      */
 
-    public String buildSensorListString(RoomService roomService, List<RoomSensor> roomSensors) {
-        return roomService.buildRoomSensorsAsString(roomSensors);
+    public String buildSensorListString(Room room) {
+        return room.buildRoomSensorsAsString();
     }
 
     /**
