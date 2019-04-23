@@ -676,5 +676,10 @@ public class GeographicAreaService {
         return maxTemp - lowestTemp;
     }
 
+    public Double getReadingValueOfGivenDay(AreaSensor areaSensor, Date date) {
 
+        List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, date, date);
+        List<Double> reading = ReadingUtils.getValuesOfSpecificDayReadings(readingsBetweenDates, date);
+        return Collections.max(reading);
+    }
 }
