@@ -40,8 +40,8 @@ public class HouseConfigurationController {
     private Logger getLogger() {
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         try {
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImport.log", true);
+            CustomHTMLFormatter myFormat = new CustomHTMLFormatter();
+            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImportHtml.html", true);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             logger.setLevel(Level.WARNING);
@@ -194,53 +194,5 @@ public class HouseConfigurationController {
         result[0] = addedSensors;
         result[1] = rejectedSensors;
         return result;
-    }
-
-
-        /*
-        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
-        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
-        registered in the application log.
-     */
-
-    public void readReadingListFromFile(String filePath, RoomService roomService) {
-        int addedReadings = 0;
-        //If from CSV
-        if (filePath.endsWith(".csv")) {
-            ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
-            try {
-                List<ReadingDTO> list = readerCSV.readFile(filePath);
-                addedReadings = addReadingsToHouseSensors(list, roomService);
-            } catch (IllegalArgumentException illegal) {
-                System.out.println("The CSV file is invalid. Please fix before continuing.");
-            }
-            System.out.println(addedReadings + READINGS_IMPORTED);
-        }
-        //If from JSON
-        else if (filePath.endsWith(".json")) {
-            ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
-            try {
-                List<ReadingDTO> list = readerJSON.readFile(filePath);
-                addedReadings = addReadingsToHouseSensors(list, roomService);
-            } catch (IllegalArgumentException illegal) {
-                System.out.println("The JSON file is invalid. Please fix before continuing.");
-            }
-            System.out.println(addedReadings + READINGS_IMPORTED);
-        }
-        //If from XML
-        else if (filePath.endsWith(".xml")) {
-            ReadingsReaderXML readerXML = new ReadingsReaderXML();
-            try {
-                List<ReadingDTO> list = readerXML.readFile(filePath);
-                addedReadings = addReadingsToHouseSensors(list, roomService);
-            } catch (IllegalArgumentException illegal) {
-                System.out.println("The XML file is invalid. Please fix before continuing.");
-            }
-            System.out.println(addedReadings + READINGS_IMPORTED);
-        }
-    }
-
-    private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
-        return readerController.addReadingsToHouseSensors(readings, VALID_LOG_PATH, roomService);
     }
 }

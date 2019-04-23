@@ -87,10 +87,6 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 7:
-                    runUS265v2(roomService);
-                    activeInput = false;
-                    break;
-                case 8:
                     runUS265(roomService);
                     activeInput = false;
                     break;
@@ -285,18 +281,6 @@ class HouseConfigurationUI {
      */
 
     private void runUS265(RoomService roomService) {
-        InputHelperUI inputHUI = new InputHelperUI();
-        String filePath = inputHUI.getInputJsonXmlCsv();
-        controller.readReadingListFromFile(filePath, roomService);
-    }
-
-    /*
-        US265 As an Administrator, I want to import a list of sensor readings of the house sensors.
-        Data from non-existing sensors or outside the valid sensor operation period shouldn’t be imported but
-        registered in the application log.
-     */
-
-    private void runUS265v2(RoomService roomService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
@@ -345,7 +329,7 @@ class HouseConfigurationUI {
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
-        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingLogs.log", roomService);
+        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingsHtml.html", roomService);
     }
 }
 
