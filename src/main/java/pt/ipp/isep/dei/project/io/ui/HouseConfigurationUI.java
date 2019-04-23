@@ -345,7 +345,7 @@ class HouseConfigurationUI {
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
-        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingLogs.log", roomService);
+        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingsHtml.html", roomService);
     }
 }
 

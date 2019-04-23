@@ -40,8 +40,8 @@ public class HouseConfigurationController {
     private Logger getLogger() {
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         try {
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImport.log", true);
+            CustomHTMLFormatter myFormat = new CustomHTMLFormatter();
+            FileHandler fileHandler = new FileHandler("resources/logs/sensorsImportHtml.html", true);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
             logger.setLevel(Level.WARNING);

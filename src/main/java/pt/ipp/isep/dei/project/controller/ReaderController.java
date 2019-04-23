@@ -209,7 +209,7 @@ public class ReaderController {
     private Logger getLogger(String logPath) {
         Logger logger = Logger.getLogger(ReaderController.class.getName());
         try {
-            CustomFormatter myFormat = new CustomFormatter();
+            CustomHTMLFormatter myFormat = new CustomHTMLFormatter();
             FileHandler fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
