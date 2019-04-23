@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
@@ -66,6 +67,8 @@ class EnergyGridTest {
         validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
         validFridge.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
         validFridge.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
+        Log log = new Log(200, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2019, Calendar.JANUARY, 3).getTime());
+        validFridge.addLog(log);
         validRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "Grid1");
         validRoom.addDevice(validFridge);
         validGrid.addRoom(validRoom);
@@ -88,23 +91,6 @@ class EnergyGridTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-//    @Test
-//    void seeIfGetListOfRoomsWorks() {
-//        // Arrange
-//
-//        String expectedResult = "---------------\n" +
-//                "Office) Designation: Office | Description: 2nd Floor Office | House Floor: 2 | Width: 30.0 | Length: 30.0 | Height: 10.0\n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = validGrid.getRoomList().buildString();
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
 
     @Test
     void seeIfAddPowerSourceToGridWorks() {
@@ -139,31 +125,31 @@ class EnergyGridTest {
         assertFalse(result);
     }
 
-//    @Test
-//    void seeIfRemovesRoom() {
-//        // Act
-//
-//        boolean actualResult = validGrid.removeRoom(validRoom);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
+    @Test
+    void seeIfRemovesRoom() {
+        // Act
 
-//    @Test
-//    void seeIfRemovesRoomFails() {
-//        // Arrange
-//
-//        validGrid.removeRoom(validRoom);
-//
-//        // Act
-//
-//        boolean actualResult = validGrid.removeRoom(validRoom);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
+        boolean actualResult = validGrid.removeRoom(validRoom);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfRemovesRoomFails() {
+        // Arrange
+
+        validGrid.removeRoom(validRoom);
+
+        // Act
+
+        boolean actualResult = validGrid.removeRoom(validRoom);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
 
     @Test
     void seeIfEqualsWorksTrue() {
@@ -229,6 +215,22 @@ class EnergyGridTest {
     }
 
     @Test
+    void seeIfAddRoomToGridDoesNotWork() {
+        // Arrange
+
+        Room testRoom = new Room("Kitchen", "Equipped Kitchen", 1, 20, 20, 10, "Room1", "Grid1");
+
+        // Act
+
+        validGrid.addRoom(testRoom);
+        boolean actualResult = validGrid.addRoom(testRoom);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfEqualsWorksSameObject() {
         // Act
 
@@ -283,37 +285,22 @@ class EnergyGridTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfPrintDevicesWorks() {
-//        // Arrange
-//
-//        String expectedResult = "---------------\n" +
-//                "0) device Name: null, device Type: Fridge, device Nominal Power: 20.0\n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = validGrid.buildDeviceListString();
-//
-//        // Assert
-//
-//        Assertions.assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfPrintDevicesWorks() {
+        // Arrange
 
-//    @Test
-//    void seeIfPrintRoomListWorksEmptyList() {
-//        // Arrange
-//
-//        EnergyGrid emptyGrid = new EnergyGrid("Main Energy Grid Edificio C", 330,"34576");
-//
-//        // Act
-//
-//        String actualResult = emptyGrid.buildRoomListString();
-//
-//        // Assert
-//
-//        assertEquals("Invalid List - List is Empty\n", actualResult);
-//    }
+        String expectedResult = "---------------\n" +
+                "0) device Name: null, device Type: Fridge, device Nominal Power: 20.0\n" +
+                "---------------\n";
+
+        // Act
+
+        String actualResult = validGrid.buildDeviceListString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfEqualsWorksWhenObjectsAreNull() {
@@ -487,34 +474,6 @@ class EnergyGridTest {
         assertEquals(expectedResult, value);
     }
 
-//    @Test
-//    void setRoomList() {
-//        // Arrange
-//        RoomService expectedResult1 = new RoomService();
-//        RoomService expectedResult2 = new RoomService();
-//        RoomService emptyList = new RoomService();
-//        RoomService oneRoomService = new RoomService();
-//
-//        oneRoomService.add(validRoom);
-//        expectedResult2.add(validRoom);
-//
-//        EnergyGrid gridNoRooms1 = new EnergyGrid("noRooms1", 200, "34576");
-//        EnergyGrid gridNoRooms2 = new EnergyGrid("noRooms2", 200, "34576");
-//        EnergyGrid gridNoRooms3 = new EnergyGrid("noRooms3", 200, "34576");
-//
-//        // Act
-//
-//        gridNoRooms1.setRoomService(emptyList);
-//        gridNoRooms2.setRoomService(null);
-//        gridNoRooms3.setRoomService(oneRoomService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult1, gridNoRooms1.getRoomList());
-//        assertEquals(expectedResult1, gridNoRooms2.getRoomList());
-//        assertEquals(expectedResult2, gridNoRooms3.getRoomList());
-//    }
-
     @Test
     void getByIndexWithEmptyDeviceList() {
         //Arrange
@@ -530,71 +489,60 @@ class EnergyGridTest {
         assertEquals("The device list is empty.", exception.getMessage());
     }
 
-//    @Test
-//    void seeIfGetDeviceByIndexWorks() {
-//        //Act
-//
-//        Device actualResult = validGrid.getDeviceByIndex(0);
-//
-//        //Assert
-//
-//        assertEquals(validFridge, actualResult);
-//    }
+    @Test
+    void seeIfGetDeviceByIndexWorks() {
+        //Act
 
-//    @Test
-//    void ListRoomSize() {
-//        //Arrange
-//
-//        EnergyGrid emptyList = new EnergyGrid("noRooms", 200,"34576");
-//
-//        //Act
-//
-//        int actualResult1 = emptyList.roomListSize();
-//
-//        //Assert Empty List
-//
-//        Assertions.assertEquals(0, actualResult1);
-//
-//        //Act
-//
-//        int actualResult2 = validGrid.roomListSize();
-//
-//        //Assert One Grid
-//
-//        Assertions.assertEquals(1, actualResult2);
-//    }
+        Device actualResult = validGrid.getDeviceByIndex(0);
 
-//    @Test
-//    void seeIfGetRoomWorks() {
-//        //Arrange
-//
-//        //Act
-//
-//        Mockito.when(validGrid.getRoom(0)).thenReturn(validRoom2);
-//
-//
-//        Room actualResult1 = validGrid2.getRoom(0);
-//        String actualResultS = actualResult1.getName();
-//
-//        //Assert
-//
-//        assertEquals(validRoom2, actualResult1);
-//    }
+        //Assert
 
-//    @Test
-//    void seeIfGetRoomThrowsException() {
-//        //Arrange
-//
-//        EnergyGrid emptyGrid = new EnergyGrid("noRooms", 330,"34576");
-//
-//        //Act
-//
-//        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyGrid.getRoom(0));
-//
-//        //Assert
-//
-//        assertEquals("The room list is empty.", exception.getMessage());
-//    }
+        assertEquals(validFridge, actualResult);
+    }
+
+    @Test
+    void ListRoomSize() {
+        //Arrange
+
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200, "34576");
+
+        //Act
+
+        int actualResult1 = emptyList.roomListSize();
+
+        //Assert Empty List
+
+        assertEquals(0, actualResult1);
+
+        //Act
+
+        int actualResult2 = validGrid.roomListSize();
+
+        //Assert One Grid
+
+        assertEquals(1, actualResult2);
+    }
+
+    @Test
+    void seeIfGetRoomWorks() {
+        Room actualResult = validGrid.getRoom(0);
+        assertEquals(validRoom, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomThrowsException() {
+        //Arrange
+
+        EnergyGrid emptyGrid = new EnergyGrid("noRooms", 330, "34576");
+
+        //Act
+
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyGrid.getRoom(0));
+
+        //Assert
+
+        assertEquals("The room list is empty.", exception.getMessage());
+    }
 
     @Test
     void seeIfGetNumberOfDevicesWorks() {
@@ -632,23 +580,108 @@ class EnergyGridTest {
         assertFalse(actualResult2);
     }
 
-//    @Test
-//    void seeIfRoomListEmptyWorks() {
-//        //Arrange
-//
-//        EnergyGrid emptyList = new EnergyGrid("noRooms", 200,"34576");
-//
-//        //Act
-//
-//        boolean actualResult1 = emptyList.isRoomListEmpty();
-//        boolean actualResult2 = validGrid.isRoomListEmpty();
-//
-//
-//        //Assert
-//
-//        assertTrue(actualResult1);
-//        assertFalse(actualResult2);
-//
-//    }
+    @Test
+    void seeIfRoomListEmptyWorks() {
+        //Arrange
 
+        EnergyGrid emptyList = new EnergyGrid("noRooms", 200, "34576");
+
+        //Act
+
+        boolean actualResult1 = emptyList.isRoomListEmpty();
+        boolean actualResult2 = validGrid.isRoomListEmpty();
+
+
+        //Assert
+
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+
+    }
+
+    @Test
+    void seeIfGetGridConsumptionInIntervalWorks() {
+        //Act With Consumption
+        double actualResult = validGrid.getGridConsumptionInInterval(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2019, Calendar.JANUARY, 3).getTime());
+        //Act Without Consumption
+        double actualResult1 = validGrid.getGridConsumptionInInterval(new GregorianCalendar(2019, Calendar.JANUARY, 3).getTime(), new GregorianCalendar(2019, Calendar.JANUARY, 4).getTime());
+        //Assert With Consumption
+        assertEquals(200, actualResult);
+        //Assert Without Consumption
+        assertEquals(0, actualResult1);
+    }
+
+    @Test
+    void seeIfBuildEnergyGridRoomsAsStringWorks() {
+        //Arrange
+        EnergyGrid energyGrid = new EnergyGrid();
+        String expectedResult = "---------------\n" +
+                "0) ID: Office | Description: 2nd Floor Office |\n" +
+                "---------------\n";
+        String expectedResult1 = "Invalid List - List is Empty\n";
+        //Act
+        String actualResult = validGrid.buildEnergyGridRoomsAsString();
+        String actualResult1 = energyGrid.buildEnergyGridRoomsAsString();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult1, actualResult1);
+    }
+
+    @Test
+    void seeIfSetAndGetHouseIdWorks() {
+        //Arrange
+        String expectedResult = "House 01";
+        validGrid.setHouseId("House 01");
+        //Act
+        String actualResult = validGrid.getHouseId();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomListWorks() {
+        //Arrange
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(validRoom);
+        //Act
+        List<Room> actualResult = validGrid.getRoomList();
+        //Assert
+        assertEquals(roomList, actualResult);
+    }
+
+    @Test
+    void seeIfSetAndGetNameWorks() {
+        //Arrange
+        String expectedResult = "Grid 01";
+        validGrid.setName("Grid 01");
+        //Act
+        String actualResult = validGrid.getName();
+       //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetRoomsWorks() {
+        //Arrange
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(validRoom);
+        validGrid.setRooms(roomList);
+        //Act
+        Room actualResult = validGrid.getRoom(0);
+        //Assert
+        assertEquals(validRoom, actualResult);
+    }
+
+    @Test
+    void seeIfSetAndGetPowerSourceListWorks() {
+        //Arrange
+        List<PowerSource> powerSourceList = new ArrayList<>();
+        PowerSource powerSource = new PowerSource("Source 01", 10, 30, "12345L");
+        powerSourceList.add(powerSource);
+        validGrid.setPowerSourceList(powerSourceList);
+        //Act
+        List<PowerSource> actualResult = validGrid.getPowerSourceList();
+        //Assert
+        assertEquals(powerSourceList, actualResult);
+    }
 }
