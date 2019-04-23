@@ -8,12 +8,16 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.reader.CustomFormatter;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -102,8 +106,12 @@ public class GeographicAreaService {
      */
     public GeographicArea createGA(String newName, String areaTypeName, double length, double width, Local local) {
         AreaType areaType = getAreaTypeByName(areaTypeName);
-        areaTypeRepository.save(areaType);
-        return new GeographicArea(newName, areaType, length, width, local);
+        if (areaType != null) {
+            areaTypeRepository.save(areaType);
+            return new GeographicArea(newName, areaType, length, width, local);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
@@ -163,11 +171,37 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private AreaType getAreaTypeByName(String name) {
+        Logger logger = getLogger("resources/logs/areaTypeLogs.log");
         Optional<AreaType> value = areaTypeRepository.findByName(name);
-        return value.orElseGet(() -> new AreaType(name));
+
+        if (!(value.isPresent())) {
+            logger.warning("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
+                    "Type first.");
+            return null;
+        } else {
+            return value.orElseGet(() -> new AreaType(name));
+        }
     }
 
-
+    /**
+     * This method creates a Logger.
+     *
+     * @param logPath log file path.
+     * @return object of class Logger.
+     **/
+    private Logger getLogger(String logPath) {
+        Logger logger = Logger.getLogger(GeographicAreaService.class.getName());
+        try {
+            CustomFormatter myFormat = new CustomFormatter();
+            FileHandler fileHandler = new FileHandler(logPath);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(myFormat);
+            logger.setLevel(Level.WARNING);
+        } catch (IOException io) {
+            io.getMessage();
+        }
+        return logger;
+    }
     //METHODS FROM AREA SENSOR REPOSITORY
 
     /**
@@ -642,5 +676,10 @@ public class GeographicAreaService {
         return maxTemp - lowestTemp;
     }
 
+    public Double getReadingValueOfGivenDay(AreaSensor areaSensor, Date date) {
 
+        List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, date, date);
+        List<Double> reading = ReadingUtils.getValuesOfSpecificDayReadings(readingsBetweenDates, date);
+        return Collections.max(reading);
+    }
 }

@@ -36,7 +36,7 @@ public class AreaSensor {
     private Long geographicAreaId;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Reading> areaReadings;
+    private final List<Reading> areaReadings;
 
     private boolean active;
 
