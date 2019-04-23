@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -171,14 +172,15 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private AreaType getAreaTypeByName(String name) {
-        Logger logger = getLogger("resources/logs/areaTypeLogs.log");
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogs.log", Level.FINE);
         Optional<AreaType> value = areaTypeRepository.findByName(name);
-
         if (!(value.isPresent())) {
-            logger.warning("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
+            logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
                     "Type first.");
+            LogUtils.closeHandlers(logger);
             return null;
         } else {
+            LogUtils.closeHandlers(logger);
             return value.orElseGet(() -> new AreaType(name));
         }
     }
@@ -479,6 +481,7 @@ public class GeographicAreaService {
                 if (sensor.readingExists(readingDate)) {
                     logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                             + sensor.getId() + " wasn't added because it already exists.");
+                    LogUtils.closeHandlers(logger);
                     return false;
                 }
                 Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
@@ -488,9 +491,11 @@ public class GeographicAreaService {
             }
             logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                     + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+            LogUtils.closeHandlers(logger);
             return false;
         }
         logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
+        LogUtils.closeHandlers(logger);
         return false;
     }
 
