@@ -502,7 +502,7 @@ public class GeographicAreaService {
                 finalList.add(r);
             }
         }
-        return result;
+        return finalList;
     }
 
 

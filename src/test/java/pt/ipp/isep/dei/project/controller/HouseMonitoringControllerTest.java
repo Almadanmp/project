@@ -252,24 +252,30 @@ class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult, 0.01);
     }
 
-//    @Test
-//    void getAverageRainfallIntervalThrowsExceptionReadingListEmpty() {
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-//            Date day = new Date();
-//            try {
-//                day = validSdf.parse("07/11/2019 10:02:00");
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            controller.getAverageRainfallInterval(validHouse, day, day, validAreaSensorService, readingService);
-//        });
-//
-//        // Assert
-//
-//        assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
-//    }
+    @Test
+    void getAverageRainfallIntervalThrowsExceptionReadingListEmpty() {
+        // Act
+
+        Date day = new Date();
+        try {
+            day = validSdf.parse("07/11/2023 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date initialDay = day;
+        Date day1 = new Date();
+        try {
+            day1 = validSdf.parse("07/12/2023 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalDay = day1;
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->  controller.getAverageRainfallInterval(validTemperatureAreaSensor, initialDay, finalDay, geographicAreaService));
+
+        // Assert
+
+        assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
+    }
 
 //    @Test
 //    void getAverageRainfallIntervalThrowsExceptionReadingListNull() {
