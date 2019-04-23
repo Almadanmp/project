@@ -135,7 +135,7 @@ class ReaderControllerTest {
     void setUpOutput() {
         ByteArrayOutputStream testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
-        logger.setLevel(Level.WARNING);
+        logger.setLevel(Level.FINE);
     }
 
     @AfterEach

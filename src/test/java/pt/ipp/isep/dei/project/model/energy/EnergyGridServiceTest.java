@@ -40,6 +40,20 @@ class EnergyGridServiceTest {
     }
 
     @Test
+    void seeIfGetAllGrids() {
+        // Arrange
+        Mockito.when(energyGridRepository.findAll()).thenReturn(null);
+
+        List<EnergyGrid> expectedResult = new ArrayList<>();
+
+        // Act
+        List<EnergyGrid> actualResult = validGridList.getAllGrids();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfCreateEnergyGrid() {
         EnergyGrid expectedResult = new EnergyGrid("Primary Grid", 500, "CasaUm");
 

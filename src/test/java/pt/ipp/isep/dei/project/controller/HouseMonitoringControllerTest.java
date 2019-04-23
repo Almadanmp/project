@@ -13,22 +13,23 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * House Monitoring - controller Tests
@@ -41,11 +42,12 @@ class HouseMonitoringControllerTest {
     private HouseMonitoringController controller = new HouseMonitoringController();
     private GeographicArea validHouseArea;
     private House validHouse;
-    private RoomDTO validRoom;
+    private RoomDTO validRoomDTO;
     private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
     private RoomSensor validTemperatureRoomSensor; // Is a temperature sensor with valid readings.
     private ReadingUtils readingUtils;
     private RoomService roomService;
+    private Room validRoom1;
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1;
     private Date validDate2;
@@ -77,11 +79,20 @@ class HouseMonitoringControllerTest {
     RoomSensorRepository roomSensorRepository;
     @Mock
     SensorTypeRepository sensorTypeRepository;
+    @Mock
+    GeographicAreaRepository geographicAreaRepository;
+    @Mock
+    AreaTypeRepository areaTypeRepository;
+    @Mock
+    AreaSensorRepository areaSensorRepository;
+
+    private GeographicAreaService geographicAreaService;
 
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
 
+        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
         validHouseArea = new GeographicArea("Portugal", new AreaType("Country"), 300,
                 200, new Local(45, 30, 30));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
@@ -91,7 +102,7 @@ class HouseMonitoringControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
-        Room validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
+        validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService();
         validRoomService.add(validRoom1);
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
@@ -139,10 +150,15 @@ class HouseMonitoringControllerTest {
         validTemperatureRoomSensor = new RoomSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
                 new Date(), "RoomAB");
         Reading firstTempReading = new Reading(15, validDate1, "C", "Test");
+        validTemperatureAreaSensor.getAreaReadings().add(firstTempReading);
         Reading secondTempReading = new Reading(20, validDate2, "C", "Test");
+        validTemperatureAreaSensor.getAreaReadings().add(secondTempReading);
         Reading thirdTempReading = new Reading(30, validDate3, "C", "Test");
+        validTemperatureAreaSensor.getAreaReadings().add(thirdTempReading);
         Reading fourthTempReading = new Reading(30, validDate4, "C", "Test");
+        validTemperatureAreaSensor.getAreaReadings().add(fourthTempReading);
         Reading fifthTempReading = new Reading(-5, validDate5, "C", "Test");
+        validTemperatureAreaSensor.getAreaReadings().add(fifthTempReading);
 
         // Copy past to TEST for using the organized dates and readings
         /*
@@ -188,55 +204,53 @@ class HouseMonitoringControllerTest {
         Reading firstRainReading = new Reading(40, validDate4, "C", "Test");
         Reading secondRainReading = new Reading(10, validDate5, "C", "Test");
         Reading thirdRainReading = new Reading(10, validDate6, "C", "Test");
-        validRoom = RoomMapper.objectToDTO(validRoom1);
+        validRoomDTO = RoomMapper.objectToDTO(validRoom1);
     }
 
 
-//    @Test
-//    void seeIfGetCurrentRoomTemperatureThrowsException() {
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoom, validHouse, validHouseSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("There aren't any temperature readings available.", exception.getMessage());
-//
-//    }
+    @Test
+    void seeIfGetCurrentRoomTemperatureThrowsException() {
+        // Act
 
-//    @Test
-//    void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
-//        // Arrange
-//
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        validHouse.setMotherArea(validHouseArea);
-//        double expectedResult = 20.0;
-//
-//        // Act
-//
-//        double actualResult = controller.getHouseAreaTemperature(validHouse, validAreaSensorService, readingService);
-//
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomService));
 
-//    @Test
-//    void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
-//        // Arrange
-//
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        double expectedResult = 25;
-//
-//        // Act
-//
-//        double actualResult = controller.getAverageRainfallInterval(validHouse, validDate4, validDate5, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        // Assert
+
+        assertEquals("There aren't any temperature readings available.", exception.getMessage());
+
+    }
+
+    @Test
+    void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
+        // Arrange
+
+        double expectedResult = 20.0;
+
+        // Act
+
+        double actualResult = controller.getHouseAreaTemperature(validTemperatureAreaSensor);
+
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+
+    }
+
+    @Test
+    void seeIfGetAverageOfReadingsBetweenTwoGivenDates() {
+        // Arrange
+
+        double expectedResult = 18;
+
+        // Act
+
+        double actualResult = controller.getAverageRainfallInterval(validTemperatureAreaSensor, validDate4, validDate5, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
 
 //    @Test
 //    void getAverageRainfallIntervalThrowsExceptionReadingListEmpty() {
@@ -402,7 +416,7 @@ class HouseMonitoringControllerTest {
 //
 //        // Act
 //
-//        String actualResult = controller.getRoomName(validRoom, roomService);
+//        String actualResult = controller.getRoomName(validRoomDTO, roomService);
 //
 //        // Assert
 //
@@ -820,8 +834,8 @@ class HouseMonitoringControllerTest {
 //        // Arrange
 //
 //        double expectedResult = 15;
-//        Room room = RoomMapper.dtoToObject(validRoom);
-//        validRoom.setName("Bedroom");
+//        Room room = RoomMapper.dtoToObject(validRoomDTO);
+//        validRoomDTO.setName("Bedroom");
 //        validHouse.addRoom(room);
 //        ReadingDTO reading = new ReadingDTO();
 //        reading.setDate(validDate4);
@@ -833,18 +847,18 @@ class HouseMonitoringControllerTest {
 //        HouseSensorDTO houseSensorDTO = new HouseSensorDTO();
 //        houseSensorDTO.setName("Name");
 //        houseSensorDTO.setDateStartedFunctioning("12-10-2000");
-//        houseSensorDTO.setRoomID(validRoom.getHouseId());
+//        houseSensorDTO.setRoomID(validRoomDTO.getHouseId());
 //        houseSensorDTO.setTypeSensor("temperature");
 //        houseSensorDTO.setUnits("C");
 //        houseSensorDTO.setId("10");
 //        houseSensorDTO.setReadingList(readingList);
 //        List<HouseSensorDTO> sensorList = new ArrayList<>();
 //        sensorList.add(houseSensorDTO);
-//        validRoom.setSensorList(sensorList);
+//        validRoomDTO.setSensorList(sensorList);
 //
 //        // Act
 //
-//        double actualResult = controller.getDayMaxTemperature(validRoom, validDate4, validHouseSensorService, readingService, roomService);
+//        double actualResult = controller.getDayMaxTemperature(validRoomDTO, validDate4, validHouseSensorService, readingService, roomService);
 //
 //        // Assert
 //

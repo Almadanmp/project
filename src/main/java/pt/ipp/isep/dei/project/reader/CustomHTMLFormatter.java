@@ -15,7 +15,7 @@ public class CustomHTMLFormatter extends Formatter {
     public String format(LogRecord record) {
 
         StringBuffer buf = new StringBuffer(1000);
-        if (record.getLevel().intValue() >= Level.WARNING.intValue()) {
+        if (record.getLevel().intValue() >= Level.FINE.intValue()) {
             buf.append("<b>");
             buf.append(record.getLevel());
             buf.append("</b>");
@@ -60,12 +60,12 @@ public class CustomHTMLFormatter extends Formatter {
             FileHandler fileHandler = new FileHandler("resources/logs/logTest.html");
             logger.addHandler(fileHandler);
             fileHandler.setFormatter(myFormat);
-            logger.setLevel(Level.WARNING);
+            logger.setLevel(Level.FINE);
         } catch (IOException io) {
             io.getMessage();
         }
         for (int i=0; i<50; i++){
-            logger.warning("wow such html");
+            logger.fine("wow such html");
         }
 
     }

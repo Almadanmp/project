@@ -1,9 +1,10 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Class that represents a Geographical Area.
@@ -27,6 +28,10 @@ public class GeographicArea {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mother_area_id")
     private GeographicArea motherArea;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "geographicAreaId")
+    private List<AreaSensor> areaSensors;
 
     @Embedded
     private Local location;
@@ -167,6 +172,27 @@ public class GeographicArea {
         } else {
             return false;
         }
+    }
+
+    public List<AreaSensor> getAreaSensors() {
+        return areaSensors;
+    }
+
+    public void setAreaSensors(List<AreaSensor> areaSensors) {
+        this.areaSensors = areaSensors;
+    }
+
+
+    public AreaSensor getSensor(int index) {
+        return this.areaSensors.get(index);
+    }
+
+    public boolean addSensor(AreaSensor areaSensor) {
+        if (!this.areaSensors.contains(areaSensor)) {
+            this.areaSensors.add(areaSensor);
+            return true;
+        }
+        return false;
     }
 
     /**
