@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -322,5 +323,50 @@ class RoomSensorTest {
 
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    void seeIfSetAndGetRoomIdWorks() {
+        //Arrange
+        validRoomSensor.setRoomId("B109");
+        String expectedResult = "B109";
+        //Act
+        String actualResult = validRoomSensor.getRoomId();
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetAndGetHouseReadingsWorks() {
+        //Arrange
+        List<Reading> readingList = new ArrayList<>();
+        Reading reading = new Reading(21, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "test");
+        readingList.add(reading);
+        validRoomSensor.setHouseReadings(readingList);
+        //Act
+        List<Reading> actualResult = validRoomSensor.getHouseReadings();
+        //Assert
+        assertEquals(readingList, actualResult);
+    }
+
+    @Test
+    void seeIfReadingExistsWorks() {
+        //Arrange
+        List<Reading> readingList = new ArrayList<>();
+        Reading reading = new Reading(21, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "test");
+        readingList.add(reading);
+        validRoomSensor.setHouseReadings(readingList);
+        //Act
+        boolean actualResult = validRoomSensor.readingExists(new GregorianCalendar(2019,Calendar.JANUARY,1).getTime());
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfReadingExistsDoesNotWork() {
+        //Act
+        boolean actualResult = validRoomSensor.readingExists(new GregorianCalendar(2019,Calendar.JANUARY,1).getTime());
+        //Assert
+        assertFalse(actualResult);
     }
 }

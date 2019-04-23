@@ -100,7 +100,7 @@ public class RoomSensor {
         return houseReadings;
     }
 
-    public void setHouseReadings(List<Reading> houseReadings) {
+    void setHouseReadings(List<Reading> houseReadings) {
         this.houseReadings = houseReadings;
     }
 
@@ -210,9 +210,11 @@ public class RoomSensor {
      * @return true in case the reading exists in the repository, false otherwise.
      **/
     boolean readingExists(Date date) {
-        for (Reading r : this.houseReadings) {
-            if (r.getDate().equals(date)) {
-                return true;
+        if (this.houseReadings != null) {
+            for (Reading r : this.houseReadings) {
+                if (r.getDate().equals(date)) {
+                    return true;
+                }
             }
         }
         return false;
