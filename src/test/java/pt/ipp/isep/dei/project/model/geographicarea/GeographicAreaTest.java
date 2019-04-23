@@ -1,11 +1,17 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
+import org.assertj.core.util.ArrayWrapperList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +28,66 @@ class GeographicAreaTest {
                 new Local(50, 50, 10));
     }
 
+    @Test
+    void seeIfSetAreaSensors(){
+
+        //Arrange
+
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+
+        validArea.setAreaSensors(listAreaSensor);
+
+        //Assert
+
+        assertEquals(listAreaSensor, validArea.getAreaSensors());
+    }
+
+    @Test
+    void seeIfGetAreaSensor(){
+
+        //Arrange
+
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        validArea.addSensor(validAreaSensor);
+        validArea.addSensor(areaSensor);
+
+        //Assert
+
+        assertEquals(validAreaSensor,validArea.getSensor(0));
+    }
+
+    @Test
+    void seeIfAddSensorFalse(){
+
+        //Arrange
+
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+
+        validArea.setAreaSensors(listAreaSensor);
+        validArea.addSensor(validAreaSensor);
+
+        //Assert
+
+        assertFalse(validArea.addSensor(areaSensor));
+
+    }
     @Test
     void seeIfGetTypeAreaWorks() {
         // Arrange
