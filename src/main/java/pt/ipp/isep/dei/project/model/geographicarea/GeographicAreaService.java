@@ -523,18 +523,13 @@ public class GeographicAreaService {
      * @return a Reading that represents the Last Coldest Day in a Given Period (Lower Maximum Temperature).
      */
     public Date getLastColdestDayInGivenInterval(AreaSensor areaSensor, Date initialDate, Date finalDate) {
-
         List<Reading> readingsBetweenDates = getReadingListBetweenDates(areaSensor, initialDate, finalDate);
-
         if (readingsBetweenDates.isEmpty()) {
             throw new IllegalArgumentException("No readings available in the chosen interval.");
         }
         List<Reading> listOfMaxValuesForEachDay = ReadingUtils.getListOfMaxValuesForEachDay(readingsBetweenDates);
-
         double minValueInList = ReadingUtils.getMinValueInReadingList(listOfMaxValuesForEachDay);
-
         List<Reading> readingsWithSpecificValue = ReadingUtils.getReadingListOfReadingsWithSpecificValue(listOfMaxValuesForEachDay, minValueInList);
-
         return ReadingUtils.getMostRecentReading(readingsWithSpecificValue).getDate();
     }
 

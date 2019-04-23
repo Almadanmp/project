@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
@@ -24,8 +25,7 @@ import pt.ipp.isep.dei.project.repository.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -270,248 +270,184 @@ class HouseMonitoringControllerTest {
             e.printStackTrace();
         }
         Date finalDay = day1;
-        Throwable exception = assertThrows(IllegalArgumentException.class, () ->  controller.getAverageRainfallInterval(validTemperatureAreaSensor, initialDay, finalDay, geographicAreaService));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getAverageRainfallInterval(validTemperatureAreaSensor, initialDay, finalDay, geographicAreaService));
 
         // Assert
 
         assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
     }
 
-//    @Test
-//    void getAverageRainfallIntervalThrowsExceptionReadingListNull() {
-//        // Arrange
-//
-//        validAreaSensorService = null;
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-//            Date date = new Date();
-//            try {
-//                date = validSdf.parse("07/11/2019 10:02:00");
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            Date date2 = new Date();
-//            try {
-//                date2 = validSdf.parse("07/11/2019 10:02:00");
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            controller.getAverageRainfallInterval(validHouse, date, date2, validAreaSensorService, readingService);
-//        });
-//
-//        // Assert
-//
-//        assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
-//    }
+    @Test
+    void getAverageRainfallIntervalThrowsExceptionReadingListNull() {
+        // Act
 
-//    @Test
-//    void ensureThatWeGetTotalReadingsOnGivenDay() {
-//        // Arrange
-//
-//        Date date = new Date();
-//        try {
-//            date = validSdf.parse("03/12/2017 10:02:00");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        double expectedResult = 40;
-//
-//        // Act
-//
-//        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, date, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            Date date = new Date();
+            try {
+                date = validSdf.parse("07/11/2019 10:02:00");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date date2 = new Date();
+            try {
+                date2 = validSdf.parse("07/11/2019 10:02:00");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            controller.getAverageRainfallInterval(validTemperatureAreaSensor, date, date2, geographicAreaService);
+        });
 
-//    @Test
-//    void ensureThatWeGetTotalReadingsOnGivenDayNoRainfall() {
-//        // Arrange
-//
-//        validHouseArea.setSensorList(validAreaSensorService);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-//            Date date = new Date();
-//            try {
-//                date = validSdf.parse("03/12/2018 10:02:00");
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//            controller.getTotalRainfallOnGivenDay(validHouse, date, validAreaSensorService, readingService);
-//        });
-//
-//        // Assert
-//
-//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-//    }
+        // Assert
 
-//    @Test
-//    void ensureThatWeGetTotalReadingsWithoutSensors() {
-//        // Arrange
-//
-//        AreaSensorService emptyList = new AreaSensorService();
-//        validHouseArea.setSensorList(emptyList);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-//    }
+        assertEquals("Warning: Average value not calculated - No readings available.", exception.getMessage());
+    }
 
-//    @Test
-//    void ensureThatWeGetTotalReadingsWithoutRainFallSensorsAndWithoutReadings() {
-//        // Arrange
-//
-//        Date date = new Date();
-//        try {
-//            date = validSdf.parse("02/02/2015 10:02:00");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        AreaSensorService temperatureList = new AreaSensorService();
-//        AreaSensor temperatureAreaSensor = new AreaSensor("RF12345", "temperature sensor", new SensorType("temperature", "celsius"), new Local(21, 20, 20), date, 6008L);
-//        temperatureList.add(temperatureAreaSensor);
-//        validHouseArea.setSensorList(temperatureList);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-//    }
+    @Test
+    void ensureThatWeGetTotalReadingsOnGivenDay() {
+        // Arrange
 
-//    @Test
-//    void ensureThatWeGetTotalReadingsWithoutWithoutReadings() {
-//        // Arrange
-//        Date date = new Date();
-//        try {
-//            date = validSdf.parse("02/02/2015 10:02:00");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        AreaSensorService rainFallAreaSensorService = new AreaSensorService();
-//        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date, 6008L);
-//        rainFallAreaSensorService.add(rainfallAreaSensor);
-//        validHouseArea.setSensorList(rainFallAreaSensorService);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: Total value could not be calculated - No readings were available.", exception.getMessage());
-//    }
+        Date date = new Date();
+        try {
+            date = validSdf.parse("03/12/2017 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        double expectedResult = 30;
 
-//    @Test
-//    void getRoomName() {
-//        // Arrange
-//
-//        String expectedResult = "Bedroom";
-//
-//        // Act
-//
-//        String actualResult = controller.getRoomName(validRoomDTO, roomService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
+        // Act
 
-//    @Test
-//    void seeIfGetHighestTempAmplitudeDateSuccess() {
-//        validHouseArea.setSensorList(validAreaSensorService);
-//
-//        Date expectedResult = validDate1;
-//
-//        Date actualResult = controller.getHighestTempAmplitudeDate(validHouse, validDate4, validDate1, validAreaSensorService, readingService);
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        double actualResult = controller.getTotalRainfallOnGivenDay(date, validTemperatureAreaSensor);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void ensureThatWeGetTotalReadingsOnGivenDayNoRainfall() {
+        // Act
+
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            Date date = new Date();
+            try {
+                date = validSdf.parse("03/12/2018 10:02:00");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            controller.getTotalRainfallOnGivenDay(date, validTemperatureAreaSensor);
+        });
+
+        // Assert
+
+        assertEquals("Warning: Total value was not calculated - No readings were available.", exception.getMessage());
+    }
+
+    @Test
+    void ensureThatWeGetTotalReadingsWithoutWithoutReadings() {
+        // Arrange
+
+        Date date = new Date();
+        try {
+            date = validSdf.parse("02/02/2015 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date, 6008L);
+        geographicAreaService.addAreaSensorToDb(rainfallAreaSensor);
+
+        // Act
+
+        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validDate4, rainfallAreaSensor));
+
+        // Assert
+
+        assertEquals("Warning: Total value was not calculated - No readings were available.", exception.getMessage());
+    }
+
+    @Test
+    void getRoomName() {
+        // Arrange
+
+        String expectedResult = "Bedroom";
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom1);
+
+        // Act
+
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        String actualResult = controller.getRoomName(validRoomDTO, roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeDateSuccess() {
+        // Arrange
 
 
-    //    @Test
-//    void seeIfGetHighestTempAmplitudeValueSuccess() {
-//        // Arrange
-//
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        double expectedResult = 15.0;
-//
-//        // Act
-//
-//        double actualResult = controller.getTempAmplitudeValueByDate(validHouse, validDate1, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        Date expectedResult = validDate1;
 
-//    @Test
-//    void seeIfGetHighestTempAmplitudeValueThrowsException() {
-//        // Arrange
-//
-//        AreaSensorService invalidAreaSensorService = new AreaSensorService();
-//        validHouseArea.setSensorList(invalidAreaSensorService);
-//        GregorianCalendar startDate = new GregorianCalendar(2013, Calendar.JANUARY, 1);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                controller.getTempAmplitudeValueByDate(validTemperatureAreaSensor, startDate.getTime(), readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: Temperature amplitude value not calculated - No readings available.",
-//                exception.getMessage());
-//    }
+        // Act
 
-//    @Test
-//    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException2() {
-//        // Arrange
-//
-//        validHouse.setMotherArea(validHouseArea);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//        ReadingService readingService = new ReadingService();
-//        Reading reading1 = new Reading(23, new GregorianCalendar(2018, Calendar.JULY, 1, 10, 30).getTime(), "C", "TEST");
-//        readingService.addReading(reading1);
-//        validTemperatureAreaSensor.setReadingService(readingService);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("No readings available in the chosen interval.",
-//                exception.getMessage());
-//    }
+        Date actualResult = controller.getHighestTempAmplitudeDate
+                (validTemperatureAreaSensor, validDate4, validDate1, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
 
 
-//    @Test
-//    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException1() {
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                controller.getLastColdestDayInInterval(validHouse, validDate6, validDate1, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("No readings available.",
-//                exception.getMessage());
-//    }
+    @Test
+    void seeIfGetHighestTempAmplitudeValueSuccess() {
+        // Arrange
+
+        double expectedResult = 15.0;
+
+        // Act
+
+        double actualResult = controller.getTempAmplitudeValueByDate(validTemperatureAreaSensor, validDate1, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+
+    }
+
+    @Test
+    void seeIfWeGetLastColdestDayInIntervalDateAndValueThrowsException() {
+        // Arrange
+
+        Date day = new Date();
+        try {
+            day = validSdf.parse("07/11/2023 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date initialDay = day;
+        Date day1 = new Date();
+        try {
+            day1 = validSdf.parse("07/12/2023 10:02:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalDay = day1;
+
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getLastColdestDayInInterval(validTemperatureAreaSensor, initialDay, finalDay, geographicAreaService));
+
+        // Assert
+
+        assertEquals("No readings available in the chosen interval.",
+                exception.getMessage());
+
+    }
 
 //    @Test
 //    void seeIfGetLastColdestDayInIntervalWorks() {

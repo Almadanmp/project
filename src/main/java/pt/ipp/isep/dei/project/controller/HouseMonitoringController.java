@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -76,9 +75,7 @@ public class HouseMonitoringController {
      * @author André
      */
     public double getTotalRainfallOnGivenDay(Date day, AreaSensor closestAreaSensor) {
-
         List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
-
         return ReadingUtils.getValueReadingsInDay(day, sensorReadings);
     }
 
@@ -96,8 +93,6 @@ public class HouseMonitoringController {
      * in the house area in a given period.
      */
     public Date getLastColdestDayInInterval(AreaSensor closestAreaSensor, Date startDate, Date endDate, GeographicAreaService geographicAreaService) {
-
-
         return geographicAreaService.getLastColdestDayInGivenInterval(closestAreaSensor, startDate, endDate);
     }
 
