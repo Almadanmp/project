@@ -131,26 +131,27 @@ class GASettingsUI {
     private void runUS01(AreaTypeService areaTypeService) {
         String typeAreaName = getInputUS01();
         boolean created = updateModelUS01(areaTypeService, typeAreaName);
-        displayStateUS01(created);
+        displayStateUS01(created, typeAreaName);
     }
 
     private String getInputUS01() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please insert the name of the new Geographic Area Type: ");
-        while (!scanner.hasNext("[a-zA-Z_]+")) {
-            System.out.println("That's not a valid name a Type Area. Please insert only Alphabetic Characters");
-            scanner.next();
-        }
-        return scanner.next();
+        System.out.println("Please insert a new Type of Geographic Area");
+
+       // while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
+       //     System.out.println("Please insert a valid name.");
+       //     scanner.next();
+       // }
+        return scanner.nextLine();
     }
 
     private boolean updateModelUS01(AreaTypeService areaTypeService, String typeAreaName) {
         return gaController.createAndAddTypeAreaToList(areaTypeService, typeAreaName);
     }
 
-    private void displayStateUS01(boolean created) {
+    private void displayStateUS01(boolean created, String typeAreaName) {
         if (created) {
-            System.out.println("Success, you have inserted a new Type of Geographic Area.");
+            System.out.println("Success, you have inserted a new Type of Geographic Area: "+typeAreaName);
         } else {
             System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
         }
@@ -453,6 +454,11 @@ class GASettingsUI {
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
         int areas = readerController.acceptPath(filePath, geographicAreaService);
-        System.out.println(areas + " Geographic Areas have been successfully imported.");
+        if (areas > 0) {
+            System.out.println(areas + " Geographic Areas have been successfully imported.");
+        } else {
+            System.out.println("No Geographic Areas were imported. Please refer to the Area Type Log or the Area Sensor " +
+                    "Log for more information");
+        }
     }
 }

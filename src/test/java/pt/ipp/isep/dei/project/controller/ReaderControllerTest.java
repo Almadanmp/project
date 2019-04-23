@@ -249,7 +249,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        assertEquals(2, areasAdded);
+        assertEquals(0, areasAdded);
 
         // Get one of the areas to  check its contents.
 //
@@ -284,7 +284,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        assertEquals(2, areasAdded);
+        assertEquals(0, areasAdded);
 
         // Get one of the areas to  check its contents.
 
@@ -317,7 +317,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        assertEquals(2, areasAdded);
+        assertEquals(0, areasAdded);
 
     }
 
@@ -333,7 +333,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        assertEquals(1, areasAdded);
+        assertEquals(0, areasAdded);
     }
 
 
