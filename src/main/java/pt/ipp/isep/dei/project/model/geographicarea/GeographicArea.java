@@ -1,11 +1,16 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
+import com.sun.javafx.geom.Area;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class that represents a Geographical Area.
@@ -286,6 +291,147 @@ public class GeographicArea {
      * @param areaType the type of Geographic Area
      * @return true if it matches, false if it does not.
      **/
+
+
+    //SENSOR RELATED METHODS
+
+
+    /**
+     * This method receives a house and the distance of the sensor closest to it,
+     * goes through the sensor list and returns the sensors closest to house.
+     *
+     * @param house   the House of the project
+     * @param minDist the distance to the sensor
+     * @return AreaSensorList with sensors closest to house.
+     **/
+    private List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor>areaSensors, House house, double minDist) {
+        List<AreaSensor> finalList = new ArrayList<>();
+        for (AreaSensor s : areaSensors) {
+            if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
+                finalList.add(s);
+            }
+        }
+        return finalList;
+    }
+
+    private double getMinDistanceToSensorOfGivenType(List<AreaSensor>areaSensors, House house) {
+        List<Double> arrayList = getSensorsDistanceToHouse(areaSensors, house);
+        return Collections.min(arrayList);
+    }
+
+    /**
+     * Goes through the sensor list, calculates sensors distance to house and
+     * returns values in ArrayList.
+     *
+     * @param house to calculate closest distance
+     * @return List of sensors distance to house
+     */
+    private List<Double> getSensorsDistanceToHouse(List<AreaSensor>areaSensors, House house) {
+        ArrayList<Double> arrayList = new ArrayList<>();
+        for (AreaSensor areaSensor : areaSensors) {
+            arrayList.add(house.calculateDistanceToSensor(areaSensor));
+        }
+        return arrayList;
+    }
+
+    /**
+     * This method returns the sensor closest to the house. If more than one sensor is close to it,
+     * the one with the most recent reading should be used.
+     *
+     * @param sensorType the type of sensor to check
+     * @return the closest sensor.
+     */
+    public AreaSensor getClosestAreaSensorOfGivenType(String sensorType, House house) {
+
+        AreaSensor areaSensor;
+
+        List<AreaSensor> minDistSensor = new ArrayList<>();
+
+
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
+                ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+                1).getTime(), 2356L);
+
+        List<AreaSensor> sensorsOfGivenType = getAreaSensorsOfGivenType(areaSensors, sensorType);
+
+        if (!sensorsOfGivenType.isEmpty()) {
+            double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);
+
+            minDistSensor = getAreaSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
+        }
+        if (minDistSensor.isEmpty()) {
+            return areaSensorError;
+        }
+        if (minDistSensor.size() > 1) {
+
+            areaSensor = getMostRecentlyUsedAreaSensor(minDistSensor);
+        } else {
+            areaSensor = minDistSensor.get(0);
+        }
+        return areaSensor;
+    }
+
+    private AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> areaSensors) {
+        if (areaSensors.isEmpty()) {
+            throw new IllegalArgumentException("The sensor list is empty.");
+        }
+        List<AreaSensor> areaSensors2 = getAreaSensorsWithReadings(areaSensors);
+        if (areaSensors2.isEmpty()) {
+            throw new IllegalArgumentException("The sensor list has no readings available.");
+        }
+
+        AreaSensor mostRecent = areaSensors2.get(0);
+        List<Reading> mostRecentSensorReadings = mostRecent.getAreaReadings();
+
+        Reading recentReading = ReadingUtils.getMostRecentReading(mostRecentSensorReadings);
+        Date recent = recentReading.getDate();
+
+
+        for (AreaSensor s : areaSensors) {
+            List<Reading> sensorReadings = new ArrayList<>();
+
+            Date test = ReadingUtils.getMostRecentReadingDate(sensorReadings);
+            if (recent.before(test)) {
+                recent = test;
+                mostRecent = s;
+            }
+        }
+        return mostRecent;
+    }
+
+    private List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
+        List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
+        for (AreaSensor aS : areaSensors) {
+            if (aS.getSensorType().getName().equals(sensorType)) {
+                sensorsOfGivenType.add(aS);
+            }
+
+        }
+        return sensorsOfGivenType;
+    }
+
+    /**
+     * Method that goes through the sensor list and returns a list of those which
+     * have readings. The method throws an exception in case the sensorList is empty.
+     *
+     * @return AreaSensorList of every sensor that has readings. It will return an empty list in
+     * case the original list was empty from readings.
+     */
+    private List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
+        List<AreaSensor> finalList = new ArrayList<>();
+        if (areaSensors.isEmpty()) {
+            throw new IllegalArgumentException("The sensor list is empty");
+        }
+        for (AreaSensor s : areaSensors) {
+            List<Reading> sensorReadings = s.getAreaReadings();
+
+            if (!sensorReadings.isEmpty()) {
+                finalList.add(s);
+            }
+        }
+        return finalList;
+    }
+
 
     boolean equalsParameters(String name, AreaType areaType, Local local) {
         return (this.name.equals(name) && (this.areaType.equals(areaType) && (this.location.equals(local))));

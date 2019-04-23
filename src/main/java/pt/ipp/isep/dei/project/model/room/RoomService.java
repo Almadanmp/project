@@ -33,8 +33,6 @@ public class RoomService {
     private static final String STRING_BUILDER = "---------------\n";
 
 
-    private static final String TEMPERATURE = "temperature";
-    private static final String NO_TEMP_READINGS = "There aren't any temperature readings available.";
 
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
@@ -390,60 +388,6 @@ public class RoomService {
         return roomSensorRepository.findAllByRoomId(roomName);
     }
 
-    /**
-     * Method to print a Whole Sensor List.
-     * It will print the attributes needed to check if a Sensor is different from another Sensor
-     * (name, type of Sensor and Units)
-     *
-     * @return a string of the sensors contained in the list.
-     */
-
-    public String buildRoomSensorsAsString(List<RoomSensor> roomSensors) {
-        StringBuilder result = new StringBuilder(new StringBuilder(STRING_BUILDER));
-
-        if (roomSensors.isEmpty()) {
-            return "Invalid List - List is Empty\n";
-        }
-        for (RoomSensor hS : roomSensors) {
-            result.append("ID: ").append(hS.getId()).append(" | ").append(hS.getName()).append(" | ");
-            result.append("Type: ").append(hS.getSensorTypeName()).append(" | ")
-                    .append(hS.printActive()).append("\n");
-        }
-        result.append(STRING_BUILDER);
-        return result.toString();
-    }
-
-
-    /**
-     * Method that goes through every sensor in the sensor list and gets
-     * every reading within that sensor. In the end we will get a Reading list
-     * that contains every reading from every sensor of the sensor list.
-     *
-     * @return a list with all readings from sensor list
-     **/
-    private List<Reading> getReadings(List<RoomSensor> roomSensors) {
-        List<Reading> finalList = new ArrayList<>();
-        for (RoomSensor s : roomSensors) {
-            finalList.addAll(s.getHouseReadings());
-        }
-        return finalList;
-    }
-
-    /**
-     * This method goes through every sensor reading list and returns the
-     * reading values of a given day. This day is given to method as parameter.
-     *
-     * @param day date of day the method will use to get reading values
-     * @return returns value readings from every sensor from given day
-     **/
-    private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensor, Date day) {
-        List<Reading> sensorReadings = new ArrayList<>();
-        for (RoomSensor hS : roomSensor) {
-            sensorReadings.addAll(hS.getHouseReadings());
-        }
-        return ReadingUtils.getValuesOfSpecificDayReadings(sensorReadings, day);
-    }
-
 
     private RoomSensor updateSensor(RoomSensor roomSensor) {
         return roomSensorRepository.save(roomSensor);
@@ -540,67 +484,6 @@ public class RoomService {
         }
         return false;
     }
-
-    /**
-     * Method receives a date of a given day and looks for the max temperature
-     * recorded in every sensor that measure temperature, in the room.
-     *
-     * @param day where we want to look for max temperature
-     * @return the max temperature recorded in a sensor that measures temperature or
-     * NaN in case there are no readings in the given day or
-     * in case the room has no readings whatsoever
-     **/
-    public double getMaxTemperatureOnGivenDay(Room room, Date day) throws NoSuchElementException {
-        List<RoomSensor> roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
-        List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
-        if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException(NO_TEMP_READINGS);
-        } else {
-            List<Double> values = getValuesOfSpecificDayReadings(tempSensors, day);
-            if (!values.isEmpty()) {
-                return Collections.max(values);
-            }
-            throw new NoSuchElementException(NO_TEMP_READINGS);
-        }
-        }
-
-
-    /**
-     * Method that goes through every Sensor in the room of the type "temperature" returning
-     * the value of the most recent reading.
-     *
-     * @return the most recent temperature reading or NaN in case the room has no temperature
-     * sensors and/or when temperature sensors have no readings
-     */
-
-    public double getCurrentRoomTemperature(Room room) {
-        List<RoomSensor> roomSensors = new ArrayList<>();
-        if (room != null) {
-            roomSensors = roomSensorRepository.findAllByRoomId(room.getId());
-        }
-        List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE, roomSensors);
-        if (tempSensors.isEmpty()) {
-            throw new IllegalArgumentException(NO_TEMP_READINGS);
-        }
-        List<Reading> sensorReadings = getReadings(tempSensors);
-        return ReadingUtils.getMostRecentValue(sensorReadings);
-    }
-
-    /**
-     * @param name String of the sensor we wish to compare with the existent sensors on the sensor list.
-     * @return builds a list of sensors with the same type as the one introduced as parameter.
-     */
-
-    private List<RoomSensor> getRoomSensorsOfGivenType(String name, List<RoomSensor> roomSensors) {
-        List<RoomSensor> containedTypeSensors = new ArrayList<>();
-        for (RoomSensor sensor : roomSensors) {
-            if (name.equals(sensor.getSensorTypeName())) {
-                containedTypeSensors.add(sensor);
-            }
-        }
-        return containedTypeSensors;
-    }
-
 
     //METHODS FROM READING SERVICE
 
