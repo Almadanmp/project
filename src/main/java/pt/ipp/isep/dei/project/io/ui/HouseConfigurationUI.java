@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
@@ -17,6 +18,7 @@ import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,11 +34,22 @@ class HouseConfigurationUI {
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private static final String FILE_LOCATION = "Please insert the location of the file you want to import:";
     private ReaderController readerController;
+    private List<String> menuOptions;
 
 
     HouseConfigurationUI() {
         this.controller = new HouseConfigurationController();
         this.readerController = new ReaderController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Import Geographic Areas and Sensors from a JSON or XML file.");
+        menuOptions.add("As an Administrator, I want to configure the house from a file containing basic house" +
+                "information, grids and rooms)(US100)");
+        menuOptions.add("Configure the location of the house. (US101)");
+        menuOptions.add("Add a new room to the house. (US105)");
+        menuOptions.add("List the existing rooms. (US108)");
+        menuOptions.add("Import House Sensors from a file. (US260)");
+        menuOptions.add("Import House Sensor Reading List from a file. (US265)");
+        menuOptions.add("(Return to main menu)");
     }
 
     void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService, HouseRepository houseRepository) {
@@ -46,7 +59,7 @@ class HouseConfigurationUI {
         System.out.println("House Configuration\n");
         System.out.println("--------------\n");
         while (activeInput) {
-            printHouseConfigMenu();
+            MenuFormatter.showMenu("House Configuration", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
@@ -333,20 +346,6 @@ class HouseConfigurationUI {
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
         return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingLogs.log", roomService);
-    }
-
-    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
-    private void printHouseConfigMenu() {
-        System.out.println("House Controller Options:\n");
-        System.out.println("1) Import Geographic Areas and Sensors from a JSON or XML file.");
-        System.out.println("2) As an Administrator, I want to configure the house from a file containing basic house " +
-                "information, grids and rooms)(US100)");
-        System.out.println("3) Configure the location of the house. (US101)");
-        System.out.println("4) Add a new room to the house. (US105)");
-        System.out.println("5) List the existing rooms. (US108)");
-        System.out.println("6) Import House Sensors from a file. (US260)");
-        System.out.println("7) Import House Sensor Reading List from a file. (US265)");
-        System.out.println("0) (Return to main menu)\n");
     }
 }
 
