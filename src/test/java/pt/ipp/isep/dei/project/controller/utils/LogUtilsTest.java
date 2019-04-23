@@ -38,7 +38,7 @@ class LogUtilsTest {
 
         // Act
 
-        Logger l2 = LogUtils.getLogger("myTestLogger", "Z:\\Users\\TestUser\\InvalidPath\\Invalid\\", Level.FINE);
+        Logger l2 = LogUtils.getLogger("myTestLogger", "Z:\\Users\\TestUser\\InvalidPath\\Invalid\\",null);
 
         // Assert
 

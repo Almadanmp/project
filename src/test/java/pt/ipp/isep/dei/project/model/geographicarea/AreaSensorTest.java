@@ -182,6 +182,21 @@ class AreaSensorTest {
     }
 
     @Test
+    void seeIfReadingExistsSameDate() {
+        //Arrange
+
+        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+        Reading firstValidReading = new Reading(31, date, "C", "Test");
+
+        //Act
+        validAreaSensor.getAreaReadings().add(firstValidReading);
+
+        //Assert
+
+        assertTrue(validAreaSensor.readingExists(new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime()));
+    }
+
+    @Test
     void seeIfReadingDoNotExists() {
         //Arrange
 
