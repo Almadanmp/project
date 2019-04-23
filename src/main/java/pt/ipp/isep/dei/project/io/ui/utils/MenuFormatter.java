@@ -40,7 +40,7 @@ public final class MenuFormatter {
 
         // We increase the width by a fixed number in order to guarantee some padding / white space after the longest option.
 
-        boxWidth += 40;
+        boxWidth += 8;
 
         // This is the size of the list, used for numbering it. The last option is printed separate from the others.
 

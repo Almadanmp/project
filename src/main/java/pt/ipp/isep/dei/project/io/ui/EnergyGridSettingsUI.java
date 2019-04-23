@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
@@ -11,14 +12,24 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 class EnergyGridSettingsUI {
     private EnergyGridSettingsController controller;
+    private List<String> menuOptions;
 
     EnergyGridSettingsUI() {
         this.controller = new EnergyGridSettingsController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Create an energy grid. (US130)");
+        menuOptions.add("Add a power source to a house grid. (US135)");
+        menuOptions.add("List all existing rooms attached to a house grid. (US145)");
+        menuOptions.add("Attach a room to a house grid. (US147)");
+        menuOptions.add("Detach a room from a house grid. (US149)");
+        menuOptions.add("Display all available devices on an energy grid (US160)");
+        menuOptions.add("(Return to main menu)");
     }
 
     void run(House house, EnergyGridService energyGridService, RoomService roomService) {
@@ -28,7 +39,7 @@ class EnergyGridSettingsUI {
         System.out.println("Energy grid settings\n");
         System.out.println("--------------\n");
         while (activeInput) {
-            printEnergyGridMenu();
+            MenuFormatter.showMenu("Energy Grid Settings", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US130
@@ -214,19 +225,5 @@ class EnergyGridSettingsUI {
 
     private void displayUS160(EnergyGrid energyGrid) {
         System.out.println("\nList of device(s) by type:\n" + controller.buildListOfDevicesOrderedByTypeString(energyGrid));
-    }
-
-
-    // UI SPECIFIC METHODS - Not Used on User Stories.
-
-    private void printEnergyGridMenu() {
-        System.out.println("Energy Grid Settings Options:\n");
-        System.out.println("1) Create a energy grid. (US130)");
-        System.out.println("2) Add a power source to a house grid. (US135)");
-        System.out.println("3) List of existing rooms attached to a house grid. (US145)");
-        System.out.println("4) Attach a room to a house grid. (US147)");
-        System.out.println("5) Detach a room from a house grid. (US149)");
-        System.out.println("6) Display all available devices on an energy grid (US160)");
-        System.out.println("0) (Return to main menu)\n");
     }
 }
