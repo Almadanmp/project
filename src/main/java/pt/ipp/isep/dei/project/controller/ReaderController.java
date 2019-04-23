@@ -16,13 +16,14 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.reader.*;
+import pt.ipp.isep.dei.project.reader.GeographicAreaReaderJSON;
+import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
+import pt.ipp.isep.dei.project.reader.ReaderJSONHouse;
+import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
