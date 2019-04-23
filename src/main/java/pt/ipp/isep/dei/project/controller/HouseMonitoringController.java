@@ -86,9 +86,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(AreaSensor closestAreaSensor) {
-
         List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
-
         return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }
 
