@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -16,6 +17,7 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -24,9 +26,20 @@ import java.util.Scanner;
 class RoomConfigurationUI {
     private RoomConfigurationController controller;
     private String requestProgramName = "Please, type the new FixedTimeProgram name:";
+    private List<String> menuOptions;
 
     RoomConfigurationUI() {
         this.controller = new RoomConfigurationController();
+        menuOptions = new ArrayList<>();
+        menuOptions.add("Get a list of all devices in a room. (US201)");
+        menuOptions.add("Add a new device to the room from the list of device types (US210)");
+        menuOptions.add("Edit the configuration of an existing device (US215)");
+        menuOptions.add("Delete an existing device (US220)");
+        menuOptions.add("I want do deactivate a device (US222)");
+        menuOptions.add("Get the total nominal power of a room (US230)");
+        menuOptions.add("Get a list of all sensors in a room (US250)");
+        menuOptions.add("Add a sensor to a room from the list of sensor types (US253)");
+        menuOptions.add("(Return to main menu)");
     }
 
     void run(House house, SensorTypeService sensorTypeService, RoomService roomService) {
@@ -41,7 +54,7 @@ class RoomConfigurationUI {
         System.out.println("Room Configuration\n");
         System.out.println("--------------\n");
         while (activeInput) {
-            printRoomConfigMenu();
+            MenuFormatter.showMenu("Room Configuration", menuOptions);
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US201
@@ -460,20 +473,5 @@ class RoomConfigurationUI {
         }
         controller.removeDevice(room, device);
         System.out.println("The device " + device.getName() + " on room " + room.getId() + " has been removed.");
-    }
-
-    /* UI SPECIFIC METHODS - NOT USED ON USER STORIES */
-
-    private void printRoomConfigMenu() {
-        System.out.println("Room Configuration Options:\n");
-        System.out.println("1) Get a list of all devices in a room. (US201)");
-        System.out.println("2) Add a new device to the room from the list of device types (US210)");
-        System.out.println("3) Edit the configuration of an existing device (US215)");
-        System.out.println("4) Delete an existing device (US220)");
-        System.out.println("5) I want do deactivate a device (US222)");
-        System.out.println("6) Get the total nominal power of a room (US230)");
-        System.out.println("7) Get a list of all sensors in a room (US250)");
-        System.out.println("8) Add a sensor to a room from the list of sensor types (US253)");
-        System.out.println("0) (Return to main menu)\n");
     }
 }
