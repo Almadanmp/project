@@ -563,4 +563,18 @@ class RoomTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetHouseIdWorks(){
+        String expectedResult ="Room1";
+        String actualResult = validRoom.getHouseID();
+        assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfGetEnergyGridIdWorks() {
+        String expectedResult = "Grid1";
+        String actualResult = validRoom.getEnergyGridID();
+        assertEquals(expectedResult,actualResult);
+    }
 }
