@@ -178,6 +178,7 @@ public class GeographicAreaService {
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
                     "Type first.");
+            LogUtils.closeHandlers(logger);
             return null;
         } else {
             return value.orElseGet(() -> new AreaType(name));
@@ -322,11 +323,12 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     private SensorType getTypeSensorByName(String name, String unit) {
-        Logger logger = getLogger("resources/logs/sensorTypeLogHtml.html");
+        Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
         if (!(value.isPresent())) {
-            logger.warning("The Sensor Type " + name + " does not yet exist in the Data Base. Please create the Sensor" +
+            logger.fine("The Sensor Type " + name + " does not yet exist in the Data Base. Please create the Sensor" +
                     "Type first.");
+            LogUtils.closeHandlers(logger);
             return null;
         } else {
             return value.orElseGet(() -> new SensorType(name, unit));

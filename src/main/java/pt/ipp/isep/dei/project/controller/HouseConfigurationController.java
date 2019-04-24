@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 public class HouseConfigurationController {
 
-    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
+    private static final String VALID_LOG_PATH = "resources/logs/sensorsImport.log";
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
@@ -157,6 +157,7 @@ public class HouseConfigurationController {
             } else {
                 logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
                         + " - there is no room with that ID.");
+                LogUtils.closeHandlers(logger);
                 rejectedSensors++;
             }
         }
