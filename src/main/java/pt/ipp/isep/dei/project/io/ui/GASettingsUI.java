@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
@@ -347,10 +348,11 @@ class GASettingsUI {
 
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
         AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
-        if (!gaController.deactivateSensor(areaSensorDTO, geographicAreaService)) {
+        if (!gaController.deactivateSensor(areaSensorDTO)) {
             System.out.println("Sensor already deactivated.");
         } else {
             System.out.println("Sensor successfully deactivated!");
+            geographicAreaService.updateGeoArea(GeographicAreaMapper.dtoToObject(geographicAreaDTO));
         }
 
     }
