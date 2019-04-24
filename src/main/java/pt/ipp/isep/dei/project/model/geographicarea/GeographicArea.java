@@ -300,7 +300,7 @@ public class GeographicArea {
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    private List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
+    List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -367,7 +367,7 @@ public class GeographicArea {
         return areaSensor;
     }
 
-    private AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> areaSensors) {
+    AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> areaSensors) {
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }

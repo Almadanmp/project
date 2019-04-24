@@ -38,7 +38,7 @@ public class AreaSensor {
     private Long geographicAreaId;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private final List<Reading> areaReadings;
+    private List<Reading> areaReadings;
 
     private boolean active;
 
@@ -80,6 +80,12 @@ public class AreaSensor {
     void setId(String id) {
         this.id = id;
     }
+
+    void setAreaReadings(List<Reading> areaReadings) {
+        this.areaReadings = areaReadings;
+    }
+
+
 
     /**
      * Setter: name
@@ -169,6 +175,13 @@ public class AreaSensor {
         } else {
             return false;
         }
+    }
+
+    public boolean addReading (Reading reading){
+        if (areaReadings.contains(reading)) {
+            return false;
+        }
+        return this.areaReadings.add(reading);
     }
 
     /**
