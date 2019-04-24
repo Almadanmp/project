@@ -542,6 +542,6 @@ class RoomTest {
         expectedResult.add(validSensor);
         validRoom.setRoomSensors(expectedResult);
         List<RoomSensor> actualResult = validRoom.getRoomSensors();
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 }
