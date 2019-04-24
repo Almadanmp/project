@@ -32,7 +32,6 @@ public class RoomService {
     private static final String STRING_BUILDER = "---------------\n";
 
 
-
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
@@ -80,16 +79,16 @@ public class RoomService {
         return false;
     }
 
-    public void addPersistence(Room room) {
+    public boolean addPersistence(Room room) {
         Optional<Room> room2 = roomRepository.findByRoomName(room.getId());
         if (room2.isPresent()) {
             Room room3 = room2.get();
             roomRepository.save(room3);
             add(room3);
-        } else {
-            roomRepository.save(room);
-            add(room);
         }
+        roomRepository.save(room);
+        add(room);
+        return true;
     }
 
 
