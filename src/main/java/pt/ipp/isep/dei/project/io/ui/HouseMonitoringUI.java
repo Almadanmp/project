@@ -275,9 +275,11 @@ public class HouseMonitoringUI {
     private void updateAndDisplayUS630(House house, Date startDate, Date endDate ) {
         Date dateResult630;
         AreaSensor closestSensorToHouse;
+        Double temperatureValue;
         try {
             closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(closestSensorToHouse, startDate, endDate);
+            temperatureValue = houseMonitoringController.getReadingValueInGivenDay(closestSensorToHouse,dateResult630);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
@@ -286,7 +288,7 @@ public class HouseMonitoringUI {
         String dateStartDateFormatted = DateUtils.formatDateNoTime(startDate);
         String dateEndDateFormatted = DateUtils.formatDateNoTime(endDate);
         System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
-                + dateResultFormatted + ".");
+                + dateResultFormatted + ". The temperature on that day was " + temperatureValue);
     }
 
     /**
