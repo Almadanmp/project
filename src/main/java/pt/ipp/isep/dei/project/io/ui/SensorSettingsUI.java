@@ -5,10 +5,10 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
@@ -31,11 +31,6 @@ class SensorSettingsUI {
     }
 
     void run(GeographicAreaService geographicAreaService, SensorTypeService sensorTypeList) {
-        if (geographicAreaService.isEmpty()) {
-       //     System.out.println(UtilsUI.INVALID_GA_LIST);
-         //   return;
-        }
-
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -85,7 +80,7 @@ class SensorSettingsUI {
         String name = InputHelperUI.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
         Scanner scan = new Scanner(System.in);
-        String unit =  scan.nextLine();
+        String unit = scan.nextLine();
         return controller.createType(sensorTypeList, name, unit);
     }
 
@@ -101,28 +96,28 @@ class SensorSettingsUI {
         }
     }
 
-    /* USER STORY 006 - an Administrator, I want to adda new sensor and associate it to a geographical area, so that
+    /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
     private void runUS06(GeographicAreaService geographicAreaService, SensorTypeService sensorTypeList) {
         if (geographicAreaService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        AreaSensor areaSensor = createSensor(sensorTypeList, geographicAreaService);
+        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geoAreas);
+        AreaSensor areaSensor = createSensor(sensorTypeList, geographicArea);
         if (!getConfirmation(areaSensor)) {
             return;
         }
-        addSensor(areaSensor, geographicAreaService);
+        addSensor(areaSensor, geographicArea, geographicAreaService);
     }
 
-    private AreaSensor createSensor(SensorTypeService sensorTypeList, GeographicAreaService geographicAreaService) {
-        List<GeographicArea> geoAreas = geographicAreaService.getAll();
+    private AreaSensor createSensor(SensorTypeService sensorTypeList, GeographicArea geographicArea) {
         String id = getInputSensorId();
         String name = getInputSensorName();
         SensorType sensorType = getInputTypeSensor(sensorTypeList);
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geoAreas);
         Long geoID = geographicArea.getId();
         return controller.createSensor(id, name, sensorType, local, startDate, geoID);
     }
@@ -172,9 +167,10 @@ class SensorSettingsUI {
         return "yes".equals(input.nextLine());
     }
 
-    private void addSensor(AreaSensor areaSensor,GeographicAreaService geographicAreaService) {
+    private void addSensor(AreaSensor areaSensor, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
 
-        if (controller.addSensorToGeographicArea(areaSensor, geographicAreaService)) {
+        if (controller.addSensorToGeographicArea(areaSensor, geographicArea)) {
+            geographicAreaService.updateGeoArea(geographicArea);
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {
             System.out.println("\nSensor wasn't added to the selected geographic area.");
