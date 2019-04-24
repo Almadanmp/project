@@ -23,6 +23,7 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.*;
 
+import java.awt.geom.Area;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -481,22 +482,23 @@ class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void testGetFirstHottestDayInPeriodThrowsExceptionMessage() {
-//        // Arrange
-//
-//        validHouseArea.setSensorList(validAreaSensorService);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                controller.getFirstHottestDayInPeriod(validHouse, validDate01, validDate02, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: No temperature readings available in given period.",
-//                exception.getMessage());
-//    }
+    @Test
+    void seeIfGetFirstHottestDayInPeriodWorks() {
+        // Arrange
+
+        AreaSensor testSensorNoReadings = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+                new Local(21, 3, 13), validDate01, 213L);
+
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getFirstHottestDayInPeriod(testSensorNoReadings, validDate01, validDate02));
+
+        // Assert
+
+        assertEquals("No readings available.",
+                exception.getMessage());
+    }
 
     /**
      * Given a valid set of readings not contained in period:
