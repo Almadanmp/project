@@ -204,6 +204,49 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfAddSensorTrue() {
+
+        //Arrange
+
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+
+        validAreaSensor.setActive(true);
+        areaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+
+        validArea.setAreaSensors(listAreaSensor);
+
+
+        //Assert
+
+        assertTrue(validArea.addSensor(areaSensor));
+
+    }
+
+    @Test
+    void seeIfAddSensorFalseNotSensor() {
+
+        //Arrange
+
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+
+        validArea.setAreaSensors(listAreaSensor);
+
+
+        //Assert
+
+        assertTrue(validArea.addSensor(validAreaSensor));
+
+    }
+
+    @Test
     void seeIfGetTypeAreaWorks() {
         // Arrange
 
@@ -738,6 +781,21 @@ class GeographicAreaTest {
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetAreaSensorsWithReadings(){
+        //Arrange
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getAreaSensorsWithReadings(listAreaSensor));
+
+        //Assert
+        assertEquals("The sensor list is empty", exception.getMessage());
+
     }
 
 }

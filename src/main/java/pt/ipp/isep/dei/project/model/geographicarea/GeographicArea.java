@@ -419,7 +419,7 @@ public class GeographicArea {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-    private List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
+     List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
