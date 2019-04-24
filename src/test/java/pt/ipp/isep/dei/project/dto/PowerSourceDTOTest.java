@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PowerSourceDTOTest {
     // Common testing artifacts for testing in this class.
@@ -102,5 +101,13 @@ class PowerSourceDTOTest {
     @Test
     void seeIfEqualsWorksNotAnInstance() {
         assertNotEquals(validDTO, new RoomService());
+    }
+
+    @Test
+    void seeIfGetEnergyGridId() {
+        validDTO.setEnergyGridId("EG1");
+        String expectedResult = "EG1";
+        String actualResult = validDTO.getEnergyGridId();
+        assertEquals(expectedResult,actualResult);
     }
 }

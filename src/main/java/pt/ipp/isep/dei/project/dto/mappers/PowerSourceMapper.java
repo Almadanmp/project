@@ -37,7 +37,7 @@ public final class PowerSourceMapper {
 
         // Update the energy grid Id
 
-        String objectEnergyGridId = dtoToConvert.getName();
+        String objectEnergyGridId = dtoToConvert.getEnergyGridId();
 
 
         // Create, update, and return converted object
