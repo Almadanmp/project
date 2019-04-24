@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -78,10 +79,15 @@ class ReadingDTOTest {
         ReadingDTO testDTO = new ReadingDTO();
         testDTO.setDate(new GregorianCalendar(2018, Calendar.JULY, 12).getTime());
         testDTO.setSensorId("TT");
+        ReadingDTO readingDTO = new ReadingDTO();
+        readingDTO.setDate(new GregorianCalendar(2018, Calendar.JULY, 12).getTime());
+        readingDTO.setSensorId("T1");
+
 
         // Act and Assert
 
         assertEquals(validDTO, testDTO);
+        assertNotEquals(validDTO, readingDTO);
     }
 
     @Test
