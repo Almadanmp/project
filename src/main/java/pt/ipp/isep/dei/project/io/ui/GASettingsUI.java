@@ -152,7 +152,7 @@ class GASettingsUI {
 
     private void displayStateUS01(boolean created, String typeAreaName) {
         if (created) {
-            System.out.println("Success, you have inserted a new Type of Geographic Area: "+typeAreaName);
+            System.out.println("Success, you have inserted a new Type of Geographic Area: " + typeAreaName);
         } else {
             System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
         }
@@ -483,7 +483,6 @@ class GASettingsUI {
         result = readerController.addGeoAreasDTOToList(list, geographicAreaService);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
-
 
 
 }
