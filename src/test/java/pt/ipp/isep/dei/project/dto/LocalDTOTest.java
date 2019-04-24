@@ -101,7 +101,8 @@ class LocalDTOTest {
         LocalDTO difSpecs2 = new LocalDTO();
         difSpecs2.setAltitude(9D);
         difSpecs2.setLongitude(11D);
-        difSpecs2.setLatitude(13D);
+        difSpecs2.setLatitude(12D);
+        difSpecs2.setId(2L);
 
 
         // Act
