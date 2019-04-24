@@ -28,10 +28,8 @@ public class GeographicAreaService {
     private GeographicAreaRepository geographicAreaRepository;
     @Autowired
     private AreaTypeRepository areaTypeRepository;
-
     @Autowired
     AreaSensorRepository areaSensorRepository;
-
     @Autowired
     SensorTypeRepository sensorTypeRepository;
 
@@ -305,7 +303,6 @@ public class GeographicAreaService {
     }
 
 
-
     public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
                                        Long geographicAreaId) {
 
@@ -336,7 +333,6 @@ public class GeographicAreaService {
         }
 
     }
-
 
 
     //METHODS FROM READING SERVICE

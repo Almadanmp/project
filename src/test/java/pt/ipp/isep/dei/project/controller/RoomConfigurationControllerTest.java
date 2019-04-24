@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
@@ -15,7 +14,6 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
@@ -171,7 +169,7 @@ class RoomConfigurationControllerTest {
         List<RoomSensor> roomSensorList = new ArrayList<>();
         roomSensorList.add(s1);
         roomSensorList.add(s2);
-        validRoomWithDevices.setAreaSensors(roomSensorList);
+        validRoomWithDevices.setRoomSensors(roomSensorList);
         String expectedResult = "---------------\n" +
                 "ID: T1292u37 | SensorOne | Type: Wind | Active\n" +
                 "ID: T1292u37 | SensorTwo | Type: Rain | Active\n" +

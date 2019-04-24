@@ -12,13 +12,12 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
@@ -266,11 +265,11 @@ class GASettingsControllerTest {
         // Act
 
 //        boolean result = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO,
-  //              LocalMapper.objectToDTO(firstValidArea.getLocal()));
+        //              LocalMapper.objectToDTO(firstValidArea.getLocal()));
 
         // Assert
 
- //       assertTrue(result);
+        //       assertTrue(result);
     }
 
     //USER STORY 004 TESTS
@@ -549,7 +548,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        controller.removeSensor(validAreaSensorDTO1, validGeographicAreaService);
+        controller.removeSensor(validAreaSensorDTO1, validGeographicAreaDTO, validGeographicAreaService);
         List<AreaSensor> actualResult = areaSensorRepository.findAll();
 
         // Assert
@@ -566,7 +565,7 @@ class GASettingsControllerTest {
 
         // Assert
 
- //       assertTrue(result);
+        //       assertTrue(result);
     }
 
 }

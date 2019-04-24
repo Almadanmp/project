@@ -428,36 +428,6 @@ class GeographicAreaServiceTest {
         assertFalse(actualResult1);
     }
 
-    @Test
-    void seeIfRemoveSensor() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.remove(firstValidAreaSensor);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
-    void seeIfRemoveSensorTrue() {
-        //Arrange
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.of(firstValidAreaSensor)));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.remove(firstValidAreaSensor);
-
-        //Assert
-
-        assertTrue(actualResult1);
-    }
 
     @Test
     void seeIfGetById() {

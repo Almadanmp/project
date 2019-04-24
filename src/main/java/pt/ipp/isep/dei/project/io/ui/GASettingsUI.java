@@ -356,7 +356,7 @@ class GASettingsUI {
     }
 
 
-    /* USER STORY US011 - As an Administrator, I want to remove a sensor from a geographical area, so that it will no
+    /* USER STORY US011 - As an Administrator, I want to removeSensor a sensor from a geographical area, so that it will no
     longer be used.*/
 
     /**
@@ -371,7 +371,7 @@ class GASettingsUI {
     }
 
     private void updateUS11(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(areaSensorDTO, geographicAreaService);
+        gaController.removeSensor(areaSensorDTO, geographicAreaDTO, geographicAreaService);
         System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getName() + " has been deleted.");
     }

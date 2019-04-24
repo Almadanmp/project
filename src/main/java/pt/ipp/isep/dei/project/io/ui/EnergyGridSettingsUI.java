@@ -95,7 +95,7 @@ class EnergyGridSettingsUI {
 
     private void updateHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
         EnergyGrid energyGridAux = controller.addEnergyGridToHouse(energyGrid, energyGridService);
-        if (energyGridAux!=null) {
+        if (energyGridAux != null) {
             System.out.println("The energy grid was successfully created and added to the house.");
         }
     }
@@ -199,7 +199,7 @@ class EnergyGridSettingsUI {
             controller.updateEnergyGrid(grid, energyGridService);
             System.out.println("Room successfully removed from grid!");
         } else {
-            System.out.println("It wasn't possible to remove the room. Please try again.");
+            System.out.println("It wasn't possible to removeSensor the room. Please try again.");
         }
     }
 
