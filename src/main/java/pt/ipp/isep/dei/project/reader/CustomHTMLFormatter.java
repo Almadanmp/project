@@ -50,26 +50,6 @@ public class CustomHTMLFormatter extends Formatter {
     public String getTail(Handler h) {
         return "</PRE></BODY></HTML>\n";
     }
-
-    // Para efeitos de teste //
-    public static void main(String[] args){
-
-        Logger logger = Logger.getLogger(ReaderController.class.getName());
-        try {
-            CustomHTMLFormatter myFormat = new CustomHTMLFormatter();
-            FileHandler fileHandler = new FileHandler("resources/logs/logTest.html");
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(myFormat);
-            logger.setLevel(Level.FINE);
-        } catch (IOException io) {
-            io.getMessage();
-        }
-        for (int i=0; i<50; i++){
-            logger.fine("wow such html");
-        }
-
-    }
-
 }
 
 
