@@ -63,6 +63,7 @@ public class ReaderXMLGeoArea {
                     for (int j = 0; j < nListSensor.getLength(); j++) {
                         readSensorsXML(nListSensor.item(j), areaObject,
                                 geographicAreaService);
+                        geographicAreaService.updateGeoArea(areaObject);
                     }
                 }
             } catch (IllegalArgumentException ignored) {
@@ -78,8 +79,8 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file.
      * @return - Sensor that exists in the node
      */
-    private AreaSensor readSensorsXML(Node node, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
-        AreaSensor areaSensor = new AreaSensor();
+    private void readSensorsXML(Node node, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
+        AreaSensor areaSensor;
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             String id = getTagValue("id", element);
@@ -100,12 +101,11 @@ public class ReaderXMLGeoArea {
             }
             try {
                 areaSensor = geographicAreaService.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date, gaID);
-                geographicArea.addSensor(areaSensor);
                 areaSensor.setGeographicAreaId(geographicArea.getId());
+                geographicArea.addSensor(areaSensor);
             } catch (IllegalArgumentException ignored) {
             }
         }
-        return areaSensor;
     }
 
     /**
