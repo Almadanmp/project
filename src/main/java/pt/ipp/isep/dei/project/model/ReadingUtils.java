@@ -23,7 +23,7 @@ public class ReadingUtils {
      * @param index the index of the Reading we want to getDB value from
      * @return returns value reading that corresponds to index.
      */
-    private static double getValueReading(List<Reading> readings, int index) {
+     static double getValueReading(List<Reading> readings, int index) {
         if (readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }

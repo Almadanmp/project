@@ -105,6 +105,24 @@ public class MainUI {
                 return;
             }
 
+            //Sensor Types
+            try {
+                fileUtils.getSensorTypeConfig();
+                fileUtils.addSensortypesToRepository(sensorTypeService);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+
+            //Area Types
+            try {
+                fileUtils.getAreaTypeConfig();
+                fileUtils.addAreatypesToRepository(areaTypeService);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+
 
             //FixedTimeProgram Variables
 

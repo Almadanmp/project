@@ -34,7 +34,6 @@ public class GeographicArea {
     private GeographicArea motherArea;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "geographicAreaId")
     private List<AreaSensor> areaSensors;
 
     @Embedded
@@ -156,6 +155,10 @@ public class GeographicArea {
         this.description = description;
     }
 
+    public void setAreaType(AreaType areaType) {
+        this.areaType = areaType;
+    }
+
     /**
      * Standard getter method, to return the description of the Geographical Area.
      *
@@ -179,6 +182,8 @@ public class GeographicArea {
         }
     }
 
+    /** This method will get the list of Area Sensors.
+     * **/
     public List<AreaSensor> getAreaSensors() {
         return areaSensors;
     }
@@ -442,6 +447,23 @@ public class GeographicArea {
 
     boolean equalsTypeArea(AreaType areaType) {
         return (this.areaType.equals(areaType));
+    }
+
+
+    /** This method will receive a string of a sensor ID and
+     * will look for a sensor with the given ID from the sensors list.
+     *
+     * @param sensorID string of sensor ID
+     * @return the sensor of the given sensor ID
+     * **/
+    AreaSensor getAreaSensorByID(String sensorID) {
+        for(AreaSensor sensor : this.areaSensors){
+            String tempSensorName = sensor.getId();
+            if(sensorID.equals(tempSensorName)){
+                return sensor;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     /**

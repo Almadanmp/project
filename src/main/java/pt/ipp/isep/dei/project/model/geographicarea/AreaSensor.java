@@ -86,7 +86,6 @@ public class AreaSensor {
     }
 
 
-
     /**
      * Setter: name
      *
@@ -177,13 +176,6 @@ public class AreaSensor {
         }
     }
 
-    public boolean addReading (Reading reading){
-        if (areaReadings.contains(reading)) {
-            return false;
-        }
-        return this.areaReadings.add(reading);
-    }
-
     /**
      * Method to restrain input name so they cant be null or empty.
      *
@@ -261,13 +253,31 @@ public class AreaSensor {
      **/
     boolean readingExists(Date date) {
         for (Reading r : this.areaReadings) {
-            if (r.getDate().equals(date)) {
+            Date tempDate = r.getDate();
+            if (date.equals(tempDate)) {
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * This method will receive a Reading and will try to add that reading
+     * to the Area Sensor list of readings.
+     * It will check if the reading happened during the Area sensor's
+     * date of functioning and if the reading already exists.
+     *
+     * @return true in case the reading is added, false otherwise.
+     **/
+    boolean addReading(Reading reading) {
+        Date readingDate = reading.getDate();
+        if (readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) {
+            if (!readingExists(readingDate)) {
+                return this.areaReadings.add(reading);
+            }
+        }
+        return false;
+    }
 
     /**
      * US630
@@ -448,10 +458,21 @@ public class AreaSensor {
         return maxTemp - lowestTemp;
     }
 
-    public Double getReadingValueOfGivenDay(Date date){
+    public Double getReadingValueOfGivenDay(Date date) {
         List<Reading> readingsBetweenDates = getReadingListBetweenDates(date, date);
         List<Double> reading = ReadingUtils.getValuesOfSpecificDayReadings(readingsBetweenDates, date);
         return Collections.max(reading);
+    }
+
+    /**
+     * This method receives a Date and checks if the Area Sensor was active
+     * at the time of the given date.
+     *
+     * @param date given date
+     * @return true in case the Area Sensor was active at the time of the given date, false otherwise.
+     **/
+    boolean activeDuringDate(Date date) {
+        return this.dateStartedFunctioning.equals(date) || this.dateStartedFunctioning.before(date);
     }
 
     /**

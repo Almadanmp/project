@@ -28,13 +28,14 @@ public class AreaSensorDTOWrapper {
 
     private List<ReadingDTO> readingList;
 
-    public AreaSensorDTOWrapper() {
+    AreaSensorDTOWrapper() {
         readingList = new ArrayList<>();
     }
 
-public void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAttributeWrapper) {
+    void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAttributeWrapper) {
         this.sensorAttributeWrapper = sensorAttributeWrapper;
     }
+
     public LocalDTO getLocalDTO() {
         return localDTO;
     }
@@ -46,7 +47,6 @@ public void setSensorAttributeWrapper(AreaSensorAttributeWrapper sensorAttribute
     public AreaSensorAttributeWrapper getSensorAttributeWrapper() {
         return sensorAttributeWrapper;
     }
-
 
 
     public boolean getActive() {

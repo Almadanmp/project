@@ -1,14 +1,25 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 class FileInputUtils {
 
     int deviceMeteringPeriod;
     int gridMeteringPeriod;
+    List<String> areaTypes;
+    List<String> sensorTypesName = new ArrayList<>();
+    List<String> sensorTypesUnit = new ArrayList<>();
 
     /**
      * This method will readSensors the configuration file and validate the value that corresponds
@@ -108,5 +119,106 @@ class FileInputUtils {
             return false;
         }
         return deviceValue % this.gridMeteringPeriod == 0;
+    }
+
+    String getSensorTypesPropertyValueFromKey(Properties p, String key) throws IOException {
+        String result = p.getProperty(key);
+        if (result == null) {
+            throw new IOException("Could not read the sensor type " + key + " property value.");
+        }
+        return result;
+    }
+
+    String[] getSensorTypesMultipleValues(Properties p, String key) throws IOException {
+        String[] result = p.getProperty(key).split(",");
+        if (result == null) {
+            throw new IOException("Could not read the sensor type " + key + " property value.");
+        }
+        return result;
+    }
+
+    /**
+     * This method will read types of Sensors from a configuration file, get the string that corresponds to the
+     * type and turn it into a Sensor Type
+     *
+     * @return the SensorType List
+     **/
+    void readSensorTypesFromPropertiesFile(String fileName) throws IOException {
+        String fullKey = "sensorTypes";
+        Properties props = new Properties();
+
+        try (FileInputStream input = new FileInputStream(fileName)) {
+            props.load(input);
+            String deviceTypes = getSensorTypesPropertyValueFromKey(props, fullKey);
+            List<String> sensorTypeList = Arrays.asList(deviceTypes.split(","));
+
+            for (String s : sensorTypeList) {
+                String[] aux = getSensorTypesMultipleValues(props,s);
+
+                this.sensorTypesName.add(aux[0]);
+                this.sensorTypesUnit.add(aux[1]);
+            }
+        } catch (IOException ioe) {
+            throw new IOException("ERROR: Unable to process configuration file.");
+        }
+    }
+
+    void getSensorTypeConfig() throws IOException {
+        readSensorTypesFromPropertiesFile("resources/sensorTypes.properties");
+    }
+
+    void addSensortypesToRepository(SensorTypeService sensorTypeService) {
+
+        for (int i=0; i<this.sensorTypesName.size(); i++){
+            SensorType type = new SensorType();
+            type.setName(sensorTypesName.get(i));
+            type.setUnits(this.sensorTypesUnit.get(i));
+            sensorTypeService.add(type);
+        }
+    }
+
+    String getAreaTypesPropertyValueFromKey(Properties p, String key) throws IOException {
+        String result = p.getProperty(key);
+        if (result == null) {
+            throw new IOException("Could not read the area type " + key + " property value.");
+        }
+        return result;
+    }
+
+    /**
+     * This method will read types of Areas from a configuration file, get the string that corresponds to the
+     * type and turn it into a Area Type
+     *
+     * @return the AreaType List
+     **/
+    List<String> readAreaTypesFromPropertiesFile(String fileName) throws IOException {
+        String fullKey = "areaTypes";
+        Properties props = new Properties();
+        List<String> areaTypeConfiguration = new ArrayList<>();
+        try (FileInputStream input = new FileInputStream(fileName)) {
+            props.load(input);
+            String deviceTypes = getAreaTypesPropertyValueFromKey(props, fullKey);
+            List<String> areaTypeList = Arrays.asList(deviceTypes.split(","));
+
+            for (String s : areaTypeList) {
+                String aux = getAreaTypesPropertyValueFromKey(props, s);
+                areaTypeConfiguration.add(aux);
+            }
+
+        } catch (IOException ioe) {
+            throw new IOException("ERROR: Unable to process configuration file.");
+        }
+        return areaTypeConfiguration;
+    }
+
+    void getAreaTypeConfig() throws IOException {
+        this.areaTypes = readAreaTypesFromPropertiesFile("resources/areaTypes.properties");
+    }
+
+    void addAreatypesToRepository(AreaTypeService areaTypeService) {
+        for (String s : this.areaTypes) {
+            AreaType area = new AreaType(s);
+            areaTypeService.add(area);
+        }
     }
 }
