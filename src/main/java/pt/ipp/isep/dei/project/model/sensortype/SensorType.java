@@ -29,6 +29,14 @@ public class SensorType {
 
     //GETTER METHODS
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
+
     /**
      * Getter Units of the Sensor.
      *
