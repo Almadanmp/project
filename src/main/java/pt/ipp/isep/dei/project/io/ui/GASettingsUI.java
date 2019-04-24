@@ -139,10 +139,10 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert a new Type of Geographic Area");
 
-       // while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
-       //     System.out.println("Please insert a valid name.");
-       //     scanner.next();
-       // }
+       while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
+       System.out.println("Please insert a valid name.");
+       scanner.next();
+       }
         return scanner.nextLine();
     }
 
@@ -464,6 +464,7 @@ class GASettingsUI {
         }
     }
 
+    //DO NOT DELETE. WORKING ON IT. - Cárina
     private void runUS15v3(GeographicAreaService geographicAreaService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
@@ -479,13 +480,10 @@ class GASettingsUI {
         int result;
         List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
         List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
-        result = addGeoAreasDTOToList(list, geographicAreaService, listSensor);
+        result = readerController.addGeoAreasDTOToList(list, geographicAreaService);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
 
-    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS) {
-        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
 
-    }
 
 }

@@ -156,6 +156,10 @@ public class GeographicArea {
         this.description = description;
     }
 
+    public void setAreaType(AreaType areaType) {
+        this.areaType = areaType;
+    }
+
     /**
      * Standard getter method, to return the description of the Geographical Area.
      *

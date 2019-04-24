@@ -38,7 +38,7 @@ public class GeographicAreaDTOWrapper {
     private LocalDTO localDTO = new LocalDTO(latitude, longitude, altitude);
 
     @JsonProperty("area_sensor")
-    private List<AreaSensorDTOWrapper> areaSensorDTOList = new ArrayList<>();
+    private static AreaSensorDTOWrapperList areaSensorDTOWrapperList = new AreaSensorDTOWrapperList();
 
 
     public void setName(String name) {
@@ -106,6 +106,7 @@ public class GeographicAreaDTOWrapper {
             geographicAreaDTO.setDescription(wrapper.getDescription());
             geographicAreaDTO.setName(wrapper.getName());
             geographicAreaDTO.setLocalDTO(wrapper.getLocalDTO());
+            geographicAreaDTO.setAreaSensorDTOList(areaSensorDTOWrapperConversion(areaSensorDTOWrapperList.getAreaSensorDTOWrapperList()));
             if (!finalList.contains(geographicAreaDTO)) {
                 finalList.add(geographicAreaDTO);
             }

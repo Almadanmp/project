@@ -3,19 +3,18 @@ package pt.ipp.isep.dei.project.reader.wrapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AreaSensorDTOWrapperList {
     @JsonProperty("area_sensor")
     @JacksonXmlElementWrapper(useWrapping = false)
-    private List<AreaSensorDTOWrapper> areaDTOWrappers;
+    private List<AreaSensorDTOWrapper> areaDTOWrappers = new ArrayList<>();
 
-
-    public List<AreaSensorDTOWrapper> getGeoAreaDTOWrapperList() {
+    public List<AreaSensorDTOWrapper> getAreaSensorDTOWrapperList() {
         return this.areaDTOWrappers;
     }
-
 
     /**
      * Getter (array of GeographicAreaDTOWrappers)

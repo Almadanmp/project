@@ -4,6 +4,7 @@ import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.*;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -140,8 +141,12 @@ public class ReaderController {
      */
     public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
+            String type = geoArea.getAreaType().getName();
+            AreaType areaType = list.getAreaTypeByName(type, logger);
+            geoArea.setAreaType(areaType);
             list.addAndPersistGA(geoArea);
             counter++;
         }
