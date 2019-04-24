@@ -181,11 +181,10 @@ public class GASettingsController {
      * @param areaSensorDTO selected sensor from the geographic area, list of sensors
      * @return returns true if the selected sensor is deactivated, if it's already deactivated returns false
      */
-    public boolean deactivateSensor(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService) {
+    public boolean deactivateSensor(AreaSensorDTO areaSensorDTO) {
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
         if (areaSensor.isActive()) {
             areaSensor.deactivateSensor();
-            geographicAreaService.updateSensor(areaSensor);
             return true;
         }
         return false;
@@ -207,8 +206,10 @@ public class GASettingsController {
         return AreaSensorMapper.objectToDTO(areaSensor);
     }
 
-    public void removeSensor(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService) {
+    public void removeSensor(AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO, GeographicAreaService geographicAreaService) {
+        GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
-        geographicAreaService.remove(areaSensor);
+        geographicArea.removeSensor(areaSensor);
+        geographicAreaService.updateGeoArea(geographicArea);
     }
 }

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class RoomDTO {
     private double width;
     private double length;
     private double height;
-    private List<HouseSensorDTO> sensorList;
+    private List<RoomSensorDTO> sensorList = new ArrayList<>();
     private DeviceList deviceList;
     private String houseID;
     private String energyGridName;
@@ -24,7 +25,7 @@ public class RoomDTO {
      * @return is the DTO's sensorList.
      */
 
-    public List<HouseSensorDTO> getSensorList() {
+    public List<RoomSensorDTO> getSensorList() {
         return sensorList;
     }
 
@@ -34,7 +35,7 @@ public class RoomDTO {
      * @param sensorList is the list we want to store in the DTO.
      */
 
-    public void setSensorList(List<HouseSensorDTO> sensorList) {
+    public void setSensorList(List<RoomSensorDTO> sensorList) {
         this.sensorList = sensorList;
     }
 

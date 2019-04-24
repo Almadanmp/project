@@ -34,6 +34,7 @@ public class HouseMonitoringController {
     }
 
     /**
+     * This method is used to get the maximum temperature in a day in a particular Room.
      * @param day     is the day we want to check the temperature in.
      * @param roomDTO is the room we want to check the temperature in.
      * @return is the max temperature recorded in a room
@@ -117,7 +118,6 @@ public class HouseMonitoringController {
 
     public AreaSensor getClosesSensorByTypeToHouse(House house, String sensorType) {
         GeographicArea houseGa = house.getMotherArea();
-
         return houseGa.getClosestAreaSensorOfGivenType(sensorType, house);
     }
 
@@ -131,7 +131,6 @@ public class HouseMonitoringController {
      * @author Daniela (US633)
      */
     public Date getHighestTempAmplitudeDate(AreaSensor closestAreaSensor, Date initialDate, Date endDate) {
-
         return closestAreaSensor.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
@@ -143,7 +142,6 @@ public class HouseMonitoringController {
      * @author Daniela (US633)
      */
     public double getTempAmplitudeValueByDate(AreaSensor closestAreaSensor, Date dateInput) {
-
         return Math.floor(closestAreaSensor.getAmplitudeValueFromDate(dateInput) * 10) / 10;
     }
 

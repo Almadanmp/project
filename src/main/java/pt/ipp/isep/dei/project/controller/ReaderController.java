@@ -4,6 +4,12 @@ import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.*;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -19,6 +25,7 @@ import pt.ipp.isep.dei.project.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -140,8 +147,12 @@ public class ReaderController {
      */
     public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
         int counter = 0;
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
         for (GeographicAreaDTO dto : geographicAreaDTOS) {
             GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
+            String type = geoArea.getAreaType().getName();
+            AreaType areaType = list.getAreaTypeByName(type, logger);
+            geoArea.setAreaType(areaType);
             list.addAndPersistGA(geoArea);
             counter++;
         }
@@ -160,31 +171,80 @@ public class ReaderController {
         return readerJSON.readAreaSensorDTOS(filePath);
     }
 
-
-    /**
-     * This method will receive a List of AreaReadingDTOs and a log file path and will try to add
-     * every reading in the list to its corresponding area sensor.
-     * The method returns the number of readings that were correctly added and logs every reading
-     * that wasn't added.
+    /** This method will receive a list of reading DTOs, a string of a path to a log file,
+     * and a geographic area service and will try to add readings to the given sensors
+     * in the given geographic area from the repository.
      *
-     * @param readings List of Area Reading DTOs
-     * @param logPath  log file path
-     * @return number of Area Readings added to corresponding Area Sensor
-     **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readings, String logPath, GeographicAreaService geographicAreaService) {
+     * @param readingDTOS a list of reading DTOs
+     * @param logPath string of a log file path
+     * @param geographicAreaService  service
+     *
+     * @return the number of readings added
+     * **/
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaService geographicAreaService) {
         Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
+        List<Reading> readings = readingDTOsToReadings(readingDTOS);
         int addedReadings = 0;
-        for (ReadingDTO r : readings) {
-            AreaSensor sensor = geographicAreaService.getById(r.getSensorId());
-            double value = r.getValue();
-            Date date = r.getDate();
-            String unit = r.getUnit();
-            if (geographicAreaService.addAreaReadingToRepository(sensor, value, date, unit, logger)) {
-                addedReadings++;
-            }
+        List<String> sensorIds = getSensorIDs(readings);
+        for (String sensorID : sensorIds) {
+            List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
+            addedReadings += geographicAreaService.addAreaReadings(sensorID, subArray, logger);
         }
         LogUtils.closeHandlers(logger);
         return addedReadings;
+    }
+
+    /** This method receives a list of reading DTOs and converts them into Readings,
+     * returning a list of Readings.
+     *
+     * @param readingDTOS a list of reading DTOs
+     * @return a list of Readings converted from the given Reading DTO list.
+     ***/
+    private List<Reading> readingDTOsToReadings(List<ReadingDTO> readingDTOS) {
+        List<Reading> readingList = new ArrayList<>();
+        for (ReadingDTO r : readingDTOS) {
+            Reading reading = ReadingMapper.dtoToObject(r);
+            readingList.add(reading);
+        }
+        return readingList;
+    }
+
+    /** This method receives a list of readings, checks for every sensor ID
+     * in every Reading contained in the list and returns a list of strings
+     * of all sensor IDs.
+     *
+     * @param readings a list of readings
+     * @return a list of strings of all sensor IDs from the list of readings
+     * **/
+    private List<String> getSensorIDs(List<Reading> readings) {
+        List<String> sensorIDs = new ArrayList<>();
+        for (Reading r : readings) {
+            String sensorID = r.getSensorID();
+            if (!sensorIDs.contains(sensorID)) {
+                sensorIDs.add(sensorID);
+            }
+        }
+        return sensorIDs;
+    }
+
+    /** This mehtod receives a list of readings and a string of a sensor ID,
+     * checks for every reading within the list with the same sensorID, and
+     * returns a list of readings with the given sensor ID.
+     *
+     * @param readings list of readings
+     * @param sensorID a string of a sensor ID
+     * @return a list of readings that have the same sensor ID as the one given
+     * as parameter.
+     * **/
+    private List<Reading> getReadingsBySensorID(String sensorID, List<Reading> readings) {
+        List<Reading> subArray = new ArrayList<>();
+        for (Reading r : readings) {
+            String readingSensorID = r.getSensorID();
+            if (sensorID.equals(readingSensorID)) {
+                subArray.add(r);
+            }
+        }
+        return subArray;
     }
 
     /**

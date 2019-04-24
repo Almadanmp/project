@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
-import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
@@ -14,13 +16,13 @@ import java.util.List;
  * This class is responsible for converting Sensors and Sensor DTOs into one another.
  */
 
-public final class HouseSensorMapper {
+public final class RoomSensorMapper {
 
     /**
      * Don't let anyone instantiate this class.
      */
 
-    private HouseSensorMapper() {
+    private RoomSensorMapper() {
     }
 
     /**
@@ -29,9 +31,9 @@ public final class HouseSensorMapper {
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static RoomSensor dtoToObject(HouseSensorDTO dtoToConvert) {
+    public static RoomSensor dtoToObject(RoomSensorDTO dtoToConvert) {
 
-        String sensorID = dtoToConvert.getId();
+        String objectID = dtoToConvert.getId();
 
         // Update name
 
@@ -48,6 +50,14 @@ public final class HouseSensorMapper {
         // Update roomID
 
         String objectRoomID = dtoToConvert.getRoomID();
+
+        // Update readings
+
+        List<Reading> objectReadingList = new ArrayList<>();
+        for (ReadingDTO r : dtoToConvert.getReadingList()) {
+            Reading tempReading = ReadingMapper.dtoToObject(r);
+            objectReadingList.add(tempReading);
+        }
 
         // Update date of activation
 
@@ -74,8 +84,9 @@ public final class HouseSensorMapper {
 
         // Create, update and return converted object
 
-        RoomSensor resultObject = new RoomSensor(sensorID, objectName, new SensorType(objectType, objectUnit), objectDate, objectRoomID);
+        RoomSensor resultObject = new RoomSensor(objectID, objectName, new SensorType(objectType, objectUnit), objectDate, objectRoomID);
         resultObject.setActive(objectStatus);
+        resultObject.setReadings(objectReadingList);
         return resultObject;
     }
 
@@ -86,7 +97,10 @@ public final class HouseSensorMapper {
      * @return is the converted model object.
      */
 
-    public static HouseSensorDTO objectToDTO(RoomSensor objectToConvert) {
+    public static RoomSensorDTO objectToDTO(RoomSensor objectToConvert) {
+        // Update the id
+
+        String dtoID = objectToConvert.getId();
 
         // Update the name
 
@@ -112,15 +126,25 @@ public final class HouseSensorMapper {
 
         String dtoUnits = objectToConvert.getSensorType().getUnits();
 
+        // Update the readings
+
+        List<ReadingDTO> dtoReadingList = new ArrayList<>();
+        for (Reading r : objectToConvert.getReadings()) {
+            ReadingDTO tempDTO = ReadingMapper.objectToDTO(r);
+            dtoReadingList.add(tempDTO);
+        }
+
         // Create, update and return the converted DTO.
 
-        HouseSensorDTO resultDTO = new HouseSensorDTO();
+        RoomSensorDTO resultDTO = new RoomSensorDTO();
         resultDTO.setUnits(dtoUnits);
         resultDTO.setTypeSensor(dtoType);
         resultDTO.setActive(dtoStatus);
         resultDTO.setName(dtoName);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
         resultDTO.setRoomID(dtoRoomID);
+        resultDTO.setReadingList(dtoReadingList);
+        resultDTO.setId(dtoID);
 
         return resultDTO;
     }

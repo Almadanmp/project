@@ -1,8 +1,8 @@
 package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
-import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
-import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 public class HouseConfigurationController {
 
-    private static final String VALID_LOG_PATH = "resources/logs/logOut.log";
+    private static final String VALID_LOG_PATH = "resources/logs/sensorsImport.log";
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
@@ -129,7 +129,7 @@ public class HouseConfigurationController {
             return result;
         }
         try {
-            List<HouseSensorDTO> importedSensors = reader.importSensors(filepath);
+            List<RoomSensorDTO> importedSensors = reader.importSensors(filepath);
             return addSensorsToModelRooms(importedSensors, roomService);
         } catch (IllegalArgumentException ok) { // Throws an exception if the file is corrupt or non existent.
             throw new IllegalArgumentException();
@@ -145,18 +145,19 @@ public class HouseConfigurationController {
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int[] addSensorsToModelRooms(List<HouseSensorDTO> importedSensors, RoomService roomService) {
+    private int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors, RoomService roomService) {
         Logger logger = LogUtils.getLogger("sensorsImportLogger", VALID_LOG_PATH, Level.FINE); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
-        for (HouseSensorDTO importedSensor : importedSensors) {
+        for (RoomSensorDTO importedSensor : importedSensors) {
             Optional<Room> roomToAddTo = roomService.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
-                roomService.save(HouseSensorMapper.dtoToObject(importedSensor));
+                roomService.save(RoomSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             } else {
                 logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
                         + " - there is no room with that ID.");
+                LogUtils.closeHandlers(logger);
                 rejectedSensors++;
             }
         }

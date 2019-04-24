@@ -139,12 +139,12 @@ class SensorTypeTest {
     @Test
     void hashCodeDummyTest() {
         // Arrange
-
+        SensorType sensorType = new SensorType();
         int expectedResult = 1;
 
         // Act
 
-        int actualResult = validType.hashCode();
+        int actualResult = sensorType.hashCode();
 
         // Assert
 

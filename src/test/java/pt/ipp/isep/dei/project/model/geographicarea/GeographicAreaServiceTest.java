@@ -381,54 +381,6 @@ class GeographicAreaServiceTest {
     }
 
     @Test
-    void seeIfSensorFromRepositoryIsActiveWorks() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.sensorFromRepositoryIsActive(sensorId, validDate1);
-
-        //Assert
-
-        assertTrue(actualResult1);
-    }
-
-    @Test
-    void seeIfSensorFromRepositoryIsActiveWorksWhenSensorStartsAfterReading() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.sensorFromRepositoryIsActive(sensorId, validDate2);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
-    void seeIfSensorFromRepositoryIsActiveWorksWhenSensorDoesNotExist() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.sensorFromRepositoryIsActive(sensorId, validDate1);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
     void seeIfRemoveSensor() {
         //Arrange
 

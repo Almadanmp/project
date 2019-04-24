@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.controller.GASettingsController;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
@@ -138,10 +139,10 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert a new Type of Geographic Area");
 
-       // while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
-       //     System.out.println("Please insert a valid name.");
-       //     scanner.next();
-       // }
+       while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
+       System.out.println("Please insert a valid name.");
+       scanner.next();
+       }
         return scanner.nextLine();
     }
 
@@ -151,7 +152,7 @@ class GASettingsUI {
 
     private void displayStateUS01(boolean created, String typeAreaName) {
         if (created) {
-            System.out.println("Success, you have inserted a new Type of Geographic Area: "+typeAreaName);
+            System.out.println("Success, you have inserted a new Type of Geographic Area: " + typeAreaName);
         } else {
             System.out.println("Failed, you have inserted an invalid or repeated Type of Geographic Area.");
         }
@@ -347,16 +348,17 @@ class GASettingsUI {
 
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
         AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
-        if (!gaController.deactivateSensor(areaSensorDTO, geographicAreaService)) {
+        if (!gaController.deactivateSensor(areaSensorDTO)) {
             System.out.println("Sensor already deactivated.");
         } else {
             System.out.println("Sensor successfully deactivated!");
+            geographicAreaService.updateGeoArea(GeographicAreaMapper.dtoToObject(geographicAreaDTO));
         }
 
     }
 
 
-    /* USER STORY US011 - As an Administrator, I want to remove a sensor from a geographical area, so that it will no
+    /* USER STORY US011 - As an Administrator, I want to removeSensor a sensor from a geographical area, so that it will no
     longer be used.*/
 
     /**
@@ -371,7 +373,7 @@ class GASettingsUI {
     }
 
     private void updateUS11(AreaSensorDTO areaSensorDTO, GeographicAreaService geographicAreaService, GeographicAreaDTO geographicAreaDTO) {
-        gaController.removeSensor(areaSensorDTO, geographicAreaService);
+        gaController.removeSensor(areaSensorDTO, geographicAreaDTO, geographicAreaService);
         System.out.println("The sensor " + areaSensorDTO.getName() + " on the Geographical Area " +
                 geographicAreaDTO.getName() + " has been deleted.");
     }
@@ -462,6 +464,7 @@ class GASettingsUI {
         }
     }
 
+    //DO NOT DELETE. WORKING ON IT. - Cárina
     private void runUS15v3(GeographicAreaService geographicAreaService) {
         InputHelperUI inputHelperUI = new InputHelperUI();
         Scanner scanner = new Scanner(System.in);
@@ -477,13 +480,9 @@ class GASettingsUI {
         int result;
         List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
         List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
-        result = addGeoAreasDTOToList(list, geographicAreaService, listSensor);
+        result = readerController.addGeoAreasDTOToList(list, geographicAreaService);
         System.out.println(result + " geographic area(s) successfully imported.");
     }
 
-    private int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list, List<AreaSensorDTO> areaSensorDTOS) {
-        return readerController.addGeoAreasDTOToList(geographicAreaDTOS, list);
-
-    }
 
 }

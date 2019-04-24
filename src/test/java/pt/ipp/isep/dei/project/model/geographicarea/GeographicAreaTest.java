@@ -1,17 +1,20 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
-import org.assertj.core.util.ArrayWrapperList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,15 +24,61 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeographicAreaTest {
     private GeographicArea validArea;
+    private AreaSensor firstValidAreaSensor;
+    private AreaSensor secondValidAreaSensor;
+    private Date validDate1; // Date 21/11/2018
 
     @BeforeEach
     void arrangeArtifacts() {
         validArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+        firstValidAreaSensor.setActive(true);
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
+                validDate1, 6008L);
+        secondValidAreaSensor.setActive(true);
     }
 
     @Test
-    void seeIfSetAreaSensors(){
+    void seeIfRemoveSensor() {
+        //Arrange
+
+        validArea.addSensor(firstValidAreaSensor);
+
+        //Act
+
+        boolean actualResult1 = validArea.removeSensor(firstValidAreaSensor);
+
+        //Assert
+
+        assertTrue(actualResult1);
+    }
+
+    @Test
+    void seeIfRemoveSensorIfSensorDontExist() {
+        //Arrange
+
+        validArea.addSensor(firstValidAreaSensor);
+
+        //Act
+
+        boolean actualResult1 = validArea.removeSensor(secondValidAreaSensor);
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+
+    @Test
+    void seeIfSetAreaSensors() {
 
         //Arrange
 
@@ -47,7 +96,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetAreaSensor(){
+    void seeIfGetAreaSensor() {
 
         //Arrange
 
@@ -64,11 +113,11 @@ class GeographicAreaTest {
 
         //Assert
 
-        assertEquals(validAreaSensor,validArea.getSensor(0));
+        assertEquals(validAreaSensor, validArea.getSensor(0));
     }
 
     @Test
-    void seeIfAddSensorFalse(){
+    void seeIfAddSensorFalse() {
 
         //Arrange
 
@@ -88,6 +137,7 @@ class GeographicAreaTest {
         assertFalse(validArea.addSensor(areaSensor));
 
     }
+
     @Test
     void seeIfGetTypeAreaWorks() {
         // Arrange
@@ -492,6 +542,139 @@ class GeographicAreaTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+
+//    @Test
+//    void seeIfGetAreaSensorsByDistanceToHouse(){
+//
+//        //Arrange
+//        List<String> deviceTypeString = new ArrayList<>();
+//        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+//        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+//        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date(), 6008L);
+//        validAreaSensor.setActive(true);
+//        List<AreaSensor> listAreaSensor = new ArrayList<>();
+//        listAreaSensor.add(validAreaSensor);
+//
+//        //Act
+//        validArea.setAreaSensors(listAreaSensor);
+//        List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor,house,1000.2);
+//
+//        //Assert
+//        assertEquals(listAreaSensor, actualResult);
+//    }
+
+    @Test
+    void seeIfGetClosestSensorOfGivenType(){
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(validAreaSensor);
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature",house);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetClosestSensorOfNoExistType(){
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
+                ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+                1).getTime(), 2356L);
+
+        //Act
+
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Humidity",house);
+
+        //Assert
+        assertEquals(areaSensorError, actualResult);
+    }
+
+    @Test
+    void seeIfGetClosestSensorOfGivenTypeSize(){
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(validAreaSensor);
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature",house);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorNoReadings (){
+        //Arrange
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(validAreaSensor);
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getMostRecentlyUsedAreaSensor(listAreaSensor));
+
+
+        //Assert
+        assertEquals("The sensor list has no readings available.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorNoSensors (){
+        //Arrange
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getMostRecentlyUsedAreaSensor(listAreaSensor));
+
+        //Assert
+        assertEquals("The sensor list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensor (){
+        //Arrange
+        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+        Reading firstValidReading = new Reading(31, date, "C", "Test");
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        List<Reading> readingList = new ArrayList<>();
+
+
+        //Act
+        readingList.add(firstValidReading);
+        listAreaSensor.add(validAreaSensor);
+        validAreaSensor.setAreaReadings(readingList);
+        validArea.setAreaSensors(listAreaSensor);
+        AreaSensor actualResult = validArea.getMostRecentlyUsedAreaSensor(listAreaSensor);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
 }
 
 

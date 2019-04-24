@@ -29,6 +29,7 @@ public class Room implements Metered {
     private String energyGridId;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "roomId")
+    private
     List<RoomSensor> roomSensors;
 
     private static final String STRING_BUILDER = "---------------\n";
@@ -329,12 +330,12 @@ public class Room implements Metered {
         return roomSensors;
     }
 
-    public void setAreaSensors(List<RoomSensor> roomSensors) {
+    public void setRoomSensors(List<RoomSensor> roomSensors) {
         this.roomSensors = roomSensors;
     }
 
 
-    public RoomSensor getSensor(int index) {
+    RoomSensor getSensor(int index) {
         return this.roomSensors.get(index);
     }
 
@@ -380,7 +381,7 @@ public class Room implements Metered {
     private List<Reading> getReadings(List<RoomSensor> roomSensors) {
         List<Reading> finalList = new ArrayList<>();
         for (RoomSensor s : roomSensors) {
-            finalList.addAll(s.getHouseReadings());
+            finalList.addAll(s.getReadings());
         }
         return finalList;
     }
@@ -392,10 +393,10 @@ public class Room implements Metered {
      * @param day date of day the method will use to get reading values
      * @return returns value readings from every sensor from given day
      **/
-    private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor>roomSensors, Date day) {
+    private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensors, Date day) {
         List<Reading> sensorReadings = new ArrayList<>();
         for (RoomSensor hS : roomSensors) {
-            sensorReadings.addAll(hS.getHouseReadings());
+            sensorReadings.addAll(hS.getReadings());
         }
         return ReadingUtils.getValuesOfSpecificDayReadings(sensorReadings, day);
     }
@@ -410,7 +411,7 @@ public class Room implements Metered {
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
      **/
-    public double getMaxTemperatureOnGivenDay(Date day) throws NoSuchElementException {
+    public double getMaxTemperatureOnGivenDay(Date day) {
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(NO_TEMP_READINGS);
@@ -433,7 +434,7 @@ public class Room implements Metered {
      */
 
     public double getCurrentRoomTemperature() {
-           List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE);
+        List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(NO_TEMP_READINGS);
         }
@@ -446,7 +447,7 @@ public class Room implements Metered {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    private List<RoomSensor> getRoomSensorsOfGivenType(String name) {
+    List<RoomSensor> getRoomSensorsOfGivenType(String name) {
         List<RoomSensor> containedTypeSensors = new ArrayList<>();
         for (RoomSensor sensor : roomSensors) {
             if (name.equals(sensor.getSensorTypeName())) {

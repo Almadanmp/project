@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
@@ -508,7 +507,7 @@ public class RoomService {
                     return false;
                 }
                 Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
-                sensor.getHouseReadings().add(reading);
+                sensor.getReadings().add(reading);
                 updateSensor(sensor);
                 return true;
             }

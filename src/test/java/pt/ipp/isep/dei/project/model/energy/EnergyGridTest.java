@@ -566,18 +566,22 @@ class EnergyGridTest {
     void seeIfIsDeviceListEmptyWorks() {
         //Arrange
 
+        EnergyGrid nullList = new EnergyGrid("noDevices", 200, "34576");
         EnergyGrid emptyList = new EnergyGrid("noDevices", 200, "34576");
-
+        Room emptyRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "noDevices");
+        emptyList.addRoom(emptyRoom);
         //Act
 
-        boolean actualResult1 = emptyList.isDeviceListEmpty();
+        boolean actualResult1 = nullList.isDeviceListEmpty();
         boolean actualResult2 = validGrid.isDeviceListEmpty();
+        boolean actualResult3 = emptyList.isDeviceListEmpty();
 
 
         //Assert
 
         assertTrue(actualResult1);
         assertFalse(actualResult2);
+        assertTrue(actualResult3);
     }
 
     @Test

@@ -13,8 +13,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.device.log.Log;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -78,6 +76,19 @@ class RoomServiceTest {
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
     }
 
+    @Test
+    void seeIfGetAllRoomsWorksNull() {
+        // Arrange
+        Mockito.when(roomRepository.findAll()).thenReturn(null);
+        List<Room> expectedResult = new ArrayList<>();
+
+        // Act
+        List<Room> actualResult = validRoomService.getAllRooms();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
 
     @Test
     void seeIfRemoveRoom() {
@@ -517,7 +528,7 @@ class RoomServiceTest {
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(secondValidRoomSensor);
         roomSensors.add(thirdValidRoomSensor);
-        validRoom.setAreaSensors(roomSensors);
+        validRoom.setRoomSensors(roomSensors);
         String expectedResult = "---------------\n" +
                 "ID: T32876 | SensorTwo | Type: Temperature | Active\n" +
                 "ID: T32877 | SensorThree | Type: Rainfall | Active\n" +

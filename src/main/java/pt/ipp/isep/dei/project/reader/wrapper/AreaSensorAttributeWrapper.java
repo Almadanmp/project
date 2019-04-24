@@ -16,7 +16,6 @@ public class AreaSensorAttributeWrapper {
     private String units;
 
     @JsonProperty("start_date")
- //   @JsonDeserialize(using = CustomDateDeserializer.class)
     private String dateStartedFunctioning;
 
     /**
