@@ -173,7 +173,7 @@ public class GeographicAreaService {
      * @param name selected name
      * @return Type Area corresponding to the given id
      */
-    private AreaType getAreaTypeByName(String name, Logger logger) {
+    public AreaType getAreaTypeByName(String name, Logger logger) {
         Optional<AreaType> value = areaTypeRepository.findByName(name);
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
@@ -185,25 +185,7 @@ public class GeographicAreaService {
         }
     }
 
-    /**
-     * This method creates a Logger.
-     *
-     * @param logPath log file path.
-     * @return object of class Logger.
-     **/
-    private Logger getLogger(String logPath) {
-        Logger logger = Logger.getLogger(GeographicAreaService.class.getName());
-        try {
-            CustomFormatter myFormat = new CustomFormatter();
-            FileHandler fileHandler = new FileHandler(logPath);
-            logger.addHandler(fileHandler);
-            fileHandler.setFormatter(myFormat);
-            logger.setLevel(Level.WARNING);
-        } catch (IOException io) {
-            io.getMessage();
-        }
-        return logger;
-    }
+
     //METHODS FROM AREA SENSOR REPOSITORY
 
     /**

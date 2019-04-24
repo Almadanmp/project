@@ -27,9 +27,9 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
             GeographicAreaDTOWrapperList geographicAreaDTOWrapperList = objectMapper.readValue(file, GeographicAreaDTOWrapperList.class);
             geoAreaDTOWrapperList = geographicAreaDTOWrapperList.getGeoAreaDTOWrapperList();
             geographicAreaDTOS = GeographicAreaDTOWrapper.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
-            for (GeographicAreaDTO dto : geographicAreaDTOS) {
-                dto.setAreaSensorDTOList(readAreaSensorDTOS(filePath));
-            }
+        //    for (GeographicAreaDTO dto : geographicAreaDTOS) {
+         //       dto.setAreaSensorDTOList(readAreaSensorDTOS(filePath));
+           // }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -45,8 +45,11 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
         try {
             File file = new File(filePath);
             AreaSensorDTOWrapperList areaSensorDTOWrapperList = objectMapper.readValue(file, AreaSensorDTOWrapperList.class);
-            areaSensorDTOWrappers = areaSensorDTOWrapperList.getGeoAreaDTOWrapperList();
+            areaSensorDTOWrappers = areaSensorDTOWrapperList.getAreaSensorDTOWrapperList();
             sensorDTOS = GeographicAreaDTOWrapper.areaSensorDTOWrapperConversion(areaSensorDTOWrappers);
+            if (sensorDTOS.isEmpty()) {
+                System.out.println("Could not import the sensors.");
+            }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
