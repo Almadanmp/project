@@ -65,7 +65,7 @@ class ReadingUtilsTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat validSdfDay = new SimpleDateFormat("dd/MM/yyyy");
         try {
             validDate12 = validSdf.parse("02/11/2015 20:00:00");
@@ -593,4 +593,31 @@ class ReadingUtilsTest {
 //
 //        assertTrue(actualResult);
 //    }
+
+    @Test
+    void seeIfGetValueReadingThrowsException() {
+        //Arrange
+        List<Reading> readingList = new ArrayList<>();
+        //Assert
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> ReadingUtils.getValueReading(readingList, 0));
+    }
+
+    @Test
+    void seeIfGetValueDateThrowsException() {
+        //Arrange
+        List<Reading> readingList = new ArrayList<>();
+        //Assert
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> ReadingUtils.getValueDate(readingList, 0));
+    }
+
+    @Test
+    void seeIfGetMostRecentValueThrowsException() {
+        //Arrange
+        List<Reading> readingList = new ArrayList<>();
+        //Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> ReadingUtils.getMostRecentValue(readingList));
+    }
 }
