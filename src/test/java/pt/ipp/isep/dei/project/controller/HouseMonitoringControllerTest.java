@@ -213,7 +213,7 @@ class HouseMonitoringControllerTest {
 //    void seeIfGetCurrentRoomTemperatureThrowsException() {
 //        // Act
 //        List<RoomSensor> roomSensors = new ArrayList<>();
-//        validRoom1.setAreaSensors(roomSensors);
+//        validRoom1.setRoomSensors(roomSensors);
 //        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomService));
 //
 //        // Assert

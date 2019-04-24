@@ -16,9 +16,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -378,23 +376,6 @@ class RoomTest {
         Assertions.assertEquals(1, actualResult2);
     }
 
-//    @Test
-//    void seeIfIsSensorListEmptyWorks() {
-//        //Arrange
-//
-//        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
-//
-//        //Act
-//
-//        boolean actualResult1 = emptyDeviceList.isSensorListEmpty();
-//        boolean actualResult2 = validRoom.isSensorListEmpty();
-//
-//        //Assert
-//
-//        assertTrue(actualResult1);
-//        assertFalse(actualResult2);
-//    }
-
     @Test
     void seeIfIsDeviceListEmptyWorks() {
         //Arrange
@@ -469,5 +450,98 @@ class RoomTest {
         // Assert
 
         Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomSensorsOfGivenTypeWorks() {
+        List<RoomSensor> roomSensorList = new ArrayList<>();
+        RoomSensor humiditySensor = new RoomSensor("H1", "HumidityOne", new SensorType("humidity", "g/m3"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom.getId());
+        roomSensorList.add(validSensor);
+        roomSensorList.add(humiditySensor);
+        List<RoomSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(validSensor);
+        validRoom.setRoomSensors(roomSensorList);
+        List<RoomSensor> actualResult = validRoom.getRoomSensorsOfGivenType("temperature");
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTemperatureWorks() {
+        List<Reading> readingList = new ArrayList<>();
+        readingList.add(validReading);
+        List<RoomSensor> roomSensorList = new ArrayList<>();
+        validSensor.setHouseReadings(readingList);
+        roomSensorList.add(validSensor);
+        readingList.add(validReading);
+        roomSensorList.add(validSensor);
+        validRoom.setRoomSensors(roomSensorList);
+        double expectedResult = 21;
+        double actualResult = validRoom.getCurrentRoomTemperature();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTemperatureThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> validRoom.getCurrentRoomTemperature());
+    }
+
+    @Test
+    void seeIfGetMaxTemperatureOnGivenDayWorks() {
+        List<Reading> readingList = new ArrayList<>();
+        readingList.add(validReading);
+        Reading reading = new Reading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
+                getTime(), "C", "Test");
+        readingList.add(reading);
+        List<RoomSensor> roomSensorList = new ArrayList<>();
+        validSensor.setHouseReadings(readingList);
+        roomSensorList.add(validSensor);
+        readingList.add(validReading);
+        roomSensorList.add(validSensor);
+        validRoom.setRoomSensors(roomSensorList);
+        double actualResult = validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2018, Calendar.FEBRUARY, 2).getTime());
+        assertEquals(30, actualResult);
+    }
+
+    @Test
+    void seeIfGetMaxTemperatureOnGivenDayThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime()));
+    }
+
+    @Test
+    void seeIfGetMaxTemperatureOnGivenDayThrowsNoSuchElementException() {
+        List<Reading> readingList = new ArrayList<>();
+        readingList.add(validReading);
+        List<RoomSensor> roomSensorList = new ArrayList<>();
+        validSensor.setHouseReadings(readingList);
+        roomSensorList.add(validSensor);
+        readingList.add(validReading);
+        roomSensorList.add(validSensor);
+        validRoom.setRoomSensors(roomSensorList);
+        assertThrows(NoSuchElementException.class, () -> validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime()));
+    }
+
+    @Test
+    void seeIfAddSensorWorks() {
+        boolean actualResult = validRoom.addSensor(validSensor);
+        boolean actualResult1 = validRoom.addSensor(validSensor);
+        assertTrue(actualResult);
+        assertFalse(actualResult1);
+    }
+
+    @Test
+    void seeIfGetSensorWorks() {
+        validRoom.addSensor(validSensor);
+        RoomSensor expectedResult = validSensor;
+        RoomSensor actualResult = validRoom.getSensor(0);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomSensorsWorks() {
+        List<RoomSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(validSensor);
+        validRoom.setRoomSensors(expectedResult);
+        List<RoomSensor> actualResult = validRoom.getRoomSensors();
+        assertEquals(expectedResult,actualResult);
     }
 }

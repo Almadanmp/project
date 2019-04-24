@@ -329,7 +329,7 @@ public class Room implements Metered {
         return roomSensors;
     }
 
-    public void setAreaSensors(List<RoomSensor> roomSensors) {
+    public void setRoomSensors(List<RoomSensor> roomSensors) {
         this.roomSensors = roomSensors;
     }
 
@@ -446,7 +446,7 @@ public class Room implements Metered {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    private List<RoomSensor> getRoomSensorsOfGivenType(String name) {
+     List<RoomSensor> getRoomSensorsOfGivenType(String name) {
         List<RoomSensor> containedTypeSensors = new ArrayList<>();
         for (RoomSensor sensor : roomSensors) {
             if (name.equals(sensor.getSensorTypeName())) {

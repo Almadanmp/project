@@ -13,8 +13,6 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.device.log.Log;
-import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -517,7 +515,7 @@ class RoomServiceTest {
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(secondValidRoomSensor);
         roomSensors.add(thirdValidRoomSensor);
-        validRoom.setAreaSensors(roomSensors);
+        validRoom.setRoomSensors(roomSensors);
         String expectedResult = "---------------\n" +
                 "ID: T32876 | SensorTwo | Type: Temperature | Active\n" +
                 "ID: T32877 | SensorThree | Type: Rainfall | Active\n" +
