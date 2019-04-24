@@ -47,6 +47,71 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfGetAreaSensorByIDWorks() {
+        //Arrange
+
+        validArea.addSensor(firstValidAreaSensor);
+        validArea.addSensor(secondValidAreaSensor);
+
+        //Act
+
+        AreaSensor actualResult = validArea.getAreaSensorByID("SensorTwo");
+
+        //Assert
+
+        assertEquals(secondValidAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetAreaSensorByIDWorksWhenSensorDoesNotExist() {
+        //Arrange
+
+        validArea.addSensor(firstValidAreaSensor);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validArea.getAreaSensorByID("invalidSensorID"));
+    }
+
+    @Test
+    void seeIfGetAreaSensorsWorks() {
+        //Arrange
+
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(firstValidAreaSensor);
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(firstValidAreaSensor);
+
+        validArea.setAreaSensors(areaSensors);
+
+        //Act
+
+        List<AreaSensor> actualResult = validArea.getAreaSensors();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAreaSensorsWorksWhenEmpty() {
+        //Arrange
+
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        List<AreaSensor> expectedResult = new ArrayList<>();
+
+        validArea.setAreaSensors(areaSensors);
+
+        //Act
+
+        List<AreaSensor> actualResult = validArea.getAreaSensors();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
     void seeIfRemoveSensor() {
         //Arrange
 

@@ -75,6 +75,37 @@ class GeographicAreaServiceTest {
         this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
     }
 
+    @Test
+    void seeIfGetGeographicAreaContainingSensorWithGivenIdWorks() {
+        // Arrange
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(secondValidAreaSensor);
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(validList);
+
+        //Act
+
+        GeographicArea actualResult = geographicAreaService.getGeographicAreaContainingSensorWithGivenId("SensorOne");
+
+        // Assert
+
+        assertEquals(firstValidArea, actualResult);
+    }
+
+    @Test
+    void seeIfGetGeographicAreaContainingSensorWithGivenIdWorksWhenSensorIdDoesNotExist() {
+        // Arrange
+
+        List<GeographicArea> emptyList = new ArrayList<>();
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(emptyList);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaService.getGeographicAreaContainingSensorWithGivenId("invalidSensorID"));
+    }
 
     @Test
     void seeIfEqualsWorksFalseDifferentObject() {

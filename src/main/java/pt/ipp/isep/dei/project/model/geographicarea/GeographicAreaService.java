@@ -7,16 +7,12 @@ import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.reader.CustomFormatter;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
-import java.io.IOException;
-
 import java.util.*;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -114,8 +110,7 @@ public class GeographicAreaService {
                 if (tempSensorID.equals(sensorID)) {
                     return ga;
                 }
-            }
-        }
+            } }
         throw new IllegalArgumentException();
     }
 
@@ -133,7 +128,7 @@ public class GeographicAreaService {
         int addedReadings = 0;
         for (Reading r : readings) {
             Date readingDate = r.getDate();
-            if (areaSensor.readingExists(readingDate)) {
+            if (areaSensor.readingWithGivenDateExists(readingDate)) {
                 logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
                         + areaSensor.getId() + " wasn't added because it already exists.");
             } else if (!areaSensor.activeDuringDate(readingDate)) {
@@ -372,6 +367,5 @@ public class GeographicAreaService {
         } else {
             return value.orElseGet(() -> new SensorType(name, unit));
         }
-
     }
 }

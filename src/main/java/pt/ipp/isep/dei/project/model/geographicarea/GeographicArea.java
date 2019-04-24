@@ -182,8 +182,9 @@ public class GeographicArea {
         }
     }
 
-    /** This method will get the list of Area Sensors.
-     * **/
+    /**
+     * This method will get the list of Area Sensors.
+     **/
     public List<AreaSensor> getAreaSensors() {
         return areaSensors;
     }
@@ -450,16 +451,17 @@ public class GeographicArea {
     }
 
 
-    /** This method will receive a string of a sensor ID and
+    /**
+     * This method will receive a string of a sensor ID and
      * will look for a sensor with the given ID from the sensors list.
      *
      * @param sensorID string of sensor ID
      * @return the sensor of the given sensor ID
-     * **/
+     **/
     AreaSensor getAreaSensorByID(String sensorID) {
-        for(AreaSensor sensor : this.areaSensors){
+        for (AreaSensor sensor : this.areaSensors) {
             String tempSensorName = sensor.getId();
-            if(sensorID.equals(tempSensorName)){
+            if (sensorID.equals(tempSensorName)) {
                 return sensor;
             }
         }

@@ -27,11 +27,76 @@ class AreaSensorTest {
     // Common artifacts for testing in this class.
 
     private AreaSensor validAreaSensor;
-
+    private Date validDate1;
+    private Date validDate2;
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("01/04/2018 00:00:00");
+            validDate2 = validSdf.parse("01/04/2017 00:00:00");
+
+        } catch (
+                ParseException c) {
+            c.printStackTrace();
+        }
+
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
         validAreaSensor.setActive(true);
+    }
+
+    @Test
+    void seeIfActiveDuringDateWorks() {
+        // Act
+
+        boolean actualResult = validAreaSensor.activeDuringDate(validDate1);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfActiveDuringDateWorksWhenDateGivenIsOlder() {
+        // Act
+
+        boolean actualResult = validAreaSensor.activeDuringDate(validDate2);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfReadingExistsWorks() {
+        // Arrange
+
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        validAreaSensor.addReading(reading);
+
+        // Act
+
+        boolean actualResult = validAreaSensor.readingWithGivenDateExists(validDate1);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfReadingExistsWorksWhenItDoesNot() {
+        // Arrange
+
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+        validAreaSensor.addReading(reading);
+
+        // Act
+
+        boolean actualResult = validAreaSensor.readingWithGivenDateExists(validDate1);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test
@@ -178,7 +243,7 @@ class AreaSensorTest {
 
         //Assert
 
-        assertTrue(validAreaSensor.readingExists(date));
+        assertTrue(validAreaSensor.readingWithGivenDateExists(date));
     }
 
     @Test
@@ -193,7 +258,7 @@ class AreaSensorTest {
 
         //Assert
 
-        assertTrue(validAreaSensor.readingExists(new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime()));
+        assertTrue(validAreaSensor.readingWithGivenDateExists(new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime()));
     }
 
     @Test
@@ -204,7 +269,7 @@ class AreaSensorTest {
 
         //Assert
 
-        assertFalse(validAreaSensor.readingExists(date));
+        assertFalse(validAreaSensor.readingWithGivenDateExists(date));
     }
 
     @Test

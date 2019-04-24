@@ -139,10 +139,10 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please insert a new Type of Geographic Area");
 
-       while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
-       System.out.println("Please insert a valid name.");
-       scanner.next();
-       }
+        while (!scanner.hasNext("[a-zA-Z\\sà-ùÀ-Ù]*")) {
+            System.out.println("Please insert a valid name.");
+            scanner.next();
+        }
         return scanner.nextLine();
     }
 
@@ -378,7 +378,7 @@ class GASettingsUI {
                 geographicAreaDTO.getName() + " has been deleted.");
     }
 
-    /* USER STORY 20v2 - As an Administrator I want to import geographic area sensor readings into the application
+    /* USER STORY 20v3 - As an Administrator I want to import geographic area sensor readings into the application
      from a either a CSV, JSON or XML file.
      Data outside the valid sensor operation period should not be imported but registered in the
      application log. */

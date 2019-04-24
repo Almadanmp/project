@@ -12,7 +12,6 @@ import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -171,16 +170,16 @@ public class ReaderController {
         return readerJSON.readAreaSensorDTOS(filePath);
     }
 
-    /** This method will receive a list of reading DTOs, a string of a path to a log file,
+    /**
+     * This method will receive a list of reading DTOs, a string of a path to a log file,
      * and a geographic area service and will try to add readings to the given sensors
      * in the given geographic area from the repository.
      *
-     * @param readingDTOS a list of reading DTOs
-     * @param logPath string of a log file path
-     * @param geographicAreaService  service
-     *
+     * @param readingDTOS           a list of reading DTOs
+     * @param logPath               string of a log file path
+     * @param geographicAreaService service
      * @return the number of readings added
-     * **/
+     **/
     public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaService geographicAreaService) {
         Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
         List<Reading> readings = readingDTOsToReadings(readingDTOS);
@@ -194,7 +193,8 @@ public class ReaderController {
         return addedReadings;
     }
 
-    /** This method receives a list of reading DTOs and converts them into Readings,
+    /**
+     * This method receives a list of reading DTOs and converts them into Readings,
      * returning a list of Readings.
      *
      * @param readingDTOS a list of reading DTOs
@@ -209,13 +209,14 @@ public class ReaderController {
         return readingList;
     }
 
-    /** This method receives a list of readings, checks for every sensor ID
+    /**
+     * This method receives a list of readings, checks for every sensor ID
      * in every Reading contained in the list and returns a list of strings
      * of all sensor IDs.
      *
      * @param readings a list of readings
      * @return a list of strings of all sensor IDs from the list of readings
-     * **/
+     **/
     private List<String> getSensorIDs(List<Reading> readings) {
         List<String> sensorIDs = new ArrayList<>();
         for (Reading r : readings) {
@@ -227,7 +228,8 @@ public class ReaderController {
         return sensorIDs;
     }
 
-    /** This mehtod receives a list of readings and a string of a sensor ID,
+    /**
+     * This mehtod receives a list of readings and a string of a sensor ID,
      * checks for every reading within the list with the same sensorID, and
      * returns a list of readings with the given sensor ID.
      *
@@ -235,7 +237,7 @@ public class ReaderController {
      * @param sensorID a string of a sensor ID
      * @return a list of readings that have the same sensor ID as the one given
      * as parameter.
-     * **/
+     **/
     private List<Reading> getReadingsBySensorID(String sensorID, List<Reading> readings) {
         List<Reading> subArray = new ArrayList<>();
         for (Reading r : readings) {

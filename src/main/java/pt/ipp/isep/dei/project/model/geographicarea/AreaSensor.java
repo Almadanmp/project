@@ -85,7 +85,6 @@ public class AreaSensor {
         this.areaReadings = areaReadings;
     }
 
-
     /**
      * Setter: name
      *
@@ -251,13 +250,12 @@ public class AreaSensor {
      * @param date reading date
      * @return true in case the reading exists in the repository, false otherwise.
      **/
-    boolean readingExists(Date date) {
+    boolean readingWithGivenDateExists(Date date) {
         for (Reading r : this.areaReadings) {
             Date tempDate = r.getDate();
             if (date.equals(tempDate)) {
                 return true;
-            }
-        }
+            } }
         return false;
     }
 
@@ -272,7 +270,7 @@ public class AreaSensor {
     boolean addReading(Reading reading) {
         Date readingDate = reading.getDate();
         if (readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) {
-            if (!readingExists(readingDate)) {
+            if (!readingWithGivenDateExists(readingDate)) {
                 return this.areaReadings.add(reading);
             }
         }
