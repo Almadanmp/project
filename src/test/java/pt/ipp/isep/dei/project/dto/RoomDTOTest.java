@@ -162,12 +162,15 @@ class RoomDTOTest {
         RoomDTO roomDTO3 = new RoomDTO();
         roomDTO3.setName("Room2");
 
+        RoomDTO roomDTO4 = null;
+
         // Act
 
         boolean actualResult1 = validDTO.equals(validDTO);
         boolean actualResult2 = validDTO.equals(roomDTO2);
         boolean actualResult3 = validDTO.equals(roomDTO3);
         boolean actualResult4 = validDTO.equals(4D);
+        boolean actualResult5 = validDTO.equals(roomDTO4);
 
 
         // Assert
@@ -176,6 +179,7 @@ class RoomDTOTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertFalse(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
