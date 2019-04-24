@@ -410,7 +410,7 @@ public class Room implements Metered {
      * NaN in case there are no readings in the given day or
      * in case the room has no readings whatsoever
      **/
-    public double getMaxTemperatureOnGivenDay(Date day) throws NoSuchElementException {
+    public double getMaxTemperatureOnGivenDay(Date day) {
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {
             throw new IllegalArgumentException(NO_TEMP_READINGS);

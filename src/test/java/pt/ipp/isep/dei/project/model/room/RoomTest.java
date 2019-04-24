@@ -454,6 +454,7 @@ class RoomTest {
 
     @Test
     void seeIfGetRoomSensorsOfGivenTypeWorks() {
+        //Arrange
         List<RoomSensor> roomSensorList = new ArrayList<>();
         RoomSensor humiditySensor = new RoomSensor("H1", "HumidityOne", new SensorType("humidity", "g/m3"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom.getId());
         roomSensorList.add(validSensor);
@@ -461,12 +462,15 @@ class RoomTest {
         List<RoomSensor> expectedResult = new ArrayList<>();
         expectedResult.add(validSensor);
         validRoom.setRoomSensors(roomSensorList);
+        //Act
         List<RoomSensor> actualResult = validRoom.getRoomSensorsOfGivenType("temperature");
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetCurrentRoomTemperatureWorks() {
+        //Arrange
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
@@ -476,7 +480,9 @@ class RoomTest {
         roomSensorList.add(validSensor);
         validRoom.setRoomSensors(roomSensorList);
         double expectedResult = 21;
+        //Act
         double actualResult = validRoom.getCurrentRoomTemperature();
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
@@ -487,6 +493,7 @@ class RoomTest {
 
     @Test
     void seeIfGetMaxTemperatureOnGivenDayWorks() {
+        //Arrange
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         Reading reading = new Reading(30, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
@@ -498,7 +505,9 @@ class RoomTest {
         readingList.add(validReading);
         roomSensorList.add(validSensor);
         validRoom.setRoomSensors(roomSensorList);
+        //Act
         double actualResult = validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2018, Calendar.FEBRUARY, 2).getTime());
+        //Assert
         assertEquals(30, actualResult);
     }
 
@@ -509,6 +518,7 @@ class RoomTest {
 
     @Test
     void seeIfGetMaxTemperatureOnGivenDayThrowsNoSuchElementException() {
+        //Arrange
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
@@ -517,31 +527,40 @@ class RoomTest {
         readingList.add(validReading);
         roomSensorList.add(validSensor);
         validRoom.setRoomSensors(roomSensorList);
+        //Assert
         assertThrows(NoSuchElementException.class, () -> validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime()));
     }
 
     @Test
     void seeIfAddSensorWorks() {
+        //Act
         boolean actualResult = validRoom.addSensor(validSensor);
         boolean actualResult1 = validRoom.addSensor(validSensor);
+        //Assert
         assertTrue(actualResult);
         assertFalse(actualResult1);
     }
 
     @Test
     void seeIfGetSensorWorks() {
+        //Arrange
         validRoom.addSensor(validSensor);
         RoomSensor expectedResult = validSensor;
+        //Act
         RoomSensor actualResult = validRoom.getSensor(0);
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfGetRoomSensorsWorks() {
+        //Arrange
         List<RoomSensor> expectedResult = new ArrayList<>();
         expectedResult.add(validSensor);
         validRoom.setRoomSensors(expectedResult);
+        //Act
         List<RoomSensor> actualResult = validRoom.getRoomSensors();
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 }
