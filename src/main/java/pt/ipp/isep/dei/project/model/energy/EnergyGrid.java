@@ -341,7 +341,7 @@ public class EnergyGrid implements Metered {
                 sum = sum + 1;
             }
         }
-        return sum == 0;
+        return sum <= 0;
     }
 
     /**
