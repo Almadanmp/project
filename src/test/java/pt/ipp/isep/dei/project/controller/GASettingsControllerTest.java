@@ -326,7 +326,7 @@ class GASettingsControllerTest {
     void seeIfDeactivateSensor() {
         // Act
 
-        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO1, validGeographicAreaService);
+        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO1);
 
         // Assert
 
@@ -337,7 +337,7 @@ class GASettingsControllerTest {
     void seeIfDeactivateSensorWhenSecondInList() {
         // Act
 
-        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO2, validGeographicAreaService);
+        boolean actualResult = controller.deactivateSensor(validAreaSensorDTO2);
 
         // Assert
 
@@ -353,7 +353,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        boolean actualResult = controller.deactivateSensor(areaSensorDTO, validGeographicAreaService);
+        boolean actualResult = controller.deactivateSensor(areaSensorDTO);
 
         // Assert
 
