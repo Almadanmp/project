@@ -6,11 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
-import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
-import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -26,7 +22,6 @@ import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.*;
-import sun.management.Sensor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -620,7 +615,7 @@ class HouseMonitoringControllerTest {
 //    }
 
     @Test
-    void seeIfGetDayMaxTemperature() {
+    void seeIfGetDayMaxTemperatureWorks() {
         // Arrange
 
         Room testRoom = new Room("Kitchen", "Where we cook", 0, 15, 15, 15,
