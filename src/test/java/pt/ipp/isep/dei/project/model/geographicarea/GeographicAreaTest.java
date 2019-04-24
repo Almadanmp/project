@@ -1,14 +1,15 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
-import org.assertj.core.util.ArrayWrapperList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,15 +22,61 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeographicAreaTest {
     private GeographicArea validArea;
+    private AreaSensor firstValidAreaSensor;
+    private AreaSensor secondValidAreaSensor;
+    private Date validDate1; // Date 21/11/2018
 
     @BeforeEach
     void arrangeArtifacts() {
         validArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("21/11/2018 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+        firstValidAreaSensor.setActive(true);
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
+                validDate1, 6008L);
+        secondValidAreaSensor.setActive(true);
     }
 
     @Test
-    void seeIfSetAreaSensors(){
+    void seeIfRemoveSensor() {
+        //Arrange
+
+        validArea.addSensor(firstValidAreaSensor);
+
+        //Act
+
+        boolean actualResult1 = validArea.removeSensor(firstValidAreaSensor);
+
+        //Assert
+
+        assertTrue(actualResult1);
+    }
+
+    @Test
+    void seeIfRemoveSensorIfSensorDontExist() {
+        //Arrange
+
+        validArea.addSensor(firstValidAreaSensor);
+
+        //Act
+
+        boolean actualResult1 = validArea.removeSensor(secondValidAreaSensor);
+
+        //Assert
+
+        assertFalse(actualResult1);
+    }
+
+
+    @Test
+    void seeIfSetAreaSensors() {
 
         //Arrange
 
@@ -47,7 +94,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetAreaSensor(){
+    void seeIfGetAreaSensor() {
 
         //Arrange
 
@@ -64,11 +111,11 @@ class GeographicAreaTest {
 
         //Assert
 
-        assertEquals(validAreaSensor,validArea.getSensor(0));
+        assertEquals(validAreaSensor, validArea.getSensor(0));
     }
 
     @Test
-    void seeIfAddSensorFalse(){
+    void seeIfAddSensorFalse() {
 
         //Arrange
 
@@ -88,6 +135,7 @@ class GeographicAreaTest {
         assertFalse(validArea.addSensor(areaSensor));
 
     }
+
     @Test
     void seeIfGetTypeAreaWorks() {
         // Arrange

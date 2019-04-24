@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
 
@@ -92,8 +92,8 @@ public class SensorSettingsController {
      * @return is true if successfully added, false if not.
      */
 
-    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicAreaService geographicAreaService) {
-        return (geographicAreaService.addAreaSensorToDb(areaSensor));
+    public boolean addSensorToGeographicArea(AreaSensor areaSensor, GeographicArea geographicArea) {
+        return (geographicArea.addSensor(areaSensor));
     }
 
 

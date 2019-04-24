@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
-import com.sun.javafx.geom.Area;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -9,7 +8,6 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.*;
 
 /**
@@ -283,17 +281,15 @@ public class GeographicArea {
         return this.motherArea.equals(geographicArea);
     }
 
-    /**
-     * This method checks if name, type area and local match those of geographic area.
-     *
-     * @param name     the name of the Geographic Area
-     * @param local    the localization on the Geographic Area
-     * @param areaType the type of Geographic Area
-     * @return true if it matches, false if it does not.
-     **/
-
-
     //SENSOR RELATED METHODS
+
+    public boolean removeSensor(AreaSensor areaSensor) {
+        if (areaSensors.contains(areaSensor)) {
+            areaSensors.remove(areaSensor);
+            return true;
+        }
+        return false;
+    }
 
 
     /**
@@ -304,7 +300,7 @@ public class GeographicArea {
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    private List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor>areaSensors, House house, double minDist) {
+    private List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
             if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
@@ -314,7 +310,7 @@ public class GeographicArea {
         return finalList;
     }
 
-    private double getMinDistanceToSensorOfGivenType(List<AreaSensor>areaSensors, House house) {
+    private double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
         List<Double> arrayList = getSensorsDistanceToHouse(areaSensors, house);
         return Collections.min(arrayList);
     }
@@ -326,7 +322,7 @@ public class GeographicArea {
      * @param house to calculate closest distance
      * @return List of sensors distance to house
      */
-    private List<Double> getSensorsDistanceToHouse(List<AreaSensor>areaSensors, House house) {
+    private List<Double> getSensorsDistanceToHouse(List<AreaSensor> areaSensors, House house) {
         ArrayList<Double> arrayList = new ArrayList<>();
         for (AreaSensor areaSensor : areaSensors) {
             arrayList.add(house.calculateDistanceToSensor(areaSensor));
