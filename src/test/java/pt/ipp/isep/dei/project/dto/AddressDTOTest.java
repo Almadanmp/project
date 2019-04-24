@@ -100,12 +100,18 @@ class AddressDTOTest {
         validAddressDTO3.setStreet("Rua R. Dr. António Bernardino de Almeida 431");
         validAddressDTO3.setZip("4200-072");
 
+        AddressDTO validAddressDTO4 = new AddressDTO();
+        validAddressDTO4.setTown("Porto");
+        validAddressDTO4.setStreet("Rua R. Dr. António Bernardino de Almeida 431");
+        validAddressDTO4.setZip("4200-073");
+
         //Act
 
         boolean actualResult1 = validAddressDTO.equals(validAddressDTO);
         boolean actualResult2 = validAddressDTO.equals(validAddressDTO2);
         boolean actualResult3 = validAddressDTO.equals(validAddressDTO3);
         boolean actualResult4 = validAddressDTO.equals(4D);
+        boolean actualResult5 = validAddressDTO.equals(validAddressDTO4);
 
         //Assert
 
@@ -113,6 +119,7 @@ class AddressDTOTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertFalse(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
