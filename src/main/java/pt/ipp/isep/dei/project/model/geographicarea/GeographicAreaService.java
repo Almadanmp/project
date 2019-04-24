@@ -124,7 +124,7 @@ public class GeographicAreaService {
      * @param logger     logger
      * @return number of readings added to the Area Sensor
      **/
-    private int addReadingsToAreaSensor(AreaSensor areaSensor, List<Reading> readings, Logger logger) {
+    int addReadingsToAreaSensor(AreaSensor areaSensor, List<Reading> readings, Logger logger) {
         int addedReadings = 0;
         for (Reading r : readings) {
             Date readingDate = r.getDate();

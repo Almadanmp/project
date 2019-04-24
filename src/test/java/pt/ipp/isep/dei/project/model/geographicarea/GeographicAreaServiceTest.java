@@ -7,7 +7,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -19,6 +21,7 @@ import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +34,8 @@ class GeographicAreaServiceTest {
 
     private GeographicArea firstValidArea;
     private List<GeographicArea> validList;
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
+
 
     @Mock
     GeographicAreaRepository geographicAreaRepository;
@@ -73,6 +78,82 @@ class GeographicAreaServiceTest {
         thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
                 validDate1, 6008L);
         this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+    }
+
+    @Test
+    void seeIfAddReadingsToAreaSensorWorks() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        int expectedResult = 1;
+
+        //Act
+
+        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToAreaSensorWorksWhenReadingIsFromBeforeSensorActivatingDate() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+        readings.add(reading);
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToAreaSensorWorksWhenReadingAlreadyExists() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        firstValidAreaSensor.addReading(reading);
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToAreaSensorWorksWhenListIsEmpty() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
