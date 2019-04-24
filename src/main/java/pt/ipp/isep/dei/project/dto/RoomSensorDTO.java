@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HouseSensorDTO {
+public class RoomSensorDTO {
 
     private String id;
     private String name;
@@ -14,7 +14,7 @@ public class HouseSensorDTO {
     private boolean active;
     private List<ReadingDTO> readingList;
 
-    public HouseSensorDTO() {
+    public RoomSensorDTO() {
         readingList = new ArrayList<>();
     }
 
@@ -134,10 +134,10 @@ public class HouseSensorDTO {
         if (this == testDTO) {
             return true;
         }
-        if (!(testDTO instanceof HouseSensorDTO)) {
+        if (!(testDTO instanceof RoomSensorDTO)) {
             return false;
         }
-        HouseSensorDTO localVariable = (HouseSensorDTO) testDTO;
+        RoomSensorDTO localVariable = (RoomSensorDTO) testDTO;
         return (localVariable.getName().equals(this.name));
     }
 

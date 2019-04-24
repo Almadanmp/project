@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.reader;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ class JSONSensorsReaderTest {
 
         JSONSensorsReader reader = new JSONSensorsReader();
 
-        List<HouseSensorDTO> expectedResult = new ArrayList<>();
+        List<RoomSensorDTO> expectedResult = new ArrayList<>();
 
-        HouseSensorDTO rejectedFirstSensor = new HouseSensorDTO();
+        RoomSensorDTO rejectedFirstSensor = new RoomSensorDTO();
         rejectedFirstSensor.setId("TT12345OA");
         rejectedFirstSensor.setRoomID("B405");
         rejectedFirstSensor.setName("Temperature B405");
@@ -26,7 +26,7 @@ class JSONSensorsReaderTest {
         rejectedFirstSensor.setTypeSensor("temperature");
         rejectedFirstSensor.setUnits("C");
 
-        HouseSensorDTO firstDTO = new HouseSensorDTO();
+        RoomSensorDTO firstDTO = new RoomSensorDTO();
         firstDTO.setId("TT12346OB");
         firstDTO.setRoomID("B106");
         firstDTO.setName("Temperature B106");
@@ -34,7 +34,7 @@ class JSONSensorsReaderTest {
         firstDTO.setTypeSensor("temperature");
         firstDTO.setUnits("C");
 
-        HouseSensorDTO secondDTO = new HouseSensorDTO();
+        RoomSensorDTO secondDTO = new RoomSensorDTO();
         secondDTO.setId("TT12334OA");
         secondDTO.setRoomID("B107");
         secondDTO.setName("Temperature B107");
@@ -42,7 +42,7 @@ class JSONSensorsReaderTest {
         secondDTO.setTypeSensor("temperature");
         secondDTO.setUnits("C");
 
-        HouseSensorDTO thirdDTO = new HouseSensorDTO();
+        RoomSensorDTO thirdDTO = new RoomSensorDTO();
         thirdDTO.setId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
@@ -57,7 +57,7 @@ class JSONSensorsReaderTest {
 
         // Act
 
-        List<HouseSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensors.json");
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensors.json");
 
         // Assert
 
@@ -70,9 +70,9 @@ class JSONSensorsReaderTest {
 
         JSONSensorsReader reader = new JSONSensorsReader();
 
-        List<HouseSensorDTO> expectedResult = new ArrayList<>();
+        List<RoomSensorDTO> expectedResult = new ArrayList<>();
 
-        HouseSensorDTO rejectedFirstSensor = new HouseSensorDTO();
+        RoomSensorDTO rejectedFirstSensor = new RoomSensorDTO();
         rejectedFirstSensor.setId("TT12345OA");
         rejectedFirstSensor.setRoomID("B405");
         rejectedFirstSensor.setName("Temperature B405");
@@ -80,7 +80,7 @@ class JSONSensorsReaderTest {
         rejectedFirstSensor.setTypeSensor("temperature");
         rejectedFirstSensor.setUnits("C");
 
-        HouseSensorDTO firstDTO = new HouseSensorDTO();
+        RoomSensorDTO firstDTO = new RoomSensorDTO();
         firstDTO.setId("TT12346OB");
         firstDTO.setRoomID(null);
         firstDTO.setName("Temperature B106");
@@ -88,7 +88,7 @@ class JSONSensorsReaderTest {
         firstDTO.setTypeSensor("temperature");
         firstDTO.setUnits("C");
 
-        HouseSensorDTO secondDTO = new HouseSensorDTO();
+        RoomSensorDTO secondDTO = new RoomSensorDTO();
         secondDTO.setId("TT12334OA");
         secondDTO.setRoomID("B107");
         secondDTO.setName("Temperature B107");
@@ -96,7 +96,7 @@ class JSONSensorsReaderTest {
         secondDTO.setTypeSensor("temperature");
         secondDTO.setUnits("C");
 
-        HouseSensorDTO thirdDTO = new HouseSensorDTO();
+        RoomSensorDTO thirdDTO = new RoomSensorDTO();
         thirdDTO.setId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
@@ -110,7 +110,7 @@ class JSONSensorsReaderTest {
 
         // Act
 
-        List<HouseSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json");
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json");
 
         // Assert
 
@@ -123,9 +123,9 @@ class JSONSensorsReaderTest {
 
         JSONSensorsReader reader = new JSONSensorsReader();
 
-        List<HouseSensorDTO> expectedResult = new ArrayList<>();
+        List<RoomSensorDTO> expectedResult = new ArrayList<>();
 
-        HouseSensorDTO rejectedFirstSensor = new HouseSensorDTO();
+        RoomSensorDTO rejectedFirstSensor = new RoomSensorDTO();
         rejectedFirstSensor.setId("TT12345OA");
         rejectedFirstSensor.setRoomID("B405");
         rejectedFirstSensor.setName("Temperature B405");
@@ -133,7 +133,7 @@ class JSONSensorsReaderTest {
         rejectedFirstSensor.setTypeSensor("temperature");
         rejectedFirstSensor.setUnits("C");
 
-        HouseSensorDTO firstDTO = new HouseSensorDTO();
+        RoomSensorDTO firstDTO = new RoomSensorDTO();
         firstDTO.setId("TT12346OB");
         firstDTO.setRoomID("B106");
         firstDTO.setName(null);
@@ -141,7 +141,7 @@ class JSONSensorsReaderTest {
         firstDTO.setTypeSensor("temperature");
         firstDTO.setUnits("C");
 
-        HouseSensorDTO secondDTO = new HouseSensorDTO();
+        RoomSensorDTO secondDTO = new RoomSensorDTO();
         secondDTO.setId(null);
         secondDTO.setRoomID("B107");
         secondDTO.setName("Temperature B107");
@@ -149,7 +149,7 @@ class JSONSensorsReaderTest {
         secondDTO.setTypeSensor("temperature");
         secondDTO.setUnits("C");
 
-        HouseSensorDTO thirdDTO = new HouseSensorDTO();
+        RoomSensorDTO thirdDTO = new RoomSensorDTO();
         thirdDTO.setId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
@@ -162,7 +162,7 @@ class JSONSensorsReaderTest {
 
         // Act
 
-        List<HouseSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json");
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json");
 
         // Assert
 

@@ -2,9 +2,6 @@ package pt.ipp.isep.dei.project.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
@@ -13,7 +10,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RoomDTOTest {
     // Common testing artifacts for this class.
@@ -105,15 +102,15 @@ class RoomDTOTest {
     void seeIfSetGetSensorListWorks() {
         // Arrange
 
-        List<HouseSensorDTO> list = new ArrayList<>();
-        HouseSensorDTO firstDTO = new HouseSensorDTO();
+        List<RoomSensorDTO> list = new ArrayList<>();
+        RoomSensorDTO firstDTO = new RoomSensorDTO();
         firstDTO.setName("Test");
         list.add(firstDTO);
         validDTO.setSensorList(list);
 
         // Act
 
-        List<HouseSensorDTO> result = validDTO.getSensorList();
+        List<RoomSensorDTO> result = validDTO.getSensorList();
 
         // Assert
 

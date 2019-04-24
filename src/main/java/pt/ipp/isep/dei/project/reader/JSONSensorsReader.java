@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import pt.ipp.isep.dei.project.dto.HouseSensorDTO;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,8 +20,8 @@ public class JSONSensorsReader implements Reader {
      * @param filepath is the path of the file where we want to import the sensors from.
      * @return is the list of HouseSensorDTOs that were imported.
      */
-    public List<HouseSensorDTO> importSensors(String filepath) {
-        List<HouseSensorDTO> result = new ArrayList<>();
+    public List<RoomSensorDTO> importSensors(String filepath) {
+        List<RoomSensorDTO> result = new ArrayList<>();
         JSONArray importedArray = readFile(filepath); // Imports the whole file as an array.
         for (int x = 0; x < importedArray.length(); x++) {
             JSONObject sensorToImport = importedArray.getJSONObject(x);
@@ -35,7 +35,7 @@ public class JSONSensorsReader implements Reader {
                 String sensorType = sensorToImport.getString("type");
                 String sensorUnit = sensorToImport.getString("units");
                 String objectDate = sensorToImport.getString("start_date");
-                HouseSensorDTO importedSensor = new HouseSensorDTO();
+                RoomSensorDTO importedSensor = new RoomSensorDTO();
                 importedSensor.setName(sensorName);
                 importedSensor.setDateStartedFunctioning(objectDate);
                 importedSensor.setTypeSensor(sensorType);

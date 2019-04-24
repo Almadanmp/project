@@ -16,7 +16,7 @@ class RoomSensorDTOTest {
     void seeIfSetUnitWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setUnits("Unit");
 
         //Act
@@ -31,7 +31,7 @@ class RoomSensorDTOTest {
     void seeIfSetIdWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setId("Id");
 
         //Act
@@ -61,7 +61,7 @@ class RoomSensorDTOTest {
         readingDTO.setSensorId("Id");
         readingDTOList.add(readingDTO);
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setReadingList(readingDTOList);
 
         List<ReadingDTO> expectedResult = new ArrayList<>();
@@ -79,7 +79,7 @@ class RoomSensorDTOTest {
     void seeIfSetRoomIdWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setRoomID("Id");
 
         //Act
@@ -94,7 +94,7 @@ class RoomSensorDTOTest {
     void seeIfSetTypeSensorWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setTypeSensor("Type");
 
         //Act
@@ -109,7 +109,7 @@ class RoomSensorDTOTest {
     void seeIfSetActiveWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setActive(true);
 
         //Act
@@ -125,7 +125,7 @@ class RoomSensorDTOTest {
     void seeIfSetInactiveWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setActive(false);
 
         //Act
@@ -142,13 +142,13 @@ class RoomSensorDTOTest {
     void seeIfEqualsWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
         houseSensorDTO1.setName("Name1");
 
-        HouseSensorDTO houseSensorDTO2 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO2 = new RoomSensorDTO();
         houseSensorDTO2.setName("Name1");
 
-        HouseSensorDTO houseSensorDTO3 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO3 = new RoomSensorDTO();
         houseSensorDTO3.setName("Name2");
 
         //Act
@@ -169,7 +169,7 @@ class RoomSensorDTOTest {
     void seeIfHashCodeWorks() {
         //Arrange
 
-        HouseSensorDTO houseSensorDTO1 = new HouseSensorDTO();
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
 
         //Assert
         assertEquals(1, houseSensorDTO1.hashCode());

@@ -50,7 +50,7 @@ class HouseMapperTest {
         energyGridDTOList.add(energyGridDTO);
         List<RoomDTO> list = new ArrayList<>();
         energyGridDTO.setRoomDTOS(list);
-        List<HouseSensorDTO> houseSensorDTOS = new ArrayList<>();
+        List<RoomSensorDTO> houseSensorDTOS = new ArrayList<>();
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setName("B109");
         roomDTO.setDescription("Classroom");
@@ -110,7 +110,7 @@ class HouseMapperTest {
         energyGridDTOList.add(energyGridDTO);
         List<RoomDTO> list = new ArrayList<>();
         energyGridDTO.setRoomDTOS(list);
-        List<HouseSensorDTO> houseSensorDTOS = new ArrayList<>();
+        List<RoomSensorDTO> houseSensorDTOS = new ArrayList<>();
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setName("B109");
         roomDTO.setDescription("Classroom");
@@ -170,7 +170,7 @@ class HouseMapperTest {
         energyGridDTOList.add(energyGridDTO);
         List<RoomDTO> list = new ArrayList<>();
         energyGridDTO.setRoomDTOS(list);
-        List<HouseSensorDTO> houseSensorDTOS = new ArrayList<>();
+        List<RoomSensorDTO> houseSensorDTOS = new ArrayList<>();
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setName("B109");
         roomDTO.setDescription("Classroom");
