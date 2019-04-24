@@ -84,6 +84,7 @@ public class ReaderJSONGeographicAreas implements Reader {
                 if (geographicAreaService.addAndPersistGA(areaObject)) {
                     result++;
                     readAreaSensorsJSON(areaSensors, areaObject, geographicAreaService);
+                    geographicAreaService.updateGeoArea(areaObject);
                 }
             } catch (IllegalArgumentException ignored) {
             }
@@ -124,7 +125,8 @@ public class ReaderJSONGeographicAreas implements Reader {
                     sensorLongitude, sensorAltitude);
             Long gaID = geographicArea.getId();
             try {
-                geographicAreaService.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+                AreaSensor sensorToAdd = geographicAreaService.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+                geographicArea.addSensor(sensorToAdd);
                 entriesChecked++;
 
             } catch (IllegalArgumentException ignored) {

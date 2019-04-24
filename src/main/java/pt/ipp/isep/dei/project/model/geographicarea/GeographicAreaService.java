@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.reader.CustomFormatter;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
@@ -70,6 +68,10 @@ public class GeographicAreaService {
             return true;
         }
         return false;
+    }
+
+    public void updateGeoArea(GeographicArea area) {
+        geographicAreaRepository.save(area);
     }
 
     /**
