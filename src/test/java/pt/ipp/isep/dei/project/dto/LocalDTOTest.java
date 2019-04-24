@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Local;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -97,6 +98,11 @@ class LocalDTOTest {
         difSpecs.setLongitude(78D);
         difSpecs.setLatitude(12D);
 
+        LocalDTO difSpecs2 = new LocalDTO();
+        difSpecs2.setAltitude(9D);
+        difSpecs2.setLongitude(11D);
+        difSpecs2.setLatitude(13D);
+
 
         // Act
 
@@ -104,6 +110,7 @@ class LocalDTOTest {
         boolean actualResult2 = validDTO.equals(validDTO);
         boolean actualResult3 = validDTO.equals(difSpecs);
         boolean actualResult4 = validDTO.equals(2D);
+        boolean actualResult5 = validDTO.equals(difSpecs2);
 
         // Assert
 
@@ -111,6 +118,7 @@ class LocalDTOTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertFalse(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
