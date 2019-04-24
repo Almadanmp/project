@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class HouseConfigurationUI {
-    private HouseConfigurationController controller;
+    private final HouseConfigurationController controller;
     private String roomName;
     private String roomDescription;
     private int roomHouseFloor;
@@ -33,8 +33,8 @@ class HouseConfigurationUI {
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private static final String FILE_LOCATION = "Please insert the location of the file you want to import:";
-    private ReaderController readerController;
-    private List<String> menuOptions;
+    private final ReaderController readerController;
+    private final List<String> menuOptions;
 
 
     HouseConfigurationUI() {
@@ -179,13 +179,13 @@ class HouseConfigurationUI {
 
         //GET ROOM DIMENSIONS
         System.out.println("Please insert your room's width in meters: ");
-        this.roomWidth = InputHelperUI.getInputAsDoublePositive();
+        this.roomWidth = InputHelperUI.getInputAsDoubleZeroOrPositive();
 
         System.out.println("Please insert your room's length in meters: ");
-        this.roomLength = InputHelperUI.getInputAsDoublePositive();
+        this.roomLength = InputHelperUI.getInputAsDoubleZeroOrPositive();
 
         System.out.println("Please insert your room's height in meters: ");
-        this.roomHeight = InputHelperUI.getInputAsDoublePositive();
+        this.roomHeight = InputHelperUI.getInputAsDoubleZeroOrPositive();
     }
 
     private Room createNewRoom(RoomService roomService, House house, EnergyGrid grid) {

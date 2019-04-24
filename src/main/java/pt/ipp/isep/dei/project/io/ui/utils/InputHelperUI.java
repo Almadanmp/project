@@ -192,7 +192,7 @@ public class InputHelperUI {
      * Method that shows the user a list of all the devices included in a given room DTO, and then prompts the user
      * to choose one by index.
      *
-     * @param room  is the room DTO we want to get the list from.
+     * @param room is the room DTO we want to get the list from.
      * @return is the selected Device.
      */
     public static Device getInputRoomDTODevicesByList(RoomDTO room, RoomService roomService) {
@@ -396,20 +396,6 @@ public class InputHelperUI {
             scanner.next();
         }
         return scanner.nextDouble();
-    }
-
-    /**
-     * Method to readSensors a double value from a user.
-     * Will validate if input is a double and of positive value. if it isn't it will print an error message.
-     *
-     * @return value readSensors from user
-     */
-    public static Double getInputAsDoublePositive() {
-        double input = -1.0;
-        while (input < 0) {
-            input = getInputAsDouble();
-        }
-        return input;
     }
 
     /**

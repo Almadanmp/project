@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.Scanner;
 
 class GASettingsUI {
-    private GASettingsController gaController;
-    private ReaderController readerController;
+    private final GASettingsController gaController;
+    private final ReaderController readerController;
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private List<String> menuOptions;
+    private final List<String> menuOptions;
 
     GASettingsUI() {
         this.gaController = new GASettingsController();
@@ -234,7 +234,7 @@ class GASettingsUI {
 
     private double readInputPositiveNumber(String inputType) {
         System.out.print(createInputMsg(inputType));
-        return InputHelperUI.getInputAsDoublePositive();
+        return InputHelperUI.getInputAsDoubleZeroOrPositive();
     }
 
     /* USER STORY 04 -  As an Administrator, I want to getDB a list of existing geographical areas of a given type. */

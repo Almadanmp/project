@@ -24,9 +24,9 @@ import java.util.Scanner;
 
 
 class RoomConfigurationUI {
-    private RoomConfigurationController controller;
-    private String requestProgramName = "Please, type the new FixedTimeProgram name:";
-    private List<String> menuOptions;
+    private final RoomConfigurationController controller;
+    private static final String REQUEST_PROGRAM_NAME = "Please, type the new FixedTimeProgram name:";
+    private final List<String> menuOptions;
 
     RoomConfigurationUI() {
         this.controller = new RoomConfigurationController();
@@ -152,7 +152,7 @@ class RoomConfigurationUI {
         List<String> deviceAttributes = controller.getAttributeNames(device);
         for (int i = 0; i < deviceAttributes.size(); i++) {
             System.out.println("Please insert value for: " + deviceAttributes.get(i));
-            Double value = InputHelperUI.getInputAsDoublePositive();
+            Double value = InputHelperUI.getInputAsDoubleZeroOrPositive();
             controller.setAttributeValue(device, deviceAttributes.get(i), value);
         }
         System.out.println("Please insert nominal power: ");
@@ -172,7 +172,7 @@ class RoomConfigurationUI {
             System.out.println("This device is programmable.");
             FixedTimeProgram program = new FixedTimeProgram("ProgramName", 23, 23);
             ProgramList programList = controller.getProgramList((Programmable) device);
-            System.out.println(requestProgramName);
+            System.out.println(REQUEST_PROGRAM_NAME);
             String programName = scanner.nextLine();
             List<String> programAttributesNames = controller.getProgramAttributeNames(program);
             loopToSetAttributeValuesProgram(program, programAttributesNames);
@@ -218,7 +218,7 @@ class RoomConfigurationUI {
         for (int i = 0; i < attributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + attributeNames.get(i)
                     + " (" + controller.getAttributeUnit(device, i) + ")");
-            Double value = InputHelperUI.getInputAsDoublePositive();
+            Double value = InputHelperUI.getInputAsDoubleZeroOrPositive();
             controller.setAttributeValue(device, attributeNames.get(i), value);
         }
         System.out.println("Please insert the value for: Nominal Power (kW)");
@@ -240,7 +240,7 @@ class RoomConfigurationUI {
     //configures the programs in the device's program list, if the device is indeed programmable.
     private void configureAProgrammableDevice(FixedTimeProgram program, ProgramList programList, Programmable device) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(requestProgramName);
+        System.out.println(REQUEST_PROGRAM_NAME);
         String programName = scanner.nextLine();
         List<String> programAttributeNames = controller.getProgramAttributeNames(program);
         loopToSetAttributeValuesProgram(program, programAttributeNames);
@@ -291,7 +291,7 @@ class RoomConfigurationUI {
     //loop that sets all the attributes of the chosen program and then displays it.
     private void loopForPrograms(FixedTimeProgram program) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(requestProgramName);
+        System.out.println(REQUEST_PROGRAM_NAME);
         String programName = scanner.nextLine();
         List<String> programAttributeNames = controller.getProgramAttributeNames(program);
         loopToSetAttributeValuesProgram(program, programAttributeNames);
@@ -304,7 +304,7 @@ class RoomConfigurationUI {
         for (int i = 0; i < programAttributeNames.size(); i++) {
             System.out.println("Please insert the value for: " + programAttributeNames.get(i)
                     + " (" + controller.getProgramAttributeUnit(program2, i) + ")");
-            Double value = InputHelperUI.getInputAsDoublePositive();
+            Double value = InputHelperUI.getInputAsDoubleZeroOrPositive();
             controller.setProgramAttributeValue(program2, i, value);
         }
     }
@@ -323,7 +323,7 @@ class RoomConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         FixedTimeProgram program2 = new FixedTimeProgram();
         List<String> programAttributeNames = controller.getProgramAttributeNames(program2);
-        System.out.println(requestProgramName);
+        System.out.println(REQUEST_PROGRAM_NAME);
         String programName = scanner.nextLine();
         loopToSetAttributeValuesProgram(program2, programAttributeNames);
         program2.setProgramName(programName);

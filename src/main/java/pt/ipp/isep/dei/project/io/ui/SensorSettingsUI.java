@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Scanner;
 
 class SensorSettingsUI {
-    private SensorSettingsController controller;
-    private List<String> menuOptions;
+    private final SensorSettingsController controller;
+    private final List<String> menuOptions;
 
     SensorSettingsUI() {
         this.controller = new SensorSettingsController();
