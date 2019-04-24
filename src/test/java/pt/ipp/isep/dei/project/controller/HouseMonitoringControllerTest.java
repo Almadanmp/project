@@ -23,7 +23,6 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.*;
 
-import java.awt.geom.Area;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
