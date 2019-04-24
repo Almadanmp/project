@@ -117,7 +117,6 @@ public class HouseMonitoringController {
 
     public AreaSensor getClosesSensorByTypeToHouse(House house, String sensorType) {
         GeographicArea houseGa = house.getMotherArea();
-
         return houseGa.getClosestAreaSensorOfGivenType(sensorType, house);
     }
 
@@ -131,7 +130,6 @@ public class HouseMonitoringController {
      * @author Daniela (US633)
      */
     public Date getHighestTempAmplitudeDate(AreaSensor closestAreaSensor, Date initialDate, Date endDate) {
-
         return closestAreaSensor.getDateHighestAmplitudeBetweenDates(initialDate, endDate);
     }
 
@@ -143,7 +141,6 @@ public class HouseMonitoringController {
      * @author Daniela (US633)
      */
     public double getTempAmplitudeValueByDate(AreaSensor closestAreaSensor, Date dateInput) {
-
         return Math.floor(closestAreaSensor.getAmplitudeValueFromDate(dateInput) * 10) / 10;
     }
 

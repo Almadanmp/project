@@ -25,12 +25,12 @@ import pt.ipp.isep.dei.project.repository.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * House Monitoring - controller Tests
@@ -209,18 +209,20 @@ class HouseMonitoringControllerTest {
     }
 
 
-//    @Test
-//    void seeIfGetCurrentRoomTemperatureThrowsException() {
-//        // Act
-//        List<RoomSensor> roomSensors = new ArrayList<>();
-//        validRoom1.setRoomSensors(roomSensors);
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomService));
-//
-//        // Assert
-//
-//        assertEquals("There aren't any temperature readings available.", exception.getMessage());
-//
-//    }
+    @Test
+    void seeIfGetCurrentRoomTemperatureThrowsException() {
+        // Act
+
+        List<Room> mockList = new ArrayList<>();
+        mockList.add(validRoom1);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockList);
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomService));
+
+        // Assert
+
+        assertEquals("There aren't any temperature readings available.", exception.getMessage());
+
+    }
 
     @Test
     void SeeIfGetCurrentTemperatureInTheHouseAreaWorks() {
@@ -525,6 +527,18 @@ class HouseMonitoringControllerTest {
 //        assertEquals("Warning: No temperature readings available in given period.",
 //                exception.getMessage());
 //    }
+
+    @Test
+    void seeIfIsMotherAreaValidWorks() {
+        // Act
+
+        boolean actualResult = controller.isMotherAreaValid(validHouse);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
     @Test
     void seeIfIsMotherAreaValidNoMotherArea() {
         // Arrange
@@ -607,34 +621,49 @@ class HouseMonitoringControllerTest {
 //        // Arrange
 //
 //        double expectedResult = 15;
-//        Room room = RoomMapper.dtoToObject(validRoomDTO);
-//        validRoomDTO.setName("Bedroom");
-//        validHouse.addRoom(room);
-//        ReadingDTO reading = new ReadingDTO();
-//        reading.setDate(validDate4);
-//        reading.setSensorId("Bedroom");
-//        reading.setValue(15);
-//        reading.setUnit("C");
-//        List<ReadingDTO> readingList = new ArrayList<>();
+//
+//        ReadingDTO readingDTO = new ReadingDTO();
+//        readingDTO.setDate(validDate4);
+//        readingDTO.setSensorId("Bedroom");
+//        readingDTO.setValue(15);
+//        readingDTO.setUnit("C");
+//
+//        Reading reading = ReadingMapper.dtoToObject(readingDTO);
+//
+//        List<ReadingDTO> dtoReadingList = new ArrayList<>();
+//        dtoReadingList.add(readingDTO);
+//
+//        List<Reading> readingList = new ArrayList<>();
 //        readingList.add(reading);
-//        HouseSensorDTO houseSensorDTO = new HouseSensorDTO();
+//
+//        RoomSensorDTO houseSensorDTO = new RoomSensorDTO();
 //        houseSensorDTO.setName("Name");
 //        houseSensorDTO.setDateStartedFunctioning("12-10-2000");
 //        houseSensorDTO.setRoomID(validRoomDTO.getHouseId());
 //        houseSensorDTO.setTypeSensor("temperature");
 //        houseSensorDTO.setUnits("C");
 //        houseSensorDTO.setId("10");
-//        houseSensorDTO.setReadingList(readingList);
-//        List<HouseSensorDTO> sensorList = new ArrayList<>();
-//        sensorList.add(houseSensorDTO);
-//        validRoomDTO.setSensorList(sensorList);
+//        houseSensorDTO.setReadingList(dtoReadingList);
+//
+//        RoomSensor roomSensor = HouseSensorMapper.dtoToObject(houseSensorDTO);
+//        roomSensor.setHouseReadings(readingList);
+//        validRoom1.addSensor(roomSensor);
+//
+////        List<RoomSensorDTO> sensorList = new ArrayList<>();
+////        sensorList.add(houseSensorDTO);
+////        validRoomDTO.setSensorList(sensorList);
+////        validRoom1.addSensor(HouseSensorMapper.dtoToObject(houseSensorDTO));
+//        List<Room> rooms = new ArrayList<>();
+//        rooms.add(validRoom1);
 //
 //        // Act
 //
-//        double actualResult = controller.getDayMaxTemperature(validRoomDTO, validDate4, validHouseSensorService, readingService, roomService);
+//        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+//        double actualResult = controller.getDayMaxTemperature(validRoomDTO, validDate4, roomService);
 //
 //        // Assert
 //
-//        assertEquals(expectedResult, actualResult);
+//        assertEquals(expectedResult, actualResult, 0.01);
 //    }
+
 }
