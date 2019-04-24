@@ -474,7 +474,7 @@ class RoomTest {
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        validSensor.setHouseReadings(readingList);
+        validSensor.setReadings(readingList);
         roomSensorList.add(validSensor);
         readingList.add(validReading);
         roomSensorList.add(validSensor);
@@ -500,7 +500,7 @@ class RoomTest {
                 getTime(), "C", "Test");
         readingList.add(reading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        validSensor.setHouseReadings(readingList);
+        validSensor.setReadings(readingList);
         roomSensorList.add(validSensor);
         readingList.add(validReading);
         roomSensorList.add(validSensor);
@@ -522,7 +522,7 @@ class RoomTest {
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        validSensor.setHouseReadings(readingList);
+        validSensor.setReadings(readingList);
         roomSensorList.add(validSensor);
         readingList.add(validReading);
         roomSensorList.add(validSensor);

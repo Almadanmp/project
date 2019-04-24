@@ -342,9 +342,9 @@ class RoomSensorTest {
         List<Reading> readingList = new ArrayList<>();
         Reading reading = new Reading(21, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "test");
         readingList.add(reading);
-        validRoomSensor.setHouseReadings(readingList);
+        validRoomSensor.setReadings(readingList);
         //Act
-        List<Reading> actualResult = validRoomSensor.getHouseReadings();
+        List<Reading> actualResult = validRoomSensor.getReadings();
         //Assert
         assertEquals(readingList, actualResult);
     }
@@ -355,7 +355,7 @@ class RoomSensorTest {
         List<Reading> readingList = new ArrayList<>();
         Reading reading = new Reading(21, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), "C", "test");
         readingList.add(reading);
-        validRoomSensor.setHouseReadings(readingList);
+        validRoomSensor.setReadings(readingList);
         //Act
         boolean actualResult = validRoomSensor.readingExists(new GregorianCalendar(2019,Calendar.JANUARY,1).getTime());
         boolean actualResult1 = validRoomSensor.readingExists(new GregorianCalendar(2018,Calendar.JANUARY,1).getTime());

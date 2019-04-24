@@ -6,7 +6,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -22,12 +26,11 @@ import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.*;
+import sun.management.Sensor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -616,54 +619,43 @@ class HouseMonitoringControllerTest {
 //        assertEquals(expectedResult, actualResult);
 //    }
 
-//    @Test
-//    void seeIfGetDayMaxTemperature() {
-//        // Arrange
-//
-//        double expectedResult = 15;
-//
-//        ReadingDTO readingDTO = new ReadingDTO();
-//        readingDTO.setDate(validDate4);
-//        readingDTO.setSensorId("Bedroom");
-//        readingDTO.setValue(15);
-//        readingDTO.setUnit("C");
-//
-//        Reading reading = ReadingMapper.dtoToObject(readingDTO);
-//
-//        List<ReadingDTO> dtoReadingList = new ArrayList<>();
-//        dtoReadingList.add(readingDTO);
-//
-//        List<Reading> readingList = new ArrayList<>();
-//        readingList.add(reading);
-//
-//        RoomSensorDTO houseSensorDTO = new RoomSensorDTO();
-//        houseSensorDTO.setName("Name");
-//        houseSensorDTO.setDateStartedFunctioning("12-10-2000");
-//        houseSensorDTO.setRoomID(validRoomDTO.getHouseId());
-//        houseSensorDTO.setTypeSensor("temperature");
-//        houseSensorDTO.setUnits("C");
-//        houseSensorDTO.setId("10");
-//        houseSensorDTO.setReadingList(dtoReadingList);
-//
-//        RoomSensor roomSensor = HouseSensorMapper.dtoToObject(houseSensorDTO);
-//        roomSensor.setHouseReadings(readingList);
-//        validRoom1.addSensor(roomSensor);
-//
-////        List<RoomSensorDTO> sensorList = new ArrayList<>();
-////        sensorList.add(houseSensorDTO);
-////        validRoomDTO.setSensorList(sensorList);
-////        validRoom1.addSensor(HouseSensorMapper.dtoToObject(houseSensorDTO));
-//        List<Room> rooms = new ArrayList<>();
-//        rooms.add(validRoom1);
-//
-//        // Act
-//
-//        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-//        double actualResult = controller.getDayMaxTemperature(validRoomDTO, validDate4, roomService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult, 0.01);
-//    }
+    @Test
+    void seeIfGetDayMaxTemperature() {
+        // Arrange
+
+        Room testRoom = new Room("Kitchen", "Where we cook", 0, 15, 15, 15,
+                "ISEP", "G001");
+        RoomSensor testSensor = new RoomSensor("S001", "TempOne", new SensorType("temperature", "Celsius"),
+                new GregorianCalendar(2018, Calendar.JULY, 3).getTime(), "Kitchen");
+        Reading testReading = new Reading(11, new GregorianCalendar(2018, Calendar.JULY, 3).getTime(),
+                "C", "S001");
+        Reading secondTestReading = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 3).getTime(),
+                "C", "S001");
+        Reading thirdTestReading = new Reading(11, new GregorianCalendar(2018, Calendar.JULY, 3).getTime(),
+                "C", "S001");
+        List<Room> mockRepositoryRooms = new ArrayList<>();
+        mockRepositoryRooms.add(testRoom);
+        List<Reading> testReadingList = new ArrayList<>();
+        testReadingList.add(testReading);
+        testReadingList.add(secondTestReading);
+        testReadingList.add(thirdTestReading);
+        testSensor.setReadings(testReadingList);
+        testRoom.addSensor(testSensor);
+        double expectedResult = 17.0;
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(testRoom);
+        Mockito.when(roomService.getAllRooms()).thenReturn(mockRepositoryRooms);
+
+        // Act
+
+        double actualResult = controller.getDayMaxTemperature(testDTO, new GregorianCalendar(2018, Calendar.JULY,
+                        3).getTime(), roomService);
+
+        // Assert
+
+        assertEquals(expectedResult,actualResult, 0.01);
+
+
+    }
 
 }

@@ -31,7 +31,7 @@ public class RoomSensor {
     private String roomId;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Reading> houseReadings;
+    private List<Reading> readings;
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -96,12 +96,12 @@ public class RoomSensor {
         this.roomId = roomId;
     }
 
-    List<Reading> getHouseReadings() {
-        return houseReadings;
+    public List<Reading> getReadings() {
+        return readings;
     }
 
-    void setHouseReadings(List<Reading> houseReadings) {
-        this.houseReadings = houseReadings;
+    public void setReadings(List<Reading> houseReadings) {
+        this.readings = houseReadings;
     }
 
     /**
@@ -210,8 +210,8 @@ public class RoomSensor {
      * @return true in case the reading exists in the repository, false otherwise.
      **/
     boolean readingExists(Date date) {
-        if (this.houseReadings != null) {
-            for (Reading r : this.houseReadings) {
+        if (this.readings != null) {
+            for (Reading r : this.readings) {
                 if (r.getDate().equals(date)) {
                     return true;
                 }

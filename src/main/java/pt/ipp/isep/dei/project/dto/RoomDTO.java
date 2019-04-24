@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class RoomDTO {
     private double width;
     private double length;
     private double height;
-    private List<RoomSensorDTO> sensorList;
+    private List<RoomSensorDTO> sensorList = new ArrayList<>();
     private DeviceList deviceList;
     private String houseID;
     private String energyGridName;

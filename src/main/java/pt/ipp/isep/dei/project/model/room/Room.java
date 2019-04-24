@@ -29,6 +29,7 @@ public class Room implements Metered {
     private String energyGridId;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "roomId")
+    private
     List<RoomSensor> roomSensors;
 
     private static final String STRING_BUILDER = "---------------\n";
@@ -325,7 +326,7 @@ public class Room implements Metered {
 
     //SENSOR METHODS
 
-    List<RoomSensor> getRoomSensors() {
+    public List<RoomSensor> getRoomSensors() {
         return roomSensors;
     }
 
@@ -380,7 +381,7 @@ public class Room implements Metered {
     private List<Reading> getReadings(List<RoomSensor> roomSensors) {
         List<Reading> finalList = new ArrayList<>();
         for (RoomSensor s : roomSensors) {
-            finalList.addAll(s.getHouseReadings());
+            finalList.addAll(s.getReadings());
         }
         return finalList;
     }
@@ -395,7 +396,7 @@ public class Room implements Metered {
     private List<Double> getValuesOfSpecificDayReadings(List<RoomSensor> roomSensors, Date day) {
         List<Reading> sensorReadings = new ArrayList<>();
         for (RoomSensor hS : roomSensors) {
-            sensorReadings.addAll(hS.getHouseReadings());
+            sensorReadings.addAll(hS.getReadings());
         }
         return ReadingUtils.getValuesOfSpecificDayReadings(sensorReadings, day);
     }

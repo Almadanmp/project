@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
-import pt.ipp.isep.dei.project.dto.mappers.HouseSensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -152,7 +152,7 @@ public class HouseConfigurationController {
         for (RoomSensorDTO importedSensor : importedSensors) {
             Optional<Room> roomToAddTo = roomService.findByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
-                roomService.save(HouseSensorMapper.dtoToObject(importedSensor));
+                roomService.save(RoomSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             } else {
                 logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()

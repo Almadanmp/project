@@ -1,10 +1,13 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,11 +65,19 @@ public final class RoomMapper {
 
         DeviceList objectDeviceList = dtoToConvert.getDeviceList();
 
+        // Update the sensors
+
+        List<RoomSensor> objectSensorList = new ArrayList<>();
+        for (RoomSensorDTO d : dtoToConvert.getSensorList()){
+            RoomSensor tempObject = RoomSensorMapper.dtoToObject(d);
+            objectSensorList.add(tempObject);
+        }
 
         // Create, update and return the converted object.
 
         Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
         resultObject.setDeviceList(objectDeviceList);
+        resultObject.setRoomSensors(objectSensorList);
 
         return resultObject;
     }
@@ -106,10 +117,8 @@ public final class RoomMapper {
 
         // Create, update and return the converted object.
 
-        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight,
+        return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight,
                 objectHouseID, objectEnergyGridID);
-
-        return resultObject;
     }
 
     /**
@@ -149,13 +158,20 @@ public final class RoomMapper {
         String dtoEnergyGridID = objectToConvert.getEnergyGridID();
 
         // Update the description
+
         String dtoDescription = objectToConvert.getDescription();
 
-        // Update the AreaSensorList
+        // Update the sensorList
+
+        List<RoomSensorDTO> dtoSensorList = new ArrayList<>();
+        for (RoomSensor r: objectToConvert.getRoomSensors()){
+            RoomSensorDTO tempDTO = RoomSensorMapper.objectToDTO(r);
+            dtoSensorList.add(tempDTO);
+        }
 
         // Update the device list
 
-        DeviceList dtoDeviceList = objectToConvert.getDeviceList(); // TODO Implement a solution for polymorphic device DTOs (visitor pattern?)
+        DeviceList dtoDeviceList = objectToConvert.getDeviceList();
 
         // Create, update and return the converted DTO.
 
@@ -169,6 +185,7 @@ public final class RoomMapper {
         resultDTO.setEnergyGridName(dtoEnergyGridID);
         resultDTO.setHouseId(dtoHouseID);
         resultDTO.setDescription(dtoDescription);
+        resultDTO.setSensorList(dtoSensorList);
 
         return resultDTO;
     }
