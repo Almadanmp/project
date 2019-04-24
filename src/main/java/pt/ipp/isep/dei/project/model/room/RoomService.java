@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -504,6 +505,7 @@ public class RoomService {
                 if (sensor.readingExists(readingDate)) {
                     logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                             + sensor.getId() + " wasn't added because it already exists.");
+                    LogUtils.closeHandlers(logger);
                     return false;
                 }
                 Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());

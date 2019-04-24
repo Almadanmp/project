@@ -40,8 +40,7 @@ public class CustomHTMLFormatter extends Formatter {
     }
 
     public String getHead(Handler h) {
-        return "<HTML><body background=https://wallpapercave.com/wp/wp2646233.jpg><HEAD>" + "<h1> System Events Log - G2" + "</h1><p>"
-                + "\n <h3>Generated on " + (new Date()) + "</h3><hr>" +"</HEAD><BODY><PRE>\n";
+        return "<HTML><body background=https://wallpapercave.com/wp/wp2646233.jpg><HEAD>" + "</HEAD><BODY><PRE>\n";
     }
 
     public String getTail(Handler h) {

@@ -20,7 +20,7 @@ class LogUtilsTest {
     void seeIfGetLoggerWorks(){
         // Act
 
-        Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingLogs.log", Level.FINE);
+        Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingsHtml.html", Level.FINE);
         LogUtils.closeHandlers(l1);
 
         // Assert
@@ -50,7 +50,7 @@ class LogUtilsTest {
     void seeIfCloseHandlersWorks(){
         // Arrange
 
-        Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingLogs.log", Level.FINE);
+        Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingsHtml.html", Level.FINE);
         LogRecord recordToLog = new LogRecord(Level.FINE, "testLog");
 
 

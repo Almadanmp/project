@@ -155,6 +155,7 @@ public class ReaderController {
             list.addAndPersistGA(geoArea);
             counter++;
         }
+        LogUtils.closeHandlers(logger);
         return counter;
     }
 

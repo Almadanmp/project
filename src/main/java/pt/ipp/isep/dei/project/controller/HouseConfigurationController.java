@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 public class HouseConfigurationController {
 
-    private static final String VALID_LOG_PATH = "resources/logs/sensorsImport.log";
+    private static final String VALID_LOG_PATH = "resources/logs/sensorsImportHtml.html";
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
