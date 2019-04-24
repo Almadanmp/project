@@ -1,8 +1,5 @@
 package pt.ipp.isep.dei.project.reader;
 
-import pt.ipp.isep.dei.project.controller.ReaderController;
-
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,13 +40,14 @@ public class CustomHTMLFormatter extends Formatter {
     }
 
     public String getHead(Handler h) {
-        return "<HTML><body background=https://wallpapercave.com/wp/wp2646233.jpg><HEAD>" + "<h1> System Events Log - G2" + "</h1><br>"
-                + "\n Generated on " + (new Date()) + "<hr>" +"</HEAD><BODY><PRE>\n";
+        return "<HTML><body background=https://wallpapercave.com/wp/wp2646233.jpg><HEAD>" + "<h1> System Events Log - G2" + "</h1><p>"
+                + "\n <h3>Generated on " + (new Date()) + "</h3><hr>" +"</HEAD><BODY><PRE>\n";
     }
 
     public String getTail(Handler h) {
         return "</PRE></BODY></HTML>\n";
     }
+
 }
 
 
