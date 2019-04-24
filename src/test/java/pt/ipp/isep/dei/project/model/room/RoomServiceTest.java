@@ -76,6 +76,19 @@ class RoomServiceTest {
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
     }
 
+    @Test
+    void seeIfGetAllRoomsWorksNull() {
+        // Arrange
+        Mockito.when(roomRepository.findAll()).thenReturn(null);
+        List<Room> expectedResult = new ArrayList<>();
+
+        // Act
+        List<Room> actualResult = validRoomService.getAllRooms();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
 
     @Test
     void seeIfRemoveRoom() {
