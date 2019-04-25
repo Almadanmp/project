@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class WallElectricHeater implements Device, Metered {
-    private String notSupported = "At the moment, this operation is not supported.";
+    private final String notSupported = "At the moment, this operation is not supported.";
 
     private String name;
     private double nominalPower;
-    private WallElectricHeaterSpec deviceSpecs;
+    private final WallElectricHeaterSpec deviceSpecs;
     private boolean active;
 
     public WallElectricHeater(WallElectricHeaterSpec wallElectricHeaterSpec) {

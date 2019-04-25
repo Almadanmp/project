@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Lamp implements Device, Metered {
     private String name;
     private double nominalPower;
-    private LampSpec deviceSpecs;
+    private final LampSpec deviceSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
 
     public Lamp(LampSpec lampSpec) {

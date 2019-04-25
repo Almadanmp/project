@@ -12,9 +12,9 @@ import java.util.Objects;
 public class TV implements Device, Metered {
     private String name;
     private double nominalPower;
-    private TvSpec deviceSpecs;
+    private final TvSpec deviceSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
 
     public TV(TvSpec tVSpec) {

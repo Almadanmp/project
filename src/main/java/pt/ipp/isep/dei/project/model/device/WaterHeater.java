@@ -12,9 +12,9 @@ import java.util.Objects;
 public class WaterHeater implements Device, Metered {
     private String name;
     private double nominalPower;
-    private WaterHeaterSpec deviceSpecs;
+    private final WaterHeaterSpec deviceSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
     public WaterHeater(WaterHeaterSpec waterHeaterSpec) {
         this.deviceSpecs = waterHeaterSpec;

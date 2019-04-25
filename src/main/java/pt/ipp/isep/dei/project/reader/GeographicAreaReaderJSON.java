@@ -27,9 +27,9 @@ public class GeographicAreaReaderJSON implements GeographicAreaReader {
             GeographicAreaDTOWrapperList geographicAreaDTOWrapperList = objectMapper.readValue(file, GeographicAreaDTOWrapperList.class);
             geoAreaDTOWrapperList = geographicAreaDTOWrapperList.getGeoAreaDTOWrapperList();
             geographicAreaDTOS = GeographicAreaDTOWrapper.geographicAreaDTOWrapperConversion(geoAreaDTOWrapperList);
-        //    for (GeographicAreaDTO dto : geographicAreaDTOS) {
-         //       dto.setAreaSensorDTOList(readAreaSensorDTOS(filePath));
-           // }
+            for (GeographicAreaDTO dto : geographicAreaDTOS) {
+               dto.setAreaSensorDTOList(readAreaSensorDTOS(filePath));
+           }
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }

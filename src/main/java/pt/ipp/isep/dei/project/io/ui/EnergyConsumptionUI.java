@@ -24,11 +24,11 @@ import java.util.Scanner;
 
 
 class EnergyConsumptionUI {
-    private EnergyConsumptionController controller;
-    private Scanner returnToConsole = new Scanner(System.in);
+    private final EnergyConsumptionController controller;
+    private final Scanner returnToConsole = new Scanner(System.in);
     private static final String INSERT_START_DATE = "PLEASE INSERT THE START OF THE INTERVAL:";
     private static final String INSERT_END_DATE = "PLEASE INSERT THE END OF THE INTERVAL:";
-    private List<String> menuOptions;
+    private final List<String> menuOptions;
 
     EnergyConsumptionUI() {
         this.controller = new EnergyConsumptionController();
@@ -64,7 +64,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS720(house, roomService);
+                    runUS720(roomService);
                     activeInput = false;
                     break;
                 case 4:
@@ -273,10 +273,9 @@ class EnergyConsumptionUI {
      * This run makes the validation of the Room Device  List and the Device  Log List.
      * Then it calls the controller to get the total metered energy consumption for the given time interval.
      *
-     * @param house - Is the parameter which is used to get all the parameters needed for this User Story (720)
      */
 
-    private void runUS720(House house, RoomService roomService) {
+    private void runUS720(RoomService roomService) {
 
         UtilsUI utilsUI = new UtilsUI();
         List<Room> houseRooms = roomService.getAllRooms();

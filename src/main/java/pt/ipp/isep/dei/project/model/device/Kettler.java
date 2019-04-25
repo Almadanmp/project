@@ -13,9 +13,9 @@ public class Kettler implements Device, Metered {
 
     private String name;
     private double nominalPower;
-    private KettlerSpec kettlerSpec;
+    private final KettlerSpec kettlerSpec;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
     public Kettler(KettlerSpec kettlerSpec) {
         this.kettlerSpec = kettlerSpec;

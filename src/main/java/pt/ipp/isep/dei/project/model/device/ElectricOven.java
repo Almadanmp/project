@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ElectricOven implements Device, Metered, Programmable {
-    private ElectricOvenSpec deviceSpecsElectricOven;
+    private final ElectricOvenSpec deviceSpecsElectricOven;
     private ProgramList programListElectricOven;
-    private CommonDeviceAttributes commonDeviceAttributes;
+    private final CommonDeviceAttributes commonDeviceAttributes;
 
     public ElectricOven(ElectricOvenSpec electricOvenSpec) {
         this.deviceSpecsElectricOven = electricOvenSpec;

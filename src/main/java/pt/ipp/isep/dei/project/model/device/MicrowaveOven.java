@@ -13,10 +13,10 @@ import java.util.Objects;
 public class MicrowaveOven implements Device, Metered, Programmable {
     private String name;
     private double nominalPower;
-    private MicrowaveOvenSpec deviceSpecs;
+    private final MicrowaveOvenSpec deviceSpecs;
     private boolean active;
     private ProgramList programList;
-    private LogList logList;
+    private final LogList logList;
 
 
     public MicrowaveOven(MicrowaveOvenSpec microwaveOvenSpec) {
