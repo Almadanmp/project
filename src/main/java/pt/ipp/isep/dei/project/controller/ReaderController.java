@@ -175,7 +175,7 @@ public class ReaderController {
      * in the given geographic area from the repository.
      *
      * @param readingDTOS           a list of reading DTOs
-     * @param logPath             M  string of a log file path
+     * @param logPath               M  string of a log file path
      * @param geographicAreaService service
      * @return the number of readings added
      **/
@@ -253,12 +253,12 @@ public class ReaderController {
      * and a room service and will try to add readings to the given sensors
      * in the given room from the repository.
      *
-     * @param readingDTOS           a list of reading DTOs
-     * @param logPath             M  string of a log file path
+     * @param readingDTOS a list of reading DTOs
+     * @param logPath     M  string of a log file path
      * @param roomService service
      * @return the number of readings added
      **/
-    public int addReadingsToHouseSensors(List<ReadingDTO> readingDTOS, String logPath, RoomService roomService) {
+    public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath, RoomService roomService) {
         Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
         List<Reading> readings = readingDTOsToReadings(readingDTOS);
         int addedReadings = 0;

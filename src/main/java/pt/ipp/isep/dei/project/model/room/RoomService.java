@@ -536,8 +536,7 @@ public class RoomService {
             if (roomSensor.readingWithGivenDateExists(readingDate)) {
                 logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because it already exists.");
-            }
-            else if (!roomSensor.activeDuringDate(readingDate)) {
+            } else if (!roomSensor.activeDuringDate(readingDate)) {
                 logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
             } else {

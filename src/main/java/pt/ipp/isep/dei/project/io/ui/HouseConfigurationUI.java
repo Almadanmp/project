@@ -41,7 +41,6 @@ class HouseConfigurationUI {
         this.controller = new HouseConfigurationController();
         this.readerController = new ReaderController();
         menuOptions = new ArrayList<>();
-        menuOptions.add("Import Geographic Areas and Sensors from a JSON or XML file.");
         menuOptions.add("As an Administrator, I want to configure the house from a file containing basic house" +
                 "information, grids and rooms)(US100)");
         menuOptions.add("Configure the location of the house. (US101)");
@@ -311,7 +310,7 @@ class HouseConfigurationUI {
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {
-        return readerController.addReadingsToHouseSensors(readings, "resources/logs/houseReadingsHtml.html", roomService);
+        return readerController.addReadingsToRoomSensors(readings, "resources/logs/houseReadingsHtml.html", roomService);
     }
 }
 

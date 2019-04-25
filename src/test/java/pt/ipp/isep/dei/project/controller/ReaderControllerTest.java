@@ -20,6 +20,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
@@ -34,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +61,12 @@ class ReaderControllerTest {
     private Date validDate4 = new Date();
     private ReaderController readerController;
     private AreaSensor validAreaSensor1;
+    private RoomSensor validRoomSensor1;
+    private ReadingUtils readingUtils;
+    private GeographicAreaService geographicAreaService;
+    private RoomService roomService;
+    private GeographicArea validGeographicArea;
+
 
     private static final String validLogPath = "resources/logs/logOut.log";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log"; //Não apagar p.f.
@@ -89,11 +96,6 @@ class ReaderControllerTest {
 
     @Mock
     SensorTypeRepository sensorTypeRepository;
-
-    private ReadingUtils readingUtils;
-    private GeographicAreaService geographicAreaService;
-    private RoomService roomService;
-    private GeographicArea validGeographicArea;
 
 
     @BeforeEach
@@ -131,6 +133,7 @@ class ReaderControllerTest {
                 new Local(41.179230, -8.606409, 139),
                 validDate4, 6008L);
         validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+        validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", new SensorType("Temperature", "C"), validDate1, "Room1");
     }
 
     private final InputStream systemIn = System.in;
@@ -147,6 +150,41 @@ class ReaderControllerTest {
     void restoreSystemInputOutput() {
         System.setIn(systemIn);
         System.setOut(systemOut);
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorsWorks() {
+        // Arrange
+
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        List<Room> rooms = new ArrayList<>();
+        Room room = new Room("Room1", "Description", 1, 1, 1, 1, "House", "EnergyGrid");
+        rooms.add(room);
+        room.addSensor(validRoomSensor1);
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setSensorId("SensorID1");
+        readingDTO1.setValue(20D);
+        readingDTO1.setUnit("C");
+        readingDTO1.setDate(validDate4);
+        readingDTOS.add(readingDTO1);
+
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setSensorId("SensorID1");
+        readingDTO2.setValue(20D);
+        readingDTO2.setUnit("C");
+        readingDTO2.setDate(validDate1);
+        readingDTOS.add(readingDTO2);
+
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+
+        // Act
+
+        int actualResult = readerController.addReadingsToRoomSensors(readingDTOS, validLogPath, roomService);
+
+        // Assert
+
+        assertEquals(2, actualResult);
     }
 
     @Test
@@ -631,7 +669,7 @@ class ReaderControllerTest {
 //
 //        //Act
 //
-//        int actualResult = readerController.addReadingsToHouseSensors(readingDTOS, validLogPath);
+//        int actualResult = readerController.addReadingsToRoomSensors(readingDTOS, validLogPath);
 //
 //        //Assert
 //
