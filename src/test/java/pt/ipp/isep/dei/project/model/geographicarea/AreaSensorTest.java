@@ -29,6 +29,7 @@ class AreaSensorTest {
     private AreaSensor validAreaSensor;
     private Date validDate1;
     private Date validDate2;
+    private Date validDate3;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -36,18 +37,49 @@ class AreaSensorTest {
         try {
             validDate1 = validSdf.parse("01/04/2018 00:00:00");
             validDate2 = validSdf.parse("01/04/2017 00:00:00");
+            validDate3 = validSdf.parse("01/04/2016 00:00:00");
 
         } catch (
                 ParseException c) {
             c.printStackTrace();
         }
 
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate2, 6008L);
         validAreaSensor.setActive(true);
     }
 
     @Test
-    void seeIfAddReadingWorks() {
+    void seeIfAddReadingWorksWhenDateSameAsActivationDate() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+
+        // Act
+
+        boolean actualResult = validAreaSensor.addReading(reading);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingWorksWhenDateBeforeActivationDate() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate3, "C", "sensorID");
+
+        // Act
+
+        boolean actualResult = validAreaSensor.addReading(reading);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingWorksWhenDateAfterActivationDate() {
         //Arrange
 
         Reading reading = new Reading(21D, validDate1, "C", "sensorID");
@@ -65,7 +97,7 @@ class AreaSensorTest {
     void seeIfAddReadingWorksWhenReadingExists() {
         //Arrange
 
-        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
         validAreaSensor.addReading(reading);
 
         // Act
@@ -92,7 +124,7 @@ class AreaSensorTest {
     void seeIfActiveDuringDateWorksWhenDateGivenIsOlder() {
         // Act
 
-        boolean actualResult = validAreaSensor.activeDuringDate(validDate2);
+        boolean actualResult = validAreaSensor.activeDuringDate(validDate3);
 
         // Assert
 

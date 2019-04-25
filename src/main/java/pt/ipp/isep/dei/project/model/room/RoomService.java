@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -31,6 +30,8 @@ public class RoomService {
     private List<Room> rooms;
 
     private static final String STRING_BUILDER = "---------------\n";
+    private static final String THE_READING ="The reading ";
+    private static final String FROM =" from ";
 
 
     /**
@@ -492,7 +493,7 @@ public class RoomService {
             roomRepository.save(room);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
-                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
+                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
             }
         }
         return addedReadings;
@@ -534,10 +535,10 @@ public class RoomService {
         for (Reading r : readings) {
             Date readingDate = r.getDate();
             if (roomSensor.readingWithGivenDateExists(readingDate)) {
-                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
+                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because it already exists.");
             } else if (!roomSensor.activeDuringDate(readingDate)) {
-                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
+                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
             } else {
                 roomSensor.addReading(r);

@@ -215,7 +215,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        GeographicArea actualResult = geographicAreaService.getGeographicAreaContainingSensorWithGivenId("SensorOne");
+        GeographicArea actualResult = geographicAreaService.getGeographicAreaContainingSensorWithGivenId("SensorTwo");
 
         // Assert
 
