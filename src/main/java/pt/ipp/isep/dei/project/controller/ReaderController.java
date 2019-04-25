@@ -260,7 +260,7 @@ public class ReaderController {
      * @param logPath  log file path
      * @return number of Area Readings added to corresponding House Sensor
      **/
-    public int addReadingsToHouseSensors(List<ReadingDTO> readings, String logPath, RoomService roomService) {
+    public int addReadingsToHouseSensors1(List<ReadingDTO> readings, String logPath, RoomService roomService) {
         Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         for (ReadingDTO r : readings) {
@@ -271,6 +271,29 @@ public class ReaderController {
             if (roomService.addHouseReadingToRepository(sensor, value, date, unit, logger)) {
                 addedReadings++;
             }
+        }
+        LogUtils.closeHandlers(logger);
+        return addedReadings;
+    }
+
+    /**
+     * This method will receive a list of reading DTOs, a string of a path to a log file,
+     * and a room service and will try to add readings to the given sensors
+     * in the given room from the repository.
+     *
+     * @param readingDTOS           a list of reading DTOs
+     * @param logPath             M  string of a log file path
+     * @param roomService service
+     * @return the number of readings added
+     **/
+    public int addReadingsToHouseSensors(List<ReadingDTO> readingDTOS, String logPath, RoomService roomService) {
+        Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
+        List<Reading> readings = readingDTOsToReadings(readingDTOS);
+        int addedReadings = 0;
+        List<String> sensorIds = getSensorIDs(readings);
+        for (String sensorID : sensorIds) {
+            List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
+            addedReadings += roomService.addHouseReadings(sensorID, subArray, logger);
         }
         LogUtils.closeHandlers(logger);
         return addedReadings;

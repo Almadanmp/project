@@ -458,6 +458,23 @@ public class Room implements Metered {
     }
 
 
+    /**
+     * This method will receive a string of a sensor ID and
+     * will look for a sensor with the given ID from the sensors list.
+     *
+     * @param sensorID string of sensor ID
+     * @return the sensor of the given sensor ID
+     **/
+    RoomSensor getRoomSensorByID(String sensorID) {
+        for (RoomSensor sensor : this.roomSensors) {
+            String tempSensorName = sensor.getId();
+            if (sensorID.equals(tempSensorName)) {
+                return sensor;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

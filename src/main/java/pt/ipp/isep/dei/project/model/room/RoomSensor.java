@@ -209,12 +209,41 @@ public class RoomSensor {
      * @param date reading date
      * @return true in case the reading exists in the repository, false otherwise.
      **/
-    boolean readingExists(Date date) {
+    boolean readingWithGivenDateExists(Date date) {
         if (this.readings != null) {
             for (Reading r : this.readings) {
-                if (r.getDate().equals(date)) {
+                if (date.equals(r.getDate())) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This method receives a Date and checks if the Room Sensor was active
+     * at the time of the given date.
+     *
+     * @param date given date
+     * @return true in case the Room Sensor was active at the time of the given date, false otherwise.
+     **/
+    boolean activeDuringDate(Date date) {
+        return this.dateStartedFunctioning.equals(date) || this.dateStartedFunctioning.before(date);
+    }
+
+    /**
+     * This method will receive a Reading and will try to add that reading
+     * to the Room Sensor list of readings.
+     * It will check if the reading happened during the Room sensor's
+     * date of functioning and if the reading already exists.
+     *
+     * @return true in case the reading is added, false otherwise.
+     **/
+    boolean addReading(Reading reading) {
+        Date readingDate = reading.getDate();
+        if (readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) {
+            if (!readingWithGivenDateExists(readingDate)) {
+                return this.readings.add(reading);
             }
         }
         return false;

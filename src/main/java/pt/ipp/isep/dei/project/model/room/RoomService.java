@@ -502,7 +502,7 @@ public class RoomService {
         if (sensor != null && sensorExistsInRepository(sensor.getId())) {
 
             if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
-                if (sensor.readingExists(readingDate)) {
+                if (sensor.readingWithGivenDateExists(readingDate)) {
                     logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
                             + sensor.getId() + " wasn't added because it already exists.");
                     LogUtils.closeHandlers(logger);
@@ -520,6 +520,82 @@ public class RoomService {
         logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
         return false;
     }
+
+    /**
+     * This method receives a String of a given sensor ID, a list of Readings and a Logger,
+     * and tries to add the readings to the sensor with the given sensor ID. The sensor is in
+     * the room fetched from the room repository.
+     *
+     * @param sensorID a string of the sensor ID
+     * @param readings a list of readings to be added to the given sensor
+     * @param logger   logger
+     * @return the number of readings added
+     **/
+    public int addHouseReadings(String sensorID, List<Reading> readings, Logger logger) {
+        int addedReadings = 0;
+        try {
+            Room room = getRoomContainingSensorWithGivenId(sensorID);
+            RoomSensor roomSensor = room.getRoomSensorByID(sensorID);
+            addedReadings = addReadingsToRoomSensor(roomSensor, readings, logger);
+            roomRepository.save(room);
+        } catch (IllegalArgumentException ill) {
+            for (Reading r : readings) {
+                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
+            }
+        }
+        return addedReadings;
+    }
+
+    /**
+     * This method receives a string of a sensor ID and will look in the repository
+     * for the room that contains the sensor with the given sensor ID.
+     *
+     * @param sensorID string of the sensor ID
+     * @return the room that contains the sensor with the given ID
+     **/
+    Room getRoomContainingSensorWithGivenId(String sensorID) {
+        List<Room> rooms = roomRepository.findAll();
+        for (Room room : rooms) {
+            List<RoomSensor> roomSensors = room.getRoomSensors();
+            for (RoomSensor sensor : roomSensors) {
+                String tempSensorID = sensor.getId();
+                if (tempSensorID.equals(sensorID)) {
+                    return room;
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    /**
+     * This method receives an Room Sensor, a list of readings and a logger, tries to add the
+     * readings to the given Room Sensor, returning the number of readings that were added.
+     * The method will log every reading that wasn't added to the Room Sensor.
+     *
+     * @param roomSensor given Room Sensor
+     * @param readings   list of readings to be added to the given Room Sensor
+     * @param logger     logger
+     * @return number of readings added to the Room Sensor
+     **/
+    int addReadingsToRoomSensor(RoomSensor roomSensor, List<Reading> readings, Logger logger) {
+        int addedReadings = 0;
+        for (Reading r : readings) {
+            Date readingDate = r.getDate();
+            if (roomSensor.readingWithGivenDateExists(readingDate)) {
+                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
+                        + roomSensor.getId() + " wasn't added because it already exists.");
+            }
+            else if (!roomSensor.activeDuringDate(readingDate)) {
+                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
+                        + roomSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+            } else {
+                roomSensor.addReading(r);
+                addedReadings++;
+            }
+        }
+        return addedReadings;
+    }
+
 
 }
 
