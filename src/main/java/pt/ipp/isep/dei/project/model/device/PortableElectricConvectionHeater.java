@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class PortableElectricConvectionHeater implements Device, Metered {
-    private String notSupported = "At the moment, this operation is not supported.";
+    private final String notSupported = "At the moment, this operation is not supported.";
 
     private String name;
     private double nominalPower;
-    private PortableElectricConvectionHeaterSpec deviceSpecs;
+    private final PortableElectricConvectionHeaterSpec deviceSpecs;
     private boolean active;
 
 

@@ -44,7 +44,7 @@ public class AreaSensorDTOWrapper {
         this.localDTO = localDTO;
     }
 
-    public AreaSensorAttributeWrapper getSensorAttributeWrapper() {
+    AreaSensorAttributeWrapper getSensorAttributeWrapper() {
         return sensorAttributeWrapper;
     }
 
@@ -58,7 +58,7 @@ public class AreaSensorDTOWrapper {
     }
 
 
-    public List<ReadingDTO> getReadingList() {
+    List<ReadingDTO> getReadingList() {
         return readingList;
     }
 

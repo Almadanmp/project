@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Scanner;
 
 class EnergyGridSettingsUI {
-    private EnergyGridSettingsController controller;
-    private List<String> menuOptions;
+    private final EnergyGridSettingsController controller;
+    private final List<String> menuOptions;
 
     EnergyGridSettingsUI() {
         this.controller = new EnergyGridSettingsController();

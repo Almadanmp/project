@@ -11,7 +11,7 @@ public class CommonDeviceAttributes {
     private boolean active;
     private LogList logList;
 
-    public CommonDeviceAttributes(){
+    CommonDeviceAttributes(){
         logList = new LogList();
         this.active = true;
     }

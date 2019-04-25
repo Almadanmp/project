@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
-    private DishwasherSpec deviceSpecs;
+    private final DishwasherSpec deviceSpecs;
     private ProgramList programList;
-    private CommonDeviceAttributes device;
+    private final CommonDeviceAttributes device;
 
     public Dishwasher(DishwasherSpec dishwasherSpec) {
         this.deviceSpecs = dishwasherSpec;
@@ -157,8 +157,8 @@ public class Dishwasher implements Device, Metered, Programmable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Device device = (Device) o;
-        return Objects.equals(this.device.getName(), device.getName());
+        Device dishWasher = (Device) o;
+        return Objects.equals(this.device.getName(), dishWasher.getName());
     }
 
     @Override

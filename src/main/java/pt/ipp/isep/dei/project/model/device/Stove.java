@@ -15,10 +15,10 @@ import java.util.Objects;
 public class Stove implements Device, Metered, Programmable {
     private String name;
     private double nominalPower;
-    private StoveSpec deviceSpecs;
+    private final StoveSpec deviceSpecs;
     private boolean active;
     private ProgramList programList;
-    private LogList logList;
+    private final LogList logList;
 
 
     public Stove(StoveSpec stoveSpec) {

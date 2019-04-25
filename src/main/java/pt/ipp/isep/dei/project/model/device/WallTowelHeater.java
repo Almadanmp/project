@@ -12,9 +12,9 @@ import java.util.Objects;
 public class WallTowelHeater implements Device, Metered {
     private String name;
     private double nominalPower;
-    private WallTowelHeaterSpec deviceSpecs;
+    private final WallTowelHeaterSpec deviceSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
     public WallTowelHeater(WallTowelHeaterSpec wallTowelHeaterSpec) {
         this.deviceSpecs = wallTowelHeaterSpec;

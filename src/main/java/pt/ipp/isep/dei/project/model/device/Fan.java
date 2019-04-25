@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Fan implements Device {
     private ProgramList programList;
-    private FanSpec deviceSpecs;
-    private CommonDeviceAttributes commonDeviceAttributes;
+    private final FanSpec deviceSpecs;
+    private final CommonDeviceAttributes commonDeviceAttributes;
 
     /**
      * Default constructor for fan devices.

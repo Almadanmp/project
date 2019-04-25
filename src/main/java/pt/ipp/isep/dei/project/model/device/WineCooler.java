@@ -13,9 +13,9 @@ public class WineCooler implements Device, Metered {
 
     private String name;
     private double nominalPower;
-    private WineCoolerSpec deviceSpecs;
+    private final WineCoolerSpec deviceSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
     private double annualConsumption;
 
 

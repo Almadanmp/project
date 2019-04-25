@@ -13,9 +13,9 @@ public class Freezer implements Device, Metered {
 
     private String nameFreezer;
     private double nominalPowerFreezer;
-    private FreezerSpec freezerSpecs;
+    private final FreezerSpec freezerSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
     private double annualConsumption;
 
 

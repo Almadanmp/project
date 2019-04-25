@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Fridge implements Device, Metered {
     private String name;
     private double nominalPower;
-    private FridgeSpec deviceSpecs;
+    private final FridgeSpec deviceSpecs;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
 
     public Fridge(FridgeSpec fridgeSpec) {
