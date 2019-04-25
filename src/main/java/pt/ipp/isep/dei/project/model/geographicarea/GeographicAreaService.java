@@ -135,7 +135,8 @@ public class GeographicAreaService {
             } else if (!areaSensor.activeDuringDate(readingDate)) {
                 logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
                         + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
-            } else if (areaSensor.addReading(r)) {
+            } else {
+                areaSensor.addReading(r);
                 addedReadings++;
             }
         }

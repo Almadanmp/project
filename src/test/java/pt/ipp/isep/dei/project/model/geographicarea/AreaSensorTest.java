@@ -47,6 +47,37 @@ class AreaSensorTest {
     }
 
     @Test
+    void seeIfAddReadingWorks() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+
+        // Act
+
+        boolean actualResult = validAreaSensor.addReading(reading);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingWorksWhenReadingExists() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        validAreaSensor.addReading(reading);
+
+        // Act
+
+        boolean actualResult = validAreaSensor.addReading(reading);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfActiveDuringDateWorks() {
         // Act
 
