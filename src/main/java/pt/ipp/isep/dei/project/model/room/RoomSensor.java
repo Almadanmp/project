@@ -212,11 +212,9 @@ public class RoomSensor {
      * @return true in case the reading exists in the repository, false otherwise.
      **/
     boolean readingWithGivenDateExists(Date date) {
-        if (this.readings != null) {
-            for (Reading r : this.readings) {
-                if (date.equals(r.getDate())) {
-                    return true;
-                }
+        for (Reading r : this.readings) {
+            if (date.equals(r.getDate())) {
+                return true;
             }
         }
         return false;
