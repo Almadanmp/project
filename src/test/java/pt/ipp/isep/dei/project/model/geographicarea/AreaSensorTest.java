@@ -100,7 +100,7 @@ class AreaSensorTest {
     }
 
     @Test
-    void seeIfReadingExistsWorks() {
+    void seeIfReadingWithGivenDateExistsWorks() {
         // Arrange
 
         Reading reading = new Reading(21D, validDate1, "C", "sensorID");
@@ -116,7 +116,7 @@ class AreaSensorTest {
     }
 
     @Test
-    void seeIfReadingExistsWorksWhenItDoesNot() {
+    void seeIfReadingWithGivenDateExistsWorksWhenItDoesNot() {
         // Arrange
 
         Reading reading = new Reading(21D, validDate2, "C", "sensorID");

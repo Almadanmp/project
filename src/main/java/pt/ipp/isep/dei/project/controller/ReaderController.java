@@ -16,7 +16,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.reader.GeographicAreaReaderJSON;
 import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
@@ -25,7 +24,6 @@ import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -251,32 +249,6 @@ public class ReaderController {
     }
 
     /**
-     * This method will receive a List of AreaReadingDTOs and a log file path and will try to add
-     * every reading in the list to its corresponding house sensor.
-     * The method returns the number of readings that were correctly added and logs every reading
-     * that wasn't added.
-     *
-     * @param readings List of Area Reading DTOs
-     * @param logPath  log file path
-     * @return number of Area Readings added to corresponding House Sensor
-     **/
-    public int addReadingsToHouseSensors1(List<ReadingDTO> readings, String logPath, RoomService roomService) {
-        Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
-        int addedReadings = 0;
-        for (ReadingDTO r : readings) {
-            RoomSensor sensor = roomService.getById(r.getSensorId());
-            double value = r.getValue();
-            Date date = r.getDate();
-            String unit = r.getUnit();
-            if (roomService.addHouseReadingToRepository(sensor, value, date, unit, logger)) {
-                addedReadings++;
-            }
-        }
-        LogUtils.closeHandlers(logger);
-        return addedReadings;
-    }
-
-    /**
      * This method will receive a list of reading DTOs, a string of a path to a log file,
      * and a room service and will try to add readings to the given sensors
      * in the given room from the repository.
@@ -293,7 +265,7 @@ public class ReaderController {
         List<String> sensorIds = getSensorIDs(readings);
         for (String sensorID : sensorIds) {
             List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
-            addedReadings += roomService.addHouseReadings(sensorID, subArray, logger);
+            addedReadings += roomService.addRoomReadings(sensorID, subArray, logger);
         }
         LogUtils.closeHandlers(logger);
         return addedReadings;

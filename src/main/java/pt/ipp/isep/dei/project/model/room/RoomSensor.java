@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class RoomSensor {
         setDateStartedFunctioning(dateStartedFunctioning);
         this.active = true;
         this.roomId = roomId;
+        this.readings = new ArrayList<>();
     }
 
 
@@ -241,10 +243,8 @@ public class RoomSensor {
      **/
     boolean addReading(Reading reading) {
         Date readingDate = reading.getDate();
-        if (readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) {
-            if (!readingWithGivenDateExists(readingDate)) {
-                return this.readings.add(reading);
-            }
+        if ((readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) && (!readingWithGivenDateExists(readingDate))) {
+            return this.readings.add(reading);
         }
         return false;
     }

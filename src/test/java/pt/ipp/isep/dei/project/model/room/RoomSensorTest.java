@@ -22,11 +22,123 @@ class RoomSensorTest {
     // Common artifacts for testing in this class.
 
     private RoomSensor validRoomSensor;
+    private Date validDate1;
+    private Date validDate2;
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomAD");
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("01/04/2018 10:00:00");
+            validDate2 = validSdf.parse("01/06/2017 10:00:00");
+
+        } catch (
+                ParseException c) {
+            c.printStackTrace();
+        }
+
+        validRoomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
         validRoomSensor.setActive(true);
+    }
+
+    @Test
+    void seeIfAddReadingWorks() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+
+        // Act
+
+        boolean actualResult = validRoomSensor.addReading(reading);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingWorksWhenDateIsOutsideSensorActivationPeriod() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+
+        // Act
+
+        boolean actualResult = validRoomSensor.addReading(reading);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingWorksWhenReadingAlreadyExists() {
+        //Arrange
+
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+        validRoomSensor.addReading(reading);
+
+        // Act
+
+        boolean actualResult = validRoomSensor.addReading(reading);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfActiveDuringDateWorks() {
+        // Act
+
+        boolean actualResult = validRoomSensor.activeDuringDate(validDate1);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfActiveDuringDateWorksWhenDateGivenIsOlder() {
+        // Act
+
+        boolean actualResult = validRoomSensor.activeDuringDate(validDate2);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfReadingWithGivenDateExistsWorks() {
+        // Arrange
+
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        validRoomSensor.addReading(reading);
+
+        // Act
+
+        boolean actualResult = validRoomSensor.readingWithGivenDateExists(validDate1);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfReadingWithGivenDateExistsWorksWhenItDoesNot() {
+        // Arrange
+
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+        validRoomSensor.addReading(reading);
+
+        // Act
+
+        boolean actualResult = validRoomSensor.readingWithGivenDateExists(validDate1);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test

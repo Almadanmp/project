@@ -29,7 +29,8 @@ class RoomTest {
 
 
     private static Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
-    private RoomSensor validSensor; // Valid temperature sensor with valid readings.
+    private RoomSensor firstValidSensor; // Valid temperature sensor with valid readings.
+    private RoomSensor secondValidSensor; // Valid temperature sensor without readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
     private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
 
@@ -39,8 +40,10 @@ class RoomTest {
     @BeforeEach
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
-        validSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
-        validSensor.setActive(true);
+        firstValidSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
+        firstValidSensor.setActive(true);
+        secondValidSensor = new RoomSensor("T1234", "tempTwo", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
+        secondValidSensor.setActive(true);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
         validDevice.setNominalPower(21.0);
@@ -53,6 +56,35 @@ class RoomTest {
                 getTime(), "C", "Test");
 
     }
+
+    @Test
+    void seeIfGetRoomSensorByIDWorks() {
+        //Arrange
+
+        validRoom.addSensor(firstValidSensor);
+        validRoom.addSensor(secondValidSensor);
+
+        //Act
+
+        RoomSensor actualResult = validRoom.getRoomSensorByID("T1234");
+
+        //Assert
+
+        assertEquals(secondValidSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomSensorByIDWorksWhenSensorDoesNotExist() {
+        //Arrange
+
+        validRoom.addSensor(firstValidSensor);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validRoom.getRoomSensorByID("invalidSensorID"));
+    }
+
 
     @Test
     void seeIfConstructorIsAccessed() {
@@ -457,10 +489,10 @@ class RoomTest {
         //Arrange
         List<RoomSensor> roomSensorList = new ArrayList<>();
         RoomSensor humiditySensor = new RoomSensor("H1", "HumidityOne", new SensorType("humidity", "g/m3"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom.getId());
-        roomSensorList.add(validSensor);
+        roomSensorList.add(firstValidSensor);
         roomSensorList.add(humiditySensor);
         List<RoomSensor> expectedResult = new ArrayList<>();
-        expectedResult.add(validSensor);
+        expectedResult.add(firstValidSensor);
         validRoom.setRoomSensors(roomSensorList);
         //Act
         List<RoomSensor> actualResult = validRoom.getRoomSensorsOfGivenType("temperature");
@@ -474,10 +506,10 @@ class RoomTest {
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        validSensor.setReadings(readingList);
-        roomSensorList.add(validSensor);
+        firstValidSensor.setReadings(readingList);
+        roomSensorList.add(firstValidSensor);
         readingList.add(validReading);
-        roomSensorList.add(validSensor);
+        roomSensorList.add(firstValidSensor);
         validRoom.setRoomSensors(roomSensorList);
         double expectedResult = 21;
         //Act
@@ -500,10 +532,10 @@ class RoomTest {
                 getTime(), "C", "Test");
         readingList.add(reading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        validSensor.setReadings(readingList);
-        roomSensorList.add(validSensor);
+        firstValidSensor.setReadings(readingList);
+        roomSensorList.add(firstValidSensor);
         readingList.add(validReading);
-        roomSensorList.add(validSensor);
+        roomSensorList.add(firstValidSensor);
         validRoom.setRoomSensors(roomSensorList);
         //Act
         double actualResult = validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2018, Calendar.FEBRUARY, 2).getTime());
@@ -522,10 +554,10 @@ class RoomTest {
         List<Reading> readingList = new ArrayList<>();
         readingList.add(validReading);
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        validSensor.setReadings(readingList);
-        roomSensorList.add(validSensor);
+        firstValidSensor.setReadings(readingList);
+        roomSensorList.add(firstValidSensor);
         readingList.add(validReading);
-        roomSensorList.add(validSensor);
+        roomSensorList.add(firstValidSensor);
         validRoom.setRoomSensors(roomSensorList);
         //Assert
         assertThrows(NoSuchElementException.class, () -> validRoom.getMaxTemperatureOnGivenDay(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime()));
@@ -534,8 +566,8 @@ class RoomTest {
     @Test
     void seeIfAddSensorWorks() {
         //Act
-        boolean actualResult = validRoom.addSensor(validSensor);
-        boolean actualResult1 = validRoom.addSensor(validSensor);
+        boolean actualResult = validRoom.addSensor(firstValidSensor);
+        boolean actualResult1 = validRoom.addSensor(firstValidSensor);
         //Assert
         assertTrue(actualResult);
         assertFalse(actualResult1);
@@ -544,8 +576,8 @@ class RoomTest {
     @Test
     void seeIfGetSensorWorks() {
         //Arrange
-        validRoom.addSensor(validSensor);
-        RoomSensor expectedResult = validSensor;
+        validRoom.addSensor(firstValidSensor);
+        RoomSensor expectedResult = firstValidSensor;
         //Act
         RoomSensor actualResult = validRoom.getSensor(0);
         //Assert
@@ -556,7 +588,7 @@ class RoomTest {
     void seeIfGetRoomSensorsWorks() {
         //Arrange
         List<RoomSensor> expectedResult = new ArrayList<>();
-        expectedResult.add(validSensor);
+        expectedResult.add(firstValidSensor);
         validRoom.setRoomSensors(expectedResult);
         //Act
         List<RoomSensor> actualResult = validRoom.getRoomSensors();

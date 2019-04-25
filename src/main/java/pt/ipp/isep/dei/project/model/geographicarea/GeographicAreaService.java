@@ -70,80 +70,6 @@ public class GeographicAreaService {
     }
 
     /**
-     * This method receives a String of a given sensor ID, a list of Readings and a Logger,
-     * and tries to add the readings to the sensor with the given sensor ID. The sensor will be
-     * fetched from the geographic area from the geographic area repository.
-     *
-     * @param sensorID a string of the sensor ID
-     * @param readings a list of readings to be added to the given sensor
-     * @param logger   logger
-     * @return the number of readings added
-     **/
-    public int addAreaReadings(String sensorID, List<Reading> readings, Logger logger) {
-        int addedReadings = 0;
-        try {
-            GeographicArea geographicArea = getGeographicAreaContainingSensorWithGivenId(sensorID);
-            AreaSensor areaSensor = geographicArea.getAreaSensorByID(sensorID);
-            addedReadings = addReadingsToAreaSensor(areaSensor, readings, logger);
-            geographicAreaRepository.save(geographicArea);
-        } catch (IllegalArgumentException ill) {
-            for (Reading r : readings) {
-                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
-            }
-        }
-        return addedReadings;
-    }
-
-    /**
-     * This method receives a string of a sensor ID and will look in the repository
-     * for the geographic area that contains the sensor with the given sensor ID.
-     *
-     * @param sensorID string of the sensor ID
-     * @return the geographic area that contains the sensor with the given ID
-     **/
-    GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
-        List<GeographicArea> geographicAreas = geographicAreaRepository.findAll();
-        for (GeographicArea ga : geographicAreas) {
-            List<AreaSensor> areaSensors = ga.getAreaSensors();
-            for (AreaSensor sensor : areaSensors) {
-                String tempSensorID = sensor.getId();
-                if (tempSensorID.equals(sensorID)) {
-                    return ga;
-                }
-            }
-        }
-        throw new IllegalArgumentException();
-    }
-
-    /**
-     * This method receives an Area Sensor, a list of readings and a logger, tries to add the
-     * readings to the given Area Sensor, returning the number of readings that were added.
-     * The method will log every reading that wasn't added to the Area Sensor.
-     *
-     * @param areaSensor given Area Sensor
-     * @param readings   list of readings to be added to the given Area Sensor
-     * @param logger     logger
-     * @return number of readings added to the Area Sensor
-     **/
-    int addReadingsToAreaSensor(AreaSensor areaSensor, List<Reading> readings, Logger logger) {
-        int addedReadings = 0;
-        for (Reading r : readings) {
-            Date readingDate = r.getDate();
-            if (areaSensor.readingWithGivenDateExists(readingDate)) {
-                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
-                        + areaSensor.getId() + " wasn't added because it already exists.");
-            } else if (!areaSensor.activeDuringDate(readingDate)) {
-                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
-                        + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
-            } else {
-                areaSensor.addReading(r);
-                addedReadings++;
-            }
-        }
-        return addedReadings;
-    }
-
-    /**
      * Method to print a Whole Geographic Area List.
      * It will print the attributes needed to check if a GA is different from another GA
      * (name, type of GA and Localization)
@@ -369,5 +295,79 @@ public class GeographicAreaService {
         } else {
             return value.orElseGet(() -> new SensorType(name, unit));
         }
+    }
+
+    /**
+     * This method receives a String of a given sensor ID, a list of Readings and a Logger,
+     * and tries to add the readings to the sensor with the given sensor ID. The sensor will be
+     * fetched from the geographic area from the geographic area repository.
+     *
+     * @param sensorID a string of the sensor ID
+     * @param readings a list of readings to be added to the given sensor
+     * @param logger   logger
+     * @return the number of readings added
+     **/
+    public int addAreaReadings(String sensorID, List<Reading> readings, Logger logger) {
+        int addedReadings = 0;
+        try {
+            GeographicArea geographicArea = getGeographicAreaContainingSensorWithGivenId(sensorID);
+            AreaSensor areaSensor = geographicArea.getAreaSensorByID(sensorID);
+            addedReadings = addReadingsToAreaSensor(areaSensor, readings, logger);
+            geographicAreaRepository.save(geographicArea);
+        } catch (IllegalArgumentException ill) {
+            for (Reading r : readings) {
+                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
+            }
+        }
+        return addedReadings;
+    }
+
+    /**
+     * This method receives a string of a sensor ID and will look in the repository
+     * for the geographic area that contains the sensor with the given sensor ID.
+     *
+     * @param sensorID string of the sensor ID
+     * @return the geographic area that contains the sensor with the given ID
+     **/
+    GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
+        List<GeographicArea> geographicAreas = geographicAreaRepository.findAll();
+        for (GeographicArea ga : geographicAreas) {
+            List<AreaSensor> areaSensors = ga.getAreaSensors();
+            for (AreaSensor sensor : areaSensors) {
+                String tempSensorID = sensor.getId();
+                if (tempSensorID.equals(sensorID)) {
+                    return ga;
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    /**
+     * This method receives an Area Sensor, a list of readings and a logger, tries to add the
+     * readings to the given Area Sensor, returning the number of readings that were added.
+     * The method will log every reading that wasn't added to the Area Sensor.
+     *
+     * @param areaSensor given Area Sensor
+     * @param readings   list of readings to be added to the given Area Sensor
+     * @param logger     logger
+     * @return number of readings added to the Area Sensor
+     **/
+    int addReadingsToAreaSensor(AreaSensor areaSensor, List<Reading> readings, Logger logger) {
+        int addedReadings = 0;
+        for (Reading r : readings) {
+            Date readingDate = r.getDate();
+            if (areaSensor.readingWithGivenDateExists(readingDate)) {
+                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
+                        + areaSensor.getId() + " wasn't added because it already exists.");
+            } else if (!areaSensor.activeDuringDate(readingDate)) {
+                logger.fine("The reading " + r.getValue() + " " + r.getUnit() + " from " + r.getDate() + " with a sensor ID "
+                        + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+            } else {
+                areaSensor.addReading(r);
+                addedReadings++;
+            }
+        }
+        return addedReadings;
     }
 }

@@ -454,18 +454,6 @@ public class RoomService {
     }
 
     /**
-     * This method receives an index as parameter and gets a sensor from sensor list.
-     *
-     * @param id the index of the Sensor.
-     * @return returns sensor that corresponds to index.
-     */
-    public RoomSensor getById(String id) {
-        Optional<RoomSensor> value = roomSensorRepository.findById(id);
-        return value.orElse(null);
-    }
-
-
-    /**
      * This method receives a string of a sensor ID and a Date that corresponds to a
      * reading Date.
      * The method will look for the sensor with the corresponding ID in repository
@@ -485,42 +473,6 @@ public class RoomService {
         return false;
     }
 
-    //METHODS FROM READING SERVICE
-
-    /**
-     * This method receives the parameters to create a reading and tries to add that
-     * reading to the repository. It also receives a Logger so that it can register every
-     * reading that was not added to its corresponding sensor.
-     * This method will look for the house sensor in the repository by its ID.
-     *
-     * @param readingValue is the value of the reading we want to add.
-     * @param readingDate  is the date of the reading we want to add.
-     * @param unit         is the unit of the reading we want to add.
-     * @return true in case the reading was added false otherwise.
-     */
-    public boolean addHouseReadingToRepository(RoomSensor sensor, Double readingValue, Date readingDate, String unit, Logger logger) {
-        if (sensor != null && sensorExistsInRepository(sensor.getId())) {
-
-            if (sensorFromRepositoryIsActive(sensor.getId(), readingDate)) {
-                if (sensor.readingWithGivenDateExists(readingDate)) {
-                    logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                            + sensor.getId() + " wasn't added because it already exists.");
-                    LogUtils.closeHandlers(logger);
-                    return false;
-                }
-                Reading reading = new Reading(readingValue, readingDate, unit, sensor.getId());
-                sensor.getReadings().add(reading);
-                updateSensor(sensor);
-                return true;
-            }
-            logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " with a sensor ID "
-                    + sensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
-            return false;
-        }
-        logger.fine("The reading " + readingValue + " " + unit + " from " + readingDate + " because a sensor with that ID wasn't found.");
-        return false;
-    }
-
     /**
      * This method receives a String of a given sensor ID, a list of Readings and a Logger,
      * and tries to add the readings to the sensor with the given sensor ID. The sensor is in
@@ -531,7 +483,7 @@ public class RoomService {
      * @param logger   logger
      * @return the number of readings added
      **/
-    public int addHouseReadings(String sensorID, List<Reading> readings, Logger logger) {
+    public int addRoomReadings(String sensorID, List<Reading> readings, Logger logger) {
         int addedReadings = 0;
         try {
             Room room = getRoomContainingSensorWithGivenId(sensorID);

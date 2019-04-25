@@ -270,10 +270,8 @@ public class AreaSensor {
      **/
     boolean addReading(Reading reading) {
         Date readingDate = reading.getDate();
-        if (readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) {
-            if (!readingWithGivenDateExists(readingDate)) {
-                return this.areaReadings.add(reading);
-            }
+        if ((readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) && (!readingWithGivenDateExists(readingDate))) {
+            return this.areaReadings.add(reading);
         }
         return false;
     }

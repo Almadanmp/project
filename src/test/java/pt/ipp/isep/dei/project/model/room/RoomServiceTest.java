@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.controller.ReaderController;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -21,6 +23,7 @@ import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,6 +51,7 @@ class RoomServiceTest {
 
     private RoomService validRoomService;
 
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -74,6 +78,166 @@ class RoomServiceTest {
         secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
+    }
+
+    @Test
+    void seeIfAddAreaReadingsWorksWhenSensorIDIsInvalid() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = validRoomService.addRoomReadings("invalidSensor", readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaReadingsWorks() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+
+        int expectedResult = 1;
+
+        //Act
+
+        int actualResult = validRoomService.addRoomReadings("T32875", readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorWorks() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "T32875");
+        readings.add(reading);
+
+        int expectedResult = 1;
+
+        //Act
+
+        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorWorksWhenReadingIsFromBeforeSensorActivatingDate() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate2, "C", "sensorID");
+        readings.add(reading);
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorWorksWhenReadingAlreadyExists() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        firstValidRoomSensor.addReading(reading);
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorWorksWhenListIsEmpty() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomContainingSensorWithGivenIdWorks() {
+        // Arrange
+
+        List<Room> validList = new ArrayList<>();
+        validRoom.addSensor(firstValidRoomSensor);
+        validRoom.addSensor(secondValidRoomSensor);
+        validList.add(validRoom);
+
+        Mockito.when(roomRepository.findAll()).thenReturn(validList);
+
+        //Act
+
+        Room actualResult = validRoomService.getRoomContainingSensorWithGivenId("T32876");
+
+        // Assert
+
+        assertEquals(validRoom, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomContainingSensorWithGivenIdWorksWhenSensorIdDoesNotExist() {
+        // Arrange
+
+        List<Room> emptyList = new ArrayList<>();
+
+        Mockito.when(roomRepository.findAll()).thenReturn(emptyList);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validRoomService.getRoomContainingSensorWithGivenId("invalidSensorID"));
     }
 
     @Test
