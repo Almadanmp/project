@@ -163,6 +163,7 @@ public class MainUI {
                 mainMenuOptions.add("Energy Grid Settings.");
                 mainMenuOptions.add("House Monitoring.");
                 mainMenuOptions.add("Energy Consumption Management.");
+                mainMenuOptions.add("Room Monitoring.");
                 mainMenuOptions.add("Exit Application");
 
                 MenuFormatter.showMenu("Main Menu", mainMenuOptions);
@@ -212,6 +213,12 @@ public class MainUI {
                         case 7:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
                             energyConsumptionUI.run(house, roomService, energyGridService);
+                            returnToMenu(enterToReturnToConsole);
+                            activeInput = false;
+                            break;
+                        case 8:
+                            RoomMonitoringUI roomMonitoringUI = new RoomMonitoringUI();
+                            roomMonitoringUI.run(geographicAreaService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
