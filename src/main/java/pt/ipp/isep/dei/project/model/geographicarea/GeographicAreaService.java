@@ -101,7 +101,7 @@ public class GeographicAreaService {
      * @param sensorID string of the sensor ID
      * @return the geographic area that contains the sensor with the given ID
      **/
-    public GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
+    GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
         List<GeographicArea> geographicAreas = geographicAreaRepository.findAll();
         for (GeographicArea ga : geographicAreas) {
             List<AreaSensor> areaSensors = ga.getAreaSensors();
@@ -110,7 +110,8 @@ public class GeographicAreaService {
                 if (tempSensorID.equals(sensorID)) {
                     return ga;
                 }
-            } }
+            }
+        }
         throw new IllegalArgumentException();
     }
 

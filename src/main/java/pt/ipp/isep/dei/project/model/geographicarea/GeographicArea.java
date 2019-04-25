@@ -185,16 +185,16 @@ public class GeographicArea {
     /**
      * This method will get the list of Area Sensors.
      **/
-    public List<AreaSensor> getAreaSensors() {
+    List<AreaSensor> getAreaSensors() {
         return areaSensors;
     }
 
-    public void setAreaSensors(List<AreaSensor> areaSensors) {
+    void setAreaSensors(List<AreaSensor> areaSensors) {
         this.areaSensors = areaSensors;
     }
 
 
-    public AreaSensor getSensor(int index) {
+    AreaSensor getSensor(int index) {
         return this.areaSensors.get(index);
     }
 

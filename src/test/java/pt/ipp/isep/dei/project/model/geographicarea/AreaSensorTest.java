@@ -29,6 +29,7 @@ class AreaSensorTest {
     private AreaSensor validAreaSensor;
     private Date validDate1;
     private Date validDate2;
+
     @BeforeEach
     void arrangeArtifacts() {
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

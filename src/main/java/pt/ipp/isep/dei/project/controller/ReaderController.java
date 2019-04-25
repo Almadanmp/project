@@ -177,7 +177,7 @@ public class ReaderController {
      * in the given geographic area from the repository.
      *
      * @param readingDTOS           a list of reading DTOs
-     * @param logPath               string of a log file path
+     * @param logPath             M  string of a log file path
      * @param geographicAreaService service
      * @return the number of readings added
      **/
@@ -201,7 +201,7 @@ public class ReaderController {
      * @param readingDTOS a list of reading DTOs
      * @return a list of Readings converted from the given Reading DTO list.
      ***/
-    private List<Reading> readingDTOsToReadings(List<ReadingDTO> readingDTOS) {
+    List<Reading> readingDTOsToReadings(List<ReadingDTO> readingDTOS) {
         List<Reading> readingList = new ArrayList<>();
         for (ReadingDTO r : readingDTOS) {
             Reading reading = ReadingMapper.dtoToObject(r);
@@ -218,7 +218,7 @@ public class ReaderController {
      * @param readings a list of readings
      * @return a list of strings of all sensor IDs from the list of readings
      **/
-    private List<String> getSensorIDs(List<Reading> readings) {
+    List<String> getSensorIDs(List<Reading> readings) {
         List<String> sensorIDs = new ArrayList<>();
         for (Reading r : readings) {
             String sensorID = r.getSensorID();
@@ -239,7 +239,7 @@ public class ReaderController {
      * @return a list of readings that have the same sensor ID as the one given
      * as parameter.
      **/
-    private List<Reading> getReadingsBySensorID(String sensorID, List<Reading> readings) {
+    List<Reading> getReadingsBySensorID(String sensorID, List<Reading> readings) {
         List<Reading> subArray = new ArrayList<>();
         for (Reading r : readings) {
             String readingSensorID = r.getSensorID();

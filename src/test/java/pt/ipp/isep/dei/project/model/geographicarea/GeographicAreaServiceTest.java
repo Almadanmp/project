@@ -36,7 +36,6 @@ class GeographicAreaServiceTest {
     private List<GeographicArea> validList;
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 
-
     @Mock
     GeographicAreaRepository geographicAreaRepository;
 
@@ -78,6 +77,55 @@ class GeographicAreaServiceTest {
         thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
                 validDate1, 6008L);
         this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+    }
+
+    @Test
+    void seeIfAddAreaReadingsWorksWhenSensorIDIsInvalid() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        geographicAreas.add(firstValidArea);
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+
+        int expectedResult = 0;
+
+        //Act
+
+        int actualResult = geographicAreaService.addAreaReadings("invalidSensor", readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaReadingsWorks() {
+        // Arrange
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(21D, validDate1, "C", "sensorID");
+        readings.add(reading);
+
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        geographicAreas.add(firstValidArea);
+        firstValidArea.addSensor(firstValidAreaSensor);
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+
+        int expectedResult = 1;
+
+        //Act
+
+        int actualResult = geographicAreaService.addAreaReadings("SensorOne", readings, logger);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

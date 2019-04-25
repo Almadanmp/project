@@ -5,11 +5,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,7 +58,7 @@ class ReaderControllerTest {
     private Date validDate2 = new Date();
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
-    private ReaderController validReader;
+    private ReaderController readerController;
     private AreaSensor validAreaSensor1;
 
     private static final String validLogPath = "resources/logs/logOut.log";
@@ -89,6 +93,7 @@ class ReaderControllerTest {
     private ReadingUtils readingUtils;
     private GeographicAreaService geographicAreaService;
     private RoomService roomService;
+    private GeographicArea validGeographicArea;
 
 
     @BeforeEach
@@ -96,7 +101,7 @@ class ReaderControllerTest {
         energyGridService = new EnergyGridService(energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
         this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        validReader = new ReaderController();
+        readerController = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -107,7 +112,7 @@ class ReaderControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        GeographicArea validGeographicArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249, 0.261,
+        validGeographicArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249, 0.261,
                 new Local(41.178553, -8.608035, 111));
         GeographicArea validGeographicArea2 = new GeographicArea("Porto", new AreaType("city"), 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
@@ -145,6 +150,164 @@ class ReaderControllerTest {
     }
 
     @Test
+    void seeIfAddReadingsToGeographicAreaSensorsWorks() {
+        // Arrange
+
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        geographicAreas.add(validGeographicArea);
+        validGeographicArea.addSensor(validAreaSensor1);
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setSensorId("RF12345");
+        readingDTO1.setValue(20D);
+        readingDTO1.setUnit("C");
+        readingDTO1.setDate(validDate1);
+        readingDTOS.add(readingDTO1);
+
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setSensorId("RF12345");
+        readingDTO2.setValue(20D);
+        readingDTO2.setUnit("C");
+        readingDTO2.setDate(validDate3);
+        readingDTOS.add(readingDTO2);
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+
+        // Act
+
+        int actualResult = readerController.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath, geographicAreaService);
+
+        // Assert
+
+        assertEquals(2, actualResult);
+    }
+
+    @Test
+    void seeIfGetReadingsBySensorIDWorks() {
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+
+        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
+        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
+        readings.add(reading1);
+        readings.add(reading2);
+        expectedResult.add(reading2);
+
+        // Act
+
+        List<Reading> actualResult = readerController.getReadingsBySensorID("SensorID2", readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetReadingsBySensorIDWorksWhenSensorIDIsInvalid() {
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+
+        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
+        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
+        readings.add(reading1);
+        readings.add(reading2);
+
+        // Act
+
+        List<Reading> actualResult = readerController.getReadingsBySensorID("InvalidSensorID", readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorIDsWorks() {
+        // Arrange
+
+        List<String> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+        expectedResult.add("SensorID1");
+        expectedResult.add("SensorID2");
+
+        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
+        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
+        readings.add(reading1);
+        readings.add(reading2);
+
+        // Act
+
+        List<String> actualResult = readerController.getSensorIDs(readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorIDsWorksWhenListIsEmpty() {
+        // Arrange
+
+        List<String> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+
+        // Act
+
+        List<String> actualResult = readerController.getSensorIDs(readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadingDTOsToReadingsWorks() {
+        // Arrange
+
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        List<Reading> expectedResult = new ArrayList<>();
+
+        ReadingDTO readingDTO = new ReadingDTO();
+        readingDTO.setSensorId("SensorID");
+        readingDTO.setValue(20D);
+        readingDTO.setUnit("C");
+        readingDTO.setDate(validDate1);
+        readingDTOS.add(readingDTO);
+
+        Reading reading = new Reading(20D, validDate1, "C", "SensorID");
+        expectedResult.add(reading);
+
+        // Act
+
+        List<Reading> actualResult = readerController.readingDTOsToReadings(readingDTOS);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadingDTOsToReadingsWorksWhenListIsEmpty() {
+        // Arrange
+
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        List<Reading> expectedResult = new ArrayList<>();
+
+        // Act
+
+        List<Reading> actualResult = readerController.readingDTOsToReadings(readingDTOS);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfReadFileXMLGeoAreaWorksZeroAreas() {
         // Arrange
         // Act
@@ -179,7 +342,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(absolutePath, geographicAreaService);
+        int result = readerController.acceptPath(absolutePath, geographicAreaService);
         assertEquals(result, 0);
     }
 
@@ -188,7 +351,7 @@ class ReaderControllerTest {
         String input = "src/test/resources/wrong_path";
         File fileToRead = new File(input);
         String absolutePath = fileToRead.getAbsolutePath();
-        int result = validReader.acceptPath(absolutePath, geographicAreaService);
+        int result = readerController.acceptPath(absolutePath, geographicAreaService);
         assertEquals(result, -1);
     }
 
@@ -230,11 +393,11 @@ class ReaderControllerTest {
 
         //Act
 
-//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+//        List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
 
         //Assert
 
-  //      assertEquals(expectedResult, actualResult);
+        //      assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -364,12 +527,12 @@ class ReaderControllerTest {
 
         //Act
 
-//        List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-        int result = validReader.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
+//        List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+        int result = readerController.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
 
         //Assert
 
-   //     assertEquals(expectedResult, actualResult);
+        //     assertEquals(expectedResult, actualResult);
         assertEquals(1, result);
     }
 
@@ -400,11 +563,11 @@ class ReaderControllerTest {
 
         //Act
 
-    //    List<GeographicAreaDTO> actualResult = validReader.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+        //    List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
 
         //Assert
 
-     //   assertEquals(expectedResult, actualResult);
+        //   assertEquals(expectedResult, actualResult);
     }
 
     //   @Test
@@ -434,7 +597,7 @@ class ReaderControllerTest {
 //
 //        //Act
 //
-//        int actualResult = validReader.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath);
+//        int actualResult = readerController.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath);
 //
 //        //Assert
 //
@@ -468,7 +631,7 @@ class ReaderControllerTest {
 //
 //        //Act
 //
-//        int actualResult = validReader.addReadingsToHouseSensors(readingDTOS, validLogPath);
+//        int actualResult = readerController.addReadingsToHouseSensors(readingDTOS, validLogPath);
 //
 //        //Assert
 //
@@ -480,7 +643,7 @@ class ReaderControllerTest {
         List<String> deviceTypes = new ArrayList<>();
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
-        assertTrue(validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
+        assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
     }
 
     @Test
@@ -489,7 +652,7 @@ class ReaderControllerTest {
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
         assertThrows(IllegalArgumentException.class,
-                () -> validReader.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
+                () -> readerController.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
 
     }
 

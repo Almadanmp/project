@@ -255,7 +255,8 @@ public class AreaSensor {
             Date tempDate = r.getDate();
             if (date.equals(tempDate)) {
                 return true;
-            } }
+            }
+        }
         return false;
     }
 
