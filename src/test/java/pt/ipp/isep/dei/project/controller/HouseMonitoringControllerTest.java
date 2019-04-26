@@ -87,6 +87,8 @@ class HouseMonitoringControllerTest {
 
     private GeographicAreaService geographicAreaService;
 
+    private List<Room> rooms;
+
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
@@ -102,8 +104,9 @@ class HouseMonitoringControllerTest {
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
-        RoomService validRoomService = new RoomService();
-        validRoomService.add(validRoom1);
+        RoomService validRoomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        this.rooms = new ArrayList<>();
+        rooms.add(validRoom1);
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
@@ -482,28 +485,29 @@ class HouseMonitoringControllerTest {
      * -Should return message to User
      */
 
-//    @Test
-//    void testGetFirstHottestDayValidReadingsNotContained() {
-//        // Arrange
-//
-//        Reading r20 = new Reading(20, validDate20, "C", "TEST");
-//        Reading r21 = new Reading(22, validDate21, "C", "TEST");
-//        Reading r25 = new Reading(20, validDate25, "C", "TEST");
-//        validTemperatureAreaSensor.addReading(r20);
-//        validTemperatureAreaSensor.addReading(r21);
-//        validTemperatureAreaSensor.addReading(r25);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                controller.getFirstHottestDayInPeriod(validHouse, validDate22, validDate24, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: No temperature readings available in given period.",
-//                exception.getMessage());
-//    }
+    @Test
+    void seeIfGetFirstHottestDayInPeriodWorksNoReadings() {
+        // Arrange
+
+        Reading r20 = new Reading(20, validDate20, "C", "TEST");
+        Reading r21 = new Reading(22, validDate21, "C", "TEST");
+        Reading r25 = new Reading(20, validDate25, "C", "TEST");
+        validTemperatureAreaSensor.addReading(r20);
+        validTemperatureAreaSensor.addReading(r21);
+        validTemperatureAreaSensor.addReading(r25);
+        validHouseArea.addSensor(validTemperatureAreaSensor);
+
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getFirstHottestDayInPeriod(validTemperatureAreaSensor, validDate22, validDate24));
+
+        // Assert
+
+        assertEquals("Warning: No temperature readings available in given period.",
+                exception.getMessage());
+    }
+
     @Test
     void seeIfIsMotherAreaValidWorks() {
         // Act
@@ -552,37 +556,46 @@ class HouseMonitoringControllerTest {
 
         assertEquals(expectedResult, actualResult, 0.01);
     }
-//
-//    @Test
-//    void seeIfGetTotalRainfallOnGivenDayWorks() {
-//        // Arrange
-//
-//        double expectedResult = 40.0;
-//        validHouse.getMotherArea().setSensorList(validAreaSensorService);
-//
-//        // Actual
-//
-//        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService);
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
 
-//    @Test
-//    void seeIfGetHighestTempAmplitudeDateWorks() {
-//        // Arrange
-//
-//        Date expectedResult = validDate1;
-//        validHouse.getMotherArea().setSensorList(validAreaSensorService);
-//
-//        // Actual
-//
-//        Date actualResult = controller.getHighestTempAmplitudeDate(validHouse, validDate01, validDate10, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfGetTotalRainfallOnGivenDayWorks() {
+        // Arrange
+
+        double expectedResult = 15.0;
+        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
+                new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
+                21).getTime(), 213L);
+        Reading mockReading = new Reading(15, validDate4, "l/m2", "S001");
+        rainFallSensor.addReading(mockReading);
+
+        // Actual
+
+        double actualResult = controller.getTotalRainfallOnGivenDay(validDate4, rainFallSensor);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetHighestTempAmplitudeDateWorks() {
+        // Arrange
+
+        Date expectedResult = validDate3;
+        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+                new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
+                21).getTime(), 213L);
+        Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
+        tempSensor.addReading(mockReading);
+
+        // Actual
+
+        Date actualResult = controller.getHighestTempAmplitudeDate(tempSensor, validDate1, validDate10);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
 //    @Test
 //    void seeIfGetHouseAreaTemperatureWorks() {

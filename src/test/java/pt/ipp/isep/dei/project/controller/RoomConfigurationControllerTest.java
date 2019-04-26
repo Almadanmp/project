@@ -212,7 +212,7 @@ class RoomConfigurationControllerTest {
         RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
         // Act
 
-        boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomService);
+        boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomService, validRoomNoDevices);
 
         // Assert
 
@@ -472,7 +472,7 @@ class RoomConfigurationControllerTest {
 //        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
 //                2, 3, new Local(4, 4, 100)));
 //        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
-//        validHouse.addRoom(emptyDeviceList);
+//        validHouse.saveSensor(emptyDeviceList);
 //
 //        //Act
 //
@@ -497,7 +497,7 @@ class RoomConfigurationControllerTest {
 //        Room validRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
 //        Device validDevice = new WaterHeater(new WaterHeaterSpec());
 //        validRoom.addDevice(validDevice);
-//        validHouse.addRoom(validRoom);
+//        validHouse.saveSensor(validRoom);
 //
 //        //Act
 //

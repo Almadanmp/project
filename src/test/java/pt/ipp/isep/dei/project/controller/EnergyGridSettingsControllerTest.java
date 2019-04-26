@@ -52,10 +52,12 @@ class EnergyGridSettingsControllerTest {
     RoomSensorRepository roomSensorRepository;
     @Mock
     SensorTypeRepository sensorTypeRepository;
+    private List<Room> rooms;
     private RoomService roomService;
 
     @BeforeEach
     void arrangeArtifacts() {
+        this.rooms = new ArrayList<>();
         this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         this.energyGridService = new EnergyGridService(energyGridRepository);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
@@ -65,7 +67,7 @@ class EnergyGridSettingsControllerTest {
                 new AreaType("Cidade"), 2, 3, new Local(4, 4, 100)));
         validGrid = new EnergyGrid("validGrid", 300, "34576");
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-        roomService.add(validRoom);
+        rooms.add(validRoom);
     }
 
 
@@ -98,7 +100,7 @@ class EnergyGridSettingsControllerTest {
 //        //Arrange
 //
 //        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-//        validGrid.addRoom(room);
+//        validGrid.saveSensor(room);
 //
 //        //Act
 //
@@ -152,16 +154,16 @@ class EnergyGridSettingsControllerTest {
 //
 //        EnergyGridService gridList = new EnergyGridService();
 //        gridList.addGrid(validGrid);
-//        RoomService roomService = new RoomService();
+//        RoomService rooms = new RoomService();
 //        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-//        roomService.add(room);
-//        validGrid.setRoomService(roomService);
-//        validHouse.setRoomService(roomService);
+//        rooms.add(room);
+//        validGrid.setRoomService(rooms);
+//        validHouse.setRoomService(rooms);
 //        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 //
 //        // Act
 //
-//        boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO, roomService);
+//        boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO, rooms);
 //
 //        // Assert
 //

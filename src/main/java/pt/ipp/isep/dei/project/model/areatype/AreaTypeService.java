@@ -40,8 +40,8 @@ public class AreaTypeService {
     /**
      * This method adds a previously stated Area Type to the repository.
      *
-     * @param type Type of Geographic Area one wishes to save.
-     * @return true or false if the save was successful
+     * @param type Type of Geographic Area one wishes to saveSensor.
+     * @return true or false if the saveSensor was successful
      */
     public boolean add(AreaType type) {
         Optional<AreaType> value = areaTypeRepository.findByName(type.getName());

@@ -40,20 +40,20 @@ public class ReaderController {
     /**
      * This method only accepts a path that ends with .json or .xml
      *
-     * @param filePath - the path to the file if it exists
-     * @param list     - the geographic area list
-     * @return - number of geoareas imported
+     * @param filePath is the path to the file, if it exists.
+     * @param areaService is the service responsible for accessing the repository of geographic areas.
+     * @return is the number of geographic areas imported.
      */
-    public int acceptPath(String filePath, GeographicAreaService list) {
+    public int acceptPath(String filePath, GeographicAreaService areaService) {
         int areasRead;
         if (filePath.endsWith(".json")) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, list);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService);
             return areasRead;
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, list);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, areaService);
             return areasRead;
         }
         return -1;

@@ -444,8 +444,8 @@ class RoomConfigurationUI {
     }
 
     private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, String idRoom, RoomService roomService) {
-        RoomSensor mAreaSensor = controller.createRoomSensor(roomService, sensorID, sensorName, sensorType, date, idRoom);
-        if (controller.addSensorToRoom(mAreaSensor, roomService)) {
+        RoomSensor mRoomSensor = controller.createRoomSensor(roomService, sensorID, sensorName, sensorType, date, idRoom);
+        if (controller.addSensorToRoom(mRoomSensor, roomService, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getId());
         } else System.out.println("\nSensor already exists in the room.");
     }

@@ -60,16 +60,6 @@ public class RoomConfigurationController {
         return room.getNominalPower();
     }
 
-    /**
-     * Method that returns the SensorList of the room.
-     *
-     * @param room is the room we want to choose.
-     * @return AreaSensorList of the Room.
-     */
-    List<RoomSensor> getRoomSensorList(RoomService roomService, Room room) {
-        return roomService.getAllByRoomId(room.getId());
-    }
-
 
     /* USER STORY 253 - As an Administrator, I want to add a new sensor to a room from the list of available
     sensor types, in order to configure it. - ANDRÉ RUA */
@@ -323,7 +313,8 @@ public class RoomConfigurationController {
      * @param roomSensor is the sensor we want to addWithoutPersisting.
      * @return if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensorToRoom(RoomSensor roomSensor, RoomService roomService) {
-        return (roomService.addRoomToDb(roomSensor));
+    public boolean addSensorToRoom(RoomSensor roomSensor, RoomService roomService, Room room) {
+        room.addSensor(roomSensor);
+        return roomService.saveRoom(room);
     }
 }

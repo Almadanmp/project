@@ -69,6 +69,7 @@ class EnergyConsumptionControllerTest {
     SensorTypeRepository sensorTypeRepository;
 
     private RoomService roomService;
+    private List<Room>roomList;
 
     @Mock
     EnergyGridRepository energyGridRepository;
@@ -76,6 +77,7 @@ class EnergyConsumptionControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         roomService = new RoomService(this.roomRepository, roomSensorRepository, sensorTypeRepository);
+        this.roomList = new ArrayList<>();
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
         validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1", "Grid1");
         validDevice1.setName("WaterHeater");
@@ -179,7 +181,7 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomToListWorks() {
         // Arrange
 
-        RoomService roomService = new RoomService();
+        List<Room> roomService = new ArrayList<>();
 
         // Act
 
@@ -195,7 +197,7 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomFromListWorks() {
         // Arrange
 
-        roomService.add(validRoom1);
+        roomList.add(validRoom1);
         Mockito.when(roomRepository.findById(validRoom1.getId())).thenReturn(Optional.of(validRoom1));
 
         // Act
@@ -224,12 +226,11 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomToListWorksFalse() {
         // Arrange
 
-        RoomService roomService = new RoomService();
-        roomService.add(validRoom1);
+        roomList.add(validRoom1);
 
         // Act
 
-        boolean actualResult = controller.addRoomToList(validRoom1, roomService);
+        boolean actualResult = controller.addRoomToList(validRoom1, roomList);
 
         // Assert
 
@@ -841,7 +842,7 @@ class EnergyConsumptionControllerTest {
 //                180, new ArrayList<>());
 //        validHouse.setMotherArea(validArea);
 //
-//        validHouse.addRoom(validRoom1);
+//        validHouse.saveSensor(validRoom1);
 //        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 //
 //        // Act

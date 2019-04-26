@@ -268,7 +268,7 @@ public class AreaSensor {
      *
      * @return true in case the reading is added, false otherwise.
      **/
-    boolean addReading(Reading reading) {
+    public boolean addReading(Reading reading) {
         Date readingDate = reading.getDate();
         if ((readingDate.equals(dateStartedFunctioning) || readingDate.after(dateStartedFunctioning)) && (!readingWithGivenDateExists(readingDate))) {
             return this.areaReadings.add(reading);

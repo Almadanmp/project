@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GeographicAreaMapperTest {
     // Common testing artifacts for testing in this class.
@@ -132,5 +133,19 @@ class GeographicAreaMapperTest {
         // Assert
 
         assertEquals(validAreaObject, actualResult);
+    }
+
+    @Test
+    void seeIfDtoToObjectThrowsException() {
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        assertThrows(NullPointerException.class,
+                () -> GeographicAreaMapper.dtoToObject(geographicAreaDTO));
+    }
+
+    @Test
+    void seeIfObjectToDtoThrowsException() {
+        GeographicArea geographicArea = new GeographicArea();
+        assertThrows(NullPointerException.class,
+                () -> GeographicAreaMapper.objectToDTO(geographicArea));
     }
 }

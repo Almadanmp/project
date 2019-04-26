@@ -2,12 +2,12 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
@@ -37,13 +37,16 @@ public class EnergyConsumptionController {
     }
 
     /**
-     * Calls for the roomList's method in the model to addWithoutPersisting a room to itself.
+     * Calls for the roomList's method in the model to add a room to itself.
      *
      * @param room the room we want to addWithoutPersisting.
      * @param list the list we want to addWithoutPersisting the room to.
      * @return true if the room was added, false if it was already in the list.
      */
-    public boolean addRoomToList(Room room, RoomService list) {
+    public boolean addRoomToList(Room room, List<Room> list) {
+        if (list.contains(room)) {
+            return false;
+        }
         return list.add(room);
     }
 
