@@ -493,7 +493,7 @@ class WaterHeaterTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        assertNotEquals(validHeater, new RoomService());
+        assertNotEquals(validHeater, new WaterHeater(new WaterHeaterSpec()));
     }
 
     @Test

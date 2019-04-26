@@ -96,7 +96,7 @@ class DishwasherTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validDishwasher.equals(new RoomService()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validDishwasher.equals(new WashingMachine(new WashingMachineSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomMonitoringController;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -44,7 +45,7 @@ public class RoomMonitoringUI {
                     activeInput = true;
                     break;
                 case 2:
-                    runUS445(roomService);
+                    runUS445(roomService, geographicAreaService);
                     activeInput = true;
                     break;
                 case 0:
@@ -76,14 +77,19 @@ public class RoomMonitoringUI {
         System.out.println("Please enter the ending date.");
         Date endDate = DateUtils.getInputYearMonthDayHourMin();
         int category = roomMonitoringController.getCategoryFromList();
+        List<ReadingDTO> readingValues = roomMonitoringController.getRoomTemperatureReadingsBetweenSelectedDates(roomDTO,startDate,endDate);
+        Double temperature = 0.0;
         if (category == 0){
-            roomMonitoringController.categoryICalculus();
+            List<Date> dates0 = roomMonitoringController.categoryICalculusUS440(readingValues,temperature);
+            System.out.println(dates0);
         }
         if (category == 1){
-            roomMonitoringController.categoryIICalculus();
+            List<Date> dates1 =  roomMonitoringController.categoryIICalculusUS440(readingValues,temperature);
+            System.out.println(dates1);
         }
         if (category == 2){
-            roomMonitoringController.categoryIIICalculus();
+            List<Date> dates2 =  roomMonitoringController.categoryIIICalculusUS440(readingValues,temperature);
+            System.out.println(dates2);
         }
     }
 
@@ -94,7 +100,7 @@ public class RoomMonitoringUI {
      * the instants in which the temperature rose above the comfort
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS445(RoomService roomService){}
+    private void runUS445(RoomService roomService, GeographicAreaService geographicAreaService){}
 
 
 }

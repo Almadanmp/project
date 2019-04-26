@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
@@ -176,7 +178,7 @@ class SensorTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = sensorTypeService.equals(new RoomService()); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeService.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 
