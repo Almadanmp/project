@@ -841,7 +841,7 @@ class EnergyConsumptionControllerTest {
 //                180, new ArrayList<>());
 //        validHouse.setMotherArea(validArea);
 //
-//        validHouse.addRoom(validRoom1);
+//        validHouse.saveSensor(validRoom1);
 //        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 //
 //        // Act

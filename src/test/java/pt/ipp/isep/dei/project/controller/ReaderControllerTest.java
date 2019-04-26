@@ -400,12 +400,10 @@ class ReaderControllerTest {
 //        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
 //        File fileToRead = new File(input);
 //        String absolutePath = fileToRead.getAbsolutePath();
-//        GeographicAreaService geographicAreaList1 = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-//        ReaderController readerController = new ReaderController(areaSensorService, readingService, houseService, houseSensorService);
 //
 //        // Act
 //
-//        int result = readerController.acceptPath(absolutePath, geographicAreaList1);
+//        int result = readerController.acceptPath(absolutePath, geographicAreaService);
 //
 //        // Assert
 //

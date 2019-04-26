@@ -26,7 +26,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 
@@ -189,22 +188,22 @@ class HouseConfigurationControllerTest {
         Room B106 = new Room("B106", "Classroom", 3, 20, 20, 20,
                 "Mock", "Mock");
         Optional<Room> optionalRoomB106 = Optional.of(B106);
-        Mockito.when(mockRoomRepository.findByID("B106")).thenReturn(optionalRoomB106);
+        Mockito.when(mockRoomRepository.findRoomByID("B106")).thenReturn(optionalRoomB106);
 
         Room B109 = new Room("B109", "Classroom", 3, 20, 20, 20,
                 "Mock", "Mock");
         Optional<Room> optionalRoomB109 = Optional.of(B109);
-        Mockito.when(mockRoomRepository.findByID("B109")).thenReturn(optionalRoomB109);
+        Mockito.when(mockRoomRepository.findRoomByID("B109")).thenReturn(optionalRoomB109);
 
         Room B107 = new Room("B107", "Classroom", 3, 20, 20, 20,
                 "Mock", "Mock");
         Optional<Room> optionalRoomB107 = Optional.of(B107);
-        Mockito.when(mockRoomRepository.findByID("B107")).thenReturn(optionalRoomB107);
+        Mockito.when(mockRoomRepository.findRoomByID("B107")).thenReturn(optionalRoomB107);
 
         Optional<Room> optionalRoomB405 = Optional.empty();
-        Mockito.when(mockRoomRepository.findByID("B405")).thenReturn(optionalRoomB405);
+        Mockito.when(mockRoomRepository.findRoomByID("B405")).thenReturn(optionalRoomB405);
 
-        // Ignore the .save call, which is void.
+        // Ignore the .saveSensor call, which is void.
 
         when(roomSensorRepository.save(isA(RoomSensor.class))).thenReturn(null);
 
