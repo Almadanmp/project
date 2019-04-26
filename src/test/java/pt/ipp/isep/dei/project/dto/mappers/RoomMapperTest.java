@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
@@ -119,7 +120,20 @@ class RoomMapperTest {
         assertEquals(validDTO.getName(), actualResult.getName());
     }
 
-//    @Test
+    @Test
+    void seeIfUpdateHouseRoomWorks() {
+        List<Room> rooms = new ArrayList<>();
+        Room room = new Room("Room1","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        Room room1 = new Room("Room2","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        rooms.add(room);
+        rooms.add(room1);
+        validDTO.setName("Room1");
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Room actualResult = RoomMapper.updateHouseRoom(validDTO,roomService);
+        assertEquals(room,actualResult);
+    }
+
+    //    @Test
 //    void seeIfUpdateHouseRoom() {
 //        //Assert
 //        Room validRoom2 = new Room("Kitchen", "3nd Floor Kitchen", 2, 30, 20, 10, "Room1", "Grid1");

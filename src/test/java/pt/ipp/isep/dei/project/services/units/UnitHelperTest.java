@@ -12,8 +12,11 @@ class UnitHelperTest {
 
     @Test
     void seeIfGetUserTemperatureDefaultWorks() throws IOException {
+        Properties props = new Properties();
         String propFileName = "resources/units.properties";
         String expectedResult = "Celsius";
+        FileInputStream input = new FileInputStream(propFileName);
+        props.load(input);
         //ACT
         String actualResult = UnitHelper.getUserTemperatureDefault(propFileName);
         //ASSERT
