@@ -43,6 +43,12 @@ public class SensorTypeService {
         return true;
     }
 
+    public boolean addType(SensorType type) {
+        Optional<SensorType> sensorType = sensorTypeRepository.findByName(type.getName());
+        sensorTypeRepository.save(type);
+        return true;
+    }
+
     public SensorType createTypeSensor(String name, String unit) {
         return new SensorType(name, unit);
     }
