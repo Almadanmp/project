@@ -504,28 +504,28 @@ class HouseMonitoringControllerTest {
      * -Should return message to User
      */
 
-//    @Test
-//    void testGetFirstHottestDayValidReadingsNotContained() {
-//        // Arrange
-//
-//        Reading r20 = new Reading(20, validDate20, "C", "TEST");
-//        Reading r21 = new Reading(22, validDate21, "C", "TEST");
-//        Reading r25 = new Reading(20, validDate25, "C", "TEST");
-//        validTemperatureAreaSensor.addReading(r20);
-//        validTemperatureAreaSensor.addReading(r21);
-//        validTemperatureAreaSensor.addReading(r25);
-//        validHouseArea.setSensorList(validAreaSensorService);
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-//                controller.getFirstHottestDayInPeriod(validHouse, validDate22, validDate24, validAreaSensorService, readingService));
-//
-//        // Assert
-//
-//        assertEquals("Warning: No temperature readings available in given period.",
-//                exception.getMessage());
-//    }
+    @Test
+    void seeIfGetFirstHottestDayInPeriodWorksNoReadings() {
+        // Arrange
+
+        Reading r20 = new Reading(20, validDate20, "C", "TEST");
+        Reading r21 = new Reading(22, validDate21, "C", "TEST");
+        Reading r25 = new Reading(20, validDate25, "C", "TEST");
+        validTemperatureAreaSensor.addReading(r20);
+        validTemperatureAreaSensor.addReading(r21);
+        validTemperatureAreaSensor.addReading(r25);
+        validHouseArea.addSensor(validTemperatureAreaSensor);
+
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
+                controller.getFirstHottestDayInPeriod(validTemperatureAreaSensor, validDate22, validDate24));
+
+        // Assert
+
+        assertEquals("Warning: No temperature readings available in given period.",
+                exception.getMessage());
+    }
 
     @Test
     void seeIfIsMotherAreaValidWorks() {
