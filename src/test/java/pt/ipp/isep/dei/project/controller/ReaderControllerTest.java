@@ -68,7 +68,7 @@ class ReaderControllerTest {
     private GeographicArea validGeographicArea;
 
 
-    private static final String validLogPath = "resources/logs/logOut.log";
+    private static final String validLogPath = "dumpFiles/dumpLogFile.html";
     private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log"; //Não apagar p.f.
 
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
@@ -693,5 +693,4 @@ class ReaderControllerTest {
                 () -> readerController.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
 
     }
-
 }
