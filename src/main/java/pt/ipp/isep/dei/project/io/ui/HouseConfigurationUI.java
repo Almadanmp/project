@@ -159,7 +159,7 @@ class HouseConfigurationUI {
     }
 
     /**
-     * Method gets input from user to save as the characteristics of a room.
+     * Method gets input from user to addRoom as the characteristics of a room.
      */
     private void getInputRoomCharacteristics() {
         Scanner scanner = new Scanner(System.in);
