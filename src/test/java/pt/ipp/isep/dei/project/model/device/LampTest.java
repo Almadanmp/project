@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.devicespecs.LampSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
@@ -98,7 +99,7 @@ class LampTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = validLamp.equals(new RoomService()); // Needed for sonarqube testing purposes.
+        boolean actualResult = validLamp.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 

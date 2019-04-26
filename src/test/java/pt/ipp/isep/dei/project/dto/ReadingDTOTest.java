@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.Calendar;
@@ -120,6 +122,6 @@ class ReadingDTOTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        assertNotEquals(validDTO, new RoomService());
+        assertNotEquals(validDTO, new WaterHeater(new WaterHeaterSpec()));
     }
 }

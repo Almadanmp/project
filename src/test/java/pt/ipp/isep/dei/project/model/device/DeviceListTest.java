@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.model.device;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.devicespecs.DishwasherSpec;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
@@ -27,6 +29,28 @@ class DeviceListTest {
         firstValidDevice = new Fridge(new FridgeSpec());
         firstValidDevice.setName("FridgeOne");
         firstValidDevice.setNominalPower(30);
+    }
+
+    @Test
+    void seeIfAddDevicesToThisDeviceListWorks() {
+        // Arrange
+
+        Device secondValidDevice = new Dishwasher(new DishwasherSpec());
+        secondValidDevice.setName("DishwasherOne");
+        secondValidDevice.setNominalPower(50);
+
+        DeviceList deviceList = new DeviceList();
+        deviceList.add(firstValidDevice);
+        deviceList.add(secondValidDevice);
+        validList.add(firstValidDevice);
+
+        // Act
+
+        validList.addDevicesToThisDeviceList(deviceList);
+
+        // Assert
+
+        assertEquals(deviceList, validList);
     }
 
     @Test
@@ -158,7 +182,7 @@ class DeviceListTest {
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        assertNotEquals(validList, new RoomService());
+        assertNotEquals(validList, new WaterHeater(new WaterHeaterSpec()));
     }
 
     @Test

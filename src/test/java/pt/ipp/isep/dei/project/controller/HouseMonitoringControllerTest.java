@@ -87,6 +87,8 @@ class HouseMonitoringControllerTest {
 
     private GeographicAreaService geographicAreaService;
 
+    private List<Room> rooms;
+
     @BeforeEach
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
@@ -102,8 +104,9 @@ class HouseMonitoringControllerTest {
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
-        RoomService validRoomService = new RoomService();
-        validRoomService.add(validRoom1);
+        RoomService validRoomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        this.rooms = new ArrayList<>();
+        rooms.add(validRoom1);
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 

@@ -447,7 +447,7 @@ public class Room implements Metered {
      * @return builds a list of sensors with the same type as the one introduced as parameter.
      */
 
-    List<RoomSensor> getRoomSensorsOfGivenType(String name) {
+    public List<RoomSensor> getRoomSensorsOfGivenType(String name) {
         List<RoomSensor> containedTypeSensors = new ArrayList<>();
         for (RoomSensor sensor : roomSensors) {
             if (name.equals(sensor.getSensorTypeName())) {

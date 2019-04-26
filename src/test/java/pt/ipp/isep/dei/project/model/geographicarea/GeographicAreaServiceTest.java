@@ -11,6 +11,8 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
@@ -240,11 +242,9 @@ class GeographicAreaServiceTest {
     void seeIfEqualsWorksFalseDifferentObject() {
         // Arrange
 
-        RoomService testList = new RoomService();
-
         //Act
 
-        boolean actualResult = geographicAreaService.equals(testList); // Needed for SonarQube testing purposes.
+        boolean actualResult = geographicAreaService.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for SonarQube testing purposes.
 
         // Assert
 

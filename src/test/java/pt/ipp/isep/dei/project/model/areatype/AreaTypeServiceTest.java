@@ -6,7 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 
 import java.util.ArrayList;
@@ -192,7 +193,7 @@ class AreaTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = areaTypeService.equals(new RoomService()); // Needed for sonarqube testing purposes.
+        boolean actualResult = areaTypeService.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 

@@ -23,7 +23,7 @@ class HouseMapperTest {
                 "4440-616", "Porto", "Portugal");
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
-        RoomService roomService = new RoomService();
+        List<Room> roomService = new ArrayList<>();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
@@ -83,7 +83,7 @@ class HouseMapperTest {
                 "4440-616", "Porto", "Portugal");
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
-        RoomService roomService = new RoomService();
+        List<Room> roomService = new ArrayList<>();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
@@ -143,7 +143,7 @@ class HouseMapperTest {
                 "4440-616", "Porto", "Portugal");
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
-        RoomService roomService = new RoomService();
+        List<Room> roomService = new ArrayList<>();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
         House house = new House("01", address, local, 15, 15, deviceTypes);
