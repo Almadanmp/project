@@ -4,15 +4,11 @@ import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomMonitoringController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
@@ -49,7 +45,7 @@ public class RoomMonitoringUI {
                     activeInput = true;
                     break;
                 case 2:
-                    runUS445(roomService);
+                    runUS445(roomService, geographicAreaService);
                     activeInput = true;
                     break;
                 case 0:
@@ -104,7 +100,7 @@ public class RoomMonitoringUI {
      * the instants in which the temperature rose above the comfort
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS445(RoomService roomService){}
+    private void runUS445(RoomService roomService, GeographicAreaService geographicAreaService){}
 
 
 }
