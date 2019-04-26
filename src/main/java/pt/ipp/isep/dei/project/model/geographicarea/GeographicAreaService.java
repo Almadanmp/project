@@ -106,7 +106,7 @@ public class GeographicAreaService {
         AreaType areaType = getAreaTypeByName(areaTypeName, logger);
         LogUtils.closeHandlers(logger);
         if (areaType != null) {
-            // areaTypeRepository.save(areaType);
+            // areaTypeRepository.addRoom(areaType);
             return new GeographicArea(newName, areaType, length, width, local);
         } else {
             throw new IllegalArgumentException();

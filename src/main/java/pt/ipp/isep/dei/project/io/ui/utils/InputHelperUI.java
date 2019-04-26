@@ -82,7 +82,7 @@ public class InputHelperUI {
             System.out.println(roomService.buildRoomsAsString(rooms));
             String aux = scanner.nextLine();
             try {
-                Optional<Room> result = roomService.findByID(aux);
+                Optional<Room> result = roomService.findRoomByID(aux);
                 System.out.println(SELECT_ROOMS);
                 System.out.println(result.get().buildString() + "\n");
                 return RoomMapper.objectToDTO(result.get());
@@ -104,7 +104,7 @@ public class InputHelperUI {
             System.out.println(roomService.buildRoomsAsString(houseRooms));
             String aux = scanner.nextLine();
             try {
-                Optional<Room> result = roomService.findByID(aux);
+                Optional<Room> result = roomService.findRoomByID(aux);
                 if (result.isPresent()) {
                     System.out.println(SELECT_ROOMS);
                     System.out.println(result.get().buildString() + "\n");

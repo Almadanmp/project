@@ -10,11 +10,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -22,7 +22,10 @@ import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -266,7 +269,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfDoNotRemoveRoom() {
-        validRoomService.addRoomToDb(validRoom);
+        validRoomService.updateRoom(validRoom);
         //Assert
         assertFalse(validRoomService.removeRoom(validRoom));
     }
@@ -278,7 +281,7 @@ class RoomServiceTest {
 //
 //        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
 //
-//        assertTrue(validRoomService.addPersistence(room));
+//        assertTrue(validRoomService.addRoom(room));
 //    }
 
     @Test
@@ -287,7 +290,7 @@ class RoomServiceTest {
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
 
-        validRoomService.addPersistence(room);
+        validRoomService.addRoom(room);
 
 
         assertTrue(validRoomService.contains(room));
@@ -300,7 +303,7 @@ class RoomServiceTest {
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         roomList.add(room);
-        validRoomService.addPersistence(room);
+        validRoomService.addRoom(room);
 
 
         assertEquals(roomList, validRoomService.getRooms());
@@ -474,8 +477,8 @@ class RoomServiceTest {
 
         //Act
 
-        Room actualResult1 = validRoomService.get(0);
-        Room actualResult2 = validRoomService.get(1);
+        Room actualResult1 = validRoomService.getRoom(0);
+        Room actualResult2 = validRoomService.getRoom(1);
 
         //Assert
 
@@ -491,7 +494,7 @@ class RoomServiceTest {
 
         //Act
 
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyRoomService.get(0));
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> emptyRoomService.getRoom(0));
 
         //Assert
 
@@ -656,7 +659,7 @@ class RoomServiceTest {
     void seeIfGetAllSensor() {
 
         List<RoomSensor> roomSensors = new ArrayList<>();
-        validRoomService.save(secondValidRoomSensor);
+        validRoomService.addRoom(secondValidRoomSensor);
 
         Mockito.when(roomSensorRepository.findAll()).thenReturn(roomSensors);
 
@@ -710,8 +713,6 @@ class RoomServiceTest {
     @Test
     void seeIfToStringWorksEmpty() {
         // Arrange
-
-        List<RoomSensor> roomSensors = new ArrayList<>();
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -723,83 +724,4 @@ class RoomServiceTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfSensorFromRepositoryIsActiveWorks() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(roomSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
-
-        //Act
-
-        boolean actualResult1 = validRoomService.sensorFromRepositoryIsActive(sensorId, validDate1);
-
-        //Assert
-
-        assertTrue(actualResult1);
-    }
-
-    @Test
-    void seeIfSensorFromRepositoryIsActiveWorksWhenSensorStartsAfterReading() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(roomSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
-
-        //Act
-
-        boolean actualResult1 = validRoomService.sensorFromRepositoryIsActive(sensorId, validDate2);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
-    void seeIfSensorFromRepositoryIsActiveWorksWhenSensorDoesNotExist() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(roomSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
-
-        //Act
-
-        boolean actualResult1 = validRoomService.sensorFromRepositoryIsActive(sensorId, validDate1);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
-    void seeIfSensorExistsInRepositoryWorks() {
-        //Arrange
-        RoomSensor roomSensor = new RoomSensor();
-        roomSensor.setId("SensorID");
-
-        Mockito.when(roomSensorRepository.findById("SensorID")).thenReturn(Optional.of(roomSensor));
-
-        //Act
-
-        boolean actualResult = validRoomService.sensorExistsInRepository("SensorID");
-
-        //Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfSensorExistsInRepositoryWorksWhenSensorIsNotInRepository() {
-        //Arrange
-
-        Mockito.when(roomSensorRepository.findById("SensorID")).thenReturn(Optional.empty());
-
-        //Act
-
-        boolean actualResult = validRoomService.sensorExistsInRepository("SensorID");
-
-        //Assert
-
-        assertFalse(actualResult);
-    }
 }

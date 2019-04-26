@@ -10,7 +10,10 @@ import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -31,8 +34,8 @@ public class RoomService {
     private List<Room> rooms;
 
     private static final String STRING_BUILDER = "---------------\n";
-    private static final String THE_READING ="The reading ";
-    private static final String FROM =" from ";
+    private static final String THE_READING = "The reading ";
+    private static final String FROM = " from ";
 
 
     /**
@@ -82,7 +85,7 @@ public class RoomService {
         return false;
     }
 
-    public boolean addPersistence(Room room) {
+    public boolean addRoom(Room room) {
         Optional<Room> room2 = roomRepository.findByRoomName(room.getId());
         if (room2.isPresent()) {
             Room room3 = room2.get();
@@ -145,14 +148,14 @@ public class RoomService {
     }
 
     /**
-     * Method that save a Room to the RoomRepository.
+     * Method that addRoom a Room to the RoomRepository.
      * <p>
      * It is also adding to the local list while the project is being refactored an lists removed
      *
-     * @param room is the room we want to save.
+     * @param room is the room we want to addRoom.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-    void addRoomToDb(Room room) {
+    public void updateRoom(Room room) {
         roomRepository.save(room);
     }
 
@@ -218,7 +221,7 @@ public class RoomService {
             return "Invalid List - List is Empty\n";
         }
         for (int i = 0; i < this.sizeDB(); i++) {
-            Room aux = this.get(i);
+            Room aux = this.getRoom(i);
             result.append(i).append(") Designation: ").append(aux.getId()).append(" | ");
             result.append("Description: ").append(aux.getDescription()).append(" | ");
             result.append("House Floor: ").append(aux.getFloor()).append(" | ");
@@ -302,37 +305,6 @@ public class RoomService {
         return result;
     }
 
-    /**
-     * Method for building string to be displayed to user so he can see Devices of a certain type listed
-     *
-     * @param deviceType type of device user wants to list
-     * @return list of devices of that type param
-     */
-
-    public StringBuilder buildDeviceListByType(String deviceType) {
-        StringBuilder result = new StringBuilder();
-        for (Room r : this.rooms) {
-            if (r != null) {
-                result.append(r.buildDevicesStringByType(deviceType));
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Getter (array of rooms)
-     *
-     * @return array of rooms
-     */
-    public Room[] getElementsAsArray() {
-        int sizeOfResultArray = rooms.size();
-        Room[] result = new Room[sizeOfResultArray];
-        for (int i = 0; i < rooms.size(); i++) {
-            result[i] = rooms.get(i);
-        }
-        return result;
-    }
-
     public boolean saveRoom(Room room) {
         Optional<Room> room1 = roomRepository.findByRoomName(room.getId());
         if (room1.isPresent()) {
@@ -348,7 +320,7 @@ public class RoomService {
      * @param index the index of the room
      * @return returns room that corresponds to index.
      */
-    public Room get(int index) {
+    public Room getRoom(int index) {
         if (this.rooms.isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
@@ -362,14 +334,14 @@ public class RoomService {
      * @return is an Optional that either contains the object if it existed, or a null.
      */
 
-    public Optional<Room> findByID(String idToFind) {
+    public Optional<Room> findRoomByID(String idToFind) {
         return roomRepository.findById(idToFind);
     }
 
 
     //Methods from RoomSensorService
 
-    public void save(RoomSensor sensor) {
+    public void addRoom(RoomSensor sensor) {
         Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
 
         if (sensorType.isPresent()) {
@@ -384,15 +356,6 @@ public class RoomService {
 
     public List<RoomSensor> getAllSensor() {
         return roomSensorRepository.findAll();
-    }
-
-    public List<RoomSensor> getAllByRoomId(String roomName) {
-        return roomSensorRepository.findAllByRoomId(roomName);
-    }
-
-
-    private RoomSensor updateSensor(RoomSensor roomSensor) {
-        return roomSensorRepository.save(roomSensor);
     }
 
     /**
@@ -422,57 +385,6 @@ public class RoomService {
             sensorType = aux;
         }
         return new RoomSensor(id, name, sensorType, dateStartedFunctioning, roomId);
-    }
-
-
-    /**
-     * Method to Add a sensor only if it's not contained in the list already.
-     *
-     * @param sensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
-     * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
-     */
-
-    public boolean addRoomToDb(RoomSensor sensorToAdd) {
-        Optional<RoomSensor> aux = roomSensorRepository.findById(sensorToAdd.getId());
-        if (aux.isPresent()) {
-            RoomSensor sensor = aux.get();
-            sensor = sensorToAdd;
-            roomSensorRepository.save(sensor);
-        }
-        roomSensorRepository.save(sensorToAdd);
-        return true;
-    }
-
-
-    /**
-     * This method receives a sensor ID, checks if that sensor exists in the repository.
-     *
-     * @param sensorID String of sensor ID
-     * @return true in case the sensor exists, false otherwise.
-     **/
-    boolean sensorExistsInRepository(String sensorID) {
-        Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
-        return value.isPresent();
-    }
-
-    /**
-     * This method receives a string of a sensor ID and a Date that corresponds to a
-     * reading Date.
-     * The method will look for the sensor with the corresponding ID in repository
-     * and check if the sensor's was active when the reading was recorded.
-     *
-     * @param sensorID string of the sensor's ID
-     * @param date     reading Date
-     * @return true in case the sensor was active when the reading was created, false otherwise.
-     **/
-    boolean sensorFromRepositoryIsActive(String sensorID, Date date) {
-        Optional<RoomSensor> value = roomSensorRepository.findById(sensorID);
-        if (value.isPresent()) {
-            RoomSensor roomSensor = value.get();
-            Date startDate = roomSensor.getDateStartedFunctioning();
-            return date.equals(startDate) || date.after(startDate);
-        }
-        return false;
     }
 
     /**
