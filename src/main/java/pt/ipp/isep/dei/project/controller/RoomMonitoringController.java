@@ -174,7 +174,7 @@ public class RoomMonitoringController {
             ReadingDTO readingDTO = list.get(i);
             result.append(i).append(") Instant: ").append(readingDTO.getDate()).append("\n");
             result.append(", Temperature value: ").append(readingDTO.getValue()).append("\n");
-            result.append("Difference: + ").append(outsideTemperature.get(i)).append("\n");
+            result.append("Difference: + ").append(readingDTO.getValue() - outsideTemperature.get(i)).append(" Cº\n");
         }
         result.append("---\n");
         return result.toString();
