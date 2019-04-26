@@ -25,10 +25,14 @@ class EnergyGridMapperTest {
         validGrid = new EnergyGrid("GridOne", 21, "34576");
         List<Room> roomService = new ArrayList<>();
         Room roomOne = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
+        Room roomTwo = new Room("Kitchen", "Equipped Kitchen", 1, 20, 30, 10, "Room1", "Grid1");
         roomService.add(roomOne);
+        roomService.add(roomTwo);
         List<PowerSource> powerSourceList = new ArrayList<>();
         PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
+        PowerSource powerSourceTwo = new PowerSource("firstSource", 10, 30, "12345L");
         powerSourceList.add(powerSourceOne);
+        powerSourceList.add(powerSourceTwo);
         validGrid.setRooms(roomService);
         validGrid.setPowerSourceList(powerSourceList);
     }

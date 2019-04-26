@@ -2,12 +2,25 @@ package pt.ipp.isep.dei.project.services.units;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UnitHelperTest {
+
+    @Test
+    void seeIfThrowIOExceptionWorks() {
+        assertThrows(IOException.class,
+                () -> {
+                    Properties props = new Properties();
+                    String propFileName = "resources/abcd.efgh";
+                    FileInputStream input = new FileInputStream(propFileName);
+                    props.load(input);
+                });
+    }
 
     @Test
     void seeIfGetApplicationTemperatureConfigWorks() throws IOException {
@@ -86,7 +99,7 @@ class UnitHelperTest {
 //    }
 
     @Test
-    void seeIfGetUserRainfallDefaultWorks(){
+    void seeIfGetUserRainfallDefaultWorks() {
         // Arrange
 
         String propFileName = "invalid_path";
@@ -218,7 +231,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetReaderClassToInstanceWorks() throws IOException{
+    void seeIfGetReaderClassToInstanceWorks() throws IOException {
         // Arrange
 
         String expectedResult = "Fahrenheit";
