@@ -11,6 +11,8 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -99,13 +101,34 @@ class EnergyGridDTOTest {
     }
 
     @Test
-    void seeIfEqualsWorksSameInstance() {
-        assertEquals(validDTO, validDTO);
-    }
+    void seeIfEqualsWorks() {
+        //Arrange
 
-    @Test
-    void seeIfEqualsWorksDifferentObject() {
-        assertNotEquals(validDTO, new RoomService()); // Needed for sonarqube testing purposes.
+        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+        energyGridDTO.setName("Name1");
+        energyGridDTO.setMaxContractedPower(1000);
+
+        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+        energyGridDTO1.setName("Name1");
+        energyGridDTO1.setMaxContractedPower(900);
+
+
+        EnergyGridDTO energyGridDTO2 = new EnergyGridDTO();
+        energyGridDTO2.setName("Name2");
+        energyGridDTO2.setMaxContractedPower(1000);
+
+        //Act
+
+        boolean actualResult1 = energyGridDTO.equals(energyGridDTO);
+        boolean actualResult2 = energyGridDTO.equals(energyGridDTO1);
+        boolean actualResult3 = energyGridDTO.equals(energyGridDTO2);
+        boolean actualResult4 = energyGridDTO.equals(4D);
+
+        //Assert
+        assertTrue(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertFalse(actualResult4);
     }
 
     @Test
