@@ -371,8 +371,8 @@ public class RoomService {
      * @return the room that contains the sensor with the given ID
      **/
     Room getRoomContainingSensorWithGivenId(String sensorID) {
-        List<Room> rooms = roomRepository.findAll();
-        for (Room room : rooms) {
+        List<Room> roomList = roomRepository.findAll();
+        for (Room room : roomList) {
             List<RoomSensor> roomSensors = room.getRoomSensors();
             for (RoomSensor sensor : roomSensors) {
                 String tempSensorID = sensor.getId();
