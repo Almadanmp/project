@@ -188,7 +188,6 @@ public class ReaderController {
             List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
             addedReadings += geographicAreaService.addAreaReadings(sensorID, subArray, logger);
         }
-        LogUtils.closeHandlers(logger);
         return addedReadings;
     }
 
@@ -267,7 +266,6 @@ public class ReaderController {
             List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
             addedReadings += roomService.addRoomReadings(sensorID, subArray, logger);
         }
-        LogUtils.closeHandlers(logger);
         return addedReadings;
     }
 }

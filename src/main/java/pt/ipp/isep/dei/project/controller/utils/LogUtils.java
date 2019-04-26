@@ -18,8 +18,9 @@ public final class LogUtils {
 
     /**
      * Method used to create a logger.
+     *
      * @param filePath is the path where the file is; the logger will log entries into this file.
-     * @param level is the level of the logger, for instance WARNING.
+     * @param level    is the level of the logger, for instance WARNING.
      * @return is the created Logger.
      */
     public static Logger getLogger(String name, String filePath, Level level) {
@@ -38,9 +39,10 @@ public final class LogUtils {
 
     /**
      * Closes handlers on a logger so that no .lck or extra files are generated.
+     *
      * @param logger is the logger we want to close the handlers of.
      */
-    public static void closeHandlers(Logger logger){
+    public static void closeHandlers(Logger logger) {
         Handler[] handlers = logger.getHandlers();
         for (Handler h : handlers) {
             h.close();
