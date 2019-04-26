@@ -40,7 +40,7 @@ public class UtilsUITest {
 //                180, new ArrayList<>());
 //        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
 //                2, 3, new Local(4, 4, 100)));
-//        validHouse.addRoom(room1);
+//        validHouse.saveSensor(room1);
 //        RoomDTO roomDTO = RoomMapper.objectToDTO(room1);
 //
 //        boolean result2 = utilsUI.roomDTODeviceListIsValid(roomDTO, roomService);
@@ -65,7 +65,7 @@ public class UtilsUITest {
 //                180, new ArrayList<>());
 //        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
 //                2, 3, new Local(4, 4, 100)));
-//        validHouse.addRoom(room1);
+//        validHouse.saveSensor(room1);
 //        RoomDTO roomDTO = RoomMapper.objectToDTO(room1);
 //        UtilsUI utilsUI = new UtilsUI();
 //

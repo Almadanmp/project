@@ -98,7 +98,7 @@ class EnergyGridSettingsControllerTest {
 //        //Arrange
 //
 //        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-//        validGrid.addRoom(room);
+//        validGrid.saveSensor(room);
 //
 //        //Act
 //

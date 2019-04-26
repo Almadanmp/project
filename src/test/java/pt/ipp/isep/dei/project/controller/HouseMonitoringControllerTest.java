@@ -574,21 +574,25 @@ class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult, 0.01);
     }
 
-//    @Test
-//    void seeIfGetHighestTempAmplitudeDateWorks() {
-//        // Arrange
-//
-//        Date expectedResult = validDate1;
-//        validHouse.getMotherArea().setSensorList(validAreaSensorService);
-//
-//        // Actual
-//
-//        Date actualResult = controller.getHighestTempAmplitudeDate(validHouse, validDate01, validDate10, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfGetHighestTempAmplitudeDateWorks() {
+        // Arrange
+
+        Date expectedResult = validDate3;
+        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+                new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
+                21).getTime(), 213L);
+        Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
+        tempSensor.addReading(mockReading);
+
+        // Actual
+
+        Date actualResult = controller.getHighestTempAmplitudeDate(tempSensor, validDate1, validDate10);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
 //    @Test
 //    void seeIfGetHouseAreaTemperatureWorks() {

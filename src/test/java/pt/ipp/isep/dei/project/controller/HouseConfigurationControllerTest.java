@@ -203,7 +203,7 @@ class HouseConfigurationControllerTest {
         Optional<Room> optionalRoomB405 = Optional.empty();
         Mockito.when(mockRoomRepository.findRoomByID("B405")).thenReturn(optionalRoomB405);
 
-        // Ignore the .addRoom call, which is void.
+        // Ignore the .saveSensor call, which is void.
 
         when(roomSensorRepository.save(isA(RoomSensor.class))).thenReturn(null);
 
