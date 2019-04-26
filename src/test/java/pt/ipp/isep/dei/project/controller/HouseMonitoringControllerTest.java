@@ -553,21 +553,26 @@ class HouseMonitoringControllerTest {
 
         assertEquals(expectedResult, actualResult, 0.01);
     }
-//
-//    @Test
-//    void seeIfGetTotalRainfallOnGivenDayWorks() {
-//        // Arrange
-//
-//        double expectedResult = 40.0;
-//        validHouse.getMotherArea().setSensorList(validAreaSensorService);
-//
-//        // Actual
-//
-//        double actualResult = controller.getTotalRainfallOnGivenDay(validHouse, validDate4, validAreaSensorService, readingService);
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+
+    @Test
+    void seeIfGetTotalRainfallOnGivenDayWorks() {
+        // Arrange
+
+        double expectedResult = 15.0;
+        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
+                new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
+                21).getTime(), 213L);
+        Reading mockReading = new Reading(15, validDate4, "l/m2", "S001");
+        rainFallSensor.addReading(mockReading);
+
+        // Actual
+
+        double actualResult = controller.getTotalRainfallOnGivenDay(validDate4, rainFallSensor);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
 
 //    @Test
 //    void seeIfGetHighestTempAmplitudeDateWorks() {
