@@ -2,12 +2,17 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomMonitoringController;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
@@ -76,14 +81,19 @@ public class RoomMonitoringUI {
         System.out.println("Please enter the ending date.");
         Date endDate = DateUtils.getInputYearMonthDayHourMin();
         int category = roomMonitoringController.getCategoryFromList();
+        List<ReadingDTO> readingValues = roomMonitoringController.getRoomTemperatureReadingsBetweenSelectedDates(roomDTO,startDate,endDate);
+        Double temperature = 0.0;
         if (category == 0){
-            roomMonitoringController.categoryICalculus();
+            List<Date> dates0 = roomMonitoringController.categoryICalculusUS440(readingValues,temperature);
+            System.out.println(dates0);
         }
         if (category == 1){
-            roomMonitoringController.categoryIICalculus();
+            List<Date> dates1 =  roomMonitoringController.categoryIICalculusUS440(readingValues,temperature);
+            System.out.println(dates1);
         }
         if (category == 2){
-            roomMonitoringController.categoryIIICalculus();
+            List<Date> dates2 =  roomMonitoringController.categoryIIICalculusUS440(readingValues,temperature);
+            System.out.println(dates2);
         }
     }
 
