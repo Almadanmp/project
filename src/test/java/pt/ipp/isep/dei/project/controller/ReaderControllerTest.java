@@ -188,41 +188,6 @@ class ReaderControllerTest {
     }
 
     @Test
-    void seeIfAddReadingsToRoomSensorsWorksWithInvalidLogPath() {
-        // Arrange
-
-        List<ReadingDTO> readingDTOS = new ArrayList<>();
-        List<Room> rooms = new ArrayList<>();
-        Room room = new Room("Room1", "Description", 1, 1, 1, 1, "House", "EnergyGrid");
-        rooms.add(room);
-        room.addSensor(validRoomSensor1);
-
-        ReadingDTO readingDTO1 = new ReadingDTO();
-        readingDTO1.setSensorId("SensorID1");
-        readingDTO1.setValue(20D);
-        readingDTO1.setUnit("C");
-        readingDTO1.setDate(validDate4);
-        readingDTOS.add(readingDTO1);
-
-        ReadingDTO readingDTO2 = new ReadingDTO();
-        readingDTO2.setSensorId("SensorID1");
-        readingDTO2.setValue(20D);
-        readingDTO2.setUnit("C");
-        readingDTO2.setDate(validDate1);
-        readingDTOS.add(readingDTO2);
-
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-
-        // Act
-
-        int actualResult = readerController.addReadingsToRoomSensors(readingDTOS, invalidLogPath, roomService);
-
-        // Assert
-
-        assertEquals(2, actualResult);
-    }
-
-    @Test
     void seeIfAddReadingsToGeographicAreaSensorsWorks() {
         // Arrange
 

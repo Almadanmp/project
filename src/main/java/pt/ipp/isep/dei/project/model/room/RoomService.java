@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -494,6 +495,7 @@ public class RoomService {
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
+                LogUtils.closeHandlers(logger);
             }
         }
         return addedReadings;
@@ -537,9 +539,11 @@ public class RoomService {
             if (roomSensor.readingWithGivenDateExists(readingDate)) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because it already exists.");
+                LogUtils.closeHandlers(logger);
             } else if (!roomSensor.activeDuringDate(readingDate)) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+                LogUtils.closeHandlers(logger);
             } else {
                 roomSensor.addReading(r);
                 addedReadings++;

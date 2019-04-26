@@ -320,6 +320,7 @@ public class GeographicAreaService {
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
+                LogUtils.closeHandlers(logger);
             }
         }
         return addedReadings;
@@ -362,9 +363,11 @@ public class GeographicAreaService {
             if (areaSensor.readingWithGivenDateExists(readingDate)) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + areaSensor.getId() + " wasn't added because it already exists.");
+                LogUtils.closeHandlers(logger);
             } else if (!areaSensor.activeDuringDate(readingDate)) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+                LogUtils.closeHandlers(logger);
             } else {
                 areaSensor.addReading(r);
                 addedReadings++;
