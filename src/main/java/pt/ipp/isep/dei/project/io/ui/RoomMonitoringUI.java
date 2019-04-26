@@ -49,7 +49,7 @@ public class RoomMonitoringUI {
                     activeInput = true;
                     break;
                 case 2:
-                    runUS445(roomService);
+                    runUS445(roomService, geographicAreaService);
                     activeInput = true;
                     break;
                 case 0:
@@ -104,7 +104,7 @@ public class RoomMonitoringUI {
      * the instants in which the temperature rose above the comfort
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS445(RoomService roomService){}
+    private void runUS445(RoomService roomService, GeographicAreaService geographicAreaService){}
 
 
 }
