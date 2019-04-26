@@ -1,13 +1,10 @@
 package pt.ipp.isep.dei.project.controller;
 
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -58,36 +55,100 @@ public class RoomMonitoringController {
 
 
     public List<Date> categoryICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
-        Double minT = 0.33 * houseTemperature + 18.8 - 2;
+        double minT = 0.33 * houseTemperature + 18.8 - 2;
         List<Date> finalDates = new ArrayList<>();
-        for (ReadingDTO r : readingDTOList){
-            if (r.getValue() < minT ){
+        for (ReadingDTO r : readingDTOList) {
+            if (r.getValue() < minT) {
                 finalDates.add(r.getDate());
             }
         }
-        return  finalDates;
+        return finalDates;
     }
 
     public List<Date> categoryIICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
-        Double minT = 0.33 * houseTemperature + 18.8 - 3;
+        double minT = 0.33 * houseTemperature + 18.8 - 3;
         List<Date> finalDates = new ArrayList<>();
-        for (ReadingDTO r : readingDTOList){
-            if (r.getValue() < minT ){
+        for (ReadingDTO r : readingDTOList) {
+            if (r.getValue() < minT) {
                 finalDates.add(r.getDate());
             }
         }
-        return  finalDates;
+        return finalDates;
     }
 
     public List<Date> categoryIIICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
-        Double minT = 0.33 * houseTemperature + 18.8 - 4;
+        double minT = 0.33 * houseTemperature + 18.8 - 4;
         List<Date> finalDates = new ArrayList<>();
-        for (ReadingDTO r : readingDTOList){
-            if (r.getValue() < minT ){
+        for (ReadingDTO r : readingDTOList) {
+            if (r.getValue() < minT) {
                 finalDates.add(r.getDate());
             }
         }
-        return  finalDates;
+        return finalDates;
+    }
+
+    private boolean categoryICalculusUS445(ReadingDTO readingDTO, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 2;
+        return readingDTO.getValue() > minT;
+    }
+
+    private boolean categoryIICalculusUS445(ReadingDTO readingDTO, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 3;
+        return readingDTO.getValue() > minT;
+    }
+
+    private boolean categoryIIICalculusUS445(ReadingDTO readingDTO, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 4;
+        return readingDTO.getValue() > minT;
+    }
+
+    private List<ReadingDTO> getReadingValues(RoomService roomService) {
+        System.out.println("Please select a room:");
+        RoomDTO roomDTO = getRoomDTOByList(roomService);
+        System.out.println("Please enter the starting date.");
+        Date startDate = DateUtils.getInputYearMonthDayHourMin();
+        System.out.println("Please enter the ending date.");
+        Date endDate = DateUtils.getInputYearMonthDayHourMin();
+        return getRoomTemperatureReadingsBetweenSelectedDates(roomDTO, startDate, endDate);
+    }
+
+    public String getDaysWithTemperaturesAboveComfortLevel(RoomService roomService, House house, int category) {
+        List<ReadingDTO> readingValues = getReadingValues(roomService);
+        List<ReadingDTO> allReadings = new ArrayList<>();
+        List<Double> outsideTempInDay = new ArrayList<>();
+        String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
+        if (category == 0) {
+
+            for (ReadingDTO rDTO : readingValues) {
+                double temperature = getAreaAverageTemperature(rDTO.getDate(), house.getMotherArea(), house);
+                if (categoryICalculusUS445(rDTO, temperature)) {
+                    allReadings.add(rDTO);
+                    outsideTempInDay.add(temperature);
+                }
+            }
+            result = buildReadingDTOListOutput(allReadings, outsideTempInDay);
+        }
+        if (category == 1) {
+            for (ReadingDTO rDTO : readingValues) {
+                double temperature = getAreaAverageTemperature(rDTO.getDate(), house.getMotherArea(), house);
+                if (categoryIICalculusUS445(rDTO, temperature)) {
+                    allReadings.add(rDTO);
+                    outsideTempInDay.add(temperature);
+                }
+            }
+            result = buildReadingDTOListOutput(allReadings, outsideTempInDay);
+        }
+        if (category == 2) {
+            for (ReadingDTO rDTO : readingValues) {
+                double temperature = getAreaAverageTemperature(rDTO.getDate(), house.getMotherArea(), house);
+                if (categoryIIICalculusUS445(rDTO, temperature)) {
+                    allReadings.add(rDTO);
+                    outsideTempInDay.add(temperature);
+                }
+            }
+            result = buildReadingDTOListOutput(allReadings, outsideTempInDay);
+        }
+        return result;
     }
 
     public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
@@ -96,9 +157,7 @@ public class RoomMonitoringController {
         List<Reading> allReadings = new ArrayList<>();
         for (RoomSensor roomSensor : temperatureSensors) {
             List<Reading> reads = roomSensor.getReadings();
-            for (Reading singleReading : reads) {
-                allReadings.add(singleReading);
-            }
+            allReadings.addAll(reads);
         }
         List<ReadingDTO> finalList = new ArrayList<>();
         for (Reading r : allReadings) {
@@ -109,19 +168,20 @@ public class RoomMonitoringController {
         return finalList;
     }
 
-    public GeographicArea getGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO) {
-        return GeographicAreaMapper.dtoToObject(geographicAreaDTO);
+    private String buildReadingDTOListOutput(List<ReadingDTO> list, List<Double> outsideTemperature) {
+        StringBuilder result = new StringBuilder("Instants in which the readings are above comfort temperature:\n");
+        for (int i = 0; i < list.size(); i++) {
+            ReadingDTO readingDTO = list.get(i);
+            result.append(i).append(") Instant: ").append(readingDTO.getDate()).append("\n");
+            result.append(", Temperature value: ").append(readingDTO.getValue()).append("\n");
+            result.append("Difference: + ").append(outsideTemperature.get(i)).append("\n");
+        }
+        result.append("---\n");
+        return result.toString();
+
     }
 
-    public House getHouseFromDTO(HouseDTO houseDTO) {
-        return HouseMapper.dtoToObject(houseDTO);
-    }
-
-    public double getAreaAverageTemperature(Date date, GeographicAreaDTO geographicAreaDTO, HouseDTO houseDTO) {
-        // converts DTOs to objects
-        GeographicArea geographicArea = getGeographicAreaFromDTO(geographicAreaDTO);
-        House house = getHouseFromDTO(houseDTO);
-
+    private double getAreaAverageTemperature(Date date, GeographicArea geographicArea, House house) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
