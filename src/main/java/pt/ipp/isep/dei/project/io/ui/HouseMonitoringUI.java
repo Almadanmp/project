@@ -278,7 +278,7 @@ public class HouseMonitoringUI {
         try {
             closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(closestSensorToHouse, startDate, endDate);
-            temperatureValue = houseMonitoringController.getReadingValueInGivenDay(closestSensorToHouse, dateResult630);
+            temperatureValue = houseMonitoringController.getReadingValueOnGivenDay(closestSensorToHouse, dateResult630);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;
@@ -311,7 +311,7 @@ public class HouseMonitoringUI {
         try {
             closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
             dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(closestSensorToHouse, startDate, endDate);
-            temperatureValue = houseMonitoringController.getReadingValueInGivenDay(closestSensorToHouse, dateUS631);
+            temperatureValue = houseMonitoringController.getReadingValueOnGivenDay(closestSensorToHouse, dateUS631);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return;

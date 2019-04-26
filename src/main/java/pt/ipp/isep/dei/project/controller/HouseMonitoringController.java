@@ -107,8 +107,8 @@ public class HouseMonitoringController {
         return closestAreaSensor.getFirstHottestDayInGivenPeriod(startDate, endDate);
     }
 
-    public Double getReadingValueInGivenDay(AreaSensor closestAreaSensor, Date givenDate) {
-        return closestAreaSensor.getReadingValueOfGivenDay(givenDate);
+    public Double getReadingValueOnGivenDay(AreaSensor closestAreaSensor, Date givenDate) {
+        return closestAreaSensor.getReadingValueOnGivenDay(givenDate);
     }
 
 
