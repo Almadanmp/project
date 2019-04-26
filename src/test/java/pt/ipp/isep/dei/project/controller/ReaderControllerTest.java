@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
@@ -36,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +51,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * ReaderController test class.
  */
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+
 class ReaderControllerTest {
 
     // Common artifacts for testing in this class.
@@ -346,7 +351,7 @@ class ReaderControllerTest {
     }
 
     @Test
-    void seeIfReadFileXMLGeoAreaWorksZeroAreas() {
+    void seeIfReadFileXMLGeoAreaWorksWrongPath() {
         // Arrange
         // Act
 
@@ -393,22 +398,35 @@ class ReaderControllerTest {
         assertEquals(result, -1);
     }
 
-//    @Test
-//    void seeIfAcceptPathWorksJSON() {
-//        // Arrange
-//
-//        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
-//        File fileToRead = new File(input);
-//        String absolutePath = fileToRead.getAbsolutePath();
-//
-//        // Act
-//
-//        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-//
-//        // Assert
-//
-//        assertEquals(result, 2);
-//    }
+    @Test
+    void seeIfAcceptPathWorksJSON() {
+        // Arrange
+
+        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
+        File fileToRead = new File(input);
+        String absolutePath = fileToRead.getAbsolutePath();
+
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall","mm");
+        SensorType temperature = new SensorType("temperature","C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
+
+        // Act
+
+        int result = readerController.acceptPath(absolutePath, geographicAreaService);
+
+        // Assert
+
+        assertEquals(result, 2);
+    }
 
     @Test
     void seeIfReadFileWorks() {
@@ -427,13 +445,26 @@ class ReaderControllerTest {
 
         expectedResult.add(geographicAreaDTO);
 
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall","mm");
+        SensorType temperature = new SensorType("temperature","C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
+
         //Act
 
-//        List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+        List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
 
         //Assert
 
-        //      assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -446,28 +477,22 @@ class ReaderControllerTest {
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall","mm");
+        SensorType temperature = new SensorType("temperature","C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
         // Assert
 
         assertEquals(0, areasAdded);
 
-        // Get one of the areas to  check its contents.
-//
-//        GeographicArea actualArea = actualResult.getAll().get(0);
-//        AreaSensorService firstAreaSensors = actualArea.getSensorList();
-//
-//        // Declare expected area / sensors.
-//
-//        AreaSensorService expectedSensors = new AreaSensorService();
-//        expectedSensors.add(actualArea.getSensorList().get(0));
-//        expectedSensors.add(actualArea.getSensorList().get(1));
-//
-//        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
-//                0.261, new Local(41.178553, -8.608035, 139));
-//
-//        // Assert
-//
-//        assertEquals(expectedArea, actualArea);
-//        assertEquals(expectedSensors, firstAreaSensors);
     }
 
 
@@ -481,28 +506,21 @@ class ReaderControllerTest {
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall","mm");
+        SensorType temperature = new SensorType("temperature","C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
         // Assert
 
         assertEquals(0, areasAdded);
-
-        // Get one of the areas to  check its contents.
-
-        //    GeographicArea actualArea = geographicAreaList3.getAll().get(0);
-        //    AreaSensorService firstAreaSensors = actualArea.getSensorList();
-
-        // Declare expected area / sensors.
-
-        //    AreaSensorService expectedSensors = new AreaSensorService();
-        //   expectedSensors.add(actualArea.getSensorList().get(0));
-        //   expectedSensors.add(actualArea.getSensorList().get(1));
-
-        //   GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
-        //           0.261, new Local(41.178553, -8.608035, 139));
-
-        // Assert
-
-        //   assertEquals(expectedArea, actualArea);
-        //   assertEquals(expectedSensors, firstAreaSensors);
     }
 
     @Test
@@ -530,9 +548,21 @@ class ReaderControllerTest {
         String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall","mm");
+        SensorType temperature = new SensorType("temperature","C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
         // Assert
 
-        assertEquals(0, areasAdded);
+    //    assertEquals(1, areasAdded);
     }
 
 
@@ -561,14 +591,14 @@ class ReaderControllerTest {
         areaSensorDTO.setDateStartedFunctioning("2015-05-21");
         areaSensorDTO.setTypeSensor("temperature");
 
+
         //Act
 
-//        List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+       // List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
         int result = readerController.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
 
         //Assert
 
-        //     assertEquals(expectedResult, actualResult);
         assertEquals(1, result);
     }
 
