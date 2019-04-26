@@ -288,16 +288,14 @@ public class InputHelperUI {
     /**
      * Method that shows the user a given sensor list, then prompts him to choose one of the sensors by index.
      *
-     * @param areaSensors is the sensor list we want to choose a sensor from.
      * @return is the chosen sensor.
      */
-    public static AreaSensor getInputSensorByList(GeographicAreaService geographicAreaService, List<AreaSensor> areaSensors) {
-        Scanner scanner = new Scanner(System.in);
+    public static AreaSensor getInputSensorByList(GeographicArea geographicArea) {
         System.out.println("Please select a sensor from the list:");
-        System.out.println(geographicAreaService.buildString(areaSensors));
-        String aux = scanner.nextLine();
+        System.out.println(geographicArea.buildString());
+        int aux = InputHelperUI.getInputAsInt();
         while (true) {
-            AreaSensor result = geographicAreaService.getById(aux);
+            AreaSensor result = geographicArea.getAreaSensors().get(aux);
             if (result != null) {
                 System.out.println("You have chosen the following sensor:");
                 System.out.println(result.buildString() + "\n");

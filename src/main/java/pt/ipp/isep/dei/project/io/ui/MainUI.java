@@ -136,7 +136,7 @@ public class MainUI {
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
 
             //MAIN CODE
 

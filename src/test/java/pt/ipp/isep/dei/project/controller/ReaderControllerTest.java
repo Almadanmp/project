@@ -101,7 +101,7 @@ class ReaderControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         energyGridService = new EnergyGridService(energyGridRepository);
-        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+        geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
         this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         readerController = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
@@ -132,7 +132,7 @@ class ReaderControllerTest {
         AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
                 validDate4, 6008L);
-        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
         validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", new SensorType("Temperature", "C"), validDate1, "Room1");
     }
 
