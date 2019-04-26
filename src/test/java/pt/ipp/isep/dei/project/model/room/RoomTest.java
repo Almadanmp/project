@@ -7,10 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.device.Device;
-import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.device.Kettler;
-import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.*;
+import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -219,11 +217,19 @@ class RoomTest {
     void seeIfGetEstimateConsumptionByDeviceTypeWorks() {
         // Arrange
 
+        Room room = new Room("Room", "Description", 2, 2, 2, 2,"House", "EnergyGrid");
+        Device fridge = new Fridge(new FridgeSpec());
+        fridge.setName("FridgeOne");
+        fridge.setNominalPower(20);
+
+        room.addDevice(fridge);
+        room.addDevice(validDevice);
+
         double expectedResult = 97.97112;
 
         // Act
 
-        double actualResult = validRoom.getEstimateConsumptionOverTimeByDeviceType("WaterHeater", 1440);
+        double actualResult = room.getEstimateConsumptionOverTimeByDeviceType("WaterHeater", 1440);
 
         // Assert
 
