@@ -127,7 +127,7 @@ class RoomMapperTest {
 //        House house = new House("House", new Address("Rua das Flores", "431", "4512", "Porto", "Portugal"), new Local(
 //                4, 6, 6), 60, 180,
 //                new ArrayList<>());
-//        house.addRoom(validRoom2);
+//        house.saveSensor(validRoom2);
 //
 //        // Act
 //

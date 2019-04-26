@@ -284,7 +284,7 @@ class RoomServiceTest {
 //
 //        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
 //
-//        assertTrue(validRoomService.addRoom(room));
+//        assertTrue(validRoomService.saveSensor(room));
 //    }
 
     @Test
@@ -306,7 +306,7 @@ class RoomServiceTest {
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         roomList.add(room);
-        validRoomService.addRoom(room);
+        validRoomService.saveSensor(room);
 
 
         Mockito.when(roomRepository.findAll()).thenReturn(roomList);
@@ -664,7 +664,7 @@ List<Room> emptylist = new ArrayList<>();
     void seeIfGetAllSensor() {
 
         List<RoomSensor> roomSensors = new ArrayList<>();
-        validRoomService.addRoom(secondValidRoomSensor);
+        validRoomService.saveSensor(secondValidRoomSensor);
 
         Mockito.when(roomSensorRepository.findAll()).thenReturn(roomSensors);
 

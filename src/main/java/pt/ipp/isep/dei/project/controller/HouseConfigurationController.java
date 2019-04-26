@@ -96,7 +96,7 @@ public class HouseConfigurationController {
      * @return true if room was added, false otherwise.
      **/
     public boolean addRoomToHouse(RoomService roomService, Room room) {
-        return roomService.addRoom(room);
+        return roomService.saveSensor(room);
     }
 
 
@@ -152,7 +152,7 @@ public class HouseConfigurationController {
         for (RoomSensorDTO importedSensor : importedSensors) {
             Optional<Room> roomToAddTo = roomService.findRoomByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) { // If the room with the proper id exists, the sensor is saved.
-                roomService.addRoom(RoomSensorMapper.dtoToObject(importedSensor));
+                roomService.saveSensor(RoomSensorMapper.dtoToObject(importedSensor));
                 addedSensors++;
             } else {
                 logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()

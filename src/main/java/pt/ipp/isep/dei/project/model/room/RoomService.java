@@ -75,7 +75,7 @@ public class RoomService {
         return false;
     }
 
-    public boolean addRoom(Room room) {
+    public boolean saveSensor(Room room) {
         Optional<Room> room2 = roomRepository.findByRoomName(room.getId());
         if (room2.isPresent()) {
             Room room3 = room2.get();
@@ -136,11 +136,11 @@ public class RoomService {
     }
 
     /**
-     * Method that addRoom a Room to the RoomRepository.
+     * Method that saveSensor a Room to the RoomRepository.
      * <p>
      * It is also adding to the local list while the project is being refactored an lists removed
      *
-     * @param room is the room we want to addRoom.
+     * @param room is the room we want to saveSensor.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
     public void updateRoom(Room room) {
@@ -291,7 +291,7 @@ public class RoomService {
 
     //Methods from RoomSensorService
 
-    public void addRoom(RoomSensor sensor) {
+    public void saveSensor(RoomSensor sensor) {
         Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
 
         if (sensorType.isPresent()) {

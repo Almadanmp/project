@@ -6,10 +6,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UnitHelperTest {
+
+    @Test
+    void seeIfGetUserTemperatureDefaultWorks() throws IOException {
+        String propFileName = "resources/units.properties";
+        String expectedResult = "Celsius";
+        //ACT
+        String actualResult = UnitHelper.getUserTemperatureDefault(propFileName);
+        //ASSERT
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfThrowIOExceptionWorks() {
