@@ -383,7 +383,7 @@ public class GeographicArea {
         }
 
         AreaSensor mostRecent = areaSensors2.get(0);
-        List<Reading> mostRecentSensorReadings = mostRecent.getAreaReadings();
+        List<Reading> mostRecentSensorReadings = mostRecent.getReadings();
 
         Reading recentReading = ReadingUtils.getMostRecentReading(mostRecentSensorReadings);
         Date recent = recentReading.getDate();
@@ -425,7 +425,7 @@ public class GeographicArea {
             throw new IllegalArgumentException("The sensor list is empty");
         }
         for (AreaSensor s : areaSensors) {
-            List<Reading> sensorReadings = s.getAreaReadings();
+            List<Reading> sensorReadings = s.getReadings();
 
             if (!sensorReadings.isEmpty()) {
                 finalList.add(s);

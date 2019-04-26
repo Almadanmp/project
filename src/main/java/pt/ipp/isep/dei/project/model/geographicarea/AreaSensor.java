@@ -81,7 +81,7 @@ public class AreaSensor {
         this.id = id;
     }
 
-    void setAreaReadings(List<Reading> areaReadings) {
+    public void setReadings(List<Reading> areaReadings) {
         this.areaReadings = areaReadings;
     }
 
@@ -119,7 +119,7 @@ public class AreaSensor {
         return this.geographicAreaId;
     }
 
-    public List<Reading> getAreaReadings() {
+    public List<Reading> getReadings() {
         return areaReadings;
     }
 
@@ -312,7 +312,7 @@ public class AreaSensor {
      */
     private List<Reading> getReadingListBetweenDates(Date initialDate, Date finalDate) {
         List<Reading> finalList = new ArrayList<>();
-        List<Reading> result = getAreaReadings();
+        List<Reading> result = getReadings();
         for (Reading r : result) {
             if (ReadingUtils.isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
                 finalList.add(r);
@@ -447,7 +447,7 @@ public class AreaSensor {
      * @author Daniela (US633)
      */
     public double getAmplitudeValueFromDate(Date date) {
-        List<Reading> daySensorReadings = getAreaReadings();
+        List<Reading> daySensorReadings = getReadings();
         List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(daySensorReadings, date);
 
         double maxTemp = Collections.max(specificDayValues);

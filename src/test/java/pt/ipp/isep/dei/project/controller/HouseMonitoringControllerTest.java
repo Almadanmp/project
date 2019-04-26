@@ -149,15 +149,15 @@ class HouseMonitoringControllerTest {
         validTemperatureRoomSensor = new RoomSensor("T123", "TempOne", new SensorType("temperature", "Celsius"),
                 new Date(), "RoomAB");
         Reading firstTempReading = new Reading(15, validDate1, "C", "Test");
-        validTemperatureAreaSensor.getAreaReadings().add(firstTempReading);
+        validTemperatureAreaSensor.getReadings().add(firstTempReading);
         Reading secondTempReading = new Reading(20, validDate2, "C", "Test");
-        validTemperatureAreaSensor.getAreaReadings().add(secondTempReading);
+        validTemperatureAreaSensor.getReadings().add(secondTempReading);
         Reading thirdTempReading = new Reading(30, validDate3, "C", "Test");
-        validTemperatureAreaSensor.getAreaReadings().add(thirdTempReading);
+        validTemperatureAreaSensor.getReadings().add(thirdTempReading);
         Reading fourthTempReading = new Reading(30, validDate4, "C", "Test");
-        validTemperatureAreaSensor.getAreaReadings().add(fourthTempReading);
+        validTemperatureAreaSensor.getReadings().add(fourthTempReading);
         Reading fifthTempReading = new Reading(-5, validDate5, "C", "Test");
-        validTemperatureAreaSensor.getAreaReadings().add(fifthTempReading);
+        validTemperatureAreaSensor.getReadings().add(fifthTempReading);
 
         // Copy past to TEST for using the organized dates and readings
         /*
@@ -553,20 +553,28 @@ class HouseMonitoringControllerTest {
         assertFalse(actualResult);
     }
 
-//    @Test
-//    void seeIfGetAverageRainfallIntervalWorks() {
-//        // Arrange
-//
-//        double expectedResult = 20.0;
-//
-//        // Actual
-//
-//        double actualResult = controller.getAverageRainfallInterval(validHouse, validDate01, validDate10, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfGetAverageRainfallIntervalWorks() {
+        // Arrange
+
+        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
+                new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
+                21).getTime(), 213L);
+        Reading mockReading = new Reading(15, new GregorianCalendar(2017, Calendar.FEBRUARY,3).getTime(),
+                "l/m2", "S001");
+        List<Reading> mockReadingList = new ArrayList<>();
+        mockReadingList.add(mockReading);
+        rainFallSensor.setReadings(mockReadingList);
+        double expectedResult = 15.0;
+
+        // Actual
+
+        double actualResult = controller.getAverageRainfallInterval(rainFallSensor, validDate01, validDate10);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
 //
 //    @Test
 //    void seeIfGetTotalRainfallOnGivenDayWorks() {

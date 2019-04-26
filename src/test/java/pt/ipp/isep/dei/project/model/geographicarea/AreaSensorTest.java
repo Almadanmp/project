@@ -287,12 +287,12 @@ class AreaSensorTest {
 
         //Act
 
-        validAreaSensor.getAreaReadings().add(firstValidReading);
+        validAreaSensor.getReadings().add(firstValidReading);
         readingList.add(firstValidReading);
 
         //Assert
 
-        assertEquals(readingList, validAreaSensor.getAreaReadings());
+        assertEquals(readingList, validAreaSensor.getReadings());
     }
 
     @Test
@@ -303,7 +303,7 @@ class AreaSensorTest {
         Reading firstValidReading = new Reading(31, date, "C", "Test");
 
         //Act
-        validAreaSensor.getAreaReadings().add(firstValidReading);
+        validAreaSensor.getReadings().add(firstValidReading);
 
         //Assert
 
@@ -318,7 +318,7 @@ class AreaSensorTest {
         Reading firstValidReading = new Reading(31, date, "C", "Test");
 
         //Act
-        validAreaSensor.getAreaReadings().add(firstValidReading);
+        validAreaSensor.getReadings().add(firstValidReading);
 
         //Assert
 

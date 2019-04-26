@@ -773,7 +773,7 @@ class GeographicAreaTest {
         //Act
         readingList.add(firstValidReading);
         listAreaSensor.add(validAreaSensor);
-        validAreaSensor.setAreaReadings(readingList);
+        validAreaSensor.setReadings(readingList);
         validArea.setAreaSensors(listAreaSensor);
         AreaSensor actualResult = validArea.getMostRecentlyUsedAreaSensor(listAreaSensor);
 

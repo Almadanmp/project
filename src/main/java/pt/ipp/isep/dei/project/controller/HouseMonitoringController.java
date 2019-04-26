@@ -76,7 +76,7 @@ public class HouseMonitoringController {
      * @author André
      */
     public double getTotalRainfallOnGivenDay(Date day, AreaSensor closestAreaSensor) {
-        List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
+        List<Reading> sensorReadings = closestAreaSensor.getReadings();
         return ReadingUtils.getValueReadingsInDay(day, sensorReadings);
     }
 
@@ -85,7 +85,7 @@ public class HouseMonitoringController {
      */
 
     public double getHouseAreaTemperature(AreaSensor closestAreaSensor) {
-        List<Reading> sensorReadings = closestAreaSensor.getAreaReadings();
+        List<Reading> sensorReadings = closestAreaSensor.getReadings();
         return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }
 
