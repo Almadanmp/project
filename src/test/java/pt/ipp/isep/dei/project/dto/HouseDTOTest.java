@@ -168,6 +168,8 @@ class HouseDTOTest {
         HouseDTO validHouseDTO3 = new HouseDTO();
         validHouseDTO3.setAddress(addressDTO1);
 
+        HouseDTO validHouseDTO4 = null;
+
 
         //Act
 
@@ -175,6 +177,7 @@ class HouseDTOTest {
         boolean actualResult2 = validHouseDTO.equals(validHouseDTO2);
         boolean actualResult3 = validHouseDTO.equals(validHouseDTO3);
         boolean actualResult4 = validHouseDTO.equals(2D);
+        boolean actualResult5 = validHouseDTO.equals(validHouseDTO4);
 
 
         //Assert
@@ -183,6 +186,7 @@ class HouseDTOTest {
         assertFalse(actualResult2);
         assertTrue(actualResult3);
         assertFalse(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
