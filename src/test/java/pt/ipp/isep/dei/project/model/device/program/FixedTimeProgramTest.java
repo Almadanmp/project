@@ -3,7 +3,8 @@ package pt.ipp.isep.dei.project.model.device.program;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.device.WaterHeater;
+import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -314,6 +315,7 @@ class FixedTimeProgramTest {
 
         assertEquals(false, validFixedTimeProgram.getAttributeUnit(""));
     }
+
     @Test
     void seeIfSetAttributeValueWorksFalseNotDouble() {
         // Act
@@ -324,6 +326,7 @@ class FixedTimeProgramTest {
 
         assertEquals(false, result);
     }
+
     @Test
     void seeIfSetAttributeValuesWorksJustNames() {
         // Happy Cases
@@ -340,6 +343,7 @@ class FixedTimeProgramTest {
 
         assertFalse(validFixedTimeProgram.setAttributeValue("", 6D));
     }
+
     @Test
     void seeIfGetAttributeValueUnitWorks() {
         // Happy Cases
@@ -402,12 +406,12 @@ class FixedTimeProgramTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-       assertNotEquals(validFixedTimeProgram, null);
+        assertNotEquals(validFixedTimeProgram, null);
     }
 
     @Test
     void seeIfEqualsWorksNotAnInstance() {
-        assertNotEquals(validFixedTimeProgram, new RoomService());
+        assertNotEquals(validFixedTimeProgram, new WaterHeater(new WaterHeaterSpec()));
     }
 
     @Test

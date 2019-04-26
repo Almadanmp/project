@@ -60,7 +60,7 @@ class EnergyConsumptionUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS705(energyGridService);
+                    runUS705(energyGridService, roomService);
                     activeInput = false;
                     break;
                 case 3:
@@ -123,16 +123,16 @@ class EnergyConsumptionUI {
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
     // and/or devices of my choosing connected to a grid.
 
-    private void runUS705(EnergyGridService energyGridService) {
+    private void runUS705(EnergyGridService energyGridService, RoomService roomService) {
         if (energyGridService.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
         EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
-        RoomService selectedRooms = new RoomService();
+        List<Room> selectedRooms = new ArrayList<>();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
-            printSelection(selectedDevices, selectedRooms);
+            printSelection(selectedDevices, selectedRooms, roomService);
             System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); " +
                     "\n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; " +
                     "\n 4) Return to main menu;\n ");
@@ -140,13 +140,13 @@ class EnergyConsumptionUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    allRoomDevicesSelection(grid, selectedRooms, selectedDevices);
+                    allRoomDevicesSelection(grid, selectedRooms, selectedDevices, roomService);
                     break;
                 case 2:
-                    devicesSelection(grid, selectedRooms, selectedDevices);
+                    devicesSelection(grid, selectedRooms, selectedDevices, roomService);
                     break;
                 case 3:
-                    printSelection(selectedDevices, selectedRooms);
+                    printSelection(selectedDevices, selectedRooms, roomService);
                     printSelectionNominalPower(selectedDevices);
                     InputHelperUI.returnToMenu(returnToConsole);
                     break;
@@ -159,19 +159,19 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void allRoomDevicesSelection(EnergyGrid grid, RoomService selectedRooms, DeviceList selectedDevices) {
+    private void allRoomDevicesSelection(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices, RoomService roomService) {
         boolean active = true;
         while (active) {
-            printSelection(selectedDevices, selectedRooms);
-            selectRooms(grid, selectedRooms, selectedDevices);
+            printSelection(selectedDevices, selectedRooms, roomService);
+            selectRooms(grid, selectedRooms, selectedDevices, roomService);
             active = continuePrompt();
         }
     }
 
-    private void devicesSelection(EnergyGrid grid, RoomService selectedRooms, DeviceList selectedDevices) {
+    private void devicesSelection(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices, RoomService roomService) {
         boolean active = true;
         while (active) {
-            printSelection(selectedDevices, selectedRooms);
+            printSelection(selectedDevices, selectedRooms, roomService);
             selectDevices(grid, selectedDevices);
             active = continuePrompt();
         }
@@ -184,11 +184,11 @@ class EnergyConsumptionUI {
      * @param selectedRooms   the list of currently selected rooms.
      */
 
-    private void printSelection(DeviceList selectedDevices, RoomService selectedRooms) {
-        if (selectedDevices.isEmpty() && selectedRooms.isEmptyRooms()) {
+    private void printSelection(DeviceList selectedDevices, List<Room> selectedRooms, RoomService roomService) {
+        if (selectedDevices.isEmpty() && selectedRooms.isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
-            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + selectedRooms.buildString()
+            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + roomService.buildselectRoomsAsString(selectedRooms)
                     + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildString() + ".");
     }
 
@@ -200,13 +200,13 @@ class EnergyConsumptionUI {
      * @param selectedDevices is the devices already selected, including devices contained in the rooms already selected.
      */
 
-    private void selectRooms(EnergyGrid grid, RoomService selectedRooms, DeviceList selectedDevices) {
+    private void selectRooms(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices, RoomService roomService) {
         Room r1 = InputHelperUI.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to removeGeographicArea it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
             if (InputHelperUI.yesOrNo(duplicateRoom)) {
-                controller.removeRoomFromList(r1, selectedRooms);
+                controller.removeRoomFromList(r1, roomService);
                 controller.removeRoomDevicesFromDeviceList(r1, selectedDevices);
                 System.out.println("The room and its devices have been deselected.");
             }
@@ -272,7 +272,6 @@ class EnergyConsumptionUI {
     /**
      * This run makes the validation of the Room Device  List and the Device  Log List.
      * Then it calls the controller to get the total metered energy consumption for the given time interval.
-     *
      */
 
     private void runUS720(RoomService roomService) {

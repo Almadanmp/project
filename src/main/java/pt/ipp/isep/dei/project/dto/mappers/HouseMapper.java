@@ -1,13 +1,12 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.model.*;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public final class HouseMapper {
 
         Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
 
-        RoomService objectRoomService = new RoomService();
+        List<Room> objectRoomService = new ArrayList<>();
         for (RoomDTO y : dtoToConvert.getRoomList()) {
             Room room = RoomMapper.dtoToObject(y);
             objectRoomService.add(room);

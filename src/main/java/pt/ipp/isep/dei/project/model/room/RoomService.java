@@ -31,8 +31,6 @@ public class RoomService {
     @Autowired
     SensorTypeRepository sensorTypeRepository;
 
-    private List<Room> rooms;
-
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
@@ -41,18 +39,10 @@ public class RoomService {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomService() {
-        this.rooms = new ArrayList<>();
-    }
-
-    /**
-     * RoomList() empty constructor that initializes an ArrayList of Rooms.
-     */
     public RoomService(RoomRepository roomRepository, RoomSensorRepository roomSensorRepository, SensorTypeRepository sensorTypeRepository) {
         this.roomRepository = roomRepository;
         this.roomSensorRepository = roomSensorRepository;
         this.sensorTypeRepository = sensorTypeRepository;
-        this.rooms = new ArrayList<>();
     }
 
 
@@ -90,10 +80,8 @@ public class RoomService {
         if (room2.isPresent()) {
             Room room3 = room2.get();
             roomRepository.save(room3);
-            add(room3);
         }
         roomRepository.save(room);
-        add(room);
         return true;
     }
 
@@ -184,21 +172,12 @@ public class RoomService {
     }
 
     /**
-     * Checks the room list sizeDB and returns the sizeDB as int.\
-     *
-     * @return RoomList sizeDB as int
-     **/
-    public int sizeDB() {
-        return getAllRooms().size();
-    }
-
-    /**
      * This method receives an index as parameter and gets a room from room list.
      *
      * @param name the name of the room
      * @return returns room that corresponds to index.
      */
-    Room getDB(String name) {
+    Room getRoomByName(String name) {
         Room room;
         Optional<Room> aux = roomRepository.findById(name);
         if (aux.isPresent()) {
@@ -215,13 +194,13 @@ public class RoomService {
      *
      * @return a String of the Rooms in the RoomList.
      */
-    public String buildString() {
+    public String buildselectRoomsAsString(List<Room> selectedRooms) {
         StringBuilder result = new StringBuilder(STRING_BUILDER);
-        if (this.isEmptyRooms()) {
+        if (selectedRooms.isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
-        for (int i = 0; i < this.sizeDB(); i++) {
-            Room aux = this.getRoom(i);
+        for (int i = 0; i < selectedRooms.size(); i++) {
+            Room aux = selectedRooms.get(i);
             result.append(i).append(") Designation: ").append(aux.getId()).append(" | ");
             result.append("Description: ").append(aux.getDescription()).append(" | ");
             result.append("House Floor: ").append(aux.getFloor()).append(" | ");
@@ -235,42 +214,13 @@ public class RoomService {
     }
 
     /**
-     * Method that checks if a Room is contained in the RoomList.
-     *
-     * @param room is the room that we want to see if it's contained in the roomList.
-     * @return true if room is contained in the RoomList, false otherwise.
-     */
-    public boolean contains(Room room) {
-        return (this.rooms.contains(room));
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    /**
-     * Method that adds a Room to the RoomList.
-     *
-     * @param room is the room we want to addWithoutPersisting.
-     * @return true if the room was successfully added to the RoomList, false otherwise.
-     */
-    public boolean add(Room room) {
-        if (!(rooms.contains(room))) {
-            rooms.add(room);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Method that returns a DeviceList with all the devices of the RoomList.
      *
      * @return a DeviceList of all the devices in the RoomList.
      */
     public DeviceList getDeviceList() {
         DeviceList finalList = new DeviceList();
-        for (Room r : this.rooms) {
+        for (Room r : this.getAllRooms()) {
             finalList.appendListNoDuplicates(r.getDeviceList());
         }
         return finalList;
@@ -285,7 +235,7 @@ public class RoomService {
      */
     public double getDailyConsumptionByDeviceType(String deviceType, int time) {
         double result = 0;
-        for (Room r : rooms) {
+        for (Room r : getAllRooms()) {
             result += r.getEstimateConsumptionOverTimeByDeviceType(deviceType, time);
         }
         return Math.floor(result * 10) / 10;
@@ -299,7 +249,7 @@ public class RoomService {
 
     public double getNominalPower() {
         double result = 0;
-        for (Room r : rooms) {
+        for (Room r : getAllRooms()) {
             result += r.getNominalPower();
         }
         return result;
@@ -321,10 +271,10 @@ public class RoomService {
      * @return returns room that corresponds to index.
      */
     public Room getRoom(int index) {
-        if (this.rooms.isEmpty()) {
+        if (this.getAllRooms().isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
-        return this.rooms.get(index);
+        return this.getAllRooms().get(index);
     }
 
     /**
