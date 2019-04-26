@@ -2,15 +2,20 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
+import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.*;
@@ -51,13 +56,57 @@ public class RoomMonitoringController {
         return 0;
     }
 
-    public void categoryICalculus() {
+
+    public List<Date> categoryICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
+        Double minT = 0.33 * houseTemperature + 18.8 - 2;
+        List<Date> finalDates = new ArrayList<>();
+        for (ReadingDTO r : readingDTOList){
+            if (r.getValue() < minT ){
+                finalDates.add(r.getDate());
+            }
+        }
+        return  finalDates;
     }
 
-    public void categoryIICalculus() {
+    public List<Date> categoryIICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
+        Double minT = 0.33 * houseTemperature + 18.8 - 3;
+        List<Date> finalDates = new ArrayList<>();
+        for (ReadingDTO r : readingDTOList){
+            if (r.getValue() < minT ){
+                finalDates.add(r.getDate());
+            }
+        }
+        return  finalDates;
     }
 
-    public void categoryIIICalculus() {
+    public List<Date> categoryIIICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
+        Double minT = 0.33 * houseTemperature + 18.8 - 4;
+        List<Date> finalDates = new ArrayList<>();
+        for (ReadingDTO r : readingDTOList){
+            if (r.getValue() < minT ){
+                finalDates.add(r.getDate());
+            }
+        }
+        return  finalDates;
+    }
+
+    public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
+        Room room = RoomMapper.dtoToObject(roomDTO);
+        List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
+        List<Reading> allReadings = new ArrayList<>();
+        for (RoomSensor roomSensor : temperatureSensors) {
+            List<Reading> reads = roomSensor.getReadings();
+            for (Reading singleReading : reads) {
+                allReadings.add(singleReading);
+            }
+        }
+        List<ReadingDTO> finalList = new ArrayList<>();
+        for (Reading r : allReadings) {
+            if (ReadingUtils.isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
+                finalList.add(ReadingMapper.objectToDTO(r));
+            }
+        }
+        return finalList;
     }
 
     public GeographicArea getGeographicAreaFromDTO(GeographicAreaDTO geographicAreaDTO) {
