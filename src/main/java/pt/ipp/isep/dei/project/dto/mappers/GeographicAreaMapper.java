@@ -18,7 +18,7 @@ public final class GeographicAreaMapper {
      * Don't let anyone instantiate this class.
      */
 
-    public GeographicAreaMapper() {
+    private GeographicAreaMapper() {
     }
 
     /**
@@ -34,7 +34,10 @@ public final class GeographicAreaMapper {
 
         try {
             objectId = dtoToConvert.getId();
-        } catch (NullPointerException ignored) {
+            if (objectId == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception ignored) {
             ignored.getMessage();
         }
 
@@ -55,8 +58,8 @@ public final class GeographicAreaMapper {
 
         GeographicArea resultObject = new GeographicArea(objectName, new AreaType(objectType), objectLength, objectWidth,
                 objectLocal);
-        for(AreaSensorDTO sensorDTO:dtoToConvert.getAreaSensorDTOList()){
-            AreaSensor sensor= AreaSensorMapper.dtoToObject(sensorDTO);
+        for (AreaSensorDTO sensorDTO : dtoToConvert.getAreaSensorDTOList()) {
+            AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
             resultObject.addSensor(sensor);
         }
         resultObject.setId(objectId);
@@ -81,8 +84,10 @@ public final class GeographicAreaMapper {
         try {
             Long dtoID = objectToConvert.getId();
             resultDTO.setId(dtoID);
-
-        } catch (NullPointerException ignored) {
+            if (dtoID == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception ignored) {
             ignored.getMessage();
         }
 
