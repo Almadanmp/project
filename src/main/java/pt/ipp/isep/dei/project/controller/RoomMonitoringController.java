@@ -91,5 +91,4 @@ public class RoomMonitoringController {
         return houseClosestSensor.getAverageReadingsBetweenDates(d1, d2);
     }
 
-
 }
