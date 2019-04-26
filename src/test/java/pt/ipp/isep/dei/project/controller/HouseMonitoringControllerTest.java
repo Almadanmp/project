@@ -594,21 +594,25 @@ class HouseMonitoringControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfGetHouseAreaTemperatureWorks() {
-//        // Arrange
-//
-//        double expectedResult = 20.0;
-//        validHouse.getMotherArea().setSensorList(validAreaSensorService);
-//
-//        // Actual
-//
-//        double actualResult = controller.getHouseAreaTemperature(validHouse, validAreaSensorService, readingService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void seeIfGetHouseAreaTemperatureWorks() {
+        // Arrange
+
+        double expectedResult = 15.0;
+        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+                new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
+                21).getTime(), 213L);
+        Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
+        tempSensor.addReading(mockReading);
+
+        // Actual
+
+        double actualResult = controller.getHouseAreaTemperature(tempSensor);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
 
     @Test
     void seeIfGetDayMaxTemperatureWorks() {
