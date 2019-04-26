@@ -2,12 +2,11 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
@@ -26,8 +25,6 @@ public class GeographicAreaService {
     @Autowired
     private AreaTypeRepository areaTypeRepository;
     @Autowired
-    AreaSensorRepository areaSensorRepository;
-    @Autowired
     SensorTypeRepository sensorTypeRepository;
 
     private static final String BUILDER = "---------------\n";
@@ -35,10 +32,9 @@ public class GeographicAreaService {
     private static final String FROM = " from ";
 
 
-    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository, AreaSensorRepository areaSensorRepository, SensorTypeRepository sensorTypeRepository) {
+    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository, SensorTypeRepository sensorTypeRepository) {
         this.geographicAreaRepository = geographicAreaRepository;
         this.areaTypeRepository = areaTypeRepository;
-        this.areaSensorRepository = areaSensorRepository;
         this.sensorTypeRepository = sensorTypeRepository;
     }
 
@@ -189,86 +185,6 @@ public class GeographicAreaService {
     //METHODS FROM AREA SENSOR REPOSITORY
 
 
-    /**
-     * This method receives a sensor ID, checks if that sensor exists in the repository.
-     *
-     * @param sensorID String of sensor ID
-     * @return true in case the sensor exists, false otherwise.
-     **/
-    boolean areaSensorExistsInRepository(String sensorID) {
-        Optional<AreaSensor> value = areaSensorRepository.findById(sensorID);
-        return value.isPresent();
-    }
-
-    public List<AreaSensor> findByGeoAreaSensorsByID(Long geoAreaId) {
-        return areaSensorRepository.findByGeographicAreaId(geoAreaId);
-    }
-
-    public boolean remove(AreaSensor areaSensor) {
-        Optional<AreaSensor> areaSensor2 = areaSensorRepository.findById(areaSensor.getId());
-        if (areaSensor2.isPresent()) {
-            areaSensorRepository.delete(areaSensor);
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Method to print a Whole Sensor List.
-     * It will print the attributes needed to check if a Sensor is different from another Sensor
-     * (name, type of Sensor and Units)
-     *
-     * @return a string of the sensors contained in the list.
-     */
-
-    public String buildString(List<AreaSensor> areaSensors) {
-        StringBuilder result = new StringBuilder(new StringBuilder(BUILDER));
-        if (areaSensors.isEmpty()) {
-            return "Invalid List - List is Empty\n";
-        }
-        for (AreaSensor as : areaSensors) {
-            result.append(as.getId()).append(") Name: ").append(as.getName()).append(" | ");
-            result.append("Type: ").append(as.getSensorTypeName()).append(" | ")
-                    .append(as.printActive()).append("\n");
-        }
-        result.append(BUILDER);
-        return result.toString();
-    }
-
-    /**
-     * This method receives an index as parameter and gets a sensor from sensor list.
-     *
-     * @param id the index of the Sensor.
-     * @return returns sensor that corresponds to index.
-     */
-    public AreaSensor getById(String id) {
-        Optional<AreaSensor> value = areaSensorRepository.findById(id);
-        return value.orElse(null);
-    }
-
-    public AreaSensor updateSensor(AreaSensor areaSensor) {
-        return areaSensorRepository.save(areaSensor);
-    }
-
-
-    /**
-     * Method to Add a sensor only if it's not contained in the list already.
-     *
-     * @param areaSensorToAdd is the sensor we want to addWithoutPersisting to the sensorList.
-     * @return true if sensor was successfully added to the AreaSensorList, false otherwise.
-     */
-
-    public boolean addAreaSensorToDb(AreaSensor areaSensorToAdd) {
-        AreaSensor areaSensor = areaSensorRepository.findByName(areaSensorToAdd.getName());
-        if (areaSensor == null) {
-            areaSensorRepository.save(areaSensorToAdd);
-            return true;
-        }
-        return false;
-    }
-
-
     public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
                                        Long geographicAreaId) {
 
@@ -342,7 +258,8 @@ public class GeographicAreaService {
                 if (tempSensorID.equals(sensorID)) {
                     return ga;
                 }
-            } }
+            }
+        }
         throw new IllegalArgumentException();
     }
 

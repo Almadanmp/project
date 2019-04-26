@@ -59,7 +59,7 @@ class ReaderJSONGeographicAreasTest {
     @BeforeEach
     void arrangeArtifacts() {
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
         ctrl = new ReaderController();
 
     }
@@ -155,7 +155,7 @@ class ReaderJSONGeographicAreasTest {
 //        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaService);
         // Assert
 
-  //      assertEquals(2, areasAdded);
+        //      assertEquals(2, areasAdded);
 
         // Get one of the areas to  check its contents.
 

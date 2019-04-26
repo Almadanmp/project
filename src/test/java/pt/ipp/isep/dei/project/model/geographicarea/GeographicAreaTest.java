@@ -3,9 +3,9 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -109,6 +109,7 @@ class GeographicAreaTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     void seeIfRemoveSensor() {
         //Arrange
@@ -670,7 +671,7 @@ class GeographicAreaTest {
 //    }
 
     @Test
-    void seeIfGetClosestSensorOfGivenType(){
+    void seeIfGetClosestSensorOfGivenType() {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
@@ -683,14 +684,14 @@ class GeographicAreaTest {
 
         //Act
         validArea.setAreaSensors(listAreaSensor);
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature",house);
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
     }
 
     @Test
-    void seeIfGetClosestSensorOfNoExistType(){
+    void seeIfGetClosestSensorOfNoExistType() {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
@@ -702,14 +703,14 @@ class GeographicAreaTest {
 
         //Act
 
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Humidity",house);
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Humidity", house);
 
         //Assert
         assertEquals(areaSensorError, actualResult);
     }
 
     @Test
-    void seeIfGetClosestSensorOfGivenTypeSize(){
+    void seeIfGetClosestSensorOfGivenTypeSize() {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
@@ -722,14 +723,14 @@ class GeographicAreaTest {
 
         //Act
         validArea.setAreaSensors(listAreaSensor);
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature",house);
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
     }
 
     @Test
-    void seeIfGetMostRecentlyUsedAreaSensorNoReadings (){
+    void seeIfGetMostRecentlyUsedAreaSensorNoReadings() {
         //Arrange
         AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
         validAreaSensor.setActive(true);
@@ -746,7 +747,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetMostRecentlyUsedAreaSensorNoSensors (){
+    void seeIfGetMostRecentlyUsedAreaSensorNoSensors() {
         //Arrange
 
         List<AreaSensor> listAreaSensor = new ArrayList<>();
@@ -760,7 +761,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetMostRecentlyUsedAreaSensor (){
+    void seeIfGetMostRecentlyUsedAreaSensor() {
         //Arrange
         Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         Reading firstValidReading = new Reading(31, date, "C", "Test");
@@ -782,7 +783,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetAreaSensorsWithReadings(){
+    void seeIfGetAreaSensorsWithReadings() {
         //Arrange
 
         List<AreaSensor> listAreaSensor = new ArrayList<>();
@@ -795,6 +796,44 @@ class GeographicAreaTest {
         assertEquals("The sensor list is empty", exception.getMessage());
 
     }
+
+    @Test
+    void seeIfSensorToStringWorks() {
+        // Arrange
+
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(secondValidAreaSensor);
+        areaSensors.add(firstValidAreaSensor);
+        String expectedResult =
+                "---------------\n" +
+                        "SensorTwo) Name: SensorTwo | Type: Temperature | Active\n" +
+                        "SensorOne) Name: SensorOne | Type: Temperature | Active\n" +
+                        "---------------\n";
+
+        // Act
+
+        String actualResult = validArea.buildString(areaSensors);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSensorToStringWorksEmpty() {
+        // Arrange
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        String expectedResult = "Invalid List - List is Empty\n";
+
+        // Act
+
+        String actualResult = validArea.buildString(areaSensors);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
 }
 

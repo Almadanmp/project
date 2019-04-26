@@ -76,7 +76,7 @@ class GeographicAreaServiceTest {
         secondValidAreaSensor.setActive(true);
         thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
                 validDate1, 6008L);
-        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
     }
 
     @Test
@@ -392,66 +392,6 @@ class GeographicAreaServiceTest {
 //        assertEquals(sensor, validAreaSensorService.updateSensor(sensor));
 //    }
 
-    @Test
-    void seeIfSensorExistsInRepository() {
-        //Arrange
-        AreaSensor areaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
-                31, 1, 2), new Date(), 6008L);
-        areaSensor.setActive(true);
-
-        geographicAreaService.addAreaSensorToDb(areaSensor);
-
-
-        //Assert
-        assertFalse(geographicAreaService.areaSensorExistsInRepository("SensorOne"));
-    }
-
-    @Test
-    void seeIfAddPersist() {
-        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(
-                31, 1, 2), new Date(), 6008L);
-        areaSensor.setActive(true);
-
-        assertTrue(geographicAreaService.addAreaSensorToDb(areaSensor));
-    }
-
-    @Test
-    void seeIfToStringWorks() {
-        // Arrange
-
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        areaSensors.add(secondValidAreaSensor);
-        areaSensors.add(thirdValidAreaSensor);
-        String expectedResult =
-                "---------------\n" +
-                        "SensorTwo) Name: SensorTwo | Type: Temperature | Active\n" +
-                        "SensorThree) Name: SensorThree | Type: Rainfall | Active\n" +
-                        "---------------\n";
-
-        // Act
-
-        String actualResult = geographicAreaService.buildString(areaSensors);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfToStringWorksEmpty() {
-        // Arrange
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        String expectedResult = "Invalid List - List is Empty\n";
-
-        // Act
-
-        String actualResult = geographicAreaService.buildString(areaSensors);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
 
 //    @Test
 //    void seeIfGetSensorsDistanceToHouse() {
@@ -507,84 +447,5 @@ class GeographicAreaServiceTest {
 //        assertFalse(failedResult);
 //        assertFalse(failedResult2);
 //    }
-
-    @Test
-    void seeIfSensorExistsInRepositoryWorks() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.areaSensorExistsInRepository(sensorId);
-
-        //Assert
-
-        assertTrue(actualResult1);
-    }
-
-    @Test
-    void seeIfSensorExistsInRepositoryWorksWhenSensorIsNotInRepository() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.empty());
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.areaSensorExistsInRepository(sensorId);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
-    void seeIfRemoveSensor() {
-        //Arrange
-
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.remove(firstValidAreaSensor);
-
-        //Assert
-
-        assertFalse(actualResult1);
-    }
-
-    @Test
-    void seeIfRemoveSensorTrue() {
-        //Arrange
-        String sensorId = "SensorOne";
-        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.of(firstValidAreaSensor)));
-
-        //Act
-
-        boolean actualResult1 = geographicAreaService.remove(firstValidAreaSensor);
-
-        //Assert
-
-        assertTrue(actualResult1);
-    }
-
-    @Test
-    void seeIfGetById() {
-        String mockId = "SensorOne";
-
-        AreaSensor areaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
-        areaSensor.setId("SensorOne");
-
-        Mockito.when(areaSensorRepository.findById(mockId)).thenReturn(Optional.of(areaSensor));
-
-        AreaSensor result = geographicAreaService.getById(mockId);
-
-        assertEquals(result.getId(), areaSensor.getId());
-        assertEquals(result.getName(), areaSensor.getName());
-
-    }
 
 }

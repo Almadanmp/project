@@ -91,7 +91,7 @@ class HouseMonitoringControllerTest {
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
 
-        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, areaSensorRepository, sensorTypeRepository);
+        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
         validHouseArea = new GeographicArea("Portugal", new AreaType("Country"), 300,
                 200, new Local(45, 30, 30));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
@@ -345,28 +345,6 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void ensureThatWeGetTotalReadingsWithoutWithoutReadings() {
-        // Arrange
-
-        Date date = new Date();
-        try {
-            date = validSdf.parse("02/02/2015 10:02:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        AreaSensor rainfallAreaSensor = new AreaSensor("RF12345", "rainfall sensor", new SensorType("rainfall", "L"), new Local(21, 20, 20), date, 6008L);
-        geographicAreaService.addAreaSensorToDb(rainfallAreaSensor);
-
-        // Act
-
-        Throwable exception = assertThrows(IllegalStateException.class, () -> controller.getTotalRainfallOnGivenDay(validDate4, rainfallAreaSensor));
-
-        // Assert
-
-        assertEquals("Warning: Total value was not calculated - No readings were available.", exception.getMessage());
-    }
-
-    @Test
     void getRoomName() {
         // Arrange
 
@@ -526,7 +504,6 @@ class HouseMonitoringControllerTest {
 //        assertEquals("Warning: No temperature readings available in given period.",
 //                exception.getMessage());
 //    }
-
     @Test
     void seeIfIsMotherAreaValidWorks() {
         // Act
@@ -653,11 +630,11 @@ class HouseMonitoringControllerTest {
         // Act
 
         double actualResult = controller.getDayMaxTemperature(testDTO, new GregorianCalendar(2018, Calendar.JULY,
-                        3).getTime(), roomService);
+                3).getTime(), roomService);
 
         // Assert
 
-        assertEquals(expectedResult,actualResult, 0.01);
+        assertEquals(expectedResult, actualResult, 0.01);
 
 
     }

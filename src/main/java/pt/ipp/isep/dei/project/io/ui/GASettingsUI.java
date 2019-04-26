@@ -347,7 +347,7 @@ class GASettingsUI {
     private void runUS10(GeographicAreaService geographicAreaService) {
 
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
         if (!gaController.deactivateSensor(areaSensorDTO)) {
             System.out.println("Sensor already deactivated.");
         } else {
@@ -366,7 +366,7 @@ class GASettingsUI {
      */
     private void runUS11(GeographicAreaService geographicAreaService) {
         GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO, geographicAreaService);
+        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
         if (areaSensorDTO != null) {
             updateUS11(areaSensorDTO, geographicAreaService, geographicAreaDTO);
         }

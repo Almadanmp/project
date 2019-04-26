@@ -198,10 +198,9 @@ public class GASettingsController {
         return GeographicAreaMapper.objectToDTO(geographicArea);
     }
 
-    public AreaSensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO, GeographicAreaService geographicAreaService) {
+    public AreaSensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
-        List<AreaSensor> areaSensors = geographicAreaService.findByGeoAreaSensorsByID(geographicArea.getId());
-        AreaSensor areaSensor = InputHelperUI.getInputSensorByList(geographicAreaService, areaSensors);
+        AreaSensor areaSensor = InputHelperUI.getInputSensorByList(geographicArea);
 
         return AreaSensorMapper.objectToDTO(areaSensor);
     }

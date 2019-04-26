@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import javax.persistence.*;
 import java.util.*;
 
+
 /**
  * Class that represents a Geographical Area.
  */
@@ -42,7 +43,7 @@ public class GeographicArea {
 
     private String description;
 
-
+    private static final String BUILDER = "---------------\n";
     // GeoArea constructors. The minimum amount of data for a GeoArea is a place and a type of area.
     // They can be made with or without a sensor list.
 
@@ -159,6 +160,7 @@ public class GeographicArea {
         this.areaType = areaType;
     }
 
+
     /**
      * Standard getter method, to return the description of the Geographical Area.
      *
@@ -185,7 +187,7 @@ public class GeographicArea {
     /**
      * This method will get the list of Area Sensors.
      **/
-    List<AreaSensor> getAreaSensors() {
+    public List<AreaSensor> getAreaSensors() {
         return areaSensors;
     }
 
@@ -419,7 +421,7 @@ public class GeographicArea {
      * @return AreaSensorList of every sensor that has readings. It will return an empty list in
      * case the original list was empty from readings.
      */
-     List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
+    List<AreaSensor> getAreaSensorsWithReadings(List<AreaSensor> areaSensors) {
         List<AreaSensor> finalList = new ArrayList<>();
         if (areaSensors.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty");
@@ -467,6 +469,29 @@ public class GeographicArea {
         }
         throw new IllegalArgumentException();
     }
+
+    /**
+     * Method to print a Whole Sensor List.
+     * It will print the attributes needed to check if a Sensor is different from another Sensor
+     * (name, type of Sensor and Units)
+     *
+     * @return a string of the sensors contained in the list.
+     */
+
+    public String buildString(List<AreaSensor> areaSensors) {
+        StringBuilder result = new StringBuilder(new StringBuilder(BUILDER));
+        if (areaSensors.isEmpty()) {
+            return "Invalid List - List is Empty\n";
+        }
+        for (AreaSensor as : areaSensors) {
+            result.append(as.getId()).append(") Name: ").append(as.getName()).append(" | ");
+            result.append("Type: ").append(as.getSensorTypeName()).append(" | ")
+                    .append(as.printActive()).append("\n");
+        }
+        result.append(BUILDER);
+        return result.toString();
+    }
+
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
