@@ -161,9 +161,9 @@ public class MainUI {
                 mainMenuOptions.add("Room Settings.");
                 mainMenuOptions.add("Sensor Settings.");
                 mainMenuOptions.add("Energy Grid Settings.");
+                mainMenuOptions.add("Room Monitoring.");
                 mainMenuOptions.add("House Monitoring.");
                 mainMenuOptions.add("Energy Consumption Management.");
-                mainMenuOptions.add("Room Monitoring.");
                 mainMenuOptions.add("Exit Application");
 
                 MenuFormatter.showMenu("Main Menu", mainMenuOptions);
@@ -205,20 +205,20 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 6:
+                            RoomMonitoringUI roomMonitoringUI = new RoomMonitoringUI();
+                            roomMonitoringUI.run(geographicAreaService, roomService);
+                            returnToMenu(enterToReturnToConsole);
+                            activeInput = false;
+                            break;
+                        case 7:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
                             houseM.run(house, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
-                        case 7:
+                        case 8:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
                             energyConsumptionUI.run(house, roomService, energyGridService);
-                            returnToMenu(enterToReturnToConsole);
-                            activeInput = false;
-                            break;
-                        case 8:
-                            RoomMonitoringUI roomMonitoringUI = new RoomMonitoringUI();
-                            roomMonitoringUI.run(geographicAreaService, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
