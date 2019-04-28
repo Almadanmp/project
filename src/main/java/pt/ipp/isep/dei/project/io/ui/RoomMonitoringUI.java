@@ -21,7 +21,6 @@ import static java.lang.System.out;
 
 class RoomMonitoringUI {
     private RoomMonitoringController roomMonitoringController;
-    private final String was = " was ";
     private List<String> menuOptions;
 
     RoomMonitoringUI() {
@@ -171,7 +170,7 @@ class RoomMonitoringUI {
             double temperature = ctrl.getDayMaxTemperature(room, date, roomService);
             String dateFormatted = DateUtils.formatDateNoTime(date);
             String message = "The maximum temperature in the room " + ctrl.getRoomName(room, roomService) +
-                    " on the day " + dateFormatted + was + temperature + "°C.";
+                    " on the day " + dateFormatted + " was " + temperature + "°C.";
             System.out.println(message);
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());

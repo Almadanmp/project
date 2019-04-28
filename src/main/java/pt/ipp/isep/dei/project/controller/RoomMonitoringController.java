@@ -24,7 +24,7 @@ import java.util.*;
 
 public class RoomMonitoringController {
 
-    private RoomDTO getRoomDTOByList(RoomService roomService) {
+    public RoomDTO getRoomDTOByList(RoomService roomService) {
         List<Room> rooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, rooms);
         return RoomMapper.objectToDTO(room);
@@ -151,7 +151,7 @@ public class RoomMonitoringController {
         return result;
     }
 
-    private List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
+    public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
         Room room = RoomMapper.dtoToObject(roomDTO);
         List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
         List<Reading> allReadings = new ArrayList<>();
