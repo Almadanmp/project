@@ -83,7 +83,7 @@ class RoomMonitoringUI {
 
     private void displayState440(RoomService roomService) {
         int category = roomMonitoringController.getCategoryFromList();
-        List<ReadingDTO> readingValues = getReadingValues(roomService);
+        List<ReadingDTO> readingValues = roomMonitoringController.getReadingValues(roomService);
         Double temperature = 0.0;
         if (category == 0) {
             List<Date> dates0 = roomMonitoringController.categoryICalculusUS440(readingValues, temperature);
@@ -108,7 +108,7 @@ class RoomMonitoringUI {
      */
     private void runUS445(RoomService roomService, House house) {
         int category = roomMonitoringController.getCategoryFromList();
-        roomMonitoringController.getDaysWithTemperaturesAboveComfortLevel(roomService, house, category); //TODO Daniel: change to String Output
+        System.out.println(roomMonitoringController.getDaysWithTemperaturesAboveComfortLevel(roomService, house, category));
     }
 
     private List<ReadingDTO> getReadingValues(RoomService roomService) {
