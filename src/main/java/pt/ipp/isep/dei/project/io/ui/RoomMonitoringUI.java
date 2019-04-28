@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomMonitoringController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
@@ -137,10 +136,9 @@ class RoomMonitoringUI {
     }
 
     private void updateModelDisplayState605(RoomDTO room, RoomService roomService) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
         try {
-            double currentTemp = ctrl.getCurrentRoomTemperature(room, roomService);
-            out.println("The current temperature in the room " + ctrl.getRoomName(room, roomService) +
+            double currentTemp = roomMonitoringController.getCurrentRoomTemperature(room, roomService);
+            out.println("The current temperature in the room " + roomMonitoringController.getRoomName(room, roomService) +
                     " is " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
@@ -165,11 +163,10 @@ class RoomMonitoringUI {
     }
 
     private void updateModel610(RoomDTO room, Date date, RoomService roomService) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
         try {
-            double temperature = ctrl.getDayMaxTemperature(room, date, roomService);
+            double temperature = roomMonitoringController.getDayMaxTemperature(room, date, roomService);
             String dateFormatted = DateUtils.formatDateNoTime(date);
-            String message = "The maximum temperature in the room " + ctrl.getRoomName(room, roomService) +
+            String message = "The maximum temperature in the room " + roomMonitoringController.getRoomName(room, roomService) +
                     " on the day " + dateFormatted + " was " + temperature + "°C.";
             System.out.println(message);
         } catch (IllegalArgumentException illegal) {
