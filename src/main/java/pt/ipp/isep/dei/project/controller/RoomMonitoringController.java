@@ -282,7 +282,7 @@ public class RoomMonitoringController {
      * @param finalDate is the ending of the interval.
      * @return a list containing the readings in that room for that time interval.
      */
-    private List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
+    public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
         Room room = RoomMapper.dtoToObject(roomDTO);
         List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
         List<Reading> allReadings = new ArrayList<>();
