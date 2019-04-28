@@ -24,6 +24,39 @@ import java.util.*;
 
 public class RoomMonitoringController {
 
+    /**
+     * Returns the current temperature in a given Room.
+     *
+     * @param roomDTO is the roomDTO we want to get the room from, so that we can get the temperature.
+     * @return is the most recent temperature recorded in a room.
+     */
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        return room.getCurrentRoomTemperature();
+    }
+
+    /**
+     * This method is used to get the maximum temperature in a day in a particular Room.
+     * @param day     is the day we want to check the temperature in.
+     * @param roomDTO is the room we want to check the temperature in.
+     * @return is the max temperature recorded in a room
+     */
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        return room.getMaxTemperatureOnGivenDay(day);
+    }
+
+    /**
+     * This method receives a room and return the room's name
+     *
+     * @param roomDTO the DTO of the chosen Room.
+     * @return room's name as a string
+     **/
+    public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
+        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        return room.getId();
+    }
+
     public RoomDTO getRoomDTOByList(RoomService roomService) {
         List<Room> rooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, rooms);
