@@ -28,8 +28,6 @@ public class HouseMonitoringUI {
     public HouseMonitoringUI() {
         this.houseMonitoringController = new HouseMonitoringController();
         menuOptions = new ArrayList<>();
-        menuOptions.add("Get Max Temperature in a room in a specific day (US610).");
-        menuOptions.add("Get Current Temperature in a room. (US605).");
         menuOptions.add("Get Current Temperature in a House Area. (US600)");
         menuOptions.add("Get The Total Rainfall on a specific day in a House Area. (US620)");
         menuOptions.add("Get The Average Rainfall on a day interval in a House Area. (US623)");
@@ -53,34 +51,26 @@ public class HouseMonitoringUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS610(roomService);
-                    activeInput = true;
-                    break;
-                case 2:
-                    runUS605(roomService);
-                    activeInput = true;
-                    break;
-                case 3:
                     runUS600(house);
                     activeInput = true;
                     break;
-                case 4:
+                case 2:
                     runUS620(house);
                     activeInput = true;
                     break;
-                case 5:
+                case 3:
                     runUS623(house);
                     activeInput = true;
                     break;
-                case 6:
+                case 4:
                     runUS630(house);
                     activeInput = true;
                     break;
-                case 7:
+                case 5:
                     runUS631(house);
                     activeInput = true;
                     break;
-                case 8:
+                case 6:
                     runUS633(house);
                     activeInput = true;
                     break;
@@ -118,63 +108,6 @@ public class HouseMonitoringUI {
         }
 
     }
-
-    /**
-     * US605 As a Regular User, I want to get the current temperature in a room, in order to check
-     * if it meets my personal comfort requirements.
-     */
-    private void runUS605(RoomService roomService) {
-        if (roomService.isEmptyRooms()) {
-            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-            return;
-        }
-        List<Room> houseRooms = roomService.getAllRooms();
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
-
-        updateModelDisplayState605(room, roomService);
-
-    }
-
-    private void updateModelDisplayState605(RoomDTO room, RoomService roomService) {
-        try {
-            double currentTemp = houseMonitoringController.getCurrentRoomTemperature(room, roomService);
-            out.println("The current temperature in the room " + houseMonitoringController.getRoomName(room, roomService) +
-                    " is " + currentTemp + "°C.");
-        } catch (IllegalArgumentException illegal) {
-            System.out.println(illegal.getMessage());
-        }
-
-    }
-
-
-    /**
-     * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
-     */
-    private void runUS610(RoomService roomService) {
-        if (roomService.isEmptyRooms()) {
-            System.out.println(UtilsUI.INVALID_ROOM_LIST);
-            return;
-        }
-        List<Room> houseRooms = roomService.getAllRooms();
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
-
-        Date date = DateUtils.getInputYearMonthDay();
-        updateModel610(room, date, roomService);
-    }
-
-    private void updateModel610(RoomDTO room, Date date, RoomService roomService) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        try {
-            double temperature = ctrl.getDayMaxTemperature(room, date, roomService);
-            String dateFormatted = DateUtils.formatDateNoTime(date);
-            String message = "The maximum temperature in the room " + ctrl.getRoomName(room, roomService) +
-                    " on the day " + dateFormatted + was + temperature + "°C.";
-            System.out.println(message);
-        } catch (IllegalArgumentException illegal) {
-            System.out.println(illegal.getMessage());
-        }
-    }
-
 
     /**
      * US620UI: As a Regular User, I want to get the total rainfall in the house area for a given day.

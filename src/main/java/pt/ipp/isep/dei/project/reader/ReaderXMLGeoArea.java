@@ -77,7 +77,6 @@ public class ReaderXMLGeoArea {
      * Method to import a Sensor from a certain node
      *
      * @param node - node of the XML file.
-     * @return - Sensor that exists in the node
      */
     private void readSensorsXML(Node node, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
         AreaSensor areaSensor;
