@@ -1,14 +1,30 @@
 package pt.ipp.isep.dei.project.services.units;
 
+import javassist.Modifier;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnitHelperTest {
+
+    @Test
+    public void testConstructorIsPrivate() throws IllegalStateException {
+        try {
+            Constructor<UnitHelper> constructor = UnitHelper.class.getDeclaredConstructor();
+            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        } catch (InstantiationException e) {
+        } catch (IllegalAccessException i) {
+        } catch (InvocationTargetException a) {
+        } catch (NoSuchMethodException ns){
+        }
+    }
 
     @Test
     void seeIfGetUserTemperatureDefaultWorks() throws IOException {

@@ -1,10 +1,13 @@
 package pt.ipp.isep.dei.project.services.units;
 
+import javassist.Modifier;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,6 +15,20 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AdapterTest {
+
+    @Test
+    public void seeIfPrivateConstructorExceptionWorks() throws IllegalStateException {
+        try {
+            Constructor<Adapter> constructor = Adapter.class.getDeclaredConstructor();
+            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        } catch (InstantiationException e) {
+        } catch (IllegalAccessException i) {
+        } catch (InvocationTargetException a) {
+        } catch (NoSuchMethodException ns){
+        }
+    }
 
     @Test
     void seeIfConvertToSystemDefaultWorks() throws IOException {

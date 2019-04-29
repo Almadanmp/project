@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomMonitoringController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
@@ -43,7 +44,7 @@ class RoomMonitoringUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS440(roomService);
+                    runUS440(roomService, house);
                     activeInput = true;
                     break;
                 case 2:
@@ -72,31 +73,19 @@ class RoomMonitoringUI {
      * As a Power User or as a Room Owner, I want to have a list of the instants in which the temperature fell below the
      * comfort level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS440(RoomService roomService) {
-//        if (!houseMonitoringController.isMotherAreaValid(house)) {
-//            return;
-//        }
-        displayState440(roomService);
+    private void runUS440(RoomService roomService, House house) {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        if (!ctrl.isMotherAreaValid(house)) {
+            return;
+        }
+        updateAndDisplayUS440(roomService, house);
     }
 
-    private void displayState440(RoomService roomService) {
+    private void updateAndDisplayUS440(RoomService roomService, House house) {
         int category = roomMonitoringController.getCategoryFromList();
         List<ReadingDTO> readingValues = roomMonitoringController.getReadingValues(roomService);
-        Double temperature = 0.0;
-        if (category == 0) {
-            List<Date> dates0 = roomMonitoringController.categoryICalculusUS440(readingValues, temperature);
-            System.out.println(dates0);
-        }
-        if (category == 1) {
-            List<Date> dates1 = roomMonitoringController.categoryIICalculusUS440(readingValues, temperature);
-            System.out.println(dates1);
-        }
-        if (category == 2) {
-            List<Date> dates2 = roomMonitoringController.categoryIIICalculusUS440(readingValues, temperature);
-            System.out.println(dates2);
-        }
+        roomMonitoringController.displayTemperaturesBelowComfortLevel(readingValues, house, category);
     }
-
 
     /**
      * US445
@@ -105,18 +94,12 @@ class RoomMonitoringUI {
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
     private void runUS445(RoomService roomService, House house) {
+        HouseMonitoringController ctrl = new HouseMonitoringController();
+        if (!ctrl.isMotherAreaValid(house)) {
+            return;
+        }
         int category = roomMonitoringController.getCategoryFromList();
         System.out.println(roomMonitoringController.getDaysWithTemperaturesAboveComfortLevel(roomService, house, category));
-    }
-
-    private List<ReadingDTO> getReadingValues(RoomService roomService) {
-        System.out.println("Please select a room:");
-        RoomDTO roomDTO = roomMonitoringController.getRoomDTOByList(roomService);
-        System.out.println("Please enter the starting date.");
-        Date startDate = DateUtils.getInputYearMonthDayHourMin();
-        System.out.println("Please enter the ending date.");
-        Date endDate = DateUtils.getInputYearMonthDayHourMin();
-        return roomMonitoringController.getRoomTemperatureReadingsBetweenSelectedDates(roomDTO, startDate, endDate);
     }
 
     /**
@@ -145,7 +128,6 @@ class RoomMonitoringUI {
         }
 
     }
-
 
     /**
      * US610 - Get Max Temperature in a room in a specific day - CARINA ALAS
