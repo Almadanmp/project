@@ -356,7 +356,7 @@ public class GeographicArea {
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime(), 2356L);
 
-        List<AreaSensor> sensorsOfGivenType = getAreaSensorsOfGivenType(areaSensors, sensorType);
+        List<AreaSensor> sensorsOfGivenType = getAreaSensorsOfGivenType(this.getAreaSensors(), sensorType);
 
         if (!sensorsOfGivenType.isEmpty()) {
             double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);

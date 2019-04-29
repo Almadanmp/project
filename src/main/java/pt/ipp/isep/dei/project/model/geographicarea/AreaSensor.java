@@ -455,7 +455,7 @@ public class AreaSensor {
         return maxTemp - lowestTemp;
     }
 
-    public Double getReadingValueOfGivenDay(Date date) {
+    public Double getReadingValueOnGivenDay(Date date) {
         List<Reading> readingsBetweenDates = getReadingListBetweenDates(date, date);
         List<Double> reading = ReadingUtils.getValuesOfSpecificDayReadings(readingsBetweenDates, date);
         return Collections.max(reading);
