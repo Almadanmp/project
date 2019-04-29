@@ -3,9 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
@@ -23,7 +21,6 @@ import pt.ipp.isep.dei.project.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
