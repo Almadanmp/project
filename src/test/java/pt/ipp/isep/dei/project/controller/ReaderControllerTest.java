@@ -13,6 +13,7 @@ import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -52,7 +53,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-
 class ReaderControllerTest {
 
     // Common artifacts for testing in this class.
@@ -412,8 +412,8 @@ class ReaderControllerTest {
         Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
         Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
@@ -451,8 +451,8 @@ class ReaderControllerTest {
         Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
         Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
@@ -483,8 +483,8 @@ class ReaderControllerTest {
         Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
         Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
@@ -512,8 +512,8 @@ class ReaderControllerTest {
         Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
         Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
@@ -554,15 +554,133 @@ class ReaderControllerTest {
         Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
         Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         // Assert
 
-    //    assertEquals(1, areasAdded);
+        //    assertEquals(1, areasAdded);
+    }
+
+
+    @Test
+    void seeIfReadAndAddAreasWorks() {
+        // Arrange
+
+        // First Area
+
+        GeographicAreaDTO firstArea = new GeographicAreaDTO();
+        firstArea.setName("ISEP");
+        firstArea.setDescription("Campus do ISEP");
+        firstArea.setTypeArea("urban area");
+        firstArea.setWidth(0.261);
+        firstArea.setLength(0.249);
+        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
+
+
+        // First Sensor in First Area
+
+        AreaSensorDTO firstAreaFirstSensor = new AreaSensorDTO();
+        firstAreaFirstSensor.setId("RF12345");
+        firstAreaFirstSensor.setName("Meteo station ISEP - rainfall");
+        firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
+        firstAreaFirstSensor.setTypeSensor("rainfall");
+        firstAreaFirstSensor.setUnits("l/m2");
+        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
+
+
+        // Second sensor in First Area
+
+        AreaSensorDTO firstAreaSecondSensor = new AreaSensorDTO();
+        firstAreaSecondSensor.setId("TT12346");
+        firstAreaSecondSensor.setName("Meteo station ISEP - temperature");
+        firstAreaSecondSensor.setDateStartedFunctioning("2016-11-15");
+        firstAreaSecondSensor.setTypeSensor("temperature");
+        firstAreaSecondSensor.setUnits("C");
+        firstAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
+
+        // Second Area
+
+        GeographicAreaDTO secondArea = new GeographicAreaDTO();
+        secondArea.setName("Porto");
+        secondArea.setDescription("City of Porto");
+        secondArea.setTypeArea("city");
+        secondArea.setWidth(10.09);
+        secondArea.setLength(3.30);
+        secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118));
+
+        // First Sensor in Second Area
+
+        AreaSensorDTO secondAreaFirstSensor = new AreaSensorDTO();
+        secondAreaFirstSensor.setId("RF12334");
+        secondAreaFirstSensor.setName("Meteo station CMP - rainfall");
+        secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
+        secondAreaFirstSensor.setTypeSensor("rainfall");
+        secondAreaFirstSensor.setUnits("l/m2");
+        secondArea.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+
+
+        // Second Sensor in Second Area
+
+        AreaSensorDTO secondAreaSecondSensor = new AreaSensorDTO();
+        secondAreaSecondSensor.setId("TT1236A");
+        secondAreaSecondSensor.setName("Meteo station CMP - temperature");
+        secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
+        secondAreaSecondSensor.setTypeSensor("temperature");
+        secondAreaSecondSensor.setUnits("C");
+        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+
+
+        // Populate expectedResult array
+
+        GeographicArea areaOne = GeographicAreaMapper.dtoToObject(firstArea);
+        GeographicArea areaTwo = GeographicAreaMapper.dtoToObject(secondArea);
+        geographicAreaService.addAndPersistGA(areaOne);
+        geographicAreaService.addAndPersistGA(areaTwo);
+        firstAreaFirstSensor.setGeographicAreaID(areaOne.getId());
+        firstAreaSecondSensor.setGeographicAreaID(areaOne.getId());
+        secondAreaFirstSensor.setGeographicAreaID(areaTwo.getId());
+        secondAreaSecondSensor.setGeographicAreaID(areaTwo.getId());
+
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
+        // Act
+
+        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
+        String absolutePath = fileToRead.getAbsolutePath();
+
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
+
+        // Assert
+
+        assertEquals(2, areasAdded);
+
+        // Get one of the areas to  check its contents.
+
+        //  GeographicArea actualArea = geographicAreaService.getAll().get(0);
+        //   AreaSensorService firstAreaSensors = actualArea.getSensorList();
+
+
+        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
+                0.261, new Local(41.178553, -8.608035, 139));
+
+        // Assert
+
+        //  assertEquals(expectedArea, actualArea);
+        //  assertEquals(actualArea.getSensorList(), firstAreaSensors);
     }
 
 
@@ -594,7 +712,7 @@ class ReaderControllerTest {
 
         //Act
 
-       // List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+        // List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
         int result = readerController.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
 
         //Assert

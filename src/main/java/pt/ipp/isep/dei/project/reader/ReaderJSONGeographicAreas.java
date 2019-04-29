@@ -78,7 +78,6 @@ public class ReaderJSONGeographicAreas implements Reader {
             try {
 
                 GeographicArea areaObject = geographicAreaService.createGA(areaID, areaType, areaWidth, areaLength, location);
-
                 areaObject.setDescription(areaDescription);
                 JSONArray areaSensors = area.getJSONArray("area_sensor");
                 if (geographicAreaService.addAndPersistGA(areaObject)) {
