@@ -8,6 +8,10 @@ import java.util.Properties;
 
 public class UnitHelper {
 
+    private UnitHelper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * This method converts the temperature value into the default one.
      *
