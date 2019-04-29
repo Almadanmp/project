@@ -10,6 +10,11 @@ import java.util.List;
 public final class Adapter {
 
 
+    private Adapter() {
+        throw new IllegalStateException("Utility class");
+    }
+
+
     /**
      * This method is used to get a value in a previously defined unit and converts it into the system default unit.
      *
