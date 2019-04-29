@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.Reading;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class is responsible for converting readings and Reading DTOs into one another.
@@ -58,4 +60,21 @@ public final class ReadingMapper {
         resultDTO.setUnit(dtoUnit);
         return resultDTO;
     }
+
+    /**
+     * This method receives a list of reading DTOs and converts them into Readings,
+     * returning a list of Readings.
+     *
+     * @param readingDTOS a list of reading DTOs
+     * @return a list of Readings converted from the given Reading DTO list.
+     ***/
+    public static List<Reading> readingDTOsToReadings(List<ReadingDTO> readingDTOS) {
+        List<Reading> readingList = new ArrayList<>();
+        for (ReadingDTO r : readingDTOS) {
+            Reading reading = ReadingMapper.dtoToObject(r);
+            readingList.add(reading);
+        }
+        return readingList;
+    }
+
 }

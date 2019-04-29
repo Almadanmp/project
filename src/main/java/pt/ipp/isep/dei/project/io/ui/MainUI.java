@@ -108,7 +108,7 @@ public class MainUI {
             //Sensor Types
             try {
                 fileUtils.getSensorTypeConfig();
-                fileUtils.addSensortypesToRepository(sensorTypeService);
+                fileUtils.addSensorTypesToRepository(sensorTypeService);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 return;

@@ -18,6 +18,46 @@ public class ReadingUtils {
     }
 
     /**
+     * This mehtod receives a list of readings and a string of a sensor ID,
+     * checks for every reading within the list with the same sensorID, and
+     * returns a list of readings with the given sensor ID.
+     *
+     * @param readings list of readings
+     * @param sensorID a string of a sensor ID
+     * @return a list of readings that have the same sensor ID as the one given
+     * as parameter.
+     **/
+    public static List<Reading> getReadingsBySensorID(String sensorID, List<Reading> readings) {
+        List<Reading> subArray = new ArrayList<>();
+        for (Reading r : readings) {
+            String readingSensorID = r.getSensorID();
+            if (sensorID.equals(readingSensorID)) {
+                subArray.add(r);
+            }
+        }
+        return subArray;
+    }
+
+    /**
+     * This method receives a list of readings, checks for every sensor ID
+     * in every Reading contained in the list and returns a list of strings
+     * of all sensor IDs.
+     *
+     * @param readings a list of readings
+     * @return a list of strings of all sensor IDs from the list of readings
+     **/
+    public static List<String> getSensorIDs(List<Reading> readings) {
+        List<String> sensorIDs = new ArrayList<>();
+        for (Reading r : readings) {
+            String sensorID = r.getSensorID();
+            if (!sensorIDs.contains(sensorID)) {
+                sensorIDs.add(sensorID);
+            }
+        }
+        return sensorIDs;
+    }
+
+    /**
      * This method receives an index as parameter and gets a value reading from reading list.
      *
      * @param index the index of the Reading we want to getDB value from

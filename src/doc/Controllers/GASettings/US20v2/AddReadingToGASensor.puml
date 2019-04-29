@@ -24,8 +24,8 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-title Add Reading To Geographic Area Sensor (SensorService)
-ReadingsController -> SensorService: addReadingToMatchingSensor\n(String sensorID, Double readingValue, Date readingDate, String unit)
+title Add Reading To Geographic Area Sensor (GeographicAreaService)
+ReadingsController -> SensorService: addReadingsToGeographicAreaSensors\n(List<ReadingDTO>, LogPath, GeographicAreaService)
 activate SensorService
 SensorService -> AreaReading: AreaReading areaReading = new AreaReading(readingValue, readingDate, unit, sensorId)
 
