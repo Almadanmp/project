@@ -177,6 +177,7 @@ public class GeographicAreaService {
             LogUtils.closeHandlers(logger);
             return null;
         } else {
+            LogUtils.closeHandlers(logger);
             return value.orElseGet(() -> new AreaType(name));
         }
     }

@@ -76,7 +76,7 @@ public class HouseMonitoringController {
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
-    public AreaSensor getClosesSensorByTypeToHouse(House house, String sensorType) {
+    public AreaSensor getClosestSensorToHouseByType(House house, String sensorType) {
         GeographicArea houseGa = house.getMotherArea();
         return houseGa.getClosestAreaSensorOfGivenType(sensorType, house);
     }

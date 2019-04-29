@@ -1,21 +1,17 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static java.lang.System.out;
 
 
 public class HouseMonitoringUI {
@@ -100,7 +96,7 @@ public class HouseMonitoringUI {
     private void updateModel600(House house) {
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
             double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
@@ -125,7 +121,7 @@ public class HouseMonitoringUI {
         double result;
         AreaSensor areaSensor;
         try {
-            areaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, RAINFALL);
+            areaSensor = houseMonitoringController.getClosestSensorToHouseByType(house, RAINFALL);
             result = houseMonitoringController.getTotalRainfallOnGivenDay(date, areaSensor);
         } catch (IllegalStateException ex) {
             System.out.println(ex.getMessage());
@@ -178,7 +174,7 @@ public class HouseMonitoringUI {
         double result623;
         AreaSensor closestAreaSensor;
         try {
-            closestAreaSensor = houseMonitoringController.getClosesSensorByTypeToHouse(house, RAINFALL);
+            closestAreaSensor = houseMonitoringController.getClosestSensorToHouseByType(house, RAINFALL);
             result623 = houseMonitoringController.getAverageRainfallInterval(closestAreaSensor, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -209,7 +205,7 @@ public class HouseMonitoringUI {
         AreaSensor closestSensorToHouse;
         Double temperatureValue;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(closestSensorToHouse, startDate, endDate);
             temperatureValue = houseMonitoringController.getReadingValueOnGivenDay(closestSensorToHouse, dateResult630);
         } catch (IllegalArgumentException e) {
@@ -242,7 +238,7 @@ public class HouseMonitoringUI {
         AreaSensor closestSensorToHouse;
         Double temperatureValue;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
             dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(closestSensorToHouse, startDate, endDate);
             temperatureValue = houseMonitoringController.getReadingValueOnGivenDay(closestSensorToHouse, dateUS631);
         } catch (IllegalArgumentException e) {
@@ -272,7 +268,7 @@ public class HouseMonitoringUI {
         AreaSensor closestSensorToHouse;
 
         try {
-            closestSensorToHouse = houseMonitoringController.getClosesSensorByTypeToHouse(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
             resultDate633 = houseMonitoringController.getHighestTempAmplitudeDate(closestSensorToHouse, startDate, endDate);
             resultValue633 = houseMonitoringController.getTempAmplitudeValueByDate(closestSensorToHouse, resultDate633);
         } catch (IllegalArgumentException e) {
