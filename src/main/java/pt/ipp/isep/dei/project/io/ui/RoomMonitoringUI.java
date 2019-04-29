@@ -82,8 +82,8 @@ class RoomMonitoringUI {
     }
 
     private void updateAndDisplayUS440(RoomService roomService, House house) {
-        int category = roomMonitoringController.getCategoryFromList();
-        List<ReadingDTO> readingValues = roomMonitoringController.getReadingValues(roomService);
+        int category = roomMonitoringController.selectCategory();
+        List<ReadingDTO> readingValues = roomMonitoringController.getAllReadingsInInterval(roomService);
         roomMonitoringController.displayTemperaturesBelowComfortLevel(readingValues, house, category);
     }
 
@@ -98,8 +98,8 @@ class RoomMonitoringUI {
         if (!ctrl.isMotherAreaValid(house)) {
             return;
         }
-        int category = roomMonitoringController.getCategoryFromList();
-        System.out.println(roomMonitoringController.getDaysWithTemperaturesAboveComfortLevel(roomService, house, category));
+        int category = roomMonitoringController.selectCategory();
+        System.out.println(roomMonitoringController.getInstantsAboveComfortInterval(roomService, house, category));
     }
 
     /**
