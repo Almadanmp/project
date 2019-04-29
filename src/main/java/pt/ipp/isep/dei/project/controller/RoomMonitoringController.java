@@ -37,6 +37,7 @@ public class RoomMonitoringController {
 
     /**
      * This method is used to get the maximum temperature in a day in a particular Room.
+     *
      * @param day     is the day we want to check the temperature in.
      * @param roomDTO is the room we want to check the temperature in.
      * @return is the max temperature recorded in a room
@@ -57,48 +58,69 @@ public class RoomMonitoringController {
         return room.getId();
     }
 
-    public RoomDTO getRoomDTOByList(RoomService roomService) {
+    RoomDTO getRoomDTOByList(RoomService roomService) {
         List<Room> rooms = roomService.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomService, rooms);
         return RoomMapper.objectToDTO(room);
     }
 
-    public List<Date> categoryICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
-        double minT = 0.33 * houseTemperature + 18.8 - 2;
-        List<Date> finalDates = new ArrayList<>();
-        for (ReadingDTO r : readingDTOList) {
-            if (r.getValue() < minT) {
-                finalDates.add(r.getDate());
-            }
+    public boolean calculusByCategory440(ReadingDTO readingDTO, int category, House house) {
+        Date actualDate = readingDTO.getDate();
+        GeographicArea geographicArea = house.getMotherArea();
+        getAreaAverageTemperature(actualDate, geographicArea, house);
+        if (category == 0) {
+            double minT = 0.33 * getAreaAverageTemperature(actualDate, geographicArea, house) + 18.8 - 2;
+            return readingDTO.getValue() < minT;
         }
-        return finalDates;
+        if (category == 1) {
+            double minT = 0.33 * getAreaAverageTemperature(actualDate, geographicArea, house) + 18.8 - 3;
+            return readingDTO.getValue() < minT;
+        }
+        if (category == 2) {
+            double minT = 0.33 * getAreaAverageTemperature(actualDate, geographicArea, house) + 18.8 - 4;
+            return readingDTO.getValue() < minT;
+        }
+        return false;
     }
 
-    public List<Date> categoryIICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
-        double minT = 0.33 * houseTemperature + 18.8 - 3;
-        List<Date> finalDates = new ArrayList<>();
-        for (ReadingDTO r : readingDTOList) {
-            if (r.getValue() < minT) {
-                finalDates.add(r.getDate());
+    public void displayTemperaturesBelowComfortLevel(List<ReadingDTO> list, House house, int category) {
+        String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
+        List<Double> outsideTempInDay = new ArrayList<>();
+        List<ReadingDTO> finalList = new ArrayList<>();
+        for (ReadingDTO readingDTO : list) {
+            if (calculusByCategory440(readingDTO, category, house)) {
+                finalList.add(readingDTO);
+                outsideTempInDay.add(readingDTO.getValue());
             }
         }
-        return finalDates;
+        buildReadingDTOListOutputUS440(finalList, outsideTempInDay);
     }
 
-    public List<Date> categoryIIICalculusUS440(List<ReadingDTO> readingDTOList, Double houseTemperature) {
-        double minT = 0.33 * houseTemperature + 18.8 - 4;
-        List<Date> finalDates = new ArrayList<>();
-        for (ReadingDTO r : readingDTOList) {
-            if (r.getValue() < minT) {
-                finalDates.add(r.getDate());
-            }
+    /**
+     * This method creates a string which displays the instant where the temperature is not contained
+     * within the comfort interval, the temperature for that instant and the difference with the
+     * outside area average temperature for that day.
+     *
+     * @param list               contains the readings which raised above the comfort level.
+     * @param outsideTemperature refers to the area average temperature for that day.
+     * @return a String to be presented to the user.
+     */
+    private String buildReadingDTOListOutputUS440(List<ReadingDTO> list, List<Double> outsideTemperature) {
+        StringBuilder result = new StringBuilder("Instants in which the readings are below comfort temperature:\n");
+        for (int i = 0; i < list.size(); i++) {
+            ReadingDTO readingDTO = list.get(i);
+            result.append(i).append(") Instant: ").append(readingDTO.getDate()).append("\n");
+            result.append(", Temperature value: ").append(readingDTO.getValue()).append("\n");
+            result.append("Difference: + ").append(outsideTemperature.get(i) - readingDTO.getValue()).append(" Cº\n");
         }
-        return finalDates;
+        result.append("---\n");
+        return result.toString();
     }
 
     /**
      * Method to check id a given reading is above the comfort temperature for category I.
-     * @param readingDTO - Reading as DTO.
+     *
+     * @param readingDTO      - Reading as DTO.
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
@@ -109,7 +131,8 @@ public class RoomMonitoringController {
 
     /**
      * Method to check id a given reading is above the comfort temperature for category II.
-     * @param readingDTO - Reading as DTO.
+     *
+     * @param readingDTO      - Reading as DTO.
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
@@ -120,7 +143,8 @@ public class RoomMonitoringController {
 
     /**
      * Method to check id a given reading is above the comfort temperature for category III.
-     * @param readingDTO - Reading as DTO.
+     *
+     * @param readingDTO      - Reading as DTO.
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
@@ -134,9 +158,9 @@ public class RoomMonitoringController {
      * above the maximum comfort temperature for the respective day and category.
      *
      * @param roomService is used to gather the readings from the database
-     * @param house is used to fetch the mother area from it and to calculate the outside average
-     * temperature.
-     * @param category is selected by the user.
+     * @param house       is used to fetch the mother area from it and to calculate the outside average
+     *                    temperature.
+     * @param category    is selected by the user.
      * @return a String with the requested information for the User Story 445
      */
     public String getDaysWithTemperaturesAboveComfortLevel(RoomService roomService, House house, int category) {
@@ -183,7 +207,7 @@ public class RoomMonitoringController {
      * within the comfort interval, the temperature for that instant and the difference with the
      * outside area average temperature for that day.
      *
-     * @param list contains the readings which raised above the comfort level.
+     * @param list               contains the readings which raised above the comfort level.
      * @param outsideTemperature refers to the area average temperature for that day.
      * @return a String to be presented to the user.
      */
@@ -249,9 +273,9 @@ public class RoomMonitoringController {
     /**
      * This method calculates the average temperature in the house area in a given date.
      *
-     * @param date is used to determine the day in which we want to calculate the average.
+     * @param date           is used to determine the day in which we want to calculate the average.
      * @param geographicArea is used to determine the closest sensor to the house.
-     * @param house is used to determine the closest sensor within the geographical area
+     * @param house          is used to determine the closest sensor within the geographical area
      * @return the average temperature value for the 24 hours of the given date.
      */
     private double getAreaAverageTemperature(Date date, GeographicArea geographicArea, House house) {
@@ -277,12 +301,13 @@ public class RoomMonitoringController {
      * This method retrieves a list of readingDTOs respective to a given room and within
      * a given time interval.
      *
-     * @param roomDTO refers to the room which contains the readings.
+     * @param roomDTO     refers to the room which contains the readings.
      * @param initialDate is the beginning of the interval.
-     * @param finalDate is the ending of the interval.
+     * @param finalDate   is the ending of the interval.
      * @return a list containing the readings in that room for that time interval.
      */
-    public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date finalDate) {
+    public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date
+            finalDate) {
         Room room = RoomMapper.dtoToObject(roomDTO);
         List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
         List<Reading> allReadings = new ArrayList<>();

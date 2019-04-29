@@ -45,7 +45,9 @@ public class SensorTypeService {
 
     public boolean addType(SensorType type) {
         Optional<SensorType> sensorType = sensorTypeRepository.findByName(type.getName());
-        sensorTypeRepository.save(type);
+        if (!sensorType.isPresent()) {
+            sensorTypeRepository.save(type);
+        }
         return true;
     }
 
