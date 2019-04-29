@@ -26,7 +26,7 @@ class AdapterTest {
         } catch (InstantiationException e) {
         } catch (IllegalAccessException i) {
         } catch (InvocationTargetException a) {
-        } catch (NoSuchMethodException ns){
+        } catch (NoSuchMethodException ns) {
         }
     }
 
@@ -191,7 +191,6 @@ class AdapterTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
-
     }
 
 }
