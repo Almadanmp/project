@@ -155,6 +155,4 @@ class RoomMonitoringUI {
             System.out.println(illegal.getMessage());
         }
     }
-
-
 }

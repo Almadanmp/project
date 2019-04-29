@@ -163,8 +163,8 @@ public class RoomMonitoringController {
      * @param category    is selected by the user.
      * @return a String with the requested information for the User Story 445
      */
-    public String getDaysWithTemperaturesAboveComfortLevel(RoomService roomService, House house, int category) {
-        List<ReadingDTO> readingValues = getReadingValues(roomService);
+    public String getInstantsAboveComfortInterval(RoomService roomService, House house, int category) {
+        List<ReadingDTO> readingValues = getAllReadingsInInterval(roomService);
         List<ReadingDTO> allReadings = new ArrayList<>();
         List<Double> outsideTempInDay = new ArrayList<>();
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
@@ -230,7 +230,7 @@ public class RoomMonitoringController {
      *
      * @return an int, respective to the category selected.
      */
-    public int getCategoryFromList() {
+    public int selectCategory() {
         String category = "";
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please select one of the following user comfort categories: ");
@@ -260,7 +260,7 @@ public class RoomMonitoringController {
      * @param roomService is used to gather the information from the database.
      * @return a list with the readingDTOs for the selected time interval.
      */
-    public List<ReadingDTO> getReadingValues(RoomService roomService) {
+    public List<ReadingDTO> getAllReadingsInInterval(RoomService roomService) {
         System.out.println("Please select a room:");
         RoomDTO roomDTO = getRoomDTOByList(roomService);
         System.out.println("Please enter the starting date.");
