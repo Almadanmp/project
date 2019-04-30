@@ -3,11 +3,9 @@ package pt.ipp.isep.dei.project.controller;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.mappers.*;
+import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -155,7 +153,8 @@ public class ReaderController {
      * @return the number of readings added
      **/
     public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaService geographicAreaService) {
-        return geographicAreaService.addReadingsToGeographicAreaSensors(readingDTOS, logPath);
+        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
+        return geographicAreaService.addReadingsToGeographicAreaSensors(readings, logPath);
     }
 
     /**
@@ -169,6 +168,7 @@ public class ReaderController {
      * @return the number of readings added
      **/
     public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath, RoomService roomService) {
-        return roomService.addReadingsToRoomSensors(readingDTOS, logPath);
+        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
+        return roomService.addReadingsToRoomSensors(readings, logPath);
     }
 }

@@ -85,10 +85,6 @@ class HouseConfigurationUI {
                     runUS265(roomService);
                     activeInput = false;
                     break;
-                case 7:
-                    runUS265(roomService);
-                    activeInput = false;
-                    break;
                 case 0:
                     return;
                 default:

@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.model.room;
 
-import org.hibernate.annotations.Cascade;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;

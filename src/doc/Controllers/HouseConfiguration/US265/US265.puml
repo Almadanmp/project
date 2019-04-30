@@ -24,15 +24,15 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-title US020 \n  As an Administrator I want to import geographic area sensor readings into the application from a either a CSV, JSON or XML file. \n Data outside the valid sensor operation period should not be imported but registered in the application log.
+title US265 As an Administrator, I want to import a list \n of sensor readings of the house sensors. Data from non-existing sensors or outside \nthe valid sensor operation period shouldn’t be imported but registered in the application log.
 
 
 actor Administrator
 Administrator -> GASettingsUI: Import data from .csv/.json/.xml file
 activate GASettingsUI
 GASettingsUI -> GASettingsUI: US20()
-GASettingsUI -> InputHelperUI: String filePath = getInputJsonXmlCsv();
-ref over InputHelperUI
+GASettingsUI -> InputUtils: String filePath = getInputFileLocation();
+ref over InputUtils
 Get Valid
 Input Path
 end ref

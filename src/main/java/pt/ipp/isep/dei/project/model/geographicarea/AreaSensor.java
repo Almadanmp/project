@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
-import org.hibernate.annotations.Cascade;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;

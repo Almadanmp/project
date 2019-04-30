@@ -509,7 +509,7 @@ public class Room implements Metered {
         return finalList;
     }
 
-    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house){
+    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = house.getHouseAreaAverageTemperature(r.getDate());
@@ -520,7 +520,7 @@ public class Room implements Metered {
         return allReadings;
     }
 
-    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house){
+    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = house.getHouseAreaAverageTemperature(r.getDate());
@@ -531,7 +531,7 @@ public class Room implements Metered {
         return allReadings;
     }
 
-    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house){
+    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = house.getHouseAreaAverageTemperature(r.getDate());

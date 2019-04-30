@@ -331,17 +331,16 @@ public class RoomService {
     }
 
     /**
-     * This method will receive a list of reading DTOs, a string of a path to a log file,
+     * This method will receive a list of readings, a string of a path to a log file,
      * and a room service and will try to add readings to the given sensors
      * in the given room from the repository.
      *
-     * @param readingDTOS a list of reading DTOs
+     * @param readings a list of reading DTOs
      * @param logPath     M  string of a log file path
      * @return the number of readings added
      **/
-    public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath) {
+    public int addReadingsToRoomSensors(List<Reading> readings, String logPath) {
         Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
-        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
         int addedReadings = 0;
         List<String> sensorIds = ReadingUtils.getSensorIDs(readings);
         for (String sensorID : sensorIds) {
