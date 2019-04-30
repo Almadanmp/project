@@ -74,7 +74,7 @@ class RoomMonitoringControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), 6008L);
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
         validAreaSensor.setActive(true);
         Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
         Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
@@ -196,8 +196,8 @@ class RoomMonitoringControllerTest {
 
         int category = 0;
 
-        Date startDate  = new GregorianCalendar(2018, Calendar.FEBRUARY, 1).getTime();
-        Date endDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 20).getTime();
+        Date startDate  = validDate1;
+        Date endDate = validDate3;
 
         Reading reading1 = new Reading(31, validDate1, "C", "Test");
         Reading reading2 = new Reading(20, validDate2, "C", "Test1");
@@ -209,7 +209,7 @@ class RoomMonitoringControllerTest {
         readings.add(reading2);
         readings.add(reading3);
 
-        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "RoomAD");
+        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
         SensorType sensorType = new SensorType("temperature", "Celsius");
         roomSensor.setSensorType(sensorType);
         roomSensor.setReadings(readings);
