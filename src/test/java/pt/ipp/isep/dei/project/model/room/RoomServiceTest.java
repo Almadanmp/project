@@ -439,13 +439,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfEqualsDifferentListContents() {
-
-        // Arrange
-
-        Room testRoom = new Room("Balcony", "4th Floor Balcony", 4, 2, 4, 3, "Room1", "Grid1");
-
         // Act
-
         boolean actualResult = validRoom.equals(validRoomService);
 
         // Assert
@@ -542,7 +536,6 @@ class RoomServiceTest {
     void seeIfCreateRoomWorks() {
         //Arrange
 
-        Room room = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
         Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
 
         //Act
@@ -778,14 +771,17 @@ class RoomServiceTest {
         SensorType actualResult1 = validRoomService.getTypeSensorByName("Rainfall");
         //Assert
         assertEquals(sensorType, actualResult);
-        assertEquals(null, actualResult1);
+        assertNull(actualResult1);
     }
 
     @Test
     void seeIfCreateRoomSensorWorks() {
+        //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
         Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        //Act
         RoomSensor roomSensor = validRoomService.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
-        assertEquals(firstValidRoomSensor,roomSensor);
+        //Assert
+        assertEquals(firstValidRoomSensor, roomSensor);
     }
 }
