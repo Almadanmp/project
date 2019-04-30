@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.model.room;
 
+import org.hibernate.annotations.Cascade;
 import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
@@ -31,8 +33,14 @@ public class RoomSensor {
 
     private String roomId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "RoomReading")
     private List<Reading> readings;
+
+//    @ManyToOne
+//    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
+//    @JoinColumn(name = "room")
+//    protected Room parent;
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -267,7 +275,7 @@ public class RoomSensor {
             return false;
         }
         RoomSensor sensor = (RoomSensor) testObject;
-        return this.getName().equals(sensor.getName());
+        return this.getId().equals(sensor.getId());
     }
 
     @Override

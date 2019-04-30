@@ -29,8 +29,7 @@ public class Room implements Metered {
     private String energyGridId;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "roomId")
-    private
-    List<RoomSensor> roomSensors;
+    private List<RoomSensor> roomSensors;
 
     private static final String STRING_BUILDER = "---------------\n";
     private static final String TEMPERATURE = "temperature";

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
+import org.hibernate.annotations.Cascade;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -24,6 +25,7 @@ public class AreaSensor {
     private String id;
     private String name;
 
+    //TODO cant point to different aggregate
     @ManyToOne
     @JoinColumn(name = "type_sensor_id")
     private SensorType sensorType;
@@ -37,11 +39,16 @@ public class AreaSensor {
 
     private Long geographicAreaId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "AreaReading")
     private List<Reading> areaReadings;
 
     private boolean active;
 
+//    @ManyToOne
+//    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
+//    @JoinColumn(name = "geographicArea")
+//    protected GeographicArea parent;
 
     /**
      * Empty constructor to import Sensors from a XML file.

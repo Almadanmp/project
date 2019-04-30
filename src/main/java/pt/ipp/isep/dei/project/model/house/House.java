@@ -22,8 +22,11 @@ public class House {
     private Address address;
     @Embedded
     private Local location;
+
+    //TODO cant point to different aggregate
     @OneToOne(cascade = CascadeType.ALL)
     private GeographicArea motherArea;
+
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
     @Transient

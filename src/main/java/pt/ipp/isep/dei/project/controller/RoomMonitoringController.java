@@ -64,21 +64,20 @@ public class RoomMonitoringController {
         return RoomMapper.objectToDTO(room);
     }
 
-    public boolean calculusByCategory440(ReadingDTO readingDTO, int category, House house) {
-        Date actualDate = readingDTO.getDate();
+    boolean calculusByCategory440(ReadingDTO readingDTO, int category, House house) {
         GeographicArea geographicArea = house.getMotherArea();
-        getAreaAverageTemperature(actualDate, geographicArea, house);
+        System.out.println(geographicArea.getAreaSensors().size());
         if (category == 0) {
-            double minT = 0.33 * getAreaAverageTemperature(actualDate, geographicArea, house) + 18.8 - 2;
-            return readingDTO.getValue() < minT;
+            double minT = 0.33 * getAreaAverageTemperature(readingDTO.getDate(), geographicArea, house) + 18.8 - 2;
+            if (readingDTO.getValue() < minT) return true;
         }
         if (category == 1) {
-            double minT = 0.33 * getAreaAverageTemperature(actualDate, geographicArea, house) + 18.8 - 3;
-            return readingDTO.getValue() < minT;
+            double minT = 0.33 * getAreaAverageTemperature(readingDTO.getDate(), geographicArea, house) + 18.8 - 3;
+            if (readingDTO.getValue() < minT) return true;
         }
         if (category == 2) {
-            double minT = 0.33 * getAreaAverageTemperature(actualDate, geographicArea, house) + 18.8 - 4;
-            return readingDTO.getValue() < minT;
+            double minT = 0.33 * getAreaAverageTemperature(readingDTO.getDate(), geographicArea, house) + 18.8 - 4;
+            if (readingDTO.getValue() < minT) return true;
         }
         return false;
     }
@@ -306,7 +305,7 @@ public class RoomMonitoringController {
      * @param finalDate   is the ending of the interval.
      * @return a list containing the readings in that room for that time interval.
      */
-    public List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date
+    private List<ReadingDTO> getRoomTemperatureReadingsBetweenSelectedDates(RoomDTO roomDTO, Date initialDate, Date
             finalDate) {
         Room room = RoomMapper.dtoToObject(roomDTO);
         List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");

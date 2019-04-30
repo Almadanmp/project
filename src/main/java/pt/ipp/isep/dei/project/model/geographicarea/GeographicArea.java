@@ -23,6 +23,7 @@ public class GeographicArea {
     private Long id;
     private String name;
 
+    //TODO cant point to different aggregate
     @ManyToOne
     @JoinColumn(name = "type_area_id")
     private AreaType areaType;
@@ -35,11 +36,11 @@ public class GeographicArea {
     private GeographicArea motherArea;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "geographicAreaId")
     private List<AreaSensor> areaSensors;
 
     @Embedded
     private Local location;
-
 
     private String description;
 

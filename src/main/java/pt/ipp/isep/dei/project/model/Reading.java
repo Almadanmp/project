@@ -1,18 +1,17 @@
 package pt.ipp.isep.dei.project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Cascade;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * This class will contain a value readSensors by a Sensor, associated with a date of said reading.
  */
-@Entity
+@Embeddable
 public class Reading {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String sensorID;
     private double value;
