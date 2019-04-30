@@ -54,7 +54,7 @@ class RoomServiceTest {
 
     private RoomService validRoomService;
 
-    private List<Room>roomList;
+    private List<Room> roomList;
 
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 
@@ -63,7 +63,7 @@ class RoomServiceTest {
         MockitoAnnotations.initMocks(this);
         validRoomService = new RoomService(this.roomRepository, this.roomSensorRepository, this.sensorTypeRepository);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-       this.roomList = new ArrayList<>();
+        this.roomList = new ArrayList<>();
         roomList.add(validRoom);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
@@ -300,13 +300,13 @@ class RoomServiceTest {
     }
 
     @Test
-    void seeIfgetlistOfRooms() {
+    void seeIfGetListOfRooms() {
 
         List<Room> roomList = new ArrayList<>();
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         roomList.add(room);
-        validRoomService.saveSensor(room);
+        validRoomService.saveRoom(room);
 
 
         Mockito.when(roomRepository.findAll()).thenReturn(roomList);
@@ -376,7 +376,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfBuildRoomListStringWorksEmptyList() {
-List<Room> emptylist = new ArrayList<>();
+        List<Room> emptylist = new ArrayList<>();
 
         // Act
 
@@ -471,7 +471,7 @@ List<Room> emptylist = new ArrayList<>();
     @Test
     void seeIfGetByIndexWorks() {
         //Arrange
-        List<Room>rooms = new ArrayList<>();
+        List<Room> rooms = new ArrayList<>();
 
         Room room = new Room("room", "Double Bedroom", 2, 20, 20, 4, "Room1", "Grid1");
         rooms.add(validRoom);
@@ -521,7 +521,7 @@ List<Room> emptylist = new ArrayList<>();
 
     @Test
     void seeItGetDailyConsumptionByDevice() {
-        List<Room>rooms = new ArrayList<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
         validRoom.addDevice(validDevice);
         double expectedResult = 6.0;
@@ -537,57 +537,6 @@ List<Room> emptylist = new ArrayList<>();
 
         assertEquals(expectedResult, actualResult);
     }
-
-//    @Test
-//    void seeIfGetNominalPower() {
-//        validRoom.addDevice(validDevice);
-//        //Assert
-//        assertEquals(21.0, validRoomService.getNominalPower());
-//    }
-
-
-//    @Test
-//    void seeIfBuildDeviceListByType() {
-//        //Arrange
-//        validRoom.addDevice(validDevice);
-//
-//        //Act
-//        StringBuilder expectedResult = new StringBuilder();
-//        expectedResult.append("Device type: WaterHeater | Device name: WaterHeater | Nominal power: 21.0 | Room: Kitchen | ");
-//        // Assert
-//
-//        assertEquals(expectedResult, validRoomService.buildDeviceListByType("WaterHeater"));
-//    }
-
-//    @Test
-//    void getElementsAsArray() {
-//
-//        //Arrange
-//
-//        Room[] expectedResult1 = new Room[0];
-//        Room[] expectedResult2 = new Room[1];
-//        Room[] expectedResult3 = new Room[2];
-//
-//        RoomService validRoomService2 = new RoomService();
-//        validRoomService2.add(validRoom);
-//        validRoomService2.add(new Room("room", "Single Bedroom", 2, 20, 20, 3, "Room1", "Grid1"));
-//
-//        expectedResult2[0] = validRoom;
-//        expectedResult3[0] = validRoom;
-//        expectedResult3[1] = new Room("room", "Single Bedroom", 2, 20, 20, 3, "Room1", "Grid1");
-//
-//        //Act
-//
-//        Room[] actualResult1 = validRoomService.getElementsAsArray();
-//        Room[] actualResult2 = validRoomService.getElementsAsArray();
-//        Room[] actualResult3 = validRoomService2.getElementsAsArray();
-//
-//        //Assert
-//
-//        assertArrayEquals(expectedResult1, actualResult1);
-//        assertArrayEquals(expectedResult2, actualResult2);
-//        assertArrayEquals(expectedResult3, actualResult3);
-//    }
 
     @Test
     void seeIfCreateRoomWorks() {
@@ -727,6 +676,84 @@ List<Room> emptylist = new ArrayList<>();
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAllByEnergyGridNameWorks() {
+        //Arrange
+        List<Room> roomListExpected = new ArrayList<>();
+        roomListExpected.add(validRoom);
+        Mockito.when(roomRepository.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
+        //Act
+        List<Room> actualResult = validRoomService.getAllByEnergyGridName("Grid1");
+        //Assert
+        assertEquals(roomListExpected, actualResult);
+    }
+
+    @Test
+    void seeIfCreateRoomReturnsExistingRoom() {
+        //Arrange
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(validRoom);
+        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        //Act
+        Room actualResult = validRoomService.createRoom("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        //Assert
+        assertEquals(validRoom, actualResult);
+    }
+
+    @Test
+    void seeIfEmptyRoomsWorks() {
+        List<Room> roomList = new ArrayList<>();
+        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        boolean actualResult = validRoomService.isEmptyRooms();
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfGetDeviceListAppendNoDuplicatesWorks() {
+        //Arrange
+        DeviceList deviceList = new DeviceList();
+        deviceList.add(validDevice);
+        DeviceList deviceList1 = new DeviceList();
+        deviceList1.add(validDevice);
+        List<Room> roomList = new ArrayList<>();
+        Room room = new Room();
+        room.setDeviceList(deviceList);
+        Room room1 = new Room();
+        room1.setDeviceList(deviceList1);
+        roomList.add(room);
+        roomList.add(room1);
+        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        //Act
+        DeviceList actualResult = validRoomService.getDeviceList();
+        //Assert
+        assertEquals(deviceList, actualResult);
+    }
+
+    @Test
+    void seeIfGetNominalPowerWorks() {
+        //Arrange
+        List<Room> roomList = new ArrayList<>();
+        DeviceList deviceList = new DeviceList();
+        deviceList.add(validDevice);
+        roomList.add(validRoom);
+        validRoom.setDeviceList(deviceList);
+        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        //Act
+        double actualResult = validRoomService.getNominalPower();
+        //Assert
+        assertEquals(21, actualResult);
+    }
+
+    @Test
+    void seeIfSaveRoomReturnsFalse() {
+        //Arrange
+        Mockito.when(roomRepository.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+        //Act
+        boolean actualResult = validRoomService.saveRoom(validRoom);
+        //Assert
+        assertFalse(actualResult);
     }
 
 }

@@ -96,7 +96,7 @@ public class HouseConfigurationController {
      * @return true if room was added, false otherwise.
      **/
     public boolean addRoomToHouse(RoomService roomService, Room room) {
-        return roomService.saveSensor(room);
+        return roomService.saveRoom(room);
     }
 
 

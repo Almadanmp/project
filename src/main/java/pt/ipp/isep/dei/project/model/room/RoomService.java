@@ -79,17 +79,6 @@ public class RoomService {
         return false;
     }
 
-    public boolean saveSensor(Room room) {
-        Optional<Room> room2 = roomRepository.findByRoomName(room.getId());
-        if (room2.isPresent()) {
-            Room room3 = room2.get();
-            roomRepository.save(room3);
-        }
-        roomRepository.save(room);
-        return true;
-    }
-
-
     public List<Room> getAllByEnergyGridName(String energyGridName) {
         return roomRepository.findAllByEnergyGridId(energyGridName);
     }
