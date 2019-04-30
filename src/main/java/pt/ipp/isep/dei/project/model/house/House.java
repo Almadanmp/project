@@ -6,9 +6,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * House Class. Defines de House
@@ -244,6 +242,31 @@ public class House {
 
         }
         return result.toString();
+    }
+
+    /**
+     * This method calculates the average temperature in the house area in a given date.
+     *
+     * @param date           is used to determine the day in which we want to calculate the average.
+     * @return the average temperature value for the 24 hours of the given date.
+     */
+    public double getHouseAreaAverageTemperature(Date date) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date d1 = calendar.getTime(); // gets date at 00:00:00
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date d2 = calendar.getTime(); // gets date at 23:59:59
+
+        // gets and returns average readings on the closest AreaSensor to the house
+        AreaSensor houseClosestSensor = this.getMotherArea().getClosestAreaSensorOfGivenType("temperature", this);
+        return houseClosestSensor.getAverageReadingsBetweenDates(d1, d2);
     }
 
     /**

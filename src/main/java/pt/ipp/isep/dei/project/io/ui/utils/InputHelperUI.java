@@ -487,6 +487,12 @@ public class InputHelperUI {
     }
 
 
+    public static RoomDTO getRoomDTOByList(RoomService roomService) {
+        List<Room> rooms = roomService.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomService, rooms);
+        return RoomMapper.objectToDTO(room);
+    }
+
     /**
      * This method only accepts a path that ends with .json or .xml
      *
