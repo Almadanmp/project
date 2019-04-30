@@ -23,6 +23,8 @@ import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -39,12 +41,16 @@ class RoomMonitoringControllerTest {
     private House validHouse;
     private List<String> deviceTypeString;
     private RoomMonitoringController controller = new RoomMonitoringController();
+    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private RoomService roomService;
     private Room validRoom1;
     private RoomDTO validRoomDTO;
     private List<Room> rooms;
     private GeographicArea validArea;
     private AreaSensor validAreaSensor;
+    private Date validDate1;
+    private Date validDate2;
+    private Date validDate3;
 
 
     @Mock
@@ -58,19 +64,26 @@ class RoomMonitoringControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), new GregorianCalendar(2017, Calendar.JANUARY, 1).getTime(), 6008L);
+        validSdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            // Datas desorganizadas, para testar noção de first/last
+            validDate1 = validSdf.parse("01/02/2018");
+            validDate2 = validSdf.parse("10/02/2018");
+            validDate3 = validSdf.parse("20/02/2018");
+
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
         validAreaSensor.setActive(true);
-        Reading areaReading1 = new Reading(20D, new GregorianCalendar(2018, Calendar.FEBRUARY, 1).getTime(), "C", "sensorID");
-        Reading areaReading2 = new Reading(21D, new GregorianCalendar(2018, Calendar.FEBRUARY, 10).getTime(), "C", "sensorID");
-        Reading areaReading3 = new Reading(18D, new GregorianCalendar(2018, Calendar.FEBRUARY, 20).getTime(), "C", "sensorID");
+        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
+        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
+        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
         List<Reading> areaReadings = new ArrayList<>();
         areaReadings.add(areaReading1);
         areaReadings.add(areaReading2);
         areaReadings.add(areaReading3);
         validAreaSensor.setReadings(areaReadings);
-        validAreaSensor.addReading(areaReading1);
-        validAreaSensor.addReading(areaReading2);
-        validAreaSensor.addReading(areaReading3);
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
         validArea.addSensor(validAreaSensor);
@@ -173,22 +186,19 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 GMT 2018\n" +
+                "0) Instant: Thu Feb 01 00:00:00 WET 2018\n" +
                 "   Temperature value: 31.0\n" +
                 "   Difference from outside day average: + 11.0 Cº\n" +
-                "1) Instant: Tue Feb 20 00:00:00 GMT 2018\n" +
+                "1) Instant: Tue Feb 20 00:00:00 WET 2018\n" +
                 "   Temperature value: 31.0\n" +
                 "   Difference from outside day average: + 13.0 Cº\n" +
                 "---\n";
 
         int category = 0;
 
-        Date startDate  = new GregorianCalendar(2018, Calendar.FEBRUARY, 1).getTime();
-        Date endDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 20).getTime();
-
-        Reading reading1 = new Reading(31, new GregorianCalendar(2018, Calendar.FEBRUARY, 1).getTime(), "C", "Test");
-        Reading reading2 = new Reading(20, new GregorianCalendar(2018, Calendar.FEBRUARY, 10).getTime(), "C", "Test1");
-        Reading reading3 = new Reading(31, new GregorianCalendar(2018, Calendar.FEBRUARY, 20).getTime(), "C", "Test");
+        Reading reading1 = new Reading(31, validDate1, "C", "Test");
+        Reading reading2 = new Reading(20, validDate2, "C", "Test1");
+        Reading reading3 = new Reading(31, validDate3, "C", "Test");
 
         List<Reading> readings = new ArrayList<>();
 
@@ -196,7 +206,7 @@ class RoomMonitoringControllerTest {
         readings.add(reading2);
         readings.add(reading3);
 
-        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime(), "RoomAD");
+        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
         SensorType sensorType = new SensorType("temperature", "Celsius");
         roomSensor.setSensorType(sensorType);
         roomSensor.setReadings(readings);
@@ -214,7 +224,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, startDate, endDate);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validDate1, validDate3);
 
         // Assert
 
