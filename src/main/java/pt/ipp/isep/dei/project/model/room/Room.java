@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
+import pt.ipp.isep.dei.project.model.house.House;
 
 import javax.persistence.*;
 import java.util.*;
@@ -472,6 +473,109 @@ public class Room implements Metered {
             }
         }
         throw new IllegalArgumentException();
+    }
+
+    /**
+     * This methods retrieves a List containing the readings (as DTOs) for a
+     * determined room and time interval.
+     *
+     * @return a list with the readingDTOs for the selected time interval.
+     */
+    public List<Reading> getAllReadingsInInterval(Date startDate, Date endDate) {
+        return getRoomTemperatureReadingsBetweenSelectedDates(startDate, endDate);
+    }
+
+    /**
+     * This method retrieves a list of readingDTOs respective to a given room and within
+     * a given time interval.
+     *
+     * @param initialDate is the beginning of the interval.
+     * @param finalDate   is the ending of the interval.
+     * @return a list containing the readings in that room for that time interval.
+     */
+    private List<Reading> getRoomTemperatureReadingsBetweenSelectedDates(Date initialDate, Date
+            finalDate) {
+        List<RoomSensor> temperatureSensors = this.getRoomSensorsOfGivenType("temperature");
+        List<Reading> allReadings = new ArrayList<>();
+        for (RoomSensor roomSensor : temperatureSensors) {
+            allReadings.addAll(roomSensor.getReadings());
+        }
+        List<Reading> finalList = new ArrayList<>();
+        for (Reading r : allReadings) {
+            if (ReadingUtils.isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
+                finalList.add(r);
+            }
+        }
+        return finalList;
+    }
+
+    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house){
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = house.getHouseAreaAverageTemperature(r.getDate());
+            if (categoryICalculusUS445(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house){
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = house.getHouseAreaAverageTemperature(r.getDate());
+            if (categoryIICalculusUS445(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house){
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = house.getHouseAreaAverageTemperature(r.getDate());
+            if (categoryIIICalculusUS445(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    /**
+     * Method to check id a given reading is above the comfort temperature for category I.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    private boolean categoryICalculusUS445(Reading reading, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 2;
+        return reading.getValue() > minT;
+    }
+
+    /**
+     * Method to check id a given reading is above the comfort temperature for category II.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    private boolean categoryIICalculusUS445(Reading reading, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 3;
+        return reading.getValue() > minT;
+    }
+
+    /**
+     * Method to check id a given reading is above the comfort temperature for category III.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    private boolean categoryIIICalculusUS445(Reading reading, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 4;
+        return reading.getValue() > minT;
     }
 
     @Override

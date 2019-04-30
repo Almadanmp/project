@@ -98,6 +98,88 @@ class ReadingUtilsTest {
     }
 
     @Test
+    void seeIfGetReadingsBySensorIDWorks() {
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+
+        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
+        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
+        readings.add(reading1);
+        readings.add(reading2);
+        expectedResult.add(reading2);
+
+        // Act
+
+        List<Reading> actualResult = ReadingUtils.getReadingsBySensorID("SensorID2", readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetReadingsBySensorIDWorksWhenSensorIDIsInvalid() {
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+
+        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
+        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
+        readings.add(reading1);
+        readings.add(reading2);
+
+        // Act
+
+        List<Reading> actualResult = ReadingUtils.getReadingsBySensorID("InvalidSensorID", readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorIDsWorks() {
+        // Arrange
+
+        List<String> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+        expectedResult.add("SensorID1");
+        expectedResult.add("SensorID2");
+
+        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
+        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
+        readings.add(reading1);
+        readings.add(reading2);
+
+        // Act
+
+        List<String> actualResult = ReadingUtils.getSensorIDs(readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetSensorIDsWorksWhenListIsEmpty() {
+        // Arrange
+
+        List<String> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+
+        // Act
+
+        List<String> actualResult = ReadingUtils.getSensorIDs(readings);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetTotalFromList() {
         // Arrange
 

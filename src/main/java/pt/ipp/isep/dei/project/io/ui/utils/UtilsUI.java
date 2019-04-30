@@ -114,4 +114,32 @@ public class UtilsUI {
         System.out.println(string);
         return string;
     }
+
+    /**
+     * This method asks the user to select the category wanted to calculate the comfort temperature interval.
+     *
+     * @return an int, respective to the category selected.
+     */
+    public static int selectCategory() {
+        String category = "";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please select one of the following user comfort categories: ");
+        System.out.println(0 + ") Category I");
+        System.out.println(1 + ") Category II");
+        System.out.println(2 + ") Category III");
+        while (!("0".equalsIgnoreCase(category)) && !("1".equalsIgnoreCase(category)) && !("2".equalsIgnoreCase(category))) {
+            System.out.println("Select a valid option");
+            category = scanner.nextLine();
+        }
+        if ("0".equalsIgnoreCase(category)) {
+            return 0;
+        }
+        if ("1".equalsIgnoreCase(category)) {
+            return 1;
+        }
+        if ("2".equalsIgnoreCase(category)) {
+            return 2;
+        }
+        return 0;
+    }
 }

@@ -151,7 +151,6 @@ class FileInputUtils {
             props.load(input);
             String deviceTypes = getSensorTypesPropertyValueFromKey(props, fullKey);
             List<String> sensorTypeList = Arrays.asList(deviceTypes.split(","));
-
             for (String s : sensorTypeList) {
                 String[] aux = getSensorTypesMultipleValues(props,s);
 
@@ -167,7 +166,7 @@ class FileInputUtils {
         readSensorTypesFromPropertiesFile("resources/sensorTypes.properties");
     }
 
-    void addSensortypesToRepository(SensorTypeService sensorTypeService) {
+    void addSensorTypesToRepository(SensorTypeService sensorTypeService) {
 
         for (int i=0; i<this.sensorTypesName.size(); i++){
             SensorType type = new SensorType();

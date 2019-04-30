@@ -227,130 +227,6 @@ class ReaderControllerTest {
     }
 
     @Test
-    void seeIfGetReadingsBySensorIDWorks() {
-        // Arrange
-
-        List<Reading> expectedResult = new ArrayList<>();
-        List<Reading> readings = new ArrayList<>();
-
-        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
-        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
-        readings.add(reading1);
-        readings.add(reading2);
-        expectedResult.add(reading2);
-
-        // Act
-
-        List<Reading> actualResult = readerController.getReadingsBySensorID("SensorID2", readings);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetReadingsBySensorIDWorksWhenSensorIDIsInvalid() {
-        // Arrange
-
-        List<Reading> expectedResult = new ArrayList<>();
-        List<Reading> readings = new ArrayList<>();
-
-        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
-        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
-        readings.add(reading1);
-        readings.add(reading2);
-
-        // Act
-
-        List<Reading> actualResult = readerController.getReadingsBySensorID("InvalidSensorID", readings);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetSensorIDsWorks() {
-        // Arrange
-
-        List<String> expectedResult = new ArrayList<>();
-        List<Reading> readings = new ArrayList<>();
-        expectedResult.add("SensorID1");
-        expectedResult.add("SensorID2");
-
-        Reading reading1 = new Reading(20D, validDate1, "C", "SensorID1");
-        Reading reading2 = new Reading(20D, validDate2, "C", "SensorID2");
-        readings.add(reading1);
-        readings.add(reading2);
-
-        // Act
-
-        List<String> actualResult = readerController.getSensorIDs(readings);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetSensorIDsWorksWhenListIsEmpty() {
-        // Arrange
-
-        List<String> expectedResult = new ArrayList<>();
-        List<Reading> readings = new ArrayList<>();
-
-        // Act
-
-        List<String> actualResult = readerController.getSensorIDs(readings);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfReadingDTOsToReadingsWorks() {
-        // Arrange
-
-        List<ReadingDTO> readingDTOS = new ArrayList<>();
-        List<Reading> expectedResult = new ArrayList<>();
-
-        ReadingDTO readingDTO = new ReadingDTO();
-        readingDTO.setSensorId("SensorID");
-        readingDTO.setValue(20D);
-        readingDTO.setUnit("C");
-        readingDTO.setDate(validDate1);
-        readingDTOS.add(readingDTO);
-
-        Reading reading = new Reading(20D, validDate1, "C", "SensorID");
-        expectedResult.add(reading);
-
-        // Act
-
-        List<Reading> actualResult = readerController.readingDTOsToReadings(readingDTOS);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfReadingDTOsToReadingsWorksWhenListIsEmpty() {
-        // Arrange
-
-        List<ReadingDTO> readingDTOS = new ArrayList<>();
-        List<Reading> expectedResult = new ArrayList<>();
-
-        // Act
-
-        List<Reading> actualResult = readerController.readingDTOsToReadings(readingDTOS);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfReadFileXMLGeoAreaWorksWrongPath() {
         // Arrange
         // Act
@@ -380,53 +256,6 @@ class ReaderControllerTest {
         assertEquals(0, areasAdded);
     }
 
-    @Test
-    void seeIfAcceptPathWorksXML() {
-        String input = "src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-        assertEquals(result, 0);
-    }
-
-    @Test
-    void seeIfAcceptPathWorksWrongPath() {
-        String input = "src/test/resources/wrong_path";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-        assertEquals(result, -1);
-    }
-
-    @Test
-    void seeIfAcceptPathWorksJSON() {
-        // Arrange
-
-        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-
-        AreaType city = new AreaType("city");
-        AreaType urbanArea = new AreaType("urban area");
-
-        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
-
-        SensorType rainfall = new SensorType("rainfall", "mm");
-        SensorType temperature = new SensorType("temperature", "C");
-
-        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
-
-
-        // Act
-
-        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-
-        // Assert
-
-        assertEquals(result, 2);
-    }
 
     @Test
     void seeIfReadFileWorks() {
@@ -562,7 +391,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        //    assertEquals(1, areasAdded);
+        assertEquals(0, areasAdded);
     }
 
 
@@ -712,7 +541,7 @@ class ReaderControllerTest {
 
         //Act
 
-        // List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+         List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
         int result = readerController.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
 
         //Assert

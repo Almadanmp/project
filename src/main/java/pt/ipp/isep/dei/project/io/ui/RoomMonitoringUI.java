@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.controller.HouseMonitoringController;
 import pt.ipp.isep.dei.project.controller.RoomMonitoringController;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -82,9 +81,15 @@ class RoomMonitoringUI {
     }
 
     private void updateAndDisplayUS440(RoomService roomService, House house) {
-        int category = roomMonitoringController.getCategoryFromList();
-        List<ReadingDTO> readingValues = roomMonitoringController.getReadingValues(roomService);
-        roomMonitoringController.displayTemperaturesBelowComfortLevel(readingValues, house, category);
+        System.out.println("Please select a room:");
+        RoomDTO roomDTO = InputHelperUI.getRoomDTOByList(roomService);
+        System.out.println("Please enter the starting date.");
+        Date startDate = DateUtils.getInputYearMonthDayHourMin();
+        System.out.println("Please enter the ending date.");
+        Date endDate = DateUtils.getInputYearMonthDayHourMin();
+        int category = UtilsUI.selectCategory();
+        //List<ReadingDTO> readingValues = roomMonitoringController.getAllReadingsInInterval(roomDTO, startDate, endDate); //TODO André getAllReadingsInInterval is within Room Class
+        //roomMonitoringController.displayTemperaturesBelowComfortLevel(readingValues, house, category);
     }
 
     /**
@@ -98,9 +103,17 @@ class RoomMonitoringUI {
         if (!ctrl.isMotherAreaValid(house)) {
             return;
         }
-        int category = roomMonitoringController.getCategoryFromList();
-        System.out.println(roomMonitoringController.getDaysWithTemperaturesAboveComfortLevel(roomService, house, category));
+        System.out.println("Please select a room:");
+        RoomDTO roomDTO = InputHelperUI.getRoomDTOByList(roomService);
+        System.out.println("Please enter the starting date.");
+        Date startDate = DateUtils.getInputYearMonthDayHourMin();
+        System.out.println("Please enter the ending date.");
+        Date endDate = DateUtils.getInputYearMonthDayHourMin();
+        int category = UtilsUI.selectCategory();
+        String result = roomMonitoringController.getInstantsAboveComfortInterval(house, category, roomDTO, startDate, endDate);
+        System.out.println(result);
     }
+
 
     /**
      * US605 As a Regular User, I want to get the current temperature in a room, in order to check
@@ -156,5 +169,5 @@ class RoomMonitoringUI {
         }
     }
 
-
+    // Auxiliary methods
 }

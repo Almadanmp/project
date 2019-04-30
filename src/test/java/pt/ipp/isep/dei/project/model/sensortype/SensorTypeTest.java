@@ -20,15 +20,33 @@ class SensorTypeTest {
         validType = new SensorType("Temperature", "Celsius");
     }
 
+
     @Test
     void seeIfGetNameWorks() {
         // Arrange
 
-        String expectedResult = "Temperature";
+        validType.setName("Rain");
+        String expectedResult = "Rain";
 
         // Act
 
         String actualResult = validType.getName();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetUnitWorks() {
+        // Arrange
+
+        validType.setUnits("Kelvin");
+        String expectedResult = "Kelvin";
+
+        // Act
+
+        String actualResult = validType.getUnits();
 
         // Assert
 

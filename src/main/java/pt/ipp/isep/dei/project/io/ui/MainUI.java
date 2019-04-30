@@ -108,7 +108,7 @@ public class MainUI {
             //Sensor Types
             try {
                 fileUtils.getSensorTypeConfig();
-                fileUtils.addSensortypesToRepository(sensorTypeService);
+                fileUtils.addSensorTypesToRepository(sensorTypeService);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 return;
@@ -212,7 +212,7 @@ public class MainUI {
                             break;
                         case 7:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(house, roomService);
+                            houseM.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

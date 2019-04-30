@@ -103,14 +103,22 @@ class ReadingTest {
         // Arrange
 
         Reading testReading = new Reading(31, earlyDate, "C", "Test");
+        Reading reading2 = new Reading(31, earlyDate, "C", "Test1");
+        Reading reading3 = new Reading(31, lateDate, "C", "Test");
 
         // Act
 
         boolean actualResult = testReading.equals(firstValidReading);
+        boolean actualResult1 = testReading.equals(reading2);
+        boolean actualResult2 = testReading.equals(reading3);
+        boolean actualResult3 = testReading.equals(testReading);
 
         // Assert
 
         assertTrue(actualResult);
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertTrue(actualResult3);
     }
 
     @Test
@@ -132,15 +140,26 @@ class ReadingTest {
     void seeIfSetAndGetUnitWorks() {
         //Arrange
 
-        String expectedResult = "F";
+        String expectedResult = "C";
 
         // Act
 
-        firstValidReading.setUnit("F");
         String actualResult = firstValidReading.getUnit();
 
         // Assert
 
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetAndGetSensorIdWorks() {
+        //Arrange
+        Reading reading = new Reading();
+        reading.setSensorID("Sensor 01");
+        String expectedResult = "Sensor 01";
+        //Act
+        String actualResult = reading.getSensorID();
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 }

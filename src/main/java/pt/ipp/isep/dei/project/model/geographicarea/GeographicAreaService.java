@@ -3,8 +3,11 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
@@ -177,6 +180,7 @@ public class GeographicAreaService {
             LogUtils.closeHandlers(logger);
             return null;
         } else {
+            LogUtils.closeHandlers(logger);
             return value.orElseGet(() -> new AreaType(name));
         }
     }
@@ -212,8 +216,30 @@ public class GeographicAreaService {
             LogUtils.closeHandlers(logger);
             return null;
         } else {
+            LogUtils.closeHandlers(logger);
             return value.orElseGet(() -> new SensorType(name, unit));
         }
+    }
+
+    /**
+     * This method will receive a list of reading DTOs, a string of a path to a log file,
+     * and a geographic area service and will try to add readings to the given sensors
+     * in the given geographic area from the repository.
+     *
+     * @param readingDTOS           a list of reading DTOs
+     * @param logPath               M  string of a log file path
+     * @return the number of readings added
+     **/
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath) {
+        Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
+        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
+        int addedReadings = 0;
+        List<String> sensorIds = ReadingUtils.getSensorIDs(readings);
+        for (String sensorID : sensorIds) {
+            List<Reading> subArray = ReadingUtils.getReadingsBySensorID(sensorID, readings);
+            addedReadings += addAreaReadings(sensorID, subArray, logger);
+        }
+        return addedReadings;
     }
 
     /**
@@ -226,7 +252,7 @@ public class GeographicAreaService {
      * @param logger   logger
      * @return the number of readings added
      **/
-    public int addAreaReadings(String sensorID, List<Reading> readings, Logger logger) {
+    int addAreaReadings(String sensorID, List<Reading> readings, Logger logger) {
         int addedReadings = 0;
         try {
             GeographicArea geographicArea = getGeographicAreaContainingSensorWithGivenId(sensorID);

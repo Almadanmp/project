@@ -3,9 +3,7 @@ package pt.ipp.isep.dei.project.controller;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
@@ -23,7 +21,6 @@ import pt.ipp.isep.dei.project.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,28 +33,6 @@ public class ReaderController {
 
     //
     // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
-
-    /**
-     * This method only accepts a path that ends with .json or .xml
-     *
-     * @param filePath is the path to the file, if it exists.
-     * @param areaService is the service responsible for accessing the repository of geographic areas.
-     * @return is the number of geographic areas imported.
-     */
-    public int acceptPath(String filePath, GeographicAreaService areaService) {
-        int areasRead;
-        if (filePath.endsWith(".json")) {
-            ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService);
-            return areasRead;
-        }
-        if (filePath.endsWith(".xml")) {
-            ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, areaService);
-            return areasRead;
-        }
-        return -1;
-    }
 
     /**
      * This method reads a JSON file that represents the class House() and sets House attributes(US100 Attributes)
@@ -180,71 +155,7 @@ public class ReaderController {
      * @return the number of readings added
      **/
     public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaService geographicAreaService) {
-        Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
-        List<Reading> readings = readingDTOsToReadings(readingDTOS);
-        int addedReadings = 0;
-        List<String> sensorIds = getSensorIDs(readings);
-        for (String sensorID : sensorIds) {
-            List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
-            addedReadings += geographicAreaService.addAreaReadings(sensorID, subArray, logger);
-        }
-        return addedReadings;
-    }
-
-    /**
-     * This method receives a list of reading DTOs and converts them into Readings,
-     * returning a list of Readings.
-     *
-     * @param readingDTOS a list of reading DTOs
-     * @return a list of Readings converted from the given Reading DTO list.
-     ***/
-    List<Reading> readingDTOsToReadings(List<ReadingDTO> readingDTOS) {
-        List<Reading> readingList = new ArrayList<>();
-        for (ReadingDTO r : readingDTOS) {
-            Reading reading = ReadingMapper.dtoToObject(r);
-            readingList.add(reading);
-        }
-        return readingList;
-    }
-
-    /**
-     * This method receives a list of readings, checks for every sensor ID
-     * in every Reading contained in the list and returns a list of strings
-     * of all sensor IDs.
-     *
-     * @param readings a list of readings
-     * @return a list of strings of all sensor IDs from the list of readings
-     **/
-    List<String> getSensorIDs(List<Reading> readings) {
-        List<String> sensorIDs = new ArrayList<>();
-        for (Reading r : readings) {
-            String sensorID = r.getSensorID();
-            if (!sensorIDs.contains(sensorID)) {
-                sensorIDs.add(sensorID);
-            }
-        }
-        return sensorIDs;
-    }
-
-    /**
-     * This mehtod receives a list of readings and a string of a sensor ID,
-     * checks for every reading within the list with the same sensorID, and
-     * returns a list of readings with the given sensor ID.
-     *
-     * @param readings list of readings
-     * @param sensorID a string of a sensor ID
-     * @return a list of readings that have the same sensor ID as the one given
-     * as parameter.
-     **/
-    List<Reading> getReadingsBySensorID(String sensorID, List<Reading> readings) {
-        List<Reading> subArray = new ArrayList<>();
-        for (Reading r : readings) {
-            String readingSensorID = r.getSensorID();
-            if (sensorID.equals(readingSensorID)) {
-                subArray.add(r);
-            }
-        }
-        return subArray;
+        return geographicAreaService.addReadingsToGeographicAreaSensors(readingDTOS, logPath);
     }
 
     /**
@@ -258,14 +169,6 @@ public class ReaderController {
      * @return the number of readings added
      **/
     public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath, RoomService roomService) {
-        Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
-        List<Reading> readings = readingDTOsToReadings(readingDTOS);
-        int addedReadings = 0;
-        List<String> sensorIds = getSensorIDs(readings);
-        for (String sensorID : sensorIds) {
-            List<Reading> subArray = getReadingsBySensorID(sensorID, readings);
-            addedReadings += roomService.addRoomReadings(sensorID, subArray, logger);
-        }
-        return addedReadings;
+        return roomService.addReadingsToRoomSensors(readingDTOS, logPath);
     }
 }
