@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -52,12 +51,6 @@ public class RoomMonitoringController {
     public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
         Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
         return room.getId();
-    }
-
-    RoomDTO getRoomDTOByList(RoomService roomService) {
-        List<Room> rooms = roomService.getAllRooms();
-        Room room = InputHelperUI.getHouseRoomByList(roomService, rooms);
-        return RoomMapper.objectToDTO(room);
     }
 
     public boolean calculusByCategory440(ReadingDTO readingDTO, int category, House house) {
@@ -157,8 +150,8 @@ public class RoomMonitoringController {
             Reading reading = list.get(i);
             double temperature = house.getHouseAreaAverageTemperature(reading.getDate());
             result.append(i).append(") Instant: ").append(reading.getDate()).append("\n");
-            result.append(", Temperature value: ").append(reading.getValue()).append("\n");
-            result.append("Difference from outside day average: + ").append(reading.getValue() - temperature).append(" Cº\n");
+            result.append("   Temperature value: ").append(reading.getValue()).append("\n");
+            result.append("   Difference from outside day average: + ").append(reading.getValue() - temperature).append(" Cº\n");
         }
         result.append("---\n");
         return result.toString();
