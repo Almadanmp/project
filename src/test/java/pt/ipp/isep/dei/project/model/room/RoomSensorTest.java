@@ -280,20 +280,20 @@ class RoomSensorTest {
         assertFalse(actualResult);
     }
 
-    @Test
-    void seeIfEqualsWorksTrueSameSensor() {
-        // Arrange
-
-        RoomSensor testAreaSensor = new RoomSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomHG");
-
-        // Act
-
-        boolean actualResult = validRoomSensor.equals(testAreaSensor);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
+//    @Test
+//    void seeIfEqualsWorksTrueSameSensor() {
+//        // Arrange
+//
+//        RoomSensor testAreaSensor = new RoomSensor("T345", "SensOne", new SensorType("Temperature", "Celsius"), new Date(), "RoomHG");
+//
+//        // Act
+//
+//        boolean actualResult = validRoomSensor.equals(testAreaSensor);
+//
+//        // Assert
+//
+//        assertTrue(actualResult);
+//    }
 
     @Test
     void hashCodeDummyTest() {
