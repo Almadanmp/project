@@ -28,18 +28,18 @@ title US265 As an Administrator, I want to import a list \n of sensor readings o
 
 
 actor Administrator
-Administrator -> GASettingsUI: Import data from .csv/.json/.xml file
-activate GASettingsUI
-GASettingsUI -> GASettingsUI: US20()
-GASettingsUI -> InputUtils: String filePath = getInputFileLocation();
-ref over InputUtils
+Administrator -> HouseSettingsUI: Import data from .csv/.json/.xml file
+activate HouseSettingsUI
+HouseSettingsUI -> HouseSettingsUI: US20()
+HouseSettingsUI -> InputHelperUI: String filePath = getInputJsonXmlCsv();
+ref over InputHelperUI
 Get Valid
 Input Path
 end ref
 
 
 alt if CSV file
-GASettingsUI -> "<<ReadingsReader>>": readFile(filePath)
+HouseSettingsUI -> "<<ReadingsReader>>": readFile(filePath)
 activate "<<ReadingsReader>>"
 ref over "<<ReadingsReader>>"
 Read readings from
@@ -47,32 +47,32 @@ CSV file reading
 end ref
 
 
-"<<ReadingsReader>>" -> GASettingsUI: List<ReadingDTO>
+"<<ReadingsReader>>" -> HouseSettingsUI: List<ReadingDTO>
 else else if JSON file
-GASettingsUI -> "<<ReadingsReader>>": readFile(filePath)
+HouseSettingsUI -> "<<ReadingsReader>>": readFile(filePath)
 ref over "<<ReadingsReader>>"
 Read readings from
 JSON file reading
 end ref
-"<<ReadingsReader>>" -> GASettingsUI: List<ReadingDTO>
+"<<ReadingsReader>>" -> HouseSettingsUI: List<ReadingDTO>
 else else if XML file
-GASettingsUI -> "<<ReadingsReader>>": readFile(filePath)
+HouseSettingsUI -> "<<ReadingsReader>>": readFile(filePath)
 ref over "<<ReadingsReader>>"
 Read readings from
 XML file reading
 end ref
-"<<ReadingsReader>>" -> GASettingsUI: List<ReadingDTO>
+"<<ReadingsReader>>" -> HouseSettingsUI: List<ReadingDTO>
 deactivate "<<ReadingsReader>>"
 end
 
 
-GASettingsUI -> ReadingsController: addReadingsToGeographicAreaSensors(List<ReadingDTO>, LogPath, GeographicAreaService)
+HouseSettingsUI -> ReadingsController: addReadingsToHouseSensors(List<ReadingDTO>, LogPath, RoomService)
 ref over ReadingsController
-Add Readings to
-Geographic Area Sensors
+Add Readings
+to Room
 end ref
-ReadingsController -> GASettingsUI: int added Readings
-GASettingsUI -> Administrator: display message
-deactivate GASettingsUI
+ReadingsController -> HouseSettingsUI: int added Readings
+HouseSettingsUI -> Administrator: display message
+deactivate HouseSettingsUI
 
 @enduml

@@ -26,7 +26,7 @@ skinparam component {
 
 title GetInputFileLocation
 actor Administrator
-ReaderController -> InputHelperUI: getInputFileLocation()
+ReaderController -> InputHelperUI: getInputJsonXmlCsv()
 activate InputHelperUI
 create ":Scanner"
 InputHelperUI -> ":Scanner": scanner = new Scanner()

@@ -26,18 +26,18 @@ skinparam component {
 
 title GetInputFileLocation
 actor Administrator
-ReaderController -> InputUtils: getInputFileLocation()
-activate InputUtils
+ReaderController -> InputHelperUI: getInputJsonXmlCsv()
+activate InputHelperUI
 create ":Scanner"
-InputUtils -> ":Scanner": scanner = new Scanner()
+InputHelperUI -> ":Scanner": scanner = new Scanner()
 activate ":Scanner"
 ":Scanner" -> Administrator: ask for file location
-InputUtils -> ":Scanner": scanner.next()
+InputHelperUI -> ":Scanner": scanner.next()
 deactivate ":Scanner"
-Administrator -> InputUtils: file path
+Administrator -> InputHelperUI: file path
 
-InputUtils -> InputUtils: pathIsValid(filePath)
-InputUtils -> ReaderController: file path
-deactivate InputUtils
+InputHelperUI -> InputHelperUI: pathIsValid(filePath)
+InputHelperUI -> ReaderController: file path
+deactivate InputHelperUI
 
 @enduml

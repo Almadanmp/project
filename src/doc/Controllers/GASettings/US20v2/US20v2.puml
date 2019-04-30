@@ -65,7 +65,6 @@ end ref
 deactivate "<<ReadingsReader>>"
 end
 
-
 GASettingsUI -> ReadingsController: addReadingsToGeographicAreaSensors(List<ReadingDTO>, LogPath, GeographicAreaService)
 ref over ReadingsController
 Add Readings to

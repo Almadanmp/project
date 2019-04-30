@@ -27,11 +27,11 @@ skinparam component {
 title Add Readings To Geographic Area Sensors
 GASettingsUI -> ReadingsController: addReadingsToGeographicAreaSensors\n(List<ReadingDTO> readingDTOs, \nString logPath)
 activate ReadingsController
-ReadingsController -> GeographicAreaService: addReadingsToGeographicAreaSensors\n(List<ReadingDTO> readingDTOs,\n String logPath)
+ReadingsController -> ReadingMapper: List<Reading> readings = \nreadingDTOsToReadings(readingDTOs)
+ReadingsController -> GeographicAreaService: addReadingsToGeographicAreaSensors\n(List<Reading> readings,\n String logPath)
 activate GeographicAreaService
 
 GeographicAreaService -> LogUtils: Logger logger = getLogger\n("areaReadingsLogger", logPath, Level.FINE)
-GeographicAreaService -> ReadingMapper: List<Reading> readings = readingDTOsToReadings(readingDTOs)
 GeographicAreaService -> ReadingUtils: List<String> sensorIDs = getSensorIDs(readings)
 
 

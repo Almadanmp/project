@@ -24,16 +24,16 @@ skinparam component {
   ArrowFontColor darkslategrey
 }
 
-title Add Geographic Area Readings
+title Add Room Readings
 loop for (Reading : readings)
-activate GeographicAreaService
+activate RoomService
 alt Reading Doesn't Exist and Sensor Was Active
-GeographicAreaService -> AreaSensor: addReading(Reading)
-GeographicAreaService -> GeographicAreaService: addedReadings++
+RoomService -> RoomSensor: addReading(Reading)
+RoomService -> RoomService: addedReadings++
 else
-GeographicAreaService -> Logger: logger.fine(specific message)
+RoomService -> Logger: logger.fine(specific message)
 end
 end
-deactivate GeographicAreaService
+deactivate RoomService
 
 @enduml
