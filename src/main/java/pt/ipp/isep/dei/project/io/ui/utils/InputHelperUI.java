@@ -19,6 +19,8 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
+import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
+import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 
 import java.io.File;
 import java.util.List;
@@ -433,11 +435,10 @@ public class InputHelperUI {
      * @param input - input of user
      */
     public String getInputPathJsonOrXML(String input) {
-        while (!(input.endsWith(".json") || input.endsWith(".xml"))) {
+        while (!(input.endsWith(".json") || input.endsWith(".xml") || !new File(input).exists())) {
             System.out.println("Please insert a valid path.");
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
-            //TODO Check if file exists
         }
         return input;
     }
@@ -484,4 +485,28 @@ public class InputHelperUI {
     private boolean pathIsJsonXmlCsv(String path) {
         return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
     }
+
+
+    /**
+     * This method only accepts a path that ends with .json or .xml
+     *
+     * @param filePath    is the path to the file, if it exists.
+     * @param areaService is the service responsible for accessing the repository of geographic areas.
+     * @return is the number of geographic areas imported.
+     */
+    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaService areaService) {
+        int areasRead;
+        if (filePath.endsWith(".json")) {
+            ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService);
+            return areasRead;
+        }
+        if (filePath.endsWith(".xml")) {
+            ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, areaService);
+            return areasRead;
+        }
+        return -1;
+    }
+
 }

@@ -455,7 +455,7 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
-        int areas = readerController.acceptPath(filePath, geographicAreaService);
+        int areas = input.acceptPathJSONorXMLAndReadFile(filePath, geographicAreaService);
         if (areas > 0) {
             System.out.println(areas + " Geographic Areas have been successfully imported.");
         } else {

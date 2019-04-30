@@ -256,53 +256,6 @@ class ReaderControllerTest {
         assertEquals(0, areasAdded);
     }
 
-    @Test
-    void seeIfAcceptPathWorksXML() {
-        String input = "src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-        assertEquals(result, 0);
-    }
-
-    @Test
-    void seeIfAcceptPathWorksWrongPath() {
-        String input = "src/test/resources/wrong_path";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-        assertEquals(result, -1);
-    }
-
-    @Test
-    void seeIfAcceptPathWorksJSON() {
-        // Arrange
-
-        String input = "src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json";
-        File fileToRead = new File(input);
-        String absolutePath = fileToRead.getAbsolutePath();
-
-        AreaType city = new AreaType("city");
-        AreaType urbanArea = new AreaType("urban area");
-
-        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
-
-        SensorType rainfall = new SensorType("rainfall", "mm");
-        SensorType temperature = new SensorType("temperature", "C");
-
-        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
-
-
-        // Act
-
-        int result = readerController.acceptPath(absolutePath, geographicAreaService);
-
-        // Assert
-
-        assertEquals(result, 2);
-    }
 
     @Test
     void seeIfReadFileWorks() {
@@ -438,7 +391,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        //    assertEquals(1, areasAdded);
+        assertEquals(0, areasAdded);
     }
 
 
@@ -588,7 +541,7 @@ class ReaderControllerTest {
 
         //Act
 
-        // List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
+         List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
         int result = readerController.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
 
         //Assert

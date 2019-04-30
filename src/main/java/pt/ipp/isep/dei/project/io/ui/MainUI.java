@@ -212,7 +212,7 @@ public class MainUI {
                             break;
                         case 7:
                             HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(house, roomService);
+                            houseM.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

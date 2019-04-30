@@ -36,7 +36,7 @@ public class HouseMonitoringUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, RoomService roomService) {
+    void run(House house) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
