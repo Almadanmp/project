@@ -226,8 +226,8 @@ public class GeographicAreaService {
      * and a geographic area service and will try to add readings to the given sensors
      * in the given geographic area from the repository.
      *
-     * @param readings           a list of readings
-     * @param logPath               M  string of a log file path
+     * @param readings a list of readings
+     * @param logPath  string of a log file path
      * @return the number of readings added
      **/
     public int addReadingsToGeographicAreaSensors(List<Reading> readings, String logPath) {

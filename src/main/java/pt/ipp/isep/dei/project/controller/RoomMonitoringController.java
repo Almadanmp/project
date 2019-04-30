@@ -150,7 +150,7 @@ public class RoomMonitoringController {
             gregorianCalendar.setTime(reading.getDate());
             double temperature = house.getHouseAreaAverageTemperature(reading.getDate());
             result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
-                    + (Calendar.YEAR+2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
+                    + (Calendar.YEAR + 2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
                     + Calendar.SECOND).append("\n");
             result.append("   Temperature value: ").append(reading.getValue()).append("\n");
             result.append("   Difference from outside day average: + ").append(reading.getValue() - temperature).append(" Cº\n");

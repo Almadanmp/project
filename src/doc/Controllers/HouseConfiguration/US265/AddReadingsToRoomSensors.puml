@@ -25,7 +25,7 @@ skinparam component {
 }
 
 title Add Readings To Room Sensors
-GASettingsUI -> ReadingsController: addReadingsToRoomSensors\n(List<ReadingDTO> readingDTOs, \nString logPath)
+HouseSettingsUI -> ReadingsController: addReadingsToRoomSensors\n(List<ReadingDTO> readingDTOs, \nString logPath)
 activate ReadingsController
 ReadingsController -> ReadingMapper: List<Reading> readings = \nreadingDTOsToReadings(readingDTOs)
 ReadingsController -> RoomService: addReadingsToRoomSensors\n(List<ReadingDTO> readingDTOs,\n String logPath)
@@ -45,7 +45,7 @@ end ref
 end
 
 RoomService -> ReadingsController: int addedReadings
-ReadingsController -> GASettingsUI: int addedReadings
+ReadingsController -> HouseSettingsUI: int addedReadings
 
 deactivate ReadingsController
 
