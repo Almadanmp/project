@@ -8,9 +8,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller class for Room Monitoring UI
@@ -147,9 +145,13 @@ public class RoomMonitoringController {
     private String buildReadingDTOListOutputUS445(List<Reading> list, House house) {
         StringBuilder result = new StringBuilder("Instants in which the readings are above comfort temperature:\n");
         for (int i = 0; i < list.size(); i++) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
             Reading reading = list.get(i);
+            gregorianCalendar.setTime(reading.getDate());
             double temperature = house.getHouseAreaAverageTemperature(reading.getDate());
-            result.append(i).append(") Instant: ").append(reading.getDate()).append("\n");
+            result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
+                    + (Calendar.YEAR+2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
+                    + Calendar.SECOND).append("\n");
             result.append("   Temperature value: ").append(reading.getValue()).append("\n");
             result.append("   Difference from outside day average: + ").append(reading.getValue() - temperature).append(" Cº\n");
         }

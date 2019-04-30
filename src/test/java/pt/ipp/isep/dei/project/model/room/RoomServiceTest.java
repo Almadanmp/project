@@ -439,13 +439,7 @@ class RoomServiceTest {
 
     @Test
     void seeIfEqualsDifferentListContents() {
-
-        // Arrange
-
-        Room testRoom = new Room("Balcony", "4th Floor Balcony", 4, 2, 4, 3, "Room1", "Grid1");
-
         // Act
-
         boolean actualResult = validRoom.equals(validRoomService);
 
         // Assert
@@ -542,7 +536,6 @@ class RoomServiceTest {
     void seeIfCreateRoomWorks() {
         //Arrange
 
-        Room room = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
         Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
 
         //Act
@@ -614,8 +607,10 @@ class RoomServiceTest {
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         validRoomService.saveSensor(secondValidRoomSensor);
+        Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(new SensorType("Temperature", "C")));
 
         Mockito.when(roomSensorRepository.findAll()).thenReturn(roomSensors);
+        validRoomService.saveSensor(firstValidRoomSensor);
 
         assertEquals(roomSensors, validRoomService.getAllSensor());
     }
@@ -756,4 +751,37 @@ class RoomServiceTest {
         assertFalse(actualResult);
     }
 
+    @Test
+    void seeIfFindRoomByIdWorks() {
+        //Arrange
+        Mockito.when(roomRepository.findById("Kitchen")).thenReturn(Optional.of(validRoom));
+        //Act
+        Optional<Room> actualResult = validRoomService.findRoomByID("Kitchen");
+        //Assert
+        assertEquals(Optional.of(validRoom), actualResult);
+    }
+
+    @Test
+    void seeIfGetTypeSensorByNameWorks() {
+        //Arrange
+        SensorType sensorType = new SensorType("Temperature", "C");
+        Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        //Act
+        SensorType actualResult = validRoomService.getTypeSensorByName("Temperature");
+        SensorType actualResult1 = validRoomService.getTypeSensorByName("Rainfall");
+        //Assert
+        assertEquals(sensorType, actualResult);
+        assertNull(actualResult1);
+    }
+
+    @Test
+    void seeIfCreateRoomSensorWorks() {
+        //Arrange
+        SensorType sensorType = new SensorType("Temperature", "C");
+        Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        //Act
+        RoomSensor roomSensor = validRoomService.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
+        //Assert
+        assertEquals(firstValidRoomSensor, roomSensor);
+    }
 }

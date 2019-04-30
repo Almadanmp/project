@@ -186,10 +186,10 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 WET 2018\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
                 "   Temperature value: 31.0\n" +
                 "   Difference from outside day average: + 11.0 Cº\n" +
-                "1) Instant: Tue Feb 20 00:00:00 WET 2018\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
                 "   Temperature value: 31.0\n" +
                 "   Difference from outside day average: + 13.0 Cº\n" +
                 "---\n";
