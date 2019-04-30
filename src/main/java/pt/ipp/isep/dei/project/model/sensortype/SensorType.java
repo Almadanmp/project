@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.sensortype;
 
+import pt.ipp.isep.dei.project.dddPlaceholders.Root;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,7 +11,7 @@ import javax.persistence.Id;
  * Different Sensor Types cannot share the same Type Name
  */
 @Entity
-public class SensorType {
+public class SensorType implements Root {
     @Id
     private String name;
     private String units;

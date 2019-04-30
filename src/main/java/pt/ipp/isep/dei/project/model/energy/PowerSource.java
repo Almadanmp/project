@@ -16,7 +16,7 @@ public class PowerSource {
     private String powerSourceName;
     private double maxPowerOutput;
     private double maxEnergyStorage;
-    private String energyGridId;
+
 
     /**
      * Standard constructor for power sources.
@@ -26,8 +26,7 @@ public class PowerSource {
      * @param maxEnergyStorage is the maximum energy the power source is capable of storing.
      */
 
-    public PowerSource(String powerSourceName, double maxPowerOutput, double maxEnergyStorage, String energyGridId) {
-        this.energyGridId = energyGridId;
+    public PowerSource(String powerSourceName, double maxPowerOutput, double maxEnergyStorage) {
         this.powerSourceName = powerSourceName;
         this.maxPowerOutput = maxPowerOutput;
         this.maxEnergyStorage = maxEnergyStorage;

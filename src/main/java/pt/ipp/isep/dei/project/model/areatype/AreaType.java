@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.areatype;
 
+import pt.ipp.isep.dei.project.dddPlaceholders.Root;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,7 @@ import javax.persistence.Id;
  * We cannot create two TypeAreas with the same name.
  */
 @Entity
-public class AreaType {
+public class AreaType implements Root {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

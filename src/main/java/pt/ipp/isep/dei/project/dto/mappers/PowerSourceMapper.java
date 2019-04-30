@@ -35,14 +35,9 @@ public final class PowerSourceMapper {
 
         double objectMaxEnergyStorage = dtoToConvert.getMaxEnergyStorage();
 
-        // Update the energy grid Id
-
-        String objectEnergyGridId = dtoToConvert.getEnergyGridId();
-
-
         // Create, update, and return converted object
 
-        return new PowerSource(objectName, objectMaxPowerOutput, objectMaxEnergyStorage, objectEnergyGridId);
+        return new PowerSource(objectName, objectMaxPowerOutput, objectMaxEnergyStorage);
     }
 
     /**
@@ -65,17 +60,12 @@ public final class PowerSourceMapper {
 
         double dtoMaxPowerOutput = objectToConvert.getMaxPowerOutput();
 
-        // Update the energyGridId
-
-        String dtoEnergyGridId = objectToConvert.getName();
-
         // Create, update and return converted object
 
         PowerSourceDTO resultDTO = new PowerSourceDTO();
         resultDTO.setMaxEnergyStorage(dtoMaxEnergyStorage);
         resultDTO.setMaxPowerOutput(dtoMaxPowerOutput);
         resultDTO.setName(dtoName);
-        resultDTO.setEnergyGridId(dtoEnergyGridId);
 
         return resultDTO;
     }

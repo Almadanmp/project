@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
+import pt.ipp.isep.dei.project.dddPlaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -16,7 +17,7 @@ import java.util.*;
  */
 
 @Entity
-public class GeographicArea {
+public class GeographicArea implements Root {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

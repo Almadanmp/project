@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.project.model.energy;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import pt.ipp.isep.dei.project.dddPlaceholders.Root;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -16,7 +19,7 @@ import java.util.Objects;
  * Class that represents an Energy Grid present in a House.
  */
 @Entity
-public class EnergyGrid implements Metered {
+public class EnergyGrid implements Metered, Root {
 
     @Id
     private String name;
@@ -24,7 +27,14 @@ public class EnergyGrid implements Metered {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "energyGridId")
+//    private List<String> rooms;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE) // LazyCollection fixes MultipleBag fetch Problem without having to
+                                                // change fetch type from EAGER to LAZY
     @JoinColumn(name = "energyGridId")
     private List<PowerSource> powerSourceList;
     private double maxContractedPower;

@@ -174,7 +174,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddPowerSourceToEnergyGridWorks() {
         // Arrange
 
-        PowerSource powerSource = new PowerSource("PowerSourceOne", 10, 10, "12345L");
+        PowerSource powerSource = new PowerSource("PowerSourceOne", 10, 10);
 
         // Act
 
@@ -190,7 +190,7 @@ class EnergyGridSettingsControllerTest {
 
         // Arrange
 
-        PowerSource powerSource = new PowerSource("PowerSource", 20, 20, "12345L");
+        PowerSource powerSource = new PowerSource("PowerSource", 20, 20);
         validGrid.addPowerSource(powerSource);
 
         // Act
@@ -222,13 +222,13 @@ class EnergyGridSettingsControllerTest {
     void seeCreatePowerSource() {
         // Arrange
 
-        PowerSource powerSource1 = new PowerSource("powersource1", 10, 10, "12345L");
-        PowerSource powerSource2 = new PowerSource("powersource2", 123, 76, "12345L");
+        PowerSource powerSource1 = new PowerSource("powersource1", 10, 10);
+        PowerSource powerSource2 = new PowerSource("powersource2", 123, 76);
 
         // Act
 
-        PowerSource actualResult1 = controller.createPowerSource(validGrid, "powersource1", 10, 10, energyGridService);
-        PowerSource actualResult2 = controller.createPowerSource(validGrid, "powersource2", 123, 76, energyGridService);
+        PowerSource actualResult1 = controller.createPowerSource("powersource1", 10, 10, energyGridService);
+        PowerSource actualResult2 = controller.createPowerSource("powersource2", 123, 76, energyGridService);
 
         // Assert
 

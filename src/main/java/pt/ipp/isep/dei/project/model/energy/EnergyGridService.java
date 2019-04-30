@@ -117,7 +117,7 @@ public class EnergyGridService {
      * @param maxPowerOutput   the maximum power for the power source
      * @return creates a new power source.
      **/
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, String energyGridId) {
-        return new PowerSource(name, maxPowerOutput, maxEnergyStorage, energyGridId);
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
+        return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 }

@@ -100,7 +100,7 @@ class EnergyGridServiceTest {
 
         // Arrange
         PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
-                15, "12345L");
+                15);
 
         List<PowerSource> expectedResult = new ArrayList<>();
         expectedResult.add(firstPowerSource);
