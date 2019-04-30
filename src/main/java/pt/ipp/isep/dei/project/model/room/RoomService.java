@@ -122,9 +122,7 @@ public class RoomService {
         for (Room r : getAllRooms()) {
             String designation = r.getId();
             if (roomDesignation.equals(designation)) {
-                return r;
-            }
-        }
+                return r; } }
         return new Room(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
     }
 
@@ -307,7 +305,7 @@ public class RoomService {
      * @param name selected name
      * @return Type Sensor corresponding to the given id
      */
-    private SensorType getTypeSensorByName(String name) {
+    public SensorType getTypeSensorByName(String name) {
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
         if (value.isPresent()) {
             return value.get();

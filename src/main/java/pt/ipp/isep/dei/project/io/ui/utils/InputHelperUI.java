@@ -102,7 +102,7 @@ public class InputHelperUI {
     public static Room getHouseRoomByList(RoomService roomService, List<Room> houseRooms) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Please select one of the existing rooms: ");
+            System.out.println("Please select one of the existing rooms - Type the Description name: ");
             System.out.println(roomService.buildRoomsAsString(houseRooms));
             String aux = scanner.nextLine();
             try {

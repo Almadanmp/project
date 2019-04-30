@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import org.hibernate.annotations.Cascade;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.dddPlaceholders.ValueObject;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +9,7 @@ import java.util.Date;
  * This class will contain a value readSensors by a Sensor, associated with a date of said reading.
  */
 @Embeddable
-public class Reading {
+public class Reading implements ValueObject {
     private Long id;
     private String sensorID;
     private double value;

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.house;
 
+import pt.ipp.isep.dei.project.dddPlaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -12,7 +13,7 @@ import java.util.*;
  * House Class. Defines de House
  */
 @Entity
-public class House {
+public class House implements Root {
 
     @Id
     private String id;

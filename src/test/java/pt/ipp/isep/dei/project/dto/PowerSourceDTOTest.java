@@ -105,11 +105,4 @@ class PowerSourceDTOTest {
         assertNotEquals(validDTO, new WaterHeater(new WaterHeaterSpec()));
     }
 
-    @Test
-    void seeIfGetEnergyGridId() {
-        validDTO.setEnergyGridId("EG1");
-        String expectedResult = "EG1";
-        String actualResult = validDTO.getEnergyGridId();
-        assertEquals(expectedResult,actualResult);
-    }
 }

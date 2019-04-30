@@ -97,7 +97,7 @@ class EnergyGridTest {
         // Arrange
 
         PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
-                15, "12345L");
+                15);
 
         // Act
 
@@ -113,7 +113,7 @@ class EnergyGridTest {
         // Arrange
 
         PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
-                15, "12345L");
+                15);
         validGrid.addPowerSource(firstPowerSource);
 
         // Act
@@ -185,7 +185,7 @@ class EnergyGridTest {
     void seeIfGetListPowerSourcesIsSuccessful() {
         // Arrange
 
-        PowerSource powerSource = new PowerSource("SourceOne", 400, 400, "12345L");
+        PowerSource powerSource = new PowerSource("SourceOne", 400, 400);
         validGrid.addPowerSource(powerSource);
         List<PowerSource> expectedResult = new ArrayList<>();
         expectedResult.add(powerSource);
@@ -680,7 +680,7 @@ class EnergyGridTest {
     void seeIfSetAndGetPowerSourceListWorks() {
         //Arrange
         List<PowerSource> powerSourceList = new ArrayList<>();
-        PowerSource powerSource = new PowerSource("Source 01", 10, 30, "12345L");
+        PowerSource powerSource = new PowerSource("Source 01", 10, 30);
         powerSourceList.add(powerSource);
         validGrid.setPowerSourceList(powerSourceList);
         //Act

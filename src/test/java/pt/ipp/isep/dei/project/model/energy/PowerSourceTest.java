@@ -15,7 +15,7 @@ class PowerSourceTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validPowerSource = new PowerSource("Energy", 50, 50, "12345L");
+        validPowerSource = new PowerSource("Energy", 50, 50);
     }
 
     @Test
@@ -37,7 +37,7 @@ class PowerSourceTest {
     void seeIfEqualsPowerSourceWithDifferentContent() {
         // Arrange
 
-        PowerSource pS2 = new PowerSource("Voltage", 50, 50, "12345L");
+        PowerSource pS2 = new PowerSource("Voltage", 50, 50);
 
         // Act
 
@@ -52,7 +52,7 @@ class PowerSourceTest {
     void seeIfEqualsPowerSourceWithSameContent() {
         // Arrange
 
-        PowerSource pS2 = new PowerSource("Energy", 50, 50, "12345L");
+        PowerSource pS2 = new PowerSource("Energy", 50, 50);
 
         // Act
 

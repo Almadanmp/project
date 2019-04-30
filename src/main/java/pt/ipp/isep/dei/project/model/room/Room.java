@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.room;
 
+import pt.ipp.isep.dei.project.dddPlaceholders.Root;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -15,7 +16,7 @@ import java.util.*;
  * Class that represents a Room of a House.
  */
 @Entity
-public class Room implements Metered {
+public class Room implements Metered, Root {
 
     @Id
     private String roomName;

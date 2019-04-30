@@ -186,18 +186,15 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 GMT 2018\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
                 "   Temperature value: 31.0\n" +
                 "   Difference from outside day average: + 11.0 Cº\n" +
-                "1) Instant: Tue Feb 20 00:00:00 GMT 2018\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
                 "   Temperature value: 31.0\n" +
                 "   Difference from outside day average: + 13.0 Cº\n" +
                 "---\n";
 
         int category = 0;
-
-        Date startDate  = validDate1;
-        Date endDate = validDate3;
 
         Reading reading1 = new Reading(31, validDate1, "C", "Test");
         Reading reading2 = new Reading(20, validDate2, "C", "Test1");
@@ -227,7 +224,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, startDate, endDate);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validDate1, validDate3);
 
         // Assert
 

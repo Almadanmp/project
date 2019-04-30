@@ -67,12 +67,11 @@ public class EnergyGridSettingsController {
      * @param name             is the name we're going to give to the new power source.
      * @param maxPowerOutput   is the new power source's maximum power output.
      * @param maxEnergyStorage is the new power source's maximum capacity.
-     * @param energyGrid       is the new power source's energy grid.
      * @return a new power source.
      */
 
-    public PowerSource createPowerSource(EnergyGrid energyGrid, String name, double maxPowerOutput, double maxEnergyStorage, EnergyGridService energyGridService) {
-        return energyGridService.createPowerSource(name, maxPowerOutput, maxEnergyStorage, energyGrid.getName());
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, EnergyGridService energyGridService) {
+        return energyGridService.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**

@@ -29,8 +29,8 @@ class EnergyGridMapperTest {
         roomService.add(roomOne);
         roomService.add(roomTwo);
         List<PowerSource> powerSourceList = new ArrayList<>();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
-        PowerSource powerSourceTwo = new PowerSource("firstSource", 10, 30, "12345L");
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
+        PowerSource powerSourceTwo = new PowerSource("firstSource", 10, 30);
         powerSourceList.add(powerSourceOne);
         powerSourceList.add(powerSourceTwo);
         validGrid.setRooms(roomService);
@@ -49,7 +49,7 @@ class EnergyGridMapperTest {
         roomList.add(RoomMapper.objectToDTO(roomOne));
         expectedResult.setRoomDTOS(roomList);
         List<PowerSourceDTO> powerSources = new ArrayList<>();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
         powerSources.add(PowerSourceMapper.objectToDTO(powerSourceOne));
         expectedResult.setPowerSourceDTOS(powerSources);
 
@@ -74,7 +74,7 @@ class EnergyGridMapperTest {
         roomList.add(RoomMapper.objectToDTO(roomOne));
         dtoToConvert.setRoomDTOS(roomList);
         List<PowerSourceDTO> powerSources = new ArrayList<>();
-        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30, "12345L");
+        PowerSource powerSourceOne = new PowerSource("firstSource", 10, 30);
         powerSources.add(PowerSourceMapper.objectToDTO(powerSourceOne));
         dtoToConvert.setPowerSourceDTOS(powerSources);
 
