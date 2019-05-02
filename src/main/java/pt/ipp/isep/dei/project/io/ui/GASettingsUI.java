@@ -467,9 +467,12 @@ class GASettingsUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
+        long startTime = System.currentTimeMillis();
         int areas = input.acceptPathJSONorXMLAndReadFile(filePath, geographicAreaService);
         if (areas > 0) {
             System.out.println(areas + " Geographic Areas have been successfully imported.");
+            long stopTime = System.currentTimeMillis();
+            System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
         } else {
             System.out.println("No Geographic Areas were imported. Please refer to the Area Type Log or the Area Sensor " +
                     "Log for more information");

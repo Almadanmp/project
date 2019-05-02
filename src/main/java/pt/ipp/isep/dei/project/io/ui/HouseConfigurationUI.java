@@ -107,9 +107,12 @@ class HouseConfigurationUI {
         String result = scanner.next();
         String input = inputHelperUI.getInputPathJson(result);
         String filePath = inputHelperUI.getInputPath(input);
+        long startTime = System.currentTimeMillis();
         try {
             if (ctrl.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService)) {
                 System.out.println("House Data Successfully imported.");
+                long stopTime = System.currentTimeMillis();
+                System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
             } else {
                 System.out.println("The JSON file is invalid.");
             }
@@ -243,10 +246,13 @@ class HouseConfigurationUI {
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = inputs.getInputPathJsonOrXML(result);
+        long startTime = System.currentTimeMillis();
         try {
             int[] importedSensors = controller.readSensors(filePath, roomService);
             System.out.println(importedSensors[0] + " Sensors successfully imported and " + importedSensors[1] + " rejected." +
                     " Check the application log for more info.");
+            long stopTime = System.currentTimeMillis();
+            System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
         } catch (IllegalArgumentException ok) {
             System.out.println("There's something wrong with the file provided. Please check it for syntax errors or " +
                     "empty elements.");
