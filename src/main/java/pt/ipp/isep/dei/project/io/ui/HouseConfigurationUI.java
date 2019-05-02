@@ -33,6 +33,8 @@ class HouseConfigurationUI {
     private static final String INVALID_OPTION = "Please enter a valid option";
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
     private static final String FILE_LOCATION = "Please insert the location of the file you want to import:";
+    private static final String IMPORT_TIME = "Import time: ";
+    private static final String MILLISECONDS = " millisecond(s).";
     private final ReaderController readerController;
     private final List<String> menuOptions;
 
@@ -258,7 +260,6 @@ class HouseConfigurationUI {
      */
 
     private void runUS265(RoomService roomService) {
-        long startTime = System.currentTimeMillis();
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
@@ -268,13 +269,12 @@ class HouseConfigurationUI {
         } else if (filePath.endsWith(".xml")) {
             importReadingsFromXML(filePath, roomService);
         }
-        long stopTime = System.currentTimeMillis();
-        System.out.println("Import time: " + (stopTime-startTime) + " millisecond(s).");
     }
 
     private void importReadingsFromCSV(String filePath, RoomService roomService) {
         int addedReadings = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
+        long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
             addedReadings = addReadingsToHouseSensors(list, roomService);
@@ -282,11 +282,14 @@ class HouseConfigurationUI {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
     private void importReadingsFromJSON(String filePath, RoomService roomService) {
         int addedReadings = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
+        long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
             addedReadings = addReadingsToHouseSensors(list, roomService);
@@ -294,11 +297,14 @@ class HouseConfigurationUI {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
     private void importReadingsFromXML(String filePath, RoomService roomService) {
         int addedReadings = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
+        long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
             addedReadings = addReadingsToHouseSensors(list, roomService);
@@ -306,6 +312,8 @@ class HouseConfigurationUI {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
         System.out.println(addedReadings + READINGS_IMPORTED);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
     private int addReadingsToHouseSensors(List<ReadingDTO> readings, RoomService roomService) {

@@ -19,12 +19,14 @@ import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 class GASettingsUI {
     private final GASettingsController gaController;
     private final ReaderController readerController;
     private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
+    private static final String IMPORT_TIME = "Import time: ";
+    private static final String MILLISECONDS = " millisecond(s).";
+
     private final List<String> menuOptions;
 
     GASettingsUI() {
@@ -392,7 +394,6 @@ class GASettingsUI {
      * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
     private void runUS20v3(GeographicAreaService geographicAreaService) {
-        long startTime = System.currentTimeMillis();
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
@@ -402,13 +403,12 @@ class GASettingsUI {
         } else if (filePath.endsWith(".xml")) {
             importReadingsFromXML(filePath, geographicAreaService);
         }
-        long stopTime = System.currentTimeMillis();
-        System.out.println("Import time: " + (stopTime-startTime) + " millisecond(s).");
     }
 
     private void importReadingsFromCSV(String filePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReadingsReaderCSV readerCSV = new ReadingsReaderCSV();
+        long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerCSV.readFile(filePath);
             result = addReadingsToAreaSensors(list, geographicAreaService);
@@ -416,11 +416,14 @@ class GASettingsUI {
             System.out.println("The CSV file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
     private void importReadingsFromJSON(String filePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
+        long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerJSON.readFile(filePath);
             result = addReadingsToAreaSensors(list, geographicAreaService);
@@ -428,11 +431,14 @@ class GASettingsUI {
             System.out.println("The JSON file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
     private void importReadingsFromXML(String filePath, GeographicAreaService geographicAreaService) {
         int result = 0;
         ReadingsReaderXML readerXML = new ReadingsReaderXML();
+        long startTime = System.currentTimeMillis();
         try {
             List<ReadingDTO> list = readerXML.readFile(filePath);
             result = addReadingsToAreaSensors(list, geographicAreaService);
@@ -440,6 +446,8 @@ class GASettingsUI {
             System.out.println("The XML file is invalid. Please fix before continuing.");
         }
         System.out.println(result + READINGS_IMPORTED);
+        long stopTime = System.currentTimeMillis();
+        System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
     private int addReadingsToAreaSensors(List<ReadingDTO> readings, GeographicAreaService geographicAreaService) {
