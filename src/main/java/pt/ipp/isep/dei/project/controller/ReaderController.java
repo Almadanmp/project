@@ -1,27 +1,20 @@
 package pt.ipp.isep.dei.project.controller;
 
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.controller.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.reader.GeographicAreaReaderJSON;
-import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
 import pt.ipp.isep.dei.project.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ReaderController {
 
@@ -95,52 +88,6 @@ public class ReaderController {
         return result;
     }
 
-    /**
-     * This is the method that reads geographic areas fromJSON files and return a list of
-     * geographic areas DTO
-     *
-     * @param filePath - the path to the file
-     * @return - a list of geo areas dto
-     */
-    public List<GeographicAreaDTO> readFileJSONGeoAreas(String filePath) {
-        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
-        return readerJSON.readFile(filePath);
-    }
-
-
-    /**
-     * This method adds the dtos to the geographic area service
-     *
-     * @param geographicAreaDTOS - the dtos imported from the file
-     * @param list               - the service we want to add the dtos to
-     * @return - number of areas added
-     */
-    public int addGeoAreasDTOToList(List<GeographicAreaDTO> geographicAreaDTOS, GeographicAreaService list) {
-        int counter = 0;
-        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
-        for (GeographicAreaDTO dto : geographicAreaDTOS) {
-            GeographicArea geoArea = GeographicAreaMapper.dtoToObject(dto);
-            String type = geoArea.getAreaType().getName();
-            AreaType areaType = list.getAreaTypeByName(type, logger);
-            geoArea.setAreaType(areaType);
-            list.addAndPersistGA(geoArea);
-            counter++;
-        }
-        LogUtils.closeHandlers(logger);
-        return counter;
-    }
-
-    /**
-     * This is the method that reads geographic area sensors from JSON files and return a list of
-     * area sensor DTO
-     *
-     * @param filePath - the path to the file
-     * @return - a list of geo areas dto
-     */
-    public List<AreaSensorDTO> readFileJSONAreaSensors(String filePath) {
-        GeographicAreaReaderJSON readerJSON = new GeographicAreaReaderJSON();
-        return readerJSON.readAreaSensorDTOS(filePath);
-    }
 
     /**
      * This method will receive a list of reading DTOs, a string of a path to a log file,

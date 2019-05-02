@@ -84,7 +84,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15v2(geographicAreaService);
+                    runUS15(geographicAreaService);
                     activeInput = false;
                     break;
                 case 10:
@@ -449,7 +449,7 @@ class GASettingsUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15v2(GeographicAreaService geographicAreaService) {
+    private void runUS15(GeographicAreaService geographicAreaService) {
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
@@ -463,26 +463,5 @@ class GASettingsUI {
                     "Log for more information");
         }
     }
-
-    //DO NOT DELETE. WORKING ON IT. - Cárina
-    private void runUS15v3(GeographicAreaService geographicAreaService) {
-        InputHelperUI inputHelperUI = new InputHelperUI();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter a valid path.");
-        String result = scanner.next();
-        String filePath = inputHelperUI.getInputPathJsonOrXML(result);
-        if (filePath.endsWith(".json")) {
-            importGeoAreasFromJSON(filePath, geographicAreaService);
-        }
-    }
-
-    private void importGeoAreasFromJSON(String filePath, GeographicAreaService geographicAreaService) {
-        int result;
-        List<GeographicAreaDTO> list = readerController.readFileJSONGeoAreas(filePath);
-        List<AreaSensorDTO> listSensor = readerController.readFileJSONAreaSensors(filePath);
-        result = readerController.addGeoAreasDTOToList(list, geographicAreaService);
-        System.out.println(result + " geographic area(s) successfully imported.");
-    }
-
 
 }

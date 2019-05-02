@@ -258,45 +258,6 @@ class ReaderControllerTest {
 
 
     @Test
-    void seeIfReadFileWorks() {
-        //Arrange
-        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
-
-        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        geographicAreaDTO.setName("ISEP");
-        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
-        geographicAreaDTO.setLocalDTO(localDTO);
-        geographicAreaDTO.setDescription("Campus do ISEP");
-        geographicAreaDTO.setWidth(0.261);
-        geographicAreaDTO.setLength(0.249);
-        geographicAreaDTO.setAreaSensorDTOList(null);
-        geographicAreaDTO.setTypeArea("urban area");
-
-        expectedResult.add(geographicAreaDTO);
-
-        AreaType city = new AreaType("city");
-        AreaType urbanArea = new AreaType("urban area");
-
-        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
-
-        SensorType rainfall = new SensorType("rainfall", "mm");
-        SensorType temperature = new SensorType("temperature", "C");
-
-        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
-
-
-        //Act
-
-        List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-
-        //Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfReadFileXMLGeoAreaWorks() {
         // Arrange
 
@@ -513,41 +474,6 @@ class ReaderControllerTest {
     }
 
 
-    @Test
-    void seeIfReadFileWorksWithOneGA() {
-        //Arrange
-        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
-
-        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        geographicAreaDTO.setName("ISEP");
-        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
-        geographicAreaDTO.setLocalDTO(localDTO);
-        geographicAreaDTO.setDescription("Campus do ISEP");
-        geographicAreaDTO.setWidth(0.261);
-        geographicAreaDTO.setLength(0.249);
-        geographicAreaDTO.setTypeArea("urban area");
-
-        expectedResult.add(geographicAreaDTO);
-
-        List<AreaSensorDTO> sensorDTOS = new ArrayList<>();
-
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setLocalDTO(localDTO);
-        areaSensorDTO.setUnits("C");
-        areaSensorDTO.setName("sensor");
-        areaSensorDTO.setDateStartedFunctioning("2015-05-21");
-        areaSensorDTO.setTypeSensor("temperature");
-
-
-        //Act
-
-         List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-        int result = readerController.addGeoAreasDTOToList(expectedResult, validGeographicAreaService);
-
-        //Assert
-
-        assertEquals(1, result);
-    }
 
     @Test
     void seeIfReadFileWorksWithOneGAAndOneSensor() {
