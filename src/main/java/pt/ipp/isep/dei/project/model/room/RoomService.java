@@ -122,7 +122,9 @@ public class RoomService {
         for (Room r : getAllRooms()) {
             String designation = r.getId();
             if (roomDesignation.equals(designation)) {
-                return r; } }
+                return r;
+            }
+        }
         return new Room(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
     }
 
@@ -320,11 +322,7 @@ public class RoomService {
      * @return is true if the object is a power source list with the same contents.
      */
     public RoomSensor createRoomSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
-
-        SensorType aux = getTypeSensorByName(sensorType.getName());
-        if (aux != null) {
-            sensorType = aux;
-        }
+        sensorType = getTypeSensorByName(sensorType.getName());
         return new RoomSensor(id, name, sensorType, dateStartedFunctioning, roomId);
     }
 
@@ -334,7 +332,7 @@ public class RoomService {
      * in the given room from the repository.
      *
      * @param readings a list of reading DTOs
-     * @param logPath     M  string of a log file path
+     * @param logPath  M  string of a log file path
      * @return the number of readings added
      **/
     public int addReadingsToRoomSensors(List<Reading> readings, String logPath) {

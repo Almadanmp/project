@@ -688,13 +688,18 @@ class RoomServiceTest {
     @Test
     void seeIfCreateRoomReturnsExistingRoom() {
         //Arrange
+        Room room2 = new Room("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        Room room = new Room("Kitchen2", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         List<Room> roomList = new ArrayList<>();
         roomList.add(validRoom);
+        roomList.add(room);
         Mockito.when(roomRepository.findAll()).thenReturn(roomList);
         //Act
         Room actualResult = validRoomService.createRoom("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        Room actualResult1 = validRoomService.createRoom("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         //Assert
         assertEquals(validRoom, actualResult);
+        assertEquals(room2, actualResult1);
     }
 
     @Test
