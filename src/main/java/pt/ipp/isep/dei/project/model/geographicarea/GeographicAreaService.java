@@ -107,7 +107,6 @@ public class GeographicAreaService {
         AreaType areaType = getAreaTypeByName(areaTypeName, logger);
         LogUtils.closeHandlers(logger);
         if (areaType != null) {
-            // areaTypeRepository.saveSensor(areaType);
             return new GeographicArea(newName, areaType, length, width, local);
         } else {
             throw new IllegalArgumentException();
@@ -186,7 +185,6 @@ public class GeographicAreaService {
 
     //METHODS FROM AREA SENSOR REPOSITORY
 
-
     public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
                                        Long geographicAreaId) {
 
@@ -209,7 +207,7 @@ public class GeographicAreaService {
         Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
         if (!(value.isPresent())) {
-            logger.fine("The Sensor Type " + name + " does not yet exist in the Data Base. Please create the Sensor" +
+            logger.fine("The Sensor Type " + name + "with the unit "+ unit +" does not yet exist in the Data Base. Please create the Sensor" +
                     "Type first.");
             LogUtils.closeHandlers(logger);
             return null;
