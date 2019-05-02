@@ -258,6 +258,7 @@ class HouseConfigurationUI {
      */
 
     private void runUS265(RoomService roomService) {
+        long startTime = System.currentTimeMillis();
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
@@ -267,6 +268,8 @@ class HouseConfigurationUI {
         } else if (filePath.endsWith(".xml")) {
             importReadingsFromXML(filePath, roomService);
         }
+        long stopTime = System.currentTimeMillis();
+        System.out.println("Import time: " + (stopTime-startTime) + " millisecond(s).");
     }
 
     private void importReadingsFromCSV(String filePath, RoomService roomService) {

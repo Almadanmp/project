@@ -1,5 +1,6 @@
 {
-	"readings": [{
+	"readings": [
+		{
 			"id": "RF12345",
 			"timestamp/date": "2018-10-01",
 			"value": "1.1",

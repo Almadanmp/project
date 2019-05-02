@@ -19,6 +19,7 @@ import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 class GASettingsUI {
     private final GASettingsController gaController;
@@ -391,6 +392,7 @@ class GASettingsUI {
      * geographicAreaList is the static, program list of geographic areas that comes from mainUI.
      */
     private void runUS20v3(GeographicAreaService geographicAreaService) {
+        long startTime = System.currentTimeMillis();
         InputHelperUI inputHelperUI = new InputHelperUI();
         String filePath = inputHelperUI.getInputJsonXmlCsv();
         if (filePath.endsWith(".csv")) {
@@ -400,6 +402,8 @@ class GASettingsUI {
         } else if (filePath.endsWith(".xml")) {
             importReadingsFromXML(filePath, geographicAreaService);
         }
+        long stopTime = System.currentTimeMillis();
+        System.out.println("Import time: " + (stopTime-startTime) + " millisecond(s).");
     }
 
     private void importReadingsFromCSV(String filePath, GeographicAreaService geographicAreaService) {
