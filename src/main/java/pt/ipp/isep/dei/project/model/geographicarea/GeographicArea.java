@@ -454,7 +454,7 @@ public class GeographicArea implements Root {
      * @return true if it matches, false if it does not.
      **/
 
-    boolean equalsTypeArea(AreaType areaType) {
+    boolean isOfType(AreaType areaType) {
         return (this.areaType.equals(areaType));
     }
 

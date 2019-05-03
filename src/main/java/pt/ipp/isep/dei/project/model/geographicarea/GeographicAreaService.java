@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 @Service
 public class GeographicAreaService {
     @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
+    private static GeographicAreaRepository geographicAreaRepository;
     @Autowired
-    private AreaTypeRepository areaTypeRepository;
+    private static AreaTypeRepository areaTypeRepository;
     @Autowired
     SensorTypeRepository sensorTypeRepository;
 
@@ -37,8 +37,8 @@ public class GeographicAreaService {
 
 
     public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository, SensorTypeRepository sensorTypeRepository) {
-        this.geographicAreaRepository = geographicAreaRepository;
-        this.areaTypeRepository = areaTypeRepository;
+        GeographicAreaService.geographicAreaRepository = geographicAreaRepository;
+        GeographicAreaService.areaTypeRepository = areaTypeRepository;
         this.sensorTypeRepository = sensorTypeRepository;
     }
 
@@ -48,7 +48,7 @@ public class GeographicAreaService {
      * @return a GeographicAreaList with all the Geographical Areas saved in the repository.
      */
     public List<GeographicArea> getAll() {
-        return this.geographicAreaRepository.findAll();
+        return geographicAreaRepository.findAll();
     }
 
     /**
@@ -126,7 +126,7 @@ public class GeographicAreaService {
         List<GeographicArea> finalList = new ArrayList<>();
         AreaType areaTypeToTest = new AreaType(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
-            if (ga.equalsTypeArea(areaTypeToTest)) {
+            if (ga.isOfType(areaTypeToTest)) {
                 finalList.add(ga);
             }
         }
@@ -339,7 +339,7 @@ public class GeographicAreaService {
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
-    public double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
+    private double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
         List<Reading> sensorReadingsBetweenDates = getReadingListBetweenFormattedDates(minDate, maxDate, areaSensor);
         if (sensorReadingsBetweenDates.isEmpty()) {
             return 666;
