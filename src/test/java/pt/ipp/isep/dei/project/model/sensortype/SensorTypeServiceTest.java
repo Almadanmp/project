@@ -53,16 +53,6 @@ class SensorTypeServiceTest {
     }
 
 
-//    @Test
-//    void seeIfAddAreaType() {
-//        SensorType sensortype = new SensorType("Temperature","Celsius");
-//
-//        Mockito.when(sensorTypeRepository.findByName(sensortype.getName())).thenReturn(sensortype);
-//
-//        assertTrue(sensorTypeService.add(sensortype));
-//    }
-
-
     @Test
     void seeIfGetTypeAreaByIdRepositoryNull() {
         String areaName = null;
@@ -194,6 +184,75 @@ class SensorTypeServiceTest {
         // Assert
 
         assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddWorks() {
+        //Arrange
+
+        SensorType sensorType = new SensorType("Name", "celsius");
+        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.empty());
+
+        //Act
+        boolean actualResult = sensorTypeService.add(sensorType);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepository() {
+        //Arrange
+
+        SensorType sensorType = new SensorType("Name", "Celsius");
+        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.of(sensorType));
+
+        //Act
+        boolean actualResult = sensorTypeService.add(sensorType);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddTypeWorks() {
+        //Arrange
+
+        SensorType sensorType = new SensorType("Name", "celsius");
+        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.empty());
+
+        //Act
+        boolean actualResult = sensorTypeService.addType(sensorType);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddWorksWhenAreaTypeAlreadyExists() {
+        //Arrange
+
+        SensorType sensorType = new SensorType("Name", "Celsius");
+        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.of(sensorType));
+
+
+        //Act
+        boolean actualResult = sensorTypeService.addType(sensorType);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfGetTypeAreaByIdRepository() {
+        String mockId = "temperature";
+
+        SensorType areaType = new SensorType("temperature", "C");
+
+        sensorTypeService.add(areaType);
+
+        Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.of(areaType));
+
+        SensorType result = sensorTypeService.getById(mockId);
+
+        assertEquals(result.getName(), areaType.getName());
+        assertEquals(result.getUnits(), areaType.getUnits());
     }
 
 
