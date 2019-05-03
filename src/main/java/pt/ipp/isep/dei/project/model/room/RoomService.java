@@ -57,14 +57,11 @@ public class RoomService {
 //TODO UPDATED METHODS
 
     public List<Room> getAllRooms() {
-        List<Room> finalList = new ArrayList<>();
-        Iterable<Room> roomsAux = roomRepository.findAll();
-        if (roomsAux != null) {
-            for (Room r : roomsAux) {
-                finalList.add(r);
-            }
+        List<Room> roomsAux = roomRepository.findAll();
+        if(roomsAux != null){
+            return roomsAux;
         }
-        return finalList;
+        return new ArrayList<>();
     }
 
 

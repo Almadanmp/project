@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.Local;
@@ -31,10 +33,7 @@ import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -408,106 +407,6 @@ class EnergyConsumptionControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-
-    //US752 TESTS
-
-//    @Test
-//    void getDailyHouseConsumptionTestZero() {
-//        // Arrange
-//
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//
-//        House house = new House("ISEP", address,
-//                new Local(20, 20, 20), 60, 180,
-//                deviceTypeString);
-//        house.setMotherArea(validArea);
-//        validRoom1.addDevice(validDevice1);
-//        validRoom1.addDevice(validDevice2);
-//        validRoom2.addDevice(validDevice3);
-//        double expectedResult = 0.0;
-//
-//        // Act
-//
-//        double actualResult = controller.getDailyWaterHeaterConsumption(house);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
-
-//    @Test
-//    void getDailyHouseConsumptionNoRoomsTest() {
-//        // Arrange
-//
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//        House house = new House("ISEP", address,
-//                new Local(20, 20, 20), 60, 180,
-//                deviceTypeString);
-//        house.setMotherArea(validArea);
-//        double expectedResult = 0;
-//
-//        // Act
-//
-//        double actualResult = controller.getDailyWaterHeaterConsumption(house);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
-
-//    @Test
-//    void getDailyHouseConsumptionNoDevicesTest() {
-//        // Arrange
-//
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//
-//        House house = new House("ISEP", address, new Local(20, 20, 20), 60,
-//                180, deviceTypeString);
-//        house.setMotherArea(validArea);
-//        double expectedResult = 0;
-//
-//        // Act
-//
-//        double actualResult = controller.getDailyWaterHeaterConsumption(house);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
-//
-//    @Test
-//    void getDailyHouseConsumptionNoHeaterDevicesTest() {
-//        // Arrange
-//
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//        House house = new House("ISEP", address, new Local(20, 20, 20),
-//                60, 180, deviceTypeString);
-//        house.setMotherArea(validArea);
-//        validRoom1.addDevice(validDevice1);
-//        validRoom2.addDevice(validDevice2);
-//        double expectedResult = 0;
-//
-//        // Act
-//
-//        double actualResult = controller.getDailyWaterHeaterConsumption(house);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
-
     @Test
     void getTotalNominalPowerFromGridTest() {
         // Arrange
@@ -558,32 +457,6 @@ class EnergyConsumptionControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
-
-//    @Test
-//    void getWaterHeaterDeviceListTestTwoDevices() {
-//        // Arrange
-//
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//        House house = new House("ISEP", address, new Local(20, 20, 20),
-//                60, 180, deviceTypeString);
-//        house.setMotherArea(validArea);
-//        validRoom1.addDevice(validDevice1);
-//        validRoom1.addDevice(validDevice2);
-//        DeviceList expectedResult = new DeviceList();
-//        expectedResult.add(validDevice1);
-//        expectedResult.add(validDevice2);
-//
-//        // Act
-//
-//        DeviceList actualResult = controller.getWaterHeaterDeviceList(house);
-//
-//        // Assert
-//
-//        Assertions.assertEquals(expectedResult, actualResult);
-//
-//    }
 
     @Test
     void seeIfGetWHNameWorks() {
@@ -837,32 +710,6 @@ class EnergyConsumptionControllerTest {
 
     }
 
-//    @Test
-//    void seeIfGetRoomLogsInIntervalWorks() {
-//        // Arrange
-//
-//        LogList expectedResult = new LogList();
-//        expectedResult.addLog(validLog1);
-//        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida","431",
-//                "4455-125", "Porto","Portugal"),
-//                new Local(20, 20, 20),  60,
-//                180, new ArrayList<>());
-//        validHouse.setMotherArea(validArea);
-//
-//        validHouse.saveSensor(validRoom1);
-//        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
-//
-//        // Act
-//
-//        validDevice1.addLog(validLog1);
-//        LogList actualResult = controller.getRoomLogsInInterval(roomDTO, validDate1, validDate2,roomService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
-
     @Test
     void seeIfGetDeviceLogsInInterval() {
         // Arrange
@@ -917,5 +764,35 @@ class EnergyConsumptionControllerTest {
 
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    @Test
+    void seeIfGetRoomLogsInIntervalWorks(){
+        // Arrange
+
+        List<Room> mockedRoomList = new ArrayList<>();
+        mockedRoomList.add(validRoom1);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockedRoomList);
+        Date insideInterval = new GregorianCalendar(2016, Calendar.JULY, 1).getTime();
+        LogList expectedResult = new LogList();
+        Log log1 = new Log(11, insideInterval, insideInterval);
+        Log log2 = new Log(13, insideInterval, insideInterval);
+        Log log3 = new Log(15, insideInterval, insideInterval);
+        expectedResult.addLog(log1);
+        expectedResult.addLog(log2);
+        expectedResult.addLog(log3);
+        validDevice1.addLog(log1);
+        validDevice2.addLog(log2);
+        validDevice3.addLog(log3);
+
+
+        // Act
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
+        LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }
