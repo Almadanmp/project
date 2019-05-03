@@ -521,4 +521,6 @@ class HouseMonitoringControllerTest {
 
         assertEquals(areaSensorError, actualResult);
     }
+
+
 }

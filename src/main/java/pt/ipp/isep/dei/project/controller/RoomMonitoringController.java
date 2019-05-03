@@ -24,7 +24,7 @@ public class RoomMonitoringController {
      * @return is the most recent temperature recorded in a room.
      */
     public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getCurrentRoomTemperature();
     }
 
@@ -36,7 +36,7 @@ public class RoomMonitoringController {
      * @return is the max temperature recorded in a room
      */
     public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -48,7 +48,7 @@ public class RoomMonitoringController {
      **/
 
     public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getId();
     }
 

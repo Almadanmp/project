@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -138,7 +140,7 @@ public class RoomService {
      * @param room is the room we want to saveSensor.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-    public void updateRoom(Room room) {
+    void updateRoom(Room room) {
         roomRepository.save(room);
     }
 
@@ -180,6 +182,25 @@ public class RoomService {
             return room;
         }
         throw new IndexOutOfBoundsException("ERROR: No Room was file with the following name: " + name + " .");
+    }
+
+    /**
+     * Method that updates a room contained in a given house with the data contained in a given DTO. It matches the
+     * DTO to the object through UUID.
+     *
+     * @param roomDTO is the DTO that contains the data we want to use to update the model object.
+     * @return is the updated room if the update was successful, is null if it wasn't.
+     */
+    public Room updateHouseRoom(RoomDTO roomDTO) {
+        Room room = null;
+        List<Room> rooms = this.getAllRooms();
+        for (Room r : rooms) {
+            if (roomDTO.getName().compareTo(r.getId()) == 0) {
+                r = RoomMapper.dtoToObject(roomDTO);
+                room = r;
+            }
+        }
+        return room;
     }
 
 //TODO OLD METHODS

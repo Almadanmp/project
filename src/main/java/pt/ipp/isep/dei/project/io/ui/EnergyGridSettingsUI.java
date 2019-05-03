@@ -94,9 +94,11 @@ class EnergyGridSettingsUI {
     }
 
     private void updateHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
-        EnergyGrid energyGridAux = controller.addEnergyGridToHouse(energyGrid, energyGridService);
-        if (energyGridAux != null) {
+        try {
+            controller.addEnergyGridToHouse(energyGrid, energyGridService);
             System.out.println("The energy grid was successfully created and added to the house.");
+        } catch (RuntimeException ok) {
+            System.out.println("Something went wrong. Please try again.");
         }
     }
 
@@ -170,9 +172,14 @@ class EnergyGridSettingsUI {
     }
 
     private void updateGridUS147(EnergyGrid grid, RoomDTO room, RoomService roomService, EnergyGridService energyGridService) {
-        if (controller.addRoomToGrid(grid, room, roomService)) {
-            controller.updateEnergyGrid(grid, energyGridService);
-            System.out.println("Room successfully added to the grid!");
+        if (controller.addRoomDTOToGrid(grid, room, roomService)) {
+            try {
+                controller.addEnergyGridToHouse(grid, energyGridService);
+                System.out.println("Room successfully added to the grid!");
+            }
+            catch (RuntimeException ok){
+                System.out.println("Something went wrong with the Energy Grid. Please try again.");
+            }
         } else {
             System.out.println("It wasn't possible to add the room. Please try again.");
         }
@@ -196,10 +203,15 @@ class EnergyGridSettingsUI {
 
     private void updateGridUS149(EnergyGrid grid, Room room, EnergyGridService energyGridService) {
         if (controller.removeRoomFromGrid(grid, room)) {
-            controller.updateEnergyGrid(grid, energyGridService);
-            System.out.println("Room successfully removed from grid!");
+            try {
+                controller.addEnergyGridToHouse(grid, energyGridService);
+                System.out.println("Room successfully removed from grid!");
+            }
+            catch (RuntimeException ok){
+                System.out.println("Something is wrong with the room's Energy Grid. Please try again.");
+            }
         } else {
-            System.out.println("It wasn't possible to removeSensor the room. Please try again.");
+            System.out.println("It wasn't possible to remove the room. Please try again.");
         }
     }
 

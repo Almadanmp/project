@@ -129,7 +129,7 @@ public class RoomConfigurationController {
      * @return a int that represents the size of the deviceList.
      */
     public int getDeviceListSize(RoomDTO roomDTO, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getDeviceListSize();
     }
 
@@ -140,7 +140,7 @@ public class RoomConfigurationController {
      * @param index   is the index of the device in the device list
      */
     public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getDeviceByIndex(index);
     }
 
