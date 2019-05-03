@@ -84,11 +84,10 @@ class RoomMonitoringControllerTest {
         Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
         Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
         Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
-        List<Reading> areaReadings = new ArrayList<>();
-        areaReadings.add(areaReading1);
-        areaReadings.add(areaReading2);
-        areaReadings.add(areaReading3);
-        validAreaSensor.setReadings(areaReadings);
+        validAreaSensor.addReading(areaReading1);
+        validAreaSensor.addReading(areaReading2);
+        validAreaSensor.addReading(areaReading3);
+
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
         validArea.addSensor(validAreaSensor);
@@ -99,7 +98,7 @@ class RoomMonitoringControllerTest {
                 180, deviceTypeString);
         this.validHouse.setMotherArea(validArea);
         this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        this.geographicAreaService= new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
+        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         RoomService validRoomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         this.rooms = new ArrayList<>();

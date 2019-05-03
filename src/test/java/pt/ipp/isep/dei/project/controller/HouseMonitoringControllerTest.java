@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -14,9 +13,13 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -96,18 +99,18 @@ class HouseMonitoringControllerTest {
 
         validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
-                new Date(), 6008L);
+                validDate4, 6008L);
         // Is a temperature sensor with valid readings.
         Reading firstTempReading = new Reading(15, validDate1, "C", "Test");
-        validTemperatureAreaSensor.getReadings().add(firstTempReading);
+        validTemperatureAreaSensor.addReading(firstTempReading);
         Reading secondTempReading = new Reading(20, validDate2, "C", "Test");
-        validTemperatureAreaSensor.getReadings().add(secondTempReading);
+        validTemperatureAreaSensor.addReading(secondTempReading);
         Reading thirdTempReading = new Reading(30, validDate3, "C", "Test");
-        validTemperatureAreaSensor.getReadings().add(thirdTempReading);
+        validTemperatureAreaSensor.addReading(thirdTempReading);
         Reading fourthTempReading = new Reading(30, validDate4, "C", "Test");
-        validTemperatureAreaSensor.getReadings().add(fourthTempReading);
+        validTemperatureAreaSensor.addReading(fourthTempReading);
         Reading fifthTempReading = new Reading(-5, validDate5, "C", "Test");
-        validTemperatureAreaSensor.getReadings().add(fifthTempReading);
+        validTemperatureAreaSensor.addReading(fifthTempReading);
     }
 
 
@@ -411,9 +414,7 @@ class HouseMonitoringControllerTest {
                 21).getTime(), 213L);
         Reading mockReading = new Reading(15, new GregorianCalendar(2017, Calendar.FEBRUARY, 3).getTime(),
                 "l/m2", "S001");
-        List<Reading> mockReadingList = new ArrayList<>();
-        mockReadingList.add(mockReading);
-        rainFallSensor.setReadings(mockReadingList);
+        rainFallSensor.addReading(mockReading);
         double expectedResult = 15.0;
 
         // Actual
