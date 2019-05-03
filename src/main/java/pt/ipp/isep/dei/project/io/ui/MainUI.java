@@ -39,10 +39,6 @@ public class MainUI {
     @Autowired
     private AreaTypeService areaTypeService;
     @Autowired
-    private AreaSensorRepository areaSensorRepository;
-    @Autowired
-    private ReadingUtils readingUtils;
-    @Autowired
     private GeographicAreaService geographicAreaService;
     @Autowired
     private RoomService roomService;
@@ -206,7 +202,7 @@ public class MainUI {
                             break;
                         case 6:
                             RoomMonitoringUI roomMonitoringUI = new RoomMonitoringUI();
-                            roomMonitoringUI.run(house, roomService);
+                            roomMonitoringUI.run(house, roomService, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

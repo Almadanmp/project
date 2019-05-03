@@ -10,7 +10,6 @@ import java.util.Date;
  */
 @Embeddable
 public class Reading implements ValueObject {
-    private Long id;
     private String sensorID;
     private double value;
     private Date date;

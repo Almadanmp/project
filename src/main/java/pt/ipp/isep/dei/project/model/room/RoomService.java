@@ -3,16 +3,18 @@ package pt.ipp.isep.dei.project.model.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.utils.LogUtils;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -424,5 +426,82 @@ public class RoomService {
     }
 
 
+    //US 440 - Methods must be moved to Room-GeoArea-bridge-Service
+
+    public List<Reading> getReadingsBelowCategoryILimit(List<Reading> readingValues, House house, GeographicAreaService geographicAreaService) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = geographicAreaService.getGeographiAreaAverageTemperature(r.getDate(),house);
+            if (temperature != 666) {
+                if (categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                    allReadings.add(r);
+                }
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house, GeographicAreaService geographicAreaService) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = geographicAreaService.getGeographiAreaAverageTemperature(r.getDate(), house);
+            if (categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsBelowCategoryIIILimit(List<Reading> readingValues, House house, GeographicAreaService geographicAreaService) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = geographicAreaService.getGeographiAreaAverageTemperature(r.getDate(), house);
+            if (categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    private boolean categoryICalculusTemperaturesLowerThanAverage(Reading reading, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 - 2;
+        return reading.getValue() < minT;
+    }
+
+    private boolean categoryIICalculusTemperaturesLowerThanAverage(Reading reading, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 - 3;
+        return reading.getValue() < minT;
+    }
+
+    private boolean categoryIIICalculusTemperaturesLowerThanAverage(Reading reading, Double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 - 4;
+        return reading.getValue() < minT;
+    }
+
+    public List<Reading> getReadingsInInterval(Date startDate, Date endDate, Room room) {
+        return getTemperatureReadingsBetweenDates(startDate, endDate, room);
+    }
+
+    private List<Reading> getTemperatureReadingsBetweenDates(Date initialDate, Date finalDate, Room room) {
+        List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
+        List<Reading> allReadings = new ArrayList<>();
+        for (RoomSensor roomSensor : temperatureSensors) {
+            allReadings.addAll(roomSensor.getReadings());
+        }
+        List<Reading> finalList = new ArrayList<>();
+        for (Reading r : allReadings) {
+            SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date readingDate = new Date();
+            try {
+                readingDate = simple.parse(r.getDate().toString());
+            } catch (ParseException e) {
+                System.out.println();
+            }
+            if (ReadingUtils.isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)) {
+                finalList.add(r);
+            }
+        }
+        return finalList;
+    }
 }
 

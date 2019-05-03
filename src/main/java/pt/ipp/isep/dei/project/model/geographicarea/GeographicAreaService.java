@@ -7,11 +7,14 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -312,5 +315,70 @@ public class GeographicAreaService {
             }
         }
         return addedReadings;
+    }
+
+    // Methods to be moved to GeographicArea-House-bridge-Service
+
+    public double getGeographiAreaAverageTemperature(Date date, House house) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date d1 = calendar.getTime(); // gets date at 00:00:00
+
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date d2 = calendar.getTime(); // gets date at 23:59:59
+
+        // gets and returns average readings on the closest AreaSensor to the house
+        AreaSensor houseClosestSensor = house.getMotherArea().getClosestAreaSensorOfGivenType("temperature",house);
+        return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
+    }
+
+    public double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
+        List<Reading> sensorReadingsBetweenDates = getReadingListBetweenFormattedDates(minDate, maxDate, areaSensor);
+        if (sensorReadingsBetweenDates.isEmpty()) {
+            return 666;
+        }
+        List<Double> avgDailyValues = new ArrayList<>();
+        for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
+            Date day = sensorReadingsBetweenDates.get(i).getDate();
+            List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(sensorReadingsBetweenDates, day);
+            double avgDay = ReadingUtils.getAvgFromList(specificDayValues);
+            avgDailyValues.add(avgDay);
+        }
+        return ReadingUtils.getAvgFromList(avgDailyValues);
+    }
+
+    private List<Reading> getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor) {
+        //System.out.println(initialDate);
+        //System.out.println(finalDate);
+        List<Reading> finalList = new ArrayList<>();
+        List<Reading> result = areaSensor.getReadings();
+
+        for (Reading r : result) {
+//            System.out.println("Data Reading:");
+//            System.out.println(r.getDate());
+//            System.out.println("Nova Data:");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date readingDate = new Date();
+            try {
+                readingDate = sdf.parse(r.getDate().toString());
+//            System.out.println(sdf.parse(r.getDate().toString()));
+            } catch (ParseException e){
+            }
+//            System.out.println("Reading: Data, DatainicioDia, DataFimDia");
+//            System.out.println(initialDate);
+//            System.out.println(finalDate);
+//            System.out.println(readingDate);
+            if (ReadingUtils.isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)) {
+                finalList.add(r);
+            }
+        }
+        return finalList;
     }
 }

@@ -341,7 +341,7 @@ public class AreaSensor {
     public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         List<Reading> sensorReadingsBetweenDates = getReadingListBetweenDates(minDate, maxDate);
         if (sensorReadingsBetweenDates.isEmpty()) {
-            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+           throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
         List<Double> avgDailyValues = new ArrayList<>();
         for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {

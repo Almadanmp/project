@@ -6,7 +6,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -231,4 +233,58 @@ class RoomMonitoringControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
+
+//    @Test
+//    void seeIfGetInstantsBelowComfortIntervalWorks(){
+//        // Arrange
+//
+//        String expectedResult = "Instants in which the readings are below comfort temperature:\n" +
+//                "0) Instant: 5/2/2018 10:12:13\n" +
+//                "   Temperature value: 0.0\n" +
+//                "   Difference from outside day average: + -20.0 Cº\n" +
+//                "1) Instant: 5/2/2018 10:12:13\n" +
+//                "   Temperature value: 0.0\n" +
+//                "   Difference from outside day average: + -21.0 Cº\n" +
+//                "2) Instant: 5/2/2018 10:12:13\n" +
+//                "   Temperature value: 0.0\n" +
+//                "   Difference from outside day average: + -18.0 Cº\n" +
+//                "---\n";
+//
+//        int category = 0;
+//
+//        Reading reading1 = new Reading(0, validDate1, "C", "Test");
+//        Reading reading2 = new Reading(0, validDate2, "C", "Test1");
+//        Reading reading3 = new Reading(0, validDate3, "C", "Test");
+//
+//        List<Reading> readings = new ArrayList<>();
+//
+//        readings.add(reading1);
+//        readings.add(reading2);
+//        readings.add(reading3);
+//
+//        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
+//        SensorType sensorType = new SensorType("temperature", "Celsius");
+//        roomSensor.setSensorType(sensorType);
+//        roomSensor.setReadings(readings);
+//        roomSensor.setRoomId(validRoom1.getId());
+//
+//        List<RoomSensor> roomSensors = new ArrayList<>();
+//        roomSensors.add(roomSensor);
+//        validRoom1.setRoomSensors(roomSensors);
+//
+//        reading1.setSensorID(roomSensor.getId());
+//        reading2.setSensorID(roomSensor.getId());
+//        reading3.setSensorID(roomSensor.getId());
+//
+//        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+//
+//        // Act
+//
+//        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validDate1, validDate3);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//
+//    }
 }
