@@ -68,7 +68,7 @@ class EnergyConsumptionControllerTest {
     SensorTypeRepository sensorTypeRepository;
 
     private RoomService roomService;
-    private List<Room>roomList;
+    private List<Room> roomList;
 
     @Mock
     EnergyGridRepository energyGridRepository;
@@ -767,7 +767,7 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    void seeIfGetRoomLogsInIntervalWorks(){
+    void seeIfGetRoomLogsInIntervalWorks() {
         // Arrange
 
         List<Room> mockedRoomList = new ArrayList<>();
@@ -797,18 +797,18 @@ class EnergyConsumptionControllerTest {
     }
 
     @Test
-    void seeIfGetRoomLogsInIntervalWorksNoRooms(){
+    void seeIfGetRoomLogsInIntervalWorksNoRooms() {
         // Arrange
 
         RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Assert
 
-        assertThrows((RuntimeException.class), ()-> controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomService));
+        assertThrows((RuntimeException.class), () -> controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomService));
     }
 
     @Test
-    void seeIfGetRoomLogsInIntervalWorksNoLogs(){
+    void seeIfGetRoomLogsInIntervalWorksNoLogs() {
         // Arrange
 
         List<Room> mockedRoomList = new ArrayList<>();
@@ -820,6 +820,26 @@ class EnergyConsumptionControllerTest {
 
         RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
         LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetWaterHeaterDeviceListWorks() {
+        // Arrange
+
+        List<Room> mockedRoomList = new ArrayList<>();
+        mockedRoomList.add(validRoom1);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockedRoomList);
+        DeviceList expectedResult = new DeviceList();
+        expectedResult.add(validDevice1);
+        expectedResult.add(validDevice2);
+
+        // Act
+
+        DeviceList actualResult = controller.getWaterHeaterDeviceList(roomService);
 
         // Assert
 

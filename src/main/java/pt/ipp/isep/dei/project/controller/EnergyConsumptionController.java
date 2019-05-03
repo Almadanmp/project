@@ -232,7 +232,7 @@ public class EnergyConsumptionController {
         List<Room> rooms = roomService.getAllRooms();
         DeviceList roomDevicesOfGivenType = new DeviceList();
         for (Room r : rooms) {
-            roomDevicesOfGivenType.addDevicesToDeviceList(r.getDevicesOfGivenType("WaterHeater"));
+            r.getDevicesOfGivenType("WaterHeater").addDevicesToDeviceList(roomDevicesOfGivenType);
         }
         return roomDevicesOfGivenType;
     }
