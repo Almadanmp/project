@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model.geographicarea;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddPlaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -36,8 +38,10 @@ public class GeographicArea implements Root {
     @JoinColumn(name = "mother_area_id")
     private GeographicArea motherArea;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "geographicAreaId")
+
     private List<AreaSensor> areaSensors;
 
     @Embedded

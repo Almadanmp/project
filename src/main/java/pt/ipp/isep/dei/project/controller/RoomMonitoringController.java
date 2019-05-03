@@ -116,7 +116,6 @@ public class RoomMonitoringController {
         List<Reading> readingValues = roomService.getReadingsInInterval(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
-
         if (category == 0) {
             allReadings = roomService.getReadingsBelowCategoryILimit(readingValues, house, geographicAreaService);
             if (!allReadings.isEmpty()) result = buildReadingDTOListOutputUS440(allReadings);
@@ -135,16 +134,13 @@ public class RoomMonitoringController {
     private String buildReadingDTOListOutputUS440(List<Reading> list) {
         StringBuilder result = new StringBuilder("Instants in which the readings are below the comfort temperature:\n");
         for (int i = 0; i < list.size(); i++) {
-//            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
             Reading reading = list.get(i);
-//            gregorianCalendar.setTime(reading.getDate());
-//            double temperature = house.getHouseAreaAverageTemperature(reading.getDate());
-//            result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
-//                    + (Calendar.YEAR + 2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
-//                    + Calendar.SECOND).append("\n");
-//            result.append("   Temperature value: ").append(reading.getValue()).append("\n");
-//            result.append("   Difference from outside day average: ").append(Math.round(reading.getValue() - temperature) / 100.0).append(" Cº\n");
-            result.append(i).append(") Instant: ").append(reading.getDate()).append("\n");
+            gregorianCalendar.setTime(reading.getDate());
+            result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
+                    + (Calendar.YEAR + 2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
+                    + Calendar.SECOND).append("\n");
+            result.append("   Temperature value: ").append(reading.getValue()).append("\n");
         }
         result.append("--------------------------------------\n");
         return result.toString();
