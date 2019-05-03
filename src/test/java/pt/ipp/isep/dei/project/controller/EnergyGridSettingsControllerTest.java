@@ -289,9 +289,4 @@ class EnergyGridSettingsControllerTest {
                 () -> controller.addEnergyGridToHouse(validGrid, energyGridService));
 
     }
-
-    @Test
-    void seeIfAddEnergyGridToHouseWorks() {
-
-    }
 }
