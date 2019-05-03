@@ -54,7 +54,6 @@ class GeographicAreaServiceTest {
     AreaTypeRepository areaTypeRepository;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
-    private AreaSensor thirdValidAreaSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
 
@@ -83,7 +82,7 @@ class GeographicAreaServiceTest {
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
                 validDate1, 6008L);
         secondValidAreaSensor.setActive(true);
-        thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
+        AreaSensor thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("Rainfall", "l/m2"), new Local(10, 10, 10),
                 validDate1, 6008L);
         this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
     }
@@ -416,6 +415,18 @@ class GeographicAreaServiceTest {
         // Assert
 
         assertEquals(actualResult.size(), 1);
+    }
+
+    @Test
+    void seeIfGetsGeoAreasByTypeNotARealType() {
+
+        // Act
+
+        List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Not a valid type");
+
+        // Assert
+
+        assertEquals(actualResult.size(), 0);
     }
 
     @Test
