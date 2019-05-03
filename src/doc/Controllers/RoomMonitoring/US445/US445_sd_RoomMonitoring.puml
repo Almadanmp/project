@@ -55,17 +55,18 @@ activate ":RoomService"
 deactivate ":RoomService"
 alt if Category = 0
 ref over ":RoomMonitoringController"
-Calculate readings above limit I
+Retrieve readings above limit I
 end ref
 else if Category = 1
 ref over ":RoomMonitoringController"
-Calculate readings above limit II
+Retrieve readings above limit II
 end ref
 else if Category = 2
 ref over ":RoomMonitoringController"
-Calculate readings above limit III
+Retrieve readings above limit III
 end ref
 end
+":RoomMonitoringController" -> ":RoomMonitoringController": build String
 ":RoomMonitoringController" --> ":RoomMonitoringUI": return String
 deactivate ":RoomMonitoringController"
 ":RoomMonitoringUI" --> "Power User": feedback

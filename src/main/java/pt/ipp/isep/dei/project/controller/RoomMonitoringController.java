@@ -69,15 +69,15 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsAboveCategoryILimit(readingValues, house);
-            result = buildReadingDTOListOutputUS445(allReadings, house);
+            result = buildReadingsOutputUS445(allReadings);
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
-            result = buildReadingDTOListOutputUS445(allReadings, house);
+            result = buildReadingsOutputUS445(allReadings);
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
-            result = buildReadingDTOListOutputUS445(allReadings, house);
+            result = buildReadingsOutputUS445(allReadings);
         }
         return result;
     }
@@ -88,23 +88,20 @@ public class RoomMonitoringController {
      * outside area average temperature for that day.
      *
      * @param list  contains the readings which raised above the comfort level.
-     * @param house is used to find the day outside average temperature.
      * @return a String to be presented to the user.
      */
-    private String buildReadingDTOListOutputUS445(List<Reading> list, House house) {
+    private String buildReadingsOutputUS445(List<Reading> list) {
         StringBuilder result = new StringBuilder("Instants in which the readings are above comfort temperature:\n");
         for (int i = 0; i < list.size(); i++) {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             Reading reading = list.get(i);
             gregorianCalendar.setTime(reading.getDate());
-            double temperature = house.getHouseAreaAverageTemperature(reading.getDate());
             result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
                     + (Calendar.YEAR + 2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
                     + Calendar.SECOND).append("\n");
             result.append("   Temperature value: ").append(reading.getValue()).append("\n");
-            result.append("   Difference from outside day average: + ").append(reading.getValue() - temperature).append(" Cº\n");
         }
-        result.append("---\n");
+        result.append("--------------------------------------\n");
         return result.toString();
     }
 

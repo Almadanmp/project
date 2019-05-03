@@ -20,29 +20,23 @@ skinparam FontName quicksand
  }
 
 alt Calculate readings above limit according to chosen category
-
 ->":RoomMonitoringController": getInstantsAboveComfortInterval(House, int, RoomDTO,\n Date, Date, RoomService, GeographicAreaService)
 activate ":RoomMonitoringController"
-":RoomMonitoringController" -> ":RoomService": getReadingsAboveCategoryI(/II/III)Limit\n(List<Reading>, House, GeographicAreaService)
-activate ":RoomService"
-create "readingValues:List<Reading>"
-":RoomService" ->> "readingValues:List<Reading>": new
-activate "readingValues:List<Reading>"
-"readingValues:List<Reading>" --> ":RoomService": return readingValues
-loop Success
-":RoomService"-> ":GeographicAreaService": getGeographicAreaAverageTemperature(Date, House)
+":RoomMonitoringController" -> ":GeographicAreaService": getReadingsAboveCategoryI(/II/III)Limit\n(List<Reading>, House, GeographicAreaService)
 activate ":GeographicAreaService"
-":GeographicAreaService" --> ":RoomService": return double
-deactivate ":GeographicAreaService"
+create "readingValues:List<Reading>"
+":GeographicAreaService" ->> "readingValues:List<Reading>": new
+activate "readingValues:List<Reading>"
+"readingValues:List<Reading>" --> ":GeographicAreaService": return readingValues
+loop Success
+":GeographicAreaService"-> ":GeographicAreaService": getGeographicAreaAverageTemperature(Date, House)
 alt if true
-":RoomService" -> ":RoomService":categoryICalculusUS445(Reading, double)
-":RoomService" -> "readingValues:List<Reading>": add(Reading)
-
+":GeographicAreaService" -> ":GeographicAreaService":categoryICalculusUS445(Reading, double)
+":GeographicAreaService" -> "readingValues:List<Reading>": add(Reading)
 end
 deactivate "readingValues:List<Reading>"
 end
-":RoomService" --> ":RoomMonitoringController": return readingValues
-":RoomMonitoringController" -> ":RoomMonitoringController": buildReadingDTOListOutputUS445\n(List<Reading>, House)
+":GeographicAreaService" --> ":RoomMonitoringController": return readingValues
 <--":RoomMonitoringController": return String
 deactivate ":RoomMonitoringController"
 end
