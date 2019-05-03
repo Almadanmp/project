@@ -76,6 +76,7 @@ class EnergyConsumptionControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        this.energyGridService = new EnergyGridService(energyGridRepository);
         roomService = new RoomService(this.roomRepository, roomSensorRepository, sensorTypeRepository);
         this.roomList = new ArrayList<>();
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
@@ -342,33 +343,39 @@ class EnergyConsumptionControllerTest {
 
     }
 
-    //US721 TESTS
+    @Test
+    void seeIfGetHouseGridListWorksEmptyList() {
+        // Arrange
 
-//    @Test
-//    void seeIfGetHouseGridListWorks() {
-//        // Arrange
-//
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//
-//        House house = new House("ISEP", address,
-//                new Local(20, 20, 20), 60, 180,
-//                deviceTypeString);
-//        house.setMotherArea(validArea);
-//        EnergyGrid testGrid = new EnergyGrid("GridOne", 300, "34576");
-//        testGrid.setId(23L);
-//        energyGridService.addGrid(testGrid);
-//
-//        // Act
-//
-//        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridService);
-//
-//        // Assert
-//
-//        assertEquals(houseGrid, actualResult);
-//
-//    }
+        List<EnergyGrid> expectedResult = new ArrayList<>();
+
+        // Act
+
+        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetHouseGridListWorks() {
+        // Arrange
+
+        List<EnergyGrid> grids = new ArrayList<>();
+        grids.add(validGrid);
+        Mockito.when(energyGridRepository.findAll()).thenReturn(grids);
+        List<EnergyGrid> expectedResult = new ArrayList<>();
+        expectedResult.add(validGrid);
+
+        // Act
+
+        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 
     @Test
     void seeIfGetRoomConsumptionInIntervalWorks() {
