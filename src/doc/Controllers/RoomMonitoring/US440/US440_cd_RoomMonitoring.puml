@@ -70,7 +70,7 @@ getReadingsBelowCategoryIIILimit(readingValues, house)
 }
 
 class GeographicAreaService{
-getGeographiAreaAverageTemperature(r.getDate(),house)
+getGeographicAreaAverageTemperature(r.getDate(),house)
 getClosestAreaSensorOfGivenType("temperature",house)
 getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor)
 getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor)
