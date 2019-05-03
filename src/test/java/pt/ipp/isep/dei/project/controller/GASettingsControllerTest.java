@@ -49,7 +49,6 @@ class GASettingsControllerTest {
     private AreaSensorDTO validAreaSensorDTO1;
     private AreaSensorDTO validAreaSensorDTO2;
     private AreaSensor validAreaSensor1;
-    private AreaSensor validAreaSensor2;
     private GeographicAreaService validGeographicAreaService;
     private AreaTypeService validAreaTypeService;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
@@ -86,7 +85,7 @@ class GASettingsControllerTest {
         secondValidArea.setId(2L);
         validAreaSensor1 = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
                 new Local(31, 15, 3), date, 1L);
-        validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
+        AreaSensor validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
                 new Local(21, 65, 3), date, 2L);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
