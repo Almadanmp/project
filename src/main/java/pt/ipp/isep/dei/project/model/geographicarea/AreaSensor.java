@@ -117,9 +117,7 @@ public class AreaSensor {
     }
 
     public List<Reading> getReadings() {
-        List<Reading> clonedReadings = new ArrayList<>();
-        clonedReadings.addAll(areaReadings);
-        return clonedReadings;
+        return areaReadings;
     }
 
     /**
@@ -185,7 +183,7 @@ public class AreaSensor {
     }
 
 
-     /**
+    /**
      * Method that returns the distance between the sensor and the house.
      *
      * @param house is the house we want to calculate the distance to.
@@ -257,7 +255,7 @@ public class AreaSensor {
     /**
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
-     * I want to getDB the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
      * it returns a Date within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *

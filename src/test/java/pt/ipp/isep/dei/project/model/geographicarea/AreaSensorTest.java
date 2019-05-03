@@ -696,6 +696,25 @@ class AreaSensorTest {
     }
 
     @Test
+    void seeIfGetAverageReadingsBetweenDates() {
+        final Date date1 = new GregorianCalendar(2018, 1, 1).getTime();
+        final Date date2 = new GregorianCalendar(2019, 1, 1).getTime();
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(30, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+validAreaSensor.addReading(reading2);
+        validAreaSensor.addReading(reading1);
+        validAreaSensor.addReading(reading3);
+        validAreaSensor.addReading(reading4);
+
+        double expectedResult = 22.5;
+        double result = validAreaSensor.getAverageReadingsBetweenDates(date1, date2);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfBuildString() {
 
         String expectedResult = "SensOne, Temperature, 10.0º lat, 10.0º long \n";
@@ -734,5 +753,172 @@ class AreaSensorTest {
         assertEquals(expectedResult, result, 0.01);
 
     }
+
+
+    @Test
+    void seeIfGetLastColdestDayInGivenInterval() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+        Date expectedResult = validDate12;
+
+        // Act
+
+        Date result = validAreaSensor.getLastColdestDayInGivenInterval(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void getLastColdestDayInGivenIntervalThrowsException() {
+        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getLastColdestDayInGivenInterval(validDate3, validDate4));
+
+        // Assert
+
+        assertEquals("No readings available in the chosen interval.", exception.getMessage());
+    }
+
+
+    @Test
+    void getDaysWithReadingsBetweenDates() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+        List<Date> expectedResult = new ArrayList<>();
+        expectedResult.add(validDate12);
+        expectedResult.add(testDate);
+
+        // Act
+
+        List<Date> result = validAreaSensor.getDaysWithReadingsBetweenDates(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void getFirstHottestDayInGivenPeriodThrowsException() {
+        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getFirstHottestDayInGivenPeriod(validDate3, validDate4));
+
+        // Assert
+
+        assertEquals("No readings available.", exception.getMessage());
+    }
+
+
+    @Test
+    void getFirstHottestDayInGivenPeriod() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+        Date expectedResult = testDate;
+
+        // Act
+
+        Date result = validAreaSensor.getFirstHottestDayInGivenPeriod(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void getFirstHottestDayInGivenPeriodThrowsSecondException() {
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+
+        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getFirstHottestDayInGivenPeriod(validDate3, validDate4));
+
+        // Assert
+
+        assertEquals("Warning: No temperature readings available in given period.", exception.getMessage());
+    }
+
 
 }
