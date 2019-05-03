@@ -845,4 +845,56 @@ class EnergyConsumptionControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetDailyWaterHeaterConsumptionWorksNoRooms(){
+        // Arrange
+
+        double expectedResult = 0;
+
+        // Act
+
+        double actualResult = controller.getDailyWaterHeaterConsumption(roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetDailyWaterHeaterConsumptionWorks(){
+        // Arrange
+
+        List<Room> mockedRoomList = new ArrayList<>();
+        mockedRoomList.add(validRoom1);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockedRoomList);
+        validDevice1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
+        double expectedResult = 97.9;
+
+        // Act
+
+        double actualResult = controller.getDailyWaterHeaterConsumption(roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetDailyWaterHeaterConsumptionWorksNoWaterToHeat(){
+        // Arrange
+
+        List<Room> mockedRoomList = new ArrayList<>();
+        mockedRoomList.add(validRoom1);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockedRoomList);
+        double expectedResult = 0;
+
+        // Act
+
+        double actualResult = controller.getDailyWaterHeaterConsumption(roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
 }
