@@ -69,15 +69,15 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsAboveCategoryILimit(readingValues, house);
-            result = buildReadingsOutputUS445(allReadings);
+            result = buildReadingsOutput(allReadings, "Instants in which the readings are above comfort temperature:\n");
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
-            result = buildReadingsOutputUS445(allReadings);
+            result = buildReadingsOutput(allReadings, "Instants in which the readings are above comfort temperature:\n");
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
-            result = buildReadingsOutputUS445(allReadings);
+            result = buildReadingsOutput(allReadings, "Instants in which the readings are above comfort temperature:\n");
         }
         return result;
     }
@@ -87,11 +87,11 @@ public class RoomMonitoringController {
      * within the comfort interval, the temperature for that instant and the difference with the
      * outside area average temperature for that day.
      *
-     * @param list  contains the readings which raised above the comfort level.
+     * @param list contains the readings which raised above the comfort level.
      * @return a String to be presented to the user.
      */
-    private String buildReadingsOutputUS445(List<Reading> list) {
-        StringBuilder result = new StringBuilder("Instants in which the readings are above comfort temperature:\n");
+    private String buildReadingsOutput(List<Reading> list, String header) {
+        StringBuilder result = new StringBuilder(header);
         for (int i = 0; i < list.size(); i++) {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             Reading reading = list.get(i);
@@ -115,31 +115,16 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsBelowCategoryILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = outputUS440(allReadings);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, "Instants in which the readings are below the comfort temperature:\n");
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsBelowCategoryIILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = outputUS440(allReadings);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, "Instants in which the readings are below the comfort temperature:\n");
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsBelowCategoryIIILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = outputUS440(allReadings);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, "Instants in which the readings are below the comfort temperature:\n");
         }
         return result;
-    }
-
-    private String outputUS440(List<Reading> list) {
-        StringBuilder result = new StringBuilder("Instants in which the readings are below the comfort temperature:\n");
-        for (int i = 0; i < list.size(); i++) {
-            GregorianCalendar gregorianCalendar = new GregorianCalendar();
-            Reading reading = list.get(i);
-            gregorianCalendar.setTime(reading.getDate());
-            result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
-                    + (Calendar.YEAR + 2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
-                    + Calendar.SECOND).append("\n");
-            result.append("   Temperature value: ").append(reading.getValue()).append("\n");
-        }
-        result.append("--------------------------------------\n");
-        return result.toString();
     }
 }
