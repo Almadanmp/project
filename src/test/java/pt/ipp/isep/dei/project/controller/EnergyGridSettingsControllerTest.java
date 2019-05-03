@@ -3,9 +3,12 @@ package pt.ipp.isep.dei.project.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -45,7 +48,6 @@ class EnergyGridSettingsControllerTest {
     @Mock
     private EnergyGridRepository energyGridRepository;
     private EnergyGridService energyGridService;
-
     @Mock
     private RoomRepository roomRepository;
     @Mock
@@ -70,9 +72,7 @@ class EnergyGridSettingsControllerTest {
         rooms.add(validRoom);
     }
 
-
     //US145
-
 
     @Test
     void seeIfRoomsPrint() {
@@ -94,43 +94,22 @@ class EnergyGridSettingsControllerTest {
 
     //USER STORY 149
 
-//    @Test
-//    void seeIfRoomIsRemovedFromGrid() {
-//
-//        //Arrange
-//
-//        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-//        validGrid.saveSensor(room);
-//
-//        //Act
-//
-//        boolean actualresult = controller.removeRoomFromGrid(validGrid, room);
-//
-//        //Assert
-//
-//        assertTrue(actualresult);
-//    }
+    @Test
+    void seeIfRoomIsRemovedFromGridNoRoom() {
 
-//    @Test
-//    void seeIfGridListPrints() {
-//
-//        // Arrange
-//
-//        validGrid.setId(123L);
-//        energyGridService.addGrid(validGrid);
-//        validHouse.setGridList(energyGridService);
-//        String expectedResult = "---------------\n" +
-//                "123) Designation: validGrid | Max Power: 300.0\n" +
-//                "---------------\n";
-//
-//        // Act
-//
-//        String actualResult = controller.buildGridListString(energyGridService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
+        //Arrange
+
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2,
+                "Room1", "Grid1");
+
+        //Act
+
+        boolean actualResult = controller.removeRoomFromGrid(validGrid, room);
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
 
     @Test
     void seeIfRoomIsRemovedFromGridFalse() {
@@ -147,28 +126,6 @@ class EnergyGridSettingsControllerTest {
 
         assertFalse(actualresult);
     }
-
-//    @Test
-//    void ensureThatWeDoNotAddRoomToTheGrid() {
-//        // Arrange
-//
-//        EnergyGridService gridList = new EnergyGridService();
-//        gridList.addGrid(validGrid);
-//        RoomService rooms = new RoomService();
-//        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
-//        rooms.add(room);
-//        validGrid.setRoomService(rooms);
-//        validHouse.setRoomService(rooms);
-//        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
-//
-//        // Act
-//
-//        boolean actualResult = controller.addRoomToGrid(validGrid, roomDTO, rooms);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
 
     @Test
     void seeIfAddPowerSourceToEnergyGridWorks() {
@@ -291,5 +248,47 @@ class EnergyGridSettingsControllerTest {
         //Arrange
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDTOToGridWorks() {
+        // Arrange
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom);
+
+        // Act
+
+        boolean actualResult = controller.addRoomDTOToGrid(validGrid, testDTO, roomService);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddGridToHouseWorks() {
+        // Act
+
+        Mockito.when(energyGridRepository.save(validGrid)).thenReturn(validGrid);
+        EnergyGrid actualResult = controller.addEnergyGridToHouse(validGrid, energyGridService);
+
+        // Assert
+
+        assertEquals(validGrid, actualResult);
+    }
+
+    @Test
+    void seeIfUpdateEnergyGridWorksFalse() {
+        // Act
+
+
+        assertThrows(RuntimeException.class,
+                () -> controller.addEnergyGridToHouse(validGrid, energyGridService));
+
+    }
+
+    @Test
+    void seeIfAddEnergyGridToHouseWorks() {
+
     }
 }

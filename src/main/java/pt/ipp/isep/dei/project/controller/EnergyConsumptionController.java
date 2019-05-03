@@ -187,7 +187,7 @@ public class EnergyConsumptionController {
      * @return a List of Logs with the wanted logs.
      */
     public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getLogsInInterval(startDate, endDate);
     }
 

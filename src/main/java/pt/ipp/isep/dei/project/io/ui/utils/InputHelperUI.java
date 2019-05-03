@@ -201,7 +201,7 @@ public class InputHelperUI {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
-            System.out.println(controller.buildDeviceListString(RoomMapper.updateHouseRoom(room, roomService)));
+            System.out.println(controller.buildDeviceListString(roomService.updateHouseRoom(room)));
             int aux = getInputAsInt();
             if (aux >= 0 && aux < controller.getDeviceListSize(room, roomService)) {
                 Device result = controller.getDeviceByIndex(room, aux, roomService);

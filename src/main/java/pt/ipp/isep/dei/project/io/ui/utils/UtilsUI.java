@@ -27,7 +27,7 @@ public class UtilsUI {
 
 
     public boolean roomDTODeviceListIsValid(RoomDTO roomDTO, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+        Room room = roomService.updateHouseRoom(roomDTO);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }
 

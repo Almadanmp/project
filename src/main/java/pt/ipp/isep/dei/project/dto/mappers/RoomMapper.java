@@ -189,23 +189,4 @@ public final class RoomMapper {
 
         return resultDTO;
     }
-
-    /**
-     * Method that updates a room contained in a given house with the data contained in a given DTO. It matches the
-     * DTO to the object through UUID.
-     *
-     * @param roomDTO is the DTO that contains the data we want to use to update the model object.
-     * @return is the updated room if the update was successful, is null if it wasn't.
-     */
-    public static Room updateHouseRoom(RoomDTO roomDTO, RoomService roomService) {
-        Room room = null;
-        List<Room> rooms = roomService.getAllRooms();
-        for (Room r : rooms) {
-            if (roomDTO.getName().compareTo(r.getId()) == 0) {
-                r = RoomMapper.dtoToObject(roomDTO);
-                room = r;
-            }
-        }
-        return room;
-    }
 }

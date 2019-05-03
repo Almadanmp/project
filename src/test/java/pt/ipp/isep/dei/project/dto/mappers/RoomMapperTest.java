@@ -129,7 +129,7 @@ class RoomMapperTest {
         rooms.add(room1);
         validDTO.setName("Room1");
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        Room actualResult = RoomMapper.updateHouseRoom(validDTO,roomService);
+        Room actualResult = roomService.updateHouseRoom(validDTO);
         assertEquals(room,actualResult);
     }
 

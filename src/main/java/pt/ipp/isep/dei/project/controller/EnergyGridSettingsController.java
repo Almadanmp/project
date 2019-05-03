@@ -48,7 +48,11 @@ public class EnergyGridSettingsController {
      * @return true if the grid was added to the house.
      */
     public EnergyGrid addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
-        return energyGridService.addGrid(energyGrid);
+        EnergyGrid result = energyGridService.addGrid(energyGrid);
+        if (result == null){
+            throw new RuntimeException();
+        }
+        else return result;
     }
 
     /**
@@ -94,8 +98,8 @@ public class EnergyGridSettingsController {
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) {
-        Room room = RoomMapper.updateHouseRoom(roomDTO, roomService);
+    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) {
+        Room room = roomService.updateHouseRoom(roomDTO);
         return grid.addRoom(room);
     }
 
@@ -110,10 +114,6 @@ public class EnergyGridSettingsController {
 
     public boolean removeRoomFromGrid(EnergyGrid grid, Room room) {
         return grid.removeRoom(room);
-    }
-
-    public void updateEnergyGrid(EnergyGrid grid, EnergyGridService energyGridService) {
-        energyGridService.addGrid(grid);
     }
 
     /*USER STORY 160 - As a Power User (or Administrator),
