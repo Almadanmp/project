@@ -15,7 +15,6 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
@@ -249,6 +248,19 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
         String absolutePath = fileToRead.getAbsolutePath();
+
+        AreaType city = new AreaType("city");
+        AreaType urbanArea = new AreaType("urban area");
+
+        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
+
+        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
@@ -256,6 +268,18 @@ class ReaderControllerTest {
         assertEquals(0, areasAdded);
     }
 
+    @Test
+    void seeIfReadFileXMLGeoAreaWorksWrongPathNotXml() {
+        // Arrange
+        // Act
+
+        File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.json");
+        String absolutePath = fileToRead.getAbsolutePath();
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,() -> validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService));
+    }
 
     @Test
     void seeIfReadFileXMLGeoAreaWorks() {
@@ -294,7 +318,6 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
@@ -308,25 +331,13 @@ class ReaderControllerTest {
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
 
-        // Assert
-
-        assertEquals(0, areasAdded);
-    }
-
-    @Test
-    void seeIfReadFileXMLGeoAreaWorksWithNormalDateAndOtherDate() {
-        // Arrange
-        // Act
-
-        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_wrong_date.xml");
-        String absolutePath = fileToRead.getAbsolutePath();
         double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         // Assert
 
-        assertEquals(0, areasAdded);
-
+        assertEquals(2, areasAdded);
     }
+
 
     @Test
     void seeIfReadFileXMLGeoAreaWorksWithOneGeoArea() {
@@ -336,7 +347,6 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
 
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
@@ -350,9 +360,11 @@ class ReaderControllerTest {
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
 
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaService);
+
         // Assert
 
-        assertEquals(0, areasAdded);
+        assertEquals(1, areasAdded);
     }
 
 
@@ -457,57 +469,8 @@ class ReaderControllerTest {
         // Assert
 
         assertEquals(2, areasAdded);
-
-        // Get one of the areas to  check its contents.
-
-        //  GeographicArea actualArea = geographicAreaService.getAll().get(0);
-        //   AreaSensorService firstAreaSensors = actualArea.getSensorList();
-
-
-        GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
-                0.261, new Local(41.178553, -8.608035, 139));
-
-        // Assert
-
-        //  assertEquals(expectedArea, actualArea);
-        //  assertEquals(actualArea.getSensorList(), firstAreaSensors);
     }
 
-
-
-    @Test
-    void seeIfReadFileWorksWithOneGAAndOneSensor() {
-        //Arrange
-        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
-
-        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        geographicAreaDTO.setName("ISEP");
-        LocalDTO localDTO = new LocalDTO(41.178553, -8.608035, 111);
-        geographicAreaDTO.setLocalDTO(localDTO);
-        geographicAreaDTO.setDescription("Campus do ISEP");
-        geographicAreaDTO.setWidth(0.261);
-        geographicAreaDTO.setLength(0.249);
-        geographicAreaDTO.setTypeArea("urban area");
-
-        expectedResult.add(geographicAreaDTO);
-
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        LocalDTO localSensorDTO = new LocalDTO(41.179230, -8.606409, 125);
-        areaSensorDTO.setLocalDTO(localSensorDTO);
-        areaSensorDTO.setUnits("l/m2");
-        areaSensorDTO.setDateStartedFunctioning("2016-11-15");
-        areaSensorDTO.setTypeSensor("rainfall");
-        areaSensorDTO.setName("Meteo station ISEP - rainfall");
-        areaSensorDTO.setId("RF12345");
-
-        //Act
-
-        //    List<GeographicAreaDTO> actualResult = readerController.readFileJSONGeoAreas("src/test/resources/geoAreaFiles/DataSet_sprint04_GA_TEST_ONLY_ONE_GA.json");
-
-        //Assert
-
-        //   assertEquals(expectedResult, actualResult);
-    }
 
     //   @Test
 //    void addReadingsToGeographicAreaSensorsWorks() { //TODO TERESA revisitar este teste
