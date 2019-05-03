@@ -62,21 +62,21 @@ public class RoomMonitoringController {
      * @param category is selected by the user.
      * @return a String with the requested information for the User Story 445
      */
-    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate) {
+    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaService geographicAreaService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = room.getAllReadingsInInterval(startDate, endDate);
+        List<Reading> readingValues = roomService.getReadingsInInterval(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
-            allReadings = room.getReadingsAboveCategoryILimit(readingValues, house);
+            allReadings = roomService.getReadingsAboveCategoryILimit(readingValues, house, geographicAreaService);
             result = buildReadingDTOListOutputUS445(allReadings, house);
         }
         if (category == 1) {
-            allReadings = room.getReadingsAboveCategoryIILimit(readingValues, house);
+            allReadings = roomService.getReadingsAboveCategoryIILimit(readingValues, house, geographicAreaService);
             result = buildReadingDTOListOutputUS445(allReadings, house);
         }
         if (category == 2) {
-            allReadings = room.getReadingsAboveCategoryIIILimit(readingValues, house);
+            allReadings = roomService.getReadingsAboveCategoryIIILimit(readingValues, house, geographicAreaService);
             result = buildReadingDTOListOutputUS445(allReadings, house);
         }
         return result;

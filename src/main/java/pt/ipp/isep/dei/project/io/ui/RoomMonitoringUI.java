@@ -48,7 +48,7 @@ class RoomMonitoringUI {
                     activeInput = true;
                     break;
                 case 2:
-                    runUS445(roomService, house);
+                    runUS445(roomService, house, geographicAreaService);
                     activeInput = true;
                     break;
                 case 3:
@@ -99,7 +99,7 @@ class RoomMonitoringUI {
      * the instants in which the temperature rose above the comfort
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS445(RoomService roomService, House house) {
+    private void runUS445(RoomService roomService, House house, GeographicAreaService geographicAreaService) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         if (!ctrl.isMotherAreaValid(house)) {
             return;
@@ -111,7 +111,7 @@ class RoomMonitoringUI {
         System.out.println("Please enter the ending date.");
         Date endDate = DateUtils.getInputYearMonthDayHourMin();
         int category = UtilsUI.selectCategory();
-        String result = roomMonitoringController.getInstantsAboveComfortInterval(house, category, roomDTO, startDate, endDate);
+        String result = roomMonitoringController.getInstantsAboveComfortInterval(house, category, roomDTO, startDate, endDate, roomService, geographicAreaService);
         System.out.println(result);
     }
 

@@ -319,7 +319,7 @@ public class GeographicAreaService {
 
     // Methods to be moved to GeographicArea-House-bridge-Service
 
-    public double getGeographiAreaAverageTemperature(Date date, House house) {
+    public double getGeographicAreaAverageTemperature(Date date, House house) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
