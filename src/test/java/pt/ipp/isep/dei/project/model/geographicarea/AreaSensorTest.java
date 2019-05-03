@@ -735,4 +735,171 @@ class AreaSensorTest {
 
     }
 
+
+    @Test
+    void seeIfGetLastColdestDayInGivenInterval() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+        Date expectedResult = validDate12;
+
+        // Act
+
+        Date result = validAreaSensor.getLastColdestDayInGivenInterval(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void getLastColdestDayInGivenIntervalThrowsException() {
+        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getLastColdestDayInGivenInterval(validDate3, validDate4));
+
+        // Assert
+
+        assertEquals("No readings available in the chosen interval.", exception.getMessage());
+    }
+
+
+    @Test
+    void getDaysWithReadingsBetweenDates() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+        List<Date> expectedResult = new ArrayList<>();
+        expectedResult.add(validDate12);
+        expectedResult.add(testDate);
+
+        // Act
+
+        List<Date> result = validAreaSensor.getDaysWithReadingsBetweenDates(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void getFirstHottestDayInGivenPeriodThrowsException() {
+        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getFirstHottestDayInGivenPeriod(validDate3, validDate4));
+
+        // Assert
+
+        assertEquals("No readings available.", exception.getMessage());
+    }
+
+
+    @Test
+    void getFirstHottestDayInGivenPeriod() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+        Date expectedResult = testDate;
+
+        // Act
+
+        Date result = validAreaSensor.getFirstHottestDayInGivenPeriod(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    void getFirstHottestDayInGivenPeriodThrowsSecondException() {
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(laterReading2);
+
+        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        // Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getFirstHottestDayInGivenPeriod(validDate3, validDate4));
+
+        // Assert
+
+        assertEquals("Warning: No temperature readings available in given period.", exception.getMessage());
+    }
+
+
 }
