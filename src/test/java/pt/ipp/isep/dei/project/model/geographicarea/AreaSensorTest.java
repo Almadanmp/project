@@ -696,6 +696,25 @@ class AreaSensorTest {
     }
 
     @Test
+    void seeIfGetAverageReadingsBetweenDates() {
+        final Date date1 = new GregorianCalendar(2018, 1, 1).getTime();
+        final Date date2 = new GregorianCalendar(2019, 1, 1).getTime();
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(30, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+validAreaSensor.addReading(reading2);
+        validAreaSensor.addReading(reading1);
+        validAreaSensor.addReading(reading3);
+        validAreaSensor.addReading(reading4);
+
+        double expectedResult = 22.5;
+        double result = validAreaSensor.getAverageReadingsBetweenDates(date1, date2);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     void seeIfBuildString() {
 
         String expectedResult = "SensOne, Temperature, 10.0º lat, 10.0º long \n";

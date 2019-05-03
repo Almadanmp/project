@@ -117,7 +117,7 @@ public class AreaSensor {
     }
 
     public List<Reading> getReadings() {
-        return this.areaReadings;
+        return areaReadings;
     }
 
     /**
