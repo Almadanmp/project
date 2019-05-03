@@ -111,15 +111,15 @@ class GeographicAreaDTOTest {
         geographicAreaDTO8.setTypeArea("City");
         geographicAreaDTO9.setTypeArea("City");
 
-        geographicAreaDTO1.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO2.setAreaSensorDTOList(dtoListEmpty);
-        geographicAreaDTO3.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO4.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO5.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO6.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO7.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO8.setAreaSensorDTOList(dtoList);
-        geographicAreaDTO9.setAreaSensorDTOList(dtoListEmpty);
+        geographicAreaDTO1.setSensorDTOList(dtoList);
+        geographicAreaDTO2.setSensorDTOList(dtoListEmpty);
+        geographicAreaDTO3.setSensorDTOList(dtoList);
+        geographicAreaDTO4.setSensorDTOList(dtoList);
+        geographicAreaDTO5.setSensorDTOList(dtoList);
+        geographicAreaDTO6.setSensorDTOList(dtoList);
+        geographicAreaDTO7.setSensorDTOList(dtoList);
+        geographicAreaDTO8.setSensorDTOList(dtoList);
+        geographicAreaDTO9.setSensorDTOList(dtoListEmpty);
 
         geographicAreaDTO1.setLocalDTO(localDTO1);
         geographicAreaDTO2.setLocalDTO(localDTO2);
@@ -270,11 +270,11 @@ class GeographicAreaDTOTest {
         // Arrange
 
         List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
-        validDTO.setAreaSensorDTOList(areaSensorDTOList);
+        validDTO.setSensorDTOList(areaSensorDTOList);
 
         // Act
 
-        List<AreaSensorDTO> actualResult = validDTO.getAreaSensorDTOList();
+        List<AreaSensorDTO> actualResult = validDTO.getSensorDTOs();
 
         // Assert
 

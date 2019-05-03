@@ -18,24 +18,32 @@ skinparam FontName quicksand
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-@startuml
+
 alt Calculate readings above limit according to chosen category
 
 ->":RoomMonitoringController": getInstantsAboveComfortInterval(House, int, RoomDTO,\n Date, Date, RoomService, GeographicAreaService)
+activate ":RoomMonitoringController"
 ":RoomMonitoringController" -> ":RoomService": getReadingsAboveCategoryI(/II/III)Limit\n(List<Reading>, House, GeographicAreaService)
+activate ":RoomService"
 create "readingValues:List<Reading>"
 ":RoomService" ->> "readingValues:List<Reading>": new
+activate "readingValues:List<Reading>"
 "readingValues:List<Reading>" --> ":RoomService": return readingValues
 loop Success
 ":RoomService"-> ":GeographicAreaService": getGeographicAreaAverageTemperature(Date, House)
+activate ":GeographicAreaService"
 ":GeographicAreaService" --> ":RoomService": return double
+deactivate ":GeographicAreaService"
 alt if true
 ":RoomService" -> ":RoomService":categoryICalculusUS445(Reading, double)
-end
 ":RoomService" -> "readingValues:List<Reading>": add(Reading)
+
+end
+deactivate "readingValues:List<Reading>"
 end
 ":RoomService" --> ":RoomMonitoringController": return readingValues
 ":RoomMonitoringController" -> ":RoomMonitoringController": buildReadingDTOListOutputUS445\n(List<Reading>, House)
 <--":RoomMonitoringController": return String
+deactivate ":RoomMonitoringController"
 end
 @enduml

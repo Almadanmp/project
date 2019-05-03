@@ -76,17 +76,15 @@ public class GASettingsController {
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
 
     /**
-     * Method to addWithoutPersisting a new geographic area to a list of geographic areas
+     * Method that creates a new Geographic Area and adds it to our database.
      *
-     * @param newGeoList geographic area list to addWithoutPersisting the new geographic area
-     * @param localDTO   the latitude, longitude and altitude of the GA
-     * @return success if a new GA is added, false otherwise
+     * @param geographicAreaService Is the service responsible for accessing the repository of geographic areas.
+     * @return success if a new GA is added, false otherwise.
      */
-    public boolean addNewGeoAreaToList(GeographicAreaService newGeoList, GeographicAreaDTO geoAreaDTO, LocalDTO localDTO) {
-        GeographicArea geoToAdd = newGeoList.createGA(geoAreaDTO.getName(), geoAreaDTO.getTypeArea(),
-                geoAreaDTO.getLength(), geoAreaDTO.getLength(), LocalMapper.dtoToObject(localDTO));
+    public boolean addNewGeoAreaToList(GeographicAreaService geographicAreaService, GeographicAreaDTO geoAreaDTO) {
+        GeographicArea geoToAdd = GeographicAreaMapper.dtoToObject(geoAreaDTO);
         geoToAdd.setDescription(geoAreaDTO.getDescription());
-        return newGeoList.addAndPersistGA(geoToAdd);
+        return geographicAreaService.addAndPersistGA(geoToAdd);
     }
 
     /**
@@ -192,16 +190,15 @@ public class GASettingsController {
 
     /* USER STORY 11 */
 
-    public GeographicAreaDTO inputArea(GeographicAreaService geographicAreaService) {
+    public GeographicAreaDTO getInputArea(GeographicAreaService geographicAreaService) {
         List<GeographicArea> geographicAreas = geographicAreaService.getAll();
         GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geographicAreas);
         return GeographicAreaMapper.objectToDTO(geographicArea);
     }
 
-    public AreaSensorDTO inputSensor(GeographicAreaDTO geographicAreaDTO) {
+    public AreaSensorDTO getInputSensor(GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
         AreaSensor areaSensor = InputHelperUI.getInputSensorByList(geographicArea);
-
         return AreaSensorMapper.objectToDTO(areaSensor);
     }
 

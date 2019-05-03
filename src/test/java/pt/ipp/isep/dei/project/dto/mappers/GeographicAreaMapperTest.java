@@ -123,7 +123,7 @@ class GeographicAreaMapperTest {
 
         List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
         areaSensorDTOList.add(validAreaSensorDTO);
-        dtoToConvert.setAreaSensorDTOList(areaSensorDTOList);
+        dtoToConvert.setSensorDTOList(areaSensorDTOList);
 
 
         // Act

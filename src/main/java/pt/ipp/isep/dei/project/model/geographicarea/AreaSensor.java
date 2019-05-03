@@ -44,11 +44,6 @@ public class AreaSensor {
 
     private boolean active;
 
-//    @ManyToOne
-//    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
-//    @JoinColumn(name = "geographicArea")
-//    protected GeographicArea parent;
-
     /**
      * Empty constructor to import Sensors from a XML file.
      */
@@ -87,10 +82,6 @@ public class AreaSensor {
         this.id = id;
     }
 
-    public void setReadings(List<Reading> areaReadings) {
-        this.areaReadings = areaReadings;
-    }
-
     /**
      * Setter: name
      *
@@ -105,7 +96,7 @@ public class AreaSensor {
     }
 
     public Date getDateStartedFunctioning() {
-        return this.dateStartedFunctioning;
+        return dateStartedFunctioning;
     }
 
     /**
@@ -193,23 +184,6 @@ public class AreaSensor {
 
 
     /**
-     * Method that checks if the Sensor is contained in a given Geographical Area.
-     *
-     * @param area is the area we want to check if the sensor is in.
-     * @return true if the sensor is in the given area, false otherwise.
-     */
-    boolean isContainedInArea(GeographicArea area) {
-        double latS = this.getLocal().getLatitude();
-        double longS = this.getLocal().getLongitude();
-        Local areaLocal = area.getLocal();
-        double latTopVert = areaLocal.getLatitude() + (area.getWidth() / 2);
-        double longTopVert = areaLocal.getLongitude() - (area.getLength() / 2);
-        double latBotVert = areaLocal.getLatitude() - (area.getWidth() / 2);
-        double longBotVert = areaLocal.getLongitude() + (area.getLength() / 2);
-        return (latS <= latTopVert && latS >= latBotVert && longS <= longBotVert && longS >= longTopVert);
-    }
-
-    /**
      * Method that returns the distance between the sensor and the house.
      *
      * @param house is the house we want to calculate the distance to.
@@ -227,10 +201,6 @@ public class AreaSensor {
      * @return returns a string with Sensor Parameters
      */
     public String buildString() {
-
-        if (this.getLocal() == null) {
-            return this.name + ", " + this.sensorType.getName() + ". ";
-        }
         String result;
 
         result = this.name + ", " + this.sensorType.getName() + ", " +
@@ -285,7 +255,7 @@ public class AreaSensor {
     /**
      * US630
      * This method joins a lot of other methods used to fulfil the US 630 (As a Regular User,
-     * I want to getDB the last coldest day (lower maximum temperature) in the house area in a given period) and
+     * I want to get the last coldest day (lower maximum temperature) in the house area in a given period) and
      * it returns a Date within an interval from a AreaReadingList that represents the last coldest day in the
      * given period (lower maximum temperature).
      *
@@ -341,8 +311,12 @@ public class AreaSensor {
     public double getAverageReadingsBetweenDates(Date minDate, Date maxDate) {
         List<Reading> sensorReadingsBetweenDates = getReadingListBetweenDates(minDate, maxDate);
         if (sensorReadingsBetweenDates.isEmpty()) {
-           throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
+            throw new IllegalArgumentException("Warning: Average value not calculated - No readings available.");
         }
+        return getSensorReadingAverageValue(sensorReadingsBetweenDates);
+    }
+
+    static double getSensorReadingAverageValue(List<Reading> sensorReadingsBetweenDates) {
         List<Double> avgDailyValues = new ArrayList<>();
         for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
             Date day = sensorReadingsBetweenDates.get(i).getDate();

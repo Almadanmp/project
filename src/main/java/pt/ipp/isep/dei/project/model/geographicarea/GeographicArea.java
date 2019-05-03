@@ -197,7 +197,7 @@ public class GeographicArea implements Root {
         return areaSensors;
     }
 
-    void setAreaSensors(List<AreaSensor> areaSensors) {
+    public void setAreaSensors(List<AreaSensor> areaSensors) {
         this.areaSensors = areaSensors;
     }
 
