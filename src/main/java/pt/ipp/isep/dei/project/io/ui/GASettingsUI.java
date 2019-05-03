@@ -206,7 +206,7 @@ class GASettingsUI {
                 " is " + geoAreaLength + " by " + geoAreaWidth + " kms\n");
         if (geoAreDescription != null) {
             System.out.println("And has the following description: " + geoAreDescription);
-            gaController.addNewGeoAreaToList(geographicAreaService, geoAreaDTO, localDTO);
+            gaController.addNewGeoAreaToList(geographicAreaService, geoAreaDTO);
 
         }
     }
