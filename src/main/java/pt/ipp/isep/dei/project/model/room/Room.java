@@ -332,11 +332,11 @@ public class Room implements Metered, Root {
     //SENSOR METHODS
 
     public List<RoomSensor> getRoomSensors() {
-        return roomSensors;
+        return this.roomSensors;
     }
 
-    public void setRoomSensors(List<RoomSensor> roomSensors) {
-        this.roomSensors = roomSensors;
+    public void setRoomSensors(List<RoomSensor> listSensors) {
+        this.roomSensors = listSensors;
     }
 
 
@@ -500,7 +500,7 @@ public class Room implements Metered, Root {
      */
     private List<Reading> getRoomTemperatureReadingsBetweenSelectedDates(Date initialDate, Date
             finalDate) {
-        List<RoomSensor> temperatureSensors = this.getRoomSensorsOfGivenType("temperature");
+        List<RoomSensor> temperatureSensors = this.getRoomSensorsOfGivenType(TEMPERATURE);
         List<Reading> allReadings = new ArrayList<>();
         for (RoomSensor roomSensor : temperatureSensors) {
             allReadings.addAll(roomSensor.getReadings());
