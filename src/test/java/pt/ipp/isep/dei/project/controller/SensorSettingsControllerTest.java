@@ -9,13 +9,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * SensorSettingsController tests class.
@@ -35,13 +35,12 @@ class SensorSettingsControllerTest {
 
     private SensorSettingsController controller = new SensorSettingsController();
     private Date validDate1;
+    private GeographicArea validGeographicArea;
+    private AreaSensor validAreaSensor;
 
 
     @Mock
     private SensorTypeRepository sensorTypeRepository;
-
-    @Mock
-    private AreaSensorRepository areaSensorRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -54,6 +53,35 @@ class SensorSettingsControllerTest {
                 ParseException c) {
             c.printStackTrace();
         }
+        validGeographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
+        validAreaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), validDate1, 2L);
+    }
+
+    @Test
+    void seeIfAddSensorToGeographicAreaWorks() {
+        //Arrange
+
+        validGeographicArea.addSensor(validAreaSensor);
+
+        // Act
+
+        boolean actualResult = controller.addSensorToGeographicArea(validAreaSensor, validGeographicArea);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorToGeographicAreaWorksWhenSensorExists() {
+
+        // Act
+
+        boolean actualResult = controller.addSensorToGeographicArea(validAreaSensor, validGeographicArea);
+
+        // Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
@@ -146,7 +174,6 @@ class SensorSettingsControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
 
 
     @Test

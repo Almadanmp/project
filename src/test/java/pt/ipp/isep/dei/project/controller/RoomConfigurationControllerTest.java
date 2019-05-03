@@ -62,16 +62,36 @@ class RoomConfigurationControllerTest {
     }
 
     @Test
-    void seeIfGetProgramList() {
+    void seeIfGetDeviceListSizeWorks() {
         // Arrange
+
         ProgramList pList = new ProgramList();
         FixedTimeProgram fTProgram = new FixedTimeProgram();
         pList.add(fTProgram);
         Dishwasher dish = new Dishwasher(new DishwasherSpec());
         dish.setProgramList(pList);
         // Act
+
         ProgramList actualResult = controller.getProgramList(dish);
         // Assert
+
+        assertEquals(actualResult, pList);
+    }
+
+    @Test
+    void seeIfGetProgramList() {
+        // Arrange
+
+        ProgramList pList = new ProgramList();
+        FixedTimeProgram fTProgram = new FixedTimeProgram();
+        pList.add(fTProgram);
+        Dishwasher dish = new Dishwasher(new DishwasherSpec());
+        dish.setProgramList(pList);
+        // Act
+
+        ProgramList actualResult = controller.getProgramList(dish);
+        // Assert
+
         assertEquals(actualResult, pList);
     }
 
