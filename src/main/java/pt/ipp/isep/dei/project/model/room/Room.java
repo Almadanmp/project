@@ -331,11 +331,11 @@ public class Room implements Metered, Root {
     //SENSOR METHODS
 
     public List<RoomSensor> getRoomSensors() {
-        return this.roomSensors;
+        return new ArrayList<>(this.roomSensors);
     }
 
     public void setRoomSensors(List<RoomSensor> listSensors) {
-        this.roomSensors = listSensors;
+        this.roomSensors = new ArrayList<>(listSensors);
     }
 
 
