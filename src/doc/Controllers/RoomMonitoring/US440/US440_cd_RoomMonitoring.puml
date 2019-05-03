@@ -46,8 +46,7 @@ GeographicAreaService -- ReadingUtils : >
 
 class RoomMonitoringController {
 -getInstantsBelowComfortInterval(House,int,RoomDTO,Date,Date,RoomService,GeographicAreaService)
--outputUS440(List<Reading>)
-
+-buildReadingsOutput(List<Reading>, String)
 }
 
 class RoomMonitoringUI {
