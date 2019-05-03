@@ -37,8 +37,8 @@ public final class GeographicAreaMapper {
             if (objectId == null) {
                 throw new NullPointerException();
             }
-        } catch (Exception ignored) {
-            ignored.getMessage();
+        } catch (NullPointerException ok) {
+            ok.getMessage();
         }
 
         String objectName = dtoToConvert.getName();
@@ -87,8 +87,8 @@ public final class GeographicAreaMapper {
             if (dtoID == null) {
                 throw new NullPointerException();
             }
-        } catch (Exception ignored) {
-            ignored.getMessage();
+        } catch (NullPointerException ok) {
+            ok.getMessage();
         }
 
         String dtoName = objectToConvert.getName();
