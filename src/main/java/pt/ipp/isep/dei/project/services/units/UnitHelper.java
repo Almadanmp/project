@@ -12,6 +12,8 @@ public class UnitHelper {
         throw new IllegalStateException("Utility class");
     }
 
+    private static final String UNITS_PROPERTIES = "resources/units.properties";
+
     /**
      * This method converts the temperature value into the default one.
      *
@@ -49,7 +51,7 @@ public class UnitHelper {
      *
      * @return temperature unit as a String.
      */
-    static String getApplicationTemperatureDefault(String propFileName) {
+    private static String getApplicationTemperatureDefault(String propFileName) {
         String temperatureDefault = "Celsius";
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(propFileName)) {
@@ -68,7 +70,7 @@ public class UnitHelper {
      * @return String with ApplicationTemperatureDefault path
      */
     static String getApplicationTemperatureConfig() {
-        return getApplicationTemperatureDefault("resources/units.properties");
+        return getApplicationTemperatureDefault(UNITS_PROPERTIES);
     }
 
     /**
@@ -96,7 +98,7 @@ public class UnitHelper {
      * @return String with ApplicationTemperatureDefault path
      */
     static String getUserTemperatureConfig() throws IOException {
-        return getUserTemperatureDefault("resources/units.properties");
+        return getUserTemperatureDefault(UNITS_PROPERTIES);
     }
 
     /**
@@ -104,7 +106,7 @@ public class UnitHelper {
      *
      * @return rainfall unit as a String.
      */
-    static String getApplicationRainfallDefault(String propFileName) {
+    private static String getApplicationRainfallDefault(String propFileName) {
         String rainfallDefault = "Millimeter";
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(propFileName)) {
@@ -122,8 +124,8 @@ public class UnitHelper {
      *
      * @return String with ApplicationTemperatureDefault path
      */
-    static String getApplicationRainfallConfig(){
-        return getApplicationRainfallDefault("resources/units.properties");
+    static String getApplicationRainfallConfig() {
+        return getApplicationRainfallDefault(UNITS_PROPERTIES);
     }
 
     /**
@@ -152,7 +154,7 @@ public class UnitHelper {
      * @throws IOException the exception to the method
      */
     static String getUserRainfallConfig() throws IOException {
-        return getUserRainfallDefault("resources/units.properties");
+        return getUserRainfallDefault(UNITS_PROPERTIES);
     }
 
     /**
@@ -204,8 +206,7 @@ public class UnitHelper {
         if (unit instanceof TemperatureUnit) {
             String defaultTemperatureString = getApplicationTemperatureConfig();
             return convertStringToUnit(defaultTemperatureString);
-        }
-        else if (unit instanceof RainfallUnit) {
+        } else if (unit instanceof RainfallUnit) {
             String defaultRainfallString = getApplicationRainfallConfig();
             return convertStringToUnit(defaultRainfallString);
         }

@@ -8,12 +8,13 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnitHelperTest {
 
     @Test
-    public void testConstructorIsPrivate() throws IllegalStateException {
+    void testConstructorIsPrivate() throws IllegalStateException {
         try {
             Constructor<UnitHelper> constructor = UnitHelper.class.getDeclaredConstructor();
             assertTrue(Modifier.isPrivate(constructor.getModifiers()));
@@ -22,7 +23,7 @@ class UnitHelperTest {
         } catch (InstantiationException e) {
         } catch (IllegalAccessException i) {
         } catch (InvocationTargetException a) {
-        } catch (NoSuchMethodException ns){
+        } catch (NoSuchMethodException ns) {
         }
     }
 
@@ -227,6 +228,17 @@ class UnitHelperTest {
     }
 
     @Test
+    void seeIfConvertUnitToSystemDefaultWorksIfReceivesNull() {
+        // Act
+
+        Unit actualResult = UnitHelper.convertUnitToSystemDefault(null);
+
+        // Assert
+
+        assertNull(actualResult);
+    }
+
+    @Test
     void seeIfConvertUnitToSystemDefaultRainfallWorks() {
         // Arrange
 
@@ -256,6 +268,21 @@ class UnitHelperTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfConvertStringToUnitWorksWithWrongString() {
+        // Arrange
+
+        String givenUnitString = "WrongString";
+
+        // Act
+
+        Unit actualResult = UnitHelper.convertStringToUnit(givenUnitString);
+
+        // Assert
+
+        assertNull(actualResult);
     }
 
     @Test
