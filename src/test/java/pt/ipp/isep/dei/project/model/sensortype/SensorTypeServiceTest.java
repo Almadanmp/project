@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -200,7 +201,7 @@ class SensorTypeServiceTest {
     }
 
     @Test
-    void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepository() {
+    void seeIfAddWorksWhenAreaTypeInRepository() {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "Celsius");
@@ -208,6 +209,15 @@ class SensorTypeServiceTest {
 
         //Act
         boolean actualResult = sensorTypeService.add(sensorType);
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepositoryFalse() {
+
+        //Act
+        boolean actualResult = sensorTypeService.add(firstValidType);
 
         assertTrue(actualResult);
     }
@@ -226,7 +236,7 @@ class SensorTypeServiceTest {
     }
 
     @Test
-    void seeIfAddWorksWhenAreaTypeAlreadyExists() {
+    void seeIfAddTypeWorksNewArea() {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "Celsius");
@@ -238,6 +248,16 @@ class SensorTypeServiceTest {
 
         assertTrue(actualResult);
     }
+
+    @Test
+    void seeIfAddWorksAreaTypeExists() {
+
+        //Act
+        boolean actualResult = sensorTypeService.addType(firstValidType);
+
+        assertTrue(actualResult);
+    }
+
 
     @Test
     void seeIfGetTypeAreaByIdRepository() {
