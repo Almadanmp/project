@@ -8,8 +8,6 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
@@ -58,7 +56,7 @@ public class RoomService {
 
     public List<Room> getAllRooms() {
         List<Room> roomsAux = roomRepository.findAll();
-        if(roomsAux != null){
+        if (roomsAux != null) {
             return roomsAux;
         }
         return new ArrayList<>();

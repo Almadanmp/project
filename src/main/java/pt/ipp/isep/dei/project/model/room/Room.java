@@ -331,11 +331,11 @@ public class Room implements Metered, Root {
     //SENSOR METHODS
 
     public List<RoomSensor> getRoomSensors() {
-        return this.roomSensors;
+        return new ArrayList<>(this.roomSensors);
     }
 
     public void setRoomSensors(List<RoomSensor> listSensors) {
-        this.roomSensors = listSensors;
+        this.roomSensors = new ArrayList<>(listSensors);
     }
 
 
@@ -477,40 +477,6 @@ public class Room implements Metered, Root {
             }
         }
         throw new IllegalArgumentException();
-    }
-
-    /**
-     * This methods retrieves a List containing the readings (as DTOs) for a
-     * determined room and time interval.
-     *
-     * @return a list with the readingDTOs for the selected time interval.
-     */
-    public List<Reading> getAllReadingsInInterval(Date startDate, Date endDate) {
-        return getRoomTemperatureReadingsBetweenSelectedDates(startDate, endDate);
-    }
-
-    /**
-     * This method retrieves a list of readingDTOs respective to a given room and within
-     * a given time interval.
-     *
-     * @param initialDate is the beginning of the interval.
-     * @param finalDate   is the ending of the interval.
-     * @return a list containing the readings in that room for that time interval.
-     */
-    private List<Reading> getRoomTemperatureReadingsBetweenSelectedDates(Date initialDate, Date
-            finalDate) {
-        List<RoomSensor> temperatureSensors = this.getRoomSensorsOfGivenType(TEMPERATURE);
-        List<Reading> allReadings = new ArrayList<>();
-        for (RoomSensor roomSensor : temperatureSensors) {
-            allReadings.addAll(roomSensor.getReadings());
-        }
-        List<Reading> finalList = new ArrayList<>();
-        for (Reading r : allReadings) {
-            if (ReadingUtils.isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
-                finalList.add(r);
-            }
-        }
-        return finalList;
     }
 
     @Override
