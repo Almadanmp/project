@@ -27,7 +27,7 @@ title REF Date Interval Selection
 
 actor User
 
-activate ":RoomMonitoringUII"
+activate ":RoomMonitoringUI"
 ":RoomMonitoringUI" -> ":RoomMonitoringUI": getStartDate()
 ":RoomMonitoringUI" -> ":InputUtils": getInputYearMonthDay()
 activate ":InputUtils"
@@ -38,8 +38,7 @@ User -> ":InputUtils": insert month
 ":InputUtils" --> User: request day
 User -> ":InputUtils": insert day
 ":InputUtils" -> ":InputUtils": createDate(year, month, day)
-":InputUtils" --> ":HouseMonitoringUI": return Date
+":InputUtils" --> ":RoomMonitoringUI": return Date
 deactivate ":InputUtils"
 deactivate User
-deactivate ":HouseMonitoringUI"
 @enduml

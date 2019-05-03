@@ -51,6 +51,9 @@ activate "room:Room"
 "room:Room" --> ":RoomMonitoringController": return room
 deactivate "room:Room"
 ":RoomMonitoringController" -> ":RoomService": getReadingsInInterval(StartingDate,EndingDate,Room)
+ref over ":RoomMonitoringController"
+getReadingsInInterval(Date, Date, room)
+end ref
 activate ":RoomService"
 ":RoomService" --> ":RoomMonitoringController": return List<Reading> readingValues
 deactivate ":RoomService"
