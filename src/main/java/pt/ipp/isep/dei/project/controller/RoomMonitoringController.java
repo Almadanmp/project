@@ -64,7 +64,7 @@ public class RoomMonitoringController {
      */
     public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaService geographicAreaService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = roomService.getReadingsInInterval(startDate, endDate, room);
+        List<Reading> readingValues = roomService.getTemperatureReadingsBetweenDates(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
@@ -113,7 +113,7 @@ public class RoomMonitoringController {
 
     public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaService geographicAreaService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = roomService.getReadingsInInterval(startDate, endDate, room);
+        List<Reading> readingValues = roomService.getTemperatureReadingsBetweenDates(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {

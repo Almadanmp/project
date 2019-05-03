@@ -442,11 +442,7 @@ public class RoomService {
         return addedReadings;
     }
 
-    public List<Reading> getReadingsInInterval(Date startDate, Date endDate, Room room) {
-        return getTemperatureReadingsBetweenDates(startDate, endDate, room);
-    }
-
-    private List<Reading> getTemperatureReadingsBetweenDates(Date initialDate, Date finalDate, Room room) {
+    public List<Reading> getTemperatureReadingsBetweenDates(Date initialDate, Date finalDate, Room room) {
         List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
         List<Reading> allReadings = new ArrayList<>();
         for (RoomSensor roomSensor : temperatureSensors) {
