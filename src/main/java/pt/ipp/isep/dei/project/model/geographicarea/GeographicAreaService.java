@@ -381,4 +381,129 @@ public class GeographicAreaService {
         }
         return finalList;
     }
+
+    public List<Reading> getReadingsBelowCategoryILimit(List<Reading> readingValues, House house) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (temperature != 666) {
+                if (categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                    allReadings.add(r);
+                }
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsBelowCategoryIIILimit(List<Reading> readingValues, House house) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                allReadings.add(r);
+            }
+        }
+        return allReadings;
+    }
+
+    private boolean categoryICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 - 2;
+        return reading.getValue() < minT;
+    }
+
+    private boolean categoryIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 - 3;
+        return reading.getValue() < minT;
+    }
+
+    private boolean categoryIIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 - 4;
+        return reading.getValue() < minT;
+    }
+
+    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (temperature != 0) {
+                if (categoryICalculusUS445(r, temperature)) {
+                    allReadings.add(r);
+                }
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (temperature != 666) {
+                if (categoryIICalculusUS445(r, temperature)) {
+                    allReadings.add(r);
+                }
+            }
+        }
+        return allReadings;
+    }
+
+    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house) {
+        List<Reading> allReadings = new ArrayList<>();
+        for (Reading r : readingValues) {
+            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (temperature != 666) {
+                if (categoryIIICalculusUS445(r, temperature)) {
+                    allReadings.add(r);
+                }
+            }
+        }
+        return allReadings;
+    }
+
+    /**
+     * Method to check id a given reading is above the comfort temperature for category I.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    private boolean categoryICalculusUS445(Reading reading, double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 2;
+        return reading.getValue() > minT;
+    }
+
+    /**
+     * Method to check id a given reading is above the comfort temperature for category II.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    private boolean categoryIICalculusUS445(Reading reading, double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 3;
+        return reading.getValue() > minT;
+    }
+
+    /**
+     * Method to check id a given reading is above the comfort temperature for category III.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    private boolean categoryIIICalculusUS445(Reading reading, double areaTemperature) {
+        double minT = 0.33 * areaTemperature + 18.8 + 4;
+        return reading.getValue() > minT;
+    }
 }

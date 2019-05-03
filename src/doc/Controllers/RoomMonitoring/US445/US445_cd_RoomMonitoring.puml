@@ -45,53 +45,55 @@ GeographicAreaService -- ReadingUtils : >
 
 
 class RoomMonitoringController {
-getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, \nDate startDate, Date endDate, RoomService roomService, GeographicAreaService geographicAreaService)
-buildReadingDTOListOutputUS445(allReadings)
-
+-getInstantsAboveComfortInterval(House,int,RoomDTO,Date,Date,RoomService,GeographicAreaService)
+-buildReadingDTOListOutputUS445(List<Reading>)
 }
 
 class RoomMonitoringUI {
-runUS445(RoomService roomService, House house, GeographicAreaService geographicAreaService)
+-runUS445(RoomService, House, GeographicAreaService)
 }
 
 class Mapper {
-objectToDTO(room)
+-objectToDTO(Room)
 }
 
 class RoomService{
-getAllRooms()
-getReadingsInInterval(Date startDate, Date endDate, Room room)
-getTemperatureReadingsBetweenDates(startDate, endDate, room)
-getRoomSensorsOfGivenType("temperature")
-getReadingsAboveCategoryILimit(readingValues, house)
-getReadingsAboveCategoryIILimit(readingValues, house)
-getReadingsAboveCategoryIIILimit(readingValues, house)
+-getAllRooms()
+-getReadingsInInterval(Date, Date, Room)
+-getTemperatureReadingsBetweenDates(Date,Date,Room)
+-getRoomSensorsOfGivenType(String)
 }
 
 class GeographicAreaService{
-getGeographicAreaAverageTemperature(r.getDate(),house)
-getClosestAreaSensorOfGivenType("temperature",house)
-getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor)
-getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor)
+-getGeographicAreaAverageTemperature(Date, House)
+-getClosestAreaSensorOfGivenType(String,House)
+-getAverageReadingsBetweenFormattedDates(Date, Date, AreaSensor)
+-getReadingListBetweenFormattedDates(Date, Date, AreaSensor)
+-getReadingsAboveCategoryILimit(List<Reading>, House)
+-getReadingsAboveCategoryIILimit(List<Reading>, House)
+-getReadingsAboveCategoryIIILimit(List<Reading>, House)
+-categoryICalculusTemperaturesAboveAverage(Reading, double)
+-categoryIICalculusTemperaturesAboveAverage(Reading, double)
+-categoryIIICalculusTemperaturesAboveAverage(Reading, double)
 }
 
 class DateUtils {
-getInputYearMonthDayHourMin()
+-getInputYearMonthDayHourMin()
 }
 
 class InputHelperUI {
-getRoomDTOByList(roomService)
-getHouseRoomByList(roomService, rooms)
+-getRoomDTOByList(roomService)
+-getHouseRoomByList(roomService, List<Room>)
 }
 
 class UtilsUI {
-selectCategory()
+-selectCategory()
 }
 
 class ReadingUtils {
-isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)
-getValuesOfSpecificDayReadings(sensorReadingsBetweenDates, day)
-getAvgFromList(specificDayValues)
+-isReadingDateBetweenTwoDates(Date, Date, Date)
+-getValuesOfSpecificDayReadings(List<Reading>, Date)
+-getAvgFromList(List<double>)
 }
 
 

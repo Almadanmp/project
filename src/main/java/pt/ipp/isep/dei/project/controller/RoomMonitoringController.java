@@ -68,15 +68,15 @@ public class RoomMonitoringController {
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
-            allReadings = roomService.getReadingsAboveCategoryILimit(readingValues, house, geographicAreaService);
+            allReadings = geographicAreaService.getReadingsAboveCategoryILimit(readingValues, house);
             result = buildReadingDTOListOutputUS445(allReadings, house);
         }
         if (category == 1) {
-            allReadings = roomService.getReadingsAboveCategoryIILimit(readingValues, house, geographicAreaService);
+            allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
             result = buildReadingDTOListOutputUS445(allReadings, house);
         }
         if (category == 2) {
-            allReadings = roomService.getReadingsAboveCategoryIIILimit(readingValues, house, geographicAreaService);
+            allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
             result = buildReadingDTOListOutputUS445(allReadings, house);
         }
         return result;
@@ -117,21 +117,21 @@ public class RoomMonitoringController {
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {
-            allReadings = roomService.getReadingsBelowCategoryILimit(readingValues, house, geographicAreaService);
-            if (!allReadings.isEmpty()) result = buildReadingDTOListOutputUS440(allReadings);
+            allReadings = geographicAreaService.getReadingsBelowCategoryILimit(readingValues, house);
+            if (!allReadings.isEmpty()) result = outputUS440(allReadings);
         }
         if (category == 1) {
-            allReadings = roomService.getReadingsBelowCategoryIILimit(readingValues, house, geographicAreaService);
-            if (!allReadings.isEmpty()) result = buildReadingDTOListOutputUS440(allReadings);
+            allReadings = geographicAreaService.getReadingsBelowCategoryIILimit(readingValues, house);
+            if (!allReadings.isEmpty()) result = outputUS440(allReadings);
         }
         if (category == 2) {
-            allReadings = roomService.getReadingsBelowCategoryIIILimit(readingValues, house, geographicAreaService);
-            if (!allReadings.isEmpty()) result = buildReadingDTOListOutputUS440(allReadings);
+            allReadings = geographicAreaService.getReadingsBelowCategoryIIILimit(readingValues, house);
+            if (!allReadings.isEmpty()) result = outputUS440(allReadings);
         }
         return result;
     }
 
-    private String buildReadingDTOListOutputUS440(List<Reading> list) {
+    private String outputUS440(List<Reading> list) {
         StringBuilder result = new StringBuilder("Instants in which the readings are below the comfort temperature:\n");
         for (int i = 0; i < list.size(); i++) {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
