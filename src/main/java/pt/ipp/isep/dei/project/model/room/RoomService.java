@@ -188,16 +188,15 @@ public class RoomService {
      * @param roomDTO is the DTO that contains the data we want to use to update the model object.
      * @return is the updated room if the update was successful, is null if it wasn't.
      */
-    public Room updateHouseRoom(RoomDTO roomDTO) {
-        Room room = null;
+    public Room updateHouseRoom(RoomDTO roomDTO) throws RuntimeException {
         List<Room> rooms = this.getAllRooms();
         for (Room r : rooms) {
             if (roomDTO.getName().compareTo(r.getId()) == 0) {
                 r = RoomMapper.dtoToObject(roomDTO);
-                room = r;
+                return r;
             }
         }
-        return room;
+        throw new RuntimeException();
     }
 
 //TODO OLD METHODS

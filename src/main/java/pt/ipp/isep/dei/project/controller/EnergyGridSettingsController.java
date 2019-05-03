@@ -97,9 +97,14 @@ public class EnergyGridSettingsController {
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) {
-        Room room = roomService.updateHouseRoom(roomDTO);
-        return grid.addRoom(room);
+    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) throws RuntimeException {
+        try{
+            Room room = roomService.updateHouseRoom(roomDTO);
+            return grid.addRoom(room);
+        }
+        catch (RuntimeException ok){
+            throw new RuntimeException();
+        }
     }
 
     /*USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and

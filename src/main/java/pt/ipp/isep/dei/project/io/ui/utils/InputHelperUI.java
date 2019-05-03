@@ -201,15 +201,21 @@ public class InputHelperUI {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
-            System.out.println(controller.buildDeviceListString(roomService.updateHouseRoom(room)));
-            int aux = getInputAsInt();
-            if (aux >= 0 && aux < controller.getDeviceListSize(room, roomService)) {
-                Device result = controller.getDeviceByIndex(room, aux, roomService);
-                System.out.println("You have chosen the following device:");
-                System.out.println(result.buildString() + "\n");
-                return result;
-            } else {
-                System.out.println(UtilsUI.INVALID_OPTION);
+            try {
+                Room roomToUse = roomService.updateHouseRoom(room);
+                System.out.println(controller.buildDeviceListString(roomToUse));
+                int aux = getInputAsInt();
+                int upperLimit = controller.getDeviceListSize(room, roomService);
+                if (aux >= 0 && aux < upperLimit) {
+                    Device result = controller.getDeviceByIndex(room, aux, roomService);
+                    System.out.println("You have chosen the following device:");
+                    System.out.println(result.buildString() + "\n");
+                    return result;
+                } else {
+                    System.out.println(UtilsUI.INVALID_OPTION);
+                }
+            } catch (RuntimeException ok) {
+                System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
             }
         }
     }

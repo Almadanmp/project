@@ -795,4 +795,34 @@ class EnergyConsumptionControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetRoomLogsInIntervalWorksNoRooms(){
+        // Arrange
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Assert
+
+        assertThrows((RuntimeException.class), ()-> controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomService));
+    }
+
+    @Test
+    void seeIfGetRoomLogsInIntervalWorksNoLogs(){
+        // Arrange
+
+        List<Room> mockedRoomList = new ArrayList<>();
+        mockedRoomList.add(validRoom1);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockedRoomList);
+        LogList expectedResult = new LogList();
+
+        // Act
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
+        LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
