@@ -491,7 +491,7 @@ public class RoomService {
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
-    private boolean categoryICalculusUS445(Reading reading, Double areaTemperature) {
+    private boolean categoryICalculusUS445(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 + 2;
         return reading.getValue() > minT;
     }
@@ -503,7 +503,7 @@ public class RoomService {
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
-    private boolean categoryIICalculusUS445(Reading reading, Double areaTemperature) {
+    private boolean categoryIICalculusUS445(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 + 3;
         return reading.getValue() > minT;
     }
@@ -515,7 +515,7 @@ public class RoomService {
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
-    private boolean categoryIIICalculusUS445(Reading reading, Double areaTemperature) {
+    private boolean categoryIIICalculusUS445(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 + 4;
         return reading.getValue() > minT;
     }
@@ -555,17 +555,17 @@ public class RoomService {
         return allReadings;
     }
 
-    private boolean categoryICalculusTemperaturesLowerThanAverage(Reading reading, Double areaTemperature) {
+    private boolean categoryICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 - 2;
         return reading.getValue() < minT;
     }
 
-    private boolean categoryIICalculusTemperaturesLowerThanAverage(Reading reading, Double areaTemperature) {
+    private boolean categoryIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 - 3;
         return reading.getValue() < minT;
     }
 
-    private boolean categoryIIICalculusTemperaturesLowerThanAverage(Reading reading, Double areaTemperature) {
+    private boolean categoryIIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 - 4;
         return reading.getValue() < minT;
     }
