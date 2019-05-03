@@ -13,7 +13,6 @@ import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -653,223 +652,223 @@ class RoomTest {
     }
 
 //    @Test
-////    void seeifGetReadingsAboveILimit() {
-////
-////        //ListReadings
-////        List<Reading> readings = new ArrayList<>();
-////        Date firstDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
-////        Date secondDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
-////        Reading reading1 = new Reading(31, firstDate, "C", "Test");
-////        Reading reading2 = new Reading(31, secondDate, "C", "Test");
-////        readings.add(reading1);
-////        readings.add(reading2);
-////
-////        //House
-////        List<String> deviceTypeString = new ArrayList<>();
-////        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-////        House house = new House("house", new Address("Rua Dr. António Bernardino de Almeida", "431",
-////                "4455-125", "Porto", "Portugal"),
-////                new Local(20, 20, 20), 60,
-////                180, deviceTypeString);
-////
-////        //Room
-////        Room room = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, house.getId(), "Grid1");
-////
-////        //MotherArea
-////        GeographicArea geoArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
-////                new Local(20, 12, 33));
-////        house.setMotherArea(geoArea);
-////
-////
-////
-////        //RoomSensor
-////        RoomSensor roomSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), room.getId());
-////        roomSensor.setActive(true);
-////        roomSensor.setReadings(readings);
-////
-////        List<RoomSensor> roomSensors = new ArrayList<>();
-////        roomSensors.add(roomSensor);
-////        room.setRoomSensors(roomSensors);
-////
-////
-////        assertEquals(readings, room.getReadingsAboveCategoryILimit(readings, house));
-////
-////    }
+//    void seeifGetReadingsAboveILimit() {
+//
+//        //ListReadings
+//        List<Reading> readings = new ArrayList<>();
+//        Date firstDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
+//        Date secondDate = new GregorianCalendar(2018, Calendar.APRIL, 25).getTime();
+//        Reading reading1 = new Reading(31, firstDate, "C", "Test");
+//        Reading reading2 = new Reading(31, secondDate, "C", "Test");
+//        readings.add(reading1);
+//        readings.add(reading2);
+//
+//        //House
+//        List<String> deviceTypeString = new ArrayList<>();
+//        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+//        House house = new House("house", new Address("Rua Dr. António Bernardino de Almeida", "431",
+//                "4455-125", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, deviceTypeString);
+//
+//        //Room
+//        Room room = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, house.getId(), "Grid1");
+//
+//        //MotherArea
+//        GeographicArea geoArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
+//                new Local(20, 12, 33));
+//        house.setMotherArea(geoArea);
+//
+//
+//
+//        //RoomSensor
+//        RoomSensor roomSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), room.getId());
+//        roomSensor.setActive(true);
+//        roomSensor.setReadings(readings);
+//
+//        List<RoomSensor> roomSensors = new ArrayList<>();
+//        roomSensors.add(roomSensor);
+//        room.setRoomSensors(roomSensors);
+//
+//
+//        assertEquals(readings, room.getReadingsAboveCategoryILimit(readings, house));
+//
+//    }
 
-    @Test
-    void seeifGetReadingsAboveLimit() {
+//    @Test
+//    void seeifGetReadingsAboveLimit() {
+//
+//        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
+//        validAreaSensor.setActive(true);
+//        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
+//        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
+//        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
+//        List<Reading> areaReadings = new ArrayList<>();
+//        areaReadings.add(areaReading1);
+//        areaReadings.add(areaReading2);
+//        areaReadings.add(areaReading3);
+//        validAreaSensor.setReadings(areaReadings);
+//        validArea.addSensor(validAreaSensor);
+//
+//        Reading reading1 = new Reading(31, validDate1, "C", "Test");
+//        Reading reading2 = new Reading(20, validDate2, "C", "Test1");
+//        Reading reading3 = new Reading(29, validDate3, "C", "Test");
+//
+//        List<Reading> readings = new ArrayList<>();
+//
+//        readings.add(reading1);
+//        readings.add(reading2);
+//        readings.add(reading3);
+//
+//        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
+//        SensorType sensorType = new SensorType("temperature", "Celsius");
+//        roomSensor.setSensorType(sensorType);
+//        roomSensor.setReadings(readings);
+//        roomSensor.setRoomId(validRoom.getId());
+//
+//        List<RoomSensor> roomSensors = new ArrayList<>();
+//        roomSensors.add(roomSensor);
+//        validRoom.setRoomSensors(roomSensors);
+//
+//        reading1.setSensorID(roomSensor.getId());
+//        reading2.setSensorID(roomSensor.getId());
+//        reading3.setSensorID(roomSensor.getId());
+//
+//
+//        List<Reading> expectedResult = new ArrayList<>();
+//        expectedResult.add(reading1);
+//        expectedResult.add(reading3);
+//
+//        // Act
+//
+//        List<Reading> actualResult = validRoom.getReadingsAboveCategoryILimit(readings, validHouse);
+//        List<Reading> actualResult2 = validRoom.getReadingsAboveCategoryIILimit(readings, validHouse);
+//        List<Reading> actualResult3 = validRoom.getReadingsAboveCategoryIIILimit(readings, validHouse);
+//
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//        assertEquals(expectedResult,actualResult2);
+//        assertEquals(expectedResult,actualResult3);
+//    }
 
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
-        validAreaSensor.setActive(true);
-        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
-        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
-        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
-        List<Reading> areaReadings = new ArrayList<>();
-        areaReadings.add(areaReading1);
-        areaReadings.add(areaReading2);
-        areaReadings.add(areaReading3);
-        validAreaSensor.setReadings(areaReadings);
-        validArea.addSensor(validAreaSensor);
+//    @Test
+//    void seeifGetReadingsAboveLimitLowTemperatures() {
+//
+//        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
+//        validAreaSensor.setActive(true);
+//        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
+//        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
+//        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
+//        List<Reading> areaReadings = new ArrayList<>();
+//        areaReadings.add(areaReading1);
+//        areaReadings.add(areaReading2);
+//        areaReadings.add(areaReading3);
+//        validAreaSensor.setReadings(areaReadings);
+//        validArea.addSensor(validAreaSensor);
+//
+//        Reading reading1 = new Reading(10, validDate1, "C", "Test");
+//        Reading reading2 = new Reading(10, validDate2, "C", "Test1");
+//        Reading reading3 = new Reading(10, validDate3, "C", "Test");
+//
+//        List<Reading> readings = new ArrayList<>();
+//
+//        readings.add(reading1);
+//        readings.add(reading2);
+//        readings.add(reading3);
+//
+//        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
+//        SensorType sensorType = new SensorType("temperature", "Celsius");
+//        roomSensor.setSensorType(sensorType);
+//        roomSensor.setReadings(readings);
+//        roomSensor.setRoomId(validRoom.getId());
+//
+//        List<RoomSensor> roomSensors = new ArrayList<>();
+//        roomSensors.add(roomSensor);
+//        validRoom.setRoomSensors(roomSensors);
+//
+//        reading1.setSensorID(roomSensor.getId());
+//        reading2.setSensorID(roomSensor.getId());
+//        reading3.setSensorID(roomSensor.getId());
+//
+//
+//        List<Reading> expectedResult = new ArrayList<>();
+//
+//
+//        // Act
+//
+//        List<Reading> actualResult = validRoom.getReadingsAboveCategoryILimit(readings, validHouse);
+//        List<Reading> actualResult2 = validRoom.getReadingsAboveCategoryIILimit(readings, validHouse);
+//        List<Reading> actualResult3 = validRoom.getReadingsAboveCategoryIIILimit(readings, validHouse);
+//
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//        assertEquals(expectedResult,actualResult2);
+//        assertEquals(expectedResult,actualResult3);
+//    }
 
-        Reading reading1 = new Reading(31, validDate1, "C", "Test");
-        Reading reading2 = new Reading(20, validDate2, "C", "Test1");
-        Reading reading3 = new Reading(29, validDate3, "C", "Test");
-
-        List<Reading> readings = new ArrayList<>();
-
-        readings.add(reading1);
-        readings.add(reading2);
-        readings.add(reading3);
-
-        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        roomSensor.setSensorType(sensorType);
-        roomSensor.setReadings(readings);
-        roomSensor.setRoomId(validRoom.getId());
-
-        List<RoomSensor> roomSensors = new ArrayList<>();
-        roomSensors.add(roomSensor);
-        validRoom.setRoomSensors(roomSensors);
-
-        reading1.setSensorID(roomSensor.getId());
-        reading2.setSensorID(roomSensor.getId());
-        reading3.setSensorID(roomSensor.getId());
-
-
-        List<Reading> expectedResult = new ArrayList<>();
-        expectedResult.add(reading1);
-        expectedResult.add(reading3);
-
-        // Act
-
-        List<Reading> actualResult = validRoom.getReadingsAboveCategoryILimit(readings, validHouse);
-        List<Reading> actualResult2 = validRoom.getReadingsAboveCategoryIILimit(readings, validHouse);
-        List<Reading> actualResult3 = validRoom.getReadingsAboveCategoryIIILimit(readings, validHouse);
-
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-        assertEquals(expectedResult,actualResult2);
-        assertEquals(expectedResult,actualResult3);
-    }
-
-    @Test
-    void seeifGetReadingsAboveLimitLowTemperatures() {
-
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
-        validAreaSensor.setActive(true);
-        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
-        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
-        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
-        List<Reading> areaReadings = new ArrayList<>();
-        areaReadings.add(areaReading1);
-        areaReadings.add(areaReading2);
-        areaReadings.add(areaReading3);
-        validAreaSensor.setReadings(areaReadings);
-        validArea.addSensor(validAreaSensor);
-
-        Reading reading1 = new Reading(10, validDate1, "C", "Test");
-        Reading reading2 = new Reading(10, validDate2, "C", "Test1");
-        Reading reading3 = new Reading(10, validDate3, "C", "Test");
-
-        List<Reading> readings = new ArrayList<>();
-
-        readings.add(reading1);
-        readings.add(reading2);
-        readings.add(reading3);
-
-        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        roomSensor.setSensorType(sensorType);
-        roomSensor.setReadings(readings);
-        roomSensor.setRoomId(validRoom.getId());
-
-        List<RoomSensor> roomSensors = new ArrayList<>();
-        roomSensors.add(roomSensor);
-        validRoom.setRoomSensors(roomSensors);
-
-        reading1.setSensorID(roomSensor.getId());
-        reading2.setSensorID(roomSensor.getId());
-        reading3.setSensorID(roomSensor.getId());
-
-
-        List<Reading> expectedResult = new ArrayList<>();
-
-
-        // Act
-
-        List<Reading> actualResult = validRoom.getReadingsAboveCategoryILimit(readings, validHouse);
-        List<Reading> actualResult2 = validRoom.getReadingsAboveCategoryIILimit(readings, validHouse);
-        List<Reading> actualResult3 = validRoom.getReadingsAboveCategoryIIILimit(readings, validHouse);
-
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-        assertEquals(expectedResult,actualResult2);
-        assertEquals(expectedResult,actualResult3);
-    }
-
-    @Test
-    void seeifGetReadingsAboveLimitHighTemperatures() {
-
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
-        validAreaSensor.setActive(true);
-        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
-        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
-        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
-        List<Reading> areaReadings = new ArrayList<>();
-        areaReadings.add(areaReading1);
-        areaReadings.add(areaReading2);
-        areaReadings.add(areaReading3);
-        validAreaSensor.setReadings(areaReadings);
-        validArea.addSensor(validAreaSensor);
-
-        Reading reading1 = new Reading(100, validDate1, "C", "Test");
-        Reading reading2 = new Reading(100, validDate2, "C", "Test1");
-        Reading reading3 = new Reading(100, validDate3, "C", "Test");
-
-        List<Reading> readings = new ArrayList<>();
-
-        readings.add(reading1);
-        readings.add(reading2);
-        readings.add(reading3);
-
-        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        roomSensor.setSensorType(sensorType);
-        roomSensor.setReadings(readings);
-        roomSensor.setRoomId(validRoom.getId());
-
-        List<RoomSensor> roomSensors = new ArrayList<>();
-        roomSensors.add(roomSensor);
-        validRoom.setRoomSensors(roomSensors);
-
-        reading1.setSensorID(roomSensor.getId());
-        reading2.setSensorID(roomSensor.getId());
-        reading3.setSensorID(roomSensor.getId());
-
-
-        List<Reading> expectedResult = new ArrayList<>();
-        expectedResult.add(reading1);
-        expectedResult.add(reading2);
-        expectedResult.add(reading3);
-
-
-        // Act
-
-        List<Reading> actualResult = validRoom.getReadingsAboveCategoryILimit(readings, validHouse);
-        List<Reading> actualResult2 = validRoom.getReadingsAboveCategoryIILimit(readings, validHouse);
-        List<Reading> actualResult3 = validRoom.getReadingsAboveCategoryIIILimit(readings, validHouse);
-
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-        assertEquals(expectedResult,actualResult2);
-        assertEquals(expectedResult,actualResult3);
-    }
+//    @Test
+//    void seeifGetReadingsAboveLimitHighTemperatures() {
+//
+//        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
+//        validAreaSensor.setActive(true);
+//        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
+//        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
+//        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
+//        List<Reading> areaReadings = new ArrayList<>();
+//        areaReadings.add(areaReading1);
+//        areaReadings.add(areaReading2);
+//        areaReadings.add(areaReading3);
+//        validAreaSensor.setReadings(areaReadings);
+//        validArea.addSensor(validAreaSensor);
+//
+//        Reading reading1 = new Reading(100, validDate1, "C", "Test");
+//        Reading reading2 = new Reading(100, validDate2, "C", "Test1");
+//        Reading reading3 = new Reading(100, validDate3, "C", "Test");
+//
+//        List<Reading> readings = new ArrayList<>();
+//
+//        readings.add(reading1);
+//        readings.add(reading2);
+//        readings.add(reading3);
+//
+//        RoomSensor roomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomAD");
+//        SensorType sensorType = new SensorType("temperature", "Celsius");
+//        roomSensor.setSensorType(sensorType);
+//        roomSensor.setReadings(readings);
+//        roomSensor.setRoomId(validRoom.getId());
+//
+//        List<RoomSensor> roomSensors = new ArrayList<>();
+//        roomSensors.add(roomSensor);
+//        validRoom.setRoomSensors(roomSensors);
+//
+//        reading1.setSensorID(roomSensor.getId());
+//        reading2.setSensorID(roomSensor.getId());
+//        reading3.setSensorID(roomSensor.getId());
+//
+//
+//        List<Reading> expectedResult = new ArrayList<>();
+//        expectedResult.add(reading1);
+//        expectedResult.add(reading2);
+//        expectedResult.add(reading3);
+//
+//
+//        // Act
+//
+//        List<Reading> actualResult = validRoom.getReadingsAboveCategoryILimit(readings, validHouse);
+//        List<Reading> actualResult2 = validRoom.getReadingsAboveCategoryIILimit(readings, validHouse);
+//        List<Reading> actualResult3 = validRoom.getReadingsAboveCategoryIIILimit(readings, validHouse);
+//
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//        assertEquals(expectedResult,actualResult2);
+//        assertEquals(expectedResult,actualResult3);
+//    }
 
 
 }

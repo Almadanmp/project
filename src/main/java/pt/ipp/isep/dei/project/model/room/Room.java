@@ -9,7 +9,6 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
-import pt.ipp.isep.dei.project.model.house.House;
 
 import javax.persistence.*;
 import java.util.*;
@@ -512,75 +511,6 @@ public class Room implements Metered, Root {
             }
         }
         return finalList;
-    }
-
-    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house) {
-        List<Reading> allReadings = new ArrayList<>();
-        for (Reading r : readingValues) {
-            double temperature = house.getHouseAreaAverageTemperature(r.getDate());
-            if (categoryICalculusUS445(r, temperature)) {
-                allReadings.add(r);
-            }
-        }
-        return allReadings;
-    }
-
-    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house) {
-        List<Reading> allReadings = new ArrayList<>();
-        for (Reading r : readingValues) {
-            double temperature = house.getHouseAreaAverageTemperature(r.getDate());
-            if (categoryIICalculusUS445(r, temperature)) {
-                allReadings.add(r);
-            }
-        }
-        return allReadings;
-    }
-
-    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house) {
-        List<Reading> allReadings = new ArrayList<>();
-        for (Reading r : readingValues) {
-            double temperature = house.getHouseAreaAverageTemperature(r.getDate());
-            if (categoryIIICalculusUS445(r, temperature)) {
-                allReadings.add(r);
-            }
-        }
-        return allReadings;
-    }
-
-    /**
-     * Method to check id a given reading is above the comfort temperature for category I.
-     *
-     * @param reading         - Reading to get value.
-     * @param areaTemperature - outside average temperature for the given date
-     * @return true if the reading is above the comfort level.
-     */
-    private boolean categoryICalculusUS445(Reading reading, Double areaTemperature) {
-        double minT = 0.33 * areaTemperature + 18.8 + 2;
-        return reading.getValue() > minT;
-    }
-
-    /**
-     * Method to check id a given reading is above the comfort temperature for category II.
-     *
-     * @param reading         - Reading to get value.
-     * @param areaTemperature - outside average temperature for the given date
-     * @return true if the reading is above the comfort level.
-     */
-    private boolean categoryIICalculusUS445(Reading reading, Double areaTemperature) {
-        double minT = 0.33 * areaTemperature + 18.8 + 3;
-        return reading.getValue() > minT;
-    }
-
-    /**
-     * Method to check id a given reading is above the comfort temperature for category III.
-     *
-     * @param reading         - Reading to get value.
-     * @param areaTemperature - outside average temperature for the given date
-     * @return true if the reading is above the comfort level.
-     */
-    private boolean categoryIIICalculusUS445(Reading reading, Double areaTemperature) {
-        double minT = 0.33 * areaTemperature + 18.8 + 4;
-        return reading.getValue() > minT;
     }
 
     @Override
