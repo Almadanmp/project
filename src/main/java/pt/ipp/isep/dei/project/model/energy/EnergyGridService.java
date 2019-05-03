@@ -29,14 +29,11 @@ public class EnergyGridService {
     }
 
     public List<EnergyGrid> getAllGrids() {
-        List<EnergyGrid> finalList = new ArrayList<>();
-        Iterable<EnergyGrid> grids = energyGridRepository.findAll();
-        if (grids != null) {
-            for (EnergyGrid e : grids) {
-                finalList.add(e);
-            }
+        List<EnergyGrid> grids = energyGridRepository.findAll();
+        if (grids != null){
+            return grids;
         }
-        return finalList;
+        return new ArrayList<>();
     }
 
     public EnergyGrid addGrid(EnergyGrid energyGrid) {

@@ -26,7 +26,7 @@ public class UtilsUI {
     public static final String INVALID_PROGRAM_LIST = "Invalid FixedTimeProgram List - The selected Device does not have any Programs defined.\n" + RETURNING_TO_MAIN_MENU;
 
 
-    public boolean roomDTODeviceListIsValid(RoomDTO roomDTO, RoomService roomService) {
+    public boolean roomDTODeviceListIsValid(RoomDTO roomDTO, RoomService roomService) throws RuntimeException {
         Room room = roomService.updateHouseRoom(roomDTO);
         return room.getDeviceList() != null && !room.isDeviceListEmpty();
     }

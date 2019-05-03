@@ -279,22 +279,28 @@ class EnergyConsumptionUI {
         UtilsUI utilsUI = new UtilsUI();
         List<Room> houseRooms = roomService.getAllRooms();
         RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
-        if (!utilsUI.roomDTODeviceListIsValid(room, roomService)) {
-            System.out.println(UtilsUI.INVALID_DEVICE_LIST);
-            return;
+        try {
+            if (!utilsUI.roomDTODeviceListIsValid(room, roomService)) {
+                System.out.println(UtilsUI.INVALID_DEVICE_LIST);
+                return;
+            }
+            Device device = InputHelperUI.getInputRoomDTODevicesByList(room, roomService);
+            if (device.isLogListEmpty()) {
+                System.out.println("This device has no energy consumption logs.");
+                return;
+            }
+            System.out.println("Insert the Date in which you want your consumption data gathering to begin: ");
+            Date initialTime = DateUtils.getInputYearMonthDayHourMin();
+            System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
+            Date finalTime = DateUtils.getInputYearMonthDayHourMin();
+            System.out.println("Device : " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
+                    "\n" + "");
+            controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
         }
-        Device device = InputHelperUI.getInputRoomDTODevicesByList(room, roomService);
-        if (device.isLogListEmpty()) {
-            System.out.println("This device has no energy consumption logs.");
-            return;
+        catch (RuntimeException ok){
+            System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
         }
-        System.out.println("Insert the Date in which you want your consumption data gathering to begin: ");
-        Date initialTime = DateUtils.getInputYearMonthDayHourMin();
-        System.out.println("Insert the Date in which you want your consumption data gathering to stop: ");
-        Date finalTime = DateUtils.getInputYearMonthDayHourMin();
-        System.out.println("Device : " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
-                "\n" + "");
-        controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
+
     }
 
     /* US721As a Power User [or Administrator], I want to know the total metered energy consumption of a room in a
@@ -380,8 +386,13 @@ class EnergyConsumptionUI {
         RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
-        LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, roomService);
-        System.out.println(controller.buildLogListString(roomLogs));
+        try {
+            LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, roomService);
+            System.out.println(controller.buildLogListString(roomLogs));
+        }
+        catch (RuntimeException ok){
+            System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
+        }
     }
 
     private void setDeviceData(RoomService roomService) {

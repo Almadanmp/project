@@ -10,6 +10,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.controller.ReaderController;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
@@ -33,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-
 class GeographicAreaServiceTest {
     // Common testing artifacts for this class.
 
@@ -361,22 +364,47 @@ class GeographicAreaServiceTest {
         Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
 
-        AreaSensor expectedResult = new AreaSensor("Sensor123","Temperature Sensor 2",
-               rainfall,new Local(41,-8,100),validDate1,new Long(56));
+        AreaSensor expectedResult = new AreaSensor("Sensor123", "Temperature Sensor 2",
+                rainfall, new Local(41, -8, 100), validDate1, new Long(56));
 
-        AreaSensor actualResult = geographicAreaService.createAreaSensor("Sensor123","Temperature Sensor 2",
-                "rainfall","mm",new Local(41,-8,100),validDate1,new Long(56));
+        AreaSensor actualResult = geographicAreaService.createAreaSensor("Sensor123", "Temperature Sensor 2",
+                "rainfall", "mm", new Local(41, -8, 100), validDate1, new Long(56));
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfCreateAreaSensorWorksWithSensorTypeNull(){
+    void seeIfCreateAreaSensorWorksWithSensorTypeNull() {
         assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaService.createAreaSensor("Sensor123","Temperature Sensor 2",
-                        "humidity","g/m3",new Local(41,-8,100),validDate1,new Long(56)));
+                () -> geographicAreaService.createAreaSensor("Sensor123", "Temperature Sensor 2",
+                        "humidity", "g/m3", new Local(41, -8, 100), validDate1, new Long(56)));
     }
 
+    @Test
+    void seeIfAddAndPersistReturnsFalse() {
+        // Arrange
 
+        // First Area
+
+        GeographicAreaDTO firstArea = new GeographicAreaDTO();
+        firstArea.setName("ISEP");
+        firstArea.setDescription("Campus do ISEP");
+        firstArea.setTypeArea("urban area");
+        firstArea.setWidth(0.261);
+        firstArea.setLength(0.249);
+        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
+
+        // Populate expectedResult array
+
+        GeographicArea areaOne = GeographicAreaMapper.dtoToObject(firstArea);
+
+        validList.add(areaOne);
+
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(validList);
+
+        boolean result = geographicAreaService.addAndPersistGA(areaOne);
+
+        assertFalse(result);
+    }
 
     @Test
     void seeIfGetsGeoAreasByType() {
