@@ -87,10 +87,10 @@ class GASettingsControllerTest {
                 new Local(31, 15, 3), date, 1L);
         AreaSensor validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
                 new Local(21, 65, 3), date, 2L);
+        firstValidArea.addSensor(validAreaSensor1);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
-
         validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
         validGeographicAreaService.addAndPersistGA(firstValidArea);
         validGeographicAreaService.addAndPersistGA(secondValidArea);
@@ -480,7 +480,7 @@ class GASettingsControllerTest {
         Mockito.when(geographicAreaRepository.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
         InputStream in = new ByteArrayInputStream(firstValidArea.getId().toString().getBytes());
         System.setIn(in);
-        GeographicAreaDTO actualResult = controller.inputArea(validGeographicAreaService);
+        GeographicAreaDTO actualResult = controller.getInputArea(validGeographicAreaService);
 
         // Assert
 
@@ -525,5 +525,21 @@ class GASettingsControllerTest {
         // Assert
 
         assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfInputSensorWorks(){
+        // Arrange
+
+        InputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+
+        // Act
+
+        AreaSensorDTO actualResult = controller.getInputSensor(validGeographicAreaDTO);
+
+        // Assert
+
+        assertEquals(validAreaSensorDTO1, actualResult);
     }
 }

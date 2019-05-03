@@ -109,7 +109,7 @@ public class GeographicAreaDTO {
      * @return is a list of sensorDTOs.
      */
 
-    public List<AreaSensorDTO> getAreaSensorDTOList() {
+    public List<AreaSensorDTO> getSensorDTOs() {
         return areaSensorDTOList;
     }
 
@@ -119,7 +119,7 @@ public class GeographicAreaDTO {
      * @param listToStore is the list we want to store.
      */
 
-    public void setAreaSensorDTOList(List<AreaSensorDTO> listToStore) {
+    public void setSensorDTOList(List<AreaSensorDTO> listToStore) {
         this.areaSensorDTOList = listToStore;
     }
 

@@ -349,8 +349,8 @@ class GASettingsUI {
      */
     private void runUS10(GeographicAreaService geographicAreaService) {
 
-        GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
+        GeographicAreaDTO geographicAreaDTO = gaController.getInputArea(geographicAreaService);
+        AreaSensorDTO areaSensorDTO = gaController.getInputSensor(geographicAreaDTO);
         if (!gaController.deactivateSensor(areaSensorDTO)) {
             System.out.println("Sensor already deactivated.");
         } else {
@@ -368,8 +368,8 @@ class GASettingsUI {
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      */
     private void runUS11(GeographicAreaService geographicAreaService) {
-        GeographicAreaDTO geographicAreaDTO = gaController.inputArea(geographicAreaService);
-        AreaSensorDTO areaSensorDTO = gaController.inputSensor(geographicAreaDTO);
+        GeographicAreaDTO geographicAreaDTO = gaController.getInputArea(geographicAreaService);
+        AreaSensorDTO areaSensorDTO = gaController.getInputSensor(geographicAreaDTO);
         if (areaSensorDTO != null) {
             updateUS11(areaSensorDTO, geographicAreaService, geographicAreaDTO);
         }
