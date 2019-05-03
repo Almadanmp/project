@@ -128,7 +128,7 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device list size.
      * @return a int that represents the size of the deviceList.
      */
-    public int getDeviceListSize(RoomDTO roomDTO, RoomService roomService) {
+    public int getDeviceListSize(RoomDTO roomDTO, RoomService roomService) throws RuntimeException {
         Room room = roomService.updateHouseRoom(roomDTO);
         return room.getDeviceListSize();
     }
@@ -139,7 +139,7 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device from.
      * @param index   is the index of the device in the device list
      */
-    public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomService roomService) {
+    public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomService roomService) throws RuntimeException {
         Room room = roomService.updateHouseRoom(roomDTO);
         return room.getDeviceByIndex(index);
     }

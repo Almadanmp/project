@@ -139,8 +139,9 @@ class RoomMonitoringUI {
                     " is " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
+        } catch (RuntimeException ok) {
+            System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
         }
-
     }
 
     /**
@@ -167,6 +168,8 @@ class RoomMonitoringUI {
             System.out.println(message);
         } catch (IllegalArgumentException illegal) {
             System.out.println(illegal.getMessage());
+        } catch (RuntimeException ok) {
+            System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
         }
     }
 

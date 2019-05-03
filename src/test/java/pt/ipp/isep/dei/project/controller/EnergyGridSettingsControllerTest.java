@@ -254,6 +254,9 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddRoomDTOToGridWorks() {
         // Arrange
 
+        List<Room> mockedList = new ArrayList<>();
+        mockedList.add(validRoom);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockedList);
         RoomDTO testDTO = RoomMapper.objectToDTO(validRoom);
 
         // Act
@@ -284,11 +287,6 @@ class EnergyGridSettingsControllerTest {
 
         assertThrows(RuntimeException.class,
                 () -> controller.addEnergyGridToHouse(validGrid, energyGridService));
-
-    }
-
-    @Test
-    void seeIfAddEnergyGridToHouseWorks() {
 
     }
 }

@@ -23,7 +23,7 @@ public class RoomMonitoringController {
      * @param roomDTO is the roomDTO we want to get the room from, so that we can get the temperature.
      * @return is the most recent temperature recorded in a room.
      */
-    public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) {
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) throws RuntimeException {
         Room room = roomService.updateHouseRoom(roomDTO);
         return room.getCurrentRoomTemperature();
     }
@@ -35,7 +35,7 @@ public class RoomMonitoringController {
      * @param roomDTO is the room we want to check the temperature in.
      * @return is the max temperature recorded in a room
      */
-    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) {
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) throws RuntimeException {
         Room room = roomService.updateHouseRoom(roomDTO);
         return room.getMaxTemperatureOnGivenDay(day);
     }
@@ -47,7 +47,7 @@ public class RoomMonitoringController {
      * @return room's name as a string
      **/
 
-    public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
+    public String getRoomName(RoomDTO roomDTO, RoomService roomService) throws RuntimeException {
         Room room = roomService.updateHouseRoom(roomDTO);
         return room.getId();
     }
