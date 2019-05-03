@@ -9,7 +9,6 @@ import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
@@ -764,18 +763,15 @@ class GeographicAreaTest {
     void seeIfGetMostRecentlyUsedAreaSensor() {
         //Arrange
         Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
-        Reading firstValidReading = new Reading(31, date, "C", "Test");
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
+        Reading firstValidReading = new Reading(31, date, "C", "SensOne");
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new GregorianCalendar(2018, Calendar.FEBRUARY, 11).getTime(), 6008L);
         validAreaSensor.setActive(true);
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        List<Reading> readingList = new ArrayList<>();
-
+        validAreaSensor.addReading(firstValidReading);
+        validArea.addSensor(validAreaSensor);
 
         //Act
-        readingList.add(firstValidReading);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
         listAreaSensor.add(validAreaSensor);
-        validAreaSensor.setReadings(readingList);
-        validArea.setAreaSensors(listAreaSensor);
         AreaSensor actualResult = validArea.getMostRecentlyUsedAreaSensor(listAreaSensor);
 
         //Assert
@@ -833,8 +829,6 @@ class GeographicAreaTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-
 }
 
 

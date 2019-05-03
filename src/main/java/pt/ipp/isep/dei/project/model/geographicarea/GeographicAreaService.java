@@ -210,7 +210,7 @@ public class GeographicAreaService {
         Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
         if (!(value.isPresent())) {
-            logger.fine("The Sensor Type " + name + "with the unit "+ unit +" does not yet exist in the Data Base. Please create the Sensor" +
+            logger.fine("The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
                     "Type first.");
             LogUtils.closeHandlers(logger);
             return null;
@@ -335,7 +335,7 @@ public class GeographicAreaService {
         Date d2 = calendar.getTime(); // gets date at 23:59:59
 
         // gets and returns average readings on the closest AreaSensor to the house
-        AreaSensor houseClosestSensor = house.getMotherArea().getClosestAreaSensorOfGivenType("temperature",house);
+        AreaSensor houseClosestSensor = house.getMotherArea().getClosestAreaSensorOfGivenType("temperature", house);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
@@ -344,14 +344,7 @@ public class GeographicAreaService {
         if (sensorReadingsBetweenDates.isEmpty()) {
             return 666;
         }
-        List<Double> avgDailyValues = new ArrayList<>();
-        for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
-            Date day = sensorReadingsBetweenDates.get(i).getDate();
-            List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(sensorReadingsBetweenDates, day);
-            double avgDay = ReadingUtils.getAvgFromList(specificDayValues);
-            avgDailyValues.add(avgDay);
-        }
-        return ReadingUtils.getAvgFromList(avgDailyValues);
+        return AreaSensor.getSensorReadingAverageValue(sensorReadingsBetweenDates);
     }
 
     private List<Reading> getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor) {
@@ -369,7 +362,7 @@ public class GeographicAreaService {
             try {
                 readingDate = sdf.parse(r.getDate().toString());
 //            System.out.println(sdf.parse(r.getDate().toString()));
-            } catch (ParseException e){
+            } catch (ParseException e) {
             }
 //            System.out.println("Reading: Data, DatainicioDia, DataFimDia");
 //            System.out.println(initialDate);

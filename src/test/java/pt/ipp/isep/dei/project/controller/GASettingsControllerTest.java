@@ -49,7 +49,6 @@ class GASettingsControllerTest {
     private AreaSensorDTO validAreaSensorDTO1;
     private AreaSensorDTO validAreaSensorDTO2;
     private AreaSensor validAreaSensor1;
-    private AreaSensor validAreaSensor2;
     private GeographicAreaService validGeographicAreaService;
     private AreaTypeService validAreaTypeService;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
@@ -80,14 +79,14 @@ class GASettingsControllerTest {
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
                 2, 5, new Local(21, 33, 5));
-        firstValidArea.setId(new Long(01));
+        firstValidArea.setId(1L);
         secondValidArea = new GeographicArea("Portugal", typeCity,
                 2, 5, new Local(21, 33, 5));
-        secondValidArea.setId(new Long(02));
+        secondValidArea.setId(2L);
         validAreaSensor1 = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), date, new Long(01));
-        validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
-                new Local(21, 65, 3), date, new Long(02));
+                new Local(31, 15, 3), date, 1L);
+        AreaSensor validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
+                new Local(21, 65, 3), date, 2L);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
@@ -190,12 +189,6 @@ class GASettingsControllerTest {
 
     @Test
     void seeIfNewTAGDoesNotWorkWhenDuplicatedISAdded() {
-        // Arrange
-
-        List<AreaType> areaTypes = new ArrayList<>();
-        areaTypes.add(typeCountry);
-        areaTypes.add(typeCity);
-
         // Act
 
         boolean result = controller.createAndAddTypeAreaToList(validAreaTypeService, "Country");
@@ -258,52 +251,26 @@ class GASettingsControllerTest {
     }
 
 
-    //USER STORY 003 TESTS
-
-    @Test
-    void seeIfCreatesGeographicAreaAndAddsItToList() {
-        // Act
-
-//        boolean result = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO,
-        //              LocalMapper.objectToDTO(firstValidArea.getLocal()));
-
-        // Assert
-
-        //       assertTrue(result);
-    }
-
-    //USER STORY 004 TESTS
-
     @Test
     void seeIfMatchGAByTypeCountry() {
-        // Arrange
-
-
-        List<GeographicArea> expectedResult = new ArrayList<>();
-
-
         // Act
 
         List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCountry));
 
         // Assert
 
-        assertEquals(expectedResult.size(), actualResult.size());
+        assertEquals(0, actualResult.size());
     }
 
     @Test
     void seeMatchGAByTypeNotInList() {
-        // Arrange
-
-        List<GeographicArea> expectedResult = new ArrayList<>();
-
         // Act
 
         List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
-        assertEquals(expectedResult.size(), actualResult.size());
+        assertEquals(0, actualResult.size());
     }
 
     @Test
@@ -367,7 +334,7 @@ class GASettingsControllerTest {
 
         List<GeographicArea> list = new ArrayList<>();
         list.add(secondValidArea);
-        secondValidArea.setId(new Long(0));
+        secondValidArea.setId(0L);
         String expectedResult = "---------------\n" +
                 "0) Name: Portugal | Type: City | Latitude: 21.0 | Longitude: 33.0\n" +
                 "---------------\n";
@@ -497,7 +464,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        assertTrue(result instanceof LocalDTO);
+        assertNotNull(result);
     }
 
 
@@ -522,10 +489,6 @@ class GASettingsControllerTest {
 
     @Test
     void seeIfRemoveSensorWorks() {
-        // Arrange
-
-        List<AreaSensor> expectedResult = new ArrayList<>();
-
         // Act
 
         controller.removeSensor(validAreaSensorDTO1, validGeographicAreaDTO, validGeographicAreaService);
@@ -533,19 +496,34 @@ class GASettingsControllerTest {
 
         // Assert
 
-        assertEquals(expectedResult.size(), actualResult.size());
+        assertEquals(0, actualResult.size());
     }
 
-
     @Test
-    void seeIfAddNewGeoAreaToListWorksAlreadyThere() {
+    void seeIfAddNewGeoAreaToListWorks(){
         // Act
 
-//        boolean result = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO, LocalMapper.objectToDTO(new Local(21, 33, 5)));
+        boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO);
 
         // Assert
 
-        //       assertTrue(result);
+        assertTrue(actualResult);
     }
 
+    @Test
+    void seeIfAddNewGeoAreaToListWorksFalseDuplicate(){
+        // Arrange
+
+        List<GeographicArea> mockedList = new ArrayList<>();
+        mockedList.add(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
+        Mockito.when(geographicAreaRepository.findAll()).thenReturn(mockedList);
+
+        // Act
+
+        boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
 }

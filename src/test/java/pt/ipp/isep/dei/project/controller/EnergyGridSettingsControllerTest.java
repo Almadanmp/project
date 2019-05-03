@@ -289,4 +289,17 @@ class EnergyGridSettingsControllerTest {
                 () -> controller.addEnergyGridToHouse(validGrid, energyGridService));
 
     }
+
+    @Test
+    void seeIfAddRoomDTOToGridWorksNoRooms() {
+        // Arrange
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom);
+
+        // Act
+
+        assertThrows(RuntimeException.class,
+                () -> controller.addRoomDTOToGrid(validGrid, testDTO, roomService));
+
+    }
 }
