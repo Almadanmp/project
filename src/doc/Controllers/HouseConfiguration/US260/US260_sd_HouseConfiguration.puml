@@ -1,4 +1,30 @@
 @startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor ivory
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
+title US260 \n As an Administrator, I want to import a list of sensors for the house rooms. Sensors without a valid room shouldn’t be imported but registered in the application log.
+
 actor Administrator
 Administrator->MainUI: Import a list of sensors \n for the house rooms.
 MainUI->HouseConfigurationUI: runUS260(sensorService, roomService)

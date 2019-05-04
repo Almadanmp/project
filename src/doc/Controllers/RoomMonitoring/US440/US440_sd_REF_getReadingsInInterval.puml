@@ -25,6 +25,7 @@ skinparam component {
 }
 
 -> RoomService: getReadingsInInterval(StartingDate,EndingDate,Room)
+title REF Readings in Interval
 activate RoomService
 RoomService -> RoomRepository: List <RoomSensor> = findAll()
 loop for each Room

@@ -788,30 +788,44 @@ class GeographicAreaTest {
 
     //ver se funciona minDistSensor.size() > 1
     @Test
-    void seeIfGetClosestSensorOfGivenTypeSize1() {
+    void seeIfGetClosestSensorOfGivenTypeSizeActiveSensor() {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2030, 200, 2000), new Date(), 6008L);
-        AreaSensor validAreaSensor2 = new AreaSensor("SensTwo", "SensOne", new SensorType("Temperature", "Celsius"), new Local(203, 2030, 200), new Date(), 6008L);
-        AreaSensor validAreaSensor3 = new AreaSensor("SensThree", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 2000, 2000), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date(), 6008L);
+        AreaSensor validAreaSensor2 = new AreaSensor("SensTwo", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date(), 6008L);
+        AreaSensor validAreaSensor3 = new AreaSensor("SensThree", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date(), 6008L);
         validAreaSensor.setActive(true);
         validAreaSensor2.setActive(true);
         validAreaSensor3.setActive(true);
 
+
         List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        Date date = new GregorianCalendar(2020, Calendar.FEBRUARY, 13).getTime();
+        Date date2 = new GregorianCalendar(2020, Calendar.FEBRUARY, 15).getTime();
+
+        List<Reading> readings = new ArrayList<>();
+        Reading reading = new Reading(31, date, "C", "Test");
+        Reading reading2 = new Reading(34, date2, "C", "Test");
+        readings.add(reading);
+        readings.add(reading2);
+
+        //Act
+        validAreaSensor.addReading(reading);
+        validAreaSensor.addReading(reading2);
+
         listAreaSensor.add(validAreaSensor);
         listAreaSensor.add(validAreaSensor2);
         listAreaSensor.add(validAreaSensor3);
 
-        //Act
         validArea.setAreaSensors(listAreaSensor);
         AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
 
         //Assert
-        assertEquals(validAreaSensor, actualResult);
+        assertEquals(validAreaSensor3, actualResult);
     }
 
 
