@@ -8,7 +8,7 @@ public class KettlerSpec implements DeviceSpecs {
     public static final String COLD_WATER_TEMP = "Cold Water Temperature";
     public static final String VOLUME_WATER = "Volume Water To Heat";
     public static final String PERFORMANCE_RATIO = "Performance Ratio";
-    private static final String invalidName = "The attribute name is invalid.";
+    private static final String INVALID_NAME = "The attribute name is invalid.";
 
 
     private double coldWaterTemp;
@@ -52,7 +52,7 @@ public class KettlerSpec implements DeviceSpecs {
             case PERFORMANCE_RATIO:
                 return this.performanceRatio;
             default:
-                throw new IllegalArgumentException(invalidName);
+                throw new IllegalArgumentException(INVALID_NAME);
         }
     }
 
@@ -86,7 +86,7 @@ public class KettlerSpec implements DeviceSpecs {
                 }
                 return false;
             default:
-                throw new IllegalArgumentException(invalidName);
+                throw new IllegalArgumentException(INVALID_NAME);
         }
     }
 
@@ -132,7 +132,7 @@ public class KettlerSpec implements DeviceSpecs {
             case PERFORMANCE_RATIO:
                 return "";
             default:
-                throw new IllegalArgumentException(invalidName);
+                throw new IllegalArgumentException(INVALID_NAME);
         }
     }
 }

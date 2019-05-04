@@ -11,7 +11,7 @@ import java.util.List;
  * Class that groups a number of Devices.
  */
 public class DeviceList {
-    private List<Device> devices;
+    private final List<Device> devices;
 
     /**
      * DeviceList() Empty Constructor that initializes an ArrayList of Devices.

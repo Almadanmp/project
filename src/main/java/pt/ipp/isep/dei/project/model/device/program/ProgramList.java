@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProgramList {
 
-    private List<Program> programs;
+    private final List<Program> programs;
 
     /**
      * ProgramList() Empty Constructor that initializes an ArrayList of Programs.

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HouseMonitoringUI {
     private final HouseMonitoringController houseMonitoringController;
-    private static final String was = " was ";
+    private static final String WAS = " was ";
     private static final String RAINFALL = "rainfall";
     private static final String TEMPERATURE = "temperature";
     private final List<String> menuOptions;
@@ -131,7 +131,7 @@ public class HouseMonitoringUI {
 
     private void printResultMessageUS620(Date date, double result) {
         String dateFormatted = DateUtils.formatDateNoTime(date);
-        System.out.println("The average rainfall on " + dateFormatted + was + result + "%.");
+        System.out.println("The average rainfall on " + dateFormatted + WAS + result + "%.");
     }
 
 
@@ -181,7 +181,7 @@ public class HouseMonitoringUI {
         }
         String starDateFormatted = DateUtils.formatDateNoTime(startDate);
         String endDateFormatted = DateUtils.formatDateNoTime(endDate);
-        System.out.println("The average rainfall between " + starDateFormatted + " and " + endDateFormatted + was
+        System.out.println("The average rainfall between " + starDateFormatted + " and " + endDateFormatted + WAS
                 + result623 + "%.");
     }
 
@@ -214,7 +214,7 @@ public class HouseMonitoringUI {
         String dateResultFormatted = DateUtils.formatDateNoTime(dateResult630);
         String dateStartDateFormatted = DateUtils.formatDateNoTime(startDate);
         String dateEndDateFormatted = DateUtils.formatDateNoTime(endDate);
-        System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + was
+        System.out.println("The last coldest day between " + dateStartDateFormatted + " and " + dateEndDateFormatted + WAS
                 + dateResultFormatted + ". The temperature on that day was " + temperatureValue);
     }
 

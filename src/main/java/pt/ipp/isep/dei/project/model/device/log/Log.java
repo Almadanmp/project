@@ -3,9 +3,9 @@ package pt.ipp.isep.dei.project.model.device.log;
 import java.util.Date;
 
 public class Log {
-    private double value;
-    private Date initialDate;
-    private Date finalDate;
+    private final double value;
+    private final Date initialDate;
+    private final Date finalDate;
 
     /**
      * Log() Constructor with 3 parameters. A value for the log with a initialDate and finalDate.

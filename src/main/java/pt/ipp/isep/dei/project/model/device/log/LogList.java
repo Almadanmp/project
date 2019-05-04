@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LogList {
 
-    private List<Log> logs;
+    private final List<Log> logs;
 
     /**
      * LogList empty constructor with an initialization of an ArrayList of Logs.

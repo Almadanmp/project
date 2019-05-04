@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PortableElectricOilHeater implements Device, Metered {
-    private static final String notSupported = "At the moment, this operation is not supported.";
+    private static final String NOT_SUPPORTED = "At the moment, this operation is not supported.";
 
     private String name;
     private double nominalPower;
@@ -66,7 +66,7 @@ public class PortableElectricOilHeater implements Device, Metered {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        throw new UnsupportedOperationException(notSupported);
+        throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
     /**
@@ -85,7 +85,7 @@ public class PortableElectricOilHeater implements Device, Metered {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        throw new UnsupportedOperationException(notSupported);
+        throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
     /**
@@ -96,11 +96,11 @@ public class PortableElectricOilHeater implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        throw new UnsupportedOperationException(notSupported);
+        throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        throw new UnsupportedOperationException(notSupported);
+        throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
     /**
@@ -111,7 +111,7 @@ public class PortableElectricOilHeater implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
-        throw new UnsupportedOperationException(notSupported);
+        throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
     /**
@@ -121,7 +121,7 @@ public class PortableElectricOilHeater implements Device, Metered {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        throw new UnsupportedOperationException(notSupported);
+        throw new UnsupportedOperationException(NOT_SUPPORTED);
     }
 
 
