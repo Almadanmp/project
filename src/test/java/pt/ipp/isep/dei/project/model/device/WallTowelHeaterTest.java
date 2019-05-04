@@ -108,7 +108,10 @@ class WallTowelHeaterTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(validWTHeater, null);
+
+        WallTowelHeater expectedResult = validWTHeater;
+
+        assertNotEquals(expectedResult, null);
     }
 
     @Test

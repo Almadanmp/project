@@ -61,13 +61,13 @@ class WaterHeaterSpecTest {
         // Act
 
         List<String> result = validHeaterSpec.getAttributeNames();
-
+        int expectedResult = 3;
         // Assert
 
         assertTrue(result.contains("Volume Of Water"));
         assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
         assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
-        assertEquals(result.size(), 3);
+        assertEquals(expectedResult,result.size());
     }
 
     @Test

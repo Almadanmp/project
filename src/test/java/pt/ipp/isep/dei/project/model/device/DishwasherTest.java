@@ -197,11 +197,12 @@ class DishwasherTest {
         // Act
 
         List<String> result = validDishwasher.getAttributeNames();
+        int expectedResult =1;
 
         // Assert
 
         assertTrue(result.contains(DishwasherSpec.DW_CAPACITY));
-        assertEquals(result.size(), 1);
+        assertEquals(expectedResult, result.size());
     }
 
     @Test

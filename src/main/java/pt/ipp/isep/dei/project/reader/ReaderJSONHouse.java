@@ -19,6 +19,7 @@ public class ReaderJSONHouse implements Reader {
     private JSONArray roomList;
     private JSONArray gridList;
     private String gridName;
+    public static final String ROOMS = "rooms";
 
     /**
      * Method that Reads a .json file and returns a House DTO.
@@ -101,20 +102,20 @@ public class ReaderJSONHouse implements Reader {
     public List<EnergyGridDTO> readGridsJSON() {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
         for (int i = 0; i < this.gridList.length(); i++) {
-            int e = this.gridList.getJSONObject(i).getJSONArray("rooms").length();
+            int e = this.gridList.getJSONObject(i).getJSONArray(ROOMS).length();
             JSONObject grid = this.gridList.getJSONObject(i);
             this.gridName = grid.getString("name");
             EnergyGridDTO energyGridObject = new EnergyGridDTO();
             energyGridObject.setName(gridName);
 
             for (int y = 0; y < e; y++) {
-                Object jsonArray = grid.getJSONArray("rooms").get(y);
+                Object jsonArray = grid.getJSONArray(ROOMS).get(y);
                 String roomName = jsonArray.toString();
                 setEnergyGridNameToRoom(roomName);
             }
             List<RoomDTO> roomsInGrid = new ArrayList<>();
             for (RoomDTO r : this.roomDTOS) {
-                if (this.gridList.getJSONObject(i).getJSONArray("rooms").toList().contains(r.getName())) {
+                if (this.gridList.getJSONObject(i).getJSONArray(ROOMS).toList().contains(r.getName())) {
                     roomsInGrid.add(r);
                 }
             }

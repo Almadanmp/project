@@ -94,7 +94,9 @@ class WashingMachineTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(validMachine, null);
+        WashingMachine expectedResult = validMachine;
+
+        assertNotEquals(expectedResult, null);
     }
 
     @Test
@@ -182,11 +184,11 @@ class WashingMachineTest {
         // Act
 
         List<String> result = validMachine.getAttributeNames();
-
+        int expectedResult = 1;
         // Assert
 
         assertTrue(result.contains(WashingMachineSpec.WM_CAPACITY));
-        assertEquals(result.size(), 1);
+        assertEquals(expectedResult, result.size());
     }
 
     @Test

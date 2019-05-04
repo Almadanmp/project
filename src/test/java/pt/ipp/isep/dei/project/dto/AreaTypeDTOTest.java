@@ -22,13 +22,15 @@ public class AreaTypeDTOTest {
         typeAreaDTO3.setName("sensorDTO2");
         typeAreaDTO4.setName("sensorDTO2");
 
+        Double actualResult = 3D;
+
         //Assert
 
         assertEquals(typeAreaDTO1, typeAreaDTO1);
         assertEquals(typeAreaDTO1, typeAreaDTO2);
         assertNotEquals(typeAreaDTO1, typeAreaDTO3);
         assertNotEquals(typeAreaDTO1, typeAreaDTO4);
-        assertNotEquals(typeAreaDTO1, 3D);
+        assertNotEquals(typeAreaDTO1, actualResult);
     }
 
     @Test

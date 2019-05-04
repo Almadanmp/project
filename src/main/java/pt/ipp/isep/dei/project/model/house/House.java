@@ -7,10 +7,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 
 import javax.persistence.*;
-import javax.xml.bind.SchemaOutputResolver;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import java.util.*;
 

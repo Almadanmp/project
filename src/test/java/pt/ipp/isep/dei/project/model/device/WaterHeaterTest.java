@@ -206,13 +206,13 @@ class WaterHeaterTest {
         // Act
 
         List<String> result = validHeater.getAttributeNames();
-
+        int expectedResult = 3;
         // Assert
 
         assertTrue(result.contains(WaterHeaterSpec.VOLUME_OF_WATER));
         assertTrue(result.contains(WaterHeaterSpec.HOT_WATER_TEMP));
         assertTrue(result.contains(WaterHeaterSpec.PERFORMANCE_RATIO));
-        assertEquals(result.size(), 3);
+        assertEquals(expectedResult,result.size());
     }
 
     @Test
@@ -498,7 +498,10 @@ class WaterHeaterTest {
 
     @Test
     void seeEqualsToNullObject() {
-        assertNotEquals(validHeater, null);
+
+        WaterHeater expectedResult = validHeater;
+
+        assertNotEquals(expectedResult, null);
     }
 
     @Test

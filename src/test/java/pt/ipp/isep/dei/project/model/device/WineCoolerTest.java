@@ -112,7 +112,9 @@ class WineCoolerTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(validCooler, null);
+        WineCooler expectedResult = validCooler;
+
+        assertNotEquals(expectedResult, null);
     }
 
     @Test
@@ -180,11 +182,11 @@ class WineCoolerTest {
         // Act
 
         List<String> actualResult = validCooler.getAttributeNames();
-
+        int expectedResult = 1;
         // Assert
 
         assertTrue(actualResult.contains(WineCoolerSpec.NUMBER_BOTTLES));
-        assertEquals(actualResult.size(), 1);
+        assertEquals(expectedResult,actualResult.size());
     }
 
     @Test

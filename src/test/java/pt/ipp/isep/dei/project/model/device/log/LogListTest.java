@@ -187,10 +187,11 @@ class LogListTest {
         //Act
 
         int result = emptyLogList.hashCode();
+        int expectedResult = 1;
 
         //Assert
 
-        assertEquals(result, 1);
+        assertEquals(expectedResult, result);
     }
 
     @Test

@@ -85,9 +85,9 @@ class AreaTypeServiceTest {
 
         Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
 
-        int result = areaTypeService.size();
+        int actualResult = areaTypeService.size();
 
-        assertEquals(result, 1);
+        assertEquals(1, actualResult);
     }
 
 

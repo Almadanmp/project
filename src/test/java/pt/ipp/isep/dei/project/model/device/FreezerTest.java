@@ -200,11 +200,11 @@ class FreezerTest {
         // Act
 
         List<String> actualResult = validFreezer.getAttributeNames();
-
+        int expectedResult =1;
         // Assert
 
         assertTrue(actualResult.contains(FreezerSpec.CAPACITY));
-        assertEquals(actualResult.size(), 1);
+        assertEquals(expectedResult, actualResult.size());
     }
 
     @Test

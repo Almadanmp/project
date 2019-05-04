@@ -430,7 +430,7 @@ class GASettingsControllerTest {
 
         // Assert
 
-        assertEquals(actualResult, "Portugal");
+        assertEquals("Portugal", actualResult);
     }
 
     @Test

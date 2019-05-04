@@ -184,11 +184,11 @@ class LampTest {
         // Act
 
         List<String> result = validLamp.getAttributeNames();
-
+        int expectedResult =1;
         // Assert
 
         assertTrue(result.contains(LampSpec.FLUX));
-        assertEquals(result.size(), 1);
+        assertEquals(expectedResult, result.size());
     }
 
     @Test

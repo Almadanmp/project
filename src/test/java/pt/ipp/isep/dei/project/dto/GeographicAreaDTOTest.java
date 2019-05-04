@@ -131,6 +131,8 @@ class GeographicAreaDTOTest {
         geographicAreaDTO8.setLocalDTO(localDTO8);
         geographicAreaDTO9.setLocalDTO(localDTO9);
 
+        Double actualResult = 3D;
+
         //Assert
 
         assertEquals(geographicAreaDTO1, geographicAreaDTO1); // same object
@@ -141,7 +143,7 @@ class GeographicAreaDTOTest {
         assertEquals(geographicAreaDTO1, geographicAreaDTO5); //altitude
         assertNotEquals(geographicAreaDTO1, geographicAreaDTO7); //longitude
         assertNotEquals(geographicAreaDTO1, geographicAreaDTO8); //latitude
-        assertNotEquals(geographicAreaDTO1, 3D);
+        assertNotEquals(geographicAreaDTO1, actualResult);
     }
 
     @Test
