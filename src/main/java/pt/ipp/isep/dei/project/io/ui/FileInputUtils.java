@@ -20,6 +20,10 @@ class FileInputUtils {
     List<String> areaTypes;
     List<String> sensorTypesName = new ArrayList<>();
     List<String> sensorTypesUnit = new ArrayList<>();
+    private static final String ERROR_CONFIGURATION_FILE = "ERROR: Unable to process configuration file.";
+    private static final String PROPERTY_VALUE = " property value.";
+
+
 
     /**
      * This method will readSensors the configuration file and validate the value that corresponds
@@ -50,7 +54,7 @@ class FileInputUtils {
             prop.load(input);
             gridMetPeriod = prop.getProperty("GridMeteringPeriod");
         } catch (IOException ioe) {
-            throw new IOException("ERROR: Unable to process configuration file.");
+            throw new IOException(ERROR_CONFIGURATION_FILE);
         }
         try {
             return Integer.parseInt(gridMetPeriod);
@@ -99,7 +103,7 @@ class FileInputUtils {
         } catch (FileNotFoundException fnfe) {
             System.out.println("File not found.");
         } catch (IOException ioe) {
-            System.out.println("ERROR: Unable to process configuration file.");
+            System.out.println(ERROR_CONFIGURATION_FILE);
         }
         int deviceMPvalue = 0;
         try {
@@ -124,7 +128,7 @@ class FileInputUtils {
     String getSensorTypesPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
-            throw new IOException("Could not read the sensor type " + key + " property value.");
+            throw new IOException("Could not read the sensor type " + key +PROPERTY_VALUE);
         }
         return result;
     }
@@ -132,7 +136,7 @@ class FileInputUtils {
     String[] getSensorTypesMultipleValues(Properties p, String key) throws IOException {
         String[] result = p.getProperty(key).split(",");
         if (result == null) {
-            throw new IOException("Could not read the sensor type " + key + " property value.");
+            throw new IOException("Could not read the sensor type " + key + PROPERTY_VALUE);
         }
         return result;
     }
@@ -158,7 +162,7 @@ class FileInputUtils {
                 this.sensorTypesUnit.add(aux[1]);
             }
         } catch (IOException ioe) {
-            throw new IOException("ERROR: Unable to process configuration file.");
+            throw new IOException(ERROR_CONFIGURATION_FILE);
         }
     }
 
@@ -179,7 +183,7 @@ class FileInputUtils {
     String getAreaTypesPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
-            throw new IOException("Could not read the area type " + key + " property value.");
+            throw new IOException("Could not read the area type " + key + PROPERTY_VALUE);
         }
         return result;
     }
@@ -205,7 +209,7 @@ class FileInputUtils {
             }
 
         } catch (IOException ioe) {
-            throw new IOException("ERROR: Unable to process configuration file.");
+            throw new IOException(ERROR_CONFIGURATION_FILE);
         }
         return areaTypeConfiguration;
     }
