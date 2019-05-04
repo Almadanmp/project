@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.reader.deserializer;
+package pt.ipp.isep.dei.project.io.ui.reader.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
-import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
+import pt.ipp.isep.dei.project.io.ui.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
 import java.util.Date;

@@ -1,9 +1,9 @@
-package pt.ipp.isep.dei.project.reader.wrapper;
+package pt.ipp.isep.dei.project.io.ui.reader.wrapper;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import pt.ipp.isep.dei.project.reader.deserializer.CustomDateDeserializer;
+import pt.ipp.isep.dei.project.io.ui.reader.deserializer.CustomDateDeserializer;
 
 import java.util.Date;
 

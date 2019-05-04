@@ -12,9 +12,9 @@ import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
-import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
-import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 
 import java.util.ArrayList;
 import java.util.List;

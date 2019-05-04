@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.reader.deserializer;
+package pt.ipp.isep.dei.project.io.ui.reader.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

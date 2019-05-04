@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.services.units;
 
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
+import pt.ipp.isep.dei.project.io.ui.reader.wrapper.ReadingDTOWrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;

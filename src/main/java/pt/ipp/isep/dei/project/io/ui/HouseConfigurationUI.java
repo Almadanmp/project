@@ -13,9 +13,9 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.reader.ReadingsReaderCSV;
-import pt.ipp.isep.dei.project.reader.ReadingsReaderJSON;
-import pt.ipp.isep.dei.project.reader.ReadingsReaderXML;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.repository.HouseRepository;
 
 import java.util.ArrayList;

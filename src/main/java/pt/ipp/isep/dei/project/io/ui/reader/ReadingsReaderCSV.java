@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.reader;
+package pt.ipp.isep.dei.project.io.ui.reader;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.reader.deserializer.ReadingDTOWrapperCustomDeserializer;
-import pt.ipp.isep.dei.project.reader.wrapper.ReadingDTOWrapper;
+import pt.ipp.isep.dei.project.io.ui.reader.deserializer.ReadingDTOWrapperCustomDeserializer;
+import pt.ipp.isep.dei.project.io.ui.reader.wrapper.ReadingDTOWrapper;
 import pt.ipp.isep.dei.project.services.units.Adapter;
 
 import java.io.File;

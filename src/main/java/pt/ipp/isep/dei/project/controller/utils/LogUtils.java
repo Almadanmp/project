@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.controller.utils;
 
-import pt.ipp.isep.dei.project.reader.CustomHTMLFormatter;
+import pt.ipp.isep.dei.project.io.ui.reader.CustomHTMLFormatter;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;

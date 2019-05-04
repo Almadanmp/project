@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.reader;
+package pt.ipp.isep.dei.project.io.ui.reader;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

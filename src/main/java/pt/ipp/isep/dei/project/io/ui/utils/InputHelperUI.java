@@ -19,8 +19,8 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
-import pt.ipp.isep.dei.project.reader.ReaderJSONGeographicAreas;
-import pt.ipp.isep.dei.project.reader.ReaderXMLGeoArea;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 
 import java.io.File;
 import java.util.List;

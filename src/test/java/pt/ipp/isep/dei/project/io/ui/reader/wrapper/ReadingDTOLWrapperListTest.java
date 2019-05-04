@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.reader.wrapper;
+package pt.ipp.isep.dei.project.io.ui.reader.wrapper;
 
 import org.junit.jupiter.api.Test;
 
