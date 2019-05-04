@@ -409,7 +409,7 @@ public class GeographicArea implements Root {
         return mostRecent;
     }
 
-    private List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
+    List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {
             if (aS.getSensorType().getName().equals(sensorType)) {

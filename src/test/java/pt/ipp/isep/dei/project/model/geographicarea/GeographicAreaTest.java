@@ -457,6 +457,23 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfGetSetAreaType() {
+        // Arrange
+
+        AreaType areaType = new AreaType("cidade");
+        validArea.setAreaType(areaType);
+
+        // Act
+
+        AreaType actualResult = validArea.getAreaType();
+
+        // Assert
+
+        assertEquals(areaType, actualResult);
+    }
+
+
+    @Test
     void seeIfCheckIfAreaIsContainedWorksTrue() {
         // Arrange
 
@@ -649,25 +666,25 @@ class GeographicAreaTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfGetAreaSensorsByDistanceToHouse(){
-//
-//        //Arrange
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-//        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-//        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date(), 6008L);
-//        validAreaSensor.setActive(true);
-//        List<AreaSensor> listAreaSensor = new ArrayList<>();
-//        listAreaSensor.add(validAreaSensor);
-//
-//        //Act
-//        validArea.setAreaSensors(listAreaSensor);
-//        List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor,house,1000.2);
-//
-//        //Assert
-//        assertEquals(listAreaSensor, actualResult);
-//    }
+    @Test
+    void seeIfGetAreaSensorsByDistanceToHouse(){
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(validAreaSensor);
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor,house,0);
+
+        //Assert
+        assertEquals(listAreaSensor, actualResult);
+    }
 
     @Test
     void seeIfGetClosestSensorOfGivenType() {
@@ -709,6 +726,46 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfGetgetAreaSensorsOfGivenTypeEmpty() {
+
+        //Act
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors,"Humidity");
+
+        //Assert
+        assertEquals(areaSensors, actualResult);
+    }
+
+    @Test
+    void seeIfGetgetAreaSensorsOfGivenTypeWrongType() {
+
+        //Act
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(firstValidAreaSensor);
+        areaSensors.add(secondValidAreaSensor);
+        validArea.setAreaSensors(areaSensors);
+        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors,"Humidity");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetgetAreaSensorsOfGivenTypeSameType() {
+
+        //Act
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(firstValidAreaSensor);
+        areaSensors.add(secondValidAreaSensor);
+        validArea.setAreaSensors(areaSensors);
+        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors,"Temperature");
+
+        //Assert
+        assertEquals(areaSensors, actualResult);
+    }
+
+    @Test
     void seeIfGetClosestSensorOfGivenTypeSize() {
 
         //Arrange
@@ -727,6 +784,36 @@ class GeographicAreaTest {
         //Assert
         assertEquals(validAreaSensor, actualResult);
     }
+
+
+    //ver se funciona minDistSensor.size() > 1
+    @Test
+    void seeIfGetClosestSensorOfGivenTypeSize1() {
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2030, 200, 2000), new Date(), 6008L);
+        AreaSensor validAreaSensor2 = new AreaSensor("SensTwo", "SensOne", new SensorType("Temperature", "Celsius"), new Local(203, 2030, 200), new Date(), 6008L);
+        AreaSensor validAreaSensor3 = new AreaSensor("SensThree", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 2000, 2000), new Date(), 6008L);
+        validAreaSensor.setActive(true);
+        validAreaSensor2.setActive(true);
+        validAreaSensor3.setActive(true);
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(validAreaSensor);
+        listAreaSensor.add(validAreaSensor2);
+        listAreaSensor.add(validAreaSensor3);
+
+        //Act
+        validArea.setAreaSensors(listAreaSensor);
+        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
 
     @Test
     void seeIfGetMostRecentlyUsedAreaSensorNoReadings() {
