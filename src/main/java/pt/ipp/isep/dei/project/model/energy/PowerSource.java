@@ -13,9 +13,9 @@ import java.util.Objects;
 public class PowerSource {
     @Id
     @NotNull
-    private String powerSourceName;
-    private double maxPowerOutput;
-    private double maxEnergyStorage;
+    private final String powerSourceName;
+    private final double maxPowerOutput;
+    private final double maxEnergyStorage;
 
 
     /**

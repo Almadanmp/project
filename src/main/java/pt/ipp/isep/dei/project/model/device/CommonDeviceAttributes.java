@@ -9,7 +9,7 @@ public class CommonDeviceAttributes {
     private String name;
     private double nominalPower;
     private boolean active;
-    private LogList logList;
+    private final LogList logList;
 
     CommonDeviceAttributes(){
         logList = new LogList();

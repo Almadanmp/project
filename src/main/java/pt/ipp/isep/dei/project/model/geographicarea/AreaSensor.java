@@ -40,7 +40,7 @@ public class AreaSensor {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "AreaReading")
-    private List<Reading> areaReadings;
+    private final List<Reading> areaReadings;
 
     private boolean active;
 

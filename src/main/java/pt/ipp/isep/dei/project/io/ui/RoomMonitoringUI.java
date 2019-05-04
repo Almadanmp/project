@@ -20,8 +20,8 @@ import static java.lang.System.out;
 
 
 class RoomMonitoringUI {
-    private RoomMonitoringController roomMonitoringController;
-    private List<String> menuOptions;
+    private final RoomMonitoringController roomMonitoringController;
+    private final List<String> menuOptions;
 
     RoomMonitoringUI() {
         this.roomMonitoringController = new RoomMonitoringController();

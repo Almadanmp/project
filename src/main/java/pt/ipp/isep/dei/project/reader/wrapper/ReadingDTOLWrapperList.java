@@ -12,7 +12,7 @@ public class ReadingDTOLWrapperList {
     @JsonProperty("reading")
     @JsonAlias({"readings"})
     @JacksonXmlElementWrapper(useWrapping = false)
-    private List<ReadingDTOWrapper> readingDTOList;
+    private final List<ReadingDTOWrapper> readingDTOList;
 
     public ReadingDTOLWrapperList(List<ReadingDTOWrapper> list) {
         this.readingDTOList = list;
