@@ -22,11 +22,12 @@ class LogUtilsTest {
 
         Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingsHtml.html", Level.FINE);
         LogUtils.closeHandlers(l1);
-
+        Level expectedResult1 = Level.FINE;
+        String expectedResult2 ="MyLogger";
         // Assert
 
-        assertEquals(l1.getLevel(), Level.FINE);
-        assertEquals(l1.getName(), "MyLogger");
+        assertEquals(expectedResult1, l1.getLevel());
+        assertEquals(expectedResult2, l1.getName());
     }
 
     @Test

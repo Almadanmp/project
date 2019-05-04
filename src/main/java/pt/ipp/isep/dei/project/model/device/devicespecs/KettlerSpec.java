@@ -8,7 +8,7 @@ public class KettlerSpec implements DeviceSpecs {
     public static final String COLD_WATER_TEMP = "Cold Water Temperature";
     public static final String VOLUME_WATER = "Volume Water To Heat";
     public static final String PERFORMANCE_RATIO = "Performance Ratio";
-    private String invalidName = "The attribute name is invalid.";
+    private static final String invalidName = "The attribute name is invalid.";
 
 
     private double coldWaterTemp;

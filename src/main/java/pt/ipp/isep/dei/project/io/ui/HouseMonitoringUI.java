@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class HouseMonitoringUI {
     private final HouseMonitoringController houseMonitoringController;
-    private final String was = " was ";
+    private static final String was = " was ";
     private static final String RAINFALL = "rainfall";
     private static final String TEMPERATURE = "temperature";
     private final List<String> menuOptions;

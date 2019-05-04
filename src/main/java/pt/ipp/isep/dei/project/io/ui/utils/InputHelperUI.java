@@ -35,6 +35,7 @@ public class InputHelperUI {
 
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
     private static final String SELECT_DEVICES = "Please select one of the existing devices in the selected room: ";
+    private static final String JSON = ".json";
 
     /**
      * Method used to introduce a pause, usually after information is displayed to the user. Prompts user to press
@@ -441,7 +442,7 @@ public class InputHelperUI {
      * @param input - input of user
      */
     public String getInputPathJsonOrXML(String input) {
-        while (!(input.endsWith(".json") || input.endsWith(".xml") || !new File(input).exists())) {
+        while (!(input.endsWith(JSON) || input.endsWith(".xml") || !new File(input).exists())) {
             System.out.println("Please insert a valid path.");
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
@@ -456,7 +457,7 @@ public class InputHelperUI {
      * @return String pathFile
      */
     public String getInputPathJson(String input) {
-        while (!(input.endsWith(".json"))) {
+        while (!(input.endsWith(JSON))) {
             System.out.println("Please enter a valid path.");
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
@@ -489,7 +490,7 @@ public class InputHelperUI {
      * @return true if the path is valid, false otherwise
      **/
     private boolean pathIsJsonXmlCsv(String path) {
-        return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(".json"));
+        return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(JSON));
     }
 
 
@@ -508,7 +509,7 @@ public class InputHelperUI {
      */
     public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaService areaService) {
         int areasRead;
-        if (filePath.endsWith(".json")) {
+        if (filePath.endsWith(JSON)) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
             areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService);
             return areasRead;

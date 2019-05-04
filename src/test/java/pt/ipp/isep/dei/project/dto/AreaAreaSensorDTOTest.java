@@ -213,7 +213,7 @@ class AreaAreaSensorDTOTest {
         areaSensorDTO4.setId("02");
         areaSensorDTO5.setId("01");
 
-
+        Double actualResult = 3D;
         //Assert
 
         assertEquals(areaSensorDTO1, areaSensorDTO1);
@@ -221,7 +221,7 @@ class AreaAreaSensorDTOTest {
         assertNotEquals(areaSensorDTO1, areaSensorDTO3);
         assertNotEquals(areaSensorDTO1, areaSensorDTO4);
         assertNotEquals(areaSensorDTO1, areaSensorDTO5);
-        assertNotEquals(areaSensorDTO1, 3D);
+        assertNotEquals(areaSensorDTO1, actualResult);
     }
 
     @Test

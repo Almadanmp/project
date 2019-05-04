@@ -475,7 +475,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        assertEquals(actualResult, "Not a Washing Machine");
+        assertEquals( "Not a Washing Machine", actualResult);
     }
 
 
