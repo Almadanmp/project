@@ -5,7 +5,6 @@ import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;

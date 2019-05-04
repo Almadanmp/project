@@ -17,6 +17,9 @@ import java.util.*;
 
 public class RoomMonitoringController {
 
+    private static final String COMFORT_BELOW_LEVEL = "Instants in which the readings are below the comfort temperature:\n";
+    private static final String COMFORT_ABOVE_LEVEL = "Instants in which the readings are above comfort temperature:\n";
+
     /**
      * Returns the current temperature in a given Room.
      *
@@ -69,15 +72,15 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsAboveCategoryILimit(readingValues, house);
-            result = buildReadingsOutput(allReadings, "Instants in which the readings are above comfort temperature:\n");
+            result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
-            result = buildReadingsOutput(allReadings, "Instants in which the readings are above comfort temperature:\n");
+            result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
-            result = buildReadingsOutput(allReadings, "Instants in which the readings are above comfort temperature:\n");
+            result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
         }
         return result;
     }
@@ -115,15 +118,15 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsBelowCategoryILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, "Instants in which the readings are below the comfort temperature:\n");
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsBelowCategoryIILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, "Instants in which the readings are below the comfort temperature:\n");
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsBelowCategoryIIILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, "Instants in which the readings are below the comfort temperature:\n");
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         return result;
     }
