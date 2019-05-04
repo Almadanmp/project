@@ -411,10 +411,10 @@ class GeographicAreaServiceTest {
         // Act
 
         List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Country");
-
+        int expectedResult =1;
         // Assert
 
-        assertEquals(actualResult.size(), 1);
+        assertEquals(expectedResult, actualResult.size());
     }
 
     @Test
@@ -423,10 +423,10 @@ class GeographicAreaServiceTest {
         // Act
 
         List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Not a valid type");
-
+        int expectedResult =0;
         // Assert
 
-        assertEquals(actualResult.size(), 0);
+        assertEquals(expectedResult, actualResult.size());
     }
 
     @Test

@@ -339,10 +339,11 @@ class HouseTest {
 
         validHouse.buildDeviceTypeList(deviceTypePaths);
         List<DeviceType> deviceTypeList = validHouse.getDeviceTypeList();
+        int expectedResult =2;
 
         // Assert
 
-        assertEquals(deviceTypeList.size(), 2);
+        assertEquals(expectedResult, deviceTypeList.size());
         assertTrue(deviceTypeList.get(0) instanceof DishwasherType);
         assertTrue(deviceTypeList.get(1) instanceof WaterHeaterType);
     }

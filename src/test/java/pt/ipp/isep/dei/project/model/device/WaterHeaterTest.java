@@ -499,9 +499,8 @@ class WaterHeaterTest {
     @Test
     void seeEqualsToNullObject() {
 
-        WaterHeater expectedResult = validHeater;
 
-        assertNotEquals(expectedResult, null);
+        assertNotEquals(null, validHeater);
     }
 
     @Test

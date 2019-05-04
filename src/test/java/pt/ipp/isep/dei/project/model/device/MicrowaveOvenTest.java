@@ -649,10 +649,8 @@ class MicrowaveOvenTest {
     @Test
     void seeIfEqualsFailsNullObject() {
         // Assert
-
-        MicrowaveOven expectedResult = validMicrowaveOven;
-        assertNotEquals(expectedResult, null);
-        assertNotEquals(expectedResult, null);
+        assertNotEquals(null, validMicrowaveOven);
+        assertNotEquals(null, validMicrowaveOven);
     }
 
     @Test

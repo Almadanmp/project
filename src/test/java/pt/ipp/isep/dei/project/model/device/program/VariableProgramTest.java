@@ -211,7 +211,7 @@ class VariableProgramTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(validVariableTimeProgram, null);
+        assertNotEquals( null, validVariableTimeProgram);
     }
 
     @Test

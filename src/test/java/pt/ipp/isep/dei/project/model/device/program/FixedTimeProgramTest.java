@@ -406,7 +406,7 @@ class FixedTimeProgramTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        assertNotEquals(validFixedTimeProgram, null);
+        assertNotEquals(null, validFixedTimeProgram);
     }
 
     @Test

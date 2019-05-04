@@ -368,10 +368,11 @@ class EnergyGridTest {
         // Act
 
         double result = validGrid.getEnergyConsumption(10);
+        int expectedResult =0;
 
         // Assert
 
-        assertEquals(result, 0);
+        assertEquals(expectedResult,result);
     }
 
     @Test

@@ -338,11 +338,6 @@ class RoomServiceTest {
     }
 
     @Test
-    void seeIfCreateRoom() {
-
-    }
-
-    @Test
     void seeIfIdExists() {
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);

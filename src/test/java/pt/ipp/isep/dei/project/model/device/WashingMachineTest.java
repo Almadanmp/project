@@ -94,9 +94,8 @@ class WashingMachineTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        WashingMachine expectedResult = validMachine;
 
-        assertNotEquals(expectedResult, null);
+        assertNotEquals(null, validMachine);
     }
 
     @Test

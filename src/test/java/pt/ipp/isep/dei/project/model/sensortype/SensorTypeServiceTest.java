@@ -73,11 +73,13 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(sensorType);
 
+        int expectedResult =1;
+
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         int result = sensorTypeService.size();
 
-        assertEquals(result, 1);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -86,11 +88,13 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(null);
 
+        int expectedResult =1;
+
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
         int result = sensorTypeService.size();
 
-        assertEquals(result, 1);
+        assertEquals(expectedResult, result);
     }
 
     @Test

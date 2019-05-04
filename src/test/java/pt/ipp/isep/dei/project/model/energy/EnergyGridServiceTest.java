@@ -166,12 +166,13 @@ class EnergyGridServiceTest {
 
         List<EnergyGrid> energyGrids = new ArrayList<>();
         energyGrids.add(energyGrid);
+        int expectedResult =1;
 
         Mockito.when(energyGridRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridList.size();
 
-        assertEquals(result, 1);
+        assertEquals(expectedResult,result);
     }
 
     @Test
@@ -179,12 +180,13 @@ class EnergyGridServiceTest {
 
         List<EnergyGrid> energyGrids = new ArrayList<>();
         energyGrids.add(null);
+        int expectedResult =1;
 
         Mockito.when(energyGridRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridList.size();
 
-        assertEquals(result, 1);
+        assertEquals(expectedResult,result);
     }
 
 //    @Test

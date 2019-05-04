@@ -63,9 +63,10 @@ class ReadingDTOWrapperTest {
         //Arrange
 
         ReadingDTOWrapper readingDTOWrapper1 = new ReadingDTOWrapper();
+        int expectedResult =1;
 
         //Assert
 
-        assertEquals(readingDTOWrapper1.hashCode(), 1);
+        assertEquals(expectedResult, readingDTOWrapper1.hashCode());
     }
 }

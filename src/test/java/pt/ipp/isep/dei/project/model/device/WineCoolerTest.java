@@ -112,9 +112,8 @@ class WineCoolerTest {
 
     @Test
     void seeIfEqualsWorksNull() {
-        WineCooler expectedResult = validCooler;
 
-        assertNotEquals(expectedResult, null);
+        assertNotEquals( null, validCooler);
     }
 
     @Test
