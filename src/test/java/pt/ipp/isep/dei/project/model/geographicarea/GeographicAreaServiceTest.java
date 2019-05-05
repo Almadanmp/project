@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * GeographicAreaList tests class.
+ * GeographicAreaService tests class.
  */
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -55,7 +55,7 @@ class GeographicAreaServiceTest {
     private AreaSensor secondValidAreaSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
-
+    private Reading validReading;
     private GeographicAreaService geographicAreaService;
     @Mock
     private SensorTypeRepository sensorTypeRepository;
@@ -63,6 +63,7 @@ class GeographicAreaServiceTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        validReading = new Reading(23, validDate2, "C", "sensorID");
         firstValidArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
                 new Local(50, 50, 10));
         validList = new ArrayList<>();
@@ -410,7 +411,7 @@ class GeographicAreaServiceTest {
         // Act
 
         List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Country");
-        int expectedResult =1;
+        int expectedResult = 1;
         // Assert
 
         assertEquals(expectedResult, actualResult.size());
@@ -422,7 +423,7 @@ class GeographicAreaServiceTest {
         // Act
 
         List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Not a valid type");
-        int expectedResult =0;
+        int expectedResult = 0;
         // Assert
 
         assertEquals(expectedResult, actualResult.size());
@@ -525,4 +526,111 @@ class GeographicAreaServiceTest {
 //        assertFalse(failedResult2);
 //    }
 
+    @Test
+    void seeIfcategoryIIICalculusUS445Works() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIIICalculusUS445(validReading,0);
+        // Assert
+        assertTrue(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIIICalculusUS445Fails() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIIICalculusUS445(validReading,20);
+        // Assert
+        assertFalse(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIICalculusUS445Works() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIICalculusUS445(validReading,0);
+        // Assert
+        assertTrue(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIICalculusUS445Fails() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIICalculusUS445(validReading,20);
+        // Assert
+        assertFalse(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryICalculusUS445Works() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryICalculusUS445(validReading,0);
+        // Assert
+        assertTrue(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryICalculusUS445Fails() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryICalculusUS445(validReading,20);
+        // Assert
+        assertFalse(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryICalculusUS440Works() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryICalculusTemperaturesLowerThanAverage(validReading,0);
+        // Assert
+        assertFalse(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryICalculusUS440Fails() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryICalculusTemperaturesLowerThanAverage(validReading,20);
+        // Assert
+        assertTrue(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIICalculusUS440Works() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIICalculusTemperaturesLowerThanAverage(validReading,0);
+        // Assert
+        assertFalse(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIICalculusUS440Fails() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIICalculusTemperaturesLowerThanAverage(validReading,30);
+        // Assert
+        assertTrue(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIIICalculusUS440Works() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIIICalculusTemperaturesLowerThanAverage(validReading,0);
+        // Assert
+        assertFalse(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIIICalculusUS440Fails() {
+        // Arrange
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIIICalculusTemperaturesLowerThanAverage(validReading,40);
+        // Assert
+        assertTrue(expectedResult);
+    }
 }

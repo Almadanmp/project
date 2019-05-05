@@ -319,7 +319,7 @@ public class GeographicAreaService {
 
     // Methods to be moved to GeographicArea-House-bridge-Service
 
-    public double getGeographicAreaAverageTemperature(Date date, House house) {
+    double getGeographicAreaAverageTemperature(Date date, House house) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -339,10 +339,10 @@ public class GeographicAreaService {
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
-    private double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
+    private Double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
         List<Reading> sensorReadingsBetweenDates = getReadingListBetweenFormattedDates(minDate, maxDate, areaSensor);
         if (sensorReadingsBetweenDates.isEmpty()) {
-            return 666;
+            return Double.NaN;
         }
         return AreaSensor.getSensorReadingAverageValue(sensorReadingsBetweenDates);
     }
@@ -352,7 +352,6 @@ public class GeographicAreaService {
         //System.out.println(finalDate);
         List<Reading> finalList = new ArrayList<>();
         List<Reading> result = areaSensor.getReadings();
-
         for (Reading r : result) {
 //            System.out.println("Data Reading:");
 //            System.out.println(r.getDate());
@@ -378,8 +377,8 @@ public class GeographicAreaService {
     public List<Reading> getReadingsBelowCategoryILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (temperature != 666) {
+            Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (!temperature.isNaN()) {
                 if (categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
                     allReadings.add(r);
                 }
@@ -391,9 +390,11 @@ public class GeographicAreaService {
     public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
-                allReadings.add(r);
+            Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (!temperature.isNaN()) {
+                if (categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                    allReadings.add(r);
+                }
             }
         }
         return allReadings;
@@ -402,25 +403,48 @@ public class GeographicAreaService {
     public List<Reading> getReadingsBelowCategoryIIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
-                allReadings.add(r);
+            Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (!temperature.isNaN()) {
+                if (categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+                    allReadings.add(r);
+                }
             }
         }
         return allReadings;
     }
 
-    private boolean categoryICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
+    /**
+     * Method to check id a given reading is below the comfort temperature for category I.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    boolean categoryICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 - 2;
         return reading.getValue() < minT;
     }
 
-    private boolean categoryIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
+    /**
+     * Method to check id a given reading is below the comfort temperature for category II.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    boolean categoryIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 - 3;
         return reading.getValue() < minT;
     }
 
-    private boolean categoryIIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
+    /**
+     * Method to check id a given reading is below the comfort temperature for category III.
+     *
+     * @param reading         - Reading to get value.
+     * @param areaTemperature - outside average temperature for the given date
+     * @return true if the reading is above the comfort level.
+     */
+    boolean categoryIIICalculusTemperaturesLowerThanAverage(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 - 4;
         return reading.getValue() < minT;
     }
@@ -428,8 +452,8 @@ public class GeographicAreaService {
     public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (temperature != 0) {
+            Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (!temperature.isNaN()) {
                 if (categoryICalculusUS445(r, temperature)) {
                     allReadings.add(r);
                 }
@@ -441,8 +465,8 @@ public class GeographicAreaService {
     public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (temperature != 666) {
+            Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (!temperature.isNaN()) {
                 if (categoryIICalculusUS445(r, temperature)) {
                     allReadings.add(r);
                 }
@@ -454,8 +478,8 @@ public class GeographicAreaService {
     public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (temperature != 666) {
+            Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            if (!temperature.isNaN()) {
                 if (categoryIIICalculusUS445(r, temperature)) {
                     allReadings.add(r);
                 }
@@ -471,7 +495,7 @@ public class GeographicAreaService {
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
-    private boolean categoryICalculusUS445(Reading reading, double areaTemperature) {
+    boolean categoryICalculusUS445(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 + 2;
         return reading.getValue() > minT;
     }
@@ -483,7 +507,7 @@ public class GeographicAreaService {
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
-    private boolean categoryIICalculusUS445(Reading reading, double areaTemperature) {
+    boolean categoryIICalculusUS445(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 + 3;
         return reading.getValue() > minT;
     }
@@ -495,7 +519,7 @@ public class GeographicAreaService {
      * @param areaTemperature - outside average temperature for the given date
      * @return true if the reading is above the comfort level.
      */
-    private boolean categoryIIICalculusUS445(Reading reading, double areaTemperature) {
+    boolean categoryIIICalculusUS445(Reading reading, double areaTemperature) {
         double minT = 0.33 * areaTemperature + 18.8 + 4;
         return reading.getValue() > minT;
     }
