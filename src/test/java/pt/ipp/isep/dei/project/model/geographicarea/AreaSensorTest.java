@@ -840,6 +840,44 @@ validAreaSensor.addReading(reading2);
     }
 
     @Test
+    void seeIfGetDaysWithReadingsBetweenDatesWhenDaysProcessedContains() {
+        // Arrange
+
+        Date validDate12 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate12 = validSdf.parse("02/11/2017 20:00:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date testDate = new GregorianCalendar(2018, Calendar.NOVEMBER, 3).getTime();
+        Reading earlierReading = new Reading(15, validDate12, "C", "SensOne");
+        Reading earlierReading2 = new Reading(14, validDate12, "C", "SensOne");
+        Reading earlierReading3 = new Reading(15, validDate12, "C", "SensOne");
+        Reading laterReading = new Reading(30, testDate, "C", "SensOne");
+        Reading laterReading2 = new Reading(30, testDate, "C", "SensOne");
+
+        validAreaSensor.addReading(earlierReading);
+        validAreaSensor.addReading(laterReading);
+        validAreaSensor.addReading(earlierReading2);
+        validAreaSensor.addReading(earlierReading3);
+        validAreaSensor.addReading(laterReading2);
+        List<Date> expectedResult = new ArrayList<>();
+        expectedResult.add(validDate12);
+        expectedResult.add(testDate);
+
+        // Act
+
+        List<Date> actualResult = validAreaSensor.getDaysWithReadingsBetweenDates(validDate12, testDate);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
     void getFirstHottestDayInGivenPeriodThrowsException() {
         final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
         final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
