@@ -339,7 +339,7 @@ public class GeographicAreaService {
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
-    private Double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
+    Double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
         List<Reading> sensorReadingsBetweenDates = getReadingListBetweenFormattedDates(minDate, maxDate, areaSensor);
         if (sensorReadingsBetweenDates.isEmpty()) {
             return Double.NaN;
@@ -347,26 +347,17 @@ public class GeographicAreaService {
         return AreaSensor.getSensorReadingAverageValue(sensorReadingsBetweenDates);
     }
 
-    private List<Reading> getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor) {
-        //System.out.println(initialDate);
-        //System.out.println(finalDate);
+    List<Reading> getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor) {
+
         List<Reading> finalList = new ArrayList<>();
         List<Reading> result = areaSensor.getReadings();
         for (Reading r : result) {
-//            System.out.println("Data Reading:");
-//            System.out.println(r.getDate());
-//            System.out.println("Nova Data:");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date readingDate = new Date();
             try {
                 readingDate = sdf.parse(r.getDate().toString());
-//            System.out.println(sdf.parse(r.getDate().toString()));
             } catch (ParseException e) {
             }
-//            System.out.println("Reading: Data, DatainicioDia, DataFimDia");
-//            System.out.println(initialDate);
-//            System.out.println(finalDate);
-//            System.out.println(readingDate);
             if (ReadingUtils.isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)) {
                 finalList.add(r);
             }
