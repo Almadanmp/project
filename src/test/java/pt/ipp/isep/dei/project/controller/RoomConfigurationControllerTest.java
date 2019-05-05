@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
@@ -23,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +42,7 @@ class RoomConfigurationControllerTest {
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
     private RoomService roomService;
+    private Date validDate1;
 
     @Mock
     RoomSensorRepository roomSensorRepository;
@@ -51,8 +55,14 @@ class RoomConfigurationControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoomWithDevices = new Room("Office", "2nd Floor Office", 2, 15, 15, 10, "Room1", "Grid1");
-        validRoomNoDevices = new Room("Kitchen", "Fully Equipped Kitchen", 1, 20, 20, 10, "Room1", "Grid1");
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("11/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        validRoomWithDevices = new Room("Office", "2nd Floor Office", 2, 15, 15, 10, "House", "Grid1");
+        validRoomNoDevices = new Room("Kitchen", "Fully Equipped Kitchen", 1, 20, 20, 10, "House", "Grid1");
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.FREEZER_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
@@ -61,21 +71,94 @@ class RoomConfigurationControllerTest {
         this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
     }
 
+
+    @Test
+    void seeIfGetDeviceByIndexWorks() {
+        // Arrange
+
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(validRoomWithDevices);
+
+        DeviceList deviceList = new DeviceList();
+        deviceList.add(validDeviceFridge);
+
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("Office");
+        roomDTO.setDescription("2nd Floor Office");
+        roomDTO.setFloor(2);
+        roomDTO.setHeight(10);
+        roomDTO.setLength(15);
+        roomDTO.setWidth(15);
+        roomDTO.setHouseId("House");
+        roomDTO.setEnergyGridName("Grid1");
+        roomDTO.setDeviceList(deviceList);
+
+        SensorType sensorType = new SensorType("temperature", "Celsius");
+        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+
+        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+
+        // Act
+
+        Device actualResult = controller.getDeviceByIndex(roomDTO, 0, roomService);
+
+        // Assert
+
+        assertEquals(validDeviceFridge, actualResult);
+    }
+
     @Test
     void seeIfGetDeviceListSizeWorks() {
         // Arrange
 
-        ProgramList pList = new ProgramList();
-        FixedTimeProgram fTProgram = new FixedTimeProgram();
-        pList.add(fTProgram);
-        Dishwasher dish = new Dishwasher(new DishwasherSpec());
-        dish.setProgramList(pList);
+        List<Room> roomList = new ArrayList<>();
+        roomList.add(validRoomWithDevices);
+
+        DeviceList deviceList = new DeviceList();
+        deviceList.add(validDeviceFridge);
+
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("Office");
+        roomDTO.setDescription("2nd Floor Office");
+        roomDTO.setFloor(2);
+        roomDTO.setHeight(10);
+        roomDTO.setLength(15);
+        roomDTO.setWidth(15);
+        roomDTO.setHouseId("House");
+        roomDTO.setEnergyGridName("Grid1");
+        roomDTO.setDeviceList(deviceList);
+
+        SensorType sensorType = new SensorType("temperature", "Celsius");
+        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+
+        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+
         // Act
 
-        ProgramList actualResult = controller.getProgramList(dish);
+        int actualResult = controller.getDeviceListSize(roomDTO, roomService);
+
         // Assert
 
-        assertEquals(actualResult, pList);
+        assertEquals(1, actualResult);
+    }
+
+
+    @Test
+    void seeIfCreateRoomSensorWorks() {
+        // Arrange
+
+        SensorType sensorType = new SensorType("temperature", "Celsius");
+        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+
+        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(sensorType));
+
+        // Act
+
+        RoomSensor actualResult = controller.createRoomSensor(roomService, "Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -92,7 +175,7 @@ class RoomConfigurationControllerTest {
         ProgramList actualResult = controller.getProgramList(dish);
         // Assert
 
-        assertEquals(actualResult, pList);
+        assertEquals(pList, actualResult);
     }
 
     @Test
@@ -102,7 +185,7 @@ class RoomConfigurationControllerTest {
         // Act
         Object actualResult = controller.getAttributeUnit(validDeviceFridge, 1);
         // Assert
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -112,7 +195,7 @@ class RoomConfigurationControllerTest {
         // Act
         Object actualResult = controller.getAttributeValue(validDeviceFridge, 1);
         // Assert
-        assertEquals(actualResult, expectedResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     /*USER STORY 230 - As a Room Owner [or Power User, or Administrator], I want to know the total
