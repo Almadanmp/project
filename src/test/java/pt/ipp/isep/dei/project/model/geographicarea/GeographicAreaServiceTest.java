@@ -118,8 +118,8 @@ class GeographicAreaServiceTest {
         validReadingColdDay = new Reading(0, validReadingDate3, "C", "SensorThree");
 
         validAreaSensor.addReading(validReading2);
-        validAreaSensor.addReading(validReadingColdDay);
-        validAreaSensor.addReading(validReadingHotDay);
+        //validAreaSensor.addReading(validReadingColdDay);
+        //validAreaSensor.addReading(validReadingHotDay);
         validReadingList = new ArrayList<>();
         validReadingList.add(validReading2);
         validReadingList.add(validReadingColdDay);
