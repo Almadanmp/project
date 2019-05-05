@@ -528,11 +528,24 @@ class GeographicAreaServiceTest {
 
     @Test
     void seeIfcategoryIIICalculusUS445Works() {
-        // Arrange
+
         // Act
         boolean expectedResult = geographicAreaService.categoryIIICalculusUS445(validReading,0);
         // Assert
         assertTrue(expectedResult);
+    }
+
+    @Test
+    void seeIfcategoryIIICalculusUS445FailsBoundaryValue() {
+
+        // Arrange
+        double result = (validReading.getValue()/0.33)-18.8-4;
+
+        // Act
+        boolean expectedResult = geographicAreaService.categoryIIICalculusUS445(validReading,result);
+
+        // Assert
+        assertFalse(expectedResult);
     }
 
     @Test
