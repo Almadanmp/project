@@ -362,10 +362,33 @@ public class AreaSensor {
      * @return list of dates of readings between the given dates
      * @author Daniela - US623 & US633
      */
+//TODO Delete method, daysProcessed was never used and caused untested condition, which was impossible to test
+//    List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
+//
+//        List<Date> daysWithReadings = new ArrayList<>();
+//        List<Date> daysProcessed = new ArrayList<>();
+//
+//        Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
+//        Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
+//
+//        for (int i = 0; i < areaReadings.size(); i++) {
+//            Date currentReadingDate = ReadingUtils.getValueDate(areaReadings, i);
+//            if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
+//
+//                Date readingDay = ReadingUtils.getFirstSecondOfDay(currentReadingDate);
+//
+//                if (!daysProcessed.contains(readingDay)) {
+//                    daysProcessed.add(readingDay);
+//                    daysWithReadings.add(currentReadingDate);
+//                }
+//            }
+//        }
+//        return daysWithReadings;
+//    }
+
     List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
 
         List<Date> daysWithReadings = new ArrayList<>();
-        List<Date> daysProcessed = new ArrayList<>();
 
         Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
         Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
@@ -373,15 +396,9 @@ public class AreaSensor {
         for (int i = 0; i < areaReadings.size(); i++) {
             Date currentReadingDate = ReadingUtils.getValueDate(areaReadings, i);
             if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
-
-                Date readingDay = ReadingUtils.getFirstSecondOfDay(currentReadingDate);
-
-                if (!daysProcessed.contains(readingDay)) {
-                    daysProcessed.add(readingDay);
                     daysWithReadings.add(currentReadingDate);
                 }
             }
-        }
         return daysWithReadings;
     }
 
