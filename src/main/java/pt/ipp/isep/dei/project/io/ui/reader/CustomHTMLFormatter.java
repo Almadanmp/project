@@ -7,10 +7,8 @@ import java.util.logging.*;
 
 public class CustomHTMLFormatter extends Formatter {
 
-    private static final DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-
     public String format(LogRecord record) {
-
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
         StringBuffer buf = new StringBuffer(1000);
         if (record.getLevel().intValue() >= Level.FINE.intValue()) {
             buf.append("<b>");

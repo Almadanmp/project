@@ -11,9 +11,8 @@ import java.util.logging.LogRecord;
  */
 public class CustomFormatter extends Formatter {
 
-    private static final DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-
     public String format(LogRecord record) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
         StringBuilder builder = new StringBuilder(1000);
         builder.append(df.format(new Date(record.getMillis()))).append(" - ");
         builder.append("[").append(record.getSourceClassName()).append(".");
