@@ -32,6 +32,32 @@ class ElectricOvenTest {
     }
 
     @Test
+    void seeIfIsActiveWorks() {
+        // Act
+
+        boolean actualResult = validOven.isActive();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfIsActiveWorksWhenDeactivated() {
+        //Arrange
+
+        validOven.deactivate();
+
+        // Act
+
+        boolean actualResult = validOven.isActive();
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetConsumptionWorks() {
         // Arrange
 
