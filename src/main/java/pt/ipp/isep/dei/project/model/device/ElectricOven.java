@@ -89,7 +89,8 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        return this.commonDeviceAttributes.addLog(log); }
+        return this.commonDeviceAttributes.addLog(log);
+    }
 
     /**
      * Method determines the amount of data logs that fall within a given time interval.

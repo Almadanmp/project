@@ -176,7 +176,7 @@ class FileInputUtils {
             SensorType type = new SensorType();
             type.setName(sensorTypesName.get(i));
             type.setUnits(this.sensorTypesUnit.get(i));
-            sensorTypeService.addType(type);
+            sensorTypeService.add(type);
         }
     }
 

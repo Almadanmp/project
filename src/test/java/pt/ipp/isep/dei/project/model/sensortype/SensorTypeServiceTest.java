@@ -73,7 +73,7 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(sensorType);
 
-        int expectedResult =1;
+        int expectedResult = 1;
 
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
@@ -88,7 +88,7 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(null);
 
-        int expectedResult =1;
+        int expectedResult = 1;
 
         Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
 
@@ -205,7 +205,7 @@ class SensorTypeServiceTest {
     }
 
     @Test
-    void seeIfAddWorksWhenAreaTypeInRepository() {
+    void seeIfAddWorksWhenAreaTypeExistsInRepository() {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "Celsius");
@@ -214,7 +214,7 @@ class SensorTypeServiceTest {
         //Act
         boolean actualResult = sensorTypeService.add(sensorType);
 
-        assertTrue(actualResult);
+        assertFalse(actualResult);
     }
 
     @Test
@@ -225,43 +225,6 @@ class SensorTypeServiceTest {
 
         assertTrue(actualResult);
     }
-
-    @Test
-    void seeIfAddTypeWorks() {
-        //Arrange
-
-        SensorType sensorType = new SensorType("Name", "celsius");
-        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.empty());
-
-        //Act
-        boolean actualResult = sensorTypeService.addType(sensorType);
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddTypeWorksNewArea() {
-        //Arrange
-
-        SensorType sensorType = new SensorType("Name", "Celsius");
-        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.of(sensorType));
-
-
-        //Act
-        boolean actualResult = sensorTypeService.addType(sensorType);
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfAddWorksAreaTypeExists() {
-
-        //Act
-        boolean actualResult = sensorTypeService.addType(firstValidType);
-
-        assertTrue(actualResult);
-    }
-
 
     @Test
     void seeIfGetTypeAreaByIdRepository() {
@@ -278,6 +241,4 @@ class SensorTypeServiceTest {
         assertEquals(result.getName(), areaType.getName());
         assertEquals(result.getUnits(), areaType.getUnits());
     }
-
-
 }

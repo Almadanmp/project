@@ -166,7 +166,7 @@ class ElectricOvenTest {
     }
 
     @Test
-    void seeIfGetAttributeUnitsWorksEmptyAttribute(){
+    void seeIfGetAttributeUnitsWorksEmptyAttribute() {
         // Test for getting an attribute unit for an empty attribute string.
 
         // Act
@@ -179,7 +179,7 @@ class ElectricOvenTest {
     }
 
     @Test
-    void seeIfGetAttributeNamesWorksEmpty(){
+    void seeIfGetAttributeNamesWorksEmpty() {
         // Act
 
         List<String> resultString = validOven.getAttributeNames();
@@ -300,9 +300,9 @@ class ElectricOvenTest {
     void seeIfGetConsumptionInIntervalWorksBounds() {
         // Act
 
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10,0,
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11,0,
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11, 0,
                 0).getTime();
         double result = validOven.getConsumptionInInterval(initialTime, finalTime);
 
@@ -317,9 +317,9 @@ class ElectricOvenTest {
 
         // Time Interval
 
-        Date initialTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10,0,
+        Date initialTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 11,0,
+        Date finalTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 11, 0,
                 0).getTime();
 
         // Logs
@@ -347,9 +347,9 @@ class ElectricOvenTest {
 
         // Time Interval
 
-        Date initialTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10,0,
+        Date initialTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 11,0,
+        Date finalTime = new GregorianCalendar(2018, Calendar.OCTOBER, 20, 11, 0,
                 0).getTime();
 
         // Logs
@@ -378,9 +378,9 @@ class ElectricOvenTest {
 
         // Interval
 
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10,0,
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11,0,
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11, 0,
                 0).getTime();
 
         // Act
@@ -398,9 +398,9 @@ class ElectricOvenTest {
 
         // Interval
 
-        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10,0,
+        Date initialTime = new GregorianCalendar(2019, Calendar.JANUARY, 31, 10, 0,
                 0).getTime();
-        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11,0,
+        Date finalTime = new GregorianCalendar(2019, Calendar.FEBRUARY, 2, 11, 0,
                 0).getTime();
 
         // Expected
