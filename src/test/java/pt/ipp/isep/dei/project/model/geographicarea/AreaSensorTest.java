@@ -616,6 +616,49 @@ class AreaSensorTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfGetDateHighestAmplitudeBetweenDatesWhenTwoDatesHaveSameAmplitude() {
+        // Arrange
+        Date validDate1 = new Date();
+        Date validDate2 = new Date();
+        Date validDate3 = new Date();
+        Date validDate4 = new Date();
+        Date validDate5 = new Date();
+        Date validDate6 = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate1 = validSdf.parse("31/09/2018 10:59:59");
+            validDate2 = validSdf.parse("31/09/2018 23:59:59");
+            validDate3 = validSdf.parse("07/10/2018 20:00:00");
+            validDate4 = validSdf.parse("07/10/2018 00:00:00");
+            validDate5 = validSdf.parse("08/10/2018 13:26:21");
+            validDate6 = validSdf.parse("08/10/2018 23:26:21");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Reading r0 = new Reading(20, validDate2, "C", "SensOne");
+        Reading r1 = new Reading(25, validDate3, "C", "SensOne");
+        Reading r2 = new Reading(30, validDate6, "C", "SensOne");
+        Reading r3 = new Reading(10, validDate1, "C", "SensOne");
+        Reading r4 = new Reading(30, validDate4, "C", "SensOne");
+        Reading r5 = new Reading(10, validDate5, "C", "SensOne");
+        validAreaSensor.addReading(r0);
+        validAreaSensor.addReading(r1);
+        validAreaSensor.addReading(r2);
+        validAreaSensor.addReading(r3);
+        validAreaSensor.addReading(r4);
+        validAreaSensor.addReading(r5);
+        Date expectedResult = validDate6;
+
+        // Act
+
+        Date actualResult = validAreaSensor.getDateHighestAmplitudeBetweenDates(validDate1, validDate6);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     void seeIfGetMostRecentValueReading() {
