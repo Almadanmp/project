@@ -142,8 +142,8 @@ public final class MenuFormatter {
 
         // Whitespace / 2 might not be an int, so we have to round the value.
 
-        int whiteSpaceLeftOfLine = Math.round((float)(whiteSpace / 2));
-        int whiteSpaceRightOfLine = Math.round((float)(whiteSpace / 2));
+        int whiteSpaceLeftOfLine = Math.round((whiteSpace / 2f));
+        int whiteSpaceRightOfLine = Math.round((whiteSpace / 2f));
 
         if (whiteSpace % 2 != 0) {
             whiteSpaceRightOfLine++;
