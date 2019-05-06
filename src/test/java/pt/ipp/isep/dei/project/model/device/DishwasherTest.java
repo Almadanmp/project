@@ -36,6 +36,32 @@ class DishwasherTest {
     }
 
     @Test
+    void seeIfIsActiveWorks() {
+        // Act
+
+        boolean actualResult = validDishwasher.isActive();
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfIsActiveWorksWhenDeactivated() {
+        //Arrange
+
+        validDishwasher.deactivate();
+
+        // Act
+
+        boolean actualResult = validDishwasher.isActive();
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetTypeWorks() {
         //Arrange
 
