@@ -25,4 +25,37 @@ class CommonDeviceAttributesTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfSetActiveWorks() {
+        // Arrange
+
+        CommonDeviceAttributes commonDeviceAttributes = new CommonDeviceAttributes();
+        commonDeviceAttributes.setName("Fridge");
+        commonDeviceAttributes.setNominalPower(20D);
+
+        // Act
+
+        commonDeviceAttributes.setActive(true);
+
+        // Assert
+
+        assertTrue(commonDeviceAttributes.isActive());
+    }
+
+    @Test
+    void seeIfSetAsInactiveWorks() {
+        // Arrange
+
+        CommonDeviceAttributes commonDeviceAttributes = new CommonDeviceAttributes();
+        commonDeviceAttributes.setName("Fridge");
+        commonDeviceAttributes.setNominalPower(20D);
+
+        // Act
+
+        commonDeviceAttributes.setActive(false);
+
+        // Assert
+
+        assertFalse(commonDeviceAttributes.isActive());
+    }
 }

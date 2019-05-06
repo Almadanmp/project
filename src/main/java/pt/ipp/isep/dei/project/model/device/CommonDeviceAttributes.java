@@ -49,11 +49,8 @@ public class CommonDeviceAttributes {
         this.active = active;
     }
 
-
     public String buildString() {
-        String result;
-        result =  "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
-        return result;
+        return "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
     }
 
     /**
