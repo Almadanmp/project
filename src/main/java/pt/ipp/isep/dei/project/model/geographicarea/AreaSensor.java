@@ -396,9 +396,9 @@ public class AreaSensor {
         for (int i = 0; i < areaReadings.size(); i++) {
             Date currentReadingDate = ReadingUtils.getValueDate(areaReadings, i);
             if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
-                    daysWithReadings.add(currentReadingDate);
-                }
+                daysWithReadings.add(currentReadingDate);
             }
+        }
         return daysWithReadings;
     }
 
