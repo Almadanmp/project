@@ -15,7 +15,7 @@ public class ReadingDTOLWrapperList {
     private final List<ReadingDTOWrapper> readingDTOList;
 
     public ReadingDTOLWrapperList(List<ReadingDTOWrapper> list) {
-        this.readingDTOList = list;
+        this.readingDTOList = new ArrayList<>(list);
     }
 
     public ReadingDTOLWrapperList() {
@@ -23,7 +23,7 @@ public class ReadingDTOLWrapperList {
     }
 
     public List<ReadingDTOWrapper> getReadingDTOWrapperList() {
-        return this.readingDTOList;
+        return new ArrayList<>(this.readingDTOList);
     }
 
     /**

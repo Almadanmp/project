@@ -122,11 +122,11 @@ public class RoomSensorDTO {
     }
 
     public List<ReadingDTO> getReadingList() {
-        return readingList;
+        return new ArrayList<>(readingList);
     }
 
     public void setReadingList(List<ReadingDTO> readingList) {
-        this.readingList = readingList;
+        this.readingList = new ArrayList<>(readingList);
     }
 
     @Override
