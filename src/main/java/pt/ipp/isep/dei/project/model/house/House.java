@@ -189,7 +189,7 @@ public class House implements Root {
      * @return the list of Device Types associated to the House.
      */
     public List<DeviceType> getDeviceTypeList() {
-        return deviceTypeList;
+        return new ArrayList<>(deviceTypeList);
     }
 
     /**
