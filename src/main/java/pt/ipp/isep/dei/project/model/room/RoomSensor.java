@@ -105,11 +105,11 @@ public class RoomSensor {
     }
 
     public List<Reading> getReadings() {
-        return readings;
+        return new ArrayList<>(readings);
     }
 
     public void setReadings(List<Reading> houseReadings) {
-        this.readings = houseReadings;
+        this.readings = new ArrayList<>(houseReadings);
     }
 
     /**
@@ -127,11 +127,11 @@ public class RoomSensor {
      * @param dateStartedFunctioning is the date that the sensor started functioning.
      */
     public void setDateStartedFunctioning(Date dateStartedFunctioning) {
-        this.dateStartedFunctioning = dateStartedFunctioning;
+        this.dateStartedFunctioning = new Date(dateStartedFunctioning.getTime());
     }
 
     public Date getDateStartedFunctioning() {
-        return this.dateStartedFunctioning;
+        return new Date(this.dateStartedFunctioning.getTime());
     }
 
     /**

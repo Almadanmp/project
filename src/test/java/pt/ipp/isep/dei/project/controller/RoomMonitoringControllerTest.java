@@ -108,6 +108,57 @@ class RoomMonitoringControllerTest {
         validRoomDTO.setHouseId(validHouse.getId());
     }
 
+    @Test
+    void seeIfGetDayMaxTemperatureWorks() {
+        // Arrange
+
+        Date validDate1 = new Date();
+        Date validDate2 = new Date();
+        Date validDate3 = new Date();
+
+        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        try {
+            validDate1 = validSdf.parse("2018-07-03T10:50:00+00:00");
+            validDate2 = validSdf.parse("2018-07-03T13:15:00+00:00");
+            validDate3 = validSdf.parse("2018-07-03T05:35:00+00:00");
+
+        } catch (ParseException c) {
+            c.printStackTrace();
+        }
+
+        Room testRoom = new Room("Kitchen", "Where we cook", 0, 15, 15, 15,
+                "ISEP", "G001");
+        RoomSensor testSensor = new RoomSensor("S001", "TempOne", new SensorType("temperature", "Celsius"),
+                validDate1, "Kitchen");
+        Reading testReading = new Reading(11, validDate1,
+                "C", "S001");
+        Reading secondTestReading = new Reading(17, validDate2,
+                "C", "S001");
+        Reading thirdTestReading = new Reading(11, validDate3,
+                "C", "S001");
+        List<Room> mockRepositoryRooms = new ArrayList<>();
+        mockRepositoryRooms.add(testRoom);
+        List<Reading> testReadingList = new ArrayList<>();
+        testReadingList.add(testReading);
+        testReadingList.add(secondTestReading);
+        testReadingList.add(thirdTestReading);
+        testSensor.setReadings(testReadingList);
+        testRoom.addSensor(testSensor);
+        double expectedResult = 17.0;
+
+        RoomDTO testDTO = RoomMapper.objectToDTO(testRoom);
+        Mockito.when(roomService.getAllRooms()).thenReturn(mockRepositoryRooms);
+
+        // Act
+
+        double actualResult = controller.getDayMaxTemperature(testDTO, validDate1, roomService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+
+    }
+
 
     @Test
     void seeIfGetCurrentRoomTemperatureThrowsException() {
@@ -148,43 +199,6 @@ class RoomMonitoringControllerTest {
 
     }
 
-    @Test
-    void seeIfGetDayMaxTemperatureWorks() {
-        // Arrange
-
-        Room testRoom = new Room("Kitchen", "Where we cook", 0, 15, 15, 15,
-                "ISEP", "G001");
-        RoomSensor testSensor = new RoomSensor("S001", "TempOne", new SensorType("temperature", "Celsius"),
-                new GregorianCalendar(2018, Calendar.JULY, 3).getTime(), "Kitchen");
-        Reading testReading = new Reading(11, new GregorianCalendar(2018, Calendar.JULY, 3, 10, 50).getTime(),
-                "C", "S001");
-        Reading secondTestReading = new Reading(17, new GregorianCalendar(2018, Calendar.JULY, 3, 13, 15).getTime(),
-                "C", "S001");
-        Reading thirdTestReading = new Reading(11, new GregorianCalendar(2018, Calendar.JULY, 3, 5, 35).getTime(),
-                "C", "S001");
-        List<Room> mockRepositoryRooms = new ArrayList<>();
-        mockRepositoryRooms.add(testRoom);
-        List<Reading> testReadingList = new ArrayList<>();
-        testReadingList.add(testReading);
-        testReadingList.add(secondTestReading);
-        testReadingList.add(thirdTestReading);
-        testSensor.setReadings(testReadingList);
-        testRoom.addSensor(testSensor);
-        double expectedResult = 17.0;
-
-        RoomDTO testDTO = RoomMapper.objectToDTO(testRoom);
-        Mockito.when(roomService.getAllRooms()).thenReturn(mockRepositoryRooms);
-
-        // Act
-
-        double actualResult = controller.getDayMaxTemperature(testDTO, new GregorianCalendar(2018, Calendar.JULY,
-                3).getTime(), roomService);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult, 0.01);
-
-    }
 
 //    @Test
 //    void seeIfGetInstantsAboveComfortIntervalWorks(){

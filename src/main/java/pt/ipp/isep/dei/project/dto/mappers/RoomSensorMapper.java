@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This class is responsible for converting Sensors and Sensor DTOs into one another.
@@ -67,9 +68,11 @@ public final class RoomSensorMapper {
         SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat4 = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US"));
         knownPatterns.add(dateFormat1);
         knownPatterns.add(dateFormat2);
         knownPatterns.add(dateFormat3);
+        knownPatterns.add(dateFormat4);
         for (SimpleDateFormat pattern : knownPatterns) {
             try {
                 objectDate = pattern.parse(objectDateStartedFunctioningString);
