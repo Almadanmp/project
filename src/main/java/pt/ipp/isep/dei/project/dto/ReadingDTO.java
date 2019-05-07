@@ -11,11 +11,11 @@ public class ReadingDTO {
     private String sensorId;
 
     public Date getDate() {
-        return date;
+        return new Date(this.date.getTime());
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Date(date.getTime());
     }
 
     public double getValue() {
