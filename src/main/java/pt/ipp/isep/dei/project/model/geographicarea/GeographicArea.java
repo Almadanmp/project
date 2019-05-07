@@ -381,32 +381,40 @@ public class GeographicArea implements Root {
         return areaSensor;
     }
 
-    AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> areaSensors) {
-        if (areaSensors.isEmpty()) {
+    /**
+     * This method receives an Area Sensor list and checks every sensor in the
+     * list for the most recent reading. The area sensor with the most recent reading
+     * is considered the most recently used, and is returned.
+     *
+     * @param startList starting area sensor list
+     * @return most recently used Area Sensor
+     * **/
+    AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> startList) {
+        if (startList.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
-        List<AreaSensor> areaSensors2 = getAreaSensorsWithReadings(areaSensors);
-        if (areaSensors2.isEmpty()) {
+        List<AreaSensor> areaSensorsWithReadings = getAreaSensorsWithReadings(startList);
+        if (areaSensorsWithReadings.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
 
-        AreaSensor mostRecent = areaSensors2.get(0);
-        List<Reading> mostRecentSensorReadings = mostRecent.getReadings();
+        AreaSensor areaSensor = areaSensorsWithReadings.get(0);
+        List<Reading> readings = areaSensor.getReadings();
 
-        Reading recentReading = ReadingUtils.getMostRecentReading(mostRecentSensorReadings);
-        Date recent = recentReading.getDate();
+        Reading recentReading = ReadingUtils.getMostRecentReading(readings);
+        Date mostRecentDate = recentReading.getDate();
 
 
-        for (AreaSensor s : areaSensors) {
-            List<Reading> sensorReadings = new ArrayList<>();
+        for (AreaSensor s : areaSensorsWithReadings) {
+            List<Reading> sensorReadings = s.getReadings();
 
-            Date test = ReadingUtils.getMostRecentReadingDate(sensorReadings);
-            if (recent.before(test)) {
-                recent = test;
-                mostRecent = s;
+            Date testDate = ReadingUtils.getMostRecentReadingDate(sensorReadings);
+            if (mostRecentDate.before(testDate)) {
+                mostRecentDate = testDate;
+                areaSensor = s;
             }
         }
-        return mostRecent;
+        return areaSensor;
     }
 
     List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {

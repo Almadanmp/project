@@ -25,7 +25,9 @@ class GeographicAreaTest {
     private GeographicArea validArea;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
-    private Date validDate1; // Date 21/11/2018
+    private Date validDate1; // Date 21/11/2018 00h00m00s
+    private Date validDate2; // Date 25/11/2018 00h00m00s
+    private Date validDate3; //  Date 28/12/2018 12h30m00s
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -35,6 +37,8 @@ class GeographicAreaTest {
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
+            validDate2 = validSdf.parse("25/11/2018 00:00:00");
+            validDate3 = validSdf.parse("28/12/2018 12:30:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -43,6 +47,27 @@ class GeographicAreaTest {
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
                 validDate1, 6008L);
         secondValidAreaSensor.setActive(true);
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorWorks() {
+        //Arrange
+        Reading firstValidReading = new Reading(31, validDate1, "C", "SensorOne");
+        Reading secondValidReading = new Reading(11, validDate2, "C", "SensorTwo");
+        Reading thirdValidReading = new Reading(11, validDate3, "C", "SensorTwo");
+        firstValidAreaSensor.addReading(firstValidReading);
+        secondValidAreaSensor.addReading(secondValidReading);
+        secondValidAreaSensor.addReading(thirdValidReading);
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(firstValidAreaSensor);
+        listAreaSensor.add(secondValidAreaSensor);
+
+        //Act
+        AreaSensor actualResult = validArea.getMostRecentlyUsedAreaSensor(listAreaSensor);
+
+        //Assert
+        assertEquals(secondValidAreaSensor, actualResult);
     }
 
     @Test
@@ -832,10 +857,8 @@ class GeographicAreaTest {
     @Test
     void seeIfGetMostRecentlyUsedAreaSensorNoReadings() {
         //Arrange
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
-        validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(validAreaSensor);
+        listAreaSensor.add(firstValidAreaSensor);
 
         //Act
         validArea.setAreaSensors(listAreaSensor);
@@ -853,30 +876,11 @@ class GeographicAreaTest {
         List<AreaSensor> listAreaSensor = new ArrayList<>();
 
         //Act
-        validArea.setAreaSensors(listAreaSensor);
+
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getMostRecentlyUsedAreaSensor(listAreaSensor));
 
         //Assert
         assertEquals("The sensor list is empty.", exception.getMessage());
-    }
-
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensor() {
-        //Arrange
-        Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
-        Reading firstValidReading = new Reading(31, date, "C", "SensOne");
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new GregorianCalendar(2018, Calendar.FEBRUARY, 11).getTime(), 6008L);
-        validAreaSensor.setActive(true);
-        validAreaSensor.addReading(firstValidReading);
-        validArea.addSensor(validAreaSensor);
-
-        //Act
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(validAreaSensor);
-        AreaSensor actualResult = validArea.getMostRecentlyUsedAreaSensor(listAreaSensor);
-
-        //Assert
-        assertEquals(validAreaSensor, actualResult);
     }
 
     @Test
