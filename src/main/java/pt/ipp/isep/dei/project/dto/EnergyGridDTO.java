@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EnergyGridDTO {
@@ -27,19 +28,19 @@ public class EnergyGridDTO {
     }
 
     public void setPowerSourceDTOS(List<PowerSourceDTO> powerSourceDTOS) {
-        this.powerSourceDTOS = powerSourceDTOS;
+        this.powerSourceDTOS = new ArrayList<>(powerSourceDTOS);
     }
 
     public List<PowerSourceDTO> getPowerSourceDTOS() {
-        return powerSourceDTOS;
+        return new ArrayList<>(powerSourceDTOS);
     }
 
     public void setRoomDTOS(List<RoomDTO> roomDTOS) {
-        this.roomDTOS = roomDTOS;
+        this.roomDTOS = new ArrayList<>(roomDTOS);
     }
 
     public List<RoomDTO> getRoomDTOS() {
-        return roomDTOS;
+        return new ArrayList<>(roomDTOS);
     }
 
     public void setHouseID(String houseID) {
