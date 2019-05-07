@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,19 +42,19 @@ public class HouseDTO {
     }
 
     public List<EnergyGridDTO> getEnergyGridList() {
-        return energyGridList;
+        return new ArrayList<>(this.energyGridList);
     }
 
     public void setEnergyGridList(List<EnergyGridDTO> energyGridList) {
-        this.energyGridList = energyGridList;
+        this.energyGridList = new ArrayList<>(energyGridList);
     }
 
     public List<RoomDTO> getRoomList() {
-        return roomList;
+        return new ArrayList<>(this.roomList);
     }
 
     public void setRoomList(List<RoomDTO> roomList) {
-        this.roomList = roomList;
+        this.roomList = new ArrayList<>(roomList);
     }
 
     public GeographicAreaDTO getMotherArea() {
@@ -81,11 +82,11 @@ public class HouseDTO {
     }
 
     List<DeviceType> getDeviceTypeList() {
-        return deviceTypeList;
+        return new ArrayList<>(deviceTypeList);
     }
 
     public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
-        this.deviceTypeList = deviceTypeList;
+        this.deviceTypeList = new ArrayList<>(deviceTypeList);
     }
 
     @Override
