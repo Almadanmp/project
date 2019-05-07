@@ -51,11 +51,11 @@ public class Reading implements ValueObject {
      * @param date of the reading
      */
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Date(date.getTime());
     }
 
     public Date getDate() {
-        return this.date;
+        return new Date(this.date.getTime());
     }
 
     public String getSensorID() {
