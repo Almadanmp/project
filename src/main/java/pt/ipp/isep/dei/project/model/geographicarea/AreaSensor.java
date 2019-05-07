@@ -67,7 +67,7 @@ public class AreaSensor {
         setName(name);
         this.sensorType = sensorType;
         this.local = local;
-        this.dateStartedFunctioning = dateStartedFunctioning;
+        this.dateStartedFunctioning = new Date(dateStartedFunctioning.getTime());
         this.active = true;
         this.geographicAreaId = geographicAreaId;
         areaReadings = new ArrayList<>();
@@ -96,7 +96,7 @@ public class AreaSensor {
     }
 
     public Date getDateStartedFunctioning() {
-        return dateStartedFunctioning;
+        return new Date(this.dateStartedFunctioning.getTime());
     }
 
     /**
@@ -117,7 +117,7 @@ public class AreaSensor {
     }
 
     public List<Reading> getReadings() {
-        return areaReadings;
+        return new ArrayList<>(this.areaReadings);
     }
 
     /**
