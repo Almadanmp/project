@@ -41,7 +41,7 @@ public class LogList {
      * @return List with Logs
      */
     public List<Log> getLogListAttribute() {
-        return new ArrayList<>(this.logs);
+        return this.logs;
     }
 
     /**

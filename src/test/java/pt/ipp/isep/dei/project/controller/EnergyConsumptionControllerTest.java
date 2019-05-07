@@ -417,10 +417,9 @@ class EnergyConsumptionControllerTest {
         House house = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, deviceTypeString);
         house.setMotherArea(validArea);
-        List<Room> roomService = new ArrayList<>();
-        validGrid.setRooms(roomService);
-        roomService.add(validRoom2);
-        roomService.add(validRoom1);
+        roomList.add(validRoom2);
+        roomList.add(validRoom1);
+        validGrid.setRooms(roomList);
         double expectedResult = 86;
 
         // Act
