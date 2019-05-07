@@ -26,7 +26,7 @@ public class RoomDTO {
      */
 
     public List<RoomSensorDTO> getSensorList() {
-        return sensorList;
+        return new ArrayList<>(sensorList);
     }
 
     /**
@@ -36,7 +36,7 @@ public class RoomDTO {
      */
 
     public void setSensorList(List<RoomSensorDTO> sensorList) {
-        this.sensorList = sensorList;
+        this.sensorList = new ArrayList<>(sensorList);
     }
 
     /**
