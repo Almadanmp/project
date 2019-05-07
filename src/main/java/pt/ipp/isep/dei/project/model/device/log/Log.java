@@ -16,8 +16,8 @@ public class Log {
      */
     public Log(double value, Date initialDate, Date finalDate) {
         this.value = value;
-        this.initialDate = initialDate;
-        this.finalDate = finalDate;
+        this.initialDate = new Date(initialDate.getTime());
+        this.finalDate = new Date(finalDate.getTime());
     }
 
     /**
@@ -35,7 +35,7 @@ public class Log {
      * @return initialDate of the Log.
      */
     public Date getInitialDate() {
-        return this.initialDate;
+        return new Date(this.initialDate.getTime());
     }
 
     /**
@@ -44,7 +44,7 @@ public class Log {
      * @return finalDate of the Log.
      */
     public Date getFinalDate() {
-        return this.finalDate;
+        return new Date(this.finalDate.getTime());
     }
 
     /**
