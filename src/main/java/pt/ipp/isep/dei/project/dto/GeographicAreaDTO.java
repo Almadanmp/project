@@ -110,7 +110,7 @@ public class GeographicAreaDTO {
      */
 
     public List<AreaSensorDTO> getSensorDTOs() {
-        return areaSensorDTOList;
+        return new ArrayList<>(areaSensorDTOList);
     }
 
     /**
@@ -120,7 +120,7 @@ public class GeographicAreaDTO {
      */
 
     public void setSensorDTOList(List<AreaSensorDTO> listToStore) {
-        this.areaSensorDTOList = listToStore;
+        this.areaSensorDTOList = new ArrayList<>(listToStore);
     }
 
     /**
