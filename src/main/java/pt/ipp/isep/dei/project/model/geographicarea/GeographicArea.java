@@ -194,11 +194,11 @@ public class GeographicArea implements Root {
      * This method will get the list of Area Sensors.
      **/
     public List<AreaSensor> getAreaSensors() {
-        return areaSensors;
+        return new ArrayList<>(this.areaSensors);
     }
 
     public void setAreaSensors(List<AreaSensor> areaSensors) {
-        this.areaSensors = areaSensors;
+        this.areaSensors = new ArrayList<>(areaSensors);
     }
 
 

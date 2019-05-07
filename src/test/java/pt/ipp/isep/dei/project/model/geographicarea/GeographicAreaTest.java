@@ -698,17 +698,20 @@ class GeographicAreaTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date(), 6008L);
-        validAreaSensor.setActive(true);
+
         List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(validAreaSensor);
+        listAreaSensor.add(secondValidAreaSensor);
+        listAreaSensor.add(firstValidAreaSensor);
+
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(firstValidAreaSensor);
 
         //Act
-        validArea.setAreaSensors(listAreaSensor);
+
         List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor,house,0);
 
         //Assert
-        assertEquals(listAreaSensor, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
