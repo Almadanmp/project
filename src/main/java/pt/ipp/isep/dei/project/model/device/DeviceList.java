@@ -26,7 +26,7 @@ public class DeviceList {
      * @return device list
      */
     public List<Device> getList() {
-        return this.devices;
+        return new ArrayList<>(this.devices);
     }
 
     /**

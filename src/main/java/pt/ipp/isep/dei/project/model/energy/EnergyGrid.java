@@ -65,7 +65,7 @@ public class EnergyGrid implements Metered, Root {
     }
 
     public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+        this.rooms = new ArrayList<>(rooms);
     }
 
     /**
@@ -87,7 +87,7 @@ public class EnergyGrid implements Metered, Root {
      * @return returns a list with all the rooms contained in this energy grid.
      */
     public List<Room> getRoomList() {
-        return rooms;
+        return new ArrayList<>(rooms);
     }
 
     /**
@@ -119,7 +119,7 @@ public class EnergyGrid implements Metered, Root {
      * @return the list of power sources connected to the energy grid.
      */
     public List<PowerSource> getPowerSourceList() {
-        return powerSourceList;
+        return new ArrayList<>(powerSourceList);
     }
 
     /**
@@ -128,7 +128,7 @@ public class EnergyGrid implements Metered, Root {
      * @param powerSourceList is the PowerSourceList we want to add to the Energy Grid.
      */
     public void setPowerSourceList(List<PowerSource> powerSourceList) {
-        this.powerSourceList = powerSourceList;
+        this.powerSourceList = new ArrayList<>(powerSourceList);
     }
 
     /**
