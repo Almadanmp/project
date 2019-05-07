@@ -219,11 +219,11 @@ public class AreaSensorDTO {
     }
 
     List<ReadingDTO> getReadingDTOS() {
-        return readingDTOS;
+        return new ArrayList<>(readingDTOS);
     }
 
     public void setReadingDTOS(List<ReadingDTO> readingDTOS) {
-        this.readingDTOS = readingDTOS;
+        this.readingDTOS = new ArrayList<>(readingDTOS);
     }
 
     @Override
