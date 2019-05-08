@@ -199,6 +199,62 @@ class RoomMonitoringControllerTest {
 
     }
 
+    @Test
+    void seeIfBuildReadingsOutputWorks(){
+        // Arrange
+
+        List<Reading> list = new ArrayList<>();
+
+        Reading reading1 = new Reading(11, validDate1,
+                "C", "S001");
+        Reading reading2 = new Reading(17, validDate2,
+                "C", "S001");
+        Reading reading3 = new Reading(11, validDate3,
+                "C", "S001");
+
+
+        list.add(reading1);
+        list.add(reading2);
+        list.add(reading3);
+
+        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 11.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 17.0\n" +
+                "2) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 11.0\n" +
+                "--------------------------------------\n";
+
+        // Act
+
+        String actualResult = controller.buildReadingsOutput(list, "Instants in which the readings are above comfort temperature:\n");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfBuildReadingsOutputEmptyListWorks(){
+        // Arrange
+
+        List<Reading> list = new ArrayList<>();
+
+        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
+                "--------------------------------------\n";
+
+        // Act
+
+        String actualResult = controller.buildReadingsOutput(list, "Instants in which the readings are above comfort temperature:\n");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
 
 //    @Test
 //    void seeIfGetInstantsAboveComfortIntervalWorks(){

@@ -93,7 +93,7 @@ public class RoomMonitoringController {
      * @param list contains the readings which raised above the comfort level.
      * @return a String to be presented to the user.
      */
-    private String buildReadingsOutput(List<Reading> list, String header) {
+    String buildReadingsOutput(List<Reading> list, String header) {
         StringBuilder result = new StringBuilder(header);
         for (int i = 0; i < list.size(); i++) {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
