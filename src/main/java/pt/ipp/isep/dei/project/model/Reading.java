@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model;
 
-import pt.ipp.isep.dei.project.dddPlaceholders.ValueObject;
+import pt.ipp.isep.dei.project.dddplaceholders.ValueObject;
 
 import javax.persistence.*;
 import java.util.Date;

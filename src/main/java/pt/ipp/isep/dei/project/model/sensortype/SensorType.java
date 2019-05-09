@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model.sensortype;
 
-import pt.ipp.isep.dei.project.dddPlaceholders.Root;
+import pt.ipp.isep.dei.project.dddplaceholders.Root;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

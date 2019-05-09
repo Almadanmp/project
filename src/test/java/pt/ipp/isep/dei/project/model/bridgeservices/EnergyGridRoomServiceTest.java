@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.bridgeServices;
+package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

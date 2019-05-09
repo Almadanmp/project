@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.energy;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import pt.ipp.isep.dei.project.dddPlaceholders.Root;
+import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
