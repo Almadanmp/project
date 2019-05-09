@@ -97,7 +97,7 @@ public class EnergyGridSettingsController {
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) throws RuntimeException {
+    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) {
         try{
             Room room = roomService.updateHouseRoom(roomDTO);
             return grid.addRoom(room);
