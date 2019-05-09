@@ -11,26 +11,22 @@ import java.util.List;
 import java.util.Objects;
 
 public class ElectricOven implements Device, Metered, Programmable {
-    private String name;
-    private double nominalPower;
-    private boolean active;
-    private LogList logList;
     private final ElectricOvenSpec deviceSpecsElectricOven;
     private ProgramList programListElectricOven;
+    private final CommonDeviceAttributes commonDeviceAttributes;
 
     public ElectricOven(ElectricOvenSpec electricOvenSpec) {
         this.deviceSpecsElectricOven = electricOvenSpec;
+        commonDeviceAttributes = new CommonDeviceAttributes();
         programListElectricOven = new ProgramList();
-        logList = new LogList();
-        this.active = true;
     }
 
     public String getName() {
-        return CommonDeviceAttributes.getName(this.name);
+        return this.commonDeviceAttributes.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.commonDeviceAttributes.setName(name);
     }
 
     public String getType() {
@@ -38,24 +34,19 @@ public class ElectricOven implements Device, Metered, Programmable {
     }
 
     public void setNominalPower(double nominalPower) {
-        this.nominalPower = nominalPower;
+        this.commonDeviceAttributes.setNominalPower(nominalPower);
     }
 
     public double getNominalPower() {
-        return CommonDeviceAttributes.getNominalPower(this.nominalPower);
+        return this.commonDeviceAttributes.getNominalPower();
     }
 
     public boolean isActive() {
-        return CommonDeviceAttributes.isActive(this.active);
+        return this.commonDeviceAttributes.isActive();
     }
 
     public boolean deactivate() {
-        if (isActive()) {
-            this.active = false;
-            return true;
-        } else {
-            return false;
-        }
+        return this.commonDeviceAttributes.deactivate();
     }
 
     public ProgramList getProgramList() throws IncompatibleClassChangeError {
@@ -69,7 +60,7 @@ public class ElectricOven implements Device, Metered, Programmable {
 
     public String buildString() {
         String result;
-        result = "The device Name is " + this.name + ", and its NominalPower is " + getNominalPower() + " kW.\n";
+        result = "The device Name is " + this.commonDeviceAttributes.getName() + ", and its NominalPower is " + this.commonDeviceAttributes.getNominalPower() + " kW.\n";
         return result;
     }
 
@@ -79,7 +70,7 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return CommonDeviceAttributes.getLogList(this.logList);
+        return this.commonDeviceAttributes.getLogList();
     }
 
     /**
@@ -88,7 +79,7 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        return CommonDeviceAttributes.isLogListEmpty(this.logList);
+        return this.commonDeviceAttributes.isLogListEmpty();
     }
 
     /**
@@ -98,13 +89,7 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.contains(log)) && this.active) {
-            logList.addLog(log);
-            return true;
-        } else {
-            return false;
-        }
-    }
+        return this.commonDeviceAttributes.addLog(log); }
 
     /**
      * Method determines the amount of data logs that fall within a given time interval.
@@ -114,11 +99,11 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return CommonDeviceAttributes.countLogsInInterval(this.logList, initialTime, finalTime);
+        return this.commonDeviceAttributes.countLogsInInterval(initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return CommonDeviceAttributes.getLogsInInterval(this.logList, startDate, endDate);
+        return this.commonDeviceAttributes.getLogsInInterval(startDate, endDate);
     }
 
     /**
@@ -129,7 +114,7 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
-        return CommonDeviceAttributes.getConsumptionInInterval(this.logList, initialTime, finalTime);
+        return this.commonDeviceAttributes.getConsumptionInInterval(initialTime, finalTime);
     }
 
     /**
@@ -139,7 +124,7 @@ public class ElectricOven implements Device, Metered, Programmable {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        return CommonDeviceAttributes.getEnergyConsumption(this.nominalPower, time);
+        return this.commonDeviceAttributes.getEnergyConsumption(time);
     }
 
     /**
@@ -180,7 +165,7 @@ public class ElectricOven implements Device, Metered, Programmable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(this.name, device.getName());
+        return Objects.equals(this.commonDeviceAttributes.getName(), device.getName());
     }
 
     @Override

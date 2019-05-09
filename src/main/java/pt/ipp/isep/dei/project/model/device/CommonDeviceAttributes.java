@@ -11,13 +11,13 @@ public class CommonDeviceAttributes {
     private boolean active;
     private final LogList logList;
 
-    CommonDeviceAttributes() {
+    CommonDeviceAttributes(){
         logList = new LogList();
         this.active = true;
     }
 
-    public static String getName(String name) {
-        return name;
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {
@@ -28,16 +28,32 @@ public class CommonDeviceAttributes {
         this.nominalPower = nominalPower;
     }
 
-    public static double getNominalPower(double nominalPower) {
-        return nominalPower;
+    public double getNominalPower() {
+        return this.nominalPower;
     }
 
-    public static boolean isActive(boolean active) {
-        return active;
+    public boolean isActive() {
+        return this.active;
     }
+
+    public boolean deactivate() {
+        if (isActive()) {
+            this.active = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setActive(boolean active){
+        this.active = active;
+    }
+
 
     public String buildString() {
-        return "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        String result;
+        result =  "The device Name is " + this.name + ", and its NominalPower is " + this.nominalPower + " kW.\n";
+        return result;
     }
 
     /**
@@ -45,17 +61,16 @@ public class CommonDeviceAttributes {
      *
      * @return Device LogList.
      */
-    public static LogList getLogList(LogList logList) {
+    public LogList getLogList() {
         return logList;
     }
 
     /**
      * Method checks if device LogList is empty
-     *
      * @return true if LogList is empty, false otherwise
-     */
-    public static boolean isLogListEmpty(LogList logList) {
-        return logList.isEmpty();
+     * */
+    public boolean isLogListEmpty(){
+        return this.logList.isEmpty();
     }
 
     /**
@@ -80,11 +95,11 @@ public class CommonDeviceAttributes {
      * @param finalTime   is the end time of the interval.
      * @return is the number of valid data logs in the given interval.
      */
-    public static int countLogsInInterval(LogList logList, Date initialTime, Date finalTime) {
+    public int countLogsInInterval(Date initialTime, Date finalTime) {
         return logList.countLogsInInterval(initialTime, finalTime);
     }
 
-    public static LogList getLogsInInterval(LogList logList, Date startDate, Date endDate) {
+    public LogList getLogsInInterval(Date startDate, Date endDate) {
         return logList.getLogsInInterval(startDate, endDate);
     }
 
@@ -95,17 +110,16 @@ public class CommonDeviceAttributes {
      * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
-    public static double getConsumptionInInterval(LogList logList, Date initialTime, Date finalTime) {
+    public double getConsumptionInInterval(Date initialTime, Date finalTime) {
         return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
      * Energy consumption = energy consumption of the program (kWh)
-     *
      * @param time the desired time
      * @return the energy consumed in the given time
      */
-    public static double getEnergyConsumption(double nominalPower, float time) {
+    public double getEnergyConsumption(float time) {
         return nominalPower * time;
     }
 
