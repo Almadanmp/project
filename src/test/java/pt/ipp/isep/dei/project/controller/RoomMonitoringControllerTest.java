@@ -307,20 +307,15 @@ class RoomMonitoringControllerTest {
     void seeIfGetInstantsAboveComfortIntervalCategoryI_II_IIIWithoutOutOfIntervalReadingsWorks() {
         // Arrange
 
-        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: 5/2/2018 10:12:13\n" +
-                "   Temperature value: 31.0\n" +
-                "1) Instant: 5/2/2018 10:12:13\n" +
-                "   Temperature value: 31.0\n" +
-                "--------------------------------------\n";
+        String expectedResult = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
 
         int category1 = 0;
         int category2 = 1;
         int category3 = 2;
 
-        Reading reading1 = new Reading(31, validDate1, "C", "Test");
+        Reading reading1 = new Reading(15, validDate1, "C", "Test");
         Reading reading2 = new Reading(20, validDate2, "C", "Test1");
-        Reading reading3 = new Reading(31, validDate3, "C", "Test");
+        Reading reading3 = new Reading(17, validDate3, "C", "Test");
 
         List<Reading> readings = new ArrayList<>();
 
@@ -355,47 +350,143 @@ class RoomMonitoringControllerTest {
 
     }
 
-//    @Test
-//    void seeIfGetInstantsAboveComfortIntervalCategoryIWorks(){
-//        // Arrange
-//
-//        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-//                "--------------------------------------\n";
-//
-//        int category = 0;
-//
-//        Reading reading1 = new Reading(31, validDate1, "C", "Test");
-//        Reading reading2 = new Reading(80, validDate2, "C", "Test1");
-//        Reading reading3 = new Reading(31, validDate3, "C", "Test");
-//
-//        List<Reading> readings = new ArrayList<>();
-//
-//        readings.add(reading1);
-//        readings.add(reading2);
-//        readings.add(reading3);
-//
-//        firstValidRoomSensor.setReadings(readings);
-//        firstValidRoomSensor.setRoomId(validRoom1.getId());
-//
-//        List<RoomSensor> roomSensors = new ArrayList<>();
-//        roomSensors.add(firstValidRoomSensor);
-//        validRoom1.setRoomSensors(roomSensors);
-//
-//        reading1.setSensorID(firstValidRoomSensor.getId());
-//        reading2.setSensorID(firstValidRoomSensor.getId());
-//        reading3.setSensorID(firstValidRoomSensor.getId());
-//
-//        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
-//
-//        // Act
-//
-//        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//
-//    }
+    @Test
+    void seeIfGetInstantsAboveComfortIntervalCategoryIWorks(){
+        // Arrange
+
+        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 31.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 80.0\n" +
+                "2) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 31.0\n" +
+                "--------------------------------------\n";
+
+        int category = 0;
+
+        Reading reading1 = new Reading(31, validDate1, "C", "Test");
+        Reading reading2 = new Reading(80, validDate2, "C", "Test1");
+        Reading reading3 = new Reading(31, validDate3, "C", "Test");
+
+        List<Reading> readings = new ArrayList<>();
+
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+
+        firstValidRoomSensor.setReadings(readings);
+        firstValidRoomSensor.setRoomId(validRoom1.getId());
+
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
+
+        reading1.setSensorID(firstValidRoomSensor.getId());
+        reading2.setSensorID(firstValidRoomSensor.getId());
+        reading3.setSensorID(firstValidRoomSensor.getId());
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Act
+
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetInstantsAboveComfortIntervalCategoryIIWorks(){
+        // Arrange
+
+        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 80.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 30.0\n" +
+                "--------------------------------------\n";
+
+        int category = 1;
+
+        Reading reading1 = new Reading(15, validDate1, "C", "Test");
+        Reading reading2 = new Reading(80, validDate2, "C", "Test1");
+        Reading reading3 = new Reading(30, validDate3, "C", "Test");
+
+        List<Reading> readings = new ArrayList<>();
+
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+
+        firstValidRoomSensor.setReadings(readings);
+        firstValidRoomSensor.setRoomId(validRoom1.getId());
+
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
+
+        reading1.setSensorID(firstValidRoomSensor.getId());
+        reading2.setSensorID(firstValidRoomSensor.getId());
+        reading3.setSensorID(firstValidRoomSensor.getId());
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Act
+
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetInstantsAboveComfortIntervalCategoryIIIWorks(){
+        // Arrange
+
+        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 80.0\n" +
+                "--------------------------------------\n";
+
+        int category = 2;
+
+        Reading reading1 = new Reading(15, validDate1, "C", "Test");
+        Reading reading2 = new Reading(80, validDate2, "C", "Test1");
+        Reading reading3 = new Reading(28, validDate3, "C", "Test");
+
+        List<Reading> readings = new ArrayList<>();
+
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+
+        firstValidRoomSensor.setReadings(readings);
+        firstValidRoomSensor.setRoomId(validRoom1.getId());
+
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
+
+        reading1.setSensorID(firstValidRoomSensor.getId());
+        reading2.setSensorID(firstValidRoomSensor.getId());
+        reading3.setSensorID(firstValidRoomSensor.getId());
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Act
+
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
 
     @Test
     void seeIfGetInstantsBelowComfortIntervalCategoryIWorksNoReadings() {
