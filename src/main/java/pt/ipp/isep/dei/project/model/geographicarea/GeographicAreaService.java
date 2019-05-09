@@ -208,8 +208,9 @@ public class GeographicAreaService {
         Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
         Optional<SensorType> value = sensorTypeRepository.findByName(name);
         if (!(value.isPresent())) {
-            logger.fine("The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
-                    "Type first.");
+            String message = "The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
+                    "Type first.";
+            logger.fine(message);
             LogUtils.closeHandlers(logger);
             return null;
         } else {
@@ -257,7 +258,8 @@ public class GeographicAreaService {
             geographicAreaRepository.save(geographicArea);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
-                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
+                String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.";
+                logger.fine(message);
                 LogUtils.closeHandlers(logger);
             }
         }
@@ -300,12 +302,14 @@ public class GeographicAreaService {
         for (Reading r : readings) {
             Date readingDate = r.getDate();
             if (areaSensor.readingWithGivenDateExists(readingDate)) {
-                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
-                        + areaSensor.getId() + " wasn't added because it already exists.");
+                String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
+                        + areaSensor.getId() + " wasn't added because it already exists.";
+                logger.fine(message);
                 LogUtils.closeHandlers(logger);
             } else if (!areaSensor.activeDuringDate(readingDate)) {
-                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
-                        + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
+                String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
+                        + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.";
+                logger.fine(message);
                 LogUtils.closeHandlers(logger);
             } else {
                 areaSensor.addReading(r);

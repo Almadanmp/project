@@ -186,7 +186,7 @@ public class RoomService {
      * @param roomDTO is the DTO that contains the data we want to use to update the model object.
      * @return is the updated room if the update was successful, is null if it wasn't.
      */
-    public Room updateHouseRoom(RoomDTO roomDTO) throws RuntimeException {
+    public Room updateHouseRoom(RoomDTO roomDTO) {
         List<Room> rooms = this.getAllRooms();
         for (Room r : rooms) {
             if (roomDTO.getName().compareTo(r.getId()) == 0) {
@@ -453,7 +453,7 @@ public class RoomService {
             try {
                 readingDate = simple.parse(r.getDate().toString());
             } catch (ParseException e) {
-                System.out.println();
+              //do nothing
             }
             if (ReadingUtils.isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)) {
                 finalList.add(r);
