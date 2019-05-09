@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.energy;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import pt.ipp.isep.dei.project.dddPlaceholders.Root;
+import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Metered;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -27,10 +27,6 @@ public class EnergyGrid implements Metered, Root {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
-
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "energyGridId")
-//    private List<String> rooms;
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE) // LazyCollection fixes MultipleBag fetch Problem without having to

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.model.bridgeServices;
+package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

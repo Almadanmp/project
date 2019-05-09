@@ -76,11 +76,11 @@ public class RoomMonitoringController {
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
-            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         return result;
     }

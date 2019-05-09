@@ -46,7 +46,7 @@ public final class Adapter {
      * @param readingDTOWrapperList list of reading Dto wrappers
      * @return hashmap containing Reading DTOs with its corresponding sensor ID
      **/
-    public static List<ReadingDTO> readingDTOWrapperConversion(List<ReadingDTOWrapper> readingDTOWrapperList) {
+    public static List<ReadingDTO> readingDTOWrapperConversion(List<ReadingDTOWrapper> readingDTOWrapperList) throws IOException {
         List<ReadingDTO> finalList = new ArrayList<>();
         for (ReadingDTOWrapper wrapper : readingDTOWrapperList) {
             if (wrapper == null) {
@@ -56,14 +56,9 @@ public final class Adapter {
             String startUnitString = wrapper.getUnit();
             Unit startUnit = UnitHelper.convertStringToUnit(startUnitString);
             double startValue = wrapper.getValue();
-            try {
-                double endValue = convertToSystemDefault(startValue, startUnit);
-                readingDTO.setValue(endValue);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            double endValue = convertToSystemDefault(startValue, startUnit);
+            readingDTO.setValue(endValue);
             Unit defaultUnit = UnitHelper.convertUnitToSystemDefault(startUnit);
-
             readingDTO.setUnit(defaultUnit.buildString());
             readingDTO.setDate(wrapper.getDate());
             readingDTO.setSensorId(wrapper.getSensorId());

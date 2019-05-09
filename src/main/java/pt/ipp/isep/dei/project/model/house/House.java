@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.model.house;
 
-import pt.ipp.isep.dei.project.dddPlaceholders.Root;
+import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;

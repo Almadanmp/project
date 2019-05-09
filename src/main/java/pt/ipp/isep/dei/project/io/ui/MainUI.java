@@ -213,7 +213,7 @@ public class MainUI {
                             break;
                         case 8:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                            energyConsumptionUI.run(house, roomService, energyGridService);
+                            energyConsumptionUI.run(roomService, energyGridService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

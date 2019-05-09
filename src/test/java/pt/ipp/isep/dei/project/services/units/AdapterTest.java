@@ -17,16 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class AdapterTest {
 
     @Test
-    public void seeIfPrivateConstructorExceptionWorks() throws IllegalStateException {
+    void seeIfPrivateConstructorExceptionWorks() throws IllegalStateException {
         try {
             Constructor<Adapter> constructor = Adapter.class.getDeclaredConstructor();
             assertTrue(Modifier.isPrivate(constructor.getModifiers()));
             constructor.setAccessible(true);
             constructor.newInstance();
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException i) {
-        } catch (InvocationTargetException a) {
-        } catch (NoSuchMethodException ns) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ignored) {
         }
     }
 
@@ -83,7 +80,7 @@ class AdapterTest {
     }
 
     @Test
-    void seeIfReadingDTOWrapperConversionWorks() {
+    void seeIfReadingDTOWrapperConversionWorks() throws IOException {
         // Arrange
 
         //Date
@@ -130,7 +127,7 @@ class AdapterTest {
     }
 
     @Test
-    void seeIfReadingDTOWrapperConversionWorksWithUnitDifferentFromSystemDefault() {
+    void seeIfReadingDTOWrapperConversionWorksWithUnitDifferentFromSystemDefault() throws IOException {
         // Arrange
 
         //Dates
