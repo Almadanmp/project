@@ -662,4 +662,60 @@ class RoomMonitoringControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
+
+    @Test
+    void seeIfGetInstantsBelowComfortIntervalCategoryIIWorksNoReadings() {
+        // Arrange
+
+        String expectedResult = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
+
+        int category = 1;
+
+        List<Reading> readings = new ArrayList<>();
+        firstValidRoomSensor.setReadings(readings);
+        firstValidRoomSensor.setRoomId(validRoom1.getId());
+
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Act
+
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetInstantsBelowComfortIntervalCategoryIIIWorksNoReadings() {
+        // Arrange
+
+        String expectedResult = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
+
+        int category = 2;
+
+        List<Reading> readings = new ArrayList<>();
+        firstValidRoomSensor.setReadings(readings);
+        firstValidRoomSensor.setRoomId(validRoom1.getId());
+
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Act
+
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
 }
