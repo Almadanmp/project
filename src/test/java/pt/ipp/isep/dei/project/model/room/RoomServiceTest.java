@@ -526,7 +526,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, actualResult, 0.1);
+        assertEquals(expectedResult, actualResult,0.1);
     }
 
     @Test
@@ -740,7 +740,7 @@ class RoomServiceTest {
         //Act
         double actualResult = validRoomService.getNominalPower();
         //Assert
-        assertEquals(21, actualResult, 0.1);
+        assertEquals(21, actualResult,0.1);
     }
 
     @Test
@@ -788,7 +788,15 @@ class RoomServiceTest {
     }
 
     @Test
-    void seeIfUpdateHouseRoomThrowsException() {
-        assertThrows(RuntimeException.class, () -> validRoomService.updateHouseRoom(RoomMapper.objectToDTO(validRoom)));
+    void seeIfUpdateHouseRoomWorks() {
+        List<Room> rooms = new ArrayList<>();
+        validRoom =  new Room("Room1","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        Room room = new Room("Room1","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        Room room1 = new Room("Room2","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        rooms.add(room);
+        rooms.add(room1);
+        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Room actualResult = validRoomService.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
+        assertEquals(room,actualResult);
     }
 }
