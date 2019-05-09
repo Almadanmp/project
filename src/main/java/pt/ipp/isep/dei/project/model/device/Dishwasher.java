@@ -13,18 +13,21 @@ import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
     private String name;
+    private double nominalPower;
+    private boolean active;
+    private final LogList logList;
     private final DishwasherSpec deviceSpecs;
     private ProgramList programList;
-    private final CommonDeviceAttributes device;
 
     public Dishwasher(DishwasherSpec dishwasherSpec) {
         this.deviceSpecs = dishwasherSpec;
         this.programList = new ProgramList();
-        this.device = new CommonDeviceAttributes();
+        logList = new LogList();
+        this.active = true;
     }
 
     public String getName() {
-       return CommonDeviceAttributes.getName(this.name);
+        return CommonDeviceAttributes.getName(this.name);
     }
 
     public void setName(String name) {
@@ -36,19 +39,24 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public void setNominalPower(double nominalPower) {
-        this.device.setNominalPower(nominalPower);
+        this.nominalPower = nominalPower;
     }
 
     public double getNominalPower() {
-        return this.device.getNominalPower();
+        return CommonDeviceAttributes.getNominalPower(this.nominalPower);
     }
 
     public boolean isActive() {
-        return this.device.isActive();
+        return CommonDeviceAttributes.isActive(this.active);
     }
 
     public boolean deactivate() {
-        return this.device.deactivate();
+        if (isActive()) {
+            this.active = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -63,7 +71,7 @@ public class Dishwasher implements Device, Metered, Programmable {
 
     public String buildString() {
         String result;
-        result = "The device Name is " + this.name + ", and its NominalPower is " + this.device.getNominalPower() + " kW.\n";
+        result = "The device Name is " + this.name + ", and its NominalPower is " + getNominalPower() + " kW.\n";
         return result;
     }
 
@@ -73,7 +81,7 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return Device LogList.
      */
     public LogList getLogList() {
-        return this.device.getLogList();
+        return CommonDeviceAttributes.getLogList(this.logList);
     }
 
     /**
@@ -82,7 +90,7 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return true if LogList is empty, false otherwise
      */
     public boolean isLogListEmpty() {
-        return this.device.isLogListEmpty();
+        return CommonDeviceAttributes.isLogListEmpty(this.logList);
     }
 
     /**
@@ -92,7 +100,12 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        return this.device.addLog(log);
+        if (!(this.logList.contains(log)) && this.active) {
+            logList.addLog(log);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -103,11 +116,11 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return this.device.countLogsInInterval(initialTime, finalTime);
+        return CommonDeviceAttributes.countLogsInInterval(this.logList, initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return this.device.getLogsInInterval(startDate, endDate);
+        return CommonDeviceAttributes.getLogsInInterval(this.logList, startDate, endDate);
     }
 
     /**
@@ -118,7 +131,7 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return total consumption within the defined interval
      */
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
-        return this.device.getConsumptionInInterval(initialTime, finalTime);
+        return CommonDeviceAttributes.getConsumptionInInterval(this.logList, initialTime, finalTime);
     }
 
     /**
@@ -128,7 +141,7 @@ public class Dishwasher implements Device, Metered, Programmable {
      * @return the energy consumed in the given time
      */
     public double getEnergyConsumption(float time) {
-        return this.device.getNominalPower() * time;
+        return CommonDeviceAttributes.getEnergyConsumption(this.nominalPower, time);
     }
 
 

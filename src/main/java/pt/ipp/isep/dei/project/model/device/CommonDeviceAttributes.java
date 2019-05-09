@@ -11,7 +11,7 @@ public class CommonDeviceAttributes {
     private boolean active;
     private final LogList logList;
 
-    CommonDeviceAttributes(){
+    CommonDeviceAttributes() {
         logList = new LogList();
         this.active = true;
     }
@@ -28,25 +28,12 @@ public class CommonDeviceAttributes {
         this.nominalPower = nominalPower;
     }
 
-    public double getNominalPower() {
-        return this.nominalPower;
+    public static double getNominalPower(double nominalPower) {
+        return nominalPower;
     }
 
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public boolean deactivate() {
-        if (isActive()) {
-            this.active = false;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void setActive(boolean active){
-        this.active = active;
+    public static boolean isActive(boolean active) {
+        return active;
     }
 
     public String buildString() {
@@ -58,16 +45,17 @@ public class CommonDeviceAttributes {
      *
      * @return Device LogList.
      */
-    public LogList getLogList() {
+    public static LogList getLogList(LogList logList) {
         return logList;
     }
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
-    public boolean isLogListEmpty(){
-        return this.logList.isEmpty();
+     */
+    public static boolean isLogListEmpty(LogList logList) {
+        return logList.isEmpty();
     }
 
     /**
@@ -92,11 +80,11 @@ public class CommonDeviceAttributes {
      * @param finalTime   is the end time of the interval.
      * @return is the number of valid data logs in the given interval.
      */
-    public int countLogsInInterval(Date initialTime, Date finalTime) {
+    public static int countLogsInInterval(LogList logList, Date initialTime, Date finalTime) {
         return logList.countLogsInInterval(initialTime, finalTime);
     }
 
-    public LogList getLogsInInterval(Date startDate, Date endDate) {
+    public static LogList getLogsInInterval(LogList logList, Date startDate, Date endDate) {
         return logList.getLogsInInterval(startDate, endDate);
     }
 
@@ -107,16 +95,17 @@ public class CommonDeviceAttributes {
      * @param finalTime   - Ending of the interval
      * @return total consumption within the defined interval
      */
-    public double getConsumptionInInterval(Date initialTime, Date finalTime) {
+    public static double getConsumptionInInterval(LogList logList, Date initialTime, Date finalTime) {
         return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
     }
 
     /**
      * Energy consumption = energy consumption of the program (kWh)
+     *
      * @param time the desired time
      * @return the energy consumed in the given time
      */
-    public double getEnergyConsumption(float time) {
+    public static double getEnergyConsumption(double nominalPower, float time) {
         return nominalPower * time;
     }
 

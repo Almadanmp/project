@@ -14,7 +14,7 @@ public class Lamp implements Device, Metered {
     private double nominalPower;
     private final LampSpec deviceSpecs;
     private boolean active;
-    private final LogList logList;
+    private LogList logList;
 
 
     public Lamp(LampSpec lampSpec) {
@@ -32,7 +32,7 @@ public class Lamp implements Device, Metered {
     }
 
     public String getType() {
-        return  "Lamp";
+        return "Lamp";
     }
 
     public void setNominalPower(double nominalPower) {
@@ -40,11 +40,11 @@ public class Lamp implements Device, Metered {
     }
 
     public double getNominalPower() {
-        return this.nominalPower;
+        return CommonDeviceAttributes.getNominalPower(this.nominalPower);
     }
 
     public boolean isActive() {
-        return this.active;
+        return CommonDeviceAttributes.isActive(this.active);
     }
 
     public boolean deactivate() {
@@ -59,7 +59,7 @@ public class Lamp implements Device, Metered {
 
     public String buildString() {
         String result;
-        result= "The device Name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
+        result = "The device Name is " + this.name + ", and its nominal power is " + this.nominalPower + " kW.\n";
         return result;
     }
 
@@ -74,10 +74,11 @@ public class Lamp implements Device, Metered {
 
     /**
      * Method checks if device LogList is empty
+     *
      * @return true if LogList is empty, false otherwise
-     * */
-    public boolean isLogListEmpty(){
-        return this.logList.isEmpty();
+     */
+    public boolean isLogListEmpty() {
+        return CommonDeviceAttributes.isLogListEmpty(this.logList);
     }
 
     /**
@@ -103,11 +104,11 @@ public class Lamp implements Device, Metered {
      * @return is the number of valid data logs in the given interval.
      */
     public int countLogsInInterval(Date initialTime, Date finalTime) {
-        return logList.countLogsInInterval(initialTime, finalTime);
+        return CommonDeviceAttributes.countLogsInInterval(this.logList, initialTime, finalTime);
     }
 
     public LogList getLogsInInterval(Date startDate, Date endDate) {
-        return logList.getLogsInInterval(startDate, endDate);
+        return CommonDeviceAttributes.getLogsInInterval(this.logList, startDate, endDate);
     }
 
     /**
@@ -118,7 +119,7 @@ public class Lamp implements Device, Metered {
      * @return total consumption within the defined interval
      */
     public double getConsumptionInInterval(Date initialTime, Date finalTime) {
-        return logList.getConsumptionWithinGivenInterval(initialTime, finalTime);
+        return CommonDeviceAttributes.getConsumptionInInterval(this.logList, initialTime, finalTime);
     }
 
     /**
