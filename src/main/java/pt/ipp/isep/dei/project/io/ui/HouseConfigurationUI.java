@@ -189,7 +189,11 @@ class HouseConfigurationUI {
     }
 
     private Room createNewRoom(RoomService roomService, House house, EnergyGrid grid) {
-        return controller.createNewRoom(roomService, roomName, roomDescription, roomHouseFloor, roomWidth, roomLength, roomHeight, house.getId(), grid.getName());
+        ArrayList<Double> roomDimensions = new ArrayList<>();
+        roomDimensions.add(roomWidth);
+        roomDimensions.add(roomLength);
+        roomDimensions.add(roomHeight);
+        return controller.createNewRoom(roomService, roomName, roomDescription, roomHouseFloor, roomDimensions, house.getId(), grid.getName());
     }
 
     /**

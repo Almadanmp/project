@@ -80,13 +80,11 @@ public class HouseConfigurationController {
      *
      * @param roomDesignation is the name of the room we're going to create.
      * @param roomHouseFloor  is the floor of the room we're going to create.
-     * @param width           is the width of the room we're going to create.
-     * @param length          is the length of the room we're going to create.
-     * @param height          is the height of the room we're going to create.
+     * @param roomDimensions  contains the width, length and height respectively.
      * @return a new Room
      */
-    public Room createNewRoom(RoomService roomService, String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
-        return roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
+    public Room createNewRoom(RoomService roomService, String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID, String energyGridID) {
+        return roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID, energyGridID);
     }
 
     /**
