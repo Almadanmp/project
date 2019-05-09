@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -28,6 +29,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * RoomMonitoringController tests class.
@@ -209,6 +211,21 @@ class RoomMonitoringControllerTest {
 
     }
 
+    @Test
+    void seeIfGetCurrentRoomTemperatureWorks() {
+        List<Room> mockList = new ArrayList<>();
+        mockList.add(validRoom1);
+        RoomSensor roomSensor = new RoomSensor("S1", "Room Temperature Sensor", new SensorType("temperature", "C"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom1.getId());
+        validRoom1.addSensor(roomSensor);
+        Reading reading = new Reading(21, Calendar.getInstance().getTime(), "C", roomSensor.getId());
+        List<Reading> list = new ArrayList<>();
+        list.add(reading);
+        roomSensor.setReadings(list);
+        Mockito.when(roomRepository.findAll()).thenReturn(mockList);
+        double actualResult = controller.getCurrentRoomTemperature(RoomMapper.objectToDTO(validRoom1), roomService);
+        assertEquals(21.0,actualResult,0.1);
+    }
+
 
     @Test
     void getRoomName() {
@@ -230,7 +247,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfBuildReadingsOutputWorks(){
+    void seeIfBuildReadingsOutputWorks() {
         // Arrange
 
         List<Reading> list = new ArrayList<>();
@@ -267,7 +284,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfBuildReadingsOutputEmptyListWorks(){
+    void seeIfBuildReadingsOutputEmptyListWorks() {
         // Arrange
 
         List<Reading> list = new ArrayList<>();
@@ -287,7 +304,7 @@ class RoomMonitoringControllerTest {
 
 
     @Test
-    void seeIfGetInstantsAboveComfortIntervalCategoryI_II_IIIWithoutOutOfIntervalReadingsWorks(){
+    void seeIfGetInstantsAboveComfortIntervalCategoryI_II_IIIWithoutOutOfIntervalReadingsWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
@@ -381,7 +398,7 @@ class RoomMonitoringControllerTest {
 //    }
 
     @Test
-    void seeIfGetInstantsBelowComfortIntervalCategoryIWorksNoReadings(){
+    void seeIfGetInstantsBelowComfortIntervalCategoryIWorksNoReadings() {
         // Arrange
 
         String expectedResult = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
@@ -409,7 +426,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetInstantsBelowComfortIntervalCategoryIIWorks(){
+    void seeIfGetInstantsBelowComfortIntervalCategoryIIWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
@@ -457,7 +474,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetInstantsBelowComfortIntervalCategoryIIIWorks(){
+    void seeIfGetInstantsBelowComfortIntervalCategoryIIIWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
@@ -505,7 +522,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetInstantsBelowComfortIntervalCategoryIWorks(){
+    void seeIfGetInstantsBelowComfortIntervalCategoryIWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
