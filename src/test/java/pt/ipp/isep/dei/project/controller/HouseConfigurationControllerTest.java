@@ -102,17 +102,24 @@ class HouseConfigurationControllerTest {
 
     @Test
     void createsRoom() {
+        // Arrange
+
+        ArrayList<Double> dimensions = new ArrayList<>();
+        dimensions.add(10D);
+        dimensions.add(15D);
+        dimensions.add(10D);
+
         // Act
 
-        Room actualResult1 = controller.createNewRoom(roomService, "Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
-        Room actualResult2 = controller.createNewRoom(roomService, "Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
-        Room actualResult3 = controller.createNewRoom(roomService, "Kitchen", "Fully Equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
+        Room actualResult1 = controller.createNewRoom(roomService, "Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult2 = controller.createNewRoom(roomService, "Room", "Double Bedroom", 1, dimensions, "Room1", "Grid1");
+        Room actualResult3 = controller.createNewRoom(roomService, "Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1", "Grid1");
 
         // Assert
 
-        assertTrue(actualResult1 instanceof Room);
-        assertTrue(actualResult2 instanceof Room);
-        assertTrue(actualResult3 instanceof Room);
+        assertNotNull(actualResult1);
+        assertNotNull(actualResult2);
+        assertNotNull(actualResult3);
     }
 
     @Test

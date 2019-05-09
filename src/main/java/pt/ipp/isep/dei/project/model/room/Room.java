@@ -63,6 +63,27 @@ public class Room implements Metered, Root {
         this.roomSensors = new ArrayList<>();
     }
 
+    /**
+     * Room() Constructor receiving 5 parameters and initializing 2 Lists, AreaSensorList and DeviceList.
+     *
+     * @param name       of the room
+     * @param houseFloor of the room
+     * @param roomDimensions contains width, length and height, respectively.
+     */
+    public Room(String name, String description, int houseFloor, List<Double> roomDimensions,
+                String houseID, String energyGridId) {
+        this.roomName = name;
+        this.description = description;
+        this.houseFloor = houseFloor;
+        this.roomWidth = roomDimensions.get(0);
+        this.roomLength = roomDimensions.get(1);
+        this.roomHeight = roomDimensions.get(2);
+        this.deviceList = new DeviceList();
+        this.houseID = houseID;
+        this.energyGridId = energyGridId;
+        this.roomSensors = new ArrayList<>();
+    }
+
     protected Room() {
         this.deviceList = new DeviceList();
         this.roomSensors = new ArrayList<>();

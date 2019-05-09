@@ -111,20 +111,18 @@ public class RoomService {
      *
      * @param roomDesignation room name
      * @param roomHouseFloor  floor of the house where room is located
-     * @param width           from room sizeDB
-     * @param length          from room sizeDB
-     * @param height          from room sizeDB
+     * @param roomDimensions contains width, length and height, respectively.
      * @return new created room
      */
 
-    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, double width, double length, double height, String houseID, String energyGridID) {
+    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID, String energyGridID) {
         for (Room r : getAllRooms()) {
             String designation = r.getId();
             if (roomDesignation.equals(designation)) {
                 return r;
             }
         }
-        return new Room(roomDesignation, roomDescription, roomHouseFloor, width, length, height, houseID, energyGridID);
+        return new Room(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID, energyGridID);
     }
 
     /**

@@ -534,10 +534,15 @@ class RoomServiceTest {
         //Arrange
 
         Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
+        ArrayList<Double> dimensions = new ArrayList<>();
+        dimensions.add(15D);
+        dimensions.add(10D);
+        dimensions.add(2D);
+
 
         //Act
 
-        Room roomActual1 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
+        Room roomActual1 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
 
         //Assert
 
@@ -548,7 +553,7 @@ class RoomServiceTest {
 
         //Act
 
-        Room roomActual2 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
+        Room roomActual2 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
 
         //Assert
         assertEquals(roomExpected, roomActual2);
@@ -673,30 +678,46 @@ class RoomServiceTest {
     @Test
     void seeIfGetAllByEnergyGridNameWorks() {
         //Arrange
+
         List<Room> roomListExpected = new ArrayList<>();
         roomListExpected.add(validRoom);
         Mockito.when(roomRepository.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
+
         //Act
+
         List<Room> actualResult = validRoomService.getAllByEnergyGridName("Grid1");
+
         //Assert
+
         assertEquals(roomListExpected, actualResult);
+
     }
 
     @Test
     void seeIfCreateRoomReturnsExistingRoom() {
         //Arrange
+
         Room room2 = new Room("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         Room room = new Room("Kitchen2", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         List<Room> roomList = new ArrayList<>();
         roomList.add(validRoom);
         roomList.add(room);
         Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        ArrayList<Double> dimensions = new ArrayList<>();
+        dimensions.add(4D);
+        dimensions.add(5D);
+        dimensions.add(3D);
+
         //Act
-        Room actualResult = validRoomService.createRoom("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-        Room actualResult1 = validRoomService.createRoom("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+
+        Room actualResult = validRoomService.createRoom("Kitchen", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult1 = validRoomService.createRoom("Kitchen3", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
+
         //Assert
+
         assertEquals(validRoom, actualResult);
         assertEquals(room2, actualResult1);
+
     }
 
     @Test
