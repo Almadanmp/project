@@ -16,8 +16,8 @@ public class CommonDeviceAttributes {
         this.active = true;
     }
 
-    public String getName() {
-        return this.name;
+    public static String getName(String name) {
+        return name;
     }
 
     public void setName(String name) {

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Fan implements Device {
+    private String name;
     private ProgramList programList;
     private final FanSpec deviceSpecs;
     private final CommonDeviceAttributes commonDeviceAttributes;
@@ -29,7 +30,7 @@ public class Fan implements Device {
      */
 
     public String getName() {
-        return commonDeviceAttributes.getName();
+        return CommonDeviceAttributes.getName(this.name);
     }
 
     /**
@@ -38,7 +39,7 @@ public class Fan implements Device {
      */
 
     public void setName(String name) {
-        this.commonDeviceAttributes.setName(name);
+        this.name = name;
     }
 
     /**
@@ -92,7 +93,7 @@ public class Fan implements Device {
      */
 
     public String buildString() {
-        return "The fan name is " + this.commonDeviceAttributes.getName() + " and its nominal power is: " + this.commonDeviceAttributes.getNominalPower();
+        return "The fan name is " + this.name + " and its nominal power is: " + this.commonDeviceAttributes.getNominalPower();
     }
 
     /**

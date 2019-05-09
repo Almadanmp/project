@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ElectricOven implements Device, Metered, Programmable {
+    private String name;
     private final ElectricOvenSpec deviceSpecsElectricOven;
     private ProgramList programListElectricOven;
     private final CommonDeviceAttributes commonDeviceAttributes;
@@ -22,11 +23,11 @@ public class ElectricOven implements Device, Metered, Programmable {
     }
 
     public String getName() {
-        return this.commonDeviceAttributes.getName();
+        return CommonDeviceAttributes.getName(this.name);
     }
 
     public void setName(String name) {
-        this.commonDeviceAttributes.setName(name);
+        this.name = name;
     }
 
     public String getType() {
@@ -60,7 +61,7 @@ public class ElectricOven implements Device, Metered, Programmable {
 
     public String buildString() {
         String result;
-        result = "The device Name is " + this.commonDeviceAttributes.getName() + ", and its NominalPower is " + this.commonDeviceAttributes.getNominalPower() + " kW.\n";
+        result = "The device Name is " + this.name + ", and its NominalPower is " + this.commonDeviceAttributes.getNominalPower() + " kW.\n";
         return result;
     }
 
@@ -166,7 +167,7 @@ public class ElectricOven implements Device, Metered, Programmable {
             return false;
         }
         Device device = (Device) o;
-        return Objects.equals(this.commonDeviceAttributes.getName(), device.getName());
+        return Objects.equals(this.name, device.getName());
     }
 
     @Override

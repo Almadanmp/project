@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Dishwasher implements Device, Metered, Programmable {
+    private String name;
     private final DishwasherSpec deviceSpecs;
     private ProgramList programList;
     private final CommonDeviceAttributes device;
@@ -23,11 +24,11 @@ public class Dishwasher implements Device, Metered, Programmable {
     }
 
     public String getName() {
-        return this.device.getName();
+       return CommonDeviceAttributes.getName(this.name);
     }
 
     public void setName(String name) {
-        this.device.setName(name);
+        this.name = name;
     }
 
     public String getType() {
@@ -62,7 +63,7 @@ public class Dishwasher implements Device, Metered, Programmable {
 
     public String buildString() {
         String result;
-        result = "The device Name is " + this.device.getName() + ", and its NominalPower is " + this.device.getNominalPower() + " kW.\n";
+        result = "The device Name is " + this.name + ", and its NominalPower is " + this.device.getNominalPower() + " kW.\n";
         return result;
     }
 
@@ -158,7 +159,7 @@ public class Dishwasher implements Device, Metered, Programmable {
             return false;
         }
         Device dishWasher = (Device) o;
-        return Objects.equals(this.device.getName(), dishWasher.getName());
+        return Objects.equals(this.name, dishWasher.getName());
     }
 
     @Override

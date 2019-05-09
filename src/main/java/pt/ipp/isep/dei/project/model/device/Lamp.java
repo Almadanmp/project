@@ -24,7 +24,7 @@ public class Lamp implements Device, Metered {
     }
 
     public String getName() {
-        return this.name;
+        return CommonDeviceAttributes.getName(this.name);
     }
 
     public void setName(String name) {
