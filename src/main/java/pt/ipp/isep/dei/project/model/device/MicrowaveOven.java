@@ -98,9 +98,8 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return true if log was added
      */
     public boolean addLog(Log log) {
-        if (!(logList.getLogListAttribute().contains(log)) && this.active) {
-            logList.getLogListAttribute().add(log);
-            return true;
+        if (!(this.logList.contains(log)) && this.active) {
+            return logList.addLog(log);
         } else {
             return false;
         }
