@@ -634,18 +634,21 @@ class MicrowaveOvenTest {
 
     @Test
     void seeIfEqualsWorks() {
+        //Arrange
         MicrowaveOven microwaveOven = new MicrowaveOven(new MicrowaveOvenSpec());
         MicrowaveOven microwaveOven1 = new MicrowaveOven(new MicrowaveOvenSpec());
 
         microwaveOven.setName("MicrowaveOven1");
         microwaveOven1.setName("MicrowaveOven2");
 
+        //Act
         boolean actualResult1 = validMicrowaveOven.equals(microwaveOven);
         boolean actualResult2 = validMicrowaveOven.equals(microwaveOven1);
         boolean actualResult3 = validMicrowaveOven.equals(20D); // Necessary for Sonarqube testing
         boolean actualResult4 = validMicrowaveOven.equals(validMicrowaveOven); // Necessary for Sonarqube testing
         boolean actualResult5 = validMicrowaveOven.equals(null); // Necessary for Sonarqube testing
 
+        //Assert
         assertFalse(actualResult1);
         assertFalse(actualResult2);
         assertFalse(actualResult3);

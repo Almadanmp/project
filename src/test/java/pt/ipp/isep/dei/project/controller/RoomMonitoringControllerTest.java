@@ -213,6 +213,8 @@ class RoomMonitoringControllerTest {
 
     @Test
     void seeIfGetCurrentRoomTemperatureWorks() {
+        //Arrange
+
         List<Room> mockList = new ArrayList<>();
         mockList.add(validRoom1);
         RoomSensor roomSensor = new RoomSensor("S1", "Room Temperature Sensor", new SensorType("temperature", "C"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom1.getId());
@@ -222,8 +224,14 @@ class RoomMonitoringControllerTest {
         list.add(reading);
         roomSensor.setReadings(list);
         Mockito.when(roomRepository.findAll()).thenReturn(mockList);
+
+        //Act
+
         double actualResult = controller.getCurrentRoomTemperature(RoomMapper.objectToDTO(validRoom1), roomService);
-        assertEquals(21.0,actualResult,0.1);
+
+        //Assert
+
+        assertEquals(21.0, actualResult, 0.1);
     }
 
 
@@ -351,7 +359,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetInstantsAboveComfortIntervalCategoryIWorks(){
+    void seeIfGetInstantsAboveComfortIntervalCategoryIWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
@@ -399,7 +407,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetInstantsAboveComfortIntervalCategoryIIWorks(){
+    void seeIfGetInstantsAboveComfortIntervalCategoryIIWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
@@ -445,7 +453,7 @@ class RoomMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetInstantsAboveComfortIntervalCategoryIIIWorks(){
+    void seeIfGetInstantsAboveComfortIntervalCategoryIIIWorks() {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
