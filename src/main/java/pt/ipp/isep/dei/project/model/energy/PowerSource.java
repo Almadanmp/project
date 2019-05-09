@@ -1,9 +1,8 @@
 package pt.ipp.isep.dei.project.model.energy;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**

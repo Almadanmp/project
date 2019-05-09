@@ -31,8 +31,6 @@ public final class LocalMapper {
 
         double objectAltitude = dtoToConvert.getAltitude();
 
-        long objectID = dtoToConvert.getId();
-
         // Create, update and return new object
 
         return new Local(objectLatitude, objectLongitude, objectAltitude);

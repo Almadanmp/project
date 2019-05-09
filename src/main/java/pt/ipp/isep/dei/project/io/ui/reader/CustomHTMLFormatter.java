@@ -9,7 +9,7 @@ public class CustomHTMLFormatter extends Formatter {
 
     public String format(LogRecord record) {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-        StringBuffer buf = new StringBuffer(1000);
+        StringBuilder buf = new StringBuilder(1000);
         if (record.getLevel().intValue() >= Level.FINE.intValue()) {
             buf.append("<b>");
             buf.append(record.getLevel());
@@ -37,10 +37,12 @@ public class CustomHTMLFormatter extends Formatter {
         return buf.toString();
     }
 
+    @Override
     public String getHead(Handler h) {
         return "<HTML><body background=https://wallpapercave.com/wp/wp2646233.jpg><HEAD>" + "</HEAD><BODY><PRE>\n";
     }
 
+    @Override
     public String getTail(Handler h) {
         return "</PRE></BODY></HTML>\n";
     }

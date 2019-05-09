@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -367,9 +368,9 @@ public class GeographicAreaService {
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
             if (!temperature.isNaN() && categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
-                    allReadings.add(r);
-                }
+                allReadings.add(r);
             }
+        }
         return allReadings;
     }
 
@@ -378,9 +379,9 @@ public class GeographicAreaService {
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
             if (!temperature.isNaN() && categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
-                    allReadings.add(r);
-                }
+                allReadings.add(r);
             }
+        }
         return allReadings;
     }
 
@@ -389,9 +390,9 @@ public class GeographicAreaService {
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
             if (!temperature.isNaN() && categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
-                    allReadings.add(r);
-                }
+                allReadings.add(r);
             }
+        }
         return allReadings;
     }
 
@@ -436,9 +437,9 @@ public class GeographicAreaService {
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
             if (!temperature.isNaN() && categoryICalculusUS445(r, temperature)) {
-                    allReadings.add(r);
-                }
+                allReadings.add(r);
             }
+        }
         return allReadings;
     }
 
@@ -447,9 +448,9 @@ public class GeographicAreaService {
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
             if (!temperature.isNaN() && categoryIICalculusUS445(r, temperature)) {
-                    allReadings.add(r);
-                }
+                allReadings.add(r);
             }
+        }
         return allReadings;
     }
 
@@ -458,9 +459,9 @@ public class GeographicAreaService {
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
             if (!temperature.isNaN() && categoryIIICalculusUS445(r, temperature)) {
-                    allReadings.add(r);
-                }
+                allReadings.add(r);
             }
+        }
         return allReadings;
     }
 

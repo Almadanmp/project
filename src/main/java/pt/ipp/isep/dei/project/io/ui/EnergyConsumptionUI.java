@@ -45,7 +45,7 @@ class EnergyConsumptionUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, RoomService roomService, EnergyGridService energyGridService) {
+    void run(RoomService roomService, EnergyGridService energyGridService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
