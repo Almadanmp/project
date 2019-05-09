@@ -55,6 +55,12 @@ class RoomMonitoringControllerTest {
     private Date validDateSensor;
     private Date validStartDate;
     private Date validEndingDate;
+    private Date roomReadingDate1;
+    private Date roomReadingDate2;
+    private Date roomReadingDate3;
+    private Date areaReadingDate1;
+    private Date areaReadingDate2;
+    private Date areaReadingDate3;
     private RoomSensor firstValidRoomSensor;
     private RoomService validRoomService;
 
@@ -78,24 +84,37 @@ class RoomMonitoringControllerTest {
         validSdf = new SimpleDateFormat("dd/MM/yyyy");
         validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat readingSD2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
         try {
             validDate1 = validSdf.parse("01/02/2018");
             validDate2 = validSdf.parse("10/02/2018");
             validDate3 = validSdf.parse("20/02/2018");
+            roomReadingDate1 = validSdf.parse("01/12/2018");
+            roomReadingDate2 = validSdf.parse("10/12/2018");
+            roomReadingDate3 = validSdf.parse("20/12/2018");
+            areaReadingDate1 = readingSD2.parse("2018-12-01T04:00:00+00:00");
+            areaReadingDate2 = readingSD2.parse("2018-12-10T04:00:00+00:00");
+            areaReadingDate3 = readingSD2.parse("2018-12-20T04:00:00+00:00");
             validDateSensor = validSdf2.parse("21/11/2018 00:00:00");
             validStartDate = readingSD.parse("2017-10-03");
             validEndingDate = readingSD.parse("2019-10-03");
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
+        validAreaSensor = new AreaSensor("sensorID", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
         validAreaSensor.setActive(true);
-        Reading areaReading1 = new Reading(20D, validDate1, "C", "sensorID");
-        Reading areaReading2 = new Reading(21D, validDate2, "C", "sensorID");
-        Reading areaReading3 = new Reading(18D, validDate3, "C", "sensorID");
+        Reading areaReading1 = new Reading(20, validDate1, "C", "sensorID");
+        Reading areaReading2 = new Reading(20, validDate2, "C", "sensorID");
+        Reading areaReading3 = new Reading(20, validDate3, "C", "sensorID");
+        Reading areaReading4 = new Reading(0, areaReadingDate1, "C", "sensorID");
+        Reading areaReading5 = new Reading(500, areaReadingDate2, "C", "sensorID");
+        Reading areaReading6 = new Reading(0, areaReadingDate3, "C", "sensorID");
         validAreaSensor.addReading(areaReading1);
         validAreaSensor.addReading(areaReading2);
         validAreaSensor.addReading(areaReading3);
+        validAreaSensor.addReading(areaReading4);
+        validAreaSensor.addReading(areaReading5);
+        validAreaSensor.addReading(areaReading6);
 
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
                 new Local(20, 12, 33));
@@ -115,7 +134,7 @@ class RoomMonitoringControllerTest {
         roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
         validRoomDTO = RoomMapper.objectToDTO(validRoom1);
         validRoomDTO.setHouseId(validHouse.getId());
-        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("temperature", "Celsius"), validDate1, "RoomDFS");
         firstValidRoomSensor.setActive(true);
     }
 
@@ -271,7 +290,12 @@ class RoomMonitoringControllerTest {
     void seeIfGetInstantsAboveComfortIntervalCategoryI_II_IIIWithoutOutOfIntervalReadingsWorks(){
         // Arrange
 
-        String expectedResult = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
+        String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 31.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 31.0\n" +
+                "--------------------------------------\n";
 
         int category1 = 0;
         int category2 = 1;
@@ -357,33 +381,20 @@ class RoomMonitoringControllerTest {
 //    }
 
     @Test
-    void seeIfGetInstantsBelowComfortIntervalCategoryIWorks(){
+    void seeIfGetInstantsBelowComfortIntervalCategoryIWorksNoReadings(){
         // Arrange
 
         String expectedResult = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
 
         int category = 0;
 
-        Reading reading1 = new Reading(0, validDate1, "C", "Test");
-        Reading reading2 = new Reading(0, validDate2, "C", "Test1");
-        Reading reading3 = new Reading(0, validDate3, "C", "Test");
-
         List<Reading> readings = new ArrayList<>();
-
-        readings.add(reading1);
-        readings.add(reading2);
-        readings.add(reading3);
-
         firstValidRoomSensor.setReadings(readings);
         firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
         validRoom1.setRoomSensors(roomSensors);
-
-        reading1.setSensorID(firstValidRoomSensor.getId());
-        reading2.setSensorID(firstValidRoomSensor.getId());
-        reading3.setSensorID(firstValidRoomSensor.getId());
 
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
@@ -401,7 +412,14 @@ class RoomMonitoringControllerTest {
     void seeIfGetInstantsBelowComfortIntervalCategoryIIWorks(){
         // Arrange
 
-        String expectedResult = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
+        String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "2) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "--------------------------------------\n";
 
         int category = 1;
 
@@ -442,7 +460,14 @@ class RoomMonitoringControllerTest {
     void seeIfGetInstantsBelowComfortIntervalCategoryIIIWorks(){
         // Arrange
 
-        String expectedResult = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
+        String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "2) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "--------------------------------------\n";
 
         int category = 2;
 
@@ -466,6 +491,49 @@ class RoomMonitoringControllerTest {
         reading1.setSensorID(firstValidRoomSensor.getId());
         reading2.setSensorID(firstValidRoomSensor.getId());
         reading3.setSensorID(firstValidRoomSensor.getId());
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
+
+        // Act
+
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetInstantsBelowComfortIntervalCategoryIWorks(){
+        // Arrange
+
+        String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
+                "0) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "1) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "2) Instant: 5/2/2018 10:12:13\n" +
+                "   Temperature value: 0.0\n" +
+                "--------------------------------------\n";
+
+        int category = 0;
+
+        Reading reading1 = new Reading(0, roomReadingDate1, "C", "T32875");
+        Reading reading2 = new Reading(0, roomReadingDate2, "C", "T32875");
+        Reading reading3 = new Reading(0, roomReadingDate3, "C", "T32875");
+
+        List<Reading> readings = new ArrayList<>();
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+
+        firstValidRoomSensor.setReadings(readings);
+        firstValidRoomSensor.setRoomId(validRoom1.getId());
+
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
 
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 

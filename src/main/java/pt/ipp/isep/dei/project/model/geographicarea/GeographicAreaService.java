@@ -352,13 +352,7 @@ public class GeographicAreaService {
         List<Reading> finalList = new ArrayList<>();
         List<Reading> result = areaSensor.getReadings();
         for (Reading r : result) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date readingDate = new Date();
-            try {
-                readingDate = sdf.parse(r.getDate().toString());
-            } catch (ParseException e) {
-            }
-            if (ReadingUtils.isReadingDateBetweenTwoDates(readingDate, initialDate, finalDate)) {
+            if (ReadingUtils.isReadingDateBetweenTwoDates(r.getDate(), initialDate, finalDate)) {
                 finalList.add(r);
             }
         }
