@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.ReaderController;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -524,7 +526,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult, 0.1);
     }
 
     @Test
@@ -738,7 +740,7 @@ class RoomServiceTest {
         //Act
         double actualResult = validRoomService.getNominalPower();
         //Assert
-        assertEquals(21, actualResult);
+        assertEquals(21, actualResult, 0.1);
     }
 
     @Test
@@ -783,5 +785,10 @@ class RoomServiceTest {
         RoomSensor roomSensor = validRoomService.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
         //Assert
         assertEquals(firstValidRoomSensor, roomSensor);
+    }
+
+    @Test
+    void seeIfUpdateHouseRoomThrowsException() {
+        assertThrows(RuntimeException.class, () -> validRoomService.updateHouseRoom(RoomMapper.objectToDTO(validRoom)));
     }
 }
