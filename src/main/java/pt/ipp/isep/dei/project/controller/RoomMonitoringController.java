@@ -72,15 +72,15 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsAboveCategoryILimit(readingValues, house);
-            result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
-            result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
         }
         if (category == 2) {
             allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
-            result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
+            if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings,  COMFORT_ABOVE_LEVEL);
         }
         return result;
     }
