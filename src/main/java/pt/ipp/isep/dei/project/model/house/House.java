@@ -250,32 +250,6 @@ public class House implements Root {
     }
 
     /**
-     * This method calculates the average temperature in the house area in a given date.
-     *
-     * @param date is used to determine the day in which we want to calculate the average.
-     * @return the average temperature value for the 24 hours of the given date.
-     */
-    public double getHouseAreaAverageTemperature(Date date) {
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date d1 = calendar.getTime(); // gets date at 00:00:00
-
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-        Date d2 = calendar.getTime(); // gets date at 23:59:59
-
-        // gets and returns average readings on the closest AreaSensor to the house
-        AreaSensor houseClosestSensor = this.getMotherArea().getClosestAreaSensorOfGivenType("temperature", this);
-        return houseClosestSensor.getAverageReadingsBetweenDates(d1, d2);
-    }
-
-    /**
      * This method checks the house's device type list size.
      *
      * @return returns the house's device type list size as int.

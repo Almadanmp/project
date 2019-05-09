@@ -172,7 +172,7 @@ public class GeographicAreaService {
      * @param name selected name
      * @return Type Area corresponding to the given id
      */
-    public AreaType getAreaTypeByName(String name, Logger logger) {
+    AreaType getAreaTypeByName(String name, Logger logger) {
         Optional<AreaType> value = areaTypeRepository.findByName(name);
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
@@ -319,7 +319,13 @@ public class GeographicAreaService {
 
     // Methods to be moved to GeographicArea-House-bridge-Service
 
-    double getGeographicAreaAverageTemperature(Date date, House house) {
+    /**
+     * This method calculates the average temperature in the house area in a given date.
+     *
+     * @param date is used to determine the day in which we want to calculate the average.
+     * @return the average temperature value for the 24 hours of the given date.
+     */
+    private double getGeographicAreaAverageTemperature(Date date, House house) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
