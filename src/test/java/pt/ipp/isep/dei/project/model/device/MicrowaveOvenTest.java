@@ -633,49 +633,24 @@ class MicrowaveOvenTest {
     }
 
     @Test
-    void seeIfEqualsWorksOnItself() {
-        // Assert
+    void seeIfEqualsWorks() {
+        MicrowaveOven microwaveOven = new MicrowaveOven(new MicrowaveOvenSpec());
+        MicrowaveOven microwaveOven1 = new MicrowaveOven(new MicrowaveOvenSpec());
 
-        assertEquals(validMicrowaveOven, validMicrowaveOven);
-    }
+        microwaveOven.setName("MicrowaveOven1");
+        microwaveOven1.setName("MicrowaveOven2");
 
-    @Test
-    void seeIfEqualsFailsDifferentObject() {
-        // Assert
+        boolean actualResult1 = validMicrowaveOven.equals(microwaveOven);
+        boolean actualResult2 = validMicrowaveOven.equals(microwaveOven1);
+        boolean actualResult3 = validMicrowaveOven.equals(20D); // Necessary for Sonarqube testing
+        boolean actualResult4 = validMicrowaveOven.equals(validMicrowaveOven); // Necessary for Sonarqube testing
+        boolean actualResult5 = validMicrowaveOven.equals(null); // Necessary for Sonarqube testing
 
-        assertNotEquals(validMicrowaveOven, new SensorType("Rain", "mm"));
-    }
-
-    @Test
-    void seeIfEqualsFailsNullObject() {
-        // Assert
-        assertNotEquals(null, validMicrowaveOven);
-        assertNotEquals(null, validMicrowaveOven);
-    }
-
-    @Test
-    void seeIfEqualsWorksDeviceObject() {
-        // Arrange
-
-        Device microwave = new MicrowaveOven(validSpec);
-        microwave.setName(validName);
-        validMicrowaveOven.setName(validName);
-
-        // Assert
-
-        assertEquals(microwave, validMicrowaveOven);
-    }
-
-    @Test
-    void seeIfEqualsFailsDeviceObject() {
-        // Arrange
-
-        Device microwave = new MicrowaveOven(validSpec);
-        microwave.setName(validName);
-
-        // Assert
-
-        assertNotEquals(microwave, validMicrowaveOven);
+        assertFalse(actualResult1);
+        assertFalse(actualResult2);
+        assertFalse(actualResult3);
+        assertTrue(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test
