@@ -366,12 +366,10 @@ public class GeographicAreaService {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (!temperature.isNaN()) {
-                if (categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
+            if (!temperature.isNaN() && categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
                     allReadings.add(r);
                 }
             }
-        }
         return allReadings;
     }
 
@@ -379,12 +377,10 @@ public class GeographicAreaService {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (!temperature.isNaN()) {
-                if (categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+            if (!temperature.isNaN() && categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
                     allReadings.add(r);
                 }
             }
-        }
         return allReadings;
     }
 
@@ -392,12 +388,10 @@ public class GeographicAreaService {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (!temperature.isNaN()) {
-                if (categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
+            if (!temperature.isNaN() && categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
                     allReadings.add(r);
                 }
             }
-        }
         return allReadings;
     }
 
@@ -441,12 +435,10 @@ public class GeographicAreaService {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (!temperature.isNaN()) {
-                if (categoryICalculusUS445(r, temperature)) {
+            if (!temperature.isNaN() && categoryICalculusUS445(r, temperature)) {
                     allReadings.add(r);
                 }
             }
-        }
         return allReadings;
     }
 
@@ -454,12 +446,10 @@ public class GeographicAreaService {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (!temperature.isNaN()) {
-                if (categoryIICalculusUS445(r, temperature)) {
+            if (!temperature.isNaN() && categoryIICalculusUS445(r, temperature)) {
                     allReadings.add(r);
                 }
             }
-        }
         return allReadings;
     }
 
@@ -467,12 +457,10 @@ public class GeographicAreaService {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             Double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
-            if (!temperature.isNaN()) {
-                if (categoryIIICalculusUS445(r, temperature)) {
+            if (!temperature.isNaN() && categoryIIICalculusUS445(r, temperature)) {
                     allReadings.add(r);
                 }
             }
-        }
         return allReadings;
     }
 
