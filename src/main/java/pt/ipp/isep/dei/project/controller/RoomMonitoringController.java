@@ -99,9 +99,7 @@ public class RoomMonitoringController {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             Reading reading = list.get(i);
             gregorianCalendar.setTime(reading.getDate());
-            result.append(i).append(") Instant: ").append(Calendar.DAY_OF_MONTH + "/" + Calendar.MONTH + "/"
-                    + (Calendar.YEAR + 2017) + " " + Calendar.HOUR + ":" + Calendar.MINUTE + ":"
-                    + Calendar.SECOND).append("\n");
+            result.append(i).append(") Instant: ").append(reading.getDate());
             result.append("   Temperature value: ").append(reading.getValue()).append("\n");
         }
         result.append("--------------------------------------\n");
@@ -118,10 +116,12 @@ public class RoomMonitoringController {
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {
             allReadings = geographicAreaService.getReadingsBelowCategoryILimit(readingValues, house);
+
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 1) {
             allReadings = geographicAreaService.getReadingsBelowCategoryIILimit(readingValues, house);
+
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 2) {
