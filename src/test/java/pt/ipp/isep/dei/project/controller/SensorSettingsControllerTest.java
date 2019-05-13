@@ -13,8 +13,8 @@ import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +41,7 @@ class SensorSettingsControllerTest {
 
 
     @Mock
-    private SensorTypeRepository sensorTypeRepository;
+    private SensorTypeRepo sensorTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -90,10 +90,10 @@ class SensorSettingsControllerTest {
         // Arrange
 
         List<SensorType> sensorTypes = new ArrayList<>();
-        SensorTypeService service = new SensorTypeService(sensorTypeRepository);
+        SensorTypeRepository service = new SensorTypeRepository(sensorTypeRepo);
         SensorType typeA = new SensorType("Temperature", "Celsius");
         sensorTypes.add(typeA);
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
         String expectedResult = "---------------\n" +
                 "Name: Temperature | Unit: Celsius \n" +
                 "---------------\n";
@@ -132,7 +132,7 @@ class SensorSettingsControllerTest {
         String typeString = "Humidade";
         String units = "kg/m³";
         String expectedResult = "Humidade";
-        SensorTypeService sensorTypeList = new SensorTypeService(sensorTypeRepository);
+        SensorTypeRepository sensorTypeList = new SensorTypeRepository(sensorTypeRepo);
 
         // Act
 
@@ -154,7 +154,7 @@ class SensorSettingsControllerTest {
         double lon = 50.0;
         double alt = 50.0;
         Local loc1 = controller.createLocal(lat, lon, alt);
-        SensorTypeService sensorTypeList = new SensorTypeService(sensorTypeRepository);
+        SensorTypeRepository sensorTypeList = new SensorTypeRepository(sensorTypeRepo);
         String typeStr = "Humidity";
         String unit = "kg/m³";
         SensorType type1 = controller.createType(sensorTypeList, typeStr, unit);
@@ -185,7 +185,7 @@ class SensorSettingsControllerTest {
         SensorType sensorType1 = new SensorType("temperature", "celsius");
         SensorType sensorType2 = new SensorType("temperature", "kelvin");
         SensorType sensorType4 = new SensorType("humidity", "percentage");
-        SensorTypeService typeList = new SensorTypeService(sensorTypeRepository);
+        SensorTypeRepository typeList = new SensorTypeRepository(sensorTypeRepo);
 
         // Act
 

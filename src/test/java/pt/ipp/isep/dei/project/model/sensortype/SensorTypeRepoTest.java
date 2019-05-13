@@ -9,7 +9,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +22,21 @@ import static org.junit.jupiter.api.Assertions.*;
  * SensorTypeService tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class SensorTypeServiceTest {
+class SensorTypeRepoTest {
     // Common testing artifacts for this class.
 
     private SensorType firstValidType;
     private SensorType secondValidType;
 
     @Mock
-    private SensorTypeRepository sensorTypeRepository;
+    private SensorTypeRepo sensorTypeRepo;
 
-    private SensorTypeService sensorTypeService;
+    private SensorTypeRepository sensorTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        sensorTypeService = new SensorTypeService(this.sensorTypeRepository);
+        sensorTypeRepository = new SensorTypeRepository(this.sensorTypeRepo);
         firstValidType = new SensorType("Temperature", "Celsius");
         secondValidType = new SensorType("Rainfall", "l/m2");
     }
@@ -46,7 +46,7 @@ class SensorTypeServiceTest {
     void seeIfCreateAreaType() {
         SensorType expectedResult = new SensorType("Movement", "Celsius");
 
-        SensorType result = sensorTypeService.createTypeSensor("Movement", "Celsius");
+        SensorType result = sensorTypeRepository.createTypeSensor("Movement", "Celsius");
 
         assertEquals(expectedResult, result);
     }
@@ -56,9 +56,9 @@ class SensorTypeServiceTest {
     void seeIfGetTypeAreaByIdRepositoryNull() {
         String areaName = null;
 
-        Mockito.when(sensorTypeRepository.findById(areaName)).thenReturn(Optional.empty());
+        Mockito.when(sensorTypeRepo.findById(areaName)).thenReturn(Optional.empty());
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> sensorTypeService.getById(areaName));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> sensorTypeRepository.getById(areaName));
 
         assertEquals("ERROR: There is no Sensor Type with the selected ID.", exception.getMessage());
     }
@@ -73,9 +73,9 @@ class SensorTypeServiceTest {
 
         int expectedResult = 1;
 
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
 
-        int result = sensorTypeService.size();
+        int result = sensorTypeRepository.size();
 
         assertEquals(expectedResult, result);
     }
@@ -88,9 +88,9 @@ class SensorTypeServiceTest {
 
         int expectedResult = 1;
 
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
 
-        int result = sensorTypeService.size();
+        int result = sensorTypeRepository.size();
 
         assertEquals(expectedResult, result);
     }
@@ -103,9 +103,9 @@ class SensorTypeServiceTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(sensorType);
 
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
 
-        assertFalse(sensorTypeService.isEmpty());
+        assertFalse(sensorTypeRepository.isEmpty());
 
     }
 
@@ -114,9 +114,9 @@ class SensorTypeServiceTest {
 
         List<SensorType> sensorTypes = new ArrayList<>();
 
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
 
-        assertTrue(sensorTypeService.isEmpty());
+        assertTrue(sensorTypeRepository.isEmpty());
     }
 
     @Test
@@ -125,14 +125,14 @@ class SensorTypeServiceTest {
         sensorTypes.add(secondValidType);
         sensorTypes.add(firstValidType);
 
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "---------------\n" +
                 "Name: Rainfall | Unit: l/m2 \n" +
                 "Name: Temperature | Unit: Celsius \n" +
                 "---------------\n";
 
-        String result = sensorTypeService.buildString();
+        String result = sensorTypeRepository.buildString();
 
         assertEquals(expectedResult, result);
     }
@@ -141,11 +141,11 @@ class SensorTypeServiceTest {
     void getAllAsStringEmpty() {
         List<SensorType> sensorTypes = new ArrayList<>();
 
-        Mockito.when(sensorTypeRepository.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "Invalid List - List is Empty\n";
 
-        String result = sensorTypeService.buildString();
+        String result = sensorTypeRepository.buildString();
 
         assertEquals(expectedResult, result);
     }
@@ -160,7 +160,7 @@ class SensorTypeServiceTest {
 
         // Act
 
-        boolean actualResult = sensorTypeService.equals(testList);
+        boolean actualResult = sensorTypeRepo.equals(testList);
 
         // Assert
 
@@ -171,7 +171,7 @@ class SensorTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = sensorTypeService.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeRepo.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -182,7 +182,7 @@ class SensorTypeServiceTest {
     void seeIfEqualsWorksForItself() {
         // Act
 
-        boolean actualResult = sensorTypeService.equals(sensorTypeService); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeRepo.equals(sensorTypeRepo); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -194,10 +194,10 @@ class SensorTypeServiceTest {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "celsius");
-        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.empty());
+        Mockito.when(sensorTypeRepo.findByName("Name")).thenReturn(Optional.empty());
 
         //Act
-        boolean actualResult = sensorTypeService.add(sensorType);
+        boolean actualResult = sensorTypeRepository.add(sensorType);
 
         assertTrue(actualResult);
     }
@@ -207,10 +207,10 @@ class SensorTypeServiceTest {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "Celsius");
-        Mockito.when(sensorTypeRepository.findByName("Name")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeRepo.findByName("Name")).thenReturn(Optional.of(sensorType));
 
         //Act
-        boolean actualResult = sensorTypeService.add(sensorType);
+        boolean actualResult = sensorTypeRepository.add(sensorType);
 
         assertFalse(actualResult);
     }
@@ -219,7 +219,7 @@ class SensorTypeServiceTest {
     void seeIfAddWorksWhenAreaTypeAlreadyExistsInRepositoryFalse() {
 
         //Act
-        boolean actualResult = sensorTypeService.add(firstValidType);
+        boolean actualResult = sensorTypeRepository.add(firstValidType);
 
         assertTrue(actualResult);
     }
@@ -230,11 +230,11 @@ class SensorTypeServiceTest {
 
         SensorType areaType = new SensorType("temperature", "C");
 
-        sensorTypeService.add(areaType);
+        sensorTypeRepository.add(areaType);
 
-        Mockito.when(sensorTypeRepository.findById(mockId)).thenReturn(Optional.of(areaType));
+        Mockito.when(sensorTypeRepo.findById(mockId)).thenReturn(Optional.of(areaType));
 
-        SensorType result = sensorTypeService.getById(mockId);
+        SensorType result = sensorTypeRepository.getById(mockId);
 
         assertEquals(result.getName(), areaType.getName());
         assertEquals(result.getUnits(), areaType.getUnits());

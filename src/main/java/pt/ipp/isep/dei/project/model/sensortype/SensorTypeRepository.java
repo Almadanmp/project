@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,16 +14,16 @@ import java.util.Optional;
  */
 
 @Service
-public class SensorTypeService {
+public class SensorTypeRepository {
 
     private static final String STRING_BUILDER = "---------------\n";
 
     @Autowired
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo repository;
 
     //CONSTRUCTOR
-    public SensorTypeService(SensorTypeRepository sensorTypeRepository) {
-        this.sensorTypeRepository = sensorTypeRepository;
+    public SensorTypeRepository(SensorTypeRepo sensorTypeRepository) {
+        this.repository = sensorTypeRepository;
     }
 
 
@@ -35,11 +35,11 @@ public class SensorTypeService {
      * @return true in case the type sensor is added, false otherwise
      **/
     public boolean add(SensorType type) {
-        Optional<SensorType> sensorType = sensorTypeRepository.findByName(type.getName());
+        Optional<SensorType> sensorType = repository.findByName(type.getName());
         if (sensorType.isPresent()) {
             return false;
         }
-        sensorTypeRepository.save(type);
+        repository.save(type);
         return true;
     }
 
@@ -53,7 +53,7 @@ public class SensorTypeService {
      * @return SensorType size as int
      **/
     public int size() {
-        return sensorTypeRepository.findAll().size();
+        return repository.findAll().size();
     }
 
     /**
@@ -62,7 +62,7 @@ public class SensorTypeService {
      * @return true if list is empty, false otherwise
      */
     public boolean isEmpty() {
-        return sensorTypeRepository.findAll().isEmpty();
+        return repository.findAll().isEmpty();
     }
 
     /**
@@ -72,7 +72,7 @@ public class SensorTypeService {
      */
     public String buildString() {
         StringBuilder result = new StringBuilder(STRING_BUILDER);
-        List<SensorType> typeSensor = sensorTypeRepository.findAll();
+        List<SensorType> typeSensor = repository.findAll();
         if (isEmpty()) {
             return "Invalid List - List is Empty\n";
         }
@@ -91,7 +91,7 @@ public class SensorTypeService {
      * @return Type Sensor corresponding to the given id
      */
     public SensorType getById(String id) {
-        Optional<SensorType> value = sensorTypeRepository.findById(id);
+        Optional<SensorType> value = repository.findById(id);
         if (value.isPresent()) {
             return value.get();
         }

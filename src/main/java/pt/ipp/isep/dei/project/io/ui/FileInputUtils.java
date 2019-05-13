@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.project.io.ui;
 
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +22,6 @@ class FileInputUtils {
     List<String> sensorTypesUnit = new ArrayList<>();
     private static final String ERROR_CONFIGURATION_FILE = "ERROR: Unable to process configuration file.";
     private static final String PROPERTY_VALUE = " property value.";
-
 
 
     /**
@@ -128,7 +127,7 @@ class FileInputUtils {
     String getSensorTypesPropertyValueFromKey(Properties p, String key) throws IOException {
         String result = p.getProperty(key);
         if (result == null) {
-            throw new IOException("Could not read the sensor type " + key +PROPERTY_VALUE);
+            throw new IOException("Could not read the sensor type " + key + PROPERTY_VALUE);
         }
         return result;
     }
@@ -156,7 +155,7 @@ class FileInputUtils {
             String deviceTypes = getSensorTypesPropertyValueFromKey(props, fullKey);
             List<String> sensorTypeList = Arrays.asList(deviceTypes.split(","));
             for (String s : sensorTypeList) {
-                String[] aux = getSensorTypesMultipleValues(props,s);
+                String[] aux = getSensorTypesMultipleValues(props, s);
 
                 this.sensorTypesName.add(aux[0]);
                 this.sensorTypesUnit.add(aux[1]);
@@ -170,13 +169,13 @@ class FileInputUtils {
         readSensorTypesFromPropertiesFile("resources/sensorTypes.properties");
     }
 
-    void addSensorTypesToRepository(SensorTypeService sensorTypeService) {
+    void addSensorTypesToRepository(SensorTypeRepository sensorTypeRepository) {
 
-        for (int i=0; i<this.sensorTypesName.size(); i++){
+        for (int i = 0; i < this.sensorTypesName.size(); i++) {
             SensorType type = new SensorType();
             type.setName(sensorTypesName.get(i));
             type.setUnits(this.sensorTypesUnit.get(i));
-            sensorTypeService.add(type);
+            sensorTypeRepository.add(type);
         }
     }
 
@@ -218,10 +217,10 @@ class FileInputUtils {
         this.areaTypes = readAreaTypesFromPropertiesFile("resources/areaTypes.properties");
     }
 
-    void addAreatypesToRepository(AreaTypeService areaTypeService) {
+    void addAreatypesToRepository(AreaTypeRepository areaTypeRepository) {
         for (String s : this.areaTypes) {
             AreaType area = new AreaType(s);
-            areaTypeService.add(area);
+            areaTypeRepository.add(area);
         }
     }
 }

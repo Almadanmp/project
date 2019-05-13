@@ -11,10 +11,8 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +33,7 @@ public class RoomService {
     RoomSensorRepository roomSensorRepository;
 
     @Autowired
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
@@ -45,10 +43,10 @@ public class RoomService {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomService(RoomRepository roomRepository, RoomSensorRepository roomSensorRepository, SensorTypeRepository sensorTypeRepository) {
+    public RoomService(RoomRepository roomRepository, RoomSensorRepository roomSensorRepository, SensorTypeRepo sensorTypeRepo) {
         this.roomRepository = roomRepository;
         this.roomSensorRepository = roomSensorRepository;
-        this.sensorTypeRepository = sensorTypeRepository;
+        this.sensorTypeRepo = sensorTypeRepo;
     }
 
 
@@ -111,7 +109,7 @@ public class RoomService {
      *
      * @param roomDesignation room name
      * @param roomHouseFloor  floor of the house where room is located
-     * @param roomDimensions contains width, length and height, respectively.
+     * @param roomDimensions  contains width, length and height, respectively.
      * @return new created room
      */
 
@@ -300,13 +298,13 @@ public class RoomService {
     //Methods from RoomSensorService
 
     public void saveSensor(RoomSensor sensor) {
-        Optional<SensorType> sensorType = sensorTypeRepository.findByName(sensor.getSensorType().getName());
+        Optional<SensorType> sensorType = sensorTypeRepo.findByName(sensor.getSensorType().getName());
 
         if (sensorType.isPresent()) {
             sensor.setSensorType(sensorType.get());
         } else {
             SensorType newSensorType = sensor.getSensorType();
-            sensorTypeRepository.save(newSensorType);
+            sensorTypeRepo.save(newSensorType);
             sensor.setSensorType(newSensorType);
         }
         this.roomSensorRepository.save(sensor);
@@ -323,7 +321,7 @@ public class RoomService {
      * @return Type Sensor corresponding to the given id
      */
     public SensorType getTypeSensorByName(String name) {
-        Optional<SensorType> value = sensorTypeRepository.findByName(name);
+        Optional<SensorType> value = sensorTypeRepo.findByName(name);
         if (value.isPresent()) {
             return value.get();
         }

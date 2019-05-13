@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.areatype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,20 +11,20 @@ import java.util.Optional;
  * Class that groups a number of Types of Geographical Areas.
  */
 @Service
-public class AreaTypeService {
+public class AreaTypeRepository {
 
     @Autowired
-    AreaTypeRepository areaTypeRepository;
+    AreaTypeRepo repository;
 
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
-    public AreaTypeService(AreaTypeRepository areaTypeRepository) {
-        this.areaTypeRepository = areaTypeRepository;
+    public AreaTypeRepository(AreaTypeRepo repository) {
+        this.repository = repository;
     }
 
     List<AreaType> getAreaTypes() {
-        return areaTypeRepository.findAll();
+        return repository.findAll();
     }
 
     /**
@@ -44,11 +44,11 @@ public class AreaTypeService {
      * @return true or false if the saveSensor was successful
      */
     public boolean add(AreaType type) {
-        Optional<AreaType> value = areaTypeRepository.findByName(type.getName());
+        Optional<AreaType> value = repository.findByName(type.getName());
         if (value.isPresent()) {
             return false;
         }
-        areaTypeRepository.save(type);
+        repository.save(type);
         return true;
     }
 
@@ -88,7 +88,7 @@ public class AreaTypeService {
      * @return repository size
      */
     public int size() {
-        return areaTypeRepository.findAll().size();
+        return repository.findAll().size();
     }
 
 
@@ -99,7 +99,7 @@ public class AreaTypeService {
      * @return Type Area corresponding to the given id
      */
     public AreaType getById(long id) {
-        Optional<AreaType> value = areaTypeRepository.findById(id);
+        Optional<AreaType> value = repository.findById(id);
         return value.orElse(null);
     }
 }

@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +20,20 @@ import static org.junit.jupiter.api.Assertions.*;
  * TypeAreaList tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class AreaTypeServiceTest {
+class AreaTypeRepoTest {
     // Common testing artifacts for this class.
 
     private AreaType firstValidType;
     private AreaType secondValidType;
 
     @Mock
-    private AreaTypeRepository areaTypeRepository;
+    private AreaTypeRepo areaTypeRepo;
 
-    private AreaTypeService areaTypeService;
+    private AreaTypeRepository areaTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
-        areaTypeService = new AreaTypeService(areaTypeRepository);
+        areaTypeRepository = new AreaTypeRepository(areaTypeRepo);
         firstValidType = new AreaType("Country");
         secondValidType = new AreaType("City");
     }
@@ -44,9 +44,9 @@ class AreaTypeServiceTest {
         areaTypes.add(firstValidType);
         areaTypes.add(secondValidType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
-        List<AreaType> result = areaTypeService.getAreaTypes();
+        List<AreaType> result = areaTypeRepository.getAreaTypes();
 
         assertEquals(result, areaTypes);
     }
@@ -55,7 +55,7 @@ class AreaTypeServiceTest {
     void seeIfCreateAreaType() {
         AreaType expectedResult = new AreaType("Rua");
 
-        AreaType result = areaTypeService.create("Rua");
+        AreaType result = areaTypeRepository.create("Rua");
 
         assertEquals(expectedResult, result);
     }
@@ -67,9 +67,9 @@ class AreaTypeServiceTest {
         AreaType areaType = new AreaType("Street");
         areaType.setId(mockId);
 
-        Mockito.when(areaTypeRepository.findById(mockId)).thenReturn(Optional.of(areaType));
+        Mockito.when(areaTypeRepo.findById(mockId)).thenReturn(Optional.of(areaType));
 
-        AreaType result = areaTypeService.getById(mockId);
+        AreaType result = areaTypeRepository.getById(mockId);
 
         assertEquals(result.getId(), areaType.getId());
         assertEquals(result.getName(), areaType.getName());
@@ -83,9 +83,9 @@ class AreaTypeServiceTest {
         List<AreaType> areaTypes = new ArrayList<>();
         areaTypes.add(areaType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
-        int actualResult = areaTypeService.size();
+        int actualResult = areaTypeRepository.size();
 
         assertEquals(1, actualResult);
     }
@@ -99,9 +99,9 @@ class AreaTypeServiceTest {
         List<AreaType> areaTypes = new ArrayList<>();
         areaTypes.add(areaType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
-        assertFalse(areaTypeService.isEmpty());
+        assertFalse(areaTypeRepository.isEmpty());
 
     }
 
@@ -110,9 +110,9 @@ class AreaTypeServiceTest {
 
         List<AreaType> areaTypes = new ArrayList<>();
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
-        assertTrue(areaTypeService.isEmpty());
+        assertTrue(areaTypeRepository.isEmpty());
     }
 
     @Test
@@ -121,14 +121,14 @@ class AreaTypeServiceTest {
         areaTypes.add(secondValidType);
         areaTypes.add(firstValidType);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "---------------\n" +
                 "0) Name: City \n" +
                 "0) Name: Country \n" +
                 "---------------\n";
 
-        String result = areaTypeService.getAllAsString();
+        String result = areaTypeRepository.getAllAsString();
 
         assertEquals(expectedResult, result);
     }
@@ -137,11 +137,11 @@ class AreaTypeServiceTest {
     void getAllAsStringEmpty() {
         List<AreaType> areaTypes = new ArrayList<>();
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "Invalid List - List is Empty\n";
 
-        String result = areaTypeService.getAllAsString();
+        String result = areaTypeRepository.getAllAsString();
 
         assertEquals(expectedResult, result);
     }
@@ -151,10 +151,10 @@ class AreaTypeServiceTest {
         //Arrange
 
         AreaType areatype = new AreaType("Name");
-        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(Optional.empty());
+        Mockito.when(areaTypeRepo.findByName("Name")).thenReturn(Optional.empty());
 
         //Act
-        boolean actualResult = areaTypeService.add(areatype);
+        boolean actualResult = areaTypeRepository.add(areatype);
 
         assertTrue(actualResult);
     }
@@ -164,10 +164,10 @@ class AreaTypeServiceTest {
         //Arrange
 
         AreaType areatype = new AreaType("Name");
-        Mockito.when(areaTypeRepository.findByName("Name")).thenReturn(Optional.of(areatype));
+        Mockito.when(areaTypeRepo.findByName("Name")).thenReturn(Optional.of(areatype));
 
         //Act
-        boolean actualResult = areaTypeService.add(areatype);
+        boolean actualResult = areaTypeRepository.add(areatype);
 
         assertFalse(actualResult);
     }
@@ -182,7 +182,7 @@ class AreaTypeServiceTest {
 
         // Act
 
-        boolean actualResult = areaTypeService.equals(testList);
+        boolean actualResult = areaTypeRepo.equals(testList);
 
         // Assert
 
@@ -193,7 +193,7 @@ class AreaTypeServiceTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = areaTypeService.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
+        boolean actualResult = areaTypeRepo.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -204,7 +204,7 @@ class AreaTypeServiceTest {
     void seeIfEqualsWorksForItself() {
         // Act
 
-        boolean actualResult = areaTypeService.equals(areaTypeService); // Needed for sonarqube testing purposes.
+        boolean actualResult = areaTypeRepo.equals(areaTypeRepo); // Needed for sonarqube testing purposes.
 
         // Assert
 

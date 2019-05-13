@@ -9,9 +9,9 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -25,19 +25,19 @@ public class GeographicAreaService {
     @Autowired
     private static GeographicAreaRepository geographicAreaRepository;
     @Autowired
-    private static AreaTypeRepository areaTypeRepository;
+    private static AreaTypeRepo areaTypeRepo;
     @Autowired
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
 
 
-    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository, SensorTypeRepository sensorTypeRepository) {
+    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepo areaTypeRepo, SensorTypeRepo sensorTypeRepo) {
         GeographicAreaService.geographicAreaRepository = geographicAreaRepository;
-        GeographicAreaService.areaTypeRepository = areaTypeRepository;
-        this.sensorTypeRepository = sensorTypeRepository;
+        GeographicAreaService.areaTypeRepo = areaTypeRepo;
+        this.sensorTypeRepo = sensorTypeRepo;
     }
 
     /**
@@ -171,7 +171,7 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     AreaType getAreaTypeByName(String name, Logger logger) {
-        Optional<AreaType> value = areaTypeRepository.findByName(name);
+        Optional<AreaType> value = areaTypeRepo.findByName(name);
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
                     "Type first.");
@@ -206,7 +206,7 @@ public class GeographicAreaService {
      */
     private SensorType getTypeSensorByName(String name, String unit) {
         Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
-        Optional<SensorType> value = sensorTypeRepository.findByName(name);
+        Optional<SensorType> value = sensorTypeRepo.findByName(name);
         if (!(value.isPresent())) {
             String message = "The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
                     "Type first.";

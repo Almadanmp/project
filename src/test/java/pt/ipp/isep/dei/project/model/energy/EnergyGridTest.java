@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
@@ -19,7 +18,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +46,7 @@ class EnergyGridTest {
     @Mock
     RoomSensorRepository roomSensorRepository;
     @Mock
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -368,11 +367,11 @@ class EnergyGridTest {
         // Act
 
         double result = validGrid.getEnergyConsumption(10);
-        int expectedResult =0;
+        int expectedResult = 0;
 
         // Assert
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -661,7 +660,7 @@ class EnergyGridTest {
         validGrid.setName("Grid 01");
         //Act
         String actualResult = validGrid.getName();
-       //Assert
+        //Assert
         assertEquals(expectedResult, actualResult);
     }
 

@@ -15,7 +15,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +42,7 @@ class RoomConfigurationUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, SensorTypeService sensorTypeService, RoomService roomService) {
+    void run(House house, SensorTypeRepository sensorTypeRepository, RoomService roomService) {
 
         if (roomService.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -86,7 +86,7 @@ class RoomConfigurationUI {
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(sensorTypeService, roomService);
+                    runUS253(sensorTypeRepository, roomService);
                     activeInput = false;
                     break;
                 case 0:
@@ -392,7 +392,7 @@ class RoomConfigurationUI {
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      * sensor types, in order to configure it.
      */
-    private void runUS253(SensorTypeService sensorService, RoomService roomService) {
+    private void runUS253(SensorTypeRepository sensorService, RoomService roomService) {
         if (sensorService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;

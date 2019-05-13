@@ -21,7 +21,7 @@ import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,11 +53,11 @@ class HouseTest {
     @Mock
     RoomSensorRepository roomSensorRepository;
     @Mock
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
         energyGridService = new EnergyGridService(energyGridRepository);
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -318,7 +318,7 @@ class HouseTest {
 
         validHouse.buildAndSetDeviceTypeList(deviceTypePaths);
         List<DeviceType> deviceTypeList = validHouse.getDeviceTypeList();
-        int expectedResult =2;
+        int expectedResult = 2;
 
         // Assert
 

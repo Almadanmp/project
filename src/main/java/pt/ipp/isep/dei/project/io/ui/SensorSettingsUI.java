@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +30,7 @@ class SensorSettingsUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(GeographicAreaService geographicAreaService, SensorTypeService sensorTypeList) {
+    void run(GeographicAreaService geographicAreaService, SensorTypeRepository sensorTypeList) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -63,19 +63,19 @@ class SensorSettingsUI {
 
     /* LIST DISPLAY */
 
-    private void displayList(SensorTypeService sensorTypeService) {
-        System.out.println(controller.buildSensorTypesString(sensorTypeService));
+    private void displayList(SensorTypeRepository sensorTypeRepository) {
+        System.out.println(controller.buildSensorTypesString(sensorTypeRepository));
     }
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
-    private void runUS05(SensorTypeService sensorTypeList) {
+    private void runUS05(SensorTypeRepository sensorTypeList) {
         SensorType sensorType = getInput05(sensorTypeList);
         boolean added = updateModel05(sensorType, sensorTypeList);
         displayState05(added);
     }
 
-    private SensorType getInput05(SensorTypeService sensorTypeList) {
+    private SensorType getInput05(SensorTypeRepository sensorTypeList) {
         System.out.print("Enter the sensor type's name: ");
         String name = InputHelperUI.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
@@ -84,7 +84,7 @@ class SensorSettingsUI {
         return controller.createType(sensorTypeList, name, unit);
     }
 
-    private boolean updateModel05(SensorType sensorType, SensorTypeService sensorTypeList) {
+    private boolean updateModel05(SensorType sensorType, SensorTypeRepository sensorTypeList) {
         return controller.addTypeSensorToList(sensorType, sensorTypeList);
     }
 
@@ -98,7 +98,7 @@ class SensorSettingsUI {
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-    private void runUS06(GeographicAreaService geographicAreaService, SensorTypeService sensorTypeList) {
+    private void runUS06(GeographicAreaService geographicAreaService, SensorTypeRepository sensorTypeList) {
         if (geographicAreaService.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
@@ -112,7 +112,7 @@ class SensorSettingsUI {
         addSensor(areaSensor, geographicArea, geographicAreaService);
     }
 
-    private AreaSensor createSensor(SensorTypeService sensorTypeList, GeographicArea geographicArea) {
+    private AreaSensor createSensor(SensorTypeRepository sensorTypeList, GeographicArea geographicArea) {
         String id = getInputSensorId();
         String name = getInputSensorName();
         SensorType sensorType = getInputTypeSensor(sensorTypeList);
@@ -134,7 +134,7 @@ class SensorSettingsUI {
         return input.nextLine();
     }
 
-    private SensorType getInputTypeSensor(SensorTypeService sensorTypeList) {
+    private SensorType getInputTypeSensor(SensorTypeRepository sensorTypeList) {
         System.out.println("\nPlease select one of the following sensorTypes:\t");
 
         return InputHelperUI.getInputSensorTypeByList(sensorTypeList);

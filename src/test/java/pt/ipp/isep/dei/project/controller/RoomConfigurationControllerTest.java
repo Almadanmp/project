@@ -18,7 +18,7 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +48,7 @@ class RoomConfigurationControllerTest {
     RoomSensorRepository roomSensorRepository;
 
     @Mock
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     @Mock
     RoomRepository roomRepository;
@@ -68,7 +68,7 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
     }
 
 
@@ -150,7 +150,7 @@ class RoomConfigurationControllerTest {
         SensorType sensorType = new SensorType("temperature", "Celsius");
         RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
 
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeRepo.findByName("temperature")).thenReturn(Optional.of(sensorType));
 
         // Act
 
@@ -558,7 +558,7 @@ class RoomConfigurationControllerTest {
 
         // Assert
 
-        assertEquals( "Not a Washing Machine", actualResult);
+        assertEquals("Not a Washing Machine", actualResult);
     }
 
 

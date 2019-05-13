@@ -68,7 +68,7 @@ class RoomMonitoringControllerTest {
     RoomSensorRepository roomSensorRepository;
 
     @Mock
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     @Mock
     RoomRepository roomRepository;
@@ -77,7 +77,7 @@ class RoomMonitoringControllerTest {
     GeographicAreaRepository geographicAreaRepository;
 
     @Mock
-    AreaTypeRepository areaTypeRepository;
+    AreaTypeRepo areaTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -129,13 +129,13 @@ class RoomMonitoringControllerTest {
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         this.validHouse.setMotherArea(validArea);
-        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
+        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
-        validRoomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        validRoomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
         this.rooms = new ArrayList<>();
         rooms.add(validRoom1);
-        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
+        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
         validRoomDTO = RoomMapper.objectToDTO(validRoom1);
         validRoomDTO.setHouseId(validHouse.getId());
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("temperature", "Celsius"), validDate1, "RoomDFS");

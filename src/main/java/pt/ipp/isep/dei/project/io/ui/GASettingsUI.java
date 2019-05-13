@@ -5,16 +5,16 @@ import pt.ipp.isep.dei.project.controller.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
-import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
-import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;
-import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ class GASettingsUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void runGASettings(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
+    void runGASettings(AreaTypeRepository areaTypeRepository, GeographicAreaService geographicAreaService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -55,19 +55,19 @@ class GASettingsUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS01(areaTypeService);
+                    runUS01(areaTypeRepository);
                     activeInput = false;
                     break;
                 case 2:
-                    runUS02(areaTypeService);
+                    runUS02(areaTypeRepository);
                     activeInput = false;
                     break;
                 case 3:
-                    runUS03(areaTypeService, geographicAreaService);
+                    runUS03(areaTypeRepository, geographicAreaService);
                     activeInput = false;
                     break;
                 case 4:
-                    runUS04(areaTypeService, geographicAreaService);
+                    runUS04(areaTypeRepository, geographicAreaService);
                     activeInput = false;
                     break;
                 case 5:
@@ -112,13 +112,13 @@ class GASettingsUI {
      * @return Type area DTO
      * used on US 03 and 04
      */
-    private AreaTypeDTO getInputTypeAreaDTOByList(AreaTypeService areaTypeService) {
+    private AreaTypeDTO getInputTypeAreaDTOByList(AreaTypeRepository areaTypeRepository) {
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
-            System.out.print(gaController.buildGATypeListString(areaTypeService));
+            System.out.print(gaController.buildGATypeListString(areaTypeRepository));
             int aux = InputHelperUI.getInputAsInt();
 
-            AreaType areaType = areaTypeService.getById(aux);
+            AreaType areaType = areaTypeRepository.getById(aux);
             if (areaType != null) {
                 AreaTypeDTO typeAreaDTO = AreaTypeMapper.objectToDTO(areaType);
                 System.out.println("You have chosen the following Geographic Area Type:");
@@ -132,9 +132,9 @@ class GASettingsUI {
 
     /* USER STORY 001 - As an Administrator, I want to add a new type of geographical area, in order to be able to create a
      classification of geographical areas.*/
-    private void runUS01(AreaTypeService areaTypeService) {
+    private void runUS01(AreaTypeRepository areaTypeRepository) {
         String typeAreaName = getInputUS01();
-        boolean created = updateModelUS01(areaTypeService, typeAreaName);
+        boolean created = updateModelUS01(areaTypeRepository, typeAreaName);
         displayStateUS01(created, typeAreaName);
     }
 
@@ -149,8 +149,8 @@ class GASettingsUI {
         return scanner.nextLine();
     }
 
-    private boolean updateModelUS01(AreaTypeService areaTypeService, String typeAreaName) {
-        return gaController.createAndAddTypeAreaToList(areaTypeService, typeAreaName);
+    private boolean updateModelUS01(AreaTypeRepository areaTypeRepository, String typeAreaName) {
+        return gaController.createAndAddTypeAreaToList(areaTypeRepository, typeAreaName);
     }
 
     private void displayStateUS01(boolean created, String typeAreaName) {
@@ -164,9 +164,9 @@ class GASettingsUI {
 
     /* USER STORY 002 - As a System Administrator I want to obtain a list of the types of Geographical Areas previously stated.
      * Class responsible for presenting the list. - NUNO AZEVEDO */
-    private void runUS02(AreaTypeService areaTypeService) {
-        if (!areaTypeService.isEmpty()) {
-            System.out.println(gaController.getTypeAreaList(areaTypeService));
+    private void runUS02(AreaTypeRepository areaTypeRepository) {
+        if (!areaTypeRepository.isEmpty()) {
+            System.out.println(gaController.getTypeAreaList(areaTypeRepository));
             System.out.println("\nList finished.");
         } else {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
@@ -174,17 +174,17 @@ class GASettingsUI {
     }
 
     /* User Story - 03 As a System Administrator I want to create a new Geographic Area */
-    private void runUS03(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
-        if (areaTypeService.isEmpty()) {
+    private void runUS03(AreaTypeRepository areaTypeRepository, GeographicAreaService geographicAreaService) {
+        if (areaTypeRepository.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
-        getAreaInputUS03(areaTypeService, geographicAreaService);
+        getAreaInputUS03(areaTypeRepository, geographicAreaService);
     }
 
-    private void getAreaInputUS03(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
+    private void getAreaInputUS03(AreaTypeRepository areaTypeRepository, GeographicAreaService geographicAreaService) {
         Scanner scanner = new Scanner(System.in);
-        AreaTypeDTO geoTypeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
+        AreaTypeDTO geoTypeAreaDTO = getInputTypeAreaDTOByList(areaTypeRepository);
         String gaTypeAreaName = gaController.getTypeAreaName(geoTypeAreaDTO);
         String nameOfGeoArea = readInputString("Name");
         double geoAreaLat = readInputNumber("Latitude");
@@ -241,8 +241,8 @@ class GASettingsUI {
     }
 
     /* USER STORY 04 -  As an Administrator, I want to getDB a list of existing geographical areas of a given type. */
-    private void runUS04(AreaTypeService areaTypeService, GeographicAreaService geographicAreaService) {
-        if (areaTypeService.isEmpty()) {
+    private void runUS04(AreaTypeRepository areaTypeRepository, GeographicAreaService geographicAreaService) {
+        if (areaTypeRepository.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_TYPE_LIST);
             return;
         }
@@ -250,7 +250,7 @@ class GASettingsUI {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        AreaTypeDTO typeAreaDTO = getInputTypeAreaDTOByList(areaTypeService);
+        AreaTypeDTO typeAreaDTO = getInputTypeAreaDTOByList(areaTypeRepository);
         List<GeographicArea> gaFinalList = matchGAByTypeArea(geographicAreaService, typeAreaDTO);
         displayGAListByTypeArea(geographicAreaService, gaFinalList, typeAreaDTO);
     }

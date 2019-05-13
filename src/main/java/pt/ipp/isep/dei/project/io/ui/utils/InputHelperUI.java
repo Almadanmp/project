@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.project.controller.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.controller.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -18,9 +20,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
-import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;
-import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.io.File;
 import java.util.List;
@@ -275,17 +275,17 @@ public class InputHelperUI {
      * Method that shows the user a list of all the available types of sensor the program has, then prompts him to choose
      * one based on index.
      *
-     * @param sensorTypeService is the list of available types of sensor.
+     * @param sensorTypeRepository is the list of available types of sensor.
      * @return is the chosen type of sensor.
      */
-    public static SensorType getInputSensorTypeByList(SensorTypeService sensorTypeService) {
+    public static SensorType getInputSensorTypeByList(SensorTypeRepository sensorTypeRepository) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select a type of sensor from the list:");
-            System.out.println(sensorTypeService.buildString());
+            System.out.println(sensorTypeRepository.buildString());
             String aux = scanner.nextLine();
             try {
-                SensorType result = sensorTypeService.getById(aux);
+                SensorType result = sensorTypeRepository.getById(aux);
                 System.out.println("You have chosen the following sensor type:");
                 System.out.println("SensorType: " + result.getName());
                 System.out.println(result.buildString() + "\n");

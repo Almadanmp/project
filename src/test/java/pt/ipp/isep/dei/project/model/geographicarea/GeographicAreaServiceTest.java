@@ -21,10 +21,9 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,11 +68,11 @@ class GeographicAreaServiceTest {
     private List<String> deviceTypeString;
 
     @Mock
-    private SensorTypeRepository sensorTypeRepository;
+    private SensorTypeRepo sensorTypeRepo;
     @Mock
     GeographicAreaRepository geographicAreaRepository;
     @Mock
-    AreaTypeRepository areaTypeRepository;
+    AreaTypeRepo areaTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -110,7 +109,7 @@ class GeographicAreaServiceTest {
                 sensorCreationTime, 6008L);
         validAreaSensor.setActive(true);
 
-        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
+        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
@@ -390,8 +389,8 @@ class GeographicAreaServiceTest {
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
 
-        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+        Mockito.when(areaTypeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepo.findByName("city")).thenReturn(Optional.of(city));
 
         GeographicArea expectedResult = new GeographicArea(iD, city, 12, 12, local);
 
@@ -405,11 +404,11 @@ class GeographicAreaServiceTest {
         SensorType rainfall = new SensorType("rainfall", "mm");
         SensorType temperature = new SensorType("temperature", "C");
 
-        sensorTypeRepository.save(rainfall);
-        sensorTypeRepository.save(temperature);
+        sensorTypeRepo.save(rainfall);
+        sensorTypeRepo.save(temperature);
 
-        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+        Mockito.when(sensorTypeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         AreaSensor expectedResult = new AreaSensor("Sensor123", "Temperature Sensor 2",
                 rainfall, new Local(41, -8, 100), validDate1, new Long(56));
@@ -752,16 +751,11 @@ class GeographicAreaServiceTest {
         List<Reading> expectedResult = new ArrayList<>();
 
         // Act
-        List<Reading> actualResult = geographicAreaService.getReadingsAboveCategoryIIILimit(validReadingList,validHouse);
+        List<Reading> actualResult = geographicAreaService.getReadingsAboveCategoryIIILimit(validReadingList, validHouse);
         // Assert
 
         assertEquals(expectedResult, actualResult);
     }
-
-
-
-
-
 
 
 }

@@ -12,14 +12,17 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeService;
-import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.HouseRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,9 +37,9 @@ import java.util.Scanner;
 public class MainUI {
 
     @Autowired
-    private SensorTypeService sensorTypeService;
+    private SensorTypeRepository sensorTypeRepository;
     @Autowired
-    private AreaTypeService areaTypeService;
+    private AreaTypeRepository areaTypeRepository;
     @Autowired
     private GeographicAreaService geographicAreaService;
     @Autowired
@@ -46,11 +49,11 @@ public class MainUI {
     @Autowired
     private EnergyGridService energyGridService;
     @Autowired
-    private SensorTypeRepository sensorTypeRepository;
+    private SensorTypeRepo sensorTypeRepo;
     @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
+    private GeographicAreaRepository geoAreaRepo;
     @Autowired
-    private AreaTypeRepository areaTypeRepository;
+    private AreaTypeRepo areaTypeRepo;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -103,7 +106,7 @@ public class MainUI {
             //Sensor Types
             try {
                 fileUtils.getSensorTypeConfig();
-                fileUtils.addSensorTypesToRepository(sensorTypeService);
+                fileUtils.addSensorTypesToRepository(sensorTypeRepository);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 return;
@@ -112,7 +115,7 @@ public class MainUI {
             //Area Types
             try {
                 fileUtils.getAreaTypeConfig();
-                fileUtils.addAreatypesToRepository(areaTypeService);
+                fileUtils.addAreatypesToRepository(areaTypeRepository);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 return;
@@ -125,13 +128,13 @@ public class MainUI {
             // ******* < MOCK DATA FOR TESTING PURPOSES >*******
             // *************************
 
-            SensorTypeService mockSensorTypeList = new SensorTypeService(sensorTypeRepository);
+            SensorTypeRepository mockSensorTypeList = new SensorTypeRepository(sensorTypeRepo);
 
             House house = mainHouse(houseRepository, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
+            this.geographicAreaService = new GeographicAreaService(geoAreaRepo, areaTypeRepo, sensorTypeRepo);
 
             //MAIN CODE
 
@@ -139,7 +142,7 @@ public class MainUI {
             int option;
             while (true) {
                 System.out.println(
-                                "                      ______          ___ _    _____ _    _ \n" +
+                        "                      ______          ___ _    _____ _    _ \n" +
                                 "                    / ____\\ \\        / (_) |  / ____| |  | |\n" +
                                 "                   | (___  \\ \\  /\\  / / _| |_| |    | |__| |\n" +
                                 "                    \\___ \\  \\ \\/  \\/ / | | __| |    |  __  |\n" +
@@ -171,7 +174,7 @@ public class MainUI {
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI();
-                            view1.runGASettings(areaTypeService, geographicAreaService);
+                            view1.runGASettings(areaTypeRepository, geographicAreaService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -183,7 +186,7 @@ public class MainUI {
                             break;
                         case 3:
                             RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                            roomConfiguration.run(house, sensorTypeService, roomService);
+                            roomConfiguration.run(house, sensorTypeRepository, roomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

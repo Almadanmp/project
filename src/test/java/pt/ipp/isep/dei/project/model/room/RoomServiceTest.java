@@ -19,7 +19,7 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,7 +52,7 @@ class RoomServiceTest {
     @Mock
     private RoomSensorRepository roomSensorRepository;
     @Mock
-    private SensorTypeRepository sensorTypeRepository;
+    private SensorTypeRepo sensorTypeRepo;
 
     private RoomService validRoomService;
 
@@ -63,7 +63,7 @@ class RoomServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomService = new RoomService(this.roomRepository, this.roomSensorRepository, this.sensorTypeRepository);
+        validRoomService = new RoomService(this.roomRepository, this.roomSensorRepository, this.sensorTypeRepo);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -609,7 +609,7 @@ class RoomServiceTest {
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         validRoomService.saveSensor(secondValidRoomSensor);
-        Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(new SensorType("Temperature", "C")));
+        Mockito.when(sensorTypeRepo.findByName("Temperature")).thenReturn(Optional.of(new SensorType("Temperature", "C")));
 
         Mockito.when(roomSensorRepository.findAll()).thenReturn(roomSensors);
         validRoomService.saveSensor(firstValidRoomSensor);
@@ -788,7 +788,7 @@ class RoomServiceTest {
     void seeIfGetTypeSensorByNameWorks() {
         //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
-        Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
         //Act
         SensorType actualResult = validRoomService.getTypeSensorByName("Temperature");
         SensorType actualResult1 = validRoomService.getTypeSensorByName("Rainfall");
@@ -801,7 +801,7 @@ class RoomServiceTest {
     void seeIfCreateRoomSensorWorks() {
         //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
-        Mockito.when(sensorTypeRepository.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
         //Act
         RoomSensor roomSensor = validRoomService.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
         //Assert

@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.dto.mappers.LocalMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -40,12 +40,12 @@ public class GASettingsController {
     }
 
     /**
-     * @param areaTypeService is the list of Geographic Area Types we want to print.
+     * @param areaTypeRepository is the list of Geographic Area Types we want to print.
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGATypeListString(AreaTypeService areaTypeService) {
-        return areaTypeService.getAllAsString();
+    public String buildGATypeListString(AreaTypeRepository areaTypeRepository) {
+        return areaTypeRepository.getAllAsString();
     }
 
 
@@ -61,16 +61,16 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(AreaTypeService areaTypeService, String input) {
-        AreaType areaType = areaTypeService.create(input);
-        return areaTypeService.add(areaType);
+    public boolean createAndAddTypeAreaToList(AreaTypeRepository areaTypeRepository, String input) {
+        AreaType areaType = areaTypeRepository.create(input);
+        return areaTypeRepository.add(areaType);
     }
 
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
-    public String getTypeAreaList(AreaTypeService areaTypeService) {
-        return areaTypeService.getAllAsString();
+    public String getTypeAreaList(AreaTypeRepository areaTypeRepository) {
+        return areaTypeRepository.getAllAsString();
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */

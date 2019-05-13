@@ -14,15 +14,15 @@ import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.areatype.AreaTypeService;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -50,20 +50,20 @@ class GASettingsControllerTest {
     private AreaSensorDTO validAreaSensorDTO2;
     private AreaSensor validAreaSensor1;
     private GeographicAreaService validGeographicAreaService;
-    private AreaTypeService validAreaTypeService;
+    private AreaTypeRepository validAreaTypeRepository;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
 
     @Mock
-    AreaTypeRepository areaTypeRepository;
+    AreaTypeRepo areaTypeRepo;
 
     @Mock
     AreaSensorRepository areaSensorRepository;
 
     @Mock
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -74,7 +74,7 @@ class GASettingsControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validAreaTypeService = new AreaTypeService(areaTypeRepository);
+        validAreaTypeRepository = new AreaTypeRepository(areaTypeRepo);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
         firstValidArea = new GeographicArea("Portugal", typeCountry,
@@ -91,7 +91,7 @@ class GASettingsControllerTest {
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
-        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
+        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
         validGeographicAreaService.addAndPersistGA(firstValidArea);
         validGeographicAreaService.addAndPersistGA(secondValidArea);
     }
@@ -107,7 +107,7 @@ class GASettingsControllerTest {
         typeCountry.setId(0);
         typeCity.setId(1);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "---------------\n" +
                 "0) Name: Country \n" +
@@ -116,7 +116,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.buildGATypeListString(validAreaTypeService);
+        String actualResult = controller.buildGATypeListString(validAreaTypeRepository);
 
 
         // Assert
@@ -132,7 +132,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.buildGATypeListString(validAreaTypeService);
+        String actualResult = controller.buildGATypeListString(validAreaTypeRepository);
 
         // Assert
 
@@ -179,7 +179,7 @@ class GASettingsControllerTest {
     void seeIfCreateTypeAreaWorksEmptyList() {
         // Act
 
-        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeService, "City");
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeRepository, "City");
 
         // Assert
 
@@ -191,7 +191,7 @@ class GASettingsControllerTest {
     void seeIfNewTAGDoesNotWorkWhenDuplicatedISAdded() {
         // Act
 
-        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeService, "Country");
+        boolean result = controller.createAndAddTypeAreaToList(validAreaTypeRepository, "Country");
 
         // Assert
 
@@ -212,11 +212,11 @@ class GASettingsControllerTest {
         String expectedResult = "---------------\n" +
                 "0) Name: Country \n" +
                 "---------------\n";
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
         // Act
 
-        String actualResult = controller.getTypeAreaList(validAreaTypeService);
+        String actualResult = controller.getTypeAreaList(validAreaTypeRepository);
 
         // Assert
 
@@ -234,7 +234,7 @@ class GASettingsControllerTest {
         typeCountry.setId(0);
         typeCity.setId(1);
 
-        Mockito.when(areaTypeRepository.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "---------------\n" +
                 "0) Name: Country \n" +
@@ -243,7 +243,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String actualResult = controller.getTypeAreaList(validAreaTypeService);
+        String actualResult = controller.getTypeAreaList(validAreaTypeRepository);
 
         // Assert
 
@@ -500,7 +500,7 @@ class GASettingsControllerTest {
     }
 
     @Test
-    void seeIfAddNewGeoAreaToListWorks(){
+    void seeIfAddNewGeoAreaToListWorks() {
         // Act
 
         boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO);
@@ -511,7 +511,7 @@ class GASettingsControllerTest {
     }
 
     @Test
-    void seeIfAddNewGeoAreaToListWorksFalseDuplicate(){
+    void seeIfAddNewGeoAreaToListWorksFalseDuplicate() {
         // Arrange
 
         List<GeographicArea> mockedList = new ArrayList<>();
@@ -528,7 +528,7 @@ class GASettingsControllerTest {
     }
 
     @Test
-    void seeIfInputSensorWorks(){
+    void seeIfInputSensorWorks() {
         // Arrange
 
         InputStream in = new ByteArrayInputStream("0".getBytes());

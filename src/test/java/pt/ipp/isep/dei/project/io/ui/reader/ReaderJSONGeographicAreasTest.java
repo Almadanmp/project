@@ -51,10 +51,10 @@ class ReaderJSONGeographicAreasTest {
     RoomSensorRepository roomSensorRepository;
 
     @Mock
-    AreaTypeRepository areaTypeRepository;
+    AreaTypeRepo areaTypeRepo;
 
     @Mock
-    SensorTypeRepository sensorTypeRepository;
+    SensorTypeRepo sensorTypeRepo;
 
     private ReadingUtils readingUtils;
     private GeographicAreaService geographicAreaService;
@@ -64,8 +64,8 @@ class ReaderJSONGeographicAreasTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepository);
-        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepository, sensorTypeRepository);
+        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
         ctrl = new ReaderController();
 
     }
@@ -156,14 +156,14 @@ class ReaderJSONGeographicAreasTest {
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
 
-        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+        Mockito.when(areaTypeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepo.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
-        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+        Mockito.when(sensorTypeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         // Act
 
@@ -222,7 +222,7 @@ class ReaderJSONGeographicAreasTest {
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLocalDTO(new LocalDTO(41.178553,-8.608035,111));
+        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
 
         // First Sensor in First Area
 
@@ -232,7 +232,7 @@ class ReaderJSONGeographicAreasTest {
         firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
         firstAreaFirstSensor.setTypeSensor("temperature");
         firstAreaFirstSensor.setUnits("C");
-        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230,-8.606409,125));
+        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
 
         // Second Area
 
@@ -242,7 +242,7 @@ class ReaderJSONGeographicAreasTest {
         secondArea.setTypeArea("city");
         secondArea.setWidth(10.09);
         secondArea.setLength(3.30);
-        secondArea.setLocalDTO(new LocalDTO(41.149935,-8.610857,118));
+        secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118));
 
 
         // First Sensor in Second Area
@@ -253,7 +253,7 @@ class ReaderJSONGeographicAreasTest {
         secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
         secondAreaFirstSensor.setTypeSensor("rainfall");
         secondAreaFirstSensor.setUnits("l/m2");
-        secondAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230,-8.606409,139));
+        secondAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
 
 
         // Second Sensor in Second Area
@@ -264,7 +264,7 @@ class ReaderJSONGeographicAreasTest {
         secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
         secondAreaSecondSensor.setTypeSensor("temperature");
         secondAreaSecondSensor.setUnits("C");
-        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230,-8.606409,139));
+        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
 
         // Populate expectedResult array
 
@@ -279,14 +279,14 @@ class ReaderJSONGeographicAreasTest {
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
 
-        Mockito.when(areaTypeRepository.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepository.findByName("city")).thenReturn(Optional.of(city));
+        Mockito.when(areaTypeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeRepo.findByName("city")).thenReturn(Optional.of(city));
 
-        SensorType rainfall = new SensorType("rainfall","mm");
-        SensorType temperature = new SensorType("temperature","C");
+        SensorType rainfall = new SensorType("rainfall", "mm");
+        SensorType temperature = new SensorType("temperature", "C");
 
-        Mockito.when(sensorTypeRepository.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepository.findByName("temperature")).thenReturn(Optional.of(temperature));
+        Mockito.when(sensorTypeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         //Act
 
@@ -302,15 +302,15 @@ class ReaderJSONGeographicAreasTest {
 
         // Get one of the areas to  check its contents.
 
-    //    GeographicArea actualArea = actualResult.getAll().get(0);
-      //  AreaSensorService firstAreaSensors = actualArea.getSensorList();
+        //    GeographicArea actualArea = actualResult.getAll().get(0);
+        //  AreaSensorService firstAreaSensors = actualArea.getSensorList();
 
         GeographicArea expectedArea = new GeographicArea("ISEP", new AreaType("urban area"), 0.249,
                 0.261, new Local(41.178553, -8.608035, 139));
 
         // Assert
 
-   //     assertEquals(expectedArea, actualArea);
-     //   assertEquals(actualArea.getSensorList(), firstAreaSensors);
+        //     assertEquals(expectedArea, actualArea);
+        //   assertEquals(actualArea.getSensorList(), firstAreaSensors);
     }
 }
