@@ -83,10 +83,10 @@ class RoomMonitoringControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validSdf = new SimpleDateFormat("dd/MM/yyyy");
-        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat readingSD2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        validSdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss",Locale.ENGLISH);
+        SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+        SimpleDateFormat readingSD2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'",Locale.ENGLISH);
         try {
             validDate1 = validSdf.parse("01/02/2018");
             validDate2 = validSdf.parse("10/02/2018");
@@ -148,7 +148,7 @@ class RoomMonitoringControllerTest {
         Date validDate2 = new Date();
         Date validDate3 = new Date();
 
-        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'",Locale.ENGLISH);
         try {
             validDate1 = validSdf.parse("2018-07-03T10:50:00+00:00");
             validDate2 = validSdf.parse("2018-07-03T13:15:00+00:00");
