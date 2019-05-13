@@ -99,7 +99,8 @@ public class RoomMonitoringController {
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             Reading reading = list.get(i);
             gregorianCalendar.setTime(reading.getDate());
-            result.append(i).append(") Instant: ").append(reading.getDate());
+            gregorianCalendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+            result.append(i).append(") Instant: ").append(gregorianCalendar.getTime());
             result.append("   Temperature value: ").append(reading.getValue()).append("\n");
         }
         result.append("--------------------------------------\n");
