@@ -21,6 +21,7 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
@@ -32,6 +33,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -510,10 +512,17 @@ class ReaderControllerTest {
 
     @Test
     void seeIfReadJSONAndDefineHouseWorks() {
+        //Arrange
+
         List<String> deviceTypes = new ArrayList<>();
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
+        Address expectedResult = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
+
+        //Assert
+
         assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService));
+        assertEquals(expectedResult, house.getAddress());
     }
 
     @Test
