@@ -83,7 +83,6 @@ public class GASettingsController {
      */
     public boolean addNewGeoAreaToList(GeographicAreaService geographicAreaService, GeographicAreaDTO geoAreaDTO) {
         GeographicArea geoToAdd = GeographicAreaMapper.dtoToObject(geoAreaDTO);
-        geoToAdd.setDescription(geoAreaDTO.getDescription());
         return geographicAreaService.addAndPersistGA(geoToAdd);
     }
 
