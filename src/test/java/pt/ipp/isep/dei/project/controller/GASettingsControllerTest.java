@@ -19,7 +19,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
@@ -58,9 +57,6 @@ class GASettingsControllerTest {
 
     @Mock
     AreaTypeRepo areaTypeRepo;
-
-    @Mock
-    AreaSensorRepository areaSensorRepository;
 
     @Mock
     SensorTypeRepo sensorTypeRepo;
@@ -491,8 +487,11 @@ class GASettingsControllerTest {
     void seeIfRemoveSensorWorks() {
         // Act
 
+        List<AreaSensor> actualResult = GeographicAreaMapper.dtoToObject(validGeographicAreaDTO).getAreaSensors();
+        actualResult.remove(validAreaSensor1);
+
         controller.removeSensor(validAreaSensorDTO1, validGeographicAreaDTO, validGeographicAreaService);
-        List<AreaSensor> actualResult = areaSensorRepository.findAll();
+
 
         // Assert
 

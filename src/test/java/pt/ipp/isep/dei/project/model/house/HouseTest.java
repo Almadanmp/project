@@ -20,7 +20,6 @@ import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.ArrayList;
@@ -51,13 +50,11 @@ class HouseTest {
     @Mock
     EnergyGridRepository energyGridRepository;
     @Mock
-    RoomSensorRepository roomSensorRepository;
-    @Mock
     SensorTypeRepo sensorTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        roomService = new RoomService(roomRepository, sensorTypeRepo);
         energyGridService = new EnergyGridService(energyGridRepository);
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);

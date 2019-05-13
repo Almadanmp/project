@@ -23,7 +23,6 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.ArrayList;
@@ -49,8 +48,7 @@ class EnergyGridSettingsControllerTest {
     private EnergyGridService energyGridService;
     @Mock
     private RoomRepository roomRepository;
-    @Mock
-    RoomSensorRepository roomSensorRepository;
+
     @Mock
     SensorTypeRepo sensorTypeRepo;
     private List<Room> rooms;
@@ -59,7 +57,7 @@ class EnergyGridSettingsControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         this.rooms = new ArrayList<>();
-        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        this.roomService = new RoomService(roomRepository, sensorTypeRepo);
         this.energyGridService = new EnergyGridService(energyGridRepository);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),

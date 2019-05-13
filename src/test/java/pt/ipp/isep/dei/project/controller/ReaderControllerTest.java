@@ -79,9 +79,6 @@ class ReaderControllerTest {
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 
     @Mock
-    AreaSensorRepository areaSensorRepository;
-
-    @Mock
     GeographicAreaRepository geographicAreaRepository;
 
     @Mock
@@ -94,9 +91,6 @@ class ReaderControllerTest {
     EnergyGridRepository energyGridRepository;
 
     @Mock
-    RoomSensorRepository roomSensorRepository;
-
-    @Mock
     AreaTypeRepo areaTypeRepo;
 
     @Mock
@@ -107,7 +101,7 @@ class ReaderControllerTest {
     void arrangeArtifacts() {
         energyGridService = new EnergyGridService(energyGridRepository);
         geographicAreaService = new GeographicAreaService(this.geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
-        this.roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        this.roomService = new RoomService(roomRepository, sensorTypeRepo);
         readerController = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");

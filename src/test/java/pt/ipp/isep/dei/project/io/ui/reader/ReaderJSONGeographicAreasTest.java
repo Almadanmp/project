@@ -32,8 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ReaderJSONGeographicAreasTest {
     // Common testing artifacts for testing in this class.
 
-    @Mock
-    AreaSensorRepository areaSensorRepository;
 
     @Mock
     GeographicAreaRepository geographicAreaRepository;
@@ -46,9 +44,6 @@ class ReaderJSONGeographicAreasTest {
 
     @Mock
     EnergyGridRepository energyGridRepository;
-
-    @Mock
-    RoomSensorRepository roomSensorRepository;
 
     @Mock
     AreaTypeRepo areaTypeRepo;
@@ -64,7 +59,7 @@ class ReaderJSONGeographicAreasTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        roomService = new RoomService(roomRepository, sensorTypeRepo);
         geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
         ctrl = new ReaderController();
 

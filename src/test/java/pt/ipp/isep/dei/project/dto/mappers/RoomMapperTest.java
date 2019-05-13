@@ -16,9 +16,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
@@ -37,10 +35,6 @@ class RoomMapperTest {
     private RoomService roomService;
 
     @Mock
-    private AreaSensorRepository areaSensorRepository;
-    @Mock
-    RoomSensorRepository roomSensorRepository;
-    @Mock
     SensorTypeRepo sensorTypeRepo;
 
     @Mock
@@ -48,7 +42,7 @@ class RoomMapperTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, roomSensorRepository, sensorTypeRepo);
+        roomService = new RoomService(roomRepository, sensorTypeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 

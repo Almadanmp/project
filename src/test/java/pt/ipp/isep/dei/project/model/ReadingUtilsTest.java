@@ -12,8 +12,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaSensorRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
@@ -50,12 +48,6 @@ class ReadingUtilsTest {
     private Date validDate18; // same day and month as 9 ans 16 but different year
     private Date validDate19; // same day and month as 9 ans 16 but different year, different hour
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
-
-    @Mock
-    AreaSensorRepository areaSensorRepository;
-
-    @Mock
-    RoomSensorRepository roomSensorRepository;
 
     @Mock
     SensorTypeRepo sensorTypeRepo;

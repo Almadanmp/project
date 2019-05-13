@@ -57,7 +57,7 @@ class JSONSensorsReaderTest {
 
         // Act
 
-        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensors.json");
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensors.json");
 
         // Assert
 
@@ -110,7 +110,7 @@ class JSONSensorsReaderTest {
 
         // Act
 
-        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json");
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json");
 
         // Assert
 
@@ -162,7 +162,7 @@ class JSONSensorsReaderTest {
 
         // Act
 
-        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json");
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json");
 
         // Assert
 
@@ -180,6 +180,6 @@ class JSONSensorsReaderTest {
     void seeIfGetElementsArrayWorksWrongFile(){
         JSONSensorsReader reader = new JSONSensorsReader();
         assertThrows(IllegalArgumentException.class,
-                () -> reader.readFile("src/test/resources/sensorFiles/DataSet_sprint06_HouseSensorsWrongTag.json"));
+                () -> reader.readFile("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongTag.json"));
     }
 }

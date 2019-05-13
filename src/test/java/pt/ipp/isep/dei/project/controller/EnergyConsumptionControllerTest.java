@@ -28,7 +28,6 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
@@ -62,8 +61,7 @@ class EnergyConsumptionControllerTest {
 
     @Mock
     private RoomRepository roomRepository;
-    @Mock
-    RoomSensorRepository roomSensorRepository;
+
     @Mock
     SensorTypeRepo sensorTypeRepo;
 
@@ -76,7 +74,7 @@ class EnergyConsumptionControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         this.energyGridService = new EnergyGridService(energyGridRepository);
-        roomService = new RoomService(this.roomRepository, roomSensorRepository, sensorTypeRepo);
+        roomService = new RoomService(this.roomRepository, sensorTypeRepo);
         this.roomList = new ArrayList<>();
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
         validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1", "Grid1");

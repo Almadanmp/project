@@ -17,7 +17,6 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
@@ -43,8 +42,7 @@ class EnergyGridTest {
 
     @Mock
     RoomRepository roomRepository;
-    @Mock
-    RoomSensorRepository roomSensorRepository;
+
     @Mock
     SensorTypeRepo sensorTypeRepo;
 

@@ -380,7 +380,7 @@ class RoomConfigurationUI {
     }
 
     private void displaySensorListUS250(Room room, RoomService roomService) {
-        if (roomService.getAllSensor().isEmpty()) {
+        if (room.getRoomSensors().isEmpty()) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
         }
