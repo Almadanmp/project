@@ -130,10 +130,6 @@ public final class AreaSensorMapper {
 
         String dtoUnits = objectToConvert.getSensorType().getUnits();
 
-        // Update the GA ID
-
-        Long dtoGeographicAreaID = objectToConvert.getGeographicAreaId();
-
         // Create, update and return the converted DTO.
 
         AreaSensorDTO resultDTO = new AreaSensorDTO();
@@ -146,7 +142,6 @@ public final class AreaSensorMapper {
         resultDTO.setName(dtoName);
         resultDTO.setId(dtoID);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
-        resultDTO.setGeographicAreaID(dtoGeographicAreaID);
 
         return resultDTO;
     }
