@@ -25,6 +25,10 @@ import pt.ipp.isep.dei.project.repository.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -54,12 +58,21 @@ class RoomMonitoringControllerTest {
     private Date validDate1;
     private Date validDate2;
     private Date validDate3;
+    private LocalDate validDate1v2;
+    private LocalDate validDate2v2;
+    private LocalDate validDate3v2;
     private Date validDateSensor;
     private Date validStartDate;
     private Date validEndingDate;
     private Date roomReadingDate1;
     private Date roomReadingDate2;
     private Date roomReadingDate3;
+    private LocalDate roomReadingDate1v2;
+    private LocalDate roomReadingDate2v2;
+    private LocalDate roomReadingDate3v2;
+    private LocalDateTime areaReadingDate1v2;
+    private LocalDateTime areaReadingDate2v2;
+    private LocalDateTime areaReadingDate3v2;
     private Date areaReadingDate1;
     private Date areaReadingDate2;
     private Date areaReadingDate3;
@@ -83,14 +96,22 @@ class RoomMonitoringControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        validDate1v2 = LocalDate.of(2018, Month.FEBRUARY, 1);
+        validDate2v2 = LocalDate.of(2018, Month.FEBRUARY, 10);
+        validDate3v2 = LocalDate.of(2018, Month.FEBRUARY, 20);
+
+        roomReadingDate1v2 = LocalDate.of(2018, Month.DECEMBER, 1);
+        roomReadingDate2v2 = LocalDate.of(2018, Month.DECEMBER, 10);
+        roomReadingDate3v2 = LocalDate.of(2018, Month.DECEMBER, 20);
+
+        areaReadingDate1v2 = LocalDateTime.of(2018, Month.DECEMBER, 1,0,0,0);
+        areaReadingDate2v2 = LocalDateTime.of(2018, Month.DECEMBER, 10,0,0,0);
+        areaReadingDate3v2 = LocalDateTime.of(2018, Month.DECEMBER, 20,0,0,0);
+
         validSdf = new SimpleDateFormat("dd/MM/yyyy");
-        validSdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        validSdf2.setTimeZone(TimeZone.getTimeZone("GMT"));
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
-        readingSD.setTimeZone(TimeZone.getTimeZone("GMT"));
         SimpleDateFormat readingSD2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
-        readingSD2.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
             validDate1 = validSdf.parse("01/02/2018");
             validDate2 = validSdf.parse("10/02/2018");
@@ -142,6 +163,20 @@ class RoomMonitoringControllerTest {
         validRoomDTO.setHouseId(validHouse.getId());
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("temperature", "Celsius"), validDate1, "RoomDFS");
         firstValidRoomSensor.setActive(true);
+
+        validDate1 = java.sql.Date.valueOf(validDate1v2);
+        validDate2 = java.sql.Date.valueOf(validDate2v2);
+        validDate3 = java.sql.Date.valueOf(validDate3v2);
+
+        roomReadingDate1 = java.sql.Date.valueOf(roomReadingDate1v2);
+        roomReadingDate2 = java.sql.Date.valueOf(roomReadingDate2v2);
+        roomReadingDate3 = java.sql.Date.valueOf(roomReadingDate3v2);
+
+        areaReadingDate1 = java.sql.Date.valueOf(areaReadingDate1v2.toLocalDate());
+        areaReadingDate2 = java.sql.Date.valueOf(areaReadingDate2v2.toLocalDate());
+        areaReadingDate3 = java.sql.Date.valueOf(areaReadingDate3v2.toLocalDate());
+
+
     }
 
     @Test
