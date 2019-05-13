@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
@@ -83,7 +83,6 @@ class RoomMapperTest {
         roomSensor.setActive(true);
         roomSensor.setDateStartedFunctioning(date);
         roomSensor.setId("Id");
-        roomSensor.setRoomId("RoomId");
         roomSensor.setSensorType(new SensorType("Temperature", "Celsius"));
         validRoom.setDeviceList(deviceList);
     }
@@ -123,14 +122,14 @@ class RoomMapperTest {
     @Test
     void seeIfUpdateHouseRoomWorks() {
         List<Room> rooms = new ArrayList<>();
-        Room room = new Room("Room1","1st Floor Room",1,3,4,4,"House 01","Grid 01");
-        Room room1 = new Room("Room2","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
+        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
         rooms.add(room);
         rooms.add(room1);
         validDTO.setName("Room1");
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
         Room actualResult = roomService.updateHouseRoom(validDTO);
-        assertEquals(room,actualResult);
+        assertEquals(room, actualResult);
     }
 
     //    @Test

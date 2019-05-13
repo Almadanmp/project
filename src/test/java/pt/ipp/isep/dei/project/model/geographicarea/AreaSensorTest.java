@@ -732,21 +732,6 @@ class AreaSensorTest {
         assertEquals(expectedResult, result, 0.01);
     }
 
-    @Test
-    void seeIfSetGeographicAreaIdWorks() {
-        // Arrange
-
-        validAreaSensor.setGeographicAreaId(20L);
-        long expectedResult = 20;
-
-        // Act
-
-        long actualResult = validAreaSensor.getGeographicAreaId();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-    }
 
     @Test
     void getDateHighestAmplitudeBetweenDatesThrowsException() {

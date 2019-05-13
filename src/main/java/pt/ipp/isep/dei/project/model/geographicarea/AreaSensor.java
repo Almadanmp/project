@@ -36,8 +36,6 @@ public class AreaSensor {
     @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
 
-    private Long geographicAreaId;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "AreaReading")
     private final List<Reading> areaReadings;
@@ -69,7 +67,6 @@ public class AreaSensor {
         this.local = local;
         this.dateStartedFunctioning = new Date(dateStartedFunctioning.getTime());
         this.active = true;
-        this.geographicAreaId = geographicAreaId;
         areaReadings = new ArrayList<>();
     }
 
@@ -106,14 +103,6 @@ public class AreaSensor {
      */
     public String getId() {
         return (this.id);
-    }
-
-    public void setGeographicAreaId(Long geographicAreaId) {
-        this.geographicAreaId = geographicAreaId;
-    }
-
-    public Long getGeographicAreaId() {
-        return this.geographicAreaId;
     }
 
     public List<Reading> getReadings() {

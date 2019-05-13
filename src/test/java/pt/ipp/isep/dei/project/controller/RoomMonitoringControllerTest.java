@@ -150,7 +150,7 @@ class RoomMonitoringControllerTest {
         Date validDate2 = new Date();
         Date validDate3 = new Date();
 
-        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'",Locale.ENGLISH);
+        SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'", Locale.ENGLISH);
         try {
             validDate1 = validSdf.parse("2018-07-03T10:50:00+00:00");
             validDate2 = validSdf.parse("2018-07-03T13:15:00+00:00");
@@ -331,7 +331,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -380,8 +379,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
-
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
         validRoom1.setRoomSensors(roomSensors);
@@ -424,7 +421,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -467,7 +463,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -499,7 +494,6 @@ class RoomMonitoringControllerTest {
 
         List<Reading> readings = new ArrayList<>();
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -540,7 +534,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -585,7 +578,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -629,7 +621,6 @@ class RoomMonitoringControllerTest {
         readings.add(reading3);
 
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -657,7 +648,6 @@ class RoomMonitoringControllerTest {
 
         List<Reading> readings = new ArrayList<>();
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);
@@ -685,7 +675,6 @@ class RoomMonitoringControllerTest {
 
         List<Reading> readings = new ArrayList<>();
         firstValidRoomSensor.setReadings(readings);
-        firstValidRoomSensor.setRoomId(validRoom1.getId());
 
         List<RoomSensor> roomSensors = new ArrayList<>();
         roomSensors.add(firstValidRoomSensor);

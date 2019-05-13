@@ -100,7 +100,6 @@ public class ReaderXMLGeoArea {
             }
             try {
                 areaSensor = geographicAreaService.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date, gaID);
-                areaSensor.setGeographicAreaId(geographicArea.getId());
                 geographicArea.addSensor(areaSensor);
             } catch (IllegalArgumentException ignored) {
             }
