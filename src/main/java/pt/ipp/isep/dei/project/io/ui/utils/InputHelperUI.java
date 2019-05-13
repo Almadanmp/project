@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -253,15 +253,15 @@ public class InputHelperUI {
      *
      * @return is the chosen energy grid.
      */
-    public static EnergyGrid getInputGridByList(EnergyGridService energyGridService) {
+    public static EnergyGrid getInputGridByList(EnergyGridRepository energyGridRepository) {
         Scanner scanner = new Scanner(System.in);
         EnergyGridSettingsController controller = new EnergyGridSettingsController();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
-            System.out.println(controller.buildGridListString(energyGridService));
+            System.out.println(controller.buildGridListString(energyGridRepository));
             String aux = scanner.nextLine();
             try {
-                EnergyGrid result = energyGridService.getById(aux);
+                EnergyGrid result = energyGridRepository.getById(aux);
                 System.out.println("You have chosen the following grid:");
                 System.out.println(result.buildString() + "\n");
                 return result;

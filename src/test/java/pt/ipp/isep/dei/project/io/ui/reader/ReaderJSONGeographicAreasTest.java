@@ -43,7 +43,7 @@ class ReaderJSONGeographicAreasTest {
     RoomRepository roomRepository;
 
     @Mock
-    EnergyGridRepository energyGridRepository;
+    EnergyGridRepo energyGridRepository;
 
     @Mock
     AreaTypeRepo areaTypeRepo;

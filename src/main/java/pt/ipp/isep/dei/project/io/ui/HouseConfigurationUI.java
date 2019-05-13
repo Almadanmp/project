@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -53,7 +53,7 @@ class HouseConfigurationUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridService energyGridService, HouseRepository houseRepository) {
+    void run(House house, GeographicAreaService geographicAreaService, RoomService roomService, EnergyGridRepository energyGridRepository, HouseRepository houseRepository) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -64,7 +64,7 @@ class HouseConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS100(house, energyGridService, houseRepository, roomService);
+                    runUS100(house, energyGridRepository, houseRepository, roomService);
                     activeInput = false;
                     break;
                 case 2:
@@ -72,7 +72,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS105(house, roomService, energyGridService);
+                    runUS105(house, roomService, energyGridRepository);
                     activeInput = false;
                     break;
                 case 4:
@@ -99,7 +99,7 @@ class HouseConfigurationUI {
 
     /*As an Administrator, I want to configure the house from a file containing basic house information, grids and rooms.*/
 
-    private void runUS100(House house, EnergyGridService energyGridService, HouseRepository houseRepository, RoomService roomService) {
+    private void runUS100(House house, EnergyGridRepository energyGridRepository, HouseRepository houseRepository, RoomService roomService) {
         ReaderController ctrl = new ReaderController();
         InputHelperUI inputHelperUI = new InputHelperUI();
         System.out.println(FILE_LOCATION);
@@ -109,7 +109,7 @@ class HouseConfigurationUI {
         String filePath = inputHelperUI.getInputPath(input);
         long startTime = System.currentTimeMillis();
         try {
-            if (ctrl.readJSONAndDefineHouse(house, filePath, energyGridService, houseRepository, roomService)) {
+            if (ctrl.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseRepository, roomService)) {
                 System.out.println("House Data Successfully imported.");
                 long stopTime = System.currentTimeMillis();
                 System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
@@ -150,9 +150,9 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(House house, RoomService roomService, EnergyGridService energyGridService) {
+    private void runUS105(House house, RoomService roomService, EnergyGridRepository energyGridRepository) {
         getInputRoomCharacteristics();
-        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridService);
+        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridRepository);
         Room room = createNewRoom(roomService, house, grid);
         displayRoom();
         boolean added = addRoomToHouse(roomService, room);

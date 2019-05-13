@@ -1,12 +1,22 @@
 package pt.ipp.isep.dei.project.model.bridgeservices;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
+import pt.ipp.isep.dei.project.repository.RoomRepository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -16,13 +26,47 @@ import static org.junit.jupiter.api.Assertions.*;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class EnergyGridRoomServiceTest {
 
+    private Room validRoom;
+    private EnergyGridRoomService validEnergyGridRoomService;
+
+    @Mock
+    private RoomRepository roomRepository;
+
+    @Mock
+    private EnergyGridRepo energyGridRepo;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        MockitoAnnotations.initMocks(this);
+        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        validEnergyGridRoomService = new EnergyGridRoomService(energyGridRepo, roomRepository);
+    }
+
     @Test
-    void seeIfEmptyConstructorWoks(){
+    void seeIfEmptyConstructorWoks() {
 
         //Act
         EnergyGridRoomService energyGridRoomService = new EnergyGridRoomService();
 
         // Assert
-        assertEquals(energyGridRoomService,energyGridRoomService);
+        assertEquals(energyGridRoomService, energyGridRoomService);
+    }
+
+    @Test
+    void seeIfGetAllByEnergyGridNameWorks() {
+        //Arrange
+
+        List<Room> roomListExpected = new ArrayList<>();
+        roomListExpected.add(validRoom);
+        Mockito.when(roomRepository.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
+
+        //Act
+
+        List<Room> actualResult = validEnergyGridRoomService.getAllByEnergyGridName("Grid1");
+
+        //Assert
+
+        assertEquals(roomListExpected, actualResult);
+
     }
 }

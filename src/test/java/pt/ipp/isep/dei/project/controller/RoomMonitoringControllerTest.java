@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
@@ -44,6 +45,7 @@ class RoomMonitoringControllerTest {
     private SimpleDateFormat validSdf2;
     private RoomService roomService;
     private GeographicAreaService geographicAreaService;
+    private GeographicAreaHouseService geographicAreaHouseService;
     private Room validRoom1;
     private RoomDTO validRoomDTO;
     private List<Room> rooms;
@@ -128,6 +130,7 @@ class RoomMonitoringControllerTest {
         this.validHouse.setMotherArea(validArea);
         this.roomService = new RoomService(roomRepository, sensorTypeRepo);
         this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
+        this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         validRoomService = new RoomService(roomRepository, sensorTypeRepo);
         this.rooms = new ArrayList<>();
@@ -341,9 +344,9 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
-        String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
-        String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -388,7 +391,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -431,7 +434,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -473,7 +476,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -500,7 +503,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -544,7 +547,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -588,7 +591,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -627,7 +630,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -654,7 +657,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 
@@ -681,7 +684,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
 
         // Assert
 

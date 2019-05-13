@@ -270,20 +270,20 @@ class UnitHelperTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfConvertStringToUnitWorksWithWrongString() {
-        // Arrange
-
-        String givenUnitString = "WrongString";
-
-        // Act
-
-        Unit actualResult = UnitHelper.convertStringToUnit(givenUnitString);
-
-        // Assert
-
-        assertNull(actualResult);
-    }
+//    @Test
+//    void seeIfConvertStringToUnitWorksWithWrongString() {
+//        // Arrange
+//
+//        String givenUnitString = "WrongString";
+//
+//        // Act
+//
+//        Unit actualResult = UnitHelper.convertStringToUnit(givenUnitString);
+//
+//        // Assert
+//
+//        assertNull(actualResult);
+//    }
 
     @Test
     void seeIfGetReaderClassToInstanceWorks() throws IOException {

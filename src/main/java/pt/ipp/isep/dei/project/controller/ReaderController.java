@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -35,7 +35,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridService energyGridService, HouseRepository houseRepository, RoomService roomService) {
+    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseRepository houseRepository, RoomService roomService) {
         //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO;
@@ -53,7 +53,7 @@ public class ReaderController {
         for (EnergyGridDTO eg : gridDTOS) {
             EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
             energyGrid.setHouseId(house.getId());
-            energyGridService.addGrid(energyGrid);
+            energyGridRepository.addGrid(energyGrid);
         }
 
         //ROOMS

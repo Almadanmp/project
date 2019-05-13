@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.controller;
 
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -31,8 +31,8 @@ public class EnergyGridSettingsController {
     /**
      * @return builds a string of all the individual EnergyGrids contained in the house's EnergyGridList.
      */
-    public String buildGridListString(EnergyGridService energyGridService) {
-        return energyGridService.buildString();
+    public String buildGridListString(EnergyGridRepository energyGridRepository) {
+        return energyGridRepository.buildString();
     }
 
     /*
@@ -46,8 +46,8 @@ public class EnergyGridSettingsController {
      * @param energyGrid the grid to addWithoutPersisting to the House.
      * @return true if the grid was added to the house.
      */
-    public EnergyGrid addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridService energyGridService) {
-        EnergyGrid result = energyGridService.addGrid(energyGrid);
+    public EnergyGrid addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridRepository energyGridRepository) {
+        EnergyGrid result = energyGridRepository.addGrid(energyGrid);
         if (result == null){
             throw new RuntimeException();
         }
@@ -59,8 +59,8 @@ public class EnergyGridSettingsController {
      * @param maxPower    is the new grid's maxPower.
      * @return a new EnergyGrid.
      */
-    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID, EnergyGridService energyGridService) {
-        return energyGridService.createEnergyGrid(designation, maxPower, houseID);
+    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID, EnergyGridRepository energyGridRepository) {
+        return energyGridRepository.createEnergyGrid(designation, maxPower, houseID);
     }
 
     /* USER STORY 135 - As an Administrator, I want to addWithoutPersisting a power source to an energy grid, so that the produced
@@ -73,8 +73,8 @@ public class EnergyGridSettingsController {
      * @return a new power source.
      */
 
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, EnergyGridService energyGridService) {
-        return energyGridService.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, EnergyGridRepository energyGridRepository) {
+        return energyGridRepository.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
     /**

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -14,14 +16,14 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
@@ -34,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * EnergyGridSettingsController tests class.
  */
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class EnergyGridSettingsControllerTest {
 
     // Common artifacts for testing in this class.
@@ -42,10 +45,11 @@ class EnergyGridSettingsControllerTest {
     private House validHouse;
     private EnergyGrid validGrid;
     private Room validRoom;
+    private EnergyGridRepository energyGridRepository;
+
     private EnergyGridSettingsController controller = new EnergyGridSettingsController();
     @Mock
-    private EnergyGridRepository energyGridRepository;
-    private EnergyGridService energyGridService;
+    private EnergyGridRepo energyGridRepo;
     @Mock
     private RoomRepository roomRepository;
 
@@ -58,7 +62,7 @@ class EnergyGridSettingsControllerTest {
     void arrangeArtifacts() {
         this.rooms = new ArrayList<>();
         this.roomService = new RoomService(roomRepository, sensorTypeRepo);
-        this.energyGridService = new EnergyGridService(energyGridRepository);
+        this.energyGridRepository = new EnergyGridRepository(energyGridRepo);
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, new ArrayList<>());
@@ -164,8 +168,8 @@ class EnergyGridSettingsControllerTest {
         EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400, "34576");
         // Act
 
-        EnergyGrid actualResult1 = controller.createEnergyGrid("EG1", 400, "34576", energyGridService);
-        EnergyGrid actualResult2 = controller.createEnergyGrid("EG2", 400, "34576", energyGridService);
+        EnergyGrid actualResult1 = controller.createEnergyGrid("EG1", 400, "34576", energyGridRepository);
+        EnergyGrid actualResult2 = controller.createEnergyGrid("EG2", 400, "34576", energyGridRepository);
         // Assert
 
         assertEquals(expectedResult1, actualResult1);
@@ -181,8 +185,8 @@ class EnergyGridSettingsControllerTest {
 
         // Act
 
-        PowerSource actualResult1 = controller.createPowerSource("powersource1", 10, 10, energyGridService);
-        PowerSource actualResult2 = controller.createPowerSource("powersource2", 123, 76, energyGridService);
+        PowerSource actualResult1 = controller.createPowerSource("powersource1", 10, 10, energyGridRepository);
+        PowerSource actualResult2 = controller.createPowerSource("powersource2", 123, 76, energyGridRepository);
 
         // Assert
 
@@ -232,7 +236,7 @@ class EnergyGridSettingsControllerTest {
         List<EnergyGrid> returnList = new ArrayList<>();
         returnList.add(validGrid);
 
-        Mockito.when(energyGridRepository.findAll()).thenReturn(returnList);
+        Mockito.when(energyGridRepo.findAll()).thenReturn(returnList);
 
         String expectedResult = "---------------\n" +
                 "Designation: validGrid | Max Power: 300.0\n" +
@@ -240,7 +244,7 @@ class EnergyGridSettingsControllerTest {
 
         //Act
 
-        String actualResult = controller.buildGridListString(energyGridService);
+        String actualResult = controller.buildGridListString(energyGridRepository);
 
         //Arrange
 
@@ -269,8 +273,8 @@ class EnergyGridSettingsControllerTest {
     void seeIfAddGridToHouseWorks() {
         // Act
 
-        Mockito.when(energyGridRepository.save(validGrid)).thenReturn(validGrid);
-        EnergyGrid actualResult = controller.addEnergyGridToHouse(validGrid, energyGridService);
+        Mockito.when(energyGridRepo.save(validGrid)).thenReturn(validGrid);
+        EnergyGrid actualResult = controller.addEnergyGridToHouse(validGrid, energyGridRepository);
 
         // Assert
 
@@ -283,7 +287,7 @@ class EnergyGridSettingsControllerTest {
 
 
         assertThrows(RuntimeException.class,
-                () -> controller.addEnergyGridToHouse(validGrid, energyGridService));
+                () -> controller.addEnergyGridToHouse(validGrid, energyGridRepository));
 
     }
 

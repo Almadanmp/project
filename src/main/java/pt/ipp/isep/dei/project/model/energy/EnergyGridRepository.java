@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.energy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,19 @@ import java.util.Optional;
  * Class that groups a number of energy Grids of a House.
  */
 @Service
-public class EnergyGridService {
+public class EnergyGridRepository {
 
     @Autowired
-    EnergyGridRepository energyGridRepository;
+    EnergyGridRepo energyGridRepository;
 
     /**
      * Empty constructor to use on UIs.
      */
-    public EnergyGridService(EnergyGridRepository energyGridRepository) {
+    public EnergyGridRepository(EnergyGridRepo energyGridRepository) {
         this.energyGridRepository = energyGridRepository;
     }
 
-    public EnergyGridService() {
+    public EnergyGridRepository() {
     }
 
     public List<EnergyGrid> getAllGrids() {

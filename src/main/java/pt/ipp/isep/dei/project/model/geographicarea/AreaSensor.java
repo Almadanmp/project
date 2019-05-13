@@ -305,7 +305,7 @@ public class AreaSensor {
         return getSensorReadingAverageValue(sensorReadingsBetweenDates);
     }
 
-    static double getSensorReadingAverageValue(List<Reading> sensorReadingsBetweenDates) {
+    public static double getSensorReadingAverageValue(List<Reading> sensorReadingsBetweenDates) {
         List<Double> avgDailyValues = new ArrayList<>();
         for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
             Date day = sensorReadingsBetweenDates.get(i).getDate();

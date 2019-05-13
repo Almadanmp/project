@@ -71,11 +71,6 @@ public class RoomService {
         return false;
     }
 
-    public List<Room> getAllByEnergyGridName(String energyGridName) {
-        return roomRepository.findAllByEnergyGridId(energyGridName);
-    }
-
-
     /**
      * String Builder of the RoomList.
      *

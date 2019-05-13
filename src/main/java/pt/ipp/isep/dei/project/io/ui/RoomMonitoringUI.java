@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -33,7 +33,7 @@ class RoomMonitoringUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, RoomService roomService, GeographicAreaService geographicAreaService) {
+    void run(House house, RoomService roomService, GeographicAreaHouseService geographicAreaService) {
         boolean activeInput = false;
         int option;
         System.out.println("--------------\n");
@@ -73,7 +73,7 @@ class RoomMonitoringUI {
      * As a Power User or as a Room Owner, I want to have a list of the instants in which the temperature fell below the
      * comfort level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS440(RoomService roomService, House house, GeographicAreaService geographicAreaService) {
+    private void runUS440(RoomService roomService, House house, GeographicAreaHouseService geographicAreaService) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         if (!ctrl.isMotherAreaValid(house)) {
             return;
@@ -81,7 +81,7 @@ class RoomMonitoringUI {
         updateAndDisplayUS440(roomService, house, geographicAreaService);
     }
 
-    private void updateAndDisplayUS440(RoomService roomService, House house, GeographicAreaService geographicAreaService) {
+    private void updateAndDisplayUS440(RoomService roomService, House house, GeographicAreaHouseService geographicAreaHouseService) {
         System.out.println("Please select a room:");
         RoomDTO roomDTO = InputHelperUI.getRoomDTOByList(roomService);
         System.out.println("Please enter the starting date.");
@@ -89,7 +89,7 @@ class RoomMonitoringUI {
         System.out.println("Please enter the ending date.");
         Date endDate = DateUtils.getInputYearMonthDayHourMin();
         int category = UtilsUI.selectCategory();
-        String result = roomMonitoringController.getInstantsBelowComfortInterval(house, category, roomDTO, startDate, endDate, roomService, geographicAreaService);
+        String result = roomMonitoringController.getInstantsBelowComfortInterval(house, category, roomDTO, startDate, endDate, roomService, geographicAreaHouseService);
         System.out.println(result);
     }
 
@@ -99,7 +99,7 @@ class RoomMonitoringUI {
      * the instants in which the temperature rose above the comfort
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
-    private void runUS445(RoomService roomService, House house, GeographicAreaService geographicAreaService) {
+    private void runUS445(RoomService roomService, House house, GeographicAreaHouseService geographicAreaService) {
         HouseMonitoringController ctrl = new HouseMonitoringController();
         if (!ctrl.isMotherAreaValid(house)) {
             return;

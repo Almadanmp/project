@@ -20,13 +20,13 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
@@ -57,7 +57,7 @@ class EnergyConsumptionControllerTest {
     private Log validLog1;
     private GeographicArea validArea;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-    private EnergyGridService energyGridService;
+    private EnergyGridRepository energyGridRepository;
 
     @Mock
     private RoomRepository roomRepository;
@@ -69,11 +69,11 @@ class EnergyConsumptionControllerTest {
     private List<Room> roomList;
 
     @Mock
-    EnergyGridRepository energyGridRepository;
+    EnergyGridRepo energyGridRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        this.energyGridService = new EnergyGridService(energyGridRepository);
+        this.energyGridRepository = new EnergyGridRepository(energyGridRepo);
         roomService = new RoomService(this.roomRepository, sensorTypeRepo);
         this.roomList = new ArrayList<>();
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
@@ -348,7 +348,7 @@ class EnergyConsumptionControllerTest {
 
         // Act
 
-        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridService);
+        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridRepository);
 
         // Assert
 
@@ -361,13 +361,13 @@ class EnergyConsumptionControllerTest {
 
         List<EnergyGrid> grids = new ArrayList<>();
         grids.add(validGrid);
-        Mockito.when(energyGridRepository.findAll()).thenReturn(grids);
+        Mockito.when(energyGridRepo.findAll()).thenReturn(grids);
         List<EnergyGrid> expectedResult = new ArrayList<>();
         expectedResult.add(validGrid);
 
         // Act
 
-        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridService);
+        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridRepository);
 
         // Assert
 

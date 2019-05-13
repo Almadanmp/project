@@ -7,34 +7,36 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * EnergyGridList tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class EnergyGridServiceTest {
+class EnergyGridRepositoryTest {
     // Common testing artifacts for testing class.
 
     private EnergyGrid firstValidGrid;
     private EnergyGrid secondValidGrid;
 
     @Mock
-    private EnergyGridRepository energyGridRepository;
+    private EnergyGridRepo energyGridRepository;
 
-    private EnergyGridService validGridList;
+    private EnergyGridRepository validGridList;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validGridList = new EnergyGridService(this.energyGridRepository);
+        validGridList = new EnergyGridRepository(this.energyGridRepository);
         firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
         secondValidGrid = new EnergyGrid("Secondary Grid", 100, "CasaUm");
     }
@@ -359,5 +361,7 @@ class EnergyGridServiceTest {
 //
 //        assertEquals(1, actualResult2);
 //    }
+
+
 }
 

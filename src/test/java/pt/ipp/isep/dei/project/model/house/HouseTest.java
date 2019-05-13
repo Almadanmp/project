@@ -12,13 +12,13 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepository;
+import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
@@ -41,21 +41,21 @@ class HouseTest {
     private GeographicArea validArea;
     private AreaSensor firstValidAreaSensor;
     private RoomService roomService;
-    private EnergyGridService energyGridService;
+    private EnergyGridRepository energyGridRepository;
     private List<String> deviceTypeString;
 
     @Mock
     RoomRepository roomRepository;
 
     @Mock
-    EnergyGridRepository energyGridRepository;
+    EnergyGridRepo energyGridRepo;
     @Mock
     SensorTypeRepo sensorTypeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
         roomService = new RoomService(roomRepository, sensorTypeRepo);
-        energyGridService = new EnergyGridService(energyGridRepository);
+        energyGridRepository = new EnergyGridRepository(energyGridRepo);
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,

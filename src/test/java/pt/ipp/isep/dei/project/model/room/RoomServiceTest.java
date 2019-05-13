@@ -15,7 +15,7 @@ import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
@@ -590,7 +590,7 @@ class RoomServiceTest {
     void seeIfEqualsWorksFalseDifferentObject() {
         // Arrange
 
-        EnergyGridService testList = new EnergyGridService();
+        EnergyGridRepository testList = new EnergyGridRepository();
 
         //Act
 
@@ -659,23 +659,6 @@ class RoomServiceTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfGetAllByEnergyGridNameWorks() {
-        //Arrange
-
-        List<Room> roomListExpected = new ArrayList<>();
-        roomListExpected.add(validRoom);
-        Mockito.when(roomRepository.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
-
-        //Act
-
-        List<Room> actualResult = validRoomService.getAllByEnergyGridName("Grid1");
-
-        //Assert
-
-        assertEquals(roomListExpected, actualResult);
-
-    }
 
     @Test
     void seeIfCreateRoomReturnsExistingRoom() {

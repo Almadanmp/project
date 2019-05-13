@@ -3,13 +3,14 @@ package pt.ipp.isep.dei.project.controller;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Controller class for Room Monitoring UI
@@ -66,21 +67,21 @@ public class RoomMonitoringController {
      * @param category is selected by the user.
      * @return a String with the requested information for the User Story 445
      */
-    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaService geographicAreaService) {
+    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaHouseService geographicAreaHouseService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
         List<Reading> readingValues = roomService.getTemperatureReadingsBetweenDates(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
-            allReadings = geographicAreaService.getReadingsAboveCategoryILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsAboveCategoryILimit(readingValues, house);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 1) {
-            allReadings = geographicAreaService.getReadingsAboveCategoryIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsAboveCategoryIILimit(readingValues, house);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 2) {
-            allReadings = geographicAreaService.getReadingsAboveCategoryIIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readingValues, house);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         return result;
@@ -109,23 +110,23 @@ public class RoomMonitoringController {
 
     //US 440
 
-    public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaService geographicAreaService) {
+    public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaHouseService geographicAreaHouseService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
         List<Reading> readingValues = roomService.getTemperatureReadingsBetweenDates(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {
-            allReadings = geographicAreaService.getReadingsBelowCategoryILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsBelowCategoryILimit(readingValues, house);
 
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 1) {
-            allReadings = geographicAreaService.getReadingsBelowCategoryIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsBelowCategoryIILimit(readingValues, house);
 
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 2) {
-            allReadings = geographicAreaService.getReadingsBelowCategoryIIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(readingValues, house);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         return result;

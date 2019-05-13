@@ -13,8 +13,10 @@ import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.RoomService;
@@ -45,9 +47,13 @@ public class MainUI {
     @Autowired
     private RoomService roomService;
     @Autowired
+    private GeographicAreaHouseService geographicAreaHouseService;
+    @Autowired
+    private EnergyGridRoomService energyGridRoomService;
+    @Autowired
     private HouseRepository houseRepository;
     @Autowired
-    private EnergyGridService energyGridService;
+    private EnergyGridRepository energyGridRepository;
     @Autowired
     private SensorTypeRepo sensorTypeRepo;
     @Autowired
@@ -180,7 +186,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI();
-                            houseC.run(house, geographicAreaService, roomService, energyGridService, houseRepository);
+                            houseC.run(house, geographicAreaService, roomService, energyGridRepository, houseRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -198,13 +204,13 @@ public class MainUI {
                             break;
                         case 5:
                             EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                            energyGridSettings.run(house, energyGridService, roomService);
+                            energyGridSettings.run(house, energyGridRepository, roomService, energyGridRoomService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 6:
                             RoomMonitoringUI roomMonitoringUI = new RoomMonitoringUI();
-                            roomMonitoringUI.run(house, roomService, geographicAreaService);
+                            roomMonitoringUI.run(house, roomService, geographicAreaHouseService);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
@@ -216,7 +222,7 @@ public class MainUI {
                             break;
                         case 8:
                             EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                            energyConsumptionUI.run(roomService, energyGridService);
+                            energyConsumptionUI.run(roomService, energyGridRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
