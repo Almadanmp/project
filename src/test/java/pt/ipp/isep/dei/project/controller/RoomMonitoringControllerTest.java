@@ -275,9 +275,9 @@ class RoomMonitoringControllerTest {
         list.add(reading3);
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 GMT 2018   Temperature value: 11.0\n" +
-                "1) Instant: Sat Feb 10 00:00:00 GMT 2018   Temperature value: 17.0\n" +
-                "2) Instant: Tue Feb 20 00:00:00 GMT 2018   Temperature value: 11.0\n" +
+                "0) Instant: Thu Feb 01 01:00:00 CET 2018   Temperature value: 11.0\n" +
+                "1) Instant: Sat Feb 10 01:00:00 CET 2018   Temperature value: 17.0\n" +
+                "2) Instant: Tue Feb 20 01:00:00 CET 2018   Temperature value: 11.0\n" +
                 "--------------------------------------\n";
 
         // Act
@@ -362,9 +362,9 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 GMT 2018   Temperature value: 31.0\n" +
-                "1) Instant: Sat Feb 10 00:00:00 GMT 2018   Temperature value: 80.0\n" +
-                "2) Instant: Tue Feb 20 00:00:00 GMT 2018   Temperature value: 31.0\n" +
+                "0) Instant: Thu Feb 01 01:00:00 CET 2018   Temperature value: 31.0\n" +
+                "1) Instant: Sat Feb 10 01:00:00 CET 2018   Temperature value: 80.0\n" +
+                "2) Instant: Tue Feb 20 01:00:00 CET 2018   Temperature value: 31.0\n" +
                 "--------------------------------------\n";
 
         int category = 0;
@@ -407,8 +407,8 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Sat Feb 10 00:00:00 GMT 2018   Temperature value: 80.0\n" +
-                "1) Instant: Tue Feb 20 00:00:00 GMT 2018   Temperature value: 30.0\n" +
+                "0) Instant: Sat Feb 10 01:00:00 CET 2018   Temperature value: 80.0\n" +
+                "1) Instant: Tue Feb 20 01:00:00 CET 2018   Temperature value: 30.0\n" +
                 "--------------------------------------\n";
 
         int category = 1;
@@ -451,7 +451,7 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are above comfort temperature:\n" +
-                "0) Instant: Sat Feb 10 00:00:00 GMT 2018   Temperature value: 80.0\n" +
+                "0) Instant: Sat Feb 10 01:00:00 CET 2018   Temperature value: 80.0\n" +
                 "--------------------------------------\n";
 
         int category = 2;
@@ -522,9 +522,9 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 GMT 2018   Temperature value: 0.0\n" +
-                "1) Instant: Sat Feb 10 00:00:00 GMT 2018   Temperature value: 0.0\n" +
-                "2) Instant: Tue Feb 20 00:00:00 GMT 2018   Temperature value: 0.0\n" +
+                "0) Instant: Thu Feb 01 01:00:00 CET 2018   Temperature value: 0.0\n" +
+                "1) Instant: Sat Feb 10 01:00:00 CET 2018   Temperature value: 0.0\n" +
+                "2) Instant: Tue Feb 20 01:00:00 CET 2018   Temperature value: 0.0\n" +
                 "--------------------------------------\n";
 
         int category = 1;
@@ -567,9 +567,9 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
-                "0) Instant: Thu Feb 01 00:00:00 GMT 2018   Temperature value: 0.0\n" +
-                "1) Instant: Sat Feb 10 00:00:00 GMT 2018   Temperature value: 0.0\n" +
-                "2) Instant: Tue Feb 20 00:00:00 GMT 2018   Temperature value: 0.0\n" +
+                "0) Instant: Thu Feb 01 01:00:00 CET 2018   Temperature value: 0.0\n" +
+                "1) Instant: Sat Feb 10 01:00:00 CET 2018   Temperature value: 0.0\n" +
+                "2) Instant: Tue Feb 20 01:00:00 CET 2018   Temperature value: 0.0\n" +
                 "--------------------------------------\n";
 
         int category = 2;
@@ -612,9 +612,9 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Instants in which the readings are below the comfort temperature:\n" +
-                "0) Instant: Sat Dec 01 00:00:00 GMT 2018   Temperature value: 0.0\n" +
-                "1) Instant: Mon Dec 10 00:00:00 GMT 2018   Temperature value: 0.0\n" +
-                "2) Instant: Thu Dec 20 00:00:00 GMT 2018   Temperature value: 0.0\n" +
+                "0) Instant: Sat Dec 01 01:00:00 CET 2018   Temperature value: 0.0\n" +
+                "1) Instant: Mon Dec 10 01:00:00 CET 2018   Temperature value: 0.0\n" +
+                "2) Instant: Thu Dec 20 01:00:00 CET 2018   Temperature value: 0.0\n" +
                 "--------------------------------------\n";
 
         int category = 0;
