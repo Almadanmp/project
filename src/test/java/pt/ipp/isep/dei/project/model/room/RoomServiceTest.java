@@ -18,7 +18,6 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridService;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.text.ParseException;
@@ -50,8 +49,6 @@ class RoomServiceTest {
     @Mock
     private RoomRepository roomRepository;
     @Mock
-    private RoomSensorRepository roomSensorRepository;
-    @Mock
     private SensorTypeRepo sensorTypeRepo;
 
     private RoomService validRoomService;
@@ -63,7 +60,7 @@ class RoomServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomService = new RoomService(this.roomRepository, this.roomSensorRepository, this.sensorTypeRepo);
+        validRoomService = new RoomService(this.roomRepository, this.sensorTypeRepo);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -526,7 +523,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, actualResult,0.1);
+        assertEquals(expectedResult, actualResult, 0.1);
     }
 
     @Test
@@ -602,19 +599,6 @@ class RoomServiceTest {
         // Assert
 
         assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfGetAllSensor() {
-
-        List<RoomSensor> roomSensors = new ArrayList<>();
-        validRoomService.saveSensor(secondValidRoomSensor);
-        Mockito.when(sensorTypeRepo.findByName("Temperature")).thenReturn(Optional.of(new SensorType("Temperature", "C")));
-
-        Mockito.when(roomSensorRepository.findAll()).thenReturn(roomSensors);
-        validRoomService.saveSensor(firstValidRoomSensor);
-
-        assertEquals(roomSensors, validRoomService.getAllSensor());
     }
 
     @Test
@@ -761,7 +745,7 @@ class RoomServiceTest {
         //Act
         double actualResult = validRoomService.getNominalPower();
         //Assert
-        assertEquals(21, actualResult,0.1);
+        assertEquals(21, actualResult, 0.1);
     }
 
     @Test
@@ -811,13 +795,13 @@ class RoomServiceTest {
     @Test
     void seeIfUpdateHouseRoomWorks() {
         List<Room> rooms = new ArrayList<>();
-        validRoom =  new Room("Room1","1st Floor Room",1,3,4,4,"House 01","Grid 01");
-        Room room1 = new Room("Room2","1st Floor Room",1,3,4,4,"House 01","Grid 01");
-        Room room = new Room("Room1","1st Floor Room",1,3,4,4,"House 01","Grid 01");
+        validRoom = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
+        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
+        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
         rooms.add(room1);
         rooms.add(room);
         Mockito.when(roomRepository.findAll()).thenReturn(rooms);
         Room actualResult = validRoomService.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
-        assertEquals(room,actualResult);
+        assertEquals(room, actualResult);
     }
 }

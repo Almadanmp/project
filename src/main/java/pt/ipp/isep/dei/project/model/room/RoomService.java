@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.RoomSensorRepository;
 import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
 
 import java.util.ArrayList;
@@ -30,9 +29,6 @@ public class RoomService {
     RoomRepository roomRepository;
 
     @Autowired
-    RoomSensorRepository roomSensorRepository;
-
-    @Autowired
     SensorTypeRepo sensorTypeRepo;
 
     private static final String STRING_BUILDER = "---------------\n";
@@ -43,9 +39,8 @@ public class RoomService {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomService(RoomRepository roomRepository, RoomSensorRepository roomSensorRepository, SensorTypeRepo sensorTypeRepo) {
+    public RoomService(RoomRepository roomRepository, SensorTypeRepo sensorTypeRepo) {
         this.roomRepository = roomRepository;
-        this.roomSensorRepository = roomSensorRepository;
         this.sensorTypeRepo = sensorTypeRepo;
     }
 
@@ -131,7 +126,7 @@ public class RoomService {
      * @param room is the room we want to saveSensor.
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
-    void updateRoom(Room room) {
+    public void updateRoom(Room room) {
         roomRepository.save(room);
     }
 
@@ -292,26 +287,6 @@ public class RoomService {
 
     public Optional<Room> findRoomByID(String idToFind) {
         return roomRepository.findById(idToFind);
-    }
-
-
-    //Methods from RoomSensorService
-
-    public void saveSensor(RoomSensor sensor) {
-        Optional<SensorType> sensorType = sensorTypeRepo.findByName(sensor.getSensorType().getName());
-
-        if (sensorType.isPresent()) {
-            sensor.setSensorType(sensorType.get());
-        } else {
-            SensorType newSensorType = sensor.getSensorType();
-            sensorTypeRepo.save(newSensorType);
-            sensor.setSensorType(newSensorType);
-        }
-        this.roomSensorRepository.save(sensor);
-    }
-
-    public List<RoomSensor> getAllSensor() {
-        return roomSensorRepository.findAll();
     }
 
     /**
