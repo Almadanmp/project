@@ -115,7 +115,7 @@ public class GASettingsController {
         return LocalMapper.objectToDTO(local);
     }
 
-    /* USER STORY 04 -  As an Administrator, I want to getDB a list of existing geographical areas of a given type. */
+    /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
 
     /**
      * @param geographicAreaService is the Geographic Area List where we want to search for objects with a given type.

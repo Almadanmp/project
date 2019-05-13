@@ -455,17 +455,6 @@ class RoomSensorTest {
     }
 
     @Test
-    void seeIfSetAndGetRoomIdWorks() {
-        //Arrange
-        validRoomSensor.setRoomId("B109");
-        String expectedResult = "B109";
-        //Act
-        String actualResult = validRoomSensor.getRoomId();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void seeIfSetAndGetHouseReadingsWorks() {
         //Arrange
         List<Reading> readingList = new ArrayList<>();
@@ -486,8 +475,8 @@ class RoomSensorTest {
         readingList.add(reading);
         validRoomSensor.setReadings(readingList);
         //Act
-        boolean actualResult = validRoomSensor.readingWithGivenDateExists(new GregorianCalendar(2019,Calendar.JANUARY,1).getTime());
-        boolean actualResult1 = validRoomSensor.readingWithGivenDateExists(new GregorianCalendar(2018,Calendar.JANUARY,1).getTime());
+        boolean actualResult = validRoomSensor.readingWithGivenDateExists(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
+        boolean actualResult1 = validRoomSensor.readingWithGivenDateExists(new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime());
         //Assert
         assertTrue(actualResult);
         assertFalse(actualResult1);
@@ -496,7 +485,7 @@ class RoomSensorTest {
     @Test
     void seeIfReadingExistsDoesNotWork() {
         //Act
-        boolean actualResult = validRoomSensor.readingWithGivenDateExists(new GregorianCalendar(2019,Calendar.JANUARY,1).getTime());
+        boolean actualResult = validRoomSensor.readingWithGivenDateExists(new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
         //Assert
         assertFalse(actualResult);
     }

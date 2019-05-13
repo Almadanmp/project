@@ -29,16 +29,10 @@ public class RoomSensor {
 
     private boolean active;
 
-    private String roomId;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "RoomReading")
     private List<Reading> readings;
 
-//    @ManyToOne
-//    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
-//    @JoinColumn(name = "room")
-//    protected Room parent;
 
     /**
      * Empty constructor to import Sensors from a XML file.
@@ -60,7 +54,6 @@ public class RoomSensor {
         setSensorType(sensorType);
         setDateStartedFunctioning(dateStartedFunctioning);
         this.active = true;
-        this.roomId = roomId;
         this.readings = new ArrayList<>();
     }
 
@@ -94,14 +87,6 @@ public class RoomSensor {
      */
     public String getId() {
         return (this.id);
-    }
-
-    public String getRoomId() {
-        return this.roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
     }
 
     public List<Reading> getReadings() {

@@ -109,10 +109,6 @@ public final class RoomSensorMapper {
 
         String dtoName = objectToConvert.getName();
 
-        // Update the roomID
-
-        String dtoRoomID = objectToConvert.getRoomId();
-
         // Update the date of activation
 
         String dtoActivationDate = objectToConvert.getDateStartedFunctioning().toString();
@@ -145,7 +141,6 @@ public final class RoomSensorMapper {
         resultDTO.setActive(dtoStatus);
         resultDTO.setName(dtoName);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
-        resultDTO.setRoomID(dtoRoomID);
         resultDTO.setReadingList(dtoReadingList);
         resultDTO.setId(dtoID);
 
