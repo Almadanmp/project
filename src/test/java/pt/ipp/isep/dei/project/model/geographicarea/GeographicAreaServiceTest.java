@@ -135,6 +135,20 @@ class GeographicAreaServiceTest {
     }
 
     @Test
+    void seeIfUpdateGeoAreaWorks() {
+        // Arrange
+
+        GeographicArea expectedResult = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+                new Local(50, 50, 10));
+
+        Mockito.when(geographicAreaRepository.save(firstValidArea)).thenReturn(expectedResult);
+
+        // Assert
+
+        assertEquals(expectedResult, firstValidArea);
+    }
+
+    @Test
     void seeIfAddAreaReadingsWorksWhenSensorIDIsInvalid() {
         // Arrange
 
