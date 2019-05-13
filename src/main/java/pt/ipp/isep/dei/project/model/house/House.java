@@ -47,7 +47,7 @@ public class House implements Root {
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         this.location = local;
-        buildDeviceTypeList(deviceTypeConfig);
+        buildAndSetDeviceTypeList(deviceTypeConfig);
     }
 
 
@@ -57,7 +57,7 @@ public class House implements Root {
         this.gridMeteringPeriod = gridMeteringPeriod;
         this.deviceMeteringPeriod = deviceMeteringPeriod;
         this.location = local;
-        buildDeviceTypeList(deviceTypeConfig);
+        buildAndSetDeviceTypeList(deviceTypeConfig);
     }
 
     public House() {
@@ -65,12 +65,6 @@ public class House implements Root {
 
 
     //SETTERS AND GETTERS
-
-
-    public void setDeviceTypeList(List<String> deviceTypeConfig) {
-        buildDeviceTypeList(deviceTypeConfig);
-    }
-
 
     /**
      * Standard getter method, to return the Address of the House.
@@ -218,7 +212,7 @@ public class House implements Root {
      *
      * @param deviceTypePaths List of Strings with all the device paths (values) from device.properties file
      */
-    void buildDeviceTypeList(List<String> deviceTypePaths) {
+    public void buildAndSetDeviceTypeList(List<String> deviceTypePaths) {
         this.deviceTypeList = new ArrayList<>();
         for (String s : deviceTypePaths) {
             DeviceType aux;

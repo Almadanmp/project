@@ -120,27 +120,6 @@ class HouseTest {
     }
 
     @Test
-    void seeIfSetDeviceTypeListWorks() {
-        //Arrange
-
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add(PATH_TO_FRIDGE);
-
-        List<DeviceType> expectedResult = new ArrayList<>();
-        expectedResult.add(new FridgeType());
-
-        // Act
-
-        validHouse.setDeviceTypeList(deviceTypeString);
-        List<DeviceType> actualResult = validHouse.getDeviceTypeList();
-
-        // Assert
-
-        assertEquals(expectedResult.get(0).getDeviceType(), actualResult.get(0).getDeviceType());
-    }
-
-
-    @Test
     void seeDistanceToSensor() {
         // Act
 
@@ -337,7 +316,7 @@ class HouseTest {
 
         // Act
 
-        validHouse.buildDeviceTypeList(deviceTypePaths);
+        validHouse.buildAndSetDeviceTypeList(deviceTypePaths);
         List<DeviceType> deviceTypeList = validHouse.getDeviceTypeList();
         int expectedResult =2;
 
@@ -355,7 +334,7 @@ class HouseTest {
                     List<String> deviceTypePaths = new ArrayList<>();
                     deviceTypePaths.add("pt.ipp.isep.dei.project.model.device.devicetypes.Dish");
 
-                    validHouse.buildDeviceTypeList(deviceTypePaths);
+                    validHouse.buildAndSetDeviceTypeList(deviceTypePaths);
                 });
     }
 

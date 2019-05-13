@@ -242,7 +242,7 @@ public class MainUI {
             house = aux.get();
             house.setGridMeteringPeriod(gridMeteringPeriod);
             house.setDeviceMeteringPeriod(deviceMeteringPeriod);
-            house.setDeviceTypeList(deviceTypeConfig);
+            house.buildAndSetDeviceTypeList(deviceTypeConfig);
             houseRepository.save(house);
             return house;
         }
