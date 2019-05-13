@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomService;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -96,11 +97,9 @@ public class RoomMonitoringController {
     String buildReadingsOutput(List<Reading> list, String header) {
         StringBuilder result = new StringBuilder(header);
         for (int i = 0; i < list.size(); i++) {
-            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh.mm.ss");
             Reading reading = list.get(i);
-            gregorianCalendar.setTime(reading.getDate());
-            gregorianCalendar.setTimeZone(TimeZone.getTimeZone("GMT"));
-            result.append(i).append(") Instant: ").append(gregorianCalendar.getTime());
+            result.append(i).append(") Instant: ").append(formatter.format(reading.getDate()));
             result.append("   Temperature value: ").append(reading.getValue()).append("\n");
         }
         result.append("--------------------------------------\n");
