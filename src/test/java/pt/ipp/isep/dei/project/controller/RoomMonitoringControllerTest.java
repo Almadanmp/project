@@ -83,10 +83,14 @@ class RoomMonitoringControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validSdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
-        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss",Locale.ENGLISH);
-        SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
-        SimpleDateFormat readingSD2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'",Locale.ENGLISH);
+        validSdf = new SimpleDateFormat("dd/MM/yyyy");
+        validSdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        validSdf2.setTimeZone(TimeZone.getTimeZone("GMT"));
+        SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
+        readingSD.setTimeZone(TimeZone.getTimeZone("GMT"));
+        SimpleDateFormat readingSD2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'");
+        readingSD2.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
             validDate1 = validSdf.parse("01/02/2018");
             validDate2 = validSdf.parse("10/02/2018");
