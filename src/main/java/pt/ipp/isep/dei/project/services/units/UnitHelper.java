@@ -23,12 +23,15 @@ public class UnitHelper {
      * @return converted temperature.
      */
     static double toDefaultTemperatureUnit(String defaultUnit, double valueToConvert, TemperatureUnit unit) {
-        if (defaultUnit.equals("Celsius")) {
-            return unit.toCelsius(valueToConvert);
-        } else if (defaultUnit.equals("Fahrenheit")) {
-            return unit.toFahrenheit(valueToConvert);
+        switch (defaultUnit) {
+            case "Celsius":
+                return unit.toCelsius(valueToConvert);
+            case "Fahrenheit":
+                return unit.toFahrenheit(valueToConvert);
+            case "Kelvin":
+                return unit.toKelvin(valueToConvert);
         }
-        return unit.toKelvin(valueToConvert);
+        return valueToConvert;
     }
 
     /**
@@ -51,7 +54,7 @@ public class UnitHelper {
      *
      * @return temperature unit as a String.
      */
-    private static String getApplicationTemperatureDefault(String propFileName) {
+    static String getApplicationTemperatureDefault(String propFileName) {
         String temperatureDefault = "Celsius";
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(propFileName)) {

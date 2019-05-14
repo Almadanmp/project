@@ -48,7 +48,7 @@ public class Celsius implements TemperatureUnit {
      * @return temperature value in Fahrenheit.
      */
     public double toFahrenheit(double temperature) {
-        return temperature * 9 / 5 + 32;
+        return temperature * 1.8 + 32;
     }
 
     /**

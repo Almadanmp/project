@@ -3,15 +3,16 @@ package pt.ipp.isep.dei.project.services.units;
 import javassist.Modifier;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnitHelperTest {
+    private String configFileFilePath = "resources/unit.properties";
 
     @Test
     void testConstructorIsPrivate() throws IllegalStateException {
@@ -301,4 +302,87 @@ class UnitHelperTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfToDefaultTemperatureUnitsWorksFahrenheit() {
+        // Arrange
+
+        double expectedResult = 69.8;
+        TemperatureUnit temp = new Celsius();
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultTemperatureUnit("Fahrenheit", 21, temp);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfToDefaultRainfallUnitWorksLiterPerSquareMeter() {
+        // Arrange
+
+        double expectedResult = 5;
+        RainfallUnit rain = new Millimeter();
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultRainfallUnit("LiterPerSquareMeter", 5, rain);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfToDefaultTemperatureUnitsWorksKelvin() {
+        // Arrange
+
+        double expectedResult = 294.15;
+        TemperatureUnit temp = new Celsius();
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultTemperatureUnit("Kelvin", 21, temp);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfToDefaultTemperatureUnitsWorksNoConversion() {
+        // Arrange
+
+        double expectedResult = 21;
+        TemperatureUnit temp = new Celsius();
+
+        // Act
+
+        double actualResult = UnitHelper.toDefaultTemperatureUnit("Invalid", 21, temp);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetUserTemperatureDefaultWorksWrongPath() {
+        // Act
+
+        assertThrows(IOException.class,
+                () -> UnitHelper.getUserTemperatureDefault("Invalid"));
+    }
+
+    @Test
+    void seeIfGetUserTemperatureDefaultWorksPrintErrorMessage() {
+        // Act
+
+        try {
+            UnitHelper.getUserTemperatureDefault("Invalid");
+        } catch (IOException ok) {
+            String message = "ERROR: Unable to process configuration file.";
+            assertEquals(message, ok.getMessage());
+        }
+    }
 }
