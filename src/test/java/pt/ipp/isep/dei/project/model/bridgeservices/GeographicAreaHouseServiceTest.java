@@ -11,16 +11,15 @@ import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.controllerCLI.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,11 +35,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class GeographicAreaHouseServiceTest {
 
     @Mock
-    private SensorTypeRepo sensorTypeRepo;
+    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
     @Mock
-    GeographicAreaRepository geographicAreaRepository;
+    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
     @Mock
-    AreaTypeRepo areaTypeRepo;
+    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     private GeographicAreaHouseService geographicAreaHouseService;
     private Date validDate1; // Date 21/11/2018
@@ -52,7 +51,7 @@ class GeographicAreaHouseServiceTest {
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
-    private GeographicAreaService geographicAreaService;
+    private GeographicAreaRepository geographicAreaRepository;
     private Date validDate3;
     private Date validDate4;
     private Date initialTime;
@@ -88,8 +87,8 @@ class GeographicAreaHouseServiceTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaRepository,areaTypeRepo,sensorTypeRepo);
-        firstValidArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validList = new ArrayList<>();
         validList.add(firstValidArea);
@@ -103,7 +102,7 @@ class GeographicAreaHouseServiceTest {
                 sensorCreationTime, 6008L);
         validAreaSensor.setActive(true);
 
-        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");

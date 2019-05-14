@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
@@ -16,11 +15,11 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,31 +39,31 @@ class HouseTest {
     private House validHouse;
     private GeographicArea validArea;
     private AreaSensor firstValidAreaSensor;
-    private RoomService roomService;
+    private RoomRepository roomRepository;
     private EnergyGridRepository energyGridRepository;
     private List<String> deviceTypeString;
 
     @Mock
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     @Mock
-    EnergyGridRepo energyGridRepo;
+    EnergyGridCrudeRepo energyGridCrudeRepo;
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, sensorTypeRepo);
-        energyGridRepository = new EnergyGridRepository(energyGridRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
+        validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
                 new Local(20, 12, 33));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
         firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
                 30, 20, 10), new Date(), 6008L);
@@ -137,7 +136,7 @@ class HouseTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        testHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
 
         // Act
@@ -159,7 +158,7 @@ class HouseTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        testHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
 
         // Act
@@ -192,7 +191,7 @@ class HouseTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        testHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
 
         // Act
@@ -290,7 +289,7 @@ class HouseTest {
         House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock", "Mock", "Mock"),
                 new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
-        testHouse.setMotherArea(new GeographicArea("Mock", new AreaType("Mock"),
+        testHouse.setMotherArea(new GeographicArea("Mock", "Mock",
                 60, 180, new Local(30, 40, 30)));
         String expectedResult = "Invalid List - List is Empty\n";
 
@@ -364,7 +363,7 @@ class HouseTest {
     @Test
     void seeIfSetMotherAreaWorks() {
         //Act
-        GeographicArea geoArea = new GeographicArea("Porto", new AreaType("City"), 50, 13, new Local(5, 5, 5));
+        GeographicArea geoArea = new GeographicArea("Porto", "City", 50, 13, new Local(5, 5, 5));
         validHouse.setMotherArea(geoArea);
 
         //Assert

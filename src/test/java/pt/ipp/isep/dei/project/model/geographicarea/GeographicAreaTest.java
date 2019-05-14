@@ -31,7 +31,7 @@ class GeographicAreaTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        validArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
 
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -275,11 +275,11 @@ class GeographicAreaTest {
     void seeIfGetTypeAreaWorks() {
         // Arrange
 
-        AreaType expectedResult = new AreaType("Country");
+        String expectedResult = "Country";
 
         // Act
 
-        AreaType actualResult = validArea.getAreaType();
+        String actualResult = validArea.getAreaTypeID();
 
         // Assert
 
@@ -301,7 +301,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorks() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
 
         // Act
@@ -317,7 +317,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalDiffTypeDiffLocal() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", "City", 300, 200,
                 new Local(21, 31, 1));
 
         // Act
@@ -333,7 +333,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseSameLocalSameNameDiffType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", "City", 300, 200,
                 new Local(50, 50, 1));
 
         // Act
@@ -349,7 +349,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseSameLocalDiffNameSameType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", "Country", 300, 200,
                 new Local(50, 50, 1));
 
         // Act
@@ -365,7 +365,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseSameLocalDiffNameDiffType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", "City", 300, 200,
                 new Local(50, 50, 1));
 
         // Act
@@ -381,7 +381,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalSameNameSameType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 30, 1));
 
         // Act
@@ -397,7 +397,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalDiffNameSameType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("Country"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Porto", "Country", 300, 200,
                 new Local(50, 21, 1));
 
         // Act
@@ -413,7 +413,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksFalseDiffLocalSameNameDiffType() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Portugal", new AreaType("City"), 300, 200,
+        GeographicArea testArea = new GeographicArea("Portugal", "City", 300, 200,
                 new Local(21, 50, 1));
 
         // Act
@@ -442,7 +442,7 @@ class GeographicAreaTest {
     void seeIfGetSetMotherAreaWorks() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 2, 5,
+        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
                 new Local(22, 23, 100));
         validArea.setMotherArea(testArea);
 
@@ -486,15 +486,15 @@ class GeographicAreaTest {
         // Arrange
 
         AreaType areaType = new AreaType("cidade");
-        validArea.setAreaType(areaType);
+        validArea.setAreaTypeID(areaType.getName());
 
         // Act
 
-        AreaType actualResult = validArea.getAreaType();
+        String actualResult = validArea.getAreaTypeID();
 
         // Assert
 
-        assertEquals(areaType, actualResult);
+        assertEquals(areaType.getName(), actualResult);
     }
 
 
@@ -502,7 +502,7 @@ class GeographicAreaTest {
     void seeIfCheckIfAreaIsContainedWorksTrue() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 2, 5,
+        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
                 new Local(22, 23, 100));
         validArea.setMotherArea(testArea);
 
@@ -519,7 +519,7 @@ class GeographicAreaTest {
     void seeIfCheckIfAreaIsContainedWorksFalse() {
         // Arrange
 
-        GeographicArea testArea = new GeographicArea("Porto", new AreaType("City"), 2, 5,
+        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
                 new Local(22, 23, 100));
 
 
@@ -536,9 +536,9 @@ class GeographicAreaTest {
     void seeIfCheckIfAreaIsContainedWorksTransitive() {
         // Arrange
 
-        GeographicArea firstTestArea = new GeographicArea("Porto", new AreaType("City"),
+        GeographicArea firstTestArea = new GeographicArea("Porto", "City",
                 2, 4, new Local(22, 22, 100));
-        GeographicArea secondTestArea = new GeographicArea("Europe", new AreaType("Continent"),
+        GeographicArea secondTestArea = new GeographicArea("Europe", "Continent",
                 200, 400, new Local(22, 22, 100));
         firstTestArea.setMotherArea(validArea);
         validArea.setMotherArea(secondTestArea);
@@ -651,11 +651,11 @@ class GeographicAreaTest {
     @Test
     void seeIfEqualsParametersWorks() {
         // Act
-        boolean actualResult1 = validArea.equalsParameters("Portugal", new AreaType("Country"), new Local(50, 50, 10));
-        boolean actualResult2 = validArea.equalsParameters("Porto", new AreaType("City"), new Local(20, 20, 20));
-        boolean actualResult3 = validArea.equalsParameters("Porto", new AreaType("Country"), new Local(50, 50, 10));
-        boolean actualResult4 = validArea.equalsParameters("Portugal", new AreaType("City"), new Local(50, 50, 10));
-        boolean actualResult5 = validArea.equalsParameters("Portugal", new AreaType("Country"), new Local(20, 50, 10));
+        boolean actualResult1 = validArea.equalsParameters("Portugal", "Country", new Local(50, 50, 10));
+        boolean actualResult2 = validArea.equalsParameters("Porto", "City", new Local(20, 20, 20));
+        boolean actualResult3 = validArea.equalsParameters("Porto", "Country", new Local(50, 50, 10));
+        boolean actualResult4 = validArea.equalsParameters("Portugal", "City", new Local(50, 50, 10));
+        boolean actualResult5 = validArea.equalsParameters("Portugal", "Country", new Local(20, 50, 10));
 
         // Assert
 
@@ -692,7 +692,7 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfGetAreaSensorsByDistanceToHouse(){
+    void seeIfGetAreaSensorsByDistanceToHouse() {
 
         //Arrange
         List<String> deviceTypeString = new ArrayList<>();
@@ -708,7 +708,7 @@ class GeographicAreaTest {
 
         //Act
 
-        List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor,house,0);
+        List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor, house, 0);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -758,7 +758,7 @@ class GeographicAreaTest {
 
         //Act
         List<AreaSensor> areaSensors = new ArrayList<>();
-        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors,"Humidity");
+        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors, "Humidity");
 
         //Assert
         assertEquals(areaSensors, actualResult);
@@ -773,7 +773,7 @@ class GeographicAreaTest {
         areaSensors.add(firstValidAreaSensor);
         areaSensors.add(secondValidAreaSensor);
         validArea.setAreaSensors(areaSensors);
-        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors,"Humidity");
+        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors, "Humidity");
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -787,7 +787,7 @@ class GeographicAreaTest {
         areaSensors.add(firstValidAreaSensor);
         areaSensors.add(secondValidAreaSensor);
         validArea.setAreaSensors(areaSensors);
-        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors,"Temperature");
+        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors, "Temperature");
 
         //Assert
         assertEquals(areaSensors, actualResult);

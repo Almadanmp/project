@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,11 +19,11 @@ public class SensorTypeRepository {
     private static final String STRING_BUILDER = "---------------\n";
 
     @Autowired
-    SensorTypeRepo repository;
+    SensorTypeCrudeRepo repository;
 
     //CONSTRUCTOR
-    public SensorTypeRepository(SensorTypeRepo sensorTypeRepository) {
-        this.repository = sensorTypeRepository;
+    public SensorTypeRepository(SensorTypeCrudeRepo sensorTypeCrudeRepository) {
+        this.repository = sensorTypeCrudeRepository;
     }
 
 

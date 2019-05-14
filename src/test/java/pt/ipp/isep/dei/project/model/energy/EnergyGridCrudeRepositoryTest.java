@@ -7,8 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +21,21 @@ import static org.junit.jupiter.api.Assertions.*;
  * EnergyGridList tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class EnergyGridRepositoryTest {
+class EnergyGridCrudeRepositoryTest {
     // Common testing artifacts for testing class.
 
     private EnergyGrid firstValidGrid;
     private EnergyGrid secondValidGrid;
 
     @Mock
-    private EnergyGridRepo energyGridRepository;
+    private EnergyGridCrudeRepo energyGridCrudeRepository;
 
     private EnergyGridRepository validGridList;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validGridList = new EnergyGridRepository(this.energyGridRepository);
+        validGridList = new EnergyGridRepository(this.energyGridCrudeRepository);
         firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
         secondValidGrid = new EnergyGrid("Secondary Grid", 100, "CasaUm");
     }
@@ -44,7 +43,7 @@ class EnergyGridRepositoryTest {
     @Test
     void seeIfGetAllGridsWorks() {
         // Arrange
-        Mockito.when(energyGridRepository.findAll()).thenReturn(null);
+        Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(null);
 
         List<EnergyGrid> expectedResult = new ArrayList<>();
 
@@ -59,7 +58,7 @@ class EnergyGridRepositoryTest {
     void seeIfAddGridWorks() {
         // Arrange
 
-        Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         EnergyGrid expectedResult = firstValidGrid;
 
@@ -76,7 +75,7 @@ class EnergyGridRepositoryTest {
     void seeIfAddGridWorksNull() {
         // Arrange
 
-        Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         EnergyGrid expectedResult = firstValidGrid;
 
@@ -113,14 +112,14 @@ class EnergyGridRepositoryTest {
 
         String mockId = "Primary Grid";
 
-        Mockito.when(energyGridRepository.findByName(mockId)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudeRepository.findByName(mockId)).thenReturn(firstValidGrid);
 
-        Mockito.when(energyGridRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         // Act
         validGridList.addGrid(firstValidGrid);
         validGridList.addGrid(firstValidGridWithNoPSList);
-        EnergyGrid copiedGridWithoutPS = energyGridRepository.findByName("Primary Grid");
+        EnergyGrid copiedGridWithoutPS = energyGridCrudeRepository.findByName("Primary Grid");
 
         List<PowerSource> actualResult = copiedGridWithoutPS.getPowerSourceList();
 
@@ -143,7 +142,7 @@ class EnergyGridRepositoryTest {
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
         validGridList.addGrid(energyGrid);
 
-        Mockito.when(energyGridRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
+        Mockito.when(energyGridCrudeRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
 
         EnergyGrid result = validGridList.getById(energyGrid.getName());
 
@@ -154,7 +153,7 @@ class EnergyGridRepositoryTest {
     void seeIfGetEnergyGridByIdRepositoryNull() {
         String mockId = "1234";
 
-        Mockito.when(energyGridRepository.findById(mockId)).thenReturn(Optional.empty());
+        Mockito.when(energyGridCrudeRepository.findById(mockId)).thenReturn(Optional.empty());
 
         Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridList.getById(mockId));
 
@@ -170,7 +169,7 @@ class EnergyGridRepositoryTest {
         energyGrids.add(energyGrid);
         int expectedResult =1;
 
-        Mockito.when(energyGridRepository.findAll()).thenReturn(energyGrids);
+        Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridList.size();
 
@@ -184,7 +183,7 @@ class EnergyGridRepositoryTest {
         energyGrids.add(null);
         int expectedResult =1;
 
-        Mockito.when(energyGridRepository.findAll()).thenReturn(energyGrids);
+        Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridList.size();
 

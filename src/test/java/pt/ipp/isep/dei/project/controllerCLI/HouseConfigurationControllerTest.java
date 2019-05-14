@@ -14,9 +14,9 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +34,18 @@ class HouseConfigurationControllerTest {
     // Common artifacts for testing in this class.
 
     @Mock
-    private RoomService mockRoomRepository;
+    private RoomRepository mockRoomRepository;
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private HouseConfigurationController controller = new HouseConfigurationController();
     private House validHouse;
-    private RoomService roomService;
+    private RoomRepository roomRepository;
+    private AreaType validAreaType;
 
     @Mock
-    private RoomRepository roomRepository;
+    private RoomCrudeRepo roomCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -53,10 +54,11 @@ class HouseConfigurationControllerTest {
         validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        validAreaType = new AreaType("Cidade");
+        validHouse.setMotherArea(new GeographicArea("Porto", validAreaType.getName(),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
-        roomService = new RoomService(roomRepository, sensorTypeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
     }
 
 
@@ -86,7 +88,7 @@ class HouseConfigurationControllerTest {
 
         // Act
 
-        String result = controller.buildRoomsString(roomService, rooms);
+        String result = controller.buildRoomsString(roomRepository, rooms);
 
         // Assert
 
@@ -104,9 +106,9 @@ class HouseConfigurationControllerTest {
 
         // Act
 
-        Room actualResult1 = controller.createNewRoom(roomService, "Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1", "Grid1");
-        Room actualResult2 = controller.createNewRoom(roomService, "Room", "Double Bedroom", 1, dimensions, "Room1", "Grid1");
-        Room actualResult3 = controller.createNewRoom(roomService, "Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult1 = controller.createNewRoom(roomRepository, "Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult2 = controller.createNewRoom(roomRepository, "Room", "Double Bedroom", 1, dimensions, "Room1", "Grid1");
+        Room actualResult3 = controller.createNewRoom(roomRepository, "Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1", "Grid1");
 
         // Assert
 
@@ -122,8 +124,8 @@ class HouseConfigurationControllerTest {
         Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
 
         // Act
-        boolean actualResult1 = controller.addRoomToHouse(roomService, room1);
-        boolean actualResult2 = controller.addRoomToHouse(roomService, room2);
+        boolean actualResult1 = controller.addRoomToHouse(roomRepository, room1);
+        boolean actualResult2 = controller.addRoomToHouse(roomRepository, room2);
 
         // Assert
         assertTrue(actualResult1);
@@ -156,9 +158,9 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfSetAndGetHouseMotherAreaWorks() {
         //Arrange
-        controller.setHouseMotherArea(validHouse, new GeographicArea("Porto", new AreaType("Cidade"),
+        controller.setHouseMotherArea(validHouse, new GeographicArea("Porto", validAreaType.getName(),
                 2, 3, new Local(4, 4, 100)));
-        GeographicArea expected = new GeographicArea("Porto", new AreaType("Cidade"),
+        GeographicArea expected = new GeographicArea("Porto", validAreaType.getName(),
                 2, 3, new Local(4, 4, 100));
         //Act
         GeographicArea actualResult = validHouse.getMotherArea();

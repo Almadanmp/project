@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.energy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +16,20 @@ import java.util.Optional;
 public class EnergyGridRepository {
 
     @Autowired
-    EnergyGridRepo energyGridRepository;
+    EnergyGridCrudeRepo energyGridCrudeRepository;
 
     /**
      * Empty constructor to use on UIs.
      */
-    public EnergyGridRepository(EnergyGridRepo energyGridRepository) {
-        this.energyGridRepository = energyGridRepository;
+    public EnergyGridRepository(EnergyGridCrudeRepo energyGridCrudeRepository) {
+        this.energyGridCrudeRepository = energyGridCrudeRepository;
     }
 
     public EnergyGridRepository() {
     }
 
     public List<EnergyGrid> getAllGrids() {
-        List<EnergyGrid> grids = energyGridRepository.findAll();
+        List<EnergyGrid> grids = energyGridCrudeRepository.findAll();
         if (grids != null){
             return grids;
         }
@@ -37,7 +37,7 @@ public class EnergyGridRepository {
     }
 
     public EnergyGrid addGrid(EnergyGrid energyGrid) {
-        return energyGridRepository.save(energyGrid);
+        return energyGridCrudeRepository.save(energyGrid);
     }
 
     /**
@@ -87,7 +87,7 @@ public class EnergyGridRepository {
      * @return repository size
      */
     public int size() {
-        return energyGridRepository.findAll().size();
+        return energyGridCrudeRepository.findAll().size();
     }
 
     /**
@@ -97,7 +97,7 @@ public class EnergyGridRepository {
      * @return Energy Grid corresponding to the given id
      */
     public EnergyGrid getById(String id) {
-        Optional<EnergyGrid> value = energyGridRepository.findById(id);
+        Optional<EnergyGrid> value = energyGridCrudeRepository.findById(id);
         if (value.isPresent()) {
             return value.get();
         }

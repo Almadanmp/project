@@ -15,10 +15,10 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
@@ -52,16 +52,16 @@ public class InputHelperUI {
     /**
      * Method to select a particular geographic area from the list of geographic areas available to the program.
      *
-     * @param geographicAreaService is the list of geographic areas available to the program.
+     * @param geographicAreaRepository is the list of geographic areas available to the program.
      * @return is the selected geographic area.
      */
-    public static GeographicArea getGeographicAreaByList(GeographicAreaService geographicAreaService, List<GeographicArea> geoAreas) {
+    public static GeographicArea getGeographicAreaByList(GeographicAreaRepository geographicAreaRepository, List<GeographicArea> geoAreas) {
         while (true) {
             System.out.println("Please select one of the existing geographic areas: ");
-            System.out.println(geographicAreaService.buildStringRepository(geoAreas));
+            System.out.println(geographicAreaRepository.buildStringRepository(geoAreas));
             int aux = InputHelperUI.getInputAsInt();
             try {
-                GeographicArea geographicArea = geographicAreaService.get(aux);
+                GeographicArea geographicArea = geographicAreaRepository.get(aux);
                 System.out.println("You have chosen the following geographic area: ");
                 System.out.println(geographicArea.buildString() + "\n");
                 return geographicArea;
@@ -78,14 +78,14 @@ public class InputHelperUI {
      *
      * @return is the chosen room.
      */
-    public static RoomDTO getHouseRoomDTOByList(RoomService roomService, List<Room> rooms) {
+    public static RoomDTO getHouseRoomDTOByList(RoomRepository roomRepository, List<Room> rooms) {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please select one of the existing rooms in the house: ");
-            System.out.println(roomService.buildRoomsAsString(rooms));
+            System.out.println(roomRepository.buildRoomsAsString(rooms));
             String aux = scanner.nextLine();
             try {
-                Optional<Room> result = roomService.findRoomByID(aux);
+                Optional<Room> result = roomRepository.findRoomByID(aux);
                 if (result.isPresent()) {
                     System.out.println(SELECT_ROOMS);
                     System.out.println(result.get().buildString() + "\n");
@@ -102,14 +102,14 @@ public class InputHelperUI {
      *
      * @return is the chosen room.
      */
-    public static Room getHouseRoomByList(RoomService roomService, List<Room> houseRooms) {
+    public static Room getHouseRoomByList(RoomRepository roomRepository, List<Room> houseRooms) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select one of the existing rooms - Type the Description name: ");
-            System.out.println(roomService.buildRoomsAsString(houseRooms));
+            System.out.println(roomRepository.buildRoomsAsString(houseRooms));
             String aux = scanner.nextLine();
             try {
-                Optional<Room> result = roomService.findRoomByID(aux);
+                Optional<Room> result = roomRepository.findRoomByID(aux);
                 if (result.isPresent()) {
                     System.out.println(SELECT_ROOMS);
                     System.out.println(result.get().buildString() + "\n");
@@ -200,17 +200,17 @@ public class InputHelperUI {
      * @param room is the room DTO we want to get the list from.
      * @return is the selected Device.
      */
-    public static Device getInputRoomDTODevicesByList(RoomDTO room, RoomService roomService) {
+    public static Device getInputRoomDTODevicesByList(RoomDTO room, RoomRepository roomRepository) {
         RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
             try {
-                Room roomToUse = roomService.updateHouseRoom(room);
+                Room roomToUse = roomRepository.updateHouseRoom(room);
                 System.out.println(controller.buildDeviceListString(roomToUse));
                 int aux = getInputAsInt();
-                int upperLimit = controller.getDeviceListSize(room, roomService);
+                int upperLimit = controller.getDeviceListSize(room, roomRepository);
                 if (aux >= 0 && aux < upperLimit) {
-                    Device result = controller.getDeviceByIndex(room, aux, roomService);
+                    Device result = controller.getDeviceByIndex(room, aux, roomRepository);
                     System.out.println("You have chosen the following device:");
                     System.out.println(result.buildString() + "\n");
                     return result;
@@ -496,9 +496,9 @@ public class InputHelperUI {
     }
 
 
-    public static RoomDTO getRoomDTOByList(RoomService roomService) {
-        List<Room> rooms = roomService.getAllRooms();
-        Room room = InputHelperUI.getHouseRoomByList(roomService, rooms);
+    public static RoomDTO getRoomDTOByList(RoomRepository roomRepository) {
+        List<Room> rooms = roomRepository.getAllRooms();
+        Room room = InputHelperUI.getHouseRoomByList(roomRepository, rooms);
         return RoomMapper.objectToDTO(room);
     }
 
@@ -509,7 +509,7 @@ public class InputHelperUI {
      * @param areaService is the service responsible for accessing the repository of geographic areas.
      * @return is the number of geographic areas imported.
      */
-    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaService areaService) {
+    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaRepository areaService) {
         int areasRead;
         if (filePath.endsWith(JSON)) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();

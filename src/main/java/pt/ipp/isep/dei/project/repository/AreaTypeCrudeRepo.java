@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AreaTypeRepo extends CrudRepository<AreaType, Long> {
+public interface AreaTypeCrudeRepo extends CrudRepository<AreaType, Long> {
 
     List<AreaType> findAll();
 

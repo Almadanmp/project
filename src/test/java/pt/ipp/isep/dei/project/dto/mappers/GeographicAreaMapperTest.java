@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +35,7 @@ class GeographicAreaMapperTest {
             e.printStackTrace();
         }
 
-        validAreaObject = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        validAreaObject = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validAreaObject.setId(6008L);
         validAreaSensorDTO = new AreaSensorDTO();

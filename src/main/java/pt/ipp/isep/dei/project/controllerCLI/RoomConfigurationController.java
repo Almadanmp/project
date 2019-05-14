@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
@@ -127,8 +127,8 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device list size.
      * @return a int that represents the size of the deviceList.
      */
-    public int getDeviceListSize(RoomDTO roomDTO, RoomService roomService) {
-        Room room = roomService.updateHouseRoom(roomDTO);
+    public int getDeviceListSize(RoomDTO roomDTO, RoomRepository roomRepository) {
+        Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getDeviceListSize();
     }
 
@@ -138,8 +138,8 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device from.
      * @param index   is the index of the device in the device list
      */
-    public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomService roomService) {
-        Room room = roomService.updateHouseRoom(roomDTO);
+    public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomRepository roomRepository) {
+        Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getDeviceByIndex(index);
     }
 
@@ -301,8 +301,8 @@ public class RoomConfigurationController {
      * @param date
      * @return a created Sensor
      */
-    public RoomSensor createRoomSensor(RoomService roomService, String id, String name, SensorType type, Date date, String idRoom) {
-        return roomService.createRoomSensor(id, name, type, date, idRoom);
+    public RoomSensor createRoomSensor(RoomRepository roomRepository, String id, String name, SensorType type, Date date, String idRoom) {
+        return roomRepository.createRoomSensor(id, name, type, date, idRoom);
     }
 
     /**
@@ -312,8 +312,8 @@ public class RoomConfigurationController {
      * @param roomSensor is the sensor we want to addWithoutPersisting.
      * @return if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensorToRoom(RoomSensor roomSensor, RoomService roomService, Room room) {
+    public boolean addSensorToRoom(RoomSensor roomSensor, RoomRepository roomRepository, Room room) {
         room.addSensor(roomSensor);
-        return roomService.saveRoom(room);
+        return roomRepository.saveRoom(room);
     }
 }

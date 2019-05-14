@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
@@ -16,8 +15,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,10 +40,10 @@ class EnergyGridTest {
     private Room validRoom2;
 
     @Mock
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -56,7 +55,7 @@ class EnergyGridTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
         validGrid = new EnergyGrid("FirstGrid", 400, "34576");
         validFridge = new Fridge(new FridgeSpec());

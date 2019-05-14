@@ -10,8 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +24,22 @@ import static org.junit.Assert.assertEquals;
  */
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class EnergyGridRoomServiceTest {
+class EnergyGridRoomRepositoryTest {
 
     private Room validRoom;
     private EnergyGridRoomService validEnergyGridRoomService;
 
     @Mock
-    private RoomRepository roomRepository;
+    private RoomCrudeRepo roomCrudeRepo;
 
     @Mock
-    private EnergyGridRepo energyGridRepo;
+    private EnergyGridCrudeRepo energyGridCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-        validEnergyGridRoomService = new EnergyGridRoomService(energyGridRepo, roomRepository);
+        validEnergyGridRoomService = new EnergyGridRoomService(energyGridCrudeRepo, roomCrudeRepo);
     }
 
     @Test
@@ -58,7 +58,7 @@ class EnergyGridRoomServiceTest {
 
         List<Room> roomListExpected = new ArrayList<>();
         roomListExpected.add(validRoom);
-        Mockito.when(roomRepository.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
+        Mockito.when(roomCrudeRepo.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
 
         //Act
 

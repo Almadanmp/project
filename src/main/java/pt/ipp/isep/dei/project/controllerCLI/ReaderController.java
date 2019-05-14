@@ -6,13 +6,13 @@ import pt.ipp.isep.dei.project.dto.mappers.*;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
-import pt.ipp.isep.dei.project.repository.HouseRepository;
+import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseRepository houseRepository, RoomService roomService) {
+    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudeRepo houseCrudeRepo, RoomRepository roomRepository) {
         //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO houseDTO;
@@ -63,10 +63,10 @@ public class ReaderController {
                 rt.setEnergyGridName(eg.getName());
                 rt.setHouseId(house.getId());
                 Room aux = RoomMapper.dtoToObjectUS100(rt);
-                roomService.saveRoom(aux);
+                roomRepository.saveRoom(aux);
             }
         }
-        houseRepository.save(house);
+        houseCrudeRepo.save(house);
         return true;
     }
 
@@ -75,14 +75,14 @@ public class ReaderController {
      * imported from the XML File.
      *
      * @param nListGeoArea          - NodeList imported from the XML.
-     * @param geographicAreaService - list to which we want to add and persist the Geographic areas.
+     * @param geographicAreaRepository - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaService geographicAreaService) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaRepository geographicAreaRepository) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaService)) {
+            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaRepository)) {
                 result++;
             }
         }
@@ -97,12 +97,12 @@ public class ReaderController {
      *
      * @param readingDTOS           a list of reading DTOs
      * @param logPath               M  string of a log file path
-     * @param geographicAreaService service
+     * @param geographicAreaRepository service
      * @return the number of readings added
      **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaService geographicAreaService) {
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaRepository geographicAreaRepository) {
         List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
-        return geographicAreaService.addReadingsToGeographicAreaSensors(readings, logPath);
+        return geographicAreaRepository.addReadingsToGeographicAreaSensors(readings, logPath);
     }
 
     /**
@@ -112,11 +112,11 @@ public class ReaderController {
      *
      * @param readingDTOS a list of reading DTOs
      * @param logPath     M  string of a log file path
-     * @param roomService service
+     * @param roomRepository service
      * @return the number of readings added
      **/
-    public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath, RoomService roomService) {
+    public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath, RoomRepository roomRepository) {
         List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
-        return roomService.addReadingsToRoomSensors(readings, logPath);
+        return roomRepository.addReadingsToRoomSensors(readings, logPath);
     }
 }

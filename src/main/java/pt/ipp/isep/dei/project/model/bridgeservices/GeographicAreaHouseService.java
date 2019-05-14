@@ -6,10 +6,10 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.HouseRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.*;
 
@@ -17,18 +17,18 @@ import java.util.*;
 public class GeographicAreaHouseService {
 
     @Autowired
-    private static GeographicAreaRepository geographicAreaRepository;
+    private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
     @Autowired
-    private static AreaTypeRepo areaTypeRepo;
+    private static AreaTypeCrudeRepo areaTypeCrudeRepo;
     @Autowired
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
     @Autowired
-    HouseRepository houseRepository;
+    HouseCrudeRepo houseCrudeRepo;
 
-    public GeographicAreaHouseService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepo areaTypeRepo, SensorTypeRepo sensorTypeRepo) {
-        GeographicAreaHouseService.geographicAreaRepository = geographicAreaRepository;
-        GeographicAreaHouseService.areaTypeRepo = areaTypeRepo;
-        this.sensorTypeRepo = sensorTypeRepo;
+    public GeographicAreaHouseService(GeographicAreaCrudeRepo geographicAreaCrudeRepo, AreaTypeCrudeRepo areaTypeCrudeRepo, SensorTypeCrudeRepo sensorTypeCrudeRepo) {
+        GeographicAreaHouseService.geographicAreaCrudeRepo = geographicAreaCrudeRepo;
+        GeographicAreaHouseService.areaTypeCrudeRepo = areaTypeCrudeRepo;
+        this.sensorTypeCrudeRepo = sensorTypeCrudeRepo;
     }
 
     /**

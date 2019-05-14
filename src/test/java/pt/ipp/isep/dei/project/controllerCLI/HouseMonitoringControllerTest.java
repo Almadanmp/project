@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
@@ -59,13 +58,13 @@ class HouseMonitoringControllerTest {
     void arrangeArtifacts() {
         // Sets Up Geographic Area, House, Room and Lists.
 
-        validHouseArea = new GeographicArea("Portugal", new AreaType("Country"), 300,
+        validHouseArea = new GeographicArea("Portugal", "Country", 300,
                 200, new Local(45, 30, 30));
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+        validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
         validHouse.setMotherArea(validHouseArea);
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

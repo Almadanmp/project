@@ -17,8 +17,8 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * RoomList tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class RoomServiceTest {
+class RoomRepositoryTest {
 
     private Room validRoom;
     private Device validDevice;
@@ -47,11 +47,11 @@ class RoomServiceTest {
 
 
     @Mock
-    private RoomRepository roomRepository;
+    private RoomCrudeRepo roomCrudeRepo;
     @Mock
-    private SensorTypeRepo sensorTypeRepo;
+    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
-    private RoomService validRoomService;
+    private RoomRepository validRoomRepository;
 
     private List<Room> roomList;
 
@@ -60,7 +60,7 @@ class RoomServiceTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomService = new RoomService(this.roomRepository, this.sensorTypeRepo);
+        validRoomRepository = new RoomRepository(this.roomCrudeRepo, this.sensorTypeCrudeRepo);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -97,13 +97,13 @@ class RoomServiceTest {
         rooms.add(validRoom);
         validRoom.addSensor(firstValidRoomSensor);
 
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
 
         int expectedResult = 0;
 
         //Act
 
-        int actualResult = validRoomService.addRoomReadings("invalidSensor", readings, logger);
+        int actualResult = validRoomRepository.addRoomReadings("invalidSensor", readings, logger);
 
         // Assert
 
@@ -122,13 +122,13 @@ class RoomServiceTest {
         rooms.add(validRoom);
         validRoom.addSensor(firstValidRoomSensor);
 
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
 
         int expectedResult = 1;
 
         //Act
 
-        int actualResult = validRoomService.addRoomReadings("T32875", readings, logger);
+        int actualResult = validRoomRepository.addRoomReadings("T32875", readings, logger);
 
         // Assert
 
@@ -147,7 +147,7 @@ class RoomServiceTest {
 
         //Act
 
-        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
@@ -166,7 +166,7 @@ class RoomServiceTest {
 
         //Act
 
-        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
@@ -187,7 +187,7 @@ class RoomServiceTest {
 
         //Act
 
-        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
@@ -204,7 +204,7 @@ class RoomServiceTest {
 
         //Act
 
-        int actualResult = validRoomService.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
@@ -220,11 +220,11 @@ class RoomServiceTest {
         validRoom.addSensor(secondValidRoomSensor);
         validList.add(validRoom);
 
-        Mockito.when(roomRepository.findAll()).thenReturn(validList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(validList);
 
         //Act
 
-        Room actualResult = validRoomService.getRoomContainingSensorWithGivenId("T32876");
+        Room actualResult = validRoomRepository.getRoomContainingSensorWithGivenId("T32876");
 
         // Assert
 
@@ -237,22 +237,22 @@ class RoomServiceTest {
 
         List<Room> emptyList = new ArrayList<>();
 
-        Mockito.when(roomRepository.findAll()).thenReturn(emptyList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(emptyList);
 
         // Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> validRoomService.getRoomContainingSensorWithGivenId("invalidSensorID"));
+                () -> validRoomRepository.getRoomContainingSensorWithGivenId("invalidSensorID"));
     }
 
     @Test
     void seeIfGetAllRoomsWorksNull() {
         // Arrange
-        Mockito.when(roomRepository.findAll()).thenReturn(null);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(null);
         List<Room> expectedResult = new ArrayList<>();
 
         // Act
-        List<Room> actualResult = validRoomService.getAllRooms();
+        List<Room> actualResult = validRoomRepository.getAllRooms();
 
         // Assert
         assertEquals(expectedResult, actualResult);
@@ -262,18 +262,18 @@ class RoomServiceTest {
     @Test
     void seeIfRemoveRoom() {
 
-        Mockito.when(roomRepository.findById(validRoom.getId())).thenReturn((Optional.of(validRoom)));
+        Mockito.when(roomCrudeRepo.findById(validRoom.getId())).thenReturn((Optional.of(validRoom)));
 
 
         //Assert
-        assertTrue(validRoomService.removeRoom(validRoom));
+        assertTrue(validRoomRepository.removeRoom(validRoom));
     }
 
     @Test
     void seeIfDoNotRemoveRoom() {
-        validRoomService.updateRoom(validRoom);
+        validRoomRepository.updateRoom(validRoom);
         //Assert
-        assertFalse(validRoomService.removeRoom(validRoom));
+        assertFalse(validRoomRepository.removeRoom(validRoom));
     }
 //
 //    @Test
@@ -305,12 +305,12 @@ class RoomServiceTest {
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         roomList.add(room);
-        validRoomService.saveRoom(room);
+        validRoomRepository.saveRoom(room);
 
 
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
-        assertEquals(roomList, validRoomService.getAllRooms());
+        assertEquals(roomList, validRoomRepository.getAllRooms());
     }
 
     @Test
@@ -320,9 +320,9 @@ class RoomServiceTest {
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
 
 
-        Mockito.when(roomRepository.findById(mockId)).thenReturn(Optional.of(room));
+        Mockito.when(roomCrudeRepo.findById(mockId)).thenReturn(Optional.of(room));
 
-        Room result = validRoomService.getRoomByName(mockId);
+        Room result = validRoomRepository.getRoomByName(mockId);
 
         assertEquals(result.getId(), room.getId());
         assertEquals(result.getId(), room.getId());
@@ -332,7 +332,7 @@ class RoomServiceTest {
     void seeIfGetDBdNoSensor() {
         String mockId = "SensorOne";
 
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> validRoomService.getRoomByName(mockId));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> validRoomRepository.getRoomByName(mockId));
 
     }
 
@@ -340,18 +340,18 @@ class RoomServiceTest {
     void seeIfIdExists() {
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
         //Assert
-        assertTrue(validRoomService.idExists(validRoom.getId()));
+        assertTrue(validRoomRepository.idExists(validRoom.getId()));
     }
 
     @Test
     void seeIfIdNotExists() {
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
         //Assert
-        assertFalse(validRoomService.idExists("Hall"));
+        assertFalse(validRoomRepository.idExists("Hall"));
     }
 
     @Test
@@ -365,7 +365,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildRoomsAsString(rooms));
+        assertEquals(expectedResult, validRoomRepository.buildRoomsAsString(rooms));
     }
 
     @Test
@@ -378,7 +378,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildselectRoomsAsString(emptylist));
+        assertEquals(expectedResult, validRoomRepository.buildselectRoomsAsString(emptylist));
     }
 
     @Test
@@ -392,7 +392,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildselectRoomsAsString(rooms));
+        assertEquals(expectedResult, validRoomRepository.buildselectRoomsAsString(rooms));
     }
 
     @Test
@@ -406,7 +406,7 @@ class RoomServiceTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomService.buildRoomsAsString(rooms));
+        assertEquals(expectedResult, validRoomRepository.buildRoomsAsString(rooms));
     }
 
 
@@ -434,7 +434,7 @@ class RoomServiceTest {
     @Test
     void seeIfEqualsDifferentListContents() {
         // Act
-        boolean actualResult = validRoom.equals(validRoomService);
+        boolean actualResult = validRoom.equals(validRoomRepository);
 
         // Assert
 
@@ -465,13 +465,13 @@ class RoomServiceTest {
         rooms.add(validRoom);
         rooms.add(room);
 
-        Mockito.when(roomRepository.findAll()).thenReturn((rooms));
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn((rooms));
 
 
         //Act
 
-        Room actualResult1 = validRoomService.getRoom(0);
-        Room actualResult2 = validRoomService.getRoom(1);
+        Room actualResult1 = validRoomRepository.getRoom(0);
+        Room actualResult2 = validRoomRepository.getRoom(1);
 
         //Assert
 
@@ -485,7 +485,7 @@ class RoomServiceTest {
 
         //Act
 
-        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validRoomService.getRoom(0));
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validRoomRepository.getRoom(0));
 
         //Assert
 
@@ -500,7 +500,7 @@ class RoomServiceTest {
 
         // Act
 
-        DeviceList actualResult = validRoomService.getDeviceList();
+        DeviceList actualResult = validRoomRepository.getDeviceList();
 
         // Assert
 
@@ -517,9 +517,9 @@ class RoomServiceTest {
         // Act
 
 
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
 
-        double actualResult = validRoomService.getDailyConsumptionByDeviceType("WaterHeater", 89);
+        double actualResult = validRoomRepository.getDailyConsumptionByDeviceType("WaterHeater", 89);
 
         // Assert
 
@@ -539,7 +539,7 @@ class RoomServiceTest {
 
         //Act
 
-        Room roomActual1 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
+        Room roomActual1 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
 
         //Assert
 
@@ -550,7 +550,7 @@ class RoomServiceTest {
 
         //Act
 
-        Room roomActual2 = validRoomService.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
+        Room roomActual2 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
 
         //Assert
         assertEquals(roomExpected, roomActual2);
@@ -578,7 +578,7 @@ class RoomServiceTest {
 
         //Act
 
-        boolean actualResult = validRoomService.equals(validRoomService);
+        boolean actualResult = validRoomRepository.equals(validRoomRepository);
 
         // Assert
 
@@ -594,7 +594,7 @@ class RoomServiceTest {
 
         //Act
 
-        boolean actualResult = validRoomService.equals(testList); // Needed for SonarQube testing purposes.
+        boolean actualResult = validRoomRepository.equals(testList); // Needed for SonarQube testing purposes.
 
         // Assert
 
@@ -605,7 +605,7 @@ class RoomServiceTest {
     void seeIfEqualsWorksOnSameObject() {
         //Act
 
-        boolean actualResult = validRoomService.equals(validRoomService); // Required for Sonarqube testing purposes.
+        boolean actualResult = validRoomRepository.equals(validRoomRepository); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -616,7 +616,7 @@ class RoomServiceTest {
     void seeIfEqualsWorksOnDiffObject() {
         //Act
 
-        boolean actualResult = validRoomService.equals(20D); // Required for Sonarqube testing purposes.
+        boolean actualResult = validRoomRepository.equals(20D); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -669,7 +669,7 @@ class RoomServiceTest {
         List<Room> roomList = new ArrayList<>();
         roomList.add(validRoom);
         roomList.add(room);
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
         ArrayList<Double> dimensions = new ArrayList<>();
         dimensions.add(4D);
         dimensions.add(5D);
@@ -677,8 +677,8 @@ class RoomServiceTest {
 
         //Act
 
-        Room actualResult = validRoomService.createRoom("Kitchen", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
-        Room actualResult1 = validRoomService.createRoom("Kitchen3", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult = validRoomRepository.createRoom("Kitchen", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult1 = validRoomRepository.createRoom("Kitchen3", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
 
         //Assert
 
@@ -690,8 +690,8 @@ class RoomServiceTest {
     @Test
     void seeIfEmptyRoomsWorks() {
         List<Room> roomList = new ArrayList<>();
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
-        boolean actualResult = validRoomService.isEmptyRooms();
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        boolean actualResult = validRoomRepository.isEmptyRooms();
         assertTrue(actualResult);
     }
 
@@ -709,9 +709,9 @@ class RoomServiceTest {
         room1.setDeviceList(deviceList1);
         roomList.add(room);
         roomList.add(room1);
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
         //Act
-        DeviceList actualResult = validRoomService.getDeviceList();
+        DeviceList actualResult = validRoomRepository.getDeviceList();
         //Assert
         assertEquals(deviceList, actualResult);
     }
@@ -724,9 +724,9 @@ class RoomServiceTest {
         deviceList.add(validDevice);
         roomList.add(validRoom);
         validRoom.setDeviceList(deviceList);
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
         //Act
-        double actualResult = validRoomService.getNominalPower();
+        double actualResult = validRoomRepository.getNominalPower();
         //Assert
         assertEquals(21, actualResult, 0.1);
     }
@@ -734,9 +734,9 @@ class RoomServiceTest {
     @Test
     void seeIfSaveRoomReturnsFalse() {
         //Arrange
-        Mockito.when(roomRepository.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+        Mockito.when(roomCrudeRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
         //Act
-        boolean actualResult = validRoomService.saveRoom(validRoom);
+        boolean actualResult = validRoomRepository.saveRoom(validRoom);
         //Assert
         assertFalse(actualResult);
     }
@@ -744,9 +744,9 @@ class RoomServiceTest {
     @Test
     void seeIfFindRoomByIdWorks() {
         //Arrange
-        Mockito.when(roomRepository.findById("Kitchen")).thenReturn(Optional.of(validRoom));
+        Mockito.when(roomCrudeRepo.findById("Kitchen")).thenReturn(Optional.of(validRoom));
         //Act
-        Optional<Room> actualResult = validRoomService.findRoomByID("Kitchen");
+        Optional<Room> actualResult = validRoomRepository.findRoomByID("Kitchen");
         //Assert
         assertEquals(Optional.of(validRoom), actualResult);
     }
@@ -755,10 +755,10 @@ class RoomServiceTest {
     void seeIfGetTypeSensorByNameWorks() {
         //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
-        Mockito.when(sensorTypeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeCrudeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
         //Act
-        SensorType actualResult = validRoomService.getTypeSensorByName("Temperature");
-        SensorType actualResult1 = validRoomService.getTypeSensorByName("Rainfall");
+        SensorType actualResult = validRoomRepository.getTypeSensorByName("Temperature");
+        SensorType actualResult1 = validRoomRepository.getTypeSensorByName("Rainfall");
         //Assert
         assertEquals(sensorType, actualResult);
         assertNull(actualResult1);
@@ -768,9 +768,9 @@ class RoomServiceTest {
     void seeIfCreateRoomSensorWorks() {
         //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
-        Mockito.when(sensorTypeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeCrudeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
         //Act
-        RoomSensor roomSensor = validRoomService.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
+        RoomSensor roomSensor = validRoomRepository.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
         //Assert
         assertEquals(firstValidRoomSensor, roomSensor);
     }
@@ -783,8 +783,8 @@ class RoomServiceTest {
         Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
         rooms.add(room1);
         rooms.add(room);
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        Room actualResult = validRoomService.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Room actualResult = validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
         assertEquals(room, actualResult);
     }
 }

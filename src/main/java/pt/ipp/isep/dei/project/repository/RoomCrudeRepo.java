@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface RoomRepository extends CrudRepository<Room, String> {
+public interface RoomCrudeRepo extends CrudRepository<Room, String> {
     List<Room> findAll();
 
     Optional<Room> findByRoomName(String name);

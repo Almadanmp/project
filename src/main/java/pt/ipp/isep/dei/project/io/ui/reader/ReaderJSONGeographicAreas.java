@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,15 +42,15 @@ public class ReaderJSONGeographicAreas implements Reader {
      * from the data in the file.
      *
      * @param filePath              is the absolute filepath of the .json file in the system.
-     * @param geographicAreaService is the list of Geographic areas that comes from Main, since we still don't have a database, to which
+     * @param geographicAreaRepository is the list of Geographic areas that comes from Main, since we still don't have a database, to which
      *                              we want to addWithoutPersisting the imported geographic areas.
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaService geographicAreaService) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaRepository geographicAreaRepository) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
-        return readGeoAreasJSON(geoAreas, geographicAreaService);
+        return readGeoAreasJSON(geoAreas, geographicAreaRepository);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaService geographicAreaService) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaRepository geographicAreaRepository) {
         int result = 0;
 
         for (int i = 0; i < geoAreas.length(); i++) {
@@ -77,13 +77,13 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
             try {
 
-                GeographicArea areaObject = geographicAreaService.createGA(areaID, areaType, areaWidth, areaLength, location);
+                GeographicArea areaObject = geographicAreaRepository.createGA(areaID, areaType, areaWidth, areaLength, location);
                 areaObject.setDescription(areaDescription);
                 JSONArray areaSensors = area.getJSONArray("area_sensor");
-                if (geographicAreaService.addAndPersistGA(areaObject)) {
+                if (geographicAreaRepository.addAndPersistGA(areaObject)) {
                     result++;
-                    readAreaSensorsJSON(areaSensors, areaObject, geographicAreaService);
-                    geographicAreaService.updateGeoArea(areaObject);
+                    readAreaSensorsJSON(areaSensors, areaObject, geographicAreaRepository);
+                    geographicAreaRepository.updateGeoArea(areaObject);
                 }
             } catch (IllegalArgumentException ignored) {
             }
@@ -98,7 +98,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      *                    that belong to an area.
      */
 
-    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
+    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, GeographicAreaRepository geographicAreaRepository) {
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -124,7 +124,7 @@ public class ReaderJSONGeographicAreas implements Reader {
                     sensorLongitude, sensorAltitude);
             Long gaID = geographicArea.getId();
             try {
-                AreaSensor sensorToAdd = geographicAreaService.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+                AreaSensor sensorToAdd = geographicAreaRepository.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
                 geographicArea.addSensor(sensorToAdd);
                 entriesChecked++;
 

@@ -3,12 +3,10 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,7 @@ class HouseMapperTest {
         List<String> deviceTypes = new ArrayList<>();
         List<Room> roomService = new ArrayList<>();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
-        GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
+        GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
         expectedResult.setMotherArea(geographicArea);
         HouseDTO houseDTO = new HouseDTO();
@@ -85,7 +83,7 @@ class HouseMapperTest {
         List<String> deviceTypes = new ArrayList<>();
         List<Room> roomService = new ArrayList<>();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
-        GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
+        GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
         expectedResult.setMotherArea(geographicArea);
         HouseDTO houseDTO = new HouseDTO();
@@ -145,7 +143,7 @@ class HouseMapperTest {
         List<String> deviceTypes = new ArrayList<>();
         List<Room> roomService = new ArrayList<>();
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
-        GeographicArea geographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
+        GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House house = new House("01", address, local, 15, 15, deviceTypes);
         house.setMotherArea(geographicArea);
         HouseDTO houseDTO = new HouseDTO();

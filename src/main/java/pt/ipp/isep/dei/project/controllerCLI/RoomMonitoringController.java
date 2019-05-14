@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,8 +28,8 @@ public class RoomMonitoringController {
      * @param roomDTO is the roomDTO we want to get the room from, so that we can get the temperature.
      * @return is the most recent temperature recorded in a room.
      */
-    public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomService roomService) {
-        Room room = roomService.updateHouseRoom(roomDTO);
+    public double getCurrentRoomTemperature(RoomDTO roomDTO, RoomRepository roomRepository) {
+        Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getCurrentRoomTemperature();
     }
 
@@ -40,8 +40,8 @@ public class RoomMonitoringController {
      * @param roomDTO is the room we want to check the temperature in.
      * @return is the max temperature recorded in a room
      */
-    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomService roomService) {
-        Room room = roomService.updateHouseRoom(roomDTO);
+    public double getDayMaxTemperature(RoomDTO roomDTO, Date day, RoomRepository roomRepository) {
+        Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getMaxTemperatureOnGivenDay(day);
     }
 
@@ -52,8 +52,8 @@ public class RoomMonitoringController {
      * @return room's name as a string
      **/
 
-    public String getRoomName(RoomDTO roomDTO, RoomService roomService) {
-        Room room = roomService.updateHouseRoom(roomDTO);
+    public String getRoomName(RoomDTO roomDTO, RoomRepository roomRepository) {
+        Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getId();
     }
 
@@ -67,9 +67,9 @@ public class RoomMonitoringController {
      * @param category is selected by the user.
      * @return a String with the requested information for the User Story 445
      */
-    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaHouseService geographicAreaHouseService) {
+    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomRepository roomRepository, GeographicAreaHouseService geographicAreaHouseService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = roomService.getTemperatureReadingsBetweenDates(startDate, endDate, room);
+        List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
@@ -110,9 +110,9 @@ public class RoomMonitoringController {
 
     //US 440
 
-    public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService, GeographicAreaHouseService geographicAreaHouseService) {
+    public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate, RoomRepository roomRepository, GeographicAreaHouseService geographicAreaHouseService) {
         Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = roomService.getTemperatureReadingsBetweenDates(startDate, endDate, room);
+        List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, room);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {

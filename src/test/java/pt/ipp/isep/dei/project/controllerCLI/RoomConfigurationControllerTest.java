@@ -14,10 +14,10 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,14 +40,14 @@ class RoomConfigurationControllerTest {
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
     private RoomConfigurationController controller = new RoomConfigurationController();
-    private RoomService roomService;
+    private RoomRepository roomRepository;
     private Date validDate1;
 
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @Mock
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -64,7 +64,7 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        this.roomService = new RoomService(roomRepository, sensorTypeRepo);
+        this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
     }
 
 
@@ -92,11 +92,11 @@ class RoomConfigurationControllerTest {
         SensorType sensorType = new SensorType("temperature", "Celsius");
         RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
 
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
         // Act
 
-        Device actualResult = controller.getDeviceByIndex(roomDTO, 0, roomService);
+        Device actualResult = controller.getDeviceByIndex(roomDTO, 0, roomRepository);
 
         // Assert
 
@@ -127,11 +127,11 @@ class RoomConfigurationControllerTest {
         SensorType sensorType = new SensorType("temperature", "Celsius");
         RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
 
-        Mockito.when(roomRepository.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
         // Act
 
-        int actualResult = controller.getDeviceListSize(roomDTO, roomService);
+        int actualResult = controller.getDeviceListSize(roomDTO, roomRepository);
 
         // Assert
 
@@ -146,11 +146,11 @@ class RoomConfigurationControllerTest {
         SensorType sensorType = new SensorType("temperature", "Celsius");
         RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
 
-        Mockito.when(sensorTypeRepo.findByName("temperature")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorType));
 
         // Act
 
-        RoomSensor actualResult = controller.createRoomSensor(roomService, "Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+        RoomSensor actualResult = controller.createRoomSensor(roomRepository, "Sensor1", "Sensor1", sensorType, validDate1, "Room1");
 
         // Assert
 
@@ -311,7 +311,7 @@ class RoomConfigurationControllerTest {
         RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
         // Act
 
-        boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomService, validRoomNoDevices);
+        boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomRepository, validRoomNoDevices);
 
         // Assert
 

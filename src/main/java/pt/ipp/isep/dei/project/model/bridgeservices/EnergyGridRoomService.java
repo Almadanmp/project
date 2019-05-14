@@ -3,8 +3,8 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.EnergyGridRepo;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 
 import java.util.List;
 
@@ -16,23 +16,23 @@ import java.util.List;
 public class EnergyGridRoomService {
 
     @Autowired
-    EnergyGridRepo energyGridRepository;
+    EnergyGridCrudeRepo energyGridCrudeRepository;
     @Autowired
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     /**
      * Empty constructor to use on UIs.
      */
-    public EnergyGridRoomService(EnergyGridRepo energyGridRepository, RoomRepository roomRepository) {
-        this.energyGridRepository = energyGridRepository;
-        this.roomRepository = roomRepository;
+    public EnergyGridRoomService(EnergyGridCrudeRepo energyGridCrudeRepository, RoomCrudeRepo roomCrudeRepo) {
+        this.energyGridCrudeRepository = energyGridCrudeRepository;
+        this.roomCrudeRepo = roomCrudeRepo;
     }
 
     public EnergyGridRoomService() {
     }
 
     public List<Room> getAllByEnergyGridName(String energyGridName) {
-        return roomRepository.findAllByEnergyGridId(energyGridName);
+        return roomCrudeRepo.findAllByEnergyGridId(energyGridName);
     }
 
 

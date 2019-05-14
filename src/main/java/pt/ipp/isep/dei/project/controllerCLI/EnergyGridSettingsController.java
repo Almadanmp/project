@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.List;
 
@@ -20,12 +20,12 @@ public class EnergyGridSettingsController {
 
 
     /**
-     * @param roomService is the list of Rooms we want to print.
+     * @param roomRepository is the list of Rooms we want to print.
      * @return builds a string of all the individual rooms contained in the list.
      */
 
-    public String buildRoomsString(RoomService roomService, List<Room> roomsOnGrid) {
-        return roomService.buildRoomsAsString(roomsOnGrid);
+    public String buildRoomsString(RoomRepository roomRepository, List<Room> roomsOnGrid) {
+        return roomRepository.buildRoomsAsString(roomsOnGrid);
     }
 
     /**
@@ -97,9 +97,9 @@ public class EnergyGridSettingsController {
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomService roomService) {
+    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomRepository roomRepository) {
         try{
-            Room room = roomService.updateHouseRoom(roomDTO);
+            Room room = roomRepository.updateHouseRoom(roomDTO);
             return grid.addRoom(room);
         }
         catch (RuntimeException ok){

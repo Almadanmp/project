@@ -26,10 +26,7 @@ public class GeographicArea implements Root {
     private Long id;
     private String name;
 
-    //TODO cant point to different aggregate
-    @ManyToOne
-    @JoinColumn(name = "type_area_id")
-    private AreaType areaType;
+    private String areaTypeID;
 
     private double length;
     private double width;
@@ -41,7 +38,6 @@ public class GeographicArea implements Root {
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "geographicAreaId")
-
     private List<AreaSensor> areaSensors;
 
     @Embedded
@@ -62,16 +58,16 @@ public class GeographicArea implements Root {
     /**
      * Constructor
      *
-     * @param name     the name of the Area
-     * @param areaType the type of the area.
-     * @param length   the total length of the area.
-     * @param width    the total width of the area.
-     * @param location the location of the area,
+     * @param name       the name of the Area
+     * @param areaTypeID the type of the area.
+     * @param length     the total length of the area.
+     * @param width      the total width of the area.
+     * @param location   the location of the area,
      */
 
-    public GeographicArea(String name, AreaType areaType, double length, double width, Local location) {
+    public GeographicArea(String name, String areaTypeID, double length, double width, Local location) {
         this.name = name;
-        this.areaType = areaType;
+        this.areaTypeID = areaTypeID;
         this.length = length;
         this.width = width;
         this.location = location;
@@ -162,8 +158,8 @@ public class GeographicArea implements Root {
         this.description = description;
     }
 
-    public void setAreaType(AreaType areaType) {
-        this.areaType = areaType;
+    public void setAreaTypeID(String areaTypeID) {
+        this.areaTypeID = areaTypeID;
     }
 
 
@@ -248,8 +244,8 @@ public class GeographicArea implements Root {
      *
      * @return returns the attribute AreaType from an object of the class Geographic Area
      */
-    public AreaType getAreaType() {
-        return this.areaType;
+    public String getAreaTypeID() {
+        return this.areaTypeID;
     }
 
 
@@ -271,7 +267,7 @@ public class GeographicArea implements Root {
 
     public String buildString() {
         String result;
-        result = this.name + ", " + this.areaType.getName() + ", " +
+        result = this.name + ", " + this.areaTypeID + ", " +
                 this.location.getLatitude() + "º lat, " + this.location.getLongitude() + "º long\n";
         return result;
     }
@@ -388,7 +384,7 @@ public class GeographicArea implements Root {
      *
      * @param startList starting area sensor list
      * @return most recently used Area Sensor
-     * **/
+     **/
     AreaSensor getMostRecentlyUsedAreaSensor(List<AreaSensor> startList) {
         if (startList.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
@@ -451,8 +447,8 @@ public class GeographicArea implements Root {
     }
 
 
-    boolean equalsParameters(String name, AreaType areaType, Local local) {
-        return (this.name.equals(name) && (this.areaType.equals(areaType) && (this.location.equals(local))));
+    boolean equalsParameters(String name, String areaType, Local local) {
+        return (this.name.equals(name) && (this.areaTypeID.equals(areaType) && (this.location.equals(local))));
     }
 
     /**
@@ -463,7 +459,7 @@ public class GeographicArea implements Root {
      **/
 
     boolean isOfType(AreaType areaType) {
-        return (this.areaType.equals(areaType));
+        return (this.areaTypeID.equals(areaType));
     }
 
 
@@ -520,7 +516,7 @@ public class GeographicArea implements Root {
             return false;
         }
         GeographicArea gA = (GeographicArea) testObject;
-        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getAreaType().equals(gA.getAreaType()))));
+        return (this.getLocal().equals(gA.getLocal()) && (this.getName().equals(gA.getName()) && (this.getAreaTypeID().equals(gA.getAreaTypeID()))));
     }
 
     @Override

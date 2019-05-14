@@ -14,10 +14,10 @@ import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,17 +32,17 @@ class RoomMapperTest {
     // Common testing artifacts for testing in this class
     private Room validRoom;
     private RoomDTO validDTO;
-    private RoomService roomService;
+    private RoomRepository roomRepository;
 
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @Mock
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomService = new RoomService(roomRepository, sensorTypeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 
@@ -121,8 +121,8 @@ class RoomMapperTest {
         rooms.add(room);
         rooms.add(room1);
         validDTO.setName("Room1");
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        Room actualResult = roomService.updateHouseRoom(validDTO);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Room actualResult = roomRepository.updateHouseRoom(validDTO);
         assertEquals(room, actualResult);
     }
 

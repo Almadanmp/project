@@ -17,11 +17,11 @@ import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -48,18 +48,18 @@ class GASettingsControllerTest {
     private AreaSensorDTO validAreaSensorDTO1;
     private AreaSensorDTO validAreaSensorDTO2;
     private AreaSensor validAreaSensor1;
-    private GeographicAreaService validGeographicAreaService;
+    private GeographicAreaRepository validGeographicAreaRepository;
     private AreaTypeRepository validAreaTypeRepository;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
 
     @Mock
-    private GeographicAreaRepository geographicAreaRepository;
+    private GeographicAreaCrudeRepo geographicAreaCrudeRepo;
 
     @Mock
-    AreaTypeRepo areaTypeRepo;
+    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -70,13 +70,13 @@ class GASettingsControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validAreaTypeRepository = new AreaTypeRepository(areaTypeRepo);
+        validAreaTypeRepository = new AreaTypeRepository(areaTypeCrudeRepo);
         typeCountry = new AreaType("Country");
         typeCity = new AreaType("City");
-        firstValidArea = new GeographicArea("Portugal", typeCountry,
+        firstValidArea = new GeographicArea("Portugal", typeCountry.getName(),
                 2, 5, new Local(21, 33, 5));
         firstValidArea.setId(1L);
-        secondValidArea = new GeographicArea("Portugal", typeCity,
+        secondValidArea = new GeographicArea("Portugal", typeCity.getName(),
                 2, 5, new Local(21, 33, 5));
         secondValidArea.setId(2L);
         validAreaSensor1 = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
@@ -87,9 +87,9 @@ class GASettingsControllerTest {
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
-        validGeographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
-        validGeographicAreaService.addAndPersistGA(firstValidArea);
-        validGeographicAreaService.addAndPersistGA(secondValidArea);
+        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        validGeographicAreaRepository.addAndPersistGA(firstValidArea);
+        validGeographicAreaRepository.addAndPersistGA(secondValidArea);
     }
 
     @Test
@@ -100,14 +100,11 @@ class GASettingsControllerTest {
         areaTypes.add(typeCountry);
         areaTypes.add(typeCity);
 
-        typeCountry.setId(0);
-        typeCity.setId(1);
-
-        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
-                "1) Name: City \n" +
+                "Name: Country \n" +
+                "Name: City \n" +
                 "---------------\n";
 
         // Act
@@ -142,11 +139,11 @@ class GASettingsControllerTest {
         List<GeographicArea> expectedResult = new ArrayList<>();
         expectedResult.add(secondValidArea);
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(expectedResult);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(expectedResult);
 
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCity));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaRepository, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -203,12 +200,10 @@ class GASettingsControllerTest {
         List<AreaType> areaTypes = new ArrayList<>();
         areaTypes.add(typeCountry);
 
-        typeCountry.setId(0);
-
         String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
+                "Name: Country \n" +
                 "---------------\n";
-        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
 
         // Act
 
@@ -227,14 +222,11 @@ class GASettingsControllerTest {
         areaTypes.add(typeCountry);
         areaTypes.add(typeCity);
 
-        typeCountry.setId(0);
-        typeCity.setId(1);
-
-        Mockito.when(areaTypeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "---------------\n" +
-                "0) Name: Country \n" +
-                "1) Name: City \n" +
+                "Name: Country \n" +
+                "Name: City \n" +
                 "---------------\n";
 
         // Act
@@ -251,7 +243,7 @@ class GASettingsControllerTest {
     void seeIfMatchGAByTypeCountry() {
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCountry));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaRepository, AreaTypeMapper.objectToDTO(typeCountry));
 
         // Assert
 
@@ -262,7 +254,7 @@ class GASettingsControllerTest {
     void seeMatchGAByTypeNotInList() {
         // Act
 
-        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaService, AreaTypeMapper.objectToDTO(typeCity));
+        List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaRepository, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
 
@@ -337,7 +329,7 @@ class GASettingsControllerTest {
 
         // Act
 
-        String result = controller.buildGAListString(validGeographicAreaService, list);
+        String result = controller.buildGAListString(validGeographicAreaRepository, list);
 
         // Assert
 
@@ -387,7 +379,7 @@ class GASettingsControllerTest {
     void seeIfIndirectlyContained() {
         // Arrange
 
-        GeographicArea grandDaughterGA = new GeographicArea("Porto", new AreaType("Country"),
+        GeographicArea grandDaughterGA = new GeographicArea("Porto", "Country",
                 2, 4, new Local(21, 33, 5));
         grandDaughterGA.setMotherArea(secondValidArea);
         secondValidArea.setMotherArea(firstValidArea);
@@ -405,7 +397,7 @@ class GASettingsControllerTest {
     void seeIfNotContained() {
         // Arrange
 
-        GeographicArea grandDaughterGA = new GeographicArea("Oporto", new AreaType("Country"), 2, 4, new Local(21, 33, 5));
+        GeographicArea grandDaughterGA = new GeographicArea("Oporto", "Country", 2, 4, new Local(21, 33, 5));
         grandDaughterGA.setMotherArea(secondValidArea);
         secondValidArea.setMotherArea(firstValidArea);
 
@@ -469,14 +461,14 @@ class GASettingsControllerTest {
         // Arrange
 
         GeographicAreaDTO expectedResult = validGeographicAreaDTO;
-        geographicAreaRepository.save(firstValidArea);
+        geographicAreaCrudeRepo.save(firstValidArea);
 
         // Act
 
-        Mockito.when(geographicAreaRepository.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
+        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
         InputStream in = new ByteArrayInputStream(firstValidArea.getId().toString().getBytes());
         System.setIn(in);
-        GeographicAreaDTO actualResult = controller.getInputArea(validGeographicAreaService);
+        GeographicAreaDTO actualResult = controller.getInputArea(validGeographicAreaRepository);
 
         // Assert
 
@@ -490,7 +482,7 @@ class GASettingsControllerTest {
         List<AreaSensor> actualResult = GeographicAreaMapper.dtoToObject(validGeographicAreaDTO).getAreaSensors();
         actualResult.remove(validAreaSensor1);
 
-        controller.removeSensor(validAreaSensorDTO1, validGeographicAreaDTO, validGeographicAreaService);
+        controller.removeSensor(validAreaSensorDTO1, validGeographicAreaDTO, validGeographicAreaRepository);
 
 
         // Assert
@@ -502,7 +494,7 @@ class GASettingsControllerTest {
     void seeIfAddNewGeoAreaToListWorks() {
         // Act
 
-        boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO);
+        boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaRepository, validGeographicAreaDTO);
 
         // Assert
 
@@ -515,11 +507,11 @@ class GASettingsControllerTest {
 
         List<GeographicArea> mockedList = new ArrayList<>();
         mockedList.add(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(mockedList);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(mockedList);
 
         // Act
 
-        boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaService, validGeographicAreaDTO);
+        boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaRepository, validGeographicAreaDTO);
 
         // Assert
 

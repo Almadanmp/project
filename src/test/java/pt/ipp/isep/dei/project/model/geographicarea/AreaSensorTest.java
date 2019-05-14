@@ -30,6 +30,7 @@ class AreaSensorTest {
     private Date validDate1;
     private Date validDate2;
     private Date validDate3;
+    private AreaType validAreaType;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -43,7 +44,7 @@ class AreaSensorTest {
                 ParseException c) {
             c.printStackTrace();
         }
-
+        validAreaType = new AreaType("Cidade");
         validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate2, 6008L);
         validAreaSensor.setActive(true);
     }
@@ -545,7 +546,7 @@ class AreaSensorTest {
         House house = new House("House", new Address("Rua das Flores", "431", "4512", "Porto", "Portugal"), new Local(
                 4, 6, 6), 60, 180,
                 new ArrayList<>());
-        house.setMotherArea(new GeographicArea("Porto", new AreaType("City"),
+        house.setMotherArea(new GeographicArea("Porto", validAreaType.getName(),
                 2, 3, new Local(4, 4, 100)));
         Local testLocal = new Local(-5, -5, -5);
         double expectedResult = 799.8866399214708;

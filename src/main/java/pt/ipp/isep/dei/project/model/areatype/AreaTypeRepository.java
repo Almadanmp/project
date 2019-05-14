@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.areatype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,12 +14,12 @@ import java.util.Optional;
 public class AreaTypeRepository {
 
     @Autowired
-    AreaTypeRepo repository;
+    AreaTypeCrudeRepo repository;
 
     /**
      * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
      */
-    public AreaTypeRepository(AreaTypeRepo repository) {
+    public AreaTypeRepository(AreaTypeCrudeRepo repository) {
         this.repository = repository;
     }
 
@@ -65,7 +65,7 @@ public class AreaTypeRepository {
             return "Invalid List - List is Empty\n";
         }
         for (AreaType ta : typeAreas) {
-            result.append(ta.getId()).append(") Name: ").append(ta.getName()).append(" \n");
+            result.append("Name: ").append(ta.getName()).append(" \n");
         }
         result.append("---------------\n");
         return result.toString();

@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -85,12 +85,12 @@ public class EnergyConsumptionController {
      * Calls for the roomList's method in the model to removeGeographicArea a given room from itself.
      *
      * @param room        is the room we want to removeGeographicArea.
-     * @param roomService is the list we want to removeGeographicArea it from.
+     * @param roomRepository is the list we want to removeGeographicArea it from.
      * @return true if the room was removed, false if it wasn't on the list.
      */
 
-    public boolean removeRoomFromList(Room room, RoomService roomService) {
-        return roomService.removeRoom(room);
+    public boolean removeRoomFromList(Room room, RoomRepository roomRepository) {
+        return roomRepository.removeRoom(room);
     }
 
     /**
@@ -185,9 +185,9 @@ public class EnergyConsumptionController {
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
-    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, RoomService roomService) {
+    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, RoomRepository roomRepository) {
         try {
-            Room room = roomService.updateHouseRoom(roomDTO);
+            Room room = roomRepository.updateHouseRoom(roomDTO);
             return room.getLogsInInterval(startDate, endDate);
         } catch (RuntimeException ok) {
             throw new RuntimeException();
@@ -227,8 +227,8 @@ public class EnergyConsumptionController {
      *
      * @return returns a list of water heaters from a house
      */
-    public DeviceList getWaterHeaterDeviceList(RoomService roomService) {
-        List<Room> rooms = roomService.getAllRooms();
+    public DeviceList getWaterHeaterDeviceList(RoomRepository roomRepository) {
+        List<Room> rooms = roomRepository.getAllRooms();
         DeviceList roomDevicesOfGivenType = new DeviceList();
         for (Room r : rooms) {
             r.getDevicesOfGivenType("WaterHeater").addDevicesToDeviceList(roomDevicesOfGivenType);
@@ -264,9 +264,9 @@ public class EnergyConsumptionController {
      *
      * @return estimate energy consumption on the water heaters
      */
-    public double getDailyWaterHeaterConsumption(RoomService roomService) {
+    public double getDailyWaterHeaterConsumption(RoomRepository roomRepository) {
         int time = 1440;
-        return roomService.getDailyConsumptionByDeviceType("WaterHeater", time);
+        return roomRepository.getDailyConsumptionByDeviceType("WaterHeater", time);
     }
 
     /**

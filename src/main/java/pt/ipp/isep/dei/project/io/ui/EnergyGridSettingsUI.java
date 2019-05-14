@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ class EnergyGridSettingsUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, EnergyGridRepository energyGridRepository, RoomService roomService, EnergyGridRoomService energyGridRoomService) {
+    void run(House house, EnergyGridRepository energyGridRepository, RoomRepository roomRepository, EnergyGridRoomService energyGridRoomService) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -52,11 +52,11 @@ class EnergyGridSettingsUI {
                     activeInput = false;
                     break;
                 case 3: //US145
-                    runUS145(energyGridRepository, roomService, energyGridRoomService);
+                    runUS145(energyGridRepository, roomRepository, energyGridRoomService);
                     activeInput = false;
                     break;
                 case 4: //US147
-                    runUS147(energyGridRepository, roomService);
+                    runUS147(energyGridRepository, roomRepository);
                     activeInput = false;
                     break;
                 case 5: //US149
@@ -140,25 +140,25 @@ class EnergyGridSettingsUI {
 
     // USER STORY 145 -  an Administrator, I want to have a list of existing rooms attached to a house grid, so that I
     // can attach/detach rooms from it - JOAO CACHADA.
-    private void runUS145(EnergyGridRepository energyGridRepository, RoomService roomService, EnergyGridRoomService energyGridRoomService) {
+    private void runUS145(EnergyGridRepository energyGridRepository, RoomRepository roomRepository, EnergyGridRoomService energyGridRoomService) {
         if (energyGridRepository.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridRepository);
         List<Room> roomsOnGrid = energyGridRoomService.getAllByEnergyGridName(energyGrid.getName());
-        displayRoomList(roomsOnGrid, roomService);
+        displayRoomList(roomsOnGrid, roomRepository);
 
     }
 
-    private void displayRoomList(List<Room> roomsOnGrid, RoomService roomService) {
-        System.out.println(controller.buildRoomsString(roomService, roomsOnGrid));
+    private void displayRoomList(List<Room> roomsOnGrid, RoomRepository roomRepository) {
+        System.out.println(controller.buildRoomsString(roomRepository, roomsOnGrid));
     }
 
     // USER STORY 147 -  As an Administrator, I want to attach a room to a house grid, so that the room’s power and
     // energy consumption is included in that grid. MIGUEL ORTIGAO
-    private void runUS147(EnergyGridRepository energyGridRepository, RoomService roomService) {
-        if (roomService.isEmptyRooms()) {
+    private void runUS147(EnergyGridRepository energyGridRepository, RoomRepository roomRepository) {
+        if (roomRepository.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
@@ -166,15 +166,15 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
         }
-        List<Room> houseRooms = roomService.getAllRooms();
-        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomService, houseRooms);
+        List<Room> houseRooms = roomRepository.getAllRooms();
+        RoomDTO room = InputHelperUI.getHouseRoomDTOByList(roomRepository, houseRooms);
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridRepository);
-        updateGridUS147(energyGrid, room, roomService, energyGridRepository);
+        updateGridUS147(energyGrid, room, roomRepository, energyGridRepository);
     }
 
-    private void updateGridUS147(EnergyGrid grid, RoomDTO room, RoomService roomService, EnergyGridRepository energyGridRepository) {
+    private void updateGridUS147(EnergyGrid grid, RoomDTO room, RoomRepository roomRepository, EnergyGridRepository energyGridRepository) {
         try {
-            if (controller.addRoomDTOToGrid(grid, room, roomService)) {
+            if (controller.addRoomDTOToGrid(grid, room, roomRepository)) {
                 try {
                     controller.addEnergyGridToHouse(grid, energyGridRepository);
                     System.out.println("Room successfully added to the grid!");

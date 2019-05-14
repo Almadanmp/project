@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SensorTypeRepo extends CrudRepository<SensorType, String> {
+public interface SensorTypeCrudeRepo extends CrudRepository<SensorType, String> {
 
     Optional<SensorType> findByName(String name);
 

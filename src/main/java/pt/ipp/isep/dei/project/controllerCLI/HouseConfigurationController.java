@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.io.ui.reader.JSONSensorsReader;
 
 import java.util.List;
@@ -83,8 +83,8 @@ public class HouseConfigurationController {
      * @param roomDimensions  contains the width, length and height respectively.
      * @return a new Room
      */
-    public Room createNewRoom(RoomService roomService, String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID, String energyGridID) {
-        return roomService.createRoom(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID, energyGridID);
+    public Room createNewRoom(RoomRepository roomRepository, String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID, String energyGridID) {
+        return roomRepository.createRoom(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID, energyGridID);
     }
 
     /**
@@ -93,8 +93,8 @@ public class HouseConfigurationController {
      * @param room the DTO of a Room.
      * @return true if room was added, false otherwise.
      **/
-    public boolean addRoomToHouse(RoomService roomService, Room room) {
-        return roomService.saveRoom(room);
+    public boolean addRoomToHouse(RoomRepository roomRepository, Room room) {
+        return roomRepository.saveRoom(room);
     }
 
 
@@ -104,8 +104,8 @@ public class HouseConfigurationController {
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String buildRoomsString(RoomService roomService, List<Room> houseRooms) {
-        return roomService.buildRoomsAsString(houseRooms);
+    public String buildRoomsString(RoomRepository roomRepository, List<Room> houseRooms) {
+        return roomRepository.buildRoomsAsString(houseRooms);
     }
 
     /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.
@@ -115,20 +115,20 @@ public class HouseConfigurationController {
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
      *
      * @param filepath    is the path of the file we want to import sensors from.
-     * @param roomService is the service making the connection to the room repository.
+     * @param roomRepository is the service making the connection to the room repository.
      * @return is the number of imported sensors.
      */
 
-    public int[] readSensors(String filepath, RoomService roomService) {
+    public int[] readSensors(String filepath, RoomRepository roomRepository) {
         // Initialize needed variables.
         JSONSensorsReader reader = new JSONSensorsReader();
         int[] result = new int[2];
-        if (roomService.isEmptyRooms()) { // If there are no rooms to add sensors to, no sensors will be added.
+        if (roomRepository.isEmptyRooms()) { // If there are no rooms to add sensors to, no sensors will be added.
             return result;
         }
         try {
             List<RoomSensorDTO> importedSensors = reader.importSensors(filepath);
-            return addSensorsToModelRooms(importedSensors, roomService);
+            return addSensorsToModelRooms(importedSensors, roomRepository);
         } catch (IllegalArgumentException ok) { // Throws an exception if the file is corrupt or non existent.
             throw new IllegalArgumentException();
         }
@@ -139,20 +139,20 @@ public class HouseConfigurationController {
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
      *
      * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
-     * @param roomService     is the service making the connection to the room repository.
+     * @param roomRepository     is the service making the connection to the room repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors, RoomService roomService) {
+    private int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors, RoomRepository roomRepository) {
         Logger logger = LogUtils.getLogger("sensorsImportLogger", VALID_LOG_PATH, Level.FINE); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (RoomSensorDTO importedSensor : importedSensors) {
-            Optional<Room> roomToAddTo = roomService.findRoomByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
+            Optional<Room> roomToAddTo = roomRepository.findRoomByID(importedSensor.getRoomID()); // Attempts to getDB a room in the repository with an ID that matches the sensor.
             if (roomToAddTo.isPresent()) {// If the room with the proper id exists, the sensor is saved.
                 Room aux = roomToAddTo.get();
                 aux.addSensor(RoomSensorMapper.dtoToObject(importedSensor));
-                roomService.updateRoom(aux);
+                roomRepository.updateRoom(aux);
                 addedSensors++;
             } else {
                 logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()

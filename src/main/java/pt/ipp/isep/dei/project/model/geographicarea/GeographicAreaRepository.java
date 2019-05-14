@@ -8,9 +8,9 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -20,23 +20,23 @@ import java.util.logging.Logger;
  * Class that groups a number of Geographical Areas.
  */
 @Service
-public class GeographicAreaService {
+public class GeographicAreaRepository {
     @Autowired
-    private static GeographicAreaRepository geographicAreaRepository;
+    private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
     @Autowired
-    private static AreaTypeRepo areaTypeRepo;
+    private static AreaTypeCrudeRepo areaTypeCrudeRepo;
     @Autowired
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
 
 
-    public GeographicAreaService(GeographicAreaRepository geographicAreaRepository, AreaTypeRepo areaTypeRepo, SensorTypeRepo sensorTypeRepo) {
-        GeographicAreaService.geographicAreaRepository = geographicAreaRepository;
-        GeographicAreaService.areaTypeRepo = areaTypeRepo;
-        this.sensorTypeRepo = sensorTypeRepo;
+    public GeographicAreaRepository(GeographicAreaCrudeRepo geographicAreaCrudeRepo, AreaTypeCrudeRepo areaTypeCrudeRepo, SensorTypeCrudeRepo sensorTypeCrudeRepo) {
+        GeographicAreaRepository.geographicAreaCrudeRepo = geographicAreaCrudeRepo;
+        GeographicAreaRepository.areaTypeCrudeRepo = areaTypeCrudeRepo;
+        this.sensorTypeCrudeRepo = sensorTypeCrudeRepo;
     }
 
     /**
@@ -45,7 +45,7 @@ public class GeographicAreaService {
      * @return a GeographicAreaList with all the Geographical Areas saved in the repository.
      */
     public List<GeographicArea> getAll() {
-        return geographicAreaRepository.findAll();
+        return geographicAreaCrudeRepo.findAll();
     }
 
     /**
@@ -59,14 +59,14 @@ public class GeographicAreaService {
         List<GeographicArea> geographicAreas = getAll();
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
-            geographicAreaRepository.save(geographicAreaToAdd);
+            geographicAreaCrudeRepo.save(geographicAreaToAdd);
             return true;
         }
         return false;
     }
 
     public void updateGeoArea(GeographicArea area) {
-        geographicAreaRepository.save(area);
+        geographicAreaCrudeRepo.save(area);
     }
 
     /**
@@ -84,7 +84,7 @@ public class GeographicAreaService {
 
         for (GeographicArea ga : geographicAreas) {
             result.append(ga.getId()).append(") Name: ").append(ga.getName()).append(" | ");
-            result.append("Type: ").append(ga.getAreaType().getName()).append(" | ");
+            result.append("Type: ").append(ga.getAreaTypeID()).append(" | ");
             result.append("Latitude: ").append(ga.getLocal().getLatitude()).append(" | ");
             result.append("Longitude: ").append(ga.getLocal().getLongitude()).append("\n");
         }
@@ -107,7 +107,7 @@ public class GeographicAreaService {
         AreaType areaType = getAreaTypeByName(areaTypeName, logger);
         LogUtils.closeHandlers(logger);
         if (areaType != null) {
-            return new GeographicArea(newName, areaType, length, width, local);
+            return new GeographicArea(newName, areaTypeName, length, width, local);
         } else {
             throw new IllegalArgumentException();
         }
@@ -121,9 +121,9 @@ public class GeographicAreaService {
      */
     public List<GeographicArea> getGeoAreasByType(List<GeographicArea> geographicAreas, String typeAreaName) {
         List<GeographicArea> finalList = new ArrayList<>();
-        AreaType areaTypeToTest = new AreaType(typeAreaName);
         for (GeographicArea ga : geographicAreas) {
-            if (ga.isOfType(areaTypeToTest)) {
+            String gaType = ga.getAreaTypeID();
+            if (gaType.equals(typeAreaName)) {
                 finalList.add(ga);
             }
         }
@@ -147,7 +147,7 @@ public class GeographicAreaService {
      * @return returns geographic area that corresponds to index.
      */
     public GeographicArea get(long id) {
-        Optional<GeographicArea> value = geographicAreaRepository.findById(id);
+        Optional<GeographicArea> value = geographicAreaCrudeRepo.findById(id);
         if (value.isPresent()) {
             return value.get();
         }
@@ -170,7 +170,7 @@ public class GeographicAreaService {
      * @return Type Area corresponding to the given id
      */
     AreaType getAreaTypeByName(String name, Logger logger) {
-        Optional<AreaType> value = areaTypeRepo.findByName(name);
+        Optional<AreaType> value = areaTypeCrudeRepo.findByName(name);
         if (!(value.isPresent())) {
             logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
                     "Type first.");
@@ -204,7 +204,7 @@ public class GeographicAreaService {
      */
     private SensorType getTypeSensorByName(String name, String unit) {
         Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
-        Optional<SensorType> value = sensorTypeRepo.findByName(name);
+        Optional<SensorType> value = sensorTypeCrudeRepo.findByName(name);
         if (!(value.isPresent())) {
             String message = "The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
                     "Type first.";
@@ -253,7 +253,7 @@ public class GeographicAreaService {
             GeographicArea geographicArea = getGeographicAreaContainingSensorWithGivenId(sensorID);
             AreaSensor areaSensor = geographicArea.getAreaSensorByID(sensorID);
             addedReadings = addReadingsToAreaSensor(areaSensor, readings, logger);
-            geographicAreaRepository.save(geographicArea);
+            geographicAreaCrudeRepo.save(geographicArea);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.";
@@ -272,7 +272,7 @@ public class GeographicAreaService {
      * @return the geographic area that contains the sensor with the given ID
      **/
     GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
-        List<GeographicArea> geographicAreas = geographicAreaRepository.findAll();
+        List<GeographicArea> geographicAreas = geographicAreaCrudeRepo.findAll();
         for (GeographicArea ga : geographicAreas) {
             List<AreaSensor> areaSensors = ga.getAreaSensors();
             for (AreaSensor sensor : areaSensors) {

@@ -1,16 +1,16 @@
 package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 
 public class GeographicAreaAreaTypeService {
 
     @Autowired
-    private static GeographicAreaRepository geographicAreaRepository;
+    private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
 
     @Autowired
-    private static AreaTypeRepo areaTypeRepository;
+    private static AreaTypeCrudeRepo areaTypeCrudeRepository;
 
 
 }

@@ -9,12 +9,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -41,7 +38,7 @@ class SensorSettingsControllerTest {
 
 
     @Mock
-    private SensorTypeRepo sensorTypeRepo;
+    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -54,7 +51,7 @@ class SensorSettingsControllerTest {
                 ParseException c) {
             c.printStackTrace();
         }
-        validGeographicArea = new GeographicArea("GA", new AreaType("City"), 100, 90, new Local(0, 0, 0));
+        validGeographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         validAreaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), validDate1, 2L);
     }
 
@@ -90,10 +87,10 @@ class SensorSettingsControllerTest {
         // Arrange
 
         List<SensorType> sensorTypes = new ArrayList<>();
-        SensorTypeRepository service = new SensorTypeRepository(sensorTypeRepo);
+        SensorTypeRepository service = new SensorTypeRepository(sensorTypeCrudeRepo);
         SensorType typeA = new SensorType("Temperature", "Celsius");
         sensorTypes.add(typeA);
-        Mockito.when(sensorTypeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
         String expectedResult = "---------------\n" +
                 "Name: Temperature | Unit: Celsius \n" +
                 "---------------\n";
@@ -132,7 +129,7 @@ class SensorSettingsControllerTest {
         String typeString = "Humidade";
         String units = "kg/m³";
         String expectedResult = "Humidade";
-        SensorTypeRepository sensorTypeList = new SensorTypeRepository(sensorTypeRepo);
+        SensorTypeRepository sensorTypeList = new SensorTypeRepository(sensorTypeCrudeRepo);
 
         // Act
 
@@ -154,7 +151,7 @@ class SensorSettingsControllerTest {
         double lon = 50.0;
         double alt = 50.0;
         Local loc1 = controller.createLocal(lat, lon, alt);
-        SensorTypeRepository sensorTypeList = new SensorTypeRepository(sensorTypeRepo);
+        SensorTypeRepository sensorTypeList = new SensorTypeRepository(sensorTypeCrudeRepo);
         String typeStr = "Humidity";
         String unit = "kg/m³";
         SensorType type1 = controller.createType(sensorTypeList, typeStr, unit);
@@ -185,7 +182,7 @@ class SensorSettingsControllerTest {
         SensorType sensorType1 = new SensorType("temperature", "celsius");
         SensorType sensorType2 = new SensorType("temperature", "kelvin");
         SensorType sensorType4 = new SensorType("humidity", "percentage");
-        SensorTypeRepository typeList = new SensorTypeRepository(sensorTypeRepo);
+        SensorTypeRepository typeList = new SensorTypeRepository(sensorTypeCrudeRepo);
 
         // Act
 

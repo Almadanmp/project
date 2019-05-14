@@ -21,9 +21,9 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class GeographicAreaServiceTest {
+class GeographicAreaRepositoryTest {
 
     // Common testing artifacts for this class.
 
@@ -62,17 +62,17 @@ class GeographicAreaServiceTest {
     private Reading validReading2;
     private Reading validReadingHotDay;
     private Reading validReadingColdDay;
-    private GeographicAreaService geographicAreaService;
+    private GeographicAreaRepository geographicAreaRepository;
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
 
     @Mock
-    private SensorTypeRepo sensorTypeRepo;
+    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
     @Mock
-    GeographicAreaRepository geographicAreaRepository;
+    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
     @Mock
-    AreaTypeRepo areaTypeRepo;
+    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -95,7 +95,7 @@ class GeographicAreaServiceTest {
         }
 
 
-        firstValidArea = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validList = new ArrayList<>();
         validList.add(firstValidArea);
@@ -109,7 +109,7 @@ class GeographicAreaServiceTest {
                 sensorCreationTime, 6008L);
         validAreaSensor.setActive(true);
 
-        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
@@ -138,10 +138,10 @@ class GeographicAreaServiceTest {
     void seeIfUpdateGeoAreaWorks() {
         // Arrange
 
-        GeographicArea expectedResult = new GeographicArea("Portugal", new AreaType("Country"), 300, 200,
+        GeographicArea expectedResult = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
 
-        Mockito.when(geographicAreaRepository.save(firstValidArea)).thenReturn(expectedResult);
+        Mockito.when(geographicAreaCrudeRepo.save(firstValidArea)).thenReturn(expectedResult);
 
         // Assert
 
@@ -159,13 +159,13 @@ class GeographicAreaServiceTest {
         List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(firstValidArea);
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
 
         int expectedResult = 0;
 
         //Act
 
-        int actualResult = geographicAreaService.addAreaReadings("invalidSensor", readings, logger);
+        int actualResult = geographicAreaRepository.addAreaReadings("invalidSensor", readings, logger);
 
         // Assert
 
@@ -184,13 +184,13 @@ class GeographicAreaServiceTest {
         geographicAreas.add(firstValidArea);
         firstValidArea.addSensor(firstValidAreaSensor);
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
 
         int expectedResult = 1;
 
         //Act
 
-        int actualResult = geographicAreaService.addAreaReadings("SensorOne", readings, logger);
+        int actualResult = geographicAreaRepository.addAreaReadings("SensorOne", readings, logger);
 
         // Assert
 
@@ -209,7 +209,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
 
         // Assert
 
@@ -228,7 +228,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
 
         // Assert
 
@@ -249,7 +249,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
 
         // Assert
 
@@ -266,7 +266,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        int actualResult = geographicAreaService.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
 
         // Assert
 
@@ -280,11 +280,11 @@ class GeographicAreaServiceTest {
         firstValidArea.addSensor(firstValidAreaSensor);
         firstValidArea.addSensor(secondValidAreaSensor);
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(validList);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(validList);
 
         //Act
 
-        GeographicArea actualResult = geographicAreaService.getGeographicAreaContainingSensorWithGivenId("SensorTwo");
+        GeographicArea actualResult = geographicAreaRepository.getGeographicAreaContainingSensorWithGivenId("SensorTwo");
 
         // Assert
 
@@ -297,12 +297,12 @@ class GeographicAreaServiceTest {
 
         List<GeographicArea> emptyList = new ArrayList<>();
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(emptyList);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(emptyList);
 
         // Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaService.getGeographicAreaContainingSensorWithGivenId("invalidSensorID"));
+                () -> geographicAreaRepository.getGeographicAreaContainingSensorWithGivenId("invalidSensorID"));
     }
 
 
@@ -312,7 +312,7 @@ class GeographicAreaServiceTest {
 
         //Act
 
-        boolean actualResult = geographicAreaService.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for SonarQube testing purposes.
+        boolean actualResult = geographicAreaRepository.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for SonarQube testing purposes.
 
         // Assert
 
@@ -327,7 +327,7 @@ class GeographicAreaServiceTest {
 
         // Act
 
-        String result = geographicAreaService.buildStringRepository(geographicAreas);
+        String result = geographicAreaRepository.buildStringRepository(geographicAreas);
 
         // Assert
 
@@ -343,7 +343,7 @@ class GeographicAreaServiceTest {
 
         // Act
 
-        String actualResult = geographicAreaService.buildStringRepository(geoAreas);
+        String actualResult = geographicAreaRepository.buildStringRepository(geoAreas);
 
         // Assert
 
@@ -355,9 +355,9 @@ class GeographicAreaServiceTest {
         List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(firstValidArea);
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
 
-        assertFalse(geographicAreaService.isEmpty());
+        assertFalse(geographicAreaRepository.isEmpty());
 
     }
 
@@ -366,9 +366,9 @@ class GeographicAreaServiceTest {
 
         List<GeographicArea> geographicAreas = new ArrayList<>();
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
 
-        assertTrue(geographicAreaService.isEmpty());
+        assertTrue(geographicAreaRepository.isEmpty());
     }
 
     @Test
@@ -376,9 +376,9 @@ class GeographicAreaServiceTest {
         long mockId = 1234;
         firstValidArea.setId(mockId);
 
-        Mockito.when(geographicAreaRepository.findById(mockId)).thenReturn(Optional.of(firstValidArea));
+        Mockito.when(geographicAreaCrudeRepo.findById(mockId)).thenReturn(Optional.of(firstValidArea));
 
-        GeographicArea result = geographicAreaService.get(mockId);
+        GeographicArea result = geographicAreaRepository.get(mockId);
 
         assertEquals(result.getId(), firstValidArea.getId());
 
@@ -388,9 +388,9 @@ class GeographicAreaServiceTest {
     void seeIfGetTypeAreaByIdRepositoryNull() {
         long mockId = 1234;
 
-        Mockito.when(geographicAreaRepository.findById(mockId)).thenReturn(Optional.empty());
+        Mockito.when(geographicAreaCrudeRepo.findById(mockId)).thenReturn(Optional.empty());
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> geographicAreaService.get(mockId));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> geographicAreaRepository.get(mockId));
 
         assertEquals("ERROR: There is no Geographic Area with the selected ID.", exception.getMessage());
     }
@@ -403,12 +403,12 @@ class GeographicAreaServiceTest {
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
 
-        Mockito.when(areaTypeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeRepo.findByName("city")).thenReturn(Optional.of(city));
+        Mockito.when(areaTypeCrudeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
+        Mockito.when(areaTypeCrudeRepo.findByName("city")).thenReturn(Optional.of(city));
 
-        GeographicArea expectedResult = new GeographicArea(iD, city, 12, 12, local);
+        GeographicArea expectedResult = new GeographicArea(iD, city.getName(), 12, 12, local);
 
-        GeographicArea actualResult = geographicAreaService.createGA(iD, city.getName(), 12, 12, local);
+        GeographicArea actualResult = geographicAreaRepository.createGA(iD, city.getName(), 12, 12, local);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -418,16 +418,16 @@ class GeographicAreaServiceTest {
         SensorType rainfall = new SensorType("rainfall", "mm");
         SensorType temperature = new SensorType("temperature", "C");
 
-        sensorTypeRepo.save(rainfall);
-        sensorTypeRepo.save(temperature);
+        sensorTypeCrudeRepo.save(rainfall);
+        sensorTypeCrudeRepo.save(temperature);
 
-        Mockito.when(sensorTypeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
+        Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
+        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         AreaSensor expectedResult = new AreaSensor("Sensor123", "Temperature Sensor 2",
                 rainfall, new Local(41, -8, 100), validDate1, new Long(56));
 
-        AreaSensor actualResult = geographicAreaService.createAreaSensor("Sensor123", "Temperature Sensor 2",
+        AreaSensor actualResult = geographicAreaRepository.createAreaSensor("Sensor123", "Temperature Sensor 2",
                 "rainfall", "mm", new Local(41, -8, 100), validDate1, new Long(56));
         assertEquals(expectedResult, actualResult);
     }
@@ -435,7 +435,7 @@ class GeographicAreaServiceTest {
     @Test
     void seeIfCreateAreaSensorWorksWithSensorTypeNull() {
         assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaService.createAreaSensor("Sensor123", "Temperature Sensor 2",
+                () -> geographicAreaRepository.createAreaSensor("Sensor123", "Temperature Sensor 2",
                         "humidity", "g/m3", new Local(41, -8, 100), validDate1, new Long(56)));
     }
 
@@ -459,9 +459,9 @@ class GeographicAreaServiceTest {
 
         validList.add(areaOne);
 
-        Mockito.when(geographicAreaRepository.findAll()).thenReturn(validList);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(validList);
 
-        boolean result = geographicAreaService.addAndPersistGA(areaOne);
+        boolean result = geographicAreaRepository.addAndPersistGA(areaOne);
 
         assertFalse(result);
     }
@@ -471,7 +471,7 @@ class GeographicAreaServiceTest {
 
         // Act
 
-        List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Country");
+        List<GeographicArea> actualResult = geographicAreaRepository.getGeoAreasByType(validList, "Country");
         int expectedResult = 1;
         // Assert
 
@@ -483,7 +483,7 @@ class GeographicAreaServiceTest {
 
         // Act
 
-        List<GeographicArea> actualResult = geographicAreaService.getGeoAreasByType(validList, "Not a valid type");
+        List<GeographicArea> actualResult = geographicAreaRepository.getGeoAreasByType(validList, "Not a valid type");
         int expectedResult = 0;
         // Assert
 
@@ -494,7 +494,7 @@ class GeographicAreaServiceTest {
     void seeIfEqualsWorksOnSameObject() {
         //Act
 
-        boolean actualResult = geographicAreaService.equals(geographicAreaService); // Required for Sonarqube testing purposes.
+        boolean actualResult = geographicAreaRepository.equals(geographicAreaRepository); // Required for Sonarqube testing purposes.
 
         //Assert
 
@@ -505,7 +505,7 @@ class GeographicAreaServiceTest {
     void seeIfEqualsWorksOnDiffObject() {
         //Act
 
-        boolean actualResult = geographicAreaService.equals(20D); // Required for Sonarqube testing purposes.
+        boolean actualResult = geographicAreaRepository.equals(20D); // Required for Sonarqube testing purposes.
 
         //Assert
 

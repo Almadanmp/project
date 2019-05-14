@@ -9,8 +9,8 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,13 +23,13 @@ import java.util.logging.Logger;
  * Class that groups a number of Rooms in a House.
  */
 @Service
-public class RoomService {
+public class RoomRepository {
 
     @Autowired
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     @Autowired
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
@@ -39,16 +39,16 @@ public class RoomService {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomService(RoomRepository roomRepository, SensorTypeRepo sensorTypeRepo) {
-        this.roomRepository = roomRepository;
-        this.sensorTypeRepo = sensorTypeRepo;
+    public RoomRepository(RoomCrudeRepo roomCrudeRepo, SensorTypeCrudeRepo sensorTypeCrudeRepo) {
+        this.roomCrudeRepo = roomCrudeRepo;
+        this.sensorTypeCrudeRepo = sensorTypeCrudeRepo;
     }
 
 
 //TODO UPDATED METHODS
 
     public List<Room> getAllRooms() {
-        List<Room> roomsAux = roomRepository.findAll();
+        List<Room> roomsAux = roomCrudeRepo.findAll();
         if (roomsAux != null) {
             return roomsAux;
         }
@@ -63,7 +63,7 @@ public class RoomService {
      * @return is true if a room with the given ID exists, false if it doesn't.
      */
     boolean idExists(String idToCheck) {
-        for (Room r : roomRepository.findAll()) {
+        for (Room r : roomCrudeRepo.findAll()) {
             if (r.getId().equals(idToCheck)) {
                 return true;
             }
@@ -122,7 +122,7 @@ public class RoomService {
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
     public void updateRoom(Room room) {
-        roomRepository.save(room);
+        roomCrudeRepo.save(room);
     }
 
     /**
@@ -132,9 +132,9 @@ public class RoomService {
      * @return true if room was successfully removed from the roomList, false otherwise.
      */
     public boolean removeRoom(Room room) {
-        Optional<Room> aux = roomRepository.findById(room.getId());
+        Optional<Room> aux = roomCrudeRepo.findById(room.getId());
         if (aux.isPresent()) {
-            roomRepository.delete(room);
+            roomCrudeRepo.delete(room);
             return true;
         }
         return false;
@@ -157,7 +157,7 @@ public class RoomService {
      */
     Room getRoomByName(String name) {
         Room room;
-        Optional<Room> aux = roomRepository.findById(name);
+        Optional<Room> aux = roomCrudeRepo.findById(name);
         if (aux.isPresent()) {
             room = aux.get();
             return room;
@@ -252,11 +252,11 @@ public class RoomService {
     }
 
     public boolean saveRoom(Room room) {
-        Optional<Room> room1 = roomRepository.findByRoomName(room.getId());
+        Optional<Room> room1 = roomCrudeRepo.findByRoomName(room.getId());
         if (room1.isPresent()) {
             return false;
         }
-        roomRepository.save(room);
+        roomCrudeRepo.save(room);
         return true;
     }
 
@@ -281,7 +281,7 @@ public class RoomService {
      */
 
     public Optional<Room> findRoomByID(String idToFind) {
-        return roomRepository.findById(idToFind);
+        return roomCrudeRepo.findById(idToFind);
     }
 
     /**
@@ -291,7 +291,7 @@ public class RoomService {
      * @return Type Sensor corresponding to the given id
      */
     public SensorType getTypeSensorByName(String name) {
-        Optional<SensorType> value = sensorTypeRepo.findByName(name);
+        Optional<SensorType> value = sensorTypeCrudeRepo.findByName(name);
         if (value.isPresent()) {
             return value.get();
         }
@@ -345,7 +345,7 @@ public class RoomService {
             Room room = getRoomContainingSensorWithGivenId(sensorID);
             RoomSensor roomSensor = room.getRoomSensorByID(sensorID);
             addedReadings = addReadingsToRoomSensor(roomSensor, readings, logger);
-            roomRepository.save(room);
+            roomCrudeRepo.save(room);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
@@ -363,7 +363,7 @@ public class RoomService {
      * @return the room that contains the sensor with the given ID
      **/
     Room getRoomContainingSensorWithGivenId(String sensorID) {
-        List<Room> roomList = roomRepository.findAll();
+        List<Room> roomList = roomCrudeRepo.findAll();
         for (Room room : roomList) {
             List<RoomSensor> roomSensors = room.getRoomSensors();
             for (RoomSensor sensor : roomSensors) {

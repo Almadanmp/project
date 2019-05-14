@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
@@ -30,7 +30,7 @@ class SensorSettingsUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(GeographicAreaService geographicAreaService, SensorTypeRepository sensorTypeList) {
+    void run(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeList) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -45,7 +45,7 @@ class SensorSettingsUI {
                     activeInput = false;
                     break;
                 case 2:
-                    runUS06(geographicAreaService, sensorTypeList);
+                    runUS06(geographicAreaRepository, sensorTypeList);
                     activeInput = false;
                     break;
                 case 3:
@@ -98,18 +98,18 @@ class SensorSettingsUI {
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-    private void runUS06(GeographicAreaService geographicAreaService, SensorTypeRepository sensorTypeList) {
-        if (geographicAreaService.isEmpty()) {
+    private void runUS06(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeList) {
+        if (geographicAreaRepository.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
-        List<GeographicArea> geoAreas = geographicAreaService.getAll();
-        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaService, geoAreas);
+        List<GeographicArea> geoAreas = geographicAreaRepository.getAll();
+        GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaRepository, geoAreas);
         AreaSensor areaSensor = createSensor(sensorTypeList, geographicArea);
         if (!getConfirmation(areaSensor)) {
             return;
         }
-        addSensor(areaSensor, geographicArea, geographicAreaService);
+        addSensor(areaSensor, geographicArea, geographicAreaRepository);
     }
 
     private AreaSensor createSensor(SensorTypeRepository sensorTypeList, GeographicArea geographicArea) {
@@ -167,10 +167,10 @@ class SensorSettingsUI {
         return "yes".equals(input.nextLine());
     }
 
-    private void addSensor(AreaSensor areaSensor, GeographicArea geographicArea, GeographicAreaService geographicAreaService) {
+    private void addSensor(AreaSensor areaSensor, GeographicArea geographicArea, GeographicAreaRepository geographicAreaRepository) {
 
         if (controller.addSensorToGeographicArea(areaSensor, geographicArea)) {
-            geographicAreaService.updateGeoArea(geographicArea);
+            geographicAreaRepository.updateGeoArea(geographicArea);
             System.out.println("\nSensor has been successfully added to the geographic area.");
         } else {
             System.out.println("\nSensor wasn't added to the selected geographic area.");

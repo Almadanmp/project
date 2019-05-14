@@ -10,18 +10,20 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaService;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.room.RoomService;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,8 +45,8 @@ class RoomMonitoringControllerTest {
     private RoomMonitoringController controller = new RoomMonitoringController();
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private SimpleDateFormat validSdf2;
-    private RoomService roomService;
-    private GeographicAreaService geographicAreaService;
+    private RoomRepository roomRepository;
+    private GeographicAreaRepository geographicAreaRepository;
     private GeographicAreaHouseService geographicAreaHouseService;
     private Room validRoom1;
     private RoomDTO validRoomDTO;
@@ -64,19 +66,19 @@ class RoomMonitoringControllerTest {
     private Date areaReadingDate2;
     private Date areaReadingDate3;
     private RoomSensor firstValidRoomSensor;
-    private RoomService validRoomService;
+    private RoomRepository validRoomRepository;
 
     @Mock
-    SensorTypeRepo sensorTypeRepo;
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @Mock
-    RoomRepository roomRepository;
+    RoomCrudeRepo roomCrudeRepo;
 
     @Mock
-    GeographicAreaRepository geographicAreaRepository;
+    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
 
     @Mock
-    AreaTypeRepo areaTypeRepo;
+    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -119,7 +121,7 @@ class RoomMonitoringControllerTest {
         validAreaSensor.addReading(areaReading5);
         validAreaSensor.addReading(areaReading6);
 
-        validArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
+        validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
                 new Local(20, 12, 33));
         validArea.addSensor(validAreaSensor);
         deviceTypeString = new ArrayList<>();
@@ -128,14 +130,14 @@ class RoomMonitoringControllerTest {
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         this.validHouse.setMotherArea(validArea);
-        this.roomService = new RoomService(roomRepository, sensorTypeRepo);
-        this.geographicAreaService = new GeographicAreaService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
-        this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaRepository, areaTypeRepo, sensorTypeRepo);
+        this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
-        validRoomService = new RoomService(roomRepository, sensorTypeRepo);
+        validRoomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
         this.rooms = new ArrayList<>();
         rooms.add(validRoom1);
-        roomService = new RoomService(roomRepository, sensorTypeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
         validRoomDTO = RoomMapper.objectToDTO(validRoom1);
         validRoomDTO.setHouseId(validHouse.getId());
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("temperature", "Celsius"), validDate1, "RoomDFS");
@@ -181,11 +183,11 @@ class RoomMonitoringControllerTest {
         double expectedResult = 17.0;
 
         RoomDTO testDTO = RoomMapper.objectToDTO(testRoom);
-        Mockito.when(roomService.getAllRooms()).thenReturn(mockRepositoryRooms);
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(mockRepositoryRooms);
 
         // Act
 
-        double actualResult = controller.getDayMaxTemperature(testDTO, validDate1, roomService);
+        double actualResult = controller.getDayMaxTemperature(testDTO, validDate1, roomRepository);
 
         // Assert
 
@@ -204,8 +206,8 @@ class RoomMonitoringControllerTest {
         // Act
 
 
-        Mockito.when(roomRepository.findAll()).thenReturn(mockList);
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomService));
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockList);
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomRepository));
 
         // Assert
 
@@ -225,11 +227,11 @@ class RoomMonitoringControllerTest {
         List<Reading> list = new ArrayList<>();
         list.add(reading);
         roomSensor.setReadings(list);
-        Mockito.when(roomRepository.findAll()).thenReturn(mockList);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockList);
 
         //Act
 
-        double actualResult = controller.getCurrentRoomTemperature(RoomMapper.objectToDTO(validRoom1), roomService);
+        double actualResult = controller.getCurrentRoomTemperature(RoomMapper.objectToDTO(validRoom1), roomRepository);
 
         //Assert
 
@@ -247,8 +249,8 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        Mockito.when(roomRepository.findAll()).thenReturn(rooms);
-        String actualResult = controller.getRoomName(validRoomDTO, roomService);
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        String actualResult = controller.getRoomName(validRoomDTO, roomRepository);
 
         // Assert
 
@@ -344,9 +346,9 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
-        String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
-        String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -391,7 +393,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -434,7 +436,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -476,7 +478,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -503,7 +505,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -547,7 +549,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -591,7 +593,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -630,7 +632,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -657,7 +659,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
@@ -684,7 +686,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomService, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
 
