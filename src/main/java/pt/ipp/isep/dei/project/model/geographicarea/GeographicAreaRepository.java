@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllerCLI.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -47,6 +49,40 @@ public class GeographicAreaRepository {
     public List<GeographicArea> getAll() {
         return geographicAreaCrudeRepo.findAll();
     }
+
+    //WEB CONTROLLER//
+    //TODO: Replace previous getAll()
+    public List<GeographicAreaDTO> getAllDTO() {
+        List<GeographicArea> list = geographicAreaCrudeRepo.findAll();
+        List<GeographicAreaDTO> finalList = new ArrayList<>();
+        for (GeographicArea ga : list){
+            GeographicAreaDTO gaDTO = GeographicAreaMapper.objectToDTO(ga);
+            finalList.add(gaDTO);
+        }
+        return finalList;
+    }
+
+    public GeographicAreaDTO getDTOById(long Id){
+        Optional<GeographicArea> aux = geographicAreaCrudeRepo.findById(Id);
+        if (!aux.isPresent()) {
+            throw new IllegalArgumentException("Geographic Area not found - 404");
+        }
+        return GeographicAreaMapper.objectToDTO(aux.get());
+    }
+
+    public boolean addAndPersistDTO(GeographicAreaDTO geographicAreaToAddDTO) {
+        List<GeographicArea> geographicAreas = getAll();
+        GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaToAddDTO);
+        if (!(geographicAreas.contains(geographicAreaToAdd))) {
+            geographicAreas.add(geographicAreaToAdd);
+            geographicAreaCrudeRepo.save(geographicAreaToAdd);
+            return true;
+        }
+        return false;
+    }
+
+
+    //WEB CONTROLLER END //
 
     /**
      * Method that receives a geographic area as a parameter and adds that
@@ -184,12 +220,11 @@ public class GeographicAreaRepository {
 
     //METHODS FROM AREA SENSOR REPOSITORY
 
-    public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning,
-                                       Long geographicAreaId) {
+    public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning) {
 
         SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
         if (sensorType != null) {
-            return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning, geographicAreaId);
+            return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning);
         } else {
             throw new IllegalArgumentException();
         }
