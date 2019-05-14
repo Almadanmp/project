@@ -52,7 +52,7 @@ class SensorSettingsControllerTest {
             c.printStackTrace();
         }
         validGeographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
-        validAreaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), validDate1, 2L);
+        validAreaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), validDate1);
     }
 
     @Test
@@ -159,14 +159,14 @@ class SensorSettingsControllerTest {
         int month = 8;
         int day = 9;
         Date date1 = DateUtils.createDate(year, month, day);
-        controller.createSensor(idString, nameString, type1, loc1, date1, 6008L);
+        controller.createSensor(idString, nameString, type1, loc1, date1);
         SensorType t1 = new SensorType(typeStr, "kg/m³");
         AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", t1, loc1,
-                validDate1, 6008L);
+                validDate1);
 
         // Act
 
-        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1, 6008L);
+        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1);
 
         // Assert
 
@@ -202,7 +202,7 @@ class SensorSettingsControllerTest {
         // Arrange
 
         AreaSensor areaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
-                validDate1, 6008L);
+                validDate1);
         String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long \n";
 
 

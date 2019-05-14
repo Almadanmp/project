@@ -93,13 +93,13 @@ class GeographicAreaHouseServiceTest {
         validList = new ArrayList<>();
         validList.add(firstValidArea);
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
-                validDate1, 6008L);
+                validDate1);
         secondValidAreaSensor.setActive(true);
         validAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("temperature", "C"), new Local(10, 10, 10),
-                sensorCreationTime, 6008L);
+                sensorCreationTime);
         validAreaSensor.setActive(true);
 
         this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);

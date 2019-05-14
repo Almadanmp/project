@@ -356,7 +356,7 @@ public class GeographicArea implements Root {
 
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime(), 2356L);
+                1).getTime());
 
         List<AreaSensor> sensorsOfGivenType = getAreaSensorsOfGivenType(this.getAreaSensors(), sensorType);
 

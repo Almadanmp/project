@@ -66,9 +66,9 @@ class HouseTest {
         validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
         firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
-                30, 20, 10), new Date(), 6008L);
+                30, 20, 10), new Date());
         AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
-                40, 15), new Date(), 6008L);
+                40, 15), new Date());
         validHouse.setMotherArea(validArea);
     }
 

@@ -35,7 +35,7 @@ class AreaSensorMapperTest {
             e.printStackTrace();
         }
 
-        areaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), date, 2L);
+        areaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), date);
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
         validAreaSensorDTO.setId("12");

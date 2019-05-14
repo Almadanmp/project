@@ -105,21 +105,20 @@ class SensorSettingsUI {
         }
         List<GeographicArea> geoAreas = geographicAreaRepository.getAll();
         GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaRepository, geoAreas);
-        AreaSensor areaSensor = createSensor(sensorTypeList, geographicArea);
+        AreaSensor areaSensor = createSensor(sensorTypeList);
         if (!getConfirmation(areaSensor)) {
             return;
         }
         addSensor(areaSensor, geographicArea, geographicAreaRepository);
     }
 
-    private AreaSensor createSensor(SensorTypeRepository sensorTypeList, GeographicArea geographicArea) {
+    private AreaSensor createSensor(SensorTypeRepository sensorTypeList) {
         String id = getInputSensorId();
         String name = getInputSensorName();
         SensorType sensorType = getInputTypeSensor(sensorTypeList);
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
-        Long geoID = geographicArea.getId();
-        return controller.createSensor(id, name, sensorType, local, startDate, geoID);
+        return controller.createSensor(id, name, sensorType, local, startDate);
     }
 
     private String getInputSensorId() {

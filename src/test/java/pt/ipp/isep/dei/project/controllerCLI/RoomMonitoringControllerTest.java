@@ -17,8 +17,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
@@ -106,7 +106,7 @@ class RoomMonitoringControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validAreaSensor = new AreaSensor("sensorID", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1, 6008L);
+        validAreaSensor = new AreaSensor("sensorID", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1);
         validAreaSensor.setActive(true);
         Reading areaReading1 = new Reading(20, validDate1, "C", "sensorID");
         Reading areaReading2 = new Reading(20, validDate2, "C", "sensorID");

@@ -92,14 +92,13 @@ public class ReaderXMLGeoArea {
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
                     Double.parseDouble(getTagValue(ALTITUDE, element)));
             Date date = new Date();
-            Long gaID = geographicArea.getId();
             try {
                 date = validDateFormat.parse(sensorDate);
             } catch (ParseException expected) {
                 expected.getErrorOffset();
             }
             try {
-                areaSensor = geographicAreaRepository.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date, gaID);
+                areaSensor = geographicAreaRepository.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date);
                 geographicArea.addSensor(areaSensor);
             } catch (IllegalArgumentException ignored) {
             }

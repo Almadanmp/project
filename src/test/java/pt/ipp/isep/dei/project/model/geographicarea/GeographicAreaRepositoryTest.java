@@ -100,13 +100,13 @@ class GeographicAreaRepositoryTest {
         validList = new ArrayList<>();
         validList.add(firstValidArea);
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
-                validDate1, 6008L);
+                validDate1);
         secondValidAreaSensor.setActive(true);
         validAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("temperature", "C"), new Local(10, 10, 10),
-                sensorCreationTime, 6008L);
+                sensorCreationTime);
         validAreaSensor.setActive(true);
 
         this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
@@ -425,10 +425,10 @@ class GeographicAreaRepositoryTest {
         Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         AreaSensor expectedResult = new AreaSensor("Sensor123", "Temperature Sensor 2",
-                rainfall, new Local(41, -8, 100), validDate1, new Long(56));
+                rainfall, new Local(41, -8, 100), validDate1);
 
         AreaSensor actualResult = geographicAreaRepository.createAreaSensor("Sensor123", "Temperature Sensor 2",
-                "rainfall", "mm", new Local(41, -8, 100), validDate1, new Long(56));
+                "rainfall", "mm", new Local(41, -8, 100), validDate1);
         assertEquals(expectedResult, actualResult);
     }
 
@@ -436,7 +436,7 @@ class GeographicAreaRepositoryTest {
     void seeIfCreateAreaSensorWorksWithSensorTypeNull() {
         assertThrows(IllegalArgumentException.class,
                 () -> geographicAreaRepository.createAreaSensor("Sensor123", "Temperature Sensor 2",
-                        "humidity", "g/m3", new Local(41, -8, 100), validDate1, new Long(56)));
+                        "humidity", "g/m3", new Local(41, -8, 100), validDate1));
     }
 
     @Test

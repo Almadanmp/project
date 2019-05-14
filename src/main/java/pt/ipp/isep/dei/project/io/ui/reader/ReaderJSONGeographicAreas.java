@@ -41,9 +41,9 @@ public class ReaderJSONGeographicAreas implements Reader {
      * This method reads a .json file from its absolute filepath and returns an array of DTO objects formed
      * from the data in the file.
      *
-     * @param filePath              is the absolute filepath of the .json file in the system.
+     * @param filePath                 is the absolute filepath of the .json file in the system.
      * @param geographicAreaRepository is the list of Geographic areas that comes from Main, since we still don't have a database, to which
-     *                              we want to addWithoutPersisting the imported geographic areas.
+     *                                 we want to addWithoutPersisting the imported geographic areas.
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
@@ -122,9 +122,8 @@ public class ReaderJSONGeographicAreas implements Reader {
             double sensorAltitude = sensorLocal.getDouble(ALTITUDE);
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
-            Long gaID = geographicArea.getId();
             try {
-                AreaSensor sensorToAdd = geographicAreaRepository.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date, gaID);
+                AreaSensor sensorToAdd = geographicAreaRepository.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date);
                 geographicArea.addSensor(sensorToAdd);
                 entriesChecked++;
 

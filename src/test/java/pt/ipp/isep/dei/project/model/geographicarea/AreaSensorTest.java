@@ -45,7 +45,7 @@ class AreaSensorTest {
             c.printStackTrace();
         }
         validAreaType = new AreaType("Cidade");
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate2, 6008L);
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate2);
         validAreaSensor.setActive(true);
     }
 
@@ -201,7 +201,7 @@ class AreaSensorTest {
             e.printStackTrace();
         }
 
-        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), startDate, 6008L);
+        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), startDate);
 
         // Act
 
@@ -234,7 +234,7 @@ class AreaSensorTest {
 
         SensorType expectedResult = new SensorType("Temperature", "Celsius");
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), new Date(), 6008L);
+                new Local(31, 15, 3), new Date());
 
         // Act
 
@@ -250,7 +250,7 @@ class AreaSensorTest {
         // Arrange
 
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
-                new Local(31, 15, 3), new Date(), 6008L);
+                new Local(31, 15, 3), new Date());
         Local expectedResult = new Local(31, 15, 3);
 
         //Act
@@ -383,7 +383,7 @@ class AreaSensorTest {
         // Arrange
 
         AreaSensor s2 = new AreaSensor("RF12345", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
-                new Local(21, 1, 12), new Date(), 6008L);
+                new Local(21, 1, 12), new Date());
 
         // Act
 
@@ -399,7 +399,7 @@ class AreaSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date(), 6008L);
+        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date());
 
         // Act
 
@@ -456,7 +456,7 @@ class AreaSensorTest {
         // Arrange
 
         validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(21,
-                31, 15), new Date(), 6008L);
+                31, 15), new Date());
         String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long \n";
 
         // Act
@@ -527,7 +527,7 @@ class AreaSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(12, 12, 12), new Date(), 6008L);
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(12, 12, 12), new Date());
         SensorType expectedResult = new SensorType("Temperature", "Kelvin");
 
         // Act

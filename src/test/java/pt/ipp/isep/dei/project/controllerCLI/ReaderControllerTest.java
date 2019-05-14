@@ -23,8 +23,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.*;
 
@@ -41,7 +41,6 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -113,22 +112,22 @@ class ReaderControllerTest {
         }
         validGeographicArea = new GeographicArea("ISEP", "urban area", 0.249, 0.261,
                 new Local(41.178553, -8.608035, 111));
-        GeographicArea validGeographicArea2 = new GeographicArea("Porto","city", 3.30, 10.09,
+        GeographicArea validGeographicArea2 = new GeographicArea("Porto", "city", 3.30, 10.09,
                 new Local(41.149935, -8.610857, 118));
         GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", "city", 0.299, 0.291,
                 new Local(41.178553, 8.608035, 117));
         validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
                 new Local(41.179230, -8.606409, 125),
-                validDate1, 6008L);
+                validDate1);
         AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 125),
-                validDate2, 6008L);
+                validDate2);
         AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
-                validDate3, 6008L);
+                validDate3);
         AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
                 new Local(41.179230, -8.606409, 139),
-                validDate4, 6008L);
+                validDate4);
         validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
         validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", new SensorType("Temperature", "C"), validDate1, "Room1");
     }

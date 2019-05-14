@@ -98,7 +98,7 @@ class HouseMonitoringControllerTest {
 
         validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
                 new Local(21, 10, 15),
-                validDate4, 6008L);
+                validDate4);
         // Is a temperature sensor with valid readings.
         Reading firstTempReading = new Reading(15, validDate1, "C", "Test");
         validTemperatureAreaSensor.addReading(firstTempReading);
@@ -337,7 +337,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         AreaSensor testSensorNoReadings = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
-                new Local(21, 3, 13), validDate01, 213L);
+                new Local(21, 3, 13), validDate01);
 
         // Act
 
@@ -410,7 +410,7 @@ class HouseMonitoringControllerTest {
 
         AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
-                21).getTime(), 213L);
+                21).getTime());
         Reading mockReading = new Reading(15, new GregorianCalendar(2017, Calendar.FEBRUARY, 3).getTime(),
                 "l/m2", "S001");
         rainFallSensor.addReading(mockReading);
@@ -432,7 +432,7 @@ class HouseMonitoringControllerTest {
         double expectedResult = 15.0;
         AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
-                21).getTime(), 213L);
+                21).getTime());
         Reading mockReading = new Reading(15, validDate4, "l/m2", "S001");
         rainFallSensor.addReading(mockReading);
 
@@ -452,7 +452,7 @@ class HouseMonitoringControllerTest {
         Date expectedResult = validDate3;
         AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
-                21).getTime(), 213L);
+                21).getTime());
         Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
         tempSensor.addReading(mockReading);
 
@@ -472,7 +472,7 @@ class HouseMonitoringControllerTest {
         double expectedResult = 15.0;
         AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
-                21).getTime(), 213L);
+                21).getTime());
         Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
         tempSensor.addReading(mockReading);
 
@@ -492,7 +492,7 @@ class HouseMonitoringControllerTest {
         double expectedResult = 15.0;
         AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
-                21).getTime(), 213L);
+                21).getTime());
         Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
         tempSensor.addReading(mockReading);
 
@@ -511,7 +511,7 @@ class HouseMonitoringControllerTest {
 
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime(), 2356L);
+                1).getTime());
 
         // Act
 

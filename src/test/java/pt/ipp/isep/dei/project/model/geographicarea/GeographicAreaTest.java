@@ -42,10 +42,10 @@ class GeographicAreaTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1, 6008L);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
-                validDate1, 6008L);
+                validDate1);
         secondValidAreaSensor.setActive(true);
     }
 
@@ -172,7 +172,7 @@ class GeographicAreaTest {
 
         //Arrange
 
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
         validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
 
@@ -190,8 +190,8 @@ class GeographicAreaTest {
 
         //Arrange
 
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
-        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
 
         validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
@@ -211,8 +211,8 @@ class GeographicAreaTest {
 
         //Arrange
 
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
-        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
 
         validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
@@ -233,8 +233,8 @@ class GeographicAreaTest {
 
         //Arrange
 
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
-        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
+        AreaSensor areaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
 
         validAreaSensor.setActive(true);
         areaSensor.setActive(true);
@@ -256,7 +256,7 @@ class GeographicAreaTest {
 
         //Arrange
 
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), new Date());
         validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
 
@@ -721,7 +721,7 @@ class GeographicAreaTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), new Date());
         validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
         listAreaSensor.add(validAreaSensor);
@@ -743,7 +743,7 @@ class GeographicAreaTest {
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
         AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
                 ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime(), 2356L);
+                1).getTime());
 
         //Act
 
@@ -800,7 +800,7 @@ class GeographicAreaTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(2000, 2000, 2000), new Date());
         validAreaSensor.setActive(true);
         List<AreaSensor> listAreaSensor = new ArrayList<>();
         listAreaSensor.add(validAreaSensor);
@@ -822,9 +822,9 @@ class GeographicAreaTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date(), 6008L);
-        AreaSensor validAreaSensor2 = new AreaSensor("SensTwo", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date(), 6008L);
-        AreaSensor validAreaSensor3 = new AreaSensor("SensThree", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date(), 6008L);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date());
+        AreaSensor validAreaSensor2 = new AreaSensor("SensTwo", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date());
+        AreaSensor validAreaSensor3 = new AreaSensor("SensThree", "SensOne", new SensorType("Temperature", "Celsius"), new Local(200, 200, 200), new Date());
         validAreaSensor.setActive(true);
         validAreaSensor2.setActive(true);
         validAreaSensor3.setActive(true);
