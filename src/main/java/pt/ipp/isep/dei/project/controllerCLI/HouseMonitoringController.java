@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controller;
+package pt.ipp.isep.dei.project.controllerCLI;
 
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;

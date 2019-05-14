@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controller;
+package pt.ipp.isep.dei.project.controllerCLI;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -575,7 +575,7 @@ class RoomConfigurationControllerTest {
 //
 //        //Act
 //
-//        int actualResult1 = controller.getDeviceListSize(RoomMapper.objectToDTO(emptyDeviceList), validHouse);
+//        int actualResult1 = controllerCLI.getDeviceListSize(RoomMapper.objectToDTO(emptyDeviceList), validHouse);
 //
 //        //Assert Empty List
 //
@@ -600,7 +600,7 @@ class RoomConfigurationControllerTest {
 //
 //        //Act
 //
-//        Device actualResult = controller.getDeviceByIndex(RoomMapper.objectToDTO(validRoom), validHouse, 0);
+//        Device actualResult = controllerCLI.getDeviceByIndex(RoomMapper.objectToDTO(validRoom), validHouse, 0);
 //
 //        //Assert
 //

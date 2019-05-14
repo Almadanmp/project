@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controller;
+package pt.ipp.isep.dei.project.controllerCLI;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * House Monitoring - controller Tests
+ * House Monitoring - controllerCLI Tests
  */
 @ExtendWith(MockitoExtension.class)
 class HouseMonitoringControllerTest {

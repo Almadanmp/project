@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controller;
+package pt.ipp.isep.dei.project.controllerCLI;
 
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.*;
