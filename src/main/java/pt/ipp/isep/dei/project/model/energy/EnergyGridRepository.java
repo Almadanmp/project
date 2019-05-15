@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.model.energy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import java.util.ArrayList;
@@ -38,6 +40,11 @@ public class EnergyGridRepository {
 
     public EnergyGrid addGrid(EnergyGrid energyGrid) {
         return energyGridCrudeRepository.save(energyGrid);
+    }
+
+    public void createEnergyGridDTO(EnergyGridDTO energyGridDTO){
+        EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
+        energyGridCrudeRepository.save(energyGrid);
     }
 
     /**
