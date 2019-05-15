@@ -22,13 +22,30 @@ public final class EnergyGridMapper {
     private EnergyGridMapper() {
     }
 
+    public static EnergyGrid dtoToObjectEmptyLists(EnergyGridDTO dtoToConvert) {
+        // Update the name
+
+        String objectName = dtoToConvert.getName();
+
+        // Update the houseID
+
+        String objectHouseID = dtoToConvert.getHouseID();
+
+        // Update the maximum contracted power.
+
+        double objectMaxContractedPower = dtoToConvert.getMaxContractedPower();
+
+        // Create, update and return the new model object.
+
+        return new EnergyGrid(objectName, objectMaxContractedPower, objectHouseID);
+    }
+
     /**
      * This is the method that converts energy grid DTOs into model objects with the same data.
      *
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-
     public static EnergyGrid dtoToObject(EnergyGridDTO dtoToConvert) {
         // Update the name
 
