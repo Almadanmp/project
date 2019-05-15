@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
 import java.util.*;
@@ -354,8 +353,7 @@ public class GeographicArea implements Root {
         List<AreaSensor> minDistSensor = new ArrayList<>();
 
 
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
-                ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", "temperature", new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime());
 
         List<AreaSensor> sensorsOfGivenType = getAreaSensorsOfGivenType(this.getAreaSensors(), sensorType);
@@ -416,7 +414,7 @@ public class GeographicArea implements Root {
     List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {
-            if (aS.getSensorType().getName().equals(sensorType)) {
+            if (aS.getSensorType().equals(sensorType)) {
                 sensorsOfGivenType.add(aS);
             }
 
@@ -500,6 +498,16 @@ public class GeographicArea implements Root {
         }
         result.append(BUILDER);
         return result.toString();
+    }
+
+    public AreaSensor createAreaSensor(String id, String name, String sensorName, Local local, Date dateStartedFunctioning) {
+
+        if (sensorName != null) {
+            return new AreaSensor(id, name, sensorName, local, dateStartedFunctioning);
+        } else {
+            throw new IllegalArgumentException();
+        }
+
     }
 
 

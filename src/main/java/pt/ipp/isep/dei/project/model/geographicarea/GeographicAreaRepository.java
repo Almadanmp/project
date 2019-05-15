@@ -9,10 +9,8 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -27,18 +25,16 @@ public class GeographicAreaRepository {
     private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
     @Autowired
     private static AreaTypeCrudeRepo areaTypeCrudeRepo;
-    @Autowired
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
+
 
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
 
 
-    public GeographicAreaRepository(GeographicAreaCrudeRepo geographicAreaCrudeRepo, AreaTypeCrudeRepo areaTypeCrudeRepo, SensorTypeCrudeRepo sensorTypeCrudeRepo) {
+    public GeographicAreaRepository(GeographicAreaCrudeRepo geographicAreaCrudeRepo, AreaTypeCrudeRepo areaTypeCrudeRepo) {
         GeographicAreaRepository.geographicAreaCrudeRepo = geographicAreaCrudeRepo;
         GeographicAreaRepository.areaTypeCrudeRepo = areaTypeCrudeRepo;
-        this.sensorTypeCrudeRepo = sensorTypeCrudeRepo;
     }
 
     /**
@@ -55,14 +51,14 @@ public class GeographicAreaRepository {
     public List<GeographicAreaDTO> getAllDTO() {
         List<GeographicArea> list = geographicAreaCrudeRepo.findAll();
         List<GeographicAreaDTO> finalList = new ArrayList<>();
-        for (GeographicArea ga : list){
+        for (GeographicArea ga : list) {
             GeographicAreaDTO gaDTO = GeographicAreaMapper.objectToDTO(ga);
             finalList.add(gaDTO);
         }
         return finalList;
     }
 
-    public GeographicAreaDTO getDTOById(long Id){
+    public GeographicAreaDTO getDTOById(long Id) {
         Optional<GeographicArea> aux = geographicAreaCrudeRepo.findById(Id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
@@ -81,7 +77,7 @@ public class GeographicAreaRepository {
         return false;
     }
 
-    public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO){
+    public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
         geographicAreaCrudeRepo.deleteById(geographicAreaDTO.getId());
     }
 
@@ -224,37 +220,6 @@ public class GeographicAreaRepository {
 
     //METHODS FROM AREA SENSOR REPOSITORY
 
-    public AreaSensor createAreaSensor(String id, String name, String sensorName, String sensorUnit, Local local, Date dateStartedFunctioning) {
-
-        SensorType sensorType = getTypeSensorByName(sensorName, sensorUnit);
-        if (sensorType != null) {
-            return new AreaSensor(id, name, sensorType, local, dateStartedFunctioning);
-        } else {
-            throw new IllegalArgumentException();
-        }
-
-    }
-
-    /**
-     * Method to get a TypeArea from the Repository through a given id
-     *
-     * @param name selected name
-     * @return Type Area corresponding to the given id
-     */
-    private SensorType getTypeSensorByName(String name, String unit) {
-        Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
-        Optional<SensorType> value = sensorTypeCrudeRepo.findByName(name);
-        if (!(value.isPresent())) {
-            String message = "The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
-                    "Type first.";
-            logger.fine(message);
-            LogUtils.closeHandlers(logger);
-            return null;
-        } else {
-            LogUtils.closeHandlers(logger);
-            return value.orElseGet(() -> new SensorType(name, unit));
-        }
-    }
 
     /**
      * This method will receive a list of readings, a string of a path to a log file,

@@ -67,6 +67,7 @@ class GeographicAreaHouseServiceTest {
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
+    private SensorType validSensortypeTemp;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -92,17 +93,18 @@ class GeographicAreaHouseServiceTest {
                 new Local(50, 50, 10));
         validList = new ArrayList<>();
         validList.add(firstValidArea);
+        validSensortypeTemp = new SensorType("Temperature", "Celsius");
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(2, 2, 2), validDate1);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensortypeTemp.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
-        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10),
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 validDate1);
         secondValidAreaSensor.setActive(true);
-        validAreaSensor = new AreaSensor("SensorThree", "SensorThree", new SensorType("temperature", "C"), new Local(10, 10, 10),
+        validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
 
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
