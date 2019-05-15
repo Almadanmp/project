@@ -106,7 +106,7 @@ class RoomMonitoringControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validAreaSensor = new AreaSensor("sensorID", "SensOne", new SensorType("temperature", "Celsius"), new Local(10, 10, 10), validDate1);
+        validAreaSensor = new AreaSensor("sensorID", "SensOne", "temperature", new Local(10, 10, 10), validDate1);
         validAreaSensor.setActive(true);
         Reading areaReading1 = new Reading(20, validDate1, "C", "sensorID");
         Reading areaReading2 = new Reading(20, validDate2, "C", "sensorID");
@@ -131,7 +131,7 @@ class RoomMonitoringControllerTest {
                 180, deviceTypeString);
         this.validHouse.setMotherArea(validArea);
         this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
         validRoomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);

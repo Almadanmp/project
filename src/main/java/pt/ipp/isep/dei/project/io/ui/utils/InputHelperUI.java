@@ -509,11 +509,11 @@ public class InputHelperUI {
      * @param areaService is the service responsible for accessing the repository of geographic areas.
      * @return is the number of geographic areas imported.
      */
-    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaRepository areaService) {
+    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaRepository areaService, SensorTypeRepository sensorTypeRepository) {
         int areasRead;
         if (filePath.endsWith(JSON)) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService, sensorTypeRepository);
             return areasRead;
         }
         if (filePath.endsWith(".xml")) {

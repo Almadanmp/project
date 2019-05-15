@@ -48,6 +48,7 @@ class ReadingUtilsTest {
     private Date validDate18; // same day and month as 9 ans 16 but different year
     private Date validDate19; // same day and month as 9 ans 16 but different year, different hour
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
+    private SensorType validSensorTypeTemp;
 
     @Mock
     SensorTypeCrudeRepo sensorTypeCrudeRepo;
@@ -82,8 +83,9 @@ class ReadingUtilsTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        validSensorTypeTemp = new SensorType("Temperature", "Celsius");
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), new Local(
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(
                 31, 1, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         firstValidRoomSensor = new RoomSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomID");

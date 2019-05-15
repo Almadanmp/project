@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,7 +95,7 @@ class HouseMonitoringControllerTest {
 
         // Sets up a valid temperature sensor with valid readings.
 
-        validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", new SensorType("temperature", "Celsius"),
+        validTemperatureAreaSensor = new AreaSensor("RF12345", "TempOne", "temperature",
                 new Local(21, 10, 15),
                 validDate4);
         // Is a temperature sensor with valid readings.
@@ -336,7 +335,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetFirstHottestDayInPeriodWorks() {
         // Arrange
 
-        AreaSensor testSensorNoReadings = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+        AreaSensor testSensorNoReadings = new AreaSensor("S001", "TempOne", "temperature",
                 new Local(21, 3, 13), validDate01);
 
         // Act
@@ -408,7 +407,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetAverageRainfallIntervalWorks() {
         // Arrange
 
-        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
+        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", "rainfall",
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
                 21).getTime());
         Reading mockReading = new Reading(15, new GregorianCalendar(2017, Calendar.FEBRUARY, 3).getTime(),
@@ -430,7 +429,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         double expectedResult = 15.0;
-        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", new SensorType("rainfall", "l/m2"),
+        AreaSensor rainFallSensor = new AreaSensor("S001", "Rainfall2", "rainfall",
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
                 21).getTime());
         Reading mockReading = new Reading(15, validDate4, "l/m2", "S001");
@@ -450,7 +449,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         Date expectedResult = validDate3;
-        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", "temperature",
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
                 21).getTime());
         Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
@@ -470,7 +469,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         double expectedResult = 15.0;
-        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", "temperature",
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
                 21).getTime());
         Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
@@ -490,7 +489,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
         double expectedResult = 15.0;
-        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", new SensorType("temperature", "C"),
+        AreaSensor tempSensor = new AreaSensor("S001", "TempOne", "temperature",
                 new Local(21, 31, 12), new GregorianCalendar(2017, Calendar.JANUARY,
                 21).getTime());
         Reading mockReading = new Reading(15, validDate3, "l/m2", "S001");
@@ -509,8 +508,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetClosestSensorToHouseByTypeWorksEmpty() {
         // Arrange
 
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", new SensorType("temperature", " " +
-                ""), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", "temperature", new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
                 1).getTime());
 
         // Act

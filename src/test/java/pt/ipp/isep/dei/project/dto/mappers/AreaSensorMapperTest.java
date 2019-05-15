@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +34,7 @@ class AreaSensorMapperTest {
             e.printStackTrace();
         }
 
-        areaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), date);
+        areaSensor = new AreaSensor("12", "SensorDTO1", "Temperature", new Local(2, 4, 5), date);
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
         validAreaSensorDTO.setId("12");

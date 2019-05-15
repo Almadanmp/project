@@ -2,11 +2,14 @@ package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents a collection of Sensor Types
@@ -96,6 +99,28 @@ public class SensorTypeRepository {
             return value.get();
         }
         throw new NoSuchElementException("ERROR: There is no Sensor Type with the selected ID.");
+    }
+
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param name selected name
+     * @return Type Area corresponding to the given id
+     */
+    public SensorType getTypeSensorByName(String name, String unit) {
+        Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
+        Optional<SensorType> value = repository.findByName(name);
+        if (!(value.isPresent())) {
+            String message = "The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
+                    "Type first.";
+            logger.fine(message);
+            LogUtils.closeHandlers(logger);
+            return null;
+        } else {
+            LogUtils.closeHandlers(logger);
+            return value.orElseGet(() -> new SensorType(name, unit));
+        }
     }
 
 }

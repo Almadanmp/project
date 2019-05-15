@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,10 +48,10 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaRepository geographicAreaRepository) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
-        return readGeoAreasJSON(geoAreas, geographicAreaRepository);
+        return readGeoAreasJSON(geoAreas, geographicAreaRepository, sensorTypeRepository);
     }
 
     /**
@@ -60,7 +61,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaRepository geographicAreaRepository) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
         int result = 0;
 
         for (int i = 0; i < geoAreas.length(); i++) {
@@ -82,7 +83,7 @@ public class ReaderJSONGeographicAreas implements Reader {
                 JSONArray areaSensors = area.getJSONArray("area_sensor");
                 if (geographicAreaRepository.addAndPersistGA(areaObject)) {
                     result++;
-                    readAreaSensorsJSON(areaSensors, areaObject, geographicAreaRepository);
+                    readAreaSensorsJSON(areaSensors, areaObject, sensorTypeRepository);
                     geographicAreaRepository.updateGeoArea(areaObject);
                 }
             } catch (IllegalArgumentException ignored) {
@@ -98,7 +99,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      *                    that belong to an area.
      */
 
-    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, GeographicAreaRepository geographicAreaRepository) {
+    private void readAreaSensorsJSON(JSONArray areaSensors, GeographicArea geographicArea, SensorTypeRepository sensorTypeRepository) {
         int entriesChecked = 0;
         while (entriesChecked < areaSensors.length()) {
             JSONObject areaSensor = areaSensors.getJSONObject(entriesChecked);
@@ -123,7 +124,8 @@ public class ReaderJSONGeographicAreas implements Reader {
             Local local = new Local(sensorLatitude,
                     sensorLongitude, sensorAltitude);
             try {
-                AreaSensor sensorToAdd = geographicAreaRepository.createAreaSensor(sensorId, sensorName, sensorType, sensorUnits, local, date);
+                sensorTypeRepository.getTypeSensorByName(sensorName, sensorUnits);
+                AreaSensor sensorToAdd = geographicArea.createAreaSensor(sensorId, sensorName, sensorType, local, date);
                 geographicArea.addSensor(sensorToAdd);
                 entriesChecked++;
 

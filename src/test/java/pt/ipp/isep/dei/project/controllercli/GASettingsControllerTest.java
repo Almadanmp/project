@@ -18,7 +18,6 @@ import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
@@ -79,15 +78,15 @@ class GASettingsControllerTest {
         secondValidArea = new GeographicArea("Portugal", typeCity.getName(),
                 2, 5, new Local(21, 33, 5));
         secondValidArea.setId(2L);
-        validAreaSensor1 = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
+        validAreaSensor1 = new AreaSensor("RF12345", "SensOne", "Temperature",
                 new Local(31, 15, 3), date);
-        AreaSensor validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", new SensorType("Temperature", "Celsius"),
+        AreaSensor validAreaSensor2 = new AreaSensor("TT12345", "SensTwo", "Temperature",
                 new Local(21, 65, 3), date);
         firstValidArea.addSensor(validAreaSensor1);
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
-        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         validGeographicAreaRepository.addAndPersistGA(firstValidArea);
         validGeographicAreaRepository.addAndPersistGA(secondValidArea);
     }

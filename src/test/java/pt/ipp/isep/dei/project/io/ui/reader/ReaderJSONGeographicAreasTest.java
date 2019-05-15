@@ -20,6 +20,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.File;
@@ -54,14 +55,16 @@ class ReaderJSONGeographicAreasTest {
     private ReadingUtils readingUtils;
     private GeographicAreaRepository geographicAreaRepository;
     private RoomRepository roomRepository;
+    private SensorTypeRepository sensorTypeRepository;
 
     private ReaderController ctrl;
 
     @BeforeEach
     void arrangeArtifacts() {
         roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
-        geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         ctrl = new ReaderController();
+        sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
 
     }
 
@@ -166,7 +169,7 @@ class ReaderJSONGeographicAreasTest {
         String absolutePath = fileToRead.getAbsolutePath();
         ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
 
-        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository, sensorTypeRepository);
 
         // Assert
 
@@ -197,7 +200,7 @@ class ReaderJSONGeographicAreasTest {
 
         // Act
 
-        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, geographicAreaRepository);
+        double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, geographicAreaRepository, sensorTypeRepository);
 
         // Assert
 
@@ -288,7 +291,7 @@ class ReaderJSONGeographicAreasTest {
         File fileToRead = new File("src/test/resources/geoAreaFiles/InvalidJSONWrongDates.json");
         String absolutePath = fileToRead.getAbsolutePath();
         ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
-        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository, sensorTypeRepository);
 
         // Assert
 

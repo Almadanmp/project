@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,10 +23,7 @@ public class AreaSensor {
     private String id;
     private String name;
 
-    //TODO cant point to different aggregate
-    @ManyToOne
-    @JoinColumn(name = "type_sensor_id")
-    private SensorType sensorType;
+    private String sensorType;
 
     @Embedded
     @JoinColumn(name = "local_id")
@@ -59,7 +55,7 @@ public class AreaSensor {
      * @param local                  is the Local of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public AreaSensor(String id, String name, SensorType sensorType, Local local, Date dateStartedFunctioning) {
+    public AreaSensor(String id, String name, String sensorType, Local local, Date dateStartedFunctioning) {
         setId(id);
         setName(name);
         this.sensorType = sensorType;
@@ -122,7 +118,7 @@ public class AreaSensor {
      *
      * @return the Type of the Sensor.
      */
-    public SensorType getSensorType() {
+    public String getSensorType() {
         return (this.sensorType);
     }
 
@@ -191,7 +187,7 @@ public class AreaSensor {
     public String buildString() {
         String result;
 
-        result = this.name + ", " + this.sensorType.getName() + ", " +
+        result = this.name + ", " + this.sensorType + ", " +
                 this.local.getLatitude() + "º lat, " + this.local.getLongitude() + "º long \n";
         return result;
     }
@@ -440,7 +436,7 @@ public class AreaSensor {
      * @return he sensor type name.
      **/
     String getSensorTypeName() {
-        return this.sensorType.getName();
+        return this.sensorType;
     }
 
     @Override

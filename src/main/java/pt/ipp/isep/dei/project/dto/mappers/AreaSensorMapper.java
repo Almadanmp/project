@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,17 +74,13 @@ public final class AreaSensorMapper {
             }
         }
 
-        // Update Geographic Area ID
-
-        Long objectGeographicAreaID = dtoToConvert.getGeographicAreaID();
-
         // Update status
 
         boolean objectStatus = dtoToConvert.getActive();
 
         // Create, update and return converted object
 
-        AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
+        AreaSensor resultObject = new AreaSensor(objectID, objectName, objectType, new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate);
         resultObject.setActive(objectStatus);
 
@@ -120,7 +115,7 @@ public final class AreaSensorMapper {
 
         // Update the type of the sensor
 
-        String dtoType = objectToConvert.getSensorType().getName();
+        String dtoType = objectToConvert.getSensorType();
 
         // Update the status
 
@@ -128,7 +123,7 @@ public final class AreaSensorMapper {
 
         // Update the units
 
-        String dtoUnits = objectToConvert.getSensorType().getUnits();
+        String dtoUnits = objectToConvert.getSensorType();
 
         // Create, update and return the converted DTO.
 
@@ -179,7 +174,7 @@ public final class AreaSensorMapper {
 
         // Create, update and return converted object
 
-        AreaSensor resultObject = new AreaSensor(objectID, objectName, new SensorType(objectType, objectUnit), new Local(
+        AreaSensor resultObject = new AreaSensor(objectID, objectName, objectType, new Local(
                 objectLatitude, objectLongitude, objectAltitude), objectDate);
         resultObject.setActive(true);
 

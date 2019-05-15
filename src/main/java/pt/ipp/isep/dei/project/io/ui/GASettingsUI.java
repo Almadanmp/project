@@ -15,6 +15,7 @@ import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ class GASettingsUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void runGASettings(AreaTypeRepository areaTypeRepository, GeographicAreaRepository geographicAreaRepository) {
+    void runGASettings(AreaTypeRepository areaTypeRepository, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\nGeographic Area Settings\n--------------\n");
@@ -87,7 +88,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15(geographicAreaRepository);
+                    runUS15(geographicAreaRepository, sensorTypeRepository);
                     activeInput = false;
                     break;
                 case 10:
@@ -461,14 +462,14 @@ class GASettingsUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15(GeographicAreaRepository geographicAreaRepository) {
+    private void runUS15(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
         long startTime = System.currentTimeMillis();
-        int areas = input.acceptPathJSONorXMLAndReadFile(filePath, geographicAreaRepository);
+        int areas = input.acceptPathJSONorXMLAndReadFile(filePath, geographicAreaRepository, sensorTypeRepository);
         if (areas > 0) {
             System.out.println(areas + " Geographic Areas have been successfully imported.");
             long stopTime = System.currentTimeMillis();

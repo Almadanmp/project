@@ -140,7 +140,7 @@ public class MainUI {
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaRepository = new GeographicAreaRepository(geoAreaRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+            this.geographicAreaRepository = new GeographicAreaRepository(geoAreaRepo, areaTypeCrudeRepo);
 
             //MAIN CODE
 
@@ -180,7 +180,7 @@ public class MainUI {
                     switch (option) {
                         case 1:
                             GASettingsUI view1 = new GASettingsUI();
-                            view1.runGASettings(areaTypeRepository, geographicAreaRepository);
+                            view1.runGASettings(areaTypeRepository, geographicAreaRepository, sensorTypeRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

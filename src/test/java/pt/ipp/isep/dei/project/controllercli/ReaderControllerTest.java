@@ -97,7 +97,7 @@ class ReaderControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
-        geographicAreaRepository = new GeographicAreaRepository(this.geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        geographicAreaRepository = new GeographicAreaRepository(this.geographicAreaCrudeRepo, areaTypeCrudeRepo);
         this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
         readerController = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
@@ -116,19 +116,19 @@ class ReaderControllerTest {
                 new Local(41.149935, -8.610857, 118));
         GeographicArea emptyGeographicArea = new GeographicArea("Lisbon", "city", 0.299, 0.291,
                 new Local(41.178553, 8.608035, 117));
-        validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", new SensorType("rain", "mm"),
+        validAreaSensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rain",
                 new Local(41.179230, -8.606409, 125),
                 validDate1);
-        AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", new SensorType("rain2", "mm2"),
+        AreaSensor validAreaSensor2 = new AreaSensor("TT12346", "Meteo station ISEP - temperature", "rain2",
                 new Local(41.179230, -8.606409, 125),
                 validDate2);
-        AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", new SensorType("rain2", "mm2"),
+        AreaSensor validAreaSensor3 = new AreaSensor("RF12334", "Meteo station CMP - rainfall", "rain2",
                 new Local(41.179230, -8.606409, 139),
                 validDate3);
-        AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", new SensorType("rain2", "mm2"),
+        AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", "rain2",
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
-        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
+        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", new SensorType("Temperature", "C"), validDate1, "Room1");
     }
 

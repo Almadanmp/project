@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +44,7 @@ class AreaSensorTest {
             c.printStackTrace();
         }
         validAreaType = new AreaType("Cidade");
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(10, 10, 10), validDate2);
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", "Temperature", new Local(10, 10, 10), validDate2);
         validAreaSensor.setActive(true);
     }
 
@@ -201,7 +200,7 @@ class AreaSensorTest {
             e.printStackTrace();
         }
 
-        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), startDate);
+        AreaSensor areaSensor = new AreaSensor("Sensor", "Sensor", "Temperature", new Local(12, 12, 12), startDate);
 
         // Act
 
@@ -217,11 +216,11 @@ class AreaSensorTest {
     void seeIfConstructorSetsTypeArea() {
         // Arrange
 
-        SensorType expectedResult = new SensorType("Temperature", "Celsius");
+        String expectedResult = "Temperature";
 
         // Act
 
-        SensorType actualResult = validAreaSensor.getSensorType();
+        String actualResult = validAreaSensor.getSensorType();
 
         // Assert
 
@@ -232,13 +231,13 @@ class AreaSensorTest {
     void seeIfSecondConstructorSetsTypeArea() {
         // Arrange
 
-        SensorType expectedResult = new SensorType("Temperature", "Celsius");
-        validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
+        String expectedResult = "Temperature";
+        validAreaSensor = new AreaSensor("RF12345", "SensOne", "Temperature",
                 new Local(31, 15, 3), new Date());
 
         // Act
 
-        SensorType actualResult = validAreaSensor.getSensorType();
+        String actualResult = validAreaSensor.getSensorType();
 
         // Assert
 
@@ -249,7 +248,7 @@ class AreaSensorTest {
     void seeIfSecondConstructorSetsLocal() {
         // Arrange
 
-        validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Celsius"),
+        validAreaSensor = new AreaSensor("RF12345", "SensOne", "Temperature",
                 new Local(31, 15, 3), new Date());
         Local expectedResult = new Local(31, 15, 3);
 
@@ -382,7 +381,7 @@ class AreaSensorTest {
     void seeIfEqualsWorksFalseDifferentSensor() {
         // Arrange
 
-        AreaSensor s2 = new AreaSensor("RF12345", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
+        AreaSensor s2 = new AreaSensor("RF12345", "Temperature Sensor XX56", "Temperature",
                 new Local(21, 1, 12), new Date());
 
         // Act
@@ -399,7 +398,7 @@ class AreaSensorTest {
     void seeIfEqualsWorksTrueSameSensor() {
         // Arrange
 
-        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Celsius"), new Local(12, 12, 12), new Date());
+        AreaSensor testAreaSensor = new AreaSensor("SensOne", "SensOne", "Temperature", new Local(12, 12, 12), new Date());
 
         // Act
 
@@ -455,7 +454,7 @@ class AreaSensorTest {
     void seeIfPrintSensorWorksWithLocal() {
         // Arrange
 
-        validAreaSensor = new AreaSensor("RF12345", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(21,
+        validAreaSensor = new AreaSensor("RF12345", "SensOne", "Temperature", new Local(21,
                 31, 15), new Date());
         String expectedResult = "SensOne, Temperature, 21.0º lat, 31.0º long \n";
 
@@ -527,12 +526,12 @@ class AreaSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validAreaSensor = new AreaSensor("SensOne", "SensOne", new SensorType("Temperature", "Kelvin"), new Local(12, 12, 12), new Date());
-        SensorType expectedResult = new SensorType("Temperature", "Kelvin");
+        validAreaSensor = new AreaSensor("SensOne", "SensOne", "Temperature", new Local(12, 12, 12), new Date());
+        String expectedResult = "Temperature";
 
         // Act
 
-        SensorType actualResult = validAreaSensor.getSensorType();
+        String actualResult = validAreaSensor.getSensorType();
 
         // Assert
 

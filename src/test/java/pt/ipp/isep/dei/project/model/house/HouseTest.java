@@ -16,7 +16,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
@@ -65,9 +64,9 @@ class HouseTest {
                 180, deviceTypeString);
         validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100)));
-        firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", new SensorType("Temperature", "Celsius"), new Local(
+        firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", "Temperature", new Local(
                 30, 20, 10), new Date());
-        AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", new SensorType("Rainfall", "l/m2"), new Local(21,
+        AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", "Rainfall", new Local(21,
                 40, 15), new Date());
         validHouse.setMotherArea(validArea);
     }

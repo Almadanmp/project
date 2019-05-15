@@ -35,6 +35,7 @@ class SensorSettingsControllerTest {
     private Date validDate1;
     private GeographicArea validGeographicArea;
     private AreaSensor validAreaSensor;
+    private SensorType validSensorTypeTemperature;
 
 
     @Mock
@@ -43,6 +44,7 @@ class SensorSettingsControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
+        validSensorTypeTemperature = new SensorType("Temperature", "Celsius");
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("01/04/2018 00:00:00");
@@ -52,7 +54,7 @@ class SensorSettingsControllerTest {
             c.printStackTrace();
         }
         validGeographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
-        validAreaSensor = new AreaSensor("12", "SensorDTO1", new SensorType("Temperature", "Celsius"), new Local(2, 4, 5), validDate1);
+        validAreaSensor = new AreaSensor("12", "SensorDTO1", validSensorTypeTemperature.getName(), new Local(2, 4, 5), validDate1);
     }
 
     @Test
@@ -159,14 +161,14 @@ class SensorSettingsControllerTest {
         int month = 8;
         int day = 9;
         Date date1 = DateUtils.createDate(year, month, day);
-        controller.createSensor(idString, nameString, type1, loc1, date1);
+        controller.createSensor(idString, nameString, typeStr, loc1, date1);
         SensorType t1 = new SensorType(typeStr, "kg/m³");
-        AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", t1, loc1,
+        AreaSensor expectedResult = new AreaSensor("RF12345", "XV-56D", typeStr, loc1,
                 validDate1);
 
         // Act
 
-        AreaSensor actualResult = controller.createSensor(idString, nameString, type1, loc1, date1);
+        AreaSensor actualResult = controller.createSensor(idString, nameString, typeStr, loc1, date1);
 
         // Assert
 
@@ -201,9 +203,9 @@ class SensorSettingsControllerTest {
     void testBuildSensorString() {
         // Arrange
 
-        AreaSensor areaSensor = new AreaSensor("RF12345", "Sensor", new SensorType("temperature", "celsius"), new Local(1, 1, 1),
+        AreaSensor areaSensor = new AreaSensor("RF12345", "Sensor", validSensorTypeTemperature.getName(), new Local(1, 1, 1),
                 validDate1);
-        String expectedResult = "Sensor, temperature, 1.0º lat, 1.0º long \n";
+        String expectedResult = "Sensor, Temperature, 1.0º lat, 1.0º long \n";
 
 
         // Act

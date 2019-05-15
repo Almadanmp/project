@@ -61,8 +61,7 @@ public class ReaderXMLGeoArea {
                 result = geographicAreaRepository.addAndPersistGA(areaObject);
                 if (result) {
                     for (int j = 0; j < nListSensor.getLength(); j++) {
-                        readSensorsXML(nListSensor.item(j), areaObject,
-                                geographicAreaRepository);
+                        readSensorsXML(nListSensor.item(j), areaObject);
                         geographicAreaRepository.updateGeoArea(areaObject);
                     }
                 }
@@ -78,7 +77,7 @@ public class ReaderXMLGeoArea {
      *
      * @param node - node of the XML file.
      */
-    private void readSensorsXML(Node node, GeographicArea geographicArea, GeographicAreaRepository geographicAreaRepository) {
+    private void readSensorsXML(Node node, GeographicArea geographicArea) {
         AreaSensor areaSensor;
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -98,7 +97,7 @@ public class ReaderXMLGeoArea {
                 expected.getErrorOffset();
             }
             try {
-                areaSensor = geographicAreaRepository.createAreaSensor(id, name, sensorTypeName, sensorTypeUnit, local, date);
+                areaSensor = geographicArea.createAreaSensor(id, name, sensorTypeName, local, date);
                 geographicArea.addSensor(areaSensor);
             } catch (IllegalArgumentException ignored) {
             }

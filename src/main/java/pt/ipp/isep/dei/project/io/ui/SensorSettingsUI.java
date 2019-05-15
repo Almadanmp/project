@@ -115,7 +115,7 @@ class SensorSettingsUI {
     private AreaSensor createSensor(SensorTypeRepository sensorTypeList) {
         String id = getInputSensorId();
         String name = getInputSensorName();
-        SensorType sensorType = getInputTypeSensor(sensorTypeList);
+        String sensorType = getInputTypeSensor(sensorTypeList).getName();
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
         return controller.createSensor(id, name, sensorType, local, startDate);
