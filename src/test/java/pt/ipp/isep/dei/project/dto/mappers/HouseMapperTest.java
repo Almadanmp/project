@@ -57,7 +57,6 @@ class HouseMapperTest {
         roomDTO.setLength(3);
         roomDTO.setHeight(3.5);
         roomDTO.setHouseId("01");
-        roomDTO.setEnergyGridName("EG1");
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
@@ -117,7 +116,6 @@ class HouseMapperTest {
         roomDTO.setLength(3);
         roomDTO.setHeight(3.5);
         roomDTO.setHouseId("01");
-        roomDTO.setEnergyGridName("EG1");
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
@@ -177,7 +175,6 @@ class HouseMapperTest {
         roomDTO.setLength(3);
         roomDTO.setHeight(3.5);
         roomDTO.setHouseId("01");
-        roomDTO.setEnergyGridName("EG1");
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();

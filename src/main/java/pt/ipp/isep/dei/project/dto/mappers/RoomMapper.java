@@ -52,10 +52,6 @@ public final class RoomMapper {
 
         double objectHeight = dtoToConvert.getHeight();
 
-        // Update the Energy Grid ID
-
-        String objectEnergyGridID = dtoToConvert.getEnergyGridID();
-
         // Update the House ID
 
         String objectHouseID = dtoToConvert.getHouseId();
@@ -109,10 +105,6 @@ public final class RoomMapper {
         // Update the houseID
 
         String objectHouseID = dtoToConvert.getHouseId();
-
-        // Update the energy grid ID
-
-        String objectEnergyGridID = dtoToConvert.getEnergyGridID();
 
         // Create, update and return the converted object.
 
