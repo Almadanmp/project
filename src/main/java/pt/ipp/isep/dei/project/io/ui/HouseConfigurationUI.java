@@ -44,7 +44,7 @@ class HouseConfigurationUI {
         this.readerController = new ReaderController();
         menuOptions = new ArrayList<>();
         menuOptions.add("As an Administrator, I want to configure the house from a file containing basic house" +
-                "information, grids and rooms)(US100)");
+                " information, grids and rooms)(US100)");
         menuOptions.add("Configure the location of the house. (US101)");
         menuOptions.add("Add a new room to the house. (US105)");
         menuOptions.add("List the existing rooms. (US108)");
