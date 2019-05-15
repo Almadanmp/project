@@ -77,6 +77,48 @@ public final class GeographicAreaMapper {
         resultObject.setAreaSensors(objectSensorList);
 
         return resultObject;
+    }/**
+     * This is the method that converts Geographic Area DTOs into model objects with the same data.
+     *
+     * @param dtoToConvert is the DTO we want to convert.
+     * @return is the converted model object.
+     */
+    public static GeographicArea dtoToObjectMinimalist(GeographicAreaDTO dtoToConvert) {
+        // Update generic parameters
+
+        Long objectId = null;
+
+        try {
+            objectId = dtoToConvert.getId();
+            if (objectId == null) {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException ok) {
+            ok.getMessage();
+        }
+
+        String objectName = dtoToConvert.getName();
+
+        String objectType = dtoToConvert.getTypeArea();
+
+        double objectLength = dtoToConvert.getLength();
+
+        double objectWidth = dtoToConvert.getWidth();
+
+        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocalDTO());
+
+        String objectDescription = dtoToConvert.getDescription();
+
+
+        // Create, update and return the converted object.
+
+        GeographicArea resultObject = new GeographicArea(objectName, objectType, objectLength, objectWidth,
+                objectLocal);
+
+        resultObject.setId(objectId);
+        resultObject.setDescription(objectDescription);
+
+        return resultObject;
     }
 
     /**
@@ -134,4 +176,5 @@ public final class GeographicAreaMapper {
 
         return resultDTO;
     }
+
 }

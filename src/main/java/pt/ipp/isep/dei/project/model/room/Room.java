@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.room;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
@@ -20,6 +21,8 @@ import java.util.*;
 public class Room implements Metered, Root {
 
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String roomName;
     private String description;
     private int houseFloor;

@@ -1,8 +1,15 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 @RestController
+@RequestMapping("/houseSettings")
 public class HouseConfigurationWebController {
 
     // USER STORY 101
@@ -43,5 +50,17 @@ public class HouseConfigurationWebController {
     public void setHouseMotherArea(House house, GeographicArea geographicArea) {
         house.setMotherArea(geographicArea);
     }*/
+
+    @Autowired
+    private RoomRepository roomRepository;
+
+
+    //US 105
+    /**
+     * **/
+    @PostMapping(value = "/room")
+    public String createRoom(@RequestBody RoomDTOWeb roomDTOWeb){
+        return "The room is " + roomDTOWeb.getName();
+    }
 
 }

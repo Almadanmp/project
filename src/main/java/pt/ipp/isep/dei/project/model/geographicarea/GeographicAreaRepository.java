@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -81,6 +82,14 @@ public class GeographicAreaRepository {
         geographicAreaCrudeRepo.deleteById(geographicAreaDTO.getId());
     }
 
+    public void updateAreaDTO(GeographicAreaDTO areaDTO) {
+        GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
+        geographicAreaCrudeRepo.save(area);
+    }
+
+    public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
+        return geographicAreaDTO.addSensor(areaSensorDTO);
+    }
 
     //WEB CONTROLLER END //
 

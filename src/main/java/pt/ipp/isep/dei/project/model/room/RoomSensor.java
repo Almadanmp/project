@@ -18,6 +18,7 @@ public class RoomSensor {
 
     @Id
     private String id;
+
     private String name;
 
     @ManyToOne
