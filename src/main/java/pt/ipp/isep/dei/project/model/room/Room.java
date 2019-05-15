@@ -29,7 +29,6 @@ public class Room implements Metered, Root {
     @Transient
     private DeviceList deviceList;
     private String houseID;
-    private String energyGridId; //TODO Remove this attribute
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -50,7 +49,7 @@ public class Room implements Metered, Root {
      * @param height     of the room
      */
     public Room(String name, String description, int houseFloor, double width, double length, double height,
-                String houseID, String energyGridId) {
+                String houseID) {
         this.roomName = name;
         this.description = description;
         this.houseFloor = houseFloor;
@@ -59,7 +58,6 @@ public class Room implements Metered, Root {
         this.roomHeight = height;
         this.deviceList = new DeviceList();
         this.houseID = houseID;
-        this.energyGridId = energyGridId;
         this.roomSensors = new ArrayList<>();
     }
 
@@ -71,7 +69,7 @@ public class Room implements Metered, Root {
      * @param roomDimensions contains width, length and height, respectively.
      */
     public Room(String name, String description, int houseFloor, List<Double> roomDimensions,
-                String houseID, String energyGridId) {
+                String houseID) {
         this.roomName = name;
         this.description = description;
         this.houseFloor = houseFloor;
@@ -80,7 +78,6 @@ public class Room implements Metered, Root {
         this.roomHeight = roomDimensions.get(2);
         this.deviceList = new DeviceList();
         this.houseID = houseID;
-        this.energyGridId = energyGridId;
         this.roomSensors = new ArrayList<>();
     }
 
@@ -136,10 +133,6 @@ public class Room implements Metered, Root {
 
     public String getHouseID() {
         return houseID;
-    }
-
-    public String getEnergyGridID() {
-        return energyGridId;
     }
 
     /**

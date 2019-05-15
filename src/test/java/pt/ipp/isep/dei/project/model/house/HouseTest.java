@@ -209,7 +209,7 @@ class HouseTest {
     void seeIfEqualsWorksNotInstanceOf() {
         // Arrange
 
-        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10, "Room1", "Grid1");
+        Room testRoom = new Room("Bedroom", "Single Bedroom", 2, 30, 30, 10, "Room1");
 
         // Act
 

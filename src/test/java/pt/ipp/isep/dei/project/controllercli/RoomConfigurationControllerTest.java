@@ -56,8 +56,8 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validRoomWithDevices = new Room("Office", "2nd Floor Office", 2, 15, 15, 10, "House", "Grid1");
-        validRoomNoDevices = new Room("Kitchen", "Fully Equipped Kitchen", 1, 20, 20, 10, "House", "Grid1");
+        validRoomWithDevices = new Room("Office", "2nd Floor Office", 2, 15, 15, 10, "House");
+        validRoomNoDevices = new Room("Kitchen", "Fully Equipped Kitchen", 1, 20, 20, 10, "House");
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.FREEZER_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.REFRIGERATOR_CAPACITY, 4D);
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
@@ -85,11 +85,7 @@ class RoomConfigurationControllerTest {
         roomDTO.setLength(15);
         roomDTO.setWidth(15);
         roomDTO.setHouseId("House");
-        roomDTO.setEnergyGridName("Grid1");
         roomDTO.setDeviceList(deviceList);
-
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
@@ -120,11 +116,8 @@ class RoomConfigurationControllerTest {
         roomDTO.setLength(15);
         roomDTO.setWidth(15);
         roomDTO.setHouseId("House");
-        roomDTO.setEnergyGridName("Grid1");
         roomDTO.setDeviceList(deviceList);
 
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 

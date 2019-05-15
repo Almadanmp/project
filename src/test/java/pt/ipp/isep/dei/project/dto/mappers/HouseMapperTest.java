@@ -22,7 +22,7 @@ class HouseMapperTest {
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
         List<Room> roomService = new ArrayList<>();
-        roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
+        roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01"));
         GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
         expectedResult.setMotherAreaID(geographicArea.getId());
@@ -57,7 +57,6 @@ class HouseMapperTest {
         roomDTO.setLength(3);
         roomDTO.setHeight(3.5);
         roomDTO.setHouseId("01");
-        roomDTO.setEnergyGridName("EG1");
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
@@ -82,7 +81,7 @@ class HouseMapperTest {
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
         List<Room> roomService = new ArrayList<>();
-        roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
+        roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01"));
         GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
         expectedResult.setMotherAreaID(geographicArea.getId());
@@ -117,7 +116,6 @@ class HouseMapperTest {
         roomDTO.setLength(3);
         roomDTO.setHeight(3.5);
         roomDTO.setHouseId("01");
-        roomDTO.setEnergyGridName("EG1");
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
@@ -142,7 +140,7 @@ class HouseMapperTest {
         Local local = new Local(0, 0, 0);
         List<String> deviceTypes = new ArrayList<>();
         List<Room> roomService = new ArrayList<>();
-        roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
+        roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01"));
         GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House house = new House("01", address, local, 15, 15, deviceTypes);
         house.setMotherAreaID(geographicArea.getId());
@@ -177,7 +175,6 @@ class HouseMapperTest {
         roomDTO.setLength(3);
         roomDTO.setHeight(3.5);
         roomDTO.setHouseId("01");
-        roomDTO.setEnergyGridName("EG1");
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();

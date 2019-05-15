@@ -64,7 +64,12 @@ public class HouseConfigurationWebController {
     //US 105
 
     /**
+     * This method creates receives a roomDTOWeb and tries to add the corresponding
+     * room to the repository. The method will return a success message in case the
+     * room is added, and a failure message in case it is not.
      *
+     * @param roomDTOWeb roomDTOWeb to be added to repository
+     * @return message that informs if room was added or not
      **/
     @PostMapping(value = "/room")
     public String createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {

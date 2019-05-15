@@ -84,8 +84,8 @@ public class HouseConfigurationController {
      * @param roomDimensions  contains the width, length and height respectively.
      * @return a new Room
      */
-    public Room createNewRoom(RoomRepository roomRepository, String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID, String energyGridID) {
-        return roomRepository.createRoom(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID, energyGridID);
+    public Room createNewRoom(RoomRepository roomRepository, String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID) {
+        return roomRepository.createRoom(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID);
     }
 
     /**

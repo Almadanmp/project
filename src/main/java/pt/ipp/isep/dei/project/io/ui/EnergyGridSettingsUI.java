@@ -146,7 +146,7 @@ class EnergyGridSettingsUI {
             return;
         }
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridRepository);
-        List<Room> roomsOnGrid = energyGridRoomService.getAllByEnergyGridName(energyGrid.getName());
+        List<Room> roomsOnGrid = energyGrid.getRoomList();
         displayRoomList(roomsOnGrid, roomRepository);
 
     }

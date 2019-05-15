@@ -38,7 +38,7 @@ class EnergyGridRoomRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         validEnergyGridRoomService = new EnergyGridRoomService(energyGridCrudeRepo, roomCrudeRepo);
     }
 
@@ -52,21 +52,4 @@ class EnergyGridRoomRepositoryTest {
         assertEquals(energyGridRoomService, energyGridRoomService);
     }
 
-    @Test
-    void seeIfGetAllByEnergyGridNameWorks() {
-        //Arrange
-
-        List<Room> roomListExpected = new ArrayList<>();
-        roomListExpected.add(validRoom);
-        Mockito.when(roomCrudeRepo.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
-
-        //Act
-
-        List<Room> actualResult = validEnergyGridRoomService.getAllByEnergyGridName("Grid1");
-
-        //Assert
-
-        assertEquals(roomListExpected, actualResult);
-
-    }
 }

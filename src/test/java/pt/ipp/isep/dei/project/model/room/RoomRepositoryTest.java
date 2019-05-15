@@ -61,7 +61,7 @@ class RoomRepositoryTest {
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
         validRoomRepository = new RoomRepository(this.roomCrudeRepo);
-        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
         validDevice = new WaterHeater(new WaterHeaterSpec());
@@ -89,7 +89,7 @@ class RoomRepositoryTest {
     void seeIfAddRoomToCrudRepositoryWorks() {
         // Arrange
 
-        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1", "Grid1");
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
 
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom2);
@@ -109,7 +109,7 @@ class RoomRepositoryTest {
     void seeIfAddRoomToCrudRepositoryWorksWhenRoomExistsInRepository() {
         // Arrange
 
-        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1", "Grid1");
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
 
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom2);
@@ -331,7 +331,7 @@ class RoomRepositoryTest {
     void seeIfAddRoomCreate() {
 
 
-        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
 
         roomList.add(room);
 
@@ -344,7 +344,7 @@ class RoomRepositoryTest {
 
         List<Room> roomList = new ArrayList<>();
 
-        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         roomList.add(room);
         validRoomRepository.saveRoom(room);
 
@@ -358,7 +358,7 @@ class RoomRepositoryTest {
     void seeIfGetDB() {
         String mockId = "SensorOne";
 
-        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
 
 
         Mockito.when(roomCrudeRepo.findById(mockId)).thenReturn(Optional.of(room));
@@ -486,7 +486,7 @@ class RoomRepositoryTest {
     void seeIfEqualsDifferentObjectTypes() {
         // Arrange
 
-        Room room2 = new Room("Balcony", "3rd Floor Balcony", 3, 2, 4, 3, "Room1", "Grid1");
+        Room room2 = new Room("Balcony", "3rd Floor Balcony", 3, 2, 4, 3, "Room1");
 
         // Act
 
@@ -502,7 +502,7 @@ class RoomRepositoryTest {
         //Arrange
         List<Room> rooms = new ArrayList<>();
 
-        Room room = new Room("room", "Double Bedroom", 2, 20, 20, 4, "Room1", "Grid1");
+        Room room = new Room("room", "Double Bedroom", 2, 20, 20, 4, "Room1");
         rooms.add(validRoom);
         rooms.add(room);
 
@@ -571,7 +571,7 @@ class RoomRepositoryTest {
     void seeIfCreateRoomWorks() {
         //Arrange
 
-        Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1", "Grid1");
+        Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1");
         ArrayList<Double> dimensions = new ArrayList<>();
         dimensions.add(15D);
         dimensions.add(10D);
@@ -580,7 +580,7 @@ class RoomRepositoryTest {
 
         //Act
 
-        Room roomActual1 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
+        Room roomActual1 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1");
 
         //Assert
 
@@ -591,7 +591,7 @@ class RoomRepositoryTest {
 
         //Act
 
-        Room roomActual2 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1", "Grid1");
+        Room roomActual2 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1");
 
         //Assert
         assertEquals(roomExpected, roomActual2);
@@ -705,8 +705,8 @@ class RoomRepositoryTest {
     void seeIfCreateRoomReturnsExistingRoom() {
         //Arrange
 
-        Room room2 = new Room("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-        Room room = new Room("Kitchen2", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        Room room2 = new Room("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
+        Room room = new Room("Kitchen2", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         List<Room> roomList = new ArrayList<>();
         roomList.add(validRoom);
         roomList.add(room);
@@ -718,8 +718,8 @@ class RoomRepositoryTest {
 
         //Act
 
-        Room actualResult = validRoomRepository.createRoom("Kitchen", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
-        Room actualResult1 = validRoomRepository.createRoom("Kitchen3", "1st Floor Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult = validRoomRepository.createRoom("Kitchen", "1st Floor Kitchen", 1, dimensions, "Room1");
+        Room actualResult1 = validRoomRepository.createRoom("Kitchen3", "1st Floor Kitchen", 1, dimensions, "Room1");
 
         //Assert
 
@@ -807,9 +807,9 @@ class RoomRepositoryTest {
     @Test
     void seeIfUpdateHouseRoomWorks() {
         List<Room> rooms = new ArrayList<>();
-        validRoom = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
-        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
-        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
+        validRoom = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
+        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01");
+        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
         rooms.add(room1);
         rooms.add(room);
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);

@@ -171,7 +171,7 @@ class LogListTest {
     void seeEqualsToDifTypeObject() {
         //Arrange
 
-        Room room = new Room("Room","Single Bedroom", 1, 80, 2, 2,"Room1","Grid1");
+        Room room = new Room("Room","Single Bedroom", 1, 80, 2, 2,"Room1");
 
         //Act
 

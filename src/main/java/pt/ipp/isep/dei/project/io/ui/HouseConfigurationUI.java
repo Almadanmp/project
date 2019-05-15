@@ -73,7 +73,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 3:
-                    runUS105(house, roomRepository, energyGridRepository);
+                    runUS105(house, roomRepository);
                     activeInput = false;
                     break;
                 case 4:
@@ -151,10 +151,9 @@ class HouseConfigurationUI {
 
     // USER STORY 105 - As an Administrator, I want to add a new room to the house, in order to configure it (name,
     // house floor and dimensions) - TERESA VARELA.
-    private void runUS105(House house, RoomRepository roomRepository, EnergyGridRepository energyGridRepository) {
+    private void runUS105(House house, RoomRepository roomRepository) {
         getInputRoomCharacteristics();
-        EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridRepository);
-        Room room = createNewRoom(roomRepository, house, grid);
+        Room room = createNewRoom(roomRepository, house);
         displayRoom();
         boolean added = addRoomToHouse(roomRepository, room);
         displayFinalState(added);
@@ -189,12 +188,12 @@ class HouseConfigurationUI {
         this.roomHeight = InputHelperUI.getInputAsDoubleZeroOrPositive();
     }
 
-    private Room createNewRoom(RoomRepository roomRepository, House house, EnergyGrid grid) {
+    private Room createNewRoom(RoomRepository roomRepository, House house) {
         ArrayList<Double> roomDimensions = new ArrayList<>();
         roomDimensions.add(roomWidth);
         roomDimensions.add(roomLength);
         roomDimensions.add(roomHeight);
-        return controller.createNewRoom(roomRepository, roomName, roomDescription, roomHouseFloor, roomDimensions, house.getId(), grid.getName());
+        return controller.createNewRoom(roomRepository, roomName, roomDescription, roomHouseFloor, roomDimensions, house.getId());
     }
 
     /**

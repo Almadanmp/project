@@ -20,7 +20,7 @@ class RoomWebMapperTest {
         roomDTOWeb.setFloor(1);
 
 
-        Room expectedResult = new Room("RoomName", "", 1, 21, 22, 20, null, null);
+        Room expectedResult = new Room("RoomName", "", 1, 21, 22, 20, null);
 
         //Act
 
