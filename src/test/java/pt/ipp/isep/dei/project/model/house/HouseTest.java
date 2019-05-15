@@ -52,7 +52,7 @@ class HouseTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo);
         energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);

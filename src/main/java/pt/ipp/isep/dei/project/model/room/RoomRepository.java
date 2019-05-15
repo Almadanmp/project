@@ -8,9 +8,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,9 +26,6 @@ public class RoomRepository {
     @Autowired
     RoomCrudeRepo roomCrudeRepo;
 
-    @Autowired
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
@@ -39,9 +34,8 @@ public class RoomRepository {
     /**
      * RoomList() empty constructor that initializes an ArrayList of Rooms.
      */
-    public RoomRepository(RoomCrudeRepo roomCrudeRepo, SensorTypeCrudeRepo sensorTypeCrudeRepo) {
+    public RoomRepository(RoomCrudeRepo roomCrudeRepo) {
         this.roomCrudeRepo = roomCrudeRepo;
-        this.sensorTypeCrudeRepo = sensorTypeCrudeRepo;
     }
 
 
@@ -184,12 +178,13 @@ public class RoomRepository {
     }
 
     /**
-     * **/
-    public boolean addRoomToCrudRepository(Room room){
+     *
+     **/
+    public boolean addRoomToCrudRepository(Room room) {
         String roomID = room.getId();
         List<Room> rooms = this.getAllRooms();
-        for(Room r: rooms){
-            if(roomID.equals(r.getId())){
+        for (Room r : rooms) {
+            if (roomID.equals(r.getId())) {
                 return false;
             }
         }
@@ -296,31 +291,6 @@ public class RoomRepository {
 
     public Optional<Room> findRoomByID(String idToFind) {
         return roomCrudeRepo.findById(idToFind);
-    }
-
-    /**
-     * Method to get a TypeSensor from the Repository through a given id
-     *
-     * @param name selected name
-     * @return Type Sensor corresponding to the given id
-     */
-    public SensorType getTypeSensorByName(String name) {
-        Optional<SensorType> value = sensorTypeCrudeRepo.findByName(name);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        return null;
-    }
-
-    /**
-     * Method to check if an instance of this class is equal to another object.
-     * Necessary for adding rooms to list.
-     *
-     * @return is true if the object is a power source list with the same contents.
-     */
-    public RoomSensor createRoomSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
-        sensorType = getTypeSensorByName(sensorType.getName());
-        return new RoomSensor(id, name, sensorType, dateStartedFunctioning, roomId);
     }
 
     /**

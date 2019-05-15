@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -87,7 +86,7 @@ public final class RoomSensorMapper {
 
         // Create, update and return converted object
 
-        RoomSensor resultObject = new RoomSensor(objectID, objectName, new SensorType(objectType, objectUnit), objectDate, objectRoomID);
+        RoomSensor resultObject = new RoomSensor(objectID, objectName, objectType, objectDate);
         resultObject.setActive(objectStatus);
         resultObject.setReadings(objectReadingList);
         return resultObject;
@@ -115,15 +114,11 @@ public final class RoomSensorMapper {
 
         // Update the type of the sensor
 
-        String dtoType = objectToConvert.getSensorType().getName();
+        String dtoType = objectToConvert.getSensorType();
 
         // Update the status
 
         boolean dtoStatus = objectToConvert.isActive();
-
-        // Update the units
-
-        String dtoUnits = objectToConvert.getSensorType().getUnits();
 
         // Update the readings
 
@@ -136,7 +131,6 @@ public final class RoomSensorMapper {
         // Create, update and return the converted DTO.
 
         RoomSensorDTO resultDTO = new RoomSensorDTO();
-        resultDTO.setUnits(dtoUnits);
         resultDTO.setTypeSensor(dtoType);
         resultDTO.setActive(dtoStatus);
         resultDTO.setName(dtoName);

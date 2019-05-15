@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.model.room;
 
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,9 +20,7 @@ public class RoomSensor {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "type_sensor_id")
-    private SensorType sensorType;
+    private String sensorType;
 
     @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
@@ -49,7 +46,7 @@ public class RoomSensor {
      * @param sensorType             is the Type of the Sensor.
      * @param dateStartedFunctioning is the Date that the Sensor Started Working.
      */
-    public RoomSensor(String id, String name, SensorType sensorType, Date dateStartedFunctioning, String roomId) {
+    public RoomSensor(String id, String name, String sensorType, Date dateStartedFunctioning) {
         setId(id);
         setName(name);
         setSensorType(sensorType);
@@ -103,7 +100,7 @@ public class RoomSensor {
      *
      * @param sensor is the Type we want to set to the sensor.
      */
-    public void setSensorType(SensorType sensor) {
+    public void setSensorType(String sensor) {
         this.sensorType = sensor;
     }
 
@@ -134,7 +131,7 @@ public class RoomSensor {
      *
      * @return the Type of the Sensor.
      */
-    public SensorType getSensorType() {
+    public String getSensorType() {
         return (this.sensorType);
     }
 
@@ -181,7 +178,7 @@ public class RoomSensor {
      * @return returns a string with Sensor Parameters
      */
     public String buildString() {
-        return this.name + ", " + this.sensorType.getName() + "\n";
+        return this.name + ", " + this.sensorType + "\n";
     }
 
     /**
@@ -239,16 +236,6 @@ public class RoomSensor {
         return false;
     }
 
-
-    /**
-     * This method returns the sensor type name.
-     *
-     * @return he sensor type name.
-     **/
-
-    String getSensorTypeName() {
-        return this.sensorType.getName();
-    }
 
     @Override
     public boolean equals(Object testObject) {

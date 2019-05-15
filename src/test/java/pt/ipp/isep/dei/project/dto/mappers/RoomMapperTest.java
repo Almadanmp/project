@@ -13,9 +13,8 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.WashingMachine;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
@@ -42,7 +41,7 @@ class RoomMapperTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 
@@ -77,7 +76,7 @@ class RoomMapperTest {
         roomSensor.setActive(true);
         roomSensor.setDateStartedFunctioning(date);
         roomSensor.setId("Id");
-        roomSensor.setSensorType(new SensorType("Temperature", "Celsius"));
+        roomSensor.setSensorType("Temperature");
         validRoom.setDeviceList(deviceList);
     }
 

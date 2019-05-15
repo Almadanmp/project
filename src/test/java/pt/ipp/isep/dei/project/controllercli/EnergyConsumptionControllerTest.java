@@ -73,7 +73,7 @@ class EnergyConsumptionControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
-        roomRepository = new RoomRepository(this.roomCrudeRepo, sensorTypeCrudeRepo);
+        roomRepository = new RoomRepository(this.roomCrudeRepo);
         this.roomList = new ArrayList<>();
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
         validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1", "Grid1");

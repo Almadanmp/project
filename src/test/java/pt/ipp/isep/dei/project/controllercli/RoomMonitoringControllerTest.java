@@ -19,7 +19,6 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
@@ -130,17 +129,17 @@ class RoomMonitoringControllerTest {
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         this.validHouse.setMotherArea(validArea);
-        this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        this.roomRepository = new RoomRepository(roomCrudeRepo);
         this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
-        validRoomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        validRoomRepository = new RoomRepository(roomCrudeRepo);
         this.rooms = new ArrayList<>();
         rooms.add(validRoom1);
-        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo);
         validRoomDTO = RoomMapper.objectToDTO(validRoom1);
         validRoomDTO.setHouseId(validHouse.getId());
-        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("temperature", "Celsius"), validDate1, "RoomDFS");
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
         firstValidRoomSensor.setActive(true);
     }
 
@@ -164,8 +163,7 @@ class RoomMonitoringControllerTest {
 
         Room testRoom = new Room("Kitchen", "Where we cook", 0, 15, 15, 15,
                 "ISEP", "G001");
-        RoomSensor testSensor = new RoomSensor("S001", "TempOne", new SensorType("temperature", "Celsius"),
-                validDate1, "Kitchen");
+        RoomSensor testSensor = new RoomSensor("S001", "TempOne", "temperature", validDate1);
         Reading testReading = new Reading(11, validDate1,
                 "C", "S001");
         Reading secondTestReading = new Reading(17, validDate2,
@@ -221,7 +219,7 @@ class RoomMonitoringControllerTest {
 
         List<Room> mockList = new ArrayList<>();
         mockList.add(validRoom1);
-        RoomSensor roomSensor = new RoomSensor("S1", "Room Temperature Sensor", new SensorType("temperature", "C"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom1.getId());
+        RoomSensor roomSensor = new RoomSensor("S1", "Room Temperature Sensor", "temperature", new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
         validRoom1.addSensor(roomSensor);
         Reading reading = new Reading(21, Calendar.getInstance().getTime(), "C", roomSensor.getId());
         List<Reading> list = new ArrayList<>();

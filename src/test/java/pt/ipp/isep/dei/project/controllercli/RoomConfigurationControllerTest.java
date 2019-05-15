@@ -13,8 +13,8 @@ import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,7 +63,7 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        this.roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
 
@@ -90,7 +89,7 @@ class RoomConfigurationControllerTest {
         roomDTO.setDeviceList(deviceList);
 
         SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
@@ -125,7 +124,7 @@ class RoomConfigurationControllerTest {
         roomDTO.setDeviceList(deviceList);
 
         SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
@@ -144,13 +143,11 @@ class RoomConfigurationControllerTest {
         // Arrange
 
         SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType, validDate1, "Room1");
-
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorType));
+        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         // Act
 
-        RoomSensor actualResult = controller.createRoomSensor(roomRepository, "Sensor1", "Sensor1", sensorType, validDate1, "Room1");
+        RoomSensor actualResult = controller.createRoomSensor(validRoomNoDevices, roomRepository, "Sensor1", "Sensor1", sensorType, validDate1);
 
         // Assert
 
@@ -261,10 +258,10 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        RoomSensor s1 = new RoomSensor("T1292u37", "SensorOne", new SensorType("Wind", "km/h"),
-                date, "RoomABD");
-        RoomSensor s2 = new RoomSensor("T1292u37", "SensorTwo", new SensorType("Rain", "l/m2"),
-                date, "RoomABD");
+        RoomSensor s1 = new RoomSensor("T1292u37", "SensorOne", "Wind",
+                date);
+        RoomSensor s2 = new RoomSensor("T1292u37", "SensorTwo", "Rain",
+                date);
         List<RoomSensor> roomSensorList = new ArrayList<>();
         roomSensorList.add(s1);
         roomSensorList.add(s2);
@@ -308,7 +305,7 @@ class RoomConfigurationControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", new SensorType("Rain", "mm"), date, "RoomABD");
+        RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", "Rain", date);
         // Act
 
         boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomRepository, validRoomNoDevices);

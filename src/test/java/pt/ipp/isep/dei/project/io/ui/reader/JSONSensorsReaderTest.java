@@ -1,17 +1,41 @@
 package pt.ipp.isep.dei.project.io.ui.reader;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(MockitoExtension.class)
 class JSONSensorsReaderTest {
+
+    @Mock
+    SensorTypeCrudeRepo sensorTypeCrudeRepo;
+
+    private SensorTypeRepository sensorTypeRepository;
+    private SensorType sensorTypeTemp;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
+        sensorTypeTemp = new SensorType("temperature", "C");
+    }
+
+
     @Test
-    void seeIfImportSensorsWorks(){
+    void seeIfImportSensorsWorks() {
         // Arrange
 
         JSONSensorsReader reader = new JSONSensorsReader();
@@ -46,7 +70,7 @@ class JSONSensorsReaderTest {
         thirdDTO.setId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
-        thirdDTO.setDateStartedFunctioning( "2017-11-16");
+        thirdDTO.setDateStartedFunctioning("2017-11-16");
         thirdDTO.setTypeSensor("temperature");
         secondDTO.setUnits("C");
 
@@ -56,16 +80,16 @@ class JSONSensorsReaderTest {
         expectedResult.add(thirdDTO);
 
         // Act
-
-        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensors.json");
+        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorTypeTemp));
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensors.json", sensorTypeRepository);
 
         // Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfImportSensorsWorksWithInvalidRoomID(){
+    void seeIfImportSensorsWorksWithInvalidRoomID() {
         // Arrange
 
         JSONSensorsReader reader = new JSONSensorsReader();
@@ -100,7 +124,7 @@ class JSONSensorsReaderTest {
         thirdDTO.setId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
-        thirdDTO.setDateStartedFunctioning( "2017-11-16");
+        thirdDTO.setDateStartedFunctioning("2017-11-16");
         thirdDTO.setTypeSensor("temperature");
         secondDTO.setUnits("C");
 
@@ -109,16 +133,16 @@ class JSONSensorsReaderTest {
         expectedResult.add(thirdDTO);
 
         // Act
-
-        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json");
+        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorTypeTemp));
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json", sensorTypeRepository);
 
         // Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfImportSensorsWorksWithInvalidElements(){
+    void seeIfImportSensorsWorksWithInvalidElements() {
         // Arrange
 
         JSONSensorsReader reader = new JSONSensorsReader();
@@ -141,6 +165,7 @@ class JSONSensorsReaderTest {
         firstDTO.setTypeSensor("temperature");
         firstDTO.setUnits("C");
 
+
         RoomSensorDTO secondDTO = new RoomSensorDTO();
         secondDTO.setId(null);
         secondDTO.setRoomID("B107");
@@ -153,7 +178,7 @@ class JSONSensorsReaderTest {
         thirdDTO.setId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
-        thirdDTO.setDateStartedFunctioning( "2017-11-16");
+        thirdDTO.setDateStartedFunctioning("2017-11-16");
         thirdDTO.setTypeSensor("temperature");
         secondDTO.setUnits("C");
 
@@ -161,23 +186,23 @@ class JSONSensorsReaderTest {
         expectedResult.add(thirdDTO);
 
         // Act
-
-        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json");
+        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorTypeTemp));
+        List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json", sensorTypeRepository);
 
         // Assert
 
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfReadFileWorksNoFile(){
+    void seeIfReadFileWorksNoFile() {
         JSONSensorsReader reader = new JSONSensorsReader();
         assertThrows(IllegalArgumentException.class,
                 () -> reader.readFile("Wrong"));
     }
 
     @Test
-    void seeIfGetElementsArrayWorksWrongFile(){
+    void seeIfGetElementsArrayWorksWrongFile() {
         JSONSensorsReader reader = new JSONSensorsReader();
         assertThrows(IllegalArgumentException.class,
                 () -> reader.readFile("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongTag.json"));

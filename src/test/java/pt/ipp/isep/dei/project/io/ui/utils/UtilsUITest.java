@@ -25,7 +25,7 @@ public class UtilsUITest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
 //    @Test

@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.io.ui;
 import pt.ipp.isep.dei.project.controllercli.HouseConfigurationController;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;
+import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
@@ -13,9 +16,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
-import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;
-import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ class HouseConfigurationUI {
         menuOptions.add("(Return to main menu)");
     }
 
-    void run(House house, GeographicAreaRepository geographicAreaRepository, RoomRepository roomRepository, EnergyGridRepository energyGridRepository, HouseCrudeRepo houseCrudeRepo) {
+    void run(House house, GeographicAreaRepository geographicAreaRepository, RoomRepository roomRepository, EnergyGridRepository energyGridRepository, HouseCrudeRepo houseCrudeRepo, SensorTypeRepository sensorTypeRepository) {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -80,7 +81,7 @@ class HouseConfigurationUI {
                     activeInput = false;
                     break;
                 case 5:
-                    runUS260(roomRepository);
+                    runUS260(roomRepository, sensorTypeRepository);
                     activeInput = false;
                     break;
                 case 6:
@@ -244,7 +245,7 @@ class HouseConfigurationUI {
     // User Story 260 - As an Administrator, I want to import a list of sensors for the house rooms.
     // Sensors without a valid room shouldn’t be imported but registered in the application log.
 
-    private void runUS260(RoomRepository roomRepository) {
+    private void runUS260(RoomRepository roomRepository, SensorTypeRepository sensorTypeRepository) {
         InputHelperUI inputs = new InputHelperUI();
         System.out.println(FILE_LOCATION);
         Scanner scanner = new Scanner(System.in);
@@ -252,7 +253,7 @@ class HouseConfigurationUI {
         String filePath = inputs.getInputPathJsonOrXML(result);
         long startTime = System.currentTimeMillis();
         try {
-            int[] importedSensors = controller.readSensors(filePath, roomRepository);
+            int[] importedSensors = controller.readSensors(filePath, roomRepository, sensorTypeRepository);
             System.out.println(importedSensors[0] + " Sensors successfully imported and " + importedSensors[1] + " rejected." +
                     " Check the application log for more info.");
             long stopTime = System.currentTimeMillis();

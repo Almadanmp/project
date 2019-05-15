@@ -60,7 +60,7 @@ class RoomRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomRepository = new RoomRepository(this.roomCrudeRepo, this.sensorTypeCrudeRepo);
+        validRoomRepository = new RoomRepository(this.roomCrudeRepo);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -78,11 +78,11 @@ class RoomRepositoryTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "Temperature",  validDate1);
         firstValidRoomSensor.setActive(true);
-        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", new SensorType("Temperature", "Celsius"), new Date(), "RoomDFS");
+        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "Temperature", new Date());
         secondValidRoomSensor.setActive(true);
-        thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", new SensorType("Rainfall", "l/m2"), new Date(), "RoomDFS");
+        thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", "Rainfall", new Date());
     }
 
     @Test
@@ -751,26 +751,14 @@ class RoomRepositoryTest {
         assertEquals(Optional.of(validRoom), actualResult);
     }
 
-    @Test
-    void seeIfGetTypeSensorByNameWorks() {
-        //Arrange
-        SensorType sensorType = new SensorType("Temperature", "C");
-        Mockito.when(sensorTypeCrudeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
-        //Act
-        SensorType actualResult = validRoomRepository.getTypeSensorByName("Temperature");
-        SensorType actualResult1 = validRoomRepository.getTypeSensorByName("Rainfall");
-        //Assert
-        assertEquals(sensorType, actualResult);
-        assertNull(actualResult1);
-    }
+
 
     @Test
     void seeIfCreateRoomSensorWorks() {
         //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
-        Mockito.when(sensorTypeCrudeRepo.findByName("Temperature")).thenReturn(Optional.of(sensorType));
         //Act
-        RoomSensor roomSensor = validRoomRepository.createRoomSensor("T32875", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomDFS");
+        RoomSensor roomSensor = validRoom.createRoomSensor("T32875", "SensorOne",sensorType.getName(), validDate1);
         //Assert
         assertEquals(firstValidRoomSensor, roomSensor);
     }

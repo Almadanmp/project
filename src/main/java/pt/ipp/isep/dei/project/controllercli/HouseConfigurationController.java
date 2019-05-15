@@ -3,12 +3,13 @@ package pt.ipp.isep.dei.project.controllercli;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
+import pt.ipp.isep.dei.project.io.ui.reader.JSONSensorsReader;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.io.ui.reader.JSONSensorsReader;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -114,12 +115,12 @@ public class HouseConfigurationController {
     /**
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
      *
-     * @param filepath    is the path of the file we want to import sensors from.
+     * @param filepath       is the path of the file we want to import sensors from.
      * @param roomRepository is the service making the connection to the room repository.
      * @return is the number of imported sensors.
      */
 
-    public int[] readSensors(String filepath, RoomRepository roomRepository) {
+    public int[] readSensors(String filepath, RoomRepository roomRepository, SensorTypeRepository sensorTypeRepository) {
         // Initialize needed variables.
         JSONSensorsReader reader = new JSONSensorsReader();
         int[] result = new int[2];
@@ -127,7 +128,7 @@ public class HouseConfigurationController {
             return result;
         }
         try {
-            List<RoomSensorDTO> importedSensors = reader.importSensors(filepath);
+            List<RoomSensorDTO> importedSensors = reader.importSensors(filepath, sensorTypeRepository);
             return addSensorsToModelRooms(importedSensors, roomRepository);
         } catch (IllegalArgumentException ok) { // Throws an exception if the file is corrupt or non existent.
             throw new IllegalArgumentException();
@@ -139,7 +140,7 @@ public class HouseConfigurationController {
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
      *
      * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
-     * @param roomRepository     is the service making the connection to the room repository.
+     * @param roomRepository  is the service making the connection to the room repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
 

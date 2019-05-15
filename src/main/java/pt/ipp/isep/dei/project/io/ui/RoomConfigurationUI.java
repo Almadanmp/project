@@ -12,8 +12,8 @@ import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
@@ -439,12 +439,12 @@ class RoomConfigurationUI {
         System.out.println("You entered the date successfully!");
         String idRoom = room.getId();
         Date mDate = DateUtils.createDate(dateYear, dateMonth, dateDay);
-        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, idRoom, roomRepository);
+        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, roomRepository);
 
     }
 
-    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, String idRoom, RoomRepository roomRepository) {
-        RoomSensor mRoomSensor = controller.createRoomSensor(roomRepository, sensorID, sensorName, sensorType, date, idRoom);
+    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, RoomRepository roomRepository) {
+        RoomSensor mRoomSensor = controller.createRoomSensor(room, roomRepository, sensorID, sensorName, sensorType, date);
         if (controller.addSensorToRoom(mRoomSensor, roomRepository, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getId());
         } else System.out.println("\nSensor already exists in the room.");

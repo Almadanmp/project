@@ -7,8 +7,8 @@ import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
 import pt.ipp.isep.dei.project.model.device.program.ProgramList;
 import pt.ipp.isep.dei.project.model.device.program.Programmable;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
@@ -301,8 +301,8 @@ public class RoomConfigurationController {
      * @param date
      * @return a created Sensor
      */
-    public RoomSensor createRoomSensor(RoomRepository roomRepository, String id, String name, SensorType type, Date date, String idRoom) {
-        return roomRepository.createRoomSensor(id, name, type, date, idRoom);
+    public RoomSensor createRoomSensor(Room room, RoomRepository roomRepository, String id, String name, SensorType type, Date date) {
+        return room.createRoomSensor(id, name, type.getName(), date);
     }
 
     /**

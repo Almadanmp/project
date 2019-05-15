@@ -62,7 +62,7 @@ class EnergyGridSettingsControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         this.rooms = new ArrayList<>();
-        this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        this.roomRepository = new RoomRepository(roomCrudeRepo);
         this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
         this.validAreaType = new AreaType("Cidade");
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");

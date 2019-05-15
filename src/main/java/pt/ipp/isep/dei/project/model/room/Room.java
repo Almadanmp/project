@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.model.room;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
@@ -94,7 +93,7 @@ public class Room implements Metered, Root {
      * This method sets the house ID.
      *
      * @param houseID house ID as a string
-     * **/
+     **/
     public void setHouseID(String houseID) {
         this.houseID = houseID;
     }
@@ -398,7 +397,7 @@ public class Room implements Metered, Root {
         }
         for (RoomSensor hS : roomSensors) {
             result.append("ID: ").append(hS.getId()).append(" | ").append(hS.getName()).append(" | ");
-            result.append("Type: ").append(hS.getSensorTypeName()).append(" | ")
+            result.append("Type: ").append(hS.getSensorType()).append(" | ")
                     .append(hS.printActive()).append("\n");
         }
         result.append(STRING_BUILDER);
@@ -485,7 +484,7 @@ public class Room implements Metered, Root {
     List<RoomSensor> getRoomSensorsOfGivenType(String name) {
         List<RoomSensor> containedTypeSensors = new ArrayList<>();
         for (RoomSensor sensor : roomSensors) {
-            if (name.equals(sensor.getSensorTypeName())) {
+            if (name.equals(sensor.getSensorType())) {
                 containedTypeSensors.add(sensor);
             }
         }
@@ -520,6 +519,16 @@ public class Room implements Metered, Root {
         }
         Room room = (Room) o;
         return Objects.equals(roomName, room.roomName);
+    }
+
+    /**
+     * Method to check if an instance of this class is equal to another object.
+     * Necessary for adding rooms to list.
+     *
+     * @return is true if the object is a power source list with the same contents.
+     */
+    public RoomSensor createRoomSensor(String id, String name, String sensorType, Date dateStartedFunctioning) {
+        return new RoomSensor(id, name, sensorType, dateStartedFunctioning);
     }
 
 

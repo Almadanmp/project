@@ -44,9 +44,9 @@ class RoomTest {
     @BeforeEach
     void arrangeArtifacts() {
         validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
-        firstValidSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
+        firstValidSensor = new RoomSensor("T23875", "tempOne", "temperature", new Date());
         firstValidSensor.setActive(true);
-        secondValidSensor = new RoomSensor("T1234", "tempTwo", new SensorType("temperature", "Celsius"), new Date(), "RoomDF");
+        secondValidSensor = new RoomSensor("T1234", "tempTwo", "temperature", new Date());
         secondValidSensor.setActive(true);
         validDevice = new WaterHeater(new WaterHeaterSpec());
         validDevice.setName("WaterHeater");
@@ -517,7 +517,7 @@ class RoomTest {
     void seeIfGetRoomSensorsOfGivenTypeWorks() {
         //Arrange
         List<RoomSensor> roomSensorList = new ArrayList<>();
-        RoomSensor humiditySensor = new RoomSensor("H1", "HumidityOne", new SensorType("humidity", "g/m3"), new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), validRoom.getId());
+        RoomSensor humiditySensor = new RoomSensor("H1", "HumidityOne", "humidity", new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
         roomSensorList.add(firstValidSensor);
         roomSensorList.add(humiditySensor);
         List<RoomSensor> expectedResult = new ArrayList<>();

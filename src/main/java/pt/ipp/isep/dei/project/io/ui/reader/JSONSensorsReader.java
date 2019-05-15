@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,10 +18,11 @@ public class JSONSensorsReader implements Reader {
     /**
      * Method that returns all the valid sensors in a given .json file. It filters out sensors without proper roomIDs
      * and sensors with null elements.
+     *
      * @param filepath is the path of the file where we want to import the sensors from.
      * @return is the list of HouseSensorDTOs that were imported.
      */
-    public List<RoomSensorDTO> importSensors(String filepath) {
+    public List<RoomSensorDTO> importSensors(String filepath, SensorTypeRepository sensorTypeRepository) {
         List<RoomSensorDTO> result = new ArrayList<>();
         JSONArray importedArray = readFile(filepath); // Imports the whole file as an array.
         for (int x = 0; x < importedArray.length(); x++) {
@@ -38,14 +40,13 @@ public class JSONSensorsReader implements Reader {
                 RoomSensorDTO importedSensor = new RoomSensorDTO();
                 importedSensor.setName(sensorName);
                 importedSensor.setDateStartedFunctioning(objectDate);
+                sensorTypeRepository.getTypeSensorByName(sensorType, sensorUnit);
                 importedSensor.setTypeSensor(sensorType);
-                importedSensor.setUnits(sensorUnit);
                 importedSensor.setRoomID(roomID);
                 importedSensor.setId(sensorID);
                 importedSensor.setActive(true);
                 result.add(importedSensor);
-            }
-            catch (JSONException ok){
+            } catch (JSONException ok) {
                 continue;
             }
         }
@@ -55,6 +56,7 @@ public class JSONSensorsReader implements Reader {
     /**
      * Method that reads the file by its filepath. Returns a JSON Array with all the data contained in the file (the highest
      * level in the structure hierarchy).
+     *
      * @param filePath is the filepath that we want to check a file from.
      * @return is the JSON Array with all the data contained in the file.
      */
@@ -75,6 +77,7 @@ public class JSONSensorsReader implements Reader {
     /**
      * Method that reads the file by its filepath. Returns a JSON Array with all the data contained in the file (the highest
      * level in the structure hierarchy).
+     *
      * @param fileObject is the JSON Object we want to get an array from.
      * @return is the JSON Array with all the data contained in the file, or an exception.
      */
@@ -88,6 +91,7 @@ public class JSONSensorsReader implements Reader {
 
     /**
      * Method that retrieves the room's ID from the sensor in the file.
+     *
      * @param sensorToImport is the JSON Object of the sensor to import.
      * @return is the String that is the roomID parameter in the file, if this parameter exists. If it doesn't (or is null),
      * the method returns an error convention.

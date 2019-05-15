@@ -68,6 +68,7 @@ class ReaderControllerTest {
     private GeographicAreaRepository geographicAreaRepository;
     private RoomRepository roomRepository;
     private GeographicArea validGeographicArea;
+    private SensorType validSensorTypeTemp;
 
 
     private static final String validLogPath = "dumpFiles/dumpLogFile.html";
@@ -98,7 +99,7 @@ class ReaderControllerTest {
     void arrangeArtifacts() {
         this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
         geographicAreaRepository = new GeographicAreaRepository(this.geographicAreaCrudeRepo, areaTypeCrudeRepo);
-        this.roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        this.roomRepository = new RoomRepository(roomCrudeRepo);
         readerController = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
         SimpleDateFormat validSdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -129,7 +130,8 @@ class ReaderControllerTest {
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
         validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
-        validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", new SensorType("Temperature", "C"), validDate1, "Room1");
+        validSensorTypeTemp = new SensorType("Temperature", "C");
+        validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", validSensorTypeTemp.getName(), validDate1);
     }
 
     private final InputStream systemIn = System.in;

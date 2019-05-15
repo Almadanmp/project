@@ -25,6 +25,7 @@ class RoomSensorTest {
     private Date validDate1;
     private Date validDate2;
     private Date validDate3;
+    private SensorType validSensorTypeTemp;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -38,8 +39,8 @@ class RoomSensorTest {
                 ParseException c) {
             c.printStackTrace();
         }
-
-        validRoomSensor = new RoomSensor("T32875", "SensOne", new SensorType("Temperature", "Celsius"), validDate2, "RoomAD");
+        validSensorTypeTemp = new SensorType("Temperature", "Celsius");
+        validRoomSensor = new RoomSensor("T32875", "SensOne", validSensorTypeTemp.getName(), validDate2);
         validRoomSensor.setActive(true);
     }
 
@@ -184,7 +185,7 @@ class RoomSensorTest {
             e.printStackTrace();
         }
 
-        RoomSensor areaSensor = new RoomSensor("T32875", "Sensor", new SensorType("Temperature", "Celsius"), startDate, "RoomFD");
+        RoomSensor areaSensor = new RoomSensor("T32875", "Sensor", validSensorTypeTemp.getName(), startDate);
 
         // Act
 
@@ -200,11 +201,11 @@ class RoomSensorTest {
     void seeIfConstructorSetsTypeArea() {
         // Arrange
 
-        SensorType expectedResult = new SensorType("Temperature", "Celsius");
+        String expectedResult = "Temperature";
 
         // Act
 
-        SensorType actualResult = validRoomSensor.getSensorType();
+        String actualResult = validRoomSensor.getSensorType();
 
         // Assert
 
@@ -268,8 +269,8 @@ class RoomSensorTest {
     void seeIfEqualsWorksFalseDifferentSensor() {
         // Arrange
 
-        RoomSensor s2 = new RoomSensor("T54654", "Temperature Sensor XX56", new SensorType("Temperature", "Fahrenheit"),
-                new Date(), "RoomFD");
+        RoomSensor s2 = new RoomSensor("T54654", "Temperature Sensor XX56", validSensorTypeTemp.getName(),
+                new Date());
 
         // Act
 
@@ -368,12 +369,12 @@ class RoomSensorTest {
     void seeIfSecondConstructorSetsTypeSensorCorrectly() {
         // Arrange
 
-        validRoomSensor = new RoomSensor("T45", "SensOne", new SensorType("Temperature", "Kelvin"), new Date(), "RoomGK");
-        SensorType expectedResult = new SensorType("Temperature", "Kelvin");
+        validRoomSensor = new RoomSensor("T45", "SensOne", validSensorTypeTemp.getName(), new Date());
+        String expectedResult = "Temperature";
 
         // Act
 
-        SensorType actualResult = validRoomSensor.getSensorType();
+        String actualResult = validRoomSensor.getSensorType();
 
         // Assert
 
@@ -446,7 +447,7 @@ class RoomSensorTest {
 
         // Act
 
-        String actualResult = validRoomSensor.getSensorTypeName();
+        String actualResult = validRoomSensor.getSensorType();
 
         // Assert
 

@@ -186,7 +186,7 @@ public class MainUI {
                             break;
                         case 2:
                             HouseConfigurationUI houseC = new HouseConfigurationUI();
-                            houseC.run(house, geographicAreaRepository, roomRepository, energyGridRepository, houseCrudeRepo);
+                            houseC.run(house, geographicAreaRepository, roomRepository, energyGridRepository, houseCrudeRepo, sensorTypeRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

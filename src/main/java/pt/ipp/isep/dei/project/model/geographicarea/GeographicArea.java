@@ -501,7 +501,6 @@ public class GeographicArea implements Root {
     }
 
     public AreaSensor createAreaSensor(String id, String name, String sensorName, Local local, Date dateStartedFunctioning) {
-
         if (sensorName != null) {
             return new AreaSensor(id, name, sensorName, local, dateStartedFunctioning);
         } else {

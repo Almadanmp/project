@@ -15,6 +15,7 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
@@ -43,6 +44,7 @@ class HouseConfigurationControllerTest {
     private House validHouse;
     private RoomRepository roomRepository;
     private AreaType validAreaType;
+    private SensorTypeRepository sensorTypeRepository;
 
     @Mock
     private RoomCrudeRepo roomCrudeRepo;
@@ -58,7 +60,8 @@ class HouseConfigurationControllerTest {
         validHouse.setMotherArea(new GeographicArea("Porto", validAreaType.getName(),
                 2, 3, new Local(4, 4, 100)));
         deviceTypeList.add(PATH_TO_FRIDGE);
-        roomRepository = new RoomRepository(roomCrudeRepo, sensorTypeCrudeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo);
+        sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
     }
 
 
@@ -236,7 +239,7 @@ class HouseConfigurationControllerTest {
 
         // Act
 
-        int[] actualResult = controller.readSensors(filePath, mockRoomRepository);
+        int[] actualResult = controller.readSensors(filePath, mockRoomRepository, sensorTypeRepository);
 
         // Assert
 
@@ -254,6 +257,6 @@ class HouseConfigurationControllerTest {
         // Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> controller.readSensors(filePath, mockRoomRepository));
+                () -> controller.readSensors(filePath, mockRoomRepository, sensorTypeRepository));
     }
 }

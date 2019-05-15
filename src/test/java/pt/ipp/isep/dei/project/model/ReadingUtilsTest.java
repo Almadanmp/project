@@ -88,7 +88,7 @@ class ReadingUtilsTest {
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(
                 31, 1, 2), validDate1);
         firstValidAreaSensor.setActive(true);
-        firstValidRoomSensor = new RoomSensor("SensorOne", "SensorOne", new SensorType("Temperature", "Celsius"), validDate1, "RoomID");
+        firstValidRoomSensor = new RoomSensor("SensorOne", "SensorOne", "Temperature", validDate1);
     }
 
     @Test
