@@ -67,7 +67,7 @@ public final class RoomMapper {
         // Update the sensors
 
         List<RoomSensor> objectSensorList = new ArrayList<>();
-        for (RoomSensorDTO d : dtoToConvert.getSensorList()){
+        for (RoomSensorDTO d : dtoToConvert.getSensorList()) {
             RoomSensor tempObject = RoomSensorMapper.dtoToObject(d);
             objectSensorList.add(tempObject);
         }
@@ -163,7 +163,7 @@ public final class RoomMapper {
         // Update the sensorList
 
         List<RoomSensorDTO> dtoSensorList = new ArrayList<>();
-        for (RoomSensor r: objectToConvert.getRoomSensors()){
+        for (RoomSensor r : objectToConvert.getRoomSensors()) {
             RoomSensorDTO tempDTO = RoomSensorMapper.objectToDTO(r);
             dtoSensorList.add(tempDTO);
         }

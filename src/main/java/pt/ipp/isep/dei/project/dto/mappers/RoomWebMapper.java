@@ -53,8 +53,6 @@ public class RoomWebMapper {
 
         // Create, update and return the converted object.
 
-        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
-
-        return resultObject;
+        return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
     }
 }
