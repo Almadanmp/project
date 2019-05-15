@@ -60,7 +60,6 @@ public class ReaderController {
         for (EnergyGridDTO eg : gridDTOS) {
             List<RoomDTO> roomDTOS = eg.getRoomDTOS();
             for (RoomDTO rt : roomDTOS) {
-                rt.setEnergyGridName(eg.getName());
                 rt.setHouseId(house.getId());
                 Room aux = RoomMapper.dtoToObjectUS100(rt);
                 roomRepository.saveRoom(aux);

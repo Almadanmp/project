@@ -85,11 +85,7 @@ class RoomConfigurationControllerTest {
         roomDTO.setLength(15);
         roomDTO.setWidth(15);
         roomDTO.setHouseId("House");
-        roomDTO.setEnergyGridName("Grid1");
         roomDTO.setDeviceList(deviceList);
-
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
@@ -120,11 +116,8 @@ class RoomConfigurationControllerTest {
         roomDTO.setLength(15);
         roomDTO.setWidth(15);
         roomDTO.setHouseId("House");
-        roomDTO.setEnergyGridName("Grid1");
         roomDTO.setDeviceList(deviceList);
 
-        SensorType sensorType = new SensorType("temperature", "Celsius");
-        RoomSensor expectedResult = new RoomSensor("Sensor1", "Sensor1", sensorType.getName(), validDate1);
 
         Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
 
