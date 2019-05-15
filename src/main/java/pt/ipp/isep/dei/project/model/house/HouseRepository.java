@@ -12,6 +12,10 @@ public class HouseRepository {
     @Autowired
     HouseCrudeRepo houseCrudeRepo;
 
+    public HouseRepository(HouseCrudeRepo houseCrudeRepo){
+        this.houseCrudeRepo = houseCrudeRepo;
+    }
+
     public String getHouseId() {
         List<House> houseList = houseCrudeRepo.findAll();
         House house = houseList.get(0);
