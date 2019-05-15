@@ -10,8 +10,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -20,6 +22,7 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
@@ -30,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -43,11 +47,15 @@ class GeographicAreaRepositoryTest {
 
     private GeographicArea firstValidArea;
     private List<GeographicArea> validList;
+    private List<GeographicAreaDTO> validDTOList;
+    private GeographicAreaDTO validDTO;
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
+    private AreaSensorDTO validAreaSensorDTO;
+    private LocalDTO validLocalDTO;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private Date validDate3;
@@ -77,6 +85,7 @@ class GeographicAreaRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -93,11 +102,22 @@ class GeographicAreaRepositoryTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validList = new ArrayList<>();
+        validDTO = new GeographicAreaDTO();
+        validDTO.setTypeArea("country");
+        validDTO.setName("Oporto");
+        validDTO.setWidth(45);
+        validDTO.setLength(44);
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(3);
+        localDTO.setAltitude(55);
+        localDTO.setLongitude(3);
+        validDTO.setLocalDTO(localDTO);
+        validDTO.setId(256L);
+        validDTOList = new ArrayList<>();
+        validDTOList.add(validDTO);
         validList.add(firstValidArea);
 
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", "Temperature", new Local(2, 2, 2), validDate1);
@@ -108,8 +128,7 @@ class GeographicAreaRepositoryTest {
         validAreaSensor = new AreaSensor("SensorThree", "SensorThree", "temperature", new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
-
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        validAreaSensorDTO = AreaSensorMapper.objectToDTO(validAreaSensor);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
@@ -587,5 +606,136 @@ class GeographicAreaRepositoryTest {
 //        assertFalse(failedResult2);
 //    }
 
+    @Test
+    void seeIfGetAllGeoAreaDTOWorksEmpty() {
+        // Arrange
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(new ArrayList<>());
+        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+
+        // Act
+        List<GeographicAreaDTO> actualResult = geographicAreaRepository.getAllDTO();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetAllGeoAreaDTOWorks() {
+        // Arrange
+        List<GeographicArea> listGA = new ArrayList<>();
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        listGA.add(area);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+
+        List<GeographicAreaDTO> expectedResult = new ArrayList<>();
+        expectedResult.add(validDTO);
+
+        // Act
+        List<GeographicAreaDTO> actualResult = geographicAreaRepository.getAllDTO();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetAreaDTObyIdWorks() {
+
+        // Arrange
+
+        List<GeographicArea> listGA = new ArrayList<>();
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        area.setId(25L);
+        listGA.add(area);
+        Optional<GeographicArea> opt = Optional.of(area);
+        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+
+        GeographicAreaDTO expectedResult = validDTO;
+
+        // Act
+
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetAreaDTObyIdFailsNotPresent() {
+        // Arrange
+        List<GeographicArea> listGA = new ArrayList<>();
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        listGA.add(area);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+
+        // Act
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getDTOById(area.getId()));
+
+        // Assert
+
+    }
+
+    @Test
+    void seeIfAddSensorDTOWorks() {
+        // Arrange
+
+        // Act
+
+        boolean actualResult = geographicAreaRepository.addSensorDTO(validDTO, validAreaSensorDTO);
+
+        // Assert
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfAddSensorDTOFailsSameSensor() {
+        // Arrange
+
+        geographicAreaRepository.addSensorDTO(validDTO, validAreaSensorDTO);
+
+        // Act
+
+        boolean actualResult = geographicAreaRepository.addSensorDTO(validDTO, validAreaSensorDTO);
+
+        // Assert
+        assertFalse(actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveSensorDTOWorks() {
+        // Arrange
+
+        geographicAreaRepository.addSensorDTO(validDTO, validAreaSensorDTO);
+
+        // Act
+
+        boolean actualResult = geographicAreaRepository.removeSensorDTO(validDTO, validAreaSensorDTO.getId());
+
+        // Assert
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfRemoveSensorDTOFailsWrongId() {
+        // Arrange
+
+        geographicAreaRepository.addSensorDTO(validDTO, validAreaSensorDTO);
+
+        // Act
+
+        boolean actualResult = geographicAreaRepository.removeSensorDTO(validDTO, "Sensor test");
+
+        // Assert
+        assertFalse(actualResult);
+
+    }
 
 }
