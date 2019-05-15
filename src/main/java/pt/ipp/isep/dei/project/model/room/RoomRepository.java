@@ -41,6 +41,12 @@ public class RoomRepository {
 
 //TODO UPDATED METHODS
 
+    /**
+     * This method gets every room from the Room Crud Repository
+     * and returns as an ArrayList.
+     *
+     * @return a list containing all rooms contained in repository
+     * **/
     public List<Room> getAllRooms() {
         List<Room> roomsAux = roomCrudeRepo.findAll();
         if (roomsAux != null) {
@@ -178,7 +184,11 @@ public class RoomRepository {
     }
 
     /**
+     * This method will receive a room and try to add the room
+     * to the Room Crud repository in case it does not already exist.
      *
+     * @param room to add to repository
+     * @return true in case the room is added to repository, false otherwise.
      **/
     public boolean addRoomToCrudRepository(Room room) {
         String roomID = room.getId();

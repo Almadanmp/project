@@ -16,6 +16,11 @@ public class HouseRepository {
         this.houseCrudeRepo = houseCrudeRepo;
     }
 
+    /**
+     * This method goes to the house crud repository finds the house
+     * and returns the house ID.
+     * @return house ID
+     * **/
     public String getHouseId() {
         List<House> houseList = houseCrudeRepo.findAll();
         House house = houseList.get(0);

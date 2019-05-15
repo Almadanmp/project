@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.bridgeServices.EnergyGridRoomService;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;

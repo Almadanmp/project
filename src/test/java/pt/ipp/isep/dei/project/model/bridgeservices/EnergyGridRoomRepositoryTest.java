@@ -38,7 +38,7 @@ class EnergyGridRoomRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
+        validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         validEnergyGridRoomService = new EnergyGridRoomService(energyGridCrudeRepo, roomCrudeRepo);
     }
 

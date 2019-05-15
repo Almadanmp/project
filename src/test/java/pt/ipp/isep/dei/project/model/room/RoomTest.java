@@ -31,7 +31,7 @@ class RoomTest {
 
     private House validHouse;
     private GeographicArea validArea;
-    private static Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
+    private Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
     private RoomSensor firstValidSensor; // Valid temperature sensor with valid readings.
     private RoomSensor secondValidSensor; // Valid temperature sensor without readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
