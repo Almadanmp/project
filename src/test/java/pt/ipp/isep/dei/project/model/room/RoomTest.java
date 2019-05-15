@@ -79,6 +79,23 @@ class RoomTest {
     }
 
     @Test
+    void seeIfSetHouseIDWorks() {
+        //Arrange
+
+        validRoom.setHouseID("newHouseID");
+        String expectedResult = "newHouseID";
+
+        //Act
+
+        String actualResult = validRoom.getHouseID();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
     void seeIfGetRoomSensorByIDWorks() {
         //Arrange
 
