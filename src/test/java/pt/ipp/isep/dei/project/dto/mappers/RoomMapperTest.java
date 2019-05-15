@@ -52,7 +52,7 @@ class RoomMapperTest {
             e.printStackTrace();
         }
 
-        validRoom = new Room("Kitchen", "2nd Floor Kitchen", 2, 30, 20, 10, "Room1", "Grid1");
+        validRoom = new Room("Kitchen", "2nd Floor Kitchen", 2, 30, 20, 10, "Room1");
         validDTO = new RoomDTO();
         validDTO.setName("Kitchen");
         validDTO.setFloor(2);
@@ -115,8 +115,8 @@ class RoomMapperTest {
     @Test
     void seeIfUpdateHouseRoomWorks() {
         List<Room> rooms = new ArrayList<>();
-        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
-        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01", "Grid 01");
+        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
+        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01");
         rooms.add(room);
         rooms.add(room1);
         validDTO.setName("Room1");

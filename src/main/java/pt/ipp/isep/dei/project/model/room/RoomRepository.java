@@ -97,14 +97,14 @@ public class RoomRepository {
      * @return new created room
      */
 
-    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID, String energyGridID) {
+    public Room createRoom(String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID) {
         for (Room r : getAllRooms()) {
             String designation = r.getId();
             if (roomDesignation.equals(designation)) {
                 return r;
             }
         }
-        return new Room(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID, energyGridID);
+        return new Room(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID);
     }
 
     /**

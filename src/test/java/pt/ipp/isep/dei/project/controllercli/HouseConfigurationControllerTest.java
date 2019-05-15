@@ -112,9 +112,9 @@ class HouseConfigurationControllerTest {
 
         // Act
 
-        Room actualResult1 = controller.createNewRoom(roomRepository, "Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1", "Grid1");
-        Room actualResult2 = controller.createNewRoom(roomRepository, "Room", "Double Bedroom", 1, dimensions, "Room1", "Grid1");
-        Room actualResult3 = controller.createNewRoom(roomRepository, "Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1", "Grid1");
+        Room actualResult1 = controller.createNewRoom(roomRepository, "Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1");
+        Room actualResult2 = controller.createNewRoom(roomRepository, "Room", "Double Bedroom", 1, dimensions, "Room1");
+        Room actualResult3 = controller.createNewRoom(roomRepository, "Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1");
 
         // Assert
 
@@ -126,8 +126,8 @@ class HouseConfigurationControllerTest {
     @Test
     void addsRoom() {
         //Arrange
-        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1", "Grid1");
-        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10, "Room1", "Grid1");
+        Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, 10, 15, 10, "Room1");
+        Room room2 = new Room("Room", "Double Bedroom", 1, 10, 15, 10, "Room1");
 
         // Act
         boolean actualResult1 = controller.addRoomToHouse(roomRepository, room1);

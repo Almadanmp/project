@@ -74,7 +74,7 @@ public final class RoomMapper {
 
         // Create, update and return the converted object.
 
-        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
+        Room resultObject = new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID);
         resultObject.setDeviceList(objectDeviceList);
         resultObject.setRoomSensors(objectSensorList);
 
@@ -117,7 +117,7 @@ public final class RoomMapper {
         // Create, update and return the converted object.
 
         return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight,
-                objectHouseID, objectEnergyGridID);
+                objectHouseID);
     }
 
     /**
@@ -152,10 +152,6 @@ public final class RoomMapper {
 
         String dtoHouseID = objectToConvert.getHouseID();
 
-        // Update the energyGridID
-
-        String dtoEnergyGridID = objectToConvert.getEnergyGridID();
-
         // Update the description
 
         String dtoDescription = objectToConvert.getDescription();
@@ -181,7 +177,6 @@ public final class RoomMapper {
         resultDTO.setLength(dtoLength);
         resultDTO.setWidth(dtoWidth);
         resultDTO.setDeviceList(dtoDeviceList);
-        resultDTO.setEnergyGridName(dtoEnergyGridID);
         resultDTO.setHouseId(dtoHouseID);
         resultDTO.setDescription(dtoDescription);
         resultDTO.setSensorList(dtoSensorList);

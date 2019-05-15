@@ -72,7 +72,7 @@ class EnergyGridSettingsControllerTest {
         validGeographicArea = new GeographicArea("Porto", validAreaType.getName(), 2, 3, new Local(4, 4, 100));
         validHouse.setMotherAreaID(validGeographicArea.getId());
         validGrid = new EnergyGrid("validGrid", 300, "34576");
-        validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
+        validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1");
         rooms.add(validRoom);
     }
 
@@ -104,7 +104,7 @@ class EnergyGridSettingsControllerTest {
         //Arrange
 
         Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2,
-                "Room1", "Grid1");
+                "Room1");
 
         //Act
 
@@ -120,7 +120,7 @@ class EnergyGridSettingsControllerTest {
 
         //Arrange
 
-        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
+        Room room = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1");
 
         //Act
 
@@ -216,7 +216,7 @@ class EnergyGridSettingsControllerTest {
         Address address = new Address("Rua das Flores", "431", "4512", "Porto", "Portugal");
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherAreaID(validGeographicArea.getId());
-        Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1", "Grid1");
+        Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1");
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333, "34576");
         List<Room> rl = new ArrayList<>();
         Device fridge = new Fridge(new FridgeSpec());

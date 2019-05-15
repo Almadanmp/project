@@ -43,16 +43,12 @@ public class RoomWebMapper {
 
         double objectHeight = dtoWeb.getHeight();
 
-        // Update the Energy Grid ID
-
-        String objectEnergyGridID = null;
-
         // Update the House ID
 
         String objectHouseID = null;
 
         // Create, update and return the converted object.
 
-        return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID, objectEnergyGridID);
+        return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID);
     }
 }

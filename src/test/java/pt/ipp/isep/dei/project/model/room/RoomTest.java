@@ -43,7 +43,7 @@ class RoomTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1", "Grid1");
+        validRoom = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, "Room1");
         firstValidSensor = new RoomSensor("T23875", "tempOne", "temperature", new Date());
         firstValidSensor.setActive(true);
         secondValidSensor = new RoomSensor("T1234", "tempTwo", "temperature", new Date());
@@ -257,7 +257,7 @@ class RoomTest {
     void seeIfGetEstimateConsumptionByDeviceTypeWorks() {
         // Arrange
 
-        Room room = new Room("Room", "Description", 2, 2, 2, 2, "House", "EnergyGrid");
+        Room room = new Room("Room", "Description", 2, 2, 2, 2, "House");
         Device fridge = new Fridge(new FridgeSpec());
         fridge.setName("FridgeOne");
         fridge.setNominalPower(20);
@@ -420,7 +420,7 @@ class RoomTest {
     void getByIndexWithEmptyDeviceList() {
         //Arrange
 
-        Room noDevicesRoom = new Room("noDevices", "noDevices", 3, 24, 25, 3, "Room1", "Grid1");
+        Room noDevicesRoom = new Room("noDevices", "noDevices", 3, 24, 25, 3, "Room1");
 
         //Act
 
@@ -435,7 +435,7 @@ class RoomTest {
     void deviceListSize() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1");
 
         //Act
 
@@ -458,7 +458,7 @@ class RoomTest {
     void seeIfIsDeviceListEmptyWorks() {
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1");
 
         //Act
 
@@ -488,7 +488,7 @@ class RoomTest {
 
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1");
 
         //Assert
 
@@ -500,7 +500,7 @@ class RoomTest {
 
         //Arrange
 
-        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1", "Grid1");
+        Room emptyDeviceList = new Room("emptyDeviceList", "emptyDeviceList", 2, 20, 20, 3, "Room1");
         Device kettler = new Kettler(new KettlerSpec());
         validRoom.addDevice(kettler);
         //Act
@@ -648,16 +648,6 @@ class RoomTest {
         String expectedResult = "Room1";
         //Act
         String actualResult = validRoom.getHouseID();
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetEnergyGridIdWorks() {
-        //Arrange
-        String expectedResult = "Grid1";
-        //Act
-        String actualResult = validRoom.getEnergyGridID();
         //Assert
         assertEquals(expectedResult, actualResult);
     }

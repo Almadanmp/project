@@ -75,8 +75,8 @@ class EnergyConsumptionControllerTest {
         this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
         roomRepository = new RoomRepository(this.roomCrudeRepo);
         this.roomList = new ArrayList<>();
-        validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1", "Grid1");
-        validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1", "Grid1");
+        validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1");
+        validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1");
         validDevice1.setName("WaterHeater");
         validDevice1.setNominalPower(21.0);
         validDevice1.setAttributeValue(WaterHeaterSpec.HOT_WATER_TEMP, 12D);
@@ -155,7 +155,7 @@ class EnergyConsumptionControllerTest {
     void seeIfAddRoomDevicesToDeviceList() {
         // Arrange
 
-        Room room = new Room("Room", "Single Bedroom", 10, 2, 5, 4, "Room1", "Grid1");
+        Room room = new Room("Room", "Single Bedroom", 10, 2, 5, 4, "Room1");
         room.addDevice(validDevice1);
         room.addDevice(validDevice2);
         DeviceList actualResult = new DeviceList();

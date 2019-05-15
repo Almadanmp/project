@@ -67,11 +67,11 @@ class EnergyGridTest {
         validFridge.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
         Log log = new Log(200, new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2019, Calendar.JANUARY, 3).getTime());
         validFridge.addLog(log);
-        validRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "Grid1");
+        validRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
         validRoom.addDevice(validFridge);
         validGrid.addRoom(validRoom);
         validGrid2 = new EnergyGrid("FirstGrid", 400, "34576");
-        validRoom2 = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "Grid1");
+        validRoom2 = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
         validGrid2.addRoom(validRoom2);
     }
 
@@ -201,7 +201,7 @@ class EnergyGridTest {
     void seeIfAddRoomToGridWorks() {
         // Arrange
 
-        Room testRoom = new Room("Kitchen", "Equipped Kitchen", 1, 20, 20, 10, "Room1", "Grid1");
+        Room testRoom = new Room("Kitchen", "Equipped Kitchen", 1, 20, 20, 10, "Room1");
 
         // Act
 
@@ -216,7 +216,7 @@ class EnergyGridTest {
     void seeIfAddRoomToGridDoesNotWork() {
         // Arrange
 
-        Room testRoom = new Room("Kitchen", "Equipped Kitchen", 1, 20, 20, 10, "Room1", "Grid1");
+        Room testRoom = new Room("Kitchen", "Equipped Kitchen", 1, 20, 20, 10, "Room1");
 
         // Act
 
@@ -270,7 +270,7 @@ class EnergyGridTest {
         //Arrange
 
         double expectedResult = 40;
-        Room extraRoom = new Room("Kitchen", "Equipped Kitchen", 0, 12, 30, 10, "Room1", "Grid1");
+        Room extraRoom = new Room("Kitchen", "Equipped Kitchen", 0, 12, 30, 10, "Room1");
         extraRoom.addDevice(validFridge);
         validGrid.addRoom(extraRoom);
 
@@ -567,7 +567,7 @@ class EnergyGridTest {
 
         EnergyGrid nullList = new EnergyGrid("noDevices", 200, "34576");
         EnergyGrid emptyList = new EnergyGrid("noDevices", 200, "34576");
-        Room emptyRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1", "noDevices");
+        Room emptyRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
         emptyList.addRoom(emptyRoom);
         //Act
 

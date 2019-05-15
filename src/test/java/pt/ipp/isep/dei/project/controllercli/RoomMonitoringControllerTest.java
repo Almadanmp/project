@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
-import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
+import pt.ipp.isep.dei.project.model.bridgeServices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -133,7 +133,7 @@ class RoomMonitoringControllerTest {
         this.roomRepository = new RoomRepository(roomCrudeRepo);
         this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
-        validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1", "Grid1");
+        validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1");
         validRoomRepository = new RoomRepository(roomCrudeRepo);
         this.rooms = new ArrayList<>();
         rooms.add(validRoom1);
@@ -163,7 +163,7 @@ class RoomMonitoringControllerTest {
         }
 
         Room testRoom = new Room("Kitchen", "Where we cook", 0, 15, 15, 15,
-                "ISEP", "G001");
+                "ISEP");
         RoomSensor testSensor = new RoomSensor("S001", "TempOne", "temperature", validDate1);
         Reading testReading = new Reading(11, validDate1,
                 "C", "S001");

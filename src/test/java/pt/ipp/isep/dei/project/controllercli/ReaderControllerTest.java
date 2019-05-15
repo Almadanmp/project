@@ -156,7 +156,7 @@ class ReaderControllerTest {
 
         List<ReadingDTO> readingDTOS = new ArrayList<>();
         List<Room> rooms = new ArrayList<>();
-        Room room = new Room("Room1", "Description", 1, 1, 1, 1, "House", "EnergyGrid");
+        Room room = new Room("Room1", "Description", 1, 1, 1, 1, "House");
         rooms.add(room);
         room.addSensor(validRoomSensor1);
 
