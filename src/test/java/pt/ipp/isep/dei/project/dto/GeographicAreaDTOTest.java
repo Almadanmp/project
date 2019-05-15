@@ -6,18 +6,20 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class GeographicAreaDTOTest {
     // Common testing artifacts for testing in this class.
 
     private GeographicAreaDTO validDTO;
+    private List<AreaSensorDTO> validAreaSensorDTOList;
 
     @BeforeEach
     void arrangeArtifacts() {
         validDTO = new GeographicAreaDTO();
+        validAreaSensorDTOList = new ArrayList<>();
+        validDTO.setSensorDTOList(validAreaSensorDTOList);
     }
 
     @Test
@@ -297,5 +299,31 @@ class GeographicAreaDTOTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorWorks() {
+        // Arrange
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setName("sensor1");
+        areaSensorDTO.setActive(true);
+        areaSensorDTO.setId("TT666");
+        areaSensorDTO.setAltitude(6);
+        areaSensorDTO.setLongitude(6);
+        areaSensorDTO.setLatitude(6);
+        areaSensorDTO.setDateStartedFunctioning("2018-10-12");
+        areaSensorDTO.setTypeSensor("temperature");
+        areaSensorDTO.setUnits("mm");
+
+        // Act
+
+        boolean actualResult = validDTO.addSensor(areaSensorDTO);
+        boolean actualResult2 = validDTO.addSensor(areaSensorDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+        assertFalse(actualResult2);
     }
 }
