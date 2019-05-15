@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.project.model.house;
 
 
+import javafx.beans.binding.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -17,12 +19,14 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,6 +53,8 @@ class HouseTest {
     EnergyGridCrudeRepo energyGridCrudeRepo;
     @Mock
     SensorTypeCrudeRepo sensorTypeCrudeRepo;
+    @Mock
+    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -58,17 +64,16 @@ class HouseTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
                 new Local(20, 12, 33));
+        validArea.setId(11L);
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
-                2, 3, new Local(4, 4, 100)));
         firstValidAreaSensor = new AreaSensor("RF12345", "tempOne", "Temperature", new Local(
                 30, 20, 10), new Date());
         AreaSensor secondValidAreaSensor = new AreaSensor("RF17745", "rainOne", "Rainfall", new Local(21,
                 40, 15), new Date());
-        validHouse.setMotherArea(validArea);
+        validHouse.setMotherAreaID(validArea.getId());
     }
 
     @Test
@@ -135,8 +140,7 @@ class HouseTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
-                2, 3, new Local(4, 4, 100)));
+        testHouse.setMotherAreaID(validArea.getId());
 
         // Act
 
@@ -157,8 +161,7 @@ class HouseTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
-                2, 3, new Local(4, 4, 100)));
+        testHouse.setMotherAreaID(validArea.getId());
 
         // Act
 
@@ -190,8 +193,7 @@ class HouseTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        testHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
-                2, 3, new Local(4, 4, 100)));
+        testHouse.setMotherAreaID(validArea.getId());
 
         // Act
 
@@ -256,7 +258,7 @@ class HouseTest {
         // Act
 
         boolean actualResult1 = validHouse.isMotherAreaNull();
-        validHouse.setMotherArea(null);
+        validHouse.setMotherAreaID(new GeographicArea().getId());
         boolean actualResult2 = validHouse.isMotherAreaNull();
 
         // Assert
@@ -288,8 +290,7 @@ class HouseTest {
         House testHouse = new House("Mock", new Address("Mock", "Mock", "Mock", "Mock", "Mock"),
                 new Local(4, 5, 50), 20,
                 5, new ArrayList<>());
-        testHouse.setMotherArea(new GeographicArea("Mock", "Mock",
-                60, 180, new Local(30, 40, 30)));
+        testHouse.setMotherAreaID(validArea.getId());
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -363,10 +364,10 @@ class HouseTest {
     void seeIfSetMotherAreaWorks() {
         //Act
         GeographicArea geoArea = new GeographicArea("Porto", "City", 50, 13, new Local(5, 5, 5));
-        validHouse.setMotherArea(geoArea);
+        validHouse.setMotherAreaID(geoArea.getId());
 
         //Assert
-        assertEquals(validHouse.getMotherArea(), geoArea);
+        assertEquals(validHouse.getMotherAreaID(), geoArea.getId());
     }
 
     @Test
@@ -391,7 +392,7 @@ class HouseTest {
 
         //Arrange As Null
 
-        validHouse.setMotherArea(null);
+        validHouse.setMotherAreaID(null);
 
         //Act
 

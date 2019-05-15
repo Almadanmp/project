@@ -60,7 +60,7 @@ public class HouseConfigurationController {
      * the house mother area.
      **/
     public void setHouseMotherArea(House house, GeographicArea geographicArea) {
-        house.setMotherArea(geographicArea);
+        house.setMotherAreaID(geographicArea.getId());
     }
 
     /**

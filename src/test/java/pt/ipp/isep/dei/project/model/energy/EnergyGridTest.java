@@ -38,6 +38,7 @@ class EnergyGridTest {
     private Device validFridge;
     private Room validRoom;
     private Room validRoom2;
+    private GeographicArea geographicArea;
 
     @Mock
     RoomCrudeRepo roomCrudeRepo;
@@ -55,8 +56,9 @@ class EnergyGridTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
-                2, 3, new Local(4, 4, 100)));
+        geographicArea = new GeographicArea("Porto", "Cidade",
+                2, 3, new Local(4, 4, 100));
+        validHouse.setMotherAreaID(geographicArea.getId());
         validGrid = new EnergyGrid("FirstGrid", 400, "34576");
         validFridge = new Fridge(new FridgeSpec());
         validFridge.setNominalPower(20);

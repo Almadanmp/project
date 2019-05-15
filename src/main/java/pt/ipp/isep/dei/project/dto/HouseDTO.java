@@ -12,7 +12,7 @@ public class HouseDTO {
     private LocalDTO location;
     private List<EnergyGridDTO> energyGridList;
     private List<RoomDTO> roomList;
-    private GeographicAreaDTO motherArea;
+    private Long motherArea;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
@@ -57,11 +57,11 @@ public class HouseDTO {
         this.roomList = new ArrayList<>(roomList);
     }
 
-    public GeographicAreaDTO getMotherArea() {
+    public Long getMotherAreaID() {
         return motherArea;
     }
 
-    public void setMotherArea(GeographicAreaDTO motherArea) {
+    public void setMotherAreaID(Long motherArea) {
         this.motherArea = motherArea;
     }
 

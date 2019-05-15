@@ -25,7 +25,7 @@ class HouseMapperTest {
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
-        expectedResult.setMotherArea(geographicArea);
+        expectedResult.setMotherAreaID(geographicArea.getId());
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId("01");
         AddressDTO addressDTO = new AddressDTO();
@@ -66,7 +66,7 @@ class HouseMapperTest {
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);
         geographicAreaDTO.setLength(100);
-        houseDTO.setMotherArea(geographicAreaDTO);
+        houseDTO.setMotherAreaID(geographicAreaDTO.getId());
         houseDTO.setEnergyGridList(energyGridDTOList);
         houseDTO.setRoomList(list);
         houseDTO.setAddress(addressDTO);
@@ -85,7 +85,7 @@ class HouseMapperTest {
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House expectedResult = new House("01", address, local, 15, 15, deviceTypes);
-        expectedResult.setMotherArea(geographicArea);
+        expectedResult.setMotherAreaID(geographicArea.getId());
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId("01");
         AddressDTO addressDTO = new AddressDTO();
@@ -126,7 +126,7 @@ class HouseMapperTest {
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);
         geographicAreaDTO.setLength(100);
-        houseDTO.setMotherArea(geographicAreaDTO);
+        houseDTO.setMotherAreaID(geographicAreaDTO.getId());
         houseDTO.setEnergyGridList(energyGridDTOList);
         houseDTO.setRoomList(list);
         houseDTO.setAddress(addressDTO);
@@ -145,7 +145,7 @@ class HouseMapperTest {
         roomService.add(new Room("B109", "Classroom", 1, 3, 3, 3.5, "01", "EG1"));
         GeographicArea geographicArea = new GeographicArea("GA", "City", 100, 90, new Local(0, 0, 0));
         House house = new House("01", address, local, 15, 15, deviceTypes);
-        house.setMotherArea(geographicArea);
+        house.setMotherAreaID(geographicArea.getId());
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId("01");
         AddressDTO addressDTO = new AddressDTO();
@@ -186,7 +186,7 @@ class HouseMapperTest {
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);
         geographicAreaDTO.setLength(100);
-        houseDTO.setMotherArea(geographicAreaDTO);
+        houseDTO.setMotherAreaID(geographicAreaDTO.getId());
         houseDTO.setEnergyGridList(energyGridDTOList);
         houseDTO.setRoomList(list);
         houseDTO.setAddress(addressDTO);

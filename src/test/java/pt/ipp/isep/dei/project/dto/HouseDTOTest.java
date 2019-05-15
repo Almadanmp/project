@@ -9,8 +9,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class HouseDTOTest {
     // Common testing artifacts for testing in this class.
     private HouseDTO validHouseDTO;
@@ -30,7 +28,7 @@ class HouseDTOTest {
         localDTO.setLatitude(41.178553);
         localDTO.setLongitude(-8.608035);
         validHouseDTO.setLocation(localDTO);
-        validHouseDTO.setMotherArea(new GeographicAreaDTO());
+        validHouseDTO.setMotherAreaID(new GeographicAreaDTO().getId());
         List<DeviceType> deviceTypeList = new ArrayList<>();
         validHouseDTO.setDeviceTypeList(deviceTypeList);
         validHouseDTO.setGridMeteringPeriod(8);
@@ -105,11 +103,12 @@ class HouseDTOTest {
     void seeIfGetSetGeographicArea() {
         //Arrange
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        validHouseDTO.setMotherArea(geographicAreaDTO);
+        geographicAreaDTO.setId(111L);
+        validHouseDTO.setMotherAreaID(geographicAreaDTO.getId());
         //Act
-        GeographicAreaDTO actualResult = validHouseDTO.getMotherArea();
+        Long actualResult = validHouseDTO.getMotherAreaID();
         //Assert
-        assertEquals(geographicAreaDTO, actualResult);
+        assertEquals(geographicAreaDTO.getId(), actualResult);
     }
 
     @Test

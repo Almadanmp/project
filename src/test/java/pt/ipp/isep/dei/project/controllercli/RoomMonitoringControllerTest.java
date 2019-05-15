@@ -122,13 +122,14 @@ class RoomMonitoringControllerTest {
 
         validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
                 new Local(20, 12, 33));
+        validArea.setId(111L);
         validArea.addSensor(validAreaSensor);
         deviceTypeString = new ArrayList<>();
         this.validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        this.validHouse.setMotherArea(validArea);
+        this.validHouse.setMotherAreaID(validArea.getId());
         this.roomRepository = new RoomRepository(roomCrudeRepo);
         this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
         this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
@@ -343,7 +344,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
         String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
         String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
@@ -390,7 +391,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -433,7 +434,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -475,7 +476,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -546,7 +547,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -590,7 +591,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -629,7 +630,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-
+        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
         String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert

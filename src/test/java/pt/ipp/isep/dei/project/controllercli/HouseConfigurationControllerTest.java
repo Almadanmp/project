@@ -45,6 +45,7 @@ class HouseConfigurationControllerTest {
     private RoomRepository roomRepository;
     private AreaType validAreaType;
     private SensorTypeRepository sensorTypeRepository;
+    private GeographicArea validGeographicArea;
 
     @Mock
     private RoomCrudeRepo roomCrudeRepo;
@@ -57,8 +58,10 @@ class HouseConfigurationControllerTest {
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
         validAreaType = new AreaType("Cidade");
-        validHouse.setMotherArea(new GeographicArea("Porto", validAreaType.getName(),
-                2, 3, new Local(4, 4, 100)));
+        validGeographicArea = new GeographicArea("Porto", validAreaType.getName(),
+                2, 3, new Local(4, 4, 100));
+        validGeographicArea.setId(666L);
+        validHouse.setMotherAreaID(validGeographicArea.getId());
         deviceTypeList.add(PATH_TO_FRIDGE);
         roomRepository = new RoomRepository(roomCrudeRepo);
         sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
@@ -161,12 +164,10 @@ class HouseConfigurationControllerTest {
     @Test
     void seeIfSetAndGetHouseMotherAreaWorks() {
         //Arrange
-        controller.setHouseMotherArea(validHouse, new GeographicArea("Porto", validAreaType.getName(),
-                2, 3, new Local(4, 4, 100)));
-        GeographicArea expected = new GeographicArea("Porto", validAreaType.getName(),
-                2, 3, new Local(4, 4, 100));
+        controller.setHouseMotherArea(validHouse, validGeographicArea);
+        Long expected = 666L;
         //Act
-        GeographicArea actualResult = validHouse.getMotherArea();
+        Long actualResult = validHouse.getMotherAreaID();
         //Assert
         assertEquals(expected, actualResult);
     }
@@ -175,7 +176,7 @@ class HouseConfigurationControllerTest {
     void seeIfIsMotherAreaNullBothConditions() {
         // Act
         boolean actualResult1 = validHouse.isMotherAreaNull();
-        controller.setHouseMotherArea(validHouse, null);
+        controller.setHouseMotherArea(validHouse, new GeographicArea());
         boolean actualResult2 = validHouse.isMotherAreaNull();
         // Assert
         assertFalse(actualResult1);

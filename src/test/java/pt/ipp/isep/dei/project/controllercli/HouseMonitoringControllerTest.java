@@ -4,20 +4,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,9 +50,16 @@ class HouseMonitoringControllerTest {
     private Date validDate22;
     private Date validDate24;
     private Date validDate25;
+    private GeographicAreaRepository geographicAreaRepository;
 
     @Mock
     GeographicArea mockArea;
+
+    @Mock
+    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
+
+    @Mock
+    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -59,14 +67,14 @@ class HouseMonitoringControllerTest {
 
         validHouseArea = new GeographicArea("Portugal", "Country", 300,
                 200, new Local(45, 30, 30));
+        validHouseArea.setId(111L);
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        validHouse.setMotherArea(new GeographicArea("Porto", "Cidade",
-                2, 3, new Local(4, 4, 100)));
-        validHouse.setMotherArea(validHouseArea);
+        validHouse.setMotherAreaID(validHouseArea.getId());
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
 
 
         try {
@@ -305,7 +313,7 @@ class HouseMonitoringControllerTest {
     void seeIfGetLastColdestDayInIntervalWorks() {
         // Arrange
 
-        validHouse.setMotherArea(validHouseArea);
+        validHouse.setMotherAreaID(validHouseArea.getId());
 
         // Act
 
@@ -512,8 +520,9 @@ class HouseMonitoringControllerTest {
                 1).getTime());
 
         // Act
+        Mockito.when(geographicAreaCrudeRepo.findById(validHouse.getMotherAreaID())).thenReturn(Optional.of(validHouseArea));
 
-        AreaSensor actualResult = controller.getClosestSensorToHouseByType(validHouse, "temperature");
+        AreaSensor actualResult = controller.getClosestSensorToHouseByType(validHouse, "temperature", geographicAreaRepository);
 
         // Assert
 

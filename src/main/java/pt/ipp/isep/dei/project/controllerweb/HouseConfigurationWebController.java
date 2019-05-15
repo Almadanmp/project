@@ -52,7 +52,7 @@ public class HouseConfigurationWebController {
      **//*
     @RequestMapping(value = "/house_settings", method = RequestMethod.PATCH)
     public void setHouseMotherArea(House house, GeographicArea geographicArea) {
-        house.setMotherArea(geographicArea);
+        house.setMotherAreaID(geographicArea);
     }*/
 
     @Autowired

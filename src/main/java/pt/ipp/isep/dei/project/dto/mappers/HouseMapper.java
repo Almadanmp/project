@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
-import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.AddressDTO;
+import pt.ipp.isep.dei.project.dto.HouseDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -41,7 +43,7 @@ public final class HouseMapper {
             objectRoomService.add(room);
         }
 
-        GeographicArea objectGeoArea = GeographicAreaMapper.dtoToObject(dtoToConvert.getMotherArea());
+        Long objectGeoArea = dtoToConvert.getMotherAreaID();
 
         int objectGridMeteringPeriod = dtoToConvert.getGridMeteringPeriod();
 
@@ -54,7 +56,7 @@ public final class HouseMapper {
         // Create, update and return new object
 
         House resultObject = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
-        resultObject.setMotherArea(objectGeoArea);
+        resultObject.setMotherAreaID(objectGeoArea);
 
         return resultObject;
     }
@@ -86,7 +88,7 @@ public final class HouseMapper {
 
         LocalDTO dtoLocal = LocalMapper.objectToDTO(objectToConvert.getLocation());
 
-        GeographicAreaDTO dtoGeoArea = GeographicAreaMapper.objectToDTO(objectToConvert.getMotherArea());
+        Long dtoGeoArea = objectToConvert.getMotherAreaID();
 
         int dtoGridMeteringPeriod = objectToConvert.getGridMeteringPeriod();
 
@@ -102,7 +104,7 @@ public final class HouseMapper {
         resultObject.setId(dtoName);
         resultObject.setAddress(dtoAddress);
         resultObject.setLocation(dtoLocal);
-        resultObject.setMotherArea(dtoGeoArea);
+        resultObject.setMotherAreaID(dtoGeoArea);
         resultObject.setGridMeteringPeriod(dtoGridMeteringPeriod);
         resultObject.setDeviceMeteringPeriod(dtoDeviceMeteringPeriod);
         resultObject.setDeviceTypeList(objectDeviceTypeConfigList);
