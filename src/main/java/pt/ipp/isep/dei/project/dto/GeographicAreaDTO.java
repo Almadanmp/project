@@ -10,7 +10,7 @@ public class GeographicAreaDTO {
     private String typeArea;
     private double length;
     private double width;
-    private LocalDTO localDTO;
+    private LocalDTO local;
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
     private String description;
 
@@ -145,7 +145,7 @@ public class GeographicAreaDTO {
      * Method that receives a Local Dto and sets it as an attribute.
      */
     public void setLocalDTO(LocalDTO localDTO) {
-        this.localDTO = localDTO;
+        this.local = localDTO;
     }
 
     /**
@@ -154,7 +154,7 @@ public class GeographicAreaDTO {
      * @return is the object's Local Dto.
      */
     public LocalDTO getLocalDTO() {
-        return this.localDTO;
+        return this.local;
     }
 
     @Override
@@ -169,7 +169,7 @@ public class GeographicAreaDTO {
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
         LocalDTO testDTOLocal = localVariable.getLocalDTO();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(this.localDTO));
+                && testDTOLocal.equals(this.local));
     }
 
     @Override
