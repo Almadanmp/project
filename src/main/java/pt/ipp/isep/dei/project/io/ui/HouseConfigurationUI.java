@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controllerCLI.HouseConfigurationController;
-import pt.ipp.isep.dei.project.controllerCLI.ReaderController;
+import pt.ipp.isep.dei.project.controllercli.HouseConfigurationController;
+import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;

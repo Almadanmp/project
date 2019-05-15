@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controllerWeb;
+package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.web.bind.annotation.RestController;
 

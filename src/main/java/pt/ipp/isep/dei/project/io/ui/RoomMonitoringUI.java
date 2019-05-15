@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controllerCLI.HouseMonitoringController;
-import pt.ipp.isep.dei.project.controllerCLI.RoomMonitoringController;
+import pt.ipp.isep.dei.project.controllercli.HouseMonitoringController;
+import pt.ipp.isep.dei.project.controllercli.RoomMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;

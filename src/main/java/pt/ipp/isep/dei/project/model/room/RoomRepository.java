@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controllerCLI.utils.LogUtils;
+import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;

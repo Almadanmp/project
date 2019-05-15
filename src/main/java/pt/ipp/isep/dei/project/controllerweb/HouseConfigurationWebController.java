@@ -1,14 +1,6 @@
-package pt.ipp.isep.dei.project.controllerWeb;
+package pt.ipp.isep.dei.project.controllerweb;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.house.Address;
-import pt.ipp.isep.dei.project.model.house.House;
 
 @RestController
 public class HouseConfigurationWebController {

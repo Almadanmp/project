@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controllerCLI.utils;
+package pt.ipp.isep.dei.project.controllercli.utils;
 
 import org.junit.jupiter.api.Test;
 

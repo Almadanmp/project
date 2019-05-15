@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controllerCLI.GASettingsController;
-import pt.ipp.isep.dei.project.controllerCLI.ReaderController;
+import pt.ipp.isep.dei.project.controllercli.GASettingsController;
+import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;

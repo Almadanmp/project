@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controllerCLI;
+package pt.ipp.isep.dei.project.controllercli;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

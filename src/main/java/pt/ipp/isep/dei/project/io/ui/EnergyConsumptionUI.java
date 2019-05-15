@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controllerCLI.EnergyConsumptionController;
+import pt.ipp.isep.dei.project.controllercli.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -270,7 +270,7 @@ class EnergyConsumptionUI {
 
     /**
      * This run makes the validation of the Room Device  List and the Device  Log List.
-     * Then it calls the controllerCLI to get the total metered energy consumption for the given time interval.
+     * Then it calls the controllercli to get the total metered energy consumption for the given time interval.
      */
 
     private void runUS720(RoomRepository roomRepository) {

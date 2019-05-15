@@ -1,6 +1,6 @@
-package pt.ipp.isep.dei.project.controllerCLI;
+package pt.ipp.isep.dei.project.controllercli;
 
-import pt.ipp.isep.dei.project.controllerCLI.utils.LogUtils;
+import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;

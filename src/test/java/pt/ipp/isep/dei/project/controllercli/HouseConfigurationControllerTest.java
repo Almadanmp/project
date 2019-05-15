@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controllerCLI;
+package pt.ipp.isep.dei.project.controllercli;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -217,7 +217,7 @@ class HouseConfigurationControllerTest {
 //
 //        // Act
 //
-//        int[] actualResult = controllerCLI.readSensors(filePath, mockRoomRepository);
+//        int[] actualResult = controllercli.readSensors(filePath, mockRoomRepository);
 //
 //        // Assert
 //

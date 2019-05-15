@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.controllerCLI;
+package pt.ipp.isep.dei.project.controllercli;
 
 import org.springframework.stereotype.Controller;
 import pt.ipp.isep.dei.project.model.Local;
