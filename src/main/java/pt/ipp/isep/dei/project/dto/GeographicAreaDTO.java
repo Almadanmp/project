@@ -184,4 +184,14 @@ public class GeographicAreaDTO {
         }
         return false;
     }
+
+    public boolean removeSensor(String areaSensorID) {
+        for (AreaSensorDTO s : areaSensorDTOList) {
+            if (s.getId().equals(areaSensorID)) {
+                this.areaSensorDTOList.remove(s);
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -4,11 +4,14 @@ import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 
-import javax.persistence.*;
-
-import java.util.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * House Class. Defines de House
@@ -23,9 +26,7 @@ public class House implements Root {
     @Embedded
     private Local location;
 
-    //TODO cant point to different aggregate
-    @OneToOne(cascade = CascadeType.ALL)
-    private GeographicArea motherArea;
+    private Long motherArea;
 
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
@@ -164,7 +165,7 @@ public class House implements Root {
      *
      * @param motherArea is the Geographical Area to be set.
      */
-    public void setMotherArea(GeographicArea motherArea) {
+    public void setMotherAreaID(Long motherArea) {
         this.motherArea = motherArea;
     }
 
@@ -173,7 +174,7 @@ public class House implements Root {
      *
      * @return the Geographical Area of the House.
      */
-    public GeographicArea getMotherArea() {
+    public Long getMotherAreaID() {
         return motherArea;
     }
 
@@ -192,7 +193,7 @@ public class House implements Root {
      * @return true or false
      */
     public boolean isMotherAreaNull() {
-        return getMotherArea() == null;
+        return getMotherAreaID() == null;
     }
 
     /**

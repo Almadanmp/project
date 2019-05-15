@@ -74,7 +74,7 @@ class RoomTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
-        this.validHouse.setMotherArea(validArea);
+        this.validHouse.setMotherAreaID(validArea.getId());
 
     }
 
@@ -688,7 +688,7 @@ class RoomTest {
 //        //MotherArea
 //        GeographicArea geoArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
 //                new Local(20, 12, 33));
-//        house.setMotherArea(geoArea);
+//        house.setMotherAreaID(geoArea);
 //
 //
 //

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
@@ -53,7 +54,9 @@ public class GeographicAreaHouseService {
         Date d2 = calendar.getTime(); // gets date at 23:59:59
 
         // gets and returns average readings on the closest AreaSensor to the house
-        AreaSensor houseClosestSensor = house.getMotherArea().getClosestAreaSensorOfGivenType("temperature", house);
+        Long motherAreaID = house.getMotherAreaID();
+        GeographicArea houseMotherArea = geographicAreaCrudeRepo.findById(motherAreaID).get();
+        AreaSensor houseClosestSensor = houseMotherArea.getClosestAreaSensorOfGivenType("temperature", house);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 

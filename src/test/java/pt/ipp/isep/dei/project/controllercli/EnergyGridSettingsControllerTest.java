@@ -47,6 +47,7 @@ class EnergyGridSettingsControllerTest {
     private Room validRoom;
     private EnergyGridRepository energyGridRepository;
     private AreaType validAreaType;
+    private GeographicArea validGeographicArea;
 
     private EnergyGridSettingsController controller = new EnergyGridSettingsController();
     @Mock
@@ -68,7 +69,8 @@ class EnergyGridSettingsControllerTest {
         Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
         validHouse = new House("ISEP", address, new Local(20, 20, 20),
                 60, 180, new ArrayList<>());
-        validHouse.setMotherArea(new GeographicArea("Porto", validAreaType.getName(), 2, 3, new Local(4, 4, 100)));
+        validGeographicArea = new GeographicArea("Porto", validAreaType.getName(), 2, 3, new Local(4, 4, 100));
+        validHouse.setMotherAreaID(validGeographicArea.getId());
         validGrid = new EnergyGrid("validGrid", 300, "34576");
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1", "Grid1");
         rooms.add(validRoom);
@@ -213,7 +215,7 @@ class EnergyGridSettingsControllerTest {
         deviceTypeString.add(PATH_TO_FRIDGE);
         Address address = new Address("Rua das Flores", "431", "4512", "Porto", "Portugal");
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
-        house.setMotherArea(new GeographicArea("porto", validAreaType.getName(), 2, 3, new Local(4, 4, 100)));
+        house.setMotherAreaID(validGeographicArea.getId());
         Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1", "Grid1");
         EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333, "34576");
         List<Room> rl = new ArrayList<>();

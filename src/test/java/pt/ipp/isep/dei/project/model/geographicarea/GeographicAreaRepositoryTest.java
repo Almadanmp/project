@@ -130,7 +130,7 @@ class GeographicAreaRepositoryTest {
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        validHouse.setMotherArea(firstValidArea);
+        validHouse.setMotherAreaID(firstValidArea.getId());
         firstValidArea.addSensor(validAreaSensor);
     }
 
@@ -436,7 +436,7 @@ class GeographicAreaRepositoryTest {
     void seeIfCreateAreaSensorWorksWithSensorTypeNull() {
         assertThrows(IllegalArgumentException.class,
                 () -> firstValidArea.createAreaSensor("Sensor123", "Temperature Sensor 2",
-                        null,  new Local(41, -8, 100), validDate1));
+                        null, new Local(41, -8, 100), validDate1));
     }
 
     @Test
@@ -543,7 +543,7 @@ class GeographicAreaRepositoryTest {
 //                "4455-125", "Porto", "Portugal"),
 //                new Local(20, 20, 20), 60,
 //                180, deviceTypeString);
-//        validHouse.setMotherArea(new GeographicArea("Porto", new AreaType("Cidade"),
+//        validHouse.setMotherAreaID(new GeographicArea("Porto", new AreaType("Cidade"),
 //                2, 3, new Local(4, 4, 100)));
 //        List<Double> expectedResult = new ArrayList<>();
 //        expectedResult.add(2259.92026088549);

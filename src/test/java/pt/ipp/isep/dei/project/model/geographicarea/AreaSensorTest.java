@@ -545,8 +545,9 @@ class AreaSensorTest {
         House house = new House("House", new Address("Rua das Flores", "431", "4512", "Porto", "Portugal"), new Local(
                 4, 6, 6), 60, 180,
                 new ArrayList<>());
-        house.setMotherArea(new GeographicArea("Porto", validAreaType.getName(),
-                2, 3, new Local(4, 4, 100)));
+        GeographicArea geographicArea = new GeographicArea("Porto", validAreaType.getName(),
+                2, 3, new Local(4, 4, 100));
+        house.setMotherAreaID(geographicArea.getId());
         Local testLocal = new Local(-5, -5, -5);
         double expectedResult = 799.8866399214708;
 
