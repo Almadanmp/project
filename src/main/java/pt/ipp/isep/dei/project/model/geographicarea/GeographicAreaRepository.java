@@ -81,6 +81,10 @@ public class GeographicAreaRepository {
         return false;
     }
 
+    public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO){
+        geographicAreaCrudeRepo.deleteById(geographicAreaDTO.getId());
+    }
+
 
     //WEB CONTROLLER END //
 
