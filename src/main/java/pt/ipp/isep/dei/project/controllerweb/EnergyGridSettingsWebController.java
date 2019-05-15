@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import java.util.List;
 
@@ -12,10 +12,11 @@ import java.util.List;
 public class EnergyGridSettingsWebController {
 
     @Autowired
-    private GeographicAreaCrudeRepo gridRepo;
+    private EnergyGridCrudeRepo gridRepo;
 
     @GetMapping(value = "/grids")
-    public @ResponseBody List<GeographicArea> test(){
+    public @ResponseBody
+    List<EnergyGrid> getAllGrids() {
         return gridRepo.findAll();
     }
 }
