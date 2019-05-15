@@ -176,4 +176,12 @@ public class GeographicAreaDTO {
     public int hashCode() {
         return 1;
     }
+
+    public boolean addSensor(AreaSensorDTO areaSensorDTO) {
+        if (!this.areaSensorDTOList.contains(areaSensorDTO)) {
+            this.areaSensorDTOList.add(areaSensorDTO);
+            return true;
+        }
+        return false;
+    }
 }

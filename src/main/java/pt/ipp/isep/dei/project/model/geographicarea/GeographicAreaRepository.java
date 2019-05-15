@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -55,14 +56,14 @@ public class GeographicAreaRepository {
     public List<GeographicAreaDTO> getAllDTO() {
         List<GeographicArea> list = geographicAreaCrudeRepo.findAll();
         List<GeographicAreaDTO> finalList = new ArrayList<>();
-        for (GeographicArea ga : list){
+        for (GeographicArea ga : list) {
             GeographicAreaDTO gaDTO = GeographicAreaMapper.objectToDTO(ga);
             finalList.add(gaDTO);
         }
         return finalList;
     }
 
-    public GeographicAreaDTO getDTOById(long Id){
+    public GeographicAreaDTO getDTOById(long Id) {
         Optional<GeographicArea> aux = geographicAreaCrudeRepo.findById(Id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
@@ -81,10 +82,18 @@ public class GeographicAreaRepository {
         return false;
     }
 
-    public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO){
+    public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
         geographicAreaCrudeRepo.deleteById(geographicAreaDTO.getId());
     }
 
+    public void updateAreaDTO(GeographicAreaDTO areaDTO) {
+        GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
+        geographicAreaCrudeRepo.save(area);
+    }
+
+    public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
+        return geographicAreaDTO.addSensor(areaSensorDTO);
+    }
 
     //WEB CONTROLLER END //
 

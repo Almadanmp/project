@@ -134,4 +134,5 @@ public final class GeographicAreaMapper {
 
         return resultDTO;
     }
+
 }
