@@ -52,21 +52,4 @@ class EnergyGridRoomRepositoryTest {
         assertEquals(energyGridRoomService, energyGridRoomService);
     }
 
-    @Test
-    void seeIfGetAllByEnergyGridNameWorks() {
-        //Arrange
-
-        List<Room> roomListExpected = new ArrayList<>();
-        roomListExpected.add(validRoom);
-        Mockito.when(roomCrudeRepo.findAllByEnergyGridId("Grid1")).thenReturn(roomListExpected);
-
-        //Act
-
-        List<Room> actualResult = validEnergyGridRoomService.getAllByEnergyGridName("Grid1");
-
-        //Assert
-
-        assertEquals(roomListExpected, actualResult);
-
-    }
 }

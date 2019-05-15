@@ -31,10 +31,4 @@ public class EnergyGridRoomService {
     public EnergyGridRoomService() {
     }
 
-    public List<Room> getAllByEnergyGridName(String energyGridName) {
-        return roomCrudeRepo.findAllByEnergyGridId(energyGridName);
-    }
-
-
-
 }
