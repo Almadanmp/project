@@ -29,7 +29,7 @@ public class Room implements Metered, Root {
     @Transient
     private DeviceList deviceList;
     private String houseID;
-    private String energyGridId;
+    private String energyGridId; //TODO Remove this attribute
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)

@@ -3,7 +3,10 @@ package pt.ipp.isep.dei.project.model.energy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class EnergyGridRepository {
 
     public List<EnergyGrid> getAllGrids() {
         List<EnergyGrid> grids = energyGridCrudeRepository.findAll();
-        if (grids != null){
+        if (grids != null) {
             return grids;
         }
         return new ArrayList<>();
@@ -42,10 +45,21 @@ public class EnergyGridRepository {
         return energyGridCrudeRepository.save(energyGrid);
     }
 
-    public void createEnergyGridDTO(EnergyGridDTO energyGridDTO){
+    public void createEnergyGridDTO(EnergyGridDTO energyGridDTO) {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
         energyGridCrudeRepository.save(energyGrid);
     }
+
+    public boolean attachRoomToGrid(RoomDTO roomDTO, String gridName) {
+        EnergyGrid energyGrid = getById(gridName);
+        Room room = RoomMapper.dtoToObject(roomDTO);
+        if (energyGrid.addRoom(room)) {
+            energyGridCrudeRepository.save(energyGrid);
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * This method creates a new EnergyGrid using its constructor.
