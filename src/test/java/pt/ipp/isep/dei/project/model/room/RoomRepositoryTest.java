@@ -86,6 +86,47 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfAddRoomToCrudRepositoryWorks() {
+        // Arrange
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1", "Grid1");
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom2);
+
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+
+        //Act
+
+        boolean actualResult = validRoomRepository.addRoomToCrudRepository(validRoom);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomToCrudRepositoryWorksWhenRoomExistsInRepository() {
+        // Arrange
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1", "Grid1");
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom2);
+        rooms.add(validRoom);
+
+        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+
+        //Act
+
+        boolean actualResult = validRoomRepository.addRoomToCrudRepository(validRoom);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfAddAreaReadingsWorksWhenSensorIDIsInvalid() {
         // Arrange
 

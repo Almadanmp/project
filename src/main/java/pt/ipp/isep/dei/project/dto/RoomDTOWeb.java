@@ -10,6 +10,26 @@ public class RoomDTOWeb {
     private double length;
     private double height;
 
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
     public String getName() {
         return name;
     }
@@ -30,26 +50,6 @@ public class RoomDTOWeb {
         return width;
     }
 
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -58,12 +58,12 @@ public class RoomDTOWeb {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RoomDTO roomDTO = (RoomDTO) o;
+        RoomDTOWeb roomDTO = (RoomDTOWeb) o;
         return Objects.equals(name, roomDTO.getName());
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return 1;
     }
 }
