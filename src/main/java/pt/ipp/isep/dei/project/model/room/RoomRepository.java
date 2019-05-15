@@ -183,6 +183,20 @@ public class RoomRepository {
         throw new RuntimeException();
     }
 
+    /**
+     * **/
+    public boolean addRoomToCrudRepository(Room room){
+        String roomID = room.getId();
+        List<Room> rooms = this.getAllRooms();
+        for(Room r: rooms){
+            if(roomID.equals(r.getId())){
+                return false;
+            }
+        }
+        this.roomCrudeRepo.save(room);
+        return true;
+    }
+
 //TODO OLD METHODS
 
     /**

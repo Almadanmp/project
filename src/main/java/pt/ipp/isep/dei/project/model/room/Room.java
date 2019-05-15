@@ -21,8 +21,6 @@ import java.util.*;
 public class Room implements Metered, Root {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String roomName;
     private String description;
     private int houseFloor;
@@ -69,8 +67,8 @@ public class Room implements Metered, Root {
     /**
      * Room() Constructor receiving 5 parameters and initializing 2 Lists, AreaSensorList and DeviceList.
      *
-     * @param name       of the room
-     * @param houseFloor of the room
+     * @param name           of the room
+     * @param houseFloor     of the room
      * @param roomDimensions contains width, length and height, respectively.
      */
     public Room(String name, String description, int houseFloor, List<Double> roomDimensions,
@@ -90,6 +88,15 @@ public class Room implements Metered, Root {
     protected Room() {
         this.deviceList = new DeviceList();
         this.roomSensors = new ArrayList<>();
+    }
+
+    /**
+     * This method sets the house ID.
+     *
+     * @param houseID house ID as a string
+     * **/
+    public void setHouseID(String houseID) {
+        this.houseID = houseID;
     }
 
     /**

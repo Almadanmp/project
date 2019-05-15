@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
+import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 @RestController
@@ -13,7 +16,7 @@ import pt.ipp.isep.dei.project.model.room.RoomRepository;
 public class HouseConfigurationWebController {
 
     // USER STORY 101
-/*    *//**
+    /*    *//**
      * Sets the address of a given House.
      *
      * @param street  the house's street.
@@ -42,7 +45,8 @@ public class HouseConfigurationWebController {
         house.setLocation(latitude, longitude, altitude);
     }
 
-    *//**
+    */
+    /**
      * This method receives a house and a geographic area and sets this as
      * the house mother area.
      **//*
@@ -54,13 +58,23 @@ public class HouseConfigurationWebController {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private HouseRepository houseRepository;
 
     //US 105
+
     /**
-     * **/
+     *
+     **/
     @PostMapping(value = "/room")
-    public String createRoom(@RequestBody RoomDTOWeb roomDTOWeb){
-        return "The room is " + roomDTOWeb.getName();
+    public String createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {
+        Room room = RoomWebMapper.dtoToObject(roomDTOWeb);
+        String houseID = houseRepository.getHouseId();
+        room.setHouseID(houseID);
+        if (roomRepository.addRoomToCrudRepository(room)) {
+            return "The room was successfully added.";
+        }
+        return "The room you are trying to create already exists.";
     }
 
 }
