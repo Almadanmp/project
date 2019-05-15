@@ -10,7 +10,7 @@ class RoomDTOWebTest {
     private RoomDTOWeb roomDTOWeb;
 
     @BeforeEach
-    void arrangeArtifacts(){
+    void arrangeArtifacts() {
         roomDTOWeb = new RoomDTOWeb();
         roomDTOWeb.setName("RoomName");
         roomDTOWeb.setFloor(1);
@@ -90,7 +90,7 @@ class RoomDTOWebTest {
         boolean actualResult2 = roomDTOWeb.equals(roomDTOWeb);
         boolean actualResult3 = roomDTOWeb.equals(diffDTO);
         boolean actualResult4 = roomDTOWeb.equals(2);
-
+        boolean actualResult5 = roomDTOWeb.equals(null);
 
         //Assert
 
@@ -98,6 +98,7 @@ class RoomDTOWebTest {
         assertTrue(actualResult2);
         assertFalse(actualResult3);
         assertFalse(actualResult4);
+        assertFalse(actualResult5);
     }
 
     @Test

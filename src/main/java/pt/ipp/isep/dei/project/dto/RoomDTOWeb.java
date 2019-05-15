@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
-
 import java.util.Objects;
 
 public class RoomDTOWeb {
