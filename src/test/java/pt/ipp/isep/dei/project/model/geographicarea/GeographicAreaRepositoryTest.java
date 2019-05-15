@@ -22,7 +22,6 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
@@ -738,4 +737,131 @@ class GeographicAreaRepositoryTest {
 
     }
 
+    @Test
+    void seeIfUpdateAreaDTOWorks() {
+
+        // Arrange
+
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        area.setId(25L);
+        Optional<GeographicArea> opt = Optional.of(area);
+        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+
+        GeographicAreaDTO expectedResult = validDTO;
+
+        // Act
+
+        geographicAreaRepository.updateAreaDTO(validDTO);
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfDeleteAreaDTOWorks() {
+
+        // Arrange
+
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        area.setId(25L);
+        Optional<GeographicArea> opt = Optional.of(area);
+        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        GeographicAreaDTO expectedResult = validDTO;
+
+        // Act
+
+        geographicAreaRepository.deleteFromDatabase(validDTO);
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfDeleteAreaDTOFails() {
+
+        // Arrange
+
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        area.setId(25L);
+        Optional<GeographicArea> opt = Optional.of(area);
+        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        GeographicAreaDTO expectedResult = validDTO;
+
+        // Act
+
+        geographicAreaRepository.deleteFromDatabase(validDTO);
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddAndPersistGeoAreaDTOFailsDuplicateGA() {
+        // Arrange
+        List<GeographicArea> listGA = new ArrayList<>();
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        listGA.add(area);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+
+        // Act
+        boolean actualResult = geographicAreaRepository.addAndPersistDTO(validDTO);
+
+        // Assert
+        assertFalse(actualResult);
+
+    }
+
+    @Test
+    void seeIfAddAndPersistGeoAreaDTOWorks() {
+        // Arrange
+        List<GeographicArea> listGA = new ArrayList<>();
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+
+        // Act
+        boolean actualResult = geographicAreaRepository.addAndPersistDTO(validDTO);
+
+        // Assert
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfAddAndPersistGeoAreaFailsDuplicateGA() {
+        // Arrange
+        List<GeographicArea> listGA = new ArrayList<>();
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        listGA.add(area);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+
+        // Act
+        boolean actualResult = geographicAreaRepository.addAndPersistGA(area);
+
+        // Assert
+        assertFalse(actualResult);
+
+    }
+
+    @Test
+    void seeIfAddAndPersistGeoAreaWorks() {
+        // Arrange
+        List<GeographicArea> listGA = new ArrayList<>();
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+
+        // Act
+        boolean actualResult = geographicAreaRepository.addAndPersistGA(area);
+
+        // Assert
+        assertTrue(actualResult);
+
+    }
 }
