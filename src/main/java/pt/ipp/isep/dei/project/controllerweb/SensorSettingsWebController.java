@@ -8,7 +8,10 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.net.URI;
@@ -41,6 +44,8 @@ public class SensorSettingsWebController {
         return geographicAreaRepository.getDTOById(id).getSensorDTOs();
     }
 
+    @GetMapping
+
     @PostMapping("/areas/{id}/create")
     public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
                                                           @PathVariable long id) {
@@ -65,6 +70,20 @@ public class SensorSettingsWebController {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(id);
         geographicAreaRepository.updateGeoArea(GeographicAreaMapper.dtoToObject(geographicArea));
         return new ResponseEntity<>("body", HttpStatus.OK);
+    }
+
+    // US011 Remove Area Sensor
+    @DeleteMapping(value = "/areas/{id}/sensors/{id2}")
+    public ResponseEntity<String> removeAreaSensor(@PathVariable long id, @PathVariable String id2) {
+        GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
+
+        boolean removed = geographicAreaRepository.removeSensorDTO(geoArea, id2);
+        geographicAreaRepository.updateAreaDTO(geoArea);
+
+        if (removed) {
+            return new ResponseEntity<>("body", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("body", HttpStatus.NOT_FOUND);
     }
 }
 

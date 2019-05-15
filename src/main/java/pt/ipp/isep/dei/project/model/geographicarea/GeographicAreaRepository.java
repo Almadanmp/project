@@ -91,6 +91,10 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.addSensor(areaSensorDTO);
     }
 
+    public boolean removeSensorDTO(GeographicAreaDTO geographicAreaDTO, String areaSensorID) {
+        return geographicAreaDTO.removeSensor(areaSensorID);
+    }
+
     //WEB CONTROLLER END //
 
     /**

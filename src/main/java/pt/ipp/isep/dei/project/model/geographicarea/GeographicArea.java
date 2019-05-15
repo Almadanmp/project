@@ -300,7 +300,6 @@ public class GeographicArea implements Root {
         return false;
     }
 
-
     /**
      * This method receives a house and the distance of the sensor closest to it,
      * goes through the sensor list and returns the sensors closest to house.
