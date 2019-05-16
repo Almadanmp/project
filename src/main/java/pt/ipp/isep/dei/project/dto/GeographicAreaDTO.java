@@ -185,6 +185,12 @@ public class GeographicAreaDTO {
         return false;
     }
 
+    /**
+     * US011: Method for iterating through area sensor dto list, finding a sensor by ID and removing it.
+     * @param areaSensorID id of the sensor to be removed.
+     * @return true if the sensor is found and removed, or false if not found.
+     */
+
     public boolean removeSensor(String areaSensorID) {
         for (AreaSensorDTO s : areaSensorDTOList) {
             if (s.getId().equals(areaSensorID)) {
