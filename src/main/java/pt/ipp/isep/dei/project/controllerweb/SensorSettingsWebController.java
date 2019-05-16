@@ -72,7 +72,14 @@ public class SensorSettingsWebController {
         return new ResponseEntity<>("body", HttpStatus.OK);
     }
 
-    // US011 Remove Area Sensor
+    /**
+     * US011:
+     * Method for removing area sensors from repository.
+     * @param id geographic area id.
+     * @param id2 area sensor id.
+     * @return OK status if area sensor is found and removed or NOT_FOUND status if not found.
+     */
+
     @DeleteMapping(value = "/areas/{id}/sensors/{id2}")
     public ResponseEntity<String> removeAreaSensor(@PathVariable long id, @PathVariable String id2) {
         GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
