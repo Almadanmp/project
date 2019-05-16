@@ -6,10 +6,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * This class is responsible for converting Sensors and Sensor DTOs into one another.
@@ -180,4 +177,30 @@ public final class AreaSensorMapper {
 
         return resultObject;
     }
+
+    public static List<LinkedHashMap<String, Object>> controllerAreaSensorDTOToList(List<AreaSensorDTO> areaSensorDTOS) {
+        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
+        for (AreaSensorDTO dto : areaSensorDTOS) {
+            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
+            entity.put("Id", dto.getId());
+            entity.put("Name", dto.getName());
+            entities.add(entity);
+        }
+        return entities;
+    }
+
+    public static List<LinkedHashMap<String, Object>> controllerAreaSensorDTOToFullList(List<AreaSensorDTO> areaSensorDTOS) {
+        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
+        for (AreaSensorDTO dto : areaSensorDTOS) {
+            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
+            entity.put("Id", dto.getId());
+            entity.put("Name", dto.getName());
+            entity.put("Units", dto.getUnits());
+            entity.put("Date of Creation", dto.getDateStartedFunctioning());
+            entity.put("State", dto.getActive());
+            entities.add(entity);
+        }
+        return entities;
+    }
+
 }

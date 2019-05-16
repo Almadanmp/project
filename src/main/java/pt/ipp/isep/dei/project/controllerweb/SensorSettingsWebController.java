@@ -2,19 +2,15 @@ package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,11 +21,21 @@ public class SensorSettingsWebController {
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
 
+    // Part 0 - Geographical Areas
+
+    @GetMapping("")
+    public String intro() {
+        return "Welcome to the Sensor Settings Menu: \nGET[/areas] \nGET[areas/{id}] " +
+                "\nGET[/areas/{id}/sensors] \nPOST[/areas/{id}/sensors] \nPATCH[/deactivate] " +
+                "\nDELETE[/areas/{id}/sensors/{id2}]";
+    }
+
     // Part 1 - Geographical Areas
 
-    @GetMapping("/areas")
-    public List<GeographicAreaDTO> retrieveAllGeographicAreas() {
-        return geographicAreaRepository.getAllDTO();
+    @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> retrieveAllGeographicAreas() {
+        List<GeographicAreaDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTO();
+        return new ResponseEntity<>(GeographicAreaMapper.controllerGADTOToList(geographicAreaDTOList), HttpStatus.OK);
     }
 
     @GetMapping("/areas/{id}")
@@ -44,44 +50,42 @@ public class SensorSettingsWebController {
         return geographicAreaRepository.getDTOById(id).getSensorDTOs();
     }
 
-    @GetMapping
-
-    @PostMapping("/areas/{id}/create")
+    @PostMapping("/areas/{id}/sensors")
     public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
                                                           @PathVariable long id) {
-        GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
-        geographicAreaRepository.addSensorDTO(geoArea, areaSensorDTO);
-        geographicAreaRepository.updateAreaDTO(geoArea);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(areaSensorDTO.getId()).toUri();
-
-        return ResponseEntity.created(location).build();
+        GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(id);
+        if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
+            geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
-
     // us010 deactivate geo area sensor
+
     /**
      * WEb controller: get area sensor dto by id (and by area id)
-     * @param idArea area id where the area sensor is
+     *
+     * @param idArea   area id where the area sensor is
      * @param idSensor sensor id
      * @return ok status if the sensor with the selected id exists
      */
     @GetMapping("areas/{id}/sensors/{id2}")
     public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        return geographicAreaRepository.getAreaSensorByID(idSensor,idArea);
+        return geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
     }
 
     /**
      * US010 WEB controller: deactivate arya sensor with id sensor
-     * @param idArea arya id where the arya sensor id
+     *
+     * @param idArea   arya id where the arya sensor id
      * @param idSensor sensor id
      * @return ok status if the area sensor exists
      */
     @PutMapping("areas/{id}/sensors/{id2}")
     public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
-        AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor,idArea);
+        AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
         geographicAreaRepository.removeSensorDTO(geographicArea, idSensor);
         areaSensorDTO.setActive(false);
         geographicAreaRepository.addSensorDTO(geographicArea, areaSensorDTO);
@@ -92,15 +96,14 @@ public class SensorSettingsWebController {
         return new ResponseEntity<>("Area Sensor can't be deactivated", HttpStatus.NOT_FOUND);
     }
 
-
     /**
      * US011:
      * Method for removing area sensors from repository.
-     * @param id geographic area id.
+     *
+     * @param id  geographic area id.
      * @param id2 area sensor id.
      * @return OK status if area sensor is found and removed or NOT_FOUND status if not found.
      */
-
     @DeleteMapping(value = "/areas/{id}/sensors/{id2}")
     public ResponseEntity<String> removeAreaSensor(@PathVariable long id, @PathVariable String id2) {
         GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);

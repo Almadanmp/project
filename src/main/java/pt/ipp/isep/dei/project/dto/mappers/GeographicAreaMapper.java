@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -177,6 +178,19 @@ public final class GeographicAreaMapper {
         resultDTO.setSensorDTOList(dtoSensorList);
 
         return resultDTO;
+    }
+
+    public static List<LinkedHashMap<String, Object>> controllerGADTOToList(List<GeographicAreaDTO> geographicAreaDTOList) {
+        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
+        for (GeographicAreaDTO dto : geographicAreaDTOList) {
+            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
+            entity.put("Id", dto.getId());
+            entity.put("Name", dto.getName());
+            entity.put("Description", dto.getDescription());
+            entity.put("Sensors", AreaSensorMapper.controllerAreaSensorDTOToList(dto.getSensorDTOs()));
+            entities.add(entity);
+        }
+        return entities;
     }
 
 }
