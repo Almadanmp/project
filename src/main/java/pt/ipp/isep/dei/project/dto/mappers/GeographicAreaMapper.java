@@ -77,7 +77,9 @@ public final class GeographicAreaMapper {
         resultObject.setAreaSensors(objectSensorList);
 
         return resultObject;
-    }/**
+    }
+
+    /**
      * This is the method that converts Geographic Area DTOs into model objects with the same data.
      *
      * @param dtoToConvert is the DTO we want to convert.

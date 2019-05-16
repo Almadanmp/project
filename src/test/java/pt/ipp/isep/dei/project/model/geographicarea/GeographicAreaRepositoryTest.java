@@ -526,6 +526,26 @@ class GeographicAreaRepositoryTest {
     }
 
     @Test
+    void seeIfGetsAreaSensorByIDNoGeoArea() {
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getAreaSensorByID("SensorOne", 3L));
+    }
+
+    @Test
+    void seeIfGetsAreaSensorByIDNoAreaSensor() {
+
+        // Act
+        firstValidArea.setId(3L);
+        geographicAreaRepository.addAndPersistGA(firstValidArea);
+
+
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getAreaSensorByID("SensorOne", 3L));
+    }
+
+    @Test
     void seeIfEqualsWorksOnSameObject() {
         //Act
 

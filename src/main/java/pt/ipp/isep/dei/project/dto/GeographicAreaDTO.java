@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.dto;
 
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class GeographicAreaDTO {
     private LocalDTO local;
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
     private String description;
+    private GeographicAreaDTO motherArea;
 
 
     public Long getId() {
@@ -157,6 +160,25 @@ public class GeographicAreaDTO {
         return this.local;
     }
 
+    /**
+     * Method that adds mother ares
+     *
+     * @param geoArea daughter area
+     * @return the changed daughter area
+     */
+    public boolean setMotherArea(GeographicAreaDTO geoArea) {
+        if (geoArea != null) {
+            this.motherArea = geoArea;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public GeographicAreaDTO getMotherArea() {
+        return this.motherArea;
+    }
+
     @Override
     public boolean equals(Object testDTO) {
         if (this == testDTO) {
@@ -187,6 +209,7 @@ public class GeographicAreaDTO {
 
     /**
      * US011: Method for iterating through area sensor dto list, finding a sensor by ID and removing it.
+     *
      * @param areaSensorID id of the sensor to be removed.
      * @return true if the sensor is found and removed, or false if not found.
      */

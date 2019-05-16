@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.net.URI;
@@ -46,9 +48,34 @@ public class GASettingsWebController {
         }
     }
 
+    /**
+     * US007 WEB controller: deactivate arya sensor with id sensor
+     * @param idAreaDaughter arya id where the arya sensor id
+     * @param idAreaMother sensor id
+     * @return ok status if the area sensor exists
+     */
+    @PutMapping("areas/{idDaughter}/{idMother}")
+    public ResponseEntity<Object> setMotherArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
+        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOById(idAreaDaughter);
+        GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOById(idAreaMother);
+        geographicAreaRepo.setMotherDTO(geographicAreaDaughter,geographicAreaMother);
+        geographicAreaRepo.updateAreaDTO(geographicAreaDaughter);
+        if (geographicAreaDaughter.getMotherArea() != null) {
+            return new ResponseEntity<>("maezinga", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("areas/{id}")
+    public GeographicAreaDTO getMotherArea(@PathVariable("id") long id) {
+        return geographicAreaRepo.getDTOById(id);
+    }
+
+
+
 //{       "id": 66,
 //        "name": "Gaia",
-//        "typeArea": "urban area",
+//        "typeArea": "shit area",
 //        "length": 500,
 //        "width": 100,
 //        "localDTO": {
@@ -57,6 +84,6 @@ public class GASettingsWebController {
 //            "altitude": 100,
 //            "id": 0
 //        },
-//        "description": "cidade gloriosa"
+//        "description": "cidade do lixo"
 //        }
 }

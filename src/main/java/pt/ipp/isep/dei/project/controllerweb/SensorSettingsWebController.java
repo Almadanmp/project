@@ -79,7 +79,7 @@ public class SensorSettingsWebController {
      * @return ok status if the area sensor exists
      */
     @PutMapping("areas/{id}/sensors/{id2}")
-    public ResponseEntity<Object> putAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
+    public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
         AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor,idArea);
         geographicAreaRepository.removeSensorDTO(geographicArea, idSensor);

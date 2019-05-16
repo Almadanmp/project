@@ -88,13 +88,6 @@ public class GeographicAreaRepository {
         geographicAreaCrudeRepo.save(area);
     }
 
-    public void updateAreaDTO(AreaSensorDTO areasensorDTO) {
-        AreaSensor area = AreaSensorMapper.dtoToObject(areasensorDTO);
-        long id = areasensorDTO.getGeographicAreaID();
-        GeographicArea geoArea;
-        geographicAreaCrudeRepo.findById(id);
-
-    }
 
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
         return geographicAreaDTO.addSensor(areaSensorDTO);
@@ -111,6 +104,11 @@ public class GeographicAreaRepository {
     public boolean removeSensorDTO(GeographicAreaDTO geographicAreaDTO, String areaSensorID) {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
+
+    public boolean setMotherDTO(GeographicAreaDTO geographicAreaDTO, GeographicAreaDTO geographicAreaDTOMother){
+        return geographicAreaDTO.setMotherArea(geographicAreaDTOMother);
+    }
+
 
     //WEB CONTROLLER END //
 
@@ -198,8 +196,9 @@ public class GeographicAreaRepository {
 
     /**
      * method that returns a area sensor DTO found by id
+     *
      * @param idSensor sensor id
-     * @param idArea area id
+     * @param idArea   area id
      * @return area sensor dto with the selected id
      */
     public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea) {
