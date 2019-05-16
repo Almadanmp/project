@@ -45,9 +45,10 @@ ref over "<<ReadingsReader>>"
 Read readings from
 CSV file reading
 end ref
-
-
 "<<ReadingsReader>>" -> GASettingsUI: List<ReadingDTO>
+
+
+
 else else if JSON file
 GASettingsUI -> "<<ReadingsReader>>": readFile(filePath)
 ref over "<<ReadingsReader>>"
@@ -55,6 +56,11 @@ Read readings from
 JSON file reading
 end ref
 "<<ReadingsReader>>" -> GASettingsUI: List<ReadingDTO>
+
+
+
+
+
 else else if XML file
 GASettingsUI -> "<<ReadingsReader>>": readFile(filePath)
 ref over "<<ReadingsReader>>"

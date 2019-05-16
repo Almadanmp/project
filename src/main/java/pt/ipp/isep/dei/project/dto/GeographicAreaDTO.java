@@ -200,4 +200,5 @@ public class GeographicAreaDTO {
         }
         return false;
     }
+
 }
