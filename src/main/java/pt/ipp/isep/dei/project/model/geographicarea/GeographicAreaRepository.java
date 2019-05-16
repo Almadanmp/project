@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -85,6 +86,14 @@ public class GeographicAreaRepository {
     public void updateAreaDTO(GeographicAreaDTO areaDTO) {
         GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
         geographicAreaCrudeRepo.save(area);
+    }
+
+    public void updateAreaDTO(AreaSensorDTO areasensorDTO) {
+        AreaSensor area = AreaSensorMapper.dtoToObject(areasensorDTO);
+        long id = areasensorDTO.getGeographicAreaID();
+        GeographicArea geoArea;
+        geographicAreaCrudeRepo.findById(id);
+
     }
 
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
@@ -184,6 +193,17 @@ public class GeographicAreaRepository {
             }
         }
         return finalList;
+    }
+
+    public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea){
+        GeographicAreaDTO geographicArea = getDTOById(idArea);
+        for (AreaSensorDTO as : geographicArea.getSensorDTOs()){
+            String asString = as.getId();;
+            if(asString.equals(idSensor)){
+                return as;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     /**
