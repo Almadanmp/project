@@ -91,6 +91,13 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.addSensor(areaSensorDTO);
     }
 
+    /**
+     * Acessory method for US011: Removes area sensor DTO.
+     * @param geographicAreaDTO geo area DTO for finding correct area sensor
+     * @param areaSensorID area sensor ID for removing correct sensor.
+     * @return method for removing area sensor by id from GeographicAreaDTO class.
+     */
+
     public boolean removeSensorDTO(GeographicAreaDTO geographicAreaDTO, String areaSensorID) {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
