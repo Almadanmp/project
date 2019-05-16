@@ -509,6 +509,23 @@ class GeographicAreaRepositoryTest {
     }
 
     @Test
+    void seeIfGetsAreaSensorByID() {
+
+        // Act
+        firstValidArea.setId(3L);
+        firstValidArea.addSensor(firstValidAreaSensor);
+        geographicAreaRepository.addAndPersistGA(firstValidArea);
+
+        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.ofNullable(firstValidArea));
+
+       AreaSensorDTO actualResult = geographicAreaRepository.getAreaSensorByID("SensorOne", 3L);
+
+        // Assert
+
+        assertEquals(AreaSensorMapper.objectToDTO(firstValidAreaSensor), actualResult);
+    }
+
+    @Test
     void seeIfEqualsWorksOnSameObject() {
         //Act
 

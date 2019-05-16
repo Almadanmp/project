@@ -61,14 +61,23 @@ public class SensorSettingsWebController {
 
 
     // us010 deactivate geo area sensor
-
-    //get all area sensors
-    //get area sensor
+    /**
+     * WEb controller: get area sensor dto by id (and by area id)
+     * @param idArea area id where the area sensor is
+     * @param idSensor sensor id
+     * @return ok status if the sensor with the selected id exists
+     */
     @GetMapping("areas/{id}/sensors/{id2}")
     public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         return geographicAreaRepository.getAreaSensorByID(idSensor,idArea);
-
     }
+
+    /**
+     * US010 WEB controller: deactivate arya sensor with id sensor
+     * @param idArea arya id where the arya sensor id
+     * @param idSensor sensor id
+     * @return ok status if the area sensor exists
+     */
     @PutMapping("areas/{id}/sensors/{id2}")
     public ResponseEntity<Object> putAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);

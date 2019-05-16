@@ -102,8 +102,9 @@ public class GeographicAreaRepository {
 
     /**
      * Acessory method for US011: Removes area sensor DTO.
+     *
      * @param geographicAreaDTO geo area DTO for finding correct area sensor
-     * @param areaSensorID area sensor ID for removing correct sensor.
+     * @param areaSensorID      area sensor ID for removing correct sensor.
      * @return method for removing area sensor by id from GeographicAreaDTO class.
      */
 
@@ -195,15 +196,21 @@ public class GeographicAreaRepository {
         return finalList;
     }
 
-    public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea){
+    /**
+     * method that returns a area sensor DTO found by id
+     * @param idSensor sensor id
+     * @param idArea area id
+     * @return area sensor dto with the selected id
+     */
+    public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea) {
         GeographicAreaDTO geographicArea = getDTOById(idArea);
-        for (AreaSensorDTO as : geographicArea.getSensorDTOs()){
-            String asString = as.getId();;
-            if(asString.equals(idSensor)){
+        for (AreaSensorDTO as : geographicArea.getSensorDTOs()) {
+            String asString = as.getId();
+            if (asString.equals(idSensor)) {
                 return as;
             }
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException(("Area Sensor not found"));
     }
 
     /**
