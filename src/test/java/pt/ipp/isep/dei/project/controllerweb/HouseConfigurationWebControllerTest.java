@@ -60,7 +60,7 @@ public class HouseConfigurationWebControllerTest {
         MockitoAnnotations.initMocks(this);
         RoomRepository roomRepository = new RoomRepository(roomCrudeRepo);
         HouseRepository houseRepository = new HouseRepository(houseCrudeRepo);
-        webController = new HouseConfigurationWebController(roomRepository,houseRepository);
+        webController = new HouseConfigurationWebController(roomRepository, houseRepository);
 
         roomDTOWeb = new RoomDTOWeb();
         roomDTOWeb.setName("Name");
@@ -77,8 +77,8 @@ public class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorks() {
         //Arrange
-                House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         List<House> houseList = new ArrayList<>();
@@ -101,8 +101,8 @@ public class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         List<House> houseList = new ArrayList<>();
@@ -124,10 +124,10 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvc() throws Exception{
+    public void seeIfCreateRoomWorksWithMvc() throws Exception {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         List<House> houseList = new ArrayList<>();
@@ -150,10 +150,10 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception{
+    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida","431",
-                "4455-125", "Porto","Portugal"),
+        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
         List<House> houseList = new ArrayList<>();
