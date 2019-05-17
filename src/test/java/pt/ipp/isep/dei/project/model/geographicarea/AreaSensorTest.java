@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,10 +27,13 @@ class AreaSensorTest {
     // Common artifacts for testing in this class.
 
     private AreaSensor validAreaSensor;
+    private AreaSensor firstValidAreaSensor;
+    private AreaSensor secondValidAreaSensor;
     private Date validDate1;
     private Date validDate2;
     private Date validDate3;
     private AreaType validAreaType;
+    private SensorType validSensorTypeTemperature;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -46,6 +50,11 @@ class AreaSensorTest {
         validAreaType = new AreaType("Cidade");
         validAreaSensor = new AreaSensor("SensOne", "SensOne", "Temperature", new Local(10, 10, 10), validDate2);
         validAreaSensor.setActive(true);
+        validSensorTypeTemperature = new SensorType("Temperature", "Cº");
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), validDate1);
+        firstValidAreaSensor.setActive(true);
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemperature.getName(), new Local(10, 10, 10),
+                validDate1);
     }
 
     @Test
@@ -953,6 +962,107 @@ class AreaSensorTest {
         // Assert
 
         assertEquals("Warning: No temperature readings available in given period.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorWorks() {
+        //Arrange
+        Reading firstValidReading = new Reading(31, validDate1, "C", "SensorOne");
+        Reading secondValidReading = new Reading(11, validDate2, "C", "SensorTwo");
+        Reading thirdValidReading = new Reading(11, validDate3, "C", "SensorTwo");
+        firstValidAreaSensor.addReading(firstValidReading);
+        secondValidAreaSensor.addReading(secondValidReading);
+        secondValidAreaSensor.addReading(thirdValidReading);
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(firstValidAreaSensor);
+        listAreaSensor.add(secondValidAreaSensor);
+
+        //Act
+        AreaSensor actualResult = AreaSensor.getMostRecentlyUsedAreaSensor(listAreaSensor);
+
+        //Assert
+        assertEquals(firstValidAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetgetAreaSensorsOfGivenTypeEmpty() {
+
+        //Act
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        List<AreaSensor> actualResult = AreaSensor.getAreaSensorsOfGivenType(areaSensors, "Humidity");
+
+        //Assert
+        assertEquals(areaSensors, actualResult);
+    }
+
+    @Test
+    void seeIfGetgetAreaSensorsOfGivenTypeWrongType() {
+
+        //Act
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(firstValidAreaSensor);
+        areaSensors.add(secondValidAreaSensor);
+        List<AreaSensor> actualResult = AreaSensor.getAreaSensorsOfGivenType(areaSensors, "Humidity");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetgetAreaSensorsOfGivenTypeSameType() {
+
+        //Act
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        areaSensors.add(firstValidAreaSensor);
+        areaSensors.add(secondValidAreaSensor);
+        List<AreaSensor> actualResult = AreaSensor.getAreaSensorsOfGivenType(areaSensors, "Temperature");
+
+        //Assert
+        assertEquals(areaSensors, actualResult);
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorNoReadings() {
+        //Arrange
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(firstValidAreaSensor);
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensor.getMostRecentlyUsedAreaSensor(listAreaSensor));
+
+
+        //Assert
+        assertEquals("The sensor list has no readings available.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorNoSensors() {
+        //Arrange
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensor.getMostRecentlyUsedAreaSensor(listAreaSensor));
+
+        //Assert
+        assertEquals("The sensor list is empty.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetAreaSensorsWithReadings() {
+        //Arrange
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensor.getAreaSensorsWithReadings(listAreaSensor));
+
+        //Assert
+        assertEquals("The sensor list is empty", exception.getMessage());
+
     }
 
 

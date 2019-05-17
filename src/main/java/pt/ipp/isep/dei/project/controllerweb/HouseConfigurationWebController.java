@@ -31,7 +31,7 @@ public class HouseConfigurationWebController {
     // USER STORY 101
 
     /**
-     * @param houseDTO     is the house we're going to change the location of.
+     * @param houseDTO is the house we're going to change the location of.
      */
     @PutMapping(value = "/house")
     public ResponseEntity<Object> setHouseLocal(@RequestBody HouseWithoutGridsDTO houseDTO) {
@@ -42,7 +42,7 @@ public class HouseConfigurationWebController {
 
     @GetMapping(path = "/house", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> retrieveHouse() {
-        HouseWithoutGridsDTO house = houseRepository.getHouseWebDTO();
+        HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
         return new ResponseEntity<>(HouseMapper.dtoWithoutGridsToObject(house), HttpStatus.OK);
     }
 
