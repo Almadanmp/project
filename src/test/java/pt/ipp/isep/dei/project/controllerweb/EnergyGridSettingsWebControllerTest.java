@@ -64,7 +64,7 @@ public class EnergyGridSettingsWebControllerTest {
                         "}"))
                 .andExpect(status().isOk());
         int status = resultActions.andReturn().getResponse().getStatus();
-        assertEquals(20,status);
+        assertEquals(200,status);
     }
 
     @Test
