@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
@@ -29,6 +35,11 @@ public class HouseConfigurationWebController {
 
     @Autowired
     private HouseCrudeRepo houseCrudeRepo;
+
+    public HouseConfigurationWebController(RoomRepository roomRepository, HouseRepository houseRepository) {
+        this.roomRepository = roomRepository;
+        this.houseRepository = houseRepository;
+    }
 
     // USER STORY 101
 
@@ -69,14 +80,14 @@ public class HouseConfigurationWebController {
      * @return message that informs if room was added or not
      **/
     @PostMapping(value = "/room")
-    public String createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {
+    public ResponseEntity<String> createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {
         Room room = RoomWebMapper.dtoToObject(roomDTOWeb);
         String houseID = houseRepository.getHouseId();
         room.setHouseID(houseID);
         if (roomRepository.addRoomToCrudRepository(room)) {
-            return "The room was successfully added.";
+            return new ResponseEntity<>("The room was successfully added.", HttpStatus.OK);
         }
-        return "The room you are trying to create already exists.";
+        return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
     }
 
 }
