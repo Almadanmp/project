@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -29,8 +30,8 @@ public class GASettingsWebController {
 
     @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> retrieveAllGeographicAreas() {
-        List<GeographicAreaDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTO();
-        return new ResponseEntity<>(GeographicAreaMapper.controllerGADTOToList(geographicAreaDTOList), HttpStatus.OK);
+        List<GeographicAreaWebDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTOWebInformation();
+        return new ResponseEntity<>(geographicAreaDTOList, HttpStatus.OK);
     }
     /**
      * Method to create a DTO of Geographic Area
