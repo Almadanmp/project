@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.AreaSensorWebDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
@@ -138,46 +139,6 @@ public final class AreaSensorMapper {
         return resultDTO;
     }
 
-    public static AreaSensor dtoToObjectMinimalist(AreaSensorDTO dtoToConvert) {
-
-        String objectID = dtoToConvert.getId();
-
-        String objectName = dtoToConvert.getName();
-
-        String objectType = dtoToConvert.getType();
-
-        String objectUnit = dtoToConvert.getUnits();
-
-        double objectLatitude = dtoToConvert.getLatitude();
-
-        double objectLongitude = dtoToConvert.getLongitude();
-
-        double objectAltitude = dtoToConvert.getAltitude();
-
-        // Update date of activation
-        Date objectDate = null;
-        String objectDateStartedFunctioningString = dtoToConvert.getDateStartedFunctioning();
-        List<SimpleDateFormat> knownPatterns = new ArrayList<>();
-        knownPatterns.add(new SimpleDateFormat("dd-MM-yyyy", new Locale("en", "US")));
-        knownPatterns.add(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", new Locale("en", "US")));
-        knownPatterns.add(new SimpleDateFormat("dd/MM/yyyy", new Locale("en", "US")));
-        for (SimpleDateFormat pattern : knownPatterns) {
-            try {
-                objectDate = pattern.parse(objectDateStartedFunctioningString);
-            } catch (ParseException c) {
-                c.getErrorOffset();
-            }
-        }
-
-        // Create, update and return converted object
-
-        AreaSensor resultObject = new AreaSensor(objectID, objectName, objectType, new Local(
-                objectLatitude, objectLongitude, objectAltitude), objectDate);
-        resultObject.setActive(true);
-
-        return resultObject;
-    }
-
     public static List<LinkedHashMap<String, Object>> controllerAreaSensorDTOToList(List<AreaSensorDTO> areaSensorDTOS) {
         List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
         for (AreaSensorDTO dto : areaSensorDTOS) {
@@ -201,6 +162,29 @@ public final class AreaSensorMapper {
             entities.add(entity);
         }
         return entities;
+    }
+
+    public static AreaSensorWebDTO objectToWebDTO(AreaSensor objectToConvert) {
+        // Update the ID
+
+        String dtoID = objectToConvert.getId();
+
+        // Update the name
+
+        String dtoName = objectToConvert.getName();
+
+        // Update the type of the sensor
+
+        String dtoType = objectToConvert.getSensorType();
+
+        // Create, update and return the converted DTO.
+
+        AreaSensorWebDTO resultDTO = new AreaSensorWebDTO();
+        resultDTO.setTypeSensor(dtoType);
+        resultDTO.setName(dtoName);
+        resultDTO.setId(dtoID);
+
+        return resultDTO;
     }
 
 }

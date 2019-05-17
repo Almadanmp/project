@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.List;
@@ -34,8 +34,8 @@ public class SensorSettingsWebController {
 
     @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> retrieveAllGeographicAreas() {
-        List<GeographicAreaDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTO();
-        return new ResponseEntity<>(GeographicAreaMapper.controllerGADTOToList(geographicAreaDTOList), HttpStatus.OK);
+        List<GeographicAreaWebDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTOWebInformation();
+        return new ResponseEntity<>(geographicAreaDTOList, HttpStatus.OK);
     }
 
     @GetMapping("/areas/{id}")

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -60,6 +60,16 @@ public class GeographicAreaRepository {
         return finalList;
     }
 
+    public List<GeographicAreaWebDTO> getAllDTOWebInformation() {
+        List<GeographicArea> list = geographicAreaCrudeRepo.findAll();
+        List<GeographicAreaWebDTO> finalList = new ArrayList<>();
+        for (GeographicArea ga : list) {
+            GeographicAreaWebDTO gaDTO = GeographicAreaMapper.objectToWebDTO(ga);
+            finalList.add(gaDTO);
+        }
+        return finalList;
+    }
+
     public GeographicAreaDTO getDTOById(long Id) {
         Optional<GeographicArea> aux = geographicAreaCrudeRepo.findById(Id);
         if (!aux.isPresent()) {
@@ -105,7 +115,7 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
 
-    public boolean setMotherDTO(GeographicAreaDTO geographicAreaDTO, GeographicAreaDTO geographicAreaDTOMother){
+    public boolean setMotherDTO(GeographicAreaDTO geographicAreaDTO, GeographicAreaDTO geographicAreaDTOMother) {
         return geographicAreaDTO.setMotherArea(geographicAreaDTOMother);
     }
 
