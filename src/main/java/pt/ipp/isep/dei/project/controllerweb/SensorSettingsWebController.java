@@ -32,11 +32,7 @@ public class SensorSettingsWebController {
 
     // Part 1 - Geographical Areas
 
-    @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> retrieveAllGeographicAreas() {
-        List<GeographicAreaDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTO();
-        return new ResponseEntity<>(GeographicAreaMapper.controllerGADTOToList(geographicAreaDTOList), HttpStatus.OK);
-    }
+
 
     @GetMapping("/areas/{id}")
     public GeographicAreaDTO retrieveGA(@PathVariable long id) {

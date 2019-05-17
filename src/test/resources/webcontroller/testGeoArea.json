@@ -1,0 +1,14 @@
+{
+  "id": 66,
+  "name": "Gaia",
+  "typeArea": "urban area",
+  "length": 500,
+  "width": 100,
+  "localDTO": {
+    "latitude": 41,
+    "longitude": -8,
+    "altitude": 100,
+    "id": 0
+  },
+  "description": "cidade gloriosa"
+}

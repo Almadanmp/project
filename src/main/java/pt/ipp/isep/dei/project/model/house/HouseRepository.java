@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.house;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
+import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
 
@@ -46,6 +47,18 @@ public class HouseRepository {
     public HouseDTO getApplicationHouse(){
         House house =  houseCrudeRepo.findAll().get(0);
         return HouseMapper.objectToDTO(house);
+    }
+
+    public HouseDTO getHouseDTO() {
+        List<House> houseList = houseCrudeRepo.findAll();
+        House house = houseList.get(0);
+        return HouseMapper.objectToDTO(house);
+    }
+
+    public HouseWithoutGridsDTO getHouseWebDTO() {
+        List<House> houseList = houseCrudeRepo.findAll();
+        House house = houseList.get(0);
+        return HouseMapper.objectToWithoutGridsDTO(house);
     }
 
 }

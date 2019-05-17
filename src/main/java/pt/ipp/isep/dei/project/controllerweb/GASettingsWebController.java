@@ -2,11 +2,13 @@ package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
@@ -20,16 +22,15 @@ public class GASettingsWebController {
     @Autowired
     private GeographicAreaRepository geographicAreaRepo;
 
+    @Autowired
+    private GeographicAreaRepository geographicAreaRepository;
+
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
 
-    /**
-     * getter for all Geographic Areas.
-     * @return
-     */
-    @GetMapping(value = "/areas")
-    public @ResponseBody
-    List<GeographicAreaDTO> getAllGeoAreasDTO() {
-        return geographicAreaRepo.getAllDTO();
+    @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> retrieveAllGeographicAreas() {
+        List<GeographicAreaDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTO();
+        return new ResponseEntity<>(GeographicAreaMapper.controllerGADTOToList(geographicAreaDTOList), HttpStatus.OK);
     }
     /**
      * Method to create a DTO of Geographic Area
@@ -39,8 +40,6 @@ public class GASettingsWebController {
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoAreaDTO(@RequestBody GeographicAreaDTO dto) {
         if (geographicAreaRepo.addAndPersistDTO(dto)) {
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(dto.getId()).toUri();
             return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or" +
