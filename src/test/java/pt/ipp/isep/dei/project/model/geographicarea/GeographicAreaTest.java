@@ -51,26 +51,6 @@ class GeographicAreaTest {
         secondValidAreaSensor.setActive(true);
     }
 
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensorWorks() {
-        //Arrange
-        Reading firstValidReading = new Reading(31, validDate1, "C", "SensorOne");
-        Reading secondValidReading = new Reading(11, validDate2, "C", "SensorTwo");
-        Reading thirdValidReading = new Reading(11, validDate3, "C", "SensorTwo");
-        firstValidAreaSensor.addReading(firstValidReading);
-        secondValidAreaSensor.addReading(secondValidReading);
-        secondValidAreaSensor.addReading(thirdValidReading);
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(firstValidAreaSensor);
-        listAreaSensor.add(secondValidAreaSensor);
-
-        //Act
-        AreaSensor actualResult = validArea.getMostRecentlyUsedAreaSensor(listAreaSensor);
-
-        //Assert
-        assertEquals(secondValidAreaSensor, actualResult);
-    }
 
     @Test
     void seeIfGetAreaSensorByIDWorks() {
@@ -754,45 +734,6 @@ class GeographicAreaTest {
         assertEquals(areaSensorError, actualResult);
     }
 
-    @Test
-    void seeIfGetgetAreaSensorsOfGivenTypeEmpty() {
-
-        //Act
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors, "Humidity");
-
-        //Assert
-        assertEquals(areaSensors, actualResult);
-    }
-
-    @Test
-    void seeIfGetgetAreaSensorsOfGivenTypeWrongType() {
-
-        //Act
-        List<AreaSensor> expectedResult = new ArrayList<>();
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        areaSensors.add(firstValidAreaSensor);
-        areaSensors.add(secondValidAreaSensor);
-        validArea.setAreaSensors(areaSensors);
-        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors, "Humidity");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetgetAreaSensorsOfGivenTypeSameType() {
-
-        //Act
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        areaSensors.add(firstValidAreaSensor);
-        areaSensors.add(secondValidAreaSensor);
-        validArea.setAreaSensors(areaSensors);
-        List<AreaSensor> actualResult = validArea.getAreaSensorsOfGivenType(areaSensors, "Temperature");
-
-        //Assert
-        assertEquals(areaSensors, actualResult);
-    }
 
     @Test
     void seeIfGetClosestSensorOfGivenTypeSize() {
@@ -857,50 +798,6 @@ class GeographicAreaTest {
         assertEquals(validAreaSensor3, actualResult);
     }
 
-
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensorNoReadings() {
-        //Arrange
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(firstValidAreaSensor);
-
-        //Act
-        validArea.setAreaSensors(listAreaSensor);
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getMostRecentlyUsedAreaSensor(listAreaSensor));
-
-
-        //Assert
-        assertEquals("The sensor list has no readings available.", exception.getMessage());
-    }
-
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensorNoSensors() {
-        //Arrange
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-
-        //Act
-
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getMostRecentlyUsedAreaSensor(listAreaSensor));
-
-        //Assert
-        assertEquals("The sensor list is empty.", exception.getMessage());
-    }
-
-    @Test
-    void seeIfGetAreaSensorsWithReadings() {
-        //Arrange
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-
-        //Act
-        validArea.setAreaSensors(listAreaSensor);
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validArea.getAreaSensorsWithReadings(listAreaSensor));
-
-        //Assert
-        assertEquals("The sensor list is empty", exception.getMessage());
-
-    }
 
     @Test
     void seeIfSensorToStringWorks() {

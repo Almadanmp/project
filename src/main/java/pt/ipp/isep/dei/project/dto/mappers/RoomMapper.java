@@ -77,7 +77,7 @@ public final class RoomMapper {
         return resultObject;
     }
 
-    public static Room dtoToObjectUS100(RoomDTO dtoToConvert) {
+    public static Room dtoToObjectWithoutSensorsAndDevices(RoomDTO dtoToConvert) {
         // Update the name
 
         String objectName = dtoToConvert.getName();

@@ -22,12 +22,18 @@ public class EnergyGridSettingsWebController {
     @Autowired
     private EnergyGridRepository energyGridRepository;
 
+    /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
+     * attach/detach rooms from it.
+     */
     @GetMapping(value = "/grids")
     public @ResponseBody
     List<EnergyGrid> getAllGrids() {
         return gridRepo.findAll();
     }
 
+    /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
+     * consumption is included in that grid.
+     */
     @PostMapping(value = "/grids/{energyGridId}")
     public ResponseEntity<String> attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId) {
         boolean attached = energyGridRepository.attachRoomToGrid(roomDTO, gridId);
@@ -39,7 +45,7 @@ public class EnergyGridSettingsWebController {
     }
 
     /*
-     * USER STORY 130 - As an Administrator, I want to create a energy grid, so that I can define the rooms that are
+     * US 130 - As an Administrator, I want to create a energy grid, so that I can define the rooms that are
      * attached to it and the contracted maximum power for that grid.
      */
     @PostMapping(value = "/grids")
