@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import java.util.ArrayList;
@@ -27,12 +29,12 @@ class EnergyGridRepositoryTest {
     @Mock
     private EnergyGridCrudeRepo energyGridCrudeRepository;
 
-    private EnergyGridRepository validGridList;
+    private EnergyGridRepository validGridRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validGridList = new EnergyGridRepository(this.energyGridCrudeRepository);
+        validGridRepo = new EnergyGridRepository(this.energyGridCrudeRepository);
         firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
         secondValidGrid = new EnergyGrid("Secondary Grid", 100, "CasaUm");
     }
@@ -45,7 +47,7 @@ class EnergyGridRepositoryTest {
         List<EnergyGrid> expectedResult = new ArrayList<>();
 
         // Act
-        List<EnergyGrid> actualResult = validGridList.getAllGrids();
+        List<EnergyGrid> actualResult = validGridRepo.getAllGrids();
 
         // Assert
         assertEquals(expectedResult, actualResult);
@@ -61,7 +63,7 @@ class EnergyGridRepositoryTest {
 
         // Act
 
-        EnergyGrid actualResult = validGridList.addGrid(firstValidGrid);
+        EnergyGrid actualResult = validGridRepo.addGrid(firstValidGrid);
 
         // Assert
 
@@ -78,7 +80,7 @@ class EnergyGridRepositoryTest {
 
         // Act
 
-        EnergyGrid actualResult = validGridList.addGrid(firstValidGrid);
+        EnergyGrid actualResult = validGridRepo.addGrid(firstValidGrid);
 
         // Assert
 
@@ -114,8 +116,8 @@ class EnergyGridRepositoryTest {
         Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         // Act
-        validGridList.addGrid(firstValidGrid);
-        validGridList.addGrid(firstValidGridWithNoPSList);
+        validGridRepo.addGrid(firstValidGrid);
+        validGridRepo.addGrid(firstValidGridWithNoPSList);
         EnergyGrid copiedGridWithoutPS = energyGridCrudeRepository.findByName("Primary Grid");
 
         List<PowerSource> actualResult = copiedGridWithoutPS.getPowerSourceList();
@@ -128,7 +130,7 @@ class EnergyGridRepositoryTest {
     void seeIfCreateEnergyGrid() {
         EnergyGrid expectedResult = new EnergyGrid("Primary Grid", 500, "CasaUm");
 
-        EnergyGrid result = validGridList.createEnergyGrid("Primary Grid", 500, "CasaUm");
+        EnergyGrid result = validGridRepo.createEnergyGrid("Primary Grid", 500, "CasaUm");
 
         assertEquals(expectedResult, result);
     }
@@ -137,11 +139,11 @@ class EnergyGridRepositoryTest {
     void seeIfGetEnergyGridByIdRepository() {
 
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
-        validGridList.addGrid(energyGrid);
+        validGridRepo.addGrid(energyGrid);
 
         Mockito.when(energyGridCrudeRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
 
-        EnergyGrid result = validGridList.getById(energyGrid.getName());
+        EnergyGrid result = validGridRepo.getById(energyGrid.getName());
 
         assertEquals(result.getName(), energyGrid.getName());
     }
@@ -152,7 +154,7 @@ class EnergyGridRepositoryTest {
 
         Mockito.when(energyGridCrudeRepository.findById(mockId)).thenReturn(Optional.empty());
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridList.getById(mockId));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getById(mockId));
 
         assertEquals("ERROR: There is no Energy Grid with the selected ID.", exception.getMessage());
     }
@@ -168,7 +170,7 @@ class EnergyGridRepositoryTest {
 
         Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
 
-        int result = validGridList.size();
+        int result = validGridRepo.size();
 
         assertEquals(expectedResult, result);
     }
@@ -182,7 +184,7 @@ class EnergyGridRepositoryTest {
 
         Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
 
-        int result = validGridList.size();
+        int result = validGridRepo.size();
 
         assertEquals(expectedResult, result);
     }
@@ -192,17 +194,17 @@ class EnergyGridRepositoryTest {
 //
 //        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
 //
-//        validGridList.addGrid(energyGrid);
+//        validGridRepo.addGrid(energyGrid);
 //
 //
-//        assertFalse(validGridList.isEmpty());
+//        assertFalse(validGridRepo.isEmpty());
 //
 //    }
 
     @Test
     void seeIfIsEmptyTrue() {
 
-        assertTrue(validGridList.isEmpty());
+        assertTrue(validGridRepo.isEmpty());
     }
 
     @Test
@@ -210,7 +212,7 @@ class EnergyGridRepositoryTest {
 
         String expectedResult = "Invalid List - List is Empty\n";
 
-        String result = validGridList.buildString();
+        String result = validGridRepo.buildString();
 
         assertEquals(expectedResult, result);
     }
@@ -220,7 +222,7 @@ class EnergyGridRepositoryTest {
 
         String expectedResult = "Invalid List - List is Empty\n";
 
-        String result = validGridList.buildString();
+        String result = validGridRepo.buildString();
 
         assertEquals(expectedResult, result);
     }
@@ -257,7 +259,7 @@ class EnergyGridRepositoryTest {
 
         // Act
 
-        boolean actualResult = validGridList.equals(testList);
+        boolean actualResult = validGridRepo.equals(testList);
 
         // Assert
 
@@ -268,7 +270,7 @@ class EnergyGridRepositoryTest {
     void seeIfEqualsItselfWorks() {
         // Act
 
-        boolean actualResult = validGridList.equals(validGridList); // For sonarqube coverage purposes.
+        boolean actualResult = validGridRepo.equals(validGridRepo); // For sonarqube coverage purposes.
 
         // Assert
 
@@ -281,7 +283,7 @@ class EnergyGridRepositoryTest {
 
         // Act
 
-        boolean actualResult1 = validGridList.isEmpty();
+        boolean actualResult1 = validGridRepo.isEmpty();
 
         // Assert
 
@@ -300,7 +302,7 @@ class EnergyGridRepositoryTest {
 //        EnergyGrid[] expectedResult3 = new EnergyGrid[2];
 //
 //        EnergyGridService emptyList = new EnergyGridService();
-//        validGridList.addGrid(energyGrid);
+//        validGridRepo.addGrid(energyGrid);
 //        EnergyGridService validEnergyGridService2 = new EnergyGridService();
 //        validEnergyGridService2.addGrid(energyGrid);
 //        validEnergyGridService2.addGrid(secondValidGrid);
@@ -312,7 +314,7 @@ class EnergyGridRepositoryTest {
 //        //Act
 //
 //        EnergyGrid[] actualResult1 = emptyList.getElementsAsArray();
-//        EnergyGrid[] actualResult2 = validGridList.getElementsAsArray();
+//        EnergyGrid[] actualResult2 = validGridRepo.getElementsAsArray();
 //        EnergyGrid[] actualResult3 = validEnergyGridService2.getElementsAsArray();
 //
 //        //Assert
@@ -327,7 +329,7 @@ class EnergyGridRepositoryTest {
     void seeIfEqualsDifferentObjectWorks() {
         // Act
 
-        boolean actualResult = validGridList.equals(firstValidGrid); // For sonarqube testing purposes.
+        boolean actualResult = validGridRepo.equals(firstValidGrid); // For sonarqube testing purposes.
 
         // Assert
 
@@ -339,7 +341,7 @@ class EnergyGridRepositoryTest {
 //    void gridListSize() {
 //        //Act
 //
-//        int actualResult1 = validGridList.size();
+//        int actualResult1 = validGridRepo.size();
 //
 //        //Assert Empty List
 //
@@ -347,17 +349,57 @@ class EnergyGridRepositoryTest {
 //
 //        //Arrange
 //
-//        validGridList.addGrid(new EnergyGrid("grid", 200));
+//        validGridRepo.addGrid(new EnergyGrid("grid", 200));
 //
 //        //Act
 //
-//        int actualResult2 = validGridList.size();
+//        int actualResult2 = validGridRepo.size();
 //
 //        //Assert One Grid
 //
 //        assertEquals(1, actualResult2);
 //    }
 
+    @Test
+    void seeIfAttachRoomToGridWorks() {
+        //Arrange
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("B109");
+        roomDTO.setHouseId("ISEP");
+        roomDTO.setHeight(3);
+        roomDTO.setLength(3);
+        roomDTO.setWidth(3);
+        roomDTO.setFloor(1);
+        roomDTO.setDescription("Classroom");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
+        Mockito.when(energyGridCrudeRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
+        //Act
+        boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
+        //Assert
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfAttachRoomToGridDoesNotWorks() {
+        //Arrange
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("B109");
+        roomDTO.setHouseId("ISEP");
+        roomDTO.setHeight(3);
+        roomDTO.setLength(3);
+        roomDTO.setWidth(3);
+        roomDTO.setFloor(1);
+        roomDTO.setDescription("Classroom");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
+        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
+        Mockito.when(energyGridCrudeRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
+        //Act
+        boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
+        //Assert
+        assertFalse(actualResult);
+
+    }
 
 }
 
