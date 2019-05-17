@@ -28,11 +28,7 @@ public class GASettingsWebController {
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
 
-    @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> retrieveAllGeographicAreas() {
-        List<GeographicAreaWebDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTOWebInformation();
-        return new ResponseEntity<>(geographicAreaDTOList, HttpStatus.OK);
-    }
+
     /**
      * Method to create a DTO of Geographic Area
      *
@@ -47,6 +43,16 @@ public class GASettingsWebController {
                     " invalid Area.", HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    /**
+     * this method displays all the information of the Geographic Areas DTOs
+     * @return
+     */
+    @GetMapping("/areas")
+    public List<GeographicAreaDTO> getAllGeographicAreas() {
+        return geographicAreaRepository.getAllDTO();
+    }
+
 
     /**
      * US007 WEB controller: deactivate arya sensor with id sensor
@@ -86,4 +92,4 @@ public class GASettingsWebController {
 //        },
 //        "description": "cidade do lixo"
 //        }
-}
+    }

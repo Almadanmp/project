@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.house;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -156,6 +157,7 @@ public class House implements Root {
      *
      * @return the double value of the altitude.
      */
+    @JsonIgnore
     public double getAltitude() {
         return this.location.getAltitude();
     }
@@ -174,6 +176,7 @@ public class House implements Root {
      *
      * @return the Geographical Area of the House.
      */
+    @JsonIgnore
     public Long getMotherAreaID() {
         return motherArea;
     }
@@ -192,6 +195,7 @@ public class House implements Root {
      *
      * @return true or false
      */
+    @JsonIgnore
     public boolean isMotherAreaNull() {
         return getMotherAreaID() == null;
     }

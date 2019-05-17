@@ -72,8 +72,6 @@ public final class HouseMapper {
 
         Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocation());
 
-        Long objectGeoArea = dtoToConvert.getMotherAreaID();
-
         int objectGridMeteringPeriod = dtoToConvert.getGridMeteringPeriod();
 
         int objectDeviceMeteringPeriod = dtoToConvert.getDeviceMeteringPeriod();
@@ -84,7 +82,6 @@ public final class HouseMapper {
         // Create, update and return new object
 
         House resultObject = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
-        resultObject.setMotherAreaID(objectGeoArea);
 
         return resultObject;
     }
@@ -155,11 +152,12 @@ public final class HouseMapper {
         resultObject.setId(webDtoName);
         resultObject.setAddress(dtoAddress);
         resultObject.setLocation(dtoLocal);
-        resultObject.setMotherAreaID(dtoGeoArea);
         resultObject.setGridMeteringPeriod(dtoGridMeteringPeriod);
         resultObject.setDeviceMeteringPeriod(dtoDeviceMeteringPeriod);
         resultObject.setDeviceTypeList(objectDeviceTypeConfigList);
 
         return resultObject;
     }
+
+
 }

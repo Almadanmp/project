@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
+import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
@@ -31,15 +33,25 @@ public class HouseConfigurationWebController {
     // USER STORY 101
 
     /**
-     * @param houseDTO is the house we're going to change the location of.
+     * This is a PUT method for US101 -
+     *
+     * @param addressAndLocalDTO is the location of the house we want to get changed.
      */
     @PutMapping(value = "/house")
-    public ResponseEntity<Object> setHouseLocal(@RequestBody HouseWithoutGridsDTO houseDTO) {
-        House house = HouseMapper.dtoWithoutGridsToObject(houseDTO);
-        houseCrudeRepo.save(house);
-        return new ResponseEntity<>("yay", HttpStatus.OK);
+    public ResponseEntity<Object> setHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
+        HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
+        house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
+        if (houseCrudeRepo.save(HouseMapper.dtoWithoutGridsToObject(house)) != null) {
+            return new ResponseEntity<>("The house has been altered.", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.NOT_ACCEPTABLE);
     }
 
+    /**
+     * Method to get the house
+     *
+     * @return
+     */
     @GetMapping(path = "/house", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> retrieveHouse() {
         HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();

@@ -10,7 +10,6 @@ public class HouseWithoutGridsDTO {
     private String id;
     private AddressDTO address;
     private LocalDTO location;
-    private Long motherArea;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
@@ -39,14 +38,6 @@ public class HouseWithoutGridsDTO {
         this.location = location;
     }
 
-    public Long getMotherAreaID() {
-        return motherArea;
-    }
-
-    public void setMotherAreaID(Long motherArea) {
-        this.motherArea = motherArea;
-    }
-
     public int getGridMeteringPeriod() {
         return gridMeteringPeriod;
     }
@@ -69,6 +60,11 @@ public class HouseWithoutGridsDTO {
 
     public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
         this.deviceTypeList = new ArrayList<>(deviceTypeList);
+    }
+
+    public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO){
+        setAddress(addressAndLocalDTO.getAddressDTO());
+        setLocation(addressAndLocalDTO.getLocalDTO());
     }
 
     @Override
