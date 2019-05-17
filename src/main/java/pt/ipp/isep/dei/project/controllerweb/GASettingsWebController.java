@@ -2,18 +2,11 @@ package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -65,15 +58,16 @@ public class GASettingsWebController {
         GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOById(idAreaDaughter);
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOById(idAreaMother);
         geographicAreaRepo.setMotherDTO(geographicAreaDaughter,geographicAreaMother);
-        geographicAreaRepo.updateAreaDTO(geographicAreaDaughter);
-        if (geographicAreaDaughter.getMotherArea() != null) {
+        geographicAreaRepo.updateAreaDTOWithMother(geographicAreaDaughter, geographicAreaMother);
+        if (geographicAreaDaughter.getMotherAreaID().equals(geographicAreaMother.getId())) {
             return new ResponseEntity<>("maezinga", HttpStatus.OK);
         }
         return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
     }
 
+
     @GetMapping("areas/{id}")
-    public GeographicAreaDTO getMotherArea(@PathVariable("id") long id) {
+    public GeographicAreaDTO getArea(@PathVariable("id") long id) {
         return geographicAreaRepo.getDTOById(id);
     }
 

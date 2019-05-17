@@ -15,7 +15,7 @@ public class GeographicAreaDTO {
     private LocalDTO local;
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
     private String description;
-    private GeographicAreaDTO motherArea;
+    private Long motherArea;
 
 
     public Long getId() {
@@ -113,7 +113,7 @@ public class GeographicAreaDTO {
      */
 
     public List<AreaSensorDTO> getSensorDTOs() {
-        return new ArrayList<>(areaSensorDTOList);
+         return new ArrayList<>(areaSensorDTOList);
     }
 
     /**
@@ -168,14 +168,14 @@ public class GeographicAreaDTO {
      */
     public boolean setMotherArea(GeographicAreaDTO geoArea) {
         if (geoArea != null) {
-            this.motherArea = geoArea;
+            this.motherArea = geoArea.getId();
             return true;
         } else {
             return false;
         }
     }
 
-    public GeographicAreaDTO getMotherArea() {
+    public Long getMotherAreaID() {
         return this.motherArea;
     }
 

@@ -78,6 +78,14 @@ public class GeographicAreaRepository {
         return GeographicAreaMapper.objectToDTO(aux.get());
     }
 
+    public GeographicArea getObjectById(Long Id) {
+        Optional<GeographicArea> aux = geographicAreaCrudeRepo.findById(Id);
+        if (!aux.isPresent()) {
+            throw new IllegalArgumentException("Geographic Area not found - 404");
+        }
+        return aux.get();
+    }
+
     public boolean addAndPersistDTO(GeographicAreaDTO geographicAreaToAddDTO) {
         List<GeographicArea> geographicAreas = getAll();
         GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaToAddDTO);
@@ -98,7 +106,12 @@ public class GeographicAreaRepository {
         geographicAreaCrudeRepo.save(area);
     }
 
-
+    public void updateAreaDTOWithMother(GeographicAreaDTO areaDTO, GeographicAreaDTO motherAreaDTO) {
+        //get mother area by id
+        GeographicArea motherArea = GeographicAreaMapper.dtoToObject(motherAreaDTO);
+        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO, motherArea);
+        geographicAreaCrudeRepo.save(area);
+    }
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
         return geographicAreaDTO.addSensor(areaSensorDTO);
     }

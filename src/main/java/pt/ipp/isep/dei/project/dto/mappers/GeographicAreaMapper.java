@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.List;
  */
 
 public final class GeographicAreaMapper {
+
+    @Autowired
+    static GeographicAreaRepository geographicAreaRepository;
 
     /**
      * Don't let anyone instantiate this class.
@@ -53,6 +58,7 @@ public final class GeographicAreaMapper {
 
         String objectDescription = dtoToConvert.getDescription();
 
+
         // Update sensors
 
         List<AreaSensor> objectSensorList = new ArrayList<>();
@@ -73,6 +79,67 @@ public final class GeographicAreaMapper {
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
         resultObject.setAreaSensors(objectSensorList);
+
+
+        return resultObject;
+    }
+
+    /**
+     * This is the method that converts Geographic Area DTOs into model objects with the same data.
+     *
+     * @param dtoToConvert is the DTO we want to convert.
+     * @return is the converted model object.
+     */
+    public static GeographicArea dtoToObjectWithMother(GeographicAreaDTO dtoToConvert, GeographicArea motherArea) {
+        // Update generic parameters
+
+        Long objectId = null;
+
+        try {
+            objectId = dtoToConvert.getId();
+            if (objectId == null) {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException ok) {
+            ok.getMessage();
+        }
+
+        String objectName = dtoToConvert.getName();
+
+        String objectType = dtoToConvert.getTypeArea();
+
+        double objectLength = dtoToConvert.getLength();
+
+        double objectWidth = dtoToConvert.getWidth();
+
+        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocalDTO());
+
+        String objectDescription = dtoToConvert.getDescription();
+
+        long objectMotherAreaID = dtoToConvert.getMotherAreaID();
+
+        // Update sensors
+
+        List<AreaSensor> objectSensorList = new ArrayList<>();
+        for (AreaSensorDTO s : dtoToConvert.getSensorDTOs()) {
+            AreaSensor tempObject = AreaSensorMapper.dtoToObject(s);
+            objectSensorList.add(tempObject);
+        }
+
+
+        // Create, update and return the converted object.
+
+        GeographicArea resultObject = new GeographicArea(objectName, objectType, objectLength, objectWidth,
+                objectLocal);
+        for (AreaSensorDTO sensorDTO : dtoToConvert.getSensorDTOs()) {
+            AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
+            resultObject.addSensor(sensor);
+        }
+        resultObject.setId(objectId);
+        resultObject.setDescription(objectDescription);
+        resultObject.setAreaSensors(objectSensorList);
+        resultObject.setMotherArea(motherArea);
+
 
         return resultObject;
     }
