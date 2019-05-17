@@ -50,6 +50,14 @@ public class EnergyGridRepository {
         energyGridCrudeRepository.save(energyGrid);
     }
 
+    /**
+     * Method for US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and
+     * energy consumption is included in that grid.
+     * This method adds a room to the grid and persists in the database.
+     * @param roomDTO is the roomDTO we want to add to the grid
+     * @param gridName is the name of the grid we want to add the room to
+     * @return true if the room was successfully added, false otherwise
+     */
     public boolean attachRoomToGrid(RoomDTO roomDTO, String gridName) {
         EnergyGrid energyGrid = getById(gridName);
         Room room = RoomMapper.dtoToObject(roomDTO);
