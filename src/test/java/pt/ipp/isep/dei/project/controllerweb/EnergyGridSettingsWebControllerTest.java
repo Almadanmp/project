@@ -10,9 +10,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,7 +35,7 @@ public class EnergyGridSettingsWebControllerTest {
     private EnergyGridSettingsWebController energyGridSettingsWebController;
 
     @Test
-     public void seeIfCreateEnergyGridWorks() throws Exception {
+    public void seeIfCreateEnergyGridWorks() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
@@ -43,6 +47,34 @@ public class EnergyGridSettingsWebControllerTest {
                         "}"))
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    public void seeIfAttachRoomToGridPostWorks() throws Exception {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
+
+        ResultActions resultActions = this.mockMvc.perform(post("/gridSettings/grids/B building")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\t\"name\": \"B102\",\n" +
+                        "\t\"description\": \"Reprographics Centre\",\n" +
+                        "\t\"floor\": \"1\",\n" +
+                        "\t\"width\": 7,\n" +
+                        "\t\"length\": 21,\n" +
+                        "\t\"height\": 3.5\n" +
+                        "}"))
+                .andExpect(status().isOk());
+        int status = resultActions.andReturn().getResponse().getStatus();
+        assertEquals(20,status);
+    }
+
+    @Test
+    public void seeIfGetAllGridsDoesNotWork() throws Exception {
+        String uri = "/gridSettings/grids";
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(404, status);
     }
 
 //    @Test
