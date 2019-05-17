@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -41,8 +42,8 @@ public class ReaderController {
         HouseDTO houseDTO;
         try {
             houseDTO = readerJSONHouse.readFile(filePath);
-            House house2 = HouseMapper.dtoToObjectUS100(houseDTO);
-            house.setAddress(house2.getAddress());
+            Address address = AddressMapper.dtoToObject(houseDTO.getAddress());
+            house.setAddress(address);
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new IllegalArgumentException();
         }
@@ -51,7 +52,7 @@ public class ReaderController {
 
         List<EnergyGridDTO> gridDTOS = readerJSONHouse.readGridsJSON();
         for (EnergyGridDTO eg : gridDTOS) {
-            EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectUS100(eg);
+            EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectWithNameRoomsAndPowerSources(eg);
             energyGrid.setHouseId(house.getId());
             energyGridRepository.addGrid(energyGrid);
         }
@@ -61,7 +62,7 @@ public class ReaderController {
             List<RoomDTO> roomDTOS = eg.getRoomDTOS();
             for (RoomDTO rt : roomDTOS) {
                 rt.setHouseId(house.getId());
-                Room aux = RoomMapper.dtoToObjectUS100(rt);
+                Room aux = RoomMapper.dtoToObjectWithoutSensorsAndDevices(rt);
                 roomRepository.saveRoom(aux);
             }
         }
@@ -73,7 +74,7 @@ public class ReaderController {
      * This method receives a list of Geographic Areas to add the given NodeList correspondent to the Geographic Areas
      * imported from the XML File.
      *
-     * @param nListGeoArea          - NodeList imported from the XML.
+     * @param nListGeoArea             - NodeList imported from the XML.
      * @param geographicAreaRepository - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
@@ -94,8 +95,8 @@ public class ReaderController {
      * and a geographic area service and will try to add readings to the given sensors
      * in the given geographic area from the repository.
      *
-     * @param readingDTOS           a list of reading DTOs
-     * @param logPath               M  string of a log file path
+     * @param readingDTOS              a list of reading DTOs
+     * @param logPath                  M  string of a log file path
      * @param geographicAreaRepository service
      * @return the number of readings added
      **/
@@ -109,8 +110,8 @@ public class ReaderController {
      * and a room service and will try to add readings to the given sensors
      * in the given room from the repository.
      *
-     * @param readingDTOS a list of reading DTOs
-     * @param logPath     M  string of a log file path
+     * @param readingDTOS    a list of reading DTOs
+     * @param logPath        M  string of a log file path
      * @param roomRepository service
      * @return the number of readings added
      **/

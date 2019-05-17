@@ -84,7 +84,7 @@ public final class EnergyGridMapper {
         return resultObject;
     }
 
-    public static EnergyGrid dtoToObjectUS100(EnergyGridDTO dtoToConvert) {
+    public static EnergyGrid dtoToObjectWithNameRoomsAndPowerSources(EnergyGridDTO dtoToConvert) {
         // Update the name
 
         String objectName = dtoToConvert.getName();
@@ -93,7 +93,7 @@ public final class EnergyGridMapper {
 
         List<Room> objectRoomService = new ArrayList<>();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()) {
-            Room tempRoom = RoomMapper.dtoToObjectUS100(y);
+            Room tempRoom = RoomMapper.dtoToObjectWithoutSensorsAndDevices(y);
             objectRoomService.add(tempRoom);
         }
 
