@@ -89,20 +89,6 @@ public final class HouseMapper {
         return resultObject;
     }
 
-    public static House dtoToObjectUS100(HouseDTO dtoToConvert) {
-        // Update parameters
-
-        Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
-
-        // Create, update and return new object
-
-        House resultObject = new House();
-        resultObject.setAddress(objectAddress);
-
-        return resultObject;
-    }
-
-
     /**
      * This is the method that converts House model objects into DTOs with the same data.
      *

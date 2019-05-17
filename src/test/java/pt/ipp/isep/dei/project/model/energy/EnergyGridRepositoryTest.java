@@ -17,11 +17,8 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * EnergyGridList tests class.
- */
 @ExtendWith(MockitoExtension.class)
-class EnergyGridCrudeRepositoryTest {
+class EnergyGridRepositoryTest {
     // Common testing artifacts for testing class.
 
     private EnergyGrid firstValidGrid;
@@ -167,13 +164,13 @@ class EnergyGridCrudeRepositoryTest {
 
         List<EnergyGrid> energyGrids = new ArrayList<>();
         energyGrids.add(energyGrid);
-        int expectedResult =1;
+        int expectedResult = 1;
 
         Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridList.size();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -181,13 +178,13 @@ class EnergyGridCrudeRepositoryTest {
 
         List<EnergyGrid> energyGrids = new ArrayList<>();
         energyGrids.add(null);
-        int expectedResult =1;
+        int expectedResult = 1;
 
         Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridList.size();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
 //    @Test
