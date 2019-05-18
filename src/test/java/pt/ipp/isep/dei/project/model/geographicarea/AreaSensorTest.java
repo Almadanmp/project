@@ -756,25 +756,6 @@ class AreaSensorTest {
         assertEquals("Warning: Temperature amplitude value not calculated - No readings available.", exception.getMessage());
     }
 
-    @Test
-    void seeIfDetSensorReadingsBetweenDates() {
-        final Date date1 = new GregorianCalendar(2018, 1, 1).getTime();
-        final Date date2 = new GregorianCalendar(2019, 1, 1).getTime();
-        Reading reading1 = new Reading(15, date1, "C", "Test");
-        Reading reading2 = new Reading(30, date2, "C", "Test");
-        Reading reading3 = new Reading(16, date1, "C", "Test");
-        Reading reading4 = new Reading(30, date2, "C", "Test");
-        List<Reading> readings = new ArrayList<>();
-        readings.add(reading1);
-        readings.add(reading2);
-        readings.add(reading3);
-        readings.add(reading4);
-
-        double expectedResult = 22.75;
-        double result = AreaSensor.getSensorReadingAverageValue(readings);
-
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     void seeIfGetAverageReadingsBetweenDates() {
@@ -962,107 +943,6 @@ class AreaSensorTest {
         // Assert
 
         assertEquals("Warning: No temperature readings available in given period.", exception.getMessage());
-    }
-
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensorWorks() {
-        //Arrange
-        Reading firstValidReading = new Reading(31, validDate1, "C", "SensorOne");
-        Reading secondValidReading = new Reading(11, validDate2, "C", "SensorTwo");
-        Reading thirdValidReading = new Reading(11, validDate3, "C", "SensorTwo");
-        firstValidAreaSensor.addReading(firstValidReading);
-        secondValidAreaSensor.addReading(secondValidReading);
-        secondValidAreaSensor.addReading(thirdValidReading);
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(firstValidAreaSensor);
-        listAreaSensor.add(secondValidAreaSensor);
-
-        //Act
-        AreaSensor actualResult = AreaSensor.getMostRecentlyUsedAreaSensor(listAreaSensor);
-
-        //Assert
-        assertEquals(firstValidAreaSensor, actualResult);
-    }
-
-    @Test
-    void seeIfGetgetAreaSensorsOfGivenTypeEmpty() {
-
-        //Act
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        List<AreaSensor> actualResult = AreaSensor.getAreaSensorsOfGivenType(areaSensors, "Humidity");
-
-        //Assert
-        assertEquals(areaSensors, actualResult);
-    }
-
-    @Test
-    void seeIfGetgetAreaSensorsOfGivenTypeWrongType() {
-
-        //Act
-        List<AreaSensor> expectedResult = new ArrayList<>();
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        areaSensors.add(firstValidAreaSensor);
-        areaSensors.add(secondValidAreaSensor);
-        List<AreaSensor> actualResult = AreaSensor.getAreaSensorsOfGivenType(areaSensors, "Humidity");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetgetAreaSensorsOfGivenTypeSameType() {
-
-        //Act
-        List<AreaSensor> areaSensors = new ArrayList<>();
-        areaSensors.add(firstValidAreaSensor);
-        areaSensors.add(secondValidAreaSensor);
-        List<AreaSensor> actualResult = AreaSensor.getAreaSensorsOfGivenType(areaSensors, "Temperature");
-
-        //Assert
-        assertEquals(areaSensors, actualResult);
-    }
-
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensorNoReadings() {
-        //Arrange
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(firstValidAreaSensor);
-
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensor.getMostRecentlyUsedAreaSensor(listAreaSensor));
-
-
-        //Assert
-        assertEquals("The sensor list has no readings available.", exception.getMessage());
-    }
-
-    @Test
-    void seeIfGetMostRecentlyUsedAreaSensorNoSensors() {
-        //Arrange
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-
-        //Act
-
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensor.getMostRecentlyUsedAreaSensor(listAreaSensor));
-
-        //Assert
-        assertEquals("The sensor list is empty.", exception.getMessage());
-    }
-
-    @Test
-    void seeIfGetAreaSensorsWithReadings() {
-        //Arrange
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-
-        //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensor.getAreaSensorsWithReadings(listAreaSensor));
-
-        //Assert
-        assertEquals("The sensor list is empty", exception.getMessage());
-
     }
 
 
