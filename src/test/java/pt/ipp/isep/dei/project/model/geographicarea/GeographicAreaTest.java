@@ -4,16 +4,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -671,131 +671,6 @@ class GeographicAreaTest {
         Local actualResult = geographicArea.getLocation();
         //Assert
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetAreaSensorsByDistanceToHouse() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(secondValidAreaSensor);
-        listAreaSensor.add(firstValidAreaSensor);
-
-        List<AreaSensor> expectedResult = new ArrayList<>();
-        expectedResult.add(firstValidAreaSensor);
-
-        //Act
-
-        List<AreaSensor> actualResult = validArea.getAreaSensorsByDistanceToHouse(listAreaSensor, house, 0);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfGetClosestSensorOfGivenType() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), new Date());
-        validAreaSensor.setActive(true);
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(validAreaSensor);
-
-        //Act
-        validArea.setAreaSensors(listAreaSensor);
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
-
-        //Assert
-        assertEquals(validAreaSensor, actualResult);
-    }
-
-    @Test
-    void seeIfGetClosestSensorOfNoExistType() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", validSensorTypeTemperature.getName(), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime());
-
-        //Act
-
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Humidity", house);
-
-        //Assert
-        assertEquals(areaSensorError, actualResult);
-    }
-
-
-    @Test
-    void seeIfGetClosestSensorOfGivenTypeSize() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensorTypeTemperature.getName(), new Local(2000, 2000, 2000), new Date());
-        validAreaSensor.setActive(true);
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(validAreaSensor);
-
-        //Act
-        validArea.setAreaSensors(listAreaSensor);
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
-
-        //Assert
-        assertEquals(validAreaSensor, actualResult);
-    }
-
-
-    //ver se funciona minDistSensor.size() > 1
-    @Test
-    void seeIfGetClosestSensorOfGivenTypeSizeActiveSensor() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensorTypeTemperature.getName(), new Local(200, 200, 200), new Date());
-        AreaSensor validAreaSensor2 = new AreaSensor("SensTwo", "SensOne", validSensorTypeTemperature.getName(), new Local(200, 200, 200), new Date());
-        AreaSensor validAreaSensor3 = new AreaSensor("SensThree", "SensOne", validSensorTypeTemperature.getName(), new Local(200, 200, 200), new Date());
-        validAreaSensor.setActive(true);
-        validAreaSensor2.setActive(true);
-        validAreaSensor3.setActive(true);
-
-
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-
-        Date date = new GregorianCalendar(2020, Calendar.FEBRUARY, 13).getTime();
-        Date date2 = new GregorianCalendar(2020, Calendar.FEBRUARY, 15).getTime();
-
-        List<Reading> readings = new ArrayList<>();
-        Reading reading = new Reading(31, date, "C", "Test");
-        Reading reading2 = new Reading(34, date2, "C", "Test");
-        readings.add(reading);
-        readings.add(reading2);
-
-        //Act
-        validAreaSensor.addReading(reading);
-        validAreaSensor.addReading(reading2);
-
-        listAreaSensor.add(validAreaSensor);
-        listAreaSensor.add(validAreaSensor2);
-        listAreaSensor.add(validAreaSensor3);
-
-        validArea.setAreaSensors(listAreaSensor);
-        AreaSensor actualResult = validArea.getClosestAreaSensorOfGivenType("Temperature", house);
-
-        //Assert
-        assertEquals(validAreaSensor3, actualResult);
     }
 
 

@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -48,10 +50,10 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the .json file.
      */
 
-    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
+    public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository, AreaTypeRepository areaTypeRepository) {
         ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
         JSONArray geoAreas = reader.readFile(filePath);
-        return readGeoAreasJSON(geoAreas, geographicAreaRepository, sensorTypeRepository);
+        return readGeoAreasJSON(geoAreas, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
     }
 
     /**
@@ -61,7 +63,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      * @return is an array of data transfer geographic area objects created with the data in the JSON Array provided.
      */
 
-    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
+    private int readGeoAreasJSON(JSONArray geoAreas, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository, AreaTypeRepository areaTypeRepository) {
         int result = 0;
 
         for (int i = 0; i < geoAreas.length(); i++) {
@@ -77,8 +79,8 @@ public class ReaderJSONGeographicAreas implements Reader {
             double areaAltitude = local.getDouble(ALTITUDE);
             Local location = new Local(areaLatitude, areaLongitude, areaAltitude);
             try {
-
-                GeographicArea areaObject = geographicAreaRepository.createGA(areaID, areaType, areaWidth, areaLength, location);
+                AreaType areaType1 = areaTypeRepository.getAreaTypeByName(areaType);
+                GeographicArea areaObject = geographicAreaRepository.createGA(areaID, areaType1.getName(), areaWidth, areaLength, location);
                 areaObject.setDescription(areaDescription);
                 JSONArray areaSensors = area.getJSONArray("area_sensor");
                 if (geographicAreaRepository.addAndPersistGA(areaObject)) {

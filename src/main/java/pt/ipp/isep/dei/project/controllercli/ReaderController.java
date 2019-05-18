@@ -1,9 +1,18 @@
 package pt.ipp.isep.dei.project.controllercli;
 
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.dto.mappers.*;
+import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.HouseDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AddressMapper;
+import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -11,8 +20,6 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
-import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
 
 import java.util.List;
@@ -78,11 +85,11 @@ public class ReaderController {
      * @param geographicAreaRepository - list to which we want to add and persist the Geographic areas.
      * @return - the number of geographic areas imported.
      */
-    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaRepository geographicAreaRepository) {
+    public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository) {
         ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaRepository)) {
+            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaRepository, areaTypeRepository)) {
                 result++;
             }
         }

@@ -6,6 +6,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -27,13 +29,13 @@ public class ReaderXMLGeoArea {
      * @param filePath path to the xml file
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
-    public int readFileXMLAndAddAreas(String filePath, GeographicAreaRepository list) {
+    public int readFileXMLAndAddAreas(String filePath, GeographicAreaRepository list, AreaTypeRepository areaTypeRepository) {
         ReaderController ctrl = new ReaderController();
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
-        return ctrl.addGeoAreaNodeListToList(nListGeoArea, list);
+        return ctrl.addGeoAreaNodeListToList(nListGeoArea, list, areaTypeRepository);
     }
 
     /**
@@ -42,7 +44,7 @@ public class ReaderXMLGeoArea {
      * @param node - node of the XML file
      * @return - Geographic Area that exists in the node
      */
-    public boolean readGeographicAreasXML(Node node, GeographicAreaRepository geographicAreaRepository) {
+    public boolean readGeographicAreasXML(Node node, GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository) {
         boolean result = false;
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -55,7 +57,8 @@ public class ReaderXMLGeoArea {
                     Double.parseDouble(getTagValue(ALTITUDE, element)));
             String areaType = (getTagValue("type", element));
             try {
-                GeographicArea areaObject = geographicAreaRepository.createGA(id, areaType, width, length, local);
+                AreaType areaType1 = areaTypeRepository.getAreaTypeByName(areaType);
+                GeographicArea areaObject = geographicAreaRepository.createGA(id, areaType1.getName(), width, length, local);
                 areaObject.setDescription(description);
                 NodeList nListSensor = element.getElementsByTagName("sensor");
                 result = geographicAreaRepository.addAndPersistGA(areaObject);

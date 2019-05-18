@@ -17,6 +17,7 @@ import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -69,6 +70,7 @@ class ReaderControllerTest {
     private RoomRepository roomRepository;
     private GeographicArea validGeographicArea;
     private SensorType validSensorTypeTemp;
+    private AreaTypeRepository areaTypeRepository;
 
 
     private static final String validLogPath = "dumpFiles/dumpLogFile.html";
@@ -98,7 +100,7 @@ class ReaderControllerTest {
     @BeforeEach
     void arrangeArtifacts() {
         this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
-        geographicAreaRepository = new GeographicAreaRepository(this.geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        geographicAreaRepository = new GeographicAreaRepository(this.geographicAreaCrudeRepo);
         this.roomRepository = new RoomRepository(roomCrudeRepo);
         readerController = new ReaderController();
         validReaderXMLGeoArea = new ReaderXMLGeoArea();
@@ -129,9 +131,10 @@ class ReaderControllerTest {
         AreaSensor validAreaSensor4 = new AreaSensor("TT1236A", "Meteo station CMP - temperature", "rain2",
                 new Local(41.179230, -8.606409, 139),
                 validDate4);
-        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
         validSensorTypeTemp = new SensorType("Temperature", "C");
         validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", validSensorTypeTemp.getName(), validDate1);
+        areaTypeRepository = new AreaTypeRepository(areaTypeCrudeRepo);
     }
 
     private final InputStream systemIn = System.in;
@@ -226,7 +229,7 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/readingsFiles/test1XMLReadings.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
 
         // Assert
 
@@ -255,7 +258,7 @@ class ReaderControllerTest {
         Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
 
         // Assert
 
@@ -272,7 +275,7 @@ class ReaderControllerTest {
 
         // Assert
 
-        assertThrows(IllegalArgumentException.class, () -> validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository));
+        assertThrows(IllegalArgumentException.class, () -> validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository));
     }
 
     @Test
@@ -283,7 +286,6 @@ class ReaderControllerTest {
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
 
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
@@ -297,9 +299,11 @@ class ReaderControllerTest {
         Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
+
         // Assert
 
-        assertEquals(0, areasAdded);
+        assertEquals(2, areasAdded);
 
     }
 
@@ -325,7 +329,7 @@ class ReaderControllerTest {
         Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
 
         // Assert
 
@@ -354,7 +358,7 @@ class ReaderControllerTest {
         Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
         Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
 
         // Assert
 
@@ -383,7 +387,7 @@ class ReaderControllerTest {
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
 
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
 
         // Assert
 
@@ -428,7 +432,7 @@ class ReaderControllerTest {
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
         String absolutePath = fileToRead.getAbsolutePath();
 
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository);
+        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
 
         // Assert
 

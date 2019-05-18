@@ -5,10 +5,11 @@ import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.house.House;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -29,6 +30,7 @@ public class GeographicArea implements Root {
     private double width;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @ElementCollection(fetch = FetchType.EAGER)
     @JoinColumn(name = "mother_area_id")
     private GeographicArea motherArea;
 
@@ -296,80 +298,6 @@ public class GeographicArea implements Root {
             return true;
         }
         return false;
-    }
-
-    /**
-     * This method receives a house and the distance of the sensor closest to it,
-     * goes through the sensor list and returns the sensors closest to house.
-     *
-     * @param house   the House of the project
-     * @param minDist the distance to the sensor
-     * @return AreaSensorList with sensors closest to house.
-     **/
-    List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
-        List<AreaSensor> finalList = new ArrayList<>();
-        for (AreaSensor s : areaSensors) {
-            if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
-                finalList.add(s);
-            }
-        }
-        return finalList;
-    }
-
-    private double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
-        List<Double> arrayList = getSensorsDistanceToHouse(areaSensors, house);
-        return Collections.min(arrayList);
-    }
-
-    /**
-     * Goes through the sensor list, calculates sensors distance to house and
-     * returns values in ArrayList.
-     *
-     * @param house to calculate closest distance
-     * @return List of sensors distance to house
-     */
-    private List<Double> getSensorsDistanceToHouse(List<AreaSensor> areaSensors, House house) {
-        ArrayList<Double> arrayList = new ArrayList<>();
-        for (AreaSensor areaSensor : areaSensors) {
-            arrayList.add(house.calculateDistanceToSensor(areaSensor));
-        }
-        return arrayList;
-    }
-
-    /**
-     * This method returns the sensor closest to the house. If more than one sensor is close to it,
-     * the one with the most recent reading should be used.
-     *
-     * @param sensorType the type of sensor to check
-     * @return the closest sensor.
-     */
-    public AreaSensor getClosestAreaSensorOfGivenType(String sensorType, House house) {
-
-        AreaSensor areaSensor;
-
-        List<AreaSensor> minDistSensor = new ArrayList<>();
-
-
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", "temperature", new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime());
-
-        List<AreaSensor> sensorsOfGivenType = AreaSensor.getAreaSensorsOfGivenType(this.getAreaSensors(), sensorType);
-
-        if (!sensorsOfGivenType.isEmpty()) {
-            double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);
-
-            minDistSensor = getAreaSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
-        }
-        if (minDistSensor.isEmpty()) {
-            return areaSensorError;
-        }
-        if (minDistSensor.size() > 1) {
-
-            areaSensor = AreaSensor.getMostRecentlyUsedAreaSensor(minDistSensor);
-        } else {
-            areaSensor = minDistSensor.get(0);
-        }
-        return areaSensor;
     }
 
 

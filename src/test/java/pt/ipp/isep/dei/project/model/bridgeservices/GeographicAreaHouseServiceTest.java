@@ -9,6 +9,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -24,26 +27,24 @@ import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {GeographicAreaHouseService.class})
 class GeographicAreaHouseServiceTest {
-
+    @Autowired
+    GeographicAreaHouseService geographicAreaHouseService;
     @Mock
     private SensorTypeCrudeRepo sensorTypeCrudeRepo;
     @Mock
     GeographicAreaCrudeRepo geographicAreaCrudeRepo;
     @Mock
     AreaTypeCrudeRepo areaTypeCrudeRepo;
-
-    private GeographicAreaHouseService geographicAreaHouseService;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private GeographicArea firstValidArea;
@@ -90,9 +91,9 @@ class GeographicAreaHouseServiceTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
+        firstValidArea.setId(12L);
         validList = new ArrayList<>();
         validList.add(firstValidArea);
         validSensortypeTemp = new SensorType("Temperature", "Celsius");
@@ -106,7 +107,7 @@ class GeographicAreaHouseServiceTest {
                 sensorCreationTime);
         validAreaSensor.setActive(true);
 
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
@@ -315,5 +316,92 @@ class GeographicAreaHouseServiceTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void seeIfGetAreaSensorsByDistanceToHouse() {
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(secondValidAreaSensor);
+        listAreaSensor.add(firstValidAreaSensor);
+
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(firstValidAreaSensor);
+
+        //Act
+
+        List<AreaSensor> actualResult = geographicAreaHouseService.getAreaSensorsByDistanceToHouse(listAreaSensor, house, 0);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetClosestSensorOfGivenType() {
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(2, 2, 2), new Date());
+        validAreaSensor.setActive(true);
+        firstValidArea.addSensor(validAreaSensor);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(validAreaSensor);
+
+        //Act
+        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
+        Mockito.when(geographicAreaCrudeRepo.findAllByAreaSensorsInAndAreaTypeID(firstValidArea, validAreaSensor.getSensorType())).thenReturn(listAreaSensor);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetClosestSensorOfNoExistType() {
+
+        //Arrange
+        List<String> deviceTypeString = new ArrayList<>();
+        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", validSensortypeTemp.getName(), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+                1).getTime());
+
+        //Act
+
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Humidity", house, firstValidArea);
+
+        //Assert
+        assertEquals(areaSensorError, actualResult);
+    }
+
+
+    //ver se funciona minDistSensor.size() > 1
+    @Test
+    void seeIfGetClosestSensorOfGivenTypeSizeActiveSensor() {
+
+        //Arrange
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 50), new Date());
+        AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 54), new Date());
+        AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 55), new Date());
+        validAreaSensorTest1.setActive(true);
+        validAreaSensorTest2.setActive(true);
+        validAreaSensorTest3.setActive(true);
+        firstValidArea.addSensor(validAreaSensorTest1);
+        firstValidArea.addSensor(validAreaSensorTest2);
+        firstValidArea.addSensor(validAreaSensorTest3);
+
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
 
 }

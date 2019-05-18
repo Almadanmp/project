@@ -84,7 +84,7 @@ class GeographicAreaRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -518,7 +518,7 @@ class GeographicAreaRepositoryTest {
 
         Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.ofNullable(firstValidArea));
 
-       AreaSensorDTO actualResult = geographicAreaRepository.getAreaSensorByID("SensorOne", 3L);
+        AreaSensorDTO actualResult = geographicAreaRepository.getAreaSensorByID("SensorOne", 3L);
 
         // Assert
 
@@ -538,7 +538,6 @@ class GeographicAreaRepositoryTest {
         // Act
         firstValidArea.setId(3L);
         geographicAreaRepository.addAndPersistGA(firstValidArea);
-
 
 
         assertThrows(IllegalArgumentException.class,
@@ -900,5 +899,19 @@ class GeographicAreaRepositoryTest {
         // Assert
         assertTrue(actualResult);
 
+    }
+
+    @Test
+    void seeIfGetAllSensorsOfCertainType() {
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(secondValidAreaSensor);
+        List<AreaSensor> expectedResult = new ArrayList<>();
+        expectedResult.add(validAreaSensor);
+        expectedResult.add(secondValidAreaSensor);
+
+        Mockito.when(geographicAreaCrudeRepo.findAllByAreaSensorsInAndAreaTypeID(firstValidArea, "temperature")).thenReturn(expectedResult);
+        List<AreaSensor> actualResult = geographicAreaRepository.findSensorByGAAndType(firstValidArea, "temperature");
+        assertEquals(expectedResult, actualResult);
     }
 }

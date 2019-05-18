@@ -2,10 +2,13 @@ package pt.ipp.isep.dei.project.model.areatype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Types of Geographical Areas.
@@ -101,5 +104,25 @@ public class AreaTypeRepository {
     public AreaType getById(long id) {
         Optional<AreaType> value = repository.findById(id);
         return value.orElse(null);
+    }
+
+    /**
+     * Method to get a TypeArea from the Repository through a given id
+     *
+     * @param name selected name
+     * @return Type Area corresponding to the given id
+     */
+    public AreaType getAreaTypeByName(String name) {
+        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
+        Optional<AreaType> value = repository.findByName(name);
+        if (!(value.isPresent())) {
+            logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
+                    "Type first.");
+            LogUtils.closeHandlers(logger);
+            return null;
+        } else {
+            LogUtils.closeHandlers(logger);
+            return value.orElseGet(() -> new AreaType(name));
+        }
     }
 }

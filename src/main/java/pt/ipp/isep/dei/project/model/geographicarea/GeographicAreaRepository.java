@@ -10,8 +10,6 @@ import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 
 import java.util.*;
@@ -25,8 +23,6 @@ import java.util.logging.Logger;
 public class GeographicAreaRepository {
     @Autowired
     private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-    @Autowired
-    private static AreaTypeCrudeRepo areaTypeCrudeRepo;
 
 
     private static final String BUILDER = "---------------\n";
@@ -34,9 +30,8 @@ public class GeographicAreaRepository {
     private static final String FROM = " from ";
 
 
-    public GeographicAreaRepository(GeographicAreaCrudeRepo geographicAreaCrudeRepo, AreaTypeCrudeRepo areaTypeCrudeRepo) {
+    public GeographicAreaRepository(GeographicAreaCrudeRepo geographicAreaCrudeRepo) {
         GeographicAreaRepository.geographicAreaCrudeRepo = geographicAreaCrudeRepo;
-        GeographicAreaRepository.areaTypeCrudeRepo = areaTypeCrudeRepo;
     }
 
     /**
@@ -112,6 +107,7 @@ public class GeographicAreaRepository {
         GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO, motherArea);
         geographicAreaCrudeRepo.save(area);
     }
+
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
         return geographicAreaDTO.addSensor(areaSensorDTO);
     }
@@ -190,14 +186,7 @@ public class GeographicAreaRepository {
      * @return a new geographic area.
      */
     public GeographicArea createGA(String newName, String areaTypeName, double length, double width, Local local) {
-        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
-        AreaType areaType = getAreaTypeByName(areaTypeName, logger);
-        LogUtils.closeHandlers(logger);
-        if (areaType != null) {
-            return new GeographicArea(newName, areaTypeName, length, width, local);
-        } else {
-            throw new IllegalArgumentException();
-        }
+        return new GeographicArea(newName, areaTypeName, length, width, local);
     }
 
     /**
@@ -268,24 +257,6 @@ public class GeographicAreaRepository {
         return size() == 0;
     }
 
-    /**
-     * Method to get a TypeArea from the Repository through a given id
-     *
-     * @param name selected name
-     * @return Type Area corresponding to the given id
-     */
-    AreaType getAreaTypeByName(String name, Logger logger) {
-        Optional<AreaType> value = areaTypeCrudeRepo.findByName(name);
-        if (!(value.isPresent())) {
-            logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
-                    "Type first.");
-            LogUtils.closeHandlers(logger);
-            return null;
-        } else {
-            LogUtils.closeHandlers(logger);
-            return value.orElseGet(() -> new AreaType(name));
-        }
-    }
 
     //METHODS FROM AREA SENSOR REPOSITORY
 
@@ -388,5 +359,9 @@ public class GeographicAreaRepository {
             }
         }
         return addedReadings;
+    }
+
+    public List<AreaSensor> findSensorByGAAndType(GeographicArea geographicArea, String sensorType) {
+        return geographicAreaCrudeRepo.findAllByAreaSensorsInAndAreaTypeID(geographicArea, sensorType);
     }
 }

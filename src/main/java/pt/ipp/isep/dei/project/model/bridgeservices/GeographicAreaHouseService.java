@@ -2,15 +2,14 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensorUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.*;
 
@@ -18,22 +17,11 @@ import java.util.*;
 public class GeographicAreaHouseService {
 
     @Autowired
-    private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-    @Autowired
-    private static AreaTypeCrudeRepo areaTypeCrudeRepo;
-    @Autowired
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-    @Autowired
-    HouseCrudeRepo houseCrudeRepo;
+    private static GeographicAreaRepository geographicAreaRepository;
 
-    public GeographicAreaHouseService(GeographicAreaCrudeRepo geographicAreaCrudeRepo, AreaTypeCrudeRepo areaTypeCrudeRepo, SensorTypeCrudeRepo sensorTypeCrudeRepo) {
-        GeographicAreaHouseService.geographicAreaCrudeRepo = geographicAreaCrudeRepo;
-        GeographicAreaHouseService.areaTypeCrudeRepo = areaTypeCrudeRepo;
-        this.sensorTypeCrudeRepo = sensorTypeCrudeRepo;
-    }
 
     /**
-     * This method calculates the average temperature in the house area in a given date.
+     * This method calculates the average temperature in a given date.
      *
      * @param date is used to determine the day in which we want to calculate the average.
      * @return the average temperature value for the 24 hours of the given date.
@@ -55,8 +43,8 @@ public class GeographicAreaHouseService {
 
         // gets and returns average readings on the closest AreaSensor to the house
         Long motherAreaID = house.getMotherAreaID();
-        GeographicArea houseMotherArea = geographicAreaCrudeRepo.findById(motherAreaID).get();
-        AreaSensor houseClosestSensor = houseMotherArea.getClosestAreaSensorOfGivenType("temperature", house);
+        GeographicArea houseMotherArea = geographicAreaRepository.get(motherAreaID);
+        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("Temperature", house, houseMotherArea);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
@@ -65,7 +53,7 @@ public class GeographicAreaHouseService {
         if (sensorReadingsBetweenDates.isEmpty()) {
             return Double.NaN;
         }
-        return AreaSensor.getSensorReadingAverageValue(sensorReadingsBetweenDates);
+        return ReadingUtils.getSensorReadingAverageValue(sensorReadingsBetweenDates);
     }
 
     List<Reading> getReadingListBetweenFormattedDates(Date initialDate, Date finalDate, AreaSensor areaSensor) {
@@ -216,4 +204,82 @@ public class GeographicAreaHouseService {
         double minT = 0.33 * areaTemperature + 18.8 + 4;
         return reading.getValue() > minT;
     }
+
+    /**
+     * This method returns the sensor closest to the house. If more than one sensor is close to it,
+     * the one with the most recent reading should be used.
+     *
+     * @param sensorType the type of sensor to check
+     * @return the closest sensor.
+     */
+    public AreaSensor getClosestAreaSensorOfGivenType(String sensorType, House house, GeographicArea geographicArea) {
+
+        AreaSensor areaSensor;
+
+        List<AreaSensor> minDistSensor = new ArrayList<>();
+
+
+        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", "temperature", new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
+                1).getTime());
+
+        List<AreaSensor> gaAreaSensors = geographicArea.getAreaSensors();
+        List<AreaSensor> sensorsOfGivenType = AreaSensorUtils.getAreaSensorsOfGivenType(gaAreaSensors, sensorType);
+
+        if (!sensorsOfGivenType.isEmpty()) {
+            double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);
+
+            minDistSensor = getAreaSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
+        }
+        if (minDistSensor.isEmpty()) {
+            return areaSensorError;
+        }
+        if (minDistSensor.size() > 1) {
+
+            areaSensor = AreaSensorUtils.getMostRecentlyUsedAreaSensor(minDistSensor);
+        } else {
+            areaSensor = minDistSensor.get(0);
+        }
+        return areaSensor;
+    }
+
+    private double getMinDistanceToSensorOfGivenType(List<AreaSensor> areaSensors, House house) {
+        List<Double> arrayList = getSensorsDistanceToHouse(areaSensors, house);
+        return Collections.min(arrayList);
+    }
+
+    /**
+     * This method receives a house and the distance of the sensor closest to it,
+     * goes through the sensor list and returns the sensors closest to house.
+     *
+     * @param house   the House of the project
+     * @param minDist the distance to the sensor
+     * @return AreaSensorList with sensors closest to house.
+     **/
+    List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
+        List<AreaSensor> finalList = new ArrayList<>();
+        for (AreaSensor s : areaSensors) {
+            if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
+                finalList.add(s);
+            }
+        }
+        return finalList;
+    }
+
+
+    /**
+     * Goes through the sensor list, calculates sensors distance to house and
+     * returns values in ArrayList.
+     *
+     * @param house to calculate closest distance
+     * @return List of sensors distance to house
+     */
+    List<Double> getSensorsDistanceToHouse(List<AreaSensor> areaSensors, House house) {
+        ArrayList<Double> arrayList = new ArrayList<>();
+        for (AreaSensor areaSensor : areaSensors) {
+            arrayList.add(house.calculateDistanceToSensor(areaSensor));
+        }
+        return arrayList;
+    }
+
+
 }
