@@ -793,13 +793,12 @@ class RoomRepositoryTest {
     }
 
 
-
     @Test
     void seeIfCreateRoomSensorWorks() {
         //Arrange
         SensorType sensorType = new SensorType("Temperature", "C");
         //Act
-        RoomSensor roomSensor = validRoom.createRoomSensor("T32875", "SensorOne",sensorType.getName(), validDate1);
+        RoomSensor roomSensor = validRoom.createRoomSensor("T32875", "SensorOne", sensorType.getName(), validDate1);
         //Assert
         assertEquals(firstValidRoomSensor, roomSensor);
     }

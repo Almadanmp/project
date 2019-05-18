@@ -88,7 +88,7 @@ class GASettingsUI {
                     activeInput = false;
                     break;
                 case 9:
-                    runUS15(geographicAreaRepository, sensorTypeRepository);
+                    runUS15(geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
                     activeInput = false;
                     break;
                 case 10:
@@ -462,14 +462,14 @@ class GASettingsUI {
      * list is the static, program list of geographic areas that comes from mainUI.
      */
 
-    private void runUS15(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository) {
+    private void runUS15(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository, AreaTypeRepository areaTypeRepository) {
         InputHelperUI input = new InputHelperUI();
         System.out.println("Please insert the location of the file you want to import:");
         Scanner scanner = new Scanner(System.in);
         String result = scanner.next();
         String filePath = input.getInputPathJsonOrXML(result);
         long startTime = System.currentTimeMillis();
-        int areas = input.acceptPathJSONorXMLAndReadFile(filePath, geographicAreaRepository, sensorTypeRepository);
+        int areas = input.acceptPathJSONorXMLAndReadFile(filePath, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
         if (areas > 0) {
             System.out.println(areas + " Geographic Areas have been successfully imported.");
             long stopTime = System.currentTimeMillis();

@@ -86,7 +86,7 @@ class GASettingsControllerTest {
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
-        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
         validGeographicAreaRepository.addAndPersistGA(firstValidArea);
         validGeographicAreaRepository.addAndPersistGA(secondValidArea);
     }

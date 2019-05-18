@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -509,16 +510,16 @@ public class InputHelperUI {
      * @param areaService is the service responsible for accessing the repository of geographic areas.
      * @return is the number of geographic areas imported.
      */
-    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaRepository areaService, SensorTypeRepository sensorTypeRepository) {
+    public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaRepository areaService, SensorTypeRepository sensorTypeRepository, AreaTypeRepository areaTypeRepository) {
         int areasRead;
         if (filePath.endsWith(JSON)) {
             ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService, sensorTypeRepository);
+            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService, sensorTypeRepository, areaTypeRepository);
             return areasRead;
         }
         if (filePath.endsWith(".xml")) {
             ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
-            areasRead = readerXML.readFileXMLAndAddAreas(filePath, areaService);
+            areasRead = readerXML.readFileXMLAndAddAreas(filePath, areaService, areaTypeRepository);
             return areasRead;
         }
         return -1;
