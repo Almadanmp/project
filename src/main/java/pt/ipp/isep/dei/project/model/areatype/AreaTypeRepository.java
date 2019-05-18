@@ -101,7 +101,7 @@ public class AreaTypeRepository {
      * @param id selected id
      * @return Type Area corresponding to the given id
      */
-    public AreaType getById(long id) {
+    public AreaType getById(String id) {
         Optional<AreaType> value = repository.findById(id);
         return value.orElse(null);
     }

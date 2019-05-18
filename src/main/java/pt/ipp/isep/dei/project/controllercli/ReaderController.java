@@ -108,8 +108,7 @@ public class ReaderController {
      * @return the number of readings added
      **/
     public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaRepository geographicAreaRepository) {
-        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
-        return geographicAreaRepository.addReadingsToGeographicAreaSensors(readings, logPath);
+        return geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, logPath);
     }
 
     /**

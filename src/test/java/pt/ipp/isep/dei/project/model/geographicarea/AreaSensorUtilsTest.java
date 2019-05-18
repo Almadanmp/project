@@ -91,8 +91,6 @@ public class AreaSensorUtilsTest {
                 sensorCreationTime);
         validAreaSensor.setActive(true);
 
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
-
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
         validReadingHotDay = new Reading(50, validReadingDate2, "C", "SensorThree");

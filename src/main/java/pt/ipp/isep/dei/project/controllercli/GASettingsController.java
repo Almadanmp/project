@@ -118,13 +118,11 @@ public class GASettingsController {
 
     /**
      * @param geographicAreaRepository is the Geographic Area List where we want to search for objects with a given type.
-     * @param typeArea              is the type that we want to look for.
+     * @param typeArea                 is the type that we want to look for.
      * @return is a list of all the objects in the original list with a type that matches the given type.
      */
     public List<GeographicArea> matchGAByTypeArea(GeographicAreaRepository geographicAreaRepository, AreaTypeDTO typeArea) {
-        List<GeographicArea> geographicAreas = geographicAreaRepository.getAll();
-        String typeAreaName = typeArea.getName();
-        return geographicAreaRepository.getGeoAreasByType(geographicAreas, typeAreaName);
+        return geographicAreaRepository.getGeoAreasByType(typeArea.getName());
     }
 
     /**

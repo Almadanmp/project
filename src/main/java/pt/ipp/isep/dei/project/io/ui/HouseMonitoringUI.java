@@ -24,7 +24,7 @@ public class HouseMonitoringUI {
     private static final String TEMPERATURE = "temperature";
     private final List<String> menuOptions = createMenu();
 
-    public List<String> createMenu() {
+    private List<String> createMenu() {
         List<String> menuList = new ArrayList<>();
         menuList.add("Get Current Temperature in a House Area. (US600)");
         menuList.add("Get The Total Rainfall on a specific day in a House Area. (US620)");

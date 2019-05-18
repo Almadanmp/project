@@ -60,6 +60,8 @@ public class MainUI {
     private GeographicAreaCrudeRepo geoAreaRepo;
     @Autowired
     private AreaTypeCrudeRepo areaTypeCrudeRepo;
+    @Autowired
+    private HouseMonitoringUI houseMonitoringUI;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -140,8 +142,6 @@ public class MainUI {
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaRepository = new GeographicAreaRepository(geoAreaRepo);
-
             //MAIN CODE
 
             Scanner enterToReturnToConsole = new Scanner(System.in);
@@ -215,8 +215,7 @@ public class MainUI {
                             activeInput = false;
                             break;
                         case 7:
-                            HouseMonitoringUI houseM = new HouseMonitoringUI();
-                            houseM.run(house, geographicAreaRepository);
+                            houseMonitoringUI.run(house, geographicAreaRepository);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

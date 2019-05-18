@@ -3,12 +3,11 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
@@ -23,9 +22,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * GeographicAreaService tests class.
  */
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
 class GeographicAreaRepositoryTest {
 
     // Common testing artifacts for this class.
@@ -69,22 +65,20 @@ class GeographicAreaRepositoryTest {
     private Reading validReading2;
     private Reading validReadingHotDay;
     private Reading validReadingColdDay;
-    private GeographicAreaRepository geographicAreaRepository;
+
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
 
     @Mock
-    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
-    @Mock
     GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-    @Mock
-    AreaTypeCrudeRepo areaTypeCrudeRepo;
+
+    @InjectMocks
+    private GeographicAreaRepository geographicAreaRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -158,8 +152,6 @@ class GeographicAreaRepositoryTest {
 
         GeographicArea expectedResult = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
-
-        Mockito.when(geographicAreaCrudeRepo.save(firstValidArea)).thenReturn(expectedResult);
 
         // Assert
 
@@ -419,10 +411,6 @@ class GeographicAreaRepositoryTest {
         Local local = new Local(12, 12, 12);
 
         AreaType city = new AreaType("city");
-        AreaType urbanArea = new AreaType("urban area");
-
-        Mockito.when(areaTypeCrudeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeCrudeRepo.findByName("city")).thenReturn(Optional.of(city));
 
         GeographicArea expectedResult = new GeographicArea(iD, city.getName(), 12, 12, local);
 
@@ -434,13 +422,6 @@ class GeographicAreaRepositoryTest {
     @Test
     void seeIfCreateAreaSensorWorks() {
         SensorType rainfall = new SensorType("rainfall", "mm");
-        SensorType temperature = new SensorType("temperature", "C");
-
-        sensorTypeCrudeRepo.save(rainfall);
-        sensorTypeCrudeRepo.save(temperature);
-
-        Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         AreaSensor expectedResult = new AreaSensor("Sensor123", "Temperature Sensor 2",
                 rainfall.getName(), new Local(41, -8, 100), validDate1);
@@ -488,8 +469,10 @@ class GeographicAreaRepositoryTest {
     void seeIfGetsGeoAreasByType() {
 
         // Act
-
-        List<GeographicArea> actualResult = geographicAreaRepository.getGeoAreasByType(validList, "Country");
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        geographicAreas.add(firstValidArea);
+        Mockito.when(geographicAreaRepository.getGeoAreasByType("Country")).thenReturn(geographicAreas);
+        List<GeographicArea> actualResult = geographicAreaRepository.getGeoAreasByType("Country");
         int expectedResult = 1;
         // Assert
 
@@ -501,7 +484,7 @@ class GeographicAreaRepositoryTest {
 
         // Act
 
-        List<GeographicArea> actualResult = geographicAreaRepository.getGeoAreasByType(validList, "Not a valid type");
+        List<GeographicArea> actualResult = geographicAreaRepository.getGeoAreasByType("Not a valid type");
         int expectedResult = 0;
         // Assert
 
@@ -704,7 +687,6 @@ class GeographicAreaRepositoryTest {
         List<GeographicArea> listGA = new ArrayList<>();
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         listGA.add(area);
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
 
         // Act
 

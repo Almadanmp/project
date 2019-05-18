@@ -3,15 +3,11 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -21,9 +17,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,18 +26,13 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {GeographicAreaHouseService.class})
 class GeographicAreaHouseServiceTest {
-    @Autowired
+    @Mock
+    private GeographicAreaRepository geographicAreaRepository;
+
+    @InjectMocks
     GeographicAreaHouseService geographicAreaHouseService;
-    @Mock
-    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
-    @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-    @Mock
-    AreaTypeCrudeRepo areaTypeCrudeRepo;
+
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private GeographicArea firstValidArea;
@@ -54,7 +42,7 @@ class GeographicAreaHouseServiceTest {
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
-    private GeographicAreaRepository geographicAreaRepository;
+
     private Date validDate3;
     private Date validDate4;
     private Date initialTime;
@@ -106,8 +94,6 @@ class GeographicAreaHouseServiceTest {
         validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
-
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
@@ -310,7 +296,7 @@ class GeographicAreaHouseServiceTest {
         List<Reading> expectedResult = new ArrayList<>();
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
+        Mockito.when(geographicAreaRepository.get(firstValidArea.getId())).thenReturn(firstValidArea);
         List<Reading> actualResult = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(validReadingList, validHouse);
         // Assert
 
@@ -354,8 +340,6 @@ class GeographicAreaHouseServiceTest {
         listAreaSensor.add(validAreaSensor);
 
         //Act
-        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
-        Mockito.when(geographicAreaCrudeRepo.findAllByAreaSensorsInAndAreaTypeID(firstValidArea, validAreaSensor.getSensorType())).thenReturn(listAreaSensor);
         AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
 
         //Assert

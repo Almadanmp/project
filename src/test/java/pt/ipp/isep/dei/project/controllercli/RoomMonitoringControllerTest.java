@@ -3,12 +3,10 @@ package pt.ipp.isep.dei.project.controllercli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -21,7 +19,6 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 
 import java.text.ParseException;
@@ -35,20 +32,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * RoomMonitoringController tests class.
  */
 @ExtendWith(MockitoExtension.class)
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {RoomMonitoringController.class, GeographicAreaHouseService.class})
 class RoomMonitoringControllerTest {
 
     // Common artifacts for testing in this class.
 
     private House validHouse;
     private List<String> deviceTypeString;
-    @Autowired
-    private RoomMonitoringController controller;
+
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private SimpleDateFormat validSdf2;
     private RoomRepository roomRepository;
-    @Autowired
+    @Mock
     private GeographicAreaHouseService geographicAreaHouseService;
     private Room validRoom1;
     private RoomDTO validRoomDTO;
@@ -72,8 +66,8 @@ class RoomMonitoringControllerTest {
     @Mock
     RoomCrudeRepo roomCrudeRepo;
 
-    @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
+    @InjectMocks
+    private RoomMonitoringController controller;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -317,6 +311,7 @@ class RoomMonitoringControllerTest {
         Reading reading2 = new Reading(20, validDate2, "C", "Test1");
         Reading reading3 = new Reading(17, validDate3, "C", "Test");
 
+        List<Reading> expectedReadings = new ArrayList<>();
         List<Reading> readings = new ArrayList<>();
 
         readings.add(reading1);
@@ -336,7 +331,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIILimit(readings, validHouse)).thenReturn(expectedReadings);
+        Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryILimit(readings, validHouse)).thenReturn(expectedReadings);
+        Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readings, validHouse)).thenReturn(expectedReadings);
         String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
         String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
         String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
@@ -383,7 +380,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryILimit(readings, validHouse)).thenReturn(readings);
         String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -413,6 +410,10 @@ class RoomMonitoringControllerTest {
         readings.add(reading2);
         readings.add(reading3);
 
+        List<Reading> expectedReadings = new ArrayList<>();
+        expectedReadings.add(reading2);
+        expectedReadings.add(reading3);
+
         firstValidRoomSensor.setReadings(readings);
 
         List<RoomSensor> roomSensors = new ArrayList<>();
@@ -426,7 +427,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIILimit(readings, validHouse)).thenReturn(expectedReadings);
         String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -455,6 +456,9 @@ class RoomMonitoringControllerTest {
         readings.add(reading2);
         readings.add(reading3);
 
+        List<Reading> expectedReadings = new ArrayList<>();
+        expectedReadings.add(reading2);
+
         firstValidRoomSensor.setReadings(readings);
 
         List<RoomSensor> roomSensors = new ArrayList<>();
@@ -468,7 +472,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readings, validHouse)).thenReturn(expectedReadings);
         String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -539,7 +543,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsBelowCategoryIILimit(readings, validHouse)).thenReturn(readings);
         String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -583,7 +587,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsBelowCategoryIIILimit(readings, validHouse)).thenReturn(readings);
         String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert
@@ -622,7 +626,7 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validArea.getId())).thenReturn(Optional.of(validArea));
+        Mockito.when(geographicAreaHouseService.getReadingsBelowCategoryILimit(readings, validHouse)).thenReturn(readings);
         String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
 
         // Assert

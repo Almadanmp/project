@@ -6,7 +6,9 @@ import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -22,17 +24,12 @@ import java.util.logging.Logger;
 @Service
 public class GeographicAreaRepository {
     @Autowired
-    private static GeographicAreaCrudeRepo geographicAreaCrudeRepo;
+    private GeographicAreaCrudeRepo geographicAreaCrudeRepo;
 
 
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
-
-
-    public GeographicAreaRepository(GeographicAreaCrudeRepo geographicAreaCrudeRepo) {
-        GeographicAreaRepository.geographicAreaCrudeRepo = geographicAreaCrudeRepo;
-    }
 
     /**
      * Method to return a list with all the Geographical Areas contained on the geographicAreaRepository
@@ -148,8 +145,8 @@ public class GeographicAreaRepository {
         return false;
     }
 
-    public void updateGeoArea(GeographicArea area) {
-        geographicAreaCrudeRepo.save(area);
+    public GeographicArea updateGeoArea(GeographicArea area) {
+        return geographicAreaCrudeRepo.save(area);
     }
 
     /**
@@ -195,15 +192,8 @@ public class GeographicAreaRepository {
      * @param typeAreaName is the type of the area we want to get all the geographicAreas.
      * @return a GeographicAreaList with a given type.
      */
-    public List<GeographicArea> getGeoAreasByType(List<GeographicArea> geographicAreas, String typeAreaName) {
-        List<GeographicArea> finalList = new ArrayList<>();
-        for (GeographicArea ga : geographicAreas) {
-            String gaType = ga.getAreaTypeID();
-            if (gaType.equals(typeAreaName)) {
-                finalList.add(ga);
-            }
-        }
-        return finalList;
+    public List<GeographicArea> getGeoAreasByType(String typeAreaName) {
+        return geographicAreaCrudeRepo.findAllByAreaTypeID(typeAreaName);
     }
 
     /**
@@ -266,11 +256,12 @@ public class GeographicAreaRepository {
      * and a geographic area service and will try to add readings to the given sensors
      * in the given geographic area from the repository.
      *
-     * @param readings a list of readings
-     * @param logPath  string of a log file path
+     * @param readingDTOS a list of readings
+     * @param logPath     string of a log file path
      * @return the number of readings added
      **/
-    public int addReadingsToGeographicAreaSensors(List<Reading> readings, String logPath) {
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath) {
+        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
         Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         List<String> sensorIds = ReadingUtils.getSensorIDs(readings);

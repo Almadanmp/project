@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.repository;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -12,7 +11,9 @@ import java.util.List;
 public interface GeographicAreaCrudeRepo extends CrudRepository<GeographicArea, Long> {
     List<GeographicArea> findAll();
 
-  //  @Query("SELECT AreaSensors from GeographicArea where GeographicArea like GeographicArea and areaTypeID like sensorType")
+    List<GeographicArea> findAllByAreaTypeID(String areaTypeID);
+
+    //  @Query("SELECT AreaSensors from GeographicArea where GeographicArea like GeographicArea and areaTypeID like sensorType")
     List<AreaSensor> findAllByAreaSensorsInAndAreaTypeID(GeographicArea geographicArea, String sensorType);
 
 }

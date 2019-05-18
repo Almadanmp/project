@@ -114,10 +114,11 @@ class GASettingsUI {
      * used on US 03 and 04
      */
     private AreaTypeDTO getInputTypeAreaDTOByList(AreaTypeRepository areaTypeRepository) {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Please select the Geographic Area Type from the list: ");
             System.out.print(gaController.buildGATypeListString(areaTypeRepository));
-            int aux = InputHelperUI.getInputAsInt();
+            String aux = scanner.nextLine();
 
             AreaType areaType = areaTypeRepository.getById(aux);
             if (areaType != null) {

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.io.ui.reader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -53,16 +54,15 @@ class ReaderJSONGeographicAreasTest {
     SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     private ReadingUtils readingUtils;
+    @Mock
     private GeographicAreaRepository geographicAreaRepository;
     private SensorTypeRepository sensorTypeRepository;
     private AreaTypeRepository areaTypeRepository;
-
+    @InjectMocks
     private ReaderController ctrl;
 
     @BeforeEach
     void arrangeArtifacts() {
-        geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
-        ctrl = new ReaderController();
         sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
         areaTypeRepository = new AreaTypeRepository(areaTypeCrudeRepo);
 
@@ -71,10 +71,6 @@ class ReaderJSONGeographicAreasTest {
     @Test
     void seeIfReadFileWorks() {
         // Arrange
-
-        //   GeographicAreaService expectedResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        // GeographicAreaService actualResult = new GeographicAreaService(geographicAreaRepository, areaTypeRepository);
-        //   AreaSensorService actualSensorService = new AreaSensorService(areaSensorRepository);
 
         // First Area
 
@@ -115,8 +111,8 @@ class ReaderJSONGeographicAreasTest {
         secondArea.setDescription("City of Porto");
         secondArea.setTypeArea("city");
         secondArea.setWidth(10.09);
-        secondArea.setLength(3.30);
-        secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118));
+        secondArea.setLength(3.3);
+        secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118.0));
 
         // First Sensor in Second Area
 
@@ -126,7 +122,7 @@ class ReaderJSONGeographicAreasTest {
         secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
         secondAreaFirstSensor.setTypeSensor("rainfall");
         secondAreaFirstSensor.setUnits("l/m2");
-        secondArea.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+        secondAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
 
 
         // Second Sensor in Second Area
@@ -144,8 +140,6 @@ class ReaderJSONGeographicAreasTest {
 
         GeographicArea areaOne = GeographicAreaMapper.dtoToObject(firstArea);
         GeographicArea areaTwo = GeographicAreaMapper.dtoToObject(secondArea);
-        geographicAreaRepository.addAndPersistGA(areaOne);
-        geographicAreaRepository.addAndPersistGA(areaTwo);
         firstAreaFirstSensor.setGeographicAreaID(areaOne.getId());
         firstAreaSecondSensor.setGeographicAreaID(areaOne.getId());
         secondAreaFirstSensor.setGeographicAreaID(areaTwo.getId());
@@ -169,6 +163,12 @@ class ReaderJSONGeographicAreasTest {
         String absolutePath = fileToRead.getAbsolutePath();
         ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
 
+        Mockito.when(geographicAreaRepository.createGA(areaOne.getName(), areaOne.getAreaTypeID(), areaOne.getWidth(), areaOne.getLength(), areaOne.getLocal())).thenReturn(areaOne);
+        Mockito.when(geographicAreaRepository.createGA(areaTwo.getName(), areaTwo.getAreaTypeID(), areaTwo.getWidth(), areaTwo.getLength(), areaTwo.getLocal())).thenReturn(areaTwo);
+        Mockito.when(geographicAreaRepository.addAndPersistGA(areaOne)).thenReturn(true);
+        Mockito.when(geographicAreaRepository.addAndPersistGA(areaTwo)).thenReturn(true);
+        Mockito.when(geographicAreaRepository.updateGeoArea(areaOne)).thenReturn(areaOne);
+        Mockito.when(geographicAreaRepository.updateGeoArea(areaTwo)).thenReturn(areaTwo);
         double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
 
         // Assert
@@ -268,8 +268,6 @@ class ReaderJSONGeographicAreasTest {
 
         GeographicArea areaOne = GeographicAreaMapper.dtoToObject(firstArea);
         GeographicArea areaTwo = GeographicAreaMapper.dtoToObject(secondArea);
-        geographicAreaRepository.addAndPersistGA(areaOne);
-        geographicAreaRepository.addAndPersistGA(areaTwo);
         firstAreaFirstSensor.setGeographicAreaID(areaOne.getId());
         secondAreaFirstSensor.setGeographicAreaID(areaTwo.getId());
         secondAreaSecondSensor.setGeographicAreaID(areaTwo.getId());
@@ -287,6 +285,13 @@ class ReaderJSONGeographicAreasTest {
         Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
 
         //Act
+
+        Mockito.when(geographicAreaRepository.createGA(areaOne.getName(), areaOne.getAreaTypeID(), areaOne.getWidth(), areaOne.getLength(), areaOne.getLocal())).thenReturn(areaOne);
+        Mockito.when(geographicAreaRepository.createGA(areaTwo.getName(), areaTwo.getAreaTypeID(), areaTwo.getWidth(), areaTwo.getLength(), areaTwo.getLocal())).thenReturn(areaTwo);
+        Mockito.when(geographicAreaRepository.addAndPersistGA(areaOne)).thenReturn(true);
+        Mockito.when(geographicAreaRepository.addAndPersistGA(areaTwo)).thenReturn(true);
+        Mockito.when(geographicAreaRepository.updateGeoArea(areaOne)).thenReturn(areaOne);
+        Mockito.when(geographicAreaRepository.updateGeoArea(areaTwo)).thenReturn(areaTwo);
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/InvalidJSONWrongDates.json");
         String absolutePath = fileToRead.getAbsolutePath();

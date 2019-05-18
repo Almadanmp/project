@@ -17,7 +17,7 @@ import java.util.*;
 public class GeographicAreaHouseService {
 
     @Autowired
-    private static GeographicAreaRepository geographicAreaRepository;
+    private GeographicAreaRepository geographicAreaRepository;
 
 
     /**

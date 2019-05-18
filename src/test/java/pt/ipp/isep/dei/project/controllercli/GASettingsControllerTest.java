@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controllercli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,7 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +38,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(MockitoExtension.class)
 class GASettingsControllerTest {
-    private GASettingsController controller = new GASettingsController();
     private GeographicArea firstValidArea;
     private GeographicArea secondValidArea;
     private AreaType typeCountry;
@@ -47,9 +46,11 @@ class GASettingsControllerTest {
     private AreaSensorDTO validAreaSensorDTO1;
     private AreaSensorDTO validAreaSensorDTO2;
     private AreaSensor validAreaSensor1;
-    private GeographicAreaRepository validGeographicAreaRepository;
     private AreaTypeRepository validAreaTypeRepository;
     private Date date; // Wed Nov 21 05:12:00 WET 2018
+
+    @Mock
+    private GeographicAreaRepository validGeographicAreaRepository;
 
     @Mock
     private GeographicAreaCrudeRepo geographicAreaCrudeRepo;
@@ -59,6 +60,9 @@ class GASettingsControllerTest {
 
     @Mock
     SensorTypeCrudeRepo sensorTypeCrudeRepo;
+
+    @InjectMocks
+    private GASettingsController controller;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -86,7 +90,6 @@ class GASettingsControllerTest {
         validGeographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         validAreaSensorDTO1 = AreaSensorMapper.objectToDTO(validAreaSensor1);
         validAreaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor2);
-        validGeographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
         validGeographicAreaRepository.addAndPersistGA(firstValidArea);
         validGeographicAreaRepository.addAndPersistGA(secondValidArea);
     }
@@ -138,10 +141,8 @@ class GASettingsControllerTest {
         List<GeographicArea> expectedResult = new ArrayList<>();
         expectedResult.add(secondValidArea);
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(expectedResult);
-
         // Act
-
+        Mockito.when(validGeographicAreaRepository.getGeoAreasByType(typeCity.getName())).thenReturn(expectedResult);
         List<GeographicArea> actualResult = controller.matchGAByTypeArea(validGeographicAreaRepository, AreaTypeMapper.objectToDTO(typeCity));
 
         // Assert
@@ -327,7 +328,7 @@ class GASettingsControllerTest {
                 "---------------\n";
 
         // Act
-
+        Mockito.when(validGeographicAreaRepository.buildStringRepository(list)).thenReturn(expectedResult);
         String result = controller.buildGAListString(validGeographicAreaRepository, list);
 
         // Assert
@@ -458,15 +459,16 @@ class GASettingsControllerTest {
     @Test
     void seeIfInputAreaWorks() {
         // Arrange
-
+        List<GeographicArea> geoAreas = new ArrayList<>();
+        geoAreas.add(firstValidArea);
         GeographicAreaDTO expectedResult = validGeographicAreaDTO;
-        geographicAreaCrudeRepo.save(firstValidArea);
 
         // Act
 
-        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.of(firstValidArea));
         InputStream in = new ByteArrayInputStream(firstValidArea.getId().toString().getBytes());
         System.setIn(in);
+        Mockito.when(validGeographicAreaRepository.getAll()).thenReturn(geoAreas);
+        Mockito.when(validGeographicAreaRepository.get(firstValidArea.getId())).thenReturn(firstValidArea);
         GeographicAreaDTO actualResult = controller.getInputArea(validGeographicAreaRepository);
 
         // Assert
@@ -492,7 +494,7 @@ class GASettingsControllerTest {
     @Test
     void seeIfAddNewGeoAreaToListWorks() {
         // Act
-
+        Mockito.when(validGeographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO))).thenReturn(true);
         boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaRepository, validGeographicAreaDTO);
 
         // Assert
@@ -506,8 +508,6 @@ class GASettingsControllerTest {
 
         List<GeographicArea> mockedList = new ArrayList<>();
         mockedList.add(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(mockedList);
-
         // Act
 
         boolean actualResult = controller.addNewGeoAreaToList(validGeographicAreaRepository, validGeographicAreaDTO);
