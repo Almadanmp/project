@@ -696,4 +696,24 @@ class ReadingUtilsTest {
         assertThrows(IllegalArgumentException.class,
                 () -> ReadingUtils.getMostRecentValue(readingList));
     }
+
+    @Test
+    void seeIfDetSensorReadingsBetweenDates() {
+        final Date date1 = new GregorianCalendar(2018, 1, 1).getTime();
+        final Date date2 = new GregorianCalendar(2019, 1, 1).getTime();
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(30, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+        List<Reading> readings = new ArrayList<>();
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+        readings.add(reading4);
+
+        double expectedResult = 22.75;
+        double result = ReadingUtils.getSensorReadingAverageValue(readings);
+
+        assertEquals(expectedResult, result);
+    }
 }

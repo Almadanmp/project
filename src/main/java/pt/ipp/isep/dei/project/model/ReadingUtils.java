@@ -396,6 +396,17 @@ public class ReadingUtils {
         }
         return result;
     }
+
+    public static double getSensorReadingAverageValue(List<Reading> sensorReadingsBetweenDates) {
+        List<Double> avgDailyValues = new ArrayList<>();
+        for (int i = 0; i < sensorReadingsBetweenDates.size(); i++) {
+            Date day = sensorReadingsBetweenDates.get(i).getDate();
+            List<Double> specificDayValues = ReadingUtils.getValuesOfSpecificDayReadings(sensorReadingsBetweenDates, day);
+            double avgDay = ReadingUtils.getAvgFromList(specificDayValues);
+            avgDailyValues.add(avgDay);
+        }
+        return ReadingUtils.getAvgFromList(avgDailyValues);
+    }
 }
 
 
