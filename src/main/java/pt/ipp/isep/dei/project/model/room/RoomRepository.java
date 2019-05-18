@@ -23,30 +23,24 @@ import java.util.logging.Logger;
 @Service
 public class RoomRepository {
 
+
+    private RoomCrudeRepo roomCrudeRepo;
+
     @Autowired
-    RoomCrudeRepo roomCrudeRepo;
-
-    private static final String STRING_BUILDER = "---------------\n";
-    private static final String THE_READING = "The reading ";
-    private static final String FROM = " from ";
-
-
-    /**
-     * RoomList() empty constructor that initializes an ArrayList of Rooms.
-     */
     public RoomRepository(RoomCrudeRepo roomCrudeRepo) {
         this.roomCrudeRepo = roomCrudeRepo;
     }
 
-
-//TODO UPDATED METHODS
+    private static final String STRING_BUILDER = "---------------\n";
+    private static final String THE_READING = "The reading ";
+    private static final String FROM = " from ";
 
     /**
      * This method gets every room from the Room Crud Repository
      * and returns as an ArrayList.
      *
      * @return a list containing all rooms contained in repository
-     * **/
+     **/
     public List<Room> getAllRooms() {
         List<Room> roomsAux = roomCrudeRepo.findAll();
         if (roomsAux != null) {

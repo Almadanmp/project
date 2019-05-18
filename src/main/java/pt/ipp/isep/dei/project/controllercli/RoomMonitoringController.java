@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -16,7 +18,7 @@ import java.util.List;
  * Controller class for Room Monitoring UI
  */
 
-
+@Service
 public class RoomMonitoringController {
 
     private static final String COMFORT_BELOW_LEVEL = "Instants in which the readings are below the comfort temperature:\n";
@@ -130,5 +132,20 @@ public class RoomMonitoringController {
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         return result;
+    }
+
+    /**
+     * This is a shared methods between many User stories and it checks if the House has its Mother Area defined and
+     * if that Mother Area has a valid AreaSensorList
+     *
+     * @param house - house to get Mother Area from
+     * @return true in case both conditions are met
+     */
+    public boolean isMotherAreaValid(House house) {
+        if (house.isMotherAreaNull()) {
+            UtilsUI.printMessage(UtilsUI.INVALID_MOTHER_AREA);
+            return false;
+        }
+        return true;
     }
 }

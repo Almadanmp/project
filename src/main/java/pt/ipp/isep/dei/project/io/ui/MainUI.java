@@ -140,7 +140,7 @@ public class MainUI {
 
             //LOAD PERSISTED GA DATA
 
-            this.geographicAreaRepository = new GeographicAreaRepository(geoAreaRepo, areaTypeCrudeRepo);
+            this.geographicAreaRepository = new GeographicAreaRepository(geoAreaRepo);
 
             //MAIN CODE
 

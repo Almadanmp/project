@@ -4,10 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -18,7 +21,10 @@ import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,11 +33,13 @@ import static org.junit.jupiter.api.Assertions.*;
  * House Monitoring - controllercli Tests
  */
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {HouseMonitoringController.class, GeographicAreaHouseService.class})
 class HouseMonitoringControllerTest {
 
     // Common artifacts for testing in this class.
-
-    private HouseMonitoringController controller = new HouseMonitoringController();
+    @Autowired
+    private HouseMonitoringController controller;
     private GeographicArea validHouseArea;
     private House validHouse;
     private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
@@ -74,7 +82,7 @@ class HouseMonitoringControllerTest {
                 180, new ArrayList<>());
         validHouse.setMotherAreaID(validHouseArea.getId());
         validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
+        geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo);
 
 
         try {
@@ -511,23 +519,4 @@ class HouseMonitoringControllerTest {
 
         assertEquals(expectedResult, actualResult, 0.01);
     }
-
-    @Test
-    void seeIfGetClosestSensorToHouseByTypeWorksEmpty() {
-        // Arrange
-
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", "temperature", new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime());
-
-        // Act
-        Mockito.when(geographicAreaCrudeRepo.findById(validHouse.getMotherAreaID())).thenReturn(Optional.of(validHouseArea));
-
-        AreaSensor actualResult = controller.getClosestSensorToHouseByType(validHouse, "temperature", geographicAreaRepository);
-
-        // Assert
-
-        assertEquals(areaSensorError, actualResult);
-    }
-
-
 }

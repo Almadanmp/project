@@ -1,8 +1,11 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -15,9 +18,11 @@ import java.util.List;
  * Controller class for House Monitoring UI
  */
 
-
+@Service
 public class HouseMonitoringController {
 
+    @Autowired
+    GeographicAreaHouseService geographicAreaHouseService;
 
     /* US 623 - Controller Methods
     As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),as it
@@ -79,10 +84,9 @@ public class HouseMonitoringController {
        period. */
 
     public AreaSensor getClosestSensorToHouseByType(House house, String sensorType, GeographicAreaRepository geographicAreaRepository) {
-
         Long houseGaID = house.getMotherAreaID();
         GeographicArea houseGA = geographicAreaRepository.get(houseGaID);
-        return houseGA.getClosestAreaSensorOfGivenType(sensorType, house);
+        return geographicAreaHouseService.getClosestAreaSensorOfGivenType(sensorType, house, houseGA);
     }
 
     /**

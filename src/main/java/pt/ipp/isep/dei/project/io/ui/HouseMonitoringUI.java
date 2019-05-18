@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.HouseMonitoringController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -13,27 +15,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+@Service
 public class HouseMonitoringUI {
-    private final HouseMonitoringController houseMonitoringController;
+    @Autowired
+    private HouseMonitoringController houseMonitoringController;
     private static final String WAS = " was ";
     private static final String RAINFALL = "rainfall";
     private static final String TEMPERATURE = "temperature";
-    private final List<String> menuOptions;
+    private final List<String> menuOptions = createMenu();
 
-    public HouseMonitoringUI() {
-        this.houseMonitoringController = new HouseMonitoringController();
-        menuOptions = new ArrayList<>();
-        menuOptions.add("Get Current Temperature in a House Area. (US600)");
-        menuOptions.add("Get The Total Rainfall on a specific day in a House Area. (US620)");
-        menuOptions.add("Get The Average Rainfall on a day interval in a House Area. (US623)");
-        menuOptions.add("Get the Last Coldest Day (lower maximum temperature) in the House" +
+    public List<String> createMenu() {
+        List<String> menuList = new ArrayList<>();
+        menuList.add("Get Current Temperature in a House Area. (US600)");
+        menuList.add("Get The Total Rainfall on a specific day in a House Area. (US620)");
+        menuList.add("Get The Average Rainfall on a day interval in a House Area. (US623)");
+        menuList.add("Get the Last Coldest Day (lower maximum temperature) in the House" +
                 "Area in a given period. (US630)");
-        menuOptions.add("Get the First Hottest Day (higher maximum temperature) in the House" +
+        menuList.add("Get the First Hottest Day (higher maximum temperature) in the House" +
                 "Area in a given period. (US631)");
-        menuOptions.add("Get the day with the highest temperature amplitude in the House Area in a given period." +
+        menuList.add("Get the day with the highest temperature amplitude in the House Area in a given period." +
                 "(US633)");
-        menuOptions.add("(Return to main menu)");
+        menuList.add("(Return to main menu)");
+        return menuList;
     }
 
     void run(House house, GeographicAreaRepository geographicAreaRepository) {

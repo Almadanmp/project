@@ -63,7 +63,7 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        this.roomRepository = new RoomRepository(roomCrudeRepo);
+        roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
 

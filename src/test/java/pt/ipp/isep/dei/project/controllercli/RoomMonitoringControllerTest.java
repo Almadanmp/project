@@ -6,6 +6,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -13,16 +16,13 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,17 +35,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * RoomMonitoringController tests class.
  */
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {RoomMonitoringController.class, GeographicAreaHouseService.class})
 class RoomMonitoringControllerTest {
 
     // Common artifacts for testing in this class.
 
     private House validHouse;
     private List<String> deviceTypeString;
-    private RoomMonitoringController controller = new RoomMonitoringController();
+    @Autowired
+    private RoomMonitoringController controller;
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private SimpleDateFormat validSdf2;
     private RoomRepository roomRepository;
-    private GeographicAreaRepository geographicAreaRepository;
+    @Autowired
     private GeographicAreaHouseService geographicAreaHouseService;
     private Room validRoom1;
     private RoomDTO validRoomDTO;
@@ -65,19 +68,12 @@ class RoomMonitoringControllerTest {
     private Date areaReadingDate2;
     private Date areaReadingDate3;
     private RoomSensor firstValidRoomSensor;
-    private RoomRepository validRoomRepository;
-
-    @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
     @Mock
     RoomCrudeRepo roomCrudeRepo;
 
     @Mock
     GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-
-    @Mock
-    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -130,18 +126,14 @@ class RoomMonitoringControllerTest {
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
         this.validHouse.setMotherAreaID(validArea.getId());
-        this.roomRepository = new RoomRepository(roomCrudeRepo);
-        this.geographicAreaRepository = new GeographicAreaRepository(geographicAreaCrudeRepo, areaTypeCrudeRepo);
-        this.geographicAreaHouseService = new GeographicAreaHouseService(geographicAreaCrudeRepo, areaTypeCrudeRepo, sensorTypeCrudeRepo);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1");
-        validRoomRepository = new RoomRepository(roomCrudeRepo);
         this.rooms = new ArrayList<>();
         rooms.add(validRoom1);
-        roomRepository = new RoomRepository(roomCrudeRepo);
         validRoomDTO = RoomMapper.objectToDTO(validRoom1);
         validRoomDTO.setHouseId(validHouse.getId());
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
         firstValidRoomSensor.setActive(true);
+        roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
     @Test

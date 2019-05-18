@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
@@ -13,9 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class UtilsUITest {
 
-    private RoomRepository roomRepository;
+public class UtilsUITest {
 
     @Mock
     RoomCrudeRepo roomCrudeRepo;
@@ -25,7 +23,6 @@ public class UtilsUITest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
 //    @Test

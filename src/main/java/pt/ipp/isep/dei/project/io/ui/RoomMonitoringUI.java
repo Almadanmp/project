@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import pt.ipp.isep.dei.project.controllercli.HouseMonitoringController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.RoomMonitoringController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
@@ -18,13 +19,13 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-
+@Service
 class RoomMonitoringUI {
-    private final RoomMonitoringController roomMonitoringController;
+    @Autowired
+    private RoomMonitoringController roomMonitoringController;
     private final List<String> menuOptions;
 
     RoomMonitoringUI() {
-        this.roomMonitoringController = new RoomMonitoringController();
         menuOptions = new ArrayList<>();
         menuOptions.add("Get the instants where the temperature fell bellow the comfort level in a given time interval and category (US440).");
         menuOptions.add("Get the instants where the temperature rose above the comfort level in a given time interval and category (US445).");
@@ -74,8 +75,7 @@ class RoomMonitoringUI {
      * comfort level in a given time interval and category (annex A.2 of EN 15251).
      */
     private void runUS440(RoomRepository roomRepository, House house, GeographicAreaHouseService geographicAreaService) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        if (!ctrl.isMotherAreaValid(house)) {
+        if (!roomMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         updateAndDisplayUS440(roomRepository, house, geographicAreaService);
@@ -100,8 +100,7 @@ class RoomMonitoringUI {
      * level in a given time interval and category (annex A.2 of EN 15251).
      */
     private void runUS445(RoomRepository roomRepository, House house, GeographicAreaHouseService geographicAreaService) {
-        HouseMonitoringController ctrl = new HouseMonitoringController();
-        if (!ctrl.isMotherAreaValid(house)) {
+        if (!roomMonitoringController.isMotherAreaValid(house)) {
             return;
         }
         System.out.println("Please select a room:");

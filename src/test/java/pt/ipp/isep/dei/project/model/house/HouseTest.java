@@ -1,32 +1,22 @@
 package pt.ipp.isep.dei.project.model.house;
 
 
-import javafx.beans.binding.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DishwasherType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
 import pt.ipp.isep.dei.project.model.device.devicetypes.WaterHeaterType;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,24 +32,10 @@ class HouseTest {
     private House validHouse;
     private GeographicArea validArea;
     private AreaSensor firstValidAreaSensor;
-    private RoomRepository roomRepository;
-    private EnergyGridRepository energyGridRepository;
     private List<String> deviceTypeString;
-
-    @Mock
-    RoomCrudeRepo roomCrudeRepo;
-
-    @Mock
-    EnergyGridCrudeRepo energyGridCrudeRepo;
-    @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-    @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomRepository = new RoomRepository(roomCrudeRepo);
-        energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
         validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
