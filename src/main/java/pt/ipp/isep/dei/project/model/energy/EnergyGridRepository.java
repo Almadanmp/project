@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,10 @@ import java.util.Optional;
 public class EnergyGridRepository {
 
     @Autowired
-    EnergyGridCrudeRepo energyGridCrudeRepository;
+    EnergyGridCrudRepo energyGridCrudRepository;
 
     public List<EnergyGrid> getAllGrids() {
-        List<EnergyGrid> grids = energyGridCrudeRepository.findAll();
+        List<EnergyGrid> grids = energyGridCrudRepository.findAll();
         if (grids != null) {
             return grids;
         }
@@ -32,12 +32,12 @@ public class EnergyGridRepository {
     }
 
     public EnergyGrid addGrid(EnergyGrid energyGrid) {
-        return energyGridCrudeRepository.save(energyGrid);
+        return energyGridCrudRepository.save(energyGrid);
     }
 
     public void createEnergyGridDTO(EnergyGridDTO energyGridDTO) {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
-        energyGridCrudeRepository.save(energyGrid);
+        energyGridCrudRepository.save(energyGrid);
     }
 
     /**
@@ -53,7 +53,7 @@ public class EnergyGridRepository {
         EnergyGrid energyGrid = getById(gridName);
         Room room = RoomMapper.dtoToObject(roomDTO);
         if (energyGrid.addRoom(room)) {
-            energyGridCrudeRepository.save(energyGrid);
+            energyGridCrudRepository.save(energyGrid);
             return true;
         }
         return false;
@@ -107,7 +107,7 @@ public class EnergyGridRepository {
      * @return repository size
      */
     public int size() {
-        return energyGridCrudeRepository.findAll().size();
+        return energyGridCrudRepository.findAll().size();
     }
 
     /**
@@ -117,7 +117,7 @@ public class EnergyGridRepository {
      * @return Energy Grid corresponding to the given id
      */
     public EnergyGrid getById(String id) {
-        Optional<EnergyGrid> value = energyGridCrudeRepository.findById(id);
+        Optional<EnergyGrid> value = energyGridCrudRepository.findById(id);
         if (value.isPresent()) {
             return value.get();
         }

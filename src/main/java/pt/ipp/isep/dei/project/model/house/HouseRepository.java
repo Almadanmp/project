@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class HouseRepository {
 
     @Autowired
-    HouseCrudeRepo houseCrudeRepo;
+    HouseCrudRepo houseCrudRepo;
 
     /**
      * This method goes to the house crud repository finds the house
@@ -22,7 +22,7 @@ public class HouseRepository {
      * @return house ID
      **/
     public String getHouseId() {
-        List<House> houseList = houseCrudeRepo.findAll();
+        List<House> houseList = houseCrudRepo.findAll();
         House house = houseList.get(0);
         return house.getId();
     }
@@ -34,7 +34,7 @@ public class HouseRepository {
      */
     //TODO unit test - Daniela
     public List<House> getHouses() {
-        return houseCrudeRepo.findAll();
+        return houseCrudRepo.findAll();
     }
 
     /**
@@ -44,18 +44,18 @@ public class HouseRepository {
      */
     //TODO unit test - Daniela
     public HouseDTO getApplicationHouse() {
-        House house = houseCrudeRepo.findAll().get(0);
+        House house = houseCrudRepo.findAll().get(0);
         return HouseMapper.objectToDTO(house);
     }
 
     public HouseDTO getHouseDTO() {
-        List<House> houseList = houseCrudeRepo.findAll();
+        List<House> houseList = houseCrudRepo.findAll();
         House house = houseList.get(0);
         return HouseMapper.objectToDTO(house);
     }
 
     public HouseWithoutGridsDTO getHouseWithoutGridsDTO() {
-        List<House> houseList = houseCrudeRepo.findAll();
+        List<House> houseList = houseCrudRepo.findAll();
         House house = houseList.get(0);
         return HouseMapper.objectToWithoutGridsDTO(house);
     }

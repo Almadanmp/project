@@ -1,14 +1,14 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class EnergyGridSettingsWebController {
 
     @Autowired
-    private EnergyGridCrudeRepo gridRepo;
+    private EnergyGridCrudRepo gridRepo;
 
     @Autowired
     private EnergyGridRepository energyGridRepository;

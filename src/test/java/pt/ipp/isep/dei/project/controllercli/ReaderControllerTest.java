@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -18,7 +17,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -53,7 +52,7 @@ class ReaderControllerTest {
 
     private SensorType validSensorTypeTemp;
     @Mock
-    private HouseCrudeRepo houseCrudeRepo;
+    private HouseCrudRepo houseCrudRepo;
 
 
     private static final String validLogPath = "dumpFiles/dumpLogFile.html";
@@ -240,7 +239,7 @@ class ReaderControllerTest {
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
         assertThrows(IllegalArgumentException.class,
-                () -> readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudeRepo, roomRepository));
+                () -> readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
 
     }
 }

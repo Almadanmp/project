@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.sensortype;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,7 +22,7 @@ public class SensorTypeRepository {
     private static final String STRING_BUILDER = "---------------\n";
 
     @Autowired
-    SensorTypeCrudeRepo repository;
+    SensorTypeCrudRepo repository;
 
     /**
      * Method receives a type Sensor, checks if it already exists in list

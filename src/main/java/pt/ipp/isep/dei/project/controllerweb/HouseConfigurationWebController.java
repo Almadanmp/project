@@ -13,7 +13,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 @RestController
 @RequestMapping("/houseSettings")
@@ -26,7 +26,7 @@ public class HouseConfigurationWebController {
     private HouseRepository houseRepository;
 
     @Autowired
-    private HouseCrudeRepo houseCrudeRepo;
+    private HouseCrudRepo houseCrudRepo;
 
     // USER STORY 101
 
@@ -39,7 +39,7 @@ public class HouseConfigurationWebController {
     public ResponseEntity<Object> setHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
         HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
         house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
-        if (houseCrudeRepo.save(HouseMapper.dtoWithoutGridsToObject(house)) != null) {
+        if (houseCrudRepo.save(HouseMapper.dtoWithoutGridsToObject(house)) != null) {
             return new ResponseEntity<>("The house has been altered.", HttpStatus.OK);
         }
         return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.NOT_ACCEPTABLE);

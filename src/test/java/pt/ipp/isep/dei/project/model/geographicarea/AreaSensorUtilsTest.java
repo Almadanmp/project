@@ -3,54 +3,38 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class AreaSensorUtilsTest {
-
-
-    @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-    @Mock
-    AreaTypeCrudeRepo areaTypeCrudeRepo;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private GeographicArea firstValidArea;
     private List<GeographicArea> validList;
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
-    @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
     private Date validDate3;
     private Date sensorCreationTime;
     private Date validReadingDate;
     private Date validReadingDate2;
     private Date validReadingDate3;
-    private Reading validReading;
     private Reading validReading2;
     private Reading validReadingHotDay;
     private Reading validReadingColdDay;
@@ -90,8 +74,6 @@ public class AreaSensorUtilsTest {
         validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
-
-        validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
         validReadingHotDay = new Reading(50, validReadingDate2, "C", "SensorThree");
         validReadingColdDay = new Reading(0, validReadingDate3, "C", "SensorThree");

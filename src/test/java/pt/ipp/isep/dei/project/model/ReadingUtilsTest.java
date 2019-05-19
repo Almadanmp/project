@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +51,7 @@ class ReadingUtilsTest {
     private SensorType validSensorTypeTemp;
 
     @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
+    SensorTypeCrudRepo sensorTypeCrudRepo;
 
     @Autowired
     GeographicAreaRepository geographicAreaRepository;

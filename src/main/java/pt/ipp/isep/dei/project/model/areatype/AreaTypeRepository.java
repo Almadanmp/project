@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.areatype;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class AreaTypeRepository {
 
     @Autowired
-    AreaTypeCrudeRepo repository;
+    AreaTypeCrudRepo repository;
 
     List<AreaType> getAreaTypes() {
         return repository.findAll();

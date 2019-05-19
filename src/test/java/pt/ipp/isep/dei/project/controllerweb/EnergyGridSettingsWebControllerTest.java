@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,9 +26,6 @@ public class EnergyGridSettingsWebControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Mock
-    private EnergyGridCrudeRepo mockRepo;
 
     @Mock
     private EnergyGridSettingsWebController energyGridSettingsWebController;
@@ -64,7 +60,7 @@ public class EnergyGridSettingsWebControllerTest {
                         "}"))
                 .andExpect(status().isOk());
         int status = resultActions.andReturn().getResponse().getStatus();
-        assertEquals(200,status);
+        assertEquals(200, status);
     }
 
     @Test

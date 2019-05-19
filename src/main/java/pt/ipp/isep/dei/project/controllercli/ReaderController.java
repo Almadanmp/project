@@ -19,7 +19,7 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudeRepo houseCrudeRepo, RoomRepository roomRepository) {
+    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudRepo houseCrudRepo, RoomRepository roomRepository) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         //House
         HouseDTO houseDTO;
@@ -68,7 +68,7 @@ public class ReaderController {
                 roomRepository.saveRoom(aux);
             }
         }
-        houseCrudeRepo.save(house);
+        houseCrudRepo.save(house);
         return true;
     }
 

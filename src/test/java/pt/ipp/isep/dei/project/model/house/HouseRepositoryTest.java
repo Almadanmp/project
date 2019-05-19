@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ class HouseRepositoryTest {
     private House validHouse;
 
     @Mock
-    HouseCrudeRepo houseCrudeRepo;
+    HouseCrudRepo houseCrudRepo;
 
     @InjectMocks
     private HouseRepository houseRepository;
@@ -40,7 +40,7 @@ class HouseRepositoryTest {
         String expectedResult = "ISEP";
         List<House> houseList = new ArrayList<>();
         houseList.add(validHouse);
-        Mockito.when(houseCrudeRepo.findAll()).thenReturn(houseList);
+        Mockito.when(houseCrudRepo.findAll()).thenReturn(houseList);
 
         //Act
 

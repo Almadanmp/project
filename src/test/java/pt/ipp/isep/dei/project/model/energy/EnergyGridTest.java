@@ -15,8 +15,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,10 +41,10 @@ class EnergyGridTest {
     private GeographicArea geographicArea;
 
     @Mock
-    RoomCrudeRepo roomCrudeRepo;
+    RoomCrudRepo roomCrudRepo;
 
     @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
+    SensorTypeCrudRepo sensorTypeCrudRepo;
 
     @BeforeEach
     void arrangeArtifacts() {

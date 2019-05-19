@@ -22,7 +22,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,7 +71,7 @@ class GeographicAreaRepositoryTest {
     private List<String> deviceTypeString;
 
     @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
+    GeographicAreaCrudRepo geographicAreaCrudRepo;
 
     @InjectMocks
     private GeographicAreaRepository geographicAreaRepository;
@@ -169,7 +169,7 @@ class GeographicAreaRepositoryTest {
         List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(firstValidArea);
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(geographicAreas);
 
         int expectedResult = 0;
 
@@ -194,7 +194,7 @@ class GeographicAreaRepositoryTest {
         geographicAreas.add(firstValidArea);
         firstValidArea.addSensor(firstValidAreaSensor);
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(geographicAreas);
 
         int expectedResult = 1;
 
@@ -290,7 +290,7 @@ class GeographicAreaRepositoryTest {
         firstValidArea.addSensor(firstValidAreaSensor);
         firstValidArea.addSensor(secondValidAreaSensor);
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(validList);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
 
         //Act
 
@@ -307,7 +307,7 @@ class GeographicAreaRepositoryTest {
 
         List<GeographicArea> emptyList = new ArrayList<>();
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(emptyList);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(emptyList);
 
         // Assert
 
@@ -365,7 +365,7 @@ class GeographicAreaRepositoryTest {
         List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(firstValidArea);
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(geographicAreas);
 
         assertFalse(geographicAreaRepository.isEmpty());
 
@@ -376,7 +376,7 @@ class GeographicAreaRepositoryTest {
 
         List<GeographicArea> geographicAreas = new ArrayList<>();
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(geographicAreas);
 
         assertTrue(geographicAreaRepository.isEmpty());
     }
@@ -386,7 +386,7 @@ class GeographicAreaRepositoryTest {
         long mockId = 1234;
         firstValidArea.setId(mockId);
 
-        Mockito.when(geographicAreaCrudeRepo.findById(mockId)).thenReturn(Optional.of(firstValidArea));
+        Mockito.when(geographicAreaCrudRepo.findById(mockId)).thenReturn(Optional.of(firstValidArea));
 
         GeographicArea result = geographicAreaRepository.get(mockId);
 
@@ -398,7 +398,7 @@ class GeographicAreaRepositoryTest {
     void seeIfGetTypeAreaByIdRepositoryNull() {
         long mockId = 1234;
 
-        Mockito.when(geographicAreaCrudeRepo.findById(mockId)).thenReturn(Optional.empty());
+        Mockito.when(geographicAreaCrudRepo.findById(mockId)).thenReturn(Optional.empty());
 
         Throwable exception = assertThrows(NoSuchElementException.class, () -> geographicAreaRepository.get(mockId));
 
@@ -458,7 +458,7 @@ class GeographicAreaRepositoryTest {
 
         validList.add(areaOne);
 
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(validList);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
 
         boolean result = geographicAreaRepository.addAndPersistGA(areaOne);
 
@@ -499,7 +499,7 @@ class GeographicAreaRepositoryTest {
         firstValidArea.addSensor(firstValidAreaSensor);
         geographicAreaRepository.addAndPersistGA(firstValidArea);
 
-        Mockito.when(geographicAreaCrudeRepo.findById(firstValidArea.getId())).thenReturn(Optional.ofNullable(firstValidArea));
+        Mockito.when(geographicAreaCrudRepo.findById(firstValidArea.getId())).thenReturn(Optional.ofNullable(firstValidArea));
 
         AreaSensorDTO actualResult = geographicAreaRepository.getAreaSensorByID("SensorOne", 3L);
 
@@ -644,7 +644,7 @@ class GeographicAreaRepositoryTest {
         List<GeographicArea> listGA = new ArrayList<>();
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         listGA.add(area);
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(listGA);
 
         List<GeographicAreaDTO> expectedResult = new ArrayList<>();
         expectedResult.add(validDTO);
@@ -667,7 +667,7 @@ class GeographicAreaRepositoryTest {
         area.setId(25L);
         listGA.add(area);
         Optional<GeographicArea> opt = Optional.of(area);
-        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
 
         GeographicAreaDTO expectedResult = validDTO;
 
@@ -778,7 +778,7 @@ class GeographicAreaRepositoryTest {
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         area.setId(25L);
         Optional<GeographicArea> opt = Optional.of(area);
-        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
 
         GeographicAreaDTO expectedResult = validDTO;
 
@@ -804,7 +804,7 @@ class GeographicAreaRepositoryTest {
         firstValidArea.setId(23L);
         GeographicAreaDTO geographicAreaDTO =GeographicAreaMapper.objectToDTO(firstValidArea);
         Optional<GeographicArea> opt = Optional.of(area);
-        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
 
         GeographicAreaDTO expectedResult = validDTO;
 
@@ -827,7 +827,7 @@ class GeographicAreaRepositoryTest {
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         area.setId(25L);
         Optional<GeographicArea> opt = Optional.of(area);
-        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
         GeographicAreaDTO expectedResult = validDTO;
 
         // Act
@@ -849,7 +849,7 @@ class GeographicAreaRepositoryTest {
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         area.setId(25L);
         Optional<GeographicArea> opt = Optional.of(area);
-        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
         GeographicAreaDTO expectedResult = validDTO;
 
         // Act
@@ -869,7 +869,7 @@ class GeographicAreaRepositoryTest {
         List<GeographicArea> listGA = new ArrayList<>();
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         listGA.add(area);
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(listGA);
 
         // Act
         boolean actualResult = geographicAreaRepository.addAndPersistDTO(validDTO);
@@ -883,7 +883,7 @@ class GeographicAreaRepositoryTest {
     void seeIfAddAndPersistGeoAreaDTOWorks() {
         // Arrange
         List<GeographicArea> listGA = new ArrayList<>();
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(listGA);
 
         // Act
         boolean actualResult = geographicAreaRepository.addAndPersistDTO(validDTO);
@@ -899,7 +899,7 @@ class GeographicAreaRepositoryTest {
         List<GeographicArea> listGA = new ArrayList<>();
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         listGA.add(area);
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(listGA);
 
         // Act
         boolean actualResult = geographicAreaRepository.addAndPersistGA(area);
@@ -914,7 +914,7 @@ class GeographicAreaRepositoryTest {
         // Arrange
         List<GeographicArea> listGA = new ArrayList<>();
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
-        Mockito.when(geographicAreaCrudeRepo.findAll()).thenReturn(listGA);
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(listGA);
 
         // Act
         boolean actualResult = geographicAreaRepository.addAndPersistGA(area);
@@ -933,7 +933,7 @@ class GeographicAreaRepositoryTest {
         expectedResult.add(validAreaSensor);
         expectedResult.add(secondValidAreaSensor);
 
-        Mockito.when(geographicAreaCrudeRepo.findAllByAreaSensorsInAndAreaTypeID(firstValidArea, "temperature")).thenReturn(expectedResult);
+        Mockito.when(geographicAreaCrudRepo.findAllByAreaSensorsInAndAreaTypeID(firstValidArea, "temperature")).thenReturn(expectedResult);
         List<AreaSensor> actualResult = geographicAreaRepository.findSensorByGAAndType(firstValidArea, "temperature");
         assertEquals(expectedResult, actualResult);
     }

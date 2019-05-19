@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import java.util.List;
 
 @Repository
-public interface GeographicAreaCrudeRepo extends CrudRepository<GeographicArea, Long> {
+public interface GeographicAreaCrudRepo extends CrudRepository<GeographicArea, Long> {
     List<GeographicArea> findAll();
 
     List<GeographicArea> findAllByAreaTypeID(String areaTypeID);

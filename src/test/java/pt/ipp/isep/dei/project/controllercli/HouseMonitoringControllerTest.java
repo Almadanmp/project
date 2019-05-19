@@ -13,8 +13,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,17 +51,6 @@ class HouseMonitoringControllerTest {
     private Date validDate22;
     private Date validDate24;
     private Date validDate25;
-    @Mock
-    private GeographicAreaRepository geographicAreaRepository;
-
-    @Mock
-    GeographicArea mockArea;
-
-    @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-
-    @Mock
-    AreaTypeCrudeRepo areaTypeCrudeRepo;
 
     @InjectMocks
     private HouseMonitoringController controller;

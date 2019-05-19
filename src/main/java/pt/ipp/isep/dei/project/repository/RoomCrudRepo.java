@@ -2,15 +2,15 @@ package pt.ipp.isep.dei.project.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.room.Room;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AreaTypeCrudeRepo extends CrudRepository<AreaType, String> {
+public interface RoomCrudRepo extends CrudRepository<Room, String> {
+    List<Room> findAll();
 
-    List<AreaType> findAll();
+    Optional<Room> findByRoomName(String name);
 
-    Optional<AreaType> findByName(String name);
 }

@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.AreaTypeCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ class AreaTypeRepositoryTest {
     private AreaType secondValidType;
 
     @Mock
-    private AreaTypeCrudeRepo areaTypeCrudeRepo;
+    private AreaTypeCrudRepo areaTypeCrudRepo;
     @InjectMocks
     private AreaTypeRepository areaTypeRepository;
 
@@ -44,7 +44,7 @@ class AreaTypeRepositoryTest {
         areaTypes.add(firstValidType);
         areaTypes.add(secondValidType);
 
-        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudRepo.findAll()).thenReturn(areaTypes);
 
         List<AreaType> result = areaTypeRepository.getAreaTypes();
 
@@ -68,7 +68,7 @@ class AreaTypeRepositoryTest {
         List<AreaType> areaTypes = new ArrayList<>();
         areaTypes.add(areaType);
 
-        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudRepo.findAll()).thenReturn(areaTypes);
 
         int actualResult = areaTypeRepository.size();
 
@@ -84,7 +84,7 @@ class AreaTypeRepositoryTest {
         List<AreaType> areaTypes = new ArrayList<>();
         areaTypes.add(areaType);
 
-        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudRepo.findAll()).thenReturn(areaTypes);
 
         assertFalse(areaTypeRepository.isEmpty());
 
@@ -95,7 +95,7 @@ class AreaTypeRepositoryTest {
 
         List<AreaType> areaTypes = new ArrayList<>();
 
-        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudRepo.findAll()).thenReturn(areaTypes);
 
         assertTrue(areaTypeRepository.isEmpty());
     }
@@ -106,7 +106,7 @@ class AreaTypeRepositoryTest {
         areaTypes.add(secondValidType);
         areaTypes.add(firstValidType);
 
-        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "---------------\n" +
                 "Name: City \n" +
@@ -122,7 +122,7 @@ class AreaTypeRepositoryTest {
     void getAllAsStringEmpty() {
         List<AreaType> areaTypes = new ArrayList<>();
 
-        Mockito.when(areaTypeCrudeRepo.findAll()).thenReturn(areaTypes);
+        Mockito.when(areaTypeCrudRepo.findAll()).thenReturn(areaTypes);
 
         String expectedResult = "Invalid List - List is Empty\n";
 
@@ -136,7 +136,7 @@ class AreaTypeRepositoryTest {
         //Arrange
 
         AreaType areatype = new AreaType("Name");
-        Mockito.when(areaTypeCrudeRepo.findByName("Name")).thenReturn(Optional.empty());
+        Mockito.when(areaTypeCrudRepo.findByName("Name")).thenReturn(Optional.empty());
 
         //Act
         boolean actualResult = areaTypeRepository.add(areatype);
@@ -149,7 +149,7 @@ class AreaTypeRepositoryTest {
         //Arrange
 
         AreaType areatype = new AreaType("Name");
-        Mockito.when(areaTypeCrudeRepo.findByName("Name")).thenReturn(Optional.of(areatype));
+        Mockito.when(areaTypeCrudRepo.findByName("Name")).thenReturn(Optional.of(areatype));
 
         //Act
         boolean actualResult = areaTypeRepository.add(areatype);
@@ -167,7 +167,7 @@ class AreaTypeRepositoryTest {
 
         // Act
 
-        boolean actualResult = areaTypeCrudeRepo.equals(testList);
+        boolean actualResult = areaTypeCrudRepo.equals(testList);
 
         // Assert
 
@@ -178,7 +178,7 @@ class AreaTypeRepositoryTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = areaTypeCrudeRepo.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
+        boolean actualResult = areaTypeCrudRepo.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -189,7 +189,7 @@ class AreaTypeRepositoryTest {
     void seeIfEqualsWorksForItself() {
         // Act
 
-        boolean actualResult = areaTypeCrudeRepo.equals(areaTypeCrudeRepo); // Needed for sonarqube testing purposes.
+        boolean actualResult = areaTypeCrudRepo.equals(areaTypeCrudRepo); // Needed for sonarqube testing purposes.
 
         // Assert
 

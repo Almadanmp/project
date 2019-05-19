@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
+import pt.ipp.isep.dei.project.repository.GeographicAreaCrudRepo;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 @Service
 public class GeographicAreaRepository {
     @Autowired
-    private GeographicAreaCrudeRepo geographicAreaCrudeRepo;
+    private GeographicAreaCrudRepo geographicAreaCrudRepo;
 
 
     private static final String BUILDER = "---------------\n";
@@ -37,13 +37,13 @@ public class GeographicAreaRepository {
      * @return a GeographicAreaList with all the Geographical Areas saved in the repository.
      */
     public List<GeographicArea> getAll() {
-        return geographicAreaCrudeRepo.findAll();
+        return geographicAreaCrudRepo.findAll();
     }
 
     //WEB CONTROLLER//
     //TODO: Replace previous getAll()
     public List<GeographicAreaDTO> getAllDTO() {
-        List<GeographicArea> list = geographicAreaCrudeRepo.findAll();
+        List<GeographicArea> list = geographicAreaCrudRepo.findAll();
         List<GeographicAreaDTO> finalList = new ArrayList<>();
         for (GeographicArea ga : list) {
             GeographicAreaDTO gaDTO = GeographicAreaMapper.objectToDTO(ga);
@@ -53,7 +53,7 @@ public class GeographicAreaRepository {
     }
 
     public List<GeographicAreaWebDTO> getAllDTOWebInformation() {
-        List<GeographicArea> list = geographicAreaCrudeRepo.findAll();
+        List<GeographicArea> list = geographicAreaCrudRepo.findAll();
         List<GeographicAreaWebDTO> finalList = new ArrayList<>();
         for (GeographicArea ga : list) {
             GeographicAreaWebDTO gaDTO = GeographicAreaMapper.objectToWebDTO(ga);
@@ -63,7 +63,7 @@ public class GeographicAreaRepository {
     }
 
     public GeographicAreaDTO getDTOById(long Id) {
-        Optional<GeographicArea> aux = geographicAreaCrudeRepo.findById(Id);
+        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
         }
@@ -75,26 +75,26 @@ public class GeographicAreaRepository {
         GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaToAddDTO);
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
-            geographicAreaCrudeRepo.save(geographicAreaToAdd);
+            geographicAreaCrudRepo.save(geographicAreaToAdd);
             return true;
         }
         return false;
     }
 
     public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
-        geographicAreaCrudeRepo.deleteById(geographicAreaDTO.getId());
+        geographicAreaCrudRepo.deleteById(geographicAreaDTO.getId());
     }
 
     public void updateAreaDTO(GeographicAreaDTO areaDTO) {
         GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
-        geographicAreaCrudeRepo.save(area);
+        geographicAreaCrudRepo.save(area);
     }
 
     public void updateAreaDTOWithMother(GeographicAreaDTO areaDTO, GeographicAreaDTO motherAreaDTO) {
         //get mother area by id
         GeographicArea motherArea = GeographicAreaMapper.dtoToObject(motherAreaDTO);
         GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO, motherArea);
-        geographicAreaCrudeRepo.save(area);
+        geographicAreaCrudRepo.save(area);
     }
 
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
@@ -136,14 +136,14 @@ public class GeographicAreaRepository {
         List<GeographicArea> geographicAreas = getAll();
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
-            geographicAreaCrudeRepo.save(geographicAreaToAdd);
+            geographicAreaCrudRepo.save(geographicAreaToAdd);
             return true;
         }
         return false;
     }
 
     public GeographicArea updateGeoArea(GeographicArea area) {
-        return geographicAreaCrudeRepo.save(area);
+        return geographicAreaCrudRepo.save(area);
     }
 
     /**
@@ -190,7 +190,7 @@ public class GeographicAreaRepository {
      * @return a GeographicAreaList with a given type.
      */
     public List<GeographicArea> getGeoAreasByType(String typeAreaName) {
-        return geographicAreaCrudeRepo.findAllByAreaTypeID(typeAreaName);
+        return geographicAreaCrudRepo.findAllByAreaTypeID(typeAreaName);
     }
 
     /**
@@ -228,7 +228,7 @@ public class GeographicAreaRepository {
      * @return returns geographic area that corresponds to index.
      */
     public GeographicArea get(long id) {
-        Optional<GeographicArea> value = geographicAreaCrudeRepo.findById(id);
+        Optional<GeographicArea> value = geographicAreaCrudRepo.findById(id);
         if (value.isPresent()) {
             return value.get();
         }
@@ -285,7 +285,7 @@ public class GeographicAreaRepository {
             GeographicArea geographicArea = getGeographicAreaContainingSensorWithGivenId(sensorID);
             AreaSensor areaSensor = geographicArea.getAreaSensorByID(sensorID);
             addedReadings = addReadingsToAreaSensor(areaSensor, readings, logger);
-            geographicAreaCrudeRepo.save(geographicArea);
+            geographicAreaCrudRepo.save(geographicArea);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.";
@@ -304,7 +304,7 @@ public class GeographicAreaRepository {
      * @return the geographic area that contains the sensor with the given ID
      **/
     GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
-        List<GeographicArea> geographicAreas = geographicAreaCrudeRepo.findAll();
+        List<GeographicArea> geographicAreas = geographicAreaCrudRepo.findAll();
         for (GeographicArea ga : geographicAreas) {
             List<AreaSensor> areaSensors = ga.getAreaSensors();
             for (AreaSensor sensor : areaSensors) {
@@ -350,6 +350,6 @@ public class GeographicAreaRepository {
     }
 
     public List<AreaSensor> findSensorByGAAndType(GeographicArea geographicArea, String sensorType) {
-        return geographicAreaCrudeRepo.findAllByAreaSensorsInAndAreaTypeID(geographicArea, sensorType);
+        return geographicAreaCrudRepo.findAllByAreaSensorsInAndAreaTypeID(geographicArea, sensorType);
     }
 }

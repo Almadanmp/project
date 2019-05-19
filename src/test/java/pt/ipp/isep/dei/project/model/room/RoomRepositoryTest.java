@@ -18,8 +18,7 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,9 +47,7 @@ class RoomRepositoryTest {
 
 
     @Mock
-    private RoomCrudeRepo roomCrudeRepo;
-    @Mock
-    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
+    private RoomCrudRepo roomCrudRepo;
 
     @InjectMocks
     private RoomRepository validRoomRepository;
@@ -95,7 +92,7 @@ class RoomRepositoryTest {
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom2);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
         //Act
 
@@ -116,7 +113,7 @@ class RoomRepositoryTest {
         rooms.add(validRoom2);
         rooms.add(validRoom);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
         //Act
 
@@ -139,7 +136,7 @@ class RoomRepositoryTest {
         rooms.add(validRoom);
         validRoom.addSensor(firstValidRoomSensor);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
         int expectedResult = 0;
 
@@ -164,7 +161,7 @@ class RoomRepositoryTest {
         rooms.add(validRoom);
         validRoom.addSensor(firstValidRoomSensor);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
         int expectedResult = 1;
 
@@ -262,7 +259,7 @@ class RoomRepositoryTest {
         validRoom.addSensor(secondValidRoomSensor);
         validList.add(validRoom);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(validList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(validList);
 
         //Act
 
@@ -279,7 +276,7 @@ class RoomRepositoryTest {
 
         List<Room> emptyList = new ArrayList<>();
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(emptyList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(emptyList);
 
         // Assert
 
@@ -290,7 +287,7 @@ class RoomRepositoryTest {
     @Test
     void seeIfGetAllRoomsWorksNull() {
         // Arrange
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(null);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(null);
         List<Room> expectedResult = new ArrayList<>();
 
         // Act
@@ -304,7 +301,7 @@ class RoomRepositoryTest {
     @Test
     void seeIfRemoveRoom() {
 
-        Mockito.when(roomCrudeRepo.findById(validRoom.getId())).thenReturn((Optional.of(validRoom)));
+        Mockito.when(roomCrudRepo.findById(validRoom.getId())).thenReturn((Optional.of(validRoom)));
 
 
         //Assert
@@ -350,7 +347,7 @@ class RoomRepositoryTest {
         validRoomRepository.saveRoom(room);
 
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
 
         assertEquals(roomList, validRoomRepository.getAllRooms());
     }
@@ -362,7 +359,7 @@ class RoomRepositoryTest {
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
 
 
-        Mockito.when(roomCrudeRepo.findById(mockId)).thenReturn(Optional.of(room));
+        Mockito.when(roomCrudRepo.findById(mockId)).thenReturn(Optional.of(room));
 
         Room result = validRoomRepository.getRoomByName(mockId);
 
@@ -382,7 +379,7 @@ class RoomRepositoryTest {
     void seeIfIdExists() {
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
         //Assert
         assertTrue(validRoomRepository.idExists(validRoom.getId()));
     }
@@ -391,7 +388,7 @@ class RoomRepositoryTest {
     void seeIfIdNotExists() {
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
         //Assert
         assertFalse(validRoomRepository.idExists("Hall"));
     }
@@ -507,7 +504,7 @@ class RoomRepositoryTest {
         rooms.add(validRoom);
         rooms.add(room);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn((rooms));
+        Mockito.when(roomCrudRepo.findAll()).thenReturn((rooms));
 
 
         //Act
@@ -559,7 +556,7 @@ class RoomRepositoryTest {
         // Act
 
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
         double actualResult = validRoomRepository.getDailyConsumptionByDeviceType("WaterHeater", 89);
 
@@ -711,7 +708,7 @@ class RoomRepositoryTest {
         List<Room> roomList = new ArrayList<>();
         roomList.add(validRoom);
         roomList.add(room);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
         ArrayList<Double> dimensions = new ArrayList<>();
         dimensions.add(4D);
         dimensions.add(5D);
@@ -732,7 +729,7 @@ class RoomRepositoryTest {
     @Test
     void seeIfEmptyRoomsWorks() {
         List<Room> roomList = new ArrayList<>();
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
         boolean actualResult = validRoomRepository.isEmptyRooms();
         assertTrue(actualResult);
     }
@@ -751,7 +748,7 @@ class RoomRepositoryTest {
         room1.setDeviceList(deviceList1);
         roomList.add(room);
         roomList.add(room1);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
         //Act
         DeviceList actualResult = validRoomRepository.getDeviceList();
         //Assert
@@ -766,7 +763,7 @@ class RoomRepositoryTest {
         deviceList.add(validDevice);
         roomList.add(validRoom);
         validRoom.setDeviceList(deviceList);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
         //Act
         double actualResult = validRoomRepository.getNominalPower();
         //Assert
@@ -776,7 +773,7 @@ class RoomRepositoryTest {
     @Test
     void seeIfSaveRoomReturnsFalse() {
         //Arrange
-        Mockito.when(roomCrudeRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
         //Act
         boolean actualResult = validRoomRepository.saveRoom(validRoom);
         //Assert
@@ -786,7 +783,7 @@ class RoomRepositoryTest {
     @Test
     void seeIfFindRoomByIdWorks() {
         //Arrange
-        Mockito.when(roomCrudeRepo.findById("Kitchen")).thenReturn(Optional.of(validRoom));
+        Mockito.when(roomCrudRepo.findById("Kitchen")).thenReturn(Optional.of(validRoom));
         //Act
         Optional<Room> actualResult = validRoomRepository.findRoomByID("Kitchen");
         //Assert
@@ -812,7 +809,7 @@ class RoomRepositoryTest {
         Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
         rooms.add(room1);
         rooms.add(room);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
         Room actualResult = validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
         assertEquals(room, actualResult);
     }

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
@@ -15,8 +14,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.WashingMachineSpec;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,12 +29,6 @@ class RoomMapperTest {
     // Common testing artifacts for testing in this class
     private Room validRoom;
     private RoomDTO validDTO;
-
-    @Mock
-    RoomRepository roomRepository;
-
-    @Mock
-    RoomCrudeRepo roomCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {

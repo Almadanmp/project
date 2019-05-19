@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 
 /**
@@ -20,10 +20,10 @@ class EnergyGridRoomRepositoryTest {
     private Room validRoom;
 
     @Mock
-    private RoomCrudeRepo roomCrudeRepo;
+    private RoomCrudRepo roomCrudRepo;
 
     @Mock
-    private EnergyGridCrudeRepo energyGridCrudeRepo;
+    private EnergyGridCrudRepo energyGridCrudRepo;
 
     @InjectMocks
     private EnergyGridRoomService validEnergyGridRoomService;

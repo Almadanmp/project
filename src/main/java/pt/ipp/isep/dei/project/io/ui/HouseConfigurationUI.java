@@ -18,7 +18,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ class HouseConfigurationUI {
     @Autowired
     private SensorTypeRepository sensorTypeRepository;
     @Autowired
-    private HouseCrudeRepo houseCrudeRepo;
+    private HouseCrudRepo houseCrudRepo;
     @Autowired
     private InputHelperUI inputHelperUI;
 
@@ -125,7 +125,7 @@ class HouseConfigurationUI {
         String filePath = InputHelperUI.getInputPath(input);
         long startTime = System.currentTimeMillis();
         try {
-            if (readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudeRepo, roomRepository)) {
+            if (readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository)) {
                 System.out.println("House Data Successfully imported.");
                 long stopTime = System.currentTimeMillis();
                 System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
@@ -157,7 +157,7 @@ class HouseConfigurationUI {
 
         controller.setHouseLocal(houseLat, houseLon, houseAlt, house);
         controller.setHouseMotherArea(house, motherArea);
-        houseCrudeRepo.save(house);
+        houseCrudRepo.save(house);
 
         System.out.println("\nYou have successfully configured the location of the house with the following\n Latitude: " + houseLat + ". \n" +
                 "Longitude: " + houseLon + ". \n" + "Altitude: " + houseAlt + ". \n");

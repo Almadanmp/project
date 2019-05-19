@@ -10,7 +10,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public class RoomRepository {
 
     @Autowired
-    private RoomCrudeRepo roomCrudeRepo;
+    private RoomCrudRepo roomCrudRepo;
 
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
@@ -39,7 +39,7 @@ public class RoomRepository {
      * @return a list containing all rooms contained in repository
      **/
     public List<Room> getAllRooms() {
-        List<Room> roomsAux = roomCrudeRepo.findAll();
+        List<Room> roomsAux = roomCrudRepo.findAll();
         if (roomsAux != null) {
             return roomsAux;
         }
@@ -54,7 +54,7 @@ public class RoomRepository {
      * @return is true if a room with the given ID exists, false if it doesn't.
      */
     boolean idExists(String idToCheck) {
-        for (Room r : roomCrudeRepo.findAll()) {
+        for (Room r : roomCrudRepo.findAll()) {
             if (r.getId().equals(idToCheck)) {
                 return true;
             }
@@ -113,7 +113,7 @@ public class RoomRepository {
      * @return true if the room was successfully saved to the repository, false otherwise.
      */
     public void updateRoom(Room room) {
-        roomCrudeRepo.save(room);
+        roomCrudRepo.save(room);
     }
 
     /**
@@ -123,9 +123,9 @@ public class RoomRepository {
      * @return true if room was successfully removed from the roomList, false otherwise.
      */
     public boolean removeRoom(Room room) {
-        Optional<Room> aux = roomCrudeRepo.findById(room.getId());
+        Optional<Room> aux = roomCrudRepo.findById(room.getId());
         if (aux.isPresent()) {
-            roomCrudeRepo.delete(room);
+            roomCrudRepo.delete(room);
             return true;
         }
         return false;
@@ -148,7 +148,7 @@ public class RoomRepository {
      */
     Room getRoomByName(String name) {
         Room room;
-        Optional<Room> aux = roomCrudeRepo.findById(name);
+        Optional<Room> aux = roomCrudRepo.findById(name);
         if (aux.isPresent()) {
             room = aux.get();
             return room;
@@ -189,7 +189,7 @@ public class RoomRepository {
                 return false;
             }
         }
-        this.roomCrudeRepo.save(room);
+        this.roomCrudRepo.save(room);
         return true;
     }
 
@@ -262,11 +262,11 @@ public class RoomRepository {
     }
 
     public boolean saveRoom(Room room) {
-        Optional<Room> room1 = roomCrudeRepo.findByRoomName(room.getId());
+        Optional<Room> room1 = roomCrudRepo.findByRoomName(room.getId());
         if (room1.isPresent()) {
             return false;
         }
-        roomCrudeRepo.save(room);
+        roomCrudRepo.save(room);
         return true;
     }
 
@@ -291,7 +291,7 @@ public class RoomRepository {
      */
 
     public Optional<Room> findRoomByID(String idToFind) {
-        return roomCrudeRepo.findById(idToFind);
+        return roomCrudRepo.findById(idToFind);
     }
 
     /**
@@ -331,7 +331,7 @@ public class RoomRepository {
             Room room = getRoomContainingSensorWithGivenId(sensorID);
             RoomSensor roomSensor = room.getRoomSensorByID(sensorID);
             addedReadings = addReadingsToRoomSensor(roomSensor, readings, logger);
-            roomCrudeRepo.save(room);
+            roomCrudRepo.save(room);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
@@ -349,7 +349,7 @@ public class RoomRepository {
      * @return the room that contains the sensor with the given ID
      **/
     Room getRoomContainingSensorWithGivenId(String sensorID) {
-        List<Room> roomList = roomCrudeRepo.findAll();
+        List<Room> roomList = roomCrudRepo.findAll();
         for (Room room : roomList) {
             List<RoomSensor> roomSensors = room.getRoomSensors();
             for (RoomSensor sensor : roomSensors) {

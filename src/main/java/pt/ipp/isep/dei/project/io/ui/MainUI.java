@@ -16,7 +16,7 @@ import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class MainUI {
     @Autowired
     private AreaTypeRepository areaTypeRepository;
     @Autowired
-    private HouseCrudeRepo houseCrudeRepo;
+    private HouseCrudRepo houseCrudRepo;
     @Autowired
     private HouseMonitoringUI houseMonitoringUI;
     @Autowired
@@ -127,7 +127,7 @@ public class MainUI {
             // *************************
 
 
-            House house = mainHouse(houseCrudeRepo, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
+            House house = mainHouse(houseCrudRepo, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
             //LOAD PERSISTED GA DATA
 
@@ -225,18 +225,18 @@ public class MainUI {
         scanner.nextLine();
     }
 
-    private static House mainHouse(HouseCrudeRepo houseCrudeRepo, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
+    private static House mainHouse(HouseCrudRepo houseCrudRepo, int gridMeteringPeriod, int deviceMeteringPeriod, List<String> deviceTypeConfig) {
         House house;
-        Optional<House> aux = houseCrudeRepo.findById("01");
+        Optional<House> aux = houseCrudRepo.findById("01");
         if (aux.isPresent()) {
             house = aux.get();
             house.setGridMeteringPeriod(gridMeteringPeriod);
             house.setDeviceMeteringPeriod(deviceMeteringPeriod);
             house.buildAndSetDeviceTypeList(deviceTypeConfig);
-            houseCrudeRepo.save(house);
+            houseCrudRepo.save(house);
             return house;
         }
         house = new House("01", new Local(0, 0, 0), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
-        return houseCrudeRepo.save(house);
+        return houseCrudRepo.save(house);
     }
 }

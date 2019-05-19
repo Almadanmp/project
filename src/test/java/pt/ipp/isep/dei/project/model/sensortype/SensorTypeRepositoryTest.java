@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
+import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ class SensorTypeRepositoryTest {
     private SensorType firstValidType;
     private SensorType secondValidType;
     @Mock
-    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
+    private SensorTypeCrudRepo sensorTypeCrudRepo;
     @InjectMocks
     private SensorTypeRepository sensorTypeRepository;
 
@@ -55,7 +55,7 @@ class SensorTypeRepositoryTest {
     void seeIfGetTypeAreaByIdRepositoryNull() {
         String areaName = null;
 
-        Mockito.when(sensorTypeCrudeRepo.findById(areaName)).thenReturn(Optional.empty());
+        Mockito.when(sensorTypeCrudRepo.findById(areaName)).thenReturn(Optional.empty());
 
         Throwable exception = assertThrows(NoSuchElementException.class, () -> sensorTypeRepository.getById(areaName));
 
@@ -72,7 +72,7 @@ class SensorTypeRepositoryTest {
 
         int expectedResult = 1;
 
-        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
 
         int result = sensorTypeRepository.size();
 
@@ -87,7 +87,7 @@ class SensorTypeRepositoryTest {
 
         int expectedResult = 1;
 
-        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
 
         int result = sensorTypeRepository.size();
 
@@ -102,7 +102,7 @@ class SensorTypeRepositoryTest {
         List<SensorType> sensorTypes = new ArrayList<>();
         sensorTypes.add(sensorType);
 
-        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
 
         assertFalse(sensorTypeRepository.isEmpty());
 
@@ -113,7 +113,7 @@ class SensorTypeRepositoryTest {
 
         List<SensorType> sensorTypes = new ArrayList<>();
 
-        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
 
         assertTrue(sensorTypeRepository.isEmpty());
     }
@@ -124,7 +124,7 @@ class SensorTypeRepositoryTest {
         sensorTypes.add(secondValidType);
         sensorTypes.add(firstValidType);
 
-        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "---------------\n" +
                 "Name: Rainfall | Unit: l/m2 \n" +
@@ -140,7 +140,7 @@ class SensorTypeRepositoryTest {
     void getAllAsStringEmpty() {
         List<SensorType> sensorTypes = new ArrayList<>();
 
-        Mockito.when(sensorTypeCrudeRepo.findAll()).thenReturn(sensorTypes);
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
 
         String expectedResult = "Invalid List - List is Empty\n";
 
@@ -159,7 +159,7 @@ class SensorTypeRepositoryTest {
 
         // Act
 
-        boolean actualResult = sensorTypeCrudeRepo.equals(testList);
+        boolean actualResult = sensorTypeCrudRepo.equals(testList);
 
         // Assert
 
@@ -170,7 +170,7 @@ class SensorTypeRepositoryTest {
     void seeIfEqualsWorksNotAnInstance() {
         // Act
 
-        boolean actualResult = sensorTypeCrudeRepo.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeCrudRepo.equals(new WaterHeater(new WaterHeaterSpec())); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -181,7 +181,7 @@ class SensorTypeRepositoryTest {
     void seeIfEqualsWorksForItself() {
         // Act
 
-        boolean actualResult = sensorTypeCrudeRepo.equals(sensorTypeCrudeRepo); // Needed for sonarqube testing purposes.
+        boolean actualResult = sensorTypeCrudRepo.equals(sensorTypeCrudRepo); // Needed for sonarqube testing purposes.
 
         // Assert
 
@@ -193,7 +193,7 @@ class SensorTypeRepositoryTest {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "celsius");
-        Mockito.when(sensorTypeCrudeRepo.findByName("Name")).thenReturn(Optional.empty());
+        Mockito.when(sensorTypeCrudRepo.findByName("Name")).thenReturn(Optional.empty());
 
         //Act
         boolean actualResult = sensorTypeRepository.add(sensorType);
@@ -206,7 +206,7 @@ class SensorTypeRepositoryTest {
         //Arrange
 
         SensorType sensorType = new SensorType("Name", "Celsius");
-        Mockito.when(sensorTypeCrudeRepo.findByName("Name")).thenReturn(Optional.of(sensorType));
+        Mockito.when(sensorTypeCrudRepo.findByName("Name")).thenReturn(Optional.of(sensorType));
 
         //Act
         boolean actualResult = sensorTypeRepository.add(sensorType);
@@ -231,7 +231,7 @@ class SensorTypeRepositoryTest {
 
         sensorTypeRepository.add(areaType);
 
-        Mockito.when(sensorTypeCrudeRepo.findById(mockId)).thenReturn(Optional.of(areaType));
+        Mockito.when(sensorTypeCrudRepo.findById(mockId)).thenReturn(Optional.of(areaType));
 
         SensorType result = sensorTypeRepository.getById(mockId);
 

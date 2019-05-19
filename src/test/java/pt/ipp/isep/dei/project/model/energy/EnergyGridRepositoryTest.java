@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ class EnergyGridRepositoryTest {
     private EnergyGrid secondValidGrid;
 
     @Mock
-    private EnergyGridCrudeRepo energyGridCrudeRepository;
+    private EnergyGridCrudRepo energyGridCrudRepository;
     @InjectMocks
     private EnergyGridRepository validGridRepo;
 
@@ -42,7 +42,7 @@ class EnergyGridRepositoryTest {
     @Test
     void seeIfGetAllGridsWorks() {
         // Arrange
-        Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(null);
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(null);
 
         List<EnergyGrid> expectedResult = new ArrayList<>();
 
@@ -57,7 +57,7 @@ class EnergyGridRepositoryTest {
     void seeIfAddGridWorks() {
         // Arrange
 
-        Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         EnergyGrid expectedResult = firstValidGrid;
 
@@ -74,7 +74,7 @@ class EnergyGridRepositoryTest {
     void seeIfAddGridWorksNull() {
         // Arrange
 
-        Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         EnergyGrid expectedResult = firstValidGrid;
 
@@ -111,14 +111,14 @@ class EnergyGridRepositoryTest {
 
         String mockId = "Primary Grid";
 
-        Mockito.when(energyGridCrudeRepository.findByName(mockId)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudRepository.findByName(mockId)).thenReturn(firstValidGrid);
 
-        Mockito.when(energyGridCrudeRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
 
         // Act
         validGridRepo.addGrid(firstValidGrid);
         validGridRepo.addGrid(firstValidGridWithNoPSList);
-        EnergyGrid copiedGridWithoutPS = energyGridCrudeRepository.findByName("Primary Grid");
+        EnergyGrid copiedGridWithoutPS = energyGridCrudRepository.findByName("Primary Grid");
 
         List<PowerSource> actualResult = copiedGridWithoutPS.getPowerSourceList();
 
@@ -141,7 +141,7 @@ class EnergyGridRepositoryTest {
         EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
         validGridRepo.addGrid(energyGrid);
 
-        Mockito.when(energyGridCrudeRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
+        Mockito.when(energyGridCrudRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
 
         EnergyGrid result = validGridRepo.getById(energyGrid.getName());
 
@@ -152,7 +152,7 @@ class EnergyGridRepositoryTest {
     void seeIfGetEnergyGridByIdRepositoryNull() {
         String mockId = "1234";
 
-        Mockito.when(energyGridCrudeRepository.findById(mockId)).thenReturn(Optional.empty());
+        Mockito.when(energyGridCrudRepository.findById(mockId)).thenReturn(Optional.empty());
 
         Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getById(mockId));
 
@@ -168,7 +168,7 @@ class EnergyGridRepositoryTest {
         energyGrids.add(energyGrid);
         int expectedResult = 1;
 
-        Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridRepo.size();
 
@@ -182,7 +182,7 @@ class EnergyGridRepositoryTest {
         energyGrids.add(null);
         int expectedResult = 1;
 
-        Mockito.when(energyGridCrudeRepository.findAll()).thenReturn(energyGrids);
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(energyGrids);
 
         int result = validGridRepo.size();
 
@@ -372,7 +372,7 @@ class EnergyGridRepositoryTest {
         roomDTO.setFloor(1);
         roomDTO.setDescription("Classroom");
         EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
-        Mockito.when(energyGridCrudeRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
+        Mockito.when(energyGridCrudRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
         //Act
         boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
         //Assert
@@ -393,7 +393,7 @@ class EnergyGridRepositoryTest {
         roomDTO.setDescription("Classroom");
         EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
-        Mockito.when(energyGridCrudeRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
+        Mockito.when(energyGridCrudRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
         //Act
         boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
         //Assert
