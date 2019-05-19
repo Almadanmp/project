@@ -6,7 +6,10 @@ import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,12 @@ class GeographicAreaMapperTest {
 
     private GeographicArea validAreaObject;
     private AreaSensorDTO validAreaSensorDTO;
+    private AreaSensor firstValidAreaSensor;
+    private AreaSensor secondValidAreaSensor;
+    private Date validDate1;
+
+
+
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -30,6 +39,7 @@ class GeographicAreaMapperTest {
 
         try {
             date = validSdf.parse("21/03/2018 10:02:00");
+            validDate1 = validSdf.parse("01/04/2018 00:00:00");
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -38,6 +48,7 @@ class GeographicAreaMapperTest {
         validAreaObject = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validAreaObject.setId(6008L);
+
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
         validAreaSensorDTO.setId("12");
@@ -50,7 +61,15 @@ class GeographicAreaMapperTest {
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
         validAreaSensorDTO.setGeographicAreaID(2L);
+
+       SensorType validSensorTypeTemperature = new SensorType("Temperature", "Cº");
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), validDate1);
+        firstValidAreaSensor.setActive(true);
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemperature.getName(), new Local(10, 10, 10),
+                validDate1);
+        secondValidAreaSensor.setActive(true);
     }
+
 
     @Test
     void seeIfObjectToDTOWorks() {
@@ -146,5 +165,82 @@ class GeographicAreaMapperTest {
         GeographicArea geographicArea = new GeographicArea();
         assertThrows(NullPointerException.class,
                 () -> GeographicAreaMapper.objectToDTO(geographicArea));
+    }
+
+    @Test
+    void seeIfDTOToObjectWorksMother() {
+        // Arrange
+
+        GeographicAreaDTO motherDTO = GeographicAreaMapper.objectToDTO(validAreaObject);
+        validAreaObject.addSensor(firstValidAreaSensor);
+        validAreaObject.addSensor(secondValidAreaSensor);
+
+        GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50);
+        localDTO.setAltitude(10);
+        localDTO.setLongitude(50);
+        dtoToConvert.setName("Portugal");
+        dtoToConvert.setTypeArea("Country");
+        dtoToConvert.setLength(300);
+        dtoToConvert.setWidth(200);
+        dtoToConvert.setId(6008L);
+        dtoToConvert.setLocalDTO(localDTO);
+        dtoToConvert.setMotherArea(motherDTO);
+
+        // Act
+
+        GeographicArea actualResult = GeographicAreaMapper.dtoToObjectWithMother(dtoToConvert,validAreaObject);
+
+        // Assert
+
+        assertEquals(validAreaObject, actualResult);
+        Long.compare(actualResult.getId(), 6008L);
+    }
+
+    @Test
+    void seeIfDTOToObjectWorksWhenIDNullMother() {
+        // Arrange
+        GeographicAreaDTO areaObjectDTO = new GeographicAreaDTO();
+        areaObjectDTO.setName("area");
+        areaObjectDTO.setLength(3);
+        areaObjectDTO.setLocalDTO(new LocalDTO(34, 34, 45));
+        areaObjectDTO.setWidth(45);
+        areaObjectDTO.setTypeArea("cidade");
+        areaObjectDTO.setDescription("area");
+        areaObjectDTO.setId(6008L);
+
+        GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50);
+        localDTO.setAltitude(10);
+        localDTO.setLongitude(50);
+        dtoToConvert.setName("Portugal");
+        dtoToConvert.setTypeArea("Country");
+        dtoToConvert.setLength(300);
+        dtoToConvert.setWidth(200);
+        dtoToConvert.setId(null);
+        dtoToConvert.setLocalDTO(localDTO);
+        dtoToConvert.setMotherArea(areaObjectDTO);
+
+        List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
+        areaSensorDTOList.add(validAreaSensorDTO);
+        dtoToConvert.setSensorDTOList(areaSensorDTOList);
+
+
+        // Act
+
+        GeographicArea actualResult = GeographicAreaMapper.dtoToObject(dtoToConvert);
+
+        // Assert
+
+        assertEquals(validAreaObject, actualResult);
+    }
+
+    @Test
+    void seeIfDtoToObjectThrowsExceptionMother() {
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        assertThrows(NullPointerException.class,
+                () -> GeographicAreaMapper.dtoToObject(geographicAreaDTO));
     }
 }
