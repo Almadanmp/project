@@ -116,7 +116,7 @@ public final class GeographicAreaMapper {
 
         String objectDescription = dtoToConvert.getDescription();
 
-        long objectMotherAreaID = dtoToConvert.getMotherAreaID();
+        Long motherAreaID = dtoToConvert.getMotherAreaID();
 
         // Update sensors
 
@@ -138,7 +138,9 @@ public final class GeographicAreaMapper {
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
         resultObject.setAreaSensors(objectSensorList);
-        resultObject.setMotherArea(motherArea);
+        if(motherArea.getId().equals(motherAreaID)) {
+            resultObject.setMotherArea(motherArea);
+        }
 
 
         return resultObject;

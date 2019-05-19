@@ -253,6 +253,48 @@ class GeographicAreaDTOTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfSetGetMotherArea() {
+        // Arrange
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setDescription("area");
+        geographicAreaDTO.setTypeArea("cidade");
+        geographicAreaDTO.setWidth(56);
+        geographicAreaDTO.setLength(34);
+        geographicAreaDTO.setName("Leça do Balio");
+        geographicAreaDTO.setId(1L);
+        geographicAreaDTO.setSensorDTOList(validAreaSensorDTOList);
+        geographicAreaDTO.setLocalDTO(new LocalDTO(34,45,66));
+        validDTO.setMotherArea(geographicAreaDTO);
+
+        // Act
+
+        Long expectedResult = 1L;
+        Long actualResult = validDTO.getMotherAreaID();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetGetNullMotherArea() {
+        // Arrange
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+
+        validDTO.setMotherArea(geographicAreaDTO);
+
+        // Act
+
+        Long actualResult = validDTO.getMotherAreaID();
+
+        // Assert
+
+        assertNull( actualResult);
+    }
+
 
     @Test
     void seeIfHashCodeWorks() {

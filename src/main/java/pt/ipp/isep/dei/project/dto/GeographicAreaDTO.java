@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+
 
 import java.util.ArrayList;
 import java.util.List;

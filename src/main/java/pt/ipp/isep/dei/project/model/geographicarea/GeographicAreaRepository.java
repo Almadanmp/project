@@ -125,6 +125,11 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.setMotherArea(geographicAreaDTOMother);
     }
 
+    public Long getMotherDTO(GeographicAreaDTO geographicAreaDTO) {
+        return geographicAreaDTO.getMotherAreaID();
+
+    }
+
 
     //WEB CONTROLLER END //
 

@@ -65,6 +65,12 @@ public class GASettingsWebController {
         return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("areas/{idDaughter}/{idMother}")
+    public Long getMotherArea (@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother){
+        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOById(idAreaDaughter);
+        return geographicAreaRepo.getMotherDTO(geographicAreaDaughter);
+    }
+
 
     @GetMapping("areas/{id}")
     public GeographicAreaDTO getArea(@PathVariable("id") long id) {
