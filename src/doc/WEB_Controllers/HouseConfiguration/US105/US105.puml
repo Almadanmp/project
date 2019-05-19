@@ -12,7 +12,7 @@ skinparam actor {
  skinparam sequence {
  	LifeLineBackgroundColor indianred
  	ParticipantBackgroundColor ivory
- }
+}
 
  skinparam roundcorner 10
 
@@ -22,11 +22,11 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-title US 105 - As an Administrator I want to add a new room to the house
+title US 105 - As an Http Client I want to add a new room to the house
 
-actor "Administrator"
-activate "Administrator"
-"Administrator" -> "HouseConfigurationWebController":  Post ".../houseSettings/room": createRoom(RoomDTO)
+actor "Http Client"
+activate "Http Client"
+"Http Client" -> "HouseConfigurationWebController":  Post ".../houseSettings/room": createRoom(RoomDTO)
 activate "HouseConfigurationWebController"
 "HouseConfigurationWebController" -> "RoomWebMapper": Room = dtoToObject(RoomDTO)
 "HouseConfigurationWebController" -> ":HouseRepository": String houseID = getHouseID()
@@ -35,11 +35,11 @@ activate "HouseConfigurationWebController"
 "HouseConfigurationWebController" -> ":RoomRepository": addRoomToRepository(Room room)
 
 alt if room is Added
-"HouseConfigurationWebController" -> "Administrator": new ResponseEntity<>(success message, HttpStatus.OK)
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.OK)
 else if room is NOT Added
-"HouseConfigurationWebController" -> "Administrator": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
 deactivate "HouseConfigurationWebController"
-deactivate "Administrator"
+deactivate "Http Client"
 end
 
 @enduml
