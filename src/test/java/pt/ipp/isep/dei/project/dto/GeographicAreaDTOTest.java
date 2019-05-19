@@ -295,6 +295,19 @@ class GeographicAreaDTOTest {
         assertNull( actualResult);
     }
 
+    @Test
+    void seeIfSetGetNoMotherArea() {
+
+
+        // Act
+
+        boolean actualResult = validDTO.setMotherArea(null);
+
+        // Assert
+
+        assertFalse( actualResult);
+    }
+
 
     @Test
     void seeIfHashCodeWorks() {

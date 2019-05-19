@@ -756,6 +756,21 @@ class GeographicAreaRepositoryTest {
     }
 
     @Test
+    void seeIfSetMotherDTOWorks() {
+        // Arrange
+
+        geographicAreaRepository.setMotherDTO(validDTO, validDTO);
+
+        // Act
+        Long expectedResult = 256L;
+        Long actualResult = geographicAreaRepository.getMotherDTO(validDTO);
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
     void seeIfUpdateAreaDTOWorks() {
 
         // Arrange
@@ -770,6 +785,32 @@ class GeographicAreaRepositoryTest {
         // Act
 
         geographicAreaRepository.updateAreaDTO(validDTO);
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfUpdateAreaDTOWithMotherWorks() {
+
+        // Arrange
+
+        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
+        area.setId(25L);
+        area.setMotherArea(firstValidArea);
+        firstValidArea.setId(23L);
+        GeographicAreaDTO geographicAreaDTO =GeographicAreaMapper.objectToDTO(firstValidArea);
+        Optional<GeographicArea> opt = Optional.of(area);
+        Mockito.when(geographicAreaCrudeRepo.findById(25L)).thenReturn(opt);
+
+        GeographicAreaDTO expectedResult = validDTO;
+
+        // Act
+
+        geographicAreaRepository.updateAreaDTOWithMother(validDTO, geographicAreaDTO);
         GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
 
         // Assert
