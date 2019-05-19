@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.dto.DateDTO;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -10,6 +12,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensorUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
 
 import java.util.*;
 
@@ -18,6 +21,9 @@ public class GeographicAreaHouseService {
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
+
+    @Autowired
+    private HouseRepository houseRepository;
 
 
     /**
@@ -273,7 +279,7 @@ public class GeographicAreaHouseService {
      * @param house to calculate closest distance
      * @return List of sensors distance to house
      */
-    List<Double> getSensorsDistanceToHouse(List<AreaSensor> areaSensors, House house) {
+    private List<Double> getSensorsDistanceToHouse(List<AreaSensor> areaSensors, House house) {
         ArrayList<Double> arrayList = new ArrayList<>();
         for (AreaSensor areaSensor : areaSensors) {
             arrayList.add(house.calculateDistanceToSensor(areaSensor));
@@ -281,5 +287,43 @@ public class GeographicAreaHouseService {
         return arrayList;
     }
 
+    /**
+     * Method for US633 - Web Controller Version
+     *
+     * @param dateDTO date interval
+     * @return string with date and amplitude value
+     */
+    public String getHighestTemperatureAmplitudeDate(DateDTO dateDTO) {
+        if (!isDateDTOValid(dateDTO)) {
+            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
+                    "required (Initial date must be before End date).");
+        }
 
+        House house = houseRepository.getHouses().get(0);
+        Long geographicAreaID = house.getMotherAreaID();
+        GeographicArea geographicArea = geographicAreaRepository.get(geographicAreaID);
+        if (geographicArea == null) {
+            throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
+        }
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature", house, geographicArea);
+        if (areaSensor == null) {
+            throw new NoSuchElementException("ERROR: There is no Sensor of the temperature type on the House Area");
+        }
+
+        Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateDTO.getInitialDate(), dateDTO.getEndDate());
+        double value = areaSensor.getReadingValueOnGivenDay(date);
+        return (DateUtils.formatDateNoTime(date) + ", with " + value + "ºC");
+    }
+
+    /**
+     * Method to validate if a interval of dates is valid
+     * Date is valid if - Both input are valid inputs
+     * If end date is after initial date
+     * @param dateDTO - interval of dates
+     * @return true if date valid
+     */
+    private boolean isDateDTOValid(DateDTO dateDTO) {
+        return dateDTO.getInitialDate() != null && dateDTO.getEndDate() != null
+                && dateDTO.getEndDate().after(dateDTO.getInitialDate());
+    }
 }
