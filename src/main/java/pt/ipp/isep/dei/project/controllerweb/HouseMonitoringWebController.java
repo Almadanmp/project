@@ -35,7 +35,7 @@ public class HouseMonitoringWebController {
     /* US 633 - Controller Methods
     As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given period. */
 
-    @GetMapping("/houses")
+    @GetMapping("/highestAmplitude")
     public ResponseEntity<String> getHighestTemperatureAmplitudeDate(@RequestBody DateDTO dateDTO) {
         House house = houseCrudeRepo.findAll().get(0);
         Long geographicAreaID = house.getMotherAreaID();
@@ -51,5 +51,4 @@ public class HouseMonitoringWebController {
         double value = areaSensor.getReadingValueOnGivenDay(date);
         return new ResponseEntity<>(DateUtils.formatDateNoTime(date) + ", with " + value + "ºC", HttpStatus.OK);
     }
-
 }

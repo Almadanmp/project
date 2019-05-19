@@ -1,52 +1,43 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import pt.ipp.isep.dei.project.dto.DateDTO;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@WebMvcTest
+@ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 public class HouseMonitoringWebControllerTest {
 
     @Autowired
+    private MockMvc mockMvc;
+
+    @Mock
     HouseMonitoringWebController houseMonitoringWebController;
 
+    @Test
+    public void getHighestAmplitudeSuccess() throws Exception {
 
-    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
-    private Date validDate1;
-    private Date validDate2;
+        this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
 
-    @BeforeEach
-    void arrangeArtifacts() {
-        validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-        try {
-            validDate1 = validSdf.parse("01/01/2018 15:00:00");
-            validDate2 = validSdf.parse("01/01/2019 17:00:00");
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
+        mockMvc.perform(get("/houseMonitoring/highestAmplitude")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("\n" +
+                        " {\n" +
+                        "\"initialDate\": \"2018-01-01\",\n" +
+                        "\"endDate\": \"2019-01-01\"\n" +
+                        " }"))
+                .andExpect(status().isOk());
     }
-
-
-//    @Test
-//    public void getHighestTemperatureAmplitudeDate() throws Exception {
-//
-//        DateDTO dateDTO = new DateDTO();
-//        dateDTO.setInitialDate(validDate1);
-//        dateDTO.setEndDate(validDate2);
-//
-//
-//        ResponseEntity<String> actualResult = houseMonitoringWebController.getHighestTemperatureAmplitudeDate(dateDTO);
-//
-//    }
 }
-
-
