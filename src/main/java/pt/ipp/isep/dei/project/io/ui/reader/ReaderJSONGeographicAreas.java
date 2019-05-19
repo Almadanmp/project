@@ -51,8 +51,7 @@ public class ReaderJSONGeographicAreas implements Reader {
      */
 
     public int readJSONFileAndAddGeoAreas(String filePath, GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeRepository, AreaTypeRepository areaTypeRepository) {
-        ReaderJSONGeographicAreas reader = new ReaderJSONGeographicAreas();
-        JSONArray geoAreas = reader.readFile(filePath);
+        JSONArray geoAreas = readFile(filePath);
         return readGeoAreasJSON(geoAreas, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
     }
 

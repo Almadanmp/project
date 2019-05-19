@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.stereotype.Service;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
@@ -7,11 +8,9 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AddressMapper;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
-import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
@@ -24,12 +23,8 @@ import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
 
 import java.util.List;
 
+@Service
 public class ReaderController {
-
-    public ReaderController() {
-        //empty
-
-    }
 
     //
     // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
@@ -44,8 +39,8 @@ public class ReaderController {
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
     public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudeRepo houseCrudeRepo, RoomRepository roomRepository) {
-        //House
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
+        //House
         HouseDTO houseDTO;
         try {
             houseDTO = readerJSONHouse.readFile(filePath);
@@ -86,10 +81,10 @@ public class ReaderController {
      * @return - the number of geographic areas imported.
      */
     public int addGeoAreaNodeListToList(NodeList nListGeoArea, GeographicAreaRepository geographicAreaRepository, AreaTypeRepository areaTypeRepository) {
-        ReaderXMLGeoArea readerXML = new ReaderXMLGeoArea();
+        ReaderXMLGeoArea xmlGeoArea = new ReaderXMLGeoArea();
         int result = 0;
         for (int i = 0; i < nListGeoArea.getLength(); i++) {
-            if (readerXML.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaRepository, areaTypeRepository)) {
+            if (xmlGeoArea.readGeographicAreasXML(nListGeoArea.item(i), geographicAreaRepository, areaTypeRepository)) {
                 result++;
             }
         }
@@ -122,7 +117,6 @@ public class ReaderController {
      * @return the number of readings added
      **/
     public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath, RoomRepository roomRepository) {
-        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
-        return roomRepository.addReadingsToRoomSensors(readings, logPath);
+        return roomRepository.addReadingsToRoomSensors(readingDTOS, logPath);
     }
 }

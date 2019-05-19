@@ -23,6 +23,8 @@ public class HouseMonitoringController {
 
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
 
     /* US 623 - Controller Methods
     As a Regular User, I want to get the average daily rainfall in the house area for a given period (days),as it
@@ -83,7 +85,7 @@ public class HouseMonitoringController {
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
-    public AreaSensor getClosestSensorToHouseByType(House house, String sensorType, GeographicAreaRepository geographicAreaRepository) {
+    public AreaSensor getClosestSensorToHouseByType(House house, String sensorType) {
         Long houseGaID = house.getMotherAreaID();
         GeographicArea houseGA = geographicAreaRepository.get(houseGaID);
         return geographicAreaHouseService.getClosestAreaSensorOfGivenType(sensorType, house, houseGA);

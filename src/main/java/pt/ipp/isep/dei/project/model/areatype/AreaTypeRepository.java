@@ -19,13 +19,6 @@ public class AreaTypeRepository {
     @Autowired
     AreaTypeCrudeRepo repository;
 
-    /**
-     * TypeAreaList() empty constructor that initializes an ArrayList of TypeAreas.
-     */
-    public AreaTypeRepository(AreaTypeCrudeRepo repository) {
-        this.repository = repository;
-    }
-
     List<AreaType> getAreaTypes() {
         return repository.findAll();
     }

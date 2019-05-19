@@ -13,18 +13,10 @@ import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
-import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
-import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.device.config.DeviceTypeConfig;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudeRepo;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudeRepo;
 import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,25 +35,23 @@ public class MainUI {
     @Autowired
     private AreaTypeRepository areaTypeRepository;
     @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
-    @Autowired
-    private RoomRepository roomRepository;
-    @Autowired
-    private GeographicAreaHouseService geographicAreaHouseService;
-    @Autowired
-    private EnergyGridRoomService energyGridRoomService;
-    @Autowired
     private HouseCrudeRepo houseCrudeRepo;
     @Autowired
-    private EnergyGridRepository energyGridRepository;
-    @Autowired
-    private SensorTypeCrudeRepo sensorTypeCrudeRepo;
-    @Autowired
-    private GeographicAreaCrudeRepo geoAreaRepo;
-    @Autowired
-    private AreaTypeCrudeRepo areaTypeCrudeRepo;
-    @Autowired
     private HouseMonitoringUI houseMonitoringUI;
+    @Autowired
+    private HouseConfigurationUI houseConfigurationUI;
+    @Autowired
+    private RoomConfigurationUI roomConfigurationUI;
+    @Autowired
+    private EnergyConsumptionUI energyConsumptionUI;
+    @Autowired
+    private EnergyGridSettingsUI energyGridSettingsUI;
+    @Autowired
+    private RoomMonitoringUI roomMonitoringUI;
+    @Autowired
+    private GASettingsUI gaSettingsUI;
+    @Autowired
+    private SensorSettingsUI sensorSettingsUI;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -136,7 +126,6 @@ public class MainUI {
             // ******* < MOCK DATA FOR TESTING PURPOSES >*******
             // *************************
 
-            SensorTypeRepository mockSensorTypeList = new SensorTypeRepository(sensorTypeCrudeRepo);
 
             House house = mainHouse(houseCrudeRepo, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
 
@@ -179,49 +168,42 @@ public class MainUI {
                     option = InputHelperUI.getInputAsInt();
                     switch (option) {
                         case 1:
-                            GASettingsUI view1 = new GASettingsUI();
-                            view1.runGASettings(areaTypeRepository, geographicAreaRepository, sensorTypeRepository);
+                            gaSettingsUI.runGASettings();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 2:
-                            HouseConfigurationUI houseC = new HouseConfigurationUI();
-                            houseC.run(house, geographicAreaRepository, roomRepository, energyGridRepository, houseCrudeRepo, sensorTypeRepository);
+                            houseConfigurationUI.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 3:
-                            RoomConfigurationUI roomConfiguration = new RoomConfigurationUI();
-                            roomConfiguration.run(house, sensorTypeRepository, roomRepository);
+                            roomConfigurationUI.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 4:
-                            SensorSettingsUI sensorSettings = new SensorSettingsUI();
-                            sensorSettings.run(geographicAreaRepository, mockSensorTypeList);
+                            sensorSettingsUI.run();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 5:
-                            EnergyGridSettingsUI energyGridSettings = new EnergyGridSettingsUI();
-                            energyGridSettings.run(house, energyGridRepository, roomRepository, energyGridRoomService);
+                            energyGridSettingsUI.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 6:
-                            RoomMonitoringUI roomMonitoringUI = new RoomMonitoringUI();
-                            roomMonitoringUI.run(house, roomRepository, geographicAreaHouseService);
+                            roomMonitoringUI.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 7:
-                            houseMonitoringUI.run(house, geographicAreaRepository);
+                            houseMonitoringUI.run(house);
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
                         case 8:
-                            EnergyConsumptionUI energyConsumptionUI = new EnergyConsumptionUI();
-                            energyConsumptionUI.run(roomRepository, energyGridRepository);
+                            energyConsumptionUI.run();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;

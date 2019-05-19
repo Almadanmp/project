@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
@@ -20,30 +22,26 @@ import java.util.List;
 /**
  * Controller class for Geographical Area Settings UI
  */
+@Service
 public class GASettingsController {
-
-
-    //GEOGRAPHIC AREA SETTINGS CONTROLLER  - SHARED METHODS//
-
-    public GASettingsController() {
-        //empty constructor
-    }
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
+    @Autowired
+    AreaTypeRepository areaTypeRepository;
 
     /**
-     * @param geoAreaService is the list of Geographic Areas we want to print.
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGAListString(GeographicAreaRepository geoAreaService, List<GeographicArea> geoAreas) {
-        return geoAreaService.buildStringRepository(geoAreas);
+    public String buildGAListString(List<GeographicArea> geoAreas) {
+        return geographicAreaRepository.buildStringRepository(geoAreas);
     }
 
     /**
-     * @param areaTypeRepository is the list of Geographic Area Types we want to print.
      * @return builds a string with each individual member of the given list.
      */
 
-    public String buildGATypeListString(AreaTypeRepository areaTypeRepository) {
+    public String buildGATypeListString() {
         return areaTypeRepository.getAllAsString();
     }
 
@@ -60,7 +58,7 @@ public class GASettingsController {
      * @return true - the Type of Geographic Area was successfully created and added to a list or false if the name is
      * null.
      */
-    public boolean createAndAddTypeAreaToList(AreaTypeRepository areaTypeRepository, String input) {
+    public boolean createAndAddTypeAreaToList(String input) {
         AreaType areaType = areaTypeRepository.create(input);
         return areaTypeRepository.add(areaType);
     }
@@ -68,7 +66,7 @@ public class GASettingsController {
     /* User Story 02
      As a System Administrator I want to receive a list of all the previously stated Types of area.
      */
-    public String getTypeAreaList(AreaTypeRepository areaTypeRepository) {
+    public String getTypeAreaList() {
         return areaTypeRepository.getAllAsString();
     }
 
@@ -77,10 +75,9 @@ public class GASettingsController {
     /**
      * Method that creates a new Geographic Area and adds it to our database.
      *
-     * @param geographicAreaRepository Is the service responsible for accessing the repository of geographic areas.
      * @return success if a new GA is added, false otherwise.
      */
-    public boolean addNewGeoAreaToList(GeographicAreaRepository geographicAreaRepository, GeographicAreaDTO geoAreaDTO) {
+    public boolean addNewGeoAreaToList(GeographicAreaDTO geoAreaDTO) {
         GeographicArea geoToAdd = GeographicAreaMapper.dtoToObject(geoAreaDTO);
         return geographicAreaRepository.addAndPersistGA(geoToAdd);
     }
@@ -117,11 +114,10 @@ public class GASettingsController {
     /* USER STORY 04 -  As an Administrator, I want to get a list of existing geographical areas of a given type. */
 
     /**
-     * @param geographicAreaRepository is the Geographic Area List where we want to search for objects with a given type.
-     * @param typeArea                 is the type that we want to look for.
+     * @param typeArea is the type that we want to look for.
      * @return is a list of all the objects in the original list with a type that matches the given type.
      */
-    public List<GeographicArea> matchGAByTypeArea(GeographicAreaRepository geographicAreaRepository, AreaTypeDTO typeArea) {
+    public List<GeographicArea> matchGAByTypeArea(AreaTypeDTO typeArea) {
         return geographicAreaRepository.getGeoAreasByType(typeArea.getName());
     }
 
@@ -186,7 +182,7 @@ public class GASettingsController {
 
     /* USER STORY 11 */
 
-    public GeographicAreaDTO getInputArea(GeographicAreaRepository geographicAreaRepository) {
+    public GeographicAreaDTO getInputArea() {
         List<GeographicArea> geographicAreas = geographicAreaRepository.getAll();
         GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaRepository, geographicAreas);
         return GeographicAreaMapper.objectToDTO(geographicArea);
@@ -198,7 +194,7 @@ public class GASettingsController {
         return AreaSensorMapper.objectToDTO(areaSensor);
     }
 
-    public void removeSensor(AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO, GeographicAreaRepository geographicAreaRepository) {
+    public void removeSensor(AreaSensorDTO areaSensorDTO, GeographicAreaDTO geographicAreaDTO) {
         GeographicArea geographicArea = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
         AreaSensor areaSensor = AreaSensorMapper.dtoToObject(areaSensorDTO);
         geographicArea.removeSensor(areaSensor);

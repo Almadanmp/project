@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.house;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -12,20 +13,21 @@ import pt.ipp.isep.dei.project.repository.HouseCrudeRepo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class HouseRepositoryTest {
 
     private House validHouse;
-    private HouseRepository houseRepository;
 
     @Mock
     HouseCrudeRepo houseCrudeRepo;
 
+    @InjectMocks
+    private HouseRepository houseRepository;
+
     @BeforeEach
     void arrangeArtifacts() {
-        houseRepository = new HouseRepository(houseCrudeRepo);
         validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"), new Local(20, 20, 20), 60,
                 180, new ArrayList<>());

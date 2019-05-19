@@ -24,12 +24,6 @@ public class SensorTypeRepository {
     @Autowired
     SensorTypeCrudeRepo repository;
 
-    //CONSTRUCTOR
-    public SensorTypeRepository(SensorTypeCrudeRepo sensorTypeCrudeRepository) {
-        this.repository = sensorTypeCrudeRepository;
-    }
-
-
     /**
      * Method receives a type Sensor, checks if it already exists in list
      * and adds it in case it does not exist in list.

@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.SensorSettingsController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -17,20 +19,26 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 class SensorSettingsUI {
-    private final SensorSettingsController controller;
-    private final List<String> menuOptions;
+    @Autowired
+    private SensorSettingsController controller;
+    private List<String> menuOptions = createMenu();
+    @Autowired
+    GeographicAreaRepository geographicAreaRepository;
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
 
-    SensorSettingsUI() {
-        this.controller = new SensorSettingsController();
-        menuOptions = new ArrayList<>();
-        menuOptions.add("Define a new sensor type. (US05)");
-        menuOptions.add("Add a new sensor and associate it to a geographical area. (US006)");
-        menuOptions.add("Display already defined sensor types.");
-        menuOptions.add("(Return to main menu)");
+    private List<String> createMenu() {
+        List<String> menu = new ArrayList<>();
+        menu.add("Define a new sensor type. (US05)");
+        menu.add("Add a new sensor and associate it to a geographical area. (US006)");
+        menu.add("Display already defined sensor types.");
+        menu.add("(Return to main menu)");
+        return menu;
     }
 
-    void run(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeList) {
+    void run() {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -41,15 +49,15 @@ class SensorSettingsUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS05(sensorTypeList);
+                    runUS05();
                     activeInput = false;
                     break;
                 case 2:
-                    runUS06(geographicAreaRepository, sensorTypeList);
+                    runUS06();
                     activeInput = false;
                     break;
                 case 3:
-                    displayList(sensorTypeList);
+                    displayList();
                     activeInput = false;
                     break;
                 case 0:
@@ -63,29 +71,29 @@ class SensorSettingsUI {
 
     /* LIST DISPLAY */
 
-    private void displayList(SensorTypeRepository sensorTypeRepository) {
-        System.out.println(controller.buildSensorTypesString(sensorTypeRepository));
+    private void displayList() {
+        System.out.println(controller.buildSensorTypesString());
     }
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
-    private void runUS05(SensorTypeRepository sensorTypeList) {
-        SensorType sensorType = getInput05(sensorTypeList);
-        boolean added = updateModel05(sensorType, sensorTypeList);
+    private void runUS05() {
+        SensorType sensorType = getInput05();
+        boolean added = updateModel05(sensorType);
         displayState05(added);
     }
 
-    private SensorType getInput05(SensorTypeRepository sensorTypeList) {
+    private SensorType getInput05() {
         System.out.print("Enter the sensor type's name: ");
         String name = InputHelperUI.getInputStringAlphabetCharOnly();
         System.out.print("Type the sensor type's unit of measurement: ");
         Scanner scan = new Scanner(System.in);
         String unit = scan.nextLine();
-        return controller.createType(sensorTypeList, name, unit);
+        return controller.createType(name, unit);
     }
 
-    private boolean updateModel05(SensorType sensorType, SensorTypeRepository sensorTypeList) {
-        return controller.addTypeSensorToList(sensorType, sensorTypeList);
+    private boolean updateModel05(SensorType sensorType) {
+        return controller.addTypeSensorToList(sensorType);
     }
 
     private void displayState05(boolean added) {
@@ -98,24 +106,24 @@ class SensorSettingsUI {
 
     /* USER STORY 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that
      one can get measurements of that type in that area */
-    private void runUS06(GeographicAreaRepository geographicAreaRepository, SensorTypeRepository sensorTypeList) {
+    private void runUS06() {
         if (geographicAreaRepository.isEmpty()) {
             System.out.println(UtilsUI.INVALID_GA_LIST);
             return;
         }
         List<GeographicArea> geoAreas = geographicAreaRepository.getAll();
         GeographicArea geographicArea = InputHelperUI.getGeographicAreaByList(geographicAreaRepository, geoAreas);
-        AreaSensor areaSensor = createSensor(sensorTypeList);
+        AreaSensor areaSensor = createSensor();
         if (!getConfirmation(areaSensor)) {
             return;
         }
-        addSensor(areaSensor, geographicArea, geographicAreaRepository);
+        addSensor(areaSensor, geographicArea);
     }
 
-    private AreaSensor createSensor(SensorTypeRepository sensorTypeList) {
+    private AreaSensor createSensor() {
         String id = getInputSensorId();
         String name = getInputSensorName();
-        String sensorType = getInputTypeSensor(sensorTypeList).getName();
+        String sensorType = getInputTypeSensor().getName();
         Local local = getInputSensorLocal();
         Date startDate = getInputStartDate();
         return controller.createSensor(id, name, sensorType, local, startDate);
@@ -133,10 +141,10 @@ class SensorSettingsUI {
         return input.nextLine();
     }
 
-    private SensorType getInputTypeSensor(SensorTypeRepository sensorTypeList) {
+    private SensorType getInputTypeSensor() {
         System.out.println("\nPlease select one of the following sensorTypes:\t");
 
-        return InputHelperUI.getInputSensorTypeByList(sensorTypeList);
+        return InputHelperUI.getInputSensorTypeByList(sensorTypeRepository);
     }
 
     private Local getInputSensorLocal() {
@@ -166,7 +174,7 @@ class SensorSettingsUI {
         return "yes".equals(input.nextLine());
     }
 
-    private void addSensor(AreaSensor areaSensor, GeographicArea geographicArea, GeographicAreaRepository geographicAreaRepository) {
+    private void addSensor(AreaSensor areaSensor, GeographicArea geographicArea) {
 
         if (controller.addSensorToGeographicArea(areaSensor, geographicArea)) {
             geographicAreaRepository.updateGeoArea(geographicArea);

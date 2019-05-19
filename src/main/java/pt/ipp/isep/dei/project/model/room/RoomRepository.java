@@ -3,7 +3,9 @@ package pt.ipp.isep.dei.project.model.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -23,13 +25,8 @@ import java.util.logging.Logger;
 @Service
 public class RoomRepository {
 
-
-    private RoomCrudeRepo roomCrudeRepo;
-
     @Autowired
-    public RoomRepository(RoomCrudeRepo roomCrudeRepo) {
-        this.roomCrudeRepo = roomCrudeRepo;
-    }
+    private RoomCrudeRepo roomCrudeRepo;
 
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
@@ -302,11 +299,12 @@ public class RoomRepository {
      * and a room service and will try to add readings to the given sensors
      * in the given room from the repository.
      *
-     * @param readings a list of reading DTOs
-     * @param logPath  M  string of a log file path
+     * @param readingDTOS a list of reading DTOs
+     * @param logPath     M  string of a log file path
      * @return the number of readings added
      **/
-    public int addReadingsToRoomSensors(List<Reading> readings, String logPath) {
+    public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath) {
+        List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
         Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         List<String> sensorIds = ReadingUtils.getSensorIDs(readings);

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -51,6 +52,7 @@ class RoomRepositoryTest {
     @Mock
     private SensorTypeCrudeRepo sensorTypeCrudeRepo;
 
+    @InjectMocks
     private RoomRepository validRoomRepository;
 
     private List<Room> roomList;
@@ -60,7 +62,6 @@ class RoomRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validRoomRepository = new RoomRepository(this.roomCrudeRepo);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -78,7 +79,7 @@ class RoomRepositoryTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "Temperature",  validDate1);
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "Temperature", validDate1);
         firstValidRoomSensor.setActive(true);
         secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "Temperature", new Date());
         secondValidRoomSensor.setActive(true);
@@ -815,4 +816,5 @@ class RoomRepositoryTest {
         Room actualResult = validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
         assertEquals(room, actualResult);
     }
+
 }

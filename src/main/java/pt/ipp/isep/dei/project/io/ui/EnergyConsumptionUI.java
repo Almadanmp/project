@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.EnergyConsumptionController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
@@ -21,30 +23,35 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-
+@Service
 class EnergyConsumptionUI {
-    private final EnergyConsumptionController controller;
+    @Autowired
+    private EnergyConsumptionController controller;
+    @Autowired
+    EnergyGridRepository energyGridRepository;
+    @Autowired
+    RoomRepository roomRepository;
     private final Scanner returnToConsole = new Scanner(System.in);
     private static final String INSERT_START_DATE = "PLEASE INSERT THE START OF THE INTERVAL:";
     private static final String INSERT_END_DATE = "PLEASE INSERT THE END OF THE INTERVAL:";
-    private final List<String> menuOptions;
+    private List<String> menuOptions = createMenu();
 
-    EnergyConsumptionUI() {
-        this.controller = new EnergyConsumptionController();
-        menuOptions = new ArrayList<>();
-        menuOptions.add("Display total nominal power of one of the Energy Grids. (US172)");
-        menuOptions.add("Get total nominal power of a subset of rooms and/or devices connected to a grid." +
+    private List<String> createMenu() {
+        List<String> menuList = new ArrayList<>();
+        menuList.add("Display total nominal power of one of the Energy Grids. (US172)");
+        menuList.add("Get total nominal power of a subset of rooms and/or devices connected to a grid." +
                 " (US705)");
-        menuOptions.add("Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
-        menuOptions.add("Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
-        menuOptions.add("Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
-        menuOptions.add("Show data series necessary to design an energy consumption chart of the metered energy " +
+        menuList.add("Display total Metered Energy Consumption of a Device in a given time interval. (US720)");
+        menuList.add("Display total Metered Energy Consumption of a Room in a given time interval. (US721)");
+        menuList.add("Display total Metered Energy Consumption of a Grid in a given time interval. (US722)");
+        menuList.add("Show data series necessary to design an energy consumption chart of the metered energy " +
                 "consumption of a device/room/grid in a given time interval. (US730)");
-        menuOptions.add("Estimate the total energy used in heating water in a day. (US752)");
-        menuOptions.add("(Return to main menu)");
+        menuList.add("Estimate the total energy used in heating water in a day. (US752)");
+        menuList.add("(Return to main menu)");
+        return menuList;
     }
 
-    void run(RoomRepository roomRepository, EnergyGridRepository energyGridRepository) {
+    void run() {
         boolean activeInput = true;
         int option;
         System.out.println("--------------\n");
@@ -55,31 +62,31 @@ class EnergyConsumptionUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    runUS172(energyGridRepository);
+                    runUS172();
                     activeInput = false;
                     break;
                 case 2:
-                    runUS705(energyGridRepository, roomRepository);
+                    runUS705();
                     activeInput = false;
                     break;
                 case 3:
-                    runUS720(roomRepository);
+                    runUS720();
                     activeInput = false;
                     break;
                 case 4:
-                    runUS721(roomRepository);
+                    runUS721();
                     activeInput = false;
                     break;
                 case 5:
-                    runUS722(energyGridRepository);
+                    runUS722();
                     activeInput = false;
                     break;
                 case 6:
-                    runUS730(energyGridRepository, roomRepository);
+                    runUS730();
                     activeInput = false;
                     break;
                 case 7:
-                    runUS752(roomRepository);
+                    runUS752();
                     activeInput = false;
                     break;
                 case 0:
@@ -95,7 +102,7 @@ class EnergyConsumptionUI {
     // connected to a grid, i.e. the sum of the nominal power of all devices in all rooms
     // in the grid.
 
-    private void runUS172(EnergyGridRepository energyGridRepository) {
+    private void runUS172() {
         if (energyGridRepository.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -110,8 +117,7 @@ class EnergyConsumptionUI {
     }
 
     private double updateUS172(EnergyGrid grid) {
-        EnergyConsumptionController mController = new EnergyConsumptionController();
-        return mController.getTotalPowerFromGrid(grid);
+        return controller.getTotalPowerFromGrid(grid);
     }
 
     private void displayUS172(Double nomPower) {
@@ -122,7 +128,7 @@ class EnergyConsumptionUI {
     // US705 - As a Power User, I want to know the total nominal power of a subset of rooms
     // and/or devices of my choosing connected to a grid.
 
-    private void runUS705(EnergyGridRepository energyGridRepository, RoomRepository roomRepository) {
+    private void runUS705() {
         if (energyGridRepository.getAllGrids().isEmpty()) {
             System.out.println(UtilsUI.INVALID_GRID_LIST);
             return;
@@ -131,7 +137,7 @@ class EnergyConsumptionUI {
         List<Room> selectedRooms = new ArrayList<>();
         DeviceList selectedDevices = new DeviceList();
         while (true) {
-            printSelection(selectedDevices, selectedRooms, roomRepository);
+            printSelection(selectedDevices, selectedRooms);
             System.out.println("\nWhat would you like to select? \n\n 1) Select / Deselect a Room (and all its devices); " +
                     "\n 2) Select / Deselect a device; \n 3) Get the Total Nominal Power of the currently selected subset; " +
                     "\n 4) Return to main menu;\n ");
@@ -139,13 +145,13 @@ class EnergyConsumptionUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1:
-                    allRoomDevicesSelection(grid, selectedRooms, selectedDevices, roomRepository);
+                    allRoomDevicesSelection(grid, selectedRooms, selectedDevices);
                     break;
                 case 2:
-                    devicesSelection(grid, selectedRooms, selectedDevices, roomRepository);
+                    devicesSelection(grid, selectedRooms, selectedDevices);
                     break;
                 case 3:
-                    printSelection(selectedDevices, selectedRooms, roomRepository);
+                    printSelection(selectedDevices, selectedRooms);
                     printSelectionNominalPower(selectedDevices);
                     InputHelperUI.returnToMenu(returnToConsole);
                     break;
@@ -158,19 +164,19 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void allRoomDevicesSelection(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices, RoomRepository roomRepository) {
+    private void allRoomDevicesSelection(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices) {
         boolean active = true;
         while (active) {
-            printSelection(selectedDevices, selectedRooms, roomRepository);
-            selectRooms(grid, selectedRooms, selectedDevices, roomRepository);
+            printSelection(selectedDevices, selectedRooms);
+            selectRooms(grid, selectedRooms, selectedDevices);
             active = continuePrompt();
         }
     }
 
-    private void devicesSelection(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices, RoomRepository roomRepository) {
+    private void devicesSelection(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices) {
         boolean active = true;
         while (active) {
-            printSelection(selectedDevices, selectedRooms, roomRepository);
+            printSelection(selectedDevices, selectedRooms);
             selectDevices(grid, selectedDevices);
             active = continuePrompt();
         }
@@ -183,7 +189,7 @@ class EnergyConsumptionUI {
      * @param selectedRooms   the list of currently selected rooms.
      */
 
-    private void printSelection(DeviceList selectedDevices, List<Room> selectedRooms, RoomRepository roomRepository) {
+    private void printSelection(DeviceList selectedDevices, List<Room> selectedRooms) {
         if (selectedDevices.isEmpty() && selectedRooms.isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
@@ -199,13 +205,13 @@ class EnergyConsumptionUI {
      * @param selectedDevices is the devices already selected, including devices contained in the rooms already selected.
      */
 
-    private void selectRooms(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices, RoomRepository roomRepository) {
+    private void selectRooms(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices) {
         Room r1 = InputHelperUI.getGridRoomByList(grid);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to removeGeographicArea it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
             if (InputHelperUI.yesOrNo(duplicateRoom)) {
-                controller.removeRoomFromList(r1, roomRepository);
+                controller.removeRoomFromList(r1);
                 controller.removeRoomDevicesFromDeviceList(r1, selectedDevices);
                 System.out.println("The room and its devices have been deselected.");
             }
@@ -273,7 +279,7 @@ class EnergyConsumptionUI {
      * Then it calls the controllercli to get the total metered energy consumption for the given time interval.
      */
 
-    private void runUS720(RoomRepository roomRepository) {
+    private void runUS720() {
 
         UtilsUI utilsUI = new UtilsUI();
         List<Room> houseRooms = roomRepository.getAllRooms();
@@ -295,8 +301,7 @@ class EnergyConsumptionUI {
             System.out.println("Device : " + device.getName() + "\n" + "Between " + initialTime + " and " + finalTime +
                     "\n" + "");
             controller.getDeviceConsumptionInInterval(device, initialTime, finalTime);
-        }
-        catch (RuntimeException ok){
+        } catch (RuntimeException ok) {
             System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
         }
 
@@ -307,7 +312,7 @@ class EnergyConsumptionUI {
        the interval.
      */
 
-    private void runUS721(RoomRepository roomRepository) {
+    private void runUS721() {
 
         if (roomRepository.getAllRooms().isEmpty()) {
             System.out.print(UtilsUI.INVALID_ROOM_LIST);
@@ -326,8 +331,8 @@ class EnergyConsumptionUI {
     given time interval, i.e. the sum of the energy consumption of all energy-metered rooms in the grid in the
     interval.*/
 
-    private void runUS722(EnergyGridRepository energyGridRepository) {
-        List<EnergyGrid> gridList = controller.getHouseGridList(energyGridRepository);
+    private void runUS722() {
+        List<EnergyGrid> gridList = controller.getHouseGridList();
         if (gridList.isEmpty()) {
             System.out.println("Your house has no Grids.\nReturning to main menu.");
             return;
@@ -349,18 +354,18 @@ class EnergyConsumptionUI {
      *  consumption chart of the metered energy consumption of a device/room/grid in a given time interval.
      */
 
-    private void runUS730(EnergyGridRepository energyGridRepository, RoomRepository roomRepository) {
+    private void runUS730() {
         this.printUS730Menu();
         int option = InputHelperUI.getInputAsInt();
         switch (option) {
             case 1:
-                setGridData(energyGridRepository);
+                setGridData();
                 break;
             case 2:
-                setRoomData(roomRepository);
+                setRoomData();
                 break;
             case 3:
-                setDeviceData(roomRepository);
+                setDeviceData();
                 break;
             default:
                 System.out.println("Invalid option. Please try again.");
@@ -369,7 +374,7 @@ class EnergyConsumptionUI {
         }
     }
 
-    private void setGridData(EnergyGridRepository energyGridRepository) {
+    private void setGridData() {
         EnergyGrid grid = InputHelperUI.getInputGridByList(energyGridRepository);
         System.out.println(INSERT_START_DATE);
         Date startDate = DateUtils.getInputYearMonthDayHourMin();
@@ -380,21 +385,20 @@ class EnergyConsumptionUI {
 
     }
 
-    private void setRoomData(RoomRepository roomRepository) {
+    private void setRoomData() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         RoomDTO case2Room = InputHelperUI.getHouseRoomDTOByList(roomRepository, houseRooms);
         Date startDate = requestStartDate();
         Date endDate = requestEndDate();
         try {
-            LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate, roomRepository);
+            LogList roomLogs = controller.getRoomLogsInInterval(case2Room, startDate, endDate);
             System.out.println(controller.buildLogListString(roomLogs));
-        }
-        catch (RuntimeException ok){
+        } catch (RuntimeException ok) {
             System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
         }
     }
 
-    private void setDeviceData(RoomRepository roomRepository) {
+    private void setDeviceData() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         RoomDTO case3Room = InputHelperUI.getHouseRoomDTOByList(roomRepository, houseRooms);
         Device device = InputHelperUI.getInputRoomDTODevicesByList(case3Room, roomRepository);
@@ -420,8 +424,8 @@ class EnergyConsumptionUI {
      * given the cold-water temperature and the volume of water produced in each water heater.
      */
 
-    private void runUS752(RoomRepository roomRepository) {
-        List<Device> waterHeaters = controller.getWaterHeaterDeviceList(roomRepository).getList();
+    private void runUS752() {
+        List<Device> waterHeaters = controller.getWaterHeaterDeviceList().getList();
         if (waterHeaters.isEmpty()) {
             System.out.println("Your house has no Electric Water Heaters. Returning to Main Menu.");
             return;
@@ -441,7 +445,7 @@ class EnergyConsumptionUI {
             System.out.println("Options registered for water heater: " + controller.getWHName(d) + ".\n----------------" +
                     "-----------------------------\n");
         }
-        double result = controller.getDailyWaterHeaterConsumption(roomRepository);
+        double result = controller.getDailyWaterHeaterConsumption();
         System.out.println("The estimated total energy used in heating water in a day is: " + result + " kW.");
     }
 

@@ -7,10 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
@@ -31,11 +27,6 @@ public class HouseConfigurationWebController {
 
     @Autowired
     private HouseCrudeRepo houseCrudeRepo;
-
-    public HouseConfigurationWebController(RoomRepository roomRepository, HouseRepository houseRepository) {
-        this.roomRepository = roomRepository;
-        this.houseRepository = houseRepository;
-    }
 
     // USER STORY 101
 

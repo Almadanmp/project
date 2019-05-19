@@ -31,17 +31,15 @@ class RoomMapperTest {
     // Common testing artifacts for testing in this class
     private Room validRoom;
     private RoomDTO validDTO;
-    private RoomRepository roomRepository;
 
     @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
+    RoomRepository roomRepository;
 
     @Mock
     RoomCrudeRepo roomCrudeRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomRepository = new RoomRepository(roomCrudeRepo);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 
@@ -112,18 +110,6 @@ class RoomMapperTest {
         assertEquals(validDTO.getName(), actualResult.getName());
     }
 
-    @Test
-    void seeIfUpdateHouseRoomWorks() {
-        List<Room> rooms = new ArrayList<>();
-        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
-        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01");
-        rooms.add(room);
-        rooms.add(room1);
-        validDTO.setName("Room1");
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
-        Room actualResult = roomRepository.updateHouseRoom(validDTO);
-        assertEquals(room, actualResult);
-    }
 
     //    @Test
 //    void seeIfUpdateHouseRoom() {

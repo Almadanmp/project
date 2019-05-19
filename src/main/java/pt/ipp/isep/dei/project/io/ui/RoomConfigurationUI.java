@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.RoomConfigurationController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
@@ -22,27 +24,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-
+@Service
 class RoomConfigurationUI {
-    private final RoomConfigurationController controller;
+    @Autowired
+    private RoomConfigurationController controller;
+    @Autowired
+    private RoomRepository roomRepository;
+    @Autowired
+    private SensorTypeRepository sensorTypeRepository;
     private static final String REQUEST_PROGRAM_NAME = "Please, type the new FixedTimeProgram name:";
-    private final List<String> menuOptions;
+    private final List<String> menuOptions = createMenu();
 
-    RoomConfigurationUI() {
-        this.controller = new RoomConfigurationController();
-        menuOptions = new ArrayList<>();
-        menuOptions.add("Get a list of all devices in a room. (US201)");
-        menuOptions.add("Add a new device to the room from the list of device types (US210)");
-        menuOptions.add("Edit the configuration of an existing device (US215)");
-        menuOptions.add("Delete an existing device (US220)");
-        menuOptions.add("I want do deactivate a device (US222)");
-        menuOptions.add("Get the total nominal power of a room (US230)");
-        menuOptions.add("Get a list of all sensors in a room (US250)");
-        menuOptions.add("Add a sensor to a room from the list of sensor types (US253)");
-        menuOptions.add("(Return to main menu)");
+    private List<String> createMenu() {
+        List<String> menuList = new ArrayList<>();
+        menuList.add("Get a list of all devices in a room. (US201)");
+        menuList.add("Add a new device to the room from the list of device types (US210)");
+        menuList.add("Edit the configuration of an existing device (US215)");
+        menuList.add("Delete an existing device (US220)");
+        menuList.add("I want do deactivate a device (US222)");
+        menuList.add("Get the total nominal power of a room (US230)");
+        menuList.add("Get a list of all sensors in a room (US250)");
+        menuList.add("Add a sensor to a room from the list of sensor types (US253)");
+        menuList.add("(Return to main menu)");
+        return menuList;
     }
 
-    void run(House house, SensorTypeRepository sensorTypeRepository, RoomRepository roomRepository) {
+    void run(House house) {
 
         if (roomRepository.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
@@ -58,35 +65,35 @@ class RoomConfigurationUI {
             option = InputHelperUI.getInputAsInt();
             switch (option) {
                 case 1: //US201
-                    runUS201(roomRepository);
+                    runUS201();
                     activeInput = false;
                     break;
                 case 2: //US210
-                    runUS210(house, roomRepository);
+                    runUS210(house);
                     activeInput = false;
                     break;
                 case 3: //US215
-                    runUS215(roomRepository);
+                    runUS215();
                     activeInput = false;
                     break;
                 case 4: //US220
-                    runUS220(roomRepository);
+                    runUS220();
                     activeInput = false;
                     break;
                 case 5: //US222
-                    runUS222(roomRepository);
+                    runUS222();
                     activeInput = false;
                     break;
                 case 6: //US230
-                    runUS230(roomRepository);
+                    runUS230();
                     activeInput = false;
                     break;
                 case 7: //US250
-                    runUS250(roomRepository);
+                    runUS250();
                     activeInput = false;
                     break;
                 case 8: //US253
-                    runUS253(sensorTypeRepository, roomRepository);
+                    runUS253();
                     activeInput = false;
                     break;
                 case 0:
@@ -102,7 +109,7 @@ class RoomConfigurationUI {
      * US201 As an administrator, I want to get a list of all devices in a room, so that I can configure them.
      * Prints device List in that room.
      */
-    private void runUS201(RoomRepository roomRepository) {
+    private void runUS201() {
         if (roomRepository.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -128,7 +135,7 @@ class RoomConfigurationUI {
      * @param house
      */
 
-    private void runUS210(House house, RoomRepository roomRepository) {
+    private void runUS210(House house) {
         if (roomRepository.isEmptyRooms()) {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
@@ -188,7 +195,7 @@ class RoomConfigurationUI {
     // USER STORY 215 - As an Administrator, I want to edit the configuration of an existing device,so that I can reconfigure it.. - CARINA ALAS
     //* runs US215, As an Administrator, I want to edit the configuration of an existing device.
 
-    private void runUS215(RoomRepository roomRepository) {
+    private void runUS215() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomRepository, houseRooms);
         if (room.isDeviceListEmpty()) {
@@ -196,12 +203,12 @@ class RoomConfigurationUI {
             return;
         }
         Device device = InputHelperUI.getInputRoomDevicesByList(room);
-        getInputDeviceCharacteristicsUS215(device, room, roomRepository);
+        getInputDeviceCharacteristicsUS215(device, room);
     }
 
     //* gets the input of the new device name, room, attributes and nominal power. If the device is programmable,
     // it shows the list of programs, and allows for the user to choose one or more to edit.
-    private void getInputDeviceCharacteristicsUS215(Device device, Room room, RoomRepository roomRepository) {
+    private void getInputDeviceCharacteristicsUS215(Device device, Room room) {
         Scanner scanner = new Scanner(System.in);
 
         // get device name
@@ -335,7 +342,7 @@ class RoomConfigurationUI {
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
      Nevertheless, it should be possible to access its configuration and activity log.*/
 
-    private void runUS222(RoomRepository roomRepository) {
+    private void runUS222() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomRepository, houseRooms);
         if (room.isDeviceListEmpty()) {
@@ -359,7 +366,7 @@ class RoomConfigurationUI {
      * nominal power of a room, i.e. the sum of the nominal power of all devices in the
      * room.
      **/
-    private void runUS230(RoomRepository roomRepository) {
+    private void runUS230() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomRepository, houseRooms);
         getRoomNominalPower(room);
@@ -373,13 +380,13 @@ class RoomConfigurationUI {
 
     /*US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
     MIGUEL ORTIGAO*/
-    private void runUS250(RoomRepository roomRepository) {
+    private void runUS250() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomRepository, houseRooms);
-        displaySensorListUS250(room, roomRepository);
+        displaySensorListUS250(room);
     }
 
-    private void displaySensorListUS250(Room room, RoomRepository roomRepository) {
+    private void displaySensorListUS250(Room room) {
         if (room.getRoomSensors().isEmpty()) {
             System.out.println(UtilsUI.INVALID_SENSOR_LIST);
             return;
@@ -392,19 +399,19 @@ class RoomConfigurationUI {
      * runs US253, As an Administrator, I want to add a new sensor to a room from the list of available
      * sensor types, in order to configure it.
      */
-    private void runUS253(SensorTypeRepository sensorService, RoomRepository roomRepository) {
-        if (sensorService.isEmpty()) {
+    private void runUS253() {
+        if (sensorTypeRepository.isEmpty()) {
             System.out.println(UtilsUI.INVALID_TYPE_SENSOR_LIST);
             return;
         }
         List<Room> houseRooms = roomRepository.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomRepository, houseRooms);
-        SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorService);
-        getInput253(room, sensorType, roomRepository);
+        SensorType sensorType = InputHelperUI.getInputSensorTypeByList(sensorTypeRepository);
+        getInput253(room, sensorType);
 
     }
 
-    private void getInput253(Room room, SensorType sensorType, RoomRepository roomRepository) {
+    private void getInput253(Room room, SensorType sensorType) {
         Scanner input = new Scanner(System.in);
         // Id Getter
         System.out.println("\nEnter Sensor Id:\t");
@@ -444,8 +451,8 @@ class RoomConfigurationUI {
     }
 
     private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, RoomRepository roomRepository) {
-        RoomSensor mRoomSensor = controller.createRoomSensor(room, roomRepository, sensorID, sensorName, sensorType, date);
-        if (controller.addSensorToRoom(mRoomSensor, roomRepository, room)) {
+        RoomSensor mRoomSensor = controller.createRoomSensor(room, sensorID, sensorName, sensorType, date);
+        if (controller.addSensorToRoom(mRoomSensor, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getId());
         } else System.out.println("\nSensor already exists in the room.");
     }
@@ -454,7 +461,7 @@ class RoomConfigurationUI {
     /*US220 - As an Administrator, I want to removeSensor a device from a room, so that it is no longer used.
     Its activity log is also removed.
     MARIA MEIRELES*/
-    private void runUS220(RoomRepository roomRepository) {
+    private void runUS220() {
         List<Room> houseRooms = roomRepository.getAllRooms();
         Room room = InputHelperUI.getHouseRoomByList(roomRepository, houseRooms);
         if (room.isDeviceListEmpty()) {

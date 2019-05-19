@@ -19,7 +19,6 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +40,7 @@ class RoomMonitoringControllerTest {
 
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private SimpleDateFormat validSdf2;
+    @Mock
     private RoomRepository roomRepository;
     @Mock
     private GeographicAreaHouseService geographicAreaHouseService;
@@ -62,9 +62,6 @@ class RoomMonitoringControllerTest {
     private Date areaReadingDate2;
     private Date areaReadingDate3;
     private RoomSensor firstValidRoomSensor;
-
-    @Mock
-    RoomCrudeRepo roomCrudeRepo;
 
     @InjectMocks
     private RoomMonitoringController controller;
@@ -127,7 +124,6 @@ class RoomMonitoringControllerTest {
         validRoomDTO.setHouseId(validHouse.getId());
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
         firstValidRoomSensor.setActive(true);
-        roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
     @Test
@@ -168,11 +164,10 @@ class RoomMonitoringControllerTest {
         double expectedResult = 17.0;
 
         RoomDTO testDTO = RoomMapper.objectToDTO(testRoom);
-        Mockito.when(roomRepository.getAllRooms()).thenReturn(mockRepositoryRooms);
 
         // Act
-
-        double actualResult = controller.getDayMaxTemperature(testDTO, validDate1, roomRepository);
+        Mockito.when(roomRepository.updateHouseRoom(testDTO)).thenReturn(RoomMapper.dtoToObject(testDTO));
+        double actualResult = controller.getDayMaxTemperature(testDTO, validDate1);
 
         // Assert
 
@@ -185,14 +180,10 @@ class RoomMonitoringControllerTest {
     void seeIfGetCurrentRoomTemperatureThrowsException() {
         // Arrange
 
-        List<Room> mockList = new ArrayList<>();
-        mockList.add(validRoom1);
-
         // Act
+        Mockito.when(roomRepository.updateHouseRoom(validRoomDTO)).thenReturn(RoomMapper.dtoToObject(validRoomDTO));
 
-
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockList);
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO, roomRepository));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> controller.getCurrentRoomTemperature(validRoomDTO));
 
         // Assert
 
@@ -212,11 +203,10 @@ class RoomMonitoringControllerTest {
         List<Reading> list = new ArrayList<>();
         list.add(reading);
         roomSensor.setReadings(list);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockList);
 
         //Act
-
-        double actualResult = controller.getCurrentRoomTemperature(RoomMapper.objectToDTO(validRoom1), roomRepository);
+        Mockito.when(roomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom1))).thenReturn(validRoom1);
+        double actualResult = controller.getCurrentRoomTemperature(RoomMapper.objectToDTO(validRoom1));
 
         //Assert
 
@@ -233,9 +223,8 @@ class RoomMonitoringControllerTest {
         rooms.add(validRoom1);
 
         // Act
-
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(rooms);
-        String actualResult = controller.getRoomName(validRoomDTO, roomRepository);
+        Mockito.when(roomRepository.updateHouseRoom(validRoomDTO)).thenReturn(RoomMapper.dtoToObject(validRoomDTO));
+        String actualResult = controller.getRoomName(validRoomDTO);
 
         // Assert
 
@@ -331,12 +320,15 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIILimit(readings, validHouse)).thenReturn(expectedReadings);
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryILimit(readings, validHouse)).thenReturn(expectedReadings);
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readings, validHouse)).thenReturn(expectedReadings);
-        String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
-        String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
-        String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult1 = controller.getInstantsAboveComfortInterval(validHouse, category1, roomDTO, validStartDate, validEndingDate);
+        String actualResult2 = controller.getInstantsAboveComfortInterval(validHouse, category2, roomDTO, validStartDate, validEndingDate);
+        String actualResult3 = controller.getInstantsAboveComfortInterval(validHouse, category3, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -380,8 +372,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryILimit(readings, validHouse)).thenReturn(readings);
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -427,8 +420,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIILimit(readings, validHouse)).thenReturn(expectedReadings);
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -472,8 +466,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readings, validHouse)).thenReturn(expectedReadings);
-        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsAboveComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -500,7 +495,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -543,8 +538,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsBelowCategoryIILimit(readings, validHouse)).thenReturn(readings);
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -587,8 +583,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsBelowCategoryIIILimit(readings, validHouse)).thenReturn(readings);
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -626,8 +623,9 @@ class RoomMonitoringControllerTest {
         RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom1);
 
         // Act
+        Mockito.when(roomRepository.getTemperatureReadingsBetweenDates(validStartDate, validEndingDate, validRoom1)).thenReturn(readings);
         Mockito.when(geographicAreaHouseService.getReadingsBelowCategoryILimit(readings, validHouse)).thenReturn(readings);
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -654,7 +652,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 
@@ -681,7 +679,7 @@ class RoomMonitoringControllerTest {
 
         // Act
 
-        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate, roomRepository, geographicAreaHouseService);
+        String actualResult = controller.getInstantsBelowComfortInterval(validHouse, category, roomDTO, validStartDate, validEndingDate);
 
         // Assert
 

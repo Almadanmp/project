@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
@@ -21,8 +23,12 @@ import java.util.logging.Logger;
  * Controller class for House Configuration UI
  */
 
-
+@Service
 public class HouseConfigurationController {
+    @Autowired
+    RoomRepository roomRepository;
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
 
     private static final String VALID_LOG_PATH = "resources/logs/sensorsImportHtml.html";
 
@@ -84,7 +90,7 @@ public class HouseConfigurationController {
      * @param roomDimensions  contains the width, length and height respectively.
      * @return a new Room
      */
-    public Room createNewRoom(RoomRepository roomRepository, String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID) {
+    public Room createNewRoom(String roomDesignation, String roomDescription, int roomHouseFloor, List<Double> roomDimensions, String houseID) {
         return roomRepository.createRoom(roomDesignation, roomDescription, roomHouseFloor, roomDimensions, houseID);
     }
 
@@ -94,7 +100,7 @@ public class HouseConfigurationController {
      * @param room the DTO of a Room.
      * @return true if room was added, false otherwise.
      **/
-    public boolean addRoomToHouse(RoomRepository roomRepository, Room room) {
+    public boolean addRoomToHouse(Room room) {
         return roomRepository.saveRoom(room);
     }
 
@@ -105,7 +111,7 @@ public class HouseConfigurationController {
      * @return builds a string of all the individual members in the given list.
      */
 
-    public String buildRoomsString(RoomRepository roomRepository, List<Room> houseRooms) {
+    public String buildRoomsString(List<Room> houseRooms) {
         return roomRepository.buildRoomsAsString(houseRooms);
     }
 
@@ -115,12 +121,11 @@ public class HouseConfigurationController {
     /**
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
      *
-     * @param filepath       is the path of the file we want to import sensors from.
-     * @param roomRepository is the service making the connection to the room repository.
+     * @param filepath is the path of the file we want to import sensors from.
      * @return is the number of imported sensors.
      */
 
-    public int[] readSensors(String filepath, RoomRepository roomRepository, SensorTypeRepository sensorTypeRepository) {
+    public int[] readSensors(String filepath) {
         // Initialize needed variables.
         JSONSensorsReader reader = new JSONSensorsReader();
         int[] result = new int[2];
@@ -129,7 +134,7 @@ public class HouseConfigurationController {
         }
         try {
             List<RoomSensorDTO> importedSensors = reader.importSensors(filepath, sensorTypeRepository);
-            return addSensorsToModelRooms(importedSensors, roomRepository);
+            return addSensorsToModelRooms(importedSensors);
         } catch (IllegalArgumentException ok) { // Throws an exception if the file is corrupt or non existent.
             throw new IllegalArgumentException();
         }
@@ -140,11 +145,10 @@ public class HouseConfigurationController {
      * persistence layer, and if the correct room exists, maps the DTO into a model object and persists it in the program's database.
      *
      * @param importedSensors is the list of houseSensorDTOs that we're trying to import into the program.
-     * @param roomRepository  is the service making the connection to the room repository.
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors, RoomRepository roomRepository) {
+    private int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors) {
         Logger logger = LogUtils.getLogger("sensorsImportLogger", VALID_LOG_PATH, Level.FINE); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controllercli;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -12,14 +13,16 @@ import java.util.Date;
 /**
  * Controller class for Sensor Settings UI
  */
-@Controller
+@Service
 public class SensorSettingsController {
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
 
 
     /* USER STORY 005 - As an Administrator, I want to define the sensor types. */
 
-    public String buildSensorTypesString(SensorTypeRepository sensorTypeList) {
-        return sensorTypeList.buildString();
+    public String buildSensorTypesString() {
+        return sensorTypeRepository.buildString();
     }
 
     /**
@@ -30,8 +33,8 @@ public class SensorSettingsController {
      *                   // * @param typeSensorList the list of types of sensors
      * @return true if the type of sensor was added to the list of type sensors.
      */
-    public boolean addTypeSensorToList(SensorType sensorType, SensorTypeRepository sensorTypeList) {
-        return sensorTypeList.add(sensorType);
+    public boolean addTypeSensorToList(SensorType sensorType) {
+        return sensorTypeRepository.add(sensorType);
     }
 
     /* USER STORY 006 - an Administrator, I want to addWithoutPersisting a new sensor and associate it to a geographical area, so that
@@ -58,8 +61,8 @@ public class SensorSettingsController {
      * @return is the newly created sensortype.
      */
 
-    public SensorType createType(SensorTypeRepository sensorTypeList, String sensorType, String sensorUnits) {
-        return sensorTypeList.createTypeSensor(sensorType, sensorUnits);
+    public SensorType createType(String sensorType, String sensorUnits) {
+        return sensorTypeRepository.createTypeSensor(sensorType, sensorUnits);
     }
 
 

@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
@@ -13,25 +15,27 @@ import java.util.List;
  * Controller class for Energy Grid Settings UI
  */
 
-
+@Service
 public class EnergyGridSettingsController {
-
+    @Autowired
+    RoomRepository roomRepository;
+    @Autowired
+    EnergyGridRepository energyGridRepository;
     //SHARED METHODS THROUGH DIFFERENT UIS
 
 
     /**
-     * @param roomRepository is the list of Rooms we want to print.
      * @return builds a string of all the individual rooms contained in the list.
      */
 
-    public String buildRoomsString(RoomRepository roomRepository, List<Room> roomsOnGrid) {
+    public String buildRoomsString(List<Room> roomsOnGrid) {
         return roomRepository.buildRoomsAsString(roomsOnGrid);
     }
 
     /**
      * @return builds a string of all the individual EnergyGrids contained in the house's EnergyGridList.
      */
-    public String buildGridListString(EnergyGridRepository energyGridRepository) {
+    public static String buildGridListString(EnergyGridRepository energyGridRepository) {
         return energyGridRepository.buildString();
     }
 
@@ -46,12 +50,11 @@ public class EnergyGridSettingsController {
      * @param energyGrid the grid to addWithoutPersisting to the House.
      * @return true if the grid was added to the house.
      */
-    public EnergyGrid addEnergyGridToHouse(EnergyGrid energyGrid, EnergyGridRepository energyGridRepository) {
+    public EnergyGrid addEnergyGridToHouse(EnergyGrid energyGrid) {
         EnergyGrid result = energyGridRepository.addGrid(energyGrid);
-        if (result == null){
+        if (result == null) {
             throw new RuntimeException();
-        }
-        else return result;
+        } else return result;
     }
 
     /**
@@ -59,7 +62,7 @@ public class EnergyGridSettingsController {
      * @param maxPower    is the new grid's maxPower.
      * @return a new EnergyGrid.
      */
-    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID, EnergyGridRepository energyGridRepository) {
+    public EnergyGrid createEnergyGrid(String designation, double maxPower, String houseID) {
         return energyGridRepository.createEnergyGrid(designation, maxPower, houseID);
     }
 
@@ -73,7 +76,7 @@ public class EnergyGridSettingsController {
      * @return a new power source.
      */
 
-    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage, EnergyGridRepository energyGridRepository) {
+    public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return energyGridRepository.createPowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
@@ -97,12 +100,11 @@ public class EnergyGridSettingsController {
      * @return is true if the room is added to the grid successfully, false if it isn't.
      */
 
-    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO, RoomRepository roomRepository) {
-        try{
+    public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO) {
+        try {
             Room room = roomRepository.updateHouseRoom(roomDTO);
             return grid.addRoom(room);
-        }
-        catch (RuntimeException ok){
+        } catch (RuntimeException ok) {
             throw new RuntimeException();
         }
     }

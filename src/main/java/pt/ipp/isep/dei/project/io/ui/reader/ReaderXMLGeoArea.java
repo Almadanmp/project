@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui.reader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,8 +17,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ReaderXMLGeoArea {
 
+public class ReaderXMLGeoArea {
+    @Autowired
+    ReaderController readerController;
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private static final String ALTITUDE = "altitude";
@@ -30,12 +33,11 @@ public class ReaderXMLGeoArea {
      * @param list     geographic area list to addWithoutPersisting the imported geographic areas
      */
     public int readFileXMLAndAddAreas(String filePath, GeographicAreaRepository list, AreaTypeRepository areaTypeRepository) {
-        ReaderController ctrl = new ReaderController();
         ReaderXML reader = new ReaderXML();
         Document doc = reader.readFile(filePath);
         doc.getDocumentElement().normalize();
         NodeList nListGeoArea = doc.getElementsByTagName("geographical_area");
-        return ctrl.addGeoAreaNodeListToList(nListGeoArea, list, areaTypeRepository);
+        return readerController.addGeoAreaNodeListToList(nListGeoArea, list, areaTypeRepository);
     }
 
     /**

@@ -15,10 +15,6 @@ public class HouseRepository {
     @Autowired
     HouseCrudeRepo houseCrudeRepo;
 
-    public HouseRepository(HouseCrudeRepo houseCrudeRepo) {
-        this.houseCrudeRepo = houseCrudeRepo;
-    }
-
     /**
      * This method goes to the house crud repository finds the house
      * and returns the house ID.

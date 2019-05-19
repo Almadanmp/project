@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
@@ -10,6 +12,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -18,19 +21,14 @@ import java.util.List;
  * Controller class for Room Configuration UI
  */
 
-
+@Service
 public class RoomConfigurationController {
 
-    /**
-     * Empty constructor.
-     */
+    @Autowired
+    RoomRepository roomRepository;
 
-    public RoomConfigurationController() {
-        /*
-         * Builder RoomConfigurationController() with no parameters.
-         * It will only be used in ui to apply methods on given inputs.
-         */
-    }
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
 
     /*US222 As a Power User, I want to deactivate a device, so that it is no longer used.
     Nevertheless, it should be possible to access its configuration and activity log.*/
@@ -127,7 +125,7 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device list size.
      * @return a int that represents the size of the deviceList.
      */
-    public int getDeviceListSize(RoomDTO roomDTO, RoomRepository roomRepository) {
+    public int getDeviceListSize(RoomDTO roomDTO) {
         Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getDeviceListSize();
     }
@@ -138,7 +136,7 @@ public class RoomConfigurationController {
      * @param roomDTO is the room we want to get the device from.
      * @param index   is the index of the device in the device list
      */
-    public Device getDeviceByIndex(RoomDTO roomDTO, int index, RoomRepository roomRepository) {
+    public Device getDeviceByIndex(RoomDTO roomDTO, int index) {
         Room room = roomRepository.updateHouseRoom(roomDTO);
         return room.getDeviceByIndex(index);
     }
@@ -301,7 +299,7 @@ public class RoomConfigurationController {
      * @param date
      * @return a created Sensor
      */
-    public RoomSensor createRoomSensor(Room room, RoomRepository roomRepository, String id, String name, SensorType type, Date date) {
+    public RoomSensor createRoomSensor(Room room, String id, String name, SensorType type, Date date) {
         return room.createRoomSensor(id, name, type.getName(), date);
     }
 
@@ -312,7 +310,7 @@ public class RoomConfigurationController {
      * @param roomSensor is the sensor we want to addWithoutPersisting.
      * @return if sensor was successfully added to the room, false otherwise.
      */
-    public boolean addSensorToRoom(RoomSensor roomSensor, RoomRepository roomRepository, Room room) {
+    public boolean addSensorToRoom(RoomSensor roomSensor, Room room) {
         room.addSensor(roomSensor);
         return roomRepository.saveRoom(room);
     }

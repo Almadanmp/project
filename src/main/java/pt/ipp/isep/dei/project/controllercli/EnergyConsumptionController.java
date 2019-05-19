@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -16,8 +18,13 @@ import java.util.List;
 /**
  * Controller class for Energy Consumption UI
  */
-
+@Service
 public class EnergyConsumptionController {
+
+    @Autowired
+    RoomRepository roomRepository;
+    @Autowired
+    EnergyGridRepository energyGridRepository;
 
     /*
      * US705
@@ -84,12 +91,11 @@ public class EnergyConsumptionController {
     /**
      * Calls for the roomList's method in the model to removeGeographicArea a given room from itself.
      *
-     * @param room        is the room we want to removeGeographicArea.
-     * @param roomRepository is the list we want to removeGeographicArea it from.
+     * @param room is the room we want to removeGeographicArea.
      * @return true if the room was removed, false if it wasn't on the list.
      */
 
-    public boolean removeRoomFromList(Room room, RoomRepository roomRepository) {
+    public boolean removeRoomFromList(Room room) {
         return roomRepository.removeRoom(room);
     }
 
@@ -137,7 +143,7 @@ public class EnergyConsumptionController {
      *
      * @return returns the List of Grids in the given house.
      */
-    public List<EnergyGrid> getHouseGridList(EnergyGridRepository energyGridRepository) {
+    public List<EnergyGrid> getHouseGridList() {
         return energyGridRepository.getAllGrids();
     }
 
@@ -185,7 +191,7 @@ public class EnergyConsumptionController {
      * @param endDate   the end of the interval.
      * @return a List of Logs with the wanted logs.
      */
-    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate, RoomRepository roomRepository) {
+    public LogList getRoomLogsInInterval(RoomDTO roomDTO, Date startDate, Date endDate) {
         try {
             Room room = roomRepository.updateHouseRoom(roomDTO);
             return room.getLogsInInterval(startDate, endDate);
@@ -227,7 +233,7 @@ public class EnergyConsumptionController {
      *
      * @return returns a list of water heaters from a house
      */
-    public DeviceList getWaterHeaterDeviceList(RoomRepository roomRepository) {
+    public DeviceList getWaterHeaterDeviceList() {
         List<Room> rooms = roomRepository.getAllRooms();
         DeviceList roomDevicesOfGivenType = new DeviceList();
         for (Room r : rooms) {
@@ -264,7 +270,7 @@ public class EnergyConsumptionController {
      *
      * @return estimate energy consumption on the water heaters
      */
-    public double getDailyWaterHeaterConsumption(RoomRepository roomRepository) {
+    public double getDailyWaterHeaterConsumption() {
         int time = 1440;
         return roomRepository.getDailyConsumptionByDeviceType("WaterHeater", time);
     }

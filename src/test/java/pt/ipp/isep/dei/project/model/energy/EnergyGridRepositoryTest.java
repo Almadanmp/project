@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.energy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -28,13 +29,12 @@ class EnergyGridRepositoryTest {
 
     @Mock
     private EnergyGridCrudeRepo energyGridCrudeRepository;
-
+    @InjectMocks
     private EnergyGridRepository validGridRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        validGridRepo = new EnergyGridRepository(this.energyGridCrudeRepository);
         firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
         secondValidGrid = new EnergyGrid("Secondary Grid", 100, "CasaUm");
     }

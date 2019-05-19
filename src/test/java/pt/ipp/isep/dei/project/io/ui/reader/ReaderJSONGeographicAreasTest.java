@@ -3,69 +3,39 @@ package pt.ipp.isep.dei.project.io.ui.reader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-import pt.ipp.isep.dei.project.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
-import pt.ipp.isep.dei.project.repository.*;
 
 import java.io.File;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
 class ReaderJSONGeographicAreasTest {
     // Common testing artifacts for testing in this class.
 
-
-    @Mock
-    GeographicAreaCrudeRepo geographicAreaCrudeRepo;
-
-    @Mock
-    HouseCrudeRepo houseCrudeRepo;
-
-    @Mock
-    RoomCrudeRepo roomCrudeRepo;
-
-    @Mock
-    EnergyGridCrudeRepo energyGridCrudeRepository;
-
-    @Mock
-    AreaTypeCrudeRepo areaTypeCrudeRepo;
-
-    @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-
-    private ReadingUtils readingUtils;
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
+    @Mock
     private SensorTypeRepository sensorTypeRepository;
+    @Mock
     private AreaTypeRepository areaTypeRepository;
-    @InjectMocks
-    private ReaderController ctrl;
+
+    ReaderJSONGeographicAreas readerJSONGeographicAreas;
 
     @BeforeEach
-    void arrangeArtifacts() {
-        sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
-        areaTypeRepository = new AreaTypeRepository(areaTypeCrudeRepo);
-
+    void setUpOutput() {
+        readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
     }
 
     @Test
@@ -148,46 +118,22 @@ class ReaderJSONGeographicAreasTest {
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
 
-        Mockito.when(areaTypeCrudeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeCrudeRepo.findByName("city")).thenReturn(Optional.of(city));
-
-        SensorType rainfall = new SensorType("rainfall", "mm");
-        SensorType temperature = new SensorType("temperature", "C");
-
-        Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
-
         // Act
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint04_GA.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
+        Mockito.doReturn(new AreaType(urbanArea.getName())).when(areaTypeRepository).getAreaTypeByName(urbanArea.getName());
+        Mockito.doReturn(areaOne).when(geographicAreaRepository).createGA(areaOne.getName(), areaOne.getAreaTypeID(), areaOne.getWidth(), areaOne.getLength(), areaOne.getLocal());
+        Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistGA(areaOne);
 
-        Mockito.when(geographicAreaRepository.createGA(areaOne.getName(), areaOne.getAreaTypeID(), areaOne.getWidth(), areaOne.getLength(), areaOne.getLocal())).thenReturn(areaOne);
-        Mockito.when(geographicAreaRepository.createGA(areaTwo.getName(), areaTwo.getAreaTypeID(), areaTwo.getWidth(), areaTwo.getLength(), areaTwo.getLocal())).thenReturn(areaTwo);
-        Mockito.when(geographicAreaRepository.addAndPersistGA(areaOne)).thenReturn(true);
-        Mockito.when(geographicAreaRepository.addAndPersistGA(areaTwo)).thenReturn(true);
-        Mockito.when(geographicAreaRepository.updateGeoArea(areaOne)).thenReturn(areaOne);
-        Mockito.when(geographicAreaRepository.updateGeoArea(areaTwo)).thenReturn(areaTwo);
+        Mockito.doReturn(new AreaType(city.getName())).when(areaTypeRepository).getAreaTypeByName(city.getName());
+        Mockito.doReturn(areaTwo).when(geographicAreaRepository).createGA(areaTwo.getName(), areaTwo.getAreaTypeID(), areaTwo.getWidth(), areaTwo.getLength(), areaTwo.getLocal());
+        Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistGA(areaTwo);
         double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
 
         // Assert
 
         assertEquals(2, areasAdded);
-
-        // Get one of the areas to  check its contents.
-
-        //  GeographicArea actualArea = geographicAreaService.getAll().get(0);
-        //   AreaSensorService firstAreaSensors = actualArea.getSensorList();
-
-
-        GeographicArea expectedArea = new GeographicArea("ISEP", "urban area", 0.249,
-                0.261, new Local(41.178553, -8.608035, 139));
-
-        // Assert
-
-        //  assertEquals(expectedArea, actualArea);
-        //  assertEquals(actualArea.getSensorList(), firstAreaSensors);
     }
 
 
@@ -196,8 +142,6 @@ class ReaderJSONGeographicAreasTest {
         // Arrange
 
         String invalidPath = ("invalidfilepath");
-        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
-
         // Act
 
         double actualResult = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(invalidPath, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
@@ -212,12 +156,14 @@ class ReaderJSONGeographicAreasTest {
         // Arrange
         //  Mapper mapper = new Mapper();
 
+        String urbanAreaString = "urban area";
+        String cityString = "city";
         // First Area
 
         GeographicAreaDTO firstArea = new GeographicAreaDTO();
         firstArea.setName("ISEP");
         firstArea.setDescription("Campus do ISEP");
-        firstArea.setTypeArea("urban area");
+        firstArea.setTypeArea(urbanAreaString);
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
         firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
@@ -237,7 +183,7 @@ class ReaderJSONGeographicAreasTest {
         GeographicAreaDTO secondArea = new GeographicAreaDTO();
         secondArea.setName("Porto");
         secondArea.setDescription("City of Porto");
-        secondArea.setTypeArea("city");
+        secondArea.setTypeArea(cityString);
         secondArea.setWidth(10.09);
         secondArea.setLength(3.30);
         secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118));
@@ -272,48 +218,21 @@ class ReaderJSONGeographicAreasTest {
         secondAreaFirstSensor.setGeographicAreaID(areaTwo.getId());
         secondAreaSecondSensor.setGeographicAreaID(areaTwo.getId());
 
-        AreaType city = new AreaType("city");
-        AreaType urbanArea = new AreaType("urban area");
-
-        Mockito.when(areaTypeCrudeRepo.findByName("urban area")).thenReturn(Optional.of(urbanArea));
-        Mockito.when(areaTypeCrudeRepo.findByName("city")).thenReturn(Optional.of(city));
-
-        SensorType rainfall = new SensorType("rainfall", "mm");
-        SensorType temperature = new SensorType("temperature", "C");
-
-        Mockito.when(sensorTypeCrudeRepo.findByName("rainfall")).thenReturn(Optional.of(rainfall));
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(temperature));
-
         //Act
+        Mockito.doReturn(new AreaType(urbanAreaString)).when(areaTypeRepository).getAreaTypeByName(urbanAreaString);
+        Mockito.doReturn(areaOne).when(geographicAreaRepository).createGA(areaOne.getName(), areaOne.getAreaTypeID(), areaOne.getWidth(), areaOne.getLength(), areaOne.getLocal());
+        Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistGA(areaOne);
 
-        Mockito.when(geographicAreaRepository.createGA(areaOne.getName(), areaOne.getAreaTypeID(), areaOne.getWidth(), areaOne.getLength(), areaOne.getLocal())).thenReturn(areaOne);
-        Mockito.when(geographicAreaRepository.createGA(areaTwo.getName(), areaTwo.getAreaTypeID(), areaTwo.getWidth(), areaTwo.getLength(), areaTwo.getLocal())).thenReturn(areaTwo);
-        Mockito.when(geographicAreaRepository.addAndPersistGA(areaOne)).thenReturn(true);
-        Mockito.when(geographicAreaRepository.addAndPersistGA(areaTwo)).thenReturn(true);
-        Mockito.when(geographicAreaRepository.updateGeoArea(areaOne)).thenReturn(areaOne);
-        Mockito.when(geographicAreaRepository.updateGeoArea(areaTwo)).thenReturn(areaTwo);
+        Mockito.doReturn(new AreaType(cityString)).when(areaTypeRepository).getAreaTypeByName(cityString);
+        Mockito.doReturn(areaTwo).when(geographicAreaRepository).createGA(areaTwo.getName(), areaTwo.getAreaTypeID(), areaTwo.getWidth(), areaTwo.getLength(), areaTwo.getLocal());
+        Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistGA(areaTwo);
 
         File fileToRead = new File("src/test/resources/geoAreaFiles/InvalidJSONWrongDates.json");
         String absolutePath = fileToRead.getAbsolutePath();
-        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
         double areasAdded = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(absolutePath, geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
 
         // Assert
 
         assertEquals(2, areasAdded);
-        //  assertEquals(expectedResult, actualResult);
-
-        // Get one of the areas to  check its contents.
-
-        //    GeographicArea actualArea = actualResult.getAll().get(0);
-        //  AreaSensorService firstAreaSensors = actualArea.getSensorList();
-
-        GeographicArea expectedArea = new GeographicArea("ISEP", "urban area", 0.249,
-                0.261, new Local(41.178553, -8.608035, 139));
-
-        // Assert
-
-        //     assertEquals(expectedArea, actualArea);
-        //   assertEquals(actualArea.getSensorList(), firstAreaSensors);
     }
 }

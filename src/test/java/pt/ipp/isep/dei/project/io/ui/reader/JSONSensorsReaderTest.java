@@ -1,19 +1,14 @@
 package pt.ipp.isep.dei.project.io.ui.reader;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,16 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class JSONSensorsReaderTest {
 
     @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-
     private SensorTypeRepository sensorTypeRepository;
-    private SensorType sensorTypeTemp;
-
-    @BeforeEach
-    void arrangeArtifacts() {
-        sensorTypeRepository = new SensorTypeRepository(sensorTypeCrudeRepo);
-        sensorTypeTemp = new SensorType("temperature", "C");
-    }
 
 
     @Test
@@ -80,7 +66,6 @@ class JSONSensorsReaderTest {
         expectedResult.add(thirdDTO);
 
         // Act
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorTypeTemp));
         List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensors.json", sensorTypeRepository);
 
         // Assert
@@ -133,7 +118,6 @@ class JSONSensorsReaderTest {
         expectedResult.add(thirdDTO);
 
         // Act
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorTypeTemp));
         List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongRoomID.json", sensorTypeRepository);
 
         // Assert
@@ -186,7 +170,6 @@ class JSONSensorsReaderTest {
         expectedResult.add(thirdDTO);
 
         // Act
-        Mockito.when(sensorTypeCrudeRepo.findByName("temperature")).thenReturn(Optional.of(sensorTypeTemp));
         List<RoomSensorDTO> actualResult = reader.importSensors("src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensorsWrongElements.json", sensorTypeRepository);
 
         // Assert

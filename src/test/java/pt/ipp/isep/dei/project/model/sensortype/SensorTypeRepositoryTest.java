@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.sensortype;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -22,21 +23,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * SensorTypeService tests class.
  */
 @ExtendWith(MockitoExtension.class)
-class SensorTypeCrudeRepoTest {
+class SensorTypeRepositoryTest {
     // Common testing artifacts for this class.
 
     private SensorType firstValidType;
     private SensorType secondValidType;
-
     @Mock
     private SensorTypeCrudeRepo sensorTypeCrudeRepo;
-
+    @InjectMocks
     private SensorTypeRepository sensorTypeRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        sensorTypeRepository = new SensorTypeRepository(this.sensorTypeCrudeRepo);
         firstValidType = new SensorType("Temperature", "Celsius");
         secondValidType = new SensorType("Rainfall", "l/m2");
     }

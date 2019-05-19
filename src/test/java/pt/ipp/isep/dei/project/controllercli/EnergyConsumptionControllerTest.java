@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -25,9 +26,6 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudeRepo;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,31 +47,22 @@ class EnergyConsumptionControllerTest {
     private Device validDevice1 = new WaterHeater(new WaterHeaterSpec());
     private Device validDevice2 = new WaterHeater(new WaterHeaterSpec());
     private Device validDevice3 = new Fridge(new FridgeSpec());
-    private EnergyConsumptionController controller = new EnergyConsumptionController();
     private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
     private Date validDate1; // Date 09/08/2018
     private Date validDate2; // Date 11/02/2014
     private Log validLog1;
     private GeographicArea validArea;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-    private EnergyGridRepository energyGridRepository;
-
     @Mock
-    private RoomCrudeRepo roomCrudeRepo;
-
-    @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-
     private RoomRepository roomRepository;
     private List<Room> roomList;
-
     @Mock
-    EnergyGridCrudeRepo energyGridCrudeRepo;
+    EnergyGridRepository energyGridRepository;
+    @InjectMocks
+    private EnergyConsumptionController controller;
 
     @BeforeEach
     void arrangeArtifacts() {
-        this.energyGridRepository = new EnergyGridRepository(energyGridCrudeRepo);
-        roomRepository = new RoomRepository(this.roomCrudeRepo);
         this.roomList = new ArrayList<>();
         validRoom1 = new Room("Kitchen", "Ground Floor Kitchen", 0, 35, 40, 20, "Room1");
         validRoom2 = new Room("Bathroom", "2nd Floor Bathroom", 2, 15, 20, 10, "Room1");
@@ -194,11 +183,9 @@ class EnergyConsumptionControllerTest {
         // Arrange
 
         roomList.add(validRoom1);
-        Mockito.when(roomCrudeRepo.findById(validRoom1.getId())).thenReturn(Optional.of(validRoom1));
-
         // Act
-
-        boolean actualResult = controller.removeRoomFromList(validRoom1, roomRepository);
+        Mockito.when(roomRepository.removeRoom(validRoom1)).thenReturn(true);
+        boolean actualResult = controller.removeRoomFromList(validRoom1);
 
         // Assert
 
@@ -210,7 +197,7 @@ class EnergyConsumptionControllerTest {
     void seeIfRemoveRoomFromListWorksFalse() {
         // Act
 
-        boolean actualResult = controller.removeRoomFromList(validRoom1, roomRepository);
+        boolean actualResult = controller.removeRoomFromList(validRoom1);
 
         // Assert
 
@@ -346,7 +333,7 @@ class EnergyConsumptionControllerTest {
 
         // Act
 
-        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridRepository);
+        List<EnergyGrid> actualResult = controller.getHouseGridList();
 
         // Assert
 
@@ -359,13 +346,12 @@ class EnergyConsumptionControllerTest {
 
         List<EnergyGrid> grids = new ArrayList<>();
         grids.add(validGrid);
-        Mockito.when(energyGridCrudeRepo.findAll()).thenReturn(grids);
         List<EnergyGrid> expectedResult = new ArrayList<>();
         expectedResult.add(validGrid);
 
         // Act
-
-        List<EnergyGrid> actualResult = controller.getHouseGridList(energyGridRepository);
+        Mockito.when(energyGridRepository.getAllGrids()).thenReturn(expectedResult);
+        List<EnergyGrid> actualResult = controller.getHouseGridList();
 
         // Assert
 
@@ -767,7 +753,6 @@ class EnergyConsumptionControllerTest {
 
         List<Room> mockedRoomList = new ArrayList<>();
         mockedRoomList.add(validRoom1);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockedRoomList);
         Date insideInterval = new GregorianCalendar(2016, Calendar.JULY, 1).getTime();
         LogList expectedResult = new LogList();
         Log log1 = new Log(11, insideInterval, insideInterval);
@@ -780,11 +765,11 @@ class EnergyConsumptionControllerTest {
         validDevice2.addLog(log2);
         validDevice3.addLog(log3);
 
-
         // Act
 
         RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
-        LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomRepository);
+        Mockito.when(roomRepository.updateHouseRoom(testDTO)).thenReturn(validRoom1);
+        LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1);
 
         // Assert
 
@@ -799,7 +784,7 @@ class EnergyConsumptionControllerTest {
 
         // Assert
 
-        assertThrows((RuntimeException.class), () -> controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomRepository));
+        assertThrows((RuntimeException.class), () -> controller.getRoomLogsInInterval(testDTO, validDate2, validDate1));
     }
 
     @Test
@@ -808,13 +793,13 @@ class EnergyConsumptionControllerTest {
 
         List<Room> mockedRoomList = new ArrayList<>();
         mockedRoomList.add(validRoom1);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockedRoomList);
         LogList expectedResult = new LogList();
 
         // Act
 
         RoomDTO testDTO = RoomMapper.objectToDTO(validRoom1);
-        LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1, roomRepository);
+        Mockito.when(roomRepository.updateHouseRoom(testDTO)).thenReturn(validRoom1);
+        LogList actualResult = controller.getRoomLogsInInterval(testDTO, validDate2, validDate1);
 
         // Assert
 
@@ -824,21 +809,20 @@ class EnergyConsumptionControllerTest {
     @Test
     void seeIfGetWaterHeaterDeviceListWorks() {
         // Arrange
-
-        List<Room> mockedRoomList = new ArrayList<>();
-        mockedRoomList.add(validRoom1);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockedRoomList);
         DeviceList expectedResult = new DeviceList();
         expectedResult.add(validDevice1);
         expectedResult.add(validDevice2);
-
+        validRoom1.addDevice(validDevice1);
+        validRoom2.addDevice(validDevice2);
+        roomList.add(validRoom1);
+        roomList.add(validRoom2);
         // Act
-
-        DeviceList actualResult = controller.getWaterHeaterDeviceList(roomRepository);
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(roomList);
+        DeviceList actualResult = controller.getWaterHeaterDeviceList();
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult.size(), actualResult.size());
     }
 
     @Test
@@ -849,7 +833,7 @@ class EnergyConsumptionControllerTest {
 
         // Act
 
-        double actualResult = controller.getDailyWaterHeaterConsumption(roomRepository);
+        double actualResult = controller.getDailyWaterHeaterConsumption();
 
         // Assert
 
@@ -859,16 +843,13 @@ class EnergyConsumptionControllerTest {
     @Test
     void seeIfGetDailyWaterHeaterConsumptionWorks() {
         // Arrange
-
-        List<Room> mockedRoomList = new ArrayList<>();
-        mockedRoomList.add(validRoom1);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockedRoomList);
-        validDevice1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
+        roomList.add(validRoom1);
         double expectedResult = 97.9;
 
+        validDevice1.setAttributeValue(WaterHeaterSpec.VOLUME_OF_WATER_HEAT, 30D);
         // Act
-
-        double actualResult = controller.getDailyWaterHeaterConsumption(roomRepository);
+        Mockito.when(roomRepository.getDailyConsumptionByDeviceType("WaterHeater", 1440)).thenReturn(expectedResult);
+        double actualResult = controller.getDailyWaterHeaterConsumption();
 
         // Assert
 
@@ -879,14 +860,11 @@ class EnergyConsumptionControllerTest {
     void seeIfGetDailyWaterHeaterConsumptionWorksNoWaterToHeat() {
         // Arrange
 
-        List<Room> mockedRoomList = new ArrayList<>();
-        mockedRoomList.add(validRoom1);
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(mockedRoomList);
         double expectedResult = 0;
-
+        Mockito.when(roomRepository.getDailyConsumptionByDeviceType("WaterHeater", 1440)).thenReturn(expectedResult);
         // Act
 
-        double actualResult = controller.getDailyWaterHeaterConsumption(roomRepository);
+        double actualResult = controller.getDailyWaterHeaterConsumption();
 
         // Assert
 

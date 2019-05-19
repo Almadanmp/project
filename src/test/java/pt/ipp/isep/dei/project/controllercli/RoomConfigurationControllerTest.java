@@ -3,10 +3,12 @@ package pt.ipp.isep.dei.project.controllercli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.*;
 import pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType;
@@ -16,8 +18,6 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomCrudeRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudeRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,15 +38,11 @@ class RoomConfigurationControllerTest {
     private Room validRoomWithDevices;
     private Room validRoomNoDevices;
     private Device validDeviceFridge = new Fridge(new FridgeSpec());
-    private RoomConfigurationController controller = new RoomConfigurationController();
+    @Mock
     private RoomRepository roomRepository;
     private Date validDate1;
-
-    @Mock
-    SensorTypeCrudeRepo sensorTypeCrudeRepo;
-
-    @Mock
-    RoomCrudeRepo roomCrudeRepo;
+    @InjectMocks
+    private RoomConfigurationController controller;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -63,7 +59,6 @@ class RoomConfigurationControllerTest {
         controller.setAttributeValue(validDeviceFridge, FridgeSpec.ANNUAL_CONSUMPTION, 56D);
         validDeviceFridge.setNominalPower(25);
         validRoomWithDevices.addDevice(validDeviceFridge);
-        roomRepository = new RoomRepository(roomCrudeRepo);
     }
 
 
@@ -87,11 +82,11 @@ class RoomConfigurationControllerTest {
         roomDTO.setHouseId("House");
         roomDTO.setDeviceList(deviceList);
 
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
+        Mockito.when(roomRepository.updateHouseRoom(roomDTO)).thenReturn(RoomMapper.dtoToObject(roomDTO));
 
         // Act
 
-        Device actualResult = controller.getDeviceByIndex(roomDTO, 0, roomRepository);
+        Device actualResult = controller.getDeviceByIndex(roomDTO, 0);
 
         // Assert
 
@@ -117,13 +112,9 @@ class RoomConfigurationControllerTest {
         roomDTO.setWidth(15);
         roomDTO.setHouseId("House");
         roomDTO.setDeviceList(deviceList);
-
-
-        Mockito.when(roomCrudeRepo.findAll()).thenReturn(roomList);
-
         // Act
-
-        int actualResult = controller.getDeviceListSize(roomDTO, roomRepository);
+        Mockito.when(roomRepository.updateHouseRoom(roomDTO)).thenReturn(RoomMapper.dtoToObject(roomDTO));
+        int actualResult = controller.getDeviceListSize(roomDTO);
 
         // Assert
 
@@ -140,7 +131,7 @@ class RoomConfigurationControllerTest {
 
         // Act
 
-        RoomSensor actualResult = controller.createRoomSensor(validRoomNoDevices, roomRepository, "Sensor1", "Sensor1", sensorType, validDate1);
+        RoomSensor actualResult = controller.createRoomSensor(validRoomNoDevices, "Sensor1", "Sensor1", sensorType, validDate1);
 
         // Assert
 
@@ -299,9 +290,8 @@ class RoomConfigurationControllerTest {
             e.printStackTrace();
         }
         RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", "Rain", date);
-        // Act
-
-        boolean actualResult = controller.addSensorToRoom(testAreaSensor, roomRepository, validRoomNoDevices);
+        Mockito.when(roomRepository.saveRoom(validRoomNoDevices)).thenReturn(true);
+        boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomNoDevices);
 
         // Assert
 

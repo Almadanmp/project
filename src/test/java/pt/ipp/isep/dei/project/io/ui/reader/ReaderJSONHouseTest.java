@@ -9,13 +9,15 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReaderJSONHouseTest {
 
+
+    ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
+
     @Test
     public void seeHouseDTO() {
-        ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         HouseDTO expectedResult = new HouseDTO();
         AddressDTO addressExpectedResult = new AddressDTO();
         addressExpectedResult.setStreet("R. Dr. António Bernardino de Almeida");

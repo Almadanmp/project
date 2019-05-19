@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
+import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controllercli.EnergyGridSettingsController;
-import pt.ipp.isep.dei.project.controllercli.RoomConfigurationController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;
@@ -32,6 +32,7 @@ import java.util.Scanner;
 /**
  * Utility class that aggregates common INPUT methods used by the UI classes.
  */
+@Service
 public class InputHelperUI {
 
     private static final String SELECT_ROOMS = "You have chosen the following room: ";
@@ -202,16 +203,15 @@ public class InputHelperUI {
      * @return is the selected Device.
      */
     public static Device getInputRoomDTODevicesByList(RoomDTO room, RoomRepository roomRepository) {
-        RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
             try {
                 Room roomToUse = roomRepository.updateHouseRoom(room);
-                System.out.println(controller.buildDeviceListString(roomToUse));
+                System.out.println(roomToUse.buildDeviceListString());
                 int aux = getInputAsInt();
-                int upperLimit = controller.getDeviceListSize(room, roomRepository);
+                int upperLimit = room.getDeviceList().size();
                 if (aux >= 0 && aux < upperLimit) {
-                    Device result = controller.getDeviceByIndex(room, aux, roomRepository);
+                    Device result = room.getDeviceList().get(aux);
                     System.out.println("You have chosen the following device:");
                     System.out.println(result.buildString() + "\n");
                     return result;
@@ -232,10 +232,9 @@ public class InputHelperUI {
      * @return is the selected Device.
      */
     public static Device getInputRoomDevicesByList(Room room) {
-        RoomConfigurationController controller = new RoomConfigurationController();
         while (true) {
             System.out.println(SELECT_DEVICES);
-            System.out.println(controller.buildDeviceListString(room));
+            System.out.println(room.buildDeviceListString());
             int aux = getInputAsInt();
             if (aux >= 0 && aux < room.getDeviceListSize()) {
                 Device result = room.getDeviceByIndex(aux);
@@ -256,10 +255,9 @@ public class InputHelperUI {
      */
     public static EnergyGrid getInputGridByList(EnergyGridRepository energyGridRepository) {
         Scanner scanner = new Scanner(System.in);
-        EnergyGridSettingsController controller = new EnergyGridSettingsController();
         while (true) {
             System.out.println("Please select one of the existing grids on the selected house: ");
-            System.out.println(controller.buildGridListString(energyGridRepository));
+            System.out.println(EnergyGridSettingsController.buildGridListString(energyGridRepository));
             String aux = scanner.nextLine();
             try {
                 EnergyGrid result = energyGridRepository.getById(aux);
@@ -428,7 +426,7 @@ public class InputHelperUI {
      *
      * @return returns a filepath.
      */
-    public String getInputPath(String filePath) {
+    public static String getInputPath(String filePath) {
         String result = filePath;
         Scanner scanner = new Scanner(System.in);
         while (!new File(result).exists()) {
@@ -444,7 +442,7 @@ public class InputHelperUI {
      *
      * @param input - input of user
      */
-    public String getInputPathJsonOrXML(String input) {
+    public static String getInputPathJsonOrXML(String input) {
         while (!(input.endsWith(JSON) || input.endsWith(".xml") || !new File(input).exists())) {
             System.out.println("Please insert a valid path.");
             Scanner scanner = new Scanner(System.in);
@@ -459,7 +457,7 @@ public class InputHelperUI {
      * @param input String input pathFile
      * @return String pathFile
      */
-    public String getInputPathJson(String input) {
+    public static String getInputPathJson(String input) {
         while (!(input.endsWith(JSON))) {
             System.out.println("Please enter a valid path.");
             Scanner scanner = new Scanner(System.in);
@@ -475,7 +473,7 @@ public class InputHelperUI {
      *
      * @return the file path as a String
      **/
-    public String getInputJsonXmlCsv() {
+    public static String getInputJsonXmlCsv() {
         Scanner scanner = new Scanner(System.in);
         UtilsUI.printMessage("Please insert the location of the file you want to import: ");
         String result = scanner.next();
@@ -492,7 +490,7 @@ public class InputHelperUI {
      *
      * @return true if the path is valid, false otherwise
      **/
-    private boolean pathIsJsonXmlCsv(String path) {
+    private static boolean pathIsJsonXmlCsv(String path) {
         return (path.endsWith(".xml") || path.endsWith(".csv") || path.endsWith(JSON));
     }
 
@@ -512,9 +510,9 @@ public class InputHelperUI {
      */
     public int acceptPathJSONorXMLAndReadFile(String filePath, GeographicAreaRepository areaService, SensorTypeRepository sensorTypeRepository, AreaTypeRepository areaTypeRepository) {
         int areasRead;
+        ReaderJSONGeographicAreas readerJSONGeographicAreas = new ReaderJSONGeographicAreas();
         if (filePath.endsWith(JSON)) {
-            ReaderJSONGeographicAreas readerJSON = new ReaderJSONGeographicAreas();
-            areasRead = readerJSON.readJSONFileAndAddGeoAreas(filePath, areaService, sensorTypeRepository, areaTypeRepository);
+            areasRead = readerJSONGeographicAreas.readJSONFileAndAddGeoAreas(filePath, areaService, sensorTypeRepository, areaTypeRepository);
             return areasRead;
         }
         if (filePath.endsWith(".xml")) {
