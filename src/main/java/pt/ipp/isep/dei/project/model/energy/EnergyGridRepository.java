@@ -59,7 +59,6 @@ public class EnergyGridRepository {
         return false;
     }
 
-
     /**
      * This method creates a new EnergyGrid using its constructor.
      *
@@ -136,5 +135,24 @@ public class EnergyGridRepository {
      **/
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
+
+    public EnergyGridDTO getDTOByID(String gridID) {
+        Optional<EnergyGrid> grid = energyGridCrudRepository.findById(gridID);
+        if (grid.isPresent()) {
+            return EnergyGridMapper.objectToDTO(grid.get());
+        }
+        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
+    }
+
+    public boolean removeRoomFromGrid(String roomID, String gridID) throws NoSuchElementException {
+        Optional<EnergyGrid> value = energyGridCrudRepository.findById(gridID);
+        if (value.isPresent()) {
+            EnergyGrid grid = value.get();
+            boolean result = grid.removeRoomById(roomID);
+            energyGridCrudRepository.save(grid);
+            return result;
+        }
+        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 }

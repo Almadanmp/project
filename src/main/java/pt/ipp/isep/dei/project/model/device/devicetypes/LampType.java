@@ -14,4 +14,8 @@ public class LampType implements DeviceType {
     public String getDeviceType() {
         return "Lamp";
     }
+
+
 }
+
+

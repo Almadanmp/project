@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.energy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
@@ -27,10 +28,9 @@ public class EnergyGrid implements Metered, Root {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
-
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE) // LazyCollection fixes MultipleBag fetch Problem without having to
-                                                // change fetch type from EAGER to LAZY
+    // change fetch type from EAGER to LAZY
     @JoinColumn(name = "energyGridId")
     private List<PowerSource> powerSourceList;
     private double maxContractedPower;
@@ -114,6 +114,7 @@ public class EnergyGrid implements Metered, Root {
      *
      * @return the list of power sources connected to the energy grid.
      */
+    @JsonIgnore
     public List<PowerSource> getPowerSourceList() {
         return new ArrayList<>(powerSourceList);
     }
@@ -272,6 +273,16 @@ public class EnergyGrid implements Metered, Root {
         if (rooms.contains(room)) {
             rooms.remove(room);
             return true;
+        }
+        return false;
+    }
+
+    public boolean removeRoomById(String roomID) {
+        for (Room r : this.rooms) {
+            if(r.getId().equals(roomID)){
+                rooms.remove(r);
+                return true;
+            }
         }
         return false;
     }

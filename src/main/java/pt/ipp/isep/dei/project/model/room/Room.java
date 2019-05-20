@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.model.room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
@@ -353,6 +354,7 @@ public class Room implements Metered, Root {
 
     //SENSOR METHODS
 
+    @JsonIgnore
     public List<RoomSensor> getRoomSensors() {
         return new ArrayList<>(this.roomSensors);
     }
@@ -460,6 +462,7 @@ public class Room implements Metered, Root {
      * sensors and/or when temperature sensors have no readings
      */
 
+    @JsonIgnore
     public double getCurrentRoomTemperature() {
         List<RoomSensor> tempSensors = getRoomSensorsOfGivenType(TEMPERATURE);
         if (tempSensors.isEmpty()) {

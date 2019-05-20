@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/gridSettings")
@@ -58,6 +59,22 @@ public class EnergyGridSettingsWebController {
         }
         return new ResponseEntity<>("There was a problem creating the Energy grid, because one component is missing!",
                     HttpStatus.BAD_REQUEST);
+    }
+
+    // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
+    // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
+
+    @DeleteMapping(value = "/grids/{energyGridId}")
+    public ResponseEntity<String> detachRoomFromGrid(@RequestBody String roomID, @PathVariable("energyGridId") String
+            gridID) {
+        try {
+            if (energyGridRepository.removeRoomFromGrid(roomID, gridID)) {
+                return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("There is no room with that ID in this grid.", HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no grid with that ID.", HttpStatus.NOT_FOUND);
+        }
     }
 }
 
