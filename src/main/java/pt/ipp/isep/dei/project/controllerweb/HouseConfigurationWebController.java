@@ -11,6 +11,10 @@ import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/houseSettings")
@@ -18,6 +22,9 @@ public class HouseConfigurationWebController {
 
     @Autowired
     private HouseRepository houseRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Autowired
     private HouseRoomService houseRoomService;
@@ -87,6 +94,18 @@ public class HouseConfigurationWebController {
         if (name == null || Double.compare(width, 0.0) == 0) {
             return false;
         } else return Double.compare(length, 0.0) != 0 && Double.compare(height, 0.0) != 0;
+    }
+
+    //US 108
+
+    /**
+     * This method will show every House Room that is saved in the repository.
+     *
+     * @return List of House Rooms
+     **/
+    @GetMapping(value = "/houseRooms")
+    public ResponseEntity<Object> getHouseRooms() {
+        return new ResponseEntity<>(roomRepository.getAllRoomWebDTOs(), HttpStatus.OK);
     }
 
 }
