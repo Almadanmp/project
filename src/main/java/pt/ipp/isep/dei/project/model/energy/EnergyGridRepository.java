@@ -37,9 +37,15 @@ public class EnergyGridRepository {
         return energyGridCrudRepository.save(energyGrid);
     }
 
-    public void createEnergyGrid(EnergyGridDTO energyGridDTO) {
+    public boolean createEnergyGrid(EnergyGridDTO energyGridDTO) {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
-        energyGridCrudRepository.save(energyGrid);
+        List<EnergyGrid> grids = energyGridCrudRepository.findAll();
+        EnergyGrid energyGridRepo = energyGridCrudRepository.findByName(energyGrid.getName());
+        if(!grids.contains(energyGridRepo)){
+            energyGridCrudRepository.save(energyGrid);
+            return true;
+        }
+        return false;
     }
 
     /**

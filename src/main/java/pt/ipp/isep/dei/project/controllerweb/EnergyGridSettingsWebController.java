@@ -24,6 +24,9 @@ public class EnergyGridSettingsWebController {
     @Autowired
     private EnergyGridRepository energyGridRepository;
 
+    /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
+     * attach/detach rooms from it.
+     */
     @GetMapping(value = "/grids")
     public @ResponseBody
     List<EnergyGrid> getAllGrids() {
@@ -59,10 +62,15 @@ public class EnergyGridSettingsWebController {
     @PostMapping(value = "/grids")
     public ResponseEntity<String> createEnergyGrid(@RequestBody EnergyGridDTO energyGridDTO) {
         if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName() != null) {
-            energyGridRepository.createEnergyGrid(energyGridDTO);
-            return new ResponseEntity<>(
-                    "Energy grid created and added to the house with success!",
-                    HttpStatus.CREATED);
+            if (energyGridRepository.createEnergyGrid(energyGridDTO)) {
+                return new ResponseEntity<>(
+                        "Energy grid created and added to the house with success!",
+                        HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(
+                        "A grid with the same name already exists!",
+                        HttpStatus.CONFLICT);
+            }
         }
         return new ResponseEntity<>("There was a problem creating the Energy grid, because one component is missing!",
                 HttpStatus.BAD_REQUEST);
