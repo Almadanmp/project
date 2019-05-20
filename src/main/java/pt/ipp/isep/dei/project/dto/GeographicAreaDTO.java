@@ -14,8 +14,8 @@ public class GeographicAreaDTO {
     private double width;
     private LocalDTO local;
     private List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
+    private List<GeographicAreaDTO> daughterAreaDTOList = new ArrayList<>();
     private String description;
-    private Long motherArea;
 
 
     public Long getId() {
@@ -127,6 +127,25 @@ public class GeographicAreaDTO {
     }
 
     /**
+     * Method that retrieves the object's list of sensor DTOs.
+     *
+     * @return is a list of sensorDTOs.
+     */
+
+    public List<GeographicAreaDTO> getDaughterAreaDTOs() {
+        return new ArrayList<>(daughterAreaDTOList);
+    }
+
+    /**
+     * Method that stores a specific list as the object's list of Sensor DTOs.
+     *
+     * @param listToStore is the list we want to store.
+     */
+
+    public void setDaughterAreaDTOList(List<GeographicAreaDTO> listToStore) {
+        this.daughterAreaDTOList = new ArrayList<>(listToStore);
+    }
+    /**
      * Method that retrieves the object's description.
      *
      * @return is the object's description.
@@ -160,23 +179,12 @@ public class GeographicAreaDTO {
         return this.local;
     }
 
-    /**
-     * Method that adds mother ares
-     *
-     * @param geoArea daughter area
-     * @return the changed daughter area
-     */
-    public boolean setMotherArea(GeographicAreaDTO geoArea) {
-        if (geoArea != null) {
-            this.motherArea = geoArea.getId();
+    public boolean addDaughter(GeographicAreaDTO geoAreaDTO) {
+        if (!this.daughterAreaDTOList.contains(geoAreaDTO)) {
+            this.daughterAreaDTOList.add(geoAreaDTO);
             return true;
-        } else {
-            return false;
         }
-    }
-
-    public Long getMotherAreaID() {
-        return this.motherArea;
+        return false;
     }
 
     @Override

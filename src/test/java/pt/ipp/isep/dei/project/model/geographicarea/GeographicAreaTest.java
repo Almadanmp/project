@@ -420,33 +420,35 @@ class GeographicAreaTest {
         assertFalse(actualResult);
     }
 
-    @Test
-    void seeIfGetSetMotherAreaWorks() {
-        // Arrange
-
-        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
-                new Local(22, 23, 100));
-        validArea.setMotherArea(testArea);
-
-        // Act
-
-        GeographicArea actualResult = validArea.getMotherArea();
-
-        // Assert
-
-        assertEquals(testArea, actualResult);
-    }
-
-    @Test
-    void seeIfGetSetMotherAreaWorksFalse() {
-        // Act
-
-        boolean actualResult = validArea.setMotherArea(null);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
+//    @Test
+//    void seeIfGetSetMotherAreaWorks() {
+//        // Arrange
+//
+//        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
+//                new Local(22, 23, 100));
+//        testArea.setId(2L);
+//        validArea.setDaughterAreas(2L);
+//
+//        // Act
+//
+//        Long expectedResult = 2L;
+//        Long actualResult = validArea.getDaughterAreas();
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//    }
+//
+//    @Test
+//    void seeIfGetSetMotherAreaWorksFalse() {
+//        // Act
+//
+//        boolean actualResult = validArea.setDaughterAreas(null);
+//
+//        // Assert
+//
+//        assertFalse(actualResult);
+//    }
 
     @Test
     void seeIfGetSetDescription() {
@@ -477,61 +479,6 @@ class GeographicAreaTest {
         // Assert
 
         assertEquals(areaType.getName(), actualResult);
-    }
-
-
-    @Test
-    void seeIfCheckIfAreaIsContainedWorksTrue() {
-        // Arrange
-
-        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
-                new Local(22, 23, 100));
-        validArea.setMotherArea(testArea);
-
-        // Act
-
-        boolean actualResult = validArea.isContainedInArea(testArea);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfCheckIfAreaIsContainedWorksFalse() {
-        // Arrange
-
-        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
-                new Local(22, 23, 100));
-
-
-        // Act
-
-        boolean actualResult = validArea.isContainedInArea(testArea);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
-
-    @Test
-    void seeIfCheckIfAreaIsContainedWorksTransitive() {
-        // Arrange
-
-        GeographicArea firstTestArea = new GeographicArea("Porto", "City",
-                2, 4, new Local(22, 22, 100));
-        GeographicArea secondTestArea = new GeographicArea("Europe", "Continent",
-                200, 400, new Local(22, 22, 100));
-        firstTestArea.setMotherArea(validArea);
-        validArea.setMotherArea(secondTestArea);
-
-        // Act
-
-        boolean actualResult = firstTestArea.isContainedInArea(secondTestArea);
-
-        // Assert
-
-        assertTrue(actualResult);
     }
 
     @Test

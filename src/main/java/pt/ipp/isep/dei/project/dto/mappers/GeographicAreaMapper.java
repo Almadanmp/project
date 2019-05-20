@@ -116,7 +116,6 @@ public final class GeographicAreaMapper {
 
         String objectDescription = dtoToConvert.getDescription();
 
-        Long motherAreaID = dtoToConvert.getMotherAreaID();
 
         // Update sensors
 
@@ -124,6 +123,12 @@ public final class GeographicAreaMapper {
         for (AreaSensorDTO s : dtoToConvert.getSensors()) {
             AreaSensor tempObject = AreaSensorMapper.dtoToObject(s);
             objectSensorList.add(tempObject);
+        }
+
+        List<GeographicArea> objectGeographicList = new ArrayList<>();
+        for (GeographicAreaDTO s : dtoToConvert.getDaughterAreaDTOs()) {
+            GeographicArea tempAreaObject = GeographicAreaMapper.dtoToObject(s);
+            objectGeographicList.add(tempAreaObject);
         }
 
 
@@ -135,15 +140,78 @@ public final class GeographicAreaMapper {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
             resultObject.addSensor(sensor);
         }
+        for (GeographicAreaDTO daughterAreaDTO : dtoToConvert.getDaughterAreaDTOs()) {
+            GeographicArea geoArea = GeographicAreaMapper.dtoToObject(daughterAreaDTO);
+            resultObject.addDaughterArea(geoArea);
+        }
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
         resultObject.setAreaSensors(objectSensorList);
-        if(motherArea.getId().equals(motherAreaID)) {
-            resultObject.setMotherArea(motherArea);
-        }
+        resultObject.setDaughterAreas(objectGeographicList);
 
 
         return resultObject;
+    }
+
+    public static GeographicAreaDTO objectToDTOWithMother(GeographicArea objectToConvert) {
+        // Create the result DTO
+
+        Long objectId = null;
+        GeographicAreaDTO resultDTO = new GeographicAreaDTO();
+
+        // Update generic parameters
+
+        try {
+            Long dtoID = objectToConvert.getId();
+            resultDTO.setId(dtoID);
+            if (dtoID == null) {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException ok) {
+            ok.getMessage();
+        }
+
+        String dtoName = objectToConvert.getName();
+
+        String dtoType = objectToConvert.getAreaTypeID();
+
+        double dtoLength = objectToConvert.getLength();
+
+        double dtoWidth = objectToConvert.getWidth();
+
+        LocalDTO localDTO = LocalMapper.objectToDTO(objectToConvert.getLocal());
+
+        String dtoDescription = objectToConvert.getDescription();
+
+
+
+        // Update sensors
+
+        List<AreaSensorDTO> dtoSensorList = new ArrayList<>();
+        for (AreaSensor s : objectToConvert.getAreaSensors()) {
+            AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(s);
+            dtoSensorList.add(tempDTO);
+        }
+
+        List<GeographicAreaDTO> dtoDaughterList = new ArrayList<>();
+        for (AreaSensor s : objectToConvert.getAreaSensors()) {
+            AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(s);
+            dtoSensorList.add(tempDTO);
+        }
+
+        // Update and return the converted DTO.
+
+        resultDTO.setId(objectId);
+        resultDTO.setLength(dtoLength);
+        resultDTO.setWidth(dtoWidth);
+        resultDTO.setTypeArea(dtoType);
+        resultDTO.setDescription(dtoDescription);
+        resultDTO.setName(dtoName);
+        resultDTO.setLocal(localDTO);
+        resultDTO.setSensorList(dtoSensorList);
+        resultDTO.setDaughterAreaDTOList(dtoDaughterList);
+
+        return resultDTO;
     }
 
     /**

@@ -148,8 +148,8 @@ public class GASettingsController {
      * @param motherArea   is the area that contains another.
      * @return true if the area was successfully added.
      */
-    public boolean setMotherArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        return daughterArea.setMotherArea(motherArea);
+    public boolean addDaughterArea(GeographicArea daughterArea, GeographicArea motherArea) {
+        return motherArea.addDaughterArea(daughterArea);
     }
 
     /*USER STORY 08 - As an Administrator, I want to find out if a geographical area is included, directly
@@ -162,7 +162,10 @@ public class GASettingsController {
      */
 
     public boolean isAreaContained(GeographicArea motherGA, GeographicArea daughterGA) {
-        return daughterGA.isContainedInArea(motherGA);
+        if (daughterGA.getDaughterAreaByID(motherGA.getId()) != null){
+            return true;
+        }
+        return false;
     }
 
     /**

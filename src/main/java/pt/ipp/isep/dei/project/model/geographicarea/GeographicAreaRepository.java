@@ -70,6 +70,14 @@ public class GeographicAreaRepository {
         return GeographicAreaMapper.objectToDTO(aux.get());
     }
 
+    public GeographicAreaDTO getDTOByIdWithMother(long Id) {
+        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
+        if (!aux.isPresent()) {
+            throw new IllegalArgumentException("Geographic Area not found - 404");
+        }
+        return GeographicAreaMapper.objectToDTOWithMother(aux.get());
+    }
+
     public boolean addAndPersistDTO(GeographicAreaDTO geographicAreaToAddDTO) {
         List<GeographicArea> geographicAreas = getAll();
         GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaToAddDTO);
@@ -81,7 +89,7 @@ public class GeographicAreaRepository {
         return false;
     }
 
-    public void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
+    void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
         geographicAreaCrudRepo.deleteById(geographicAreaDTO.getId());
     }
 
@@ -113,15 +121,21 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
 
-    public boolean setMotherDTO(GeographicAreaDTO geographicAreaDTO, GeographicAreaDTO geographicAreaDTOMother) {
-        return geographicAreaDTO.setMotherArea(geographicAreaDTOMother);
+    public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
+        return motherDTO.addDaughter(daughterDTO);
     }
 
-    public Long getMotherDTO(GeographicAreaDTO geographicAreaDTO) {
-        return geographicAreaDTO.getMotherAreaID();
 
+    public GeographicAreaDTO getDaughterAreaByID(long idDaughter, long idArea) {
+        GeographicAreaDTO geographicArea = getDTOById(idArea);
+        for (GeographicAreaDTO ga : geographicArea.getDaughterAreaDTOs()) {
+           long asLong = ga.getId();
+            if (asLong == idDaughter) {
+                return ga;
+            }
+        }
+        throw new IllegalArgumentException(("Area Sensor not found"));
     }
-
 
     //WEB CONTROLLER END //
 
@@ -349,7 +363,7 @@ public class GeographicAreaRepository {
         return addedReadings;
     }
 
-    public List<AreaSensor> findSensorByGAAndType(GeographicArea geographicArea, String sensorType) {
+    List<AreaSensor> findSensorByGAAndType(GeographicArea geographicArea, String sensorType) {
         return geographicAreaCrudRepo.findAllByAreaSensorsInAndAreaTypeID(geographicArea, sensorType);
     }
 }

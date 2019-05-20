@@ -323,79 +323,79 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    void seeIfSetMotherAreaWorks() {
-        // Act
-
-        boolean actualResult = controller.setMotherArea(firstValidArea, secondValidArea);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfSetMotherAreaBreaks() {
-        // Act
-
-        boolean actualResult = controller.setMotherArea(firstValidArea, null);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
+//    @Test
+//    void seeIfSetMotherAreaWorks() {
+//        // Act
+//
+//        boolean actualResult = controller.addDaughterArea(firstValidArea, secondValidArea.getId());
+//
+//        // Assert
+//
+//        assertTrue(actualResult);
+//    }
+//
+//    @Test
+//    void seeIfSetMotherAreaBreaks() {
+//        // Act
+//
+//        boolean actualResult = controller.addDaughterArea(firstValidArea, null);
+//
+//        // Assert
+//
+//        assertFalse(actualResult);
+//    }
 
 //USER STORY 008 Tests
 
-    @Test
-    void seeIfItsContained() {
-        // Arrange
+//    @Test
+//    void seeIfItsContained() {
+//        // Arrange
+//
+//        firstValidArea.setDaughterAreas(secondValidArea.getId());
+//
+//        // Act
+//
+//        boolean actualResult = controller.isAreaContained(secondValidArea, firstValidArea);
+//
+//        // Assert
+//
+//        assertTrue(actualResult);
+//    }
 
-        firstValidArea.setMotherArea(secondValidArea);
+//    @Test
+//    void seeIfIndirectlyContained() {
+//        // Arrange
+//
+//        GeographicArea grandDaughterGA = new GeographicArea("Porto", "Country",
+//                2, 4, new Local(21, 33, 5));
+//        grandDaughterGA.setDaughterAreas(secondValidArea.getId());
+//        secondValidArea.setDaughterAreas(firstValidArea.getId());
+//
+//        // Act
+//
+//        boolean actualResult = controller.isAreaContained(firstValidArea, grandDaughterGA);
+//
+//        // Assert
+//
+//        assertTrue(actualResult);
+//    }
 
-        // Act
-
-        boolean actualResult = controller.isAreaContained(secondValidArea, firstValidArea);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfIndirectlyContained() {
-        // Arrange
-
-        GeographicArea grandDaughterGA = new GeographicArea("Porto", "Country",
-                2, 4, new Local(21, 33, 5));
-        grandDaughterGA.setMotherArea(secondValidArea);
-        secondValidArea.setMotherArea(firstValidArea);
-
-        // Act
-
-        boolean actualResult = controller.isAreaContained(firstValidArea, grandDaughterGA);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
-
-    @Test
-    void seeIfNotContained() {
-        // Arrange
-
-        GeographicArea grandDaughterGA = new GeographicArea("Oporto", "Country", 2, 4, new Local(21, 33, 5));
-        grandDaughterGA.setMotherArea(secondValidArea);
-        secondValidArea.setMotherArea(firstValidArea);
-
-        // Act
-
-        boolean actualResult = controller.isAreaContained(grandDaughterGA, firstValidArea);
-
-        // Assert
-
-        assertFalse(actualResult);
-    }
+//    @Test
+//    void seeIfNotContained() {
+//        // Arrange
+//
+//        GeographicArea grandDaughterGA = new GeographicArea("Oporto", "Country", 2, 4, new Local(21, 33, 5));
+//        grandDaughterGA.setDaughterAreas(secondValidArea.getId());
+//        secondValidArea.setDaughterAreas(firstValidArea.getId());
+//
+//        // Act
+//
+//        boolean actualResult = controller.isAreaContained(grandDaughterGA, firstValidArea);
+//
+//        // Assert
+//
+//        assertFalse(actualResult);
+//    }
 
     @Test
     void seeGAId() {

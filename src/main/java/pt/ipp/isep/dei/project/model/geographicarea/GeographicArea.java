@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
@@ -29,10 +30,10 @@ public class GeographicArea implements Root {
     private double length;
     private double width;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @ElementCollection(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mother_area_id")
-    private GeographicArea motherArea;
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "daughterAreaId")
+    private List<GeographicArea> daugtherAreas;
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -174,15 +175,22 @@ public class GeographicArea implements Root {
     /**
      * Standard setter method, to define the Geographical Area that contains the current Geographic Area.
      *
-     * @param geoArea is the Geographical Area that contains this Geographical Area.
+     * @param geoAreas is the Geographical Area that contains this Geographical Area.
      */
-    public boolean setMotherArea(GeographicArea geoArea) {
-        if (geoArea != null) {
-            this.motherArea = geoArea;
+    public void setDaughterAreas(List<GeographicArea> geoAreas) {
+        this.daugtherAreas = new ArrayList<>(geoAreas);
+    }
+
+    public List<GeographicArea> getDaughterAreas() {
+        return new ArrayList<>(this.daugtherAreas);
+    }
+
+    public boolean addDaughterArea(GeographicArea geoArea) {
+        if (!this.daugtherAreas.contains(geoArea)) {
+            this.daugtherAreas.add(geoArea);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -209,34 +217,6 @@ public class GeographicArea implements Root {
         return false;
     }
 
-    /**
-     * Standard getter method, to return the Geographical Area that contains the current Geographic Area.
-     *
-     * @return is the Geographical Area that contains this Geographical Area.
-     */
-    GeographicArea getMotherArea() {
-        return this.motherArea;
-    }
-
-
-    /**
-     * This method is used to check if the current GeoArea is contained in the given area.
-     *
-     * @param motherArea - Geographic Area being compared to daughter area mother area attribute.
-     * @return true if contained, false if not.
-     */
-
-    public boolean isContainedInArea(GeographicArea motherArea) {
-        GeographicArea tempMotherArea = this;
-        while (tempMotherArea.getMotherArea() != null) {
-            if (tempMotherArea.isMotherAreaEqual(motherArea)) {
-                return true;
-            } else {
-                tempMotherArea = this.getMotherArea();
-            }
-        }
-        return false;
-    }
 
     /**
      * Getter for type of Geographic Area.
@@ -279,15 +259,15 @@ public class GeographicArea implements Root {
         return this.length;
     }
 
-    /**
-     * This method checks if mother area is equal to geographic area given.
-     *
-     * @param geographicArea the GA to be tested.
-     * @return true if is equal to geographic area given, false otherwise.
-     **/
 
-    private boolean isMotherAreaEqual(GeographicArea geographicArea) {
-        return this.motherArea.equals(geographicArea);
+    public GeographicArea getDaughterAreaByID(Long daughterID) {
+        for (GeographicArea geoArea : this.daugtherAreas) {
+            Long daughterAreaID = geoArea.getId();
+            if (daughterID.equals(daughterAreaID)) {
+                return geoArea;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     //SENSOR RELATED METHODS

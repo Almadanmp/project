@@ -288,7 +288,7 @@ class GASettingsUI {
         }
         GeographicArea motherGA = getInputMotherGeographicArea();
         GeographicArea daughterGA = getInputDaughterGeographicArea();
-        updateStateUS07(motherGA, daughterGA);
+        updateStateUS07(daughterGA, motherGA);
         displayStateUS07(motherGA, daughterGA);
     }
 
@@ -305,7 +305,7 @@ class GASettingsUI {
     }
 
     private void updateStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {
-        gaController.setMotherArea(daughterGA, motherGA);
+        gaController.addDaughterArea(motherGA, daughterGA);
     }
 
     private void displayStateUS07(GeographicArea motherGA, GeographicArea daughterGA) {

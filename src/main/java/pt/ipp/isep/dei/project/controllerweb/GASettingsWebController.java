@@ -51,27 +51,25 @@ public class GASettingsWebController {
      * @return ok status if the area sensor exists
      */
     @PutMapping("areas/{idDaughter}/{idMother}")
-    public ResponseEntity<Object> setMotherArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
+    public ResponseEntity<Object> addDaughterArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
         GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOById(idAreaDaughter);
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOById(idAreaMother);
-        geographicAreaRepo.setMotherDTO(geographicAreaDaughter, geographicAreaMother);
-        geographicAreaRepo.updateAreaDTOWithMother(geographicAreaDaughter, geographicAreaMother);
-        if (geographicAreaDaughter.getMotherAreaID().equals(geographicAreaMother.getId())) {
+        geographicAreaRepo.addDaughterDTO( geographicAreaMother, geographicAreaDaughter);
+        geographicAreaRepo.updateAreaDTO(geographicAreaDaughter);
+        if (geographicAreaMother.getDaughterAreaDTOs().contains(geographicAreaDaughter)) {
             return new ResponseEntity<>("maezinga", HttpStatus.OK);
         }
         return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("areas/{idDaughter}/{idMother}")
-    public Long getMotherArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
-        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOById(idAreaDaughter);
-        return geographicAreaRepo.getMotherDTO(geographicAreaDaughter);
-    }
-
-
     @GetMapping("areas/{id}")
-    public GeographicAreaDTO getArea(@PathVariable("id") long id) {
-        return geographicAreaRepo.getDTOById(id);
+    public ResponseEntity<Object> getArea(@PathVariable("id") long id) {
+        GeographicAreaDTO dto = geographicAreaRepo.getDTOByIdWithMother(id);
+        if (dto != null) {
+            return new ResponseEntity<>("The Geographic Area exists.", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("The Geographic Area does not exist", HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 
 }
