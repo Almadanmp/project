@@ -35,7 +35,7 @@ public class EnergyGridRepository {
         return energyGridCrudRepository.save(energyGrid);
     }
 
-    public void createEnergyGridDTO(EnergyGridDTO energyGridDTO) {
+    public void createEnergyGrid(EnergyGridDTO energyGridDTO) {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
         energyGridCrudRepository.save(energyGrid);
     }

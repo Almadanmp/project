@@ -50,10 +50,14 @@ public class EnergyGridSettingsWebController {
      */
     @PostMapping(value = "/grids")
     public ResponseEntity<String> createEnergyGrid(@RequestBody EnergyGridDTO energyGridDTO) {
-        energyGridRepository.createEnergyGridDTO(energyGridDTO);
-        return new ResponseEntity<>(
-                "Energy grid created and added to the house with success!",
-                HttpStatus.CREATED);
+        if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName()!= null) {
+            energyGridRepository.createEnergyGrid(energyGridDTO);
+            return new ResponseEntity<>(
+                    "Energy grid created and added to the house with success!",
+                    HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("There was a problem creating the Energy grid, because one component is missing!",
+                    HttpStatus.BAD_REQUEST);
     }
 }
 
