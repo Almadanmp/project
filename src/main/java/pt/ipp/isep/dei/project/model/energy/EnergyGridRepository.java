@@ -70,11 +70,7 @@ public class EnergyGridRepository {
      */
     public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
         List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
-        List<RoomDTOWeb> roomDTOWebList = new ArrayList<>();
-        for (int i = 0; i < roomList.size(); i++) {
-            roomDTOWebList.add(RoomWebMapper.objectToDtoWeb(roomList.get(i)));
-        }
-        return roomDTOWebList;
+        return RoomWebMapper.objectsToDtosWeb(roomList);
     }
 
 
