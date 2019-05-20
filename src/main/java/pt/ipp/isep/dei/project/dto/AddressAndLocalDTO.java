@@ -4,19 +4,19 @@ public class AddressAndLocalDTO {
     private AddressDTO addressDTO;
     private LocalDTO localDTO;
 
-    public AddressDTO getAddressDTO() {
+    public AddressDTO getAddress() {
         return addressDTO;
     }
 
-    public void setAddressDTO(AddressDTO addressDTO) {
+    public void setAddress(AddressDTO addressDTO) {
         this.addressDTO = addressDTO;
     }
 
-    public LocalDTO getLocalDTO() {
+    public LocalDTO getLocal() {
         return localDTO;
     }
 
-    public void setLocalDTO(LocalDTO localDTO) {
+    public void setLocal(LocalDTO localDTO) {
         this.localDTO = localDTO;
     }
 }

@@ -1,8 +1,12 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
+@ExtendWith(MockitoExtension.class)
 public class EnergyGridSettingsWebControllerTest {
 
     @Autowired
@@ -29,6 +34,11 @@ public class EnergyGridSettingsWebControllerTest {
 
     @Mock
     private EnergyGridSettingsWebController energyGridSettingsWebController;
+
+    @BeforeEach
+    void setData(){
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void seeIfCreateEnergyGridWorks() throws Exception {
@@ -72,6 +82,26 @@ public class EnergyGridSettingsWebControllerTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(404, status);
     }
+
+//    @Test
+//    public void seeIfCreateEnergyGridWorksMethod() {
+//
+//        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
+//        ResponseEntity<String> expectedResult = new ResponseEntity<>("Energy grid created and added to the house with success!",HttpStatus.CREATED);
+//
+//
+//        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+//        energyGridDTO.setName("B building");
+//        energyGridDTO.setHouseID("7");
+//        energyGridDTO.setMaxContractedPower(45);
+//        energyGridDTO.setRoomDTOS(new ArrayList<>());
+//        energyGridDTO.setPowerSourceDTOS(new ArrayList<>());
+//        EnergyGrid energyGrid = EnergyGridMapper.dtoToObject(energyGridDTO);
+//
+//
+//        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
+//        assertEquals(expectedResult, actualResult);
+//    }
 
 //    @Test
 //    public void mockTest(){

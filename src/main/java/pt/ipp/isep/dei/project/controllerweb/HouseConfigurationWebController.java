@@ -36,7 +36,7 @@ public class HouseConfigurationWebController {
      * @param addressAndLocalDTO is the location of the house we want to get changed.
      */
     @PutMapping(value = "/house")
-    public ResponseEntity<Object> setHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
+    public ResponseEntity<Object> configureHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
         HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
         house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
         if (houseCrudRepo.save(HouseMapper.dtoWithoutGridsToObject(house)) != null) {
@@ -44,6 +44,19 @@ public class HouseConfigurationWebController {
         }
         return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.NOT_ACCEPTABLE);
     }
+
+//   { "address": {
+//        "street": "rua carlos peixoto",
+//        "number": "431",
+//        "zip": "4200-072",
+//        "town": "Porto",
+//        "country": "Portugal"
+//    },
+//    "local": {
+//        "latitude": 400,
+//        "longitude": 99,
+//        "altitude": 1
+//    }}
 
     /**
      * Method to get the house

@@ -63,8 +63,8 @@ public class HouseWithoutGridsDTO {
     }
 
     public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO){
-        setAddress(addressAndLocalDTO.getAddressDTO());
-        setLocation(addressAndLocalDTO.getLocalDTO());
+        setAddress(addressAndLocalDTO.getAddress());
+        setLocation(addressAndLocalDTO.getLocal());
     }
 
     @Override

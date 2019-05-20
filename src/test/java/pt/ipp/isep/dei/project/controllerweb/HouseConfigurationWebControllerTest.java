@@ -17,7 +17,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.mockito.Mockito;
+import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
+import pt.ipp.isep.dei.project.dto.AddressDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.house.Address;
@@ -59,7 +74,6 @@ public class HouseConfigurationWebControllerTest {
         roomDTOWeb.setLength(4D);
         roomDTOWeb.setHeight(1D);
         roomDTOWeb.setFloor(1);
-
         room = new Room("Name", "", 1, 2D, 4D, 1D, "01");
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
@@ -162,4 +176,62 @@ public class HouseConfigurationWebControllerTest {
                 .content(requestJson))
                 .andExpect(status().isConflict());
     }
+
+    @Test
+    public void seeIfConfigureHouseLocationWorks() throws Exception {
+//        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+//                "4200-072", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, new ArrayList<>());
+//        List<House> houseList = new ArrayList<>();
+//        houseList.add(validHouse);
+//
+//        when(houseRepository.getHouses()).thenReturn(houseList);
+//        // when(houseCrudeRepo.save(any(House.class))).thenReturn(validHouse);
+//
+//        MockHttpServletRequestBuilder builder =
+//                MockMvcRequestBuilders.put("/houseSettings/house")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content("{ \"address\": {\n" +
+//                        "        \"street\": \"rua carlos peixoto\",\n" +
+//                        "        \"number\": \"431\",\n" +
+//                        "        \"zip\": \"4200-072\",\n" +
+//                        "        \"town\": \"Porto\",\n" +
+//                        "        \"country\": \"Portugal\"\n" +
+//                        "    },\n" +
+//                        "    \"local\": {\n" +
+//                        "        \"latitude\": 20,\n" +
+//                        "        \"longitude\": 20,\n" +
+//                        "        \"altitude\": 20\n" +
+//                        "    }}");
+//
+//        this.mockMvc.perform(builder)
+//                .andExpect(MockMvcResultMatchers.status()
+//                        .isOk())
+//                .andExpect(MockMvcResultMatchers.content()
+//                        .string("The house has been altered."))
+//                .andDo(MockMvcResultHandlers.print());
+
+
+//        this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/houseSettings/house")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{ \"address\": {\n" +
+//                        "        \"street\": \"rua carlos peixoto\",\n" +
+//                        "        \"number\": \"431\",\n" +
+//                        "        \"zip\": \"4200-072\",\n" +
+//                        "        \"town\": \"Porto\",\n" +
+//                        "        \"country\": \"Portugal\"\n" +
+//                        "    },\n" +
+//                        "    \"local\": {\n" +
+//                        "        \"latitude\": 400,\n" +
+//                        "        \"longitude\": 99,\n" +
+//                        "        \"altitude\": 1\n" +
+//                        "    }}"))
+//                .andExpect(status().isOk());
+    }
+
+
 }
