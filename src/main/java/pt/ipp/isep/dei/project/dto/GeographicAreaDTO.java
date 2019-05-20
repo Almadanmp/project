@@ -132,7 +132,7 @@ public class GeographicAreaDTO {
      * @return is a list of sensorDTOs.
      */
 
-    public List<GeographicAreaDTO> getDaughterAreaDTOs() {
+    public List<GeographicAreaDTO> getDaughterAreas() {
         return new ArrayList<>(daughterAreaDTOList);
     }
 
@@ -142,7 +142,7 @@ public class GeographicAreaDTO {
      * @param listToStore is the list we want to store.
      */
 
-    public void setDaughterAreaDTOList(List<GeographicAreaDTO> listToStore) {
+    public void setDaughterAreaList(List<GeographicAreaDTO> listToStore) {
         this.daughterAreaDTOList = new ArrayList<>(listToStore);
     }
     /**

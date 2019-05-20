@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,6 +49,7 @@ class GASettingsWebControllerTest {
                         "}"))
                 .andExpect(status().isOk());
     }
+
 
     @Test
     void getAllGeoAreasDTO() {

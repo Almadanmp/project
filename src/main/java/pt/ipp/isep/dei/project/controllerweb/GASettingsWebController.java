@@ -56,7 +56,7 @@ public class GASettingsWebController {
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOById(idAreaMother);
         geographicAreaRepo.addDaughterDTO( geographicAreaMother, geographicAreaDaughter);
         geographicAreaRepo.updateAreaDTO(geographicAreaDaughter);
-        if (geographicAreaMother.getDaughterAreaDTOs().contains(geographicAreaDaughter)) {
+        if (geographicAreaMother.getDaughterAreas().contains(geographicAreaDaughter)) {
             return new ResponseEntity<>("maezinga", HttpStatus.OK);
         }
         return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);

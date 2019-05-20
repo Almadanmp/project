@@ -128,7 +128,7 @@ public class GeographicAreaRepository {
 
     public GeographicAreaDTO getDaughterAreaByID(long idDaughter, long idArea) {
         GeographicAreaDTO geographicArea = getDTOById(idArea);
-        for (GeographicAreaDTO ga : geographicArea.getDaughterAreaDTOs()) {
+        for (GeographicAreaDTO ga : geographicArea.getDaughterAreas()) {
            long asLong = ga.getId();
             if (asLong == idDaughter) {
                 return ga;

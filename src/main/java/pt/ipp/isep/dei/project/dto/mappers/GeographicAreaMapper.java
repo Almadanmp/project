@@ -126,7 +126,7 @@ public final class GeographicAreaMapper {
         }
 
         List<GeographicArea> objectGeographicList = new ArrayList<>();
-        for (GeographicAreaDTO s : dtoToConvert.getDaughterAreaDTOs()) {
+        for (GeographicAreaDTO s : dtoToConvert.getDaughterAreas()) {
             GeographicArea tempAreaObject = GeographicAreaMapper.dtoToObject(s);
             objectGeographicList.add(tempAreaObject);
         }
@@ -140,7 +140,7 @@ public final class GeographicAreaMapper {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
             resultObject.addSensor(sensor);
         }
-        for (GeographicAreaDTO daughterAreaDTO : dtoToConvert.getDaughterAreaDTOs()) {
+        for (GeographicAreaDTO daughterAreaDTO : dtoToConvert.getDaughterAreas()) {
             GeographicArea geoArea = GeographicAreaMapper.dtoToObject(daughterAreaDTO);
             resultObject.addDaughterArea(geoArea);
         }
@@ -209,7 +209,7 @@ public final class GeographicAreaMapper {
         resultDTO.setName(dtoName);
         resultDTO.setLocal(localDTO);
         resultDTO.setSensorList(dtoSensorList);
-        resultDTO.setDaughterAreaDTOList(dtoDaughterList);
+        resultDTO.setDaughterAreaList(dtoDaughterList);
 
         return resultDTO;
     }

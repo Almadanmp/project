@@ -281,4 +281,27 @@ public class HouseConfigurationWebControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void seeIfConfigureHouseLocationWorksFalse() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
+
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(false);
+
+        mockMvc.perform(put("/houseSettings/house")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"addressNOT\": {\n" +
+                        "        \"streetNOT\": \"rua carlos peixoto\",\n" +
+                        "        \"number\": \"431\",\n" +
+                        "        \"town\": \"Porto\",\n" +
+                        "        \"country\": \"Portugal\"\n" +
+                        "    }}"))
+                .andExpect(status().isNotAcceptable());
+    }
+
 }
