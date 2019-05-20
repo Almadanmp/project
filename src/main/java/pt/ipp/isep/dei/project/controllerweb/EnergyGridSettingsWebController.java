@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/gridSettings")
@@ -22,13 +24,19 @@ public class EnergyGridSettingsWebController {
     @Autowired
     private EnergyGridRepository energyGridRepository;
 
-    /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
-     * attach/detach rooms from it.
-     */
     @GetMapping(value = "/grids")
     public @ResponseBody
     List<EnergyGrid> getAllGrids() {
         return gridRepo.findAll();
+    }
+
+    /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
+     * attach/detach rooms from it.
+     */
+    @GetMapping(value = "/grids/{energyGridId}")
+    public @ResponseBody
+    List<RoomDTOWeb> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
+        return energyGridRepository.getRoomsDtoWebInGrid(gridId);
     }
 
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
@@ -50,14 +58,30 @@ public class EnergyGridSettingsWebController {
      */
     @PostMapping(value = "/grids")
     public ResponseEntity<String> createEnergyGrid(@RequestBody EnergyGridDTO energyGridDTO) {
-        if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName()!= null) {
+        if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName() != null) {
             energyGridRepository.createEnergyGrid(energyGridDTO);
             return new ResponseEntity<>(
                     "Energy grid created and added to the house with success!",
                     HttpStatus.CREATED);
         }
         return new ResponseEntity<>("There was a problem creating the Energy grid, because one component is missing!",
-                    HttpStatus.BAD_REQUEST);
+                HttpStatus.BAD_REQUEST);
+    }
+
+    // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
+    // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
+
+    @DeleteMapping(value = "/grids/{energyGridId}")
+    public ResponseEntity<String> detachRoomFromGrid(@RequestBody String roomID, @PathVariable("energyGridId") String
+            gridID) {
+        try {
+            if (energyGridRepository.removeRoomFromGrid(roomID, gridID)) {
+                return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("There is no room with that ID in this grid.", HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no grid with that ID.", HttpStatus.NOT_FOUND);
+        }
     }
 }
 

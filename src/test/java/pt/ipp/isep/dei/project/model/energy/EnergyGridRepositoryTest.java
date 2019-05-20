@@ -9,7 +9,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.ArrayList;
@@ -399,6 +401,28 @@ class EnergyGridRepositoryTest {
         //Assert
         assertFalse(actualResult);
 
+    }
+
+    @Test
+    void seeIfGetRoomsWebDtoWorks() {
+        //Arrange
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("B109");
+        roomDTO.setHouseId("ISEP");
+        roomDTO.setHeight(3);
+        roomDTO.setLength(3);
+        roomDTO.setWidth(3);
+        roomDTO.setFloor(1);
+        roomDTO.setDescription("Classroom");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
+        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+        //Act
+        List<RoomDTOWeb> expectedResult = new ArrayList<>();
+        expectedResult.add(RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO)));
+        List<RoomDTOWeb> actualResult = validGridRepo.getRoomsDtoWebInGrid("Main Grid");
+        //Assert
+        assertEquals(expectedResult,actualResult);
     }
 
 }

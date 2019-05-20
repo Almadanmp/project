@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
@@ -57,6 +59,18 @@ public class EnergyGridRepository {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
+     * that I can attach/detach rooms from it.
+     * This method returns a List of Rooms Dto Web from a grid.
+     * @param gridId is the name of the grid.
+     * @return a List of Rooms Dto Web from a grid.
+     */
+    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
+        List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
+        return RoomWebMapper.objectsToDtosWeb(roomList);
     }
 
 
@@ -136,5 +150,24 @@ public class EnergyGridRepository {
      **/
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
+    }
+
+    public EnergyGridDTO getDTOByID(String gridID) {
+        Optional<EnergyGrid> grid = energyGridCrudRepository.findById(gridID);
+        if (grid.isPresent()) {
+            return EnergyGridMapper.objectToDTO(grid.get());
+        }
+        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
+    }
+
+    public boolean removeRoomFromGrid(String roomID, String gridID) throws NoSuchElementException {
+        Optional<EnergyGrid> value = energyGridCrudRepository.findById(gridID);
+        if (value.isPresent()) {
+            EnergyGrid grid = value.get();
+            boolean result = grid.removeRoomById(roomID);
+            energyGridCrudRepository.save(grid);
+            return result;
+        }
+        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 }
