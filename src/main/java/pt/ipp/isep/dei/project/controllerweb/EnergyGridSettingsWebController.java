@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
@@ -32,6 +33,15 @@ public class EnergyGridSettingsWebController {
         return gridRepo.findAll();
     }
 
+    /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
+     * attach/detach rooms from it.
+     */
+    @GetMapping(value = "/grids/{energyGridId}")
+    public @ResponseBody
+    List<RoomDTOWeb> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
+        return energyGridRepository.getRoomsDtoWebInGrid(gridId);
+    }
+
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
      * consumption is included in that grid.
      */
@@ -51,14 +61,19 @@ public class EnergyGridSettingsWebController {
      */
     @PostMapping(value = "/grids")
     public ResponseEntity<String> createEnergyGrid(@RequestBody EnergyGridDTO energyGridDTO) {
-        if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName()!= null) {
-            energyGridRepository.createEnergyGrid(energyGridDTO);
-            return new ResponseEntity<>(
-                    "Energy grid created and added to the house with success!",
-                    HttpStatus.CREATED);
+        if (energyGridDTO.getHouseID() != null && energyGridDTO.getMaxContractedPower() != null && energyGridDTO.getName() != null) {
+            if (energyGridRepository.createEnergyGrid(energyGridDTO)) {
+                return new ResponseEntity<>(
+                        "Energy grid created and added to the house with success!",
+                        HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(
+                        "A grid with the same name already exists!",
+                        HttpStatus.CONFLICT);
+            }
         }
         return new ResponseEntity<>("There was a problem creating the Energy grid, because one component is missing!",
-                    HttpStatus.BAD_REQUEST);
+                HttpStatus.BAD_REQUEST);
     }
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and

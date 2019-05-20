@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.project.dto.mappers;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.model.room.Room;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RoomWebMapper {
 
     /**
@@ -50,5 +53,45 @@ public class RoomWebMapper {
         // Create, update and return the converted object.
 
         return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight, objectHouseID);
+    }
+
+    /**
+     * This is the method that converts model objects into RoomDtoWeb.
+     *
+     * @param room is the room we want to convert.
+     * @return is the converted object.
+     */
+    public static RoomDTOWeb objectToDtoWeb(Room room) {
+        //Update the name
+        String dtoWebName = room.getId();
+        //Update the floor
+        int dtoWebFloor = room.getFloor();
+        //Update the width
+        double dtoWebWidth = room.getWidth();
+        //Update the length
+        double dtoWebLength = room.getLength();
+        //Update the height
+        double dtoWebHeight = room.getHeight();
+        // Create, update and return the converted object.
+        RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
+        roomDTOWeb.setName(dtoWebName);
+        roomDTOWeb.setFloor(dtoWebFloor);
+        roomDTOWeb.setWidth(dtoWebWidth);
+        roomDTOWeb.setLength(dtoWebLength);
+        roomDTOWeb.setHeight(dtoWebHeight);
+        return roomDTOWeb;
+    }
+
+    /**
+     * This method returns a list of Rooms Dto Web from a RoomList.
+     * @param rooms is the list of rooms we want to convert.
+     * @return a list of Rooms Dto Web.
+     */
+    public static List<RoomDTOWeb> objectsToDtosWeb(List<Room> rooms){
+        List<RoomDTOWeb> roomDTOWebList = new ArrayList<>();
+        for (Room room : rooms) {
+            roomDTOWebList.add(RoomWebMapper.objectToDtoWeb(room));
+        }
+        return roomDTOWebList;
     }
 }
