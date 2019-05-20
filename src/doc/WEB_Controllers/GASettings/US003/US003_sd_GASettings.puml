@@ -1,0 +1,46 @@
+@startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+}
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+title US003 - As an Administrator, I want to create a new Geographic Area
+
+actor "Http Client"
+activate "Http Client"
+"Http Client" -> "GASettingsWebController":  Post ".../geographic_area_settings/areas":\n createGeographicArea(GeographicAreaDTO)
+activate "GASettingsWebController"
+"GASettingsWebController" -> "GeographicAreaRepository": addAndPersistDTO(GeographicAreaDTO)
+activate "GeographicAreaRepository"
+"GeographicAreaRepository" -> "GeographicAreaMapper": GeographicArea = dtoToObject(GeographicAreaDTO)
+activate "GeographicAreaMapper"
+"GeographicAreaMapper" --> "GeographicAreaRepository": return GeographicArea
+"GeographicAreaRepository" -> "GeographicAreaRepository": save GeographicArea
+alt if geographic area is Added
+"GASettingsWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
+else if geographic area is NOT Added
+"GASettingsWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
+deactivate "GeographicAreaMapper"
+deactivate "GeographicAreaRepository"
+deactivate "Http Client"
+end
+
+@enduml
