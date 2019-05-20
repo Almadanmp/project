@@ -62,7 +62,7 @@ public class GeographicAreaWebDTO {
         }
 
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
-        LocalDTO testDTOLocal = localVariable.getLocalDTO();
+        LocalDTO testDTOLocal = localVariable.getLocal();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
                 );
     }

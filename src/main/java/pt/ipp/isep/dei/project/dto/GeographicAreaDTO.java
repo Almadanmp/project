@@ -112,7 +112,7 @@ public class GeographicAreaDTO {
      * @return is a list of sensorDTOs.
      */
 
-    public List<AreaSensorDTO> getSensorDTOs() {
+    public List<AreaSensorDTO> getSensors() {
          return new ArrayList<>(areaSensorDTOList);
     }
 
@@ -122,7 +122,7 @@ public class GeographicAreaDTO {
      * @param listToStore is the list we want to store.
      */
 
-    public void setSensorDTOList(List<AreaSensorDTO> listToStore) {
+    public void setSensorList(List<AreaSensorDTO> listToStore) {
         this.areaSensorDTOList = new ArrayList<>(listToStore);
     }
 
@@ -147,7 +147,7 @@ public class GeographicAreaDTO {
     /**
      * Method that receives a Local Dto and sets it as an attribute.
      */
-    public void setLocalDTO(LocalDTO localDTO) {
+    public void setLocal(LocalDTO localDTO) {
         this.local = localDTO;
     }
 
@@ -156,7 +156,7 @@ public class GeographicAreaDTO {
      *
      * @return is the object's Local Dto.
      */
-    public LocalDTO getLocalDTO() {
+    public LocalDTO getLocal() {
         return this.local;
     }
 
@@ -189,7 +189,7 @@ public class GeographicAreaDTO {
         }
 
         GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
-        LocalDTO testDTOLocal = localVariable.getLocalDTO();
+        LocalDTO testDTOLocal = localVariable.getLocal();
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
                 && testDTOLocal.equals(this.local));
     }

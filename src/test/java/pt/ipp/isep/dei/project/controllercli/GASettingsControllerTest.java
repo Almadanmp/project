@@ -415,7 +415,7 @@ class GASettingsControllerTest {
         GeographicAreaDTO expectedResult = new GeographicAreaDTO();
         LocalDTO localDTO = new LocalDTO();
         expectedResult.setName("Joana");
-        expectedResult.setLocalDTO(localDTO);
+        expectedResult.setLocal(localDTO);
         localDTO.setLatitude(12);
         localDTO.setLongitude(13);
         localDTO.setAltitude(13);

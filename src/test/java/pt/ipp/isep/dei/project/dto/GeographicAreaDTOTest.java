@@ -19,7 +19,7 @@ class GeographicAreaDTOTest {
     void arrangeArtifacts() {
         validDTO = new GeographicAreaDTO();
         validAreaSensorDTOList = new ArrayList<>();
-        validDTO.setSensorDTOList(validAreaSensorDTOList);
+        validDTO.setSensorList(validAreaSensorDTOList);
     }
 
     @Test
@@ -113,25 +113,25 @@ class GeographicAreaDTOTest {
         geographicAreaDTO8.setTypeArea("City");
         geographicAreaDTO9.setTypeArea("City");
 
-        geographicAreaDTO1.setSensorDTOList(dtoList);
-        geographicAreaDTO2.setSensorDTOList(dtoListEmpty);
-        geographicAreaDTO3.setSensorDTOList(dtoList);
-        geographicAreaDTO4.setSensorDTOList(dtoList);
-        geographicAreaDTO5.setSensorDTOList(dtoList);
-        geographicAreaDTO6.setSensorDTOList(dtoList);
-        geographicAreaDTO7.setSensorDTOList(dtoList);
-        geographicAreaDTO8.setSensorDTOList(dtoList);
-        geographicAreaDTO9.setSensorDTOList(dtoListEmpty);
+        geographicAreaDTO1.setSensorList(dtoList);
+        geographicAreaDTO2.setSensorList(dtoListEmpty);
+        geographicAreaDTO3.setSensorList(dtoList);
+        geographicAreaDTO4.setSensorList(dtoList);
+        geographicAreaDTO5.setSensorList(dtoList);
+        geographicAreaDTO6.setSensorList(dtoList);
+        geographicAreaDTO7.setSensorList(dtoList);
+        geographicAreaDTO8.setSensorList(dtoList);
+        geographicAreaDTO9.setSensorList(dtoListEmpty);
 
-        geographicAreaDTO1.setLocalDTO(localDTO1);
-        geographicAreaDTO2.setLocalDTO(localDTO2);
-        geographicAreaDTO3.setLocalDTO(localDTO3);
-        geographicAreaDTO4.setLocalDTO(localDTO4);
-        geographicAreaDTO5.setLocalDTO(localDTO5);
-        geographicAreaDTO6.setLocalDTO(localDTO6);
-        geographicAreaDTO7.setLocalDTO(localDTO7);
-        geographicAreaDTO8.setLocalDTO(localDTO8);
-        geographicAreaDTO9.setLocalDTO(localDTO9);
+        geographicAreaDTO1.setLocal(localDTO1);
+        geographicAreaDTO2.setLocal(localDTO2);
+        geographicAreaDTO3.setLocal(localDTO3);
+        geographicAreaDTO4.setLocal(localDTO4);
+        geographicAreaDTO5.setLocal(localDTO5);
+        geographicAreaDTO6.setLocal(localDTO6);
+        geographicAreaDTO7.setLocal(localDTO7);
+        geographicAreaDTO8.setLocal(localDTO8);
+        geographicAreaDTO9.setLocal(localDTO9);
 
         Double actualResult = 3D;
 
@@ -242,11 +242,11 @@ class GeographicAreaDTOTest {
         localDTO.setLatitude(2);
         localDTO.setLongitude(4);
 
-        validDTO.setLocalDTO(localDTO);
+        validDTO.setLocal(localDTO);
 
         // Act
 
-        LocalDTO actualResult = validDTO.getLocalDTO();
+        LocalDTO actualResult = validDTO.getLocal();
 
         // Assert
 
@@ -264,8 +264,8 @@ class GeographicAreaDTOTest {
         geographicAreaDTO.setLength(34);
         geographicAreaDTO.setName("Leça do Balio");
         geographicAreaDTO.setId(1L);
-        geographicAreaDTO.setSensorDTOList(validAreaSensorDTOList);
-        geographicAreaDTO.setLocalDTO(new LocalDTO(34,45,66));
+        geographicAreaDTO.setSensorList(validAreaSensorDTOList);
+        geographicAreaDTO.setLocal(new LocalDTO(34,45,66));
         validDTO.setMotherArea(geographicAreaDTO);
 
         // Act
@@ -329,11 +329,11 @@ class GeographicAreaDTOTest {
         // Arrange
 
         List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
-        validDTO.setSensorDTOList(areaSensorDTOList);
+        validDTO.setSensorList(areaSensorDTOList);
 
         // Act
 
-        List<AreaSensorDTO> actualResult = validDTO.getSensorDTOs();
+        List<AreaSensorDTO> actualResult = validDTO.getSensors();
 
         // Assert
 

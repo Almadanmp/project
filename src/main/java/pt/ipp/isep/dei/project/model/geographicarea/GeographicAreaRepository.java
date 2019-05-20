@@ -202,7 +202,7 @@ public class GeographicAreaRepository {
      */
     public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea) {
         GeographicAreaDTO geographicArea = getDTOById(idArea);
-        for (AreaSensorDTO as : geographicArea.getSensorDTOs()) {
+        for (AreaSensorDTO as : geographicArea.getSensors()) {
             String asString = as.getId();
             if (asString.equals(idSensor)) {
                 return as;

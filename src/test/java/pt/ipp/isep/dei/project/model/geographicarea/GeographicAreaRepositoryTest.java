@@ -107,7 +107,7 @@ class GeographicAreaRepositoryTest {
         localDTO.setLatitude(3);
         localDTO.setAltitude(55);
         localDTO.setLongitude(3);
-        validDTO.setLocalDTO(localDTO);
+        validDTO.setLocal(localDTO);
         validDTO.setId(256L);
         validDTOList = new ArrayList<>();
         validDTOList.add(validDTO);
@@ -450,7 +450,7 @@ class GeographicAreaRepositoryTest {
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
+        firstArea.setLocal(new LocalDTO(41.178553, -8.608035, 111));
 
         // Populate expectedResult array
 

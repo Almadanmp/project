@@ -54,7 +54,7 @@ public final class GeographicAreaMapper {
 
         double objectWidth = dtoToConvert.getWidth();
 
-        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocalDTO());
+        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocal());
 
         String objectDescription = dtoToConvert.getDescription();
 
@@ -62,7 +62,7 @@ public final class GeographicAreaMapper {
         // Update sensors
 
         List<AreaSensor> objectSensorList = new ArrayList<>();
-        for (AreaSensorDTO s : dtoToConvert.getSensorDTOs()) {
+        for (AreaSensorDTO s : dtoToConvert.getSensors()) {
             AreaSensor tempObject = AreaSensorMapper.dtoToObject(s);
             objectSensorList.add(tempObject);
         }
@@ -72,7 +72,7 @@ public final class GeographicAreaMapper {
 
         GeographicArea resultObject = new GeographicArea(objectName, objectType, objectLength, objectWidth,
                 objectLocal);
-        for (AreaSensorDTO sensorDTO : dtoToConvert.getSensorDTOs()) {
+        for (AreaSensorDTO sensorDTO : dtoToConvert.getSensors()) {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
             resultObject.addSensor(sensor);
         }
@@ -112,7 +112,7 @@ public final class GeographicAreaMapper {
 
         double objectWidth = dtoToConvert.getWidth();
 
-        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocalDTO());
+        Local objectLocal = LocalMapper.dtoToObject(dtoToConvert.getLocal());
 
         String objectDescription = dtoToConvert.getDescription();
 
@@ -121,7 +121,7 @@ public final class GeographicAreaMapper {
         // Update sensors
 
         List<AreaSensor> objectSensorList = new ArrayList<>();
-        for (AreaSensorDTO s : dtoToConvert.getSensorDTOs()) {
+        for (AreaSensorDTO s : dtoToConvert.getSensors()) {
             AreaSensor tempObject = AreaSensorMapper.dtoToObject(s);
             objectSensorList.add(tempObject);
         }
@@ -131,7 +131,7 @@ public final class GeographicAreaMapper {
 
         GeographicArea resultObject = new GeographicArea(objectName, objectType, objectLength, objectWidth,
                 objectLocal);
-        for (AreaSensorDTO sensorDTO : dtoToConvert.getSensorDTOs()) {
+        for (AreaSensorDTO sensorDTO : dtoToConvert.getSensors()) {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
             resultObject.addSensor(sensor);
         }
@@ -196,8 +196,8 @@ public final class GeographicAreaMapper {
         resultDTO.setTypeArea(dtoType);
         resultDTO.setDescription(dtoDescription);
         resultDTO.setName(dtoName);
-        resultDTO.setLocalDTO(localDTO);
-        resultDTO.setSensorDTOList(dtoSensorList);
+        resultDTO.setLocal(localDTO);
+        resultDTO.setSensorList(dtoSensorList);
 
         return resultDTO;
     }
@@ -209,7 +209,7 @@ public final class GeographicAreaMapper {
 //            entity.put("Id", dto.getId());
 //            entity.put("Name", dto.getName());
 //            entity.put("Description", dto.getDescription());
-//            entity.put("Sensors", AreaSensorMapper.controllerAreaSensorDTOToList(dto.getSensorDTOs()));
+//            entity.put("Sensors", AreaSensorMapper.controllerAreaSensorDTOToList(dto.getSensors()));
 //            entities.add(entity);
 //        }
 //        return entities;

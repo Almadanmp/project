@@ -181,7 +181,7 @@ public class ReaderXMLGeoAreaTest {
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
+        firstArea.setLocal(new LocalDTO(41.178553, -8.608035, 111));
 
         // Populate expectedResult array
 

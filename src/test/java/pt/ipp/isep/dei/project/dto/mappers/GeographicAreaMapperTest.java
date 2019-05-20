@@ -6,7 +6,6 @@ import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
@@ -85,7 +84,7 @@ class GeographicAreaMapperTest {
         expectedResult.setLength(300);
         expectedResult.setWidth(200);
         expectedResult.setId(6008L);
-        expectedResult.setLocalDTO(localDTO);
+        expectedResult.setLocal(localDTO);
 
         // Act
 
@@ -111,7 +110,7 @@ class GeographicAreaMapperTest {
         dtoToConvert.setLength(300);
         dtoToConvert.setWidth(200);
         dtoToConvert.setId(6008L);
-        dtoToConvert.setLocalDTO(localDTO);
+        dtoToConvert.setLocal(localDTO);
 
         // Act
 
@@ -137,11 +136,11 @@ class GeographicAreaMapperTest {
         dtoToConvert.setLength(300);
         dtoToConvert.setWidth(200);
         dtoToConvert.setId(null);
-        dtoToConvert.setLocalDTO(localDTO);
+        dtoToConvert.setLocal(localDTO);
 
         List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
         areaSensorDTOList.add(validAreaSensorDTO);
-        dtoToConvert.setSensorDTOList(areaSensorDTOList);
+        dtoToConvert.setSensorList(areaSensorDTOList);
 
 
         // Act
@@ -185,7 +184,7 @@ class GeographicAreaMapperTest {
         dtoToConvert.setLength(300);
         dtoToConvert.setWidth(200);
         dtoToConvert.setId(6008L);
-        dtoToConvert.setLocalDTO(localDTO);
+        dtoToConvert.setLocal(localDTO);
         dtoToConvert.setMotherArea(motherDTO);
 
         // Act
@@ -204,7 +203,7 @@ class GeographicAreaMapperTest {
         GeographicAreaDTO areaObjectDTO = new GeographicAreaDTO();
         areaObjectDTO.setName("area");
         areaObjectDTO.setLength(3);
-        areaObjectDTO.setLocalDTO(new LocalDTO(34, 34, 45));
+        areaObjectDTO.setLocal(new LocalDTO(34, 34, 45));
         areaObjectDTO.setWidth(45);
         areaObjectDTO.setTypeArea("cidade");
         areaObjectDTO.setDescription("area");
@@ -220,12 +219,12 @@ class GeographicAreaMapperTest {
         dtoToConvert.setLength(300);
         dtoToConvert.setWidth(200);
         dtoToConvert.setId(null);
-        dtoToConvert.setLocalDTO(localDTO);
+        dtoToConvert.setLocal(localDTO);
         dtoToConvert.setMotherArea(areaObjectDTO);
 
         List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
         areaSensorDTOList.add(validAreaSensorDTO);
-        dtoToConvert.setSensorDTOList(areaSensorDTOList);
+        dtoToConvert.setSensorList(areaSensorDTOList);
 
 
         // Act

@@ -60,7 +60,7 @@ class HouseMapperTest {
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        geographicAreaDTO.setLocalDTO(localDTO);
+        geographicAreaDTO.setLocal(localDTO);
         geographicAreaDTO.setName("GA");
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);
@@ -119,7 +119,7 @@ class HouseMapperTest {
         roomDTO.setSensorList(houseSensorDTOS);
         list.add(roomDTO);
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        geographicAreaDTO.setLocalDTO(localDTO);
+        geographicAreaDTO.setLocal(localDTO);
         geographicAreaDTO.setName("GA");
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);

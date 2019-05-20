@@ -50,7 +50,7 @@ class ReaderJSONGeographicAreasTest {
         firstArea.setTypeArea("urban area");
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
+        firstArea.setLocal(new LocalDTO(41.178553, -8.608035, 111));
 
 
         // First Sensor in First Area
@@ -82,7 +82,7 @@ class ReaderJSONGeographicAreasTest {
         secondArea.setTypeArea("city");
         secondArea.setWidth(10.09);
         secondArea.setLength(3.3);
-        secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118.0));
+        secondArea.setLocal(new LocalDTO(41.149935, -8.610857, 118.0));
 
         // First Sensor in Second Area
 
@@ -166,7 +166,7 @@ class ReaderJSONGeographicAreasTest {
         firstArea.setTypeArea(urbanAreaString);
         firstArea.setWidth(0.261);
         firstArea.setLength(0.249);
-        firstArea.setLocalDTO(new LocalDTO(41.178553, -8.608035, 111));
+        firstArea.setLocal(new LocalDTO(41.178553, -8.608035, 111));
 
         // First Sensor in First Area
 
@@ -186,7 +186,7 @@ class ReaderJSONGeographicAreasTest {
         secondArea.setTypeArea(cityString);
         secondArea.setWidth(10.09);
         secondArea.setLength(3.30);
-        secondArea.setLocalDTO(new LocalDTO(41.149935, -8.610857, 118));
+        secondArea.setLocal(new LocalDTO(41.149935, -8.610857, 118));
 
 
         // First Sensor in Second Area

@@ -1,0 +1,50 @@
+@startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+}
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+title US101 - As an Administrator, I want to configure the location of the house.
+
+actor "Http Client"
+activate "Http Client"
+"Http Client" -> "HouseConfigurationWebController":  Put ".../houseSettings/house":\n configureHouseLocation(AddressAndLocalDTO)
+activate "HouseConfigurationWebController"
+"HouseConfigurationWebController" -> "HouseRepository": getHouseDTOWithoutGrids()
+activate "HouseRepository"
+"HouseRepository" -> "HouseRepository": getHouse() :house
+"HouseRepository" -> "HouseMapper": objectToWithoutGridsDTO(house)
+activate "HouseMapper"
+"HouseMapper" -> "HouseRepository": return ":houseDTOWithoutGrids"
+deactivate "HouseMapper"
+"HouseRepository" -> "HouseConfigurationWebController": return ":houseDTOWithoutGrids"
+"HouseConfigurationWebController" -> ":houseDTOWithoutGrids":setAddressAndLocalToDTOWithout\nGrids(addressAndLocalDTO)
+"HouseConfigurationWebController" -> "HouseRepository": updateHouseDTO(:houseDTOWithoutGrids)
+deactivate "HouseRepository"
+alt if house is saved
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message,\n HttpStatus.OK)
+else if house is NOT saved
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message,\n HttpStatus.NOT_ACCEPTABLE)
+
+deactivate "Http Client"
+end
+
+@enduml
