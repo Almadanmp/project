@@ -16,11 +16,7 @@ public class GASettingsWebController {
     @Autowired
     private GeographicAreaRepository geographicAreaRepo;
 
-    @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
-
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
-
 
     /**
      * Method to create a DTO of Geographic Area
@@ -43,7 +39,7 @@ public class GASettingsWebController {
      */
     @GetMapping("/areas")
     public List<GeographicAreaDTO> getAllGeographicAreas() {
-        return geographicAreaRepository.getAllDTO();
+        return geographicAreaRepo.getAllDTO();
     }
 
 
