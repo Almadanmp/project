@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;

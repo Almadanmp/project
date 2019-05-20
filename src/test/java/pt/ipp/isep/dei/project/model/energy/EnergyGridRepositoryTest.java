@@ -9,7 +9,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,7 +28,6 @@ class EnergyGridRepositoryTest {
     // Common testing artifacts for testing class.
 
     private EnergyGrid firstValidGrid;
-    private EnergyGrid secondValidGrid;
 
     @Mock
     private EnergyGridCrudRepo energyGridCrudRepository;
@@ -36,7 +38,6 @@ class EnergyGridRepositoryTest {
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
         firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
-        secondValidGrid = new EnergyGrid("Secondary Grid", 100, "CasaUm");
     }
 
     @Test
@@ -402,8 +403,57 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
-    void seeIfRemoveRoomFromGridWorks(){
+    void seeIfRemoveRoomFromGridWorksValidGridInvalidRoom() {
+        // Arrange
 
+        EnergyGrid mockGrid = new EnergyGrid("firstGrid", 21D, "01");
+        Optional<EnergyGrid> repoReturn = Optional.of(mockGrid);
+        Mockito.when(energyGridCrudRepository.findById("firstGrid")).thenReturn(repoReturn);
+
+        // Act
+
+        boolean actualResult = validGridRepo.removeRoomFromGrid("Invalid", "firstGrid");
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfRemoveRoomFromGridWorksInvalidGrid() {
+        // Assert
+
+        assertThrows(NoSuchElementException.class,
+                () -> validGridRepo.removeRoomFromGrid("B107", "Invalid"));
+    }
+
+    @Test
+    void seeIfRemoveRoomFromGridWorks() {
+        // Arrange
+
+        EnergyGrid mockGrid = new EnergyGrid("firstGrid", 21D, "01");
+
+        // Create the room
+
+        List<Double> roomDimensions = new ArrayList<>();
+        roomDimensions.add(31D);
+        roomDimensions.add(15D);
+        roomDimensions.add(13D);
+        Room mockRoom = new Room("B107", "The lesser room", 1, roomDimensions, "01");
+
+        // Set up the artifacts
+
+        mockGrid.addRoom(mockRoom);
+        Optional<EnergyGrid> repoReturn = Optional.of(mockGrid);
+        Mockito.when(energyGridCrudRepository.findById("firstGrid")).thenReturn(repoReturn);
+
+        // Act
+
+        boolean actualResult = validGridRepo.removeRoomFromGrid("B107", "firstGrid");
+
+        // Assert
+
+        assertTrue(actualResult);
     }
 }
 
