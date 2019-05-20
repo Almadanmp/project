@@ -241,7 +241,7 @@ class HouseMonitoringControllerTest {
         // Arrange
 
 
-        Date expectedResult = validDate1;
+        Date expectedResult = validDate2;
 
         // Act
 

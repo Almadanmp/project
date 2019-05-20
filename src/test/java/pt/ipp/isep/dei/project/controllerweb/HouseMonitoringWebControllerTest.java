@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(HouseMonitoringWebController.class)
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 public class HouseMonitoringWebControllerTest {
 
@@ -40,4 +40,18 @@ public class HouseMonitoringWebControllerTest {
                         " }"))
                 .andExpect(status().isOk());
     }
+
+//    @Test
+//    public void getHighestAmplitudeInvertedDates() throws Exception {
+//
+//        this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
+//
+//        mockMvc.perform(get("/houseMonitoring/highestAmplitude")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(                        " {\n" +
+//                        "\"initialDate\": \"2019-01-01\",\n" +
+//                        "\"endDate\": \"2018-01-01\"\n" +
+//                        " }"))
+//                .andExpect(status().isBadRequest());
+//    }
 }

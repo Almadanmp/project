@@ -346,25 +346,6 @@ class GeographicAreaHouseServiceTest {
         assertEquals(validAreaSensor, actualResult);
     }
 
-    @Test
-    void seeIfGetClosestSensorOfNoExistType() {
-
-        //Arrange
-        List<String> deviceTypeString = new ArrayList<>();
-        deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
-        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", validSensortypeTemp.getName(), new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime());
-
-        //Act
-
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Humidity", house, firstValidArea);
-
-        //Assert
-        assertEquals(areaSensorError, actualResult);
-    }
-
-
     //ver se funciona minDistSensor.size() > 1
     @Test
     void seeIfGetClosestSensorOfGivenTypeSizeActiveSensor() {

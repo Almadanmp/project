@@ -34,7 +34,7 @@ public class AreaSensor {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "AreaReading")
-    private final List<Reading> areaReadings;
+    private List<Reading> areaReadings;
 
     private boolean active;
 
@@ -337,14 +337,11 @@ public class AreaSensor {
      */
 
     List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
-
         List<Date> daysWithReadings = new ArrayList<>();
-
         Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
         Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
-
-        for (int i = 0; i < areaReadings.size(); i++) {
-            Date currentReadingDate = ReadingUtils.getValueDate(areaReadings, i);
+        for (int i = 0; i < this.areaReadings.size(); i++) {
+            Date currentReadingDate = ReadingUtils.getValueDate(this.areaReadings, i);
             if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
                 daysWithReadings.add(currentReadingDate);
             }
@@ -363,17 +360,17 @@ public class AreaSensor {
      * @author Daniela (US633)
      */
     public Date getDateHighestAmplitudeBetweenDates(Date minDate, Date maxDate) {
-        List<Reading> daysWithReadings = getReadingListBetweenDates(minDate, maxDate);
+        List<Date> daysWithReadings = getDaysWithReadingsBetweenDates(minDate, maxDate);
         if (daysWithReadings.isEmpty()) {
             throw new IllegalArgumentException("Warning: Temperature amplitude value not calculated - No readings available.");
         }
 
-        Date dateMaxAmplitude = daysWithReadings.get(0).getDate();
+        Date dateMaxAmplitude = daysWithReadings.get(0);
 
         double maxAmplitude = getAmplitudeValueFromDate(dateMaxAmplitude);
 
         for (int i = 1; i < daysWithReadings.size(); i++) {
-            Date day = daysWithReadings.get(i).getDate();
+            Date day = daysWithReadings.get(i);
             double amplitudeTemperature = getAmplitudeValueFromDate(day);
 
             if (maxAmplitude < amplitudeTemperature) {

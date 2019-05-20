@@ -73,7 +73,6 @@ public class AreaSensorUtils {
             if (aS.getSensorType().equals(sensorType)) {
                 sensorsOfGivenType.add(aS);
             }
-
         }
         return sensorsOfGivenType;
     }

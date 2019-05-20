@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -224,10 +223,6 @@ public class GeographicAreaHouseService {
 
         List<AreaSensor> minDistSensor = new ArrayList<>();
 
-
-        AreaSensor areaSensorError = new AreaSensor("RF12345", "EmptyList", "temperature", new Local(0, 0, 0), new GregorianCalendar(1900, Calendar.FEBRUARY,
-                1).getTime());
-
         List<AreaSensor> gaAreaSensors = geographicArea.getAreaSensors();
         List<AreaSensor> sensorsOfGivenType = AreaSensorUtils.getAreaSensorsOfGivenType(gaAreaSensors, sensorType);
 
@@ -237,7 +232,7 @@ public class GeographicAreaHouseService {
             minDistSensor = getAreaSensorsByDistanceToHouse(sensorsOfGivenType, house, minDist);
         }
         if (minDistSensor.isEmpty()) {
-            return areaSensorError;
+            throw new NoSuchElementException("ERROR: There are no Sensors with that Sensor Type");
         }
         if (minDistSensor.size() > 1) {
 
@@ -298,7 +293,6 @@ public class GeographicAreaHouseService {
             throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
                     "required (Initial date must be before End date).");
         }
-
         House house = houseRepository.getHouses().get(0);
         Long geographicAreaID = house.getMotherAreaID();
         GeographicArea geographicArea = geographicAreaRepository.get(geographicAreaID);
@@ -309,9 +303,8 @@ public class GeographicAreaHouseService {
         if (areaSensor == null) {
             throw new NoSuchElementException("ERROR: There is no Sensor of the temperature type on the House Area");
         }
-
         Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateDTO.getInitialDate(), dateDTO.getEndDate());
-        double value = areaSensor.getReadingValueOnGivenDay(date);
+        double value = areaSensor.getAmplitudeValueFromDate(date);
         return (DateUtils.formatDateNoTime(date) + ", with " + value + "ºC");
     }
 
@@ -319,6 +312,7 @@ public class GeographicAreaHouseService {
      * Method to validate if a interval of dates is valid
      * Date is valid if - Both input are valid inputs
      * If end date is after initial date
+     *
      * @param dateDTO - interval of dates
      * @return true if date valid
      */
