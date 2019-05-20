@@ -9,10 +9,8 @@ import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 @RestController
@@ -20,10 +18,10 @@ import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 public class HouseConfigurationWebController {
 
     @Autowired
-    private RoomRepository roomRepository;
+    private HouseRepository houseRepository;
 
     @Autowired
-    private HouseRepository houseRepository;
+    private HouseRoomService houseRoomService;
 
     @Autowired
     private HouseCrudRepo houseCrudRepo;
@@ -36,7 +34,7 @@ public class HouseConfigurationWebController {
      * @param addressAndLocalDTO is the location of the house we want to get changed.
      */
     @PutMapping(value = "/house")
-    public ResponseEntity<Object> setHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
+    public ResponseEntity<Object> configureHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
         HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
         house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
         if (houseCrudRepo.save(HouseMapper.dtoWithoutGridsToObject(house)) != null) {
@@ -44,6 +42,19 @@ public class HouseConfigurationWebController {
         }
         return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.NOT_ACCEPTABLE);
     }
+
+//   { "address": {
+//        "street": "rua carlos peixoto",
+//        "number": "431",
+//        "zip": "4200-072",
+//        "town": "Porto",
+//        "country": "Portugal"
+//    },
+//    "local": {
+//        "latitude": 400,
+//        "longitude": 99,
+//        "altitude": 1
+//    }}
 
     /**
      * Method to get the house
@@ -68,13 +79,31 @@ public class HouseConfigurationWebController {
      **/
     @PostMapping(value = "/room")
     public ResponseEntity<String> createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {
-        Room room = RoomWebMapper.dtoToObject(roomDTOWeb);
-        String houseID = houseRepository.getHouseId();
-        room.setHouseID(houseID);
-        if (roomRepository.addRoomToCrudRepository(room)) {
+        if (!isRoomDTOWebValid(roomDTOWeb)) {
+            return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.BAD_REQUEST);
+        }
+        if (houseRoomService.addRoomDTOWebToHouse(roomDTOWeb)) {
             return new ResponseEntity<>("The room was successfully added.", HttpStatus.OK);
         }
         return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
+    }
+
+    /**
+     * This method checks if a roomDTOWeb is valid by
+     * checking every attribute.
+     *
+     * @param roomDTOWeb to be validated
+     * @return true in case it is valid, false otherwise.
+     * **/
+    public boolean isRoomDTOWebValid(RoomDTOWeb roomDTOWeb) {
+        String name = roomDTOWeb.getName();
+        Double width = roomDTOWeb.getWidth();
+        Double length = roomDTOWeb.getLength();
+        Double height = roomDTOWeb.getHeight();
+
+        if (name == null || Double.compare(width, 0.0) == 0) {
+            return false;
+        } else return Double.compare(length, 0.0) != 0 && Double.compare(height, 0.0) != 0;
     }
 
 }

@@ -1,0 +1,40 @@
+@startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor ivory
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor ivory
+}
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+title US130 - As an Administrator, I want to create a energy grid, so that I can define the rooms that \n are attached to it and the contracted maximum power for that grid.
+
+actor "Http Client"
+activate "Http Client"
+"Http Client" -> "EnergyGridSettingsWebController":  Post ".../gridSettings/grids": createEnergyGrid(EnergyGridDTO)
+activate "EnergyGridSettingsWebController"
+"EnergyGridSettingsWebController" -> "EnergyGridRepository": createEnergyGrid(EnergyGridDTO)
+activate "EnergyGridRepository"
+"EnergyGridRepository" -> "EnergyGridMapper": EnergyGrid = dtoToObjectEmptyLists(EnergyGridDTO)
+activate "EnergyGridMapper"
+"EnergyGridMapper" --> "EnergyGridRepository": return EnergyGrid
+deactivate "EnergyGridMapper"
+deactivate "EnergyGridRepository"
+deactivate "Http Client"
+
+@enduml

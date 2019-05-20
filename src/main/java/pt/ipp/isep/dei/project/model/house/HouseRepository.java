@@ -48,12 +48,6 @@ public class HouseRepository {
         return HouseMapper.objectToDTO(house);
     }
 
-    public HouseDTO getHouseDTO() {
-        List<House> houseList = houseCrudRepo.findAll();
-        House house = houseList.get(0);
-        return HouseMapper.objectToDTO(house);
-    }
-
     public HouseWithoutGridsDTO getHouseWithoutGridsDTO() {
         List<House> houseList = houseCrudRepo.findAll();
         House house = houseList.get(0);

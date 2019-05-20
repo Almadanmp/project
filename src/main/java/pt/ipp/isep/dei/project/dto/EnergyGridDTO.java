@@ -23,7 +23,7 @@ public class EnergyGridDTO {
         this.maxContractedPower = maxContractedPower;
     }
 
-    public double getMaxContractedPower() {
+    public Double getMaxContractedPower() {
         return maxContractedPower;
     }
 

@@ -21,15 +21,15 @@ public class GASettingsWebController {
     /**
      * Method to create a DTO of Geographic Area
      *
-     * @return Geographic Area DTO
+     * @return ResponseEntity
      */
     @PostMapping(value = "/areas")
-    public ResponseEntity<Object> createGeoAreaDTO(@RequestBody GeographicAreaDTO dto) {
-        if (geographicAreaRepo.addAndPersistDTO(dto)) {
+    public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
+        if (geographicAreaRepo.addAndPersistDTO(dto) && dto.getId()!=null && dto.getName()!= null && dto.getTypeArea()!=null && dto.getLocalDTO()!=null) {
             return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or" +
-                    " invalid Area.", HttpStatus.NOT_ACCEPTABLE);
+                    " invalid Area.", HttpStatus.CONFLICT);
         }
     }
 
@@ -73,19 +73,4 @@ public class GASettingsWebController {
         return geographicAreaRepo.getDTOById(id);
     }
 
-
-
-//{       "id": 66,
-//        "name": "Gaia",
-//        "typeArea": "shit area",
-//        "length": 500,
-//        "width": 100,
-//        "localDTO": {
-//            "latitude": 41,
-//            "longitude": -8,
-//            "altitude": 100,
-//            "id": 0
-//        },
-//        "description": "cidade do lixo"
-//        }
     }
