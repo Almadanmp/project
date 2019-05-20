@@ -13,7 +13,6 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 class EnergyGridDTOTest {
@@ -57,14 +56,15 @@ class EnergyGridDTOTest {
         // Arrange
 
         validDTO.setMaxContractedPower(10);
+        Double expectedResult = 10D;
 
         // Act
 
-        double result = validDTO.getMaxContractedPower();
+        Double result = validDTO.getMaxContractedPower();
 
         // Assert
 
-        assertEquals(10, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
