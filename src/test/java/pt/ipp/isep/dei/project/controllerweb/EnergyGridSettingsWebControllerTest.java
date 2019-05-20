@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -80,6 +81,34 @@ public class EnergyGridSettingsWebControllerTest {
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(404, status);
+    }
+
+    @Test
+    public void seeIfDetachRoomFromGridWorksInvalid() throws Exception{
+        // Arrange
+
+        String URI = "/gridSettings/grids/B%20Building";
+
+        // Act
+
+        MvcResult actualResult = this.mockMvc.perform(MockMvcRequestBuilders.delete(URI).accept(MediaType.APPLICATION_JSON))
+        .andReturn();
+        int status = actualResult.getResponse().getStatus();
+
+        // Assert
+
+        assertEquals(404, status);
+    }
+
+    @Test
+    public void seeIfDeleteRoomFromGridWorks() throws Exception {
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
+
+        this.mockMvc.perform(delete("/gridSettings/grids/B building")
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("B106"))
+                .andExpect(status().isOk());
     }
 
 //    @Test

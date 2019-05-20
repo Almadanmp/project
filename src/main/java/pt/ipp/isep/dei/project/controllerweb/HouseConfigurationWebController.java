@@ -11,7 +11,6 @@ import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 @RestController
 @RequestMapping("/houseSettings")
@@ -22,9 +21,6 @@ public class HouseConfigurationWebController {
 
     @Autowired
     private HouseRoomService houseRoomService;
-
-    @Autowired
-    private HouseCrudRepo houseCrudRepo;
 
     // USER STORY 101
 

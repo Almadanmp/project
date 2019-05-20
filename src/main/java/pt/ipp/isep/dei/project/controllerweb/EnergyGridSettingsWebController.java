@@ -76,7 +76,7 @@ public class EnergyGridSettingsWebController {
                 HttpStatus.BAD_REQUEST);
     }
 
-    // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and
+    // USER STORY 149 -  As an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
     @DeleteMapping(value = "/grids/{energyGridId}")
