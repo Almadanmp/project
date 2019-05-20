@@ -98,10 +98,8 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public void updateAreaDTOWithMother(GeographicAreaDTO areaDTO, GeographicAreaDTO motherAreaDTO) {
-        //get mother area by id
-        GeographicArea motherArea = GeographicAreaMapper.dtoToObject(motherAreaDTO);
-        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO, motherArea);
+    public void updateAreaDTOWithMother(GeographicAreaDTO areaDTO, GeographicAreaDTO daughter) {
+        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO, daughter);
         geographicAreaCrudRepo.save(area);
     }
 
@@ -122,7 +120,10 @@ public class GeographicAreaRepository {
     }
 
     public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
-        return motherDTO.addDaughter(daughterDTO);
+        List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
+        geographicAreas.add(daughterDTO);
+        motherDTO.setDaughterAreaList(geographicAreas);
+        return true;
     }
 
 

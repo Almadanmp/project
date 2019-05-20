@@ -22,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class GeographicAreaTest {
-    private GeographicArea validArea;
+    private GeographicArea firstValidArea;
+    private GeographicArea secondValidArea;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private Date validDate1; // Date 21/11/2018 00h00m00s
@@ -32,8 +33,11 @@ class GeographicAreaTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validArea = new GeographicArea("Portugal", "Country", 300, 200,
+        firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
+        secondValidArea = new GeographicArea("Leça do Balio", "Vila", 30, 20,
+                new Local(50, 50, 10));
+        secondValidArea.setId(2L);
 
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
@@ -56,12 +60,12 @@ class GeographicAreaTest {
     void seeIfGetAreaSensorByIDWorks() {
         //Arrange
 
-        validArea.addSensor(firstValidAreaSensor);
-        validArea.addSensor(secondValidAreaSensor);
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(secondValidAreaSensor);
 
         //Act
 
-        AreaSensor actualResult = validArea.getAreaSensorByID("SensorTwo");
+        AreaSensor actualResult = firstValidArea.getAreaSensorByID("SensorTwo");
 
         //Assert
 
@@ -72,12 +76,12 @@ class GeographicAreaTest {
     void seeIfGetAreaSensorByIDWorksWhenSensorDoesNotExist() {
         //Arrange
 
-        validArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(firstValidAreaSensor);
 
         // Assert
 
         assertThrows(IllegalArgumentException.class,
-                () -> validArea.getAreaSensorByID("invalidSensorID"));
+                () -> firstValidArea.getAreaSensorByID("invalidSensorID"));
     }
 
     @Test
@@ -89,11 +93,11 @@ class GeographicAreaTest {
         List<AreaSensor> expectedResult = new ArrayList<>();
         expectedResult.add(firstValidAreaSensor);
 
-        validArea.setAreaSensors(areaSensors);
+        firstValidArea.setAreaSensors(areaSensors);
 
         //Act
 
-        List<AreaSensor> actualResult = validArea.getAreaSensors();
+        List<AreaSensor> actualResult = firstValidArea.getAreaSensors();
 
         //Assert
 
@@ -107,11 +111,11 @@ class GeographicAreaTest {
         List<AreaSensor> areaSensors = new ArrayList<>();
         List<AreaSensor> expectedResult = new ArrayList<>();
 
-        validArea.setAreaSensors(areaSensors);
+        firstValidArea.setAreaSensors(areaSensors);
 
         //Act
 
-        List<AreaSensor> actualResult = validArea.getAreaSensors();
+        List<AreaSensor> actualResult = firstValidArea.getAreaSensors();
 
         //Assert
 
@@ -119,14 +123,53 @@ class GeographicAreaTest {
     }
 
     @Test
-    void seeIfRemoveSensor() {
+    void seeIfGetDaughterAreaWorks() {
         //Arrange
 
-        validArea.addSensor(firstValidAreaSensor);
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        geographicAreas.add(secondValidArea);
+        List<GeographicArea> expectedResult = new ArrayList<>();
+        expectedResult.add(secondValidArea);
+
+        firstValidArea.setDaughterAreas(geographicAreas);
 
         //Act
 
-        boolean actualResult1 = validArea.removeSensor(firstValidAreaSensor);
+        List<GeographicArea> actualResult = firstValidArea.getDaughterAreas();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDaughterAreaWorksWhenEmpty() {
+        //Arrange
+
+        List<GeographicArea> geographicAreas = new ArrayList<>();
+        List<GeographicArea> expectedResult = new ArrayList<>();
+
+        firstValidArea.setDaughterAreas(geographicAreas);
+
+        //Act
+
+        List<GeographicArea> actualResult = firstValidArea.getDaughterAreas();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void seeIfRemoveSensor() {
+        //Arrange
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+
+        //Act
+
+        boolean actualResult1 = firstValidArea.removeSensor(firstValidAreaSensor);
 
         //Assert
 
@@ -137,11 +180,11 @@ class GeographicAreaTest {
     void seeIfRemoveSensorIfSensorDontExist() {
         //Arrange
 
-        validArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(firstValidAreaSensor);
 
         //Act
 
-        boolean actualResult1 = validArea.removeSensor(secondValidAreaSensor);
+        boolean actualResult1 = firstValidArea.removeSensor(secondValidAreaSensor);
 
         //Assert
 
@@ -160,11 +203,11 @@ class GeographicAreaTest {
 
         //Act
 
-        validArea.setAreaSensors(listAreaSensor);
+        firstValidArea.setAreaSensors(listAreaSensor);
 
         //Assert
 
-        assertEquals(listAreaSensor, validArea.getAreaSensors());
+        assertEquals(listAreaSensor, firstValidArea.getAreaSensors());
     }
 
     @Test
@@ -179,13 +222,13 @@ class GeographicAreaTest {
         List<AreaSensor> listAreaSensor = new ArrayList<>();
 
         //Act
-        validArea.setAreaSensors(listAreaSensor);
-        validArea.addSensor(validAreaSensor);
-        validArea.addSensor(areaSensor);
+        firstValidArea.setAreaSensors(listAreaSensor);
+        firstValidArea.addSensor(validAreaSensor);
+        firstValidArea.addSensor(areaSensor);
 
         //Assert
 
-        assertEquals(validAreaSensor, validArea.getSensor(0));
+        assertEquals(validAreaSensor, firstValidArea.getSensor(0));
     }
 
     @Test
@@ -201,12 +244,12 @@ class GeographicAreaTest {
 
         //Act
 
-        validArea.setAreaSensors(listAreaSensor);
-        validArea.addSensor(validAreaSensor);
+        firstValidArea.setAreaSensors(listAreaSensor);
+        firstValidArea.addSensor(validAreaSensor);
 
         //Assert
 
-        assertFalse(validArea.addSensor(areaSensor));
+        assertFalse(firstValidArea.addSensor(areaSensor));
 
     }
 
@@ -224,12 +267,12 @@ class GeographicAreaTest {
 
         //Act
 
-        validArea.setAreaSensors(listAreaSensor);
+        firstValidArea.setAreaSensors(listAreaSensor);
 
 
         //Assert
 
-        assertTrue(validArea.addSensor(areaSensor));
+        assertTrue(firstValidArea.addSensor(areaSensor));
 
     }
 
@@ -244,12 +287,12 @@ class GeographicAreaTest {
 
         //Act
 
-        validArea.setAreaSensors(listAreaSensor);
+        firstValidArea.setAreaSensors(listAreaSensor);
 
 
         //Assert
 
-        assertTrue(validArea.addSensor(validAreaSensor));
+        assertTrue(firstValidArea.addSensor(validAreaSensor));
 
     }
 
@@ -261,7 +304,7 @@ class GeographicAreaTest {
 
         // Act
 
-        String actualResult = validArea.getAreaTypeID();
+        String actualResult = firstValidArea.getAreaTypeID();
 
         // Assert
 
@@ -272,7 +315,7 @@ class GeographicAreaTest {
     void seeIfEqualsWorksSameObject() {
         // Act
 
-        boolean actualResult = validArea.equals(validArea); // Needed for SonarQube coverage purposes.
+        boolean actualResult = firstValidArea.equals(firstValidArea); // Needed for SonarQube coverage purposes.
 
         // Assert
 
@@ -288,7 +331,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -304,7 +347,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -320,7 +363,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -336,7 +379,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -352,7 +395,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -368,7 +411,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -384,7 +427,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -400,7 +443,7 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(testArea);
+        boolean actualResult = firstValidArea.equals(testArea);
 
         // Assert
 
@@ -413,52 +456,23 @@ class GeographicAreaTest {
 
         // Act
 
-        boolean actualResult = validArea.equals(new WaterHeater(new WaterHeaterSpec())); // Necessary for Sonarqube coverage purposes.
+        boolean actualResult = firstValidArea.equals(new WaterHeater(new WaterHeaterSpec())); // Necessary for Sonarqube coverage purposes.
 
         // Assert
 
         assertFalse(actualResult);
     }
 
-//    @Test
-//    void seeIfGetSetMotherAreaWorks() {
-//        // Arrange
-//
-//        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
-//                new Local(22, 23, 100));
-//        testArea.setId(2L);
-//        validArea.setDaughterAreas(2L);
-//
-//        // Act
-//
-//        Long expectedResult = 2L;
-//        Long actualResult = validArea.getDaughterAreas();
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfGetSetMotherAreaWorksFalse() {
-//        // Act
-//
-//        boolean actualResult = validArea.setDaughterAreas(null);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
 
     @Test
     void seeIfGetSetDescription() {
         // Arrange
 
-        validArea.setDescription("Country of Portugal.");
+        firstValidArea.setDescription("Country of Portugal.");
 
         // Act
 
-        String actualResult = validArea.getDescription();
+        String actualResult = firstValidArea.getDescription();
 
         // Assert
 
@@ -470,11 +484,11 @@ class GeographicAreaTest {
         // Arrange
 
         AreaType areaType = new AreaType("cidade");
-        validArea.setAreaTypeID(areaType.getName());
+        firstValidArea.setAreaTypeID(areaType.getName());
 
         // Act
 
-        String actualResult = validArea.getAreaTypeID();
+        String actualResult = firstValidArea.getAreaTypeID();
 
         // Assert
 
@@ -489,7 +503,7 @@ class GeographicAreaTest {
 
         // Act
 
-        String actualResult = validArea.buildString();
+        String actualResult = firstValidArea.buildString();
 
         // Assert
 
@@ -504,7 +518,7 @@ class GeographicAreaTest {
 
         // Act
 
-        int actualResult = validArea.hashCode();
+        int actualResult = firstValidArea.hashCode();
 
         // Assert
 
@@ -515,11 +529,11 @@ class GeographicAreaTest {
     void seeIfGetId() {
         // Arrange
 
-        validArea.setName("Malta");
+        firstValidArea.setName("Malta");
 
         // Act
 
-        String id = validArea.getName();
+        String id = firstValidArea.getName();
 
         // Assert
 
@@ -531,11 +545,11 @@ class GeographicAreaTest {
         // Arrange
 
         Local local = new Local(51, 24, 36);
-        validArea.setLocation(local);
+        firstValidArea.setLocation(local);
 
         // Act
 
-        Local actualLocal = validArea.getLocal();
+        Local actualLocal = firstValidArea.getLocal();
 
         // Assert
 
@@ -548,13 +562,13 @@ class GeographicAreaTest {
     void seeIfGetLengthWidth() {
         // Arrange
 
-        validArea.setWidth(5);
-        validArea.setLength(10);
+        firstValidArea.setWidth(5);
+        firstValidArea.setLength(10);
 
         // Act
 
-        double actualWidth = validArea.getWidth();
-        double actualLength = validArea.getLength();
+        double actualWidth = firstValidArea.getWidth();
+        double actualLength = firstValidArea.getLength();
 
         // Assert
 
@@ -568,7 +582,7 @@ class GeographicAreaTest {
         Local local = new Local(21, 1, 12);
 
         // Act
-        boolean actualResult = validArea.equals(local);
+        boolean actualResult = firstValidArea.equals(local);
 
         // Assert
 
@@ -580,11 +594,11 @@ class GeographicAreaTest {
     @Test
     void seeIfEqualsParametersWorks() {
         // Act
-        boolean actualResult1 = validArea.equalsParameters("Portugal", "Country", new Local(50, 50, 10));
-        boolean actualResult2 = validArea.equalsParameters("Porto", "City", new Local(20, 20, 20));
-        boolean actualResult3 = validArea.equalsParameters("Porto", "Country", new Local(50, 50, 10));
-        boolean actualResult4 = validArea.equalsParameters("Portugal", "City", new Local(50, 50, 10));
-        boolean actualResult5 = validArea.equalsParameters("Portugal", "Country", new Local(20, 50, 10));
+        boolean actualResult1 = firstValidArea.equalsParameters("Portugal", "Country", new Local(50, 50, 10));
+        boolean actualResult2 = firstValidArea.equalsParameters("Porto", "City", new Local(20, 20, 20));
+        boolean actualResult3 = firstValidArea.equalsParameters("Porto", "Country", new Local(50, 50, 10));
+        boolean actualResult4 = firstValidArea.equalsParameters("Portugal", "City", new Local(50, 50, 10));
+        boolean actualResult5 = firstValidArea.equalsParameters("Portugal", "Country", new Local(20, 50, 10));
 
         // Assert
 
@@ -636,7 +650,7 @@ class GeographicAreaTest {
 
         // Act
 
-        String actualResult = validArea.buildString(areaSensors);
+        String actualResult = firstValidArea.buildString(areaSensors);
 
         // Assert
 
@@ -651,11 +665,41 @@ class GeographicAreaTest {
 
         // Act
 
-        String actualResult = validArea.buildString(areaSensors);
+        String actualResult = firstValidArea.buildString(areaSensors);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetDaughterAreaByIDWorks() {
+        //Arrange
+        List<GeographicArea>geographicAreas = new ArrayList<>();
+        geographicAreas.add(secondValidArea);
+        firstValidArea.setDaughterAreas(geographicAreas);
+
+        //Act
+
+        GeographicArea actualResult = firstValidArea.getDaughterAreaByID(2L);
+
+        //Assert
+
+        assertEquals(secondValidArea, actualResult);
+    }
+
+    @Test
+    void seeIfGetDaughterAreaByIDWorksWhenSensorDoesNotExist() {
+        //Arrange
+
+        List<GeographicArea>geographicAreas = new ArrayList<>();
+        geographicAreas.add(secondValidArea);
+        firstValidArea.setDaughterAreas(geographicAreas);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> firstValidArea.getDaughterAreaByID(23L));
     }
 }
 

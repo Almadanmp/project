@@ -770,7 +770,6 @@ class GeographicAreaRepositoryTest {
 //    }
 
 
-
     @Test
     void seeIfUpdateAreaDTOWorks() {
 
@@ -939,71 +938,4 @@ class GeographicAreaRepositoryTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfCheckIfAreaIsContainedWorksTrue() {
-//        // Arrange
-//
-//        GeographicArea testArea = new GeographicArea("Porto", "City", 2, 5,
-//                new Local(22, 23, 100));
-//        firstValidArea.setDaughterAreas(testArea.getId());
-//
-//        // Act
-//
-//        boolean actualResult =  geographicAreaRepository.isContainedInArea(firstValidArea,testArea);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-//
-//    @Test
-//    void seeIfCheckIfAreaIsContainedWorksFalse() {
-//        // Arrange
-//
-//        GeographicAreaDTO daughterDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
-//        firstValidArea.addSensor(firstValidAreaSensor);
-//        firstValidArea.addSensor(secondValidAreaSensor);
-//
-//        GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();
-//        LocalDTO localDTO = new LocalDTO();
-//        localDTO.setLatitude(50);
-//        localDTO.setAltitude(10);
-//        localDTO.setLongitude(50);
-//        dtoToConvert.setName("Portugal");
-//        dtoToConvert.setTypeArea("Country");
-//        dtoToConvert.setLength(300);
-//        dtoToConvert.setWidth(200);
-//        dtoToConvert.setId(6008L);
-//        dtoToConvert.setLocalDTO(localDTO);
-//        dtoToConvert.addDaughter(daughterDTO);
-//
-//
-//        // Act
-//
-//       GeographicAreaDTO actualResult = geographicAreaRepository.getDaughterAreaByID(256L, 12L);
-//
-//        // Assert
-//
-//        assertEquals(daughterDTO, actualResult);
-//    }
-
-//    @Test
-//    void seeIfCheckIfAreaIsContainedWorksTransitive() {
-//        // Arrange
-//
-//        GeographicArea firstTestArea = new GeographicArea("Porto", "City",
-//                2, 4, new Local(22, 22, 100));
-//        GeographicArea secondTestArea = new GeographicArea("Europe", "Continent",
-//                200, 400, new Local(22, 22, 100));
-//        firstTestArea.setDaughterAreas(firstValidArea.getId());
-//        firstTestArea.setDaughterAreas(secondTestArea.getId());
-//
-//        // Act
-//
-//        boolean actualResult = geographicAreaRepository.isContainedInArea(firstValidArea,secondTestArea);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
 }

@@ -90,7 +90,7 @@ public final class GeographicAreaMapper {
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static GeographicArea dtoToObjectWithMother(GeographicAreaDTO dtoToConvert, GeographicArea motherArea) {
+    public static GeographicArea dtoToObjectWithMother(GeographicAreaDTO dtoToConvert, GeographicAreaDTO daughter) {
         // Update generic parameters
 
         Long objectId = null;
@@ -156,7 +156,6 @@ public final class GeographicAreaMapper {
     public static GeographicAreaDTO objectToDTOWithMother(GeographicArea objectToConvert) {
         // Create the result DTO
 
-        Long objectId = null;
         GeographicAreaDTO resultDTO = new GeographicAreaDTO();
 
         // Update generic parameters
@@ -201,7 +200,6 @@ public final class GeographicAreaMapper {
 
         // Update and return the converted DTO.
 
-        resultDTO.setId(objectId);
         resultDTO.setLength(dtoLength);
         resultDTO.setWidth(dtoWidth);
         resultDTO.setTypeArea(dtoType);

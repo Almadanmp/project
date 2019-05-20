@@ -52,24 +52,19 @@ public class GASettingsWebController {
      */
     @PutMapping("areas/{idDaughter}/{idMother}")
     public ResponseEntity<Object> addDaughterArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
-        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOById(idAreaDaughter);
-        GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOById(idAreaMother);
-        geographicAreaRepo.addDaughterDTO( geographicAreaMother, geographicAreaDaughter);
-        geographicAreaRepo.updateAreaDTO(geographicAreaDaughter);
+        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
+        GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
+        geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter);
+        geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother, geographicAreaDaughter);
         if (geographicAreaMother.getDaughterAreas().contains(geographicAreaDaughter)) {
             return new ResponseEntity<>("maezinga", HttpStatus.OK);
         }
         return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("areas/{id}")
-    public ResponseEntity<Object> getArea(@PathVariable("id") long id) {
-        GeographicAreaDTO dto = geographicAreaRepo.getDTOByIdWithMother(id);
-        if (dto != null) {
-            return new ResponseEntity<>("The Geographic Area exists.", HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("The Geographic Area does not exist", HttpStatus.NOT_ACCEPTABLE);
-        }
+    @GetMapping("areas/{id}/daughter")
+    public List<GeographicAreaDTO> getDaughterAreas(@PathVariable("id") long id) {
+        return geographicAreaRepo.getDTOById(id).getDaughterAreas();
     }
 
 }

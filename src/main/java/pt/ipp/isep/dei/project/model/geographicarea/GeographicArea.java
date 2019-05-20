@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
@@ -33,7 +32,7 @@ public class GeographicArea implements Root {
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "daughterAreaId")
-    private List<GeographicArea> daugtherAreas;
+    private List<GeographicArea> daughterAreas;
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -178,16 +177,16 @@ public class GeographicArea implements Root {
      * @param geoAreas is the Geographical Area that contains this Geographical Area.
      */
     public void setDaughterAreas(List<GeographicArea> geoAreas) {
-        this.daugtherAreas = new ArrayList<>(geoAreas);
+        this.daughterAreas = new ArrayList<>(geoAreas);
     }
 
     public List<GeographicArea> getDaughterAreas() {
-        return new ArrayList<>(this.daugtherAreas);
+        return new ArrayList<>(this.daughterAreas);
     }
 
     public boolean addDaughterArea(GeographicArea geoArea) {
-        if (!this.daugtherAreas.contains(geoArea)) {
-            this.daugtherAreas.add(geoArea);
+        if (!this.daughterAreas.contains(geoArea)) {
+            this.daughterAreas.add(geoArea);
             return true;
         }
         return false;
@@ -261,7 +260,7 @@ public class GeographicArea implements Root {
 
 
     public GeographicArea getDaughterAreaByID(Long daughterID) {
-        for (GeographicArea geoArea : this.daugtherAreas) {
+        for (GeographicArea geoArea : this.daughterAreas) {
             Long daughterAreaID = geoArea.getId();
             if (daughterID.equals(daughterAreaID)) {
                 return geoArea;
