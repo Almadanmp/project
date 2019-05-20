@@ -17,13 +17,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.core.IsInstanceOf.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
+import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -38,6 +54,10 @@ public class HouseConfigurationWebControllerTest {
     private MockMvc mockMvc;
     @Mock
     HouseRoomService houseRoomService;
+    @Mock
+    HouseRepository houseRepository;
+    @Mock
+    HouseCrudRepo houseCrudRepo;
     @InjectMocks
     private HouseConfigurationWebController webController;
 
@@ -234,57 +254,31 @@ public class HouseConfigurationWebControllerTest {
 
     @Test
     public void seeIfConfigureHouseLocationWorks() throws Exception {
-//        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
-//                "4200-072", "Porto", "Portugal"),
-//                new Local(20, 20, 20), 60,
-//                180, new ArrayList<>());
-//        List<House> houseList = new ArrayList<>();
-//        houseList.add(validHouse);
-//
-//        when(houseRepository.getHouses()).thenReturn(houseList);
-//        // when(houseCrudeRepo.save(any(House.class))).thenReturn(validHouse);
-//
-//        MockHttpServletRequestBuilder builder =
-//                MockMvcRequestBuilders.put("/houseSettings/house")
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .content("{ \"address\": {\n" +
-//                        "        \"street\": \"rua carlos peixoto\",\n" +
-//                        "        \"number\": \"431\",\n" +
-//                        "        \"zip\": \"4200-072\",\n" +
-//                        "        \"town\": \"Porto\",\n" +
-//                        "        \"country\": \"Portugal\"\n" +
-//                        "    },\n" +
-//                        "    \"local\": {\n" +
-//                        "        \"latitude\": 20,\n" +
-//                        "        \"longitude\": 20,\n" +
-//                        "        \"altitude\": 20\n" +
-//                        "    }}");
-//
-//        this.mockMvc.perform(builder)
-//                .andExpect(MockMvcResultMatchers.status()
-//                        .isOk())
-//                .andExpect(MockMvcResultMatchers.content()
-//                        .string("The house has been altered."))
-//                .andDo(MockMvcResultHandlers.print());
+        mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
 
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
 
-//        this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
-//
-//        mockMvc.perform(MockMvcRequestBuilders.put("/houseSettings/house")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{ \"address\": {\n" +
-//                        "        \"street\": \"rua carlos peixoto\",\n" +
-//                        "        \"number\": \"431\",\n" +
-//                        "        \"zip\": \"4200-072\",\n" +
-//                        "        \"town\": \"Porto\",\n" +
-//                        "        \"country\": \"Portugal\"\n" +
-//                        "    },\n" +
-//                        "    \"local\": {\n" +
-//                        "        \"latitude\": 400,\n" +
-//                        "        \"longitude\": 99,\n" +
-//                        "        \"altitude\": 1\n" +
-//                        "    }}"))
-//                .andExpect(status().isOk());
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(true);
+
+        mockMvc.perform(put("/houseSettings/house")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"address\": {\n" +
+                        "        \"street\": \"rua carlos peixoto\",\n" +
+                        "        \"number\": \"431\",\n" +
+                        "        \"zip\": \"4200-072\",\n" +
+                        "        \"town\": \"Porto\",\n" +
+                        "        \"country\": \"Portugal\"\n" +
+                        "    },\n" +
+                        "    \"local\": {\n" +
+                        "        \"latitude\": 20,\n" +
+                        "        \"longitude\": 20,\n" +
+                        "        \"altitude\": 20\n" +
+                        "    }}"))
+                .andExpect(status().isOk());
     }
+
 }
