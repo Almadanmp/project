@@ -17,6 +17,13 @@ public class HouseRoomService {
     @Autowired
     private RoomRepository roomRepository;
 
+    /**
+     * This method receives a Room DTO and tries to add the equivalent
+     * room to the room DTO repository.
+     *
+     * @param roomDTOWeb dto to be added to repository
+     * @return true in case the room is added to the repository, false otherwise.
+     **/
     public boolean addRoomDTOWebToHouse(RoomDTOWeb roomDTOWeb) {
         Room room = RoomWebMapper.dtoToObject(roomDTOWeb);
         String houseID = houseRepository.getHouseId();
