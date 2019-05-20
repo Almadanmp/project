@@ -28,11 +28,14 @@ actor "Http Client"
 activate "Http Client"
 "Http Client" -> "HouseConfigurationWebController":  Post ".../houseSettings/room": createRoom(RoomDTO)
 activate "HouseConfigurationWebController"
-"HouseConfigurationWebController" -> "RoomWebMapper": Room = dtoToObject(RoomDTO)
-"HouseConfigurationWebController" -> ":HouseRepository": String houseID = getHouseID()
-"HouseConfigurationWebController" -> "Room": room.setHouseID(String houseID)
+"HouseConfigurationWebController" -> "HouseConfigurationWebController": isRoomDTOWebValid(RoomDTOWeb)
+alt if room DTO is valid
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.OK)
+else if room is NOT valid
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.BAD_REQUEST)
+end
 
-"HouseConfigurationWebController" -> ":RoomRepository": addRoomToRepository(Room room)
+"HouseConfigurationWebController" -> "HouseRoomService": addRoomDTOWebToHouse(RoomDTOWeb)
 
 alt if room is Added
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.OK)
@@ -41,5 +44,4 @@ else if room is NOT Added
 deactivate "HouseConfigurationWebController"
 deactivate "Http Client"
 end
-
 @enduml

@@ -23,18 +23,18 @@ skinparam actor {
    ArrowFontColor darkslategrey
  }
 title US 105 - As an Administrator I want to add a new room to the house\n Add Room To Room Crud Repository
-autonumber
+
 "HouseConfigurationWebController" -> "RoomRepository":  addRoomToCrudRepository(Room roomToAdd)
 activate "RoomRepository"
 "RoomRepository" -> ":Room": String roomToAddID = roomToAdd.getID(RoomDTO)
-"RoomRepository" -> ":RoomCrudRepository": List<Room> listOfRooms = getAllRooms()
+"RoomRepository" -> "RoomRepository": List<Room> listOfRooms = getAllRooms()
 
 loop for each Room in ListOfRooms
 "RoomRepository" -> ":Room": String roomID = room.getID(RoomDTO)
 alt if roomID.equals(roomToAddID)
 "RoomRepository" -> "HouseConfigurationWebController": return false
 alt if else
-"RoomRepository" -> ":RoomCrudRepository": save(room)
+"RoomRepository" -> "RoomRepository": save(room)
 "RoomRepository" -> "HouseConfigurationWebController": return true
 deactivate "RoomRepository"
 end

@@ -94,7 +94,7 @@ public class HouseConfigurationWebController {
      *
      * @param roomDTOWeb to be validated
      * @return true in case it is valid, false otherwise.
-     * **/
+     **/
     public boolean isRoomDTOWebValid(RoomDTOWeb roomDTOWeb) {
         String name = roomDTOWeb.getName();
         Double width = roomDTOWeb.getWidth();

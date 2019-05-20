@@ -17,28 +17,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.mockito.Mockito;
-import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
-import pt.ipp.isep.dei.project.dto.AddressDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HouseConfigurationWebController.class)
