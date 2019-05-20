@@ -401,5 +401,9 @@ class EnergyGridRepositoryTest {
 
     }
 
+    @Test
+    void seeIfRemoveRoomFromGridWorks(){
+
+    }
 }
 

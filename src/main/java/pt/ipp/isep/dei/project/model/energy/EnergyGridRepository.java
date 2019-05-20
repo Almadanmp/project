@@ -137,13 +137,17 @@ public class EnergyGridRepository {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
     }
 
-    public EnergyGridDTO getDTOByID(String gridID) {
-        Optional<EnergyGrid> grid = energyGridCrudRepository.findById(gridID);
-        if (grid.isPresent()) {
-            return EnergyGridMapper.objectToDTO(grid.get());
-        }
-        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
-    }
+
+    /**
+     * This method detaches a Room assigned to an Energy Grid from that Grid; it preserves all of the room's
+     * characteristics, and the room is maintained in the repository.
+     * @param roomID is the ID of the room we want to remove from the Grid, as it exists in the database.
+     * @param gridID is the ID of the grid that contains the room we want to remove.
+     * @return is true if the room was successfully removed; is false if the grid didn't contain a room with the given
+     * ID.
+     * @throws NoSuchElementException this exception is thrown if the database doesn't contain an Energy Grid with
+     * the given ID.
+     */
 
     public boolean removeRoomFromGrid(String roomID, String gridID) throws NoSuchElementException {
         Optional<EnergyGrid> value = energyGridCrudRepository.findById(gridID);
