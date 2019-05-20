@@ -34,17 +34,9 @@ import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
-import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.house.Address;
-import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.house.HouseRepository;
-import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -53,15 +45,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 public class HouseConfigurationWebControllerTest {
 
+    private RoomDTOWeb roomDTOWeb;
 
     @Autowired
     private MockMvc mockMvc;
-    private Room room;
-    private RoomDTOWeb roomDTOWeb;
     @Mock
-    HouseRepository houseRepository;
-    @Mock
-    RoomRepository roomRepository;
+    HouseRoomService houseRoomService;
     @InjectMocks
     private HouseConfigurationWebController webController;
 
@@ -74,7 +63,6 @@ public class HouseConfigurationWebControllerTest {
         roomDTOWeb.setLength(4D);
         roomDTOWeb.setHeight(1D);
         roomDTOWeb.setFloor(1);
-        room = new Room("Name", "", 1, 2D, 4D, 1D, "01");
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
     }
@@ -82,15 +70,7 @@ public class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorks() {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-        List<House> houseList = new ArrayList<>();
-        houseList.add(validHouse);
-
-        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
-        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(true);
+        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The room was successfully added.", HttpStatus.OK);
 
@@ -104,18 +84,7 @@ public class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-        List<House> houseList = new ArrayList<>();
-        houseList.add(validHouse);
-
-        List<Room> roomList = new ArrayList<>();
-        roomList.add(room);
-
-        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
-        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(false);
+        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
 
@@ -126,18 +95,34 @@ public class HouseConfigurationWebControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+//    @Test
+//    public void seeIfCreateRoomWorksWithMvc() throws Exception {
+//        //Arrange
+//        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
+//                "4455-125", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, new ArrayList<>());
+//        List<House> houseList = new ArrayList<>();
+//        houseList.add(validHouse);
+//
+//        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
+//        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(true);
+//
+//        Gson gson = new Gson();
+//        String requestJson = gson.toJson(roomDTOWeb);
+//
+//        //Act
+//
+//        this.mockMvc.perform(post("/houseSettings/room")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(requestJson))
+//                .andExpect(status().isOk());
+//    }
+
     @Test
     public void seeIfCreateRoomWorksWithMvc() throws Exception {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-        List<House> houseList = new ArrayList<>();
-        houseList.add(validHouse);
-
-        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
-        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(true);
+        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(roomDTOWeb);
@@ -150,21 +135,38 @@ public class HouseConfigurationWebControllerTest {
                 .andExpect(status().isOk());
     }
 
+//    @Test
+//    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
+//        //Arrange
+//        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
+//                "4455-125", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, new ArrayList<>());
+//        List<House> houseList = new ArrayList<>();
+//        houseList.add(validHouse);
+//
+//        List<Room> roomList = new ArrayList<>();
+//        roomList.add(room);
+//
+//        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
+//        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(false);
+//
+//        Gson gson = new Gson();
+//        String requestJson = gson.toJson(roomDTOWeb);
+//
+//        //Act
+//
+//        this.mockMvc.perform(post("/houseSettings/room")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(requestJson))
+//                .andExpect(status().isConflict());
+//    }
+
     @Test
     public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
         //Arrange
-        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-        List<House> houseList = new ArrayList<>();
-        houseList.add(validHouse);
 
-        List<Room> roomList = new ArrayList<>();
-        roomList.add(room);
-
-        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
-        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(false);
+        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(roomDTOWeb);
@@ -175,6 +177,72 @@ public class HouseConfigurationWebControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void seeIfIsRoomDTOWebValidWorksWhenDtoIsValid() throws Exception {
+        //Act
+
+        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
+
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    public void seeIfIsRoomDTOWebValidWorksWhenNameIsNull() throws Exception {
+        //Arrange
+
+        roomDTOWeb.setName(null);
+
+        //Act
+
+        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    public void seeIfIsRoomDTOWebValidWorksWhenWidthIsInvalid() throws Exception {
+        //Arrange
+
+        roomDTOWeb.setWidth(0.0);
+
+        //Act
+
+        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    public void seeIfIsRoomDTOWebValidWorksWhenLengthIsInvalid() throws Exception {
+        //Arrange
+
+        roomDTOWeb.setLength(0.0);
+
+        //Act
+
+        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
+
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    public void seeIfIsRoomDTOWebValidWorksWhenHeightIsInvalid() throws Exception {
+        //Arrange
+
+        roomDTOWeb.setHeight(0.0);
+
+        //Act
+
+        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
+
+        //Assert
+        assertFalse(actualResult);
     }
 
     @Test
@@ -232,6 +300,4 @@ public class HouseConfigurationWebControllerTest {
 //                        "    }}"))
 //                .andExpect(status().isOk());
     }
-
-
 }

@@ -34,6 +34,7 @@ loop for each Room in ListOfRooms
 alt if roomID.equals(roomToAddID)
 "RoomRepository" -> "HouseConfigurationWebController": return false
 alt if else
+"RoomRepository" -> ":RoomCrudRepository": save(room)
 "RoomRepository" -> "HouseConfigurationWebController": return true
 deactivate "RoomRepository"
 end
