@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +44,12 @@ public class EnergyGridSettingsWebController {
      */
     @GetMapping(value = "/grids/{energyGridId}")
     public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
-        return new ResponseEntity<>(energyGridRepository.getRoomsDtoWebInGrid(gridId),HttpStatus.OK);
+        List<RoomDTOWeb> roomsDTOWeb = energyGridRepository.getRoomsDtoWebInGrid(gridId);
+        for (RoomDTOWeb roomDTOWeb : roomsDTOWeb) {
+            Link link = ControllerLinkBuilder.linkTo(EnergyGridSettingsWebController.class).slash(roomDTOWeb.getName()).withRel("roomName");
+            roomDTOWeb.add(link);
+        }
+        return new ResponseEntity<>(roomsDTOWeb, HttpStatus.OK);
     }
 
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
