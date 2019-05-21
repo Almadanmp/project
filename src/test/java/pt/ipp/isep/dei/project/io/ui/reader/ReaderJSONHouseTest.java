@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.reader;
 
-import org.junit.jupiter.api.Test;
+//TODO change to jupiter, without breaking Maven.
+import org.junit.Test;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
