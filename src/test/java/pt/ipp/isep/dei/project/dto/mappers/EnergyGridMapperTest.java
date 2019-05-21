@@ -87,4 +87,27 @@ class EnergyGridMapperTest {
         assertEquals(validGrid, actualResult);
 
     }
+
+    @Test
+    void seeIfDtoToObjectEmptyListsWorks() {
+        // Arrange
+
+        EnergyGrid expectedResult = new EnergyGrid("Main Grid", 21D, "7");
+
+        EnergyGridDTO dtoToConvert = new EnergyGridDTO();
+        dtoToConvert.setName("Main Grid");
+        dtoToConvert.setMaxContractedPower(21D);
+        dtoToConvert.setHouseID("7");
+
+        // Act
+
+        EnergyGrid actualResult = EnergyGridMapper.dtoToObjectEmptyLists(dtoToConvert);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+
 }

@@ -8,8 +8,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -477,6 +479,60 @@ class EnergyGridRepositoryTest {
         List<RoomDTOWeb> actualResult = validGridRepo.getRoomsDtoWebInGrid("Main Grid");
         //Assert
         assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGridWorksTrue(){
+        // Arrange
+
+        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+        energyGridDTO.setName("Main Grid");
+        energyGridDTO.setHouseID("7");
+        energyGridDTO.setMaxContractedPower(45D);
+
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 45D, "7");
+
+        List<EnergyGrid> list = new ArrayList<>();
+
+        // Act
+
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+        Mockito.when(energyGridCrudRepository.save(energyGrid)).thenReturn(energyGrid);
+
+        boolean actualResult = validGridRepo.createEnergyGrid(energyGridDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfCreateEnergyGridWorksFalse(){
+        // Arrange
+
+        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+        energyGridDTO.setName("Main Grid");
+        energyGridDTO.setHouseID("7");
+        energyGridDTO.setMaxContractedPower(45D);
+
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 45D, "7");
+
+        List<EnergyGrid> list = new ArrayList<>();
+        list.add(energyGrid);
+
+        // Act
+
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+
+        boolean actualResult = validGridRepo.createEnergyGrid(energyGridDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+
     }
 
 }
