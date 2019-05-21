@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.io.ui.reader;
 
-//TODO change to jupiter, without breaking Maven.
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
@@ -12,13 +11,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReaderJSONHouseTest {
+class ReaderJSONHouseTest {
 
 
-    ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
+    private ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
 
     @Test
-    public void seeHouseDTO() {
+    void seeHouseDTO() {
         HouseDTO expectedResult = new HouseDTO();
         AddressDTO addressExpectedResult = new AddressDTO();
         addressExpectedResult.setStreet("R. Dr. António Bernardino de Almeida");
@@ -109,11 +108,11 @@ public class ReaderJSONHouseTest {
     }
 
 //    @Test
-//    public void seeIfThrowsIllegalArgumentException() {
+//    void seeIfThrowsIllegalArgumentException() {
 //        ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
 //        HouseDTO houseDTO = readerJSONHouse.readFile("src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json");
 //        HouseDTO houseDTO1 = new HouseDTO();
-//        assertEquals(houseDTO,houseDTO1);
+//        assertEquals(houseDTO, houseDTO1);
 //    }
 }
 
