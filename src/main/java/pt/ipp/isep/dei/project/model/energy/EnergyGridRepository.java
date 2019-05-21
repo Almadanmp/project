@@ -36,6 +36,12 @@ public class EnergyGridRepository {
         return energyGridCrudRepository.save(energyGrid);
     }
 
+    /**
+     * This method creates a new EnergyGrid using its constructor.
+     *
+     * @param energyGridDTO - is a DTO containing the required components in order to create the EnergyGrid.
+     * @return boolean if the EnergyGrid was properly saved into the repository.
+     */
     public boolean createEnergyGrid(EnergyGridDTO energyGridDTO) {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
         List<EnergyGrid> grids = energyGridCrudRepository.findAll();
