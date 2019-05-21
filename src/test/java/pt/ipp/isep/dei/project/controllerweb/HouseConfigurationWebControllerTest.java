@@ -3,11 +3,13 @@ package pt.ipp.isep.dei.project.controllerweb;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -39,6 +41,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @WebMvcTest(HouseConfigurationWebController.class)
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
+@ExtendWith(MockitoExtension.class)
 public class HouseConfigurationWebControllerTest {
 
     private RoomDTOWeb roomDTOWeb;
@@ -49,8 +52,6 @@ public class HouseConfigurationWebControllerTest {
     HouseRoomService houseRoomService;
     @Mock
     HouseRepository houseRepository;
-    @Mock
-    HouseCrudRepo houseCrudRepo;
 
     @InjectMocks
     private HouseConfigurationWebController webController;

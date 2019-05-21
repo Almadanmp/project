@@ -44,7 +44,7 @@ public class GASettingsWebController {
 
 
     /**
-     * US007 WEB controller: deactivate arya sensor with id sensor
+     * US007 WEB controller: Insert a daughter Area in a mother Area
      *
      * @param idAreaDaughter arya id where the arya sensor id
      * @param idAreaMother   sensor id

@@ -50,6 +50,8 @@ public class SensorSettingsWebController {
         return geographicAreaRepository.getDTOById(id).getSensors();
     }
 
+    // US06 - Create Area Sensor
+
     @PostMapping("/areas/{id}/sensors")
     public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
                                                           @PathVariable long id) {
@@ -61,19 +63,7 @@ public class SensorSettingsWebController {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
-    // us010 deactivate geo area sensor
-
-    /**
-     * WEb controller: get area sensor dto by id (and by area id)
-     *
-     * @param idArea   area id where the area sensor is
-     * @param idSensor sensor id
-     * @return ok status if the sensor with the selected id exists
-     */
-    @GetMapping("areas/{id}/sensors/{id2}")
-    public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        return geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
-    }
+    // US010 Deactivate Area Sensor
 
     /**
      * US010 WEB controller: deactivate arya sensor with id sensor
@@ -85,16 +75,16 @@ public class SensorSettingsWebController {
     @PutMapping("areas/{id}/sensors/{id2}/{state}")
     public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor,
                                                        @PathVariable("state") String state) {
-        GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
+        GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(idArea);
         AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
-        geographicAreaRepository.removeSensorDTO(geographicArea, idSensor);
+        geographicAreaRepository.removeSensorDTO(geographicAreaDTO, idSensor);
         if (state.equals("false")) {
             areaSensorDTO.setActive(false);
         } else {
             areaSensorDTO.setActive(true);
         }
-        geographicAreaRepository.addSensorDTO(geographicArea, areaSensorDTO);
-        geographicAreaRepository.updateAreaDTO(geographicArea);
+        geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO);
+        geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
         if (!areaSensorDTO.getActive()) {
             return new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
         }
@@ -121,6 +111,19 @@ public class SensorSettingsWebController {
         }
         return new ResponseEntity<>("Sensor wasn't found, therefor, not removed.", HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * WEb controller: get area sensor dto by id (and by area id)
+     *
+     * @param idArea   area id where the area sensor is
+     * @param idSensor sensor id
+     * @return ok status if the sensor with the selected id exists
+     */
+    @GetMapping("areas/{id}/sensors/{id2}")
+    public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
+        return geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
+    }
+
 }
 
 // CODE TO TEST ON POSTMAN
