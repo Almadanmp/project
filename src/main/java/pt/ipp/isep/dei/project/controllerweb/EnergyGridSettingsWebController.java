@@ -57,7 +57,7 @@ public class EnergyGridSettingsWebController {
      */
     @PostMapping(value = "/grids/{energyGridId}")
     public ResponseEntity<String> attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId) {
-        if (roomRepository.findRoomByID(roomDTO.getName()).isPresent()) {
+        if (roomRepository.findRoomByIdPresent(roomDTO.getName())) {
             try {
                 if (energyGridRepository.attachRoomToGrid(roomDTO, gridId)) {
                     return new ResponseEntity<>("Room successfully added to the grid!",
