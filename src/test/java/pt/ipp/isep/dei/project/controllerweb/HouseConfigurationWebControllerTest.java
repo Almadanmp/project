@@ -360,6 +360,24 @@ public class HouseConfigurationWebControllerTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
+    @Test
+     void seeIfRetrieveHouseWorks() {
+        //Arrange
 
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(validHouse, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.retrieveHouse();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
 }

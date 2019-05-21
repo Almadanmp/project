@@ -21,57 +21,36 @@ skinparam class {
 }
 
 class GASettingsWebController
-class HouseRepository
-class HouseMapper
-class HouseCrudRepository
-class AddressAndLocalDTO
-class HouseWithoutGridsDTO
+class GeographicAreaRepository
+class GeographicAreaMapper
+class GeographicAreaCrudRepository
+class GeographicAreaDTO
+class GeographicArea
 
-GASettingsWebController -- HouseRepository : >
-GASettingsWebController -- HouseWithoutGridsDTO : >
+GASettingsWebController -- GeographicAreaRepository : >
+GASettingsWebController -- GeographicAreaDTO : >
 
-HouseRepository -- HouseCrudRepository : >
-HouseRepository -- House : >
-HouseRepository -- HouseMapper : >
-HouseMapper -- HouseWithoutGridsDTO : >
+GeographicAreaRepository -- GeographicAreaCrudRepository : >
+GeographicAreaRepository -- GeographicArea : >
+GeographicAreaRepository -- GeographicAreaMapper : >
+GeographicAreaMapper -- GeographicAreaDTO : >
 
-HouseWithoutGridsDTO -- AddressAndLocalDTO : >
 
-AddressAndLocalDTO -- AddressDTO : >
-AddressAndLocalDTO -- LocalDTO : >
 
 class GASettingsWebController {
--configureHouseLocation(@RequestBody AddressAndLocalDTO)
+-createGeoArea(@RequestBody GeographicAreaDTO)
+}
+
+class GeographicAreaMapper{
+- dtoToObject(GeographicAreaDTO)
+}
+
+class GeographicAreaRepository {
+- addAndPersistDTO(GeographicAreaDTO)
 }
 
 
-class HouseMapper{
-- objectToWithoutGridsDTO(house)
-- dtoWithoutGridsToObject(houseWithoutGridsDTO)
-}
-
-class HouseRepository {
-- getHouseWithoutGridsDTO()
-- updateHouseDTOWithoutGrids(HouseWithoutGridsDTO)
-}
-
-class HouseWithoutGridsDTO {
-- setAddressAndLocalToDTOWithoutGrids()
-}
-
-class AddressAndLocalDTO{
-setAddress(addressDTO)
-setLocal(localDTO)
-}
-
-class AddressDTO{
-}
-
-class LocalDTO{
-}
-
-class HouseCrudRepository{
-- findAll()
+class GeographicAreaCrudRepository{
 - save(House)
 }
 

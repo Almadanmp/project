@@ -209,6 +209,19 @@ class GASettingsWebControllerTest {
     }
 
     @Test
+    void seeIfCreateGeoAreaDoesntWorkNull() {
+        //Arrange
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(null);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void getAllGeoAreasDTO() {
     }
 }
