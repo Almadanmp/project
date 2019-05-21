@@ -125,10 +125,7 @@ public class GeographicAreaRepository {
     }
 
     public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
-        List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
-        geographicAreas.add(daughterDTO);
-        motherDTO.setDaughterAreaList(geographicAreas);
-        return true;
+        return motherDTO.addDaughter(daughterDTO);
     }
 
 
