@@ -76,6 +76,7 @@ class SensorSettingsWebControllerTest {
         Mockito.doReturn(true).when(this.geographicAreaRepository).removeSensorDTO(GeographicAreaMapper.objectToDTO(geo1), id2);
         Mockito.doNothing().when(this.geographicAreaRepository).updateAreaDTO(GeographicAreaMapper.objectToDTO(geo1));
 
+        // Act & Assert
         this.mockMvc.perform(delete("/sensorsettings/areas/1/sensors/RF12345", sensor1))
                 .andExpect(status().isOk());
     }
@@ -100,8 +101,8 @@ class SensorSettingsWebControllerTest {
         String id2 = "RF12345";
         Mockito.doReturn(GeographicAreaMapper.objectToDTO(geo1)).when(this.geographicAreaRepository).getDTOById(id);
         Mockito.doReturn(false).when(this.geographicAreaRepository).removeSensorDTO(GeographicAreaMapper.objectToDTO(geo1), id2);
-        Mockito.doNothing().when(this.geographicAreaRepository).updateAreaDTO(GeographicAreaMapper.objectToDTO(geo1));
 
+        // Act & Assert
         this.mockMvc.perform(delete("/sensorsettings/areas/1/sensors/RF12345"))
                 .andExpect(status().isNotFound());
     }

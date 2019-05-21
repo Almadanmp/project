@@ -95,13 +95,11 @@ public class SensorSettingsWebController {
     public ResponseEntity<String> removeAreaSensor(@PathVariable long id, @PathVariable String id2) {
         GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
 
-        boolean removed = geographicAreaRepository.removeSensorDTO(geoArea, id2);
-        geographicAreaRepository.updateAreaDTO(geoArea);
-
-        if (removed) {
+        if (geographicAreaRepository.removeSensorDTO(geoArea, id2)) {
+            geographicAreaRepository.updateAreaDTO(geoArea);
             return new ResponseEntity<>("Sensor was removed successfully from geographic area", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Sensor wasn't found, therefor, not removed.", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Sensor doesn't exist or wasn't found.", HttpStatus.NOT_FOUND);
     }
 
     /**
