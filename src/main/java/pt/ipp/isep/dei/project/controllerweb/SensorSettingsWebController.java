@@ -72,19 +72,14 @@ public class SensorSettingsWebController {
      * @param idSensor sensor id
      * @return ok status if the area sensor exists
      */
-    @PutMapping("areas/{id}/sensors/{id2}/{state}")
-    public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor,
-                                                       @PathVariable("state") String state) {
-        GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(idArea);
+    @PutMapping("areas/{id}/sensors/{id2}")
+    public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
+        GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
         AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
-        geographicAreaRepository.removeSensorDTO(geographicAreaDTO, idSensor);
-        if (state.equals("false")) {
-            areaSensorDTO.setActive(false);
-        } else {
-            areaSensorDTO.setActive(true);
-        }
-        geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO);
-        geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
+        geographicAreaRepository.removeSensorDTO(geographicArea, idSensor);
+        areaSensorDTO.setActive(false);
+        geographicAreaRepository.addSensorDTO(geographicArea, areaSensorDTO);
+        geographicAreaRepository.updateAreaDTO(geographicArea);
         if (!areaSensorDTO.getActive()) {
             return new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
         }

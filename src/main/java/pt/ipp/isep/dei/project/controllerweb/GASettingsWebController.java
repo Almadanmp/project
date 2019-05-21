@@ -25,7 +25,7 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
-        if (geographicAreaRepo.addAndPersistDTO(dto) && dto.getId()!=null && dto.getName()!= null && dto.getTypeArea()!=null && dto.getLocal()!=null) {
+        if (geographicAreaRepo.addAndPersistDTO(dto) && dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
             return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or" +
@@ -35,6 +35,7 @@ public class GASettingsWebController {
 
     /**
      * this method displays all the information of the Geographic Areas DTOs
+     *
      * @return
      */
     @GetMapping("/areas")
@@ -46,28 +47,15 @@ public class GASettingsWebController {
     /**
      * US007 WEB controller: Insert a daughter Area in a mother Area
      *
-     * @param idAreaDaughter arya id where the arya sensor id
      * @param idAreaMother   sensor id
      * @return ok status if the area sensor exists
      */
-    @PutMapping("areas/{idDaughter}/{idMother}")
-    public ResponseEntity<Object> addDaughterArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
-        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
-        GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
-        geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter);
-        geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother);
-        if (geographicAreaMother.getDaughterAreas().contains(geographicAreaDaughter)) {
-            return new ResponseEntity<>("maezinga", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
-    }
-
     @PutMapping("areas/{idMother}")
     public ResponseEntity<Object> getDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
         GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
-        geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter);
-        if (geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother)){
+        if (geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter)) {
+            geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother);
             return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or" +
