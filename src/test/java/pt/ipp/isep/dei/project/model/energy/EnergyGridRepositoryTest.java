@@ -39,7 +39,7 @@ class EnergyGridRepositoryTest {
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
-        firstValidGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
+        firstValidGrid = new EnergyGrid("Primary Grid", 500D, "CasaUm");
     }
 
     @Test
@@ -131,7 +131,7 @@ class EnergyGridRepositoryTest {
 
     @Test
     void seeIfCreateEnergyGrid() {
-        EnergyGrid expectedResult = new EnergyGrid("Primary Grid", 500, "CasaUm");
+        EnergyGrid expectedResult = new EnergyGrid("Primary Grid", 500D, "CasaUm");
 
         EnergyGrid result = validGridRepo.createEnergyGrid("Primary Grid", 500, "CasaUm");
 
@@ -141,7 +141,7 @@ class EnergyGridRepositoryTest {
     @Test
     void seeIfGetEnergyGridByIdRepository() {
 
-        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
+        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56D, "CasaUm");
         validGridRepo.addGrid(energyGrid);
 
         Mockito.when(energyGridCrudRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
@@ -165,7 +165,7 @@ class EnergyGridRepositoryTest {
     @Test
     void seeIfSizeRepository() {
 
-        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56, "CasaUm");
+        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56D, "CasaUm");
 
         List<EnergyGrid> energyGrids = new ArrayList<>();
         energyGrids.add(energyGrid);
@@ -233,7 +233,7 @@ class EnergyGridRepositoryTest {
     @Test
     void seeIfEqualsWorks() {
         // Arrange
-        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
+        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500D, "CasaUm");
         List<EnergyGrid> testList = new ArrayList<>();
         List<EnergyGrid> validList = new ArrayList<>();
         validList.add(energyGrid);
@@ -253,8 +253,8 @@ class EnergyGridRepositoryTest {
     void seeIfEqualsWorksDifferentContents() {
         // Arrange
 
-        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500, "CasaUm");
-        EnergyGrid energyGrid2 = new EnergyGrid("Primary Grid", 500, "CasaUm");
+        EnergyGrid energyGrid = new EnergyGrid("Primary Grid", 500D, "CasaUm");
+        EnergyGrid energyGrid2 = new EnergyGrid("Primary Grid", 500D, "CasaUm");
         List<EnergyGrid> testList = new ArrayList<>();
         List<EnergyGrid> validList = new ArrayList<>();
         validList.add(energyGrid);
@@ -374,7 +374,7 @@ class EnergyGridRepositoryTest {
         roomDTO.setWidth(3);
         roomDTO.setFloor(1);
         roomDTO.setDescription("Classroom");
-        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
         Mockito.when(energyGridCrudRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
         //Act
         boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
@@ -394,7 +394,7 @@ class EnergyGridRepositoryTest {
         roomDTO.setWidth(3);
         roomDTO.setFloor(1);
         roomDTO.setDescription("Classroom");
-        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
         //Act
@@ -468,7 +468,7 @@ class EnergyGridRepositoryTest {
         roomDTO.setWidth(3);
         roomDTO.setFloor(1);
         roomDTO.setDescription("Classroom");
-        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200, "ISEP");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
         //Act

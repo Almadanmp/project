@@ -41,7 +41,7 @@ class EnergyConsumptionControllerTest {
 
     // Common artifacts for testing in this class.
 
-    private EnergyGrid validGrid = new EnergyGrid("validGrid", 300, "34576");
+    private EnergyGrid validGrid = new EnergyGrid("validGrid", 300D, "34576");
     private Room validRoom1; // Is a room with 3 valid devices.
     private Room validRoom2; // Is a room without devices.
     private Device validDevice1 = new WaterHeater(new WaterHeaterSpec());

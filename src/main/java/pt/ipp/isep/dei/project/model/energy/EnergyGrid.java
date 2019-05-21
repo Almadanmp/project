@@ -33,7 +33,7 @@ public class EnergyGrid implements Metered, Root {
     // change fetch type from EAGER to LAZY
     @JoinColumn(name = "energyGridId")
     private List<PowerSource> powerSourceList;
-    private double maxContractedPower;
+    private Double maxContractedPower;
     private String houseId;
 
     private static final String BUILDER = "---------------\n";
@@ -52,7 +52,7 @@ public class EnergyGrid implements Metered, Root {
      * @param name               is the name of the grid.
      * @param maxContractedPower is the value of the maximum power contracted.
      */
-    public EnergyGrid(String name, double maxContractedPower, String houseId) {
+    public EnergyGrid(String name, Double maxContractedPower, String houseId) {
         this.rooms = new ArrayList<>();
         this.powerSourceList = new ArrayList<>();
         this.name = name;
@@ -91,7 +91,7 @@ public class EnergyGrid implements Metered, Root {
      *
      * @return the number of the max power contracted.
      */
-    public double getMaxContractedPower() {
+    public Double getMaxContractedPower() {
         return maxContractedPower;
     }
 

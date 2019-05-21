@@ -76,7 +76,7 @@ public class EnergyGridSettingsWebControllerTest {
     @Test
      void seeIfCreateEnergyGridGenerates201() {
 
-        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, "7");
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
 
         EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
 
@@ -90,7 +90,7 @@ public class EnergyGridSettingsWebControllerTest {
     @Test
     void seeIfCreateEnergyGridGenerates409() {
 
-        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, "7");
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
 
         EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
 
@@ -104,7 +104,7 @@ public class EnergyGridSettingsWebControllerTest {
     @Test
     void seeIfCreateEnergyGridGenerates400NullName() {
 
-        EnergyGrid validGrid = new EnergyGrid(null, 45, "7");
+        EnergyGrid validGrid = new EnergyGrid(null, 45D, "7");
 
         EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
 
@@ -116,7 +116,19 @@ public class EnergyGridSettingsWebControllerTest {
     @Test
     void seeIfCreateEnergyGridGenerates400NullHouseID() {
 
-        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, null);
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, null);
+
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
+
+        assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGenerates400NullMaxContractedPower() {
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", null, "7");
 
         EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
 

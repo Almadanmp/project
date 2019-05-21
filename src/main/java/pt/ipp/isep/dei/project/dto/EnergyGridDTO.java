@@ -8,7 +8,7 @@ public class EnergyGridDTO {
     private List<RoomDTO> roomDTOS;
     private String name;
     private List<PowerSourceDTO> powerSourceDTOS;
-    private double maxContractedPower;
+    private Double maxContractedPower;
     private String houseID;
 
     public void setName(String name) {
@@ -19,7 +19,7 @@ public class EnergyGridDTO {
         return name;
     }
 
-    public void setMaxContractedPower(double maxContractedPower) {
+    public void setMaxContractedPower(Double maxContractedPower) {
         this.maxContractedPower = maxContractedPower;
     }
 
