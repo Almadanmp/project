@@ -57,7 +57,7 @@ public class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateEnergyGridWorks() throws Exception {
+    void seeIfCreateEnergyGridWorks() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
@@ -74,7 +74,7 @@ public class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateEnergyGridWorksMethod() {
+     void seeIfCreateEnergyGridGenerates201() {
 
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, "7");
 
@@ -87,25 +87,46 @@ public class EnergyGridSettingsWebControllerTest {
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
     }
 
-//    @Test
-//    public void seeIfAttachRoomToGridPostWorks() throws Exception {
-//
-//        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
-//
-//        this.mockMvc.perform(post("/gridSettings/grids/B building")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\t\"name\": \"B102\",\n" +
-//                        "\t\"description\": \"Reprographics Centre\",\n" +
-//                        "\t\"floor\": \"1\",\n" +
-//                        "\t\"width\": 7,\n" +
-//                        "\t\"length\": 21,\n" +
-//                        "\t\"height\": 3.5\n" +
-//                        "}"))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    void seeIfCreateEnergyGridGenerates409() {
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, "7");
+
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        Mockito.doReturn(false).when(energyGridRepository).createEnergyGrid(energyGridDTO);
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
+
+        assertEquals(HttpStatus.CONFLICT, actualResult.getStatusCode());
+    }
 
     @Test
-    public void seeIfGetAllGridsDoesNotWork() throws Exception {
+    void seeIfCreateEnergyGridGenerates400NullName() {
+
+        EnergyGrid validGrid = new EnergyGrid(null, 45, "7");
+
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
+
+        assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
+    }
+
+    @Test
+    void seeIfCreateEnergyGridGenerates400NullHouseID() {
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, null);
+
+        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
+
+        assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
+    }
+
+    @Test
+     void seeIfGetAllGridsDoesNotWork() throws Exception {
         String uri = "/gridSettings/grids";
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -115,7 +136,7 @@ public class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfDetachRoomFromGridWorksInvalid() throws Exception {
+     void seeIfDetachRoomFromGridWorksInvalid() throws Exception {
         // Arrange
 
         String URI = "/gridSettings/grids/B%20Building";
@@ -132,7 +153,7 @@ public class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfDeleteRoomFromGridWorks() throws Exception {
+     void seeIfDeleteRoomFromGridWorks() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
@@ -143,48 +164,4 @@ public class EnergyGridSettingsWebControllerTest {
                 .content("B106"))
                 .andExpect(status().isOk());
     }
-
-
-
-//    @Test
-//    public void seeIfCreateEnergyGridWorksMethod() {
-//
-//        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
-//        ResponseEntity<String> expectedResult = new ResponseEntity<>("Energy grid created and added to the house with success!",HttpStatus.CREATED);
-//
-//
-//        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
-//        energyGridDTO.setName("B building");
-//        energyGridDTO.setHouseID("7");
-//        energyGridDTO.setMaxContractedPower(45);
-//        energyGridDTO.setRoomDTOS(new ArrayList<>());
-//        energyGridDTO.setPowerSourceDTOS(new ArrayList<>());
-//        EnergyGrid energyGrid = EnergyGridMapper.dtoToObject(energyGridDTO);
-//
-//
-//        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
-//        assertEquals(expectedResult, actualResult);
-//    }
-
-//    @Test
-//    public void mockTest(){
-//        ResponseEntity<String> expectedResult = new ResponseEntity<>("Energy grid created and added to the house with success!",
-//                HttpStatus.CREATED);
-//
-//        EnergyGridSettingsWebController energyGridSettingsWebController = new EnergyGridSettingsWebController();
-//
-//        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
-//        energyGridDTO.setName("EG1");
-//        energyGridDTO.setMaxContractedPower(0);
-//        energyGridDTO.setHouseID("01");
-//        List<PowerSourceDTO> powerSourceDTOList = new ArrayList<>();
-//        energyGridDTO.setPowerSourceDTOS(powerSourceDTOList);
-//        List<RoomDTO> list = new ArrayList<>();
-//        energyGridDTO.setRoomDTOS(list);
-//        Mockito.when(mockRepo.save(EnergyGridMapper.dtoToObject(energyGridDTO))).thenReturn(EnergyGridMapper.dtoToObject(energyGridDTO));
-//
-//        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
 }
