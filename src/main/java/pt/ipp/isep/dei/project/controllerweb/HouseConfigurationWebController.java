@@ -44,7 +44,7 @@ public class HouseConfigurationWebController {
         if (houseRepository.updateHouseDTOWithoutGrids(house)) {
             return new ResponseEntity<>("The house has been altered.", HttpStatus.OK);
         }
-        return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
     }
 
     /**

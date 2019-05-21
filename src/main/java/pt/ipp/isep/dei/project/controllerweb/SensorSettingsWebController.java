@@ -50,6 +50,8 @@ public class SensorSettingsWebController {
         return geographicAreaRepository.getDTOById(id).getSensors();
     }
 
+    // US06 - Create Area Sensor
+
     @PostMapping("/areas/{id}/sensors")
     public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
                                                           @PathVariable long id) {
@@ -61,19 +63,7 @@ public class SensorSettingsWebController {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
-    // us010 deactivate geo area sensor
-
-    /**
-     * WEb controller: get area sensor dto by id (and by area id)
-     *
-     * @param idArea   area id where the area sensor is
-     * @param idSensor sensor id
-     * @return ok status if the sensor with the selected id exists
-     */
-    @GetMapping("areas/{id}/sensors/{id2}")
-    public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        return geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
-    }
+    // US010 Deactivate Area Sensor
 
     /**
      * US010 WEB controller: deactivate arya sensor with id sensor
@@ -116,6 +106,19 @@ public class SensorSettingsWebController {
         }
         return new ResponseEntity<>("Sensor wasn't found, therefor, not removed.", HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * WEb controller: get area sensor dto by id (and by area id)
+     *
+     * @param idArea   area id where the area sensor is
+     * @param idSensor sensor id
+     * @return ok status if the sensor with the selected id exists
+     */
+    @GetMapping("areas/{id}/sensors/{id2}")
+    public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
+        return geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
+    }
+
 }
 
 // CODE TO TEST ON POSTMAN
