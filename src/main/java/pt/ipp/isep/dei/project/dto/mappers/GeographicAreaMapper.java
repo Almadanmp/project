@@ -90,7 +90,7 @@ public final class GeographicAreaMapper {
      * @param dtoToConvert is the DTO we want to convert.
      * @return is the converted model object.
      */
-    public static GeographicArea dtoToObjectWithMother(GeographicAreaDTO dtoToConvert, GeographicAreaDTO daughter) {
+    public static GeographicArea dtoToObjectWithMother(GeographicAreaDTO dtoToConvert) {
         // Update generic parameters
 
         Long objectId = null;
@@ -133,22 +133,20 @@ public final class GeographicAreaMapper {
 
 
         // Create, update and return the converted object.
-
         GeographicArea resultObject = new GeographicArea(objectName, objectType, objectLength, objectWidth,
                 objectLocal);
         for (AreaSensorDTO sensorDTO : dtoToConvert.getSensors()) {
             AreaSensor sensor = AreaSensorMapper.dtoToObject(sensorDTO);
             resultObject.addSensor(sensor);
         }
-        for (GeographicAreaDTO daughterAreaDTO : dtoToConvert.getDaughterAreas()) {
-            GeographicArea geoArea = GeographicAreaMapper.dtoToObject(daughterAreaDTO);
-            resultObject.addDaughterArea(geoArea);
+        for (GeographicAreaDTO geoDTO : dtoToConvert.getDaughterAreas()) {
+            GeographicArea area = GeographicAreaMapper.dtoToObject(geoDTO);
+            resultObject.addDaughterArea(area);
         }
         resultObject.setId(objectId);
         resultObject.setDescription(objectDescription);
         resultObject.setAreaSensors(objectSensorList);
         resultObject.setDaughterAreas(objectGeographicList);
-
 
         return resultObject;
     }
@@ -182,17 +180,15 @@ public final class GeographicAreaMapper {
 
         String dtoDescription = objectToConvert.getDescription();
 
-
-
         // Update sensors
 
-        List<AreaSensorDTO> dtoSensorList = new ArrayList<>();
-        for (AreaSensor s : objectToConvert.getAreaSensors()) {
-            AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(s);
-            dtoSensorList.add(tempDTO);
+        List<GeographicAreaDTO> dtoDaughterList = new ArrayList<>();
+        for (GeographicArea s : objectToConvert.getDaughterAreas()) {
+            GeographicAreaDTO tempDTO = GeographicAreaMapper.objectToDTO(s);
+            dtoDaughterList.add(tempDTO);
         }
 
-        List<GeographicAreaDTO> dtoDaughterList = new ArrayList<>();
+        List<AreaSensorDTO> dtoSensorList = new ArrayList<>();
         for (AreaSensor s : objectToConvert.getAreaSensors()) {
             AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(s);
             dtoSensorList.add(tempDTO);

@@ -71,6 +71,7 @@ public class GeographicArea implements Root {
         this.width = width;
         this.location = location;
         this.areaSensors = new ArrayList<>();
+        this.daughterAreas = new ArrayList<>();
     }
 
     /**

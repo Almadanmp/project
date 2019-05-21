@@ -46,7 +46,7 @@ public class GeographicAreaRepository {
         List<GeographicArea> list = geographicAreaCrudRepo.findAll();
         List<GeographicAreaDTO> finalList = new ArrayList<>();
         for (GeographicArea ga : list) {
-            GeographicAreaDTO gaDTO = GeographicAreaMapper.objectToDTO(ga);
+            GeographicAreaDTO gaDTO = GeographicAreaMapper.objectToDTOWithMother(ga);
             finalList.add(gaDTO);
         }
         return finalList;
@@ -98,9 +98,10 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public void updateAreaDTOWithMother(GeographicAreaDTO areaDTO, GeographicAreaDTO daughter) {
-        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO, daughter);
-        geographicAreaCrudRepo.save(area);
+
+    public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
+        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
+       return geographicAreaCrudRepo.save(area)!= null;
     }
 
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {

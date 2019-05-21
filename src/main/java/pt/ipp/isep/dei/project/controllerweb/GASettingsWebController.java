@@ -55,12 +55,25 @@ public class GASettingsWebController {
         GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
         geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter);
-        geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother, geographicAreaDaughter);
+        geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother);
         if (geographicAreaMother.getDaughterAreas().contains(geographicAreaDaughter)) {
             return new ResponseEntity<>("maezinga", HttpStatus.OK);
         }
         return new ResponseEntity<>("orfaaaa", HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("areas/{idMother}")
+    public ResponseEntity<Object> getDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
+        GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
+        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
+        geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter);
+        if (geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother)){
+            return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or" +
+                " invalid Area.", HttpStatus.CONFLICT);
+    }
+
 
     @GetMapping("areas/{id}/daughter")
     public List<GeographicAreaDTO> getDaughterAreas(@PathVariable("id") long id) {
