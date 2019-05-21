@@ -41,9 +41,8 @@ public class EnergyGridSettingsWebController {
      * attach/detach rooms from it.
      */
     @GetMapping(value = "/grids/{energyGridId}")
-    public @ResponseBody
-    List<RoomDTOWeb> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
-        return energyGridRepository.getRoomsDtoWebInGrid(gridId);
+    public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
+        return new ResponseEntity<>(energyGridRepository.getRoomsDtoWebInGrid(gridId),HttpStatus.OK);
     }
 
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
