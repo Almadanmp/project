@@ -98,10 +98,14 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
+    public boolean updateAreaDTOB(GeographicAreaDTO areaDTO) {
+        GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
+        return geographicAreaCrudRepo.save(area) != null;
+    }
 
     public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
         GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
-       return geographicAreaCrudRepo.save(area)!= null;
+        return geographicAreaCrudRepo.save(area) != null;
     }
 
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
@@ -131,7 +135,7 @@ public class GeographicAreaRepository {
     public GeographicAreaDTO getDaughterAreaByID(long idDaughter, long idArea) {
         GeographicAreaDTO geographicArea = getDTOById(idArea);
         for (GeographicAreaDTO ga : geographicArea.getDaughterAreas()) {
-           long asLong = ga.getId();
+            long asLong = ga.getId();
             if (asLong == idDaughter) {
                 return ga;
             }

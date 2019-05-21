@@ -102,7 +102,7 @@ public class SensorSettingsWebController {
     }
 
     /**
-     * US011:
+     * US011 Web Controller:
      * Method for removing area sensors from repository.
      *
      * @param id  geographic area id.
@@ -114,12 +114,12 @@ public class SensorSettingsWebController {
         GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
 
         boolean removed = geographicAreaRepository.removeSensorDTO(geoArea, id2);
-        geographicAreaRepository.updateAreaDTO(geoArea);
+        geographicAreaRepository.updateAreaDTOB(geoArea);
 
         if (removed) {
-            return new ResponseEntity<>("body", HttpStatus.OK);
+            return new ResponseEntity<>("Sensor was removed successfully from geographic area", HttpStatus.OK);
         }
-        return new ResponseEntity<>("body", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Sensor wasn't found, therefor, not removed.", HttpStatus.NOT_FOUND);
     }
 }
 
