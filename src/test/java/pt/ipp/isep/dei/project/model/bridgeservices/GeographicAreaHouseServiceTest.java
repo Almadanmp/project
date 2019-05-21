@@ -20,7 +20,9 @@ import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -296,7 +298,7 @@ class GeographicAreaHouseServiceTest {
         List<Reading> expectedResult = new ArrayList<>();
 
         // Act
-        Mockito.when(geographicAreaRepository.get(firstValidArea.getId())).thenReturn(firstValidArea);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
         List<Reading> actualResult = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(validReadingList, validHouse);
         // Assert
 
@@ -366,6 +368,39 @@ class GeographicAreaHouseServiceTest {
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
+    }
+
+    @Test
+    void seeIfGetDistanceToHouseWorks() {
+        // Arrange
+
+        House house = new House("House", new Address("Rua das Flores", "431", "4512", "Porto", "Portugal"), new Local(
+                4, 6, 6), 60, 180,
+                new ArrayList<>());
+        GeographicArea geographicArea = new GeographicArea("Porto", "City",
+                2, 3, new Local(4, 4, 100));
+        house.setMotherAreaID(geographicArea.getId());
+        Local testLocal = new Local(-5, -5, -5);
+        double expectedResult = 799.8866399214708;
+
+        //Act
+        double actualResult = geographicAreaHouseService.getDistanceToHouse(validAreaSensor, house);
+
+        //Assert
+        assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeDistanceToSensor() {
+        // Act
+        House house = new House("House", new Address("Rua das Flores", "431", "4512", "Porto", "Portugal"), new Local(
+                4, 6, 6), 60, 180,
+                new ArrayList<>());
+        double actualResult = geographicAreaHouseService.calculateDistanceToSensor(firstValidAreaSensor, house);
+
+        // Assert
+
+        assertEquals(496.71314778391405, actualResult, 0.01);
     }
 
 

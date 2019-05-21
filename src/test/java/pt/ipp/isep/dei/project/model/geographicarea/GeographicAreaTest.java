@@ -97,7 +97,7 @@ class GeographicAreaTest {
 
         //Act
 
-        List<AreaSensor> actualResult = firstValidArea.getAreaSensors();
+        List<AreaSensor> actualResult = firstValidArea.getSensors();
 
         //Assert
 
@@ -115,7 +115,7 @@ class GeographicAreaTest {
 
         //Act
 
-        List<AreaSensor> actualResult = firstValidArea.getAreaSensors();
+        List<AreaSensor> actualResult = firstValidArea.getSensors();
 
         //Assert
 
@@ -207,7 +207,7 @@ class GeographicAreaTest {
 
         //Assert
 
-        assertEquals(listAreaSensor, firstValidArea.getAreaSensors());
+        assertEquals(listAreaSensor, firstValidArea.getSensors());
     }
 
     @Test
@@ -675,7 +675,7 @@ class GeographicAreaTest {
     @Test
     void seeIfGetDaughterAreaByIDWorks() {
         //Arrange
-        List<GeographicArea>geographicAreas = new ArrayList<>();
+        List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(secondValidArea);
         firstValidArea.setDaughterAreas(geographicAreas);
 
@@ -692,7 +692,7 @@ class GeographicAreaTest {
     void seeIfGetDaughterAreaByIDWorksWhenSensorDoesNotExist() {
         //Arrange
 
-        List<GeographicArea>geographicAreas = new ArrayList<>();
+        List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(secondValidArea);
         firstValidArea.setDaughterAreas(geographicAreas);
 

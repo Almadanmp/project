@@ -455,7 +455,7 @@ class GASettingsControllerTest {
         InputStream in = new ByteArrayInputStream(firstValidArea.getId().toString().getBytes());
         System.setIn(in);
         Mockito.when(validGeographicAreaRepository.getAll()).thenReturn(geoAreas);
-        Mockito.when(validGeographicAreaRepository.get(firstValidArea.getId())).thenReturn(firstValidArea);
+        Mockito.when(validGeographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
         GeographicAreaDTO actualResult = controller.getInputArea();
 
         // Assert
@@ -467,7 +467,7 @@ class GASettingsControllerTest {
     void seeIfRemoveSensorWorks() {
         // Act
 
-        List<AreaSensor> actualResult = GeographicAreaMapper.dtoToObject(validGeographicAreaDTO).getAreaSensors();
+        List<AreaSensor> actualResult = GeographicAreaMapper.dtoToObject(validGeographicAreaDTO).getSensors();
         actualResult.remove(validAreaSensor1);
 
         controller.removeSensor(validAreaSensorDTO1, validGeographicAreaDTO);

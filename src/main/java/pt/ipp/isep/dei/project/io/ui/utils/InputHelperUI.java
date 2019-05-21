@@ -63,7 +63,7 @@ public class InputHelperUI {
             System.out.println(geographicAreaRepository.buildStringRepository(geoAreas));
             int aux = InputHelperUI.getInputAsInt();
             try {
-                GeographicArea geographicArea = geographicAreaRepository.get(aux);
+                GeographicArea geographicArea = geographicAreaRepository.getByID(aux);
                 System.out.println("You have chosen the following geographic area: ");
                 System.out.println(geographicArea.buildString() + "\n");
                 return geographicArea;
@@ -305,7 +305,7 @@ public class InputHelperUI {
         System.out.println(geographicArea.buildString());
         int aux = InputHelperUI.getInputAsInt();
         while (true) {
-            AreaSensor result = geographicArea.getAreaSensors().get(aux);
+            AreaSensor result = geographicArea.getSensors().get(aux);
             if (result != null) {
                 System.out.println("You have chosen the following sensor:");
                 System.out.println(result.buildString() + "\n");

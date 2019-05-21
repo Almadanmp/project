@@ -8,8 +8,6 @@ import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.house.Address;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
@@ -547,25 +545,6 @@ class AreaSensorTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfGetDistanceToHouseWorks() {
-        // Arrange
-
-        House house = new House("House", new Address("Rua das Flores", "431", "4512", "Porto", "Portugal"), new Local(
-                4, 6, 6), 60, 180,
-                new ArrayList<>());
-        GeographicArea geographicArea = new GeographicArea("Porto", validAreaType.getName(),
-                2, 3, new Local(4, 4, 100));
-        house.setMotherAreaID(geographicArea.getId());
-        Local testLocal = new Local(-5, -5, -5);
-        double expectedResult = 799.8866399214708;
-
-        //Act
-        double actualResult = validAreaSensor.getDistanceToHouse(house);
-
-        //Assert
-        assertEquals(expectedResult, actualResult, 0.01);
-    }
 
     @Test
     void seeIfSetGetIdWorks() {

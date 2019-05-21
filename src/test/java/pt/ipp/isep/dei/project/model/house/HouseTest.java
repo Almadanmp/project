@@ -95,16 +95,6 @@ class HouseTest {
         assertEquals("ISEP", actualResult);
     }
 
-    @Test
-    void seeDistanceToSensor() {
-        // Act
-
-        double actualResult = validHouse.calculateDistanceToSensor(firstValidAreaSensor);
-
-        // Assert
-
-        assertEquals(1111.9492664455872, actualResult, 0.01);
-    }
 
     @Test
     void seeIfEqualWorksWithNull() {

@@ -676,7 +676,7 @@ class ReadingUtilsTest {
         List<Reading> readingList = new ArrayList<>();
         //Assert
         assertThrows(IndexOutOfBoundsException.class,
-                () -> ReadingUtils.getValueReading(readingList, 0));
+                () -> ReadingUtils.getReadingValue(readingList, 0));
     }
 
     @Test
@@ -685,7 +685,7 @@ class ReadingUtilsTest {
         List<Reading> readingList = new ArrayList<>();
         //Assert
         assertThrows(IndexOutOfBoundsException.class,
-                () -> ReadingUtils.getValueDate(readingList, 0));
+                () -> ReadingUtils.getReadingDate(readingList, 0));
     }
 
     @Test

@@ -387,7 +387,7 @@ class GeographicAreaRepositoryTest {
 
         Mockito.when(geographicAreaCrudRepo.findById(mockId)).thenReturn(Optional.of(firstValidArea));
 
-        GeographicArea result = geographicAreaRepository.get(mockId);
+        GeographicArea result = geographicAreaRepository.getByID(mockId);
 
         assertEquals(result.getId(), firstValidArea.getId());
 
@@ -399,7 +399,7 @@ class GeographicAreaRepositoryTest {
 
         Mockito.when(geographicAreaCrudRepo.findById(mockId)).thenReturn(Optional.empty());
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> geographicAreaRepository.get(mockId));
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> geographicAreaRepository.getByID(mockId));
 
         assertEquals("ERROR: There is no Geographic Area with the selected ID.", exception.getMessage());
     }

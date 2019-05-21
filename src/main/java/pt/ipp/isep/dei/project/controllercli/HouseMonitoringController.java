@@ -87,7 +87,7 @@ public class HouseMonitoringController {
 
     public AreaSensor getClosestSensorToHouseByType(House house, String sensorType) {
         Long houseGaID = house.getMotherAreaID();
-        GeographicArea houseGA = geographicAreaRepository.get(houseGaID);
+        GeographicArea houseGA = geographicAreaRepository.getByID(houseGaID);
         return geographicAreaHouseService.getClosestAreaSensorOfGivenType(sensorType, house, houseGA);
     }
 

@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class AreaSensorUtilsTest {
+public class SensorUtilsTest {
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private GeographicArea firstValidArea;
@@ -109,7 +109,7 @@ public class AreaSensorUtilsTest {
         listAreaSensor.add(secondValidAreaSensor);
 
         //Act
-        AreaSensor actualResult = AreaSensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor);
+        AreaSensor actualResult = SensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor);
 
         //Assert
         assertEquals(firstValidAreaSensor, actualResult);
@@ -122,7 +122,7 @@ public class AreaSensorUtilsTest {
         listAreaSensor.add(firstValidAreaSensor);
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> SensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor));
 
 
         //Assert
@@ -137,7 +137,7 @@ public class AreaSensorUtilsTest {
 
         //Act
 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> SensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor));
 
         //Assert
         assertEquals("The sensor list is empty.", exception.getMessage());
@@ -150,7 +150,7 @@ public class AreaSensorUtilsTest {
         List<AreaSensor> listAreaSensor = new ArrayList<>();
 
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> AreaSensorUtils.getAreaSensorsWithReadings(listAreaSensor));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> SensorUtils.getAreaSensorsWithReadings(listAreaSensor));
 
         //Assert
         assertEquals("The sensor list is empty", exception.getMessage());
@@ -162,7 +162,7 @@ public class AreaSensorUtilsTest {
 
         //Act
         List<AreaSensor> areaSensors = new ArrayList<>();
-        List<AreaSensor> actualResult = AreaSensorUtils.getAreaSensorsOfGivenType(areaSensors, "Humidity");
+        List<AreaSensor> actualResult = SensorUtils.getAreaSensorsOfGivenType(areaSensors, "Humidity");
 
         //Assert
         assertEquals(areaSensors, actualResult);
@@ -176,7 +176,7 @@ public class AreaSensorUtilsTest {
         List<AreaSensor> areaSensors = new ArrayList<>();
         areaSensors.add(firstValidAreaSensor);
         areaSensors.add(secondValidAreaSensor);
-        List<AreaSensor> actualResult = AreaSensorUtils.getAreaSensorsOfGivenType(areaSensors, "Humidity");
+        List<AreaSensor> actualResult = SensorUtils.getAreaSensorsOfGivenType(areaSensors, "Humidity");
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -189,7 +189,7 @@ public class AreaSensorUtilsTest {
         List<AreaSensor> areaSensors = new ArrayList<>();
         areaSensors.add(firstValidAreaSensor);
         areaSensors.add(secondValidAreaSensor);
-        List<AreaSensor> actualResult = AreaSensorUtils.getAreaSensorsOfGivenType(areaSensors, "Temperature");
+        List<AreaSensor> actualResult = SensorUtils.getAreaSensorsOfGivenType(areaSensors, "Temperature");
 
         //Assert
         assertEquals(areaSensors, actualResult);

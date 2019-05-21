@@ -3,21 +3,14 @@ package pt.ipp.isep.dei.project.controllerweb;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
@@ -27,9 +20,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
-@WebMvcTest
-@ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
+@ExtendWith({MockitoExtension.class})
 class GASettingsWebControllerTest {
 
     @Autowired
@@ -226,7 +217,7 @@ class GASettingsWebControllerTest {
     }
 
     @Test
-    void addDaughterAreaInvalidMother(){
+    void addDaughterAreaInvalidMother() {
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
@@ -239,14 +230,14 @@ class GASettingsWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
 
         //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(1L,3L);
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(1L, 3L);
 
         //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void addDaughterAreaInvalidDaughter(){
+    void addDaughterAreaInvalidDaughter() {
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
@@ -258,14 +249,14 @@ class GASettingsWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
 
         //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L,validGeographicAreaDTO.getId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, validGeographicAreaDTO.getId());
 
         //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void addDaughterArea(){
+    void addDaughterArea() {
         GeographicAreaDTO motherDTO = new GeographicAreaDTO();
 
         motherDTO.setDescription("3rd biggest city");
@@ -286,7 +277,7 @@ class GASettingsWebControllerTest {
 
         Mockito.doReturn(daughterDTO).when(geographicAreaRepository).getDTOByIdWithMother(2L);
 
-        Mockito.doReturn(true).when(geographicAreaRepository).addDaughterDTO(motherDTO,daughterDTO);
+        Mockito.doReturn(true).when(geographicAreaRepository).addDaughterDTO(motherDTO, daughterDTO);
 
         Mockito.doReturn(true).when(geographicAreaRepository).updateAreaDTOWithMother(motherDTO);
 
@@ -294,7 +285,7 @@ class GASettingsWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
 
         //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(daughterDTO.getId(),motherDTO.getId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(daughterDTO.getId(), motherDTO.getId());
 
         //Assert
         assertEquals(expectedResult, actualResult);

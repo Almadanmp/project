@@ -1,5 +1,5 @@
 @startuml
-title US633 Class Diagram
+title US633 Class Diagram - Web Controller Version
 
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 2
@@ -11,108 +11,132 @@ skinparam roundcorner 10
 
 
 skinparam class {
-  BorderColor indianred
-  BackgroundColor indianred
-  BackgroundColor Snow
-   roundcorner 10
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
-   FontSize 12
+ BorderColor indianred
+ BackgroundColor indianred
+ BackgroundColor Snow
+  roundcorner 10
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+  FontSize 12
 }
 
-class House
-MainUI -- HouseMonitoringUI : >
-HouseMonitoringUI -- InputUtils : >
-HouseMonitoringUI -- HouseMonitoringController : >
-HouseMonitoringController -- House : >
-House "1" -- "1" GeographicArea : has >
-GeographicArea "1" -- "1" SensorList : has >
-SensorList"1" -- "0.n" Sensor : may have >
-Sensor "0.n" -- "1" Location: is in >
-Sensor "0.n" -- "1" TypeSensor: has >
-Sensor "1" -- "1" ReadingList: has >
 
 
-class HouseMonitoringUI {
-runUS633(House)
-getStartDate()
-getEndDate()
-updateAndDisplayUS633()
+HTTPClient -- HouseMonitoringControllerWeb : >
+HouseMonitoringControllerWeb -- GeographicAreaHouseService : >
+GeographicAreaHouseService -- GeographicAreaRepository : >
+GeographicAreaRepository -- GeographicAreaCrudRepo : >
+GeographicAreaRepository -- GeographicArea : >
+GeographicAreaCrudRepo -- GeographicArea : >
+GeographicAreaHouseService -- HouseRepository : >
+HouseRepository -- HouseCrudRepo : >
+HouseRepository -- House : >
+HouseCrudRepo -- House : >
+GeographicArea "1" -- "0.*" AreaSensor : may have >
+House"1.*" -- "1" Localization : in in >
+AreaSensor"1.*" -- "1" Localization : is in >
+AreaSensor "1" -- "0.*" Reading : may have >
+AreaSensor -- SensorUtils : >
+AreaSensor"0.*" -- "1"SensorType : has a >
+Reading -- ReadingUtils : >
+SensorUtils -- ReadingUtils : >
+
+class HouseMonitoringControllerWeb {
+GeographicAreaHouseService;
+getHighestTemperatureAmplitude(DateIntervalDTO)
 }
 
-class InputUtils{
-getInputYearMonthDay()
-}
-
-class HouseMonitoringController {
-getHighestTempAmplitudeDate()
-getHighestTempAmplitudeValue()
+class GeographicAreaHouseService{
+GeographicAreaRepository;
+HouseRepository;
+getClosestAreaSensorOfGivenType(String, House, GeographicArea)
+getMinDistanceToSensorOfGivenType(List<AreaSensor, House)
+getAreaSensorsByDistanceToHouse(List<AreaSensor>, House, double)
+getAreaSensorsDistanceToHouse(List<AreaSensor>, double)
+calculateDistanceToSensor(AreaSensor, House)
 }
 
 class House{
-motherArea;
-
-getClosestSensorOfGivenType(String)
-getMinDistanceToSensorOfGivenType(String)
+motherAreaID;
+Localization;
+getMotherAreaID()
+getLocalization()
 }
 
 class GeographicArea{
-SensorList;
-
-getSensorsOfGivenType()
+Long ID;
+List<AreaSensor>;
+getID()
+getSensors()
 }
 
-class SensorList{
-List<Sensor> sensors
-ReadingList areaReadingList
-
-getSensorListByType(String)
-getSensorsByDistanceToHouse(House, double)
-getMostRecentlyUsedSensor()
-getMostRecentReadingDate()
+class SensorUtils{
+getSensorsOfGivenType(List<AreaSensor>, String)
+getMostRecentlyUsedSensor(List<AreaSensor>)
+getAreaSensorsWithReadings(List<AreaSensor>)
 }
 
-class Sensor{
-TypeSensor;
-Local;
-
-getSensorTypeName()
-getDistanceToHouse(House)
-getLinearDistanceBetweenLocalsInKm(Location)
+class AreaSensor{
+String SensorType;
+Localization;
+List<Reading>;
+getSensorType()
+getReadings()
+getLocalization()
 getDateHighestAmplitudeBetweenDates(Date, Date)
+getDaysWithReadingsWithReadingsBetweenDates(Date, Date)
+getAmplitudeValueFromDate(Date)
+getReadingListBetweenDates(Date,Date)
 }
 
-class TypeSensor{
-name;
-
-getName()
+class SensorType{
+type;
+getType()
 }
 
-
-
-class Location{
+class Localization{
 double latitude;
 double longitude;
-
 getLinearDistanceBetweenLocalsInKm(Location)
 }
 
-class ReadingList{
-List<Reading> readings;
-
-getMostRecentReadingDate()
-getMostRecentReading()
-getDateHighestAmplitudeBetweenDates(Date, Date)
-getReadingListBetweenDates(Date, Date)
-isReadingDateBetweenTwoDates(Date, Date, Date)
-getAmplitudeValueFromDate(Date)
-getValuesOfSpecificDayReadings(Date)
+class ReadingUtils{
 getFirstSecondOfDay(Date)
 getLastSecondOfDay(Date)
-compareDayMonthAndYearBetweenDates(Date, Date)
-
-
+getReadingDate()
+isReadingDateBetweenTwoDates(Date, Date)
+getValuesOfSpecificDayReadings(Date)
+compareMonthDayAndYearBetweenDates(Date,Date)
+getReadingValue(List<Reading>,int)
 }
+
+class Reading{
+Date date;
+double value;
+getDate()
+getValue()
+}
+
+class GeographicAreaRepository{
+GeographicAreaCrudRepo;
+getByID()
+}
+
+Interface GeographicAreaCrudRepo{
+findByID()
+}
+
+class HouseRepository{
+HouseCrudRepo;
+getAll()
+}
+
+Interface HouseCrudRepo{
+findAll()
+}
+
+
+
 
 @enduml

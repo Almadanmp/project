@@ -27,7 +27,7 @@ public class HouseMonitoringWebController {
     public ResponseEntity<String> getHighestTemperatureAmplitudeDate(@RequestBody DateDTO dateDTO) {
         String result;
         try {
-            result = geographicAreaHouseService.getHighestTemperatureAmplitudeDate(dateDTO);
+            result = geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO);
         } catch (NoSuchElementException | IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
