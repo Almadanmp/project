@@ -65,7 +65,7 @@ public class GASettingsWebController {
 
     @GetMapping("areas/{id}/daughter")
     public List<GeographicAreaDTO> getDaughterAreas(@PathVariable("id") long id) {
-        return geographicAreaRepo.getDTOById(id).getDaughterAreas();
+        return geographicAreaRepo.getDTOByIdWithMother(id).getDaughterAreas();
     }
 
 }
