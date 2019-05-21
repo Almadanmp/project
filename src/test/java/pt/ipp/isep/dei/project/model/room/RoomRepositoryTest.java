@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -81,6 +82,46 @@ class RoomRepositoryTest {
         secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "Temperature", new Date());
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", "Rainfall", new Date());
+    }
+
+    @Test
+    void seeIfGetAllRoomWebDTOsWorks() {
+        // Arrange
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        rooms.add(validRoom2);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        List<RoomDTOWeb> expectedResult = new ArrayList<>();
+
+        RoomDTOWeb validDTO1 = new RoomDTOWeb();
+        validDTO1.setName("Kitchen");
+        validDTO1.setFloor(1);
+        validDTO1.setWidth(4D);
+        validDTO1.setLength(5D);
+        validDTO1.setHeight(3D);
+
+        RoomDTOWeb validDTO2 = new RoomDTOWeb();
+        validDTO2.setName("Living Room");
+        validDTO2.setFloor(1);
+        validDTO2.setWidth(56D);
+        validDTO2.setLength(55D);
+        validDTO2.setHeight(3D);
+
+        expectedResult.add(validDTO1);
+        expectedResult.add(validDTO2);
+
+        //Act
+
+        List<RoomDTOWeb> actualResult = validRoomRepository.getAllRoomWebDTOs();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

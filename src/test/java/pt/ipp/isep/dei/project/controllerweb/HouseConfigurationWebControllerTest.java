@@ -19,10 +19,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
@@ -39,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
@@ -46,17 +44,16 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 public class HouseConfigurationWebControllerTest {
 
-    private RoomDTOWeb roomDTOWeb;
-    private AddressAndLocalDTO addressAndLocalDTO;
-
-    @Autowired
-    private MockMvc mockMvc;
     @Mock
     HouseRoomService houseRoomService;
     @Mock
     HouseRepository houseRepository;
     @Mock
     RoomRepository roomRepository;
+    private RoomDTOWeb roomDTOWeb;
+    private AddressAndLocalDTO addressAndLocalDTO;
+    @Autowired
+    private MockMvc mockMvc;
     @InjectMocks
     private HouseConfigurationWebController webController;
 
@@ -189,7 +186,7 @@ public class HouseConfigurationWebControllerTest {
         roomDTOWeb2.setName("roomDTOWeb2");
         roomDTOWeb2.setFloor(1);
 
-        List<RoomDTOWeb> expectedResult =  new ArrayList<>();
+        List<RoomDTOWeb> expectedResult = new ArrayList<>();
         expectedResult.add(roomDTOWeb);
         expectedResult.add(roomDTOWeb2);
 

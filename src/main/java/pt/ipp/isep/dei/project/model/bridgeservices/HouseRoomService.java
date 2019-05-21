@@ -28,10 +28,7 @@ public class HouseRoomService {
         Room room = RoomWebMapper.dtoToObject(roomDTOWeb);
         String houseID = houseRepository.getHouseId();
         room.setHouseID(houseID);
-        if (roomRepository.addRoomToCrudRepository(room)) {
-            return true;
-        }
-        return false;
+        return roomRepository.addRoomToCrudRepository(room);
     }
 
 
