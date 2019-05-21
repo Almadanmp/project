@@ -21,10 +21,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.core.IsInstanceOf.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
+import pt.ipp.isep.dei.project.dto.AddressDTO;
+import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -45,6 +51,9 @@ import static org.junit.Assert.*;
 public class HouseConfigurationWebControllerTest {
 
     private RoomDTOWeb roomDTOWeb;
+    private AddressAndLocalDTO addressAndLocalDTO;
+    private LocalDTO localDTO;
+    private AddressDTO addressDTO;
 
     @Autowired
     private MockMvc mockMvc;
@@ -65,6 +74,25 @@ public class HouseConfigurationWebControllerTest {
         roomDTOWeb.setLength(4D);
         roomDTOWeb.setHeight(1D);
         roomDTOWeb.setFloor(1);
+
+        localDTO = new LocalDTO();
+
+        localDTO = new LocalDTO();
+        localDTO.setAltitude(20);
+        localDTO.setLongitude(20);
+        localDTO.setLatitude(20);
+
+        addressDTO = new AddressDTO();
+
+        addressDTO.setNumber("431");
+        addressDTO.setCountry("Portugal");
+        addressDTO.setZip("4200-072");
+        addressDTO.setTown("Porto");
+        addressDTO.setStreet("rua carlos peixoto");
+
+        addressAndLocalDTO = new AddressAndLocalDTO();
+        addressAndLocalDTO.setLocal(localDTO);
+        addressAndLocalDTO.setAddress(addressDTO);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
 
@@ -248,5 +276,50 @@ public class HouseConfigurationWebControllerTest {
                         "    }}"))
                 .andExpect(status().isNotAcceptable());
     }
+
+    @Test
+    public void seeIfConfigureHouseLocalErrorWorks() {
+        //Arrange
+
+        mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
+
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(false);
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.UNPROCESSABLE_ENTITY);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfConfigureHouseLocalWorks() {
+        //Arrange
+
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        Mockito.doReturn(HouseMapper.objectToWithoutGridsDTO(validHouse)).when(houseRepository).getHouseWithoutGridsDTO();
+        Mockito.doReturn(true).when(houseRepository).updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house has been altered.", HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
 
 }
