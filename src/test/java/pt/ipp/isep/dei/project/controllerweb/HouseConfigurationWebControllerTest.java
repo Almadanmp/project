@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -44,16 +45,14 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(HouseConfigurationWebController.class)
+
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
-@ExtendWith(MockitoExtension.class)
 public class HouseConfigurationWebControllerTest {
 
     private RoomDTOWeb roomDTOWeb;
     private AddressAndLocalDTO addressAndLocalDTO;
-    private LocalDTO localDTO;
-    private AddressDTO addressDTO;
 
     @Autowired
     private MockMvc mockMvc;
@@ -75,14 +74,14 @@ public class HouseConfigurationWebControllerTest {
         roomDTOWeb.setHeight(1D);
         roomDTOWeb.setFloor(1);
 
-        localDTO = new LocalDTO();
+        LocalDTO localDTO = new LocalDTO();
 
         localDTO = new LocalDTO();
         localDTO.setAltitude(20);
         localDTO.setLongitude(20);
         localDTO.setLatitude(20);
 
-        addressDTO = new AddressDTO();
+        AddressDTO addressDTO = new AddressDTO();
 
         addressDTO.setNumber("431");
         addressDTO.setCountry("Portugal");
@@ -274,7 +273,7 @@ public class HouseConfigurationWebControllerTest {
                         "        \"town\": \"Porto\",\n" +
                         "        \"country\": \"Portugal\"\n" +
                         "    }}"))
-                .andExpect(status().isNotAcceptable());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -291,7 +290,7 @@ public class HouseConfigurationWebControllerTest {
         Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
         Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(false);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.UNPROCESSABLE_ENTITY);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
 
         //Act
         ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
