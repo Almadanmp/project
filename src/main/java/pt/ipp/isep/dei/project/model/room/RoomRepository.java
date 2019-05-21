@@ -27,12 +27,11 @@ import java.util.logging.Logger;
 @Service
 public class RoomRepository {
 
-    @Autowired
-    private RoomCrudRepo roomCrudRepo;
-
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
+    @Autowired
+    private RoomCrudRepo roomCrudRepo;
 
     /**
      * This method gets every room from the Room Crud Repository
@@ -58,14 +57,13 @@ public class RoomRepository {
         List<RoomDTOWeb> finalList = new ArrayList<>();
         List<Room> roomList = roomCrudRepo.findAll();
         if (roomList != null) {
-        for(Room room: roomList) {
-            RoomDTOWeb roomDTOWeb = RoomWebMapper.objectToDtoWeb(room);
-            finalList.add(roomDTOWeb);
-        }
+            for (Room room : roomList) {
+                RoomDTOWeb roomDTOWeb = RoomWebMapper.objectToDtoWeb(room);
+                finalList.add(roomDTOWeb);
+            }
         }
         return finalList;
     }
-
 
 
     /**

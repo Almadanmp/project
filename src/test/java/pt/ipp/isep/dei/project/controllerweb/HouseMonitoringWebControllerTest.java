@@ -19,16 +19,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
- class HouseMonitoringWebControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+class HouseMonitoringWebControllerTest {
 
     @Mock
     HouseMonitoringWebController houseMonitoringWebController;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-     void getHighestAmplitudeSuccess() throws Exception {
+    void getHighestAmplitudeSuccess() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
 
@@ -43,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void getHighestAmplitudeInvertedDates() throws Exception {
+    void getHighestAmplitudeInvertedDates() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
 
@@ -57,7 +56,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void getHighestAmplitudeNoReadingsOnInterval() throws Exception {
+    void getHighestAmplitudeNoReadingsOnInterval() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
 
