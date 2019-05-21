@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,19 +18,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @WebMvcTest
@@ -41,15 +45,10 @@ public class EnergyGridSettingsWebControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private EnergyGridRepository energyGridRepository;
-
-    @Mock
-    private RoomRepository roomRepository;
+    EnergyGridRepository energyGridRepository;
 
     @InjectMocks
-    private EnergyGridSettingsWebController energyGridSettingsWebController;
-
-
+    EnergyGridSettingsWebController energyGridSettingsWebController;
 
     @BeforeEach
     void setData() {
@@ -61,48 +60,33 @@ public class EnergyGridSettingsWebControllerTest {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
-        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(any(EnergyGridDTO.class));
-
         this.mockMvc.perform(post("/gridSettings/grids")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"name\": \"B building\",\n" +
                         "  \"houseID\": \"7\",\n" +
                         "  \"maxContractedPower\": \"45\"\n" +
                         "}"))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
     }
 
     @Test
-    public void seeIfCreateEnergyGridWorksMethod() {
+    public void seeIfAttachRoomToGridPostWorks() throws Exception {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
-        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45, "7");
-
-        EnergyGridDTO energyGridDTO = EnergyGridMapper.objectToDTO(validGrid);
-
-        Mockito.doReturn(true).when(energyGridRepository).createEnergyGrid(energyGridDTO);
-
-        ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
-
-        assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
+        ResultActions resultActions = this.mockMvc.perform(post("/gridSettings/grids/B building")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\t\"name\": \"B102\",\n" +
+                        "\t\"description\": \"Reprographics Centre\",\n" +
+                        "\t\"floor\": \"1\",\n" +
+                        "\t\"width\": 7,\n" +
+                        "\t\"length\": 21,\n" +
+                        "\t\"height\": 3.5\n" +
+                        "}"))
+                .andExpect(status().isOk());
+        int status = resultActions.andReturn().getResponse().getStatus();
+        assertEquals(200, status);
     }
-
-//    @Test
-//    public void seeIfAttachRoomToGridPostWorks() throws Exception {
-//
-//        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
-//
-//        this.mockMvc.perform(post("/gridSettings/grids/B building")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\t\"name\": \"B102\",\n" +
-//                        "\t\"description\": \"Reprographics Centre\",\n" +
-//                        "\t\"floor\": \"1\",\n" +
-//                        "\t\"width\": 7,\n" +
-//                        "\t\"length\": 21,\n" +
-//                        "\t\"height\": 3.5\n" +
-//                        "}"))
-//                .andExpect(status().isOk());
-//    }
 
     @Test
     public void seeIfGetAllGridsDoesNotWork() throws Exception {
@@ -112,6 +96,21 @@ public class EnergyGridSettingsWebControllerTest {
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(404, status);
+    }
+
+    @Test
+    public void seeIfGetRoomsWebDtoInGridWorks() {
+        List<RoomDTOWeb> roomsWebDto = new ArrayList<>();
+        RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
+        roomDTOWeb.setName("B107");
+        roomDTOWeb.setHeight(3);
+        roomDTOWeb.setWidth(3);
+        roomDTOWeb.setLength(3);
+        roomDTOWeb.setFloor(1);
+        roomsWebDto.add(roomDTOWeb);
+        Mockito.doReturn(roomsWebDto).when(energyGridRepository.getRoomsDtoWebInGrid("B building"));
+        HttpStatus actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building").getStatusCode();
+        assertEquals(HttpStatus.OK, actualResult);
     }
 
     @Test
@@ -136,15 +135,11 @@ public class EnergyGridSettingsWebControllerTest {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
-        Mockito.doReturn(true).when(energyGridRepository).removeRoomFromGrid(any(String.class),any(String.class));
-
         this.mockMvc.perform(delete("/gridSettings/grids/B building")
                 .contentType(MediaType.TEXT_PLAIN)
                 .content("B106"))
                 .andExpect(status().isOk());
     }
-
-
 
 //    @Test
 //    public void seeIfCreateEnergyGridWorksMethod() {
