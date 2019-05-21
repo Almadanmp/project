@@ -813,5 +813,4 @@ class RoomRepositoryTest {
         Room actualResult = validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
         assertEquals(room, actualResult);
     }
-
 }

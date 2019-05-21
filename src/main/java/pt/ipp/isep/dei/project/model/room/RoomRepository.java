@@ -315,10 +315,6 @@ public class RoomRepository {
         return roomCrudRepo.findById(idToFind);
     }
 
-    public boolean findRoomByIdPresent(String idToFind){
-        return roomCrudRepo.findById(idToFind).isPresent();
-    }
-
     /**
      * This method will receive a list of readings, a string of a path to a log file,
      * and a room service and will try to add readings to the given sensors
