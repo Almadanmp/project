@@ -46,7 +46,6 @@ public class EnergyGridSettingsWebController {
         return energyGridRepository.getRoomsDtoWebInGrid(gridId);
     }
 
-
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
      * consumption is included in that grid.
      */
@@ -103,13 +102,3 @@ public class EnergyGridSettingsWebController {
         }
     }
 }
-
-/*
-US 147
-{	"name": "B102",
-	"description": "Reprographics Centre",
-	"floor": "1",
-	"width": 7,
-	"length": 21,
-	"height": 3.5
-}*/

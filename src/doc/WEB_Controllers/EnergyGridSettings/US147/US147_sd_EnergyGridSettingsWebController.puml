@@ -22,7 +22,7 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-title US147 \n As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can attach/detach rooms from it.  \n - Success Case -
+title US147 \n As an Administrator, As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy consumption is included in that grid.  \n - Success Case -
 autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Input data to attach room to a grid
@@ -51,11 +51,4 @@ deactivate ":EnergyGridRepository"
 deactivate ":EnergyGridSettingsWebController"
 ":HTTP Client" -->> "Administrator": Http Status: 200 - Ok
 deactivate ":HTTP Client"
-else else
-":EnergyGridRepository" -> ":EnergyGrid": addRoom(room)
-":EnergyGrid" --> ":EnergyGridRepository" : return false
-":EnergyGridRepository" --> ":EnergyGridSettingsWebController": return false
-":EnergyGridSettingsWebController" --> ":HTTP Client": ResponseEntity<>(HttpStatus.CONFLICT)
-":HTTP Client" -->> "Administrator": Http Status: 409 - Conflict
-end
 @enduml
