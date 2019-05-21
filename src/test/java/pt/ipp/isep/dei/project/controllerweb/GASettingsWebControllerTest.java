@@ -100,6 +100,115 @@ class GASettingsWebControllerTest {
     }
 
     @Test
+    void seeIfCreateGeoAreaDoesntWorkIDNull() {
+        //Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41);
+        localDTO.setLongitude(-8);
+        localDTO.setAltitude(100);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateGeoAreaDoesntWorkNameNull() {
+        //Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41);
+        localDTO.setLongitude(-8);
+        localDTO.setAltitude(100);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateGeoAreaDoesntWorkTypeNull() {
+        //Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41);
+        localDTO.setLongitude(-8);
+        localDTO.setAltitude(100);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setName("Porto");
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+
+        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateGeoAreaDoesntWorkLocalNull() {
+        //Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void getAllGeoAreasDTO() {
     }
 }
