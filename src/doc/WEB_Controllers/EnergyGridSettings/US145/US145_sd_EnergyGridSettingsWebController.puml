@@ -43,8 +43,8 @@ activate ":RoomWebMapper"
 deactivate ":RoomWebMapper"
 ":EnergyGridRepository" -> ":EnergyGridSettingsWebController" : return roomDtoWebList
 deactivate ":EnergyGridRepository"
-":EnergyGridSettingsWebController" --> ":HTTP Client": return roomDtoWebList
+":EnergyGridSettingsWebController" --> ":HTTP Client": ResponseEntity<Object>(HttpStatus.OK)
 deactivate ":EnergyGridSettingsWebController"
-":HTTP Client" --> "Administrator": return roomDtoWebList
+":HTTP Client" --> "Administrator": ResponseEntity<Object>(HttpStatus.OK)
 deactivate ":HTTP Client"
 @enduml
