@@ -1,0 +1,21 @@
+@startuml
+
+title  As an Administrator, I want to detach a room from a house grid, so that the room’s power \n and energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
+
+actor "Administrator"
+
+Administrator->HTTPClient: Detach Room from Grid
+HTTPClient->EnergyGridSettingsWebController: detachRoomFromGrid(String roomID, String gridID)
+EnergyGridSettingsWebController->EnergyGridRepository: removeRoomFromGrid(String roomID, String gridID)
+EnergyGridRepository->EnergyGridRepository: findById(gridID)
+alt if grid is present
+EnergyGridRepository->"foundGrid :EnergyGrid" : removeRoom(roomID)
+alt if room is present
+"foundGrid :EnergyGrid"-->HTTPClient: HttpStatus.OK
+else if room isn't present
+"foundGrid :EnergyGrid"--> HTTPClient: HttpStatus.NOT_FOUND
+end
+else if grid isn't present
+EnergyGridRepository-->HTTPClient: HttpStatus.NOT_FOUND
+end
+@enduml
