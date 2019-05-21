@@ -24,7 +24,7 @@ class EnergyGridDTOTest {
     void arrangeArtifacts() {
         validDTO = new EnergyGridDTO();
         validDTO.setName("GridOne");
-        validDTO.setMaxContractedPower(21);
+        validDTO.setMaxContractedPower(21D);
         List<RoomDTO> roomList = new ArrayList<>();
         Room roomOne = new Room("Kitchen", "1st Floor Kitchen", 1, 20, 30, 10, "Room1");
         roomList.add(RoomMapper.objectToDTO(roomOne));
@@ -55,7 +55,7 @@ class EnergyGridDTOTest {
     void seeIfGetSetMaxContractedPowerWorks() {
         // Arrange
 
-        validDTO.setMaxContractedPower(10);
+        validDTO.setMaxContractedPower(10D);
         Double expectedResult = 10D;
 
         // Act
@@ -105,16 +105,16 @@ class EnergyGridDTOTest {
 
         EnergyGridDTO energyGridDTO = new EnergyGridDTO();
         energyGridDTO.setName("Name1");
-        energyGridDTO.setMaxContractedPower(1000);
+        energyGridDTO.setMaxContractedPower(1000D);
 
         EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
         energyGridDTO1.setName("Name1");
-        energyGridDTO1.setMaxContractedPower(900);
+        energyGridDTO1.setMaxContractedPower(900D);
 
 
         EnergyGridDTO energyGridDTO2 = new EnergyGridDTO();
         energyGridDTO2.setName("Name2");
-        energyGridDTO2.setMaxContractedPower(1000);
+        energyGridDTO2.setMaxContractedPower(1000D);
 
         //Act
 

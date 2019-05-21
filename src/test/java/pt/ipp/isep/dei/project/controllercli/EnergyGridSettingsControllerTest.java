@@ -59,7 +59,7 @@ class EnergyGridSettingsControllerTest {
                 60, 180, new ArrayList<>());
         validGeographicArea = new GeographicArea("Porto", validAreaType.getName(), 2, 3, new Local(4, 4, 100));
         validHouse.setMotherAreaID(validGeographicArea.getId());
-        validGrid = new EnergyGrid("validGrid", 300, "34576");
+        validGrid = new EnergyGrid("validGrid", 300D, "34576");
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1");
         rooms.add(validRoom);
     }
@@ -156,8 +156,8 @@ class EnergyGridSettingsControllerTest {
     void seeIfCreateGridTrue() {
         // Arrange
 
-        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400, "34576");
-        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400, "34576");
+        EnergyGrid expectedResult1 = new EnergyGrid("EG1", 400D, "34576");
+        EnergyGrid expectedResult2 = new EnergyGrid("EG2", 400D, "34576");
         // Act
         Mockito.when(energyGridRepository.createEnergyGrid("EG1", 400, "34576")).thenReturn(expectedResult1);
         EnergyGrid actualResult1 = controller.createEnergyGrid("EG1", 400, "34576");
@@ -208,7 +208,7 @@ class EnergyGridSettingsControllerTest {
         House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
         house.setMotherAreaID(validGeographicArea.getId());
         Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1");
-        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333, "34576");
+        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333D, "34576");
         List<Room> rl = new ArrayList<>();
         Device fridge = new Fridge(new FridgeSpec());
         room1EdC.addDevice(fridge);

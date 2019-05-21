@@ -98,11 +98,6 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public boolean updateAreaDTOB(GeographicAreaDTO areaDTO) {
-        GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
-        return geographicAreaCrudRepo.save(area) != null;
-    }
-
     public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
         GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
         return geographicAreaCrudRepo.save(area) != null;
@@ -119,28 +114,22 @@ public class GeographicAreaRepository {
      * @param areaSensorID      area sensor ID for removing correct sensor.
      * @return method for removing area sensor by id from GeographicAreaDTO class.
      */
-
     public boolean removeSensorDTO(GeographicAreaDTO geographicAreaDTO, String areaSensorID) {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
 
-    public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
-        List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
-        geographicAreas.add(daughterDTO);
-        motherDTO.setDaughterAreaList(geographicAreas);
-        return true;
+    public boolean deactivateSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
+        if(geographicAreaDTO.removeSensor(areaSensorDTO.getId())){
+            areaSensorDTO.setActive(false);
+            geographicAreaDTO.addSensor(areaSensorDTO);
+            return true;
+        }
+        return false;
     }
 
 
-    public GeographicAreaDTO getDaughterAreaByID(long idDaughter, long idArea) {
-        GeographicAreaDTO geographicArea = getDTOById(idArea);
-        for (GeographicAreaDTO ga : geographicArea.getDaughterAreas()) {
-            long asLong = ga.getId();
-            if (asLong == idDaughter) {
-                return ga;
-            }
-        }
-        throw new IllegalArgumentException(("Area Sensor not found"));
+    public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
+        return motherDTO.addDaughter(daughterDTO);
     }
 
     //WEB CONTROLLER END //

@@ -132,7 +132,7 @@ public final class EnergyGridMapper {
 
         // Update the maximum contracted power
 
-        double dtoMaxContractedPower = objectToConvert.getMaxContractedPower();
+        Double dtoMaxContractedPower = objectToConvert.getMaxContractedPower();
 
         // Update the RoomList
 

@@ -41,7 +41,7 @@ class HouseMapperTest {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
         EnergyGridDTO energyGridDTO = new EnergyGridDTO();
         energyGridDTO.setName("EG1");
-        energyGridDTO.setMaxContractedPower(0);
+        energyGridDTO.setMaxContractedPower(0D);
         energyGridDTO.setHouseID("01");
         List<PowerSourceDTO> powerSourceDTOList = new ArrayList<>();
         energyGridDTO.setPowerSourceDTOS(powerSourceDTOList);
@@ -100,7 +100,7 @@ class HouseMapperTest {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
         EnergyGridDTO energyGridDTO = new EnergyGridDTO();
         energyGridDTO.setName("EG1");
-        energyGridDTO.setMaxContractedPower(0);
+        energyGridDTO.setMaxContractedPower(0D);
         energyGridDTO.setHouseID("01");
         List<PowerSourceDTO> powerSourceDTOList = new ArrayList<>();
         energyGridDTO.setPowerSourceDTOS(powerSourceDTOList);
