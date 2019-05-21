@@ -2,26 +2,27 @@
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor ivory
+skinparam titleBackgroundColor snow
 skinparam FontName quicksand
 
 skinparam actor {
-  BorderColor indianred
-  }
+ 	BorderColor indianred
+ 	backgroundColor Snow
+ 	}
 
-skinparam sequence {
-  LifeLineBackgroundColor indianred
-  ParticipantBackgroundColor ivory
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor snow
 }
 
-skinparam roundcorner 10
+ skinparam roundcorner 10
 
-skinparam component {
-  arrowThickness 1
-  ArrowFontName Verdana
-  ArrowColor indianred
-  ArrowFontColor darkslategrey
-}
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
 
 title US633 \n REF Get Highest Amplitude Value
 autonumber
