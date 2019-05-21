@@ -27,14 +27,11 @@ autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Input data to attach room to a grid
 activate ":HTTP Client"
-":HTTP Client" -> ":EnergyGridSettingsWebController":  Request Post at ".../grids/{energyGridId}"
+":HTTP Client" -> ":EnergyGridSettingsWebController":  attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId)
 activate ":EnergyGridSettingsWebController"
 ":EnergyGridSettingsWebController" -> ":EnergyGridRepository": attachRoomToGrid(roomDTO, gridId)
 activate ":EnergyGridRepository"
-":EnergyGridRepository" ->> ":EnergyGrid": getById(id)
-activate ":EnergyGrid"
-":EnergyGrid" --> ":EnergyGridRepository": return energyGrid
-deactivate ":EnergyGrid"
+":EnergyGridRepository" ->> ":EnergyGridRepository": getById(id)
 ":EnergyGridRepository" -> ":RoomMapper": dtoToObject(roomDTO)
 activate ":RoomMapper"
 ":RoomMapper" --> ":EnergyGridRepository" : return room
@@ -44,11 +41,11 @@ alt success
 activate ":EnergyGrid"
 ":EnergyGrid" --> ":EnergyGridRepository" : return true
 deactivate ":EnergyGrid"
-":EnergyGridRepository" -> ":EnergyGridCrudeRepo" : save(energyGrid)
+":EnergyGridRepository" -> ":EnergyGridRepository" : save(energyGrid)
 ":EnergyGridRepository" --> ":EnergyGridSettingsWebController": return true
 deactivate ":EnergyGridRepository"
 ":EnergyGridSettingsWebController" --> ":HTTP Client": ResponseEntity<>(HttpStatus.OK)
 deactivate ":EnergyGridSettingsWebController"
-":HTTP Client" -->> "Administrator": Http Status: 200 - Ok
+":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.OK)
 deactivate ":HTTP Client"
 @enduml

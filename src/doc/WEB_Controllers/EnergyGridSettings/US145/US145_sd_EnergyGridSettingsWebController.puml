@@ -27,14 +27,13 @@ autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Get Room List from Grid
 activate ":HTTP Client"
-":HTTP Client" -> ":EnergyGridSettingsWebController":  Request Get at ".../grids/{energyGridId}"
+":HTTP Client" -> ":EnergyGridSettingsWebController":  getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId)
 activate ":EnergyGridSettingsWebController"
 ":EnergyGridSettingsWebController" -> ":EnergyGridRepository": getRoomsDtoWebInGrid(gridId)
 activate ":EnergyGridRepository"
-":EnergyGridRepository" --> ":EnergyGrid": findByName(gridId)
-activate ":EnergyGrid"
-":EnergyGrid" --> ":EnergyGridRepository": return energyGrid
+":EnergyGridRepository" -> ":EnergyGridRepository": findByName(gridId)
 ":EnergyGridRepository" -> ":EnergyGrid": getRoomList()
+activate ":EnergyGrid"
 ":EnergyGrid" --> ":EnergyGridRepository" : return roomList
 deactivate ":EnergyGrid"
 ":EnergyGridRepository" -> ":RoomWebMapper": objectsToDtosWeb(roomList)

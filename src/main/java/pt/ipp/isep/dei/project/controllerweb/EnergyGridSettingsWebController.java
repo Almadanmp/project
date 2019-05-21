@@ -21,6 +21,8 @@ import java.util.NoSuchElementException;
 @RequestMapping("/gridSettings")
 public class EnergyGridSettingsWebController {
 
+    private String noGrid = "There is no grid with that ID.";
+
     @Autowired
     private EnergyGridCrudRepo gridRepo;
 
@@ -44,12 +46,17 @@ public class EnergyGridSettingsWebController {
      */
     @GetMapping(value = "/grids/{energyGridId}")
     public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
-        List<RoomDTOWeb> roomsDTOWeb = energyGridRepository.getRoomsDtoWebInGrid(gridId);
-        for (RoomDTOWeb roomDTOWeb : roomsDTOWeb) {
-            Link link = ControllerLinkBuilder.linkTo(EnergyGridSettingsWebController.class).slash(roomDTOWeb.getName()).withRel("roomName");
-            roomDTOWeb.add(link);
+        try {
+            List<RoomDTOWeb> roomsDTOWeb = energyGridRepository.getRoomsDtoWebInGrid(gridId);
+            for (RoomDTOWeb roomDTOWeb : roomsDTOWeb) {
+                Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOWeb.getName()).withRel("roomName");
+                roomDTOWeb.add(link);
+            }
+            return new ResponseEntity<>(roomsDTOWeb, HttpStatus.OK);
+        } catch (NullPointerException ok) {
+            return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(roomsDTOWeb, HttpStatus.OK);
+
     }
 
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
@@ -65,7 +72,7 @@ public class EnergyGridSettingsWebController {
                 }
                 return new ResponseEntity<>("It wasn't possible to add the room. Please try again.", HttpStatus.CONFLICT);
             } catch (NoSuchElementException e) {
-                return new ResponseEntity<>("There is no grid with that ID.", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
             }
         }
         return new ResponseEntity<>("There is no room with that ID.", HttpStatus.NOT_FOUND);
@@ -104,7 +111,7 @@ public class EnergyGridSettingsWebController {
             }
             return new ResponseEntity<>("There is no room with that ID in this grid.", HttpStatus.NOT_FOUND);
         } catch (NoSuchElementException ok) {
-            return new ResponseEntity<>("There is no grid with that ID.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
         }
     }
 }
