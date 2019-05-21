@@ -22,7 +22,7 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-title US145 \n As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can attach/detach rooms from it.
+title US145 \n As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can attach/detach rooms from it.  \n - Success Case -
 autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Get Room List from Grid
