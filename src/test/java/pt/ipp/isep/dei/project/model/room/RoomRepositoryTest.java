@@ -125,6 +125,23 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfGetAllRoomWebDTOsWorksWhenFindAllReturnsNull() {
+        // Arrange
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(null);
+
+        List<RoomDTOWeb> expectedResult = new ArrayList<>();
+
+        //Act
+
+        List<RoomDTOWeb> actualResult = validRoomRepository.getAllRoomWebDTOs();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfAddRoomToCrudRepositoryWorks() {
         // Arrange
 
