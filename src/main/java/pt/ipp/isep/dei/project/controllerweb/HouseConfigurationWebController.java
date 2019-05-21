@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -105,7 +107,12 @@ public class HouseConfigurationWebController {
      **/
     @GetMapping(value = "/houseRooms")
     public ResponseEntity<Object> getHouseRooms() {
-        return new ResponseEntity<>(roomRepository.getAllRoomWebDTOs(), HttpStatus.OK);
+        List<RoomDTOWeb> roomDTOWebs = roomRepository.getAllRoomWebDTOs();
+        for (RoomDTOWeb roomDTO : roomDTOWebs) {
+            Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTO.getName()).withRel("roomName");
+            roomDTO.add(link);
+        }
+        return new ResponseEntity<>(roomDTOWebs, HttpStatus.OK);
     }
 
 }

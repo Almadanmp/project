@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.Objects;
 
-public class RoomDTOWeb {
+public class RoomDTOWeb extends ResourceSupport {
 
     private String name;
     private int floor;
