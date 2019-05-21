@@ -76,11 +76,8 @@ public class SensorSettingsWebController {
     public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
         AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
-        geographicAreaRepository.removeSensorDTO(geographicArea, idSensor);
-        areaSensorDTO.setActive(false);
-        geographicAreaRepository.addSensorDTO(geographicArea, areaSensorDTO);
-        geographicAreaRepository.updateAreaDTO(geographicArea);
-        if (!areaSensorDTO.getActive()) {
+        if (geographicAreaRepository.deactivateSensorDTO(geographicArea, areaSensorDTO)) {
+            geographicAreaRepository.updateAreaDTO(geographicArea);
             return new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
         }
         return new ResponseEntity<>("Area Sensor is active", HttpStatus.OK);

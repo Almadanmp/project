@@ -21,10 +21,17 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -48,7 +55,6 @@ public class EnergyGridSettingsWebControllerTest {
 
     @InjectMocks
     private EnergyGridSettingsWebController energyGridSettingsWebController;
-
 
 
     @BeforeEach
@@ -85,6 +91,99 @@ public class EnergyGridSettingsWebControllerTest {
         ResponseEntity<String> actualResult = energyGridSettingsWebController.createEnergyGrid(energyGridDTO);
 
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
+    }
+
+    @Test
+    public void seeIfGetRoomsWebDtoInGridWorks() {
+        //Arrange
+        List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
+        RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
+        roomDTOWeb.setFloor(3);
+        roomDTOWeb.setLength(3);
+        roomDTOWeb.setWidth(3);
+        roomDTOWeb.setName("B107");
+        roomDTOWeb.setHeight(3);
+        roomDTOWebs.add(roomDTOWeb);
+        Mockito.doReturn(roomDTOWebs).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
+        //Act
+        ResponseEntity<Object> actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building");
+        //Assert
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+    }
+
+    @Test
+    public void seeIfAttachRoomToGridPostWorks() {
+        //Arrange
+        RoomDTO roomDto = new RoomDTO();
+        roomDto.setDescription("Test");
+        roomDto.setFloor(2);
+        roomDto.setWidth(2);
+        roomDto.setHeight(3);
+        roomDto.setHouseId("ISEP");
+        roomDto.setName("B107");
+        roomDto.setLength(3);
+        Mockito.doReturn(true).when(energyGridRepository).attachRoomToGrid(roomDto, "B building");
+        Mockito.doReturn(true).when(roomRepository).findRoomByIdPresent("B107");
+        //Act
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.attachRoomToGrid(roomDto, "B building");
+        //Assert
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+    }
+
+    @Test
+    public void seeIfAttachRoomToGridPostHTTPStatusConflict() {
+        //Arrange
+        RoomDTO roomDto = new RoomDTO();
+        roomDto.setDescription("Test");
+        roomDto.setFloor(2);
+        roomDto.setWidth(2);
+        roomDto.setHeight(3);
+        roomDto.setHouseId("ISEP");
+        roomDto.setName("B107");
+        roomDto.setLength(3);
+        Mockito.doReturn(false).when(energyGridRepository).attachRoomToGrid(roomDto, "B building");
+        Mockito.doReturn(true).when(roomRepository).findRoomByIdPresent("B107");
+        //Act
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.attachRoomToGrid(roomDto, "B building");
+        //Assert
+        assertEquals(HttpStatus.CONFLICT, actualResult.getStatusCode());
+    }
+
+    @Test
+    public void seeIfAttachRoomToGridPostHttpStatusNotFoundGridId() {
+        //Arrange
+        RoomDTO roomDto = new RoomDTO();
+        roomDto.setDescription("Test");
+        roomDto.setFloor(2);
+        roomDto.setWidth(2);
+        roomDto.setHeight(3);
+        roomDto.setHouseId("ISEP");
+        roomDto.setName("B107");
+        roomDto.setLength(3);
+        Mockito.doReturn(true).when(roomRepository).findRoomByIdPresent("B107");
+        Mockito.doThrow(NoSuchElementException.class).when(energyGridRepository).attachRoomToGrid(roomDto, "B building");
+        //Act
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.attachRoomToGrid(roomDto, "B building");
+        //Assert
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+    }
+
+    @Test
+    public void seeIfAttachRoomToGridPostHttpStatusNotFoundRoomId() {
+        //Arrange
+        RoomDTO roomDto = new RoomDTO();
+        roomDto.setDescription("Test");
+        roomDto.setFloor(2);
+        roomDto.setWidth(2);
+        roomDto.setHeight(3);
+        roomDto.setHouseId("ISEP");
+        roomDto.setName("B107");
+        roomDto.setLength(3);
+        Mockito.doReturn(false).when(roomRepository).findRoomByIdPresent("B107");
+        //Act
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.attachRoomToGrid(roomDto, "B building");
+        //Assert
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
     }
 
     @Test
@@ -169,7 +268,7 @@ public class EnergyGridSettingsWebControllerTest {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
-        Mockito.doReturn(true).when(energyGridRepository).removeRoomFromGrid(any(String.class),any(String.class));
+        Mockito.doReturn(true).when(energyGridRepository).removeRoomFromGrid(any(String.class), any(String.class));
 
         this.mockMvc.perform(delete("/gridSettings/grids/B building")
                 .contentType(MediaType.TEXT_PLAIN)
