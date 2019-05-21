@@ -36,7 +36,7 @@ public class GASettingsWebController {
     /**
      * this method displays all the information of the Geographic Areas DTOs
      *
-     * @return
+     * @return all geographic areas
      */
     @GetMapping("/areas")
     public List<GeographicAreaDTO> getAllGeographicAreas() {
@@ -45,13 +45,13 @@ public class GASettingsWebController {
 
 
     /**
-     * US007 WEB controller: Insert a daughter Area in a mother Area
-     *
-     * @param idAreaMother   sensor id
-     * @return ok status if the area sensor exists
+     * Add daughter area to a mother area
+     * @param idAreaDaughter of the geoArea to be added
+     * @param idAreaMother of the geoArea with the daughter area
+     * @return string with info if geoArea was added or not
      */
     @PutMapping("areas/{idMother}")
-    public ResponseEntity<Object> getDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
+    public ResponseEntity<Object> addDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
         GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
         if (geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter)) {
@@ -62,7 +62,11 @@ public class GASettingsWebController {
                 " invalid Area.", HttpStatus.CONFLICT);
     }
 
-
+    /**
+     * Get daughter areas from an geo area
+     * @param id mother area id
+     * @return list of daughter areas on a mother area
+     */
     @GetMapping("areas/{id}/daughter")
     public List<GeographicAreaDTO> getDaughterAreas(@PathVariable("id") long id) {
         return geographicAreaRepo.getDTOByIdWithMother(id).getDaughterAreas();

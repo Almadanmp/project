@@ -100,7 +100,11 @@ public class GeographicAreaRepository {
 
     public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
         GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
-        return geographicAreaCrudRepo.save(area) != null;
+        if (geographicAreaCrudRepo.findAll().contains(area)) {
+            geographicAreaCrudRepo.save(area);
+            return true;
+        }
+        return false;
     }
 
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
@@ -119,7 +123,7 @@ public class GeographicAreaRepository {
     }
 
     public boolean deactivateSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
-        if(geographicAreaDTO.removeSensor(areaSensorDTO.getId())){
+        if (geographicAreaDTO.removeSensor(areaSensorDTO.getId())) {
             areaSensorDTO.setActive(false);
             geographicAreaDTO.addSensor(areaSensorDTO);
             return true;
@@ -151,8 +155,8 @@ public class GeographicAreaRepository {
         return false;
     }
 
-    public GeographicArea updateGeoArea(GeographicArea area) {
-        return geographicAreaCrudRepo.save(area);
+    public void updateGeoArea(GeographicArea area) {
+        geographicAreaCrudRepo.save(area);
     }
 
     /**
