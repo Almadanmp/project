@@ -59,7 +59,6 @@ class GeographicAreaMapperTest {
         validAreaSensorDTO.setLongitude(4);
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
-        validAreaSensorDTO.setGeographicAreaID(2L);
 
        SensorType validSensorTypeTemperature = new SensorType("Temperature", "Cº");
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), validDate1);
@@ -194,7 +193,7 @@ class GeographicAreaMapperTest {
 //        // Assert
 //
 //        assertEquals(validAreaObject, actualResult);
-//        Long.compare(actualResult.getId(), 6008L);
+//        Long.compare(actualResult.getSensorId(), 6008L);
 //    }
 
     @Test

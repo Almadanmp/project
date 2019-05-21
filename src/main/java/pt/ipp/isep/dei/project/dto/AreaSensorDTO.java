@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class AreaSensorDTO {
+public class AreaSensorDTO extends ResourceSupport {
 
-    private String id;
+    private String sensorId;
     private String name;
     private String typeSensor;
     private String units;
@@ -16,7 +18,6 @@ public class AreaSensorDTO {
     private String dateStartedFunctioning;
     private boolean active;
     private List<ReadingDTO> readingDTOS;
-    private Long geographicAreaID;
 
     public AreaSensorDTO() {
         readingDTOS = new ArrayList<>();
@@ -28,8 +29,8 @@ public class AreaSensorDTO {
      * @return is the DTO's id.
      */
 
-    public String getId() {
-        return id;
+    public String getSensorId() {
+        return sensorId;
     }
 
     /**
@@ -39,7 +40,7 @@ public class AreaSensorDTO {
      */
 
     public void setId(String id) {
-        this.id = id;
+        this.sensorId = id;
     }
 
     public LocalDTO getLocalDTO() {
@@ -151,27 +152,6 @@ public class AreaSensorDTO {
     }
 
     /**
-     * Method that retrieves the DTO's geographical area ID as a string.
-     *
-     * @return is the DTO's geographical area annotation.
-     */
-
-    public Long getGeographicAreaID() {
-        return geographicAreaID;
-    }
-
-    /**
-     * Method that stores a String as the DTO's geographicarea annotation.
-     *
-     * @param geographicAreaID is the string we want to store.
-     */
-
-    public void setGeographicAreaID(Long geographicAreaID) {
-        this.geographicAreaID = geographicAreaID;
-    }
-
-
-    /**
      * Method that retrieves the DTO's type's name as a string.
      *
      * @return is a string that corresponds to the name of the type of the DTO.
@@ -235,7 +215,7 @@ public class AreaSensorDTO {
             return false;
         }
         AreaSensorDTO localVariable = (AreaSensorDTO) testDTO;
-        return (localVariable.getId().equals(this.id) && localVariable.getName().equals(this.name));
+        return (localVariable.getSensorId().equals(this.sensorId) && localVariable.getName().equals(this.name));
     }
 
     @Override

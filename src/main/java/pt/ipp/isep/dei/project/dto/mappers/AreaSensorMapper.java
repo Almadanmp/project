@@ -30,7 +30,7 @@ public final class AreaSensorMapper {
     public static AreaSensor dtoToObject(AreaSensorDTO dtoToConvert) {
         // Update id
 
-        String objectID = dtoToConvert.getId();
+        String objectID = dtoToConvert.getSensorId();
 
         // Update name
 
@@ -143,7 +143,7 @@ public final class AreaSensorMapper {
         List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
         for (AreaSensorDTO dto : areaSensorDTOS) {
             LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
-            entity.put("Id", dto.getId());
+            entity.put("Id", dto.getSensorId());
             entity.put("Name", dto.getName());
             entities.add(entity);
         }
@@ -154,7 +154,7 @@ public final class AreaSensorMapper {
         List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
         for (AreaSensorDTO dto : areaSensorDTOS) {
             LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
-            entity.put("Id", dto.getId());
+            entity.put("Id", dto.getSensorId());
             entity.put("Name", dto.getName());
             entity.put("Units", dto.getUnits());
             entity.put("Date of Creation", dto.getDateStartedFunctioning());

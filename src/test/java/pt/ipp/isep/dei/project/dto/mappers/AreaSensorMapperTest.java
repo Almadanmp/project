@@ -46,7 +46,6 @@ class AreaSensorMapperTest {
         validAreaSensorDTO.setLongitude(4);
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("11/02/2018 10:00:00");
-        validAreaSensorDTO.setGeographicAreaID(2L);
 
         ReadingDTO readingDTO = new ReadingDTO();
         readingDTO.setSensorId("SensorID");

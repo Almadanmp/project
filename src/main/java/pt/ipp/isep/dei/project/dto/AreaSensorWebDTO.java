@@ -38,7 +38,7 @@ public class AreaSensorWebDTO {
         if (!(testDTO instanceof AreaSensorDTO)) {
             return false;
         }
-        AreaSensorDTO localVariable = (AreaSensorDTO) testDTO;
+        AreaSensorWebDTO localVariable = (AreaSensorWebDTO) testDTO;
         return (localVariable.getId().equals(this.id) && localVariable.getName().equals(this.name));
     }
 

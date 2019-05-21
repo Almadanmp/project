@@ -36,7 +36,6 @@ class AreaAreaSensorDTOTest {
         validAreaSensorDTO.setLongitude(4);
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
-        validAreaSensorDTO.setGeographicAreaID(2L);
     }
 
     @Test
@@ -96,17 +95,6 @@ class AreaAreaSensorDTOTest {
         //Assert
 
         assertEquals(4D, actualResult, 0.01);
-    }
-
-    @Test
-    void seeIfGetGAIDWorks() {
-        //Act
-
-        double actualResult = validAreaSensorDTO.getGeographicAreaID();
-
-        //Assert
-
-        assertEquals(2L, actualResult, 0.01);
     }
 
     @Test

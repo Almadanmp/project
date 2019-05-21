@@ -123,7 +123,7 @@ public class GeographicAreaRepository {
     }
 
     public boolean deactivateSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
-        if (geographicAreaDTO.removeSensor(areaSensorDTO.getId())) {
+        if (geographicAreaDTO.removeSensor(areaSensorDTO.getSensorId())) {
             areaSensorDTO.setActive(false);
             geographicAreaDTO.addSensor(areaSensorDTO);
             return true;
@@ -216,7 +216,7 @@ public class GeographicAreaRepository {
     public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea) {
         GeographicAreaDTO geographicArea = getDTOById(idArea);
         for (AreaSensorDTO as : geographicArea.getSensors()) {
-            String asString = as.getId();
+            String asString = as.getSensorId();
             if (asString.equals(idSensor)) {
                 return as;
             }

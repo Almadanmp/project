@@ -732,7 +732,7 @@ class GeographicAreaRepositoryTest {
 
         // Act
 
-        boolean actualResult = geographicAreaRepository.removeSensorDTO(validDTO, validAreaSensorDTO.getId());
+        boolean actualResult = geographicAreaRepository.removeSensorDTO(validDTO, validAreaSensorDTO.getSensorId());
 
         // Assert
         assertTrue(actualResult);
@@ -800,7 +800,7 @@ class GeographicAreaRepositoryTest {
 //
 //        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
 //        area.setId(25L);
-//        area.setDaughterAreas(firstValidArea.getId());
+//        area.setDaughterAreas(firstValidArea.getSensorId());
 //        firstValidArea.setId(23L);
 //        GeographicAreaDTO geographicAreaDTO =GeographicAreaMapper.objectToDTO(firstValidArea);
 //        Optional<GeographicArea> opt = Optional.of(area);

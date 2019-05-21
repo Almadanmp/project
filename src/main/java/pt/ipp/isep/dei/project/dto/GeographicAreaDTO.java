@@ -224,7 +224,7 @@ public class GeographicAreaDTO {
 
     public boolean removeSensor(String areaSensorID) {
         for (AreaSensorDTO s : areaSensorDTOList) {
-            if (s.getId().equals(areaSensorID)) {
+            if (s.getSensorId().equals(areaSensorID)) {
                 this.areaSensorDTOList.remove(s);
                 return true;
             }

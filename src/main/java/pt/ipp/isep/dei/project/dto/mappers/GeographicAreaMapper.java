@@ -268,7 +268,7 @@ public final class GeographicAreaMapper {
 //        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
 //        for (GeographicAreaDTO dto : geographicAreaDTOList) {
 //            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
-//            entity.put("Id", dto.getId());
+//            entity.put("Id", dto.getSensorId());
 //            entity.put("Name", dto.getName());
 //            entity.put("Description", dto.getDescription());
 //            entity.put("Sensors", AreaSensorMapper.controllerAreaSensorDTOToList(dto.getSensors()));

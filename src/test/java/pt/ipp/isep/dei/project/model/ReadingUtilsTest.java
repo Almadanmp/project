@@ -542,7 +542,7 @@ class ReadingUtilsTest {
 //    void seeIfAddAreaReadingToRepositoryWorksWhenSensorDoesNotExist() {
 //        // Arrange
 //
-//        String sensorId = firstValidAreaSensor.getId();
+//        String sensorId = firstValidAreaSensor.getSensorId();
 //        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
 //
 //        // Act
@@ -558,7 +558,7 @@ class ReadingUtilsTest {
 //    void seeIfAddAreaReadingToRepositoryWorksWhenSensorWasNotActiveDuringRead() {
 //        // Arrange
 //
-//        String sensorId = firstValidAreaSensor.getId();
+//        String sensorId = firstValidAreaSensor.getSensorId();
 //        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
 //
 //        // Act
@@ -574,9 +574,9 @@ class ReadingUtilsTest {
 //    void seeIfAddAreaReadingToRepositoryWorksWhenReadingAlreadyExists() {
 //        // Arrange
 //
-//        Reading reading = new Reading(2D, validDate1, "C", firstValidAreaSensor.getId());
-//        Mockito.when(areaSensorRepository.findById(firstValidAreaSensor.getId())).thenReturn(Optional.of(firstValidAreaSensor));
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, firstValidAreaSensor.getId())).thenReturn((reading));
+//        Reading reading = new Reading(2D, validDate1, "C", firstValidAreaSensor.getSensorId());
+//        Mockito.when(areaSensorRepository.findById(firstValidAreaSensor.getSensorId())).thenReturn(Optional.of(firstValidAreaSensor));
+//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, firstValidAreaSensor.getSensorId())).thenReturn((reading));
 //
 //        // Act
 //
@@ -591,8 +591,8 @@ class ReadingUtilsTest {
 //    void seeIfAddAreaReadingToRepositoryWorks() {
 //        // Arrange
 //
-//        Mockito.when(areaSensorRepository.findById(firstValidAreaSensor.getId())).thenReturn(Optional.of(firstValidAreaSensor));
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, firstValidAreaSensor.getId())).thenReturn((null));
+//        Mockito.when(areaSensorRepository.findById(firstValidAreaSensor.getSensorId())).thenReturn(Optional.of(firstValidAreaSensor));
+//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, firstValidAreaSensor.getSensorId())).thenReturn((null));
 //
 //        // Act
 //

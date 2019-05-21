@@ -110,10 +110,6 @@ class ReaderJSONGeographicAreasTest {
 
         GeographicArea areaOne = GeographicAreaMapper.dtoToObject(firstArea);
         GeographicArea areaTwo = GeographicAreaMapper.dtoToObject(secondArea);
-        firstAreaFirstSensor.setGeographicAreaID(areaOne.getId());
-        firstAreaSecondSensor.setGeographicAreaID(areaOne.getId());
-        secondAreaFirstSensor.setGeographicAreaID(areaTwo.getId());
-        secondAreaSecondSensor.setGeographicAreaID(areaTwo.getId());
 
         AreaType city = new AreaType("city");
         AreaType urbanArea = new AreaType("urban area");
@@ -214,9 +210,7 @@ class ReaderJSONGeographicAreasTest {
 
         GeographicArea areaOne = GeographicAreaMapper.dtoToObject(firstArea);
         GeographicArea areaTwo = GeographicAreaMapper.dtoToObject(secondArea);
-        firstAreaFirstSensor.setGeographicAreaID(areaOne.getId());
-        secondAreaFirstSensor.setGeographicAreaID(areaTwo.getId());
-        secondAreaSecondSensor.setGeographicAreaID(areaTwo.getId());
+
 
         //Act
         Mockito.doReturn(new AreaType(urbanAreaString)).when(areaTypeRepository).getAreaTypeByName(urbanAreaString);

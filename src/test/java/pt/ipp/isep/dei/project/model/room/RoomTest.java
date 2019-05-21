@@ -673,7 +673,7 @@ class RoomTest {
 //                180, deviceTypeString);
 //
 //        //Room
-//        Room room = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, house.getId(), "Grid1");
+//        Room room = new Room("Bedroom", "Double Bedroom", 2, 30, 40, 10, house.getSensorId(), "Grid1");
 //
 //        //MotherArea
 //        GeographicArea geoArea = new GeographicArea("Europe", new AreaType("Continent"), 3500, 3000,
@@ -683,7 +683,7 @@ class RoomTest {
 //
 //
 //        //RoomSensor
-//        RoomSensor roomSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), room.getId());
+//        RoomSensor roomSensor = new RoomSensor("T23875", "tempOne", new SensorType("temperature", "Celsius"), new Date(), room.getSensorId());
 //        roomSensor.setActive(true);
 //        roomSensor.setReadings(readings);
 //
@@ -725,15 +725,15 @@ class RoomTest {
 //        SensorType sensorType = new SensorType("temperature", "Celsius");
 //        roomSensor.setSensorType(sensorType);
 //        roomSensor.setReadings(readings);
-//        roomSensor.setRoomId(validRoom.getId());
+//        roomSensor.setRoomId(validRoom.getSensorId());
 //
 //        List<RoomSensor> roomSensors = new ArrayList<>();
 //        roomSensors.add(roomSensor);
 //        validRoom.setRoomSensors(roomSensors);
 //
-//        reading1.setSensorID(roomSensor.getId());
-//        reading2.setSensorID(roomSensor.getId());
-//        reading3.setSensorID(roomSensor.getId());
+//        reading1.setSensorID(roomSensor.getSensorId());
+//        reading2.setSensorID(roomSensor.getSensorId());
+//        reading3.setSensorID(roomSensor.getSensorId());
 //
 //
 //        List<Reading> expectedResult = new ArrayList<>();
@@ -783,15 +783,15 @@ class RoomTest {
 //        SensorType sensorType = new SensorType("temperature", "Celsius");
 //        roomSensor.setSensorType(sensorType);
 //        roomSensor.setReadings(readings);
-//        roomSensor.setRoomId(validRoom.getId());
+//        roomSensor.setRoomId(validRoom.getSensorId());
 //
 //        List<RoomSensor> roomSensors = new ArrayList<>();
 //        roomSensors.add(roomSensor);
 //        validRoom.setRoomSensors(roomSensors);
 //
-//        reading1.setSensorID(roomSensor.getId());
-//        reading2.setSensorID(roomSensor.getId());
-//        reading3.setSensorID(roomSensor.getId());
+//        reading1.setSensorID(roomSensor.getSensorId());
+//        reading2.setSensorID(roomSensor.getSensorId());
+//        reading3.setSensorID(roomSensor.getSensorId());
 //
 //
 //        List<Reading> expectedResult = new ArrayList<>();
@@ -840,15 +840,15 @@ class RoomTest {
 //        SensorType sensorType = new SensorType("temperature", "Celsius");
 //        roomSensor.setSensorType(sensorType);
 //        roomSensor.setReadings(readings);
-//        roomSensor.setRoomId(validRoom.getId());
+//        roomSensor.setRoomId(validRoom.getSensorId());
 //
 //        List<RoomSensor> roomSensors = new ArrayList<>();
 //        roomSensors.add(roomSensor);
 //        validRoom.setRoomSensors(roomSensors);
 //
-//        reading1.setSensorID(roomSensor.getId());
-//        reading2.setSensorID(roomSensor.getId());
-//        reading3.setSensorID(roomSensor.getId());
+//        reading1.setSensorID(roomSensor.getSensorId());
+//        reading2.setSensorID(roomSensor.getSensorId());
+//        reading3.setSensorID(roomSensor.getSensorId());
 //
 //
 //        List<Reading> expectedResult = new ArrayList<>();

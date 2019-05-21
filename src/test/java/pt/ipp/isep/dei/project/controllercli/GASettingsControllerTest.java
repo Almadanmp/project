@@ -327,7 +327,7 @@ class GASettingsControllerTest {
 //    void seeIfSetMotherAreaWorks() {
 //        // Act
 //
-//        boolean actualResult = controller.addDaughterArea(firstValidArea, secondValidArea.getId());
+//        boolean actualResult = controller.addDaughterArea(firstValidArea, secondValidArea.getSensorId());
 //
 //        // Assert
 //
@@ -351,7 +351,7 @@ class GASettingsControllerTest {
 //    void seeIfItsContained() {
 //        // Arrange
 //
-//        firstValidArea.setDaughterAreas(secondValidArea.getId());
+//        firstValidArea.setDaughterAreas(secondValidArea.getSensorId());
 //
 //        // Act
 //
@@ -368,8 +368,8 @@ class GASettingsControllerTest {
 //
 //        GeographicArea grandDaughterGA = new GeographicArea("Porto", "Country",
 //                2, 4, new Local(21, 33, 5));
-//        grandDaughterGA.setDaughterAreas(secondValidArea.getId());
-//        secondValidArea.setDaughterAreas(firstValidArea.getId());
+//        grandDaughterGA.setDaughterAreas(secondValidArea.getSensorId());
+//        secondValidArea.setDaughterAreas(firstValidArea.getSensorId());
 //
 //        // Act
 //
@@ -385,8 +385,8 @@ class GASettingsControllerTest {
 //        // Arrange
 //
 //        GeographicArea grandDaughterGA = new GeographicArea("Oporto", "Country", 2, 4, new Local(21, 33, 5));
-//        grandDaughterGA.setDaughterAreas(secondValidArea.getId());
-//        secondValidArea.setDaughterAreas(firstValidArea.getId());
+//        grandDaughterGA.setDaughterAreas(secondValidArea.getSensorId());
+//        secondValidArea.setDaughterAreas(firstValidArea.getSensorId());
 //
 //        // Act
 //

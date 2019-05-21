@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +58,11 @@ public class SensorSettingsWebController {
     public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
                                                           @PathVariable long id) {
         GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(id);
-        if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
-            geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
+                geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
+            Link link = ControllerLinkBuilder.linkTo(SensorSettingsWebController.class).slash(removeAreaSensor(id,areaSensorDTO.getSensorId())).withRel("Undo");
+            areaSensorDTO.add(link);
+            return new ResponseEntity<>(areaSensorDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
@@ -94,7 +98,6 @@ public class SensorSettingsWebController {
     @DeleteMapping(value = "/areas/{id}/sensors/{id2}")
     public ResponseEntity<String> removeAreaSensor(@PathVariable long id, @PathVariable String id2) {
         GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
-
         if (geographicAreaRepository.removeSensorDTO(geoArea, id2)) {
             geographicAreaRepository.updateAreaDTO(geoArea);
             return new ResponseEntity<>("Sensor was removed successfully from geographic area", HttpStatus.OK);
@@ -119,14 +122,14 @@ public class SensorSettingsWebController {
 // CODE TO TEST ON POSTMAN
 /*
 {
-        "id": "Teste2",
-        "name": "Mae estou na BD",
+        "sensorId": "macaco",
+        "name": "macaco",
         "typeSensor": "temperature",
         "units": "mm",
         "latitude": 6,
         "longitude": 6,
         "altitude": 6,
-        "dateStartedFunctioning": "2018-10-12"
+        "dateStartedFunctioning": "2018-10-11"
         }
 */
 
