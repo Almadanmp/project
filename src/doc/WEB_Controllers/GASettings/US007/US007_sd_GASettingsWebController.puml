@@ -1,0 +1,62 @@
+@startuml
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor snow
+skinparam FontName quicksand
+
+skinparam actor {
+ 	BorderColor indianred
+ 	backgroundColor Snow
+ 	}
+
+ skinparam sequence {
+ 	LifeLineBackgroundColor indianred
+ 	ParticipantBackgroundColor snow
+}
+
+ skinparam roundcorner 10
+
+ skinparam component {
+   arrowThickness 1
+   ArrowFontName Verdana
+   ArrowColor indianred
+   ArrowFontColor darkslategrey
+ }
+title US 011 - As as Administrator I want to remove a sensor so that it will no longer be used.
+
+actor "Admin"
+activate "Admin"
+"Admin" -> "GASettingsWebController":  Put "...areas/{idMother}": addDaughterArea(Long motherAreaID, Long daughterAreaID)
+activate "GASettingsWebController"
+"GASettingsWebController" -> "GeographicAreaRepository": getDTOByIdWithMother(Long motherAreaID)
+activate "GeographicAreaRepository"
+"GeographicAreaRepository" --> "GASettingsWebController": return GeographicAreaDTO
+deactivate "GeographicAreaRepository"
+
+"GASettingsWebController" -> "GeographicAreaRepository": getDTOByIdWithMother(Long daughterAreaID)
+activate "GeographicAreaRepository"
+"GeographicAreaRepository" --> "GASettingsWebController": return GeographicAreaDTO
+deactivate "GeographicAreaRepository"
+"GASettingsWebController" -> "GeographicAreaDTO": addDaughter(GeographicAreaDTO geoAreaDTO)
+activate "GeographicAreaDTO"
+"GeographicAreaDTO" --> "GASettingsWebController": return true
+deactivate "GeographicAreaDTO"
+"GASettingsWebController" -> "GeographicAreaRepository": updateAreaDTOWithMother(GeographicAreaDTO)
+activate "GeographicAreaRepository"
+"GeographicAreaRepository" -> "GeographicAreaMapper": dtoToObjectWithMother(areaDTO)
+activate "GeographicAreaMapper"
+"GeographicAreaMapper" --> "GeographicAreaRepository": return GeographicArea
+deactivate "GeographicAreaMapper"
+"GeographicAreaRepository" --> "GeographicAreaRepository": save(area)
+deactivate "GeographicAreaRepository"
+
+alt if geographic area is added
+"GASettingsWebController" -> "Admin": new ResponseEntity<>(success message, HttpStatus.OK)
+else if geographic area is not added
+"GASettingsWebController" -> "Admin": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
+deactivate "GASettingsWebController"
+deactivate "Admin"
+end
+
+@enduml
