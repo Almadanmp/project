@@ -6,12 +6,12 @@ skinparam titleBackgroundColor ivory
 skinparam FontName quicksand
 
 skinparam actor {
- 	BorderColor indianred
- 	}
+   BorderColor indianred
+   }
 
  skinparam sequence {
- 	LifeLineBackgroundColor indianred
- 	ParticipantBackgroundColor ivory
+   LifeLineBackgroundColor indianred
+   ParticipantBackgroundColor ivory
 }
 
  skinparam roundcorner 10
@@ -39,9 +39,9 @@ deactivate "HouseMapper"
 "HouseConfigurationWebController" -> ":houseDTOWithoutGrids":setAddressAndLocalToDTOWithout\nGrids(addressAndLocalDTO)
 "HouseConfigurationWebController" -> "HouseRepository": updateHouseDTO(:houseDTOWithoutGrids)
 deactivate "HouseRepository"
-alt if house is saved
+alt if house is updated
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message,\n HttpStatus.OK)
-else if house is NOT saved
+else if house is NOT updated
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message,\n HttpStatus.NOT_ACCEPTABLE)
 
 deactivate "Http Client"
