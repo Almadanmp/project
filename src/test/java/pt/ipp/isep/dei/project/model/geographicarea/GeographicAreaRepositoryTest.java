@@ -923,19 +923,4 @@ class GeographicAreaRepositoryTest {
         assertTrue(actualResult);
 
     }
-
-    @Test
-    void seeIfGetAllSensorsOfCertainType() {
-
-        firstValidArea.addSensor(firstValidAreaSensor);
-        firstValidArea.addSensor(secondValidAreaSensor);
-        List<AreaSensor> expectedResult = new ArrayList<>();
-        expectedResult.add(validAreaSensor);
-        expectedResult.add(secondValidAreaSensor);
-
-        Mockito.when(geographicAreaCrudRepo.findAllByAreaSensorsInAndAreaTypeID(firstValidArea, "temperature")).thenReturn(expectedResult);
-        List<AreaSensor> actualResult = geographicAreaRepository.findSensorByGAAndType(firstValidArea, "temperature");
-        assertEquals(expectedResult, actualResult);
-    }
-
 }

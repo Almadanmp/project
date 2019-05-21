@@ -361,8 +361,4 @@ public class GeographicAreaRepository {
         }
         return addedReadings;
     }
-
-    List<AreaSensor> findSensorByGAAndType(GeographicArea geographicArea, String sensorType) {
-        return geographicAreaCrudRepo.findAllByAreaSensorsInAndAreaTypeID(geographicArea, sensorType);
-    }
 }
