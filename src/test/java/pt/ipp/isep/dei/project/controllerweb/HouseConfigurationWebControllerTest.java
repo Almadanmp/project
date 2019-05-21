@@ -17,14 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.core.IsInstanceOf.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,7 +33,6 @@ import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -102,30 +95,6 @@ public class HouseConfigurationWebControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    public void seeIfCreateRoomWorksWithMvc() throws Exception {
-//        //Arrange
-//        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
-//                "4455-125", "Porto", "Portugal"),
-//                new Local(20, 20, 20), 60,
-//                180, new ArrayList<>());
-//        List<House> houseList = new ArrayList<>();
-//        houseList.add(validHouse);
-//
-//        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
-//        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(true);
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(roomDTOWeb);
-//
-//        //Act
-//
-//        this.mockMvc.perform(post("/houseSettings/room")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestJson))
-//                .andExpect(status().isOk());
-//    }
-
     @Test
     public void seeIfCreateRoomWorksWithMvc() throws Exception {
         //Arrange
@@ -141,33 +110,6 @@ public class HouseConfigurationWebControllerTest {
                 .content(requestJson))
                 .andExpect(status().isOk());
     }
-
-//    @Test
-//    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
-//        //Arrange
-//        House validHouse = new House("01", new Address("Rua Dr. António Bernardino de Almeida", "431",
-//                "4455-125", "Porto", "Portugal"),
-//                new Local(20, 20, 20), 60,
-//                180, new ArrayList<>());
-//        List<House> houseList = new ArrayList<>();
-//        houseList.add(validHouse);
-//
-//        List<Room> roomList = new ArrayList<>();
-//        roomList.add(room);
-//
-//        Mockito.when(houseRepository.getHouseId()).thenReturn(validHouse.getId());
-//        Mockito.when(roomRepository.addRoomToCrudRepository(room)).thenReturn(false);
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(roomDTOWeb);
-//
-//        //Act
-//
-//        this.mockMvc.perform(post("/houseSettings/room")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestJson))
-//                .andExpect(status().isConflict());
-//    }
 
     @Test
     public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
