@@ -51,6 +51,7 @@ public class HouseConfigurationWebControllerTest {
     HouseRepository houseRepository;
     @Mock
     HouseCrudRepo houseCrudRepo;
+
     @InjectMocks
     private HouseConfigurationWebController webController;
 
@@ -65,6 +66,7 @@ public class HouseConfigurationWebControllerTest {
         roomDTOWeb.setFloor(1);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
+
     }
 
     @Test

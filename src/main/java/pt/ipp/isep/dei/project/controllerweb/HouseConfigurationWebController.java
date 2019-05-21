@@ -14,7 +14,6 @@ import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.List;
 

@@ -40,6 +40,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 class ReaderControllerTest {
 
+    private static final String validLogPath = "dumpFiles/dumpLogFile.html";
+    private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log"; //Não apagar p.f.
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
+    private final InputStream systemIn = System.in;
+    private final PrintStream systemOut = System.out;
     // Common artifacts for testing in this class.
     @Mock
     private EnergyGridRepository energyGridRepository;
@@ -49,20 +54,11 @@ class ReaderControllerTest {
     private RoomSensor validRoomSensor1;
     @Mock
     private RoomRepository roomRepository;
-
     private SensorType validSensorTypeTemp;
     @Mock
     private HouseCrudRepo houseCrudRepo;
-
-
-    private static final String validLogPath = "dumpFiles/dumpLogFile.html";
-    private static final String invalidLogPath = "./resoursagfdgs/logs/logOut.log"; //Não apagar p.f.
-
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
-
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
-
     @InjectMocks
     private ReaderController readerController;
 
@@ -79,9 +75,6 @@ class ReaderControllerTest {
         validSensorTypeTemp = new SensorType("Temperature", "C");
         validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", validSensorTypeTemp.getName(), validDate1);
     }
-
-    private final InputStream systemIn = System.in;
-    private final PrintStream systemOut = System.out;
 
     @BeforeEach
     void setUpOutput() {

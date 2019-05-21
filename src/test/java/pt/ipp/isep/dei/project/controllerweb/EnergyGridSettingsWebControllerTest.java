@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.controllerweb;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -12,21 +12,21 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
-@ExtendWith(MockitoExtension.class)
 public class EnergyGridSettingsWebControllerTest {
 
     @Autowired
@@ -36,7 +36,7 @@ public class EnergyGridSettingsWebControllerTest {
     private EnergyGridSettingsWebController energyGridSettingsWebController;
 
     @BeforeEach
-    void setData(){
+    void setData() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -84,7 +84,7 @@ public class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfDetachRoomFromGridWorksInvalid() throws Exception{
+    public void seeIfDetachRoomFromGridWorksInvalid() throws Exception {
         // Arrange
 
         String URI = "/gridSettings/grids/B%20Building";
@@ -92,7 +92,7 @@ public class EnergyGridSettingsWebControllerTest {
         // Act
 
         MvcResult actualResult = this.mockMvc.perform(MockMvcRequestBuilders.delete(URI).accept(MediaType.APPLICATION_JSON))
-        .andReturn();
+                .andReturn();
         int status = actualResult.getResponse().getStatus();
 
         // Assert
