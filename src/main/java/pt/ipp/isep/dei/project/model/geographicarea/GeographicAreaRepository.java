@@ -98,11 +98,6 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public boolean updateAreaDTOB(GeographicAreaDTO areaDTO) {
-        GeographicArea area = GeographicAreaMapper.dtoToObject(areaDTO);
-        return geographicAreaCrudRepo.save(area) != null;
-    }
-
     public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
         GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
         return geographicAreaCrudRepo.save(area) != null;

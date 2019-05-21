@@ -109,7 +109,7 @@ public class SensorSettingsWebController {
         GeographicAreaDTO geoArea = geographicAreaRepository.getDTOById(id);
 
         boolean removed = geographicAreaRepository.removeSensorDTO(geoArea, id2);
-        geographicAreaRepository.updateAreaDTOB(geoArea);
+        geographicAreaRepository.updateAreaDTO(geoArea);
 
         if (removed) {
             return new ResponseEntity<>("Sensor was removed successfully from geographic area", HttpStatus.OK);
