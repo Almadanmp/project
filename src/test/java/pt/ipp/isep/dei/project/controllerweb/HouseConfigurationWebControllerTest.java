@@ -20,8 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
@@ -34,8 +33,10 @@ import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -54,6 +55,8 @@ public class HouseConfigurationWebControllerTest {
     HouseRoomService houseRoomService;
     @Mock
     HouseRepository houseRepository;
+    @Mock
+    RoomRepository roomRepository;
     @InjectMocks
     private HouseConfigurationWebController webController;
 
@@ -149,6 +152,57 @@ public class HouseConfigurationWebControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void seeIfCreateRoomWorksWithMvcWhenRoomDTOIsInvalid() throws Exception {
+        //Arrange
+
+        RoomDTOWeb invalidDTO = new RoomDTOWeb();
+        invalidDTO.setHeight(2D);
+        invalidDTO.setLength(0.0D);
+        invalidDTO.setWidth(4D);
+        invalidDTO.setName("InvalidRoom");
+        invalidDTO.setFloor(1);
+
+        //Arrange
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(invalidDTO);
+
+        //Act
+
+        this.mockMvc.perform(post("/houseSettings/room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void seeIfGetHouseRoomsWorks() throws Exception {
+        //Arrange
+
+        RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
+        roomDTOWeb2.setHeight(2D);
+        roomDTOWeb2.setLength(4D);
+        roomDTOWeb2.setWidth(4D);
+        roomDTOWeb2.setName("roomDTOWeb2");
+        roomDTOWeb2.setFloor(1);
+
+        List<RoomDTOWeb> expectedResult =  new ArrayList<>();
+        expectedResult.add(roomDTOWeb);
+        expectedResult.add(roomDTOWeb2);
+
+        Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomWebDTOs();
+
+        //Arrange
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(expectedResult);
+
+        //Act
+
+        this.mockMvc.perform(get("/houseSettings/houseRooms").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andExpect(status().isOk()).andReturn();
     }
 
     @Test
