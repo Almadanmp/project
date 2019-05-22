@@ -1,25 +1,32 @@
 @startuml
 
 title US 101 - As an Administrator, I want to configure the location of the house.
+
 skinparam titleBorderRoundCorner 10
-skinparam titleBorderThickness 2
+skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor Snow
+skinparam titleBackgroundColor snow
 skinparam FontName quicksand
-skinparam titleFontSize 10
+
+skinparam actor {
+  BorderColor indianred
+  backgroundColor Snow
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor snow
+}
+
 skinparam roundcorner 10
 
-
-skinparam class {
-  BorderColor indianred
-  BackgroundColor indianred
-  BackgroundColor Snow
-   roundcorner 10
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
-   FontSize 12
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
 }
+
 
 class GASettingsWebController
 class GeographicAreaRepository
@@ -43,16 +50,16 @@ class GASettingsWebController {
 }
 
 class GeographicAreaMapper{
--dtoToObject(GeographicAreaDTO)
+- dtoToObject(GeographicAreaDTO)
 }
 
 class GeographicAreaRepository {
--addAndPersistDTO(GeographicAreaDTO)
+- addAndPersistDTO(GeographicAreaDTO)
 }
 
 
 class GeographicAreaCrudRepository{
--save(House)
+- save(House)
 }
 
 @enduml

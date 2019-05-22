@@ -36,11 +36,11 @@ public class GASettingsWebController {
     /**
      * this method displays all the information of the Geographic Areas DTOs
      *
-     * @return all geographic areas
+     * @return ResponseEntity with all the geographic areas
      */
     @GetMapping("/areas")
-    public List<GeographicAreaDTO> getAllGeographicAreas() {
-        return geographicAreaRepo.getAllDTO();
+    public ResponseEntity<Object> getAllGeographicAreas() {
+        return new ResponseEntity<>(geographicAreaRepo.getAllDTO(), HttpStatus.OK);
     }
 
 

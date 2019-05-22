@@ -1,4 +1,5 @@
 @startuml
+
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
@@ -6,23 +7,24 @@ skinparam titleBackgroundColor snow
 skinparam FontName quicksand
 
 skinparam actor {
- 	BorderColor indianred
- 	backgroundColor Snow
- 	}
+  BorderColor indianred
+  backgroundColor Snow
+  }
 
- skinparam sequence {
- 	LifeLineBackgroundColor indianred
- 	ParticipantBackgroundColor snow
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor snow
 }
 
- skinparam roundcorner 10
+skinparam roundcorner 10
 
- skinparam component {
-   arrowThickness 1
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
- }
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
 title US003 - As an Administrator, I want to create a new Geographic Area
 
 actor "Http Client"
@@ -34,11 +36,11 @@ activate "GeographicAreaRepository"
 "GeographicAreaRepository" -> "GeographicAreaMapper": GeographicArea = dtoToObject(GeographicAreaDTO)
 activate "GeographicAreaMapper"
 "GeographicAreaMapper" --> "GeographicAreaRepository": return GeographicArea
-"GeographicAreaRepository" -> "GeographicAreaRepository": save GeographicArea
+"GeographicAreaRepository" -> "GeographicAreaCrudRepository": save GeographicArea
 alt if geographic area is Added
-"GASettingsWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
+"GASettingsWebController" --> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
 else if geographic area is NOT Added
-"GASettingsWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
+"GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
 deactivate "GeographicAreaMapper"
 deactivate "GeographicAreaRepository"
 deactivate "Http Client"

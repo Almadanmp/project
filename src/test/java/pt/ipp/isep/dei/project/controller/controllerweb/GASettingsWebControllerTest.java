@@ -15,7 +15,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -213,7 +218,64 @@ class GASettingsWebControllerTest {
     }
 
     @Test
+    void seeIfCreateGeoAreaWorksSomeThingsNull() {
+        //Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41);
+        localDTO.setLongitude(-8);
+        localDTO.setAltitude(100);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void getAllGeoAreasDTO() {
+            //Arrange
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41);
+        localDTO.setLongitude(-8);
+        localDTO.setAltitude(100);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
+        geographicAreas.add(validGeographicAreaDTO);
+
+            Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(geographicAreas);
+
+            ResponseEntity<Object> expectedResult = new ResponseEntity<>(geographicAreas, HttpStatus.OK);
+
+            //Act
+            ResponseEntity<Object> actualResult = gaSettingsWebController.getAllGeographicAreas();
+
+            //Assert
+            assertEquals(expectedResult, actualResult);
+
     }
 
     @Test

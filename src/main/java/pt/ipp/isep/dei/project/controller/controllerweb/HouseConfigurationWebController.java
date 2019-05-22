@@ -33,9 +33,9 @@ public class HouseConfigurationWebController {
     // USER STORY 101
 
     /**
-     * This is a PUT method for US101 -
+     * This is a PUT method for US101 - change the location of the house
      *
-     * @param addressAndLocalDTO is the location of the house we want to get changed.
+     * @param addressAndLocalDTO is a DTO with the location of the house we want to get changed.
      */
     @PutMapping(value = "/house")
     public ResponseEntity<Object> configureHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
@@ -48,9 +48,9 @@ public class HouseConfigurationWebController {
     }
 
     /**
-     * Method to get the house
+     * Method to retrieve the house from the repository
      *
-     * @return
+     * @return house
      */
     @GetMapping(path = "/house", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> retrieveHouse() {
