@@ -178,18 +178,6 @@ public class GeographicAreaDTO {
         return this.local;
     }
 
-    /**
-     * method to add Daughter Area to a list of geographic areas
-     * @param geoAreaDTO geographic are to add
-     * @return true if added
-     */
-    public boolean addDaughter(GeographicAreaDTO geoAreaDTO) {
-        if (!this.daughterAreaDTOList.contains(geoAreaDTO)) {
-            this.daughterAreaDTOList.add(geoAreaDTO);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * method to add Daughter Area to a list of geographic areas

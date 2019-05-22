@@ -98,15 +98,6 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
-        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
-        if (geographicAreaCrudRepo.findAll().contains(area)) {
-            geographicAreaCrudRepo.save(area);
-            return true;
-        }
-        return false;
-    }
-
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
         return geographicAreaDTO.addSensor(areaSensorDTO);
     }

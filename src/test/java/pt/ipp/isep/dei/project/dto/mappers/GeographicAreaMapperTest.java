@@ -196,49 +196,4 @@ class GeographicAreaMapperTest {
 //        Long.compare(actualResult.getSensorId(), 6008L);
 //    }
 
-    @Test
-    void seeIfDTOToObjectWorksWhenIDNullMother() {
-        // Arrange
-        GeographicAreaDTO areaObjectDTO = new GeographicAreaDTO();
-        areaObjectDTO.setName("area");
-        areaObjectDTO.setLength(3);
-        areaObjectDTO.setLocal(new LocalDTO(34, 34, 45));
-        areaObjectDTO.setWidth(45);
-        areaObjectDTO.setTypeArea("cidade");
-        areaObjectDTO.setDescription("area");
-        areaObjectDTO.setId(6008L);
-
-        GeographicAreaDTO dtoToConvert = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
-        localDTO.setLatitude(50);
-        localDTO.setAltitude(10);
-        localDTO.setLongitude(50);
-        dtoToConvert.setName("Portugal");
-        dtoToConvert.setTypeArea("Country");
-        dtoToConvert.setLength(300);
-        dtoToConvert.setWidth(200);
-        dtoToConvert.setId(null);
-        dtoToConvert.setLocal(localDTO);
-        dtoToConvert.addDaughter(areaObjectDTO);
-
-        List<AreaSensorDTO> areaSensorDTOList = new ArrayList<>();
-        areaSensorDTOList.add(validAreaSensorDTO);
-        dtoToConvert.setSensorList(areaSensorDTOList);
-
-
-        // Act
-
-        GeographicArea actualResult = GeographicAreaMapper.dtoToObject(dtoToConvert);
-
-        // Assert
-
-        assertEquals(validAreaObject, actualResult);
-    }
-
-    @Test
-    void seeIfDtoToObjectThrowsExceptionMother() {
-        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-        assertThrows(NullPointerException.class,
-                () -> GeographicAreaMapper.dtoToObject(geographicAreaDTO));
-    }
 }
