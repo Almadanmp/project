@@ -409,7 +409,7 @@ class GASettingsWebControllerTest {
 //
 //        Mockito.doReturn(daughterDTO).when(geographicAreaRepository).getDTOByIdWithMother(2L);
 //
-//        Mockito.doReturn(true).when(geographicAreaRepository).updateAreaDTOWithMother(motherDTO);
+//        Mockito.doReturn(true).when(geographicAreaRepository).addDaughterArea(motherDTO);
 //
 //
 //        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);

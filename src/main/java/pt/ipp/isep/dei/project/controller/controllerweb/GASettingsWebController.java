@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -62,8 +61,8 @@ public class GASettingsWebController {
     @PutMapping("areas/{idMother}")
     public ResponseEntity<Object> addDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
         try {
-            if (geographicAreaRepo.updateAreaDTOWithMother(idAreaDaughter, idAreaMother)) {
-                return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
+            if (geographicAreaRepo.addDaughterArea(idAreaDaughter, idAreaMother)) {
+                return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
             }
@@ -77,9 +76,9 @@ public class GASettingsWebController {
      * @param id mother area id
      * @return list of daughter areas on a mother area
      */
-    @GetMapping("areas/{id}/daughter")
-    public List<GeographicAreaDTO> getDaughterAreas(@PathVariable("id") long id) {
-        return geographicAreaRepo.getDTOByIdWithMother(id).getDaughterAreas();
+    @GetMapping("areas/{id}")
+    public GeographicAreaDTO getGeographicArea(@PathVariable("id") long id) {
+        return geographicAreaRepo.getDTOByIdWithMother(id);
     }
 
 }

@@ -23,40 +23,51 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-title US 011 - As as Administrator I want to remove a sensor so that it will no longer be used.
-
+title US007 - As an Administrator, I want to add an existing geographical area to another one.
+autonumber
 actor "Admin"
-activate "Admin"
-"Admin" -> "GASettingsWebController":  Put "...areas/{idMother}": addDaughterArea(Long motherAreaID, Long daughterAreaID)
-activate "GASettingsWebController"
-"GASettingsWebController" -> "GeographicAreaRepository": getDTOByIdWithMother(Long motherAreaID)
-activate "GeographicAreaRepository"
-"GeographicAreaRepository" --> "GASettingsWebController": return GeographicAreaDTO
-deactivate "GeographicAreaRepository"
-
-"GASettingsWebController" -> "GeographicAreaRepository": getDTOByIdWithMother(Long daughterAreaID)
-activate "GeographicAreaRepository"
-"GeographicAreaRepository" --> "GASettingsWebController": return GeographicAreaDTO
-deactivate "GeographicAreaRepository"
-"GASettingsWebController" -> "GeographicAreaDTO": addDaughter(GeographicAreaDTO geoAreaDTO)
-activate "GeographicAreaDTO"
-"GeographicAreaDTO" --> "GASettingsWebController": return true
-deactivate "GeographicAreaDTO"
-"GASettingsWebController" -> "GeographicAreaRepository": updateAreaDTOWithMother(GeographicAreaDTO)
-activate "GeographicAreaRepository"
-"GeographicAreaRepository" -> "GeographicAreaMapper": dtoToObjectWithMother(areaDTO)
-activate "GeographicAreaMapper"
-"GeographicAreaMapper" --> "GeographicAreaRepository": return GeographicArea
-deactivate "GeographicAreaMapper"
-"GeographicAreaRepository" --> "GeographicAreaRepository": save(area)
-deactivate "GeographicAreaRepository"
-
-alt if geographic area is added
-"GASettingsWebController" -> "Admin": new ResponseEntity<>(success message, HttpStatus.OK)
-else if geographic area is not added
-"GASettingsWebController" -> "Admin": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
-deactivate "GASettingsWebController"
-deactivate "Admin"
+"Admin" ->> ":HTTPClient":  Input data to put daughter area on mother area
+activate ":HTTPClient"
+":HTTPClient" ->> ":SpringResolver": Put ("...areas/{idMother}")
+activate ":SpringResolver"
+":SpringResolver" ->> ":GASettingsWebController": addDaughterArea(Long idAreaDaughter, Long idAreaMother)
+deactivate ":SpringResolver"
+activate ":GASettingsWebController"
+":GASettingsWebController" ->> ":GeographicAreaRepository": addDaughterArea(Long idAreaDaughter, Long idAreaMother)
+alt geographic area added
+activate ":GeographicAreaRepository"
+":GeographicAreaRepository" ->> ":GeographicAreaCrudRepository": findByID(Long idAreaMother)
+":GeographicAreaCrudRepository" -->> ":GeographicAreaRepository": return :geographicAreaMother
+":GeographicAreaRepository" ->> ":GeographicAreaCrudRepository": findById(Long idAreaDaughter)
+":GeographicAreaCrudRepository" -->> ":GeographicAreaRepository": return :geographicAreaMother
+alt geographic area not found
+":GeographicAreaCrudRepository" -->> ":GeographicAreaRepository": return false
+create ":ResponseEntity"
+":GASettingsWebController" ->> ":ResponseEntity": create(String body, HttpStatus.NOT_FOUND);
+activate ":ResponseEntity"
+":ResponseEntity" -->> ":HTTPClient": ResponseEntity
+deactivate ":ResponseEntity"
 end
+":GeographicAreaRepository" ->> ":geographicAreaMother": contains(geographicAreaDaughter)
+":geographicAreaMother" -->> ":GeographicAreaRepository": return false
+alt geographic area already contained
+":geographicAreaMother" -->> ":GeographicAreaRepository": return true
+":GASettingsWebController" ->> ":ResponseEntity": create(String body, HttpStatus.CONFLICT);
+activate ":ResponseEntity"
+":ResponseEntity" -->> ":HTTPClient": ResponseEntity
+deactivate ":ResponseEntity"
+end
+":GeographicAreaRepository" ->> ":geographicAreaMother": add(geographicAreaDaughter)
+deactivate ":GeographicAreaRepository"
+
+":GASettingsWebController" ->> ":ResponseEntity": create(String body, HttpStatus.OK);
+activate ":ResponseEntity"
+deactivate ":GASettingsWebController"
+":ResponseEntity" -->> ":HTTPClient": ResponseEntity
+
+deactivate ":ResponseEntity"
+deactivate ":HTTPClient"
+end
+
 
 @enduml

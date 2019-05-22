@@ -775,7 +775,7 @@ class GeographicAreaRepositoryTest {
 //
 //        // Act
 //
-//        geographicAreaRepository.updateAreaDTOWithMother(validDTO, geographicAreaDTO);
+//        geographicAreaRepository.addDaughterArea(validDTO, geographicAreaDTO);
 //        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
 //
 //        // Assert
