@@ -17,6 +17,9 @@ import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.List;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/houseSettings")
 public class HouseConfigurationWebController {
@@ -42,7 +45,8 @@ public class HouseConfigurationWebController {
         HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
         house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
         if (houseRepository.updateHouseDTOWithoutGrids(house)) {
-            return new ResponseEntity<>("The house has been altered.", HttpStatus.OK);
+            Link link = linkTo(methodOn(HouseConfigurationWebController.class).retrieveHouse()).withRel("Click here to see the House updated");
+            return new ResponseEntity<>("The house has been altered. " + link, HttpStatus.OK);
         }
         return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
     }

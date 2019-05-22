@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +111,7 @@ public class GeographicAreaDTO {
      */
 
     public List<AreaSensorDTO> getSensors() {
-         return new ArrayList<>(areaSensorDTOList);
+        return new ArrayList<>(areaSensorDTOList);
     }
 
     /**
@@ -145,6 +143,7 @@ public class GeographicAreaDTO {
     public void setDaughterAreaList(List<GeographicAreaDTO> listToStore) {
         this.daughterAreaDTOList = new ArrayList<>(listToStore);
     }
+
     /**
      * Method that retrieves the object's description.
      *
@@ -179,34 +178,12 @@ public class GeographicAreaDTO {
         return this.local;
     }
 
-    public boolean addDaughter(GeographicAreaDTO geoAreaDTO) {
-        if (!this.daughterAreaDTOList.contains(geoAreaDTO)) {
-            this.daughterAreaDTOList.add(geoAreaDTO);
-            return true;
-        }
-        return false;
-    }
 
-    @Override
-    public boolean equals(Object testDTO) {
-        if (this == testDTO) {
-            return true;
-        }
-        if (!(testDTO instanceof GeographicAreaDTO)) {
-            return false;
-        }
-
-        GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
-        LocalDTO testDTOLocal = localVariable.getLocal();
-        return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                && testDTOLocal.equals(this.local));
-    }
-
-    @Override
-    public int hashCode() {
-        return 1;
-    }
-
+    /**
+     * method to add Daughter Area to a list of geographic areas
+     * @param areaSensorDTO areasensor to add
+     * @return true if added
+     */
     public boolean addSensor(AreaSensorDTO areaSensorDTO) {
         if (!this.areaSensorDTOList.contains(areaSensorDTO)) {
             this.areaSensorDTOList.add(areaSensorDTO);
@@ -230,6 +207,57 @@ public class GeographicAreaDTO {
             }
         }
         return false;
+    }
+
+    /**
+     * deactivateSensor on sensor DTO list
+     * @param areaSensorDTO area sensor dto to be deactivated
+     * @return true if deactivated
+     */
+    public boolean deactivateSensorDTO(AreaSensorDTO areaSensorDTO) {
+        if (this.removeSensor(areaSensorDTO.getSensorId())) {
+            areaSensorDTO.setActive(false);
+            this.addSensor(areaSensorDTO);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * method that returns a area sensor DTO found by id
+     *
+     * @return area sensor dto with the selected id
+     */
+    public AreaSensorDTO getAreaSensorByID(String idSensor) {
+        for (AreaSensorDTO as : this.getSensors()) {
+            String asString = as.getSensorId();
+            if (asString.equals(idSensor)) {
+                return as;
+            }
+        }
+        throw new IllegalArgumentException(("Area Sensor not found"));
+    }
+
+
+    @Override
+    public boolean equals(Object testDTO) {
+        if (this == testDTO) {
+            return true;
+        }
+        if (!(testDTO instanceof GeographicAreaDTO)) {
+            return false;
+        }
+
+        GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
+        LocalDTO testDTOLocal = localVariable.getLocal();
+        return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
+                && testDTOLocal.equals(this.local));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 
 }

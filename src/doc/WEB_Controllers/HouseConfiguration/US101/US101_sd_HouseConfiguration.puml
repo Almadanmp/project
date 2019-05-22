@@ -29,11 +29,14 @@ title US101 - As an Administrator, I want to configure the location of the house
 
 actor "Http Client"
 activate "Http Client"
-"Http Client" -> "HouseConfigurationWebController":  Put ".../houseSettings/house":\n configureHouseLocation(AddressAndLocalDTO)
+"Http Client" -> "SpringResolver":  Put ".../houseSettings/house"
+activate "SpringResolver"
+"SpringResolver" -> "HouseConfigurationWebController": configureHouseLocation(AddressAndLocalDTO)
+deactivate "SpringResolver"
 activate "HouseConfigurationWebController"
 "HouseConfigurationWebController" -> "HouseRepository": getHouseDTOWithoutGrids()
 activate "HouseRepository"
-"HouseRepository" -> "HouseCrudRepository": getHouse()
+"HouseRepository" -> "HouseCrudRepository": findAll()
 activate "HouseCrudRepository"
 "HouseCrudRepository" --> "HouseRepository": return house
 deactivate "HouseCrudRepository"
@@ -44,13 +47,19 @@ deactivate "HouseMapper"
 "HouseRepository" --> "HouseConfigurationWebController": return ":houseDTOWithoutGrids"
 "HouseConfigurationWebController" -> ":houseDTOWithoutGrids":setAddressAndLocalToDTOWithout\nGrids(addressAndLocalDTO)
 "HouseConfigurationWebController" -> "HouseRepository": updateHouseDTO(:houseDTOWithoutGrids)
-"HouseRepository" ->
-deactivate "HouseRepository"
+"HouseRepository" -> "HouseMapper": dtoWithoutGridsToObject(:houseDTOWithoutGrids)
+activate "HouseMapper"
+"HouseMapper" --> "HouseRepository": return house
+deactivate "HouseMapper"
+"HouseRepository" -> "HouseCrudRepository": save(house)
 alt if house is updated
+"HouseRepository" -> "HouseConfigurationWebController": return true
 "HouseConfigurationWebController" --> "Http Client": new ResponseEntity<>(success message,\n HttpStatus.OK)
 else if house is NOT updated
+"HouseRepository" -> "HouseConfigurationWebController": return false
+deactivate "HouseRepository"
 "HouseConfigurationWebController" --> "Http Client": new ResponseEntity<>(failed message,\n HttpStatus.NOT_ACCEPTABLE)
-
+deactivate "HouseConfigurationWebController"
 deactivate "Http Client"
 end
 

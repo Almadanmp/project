@@ -1,11 +1,16 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -205,12 +210,12 @@ class GeographicAreaDTOTest {
         validDTO.setLength(21D);
 
         // Act
-
-        double actualResult = validDTO.getLength();
+        Double expectedResult = 21D;
+        Double actualResult = validDTO.getLength();
 
         // Assert
 
-        assertEquals(21D, actualResult);
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -220,12 +225,12 @@ class GeographicAreaDTOTest {
         validDTO.setWidth(13D);
 
         // Act
-
-        double actualResult = validDTO.getWidth();
+        Double expectedResult = 13D;
+        Double actualResult = validDTO.getWidth();
 
         // Assert
 
-        assertEquals(13D, actualResult);
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -253,47 +258,48 @@ class GeographicAreaDTOTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfSetGetMotherArea() {
-//        // Arrange
-//
-//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-//        geographicAreaDTO.setDescription("area");
-//        geographicAreaDTO.setTypeArea("cidade");
-//        geographicAreaDTO.setWidth(56);
-//        geographicAreaDTO.setLength(34);
-//        geographicAreaDTO.setName("Leça do Balio");
-//        geographicAreaDTO.setId(1L);
-//        geographicAreaDTO.setSensorDTOList(validAreaSensorDTOList);
-//        geographicAreaDTO.setLocalDTO(new LocalDTO(34,45,66));
-//        validDTO.setDaughterAreas(geographicAreaDTO);
-//
-//        // Act
-//
-//        Long expectedResult = 1L;
-//        Long actualResult = validDTO.getDaughterAreas();
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfSetGetNullMotherArea() {
-//        // Arrange
-//
-//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-//
-//        validDTO.setDaughterAreas(geographicAreaDTO);
-//
-//        // Act
-//
-//        Long actualResult = validDTO.getDaughterAreas();
-//
-//        // Assert
-//
-//        assertNull( actualResult);
-//    }
+    @Test
+    void seeIfSetGetDaughterAreaList() {
+        // Arrange
+        List<GeographicAreaDTO> validDaughterAreaDTOList = new ArrayList<>();
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+
+        validDaughterAreaDTOList.add(geographicAreaDTO);
+        validDTO.setDaughterAreaList(validDaughterAreaDTOList);
+
+        // Act
+
+        List <GeographicAreaDTO> actualResult = validDTO.getDaughterAreas();
+
+        // Assert
+
+        assertEquals(validDaughterAreaDTOList, actualResult);
+    }
+
+    @Test
+    void seeIfGetsAreaSensorByID() {
+
+        // Act
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setActive(true);
+        areaSensorDTO.setName("sensor");
+        areaSensorDTO.setId("sensor1");
+        validDTO.setId(3L);
+        validDTO.addSensor(areaSensorDTO);
+
+        AreaSensorDTO actualResult = validDTO.getAreaSensorByID("sensor1");
+
+        // Assert
+
+        assertEquals(areaSensorDTO, actualResult);
+    }
+
+    @Test
+    void seeIfGetsAreaSensorByIDNoGeoArea() {
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validDTO.getAreaSensorByID("SensorOne"));
+    }
 
 
 

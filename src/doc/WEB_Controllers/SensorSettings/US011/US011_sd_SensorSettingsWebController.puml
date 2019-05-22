@@ -27,7 +27,11 @@ title US 011 - As as Administrator I want to remove a sensor so that it will no 
 
 actor "Admin"
 activate "Admin"
-"Admin" -> "SensorSettingsWebController":  Delete ".../areas/{id}/sensors/{id2}": removeAreaSensor(Long areaID, String sensorID)
+"Admin" -> "Http Client": Remove Sensor From Area
+activate "Http Client"
+"Http Client" -> "SpringResolver": delete (".../areas/{id}/sensors/{id2}")
+activate "SpringResolver"
+"SpringResolver" -> "SensorSettingsWebController":  removeAreaSensor(Long areaID, String sensorID)
 activate "SensorSettingsWebController"
 "SensorSettingsWebController" -> "GeographicAreaRepository": getDTOById(Long areaID)
 activate "GeographicAreaRepository"
@@ -51,6 +55,8 @@ alt if sensor is removed
 else if sensor is not found
 "SensorSettingsWebController" -> "Admin": new ResponseEntity<>(failed message, HttpStatus.NOT_FOUND)
 deactivate "SensorSettingsWebController"
+deactivate "SpringResolver"
+deactivate "Http Client"
 deactivate "Admin"
 end
 

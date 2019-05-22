@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,10 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/geographic_area_settings")
@@ -27,7 +32,8 @@ public class GASettingsWebController {
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
         if (dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
             if(geographicAreaRepo.addAndPersistDTO(dto)){
-            return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
+                Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
+            return new ResponseEntity<>("The Geographic Area has been created. To see all areas click : "+link, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
         }}
@@ -48,20 +54,22 @@ public class GASettingsWebController {
 
     /**
      * Add daughter area to a mother area
+     *
      * @param idAreaDaughter of the geoArea to be added
-     * @param idAreaMother of the geoArea with the daughter area
+     * @param idAreaMother   of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
     @PutMapping("areas/{idMother}")
     public ResponseEntity<Object> addDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
-        GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
-        GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
-        if (geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter)) {
-            geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother);
-            return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
+        try {
+            if (geographicAreaRepo.updateAreaDTOWithMother(idAreaDaughter, idAreaMother)) {
+                return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
+            }
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no Geographic Area with that ID.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or" +
-                " invalid Area.", HttpStatus.CONFLICT);
     }
 
     /**

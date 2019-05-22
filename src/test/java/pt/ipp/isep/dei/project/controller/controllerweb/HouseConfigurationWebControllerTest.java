@@ -343,7 +343,7 @@ public class HouseConfigurationWebControllerTest {
         Mockito.doReturn(HouseMapper.objectToWithoutGridsDTO(validHouse)).when(houseRepository).getHouseWithoutGridsDTO();
         Mockito.doReturn(true).when(houseRepository).updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house has been altered.", HttpStatus.OK);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house has been altered. </houseSettings/house>;rel=\"Click here to see the House updated\"", HttpStatus.OK);
 
         //Act
         ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);

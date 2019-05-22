@@ -100,12 +100,12 @@ public class SensorSettingsWebController {
     @PutMapping("areas/{id}/sensors/{id2}")
     public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
-        AreaSensorDTO areaSensorDTO = geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
-        if (geographicAreaRepository.deactivateSensorDTO(geographicArea, areaSensorDTO)) {
+        AreaSensorDTO areaSensorDTO = geographicArea.getAreaSensorByID(idSensor);
+        if (geographicArea.deactivateSensorDTO(areaSensorDTO)) {
             geographicAreaRepository.updateAreaDTO(geographicArea);
             return new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Area Sensor is active", HttpStatus.OK);
+        return new ResponseEntity<>("Area Sensor is active", HttpStatus.NOT_ACCEPTABLE);
     }
 
     /**
@@ -135,7 +135,8 @@ public class SensorSettingsWebController {
      */
     @GetMapping("areas/{id}/sensors/{id2}")
     public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        return geographicAreaRepository.getAreaSensorByID(idSensor, idArea);
+        GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
+        return geographicArea.getAreaSensorByID(idSensor);
     }
 
 }

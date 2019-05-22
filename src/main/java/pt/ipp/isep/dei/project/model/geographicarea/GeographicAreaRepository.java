@@ -98,15 +98,6 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public boolean updateAreaDTOWithMother(GeographicAreaDTO areaDTO) {
-        GeographicArea area = GeographicAreaMapper.dtoToObjectWithMother(areaDTO);
-        if (geographicAreaCrudRepo.findAll().contains(area)) {
-            geographicAreaCrudRepo.save(area);
-            return true;
-        }
-        return false;
-    }
-
     public boolean addSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
         return geographicAreaDTO.addSensor(areaSensorDTO);
     }
@@ -122,19 +113,6 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
 
-    public boolean deactivateSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
-        if (geographicAreaDTO.removeSensor(areaSensorDTO.getSensorId())) {
-            areaSensorDTO.setActive(false);
-            geographicAreaDTO.addSensor(areaSensorDTO);
-            return true;
-        }
-        return false;
-    }
-
-
-    public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
-        return motherDTO.addDaughter(daughterDTO);
-    }
 
     //WEB CONTROLLER END //
 
@@ -157,6 +135,24 @@ public class GeographicAreaRepository {
 
     public void updateGeoArea(GeographicArea area) {
         geographicAreaCrudRepo.save(area);
+    }
+
+    public boolean updateAreaDTOWithMother(long idAreaDaughter,  long idAreaMother) throws NoSuchElementException {
+        Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
+        Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
+        if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()){
+            throw new NoSuchElementException();
+        }
+        else{
+            GeographicArea mother = geographicAreaMother.get();
+            GeographicArea daughter = geographicAreaDaughter.get();
+            if (!mother.getDaughterAreas().contains(daughter)){
+                mother.addDaughterArea(daughter);
+                geographicAreaCrudRepo.save(mother);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -204,24 +200,6 @@ public class GeographicAreaRepository {
      */
     public List<GeographicArea> getGeoAreasByType(String typeAreaName) {
         return geographicAreaCrudRepo.findAllByAreaTypeID(typeAreaName);
-    }
-
-    /**
-     * method that returns a area sensor DTO found by id
-     *
-     * @param idSensor sensor id
-     * @param idArea   area id
-     * @return area sensor dto with the selected id
-     */
-    public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea) {
-        GeographicAreaDTO geographicArea = getDTOById(idArea);
-        for (AreaSensorDTO as : geographicArea.getSensors()) {
-            String asString = as.getSensorId();
-            if (asString.equals(idSensor)) {
-                return as;
-            }
-        }
-        throw new IllegalArgumentException(("Area Sensor not found"));
     }
 
     /**
