@@ -4,21 +4,23 @@ title US130 - As an Administrator, I want to create a energy grid.
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 2
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor ivory
-skinparam FontName verdana
+skinparam titleBackgroundColor Snow
+skinparam FontName quicksand
 skinparam titleFontSize 10
+skinparam roundcorner 10
 
 
 skinparam class {
-  BorderColor indianred
-  BackgroundColor indianred
-  BackgroundColor ivory
-   roundcorner 10
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
-   FontSize 12
+ BorderColor indianred
+ BackgroundColor indianred
+ BackgroundColor Snow
+  roundcorner 10
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+  FontSize 12
 }
+
 
 class EnergyGridSettingsWebController
 class EnergyGridRepository
