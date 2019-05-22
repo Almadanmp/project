@@ -24,9 +24,8 @@ skinparam actor {
  }
 title US 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that one can get measurements of that type in that area.
 autonumber
-actor "Administrator"
-"Administrator" -> ":Postman":  Input data to create a new sensor
-":Postman" -> ":SensorSettingsWebController":  Request Post at ".../areas/{id}/sensors"
+actor "HTTP Client"
+"HTTP Client"  -> ":SensorSettingsWebController":  Request Post at ".../areas/{id}/sensors"
 activate ":SensorSettingsWebController"
 ":SensorSettingsWebController" -> ":GeographicAreaRepository": GeographicAreaDTO geographicAreaDTO = getDTOById(id)
 activate ":GeographicAreaRepository"
@@ -46,10 +45,10 @@ activate "GeographicAreaCrudRepository"
 deactivate "GeographicAreaCrudRepository"
 deactivate ":GeographicAreaRepository"
 ":SensorSettingsWebController" --> ":Postman": ResponseEntity<>(HttpStatus.OK)
-":Postman" -->> "Administrator": Http Status: 200 - Ok
+":Postman" -->> "HTTP Client": Http Status: 200 - Ok
 else  Failure
 ":SensorSettingsWebController" --> ":Postman": ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE)
-":Postman" -->> "Administrator": Http Status: 406 - Not Acceptable
+":Postman" -->> "HTTP Client": Http Status: 406 - Not Acceptable
 deactivate ":SensorSettingsWebController"
 end
 @enduml
