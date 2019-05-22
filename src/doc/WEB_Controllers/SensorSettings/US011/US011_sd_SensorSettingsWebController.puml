@@ -29,7 +29,7 @@ actor "Admin"
 activate "Admin"
 "Admin" -> "Http Client": Remove Sensor From Area
 activate "Http Client"
-"Http Client" -> "SpringResolver": Delete ".../areas/{id}/sensors/{id2}"
+"Http Client" -> "SpringResolver": delete (".../areas/{id}/sensors/{id2}")
 activate "SpringResolver"
 "SpringResolver" -> "SensorSettingsWebController":  removeAreaSensor(Long areaID, String sensorID)
 activate "SensorSettingsWebController"
