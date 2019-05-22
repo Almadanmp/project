@@ -36,7 +36,7 @@ deactivate "SpringResolver"
 activate "HouseConfigurationWebController"
 "HouseConfigurationWebController" -> "HouseRepository": getHouseDTOWithoutGrids()
 activate "HouseRepository"
-"HouseRepository" -> "HouseCrudRepository": getHouse()
+"HouseRepository" -> "HouseCrudRepository": findAll()
 activate "HouseCrudRepository"
 "HouseCrudRepository" --> "HouseRepository": return house
 deactivate "HouseCrudRepository"
@@ -47,13 +47,13 @@ deactivate "HouseMapper"
 "HouseRepository" --> "HouseConfigurationWebController": return ":houseDTOWithoutGrids"
 "HouseConfigurationWebController" -> ":houseDTOWithoutGrids":setAddressAndLocalToDTOWithout\nGrids(addressAndLocalDTO)
 "HouseConfigurationWebController" -> "HouseRepository": updateHouseDTO(:houseDTOWithoutGrids)
-"HouseRepository" ->
+"HouseRepository" -> "HouseCrudRepository": updateHouse(:houseDTOWithoutGrids)
 deactivate "HouseRepository"
 alt if house is updated
 "HouseConfigurationWebController" --> "Http Client": new ResponseEntity<>(success message,\n HttpStatus.OK)
 else if house is NOT updated
 "HouseConfigurationWebController" --> "Http Client": new ResponseEntity<>(failed message,\n HttpStatus.NOT_ACCEPTABLE)
-
+deactivate "HouseConfigurationWebController"
 deactivate "Http Client"
 end
 
