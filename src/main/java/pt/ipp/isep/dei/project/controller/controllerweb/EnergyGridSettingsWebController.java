@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,7 +19,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/gridSettings")
 public class EnergyGridSettingsWebController {
 
-    private String noGrid = "There is no grid with that ID.";
+    private String NO_GRID = "There is no grid with that ID.";
 
     @Autowired
     private EnergyGridRepository energyGridRepository;
@@ -42,7 +40,7 @@ public class EnergyGridSettingsWebController {
             }
             return new ResponseEntity<>(roomsDTOWeb, HttpStatus.OK);
         } catch (NullPointerException ok) {
-            return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -59,7 +57,7 @@ public class EnergyGridSettingsWebController {
                 }
                 return new ResponseEntity<>("It wasn't possible to add the room. Please try again.", HttpStatus.CONFLICT);
             } catch (NoSuchElementException e) {
-                return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
             }
         }
         return new ResponseEntity<>("There is no room with that ID.", HttpStatus.NOT_FOUND);
@@ -98,7 +96,7 @@ public class EnergyGridSettingsWebController {
             }
             return new ResponseEntity<>("There is no room with that ID in this grid.", HttpStatus.NOT_FOUND);
         } catch (NoSuchElementException ok) {
-            return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
         }
     }
 }

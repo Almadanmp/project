@@ -277,4 +277,30 @@ class EnergyGridSettingsWebControllerTest {
                 .content("B106"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void seeIfDeleteRoomFromGridWorksInvalidGrid() throws Exception {
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
+
+        Mockito.doThrow(NoSuchElementException.class).when(energyGridRepository).removeRoomFromGrid(any(String.class), any(String.class));
+
+        this.mockMvc.perform(delete("/gridSettings/grids/invalid")
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("invalid"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void seeIfDeleteRoomFromGridWorksInvalidRoom() throws Exception {
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
+
+        Mockito.doReturn(false).when(energyGridRepository).removeRoomFromGrid(any(String.class), any(String.class));
+
+        this.mockMvc.perform(delete("/gridSettings/grids/invalid")
+                .contentType(MediaType.TEXT_PLAIN)
+                .content("invalid"))
+                .andExpect(status().isNotFound());
+    }
 }
