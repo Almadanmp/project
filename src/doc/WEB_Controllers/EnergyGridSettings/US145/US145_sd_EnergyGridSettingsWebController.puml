@@ -28,8 +28,9 @@ title US145 \n As an Administrator, I want to have a list of existing rooms atta
 autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Get Room List from Grid
+":HTTP Client" -> ":SpringResolver": get("gridSettings/grids/{energyGridId}")
 activate ":HTTP Client"
-":HTTP Client" -> ":EnergyGridSettingsWebController":  getRoomsWebDtoInGrid(gridId)
+":SpringResolver" -> ":EnergyGridSettingsWebController": getRoomsWebDtoInGrid(gridId)
 activate ":EnergyGridSettingsWebController"
 alt if grid is present
 ":EnergyGridSettingsWebController" -> ":EnergyGridRepository": getRoomsDtoWebInGrid(gridId)
@@ -45,12 +46,15 @@ activate ":RoomWebMapper"
 deactivate ":RoomWebMapper"
 ":EnergyGridRepository" -> ":EnergyGridSettingsWebController" : return roomDtoWebList
 deactivate ":EnergyGridRepository"
-":EnergyGridSettingsWebController" --> ":HTTP Client": ResponseEntity<Object>(HttpStatus.OK)
+create ":ResponseEntity"
+":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.OK);
+activate ":ResponseEntity"
 deactivate ":EnergyGridSettingsWebController"
-":HTTP Client" --> "Administrator": ResponseEntity<Object>(HttpStatus.OK)
+":ResponseEntity" --> ":HTTP Client": ResponseEntity
+deactivate ":ResponseEntity"
 deactivate ":HTTP Client"
 else if grid isn't present
-":EnergyGridRepository"-->":HTTP Client" : ResponseEntity<Object>(HttpStatus.NOT_FOUND)
-":HTTP Client" --> "Administrator" : ResponseEntity<Object>(HttpStatus.NOT_FOUND)
+":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.NOT_FOUND);
+":ResponseEntity" --> ":HTTP Client": ResponseEntity
 end
 @enduml

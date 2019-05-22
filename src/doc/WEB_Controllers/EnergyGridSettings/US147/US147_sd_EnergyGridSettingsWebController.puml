@@ -28,8 +28,9 @@ title US147 \n As an Administrator, As an Administrator, I want to attach a room
 autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Input data to attach room to a grid
+":HTTP Client" -> ":SpringResolver": post("gridSettings/grids/{energyGridId}")
 activate ":HTTP Client"
-":HTTP Client" -> ":EnergyGridSettingsWebController":  attachRoomToGrid(roomDTO, gridId)
+":SpringResolver" -> ":EnergyGridSettingsWebController": attachRoomToGrid(roomDTO, gridId)
 activate ":EnergyGridSettingsWebController"
 alt success
 ":EnergyGridSettingsWebController" -> ":EnergyGridRepository": attachRoomToGrid(roomDTO, gridId)
@@ -46,18 +47,21 @@ deactivate ":EnergyGrid"
 ":EnergyGridRepository" -> ":EnergyGridRepository" : save(energyGrid)
 ":EnergyGridRepository" --> ":EnergyGridSettingsWebController": return true
 deactivate ":EnergyGridRepository"
-":EnergyGridSettingsWebController" --> ":HTTP Client": ResponseEntity<>(HttpStatus.OK)
+create ":ResponseEntity"
+":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.OK);
+activate ":ResponseEntity"
 deactivate ":EnergyGridSettingsWebController"
-":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.OK)
+":ResponseEntity" --> ":HTTP Client": ResponseEntity
+deactivate ":ResponseEntity"
 deactivate ":HTTP Client"
 else if room already contained in grid
-":EnergyGridRepository" --> ":HTTP Client": ResponseEntity<>(HttpStatus.CONFLICT)
-":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.CONFLICT)
+":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.CONFLICT);
+":ResponseEntity" --> ":HTTP Client": ResponseEntity
 else if grid isn't present
-":EnergyGridRepository" --> ":HTTP Client": ResponseEntity<>(HttpStatus.NOT_FOUND)
-":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.NOT_FOUND)
+":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.NOT_FOUND);
+":ResponseEntity" --> ":HTTP Client": ResponseEntity
 else if room isn't present
-":EnergyGridRepository" --> ":HTTP Client": ResponseEntity<>(HttpStatus.NOT_FOUND)
-":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.NOT_FOUND)
+":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.NOT_FOUND);
+":ResponseEntity" --> ":HTTP Client": ResponseEntity
 end
 @enduml
