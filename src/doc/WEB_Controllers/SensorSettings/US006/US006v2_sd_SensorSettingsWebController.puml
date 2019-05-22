@@ -25,14 +25,21 @@ skinparam actor {
 title US 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that one can get measurements of that type in that area.
 autonumber
 actor "HTTP Client"
-"HTTP Client"  -> ":SensorSettingsWebController":  Request Post at ".../areas/{id}/sensors"
+"HTTP Client"  -> ":SpringResolver":  Request Post at ".../areas/{id}/sensors"
+":SpringResolver" -> ":SensorSettingsWebController": createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO, @PathVariable long id)
+activate ":SpringResolver"
 activate ":SensorSettingsWebController"
+alt Try
 ":SensorSettingsWebController" -> ":GeographicAreaRepository": GeographicAreaDTO geographicAreaDTO = getDTOById(id)
 activate ":GeographicAreaRepository"
 ":GeographicAreaRepository" ->> "GeographicAreaCrudRepository": GeographicArea geographicArea = getById(id)
 activate "GeographicAreaCrudRepository"
 deactivate "GeographicAreaCrudRepository"
 deactivate ":GeographicAreaRepository"
+else Fail
+":SensorSettingsWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.NOT_FOUND)
+":SpringResolver" -->> "HTTP Client": Http Status: 404 - Not Found
+end
 alt Try
 ":SensorSettingsWebController" -> ":GeographicAreaRepository": addSensorDTO(geographicAreaDTO, areaSensorDTO)
 activate ":GeographicAreaRepository"
@@ -44,11 +51,11 @@ activate ":GeographicAreaRepository"
 activate "GeographicAreaCrudRepository"
 deactivate "GeographicAreaCrudRepository"
 deactivate ":GeographicAreaRepository"
-":SensorSettingsWebController" --> ":Postman": ResponseEntity<>(HttpStatus.OK)
-":Postman" -->> "HTTP Client": Http Status: 200 - Ok
+":SensorSettingsWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.CREATED)
+":SpringResolver" -->> "HTTP Client": Http Status: 201 - Created
 else  Failure
-":SensorSettingsWebController" --> ":Postman": ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE)
-":Postman" -->> "HTTP Client": Http Status: 406 - Not Acceptable
+":SensorSettingsWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.CONFLICT)
+":SpringResolver" -->> "HTTP Client": Http Status: 409 - Conflict
 deactivate ":SensorSettingsWebController"
 end
 @enduml
