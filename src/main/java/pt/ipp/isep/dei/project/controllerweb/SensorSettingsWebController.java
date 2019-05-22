@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,9 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.List;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 @RestController
 @ApplicationScope
 @RequestMapping("/sensorsettings")
@@ -23,13 +25,13 @@ public class SensorSettingsWebController {
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
 
-    // Part 0 - Geographical Areas
+    // Part 0 - Main menu
 
     @GetMapping("")
     public String intro() {
-        return "Welcome to the Sensor Settings Menu: \nGET[/areas] \nGET[areas/{id}] " +
-                "\nGET[/areas/{id}/sensors] \nPOST[/areas/{id}/sensors] \nPATCH[/deactivate] " +
-                "\nDELETE[/areas/{id}/sensors/{id2}]";
+        return "Welcome to the Sensor Settings Menu: \nGET[/sensorsettings/areas] \nGET[/sensorsettings/areas/{id}] " +
+                "\nGET[/sensorsettings/areas/{id}/sensors] \nPOST[/areas/{id}/sensors] \nPUT[/sensorsettings/areas/{id}/sensors/{id2}] " +
+                "\nDELETE[/sensorsettings/areas/{id}/sensors/{id2}]";
     }
 
     // Part 1 - Geographical Areas
@@ -52,15 +54,21 @@ public class SensorSettingsWebController {
         return geographicAreaRepository.getDTOById(id).getSensors();
     }
 
-    // US06 - Create Area Sensor
 
+    /**
+     * US006 Web Controller:
+     * Creates a new sensor and adds it to a Geographical Area.
+     *
+     * @param id is the geographical area id.
+     * @return OK status if the area sensor is successfully created. Returns htttp status 'not acceptable' if the sensor already exists.
+     */
     @PostMapping("/areas/{id}/sensors")
     public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
                                                           @PathVariable long id) {
         GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(id);
-            if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
-                geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
-            Link link = ControllerLinkBuilder.linkTo(SensorSettingsWebController.class).slash(removeAreaSensor(id,areaSensorDTO.getSensorId())).withRel("Undo");
+        if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
+            geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
+            Link link = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, areaSensorDTO.getSensorId())).withRel("Delete the created sensor");
             areaSensorDTO.add(link);
             return new ResponseEntity<>(areaSensorDTO, HttpStatus.OK);
         }
@@ -70,9 +78,9 @@ public class SensorSettingsWebController {
     // US010 Deactivate Area Sensor
 
     /**
-     * US010 WEB controller: deactivate arya sensor with id sensor
+     * US010 WEB controller: deactivate area sensor with id sensor
      *
-     * @param idArea   arya id where the arya sensor id
+     * @param idArea   area id where the area sensor id
      * @param idSensor sensor id
      * @return ok status if the area sensor exists
      */

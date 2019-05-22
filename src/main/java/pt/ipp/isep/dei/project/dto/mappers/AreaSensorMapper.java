@@ -139,31 +139,6 @@ public final class AreaSensorMapper {
         return resultDTO;
     }
 
-    public static List<LinkedHashMap<String, Object>> controllerAreaSensorDTOToList(List<AreaSensorDTO> areaSensorDTOS) {
-        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
-        for (AreaSensorDTO dto : areaSensorDTOS) {
-            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
-            entity.put("Id", dto.getSensorId());
-            entity.put("Name", dto.getName());
-            entities.add(entity);
-        }
-        return entities;
-    }
-
-    public static List<LinkedHashMap<String, Object>> controllerAreaSensorDTOToFullList(List<AreaSensorDTO> areaSensorDTOS) {
-        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
-        for (AreaSensorDTO dto : areaSensorDTOS) {
-            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
-            entity.put("Id", dto.getSensorId());
-            entity.put("Name", dto.getName());
-            entity.put("Units", dto.getUnits());
-            entity.put("Date of Creation", dto.getDateStartedFunctioning());
-            entity.put("State", dto.getActive());
-            entities.add(entity);
-        }
-        return entities;
-    }
-
     public static AreaSensorWebDTO objectToWebDTO(AreaSensor objectToConvert) {
         // Update the ID
 

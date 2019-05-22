@@ -264,19 +264,6 @@ public final class GeographicAreaMapper {
         return resultDTO;
     }
 
-//    public static List<LinkedHashMap<String, Object>> controllerGADTOToList(List<GeographicAreaDTO> geographicAreaDTOList) {
-//        List<LinkedHashMap<String, Object>> entities = new ArrayList<>();
-//        for (GeographicAreaDTO dto : geographicAreaDTOList) {
-//            LinkedHashMap<String, Object> entity = new LinkedHashMap<>();
-//            entity.put("Id", dto.getSensorId());
-//            entity.put("Name", dto.getName());
-//            entity.put("Description", dto.getDescription());
-//            entity.put("Sensors", AreaSensorMapper.controllerAreaSensorDTOToList(dto.getSensors()));
-//            entities.add(entity);
-//        }
-//        return entities;
-//    }
-
     public static GeographicAreaWebDTO objectToWebDTO(GeographicArea objectToConvert) {
         // Create the result DTO
 
