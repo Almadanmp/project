@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -46,7 +47,7 @@ public class EnergyGridRepository {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectEmptyLists(energyGridDTO);
         List<EnergyGrid> grids = energyGridCrudRepository.findAll();
         EnergyGrid energyGridRepo = energyGridCrudRepository.findByName(energyGrid.getName());
-        if(!grids.contains(energyGridRepo)){
+        if (!grids.contains(energyGridRepo)) {
             energyGridCrudRepository.save(energyGrid);
             return true;
         }
@@ -76,16 +77,13 @@ public class EnergyGridRepository {
      * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
      * that I can attach/detach rooms from it.
      * This method returns a List of Rooms Dto Web from a grid.
+     *
      * @param gridId is the name of the grid.
      * @return a List of Rooms Dto Web from a grid.
      */
-    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) throws NoSuchElementException{
-        try{
+    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
         List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
-        return RoomWebMapper.objectsToDtosWeb(roomList);}
-        catch (NullPointerException ok){
-            throw new NoSuchElementException();
-        }
+        return RoomWebMapper.objectsToDtosWeb(roomList);
     }
 
 
@@ -171,12 +169,13 @@ public class EnergyGridRepository {
     /**
      * This method detaches a Room assigned to an Energy Grid from that Grid; it preserves all of the room's
      * characteristics, and the room is maintained in the repository.
+     *
      * @param roomID is the ID of the room we want to remove from the Grid, as it exists in the database.
      * @param gridID is the ID of the grid that contains the room we want to remove.
      * @return is true if the room was successfully removed; is false if the grid didn't contain a room with the given
      * ID.
      * @throws NoSuchElementException this exception is thrown if the database doesn't contain an Energy Grid with
-     * the given ID.
+     *                                the given ID.
      */
 
     public boolean removeRoomFromGrid(String roomID, String gridID) throws NoSuchElementException {
