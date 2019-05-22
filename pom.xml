@@ -189,6 +189,8 @@
                         <property>
                             <name>listener</name>
                             <value>org.sonar.java.jacoco.JUnitListener</value>
+                            <!-- this is defined in spring-core-env and fits for multi module project. Scanner fails for single module projects! -->
+                            <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
                         </property>
                     </properties>
 

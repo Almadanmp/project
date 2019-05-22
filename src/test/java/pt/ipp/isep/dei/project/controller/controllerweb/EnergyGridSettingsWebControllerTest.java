@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
-public class EnergyGridSettingsWebControllerTest {
+class EnergyGridSettingsWebControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

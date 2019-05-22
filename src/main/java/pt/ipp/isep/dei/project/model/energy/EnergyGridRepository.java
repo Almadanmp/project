@@ -79,9 +79,13 @@ public class EnergyGridRepository {
      * @param gridId is the name of the grid.
      * @return a List of Rooms Dto Web from a grid.
      */
-    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
+    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) throws NoSuchElementException{
+        try{
         List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
-        return RoomWebMapper.objectsToDtosWeb(roomList);
+        return RoomWebMapper.objectsToDtosWeb(roomList);}
+        catch (NullPointerException ok){
+            throw new NoSuchElementException();
+        }
     }
 
 
