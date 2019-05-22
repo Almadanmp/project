@@ -62,7 +62,8 @@ public class GASettingsWebController {
     public ResponseEntity<Object> addDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
         try {
             if (geographicAreaRepo.addDaughterArea(idAreaDaughter, idAreaMother)) {
-                return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.OK);
+                Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaDaughter)).withRel("See geographic area");
+                return new ResponseEntity<>("The Geographic Area has been added."+link, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
             }
