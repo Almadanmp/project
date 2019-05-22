@@ -64,7 +64,7 @@ class GASettingsWebControllerTest {
 
         Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been created. To see all areas click : </geographic_area_settings/areas>;rel=\"See all geographic areas\"", HttpStatus.CREATED);
 
         //Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
@@ -199,6 +199,7 @@ class GASettingsWebControllerTest {
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setName("Porto");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("urban area");

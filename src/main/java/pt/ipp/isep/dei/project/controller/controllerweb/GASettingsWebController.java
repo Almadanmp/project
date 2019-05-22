@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,9 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/geographic_area_settings")
@@ -28,7 +32,8 @@ public class GASettingsWebController {
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
         if (dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
             if(geographicAreaRepo.addAndPersistDTO(dto)){
-            return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
+                Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
+            return new ResponseEntity<>("The Geographic Area has been created. To see all areas click : "+link, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
         }}
