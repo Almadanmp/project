@@ -21,35 +21,41 @@ skinparam class {
    FontSize 12
 }
 
-class SensorSettingsWebController
 class GeographicAreaRepository
-class GeographicAreaDTO
-class GeographicAreaMapper
-
-SensorSettingsWebController -- GeographicAreaRepository : >
-GeographicAreaRepository -- GeographicAreaDTO : >
-GeographicAreaRepository -- GeographicAreaMapper : >
+class GeographicArea
+class GeographicAreaCrudRepository
 
 
+GASettingsWebController -right- GeographicAreaRepository : >
+GeographicAreaRepository -right- GeographicArea : >
+GeographicAreaRepository -right- GeographicAreaCrudRepository : >
+GeographicAreaCrudRepository -- GeographicArea : >
 
-class SensorSettingsWebController {
--deactivateAreaSensor(@PathVariable long, @PathVariable String)
+
+
+class GASettingsWebController {
+GeographicAreaRepository;
+addDaughterArea(long, long)
 }
 
 class GeographicAreaRepository{
--getDTOById(long)
--getAreaSensorByID(long, long)
--updateAreaDTO(GeographicAreaDTO)
+GeographicAreaCrudRepo;
+addDaughterArea(long, long)
 }
 
-class GeographicAreaDTO{
--deactivateSensorDTO(GeographicAreaDTO, AreaSensorDTO)
--getAreaSensorByID(String)
+class GeographicArea{
+Long ID;
+List<GeographicArea>;
+getDaughterAreas()
+addDaughterArea(GeographicArea)
+contains(GeographicArea)
+
 }
 
-
-class GeographicAreaMapper {
--dtoToObject(GeographicAreaDTO)
+interface GeographicAreaCrudRepository {
+findById(long)
+get()
+save(GeographicArea)
 }
 
 @enduml
