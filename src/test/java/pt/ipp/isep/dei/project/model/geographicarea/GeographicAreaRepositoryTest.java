@@ -490,41 +490,6 @@ class GeographicAreaRepositoryTest {
         assertEquals(expectedResult, actualResult.size());
     }
 
-    @Test
-    void seeIfGetsAreaSensorByID() {
-
-        // Act
-        firstValidArea.setId(3L);
-        firstValidArea.addSensor(firstValidAreaSensor);
-        geographicAreaRepository.addAndPersistGA(firstValidArea);
-
-        Mockito.when(geographicAreaCrudRepo.findById(firstValidArea.getId())).thenReturn(Optional.ofNullable(firstValidArea));
-
-        AreaSensorDTO actualResult = geographicAreaRepository.getAreaSensorByID("SensorOne", 3L);
-
-        // Assert
-
-        assertEquals(AreaSensorMapper.objectToDTO(firstValidAreaSensor), actualResult);
-    }
-
-    @Test
-    void seeIfGetsAreaSensorByIDNoGeoArea() {
-
-        assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaRepository.getAreaSensorByID("SensorOne", 3L));
-    }
-
-    @Test
-    void seeIfGetsAreaSensorByIDNoAreaSensor() {
-
-        // Act
-        firstValidArea.setId(3L);
-        geographicAreaRepository.addAndPersistGA(firstValidArea);
-
-
-        assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaRepository.getAreaSensorByID("SensorOne", 3L));
-    }
 
     @Test
     void seeIfEqualsWorksOnSameObject() {

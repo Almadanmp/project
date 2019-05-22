@@ -146,6 +146,24 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
+    public boolean updateAreaDTOWithMother(long idAreaDaughter,  long idAreaMother) throws NoSuchElementException {
+        Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
+        Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
+        if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()){
+            throw new NoSuchElementException();
+        }
+        else{
+            GeographicArea mother = geographicAreaMother.get();
+            GeographicArea daughter = geographicAreaDaughter.get();
+            if (!mother.getDaughterAreas().contains(daughter)){
+                mother.addDaughterArea(daughter);
+                geographicAreaCrudRepo.save(mother);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Method to print a Whole Geographic Area List.
      * It will print the attributes needed to check if a GA is different from another GA
