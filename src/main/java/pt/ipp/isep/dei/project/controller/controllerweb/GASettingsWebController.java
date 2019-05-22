@@ -25,22 +25,24 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
-        if (geographicAreaRepo.addAndPersistDTO(dto) && dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
+        if (dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
+            if(geographicAreaRepo.addAndPersistDTO(dto)){
             return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or" +
-                    " invalid Area.", HttpStatus.CONFLICT);
-        }
+            return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
+        }}
+        return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
+                " invalid Area.", HttpStatus.BAD_REQUEST);
     }
 
     /**
      * this method displays all the information of the Geographic Areas DTOs
      *
-     * @return all geographic areas
+     * @return ResponseEntity with all the geographic areas
      */
     @GetMapping("/areas")
-    public List<GeographicAreaDTO> getAllGeographicAreas() {
-        return geographicAreaRepo.getAllDTO();
+    public ResponseEntity<Object> getAllGeographicAreas() {
+        return new ResponseEntity<>(geographicAreaRepo.getAllDTO(), HttpStatus.OK);
     }
 
 
