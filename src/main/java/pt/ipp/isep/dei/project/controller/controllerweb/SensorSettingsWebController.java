@@ -43,15 +43,17 @@ public class SensorSettingsWebController {
     }
 
     @GetMapping("/areas/{id}")
-    public GeographicAreaDTO retrieveGA(@PathVariable long id) {
-        return geographicAreaRepository.getDTOById(id);
+    public ResponseEntity<GeographicAreaDTO> retrieveGA(@PathVariable long id) {
+        GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(id);
+        return new ResponseEntity<>(geographicAreaDTO, HttpStatus.OK);
     }
 
     // Part 2 - Sensors
 
     @GetMapping("/areas/{id}/sensors")
-    public List<AreaSensorDTO> retrieveAllSensors(@PathVariable long id) {
-        return geographicAreaRepository.getDTOById(id).getSensors();
+    public ResponseEntity<List<AreaSensorDTO>> retrieveAllSensors(@PathVariable long id) {
+        List<AreaSensorDTO> areaSensorDTOList = geographicAreaRepository.getDTOById(id).getSensors();
+        return new ResponseEntity<>(areaSensorDTOList, HttpStatus.OK);
     }
 
 
