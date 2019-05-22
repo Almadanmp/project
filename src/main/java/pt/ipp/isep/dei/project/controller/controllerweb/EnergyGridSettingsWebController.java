@@ -24,9 +24,6 @@ public class EnergyGridSettingsWebController {
     private String noGrid = "There is no grid with that ID.";
 
     @Autowired
-    private EnergyGridCrudRepo gridRepo;
-
-    @Autowired
     private EnergyGridRepository energyGridRepository;
 
     @Autowired
@@ -47,7 +44,6 @@ public class EnergyGridSettingsWebController {
         } catch (NullPointerException ok) {
             return new ResponseEntity<>(noGrid, HttpStatus.NOT_FOUND);
         }
-
     }
 
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy

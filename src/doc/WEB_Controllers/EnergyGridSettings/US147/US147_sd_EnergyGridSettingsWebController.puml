@@ -22,13 +22,14 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-title US147 \n As an Administrator, As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy consumption is included in that grid.  \n - Success Case -
+title US147 \n As an Administrator, As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy consumption is included in that grid.
 autonumber
 actor "Administrator"
 "Administrator" -> ":HTTP Client":  Input data to attach room to a grid
 activate ":HTTP Client"
-":HTTP Client" -> ":EnergyGridSettingsWebController":  attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId)
+":HTTP Client" -> ":EnergyGridSettingsWebController":  attachRoomToGrid(roomDTO, gridId)
 activate ":EnergyGridSettingsWebController"
+alt success
 ":EnergyGridSettingsWebController" -> ":EnergyGridRepository": attachRoomToGrid(roomDTO, gridId)
 activate ":EnergyGridRepository"
 ":EnergyGridRepository" ->> ":EnergyGridRepository": getById(id)
@@ -36,7 +37,6 @@ activate ":EnergyGridRepository"
 activate ":RoomMapper"
 ":RoomMapper" --> ":EnergyGridRepository" : return room
 deactivate ":RoomMapper"
-alt success
 ":EnergyGridRepository" -> ":EnergyGrid": addRoom(room)
 activate ":EnergyGrid"
 ":EnergyGrid" --> ":EnergyGridRepository" : return true
@@ -48,4 +48,14 @@ deactivate ":EnergyGridRepository"
 deactivate ":EnergyGridSettingsWebController"
 ":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.OK)
 deactivate ":HTTP Client"
+else if room already contained in grid
+":EnergyGridRepository" --> ":HTTP Client": ResponseEntity<>(HttpStatus.CONFLICT)
+":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.CONFLICT)
+else if grid isn't present
+":EnergyGridRepository" --> ":HTTP Client": ResponseEntity<>(HttpStatus.NOT_FOUND)
+":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.NOT_FOUND)
+else if room isn't present
+":EnergyGridRepository" --> ":HTTP Client": ResponseEntity<>(HttpStatus.NOT_FOUND)
+":HTTP Client" -->> "Administrator": ResponseEntity<Object>(HttpStatus.NOT_FOUND)
+end
 @enduml
