@@ -32,9 +32,12 @@ autonumber
 actor "HTTP Client"
 
 
-"HTTP Client" -> ":HouseMonitoringControllerWeb":  GET ".../houseMonitoring/highestAmplitude" \n getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
+"HTTP Client" -> ":SpringResolver":  GET ".../houseMonitoring/highestAmplitude" \n getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
 activate "HTTP Client"
+":SpringResolver" -> ":HouseMonitoringControllerWeb": getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
+activate ":SpringResolver"
 activate ":HouseMonitoringControllerWeb"
+deactivate ":SpringResolver"
 ":HouseMonitoringControllerWeb" -> ":GeographicAreaHouseService": getHighestTemperatureAmplitude \n                            (DateIntervalDTO)
 activate ":GeographicAreaHouseService"
 ":GeographicAreaHouseService" -> ":HouseRepository": getHouseByID(id)
