@@ -47,11 +47,17 @@ deactivate "HouseMapper"
 "HouseRepository" --> "HouseConfigurationWebController": return ":houseDTOWithoutGrids"
 "HouseConfigurationWebController" -> ":houseDTOWithoutGrids":setAddressAndLocalToDTOWithout\nGrids(addressAndLocalDTO)
 "HouseConfigurationWebController" -> "HouseRepository": updateHouseDTO(:houseDTOWithoutGrids)
-"HouseRepository" -> "HouseCrudRepository": updateHouse(:houseDTOWithoutGrids)
-deactivate "HouseRepository"
+"HouseRepository" -> "HouseMapper": dtoWithoutGridsToObject(:houseDTOWithoutGrids)
+activate "HouseMapper"
+"HouseMapper" --> "HouseRepository": return house
+deactivate "HouseMapper"
+"HouseRepository" -> "HouseCrudRepository": save(house)
 alt if house is updated
+"HouseRepository" -> "HouseConfigurationWebController": return true
 "HouseConfigurationWebController" --> "Http Client": new ResponseEntity<>(success message,\n HttpStatus.OK)
 else if house is NOT updated
+"HouseRepository" -> "HouseConfigurationWebController": return false
+deactivate "HouseRepository"
 "HouseConfigurationWebController" --> "Http Client": new ResponseEntity<>(failed message,\n HttpStatus.NOT_ACCEPTABLE)
 deactivate "HouseConfigurationWebController"
 deactivate "Http Client"
