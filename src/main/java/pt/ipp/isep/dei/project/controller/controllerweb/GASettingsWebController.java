@@ -56,7 +56,7 @@ public class GASettingsWebController {
     public ResponseEntity<Object> addDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
         GeographicAreaDTO geographicAreaMother = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
         GeographicAreaDTO geographicAreaDaughter = geographicAreaRepo.getDTOByIdWithMother(idAreaDaughter);
-        if (geographicAreaRepo.addDaughterDTO(geographicAreaMother, geographicAreaDaughter)) {
+        if (geographicAreaMother.addDaughter(geographicAreaDaughter)) {
             geographicAreaRepo.updateAreaDTOWithMother(geographicAreaMother);
             return new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
         }

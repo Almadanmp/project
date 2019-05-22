@@ -122,19 +122,6 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
 
-    public boolean deactivateSensorDTO(GeographicAreaDTO geographicAreaDTO, AreaSensorDTO areaSensorDTO) {
-        if (geographicAreaDTO.removeSensor(areaSensorDTO.getSensorId())) {
-            areaSensorDTO.setActive(false);
-            geographicAreaDTO.addSensor(areaSensorDTO);
-            return true;
-        }
-        return false;
-    }
-
-
-    public boolean addDaughterDTO(GeographicAreaDTO motherDTO, GeographicAreaDTO daughterDTO) {
-        return motherDTO.addDaughter(daughterDTO);
-    }
 
     //WEB CONTROLLER END //
 
@@ -204,24 +191,6 @@ public class GeographicAreaRepository {
      */
     public List<GeographicArea> getGeoAreasByType(String typeAreaName) {
         return geographicAreaCrudRepo.findAllByAreaTypeID(typeAreaName);
-    }
-
-    /**
-     * method that returns a area sensor DTO found by id
-     *
-     * @param idSensor sensor id
-     * @param idArea   area id
-     * @return area sensor dto with the selected id
-     */
-    public AreaSensorDTO getAreaSensorByID(String idSensor, long idArea) {
-        GeographicAreaDTO geographicArea = getDTOById(idArea);
-        for (AreaSensorDTO as : geographicArea.getSensors()) {
-            String asString = as.getSensorId();
-            if (asString.equals(idSensor)) {
-                return as;
-            }
-        }
-        throw new IllegalArgumentException(("Area Sensor not found"));
     }
 
     /**

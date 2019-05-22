@@ -82,7 +82,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-     void seeIfCreateEnergyGridGenerates201() {
+    void seeIfCreateEnergyGridGenerates201() {
 
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "7");
 
@@ -149,7 +149,6 @@ class EnergyGridSettingsWebControllerTest {
         //Assert
         assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
     }
-
 
 
     @Test
@@ -260,7 +259,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-     void seeIfGetAllGridsDoesNotWork() throws Exception {
+    void seeIfGetAllGridsDoesNotWork() throws Exception {
         String uri = "/gridSettings/grids";
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -270,7 +269,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-     void seeIfDetachRoomFromGridWorksInvalid() throws Exception {
+    void seeIfDetachRoomFromGridWorksInvalid() throws Exception {
         // Arrange
 
         String URI = "/gridSettings/grids/B%20Building";
@@ -287,7 +286,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-     void seeIfDeleteRoomFromGridWorks() throws Exception {
+    void seeIfDeleteRoomFromGridWorks() throws Exception {
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
 
