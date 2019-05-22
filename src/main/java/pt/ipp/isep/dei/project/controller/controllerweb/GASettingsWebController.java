@@ -25,12 +25,14 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
-        if (geographicAreaRepo.addAndPersistDTO(dto) && dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
+        if (dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
+            if(geographicAreaRepo.addAndPersistDTO(dto)){
             return new ResponseEntity<>("The Geographic Area has been created.", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered a repeated or" +
-                    " invalid Area.", HttpStatus.CONFLICT);
-        }
+            return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
+        }}
+        return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
+                " invalid Area.", HttpStatus.BAD_REQUEST);
     }
 
     /**

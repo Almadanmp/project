@@ -41,6 +41,8 @@ alt if geographic area is Added
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
 else if geographic area is NOT Added
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
+else if geographic area is NOT Added due to null parameters
+"GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.BAD_REQUEST)
 deactivate "GeographicAreaMapper"
 deactivate "GeographicAreaRepository"
 deactivate "Http Client"
