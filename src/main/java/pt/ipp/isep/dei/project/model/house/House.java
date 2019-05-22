@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -198,17 +197,6 @@ public class House implements Root {
     @JsonIgnore
     public boolean isMotherAreaNull() {
         return getMotherAreaID() == null;
-    }
-
-    /**
-     * calculates distance from the house to the sensor.
-     *
-     * @param areaSensor sensor from where to calculate the distance
-     * @return returns the distance between sensor and the house
-     */
-    public double calculateDistanceToSensor(AreaSensor areaSensor) {
-        Local l = areaSensor.getLocal();
-        return this.location.getLinearDistanceBetweenLocalsInKm(l);
     }
 
     /**

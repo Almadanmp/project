@@ -2,17 +2,16 @@
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor snow
+skinparam titleBackgroundColor ivory
 skinparam FontName quicksand
 
 skinparam actor {
  	BorderColor indianred
- 	backgroundColor Snow
  	}
 
  skinparam sequence {
  	LifeLineBackgroundColor indianred
- 	ParticipantBackgroundColor snow
+ 	ParticipantBackgroundColor ivory
 }
 
  skinparam roundcorner 10
@@ -23,20 +22,24 @@ skinparam actor {
    ArrowColor indianred
    ArrowFontColor darkslategrey
  }
-title US 011 - As as Administrator I want to remove a sensor so that it will no longer be used.
+title US 010 - As as As an Administrator, I want to deactivate a sensor in a geographical area, so that it will no longer be used. It can be reactivated later.
 
 actor "Admin"
 activate "Admin"
-"Admin" -> "SensorSettingsWebController":  Delete ".../areas/{id}/sensors/{id2}": removeAreaSensor(Long areaID, String sensorID)
+"Admin" -> "SensorSettingsWebController":  Put ".../areas/{id}/sensors/{id2}": deactivateAreaSensor(Long areaID, String sensorID)
 activate "SensorSettingsWebController"
 "SensorSettingsWebController" -> "GeographicAreaRepository": getDTOById(Long areaID)
 activate "GeographicAreaRepository"
 "GeographicAreaRepository" --> "SensorSettingsWebController": return GeographicAreaDTO
 deactivate "GeographicAreaRepository"
-"SensorSettingsWebController" -> "GeographicAreaRepository": removeSensorDTO(GeographicAreaDTO geoAreaDTO, String sensorID)
-activate "GeographicAreaRepository"
-"GeographicAreaRepository" --> "SensorSettingsWebController": return true
-deactivate "GeographicAreaRepository"
+"SensorSettingsWebController" -> "GeographicAreaDTO": getAreaSensorByID(idSensor)
+activate "GeographicAreaDTO"
+"GeographicAreaDTO" --> "SensorSettingsWebController": return AreaSensorDTO
+deactivate "GeographicAreaDTO"
+"SensorSettingsWebController" -> "GeographicAreaDTO": deactivateSensorDTO(geographicArea, areaSensorDTO)
+activate "GeographicAreaDTO"
+"GeographicAreaDTO" --> "SensorSettingsWebController": return true
+deactivate "GeographicAreaDTO"
 "SensorSettingsWebController" -> "GeographicAreaRepository": updateAreaDTO(GeographicAreaDTO)
 activate "GeographicAreaRepository"
 "GeographicAreaRepository" -> "GeographicAreaMapper": dtoToObject(areaDTO)
@@ -46,12 +49,14 @@ deactivate "GeographicAreaMapper"
 "GeographicAreaRepository" --> "GeographicAreaRepository": save(area)
 deactivate "GeographicAreaRepository"
 
-alt if sensor is removed
+alt if sensor is deactivated
 "SensorSettingsWebController" -> "Admin": new ResponseEntity<>(success message, HttpStatus.OK)
-else if sensor is not found
-"SensorSettingsWebController" -> "Admin": new ResponseEntity<>(failed message, HttpStatus.NOT_FOUND)
+else if sensor is already deactivated
+"SensorSettingsWebController" -> "Admin": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
 deactivate "SensorSettingsWebController"
 deactivate "Admin"
 end
+
+
 
 @enduml

@@ -189,7 +189,7 @@ public final class GeographicAreaMapper {
         }
 
         List<AreaSensorDTO> dtoSensorList = new ArrayList<>();
-        for (AreaSensor s : objectToConvert.getAreaSensors()) {
+        for (AreaSensor s : objectToConvert.getSensors()) {
             AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(s);
             dtoSensorList.add(tempDTO);
         }
@@ -246,7 +246,7 @@ public final class GeographicAreaMapper {
         // Update sensors
 
         List<AreaSensorDTO> dtoSensorList = new ArrayList<>();
-        for (AreaSensor s : objectToConvert.getAreaSensors()) {
+        for (AreaSensor s : objectToConvert.getSensors()) {
             AreaSensorDTO tempDTO = AreaSensorMapper.objectToDTO(s);
             dtoSensorList.add(tempDTO);
         }
@@ -290,7 +290,7 @@ public final class GeographicAreaMapper {
         // Update sensors
 
         List<AreaSensorWebDTO> dtoSensorList = new ArrayList<>();
-        for (AreaSensor s : objectToConvert.getAreaSensors()) {
+        for (AreaSensor s : objectToConvert.getSensors()) {
             AreaSensorWebDTO tempDTO = AreaSensorMapper.objectToWebDTO(s);
             dtoSensorList.add(tempDTO);
         }

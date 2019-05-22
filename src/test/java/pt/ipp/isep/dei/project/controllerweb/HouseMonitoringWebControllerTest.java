@@ -72,7 +72,7 @@ class HouseMonitoringWebControllerTest {
         dateDTO.setInitialDate(date2);
         dateDTO.setEndDate(date1);
 
-        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitudeDate(dateDTO)).thenReturn(SUCCESS);
+        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO)).thenReturn(SUCCESS);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 
@@ -102,7 +102,7 @@ class HouseMonitoringWebControllerTest {
         dateDTO.setInitialDate(date1);
         dateDTO.setEndDate(date2);
 
-        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitudeDate(dateDTO)).thenThrow(IllegalArgumentException.class);
+        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO)).thenThrow(IllegalArgumentException.class);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
@@ -131,7 +131,7 @@ class HouseMonitoringWebControllerTest {
         DateDTO dateDTO = new DateDTO();
         dateDTO.setInitialDate(date1);
 
-        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitudeDate(dateDTO)).thenThrow(IllegalArgumentException.class);
+        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO)).thenThrow(IllegalArgumentException.class);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
@@ -146,7 +146,7 @@ class HouseMonitoringWebControllerTest {
         DateDTO dateDTO = new DateDTO();
         dateDTO.setInitialDate(date1);
 
-        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitudeDate(dateDTO)).thenThrow(RuntimeException.class);
+        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO)).thenThrow(RuntimeException.class);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 

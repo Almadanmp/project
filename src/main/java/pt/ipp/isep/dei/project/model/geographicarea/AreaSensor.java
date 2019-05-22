@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.house.House;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -168,17 +167,6 @@ public class AreaSensor {
 
 
     /**
-     * Method that returns the distance between the sensor and the house.
-     *
-     * @param house is the house we want to calculate the distance to.
-     * @return a double that represents the distance between the house and the sensor.
-     */
-    public double getDistanceToHouse(House house) {
-        Local l = house.getLocation();
-        return this.local.getLinearDistanceBetweenLocalsInKm(l);
-    }
-
-    /**
      * Method to print details that are required for a Sensor to be different from another Sensor (equals -
      * name, type area and local).
      *
@@ -341,7 +329,7 @@ public class AreaSensor {
         Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
         Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
         for (int i = 0; i < this.areaReadings.size(); i++) {
-            Date currentReadingDate = ReadingUtils.getValueDate(this.areaReadings, i);
+            Date currentReadingDate = ReadingUtils.getReadingDate(this.areaReadings, i);
             if (ReadingUtils.isReadingDateBetweenTwoDates(currentReadingDate, startDate, endDate)) {
                 daysWithReadings.add(currentReadingDate);
             }

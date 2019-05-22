@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AreaSensorUtils {
+public class SensorUtils {
 
     /**
      * This method receives an Area Sensor list and checks every sensor in the

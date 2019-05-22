@@ -240,7 +240,7 @@ public class GeographicAreaRepository {
      * @param id the index of the GA.
      * @return returns geographic area that corresponds to index.
      */
-    public GeographicArea get(long id) {
+    public GeographicArea getByID(long id) {
         Optional<GeographicArea> value = geographicAreaCrudRepo.findById(id);
         if (value.isPresent()) {
             return value.get();
@@ -319,7 +319,7 @@ public class GeographicAreaRepository {
     GeographicArea getGeographicAreaContainingSensorWithGivenId(String sensorID) {
         List<GeographicArea> geographicAreas = geographicAreaCrudRepo.findAll();
         for (GeographicArea ga : geographicAreas) {
-            List<AreaSensor> areaSensors = ga.getAreaSensors();
+            List<AreaSensor> areaSensors = ga.getSensors();
             for (AreaSensor sensor : areaSensors) {
                 String tempSensorID = sensor.getId();
                 if (tempSensorID.equals(sensorID)) {

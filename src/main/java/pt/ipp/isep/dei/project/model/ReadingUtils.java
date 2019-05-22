@@ -63,7 +63,7 @@ public class ReadingUtils {
      * @param index the index of the Reading we want to getDB value from
      * @return returns value reading that corresponds to index.
      */
-    static double getValueReading(List<Reading> readings, int index) {
+    static double getReadingValue(List<Reading> readings, int index) {
         if (readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -77,7 +77,7 @@ public class ReadingUtils {
      * @param index the index of the Reading we want to getDB date from
      * @return returns date reading that corresponds to index.
      */
-    public static Date getValueDate(List<Reading> readings, int index) {
+    public static Date getReadingDate(List<Reading> readings, int index) {
         if (readings.isEmpty()) {
             throw new IndexOutOfBoundsException(EMPTY_LIST);
         }
@@ -224,8 +224,8 @@ public class ReadingUtils {
         ArrayList<Double> valueReadingsFromGivenDay = new ArrayList<>();
         for (int i = 0; i < readings.size(); i++) {
 
-            if (compareDayMonthAndYearBetweenDates(getValueDate(readings, i), day)) {
-                valueReadingsFromGivenDay.add(getValueReading(readings, i));
+            if (compareDayMonthAndYearBetweenDates(getReadingDate(readings, i), day)) {
+                valueReadingsFromGivenDay.add(getReadingValue(readings, i));
             }
 
         }

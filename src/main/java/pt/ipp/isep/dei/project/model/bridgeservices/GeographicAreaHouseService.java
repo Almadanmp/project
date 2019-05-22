@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensorUtils;
+import pt.ipp.isep.dei.project.model.geographicarea.SensorUtils;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -48,7 +49,7 @@ public class GeographicAreaHouseService {
 
         // gets and returns average readings on the closest AreaSensor to the house
         Long motherAreaID = house.getMotherAreaID();
-        GeographicArea houseMotherArea = geographicAreaRepository.get(motherAreaID);
+        GeographicArea houseMotherArea = geographicAreaRepository.getByID(motherAreaID);
         AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("Temperature", house, houseMotherArea);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
@@ -223,8 +224,8 @@ public class GeographicAreaHouseService {
 
         List<AreaSensor> minDistSensor = new ArrayList<>();
 
-        List<AreaSensor> gaAreaSensors = geographicArea.getAreaSensors();
-        List<AreaSensor> sensorsOfGivenType = AreaSensorUtils.getAreaSensorsOfGivenType(gaAreaSensors, sensorType);
+        List<AreaSensor> gaAreaSensors = geographicArea.getSensors();
+        List<AreaSensor> sensorsOfGivenType = SensorUtils.getAreaSensorsOfGivenType(gaAreaSensors, sensorType);
 
         if (!sensorsOfGivenType.isEmpty()) {
             double minDist = getMinDistanceToSensorOfGivenType(sensorsOfGivenType, house);
@@ -236,7 +237,7 @@ public class GeographicAreaHouseService {
         }
         if (minDistSensor.size() > 1) {
 
-            areaSensor = AreaSensorUtils.getMostRecentlyUsedAreaSensor(minDistSensor);
+            areaSensor = SensorUtils.getMostRecentlyUsedAreaSensor(minDistSensor);
         } else {
             areaSensor = minDistSensor.get(0);
         }
@@ -259,13 +260,34 @@ public class GeographicAreaHouseService {
     List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
-            if (Double.compare(minDist, s.getDistanceToHouse(house)) == 0) {
+            if (Double.compare(minDist, getDistanceToHouse(s, house)) == 0) {
                 finalList.add(s);
             }
         }
         return finalList;
     }
 
+    /**
+     * Method that returns the distance between the sensor and the house.
+     *
+     * @param house is the house we want to calculate the distance to.
+     * @return a double that represents the distance between the house and the sensor.
+     */
+    public double getDistanceToHouse(AreaSensor areaSensor, House house) {
+        Local l = house.getLocation();
+        return areaSensor.getLocal().getLinearDistanceBetweenLocalsInKm(l);
+    }
+
+    /**
+     * calculates distance from the house to the sensor.
+     *
+     * @param areaSensor sensor from where to calculate the distance
+     * @return returns the distance between sensor and the house
+     */
+    public double calculateDistanceToSensor(AreaSensor areaSensor, House house) {
+        Local l = areaSensor.getLocal();
+        return house.getLocation().getLinearDistanceBetweenLocalsInKm(l);
+    }
 
     /**
      * Goes through the sensor list, calculates sensors distance to house and
@@ -277,7 +299,7 @@ public class GeographicAreaHouseService {
     private List<Double> getSensorsDistanceToHouse(List<AreaSensor> areaSensors, House house) {
         ArrayList<Double> arrayList = new ArrayList<>();
         for (AreaSensor areaSensor : areaSensors) {
-            arrayList.add(house.calculateDistanceToSensor(areaSensor));
+            arrayList.add(calculateDistanceToSensor(areaSensor, house));
         }
         return arrayList;
     }
@@ -288,14 +310,14 @@ public class GeographicAreaHouseService {
      * @param dateDTO date interval
      * @return string with date and amplitude value
      */
-    public String getHighestTemperatureAmplitudeDate(DateDTO dateDTO) {
+    public String getHighestTemperatureAmplitude(DateDTO dateDTO) {
         if (!isDateDTOValid(dateDTO)) {
             throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
                     "required (Initial date must be before End date).");
         }
         House house = houseRepository.getHouses().get(0);
         Long geographicAreaID = house.getMotherAreaID();
-        GeographicArea geographicArea = geographicAreaRepository.get(geographicAreaID);
+        GeographicArea geographicArea = geographicAreaRepository.getByID(geographicAreaID);
         if (geographicArea == null) {
             throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
         }

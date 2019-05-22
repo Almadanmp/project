@@ -4,15 +4,16 @@ title US 105 - As an Administrator I want to add a new room to the house
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 2
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor ivory
-skinparam FontName verdana
+skinparam titleBackgroundColor Snow
+skinparam FontName quicksand
 skinparam titleFontSize 10
+skinparam roundcorner 10
 
 
 skinparam class {
   BorderColor indianred
   BackgroundColor indianred
-  BackgroundColor ivory
+  BackgroundColor Snow
    roundcorner 10
    ArrowFontName Verdana
    ArrowColor indianred

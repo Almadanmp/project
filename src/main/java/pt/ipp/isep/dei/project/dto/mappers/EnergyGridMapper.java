@@ -22,6 +22,12 @@ public final class EnergyGridMapper {
     private EnergyGridMapper() {
     }
 
+    /**
+     * This is the method that converts energy grid DTOs into model objects without PowerSource and Room Lists.
+     *
+     * @param dtoToConvert is the DTO we want to convert.
+     * @return is the converted model object.
+     */
     public static EnergyGrid dtoToObjectEmptyLists(EnergyGridDTO dtoToConvert) {
         // Update the name
 
