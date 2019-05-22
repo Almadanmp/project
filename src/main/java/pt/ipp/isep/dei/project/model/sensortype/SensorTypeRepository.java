@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controllercli.utils.LogUtils;
+import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.util.List;

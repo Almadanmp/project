@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controllercli.HouseConfigurationController;
-import pt.ipp.isep.dei.project.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.controller.controllercli.HouseConfigurationController;
+import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderCSV;
 import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderJSON;

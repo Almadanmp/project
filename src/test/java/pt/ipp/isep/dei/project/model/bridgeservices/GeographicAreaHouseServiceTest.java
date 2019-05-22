@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;

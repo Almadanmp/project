@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controllercli.EnergyGridSettingsController;
+import pt.ipp.isep.dei.project.controller.controllercli.EnergyGridSettingsController;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;

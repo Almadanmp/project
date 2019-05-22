@@ -235,13 +235,13 @@
                         <param>lapr.project.utils.*</param>
                     </inScopeClasses>-->
                     <targetClasses>
-                        <param>pt.ipp.isep.dei.project.controllercli.*</param>
-                        <param>pt.ipp.isep.dei.project.controllerweb.*</param>
+                        <param>pt.ipp.isep.dei.project.controller.controllercli.*</param>
+                        <param>pt.ipp.isep.dei.project.controller.controllerweb.*</param>
                         <param>pt.ipp.isep.dei.project.model.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>pt.ipp.isep.dei.project.controllercli.*</param>
-                        <param>pt.ipp.isep.dei.project.controllerweb.*</param>
+                        <param>pt.ipp.isep.dei.project.controller.controllercli.*</param>
+                        <param>pt.ipp.isep.dei.project.controller.controllerweb.*</param>
                         <param>pt.ipp.isep.dei.project.model.*</param>
                     </targetTests>
 

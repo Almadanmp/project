@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controllercli.RoomConfigurationController;
+import pt.ipp.isep.dei.project.controller.controllercli.RoomConfigurationController;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;

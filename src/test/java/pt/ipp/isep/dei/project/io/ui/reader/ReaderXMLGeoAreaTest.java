@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.w3c.dom.NodeList;
-import pt.ipp.isep.dei.project.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;

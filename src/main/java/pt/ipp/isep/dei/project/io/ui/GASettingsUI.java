@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.io.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controllercli.GASettingsController;
-import pt.ipp.isep.dei.project.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.controller.controllercli.GASettingsController;
+import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
