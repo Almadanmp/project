@@ -41,13 +41,17 @@ activate "GeographicAreaMapper"
 "GeographicAreaMapper" --> "GeographicAreaRepository": return GeographicArea
 deactivate "GeographicAreaMapper"
 "GeographicAreaRepository" -> "GeographicAreaCrudRepository": save GeographicArea
-deactivate "GeographicAreaRepository"
 alt if geographic area is Added
+"GeographicAreaRepository" -->  "GASettingsWebController": return true
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
 else if geographic area is NOT Added
+"GeographicAreaRepository" -->  "GASettingsWebController": return false
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
 else if geographic area is NOT Added due to null parameters
+"GeographicAreaRepository" -->  "GASettingsWebController": return false
+deactivate "GeographicAreaRepository"
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.BAD_REQUEST)
+deactivate "GASettingsWebController"
 deactivate "Http Client"
 end
 
