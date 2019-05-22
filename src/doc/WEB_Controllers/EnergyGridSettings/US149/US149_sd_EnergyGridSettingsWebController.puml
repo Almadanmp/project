@@ -5,17 +5,22 @@ title  US149 - As an Administrator, I want to detach a room from a house grid, s
 actor "Administrator"
 
 Administrator->HTTPClient: Detach Room from Grid
-HTTPClient->EnergyGridSettingsWebController: detachRoomFromGrid(String roomID, String gridID)
+HTTPClient -> SpringResolver: delete("gridSettings/grids/{energyGridId}")
+SpringResolver -> EnergyGridSettingsWebController: detachRoomFromGrid(String roomID, String gridID)
 EnergyGridSettingsWebController->EnergyGridRepository: removeRoomFromGrid(String roomID, String gridID)
 EnergyGridRepository->EnergyGridRepository: findById(gridID)
 alt if grid is present
 EnergyGridRepository->"foundGrid :EnergyGrid" : removeRoom(roomID)
 alt if room is present
-"foundGrid :EnergyGrid"-->HTTPClient: HttpStatus.OK
+create ResponseEntity
+EnergyGridSettingsWebController -> ResponseEntity: create(String body, HttpStatus.OK);
+ResponseEntity-->HTTPClient: ResponseEntity
 else if room isn't present
-"foundGrid :EnergyGrid"--> HTTPClient: HttpStatus.NOT_FOUND
+EnergyGridSettingsWebController -> ResponseEntity: create(String body, HttpStatus.NOT_FOUND);
+ResponseEntity-->HTTPClient: ResponseEntity
 end
 else if grid isn't present
-EnergyGridRepository-->HTTPClient: HttpStatus.NOT_FOUND
+EnergyGridSettingsWebController -> ResponseEntity: create(String body, HttpStatus.NOT_FOUND);
+ResponseEntity-->HTTPClient: ResponseEntity
 end
 @enduml
