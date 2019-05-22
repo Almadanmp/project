@@ -65,16 +65,27 @@ public class SensorSettingsWebController {
      * @return OK status if the area sensor is successfully created. Returns htttp status 'not acceptable' if the sensor already exists.
      */
     @PostMapping("/areas/{id}/sensors")
-    public ResponseEntity<AreaSensorDTO> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
-                                                          @PathVariable long id) {
-        GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(id);
-        if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
-            geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
-            Link link = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, areaSensorDTO.getSensorId())).withRel("Delete the created sensor");
-            areaSensorDTO.add(link);
-            return new ResponseEntity<>(areaSensorDTO, HttpStatus.OK);
+    public ResponseEntity<Object> createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO,
+                                                   @PathVariable long id) {
+        GeographicAreaDTO geographicAreaDTO;
+        try {
+            geographicAreaDTO = geographicAreaRepository.getDTOById(id);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>( "That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);}
+        if (areaSensorDTO.getName() != null && areaSensorDTO.getSensorId() != null && areaSensorDTO.getType() != null && areaSensorDTO.getDateStartedFunctioning() != null) {
+            if (areaSensorDTO.getName().equals("")) {
+                return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
+            }
+            if (geographicAreaRepository.addSensorDTO(geographicAreaDTO, areaSensorDTO)) {
+                geographicAreaRepository.updateAreaDTO(geographicAreaDTO);
+                Link link = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, areaSensorDTO.getSensorId())).withRel("Delete the created sensor");
+                areaSensorDTO.add(link);
+                return new ResponseEntity<>(areaSensorDTO, HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>("The sensor already exists in the database", HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>("There was a problem creating the Area Sensor, because one or more components are missing!",
+                HttpStatus.BAD_REQUEST);
     }
 
     // US010 Deactivate Area Sensor
