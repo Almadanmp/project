@@ -29,7 +29,10 @@ title US101 - As an Administrator, I want to configure the location of the house
 
 actor "Http Client"
 activate "Http Client"
-"Http Client" -> "HouseConfigurationWebController":  Put ".../houseSettings/house":\n configureHouseLocation(AddressAndLocalDTO)
+"Http Client" -> "SpringResolver":  Put ".../houseSettings/house"
+activate "SpringResolver"
+"SpringResolver" -> "HouseConfigurationWebController": configureHouseLocation(AddressAndLocalDTO)
+deactivate "SpringResolver"
 activate "HouseConfigurationWebController"
 "HouseConfigurationWebController" -> "HouseRepository": getHouseDTOWithoutGrids()
 activate "HouseRepository"

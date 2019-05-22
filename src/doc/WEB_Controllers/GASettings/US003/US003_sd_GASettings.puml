@@ -29,22 +29,25 @@ title US003 - As an Administrator, I want to create a new Geographic Area
 
 actor "Http Client"
 activate "Http Client"
-"Http Client" -> "GASettingsWebController":  Post ".../geographic_area_settings/areas":\n createGeographicArea(GeographicAreaDTO)
+"Http Client" -> "SpringResolver":  Post ".../geographic_area_settings/areas"
+activate "SpringResolver"
+"SpringResolver"->"GASettingsWebController": createGeographicArea(GeographicAreaDTO)
+deactivate "SpringResolver"
 activate "GASettingsWebController"
 "GASettingsWebController" -> "GeographicAreaRepository": addAndPersistDTO(GeographicAreaDTO)
 activate "GeographicAreaRepository"
 "GeographicAreaRepository" -> "GeographicAreaMapper": GeographicArea = dtoToObject(GeographicAreaDTO)
 activate "GeographicAreaMapper"
 "GeographicAreaMapper" --> "GeographicAreaRepository": return GeographicArea
+deactivate "GeographicAreaMapper"
 "GeographicAreaRepository" -> "GeographicAreaCrudRepository": save GeographicArea
+deactivate "GeographicAreaRepository"
 alt if geographic area is Added
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
 else if geographic area is NOT Added
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
 else if geographic area is NOT Added due to null parameters
 "GASettingsWebController" --> "Http Client": new ResponseEntity<>(failed message, HttpStatus.BAD_REQUEST)
-deactivate "GeographicAreaMapper"
-deactivate "GeographicAreaRepository"
 deactivate "Http Client"
 end
 
