@@ -3,12 +3,9 @@ package pt.ipp.isep.dei.project.dto;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,13 +15,10 @@ class GeographicAreaDTOTest {
     // Common testing artifacts for testing in this class.
 
     private GeographicAreaDTO validDTO;
-    private List<AreaSensorDTO> validAreaSensorDTOList;
 
     @BeforeEach
     void arrangeArtifacts() {
         validDTO = new GeographicAreaDTO();
-        validAreaSensorDTOList = new ArrayList<>();
-        validDTO.setSensorList(validAreaSensorDTOList);
     }
 
     @Test
@@ -269,7 +263,7 @@ class GeographicAreaDTOTest {
 
         // Act
 
-        List <GeographicAreaDTO> actualResult = validDTO.getDaughterAreas();
+        List<GeographicAreaDTO> actualResult = validDTO.getDaughterAreas();
 
         // Assert
 
@@ -300,7 +294,6 @@ class GeographicAreaDTOTest {
         assertThrows(IllegalArgumentException.class,
                 () -> validDTO.getAreaSensorByID("SensorOne"));
     }
-
 
 
     @Test
@@ -348,6 +341,17 @@ class GeographicAreaDTOTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateSensorDTOWorks() {
+        // Arrange
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setActive(true);
+        areaSensorDTO.setId("test");
+        validDTO.addSensor(areaSensorDTO);
+        // Act
+        assertTrue(validDTO.deactivateSensorDTO(areaSensorDTO));
     }
 
     @Test
