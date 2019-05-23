@@ -4,31 +4,41 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
+import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 /**
- * House Monitoring - controllercli Tests
+ * House Monitoring - Controller tests for the Command Line Interface.
  */
 @ExtendWith(MockitoExtension.class)
 class HouseMonitoringControllerTest {
 
     // Common artifacts for testing in this class.
+
+    @Mock
+    private GeographicAreaRepository geographicAreaRepository;
+
+    @Mock
+    private GeographicAreaHouseService geographicAreaHouseService;
+
     private GeographicArea validHouseArea;
     private House validHouse;
     private AreaSensor validTemperatureAreaSensor; // Is a temperature sensor with valid readings.
@@ -499,5 +509,29 @@ class HouseMonitoringControllerTest {
         // Assert
 
         assertEquals(expectedResult, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetClosestSensorToHouseByTypeWorks(){
+        // Arrange
+
+        AreaSensor expectedResult = validTemperatureAreaSensor;
+
+        List<AreaSensor> mockedList = new ArrayList<>();
+        mockedList.add(validTemperatureAreaSensor);
+        Mockito.when(geographicAreaRepository.getByID(111L)).thenReturn(validHouseArea);
+        validHouseArea.addSensor(validTemperatureAreaSensor);
+        Mockito.when(geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", validHouse,
+                validHouseArea)).thenCallRealMethod();
+        Mockito.when(geographicAreaHouseService.getAreaSensorsByDistanceToHouse(mockedList, validHouse, 0)).
+                thenCallRealMethod();
+
+        // Act
+
+        AreaSensor actualResult = controller.getClosestSensorToHouseByType(validHouse, "temperature");
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }
