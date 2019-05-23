@@ -336,12 +336,13 @@ class GeographicAreaRepositoryTest {
     @Test
     void seeIfPrintsGeoAList() {
         // Arrange
-        List<GeographicArea> geographicAreas = new ArrayList<>();
-        String expectedResult = "Invalid List - List is Empty\n";
+        String expectedResult = "---------------\n" +
+                "null) Name: Portugal | Type: Country | Latitude: 50.0 | Longitude: 50.0\n" +
+                "---------------\n";
 
         // Act
 
-        String result = geographicAreaRepository.buildStringRepository(geographicAreas);
+        String result = geographicAreaRepository.buildStringRepository(validList);
 
         // Assert
 
@@ -905,5 +906,19 @@ class GeographicAreaRepositoryTest {
         // Assert
         assertTrue(actualResult);
 
+    }
+
+    @Test
+    void seeIfUpdateGeoAreaWork() {
+        geographicAreaRepository.updateGeoArea(firstValidArea);
+    }
+
+    @Test
+    void seeIfAddAndPersistGaWorks() {
+        //Arrange
+        Mockito.doReturn(validList).when(geographicAreaCrudRepo).findAll();
+        Mockito.doReturn(GeographicAreaMapper.dtoToObject(validDTO)).when(geographicAreaCrudRepo).save(GeographicAreaMapper.dtoToObject(validDTO));
+        boolean actualResult = geographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validDTO));
+        assertTrue(actualResult);
     }
 }
