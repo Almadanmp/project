@@ -70,6 +70,11 @@ public class GeographicAreaRepository {
         return GeographicAreaMapper.objectToDTO(aux.get());
     }
 
+    /**
+     * get DTO (with list of daughterAreas) from id
+     * @param Id of the geoAreaDTO
+     * @return geoAreaDTO with the id
+     */
     public GeographicAreaDTO getDTOByIdWithMother(long Id) {
         Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
         if (!aux.isPresent()) {
@@ -133,10 +138,21 @@ public class GeographicAreaRepository {
         return false;
     }
 
+    /**
+     * saves geoarea on crud repository
+     * @param area geo area to be updated
+     */
     public void updateGeoArea(GeographicArea area) {
         geographicAreaCrudRepo.save(area);
     }
 
+    /**
+     * Add geographic area daughter to mother area
+     * @param idAreaDaughter geoArea to be added
+     * @param idAreaMother geoArea with the list of geoareas
+     * @return true if geoArea Daughter is added
+     * @throws NoSuchElementException if geoArea (daughter or mother) not found
+     */
     public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) throws NoSuchElementException {
         Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
         Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
