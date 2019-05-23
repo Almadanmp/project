@@ -22,6 +22,7 @@ skinparam class {
 }
 
 class HouseSettingsWebController
+class HouseRoomService
 class RoomRepository
 class HouseRepository
 class Room
@@ -29,13 +30,17 @@ class RoomMapper
 class HouseCrudRepository
 class RoomCrudRepository
 
-HouseSettingsWebController -- RoomRepository : >
-HouseSettingsWebController -- HouseRepository : >
-HouseSettingsWebController -- Room : >
-Room -- RoomMapper : >
+HouseSettingsWebController -- HouseRoomService: >
+HouseSettingsWebController -- RoomDTOWeb: >
+HouseRoomService -- RoomMapper : >
+HouseRoomService -- HouseRepository : >
+HouseRoomService -- RoomRepository : >
+HouseRoomService -- Room : >
 HouseRepository -- HouseCrudRepository : >
 HouseRepository -- House : >
 RoomRepository -- RoomCrudRepository : >
+RoomRepository -- Room : >
+
 
 
 
@@ -43,18 +48,29 @@ class HouseSettingsWebController {
 -createRoom(@RequestBody RoomWebDTO)
 }
 
+class RoomDTOWeb {
+-isNameValid()
+-areDimensionsValid()
+}
+
+class HouseRoomService {
+-addRoomDTOWebToHouse(RoomDTOWeb)
+}
+
 class Room{
 -setHouseID(String houseID)
-- getId()
+-getId()
 }
 
 class RoomMapper{
 -dtoToObject(roomDTOWeb)
+-objectToDTO(roomDTOWeb)
 }
 
 
 class RoomRepository {
 - addRoomToCrudRepository(Room room)
+-getAllRooms()
 }
 
 class HouseRepository {
@@ -66,6 +82,7 @@ class House {
 }
 
 class RoomCrudRepository{
+-findAll()
 -save(Room room)
 }
 
