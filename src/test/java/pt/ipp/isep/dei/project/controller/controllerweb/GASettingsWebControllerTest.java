@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -317,7 +315,7 @@ class GASettingsWebControllerTest {
 
     @Test
     void getAllGeoAreasDTO() {
-            //Arrange
+        //Arrange
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
         LocalDTO localDTO = new LocalDTO();
 
@@ -336,89 +334,59 @@ class GASettingsWebControllerTest {
         List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
         geographicAreas.add(validGeographicAreaDTO);
 
-            Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(geographicAreas);
+        Mockito.when(geographicAreaRepository.getAllDTO()).thenReturn(geographicAreas);
 
-            ResponseEntity<Object> expectedResult = new ResponseEntity<>(geographicAreas, HttpStatus.OK);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(geographicAreas, HttpStatus.OK);
 
-            //Act
-            ResponseEntity<Object> actualResult = gaSettingsWebController.getAllGeographicAreas();
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.getAllGeographicAreas();
 
-            //Assert
-            assertEquals(expectedResult, actualResult);
+        //Assert
+        assertEquals(expectedResult, actualResult);
 
     }
 
-//    @Test
-//    void addDaughterAreaInvalidMother() {
-//        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-//
-//        validGeographicAreaDTO.setDescription("3rd biggest city");
-//        validGeographicAreaDTO.setId(2L);
-//        validGeographicAreaDTO.setWidth(100);
-//        validGeographicAreaDTO.setLength(500);
-//        validGeographicAreaDTO.setTypeArea("urban area");
-//
-//
-//        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
-//
-//        //Act
-//        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(1L, 3L);
-//
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void addDaughterAreaInvalidDaughter() {
-//        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-//
-//        validGeographicAreaDTO.setDescription("3rd biggest city");
-//        validGeographicAreaDTO.setId(2L);
-//        validGeographicAreaDTO.setWidth(100);
-//        validGeographicAreaDTO.setLength(500);
-//        validGeographicAreaDTO.setTypeArea("urban area");
-//
-//        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. You have entered a repeated or invalid Area.", HttpStatus.CONFLICT);
-//
-//        //Act
-//        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, validGeographicAreaDTO.getId());
-//
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void addDaughterArea() {
-//        GeographicAreaDTO motherDTO = new GeographicAreaDTO();
-//
-//        motherDTO.setDescription("3rd biggest city");
-//        motherDTO.setId(1L);
-//        motherDTO.setWidth(100);
-//        motherDTO.setLength(500);
-//        motherDTO.setTypeArea("urban area");
-//
-//        GeographicAreaDTO daughterDTO = new GeographicAreaDTO();
-//
-//        daughterDTO.setDescription("3rd biggest city");
-//        daughterDTO.setId(2L);
-//        daughterDTO.setWidth(100);
-//        daughterDTO.setLength(500);
-//        daughterDTO.setTypeArea("urban area");
-//
-//        Mockito.doReturn(motherDTO).when(geographicAreaRepository).getDTOByIdWithMother(1L);
-//
-//        Mockito.doReturn(daughterDTO).when(geographicAreaRepository).getDTOByIdWithMother(2L);
-//
-//        Mockito.doReturn(true).when(geographicAreaRepository).addDaughterArea(motherDTO);
-//
-//
-//        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been added.", HttpStatus.CREATED);
-//
-//        //Act
-//        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(daughterDTO.getId(), motherDTO.getId());
-//
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void addDaughterArea() {
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        Mockito.doReturn(true).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been added.</geographic_area_settings/areas/1>;rel=\"See geographic area\"", HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(1L, 3L);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void addDaughterAreaInvalidDaughter() {
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        Mockito.doReturn(false).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, validGeographicAreaDTO.getId());
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
 
 }
