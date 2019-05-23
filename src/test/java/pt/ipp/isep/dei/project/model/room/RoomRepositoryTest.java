@@ -169,8 +169,8 @@ class RoomRepositoryTest {
         Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
 
         List<Room> rooms = new ArrayList<>();
-        rooms.add(validRoom2);
         rooms.add(validRoom);
+        rooms.add(validRoom2);
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 

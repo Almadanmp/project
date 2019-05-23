@@ -41,12 +41,30 @@ public class Address {
     }
 
     /**
+     * Standard setter method, to define the Street name.
+     *
+     * @param street the string with the street name.
+     */
+    void setStreet(String street) {
+        this.street = street;
+    }
+
+    /**
      * Standard getter method, to return the number.
      *
      * @return the string with the number.
      */
     public String getNumber() {
         return number;
+    }
+
+    /**
+     * Standard setter method, to define the number.
+     *
+     * @param number the string with the number.
+     */
+    void setNumber(String number) {
+        this.number = number;
     }
 
     /**
@@ -59,24 +77,6 @@ public class Address {
     }
 
     /**
-     * Standard getter method, to return the Town name.
-     *
-     * @return the string with the town name.
-     */
-    public String getTown() {
-        return this.town;
-    }
-
-    /**
-     * Standard setter method, to define the Street name.
-     *
-     * @param street the string with the street name.
-     */
-    void setStreet(String street) {
-        this.street = street;
-    }
-
-    /**
      * Standard setter method, to define the Zip code.
      *
      * @param zip the string with the zip code.
@@ -86,12 +86,12 @@ public class Address {
     }
 
     /**
-     * Standard setter method, to define the number.
+     * Standard getter method, to return the Town name.
      *
-     * @param number the string with the number.
+     * @return the string with the town name.
      */
-    void setNumber(String number) {
-        this.number = number;
+    public String getTown() {
+        return this.town;
     }
 
     /**

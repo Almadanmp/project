@@ -54,8 +54,8 @@ public class HouseRepository {
         return HouseMapper.objectToWithoutGridsDTO(house);
     }
 
-    public boolean updateHouseDTOWithoutGrids(HouseWithoutGridsDTO house){
-        return houseCrudRepo.save(HouseMapper.dtoWithoutGridsToObject(house)) != null;
+    public boolean updateHouseDTOWithoutGrids(HouseWithoutGridsDTO houseWithoutGridsDTO) {
+        return houseCrudRepo.save(HouseMapper.dtoWithoutGridsToObject(houseWithoutGridsDTO)) != null;
     }
 
 }
