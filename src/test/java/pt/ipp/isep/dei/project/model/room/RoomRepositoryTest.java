@@ -47,7 +47,8 @@ class RoomRepositoryTest {
     private RoomSensor thirdValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
-    private Date validDate3; // 30/12/2018
+    private Date validDate3; // Date 30/12/2018
+    private Date validDate4; // Date 10/01/2019
     @Mock
     private RoomCrudRepo roomCrudRepo;
     @InjectMocks
@@ -72,12 +73,13 @@ class RoomRepositoryTest {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
             validDate3 = validSdf.parse("30/12/2018 00:00:00");
+            validDate4 = validSdf.parse("10/01/2019 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "Temperature", validDate1);
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
         firstValidRoomSensor.setActive(true);
-        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "Temperature", new Date());
+        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "temperature", validDate1);
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", "Rainfall", new Date());
     }
@@ -776,7 +778,7 @@ class RoomRepositoryTest {
         roomSensors.add(thirdValidRoomSensor);
         validRoom.setRoomSensors(roomSensors);
         String expectedResult = "---------------\n" +
-                "ID: T32876 | SensorTwo | Type: Temperature | Active\n" +
+                "ID: T32876 | SensorTwo | Type: temperature | Active\n" +
                 "ID: T32877 | SensorThree | Type: Rainfall | Active\n" +
                 "---------------\n";
 
@@ -933,7 +935,7 @@ class RoomRepositoryTest {
     void seeIfCreateRoomSensorWorks() {
         //Arrange
 
-        SensorType sensorType = new SensorType("Temperature", "C");
+        SensorType sensorType = new SensorType("temperature", "C");
 
         //Act
 
@@ -1102,6 +1104,33 @@ class RoomRepositoryTest {
         // Act
 
         int actualResult = validRoomRepository.addReadingsToRoomSensors(list, logPath);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetTemperatureReadingsBetweenDatesWork(){
+        // Arrange
+
+        Reading reading1 = new Reading(45, validDate1, "C", "T32875");
+        Reading reading2 = new Reading(33, validDate1, "C", "T32875");
+
+        firstValidRoomSensor.addReading(reading1);
+        secondValidRoomSensor.addReading(reading2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+        validRoom.addSensor(secondValidRoomSensor);
+
+        List<Reading> expectedResult = new ArrayList<>();
+        expectedResult.add(reading1);
+        expectedResult.add(reading2);
+
+        // Act
+
+        List<Reading> actualResult = validRoomRepository.getTemperatureReadingsBetweenDates(validDate1, validDate4, validRoom);
 
         // Assert
 
