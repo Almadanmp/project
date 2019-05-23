@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,8 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -368,7 +371,7 @@ class GASettingsWebControllerTest {
     }
 
     @Test
-    void addDaughterAreaInvalidDaughter() {
+    void addDaughterAreaContainsDaughter() {
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
@@ -388,5 +391,50 @@ class GASettingsWebControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void addDaughterAreaNotFound(){
 
-}
+        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, 3L);
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+    }
+
+    @Test
+    void getGeoAreaDTO() {
+        //Arrange
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41);
+        localDTO.setLongitude(-8);
+        localDTO.setAltitude(100);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
+        geographicAreas.add(validGeographicAreaDTO);
+
+
+
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.getGeographicArea(validGeographicAreaDTO.getId());
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    }
+
+

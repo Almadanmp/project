@@ -46,7 +46,7 @@ public class GASettingsWebController {
      * @return ResponseEntity with all the geographic areas
      */
     @GetMapping("/areas")
-    public ResponseEntity<Object> getAllGeographicAreas() {
+    ResponseEntity<Object> getAllGeographicAreas() {
         return new ResponseEntity<>(geographicAreaRepo.getAllDTO(), HttpStatus.OK);
     }
 
@@ -78,8 +78,8 @@ public class GASettingsWebController {
      * @return list of daughter areas on a mother area
      */
     @GetMapping("areas/{id}")
-    public GeographicAreaDTO getGeographicArea(@PathVariable("id") long id) {
-        return geographicAreaRepo.getDTOByIdWithMother(id);
+    ResponseEntity<Object> getGeographicArea(@PathVariable("id") long id) {
+        return new ResponseEntity<>(geographicAreaRepo.getDTOByIdWithMother(id), HttpStatus.OK);
     }
 
 }
