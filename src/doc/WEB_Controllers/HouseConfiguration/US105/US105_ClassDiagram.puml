@@ -45,49 +45,49 @@ RoomRepository -- Room : >
 
 
 class HouseSettingsWebController {
--createRoom(@RequestBody RoomWebDTO)
+createRoom(@RequestBody RoomWebDTO)
 }
 
 class RoomDTOWeb {
--isNameValid()
--areDimensionsValid()
+isNameValid()
+areDimensionsValid()
 }
 
 class HouseRoomService {
--addRoomDTOWebToHouse(RoomDTOWeb)
+addRoomDTOWebToHouse(RoomDTOWeb)
 }
 
 class Room{
--setHouseID(String houseID)
--getId()
+setHouseID(String houseID)
+getId()
 }
 
 class RoomMapper{
--dtoToObject(roomDTOWeb)
--objectToDTO(roomDTOWeb)
+dtoToObject(roomDTOWeb)
+objectToDTO(roomDTOWeb)
 }
 
 
 class RoomRepository {
-- addRoomToCrudRepository(Room room)
--getAllRooms()
+addRoomToCrudRepository(Room room)
+getAllRooms()
 }
 
 class HouseRepository {
-- getHouseId()
+getHouseId()
 }
 
 class House {
-- getId()
+getId()
 }
 
 class RoomCrudRepository{
--findAll()
--save(Room room)
+findAll()
+save(Room room)
 }
 
 class HouseCrudRepository{
--findAll()
+findAll()
 }
 
 @enduml

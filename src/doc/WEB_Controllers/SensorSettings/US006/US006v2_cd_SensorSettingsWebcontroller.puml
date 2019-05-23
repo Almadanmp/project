@@ -11,15 +11,17 @@ skinparam roundcorner 10
 
 
 skinparam class {
-  BorderColor indianred
-  BackgroundColor indianred
-  BackgroundColor Snow
-   roundcorner 10
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
+ BorderColor indianred
+ BackgroundColor indianred
+ BackgroundColor Snow
+  roundcorner 10
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
    FontSize 12
 }
+
+
 
 class SensorSettingsWebController
 class GeographicAreaDTO
@@ -40,27 +42,27 @@ GeographicAreaRepository -- GeographicAreaCrudeRepo : >
 
 
 class SensorSettingsWebController {
--createAreaSensor(@RequestBody AreaSensorDTO, @PathVariable long)
+createAreaSensor(@RequestBody AreaSensorDTO, @PathVariable long)
 }
 
 class GeographicAreaRepository {
-- getDTOById(long)
-- addSensorDTO(GeographicAreaDTO, AreaSensorDTO)
-- updateAreaDTO(GeographicAreaDTO)
+getDTOById(long)
+addSensorDTO(GeographicAreaDTO, AreaSensorDTO)
+updateAreaDTO(GeographicAreaDTO)
 }
 
 class GeographicAreaCrudeRepo {
-- findById(long)
-- save(GeographicArea)
+findById(long)
+save(GeographicArea)
 }
 
 class GeographicAreaMapper{
--objectToDTO(GeographicArea)
--dtoToObject(GeographicAreaDTO)
+objectToDTO(GeographicArea)
+dtoToObject(GeographicAreaDTO)
 }
 
 class GeographicAreaDTO{
--addSensor(AreaSensorDTO)
+addSensor(AreaSensorDTO)
 }
 
 @enduml
