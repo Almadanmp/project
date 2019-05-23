@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -88,6 +89,55 @@ class GeographicAreaMapperTest {
         // Act
 
         GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTO(validAreaObject);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(actualResult.getId(), validAreaObject.getId());
+    }
+
+    @Test
+    void seeIfObjectToWebDTOWorks() {
+        // Arrange
+
+        GeographicAreaWebDTO expectedResult = new GeographicAreaWebDTO();
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50D);
+        localDTO.setLongitude(50D);
+        localDTO.setAltitude(10D);
+        expectedResult.setName("Portugal");
+        expectedResult.setTypeArea("Country");
+        expectedResult.setId(6008L);
+
+        // Act
+
+        GeographicAreaWebDTO actualResult = GeographicAreaMapper.objectToWebDTO(validAreaObject);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(actualResult.getId(), validAreaObject.getId());
+    }
+
+    @Test
+    void seeIfObjectToDTOWithMotherWorks() {
+        // Arrange
+
+        GeographicAreaDTO expectedResult = new GeographicAreaDTO();
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50D);
+        localDTO.setLongitude(50D);
+        localDTO.setAltitude(10D);
+        expectedResult.setName("Portugal");
+        expectedResult.setTypeArea("Country");
+        expectedResult.setLength(300);
+        expectedResult.setWidth(200);
+        expectedResult.setId(6008L);
+        expectedResult.setLocal(localDTO);
+
+        // Act
+
+        GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTOWithMother(validAreaObject);
 
         // Assert
 

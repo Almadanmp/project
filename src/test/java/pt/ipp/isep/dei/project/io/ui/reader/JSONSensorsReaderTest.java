@@ -2,9 +2,14 @@ package pt.ipp.isep.dei.project.io.ui.reader;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.controller.controllercli.HouseConfigurationController;
+import pt.ipp.isep.dei.project.controller.controllerweb.HouseConfigurationWebController;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.ArrayList;
@@ -18,6 +23,11 @@ class JSONSensorsReaderTest {
 
     @Mock
     private SensorTypeRepository sensorTypeRepository;
+    @Mock
+    private RoomRepository roomRepository;
+
+    @InjectMocks
+    HouseConfigurationController configurationController;
 
 
     @Test
@@ -72,6 +82,8 @@ class JSONSensorsReaderTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+
 
     @Test
     void seeIfImportSensorsWorksWithInvalidRoomID() {
