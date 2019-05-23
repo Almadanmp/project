@@ -10,9 +10,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -22,6 +24,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -246,6 +249,26 @@ class SensorSettingsWebControllerTest {
 
         this.mockMvc.perform(get("/sensorsettings/areas"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void seeIfGetAreaSensorWorks() {
+        this.mockMvc =  MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+
+        geographicAreaDTO.setId(12L);
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setId("sensor");
+
+        geographicAreaDTO.addSensor(areaSensorDTO);
+
+        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
+
+        AreaSensorDTO actualResult = sensorSettingsWebController.getAreaSensor(12L,"sensor");
+
+        assertEquals(areaSensorDTO, actualResult);
     }
 
 }
