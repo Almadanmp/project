@@ -27,19 +27,23 @@ title US 105 - As an Http Client I want to add a new room to the house
 
 actor "Http Client"
 activate "Http Client"
-"Http Client" -> "HouseConfigurationWebController":  Post ".../houseSettings/room": createRoom(RoomDTO)
+"Http Client" -> "HouseConfigurationWebController":  Post ".../houseSettings/room": createRoom(@RequestBody RoomDTO roomDTO)
 activate "HouseConfigurationWebController"
-"HouseConfigurationWebController" -> "HouseConfigurationWebController": isRoomDTOWebValid(RoomDTOWeb)
+"HouseConfigurationWebController" -> "RoomDTOWeb": roomDTO.isNameValid()
+"HouseConfigurationWebController" -> "RoomDTOWeb": roomDTO.areDimensionsValid()
+
 alt if room DTO is valid
-"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.OK)
-else if room is NOT valid
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
+else if room name is NOT valid
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.BAD_REQUEST)
+else if room size is NOT valid
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.UNPROCESSABLE_ENTITY)
 end
 
 "HouseConfigurationWebController" -> "HouseRoomService": addRoomDTOWebToHouse(RoomDTOWeb)
 
 alt if room is Added
-"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.OK)
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
 else if room is NOT Added
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.CONFLICT)
 deactivate "HouseConfigurationWebController"
