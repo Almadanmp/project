@@ -42,6 +42,7 @@ public class SensorSettingsWebController {
 
     /**
      * Shows all the Geographical Areas present in the database.
+     *
      * @return OK status and a list of Geographic Area DTO.
      */
     @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,6 +53,7 @@ public class SensorSettingsWebController {
 
     /**
      * Shows a Geographical Area selected by it's ID, given that it is present in the database.
+     *
      * @param id is the geographical area id.
      * @return OK status and a Geographic Area DTO.
      */
@@ -65,6 +67,7 @@ public class SensorSettingsWebController {
 
     /**
      * Shows the area sensors present in a given Geographical Area
+     *
      * @param id is the geographical area id.
      * @return OK status and a list of Area Sensor DTOs.
      */
@@ -73,7 +76,6 @@ public class SensorSettingsWebController {
         List<AreaSensorDTO> areaSensorDTOList = geographicAreaRepository.getDTOById(id).getSensors();
         return new ResponseEntity<>(areaSensorDTOList, HttpStatus.OK);
     }
-
 
     /**
      * US006 Web Controller:
@@ -117,7 +119,7 @@ public class SensorSettingsWebController {
     @PutMapping("areas/{id}/sensors/{id2}")
     public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         try {
-            if (geographicAreaRepository.deactivateAreaSensor(idArea, idSensor)){
+            if (geographicAreaRepository.deactivateAreaSensor(idArea, idSensor)) {
                 return new ResponseEntity<>("The Area Sensor has been deactivated.", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("The Area Sensor is already deactivated", HttpStatus.CONFLICT);
