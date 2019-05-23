@@ -35,7 +35,7 @@ public class AreaSensorWebDTO {
         if (this == testDTO) {
             return true;
         }
-        if (!(testDTO instanceof AreaSensorDTO)) {
+        if (!(testDTO instanceof AreaSensorWebDTO)) {
             return false;
         }
         AreaSensorWebDTO localVariable = (AreaSensorWebDTO) testDTO;
