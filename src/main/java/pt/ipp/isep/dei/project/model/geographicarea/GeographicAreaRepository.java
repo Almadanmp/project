@@ -142,24 +142,22 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public boolean deactivateAreaSensor(long idArea, String idSensor) throws NoSuchElementException {
+    public boolean deactivateAreaSensor(long idArea, String idSensor) {
         Optional<GeographicArea> geographicArea = geographicAreaCrudRepo.findById(idArea);
         GeographicArea geoArea = geographicArea.get();
         AreaSensor areaSensor = geoArea.getAreaSensorByID(idSensor);
-        if (!geoArea.getSensors().contains(areaSensor)) {
-            throw new NoSuchElementException();
-        } else {
-            if (areaSensor.isActive()) {
-                geoArea.deactivateSensorDTO(areaSensor);
-                geographicAreaCrudRepo.save(geoArea);
-                return true;
-            }
+        if (areaSensor.isActive()) {
+            geoArea.deactivateSensorDTO(areaSensor);
+            geographicAreaCrudRepo.save(geoArea);
+            return true;
         }
         return false;
-
     }
 
-    public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) throws NoSuchElementException {
+
+
+
+    public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) {
         Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
         Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
         if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()) {
