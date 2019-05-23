@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -16,6 +16,7 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +32,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class GeographicAreaHouseServiceTest {
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
+    @Mock
+    private HouseRepository houseRepository;
 
     @InjectMocks
     GeographicAreaHouseService geographicAreaHouseService;
@@ -39,7 +42,6 @@ class GeographicAreaHouseServiceTest {
     private Date validDate2; // Date 03/09/2018
     private GeographicArea firstValidArea;
     private List<GeographicArea> validList;
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
@@ -61,6 +63,7 @@ class GeographicAreaHouseServiceTest {
     private House validHouse;
     private List<String> deviceTypeString;
     private SensorType validSensortypeTemp;
+    private SensorType validSensortypeTemp2;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -87,6 +90,7 @@ class GeographicAreaHouseServiceTest {
         validList = new ArrayList<>();
         validList.add(firstValidArea);
         validSensortypeTemp = new SensorType("Temperature", "Celsius");
+        validSensortypeTemp2 = new SensorType("Rainfall", "Celsius");
 
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensortypeTemp.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
@@ -338,9 +342,6 @@ class GeographicAreaHouseServiceTest {
         AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(2, 2, 2), new Date());
         validAreaSensor.setActive(true);
         firstValidArea.addSensor(validAreaSensor);
-        List<AreaSensor> listAreaSensor = new ArrayList<>();
-        listAreaSensor.add(validAreaSensor);
-
         //Act
         AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
 
@@ -371,6 +372,32 @@ class GeographicAreaHouseServiceTest {
     }
 
     @Test
+    void seeIfGetClosestSensorOfGivenTypeSizeActiveSensorSameLocal() {
+
+        //Arrange
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 50), new Date());
+        AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 54), new Date());
+        AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 55), new Date());
+        AreaSensor validAreaSensorTest4 = new AreaSensor("test", "Stest", validSensortypeTemp.getName(), new Local(10, 10, 10),
+                sensorCreationTime);
+        validAreaSensorTest4.addReading(validReading);
+        validAreaSensorTest1.setActive(true);
+        validAreaSensorTest2.setActive(true);
+        validAreaSensorTest3.setActive(true);
+        validAreaSensorTest4.setActive(true);
+        firstValidArea.addSensor(validAreaSensorTest1);
+        firstValidArea.addSensor(validAreaSensorTest2);
+        firstValidArea.addSensor(validAreaSensorTest3);
+        firstValidArea.addSensor(validAreaSensorTest4);
+
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+
+        //Assert
+        assertEquals(validAreaSensor, actualResult);
+    }
+
+    @Test
     void seeIfGetDistanceToHouseWorks() {
         // Arrange
 
@@ -380,7 +407,6 @@ class GeographicAreaHouseServiceTest {
         GeographicArea geographicArea = new GeographicArea("Porto", "City",
                 2, 3, new Local(4, 4, 100));
         house.setMotherAreaID(geographicArea.getId());
-        Local testLocal = new Local(-5, -5, -5);
         double expectedResult = 799.8866399214708;
 
         //Act
@@ -403,5 +429,119 @@ class GeographicAreaHouseServiceTest {
         assertEquals(496.71314778391405, actualResult, 0.01);
     }
 
+    @Test
+    void idDateDTOValidSuccess() {
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate2);
+        dateDTO.setEndDate(validDate1);
+        assertTrue(geographicAreaHouseService.isDateDTOValid(dateDTO));
+    }
 
+    @Test
+    void idDateDTOValidInvalidNoEndDate() {
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoDates() {
+        DateDTO dateDTO = new DateDTO();
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoInitialDate() {
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setEndDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidInvertedDates() {
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate1);
+        dateDTO.setEndDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+    }
+
+    @Test
+    void idDateDTOValidValidSameDate() {
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate1);
+        dateDTO.setEndDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+    }
+
+    @Test
+    void getHighestAmplitudeSuccessMockito() {
+
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate2);
+        dateDTO.setEndDate(validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        String expectedResult = "03/10/2018, with 0.0ºC";
+
+        String actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void getHighestAmplitudeInvertedDates() {
+
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate1);
+        dateDTO.setEndDate(validDate2);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+    }
+
+    @Test
+    void getHighestAmplitudeNoGeographicAreaInDBl() {
+
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate2);
+        dateDTO.setEndDate(validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(null);
+
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+    }
+
+    @Test
+    void getHighestAmplitudeEmptySensor() {
+        GeographicArea areaNoSensors = new GeographicArea("Portugal", "Country", 300, 200,
+                new Local(50, 50, 10));
+        areaNoSensors.setId(12L);
+        validHouse.setMotherAreaID(areaNoSensors.getId());
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate2);
+        dateDTO.setEndDate(validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(areaNoSensors);
+        areaNoSensors.addSensor(new AreaSensor("test", "test", validSensortypeTemp2.getName(), new Local(2, 2, 2), validDate1));
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+    }
+
+
+    @Test
+    void getHighestAmplitudeIncompleteDatesMockito() throws IllegalArgumentException {
+
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setInitialDate(validDate2);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+    }
 }
+
