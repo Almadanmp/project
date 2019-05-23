@@ -24,6 +24,7 @@ class GeographicAreaMapperTest {
     // Common testing artifacts for testing in this class.
 
     private GeographicArea validAreaObject;
+    private GeographicArea validAreaObjectWithDaugthers;
     private AreaSensorDTO validAreaSensorDTO;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
@@ -48,6 +49,14 @@ class GeographicAreaMapperTest {
         validAreaObject = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validAreaObject.setId(6008L);
+
+        GeographicArea geographicArea = new GeographicArea();
+        List<GeographicArea> daughterList = new ArrayList<>();
+
+        validAreaObjectWithDaugthers = new GeographicArea("Porto", "City", 300, 200,
+                new Local(50, 50, 10));
+        validAreaObjectWithDaugthers.setId(10L);
+        validAreaObjectWithDaugthers.setDaughterAreas(daughterList);
 
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
@@ -131,22 +140,22 @@ class GeographicAreaMapperTest {
         localDTO.setLatitude(50D);
         localDTO.setLongitude(50D);
         localDTO.setAltitude(10D);
-        expectedResult.setName("Portugal");
-        expectedResult.setTypeArea("Country");
+        expectedResult.setName("Porto");
+        expectedResult.setTypeArea("City");
         expectedResult.setLength(300);
         expectedResult.setWidth(200);
         expectedResult.setDaughterAreaList(daughterAreaList);
-        expectedResult.setId(6008L);
+        expectedResult.setId(10L);
         expectedResult.setLocal(localDTO);
 
         // Act
 
-        GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTOWithMother(validAreaObject);
+        GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTOWithMother(validAreaObjectWithDaugthers);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
-        assertEquals(actualResult.getId(), validAreaObject.getId());
+        assertEquals(actualResult.getId(), validAreaObjectWithDaugthers.getId());
     }
 
     @Test
