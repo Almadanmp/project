@@ -21,13 +21,12 @@ import java.util.List;
 
 @Service
 public class RoomMonitoringController {
+    private static final String COMFORT_BELOW_LEVEL = "Instants in which the readings are below the comfort temperature:\n";
+    private static final String COMFORT_ABOVE_LEVEL = "Instants in which the readings are above comfort temperature:\n";
     @Autowired
     RoomRepository roomRepository;
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
-
-    private static final String COMFORT_BELOW_LEVEL = "Instants in which the readings are below the comfort temperature:\n";
-    private static final String COMFORT_ABOVE_LEVEL = "Instants in which the readings are above comfort temperature:\n";
 
     /**
      * Returns the current temperature in a given Room.

@@ -170,6 +170,30 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
+    public void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
+        //Arrange
+
+        RoomDTOWeb invalidDTO = new RoomDTOWeb();
+        invalidDTO.setHeight(2D);
+        invalidDTO.setLength(5D);
+        invalidDTO.setWidth(4D);
+        invalidDTO.setName(null);
+        invalidDTO.setFloor(1);
+
+        //Arrange
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(invalidDTO);
+
+        //Act
+
+        this.mockMvc.perform(post("/houseSettings/room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void seeIfGetHouseRoomsWorks() throws Exception {
         //Arrange
 

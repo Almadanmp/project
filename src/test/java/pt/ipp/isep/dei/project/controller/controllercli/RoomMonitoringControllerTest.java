@@ -24,9 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * RoomMonitoringController tests class.
@@ -220,8 +218,6 @@ class RoomMonitoringControllerTest {
         // Arrange
 
         String expectedResult = "Bedroom";
-        List<Room> rooms = new ArrayList<>();
-        rooms.add(validRoom1);
 
         // Act
         Mockito.when(roomRepository.updateHouseRoom(validRoomDTO)).thenReturn(RoomMapper.dtoToObject(validRoomDTO));
@@ -685,6 +681,45 @@ class RoomMonitoringControllerTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfMotherAreaIsValidWorks() {
+        // Arrange
+
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+        validHouse.setMotherAreaID(12L);
+
+        // Act
+
+        boolean actualResult = controller.isMotherAreaValid(validHouse);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfMotherAreaIsValidWorksWhenHouseIsNull() {
+        // Arrange
+
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+                "4455-125", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+        validHouse.setMotherAreaID(null);
+
+        // Act
+
+        boolean actualResult = controller.isMotherAreaValid(validHouse);
+
+        // Assert
+
+        assertFalse(actualResult);
 
     }
 }

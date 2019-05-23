@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.model;
 
+import pt.ipp.isep.dei.project.dddplaceholders.ValueObject;
+
 import javax.persistence.Embeddable;
 
 
@@ -7,7 +9,7 @@ import javax.persistence.Embeddable;
  * Class that represents the Local of an Object .
  */
 @Embeddable
-public class Local {
+public class Local implements ValueObject {
 
     private double latitude;
     private double longitude;

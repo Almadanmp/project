@@ -25,12 +25,11 @@ import java.util.logging.Logger;
 
 @Service
 public class HouseConfigurationController {
+    private static final String VALID_LOG_PATH = "resources/logs/sensorsImportHtml.html";
     @Autowired
     RoomRepository roomRepository;
     @Autowired
     SensorTypeRepository sensorTypeRepository;
-
-    private static final String VALID_LOG_PATH = "resources/logs/sensorsImportHtml.html";
 
     /* USER STORY 101 - As an Administrator, I want to configure the location of the house */
 
@@ -115,8 +114,10 @@ public class HouseConfigurationController {
         return roomRepository.buildRoomsAsString(houseRooms);
     }
 
-    /* USER STORY 260 -  As an Administrator, I want to import a list of sensors for the house rooms.
-       Sensors without a valid room shouldn’t be imported but registered in the application log. */
+    /* USER STORY 260 -
+    As an Administrator, I want to import a list of sensors for the house rooms.
+   Sensors without a valid room shouldn’t be imported but registered in the application log.
+   */
 
     /**
      * Method that reads all the sensors from a given file and imports them into the persistence layer.
@@ -148,7 +149,7 @@ public class HouseConfigurationController {
      * @return is the number of sensors successfully added to the persistence layer.
      */
 
-    private int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors) {
+    int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors) {
         Logger logger = LogUtils.getLogger("sensorsImportLogger", VALID_LOG_PATH, Level.FINE); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
