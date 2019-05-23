@@ -55,6 +55,31 @@ class GeographicAreaTest {
         secondValidAreaSensor.setActive(true);
     }
 
+    @Test
+    void seeIfAddDaughterAreaWorks() {
+        //Act
+
+        boolean actualResult = firstValidArea.addDaughterArea(secondValidArea);
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddDaughterAreaWorksIfAlreadyAdded() {
+        //Arrange
+
+        firstValidArea.addDaughterArea(secondValidArea);
+
+        //Act
+
+        boolean actualResult = firstValidArea.addDaughterArea(secondValidArea);
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
 
     @Test
     void seeIfGetAreaSensorByIDWorks() {

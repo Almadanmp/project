@@ -4,7 +4,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -177,7 +176,7 @@ public class GeographicArea implements Root {
      *
      * @param geoAreas is the Geographical Area that contains this Geographical Area.
      */
-    public void setDaughterAreas(List<GeographicArea> geoAreas) {
+    void setDaughterAreas(List<GeographicArea> geoAreas) {
         this.daughterAreas = new ArrayList<>(geoAreas);
     }
 
@@ -185,6 +184,13 @@ public class GeographicArea implements Root {
         return new ArrayList<>(this.daughterAreas);
     }
 
+    /**
+     * This method receives a geographic area and tries to add it to
+     * the parameter list of geographic areas.
+     *
+     * @param geoArea geographic area to add
+     * @return true in case it is added, false otherwise
+     * **/
     public boolean addDaughterArea(GeographicArea geoArea) {
         if (!this.daughterAreas.contains(geoArea)) {
             this.daughterAreas.add(geoArea);
