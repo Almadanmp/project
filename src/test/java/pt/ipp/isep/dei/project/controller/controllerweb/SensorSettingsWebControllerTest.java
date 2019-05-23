@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -253,6 +254,8 @@ class SensorSettingsWebControllerTest {
 
     @Test
     void seeIfGetAreaSensorWorks() {
+        //Arrange
+
         this.mockMvc =  MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
 
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
@@ -266,9 +269,67 @@ class SensorSettingsWebControllerTest {
 
         Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
 
+        //Act
+
         AreaSensorDTO actualResult = sensorSettingsWebController.getAreaSensor(12L,"sensor");
+
+        //Assert
 
         assertEquals(areaSensorDTO, actualResult);
     }
+
+    @Test
+    void seeIfDeactivateAreaSensorWorks(){
+        //Arrange
+
+        this.mockMvc =  MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+
+        geographicAreaDTO.setId(12L);
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setId("sensor");
+
+        geographicAreaDTO.addSensor(areaSensorDTO);
+
+        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
+
+        //Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(12L,"sensor");
+
+        //Assert
+
+        assertEquals(expectedResult,actualResult);
+    }
+//
+//    @Test
+//    void seeIfDeactivateAreaSensorDoesNotWork(){
+//        //Arrange
+//
+//        this.mockMvc =  MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
+//
+//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+//
+//        geographicAreaDTO.setId(12L);
+//
+//        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+//        areaSensorDTO.setId("sensor");
+//
+//        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
+//
+//        ResponseEntity<String> expectedResult = new ResponseEntity<>("Area Sensor is active", HttpStatus.NOT_ACCEPTABLE);
+//
+//        //Act
+//
+//        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(12L,"sensor");
+//
+//        //Assert
+//
+//        assertEquals(expectedResult,actualResult);
+//    }
 
 }
