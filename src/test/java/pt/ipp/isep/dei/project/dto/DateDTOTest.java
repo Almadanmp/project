@@ -40,7 +40,7 @@ class DateDTOTest {
     @Test
     void getEndDate() {
         DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(endDate);
+        dateDTO.setEndDate(endDate);
         Date expectedResult = endDate;
         Date actualResult = dateDTO.getEndDate();
         assertEquals(expectedResult, actualResult);
