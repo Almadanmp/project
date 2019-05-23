@@ -76,21 +76,19 @@ public class House implements Root {
         return address;
     }
 
+    /**
+     * Standard setter method, to define the Address of the House.
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * Standard setter method, to define the metering period of the energy grid.
-     *
-     * @param meteringPeriod is the period of time where the energy of the energy grid is calculated.
-     */
-    public void setGridMeteringPeriod(int meteringPeriod) {
-        this.gridMeteringPeriod = meteringPeriod;
     }
 
     /**
@@ -104,12 +102,12 @@ public class House implements Root {
     }
 
     /**
-     * Standard setter method, to define the metering period of the devices.
+     * Standard setter method, to define the metering period of the energy grid.
      *
-     * @param meteringPeriod is the period of time where the energy of the devices is calculated.
+     * @param meteringPeriod is the period of time where the energy of the energy grid is calculated.
      */
-    public void setDeviceMeteringPeriod(int meteringPeriod) {
-        this.deviceMeteringPeriod = meteringPeriod;
+    public void setGridMeteringPeriod(int meteringPeriod) {
+        this.gridMeteringPeriod = meteringPeriod;
     }
 
     /**
@@ -120,6 +118,15 @@ public class House implements Root {
      */
     public int getDeviceMeteringPeriod() {
         return deviceMeteringPeriod;
+    }
+
+    /**
+     * Standard setter method, to define the metering period of the devices.
+     *
+     * @param meteringPeriod is the period of time where the energy of the devices is calculated.
+     */
+    public void setDeviceMeteringPeriod(int meteringPeriod) {
+        this.deviceMeteringPeriod = meteringPeriod;
     }
 
     /**
@@ -145,13 +152,6 @@ public class House implements Root {
     }
 
     /**
-     * Standard setter method, to define the Address of the House.
-     */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    /**
      * Standard getter method, to return value of the Altitude of the location of the house
      *
      * @return the double value of the altitude.
@@ -162,15 +162,6 @@ public class House implements Root {
     }
 
     /**
-     * Standard setter method, to define Geographical Area in which the House is contained.
-     *
-     * @param motherArea is the Geographical Area to be set.
-     */
-    public void setMotherAreaID(Long motherArea) {
-        this.motherArea = motherArea;
-    }
-
-    /**
      * Standard getter method, to return Geographical Area where the House is located.
      *
      * @return the Geographical Area of the House.
@@ -178,6 +169,15 @@ public class House implements Root {
     @JsonIgnore
     public Long getMotherAreaID() {
         return motherArea;
+    }
+
+    /**
+     * Standard setter method, to define Geographical Area in which the House is contained.
+     *
+     * @param motherArea is the Geographical Area to be set.
+     */
+    public void setMotherAreaID(Long motherArea) {
+        this.motherArea = motherArea;
     }
 
     /**
