@@ -24,13 +24,12 @@ class GeographicAreaMapperTest {
     // Common testing artifacts for testing in this class.
 
     private GeographicArea validAreaObject;
-    private GeographicArea validAreaObjectWithDaugthers;
+    private GeographicArea validAreaObjectWithDaughters;
+    private LocalDTO localDTO;
     private AreaSensorDTO validAreaSensorDTO;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private Date validDate1;
-
-
 
 
     @BeforeEach
@@ -49,14 +48,21 @@ class GeographicAreaMapperTest {
         validAreaObject = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validAreaObject.setId(6008L);
-
+        localDTO = new LocalDTO();
+        localDTO.setAltitude(100);
+        localDTO.setLongitude(100);
+        localDTO.setLatitude(100);
         GeographicArea geographicArea = new GeographicArea();
+        geographicArea.setLocation(new Local(100,100,100));
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        geographicArea.setAreaSensors(areaSensors);
         List<GeographicArea> daughterList = new ArrayList<>();
+        daughterList.add(geographicArea);
 
-        validAreaObjectWithDaugthers = new GeographicArea("Porto", "City", 300, 200,
+        validAreaObjectWithDaughters = new GeographicArea("Porto", "City", 300, 200,
                 new Local(50, 50, 10));
-        validAreaObjectWithDaugthers.setId(10L);
-        validAreaObjectWithDaugthers.setDaughterAreas(daughterList);
+        validAreaObjectWithDaughters.setId(10L);
+        validAreaObjectWithDaughters.setDaughterAreas(daughterList);
 
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
@@ -70,7 +76,7 @@ class GeographicAreaMapperTest {
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
 
-       SensorType validSensorTypeTemperature = new SensorType("Temperature", "Cº");
+        SensorType validSensorTypeTemperature = new SensorType("Temperature", "Cº");
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemperature.getName(), new Local(10, 10, 10),
@@ -135,6 +141,7 @@ class GeographicAreaMapperTest {
         GeographicAreaDTO expectedResult = new GeographicAreaDTO();
         List<GeographicAreaDTO> daughterAreaList = new ArrayList<>();
         GeographicAreaDTO dto1 = new GeographicAreaDTO();
+        dto1.setLocal(localDTO);
         daughterAreaList.add(dto1);
         LocalDTO localDTO = new LocalDTO();
         localDTO.setLatitude(50D);
@@ -150,12 +157,12 @@ class GeographicAreaMapperTest {
 
         // Act
 
-        GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTOWithMother(validAreaObjectWithDaugthers);
+        GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTOWithMother(validAreaObjectWithDaughters);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
-        assertEquals(actualResult.getId(), validAreaObjectWithDaugthers.getId());
+        assertEquals(actualResult.getId(), validAreaObjectWithDaughters.getId());
     }
 
     @Test

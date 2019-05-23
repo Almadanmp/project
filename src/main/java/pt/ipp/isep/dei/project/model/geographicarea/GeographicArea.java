@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.model.Local;
 
 import javax.persistence.*;
@@ -347,7 +346,7 @@ public class GeographicArea implements Root {
      * @return true if the sensor is found and removed, or false if not found.
      */
 
-    public boolean removeSensor(String areaSensorID) {
+    public boolean removeSensorWithID(String areaSensorID) {
         for (AreaSensor s : areaSensors) {
             if (s.getId().equals(areaSensorID)) {
                 this.areaSensors.remove(s);
@@ -361,8 +360,8 @@ public class GeographicArea implements Root {
      * @param areaSensor area sensor dto to be deactivated
      * @return true if deactivated
      */
-    public boolean deactivateSensorDTO(AreaSensor areaSensor) {
-        if (this.removeSensor(areaSensor.getId())) {
+    public boolean deactivateSensor(AreaSensor areaSensor) {
+        if (this.removeSensorWithID(areaSensor.getId())) {
             areaSensor.setActive(false);
             this.addSensor(areaSensor);
             return true;

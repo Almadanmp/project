@@ -726,6 +726,52 @@ class GeographicAreaTest {
         assertThrows(IllegalArgumentException.class,
                 () -> firstValidArea.getDaughterAreaByID(23L));
     }
+
+    @Test
+    void seeIfRemoveSensorWithId(){
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidAreaSensor.setId("id");
+
+        assertTrue(firstValidArea.removeSensorWithID("id"));
+    }
+
+    @Test
+    void seeIfRemoveSensorWithIdNoSensor(){
+
+        firstValidAreaSensor.setId("id");
+
+        assertFalse(firstValidArea.removeSensorWithID("id"));
+    }
+
+    @Test
+    void seeIfRemoveSensorWithIdDoNotContainSensor(){
+
+        firstValidAreaSensor.setId("id");
+
+        assertFalse(firstValidArea.removeSensorWithID("id"));
+    }
+
+    @Test
+    void seeIfDeactivateSensor(){
+        //Arrange
+        firstValidArea.addSensor(firstValidAreaSensor);
+        //Assert
+        assertTrue(firstValidArea.deactivateSensor(firstValidAreaSensor));
+    }
+
+    @Test
+    void seeIfDeactivateSensorNoSensor(){
+
+        assertFalse(firstValidArea.deactivateSensor(firstValidAreaSensor));
+    }
+
+    @Test
+    void seeIfDeactivateSensorSetFalse(){
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidAreaSensor.setActive(false);
+        assertTrue(firstValidArea.deactivateSensor(firstValidAreaSensor));
+    }
 }
 
 

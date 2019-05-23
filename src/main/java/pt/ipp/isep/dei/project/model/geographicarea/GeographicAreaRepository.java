@@ -147,7 +147,7 @@ public class GeographicAreaRepository {
         GeographicArea geoArea = geographicArea.get();
         AreaSensor areaSensor = geoArea.getAreaSensorByID(idSensor);
         if (areaSensor.isActive()) {
-            geoArea.deactivateSensorDTO(areaSensor);
+            geoArea.deactivateSensor(areaSensor);
             geographicAreaCrudRepo.save(geoArea);
             return true;
         }
