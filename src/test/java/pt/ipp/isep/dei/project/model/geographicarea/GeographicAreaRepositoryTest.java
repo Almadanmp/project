@@ -974,4 +974,50 @@ class GeographicAreaRepositoryTest {
         assertFalse(actualResult);
     }
 
+    @Test
+    void seeIfAddDaughterAreaWorks() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        //Act
+        boolean actualResult = geographicAreaRepository.addDaughterArea(3L, 4L);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddDaughterAreaThrowsException1() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaRepository.addDaughterArea(3L, 4L));
+    }
+
+    @Test
+    void seeIfAddDaughterAreaThrowsException2() {
+        //Arrange
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(3L);
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaRepository.addDaughterArea(3L, 4L));
+    }
+
+    @Test
+    void seeIfAddDaughterAreaDoesntWork() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        geographicAreaRepository.addDaughterArea(3L, 4L);
+        //Act
+        boolean actualResult = geographicAreaRepository.addDaughterArea(3L, 4L);
+        //Assert
+        assertFalse(actualResult);
+    }
+
 }
