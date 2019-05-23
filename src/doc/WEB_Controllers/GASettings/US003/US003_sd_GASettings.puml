@@ -31,7 +31,7 @@ actor "Http Client"
 activate "Http Client"
 "Http Client" -> "SpringResolver":  Post ".../geographic_area_settings/areas"
 activate "SpringResolver"
-"SpringResolver"->"GASettingsWebController": createGeographicArea(GeographicAreaDTO)
+"SpringResolver"->"GASettingsWebController": createGeographicArea\n(GeographicAreaDTO)
 deactivate "SpringResolver"
 activate "GASettingsWebController"
 "GASettingsWebController" -> "GeographicAreaRepository": addAndPersistDTO(GeographicAreaDTO)

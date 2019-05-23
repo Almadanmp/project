@@ -30,6 +30,4 @@ public class HouseRoomService {
         room.setHouseID(houseID);
         return roomRepository.addRoomToCrudRepository(room);
     }
-
-
 }

@@ -35,11 +35,11 @@ EnergyGridRepository -- EnergyGrid : >
 EnergyGridRepository -- EnergyGridDTO : >
 
 class EnergyGridSettingsWebController{
--createEnergyGrid(@RequestBody EnergyGridDTO)
+createEnergyGrid(@RequestBody EnergyGridDTO)
 }
 
 class EnergyGridRepository{
--createEnergyGrid(@RequestBody EnergyGridDTO)
+createEnergyGrid(@RequestBody EnergyGridDTO)
 }
 
 class EnergyGridMapper{
@@ -47,9 +47,9 @@ dtoToObjectEmptyLists\n(EnergyGridDTO energyGridDTO))
 }
 
 class EnergyGridDTO{
--getHouseID()
--getMaxContractedPower()
--getName()
+getHouseID()
+getMaxContractedPower()
+getName()
 }
 
 @enduml

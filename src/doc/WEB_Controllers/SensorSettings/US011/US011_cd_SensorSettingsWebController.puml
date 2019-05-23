@@ -33,22 +33,22 @@ GeographicAreaRepository -- GeographicAreaMapper : >
 
 
 class SensorSettingsWebController {
--removeAreaSensor(@PathVariable long, @PathVariable String)
+removeAreaSensor(@PathVariable long, @PathVariable String)
 }
 
 class GeographicAreaRepository{
--getDTOById(long)
--removeSensorDTO(GeographicAreaDTO, String)
--updateAreaDTO(GeographicAreaDTO)
+getDTOById(long)
+removeSensorDTO(GeographicAreaDTO, String)
+updateAreaDTO(GeographicAreaDTO)
 }
 
 class GeographicAreaDTO{
--removeSensor(String)
+removeSensor(String)
 }
 
 
 class GeographicAreaMapper {
--dtoToObject(GeographicAreaDTO)
+dtoToObject(GeographicAreaDTO)
 }
 
 @enduml

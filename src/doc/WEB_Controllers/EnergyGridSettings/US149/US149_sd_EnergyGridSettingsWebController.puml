@@ -1,13 +1,37 @@
 @startuml
 
 title  US149 - As an Administrator, I want to detach a room from a house grid, so that the room’s power \n and energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
+skinparam titleBorderRoundCorner 10
+skinparam titleBorderThickness 3
+skinparam titleBorderColor indianred
+skinparam titleBackgroundColor snow
+skinparam FontName quicksand
+
+skinparam actor {
+  BorderColor indianred
+  backgroundColor Snow
+  }
+
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor snow
+}
+
+skinparam roundcorner 10
+
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
 
 actor "Administrator"
 
 Administrator->HTTPClient: Detach Room from Grid
 HTTPClient -> SpringResolver: delete("gridSettings/grids/{energyGridId}")
-SpringResolver -> EnergyGridSettingsWebController: detachRoomFromGrid(String roomID, String gridID)
-EnergyGridSettingsWebController->EnergyGridRepository: removeRoomFromGrid(String roomID, String gridID)
+SpringResolver -> EnergyGridSettingsWebController: detachRoomFromGrid\n(String roomID, String gridID)
+EnergyGridSettingsWebController->EnergyGridRepository: removeRoomFromGrid\n(String roomID, String gridID)
 EnergyGridRepository->EnergyGridRepository: findById(gridID)
 alt if grid is present
 EnergyGridRepository->"foundGrid :EnergyGrid" : removeRoom(roomID)

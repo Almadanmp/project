@@ -89,7 +89,7 @@ public class HouseConfigurationWebControllerTest {
         //Arrange
         Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The room was successfully added.", HttpStatus.OK);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The room was successfully added.", HttpStatus.CREATED);
 
         //Act
         ResponseEntity<String> actualResult = webController.createRoom(roomDTOWeb);
@@ -125,7 +125,7 @@ public class HouseConfigurationWebControllerTest {
         this.mockMvc.perform(post("/houseSettings/room")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -146,14 +146,14 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvcWhenRoomDTOIsInvalid() throws Exception {
+    public void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
         //Arrange
 
         RoomDTOWeb invalidDTO = new RoomDTOWeb();
         invalidDTO.setHeight(2D);
         invalidDTO.setLength(0.0D);
         invalidDTO.setWidth(4D);
-        invalidDTO.setName("InvalidRoom");
+        invalidDTO.setName("InvalidDimensionsRoom");
         invalidDTO.setFloor(1);
 
         //Arrange
@@ -166,7 +166,7 @@ public class HouseConfigurationWebControllerTest {
         this.mockMvc.perform(post("/houseSettings/room")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

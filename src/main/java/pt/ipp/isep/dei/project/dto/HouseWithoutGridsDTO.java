@@ -54,10 +54,6 @@ public class HouseWithoutGridsDTO {
         this.deviceMeteringPeriod = deviceMeteringPeriod;
     }
 
-    List<DeviceType> getDeviceTypeList() {
-        return new ArrayList<>(deviceTypeList);
-    }
-
     public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
         this.deviceTypeList = new ArrayList<>(deviceTypeList);
     }

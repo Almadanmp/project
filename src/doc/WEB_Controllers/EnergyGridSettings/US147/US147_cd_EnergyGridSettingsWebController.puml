@@ -36,7 +36,7 @@ EnergyGridRepository -- EnergyGridCrudeRepo : >
 
 
 class EnergyGridSettingsWebController {
--attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId)
+attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId)
 }
 
 class EnergyGridRepository{
@@ -44,18 +44,18 @@ attachRoomToGrid(roomDTO, gridName)
 }
 
 class RoomMapper{
--dtoToObject(roomDTO)
+dtoToObject(roomDTO)
 }
 
 
 class EnergyGrid {
-- getById(gridName)
-- addRoom(room)
+getById(gridName)
+addRoom(room)
 }
 
 class EnergyGridCrudeRepo{
-- save(energyGrid)
-- findById(id)
+save(energyGrid)
+findById(id)
 }
 
 @enduml

@@ -38,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class RoomRepositoryTest {
 
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private Room validRoom;
     private Device validDevice;
     private RoomSensor firstValidRoomSensor;
@@ -45,17 +46,11 @@ class RoomRepositoryTest {
     private RoomSensor thirdValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
-
-
     @Mock
     private RoomCrudRepo roomCrudRepo;
-
     @InjectMocks
     private RoomRepository validRoomRepository;
-
     private List<Room> roomList;
-
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 
     @BeforeEach
     void arrangeArtifacts() {

@@ -26,14 +26,14 @@ skinparam actor {
 title US 011 - As as Administrator I want to remove a sensor so that it will no longer be used.
 autonumber
 actor "Admin"
-"Admin" ->> ":HTTPClient":  Input data to put daughter area on mother area
+"Admin" ->> ":HTTPClient":  Input data to put\ndaughter area on mother area
 activate ":HTTPClient"
 ":HTTPClient" ->> ":SpringResolver": Put ("...areas/{idMother}")
 activate ":SpringResolver"
-":SpringResolver" ->> ":GASettingsWebController": addDaughterArea(Long idAreaDaughter, Long idAreaMother)
+":SpringResolver" ->> ":GASettingsWebController": addDaughterArea\n(Long idAreaDaughter, Long idAreaMother)
 deactivate ":SpringResolver"
 activate ":GASettingsWebController"
-":GASettingsWebController" ->> ":GeographicAreaRepository": addDaughterArea(Long idAreaDaughter, Long idAreaMother)
+":GASettingsWebController" ->> ":GeographicAreaRepository": addDaughterArea\n(Long idAreaDaughter, Long idAreaMother)
 alt success
 activate ":GeographicAreaRepository"
 ":GeographicAreaRepository" ->> "GeographicAreaCrudRepository": findByID(Long idAreaMother)

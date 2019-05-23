@@ -193,7 +193,6 @@
                             <sonar.jacoco.reportPath>${project.basedir}/target/site/jacoco</sonar.jacoco.reportPath>
                         </property>
                     </properties>
-
                 </configuration>
             </plugin>
 

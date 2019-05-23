@@ -74,11 +74,14 @@ public class HouseConfigurationWebController {
      **/
     @PostMapping(value = "/room")
     public ResponseEntity<String> createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {
-        if (!isRoomDTOWebValid(roomDTOWeb)) {
+        if (!roomDTOWeb.isNameValid()) {
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.BAD_REQUEST);
         }
+        if(!roomDTOWeb.areDimensionsValid()){
+            return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         if (houseRoomService.addRoomDTOWebToHouse(roomDTOWeb)) {
-            return new ResponseEntity<>("The room was successfully added.", HttpStatus.OK);
+            return new ResponseEntity<>("The room was successfully added.", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
     }
