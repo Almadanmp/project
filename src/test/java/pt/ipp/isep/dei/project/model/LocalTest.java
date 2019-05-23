@@ -41,7 +41,7 @@ class LocalTest {
     void protectedConstructorDummyTest(){
         // Arrange
 
-        Local local = new Local(2,2,2);
+        Local local = new Local();
         local.setLongitude(10);
         double expectedResult = 10;
 
