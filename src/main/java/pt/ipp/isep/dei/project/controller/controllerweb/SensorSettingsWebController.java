@@ -141,6 +141,7 @@ public class SensorSettingsWebController {
 
 }
 
+//test/
 // CODE TO TEST ON POSTMAN
 /*
 {
