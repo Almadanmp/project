@@ -12,7 +12,6 @@ public class HouseWithoutGridsDTO {
     private LocalDTO location;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
-    private List<DeviceType> deviceTypeList;
 
     public String getId() {
         return id;
@@ -55,7 +54,7 @@ public class HouseWithoutGridsDTO {
     }
 
     public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
-        this.deviceTypeList = new ArrayList<>(deviceTypeList);
+        List<DeviceType> deviceTypeList1 = new ArrayList<>(deviceTypeList);
     }
 
     public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO){
