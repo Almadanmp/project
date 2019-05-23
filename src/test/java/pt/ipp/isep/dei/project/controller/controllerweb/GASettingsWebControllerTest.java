@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +20,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -418,12 +416,6 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("urban area");
-
-        List<GeographicAreaDTO> geographicAreas = new ArrayList<>();
-        geographicAreas.add(validGeographicAreaDTO);
-
-
-
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.OK);
 

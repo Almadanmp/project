@@ -286,18 +286,6 @@ public class GeographicArea implements Root {
     }
 
     /**
-     * This method checks if type area given match that of geographic area.
-     *
-     * @param areaType the type of Area
-     * @return true if it matches, false if it does not.
-     **/
-
-    boolean isOfType(AreaType areaType) {
-        return (this.areaTypeID.equals(areaType));
-    }
-
-
-    /**
      * This method will receive a string of a sensor ID and
      * will look for a sensor with the given ID from the sensors list.
      *

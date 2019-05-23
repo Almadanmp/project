@@ -26,7 +26,6 @@ public class GeographicAreaRepository {
     @Autowired
     private GeographicAreaCrudRepo geographicAreaCrudRepo;
 
-
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
@@ -62,16 +61,21 @@ public class GeographicAreaRepository {
         return finalList;
     }
 
-    public GeographicAreaDTO getDTOById(long Id) {
-        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
+    public GeographicAreaDTO getDTOById(long id) {
+        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
         }
         return GeographicAreaMapper.objectToDTO(aux.get());
     }
 
-    public GeographicAreaDTO getDTOByIdWithMother(long Id) {
-        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
+    /**
+     * get DTO (with list of daughterAreas) from id
+     * @param id of the geoAreaDTO
+     * @return geoAreaDTO with the id
+     */
+    public GeographicAreaDTO getDTOByIdWithMother(long id) {
+        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
         }

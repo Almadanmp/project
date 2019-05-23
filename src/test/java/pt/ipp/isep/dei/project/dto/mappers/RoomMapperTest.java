@@ -87,6 +87,21 @@ class RoomMapperTest {
     }
 
     @Test
+    void seeIfDTOToObjectWithoutSensorsAndDevicesWorks() {
+        // Act
+
+        Room actualResult = RoomMapper.dtoToObjectWithoutSensorsAndDevices(validDTO);
+
+        // Assert
+
+        assertEquals(validRoom, actualResult);
+
+        // We also need to test the elements that aren't present in Room's .equals.
+
+        assertEquals(validRoom.getId(), actualResult.getId());
+    }
+
+    @Test
     void seeIfObjectToDTOWorks() {
         // Act
 
