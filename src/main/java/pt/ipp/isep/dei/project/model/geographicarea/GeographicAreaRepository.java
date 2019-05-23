@@ -26,7 +26,6 @@ public class GeographicAreaRepository {
     @Autowired
     private GeographicAreaCrudRepo geographicAreaCrudRepo;
 
-
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
@@ -62,8 +61,8 @@ public class GeographicAreaRepository {
         return finalList;
     }
 
-    public GeographicAreaDTO getDTOById(long Id) {
-        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
+    public GeographicAreaDTO getDTOById(long id) {
+        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
         }
@@ -72,11 +71,11 @@ public class GeographicAreaRepository {
 
     /**
      * get DTO (with list of daughterAreas) from id
-     * @param Id of the geoAreaDTO
+     * @param id of the geoAreaDTO
      * @return geoAreaDTO with the id
      */
-    public GeographicAreaDTO getDTOByIdWithMother(long Id) {
-        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(Id);
+    public GeographicAreaDTO getDTOByIdWithMother(long id) {
+        Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
         }
@@ -138,21 +137,10 @@ public class GeographicAreaRepository {
         return false;
     }
 
-    /**
-     * saves geoarea on crud repository
-     * @param area geo area to be updated
-     */
     public void updateGeoArea(GeographicArea area) {
         geographicAreaCrudRepo.save(area);
     }
 
-    /**
-     * Add geographic area daughter to mother area
-     * @param idAreaDaughter geoArea to be added
-     * @param idAreaMother geoArea with the list of geoareas
-     * @return true if geoArea Daughter is added
-     * @throws NoSuchElementException if geoArea (daughter or mother) not found
-     */
     public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) throws NoSuchElementException {
         Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
         Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
