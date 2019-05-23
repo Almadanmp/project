@@ -657,16 +657,22 @@ class GeographicAreaRepositoryTest {
 
     @Test
     void seeIfGetDTOByIdWithMotherWorks() {
+        //Arrange
         Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
         GeographicAreaDTO geographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
+        //Act
         GeographicAreaDTO actualResult = geographicAreaRepository.getDTOByIdWithMother(4L);
-        assertEquals(geographicAreaDTO,actualResult);
+        //Assert
+        assertEquals(geographicAreaDTO, actualResult);
     }
 
     @Test
     void seeIfGetDTOByIdWithMotherDoesNotWork() {
+        //Arrange
         Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.empty());
+        //Act
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> geographicAreaRepository.getDTOByIdWithMother(4L));
+        //Assert
         assertEquals("Geographic Area not found - 404", exception.getMessage());
 
     }
@@ -944,5 +950,25 @@ class GeographicAreaRepositoryTest {
         geographicAreaRepository.updateGeoArea(firstValidArea);
     }
 
+    @Test
+    void seeIfDeactivateSensorWorks() {
+        //Arrange
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
+        //Act
+        boolean actualResult = geographicAreaRepository.deactivateAreaSensor(4L, "SensorThree");
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateSensorDoesntWork() {
+        //Arrange
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
+        firstValidArea.getSensors().get(0).deactivateSensor();
+        //Act
+        boolean actualResult = geographicAreaRepository.deactivateAreaSensor(4L, "SensorThree");
+        //Assert
+        assertFalse(actualResult);
+    }
 
 }
