@@ -9,7 +9,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 @Service
-public class HouseRoomService {
+public class HouseRoomService implements pt.ipp.isep.dei.project.dddplaceholders.Service {
 
     @Autowired
     private HouseRepository houseRepository;

@@ -9,7 +9,7 @@ import java.util.Objects;
  * Class that represents a PowerSource of an Energy Grid.
  */
 @Entity
-public class PowerSource {
+public class PowerSource implements pt.ipp.isep.dei.project.dddplaceholders.Entity {
     @Id
     @NotNull
     private final String powerSourceName;

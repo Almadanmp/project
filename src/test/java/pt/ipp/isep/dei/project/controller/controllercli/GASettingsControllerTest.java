@@ -186,7 +186,7 @@ class GASettingsControllerTest {
         // Arrange
 
         List<AreaType> areaTypes = new ArrayList<>();
-        areaTypes.add(typeCountry);
+       areaTypes.add(typeCountry);
 
         String expectedResult = "---------------\n" +
                 "Name: Country \n" +
@@ -323,79 +323,16 @@ class GASettingsControllerTest {
         assertEquals(expectedResult, result);
     }
 
-//    @Test
-//    void seeIfSetMotherAreaWorks() {
-//        // Act
-//
-//        boolean actualResult = controller.addDaughterArea(firstValidArea, secondValidArea.getSensorId());
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-//
-//    @Test
-//    void seeIfSetMotherAreaBreaks() {
-//        // Act
-//
-//        boolean actualResult = controller.addDaughterArea(firstValidArea, null);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
+    @Test
+    void seeIfSetMotherAreaWorks() {
+        // Act
 
-//USER STORY 008 Tests
+        boolean actualResult = controller.addDaughterArea(firstValidArea, secondValidArea);
 
-//    @Test
-//    void seeIfItsContained() {
-//        // Arrange
-//
-//        firstValidArea.setDaughterAreas(secondValidArea.getSensorId());
-//
-//        // Act
-//
-//        boolean actualResult = controller.isAreaContained(secondValidArea, firstValidArea);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
+        // Assert
 
-//    @Test
-//    void seeIfIndirectlyContained() {
-//        // Arrange
-//
-//        GeographicArea grandDaughterGA = new GeographicArea("Porto", "Country",
-//                2, 4, new Local(21, 33, 5));
-//        grandDaughterGA.setDaughterAreas(secondValidArea.getSensorId());
-//        secondValidArea.setDaughterAreas(firstValidArea.getSensorId());
-//
-//        // Act
-//
-//        boolean actualResult = controller.isAreaContained(firstValidArea, grandDaughterGA);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-
-//    @Test
-//    void seeIfNotContained() {
-//        // Arrange
-//
-//        GeographicArea grandDaughterGA = new GeographicArea("Oporto", "Country", 2, 4, new Local(21, 33, 5));
-//        grandDaughterGA.setDaughterAreas(secondValidArea.getSensorId());
-//        secondValidArea.setDaughterAreas(firstValidArea.getSensorId());
-//
-//        // Act
-//
-//        boolean actualResult = controller.isAreaContained(grandDaughterGA, firstValidArea);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
+        assertTrue(actualResult);
+    }
 
     @Test
     void seeGAId() {

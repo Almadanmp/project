@@ -1,12 +1,14 @@
 package pt.ipp.isep.dei.project.model.house;
 
+import pt.ipp.isep.dei.project.dddplaceholders.ValueObject;
+
 import javax.persistence.Embeddable;
 
 /**
  * Class that represents the Address of a House .
  */
 @Embeddable
-public class Address {
+public class Address implements ValueObject {
     private String street;
     private String number;
     private String zip;
