@@ -344,7 +344,7 @@ public class RoomRepository {
      * @param logger   logger
      * @return the number of readings added
      **/
-    public int addRoomReadings(String sensorID, List<Reading> readings, Logger logger) {
+    int addRoomReadings(String sensorID, List<Reading> readings, Logger logger) {
         int addedReadings = 0;
         try {
             Room room = getRoomContainingSensorWithGivenId(sensorID);
