@@ -514,7 +514,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomRepository.buildselectRoomsAsString(emptylist));
+        assertEquals(expectedResult, validRoomRepository.buildSelectRoomsAsString(emptylist));
 
     }
 
@@ -530,7 +530,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertEquals(expectedResult, validRoomRepository.buildselectRoomsAsString(rooms));
+        assertEquals(expectedResult, validRoomRepository.buildSelectRoomsAsString(rooms));
 
     }
 

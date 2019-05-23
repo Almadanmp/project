@@ -193,7 +193,7 @@ class EnergyConsumptionUI {
         if (selectedDevices.isEmpty() && selectedRooms.isEmpty()) {
             System.out.println("You haven't selected any rooms or devices yet.");
         } else
-            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + roomRepository.buildselectRoomsAsString(selectedRooms)
+            System.out.println("\nYou have already selected the following rooms:\n" + "\n" + roomRepository.buildSelectRoomsAsString(selectedRooms)
                     + "\n" + "You have already selected the following devices:\n\n" + selectedDevices.buildString() + ".");
     }
 

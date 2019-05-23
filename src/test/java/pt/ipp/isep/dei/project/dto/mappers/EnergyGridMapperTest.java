@@ -109,5 +109,48 @@ class EnergyGridMapperTest {
 
     }
 
+    @Test
+    void seeIfDtoToObjectWithNameRoomsAndPowerSources(){
+        // Arrange
+
+        EnergyGrid expectedResult = new EnergyGrid();
+        expectedResult.setName("Grid");
+        expectedResult.addRoom(new Room("Room", "Bedroom", 2, 3, 2, 3,"7"));
+        expectedResult.addPowerSource(new PowerSource("Source", 7, 8));
+
+        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+        energyGridDTO.setName("Grid");
+
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("Room");
+        roomDTO.setDescription("Bedroom");
+        roomDTO.setFloor(2);
+        roomDTO.setHeight(3);
+        roomDTO.setLength(2);
+        roomDTO.setWidth(3);
+        roomDTO.setHouseId("7");
+
+        List<RoomDTO> roomDTOList = new ArrayList<>();
+        roomDTOList.add(roomDTO);
+        energyGridDTO.setRoomDTOS(roomDTOList);
+
+        PowerSourceDTO powerSourceDTO = new PowerSourceDTO();
+        powerSourceDTO.setName("Source");
+        powerSourceDTO.setMaxEnergyStorage(8);
+        powerSourceDTO.setMaxPowerOutput(7);
+
+        List<PowerSourceDTO> powerSourceDTOList = new ArrayList<>();
+        powerSourceDTOList.add(powerSourceDTO);
+        energyGridDTO.setPowerSourceDTOS(powerSourceDTOList);
+
+        // Act
+
+        EnergyGrid actualResult = EnergyGridMapper.dtoToObjectWithNameRoomsAndPowerSources(energyGridDTO);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
 }

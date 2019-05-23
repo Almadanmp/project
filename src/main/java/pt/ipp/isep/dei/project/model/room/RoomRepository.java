@@ -219,7 +219,7 @@ public class RoomRepository {
      *
      * @return a String of the Rooms in the RoomList.
      */
-    public String buildselectRoomsAsString(List<Room> selectedRooms) {
+    public String buildSelectRoomsAsString(List<Room> selectedRooms) {
         StringBuilder result = new StringBuilder(STRING_BUILDER);
         if (selectedRooms.isEmpty()) {
             return "Invalid List - List is Empty\n";
