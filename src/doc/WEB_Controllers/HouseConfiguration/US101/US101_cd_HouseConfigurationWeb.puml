@@ -1,31 +1,26 @@
 @startuml
 
 title US 101 - As an Administrator, I want to configure the location of the house.
-
 skinparam titleBorderRoundCorner 10
-skinparam titleBorderThickness 3
+skinparam titleBorderThickness 2
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor snow
+skinparam titleBackgroundColor Snow
 skinparam FontName quicksand
-
-skinparam actor {
-  BorderColor indianred
-  backgroundColor Snow
-  }
-
-skinparam sequence {
-  LifeLineBackgroundColor indianred
-  ParticipantBackgroundColor snow
-}
-
+skinparam titleFontSize 10
 skinparam roundcorner 10
 
-skinparam component {
-  arrowThickness 1
+
+skinparam class {
+ BorderColor indianred
+ BackgroundColor indianred
+ BackgroundColor Snow
+  roundcorner 10
   ArrowFontName Verdana
   ArrowColor indianred
   ArrowFontColor darkslategrey
+   FontSize 12
 }
+
 
 
 class HouseSettingsWebController
@@ -49,22 +44,22 @@ AddressAndLocalDTO -- AddressDTO : >
 AddressAndLocalDTO -- LocalDTO : >
 
 class HouseSettingsWebController {
--configureHouseLocation(@RequestBody AddressAndLocalDTO)
+configureHouseLocation(@RequestBody AddressAndLocalDTO)
 }
 
 
 class HouseMapper{
-- objectToWithoutGridsDTO(house)
-- dtoWithoutGridsToObject(houseWithoutGridsDTO)
+objectToWithoutGridsDTO(house)
+dtoWithoutGridsToObject(houseWithoutGridsDTO)
 }
 
 class HouseRepository {
-- getHouseWithoutGridsDTO()
-- updateHouseDTOWithoutGrids(HouseWithoutGridsDTO)
+getHouseWithoutGridsDTO()
+updateHouseDTOWithoutGrids(HouseWithoutGridsDTO)
 }
 
 class HouseWithoutGridsDTO {
-- setAddressAndLocalToDTOWithoutGrids()
+setAddressAndLocalToDTOWithoutGrids()
 }
 
 class AddressAndLocalDTO{
@@ -79,8 +74,8 @@ class LocalDTO{
 }
 
 class HouseCrudRepository{
-- findAll()
-- save(House)
+findAll()
+save(House)
 }
 
 @enduml

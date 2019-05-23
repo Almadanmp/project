@@ -39,6 +39,68 @@ class AreaTypeRepositoryTest {
     }
 
     @Test
+    void seeIfGetByIDWorks() {
+        //Arrange
+
+        Mockito.when(areaTypeCrudRepo.findById("Country")).thenReturn(Optional.of(firstValidType));
+
+        //Act
+
+        AreaType actualResult = areaTypeRepository.getById("Country");
+
+        //Assert
+
+        assertEquals(firstValidType, actualResult);
+    }
+
+    @Test
+    void seeIfGetByIDWorksIfItDoesNotExist() {
+        //Arrange
+
+        Mockito.when(areaTypeCrudRepo.findById("Country")).thenReturn(Optional.empty());
+
+        //Act
+
+        AreaType actualResult = areaTypeRepository.getById("Country");
+
+        //Assert
+
+        assertNull(actualResult);
+    }
+
+    @Test
+    void seeIfGetByNameWorks() {
+        //Arrange
+
+        Mockito.when(areaTypeCrudRepo.findByName("Country")).thenReturn(Optional.of(firstValidType));
+
+        //Act
+
+        AreaType actualResult = areaTypeRepository.getAreaTypeByName("Country");
+
+        //Assert
+
+        assertEquals(firstValidType, actualResult);
+    }
+
+
+
+    @Test
+    void seeIfGetAreaTypeByNameWorks() {
+        //Arrange
+
+        Mockito.when(areaTypeCrudRepo.findByName("Country")).thenReturn(Optional.empty());
+
+        //Act
+
+        AreaType actualResult = areaTypeRepository.getAreaTypeByName("Country");
+
+        //Assert
+
+        assertNull(actualResult);
+    }
+
+    @Test
     void seeIfGetAreaTypes() {
         List<AreaType> areaTypes = new ArrayList<>();
         areaTypes.add(firstValidType);

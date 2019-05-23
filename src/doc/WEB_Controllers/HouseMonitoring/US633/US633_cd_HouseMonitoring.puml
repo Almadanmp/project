@@ -28,19 +28,19 @@ HouseMonitoringControllerWeb -- GeographicAreaHouseService : >
 GeographicAreaHouseService -- GeographicAreaRepository : >
 GeographicAreaRepository -- GeographicAreaCrudRepo : >
 GeographicAreaRepository -- GeographicArea : >
-GeographicAreaCrudRepo -- GeographicArea : >
+GeographicAreaCrudRepo -right- GeographicArea : >
 GeographicAreaHouseService -- HouseRepository : >
 HouseRepository -- HouseCrudRepo : >
 HouseRepository -- House : >
-HouseCrudRepo -- House : >
+HouseCrudRepo -right- House : >
 GeographicArea "1" -- "0.*" AreaSensor : may have >
-House"1.*" -- "1" Localization : in in >
-AreaSensor"1.*" -- "1" Localization : is in >
-AreaSensor "1" -- "0.*" Reading : may have >
+House"1.*" -right- "1" Localization : in in >
+AreaSensor"1.*" -right- "1" Localization : is in >
+AreaSensor "1" -left- "0.*" Reading : may have >
 AreaSensor -- SensorUtils : >
 AreaSensor"0.*" -- "1"SensorType : has a >
-Reading -- ReadingUtils : >
-SensorUtils -- ReadingUtils : >
+Reading -left- ReadingUtils : >
+SensorUtils -left- ReadingUtils : >
 
 class HouseMonitoringControllerWeb {
 GeographicAreaHouseService;

@@ -57,14 +57,13 @@ public class GeographicAreaWebDTO {
         if (this == testDTO) {
             return true;
         }
-        if (!(testDTO instanceof GeographicAreaDTO)) {
+        if (!(testDTO instanceof GeographicAreaWebDTO)) {
             return false;
         }
 
-        GeographicAreaDTO localVariable = (GeographicAreaDTO) testDTO;
-        LocalDTO testDTOLocal = localVariable.getLocal();
+        GeographicAreaWebDTO localVariable = (GeographicAreaWebDTO) testDTO;
         return (localVariable.getTypeArea().equals(this.typeArea) && localVariable.getName().equals(this.name)
-                );
+        );
     }
 
     @Override

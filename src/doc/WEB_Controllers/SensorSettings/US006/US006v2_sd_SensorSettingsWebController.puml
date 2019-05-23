@@ -2,31 +2,33 @@
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 3
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor ivory
+skinparam titleBackgroundColor snow
 skinparam FontName quicksand
 
 skinparam actor {
- 	BorderColor indianred
- 	}
+  BorderColor indianred
+  backgroundColor Snow
+  }
 
- skinparam sequence {
- 	LifeLineBackgroundColor indianred
- 	ParticipantBackgroundColor ivory
- }
+skinparam sequence {
+  LifeLineBackgroundColor indianred
+  ParticipantBackgroundColor snow
+}
 
- skinparam roundcorner 10
+skinparam roundcorner 10
 
- skinparam component {
-   arrowThickness 1
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
- }
+skinparam component {
+  arrowThickness 1
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+}
+
 title US 006 - an Administrator, I want to add a new sensor and associate it to a geographical area, so that one can get measurements of that type in that area.
 autonumber
 actor "HTTP Client"
 "HTTP Client"  -> ":SpringResolver":  Request Post at ".../areas/{id}/sensors"
-":SpringResolver" -> ":SensorSettingsWebController": createAreaSensor(@RequestBody AreaSensorDTO areaSensorDTO, @PathVariable long id)
+":SpringResolver" -> ":SensorSettingsWebController": createAreaSensor\n(@RequestBody AreaSensorDTO areaSensorDTO, \n@PathVariable long id)
 activate ":SpringResolver"
 activate ":SensorSettingsWebController"
 alt Try

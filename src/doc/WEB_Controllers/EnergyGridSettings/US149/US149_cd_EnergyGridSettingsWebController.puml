@@ -4,20 +4,21 @@ title US 149 As an Administrator, I want to detach a room from a house grid, \n 
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 2
 skinparam titleBorderColor indianred
-skinparam titleBackgroundColor ivory
-skinparam FontName verdana
+skinparam titleBackgroundColor Snow
+skinparam FontName quicksand
 skinparam titleFontSize 10
+skinparam roundcorner 10
 
 
 skinparam class {
-  BorderColor indianred
-  BackgroundColor indianred
-  BackgroundColor ivory
-   roundcorner 10
-   ArrowFontName Verdana
-   ArrowColor indianred
-   ArrowFontColor darkslategrey
-   FontSize 12
+ BorderColor indianred
+ BackgroundColor indianred
+ BackgroundColor Snow
+  roundcorner 10
+  ArrowFontName Verdana
+  ArrowColor indianred
+  ArrowFontColor darkslategrey
+  FontSize 12
 }
 
 class EnergyGridSettingsWebController
@@ -30,7 +31,7 @@ EnergyGridRepository -- EnergyGrid : >
 EnergyGridRepository -- EnergyGridCrudeRepo : >
 
 class EnergyGridSettingsWebController {
--detachRoomFromGrid(@RequestBody String roomID, @PathVariable("energyGridId") String gridId)
+detachRoomFromGrid(@RequestBody String roomID, @PathVariable("energyGridId") String gridId)
 }
 
 class EnergyGridRepository{
@@ -39,13 +40,13 @@ removeRoomFromGrid(gridId, roomID)
 
 
 class EnergyGrid {
-- getById(gridName)
-- removeRoom(roomID)
+getById(gridName)
+removeRoom(roomID)
 }
 
 class EnergyGridCrudeRepo{
-- save(energyGrid)
-- findById(id)
+save(energyGrid)
+findById(id)
 }
 
 @enduml

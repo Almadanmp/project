@@ -20,6 +20,88 @@ class RoomDTOWebTest {
     }
 
     @Test
+    void seeIfIsNameValidWorksInCaseOfInvalid() {
+        //Arrange
+
+        roomDTOWeb.setName(null);
+
+        //Act
+
+        boolean actualResult = roomDTOWeb.isNameValid();
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfIsNameValidWorks() {
+        //Act
+
+        boolean actualResult = roomDTOWeb.isNameValid();
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAreDimensionAreValidWorks() {
+        //Act
+
+        boolean actualResult = roomDTOWeb.areDimensionsValid();
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAreDimensionAreValidWorksWhenHeightIsNot() {
+        //Arrange
+
+        roomDTOWeb.setHeight(0D);
+
+        //Act
+
+        boolean actualResult = roomDTOWeb.areDimensionsValid();
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAreDimensionAreValidWorksWhenLengthIsNot() {
+        //Arrange
+
+        roomDTOWeb.setLength(0D);
+
+        //Act
+
+        boolean actualResult = roomDTOWeb.areDimensionsValid();
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAreDimensionAreValidWorksWhenWidthIsNot() {
+        //Arrange
+
+        roomDTOWeb.setWidth(0D);
+
+        //Act
+
+        boolean actualResult = roomDTOWeb.areDimensionsValid();
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfGetNameWorks() {
         //Act
 

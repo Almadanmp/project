@@ -36,24 +36,24 @@ EnergyGridRepository -- EnergyGridCrudeRepo : >
 
 
 class EnergyGridSettingsWebController {
-- getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId)
+getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId)
 }
 
 class EnergyGridRepository{
-- getRoomsDtoWebInGrid(String gridId)
+getRoomsDtoWebInGrid(String gridId)
 }
 
 class RoomWebMapper{
-- objectsToDtosWeb(roomList)
+objectsToDtosWeb(roomList)
 }
 
 
 class EnergyGrid {
-- getRoomList()
+getRoomList()
 }
 
 class EnergyGridCrudeRepo{
-- findByName(gridId)
+findByName(gridId)
 }
 
 @enduml
