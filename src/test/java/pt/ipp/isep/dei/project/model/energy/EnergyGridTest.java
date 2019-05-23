@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.model.energy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.Device;
@@ -15,8 +14,6 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,19 +29,9 @@ class EnergyGridTest {
 
     // Common artifacts for testing in this class.
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-    private House validHouse;
     private EnergyGrid validGrid;
-    private EnergyGrid validGrid2;
     private Device validFridge;
     private Room validRoom;
-    private Room validRoom2;
-    private GeographicArea geographicArea;
-
-    @Mock
-    RoomCrudRepo roomCrudRepo;
-
-    @Mock
-    SensorTypeCrudRepo sensorTypeCrudRepo;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -52,11 +39,11 @@ class EnergyGridTest {
 
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        geographicArea = new GeographicArea("Porto", "Cidade",
+        GeographicArea geographicArea = new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100));
         validHouse.setMotherAreaID(geographicArea.getId());
         validGrid = new EnergyGrid("FirstGrid", 400D, "34576");
@@ -70,8 +57,8 @@ class EnergyGridTest {
         validRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
         validRoom.addDevice(validFridge);
         validGrid.addRoom(validRoom);
-        validGrid2 = new EnergyGrid("FirstGrid", 400D, "34576");
-        validRoom2 = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
+        EnergyGrid validGrid2 = new EnergyGrid("FirstGrid", 400D, "34576");
+        Room validRoom2 = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
         validGrid2.addRoom(validRoom2);
     }
 
@@ -687,4 +674,36 @@ class EnergyGridTest {
         //Assert
         assertEquals(powerSourceList, actualResult);
     }
+
+    @Test
+    void seeIfRemoveRoomWorksWithoutRooms(){
+        // Arrange
+
+        validGrid.removeRoom(validRoom);
+
+        // Act
+
+        boolean actualResult = validGrid.removeRoom(validRoom);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfRemoveRoomByIdWorksWithManyRooms(){
+        // Arrange
+
+        Room room = new Room("Toilet", "bucket", 2, 2, 2, 2, "7");
+        validGrid.addRoom(room);
+
+        // Act
+
+        boolean actualResult = validGrid.removeRoomById(room.getId());
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
 }

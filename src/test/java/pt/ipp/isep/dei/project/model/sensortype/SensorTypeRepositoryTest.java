@@ -238,4 +238,35 @@ class SensorTypeRepositoryTest {
         assertEquals(result.getName(), areaType.getName());
         assertEquals(result.getUnits(), areaType.getUnits());
     }
+
+    @Test
+    void seeIfGetAreaTypeByNameWorks() {
+        //Arrange
+
+        Mockito.when(sensorTypeCrudRepo.findByName(firstValidType.getName())).thenReturn(Optional.of(firstValidType));
+
+        //Act
+
+        SensorType actualResult = sensorTypeRepository.getTypeSensorByName(firstValidType.getName(), "cº");
+
+        //Assert
+
+        assertEquals(firstValidType, actualResult);
+    }
+
+    @Test
+    void seeIfGetAreaTypeByNameNoMatches() {
+        //Arrange
+
+        Mockito.when(sensorTypeCrudRepo.findByName(firstValidType.getName())).thenReturn(Optional.empty());
+
+        //Act
+
+        SensorType actualResult = sensorTypeRepository.getTypeSensorByName(firstValidType.getName(), "cº");
+
+        //Assert
+
+        assertNull(actualResult);
+    }
+
 }

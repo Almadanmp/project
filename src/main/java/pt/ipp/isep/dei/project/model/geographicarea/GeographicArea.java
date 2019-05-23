@@ -4,7 +4,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -185,6 +184,13 @@ public class GeographicArea implements Root {
         return new ArrayList<>(this.daughterAreas);
     }
 
+    /**
+     * This method receives a geographic area and tries to add it to
+     * the parameter list of geographic areas.
+     *
+     * @param geoArea geographic area to add
+     * @return true in case it is added, false otherwise
+     * **/
     public boolean addDaughterArea(GeographicArea geoArea) {
         if (!this.daughterAreas.contains(geoArea)) {
             this.daughterAreas.add(geoArea);
@@ -333,6 +339,35 @@ public class GeographicArea implements Root {
 
     }
 
+    /**
+     * US011: Method for iterating through area sensor dto list, finding a sensor by ID and removing it.
+     *
+     * @param areaSensorID id of the sensor to be removed.X
+     * @return true if the sensor is found and removed, or false if not found.
+     */
+
+    public boolean removeSensorWithID(String areaSensorID) {
+        for (AreaSensor s : areaSensors) {
+            if (s.getId().equals(areaSensorID)) {
+                this.areaSensors.remove(s);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**X
+     * deactivateSensor on sensor DTO list
+     * @param areaSensor area sensor dto to be deactivated
+     * @return true if deactivated
+     */
+    public boolean deactivateSensor(AreaSensor areaSensor) {
+        if (this.removeSensorWithID(areaSensor.getId())) {
+            areaSensor.setActive(false);
+            this.addSensor(areaSensor);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two

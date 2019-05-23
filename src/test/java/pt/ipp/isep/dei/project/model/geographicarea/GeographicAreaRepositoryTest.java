@@ -8,13 +8,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
@@ -32,6 +32,7 @@ import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 /**
  * GeographicAreaService tests class.
@@ -336,12 +337,13 @@ class GeographicAreaRepositoryTest {
     @Test
     void seeIfPrintsGeoAList() {
         // Arrange
-        List<GeographicArea> geographicAreas = new ArrayList<>();
-        String expectedResult = "Invalid List - List is Empty\n";
+        String expectedResult = "---------------\n" +
+                "null) Name: Portugal | Type: Country | Latitude: 50.0 | Longitude: 50.0\n" +
+                "---------------\n";
 
         // Act
 
-        String result = geographicAreaRepository.buildStringRepository(geographicAreas);
+        String result = geographicAreaRepository.buildStringRepository(validList);
 
         // Assert
 
@@ -640,6 +642,43 @@ class GeographicAreaRepositoryTest {
     }
 
     @Test
+    void seeIfGetAllDTOWebInformationWorks() {
+        // Arrange
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
+        GeographicAreaWebDTO geographicAreaWebDTO = GeographicAreaMapper.objectToWebDTO(firstValidArea);
+        List<GeographicAreaWebDTO> geographicAreaWebDTOS = new ArrayList<>();
+        geographicAreaWebDTOS.add(geographicAreaWebDTO);
+
+        // Act
+        List<GeographicAreaWebDTO> actualResult = geographicAreaRepository.getAllDTOWebInformation();
+
+        // Assert
+        assertEquals(geographicAreaWebDTOS, actualResult);
+    }
+
+    @Test
+    void seeIfGetDTOByIdWithMotherWorks() {
+        //Arrange
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
+        GeographicAreaDTO geographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
+        //Act
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOByIdWithMother(4L);
+        //Assert
+        assertEquals(geographicAreaDTO, actualResult);
+    }
+
+    @Test
+    void seeIfGetDTOByIdWithMotherDoesNotWork() {
+        //Arrange
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.empty());
+        //Act
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> geographicAreaRepository.getDTOByIdWithMother(4L));
+        //Assert
+        assertEquals("Geographic Area not found - 404", exception.getMessage());
+
+    }
+
+    @Test
     void seeIfGetAreaDTObyIdWorks() {
 
         // Arrange
@@ -905,5 +944,90 @@ class GeographicAreaRepositoryTest {
         // Assert
         assertTrue(actualResult);
 
+    }
+
+    @Test
+    void seeIfUpdateGeoAreaWork() {
+        geographicAreaRepository.updateGeoArea(firstValidArea);
+    }
+
+    @Test
+    void seeIfDeactivateSensorWorks() {
+        //Arrange
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
+        //Act
+        boolean actualResult = geographicAreaRepository.deactivateAreaSensor(4L, "SensorThree");
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateSensorDoesntWork() {
+        //Arrange
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
+        firstValidArea.getSensors().get(0).deactivateSensor();
+        //Act
+        boolean actualResult = geographicAreaRepository.deactivateAreaSensor(4L, "SensorThree");
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddDaughterAreaWorks() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        //Act
+        boolean actualResult = geographicAreaRepository.addDaughterArea(3L, 4L);
+        //Assert
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddDaughterAreaThrowsException1() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaRepository.addDaughterArea(3L, 4L));
+    }
+
+    @Test
+    void seeIfAddDaughterAreaThrowsException2() {
+        //Arrange
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(3L);
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaRepository.addDaughterArea(3L, 4L));
+    }
+
+    @Test
+    void seeIfAddDaughterAreaDoesntWork() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        geographicAreaRepository.addDaughterArea(3L, 4L);
+        //Act
+        boolean actualResult = geographicAreaRepository.addDaughterArea(3L, 4L);
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeAddReadingsToGeographicAreaSensorsWorks() {
+        //Arrange
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        for (Reading r : validReadingList) {
+            readingDTOS.add(ReadingMapper.objectToDTO(r));
+        }
+        //Act
+        int actualResult = geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, "dumpFiles/dumpLogFile.html");
+        //Assert
+        assertEquals(0, actualResult);
     }
 }

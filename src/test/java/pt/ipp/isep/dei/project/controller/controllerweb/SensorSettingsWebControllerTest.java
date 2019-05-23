@@ -24,8 +24,11 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -278,58 +281,46 @@ class SensorSettingsWebControllerTest {
         assertEquals(areaSensorDTO, actualResult);
     }
 
+
+
     @Test
-    void seeIfDeactivateAreaSensorWorks(){
-        //Arrange
+    void deactivateAreaSensor() {
 
-        this.mockMvc =  MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
+       Mockito.doReturn(true).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
 
-        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-
-        geographicAreaDTO.setId(12L);
-
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setId("sensor");
-
-        geographicAreaDTO.addSensor(areaSensorDTO);
-
-        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
-
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Area Sensor has been deactivated.", HttpStatus.OK);
 
         //Act
-
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(12L,"sensor");
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(1L, "id");
 
         //Assert
-
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
-//
-//    @Test
-//    void seeIfDeactivateAreaSensorDoesNotWork(){
-//        //Arrange
-//
-//        this.mockMvc =  MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-//
-//        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
-//
-//        geographicAreaDTO.setId(12L);
-//
-//        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-//        areaSensorDTO.setId("sensor");
-//
-//        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
-//
-//        ResponseEntity<String> expectedResult = new ResponseEntity<>("Area Sensor is active", HttpStatus.NOT_ACCEPTABLE);
-//
-//        //Act
-//
-//        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(12L,"sensor");
-//
-//        //Assert
-//
-//        assertEquals(expectedResult,actualResult);
-//    }
+
+    @Test
+    void addDaughterAreaContainsDaughter() {
+
+
+        Mockito.doReturn(false).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Area Sensor is already deactivated", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(6L, "ID");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void addDaughterAreaNotFound(){
+
+        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(6L, "id");
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+    }
+
 
 }

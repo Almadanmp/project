@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -29,6 +30,8 @@ import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 
 @ExtendWith(MockitoExtension.class)
 public class ReaderXMLGeoAreaTest {
@@ -151,24 +154,6 @@ public class ReaderXMLGeoAreaTest {
         // Assert
 
         assertEquals(1, areasAdded);
-    }
-
-    @Test
-    void seeIfReadAndAddAreasWorks() {
-        // Arrange
-
-        // Act
-
-        File fileToRead = new File("src/test/resources/geoAreaFiles/DataSet_sprint05_GA.xml");
-        String absolutePath = fileToRead.getAbsolutePath();
-
-        Mockito.when(readerController.addGeoAreaNodeListToList(ArgumentMatchers.any(NodeList.class),
-                ArgumentMatchers.any(GeographicAreaRepository.class), ArgumentMatchers.any(AreaTypeRepository.class))).thenReturn(2);
-        double areasAdded = validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository);
-
-        // Assert
-
-        assertEquals(2, areasAdded);
     }
 
     @Test

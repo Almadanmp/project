@@ -11,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
-import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -213,7 +212,7 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
-    void getAllAsString() {
+    void seeIfGetAllAsStringEmpty() {
 
         String expectedResult = "Invalid List - List is Empty\n";
 
@@ -223,13 +222,25 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
-    void getAllAsStringEmpty() {
+    void seeIfBuildString() {
+        // Arrange
 
-        String expectedResult = "Invalid List - List is Empty\n";
+        String expectedResult = "---------------\n" +
+                "Designation: Primary Grid | Max Power: 500.0\n" +
+                "---------------\n";
 
-        String result = validGridRepo.buildString();
+        List<EnergyGrid> list = new ArrayList<>();
+        list.add(firstValidGrid);
 
-        assertEquals(expectedResult, result);
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+
+        // Act
+
+        String actualResult = validGridRepo.buildString();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -459,6 +470,7 @@ class EnergyGridRepositoryTest {
 
         assertTrue(actualResult);
     }
+
     @Test
     void seeIfGetRoomsWebDtoWorks() {
         //Arrange
@@ -478,11 +490,11 @@ class EnergyGridRepositoryTest {
         expectedResult.add(RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO)));
         List<RoomDTOWeb> actualResult = validGridRepo.getRoomsDtoWebInGrid("Main Grid");
         //Assert
-        assertEquals(expectedResult,actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfCreateEnergyGridWorksTrue(){
+    void seeIfCreateEnergyGridWorksTrue() {
         // Arrange
 
         EnergyGridDTO energyGridDTO = new EnergyGridDTO();
@@ -509,7 +521,7 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
-    void seeIfCreateEnergyGridWorksFalse(){
+    void seeIfCreateEnergyGridWorksFalse() {
         // Arrange
 
         EnergyGridDTO energyGridDTO = new EnergyGridDTO();
@@ -533,6 +545,21 @@ class EnergyGridRepositoryTest {
 
         assertFalse(actualResult);
 
+    }
+
+    @Test
+    void seeIfCreatePowerSourceWorks(){
+        // Arrange
+
+        PowerSource expectedResult = new PowerSource("Expected", 45, 5);
+
+        // Act
+
+        PowerSource actualResult = validGridRepo.createPowerSource("Expected", 45, 5);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
 }

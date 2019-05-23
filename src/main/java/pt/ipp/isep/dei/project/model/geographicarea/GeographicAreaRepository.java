@@ -71,6 +71,7 @@ public class GeographicAreaRepository {
 
     /**
      * get DTO (with list of daughterAreas) from id
+     *
      * @param id of the geoAreaDTO
      * @return geoAreaDTO with the id
      */
@@ -141,16 +142,30 @@ public class GeographicAreaRepository {
         geographicAreaCrudRepo.save(area);
     }
 
-    public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) throws NoSuchElementException {
+    public boolean deactivateAreaSensor(long idArea, String idSensor) {
+        Optional<GeographicArea> geographicArea = geographicAreaCrudRepo.findById(idArea);
+        GeographicArea geoArea = geographicArea.get();
+        AreaSensor areaSensor = geoArea.getAreaSensorByID(idSensor);
+        if (areaSensor.isActive()) {
+            geoArea.deactivateSensor(areaSensor);
+            geographicAreaCrudRepo.save(geoArea);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) {
         Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
         Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
-        if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()){
+        if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()) {
             throw new NoSuchElementException();
-        }
-        else{
+        } else {
             GeographicArea mother = geographicAreaMother.get();
             GeographicArea daughter = geographicAreaDaughter.get();
-            if (!mother.getDaughterAreas().contains(daughter)){
+            if (!mother.getDaughterAreas().contains(daughter)) {
                 mother.addDaughterArea(daughter);
                 geographicAreaCrudRepo.save(mother);
                 return true;

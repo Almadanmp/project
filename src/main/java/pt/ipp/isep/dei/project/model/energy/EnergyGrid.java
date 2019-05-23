@@ -277,9 +277,9 @@ public class EnergyGrid implements Metered, Root {
         return false;
     }
 
-    public boolean removeRoomById(String roomID) {
+    boolean removeRoomById(String roomID) {
         for (Room r : this.rooms) {
-            if(r.getId().equals(roomID)){
+            if (r.getId().equals(roomID)) {
                 rooms.remove(r);
                 return true;
             }

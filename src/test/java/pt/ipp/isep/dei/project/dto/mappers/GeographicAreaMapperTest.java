@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -23,12 +24,12 @@ class GeographicAreaMapperTest {
     // Common testing artifacts for testing in this class.
 
     private GeographicArea validAreaObject;
+    private GeographicArea validAreaObjectWithDaughters;
+    private LocalDTO localDTO;
     private AreaSensorDTO validAreaSensorDTO;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private Date validDate1;
-
-
 
 
     @BeforeEach
@@ -47,6 +48,21 @@ class GeographicAreaMapperTest {
         validAreaObject = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validAreaObject.setId(6008L);
+        localDTO = new LocalDTO();
+        localDTO.setAltitude(100);
+        localDTO.setLongitude(100);
+        localDTO.setLatitude(100);
+        GeographicArea geographicArea = new GeographicArea();
+        geographicArea.setLocation(new Local(100,100,100));
+        List<AreaSensor> areaSensors = new ArrayList<>();
+        geographicArea.setAreaSensors(areaSensors);
+        List<GeographicArea> daughterList = new ArrayList<>();
+        daughterList.add(geographicArea);
+
+        validAreaObjectWithDaughters = new GeographicArea("Porto", "City", 300, 200,
+                new Local(50, 50, 10));
+        validAreaObjectWithDaughters.setId(10L);
+        validAreaObjectWithDaughters.setDaughterAreas(daughterList);
 
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);
@@ -60,7 +76,7 @@ class GeographicAreaMapperTest {
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
 
-       SensorType validSensorTypeTemperature = new SensorType("Temperature", "Cº");
+        SensorType validSensorTypeTemperature = new SensorType("Temperature", "Cº");
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemperature.getName(), new Local(10, 10, 10),
@@ -93,6 +109,60 @@ class GeographicAreaMapperTest {
 
         assertEquals(expectedResult, actualResult);
         assertEquals(actualResult.getId(), validAreaObject.getId());
+    }
+
+    @Test
+    void seeIfObjectToWebDTOWorks() {
+        // Arrange
+
+        GeographicAreaWebDTO expectedResult = new GeographicAreaWebDTO();
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50D);
+        localDTO.setLongitude(50D);
+        localDTO.setAltitude(10D);
+        expectedResult.setName("Portugal");
+        expectedResult.setTypeArea("Country");
+        expectedResult.setId(6008L);
+
+        // Act
+
+        GeographicAreaWebDTO actualResult = GeographicAreaMapper.objectToWebDTO(validAreaObject);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(actualResult.getId(), validAreaObject.getId());
+    }
+
+    @Test
+    void seeIfObjectToDTOWithMotherWorks() {
+        // Arrange
+
+        GeographicAreaDTO expectedResult = new GeographicAreaDTO();
+        List<GeographicAreaDTO> daughterAreaList = new ArrayList<>();
+        GeographicAreaDTO dto1 = new GeographicAreaDTO();
+        dto1.setLocal(localDTO);
+        daughterAreaList.add(dto1);
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(50D);
+        localDTO.setLongitude(50D);
+        localDTO.setAltitude(10D);
+        expectedResult.setName("Porto");
+        expectedResult.setTypeArea("City");
+        expectedResult.setLength(300);
+        expectedResult.setWidth(200);
+        expectedResult.setDaughterAreaList(daughterAreaList);
+        expectedResult.setId(10L);
+        expectedResult.setLocal(localDTO);
+
+        // Act
+
+        GeographicAreaDTO actualResult = GeographicAreaMapper.objectToDTOWithMother(validAreaObjectWithDaughters);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+        assertEquals(actualResult.getId(), validAreaObjectWithDaughters.getId());
     }
 
     @Test

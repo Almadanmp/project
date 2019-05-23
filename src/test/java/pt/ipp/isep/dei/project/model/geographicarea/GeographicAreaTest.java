@@ -55,6 +55,31 @@ class GeographicAreaTest {
         secondValidAreaSensor.setActive(true);
     }
 
+    @Test
+    void seeIfAddDaughterAreaWorks() {
+        //Act
+
+        boolean actualResult = firstValidArea.addDaughterArea(secondValidArea);
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddDaughterAreaWorksIfAlreadyAdded() {
+        //Arrange
+
+        firstValidArea.addDaughterArea(secondValidArea);
+
+        //Act
+
+        boolean actualResult = firstValidArea.addDaughterArea(secondValidArea);
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
 
     @Test
     void seeIfGetAreaSensorByIDWorks() {
@@ -700,6 +725,52 @@ class GeographicAreaTest {
 
         assertThrows(IllegalArgumentException.class,
                 () -> firstValidArea.getDaughterAreaByID(23L));
+    }
+
+    @Test
+    void seeIfRemoveSensorWithId(){
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidAreaSensor.setId("id");
+
+        assertTrue(firstValidArea.removeSensorWithID("id"));
+    }
+
+    @Test
+    void seeIfRemoveSensorWithIdNoSensor(){
+
+        firstValidAreaSensor.setId("id");
+
+        assertFalse(firstValidArea.removeSensorWithID("id"));
+    }
+
+    @Test
+    void seeIfRemoveSensorWithIdDoNotContainSensor(){
+
+        firstValidAreaSensor.setId("id");
+
+        assertFalse(firstValidArea.removeSensorWithID("id"));
+    }
+
+    @Test
+    void seeIfDeactivateSensor(){
+        //Arrange
+        firstValidArea.addSensor(firstValidAreaSensor);
+        //Assert
+        assertTrue(firstValidArea.deactivateSensor(firstValidAreaSensor));
+    }
+
+    @Test
+    void seeIfDeactivateSensorNoSensor(){
+
+        assertFalse(firstValidArea.deactivateSensor(firstValidAreaSensor));
+    }
+
+    @Test
+    void seeIfDeactivateSensorSetFalse(){
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidAreaSensor.setActive(false);
+        assertTrue(firstValidArea.deactivateSensor(firstValidAreaSensor));
     }
 }
 
