@@ -343,16 +343,6 @@ class GeographicAreaDTOTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfDeactivateSensorDTOWorks() {
-        // Arrange
-        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setActive(true);
-        areaSensorDTO.setId("test");
-        validDTO.addSensor(areaSensorDTO);
-        // Act
-        assertTrue(validDTO.deactivateSensorDTO(areaSensorDTO));
-    }
 
     @Test
     void seeIfAddSensorWorks() {

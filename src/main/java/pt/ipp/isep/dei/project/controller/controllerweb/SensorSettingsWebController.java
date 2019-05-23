@@ -13,6 +13,7 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -99,13 +100,15 @@ public class SensorSettingsWebController {
      */
     @PutMapping("areas/{id}/sensors/{id2}")
     public ResponseEntity<Object> deactivateAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
-        GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
-        AreaSensorDTO areaSensorDTO = geographicArea.getAreaSensorByID(idSensor);
-        if (geographicArea.deactivateSensorDTO(areaSensorDTO)) {
-            geographicAreaRepository.updateAreaDTO(geographicArea);
-            return new ResponseEntity<>("Area Sensor is deactivated", HttpStatus.OK);
+        try {
+            if (geographicAreaRepository.deactivateAreaSensor(idArea, idSensor)){
+                return new ResponseEntity<>("The Sensor has been deactivated.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("The is already deactivated", HttpStatus.CONFLICT);
+            }
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no Geographic Area or Sensor with that ID.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Area Sensor is active", HttpStatus.NOT_ACCEPTABLE);
     }
 
     /**
