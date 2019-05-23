@@ -1,53 +1,91 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HouseWithoutGridsDTOTest {
 
-    @Test
-    void seeIfHashcodeWorks() {
-        //Arrange
-        HouseWithoutGridsDTO dto1 = new HouseWithoutGridsDTO();
-        //Assert
-        assertEquals(1, dto1.hashCode());
+    private HouseWithoutGridsDTO validHouseDTO;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        validHouseDTO = new HouseWithoutGridsDTO();
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setStreet("Rua R. Dr. António Bernardino de Almeida 431");
+        addressDTO.setTown("Porto");
+        addressDTO.setZip("4200-072");
+        validHouseDTO.setAddress(addressDTO);
+        validHouseDTO.setDeviceMeteringPeriod(10);
+        validHouseDTO.setId("House");
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setAltitude(111);
+        localDTO.setLatitude(41.178553);
+        localDTO.setLongitude(-8.608035);
+        validHouseDTO.setLocation(localDTO);
+        List<DeviceType> deviceTypeList = new ArrayList<>();
+        validHouseDTO.setDeviceTypeList(deviceTypeList);
+        validHouseDTO.setGridMeteringPeriod(8);
     }
 
     @Test
     void seeIfEqualsWorks() {
         //Arrange
-        AddressDTO addressDTO = new AddressDTO();
-        addressDTO.setStreet("Rua da Constituição");
-        addressDTO.setTown("Porto");
-        addressDTO.setZip("4200-191");
-        HouseWithoutGridsDTO dto1 = new HouseWithoutGridsDTO();
-        dto1.setAddress(addressDTO);
-
-        HouseWithoutGridsDTO sameDTO = new HouseWithoutGridsDTO();
-        sameDTO.setAddress(addressDTO);
+        AddressDTO addressDTO1 = new AddressDTO();
+        addressDTO1.setStreet("Street");
+        addressDTO1.setTown("Town");
+        addressDTO1.setZip("Zip");
 
         AddressDTO addressDTO2 = new AddressDTO();
-        addressDTO2.setStreet("Rua Marechal Saldanha");
-        addressDTO2.setTown("Porto");
-        addressDTO2.setZip("4150-657");
-        HouseWithoutGridsDTO diffDTO = new HouseWithoutGridsDTO();
-        diffDTO.setAddress(addressDTO2);
+        addressDTO2.setStreet("Street2");
+        addressDTO2.setTown("Town2");
+        addressDTO2.setZip("Zip2");
+
+        List<DeviceType> deviceTypeList = new ArrayList<>();
+        validHouseDTO.setDeviceTypeList(deviceTypeList);
+        validHouseDTO.setAddress(addressDTO1);
+
+        HouseWithoutGridsDTO validHouseDTO2 = new HouseWithoutGridsDTO();
+        validHouseDTO2.setAddress(addressDTO2);
+
+        HouseWithoutGridsDTO validHouseDTO3 = new HouseWithoutGridsDTO();
+        validHouseDTO3.setAddress(addressDTO1);
+
+        HouseWithoutGridsDTO validHouseDTO4 = null;
+
 
         //Act
 
-        boolean actualResult1 = sameDTO.equals(sameDTO);
-        boolean actualResult3 = sameDTO.equals(dto1);
-        boolean actualResult2 = sameDTO.equals(diffDTO);
-        boolean actualResult4 = sameDTO.equals(2);
-        boolean actualResult5 = sameDTO.equals(null);
+        boolean actualResult1 = validHouseDTO.equals(validHouseDTO);
+        boolean actualResult2 = validHouseDTO.equals(validHouseDTO2);
+        boolean actualResult3 = validHouseDTO.equals(validHouseDTO3);
+        boolean actualResult4 = validHouseDTO.equals(2D);
+        boolean actualResult5 = validHouseDTO.equals(validHouseDTO4);
+
 
         //Assert
 
         assertTrue(actualResult1);
-        assertTrue(actualResult3);
         assertFalse(actualResult2);
+        assertTrue(actualResult3);
         assertFalse(actualResult4);
         assertFalse(actualResult5);
+    }
+
+    @Test
+    void seeIfHashCodeWorks() {
+        //Arrange
+
+        List<DeviceType> deviceTypeList = new ArrayList<>();
+        validHouseDTO.setDeviceTypeList(deviceTypeList);
+
+        //Assert
+
+        assertEquals(1, validHouseDTO.hashCode());
     }
 }

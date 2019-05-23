@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -46,6 +47,8 @@ class RoomRepositoryTest {
     private RoomSensor thirdValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
+    private Date validDate3; // Date 30/12/2018
+    private Date validDate4; // Date 10/01/2019
     @Mock
     private RoomCrudRepo roomCrudRepo;
     @InjectMocks
@@ -69,12 +72,14 @@ class RoomRepositoryTest {
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
+            validDate3 = validSdf.parse("30/12/2018 00:00:00");
+            validDate4 = validSdf.parse("10/01/2019 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "Temperature", validDate1);
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
         firstValidRoomSensor.setActive(true);
-        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "Temperature", new Date());
+        secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "temperature", validDate1);
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", "Rainfall", new Date());
     }
@@ -110,13 +115,14 @@ class RoomRepositoryTest {
         expectedResult.add(validDTO1);
         expectedResult.add(validDTO2);
 
-        //Act
+        // Act
 
         List<RoomDTOWeb> actualResult = validRoomRepository.getAllRoomWebDTOs();
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -127,7 +133,7 @@ class RoomRepositoryTest {
 
         List<RoomDTOWeb> expectedResult = new ArrayList<>();
 
-        //Act
+        // Act
 
         List<RoomDTOWeb> actualResult = validRoomRepository.getAllRoomWebDTOs();
 
@@ -147,7 +153,7 @@ class RoomRepositoryTest {
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
-        //Act
+        // Act
 
         boolean actualResult = validRoomRepository.addRoomToCrudRepository(validRoom);
 
@@ -168,13 +174,14 @@ class RoomRepositoryTest {
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
-        //Act
+        // Act
 
         boolean actualResult = validRoomRepository.addRoomToCrudRepository(validRoom);
 
         // Assert
 
         assertFalse(actualResult);
+
     }
 
     @Test
@@ -193,13 +200,15 @@ class RoomRepositoryTest {
 
         int expectedResult = 0;
 
-        //Act
+        //
+        // Act
 
         int actualResult = validRoomRepository.addRoomReadings("invalidSensor", readings, logger);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -218,13 +227,14 @@ class RoomRepositoryTest {
 
         int expectedResult = 1;
 
-        //Act
+        // Act
 
         int actualResult = validRoomRepository.addRoomReadings("T32875", readings, logger);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -237,13 +247,14 @@ class RoomRepositoryTest {
 
         int expectedResult = 1;
 
-        //Act
+        // Act
 
         int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -256,13 +267,14 @@ class RoomRepositoryTest {
 
         int expectedResult = 0;
 
-        //Act
+        // Act
 
         int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -277,13 +289,14 @@ class RoomRepositoryTest {
 
         int expectedResult = 0;
 
-        //Act
+        // Act
 
         int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -294,13 +307,14 @@ class RoomRepositoryTest {
 
         int expectedResult = 0;
 
-        //Act
+        // Act
 
         int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
@@ -314,13 +328,14 @@ class RoomRepositoryTest {
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(validList);
 
-        //Act
+        // Act
 
         Room actualResult = validRoomRepository.getRoomContainingSensorWithGivenId("T32876");
 
         // Assert
 
         assertEquals(validRoom, actualResult);
+
     }
 
     @Test
@@ -335,63 +350,66 @@ class RoomRepositoryTest {
 
         assertThrows(IllegalArgumentException.class,
                 () -> validRoomRepository.getRoomContainingSensorWithGivenId("invalidSensorID"));
+
     }
 
     @Test
     void seeIfGetAllRoomsWorksNull() {
         // Arrange
+
         Mockito.when(roomCrudRepo.findAll()).thenReturn(null);
         List<Room> expectedResult = new ArrayList<>();
 
         // Act
+
         List<Room> actualResult = validRoomRepository.getAllRooms();
 
         // Assert
+
         assertEquals(expectedResult, actualResult);
 
     }
 
     @Test
     void seeIfRemoveRoom() {
+        // Arrange
 
         Mockito.when(roomCrudRepo.findById(validRoom.getId())).thenReturn((Optional.of(validRoom)));
 
+        // Assert
 
-        //Assert
         assertTrue(validRoomRepository.removeRoom(validRoom));
     }
 
     @Test
     void seeIfDoNotRemoveRoom() {
+        // Arrange
+
         validRoomRepository.updateRoom(validRoom);
-        //Assert
+
+        // Assert
+
         assertFalse(validRoomRepository.removeRoom(validRoom));
+
     }
-//
-//    @Test
-//    void seeIfAddRoom() {
-//        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1", "Grid1");
-//
-//
-//        Mockito.when(roomRepository.findByName(room.getName())).thenReturn(room);
-//
-//        assertTrue(validRoomService.saveSensor(room));
-//    }
 
     @Test
     void seeIfAddRoomCreate() {
-
+        // Arrange
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
 
         roomList.add(room);
 
+        // Assert
 
         assertTrue(roomList.contains(room));
+
     }
 
     @Test
     void seeIfGetListOfRooms() {
+        // Arrange
 
         List<Room> roomList = new ArrayList<>();
 
@@ -399,30 +417,42 @@ class RoomRepositoryTest {
         roomList.add(room);
         validRoomRepository.saveRoom(room);
 
-
         Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
 
+        // Assert
+
         assertEquals(roomList, validRoomRepository.getAllRooms());
+
     }
 
     @Test
     void seeIfGetDB() {
+        // Arrange
+
         String mockId = "SensorOne";
 
         Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
 
-
         Mockito.when(roomCrudRepo.findById(mockId)).thenReturn(Optional.of(room));
+
+        // Act
 
         Room result = validRoomRepository.getRoomByName(mockId);
 
+        // Assert
+
         assertEquals(result.getId(), room.getId());
         assertEquals(result.getId(), room.getId());
+
     }
 
     @Test
     void seeIfGetDBdNoSensor() {
+        // Arrange
+
         String mockId = "SensorOne";
+
+        // Assert
 
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> validRoomRepository.getRoomByName(mockId));
 
@@ -430,24 +460,35 @@ class RoomRepositoryTest {
 
     @Test
     void seeIfIdExists() {
+        // Arrange
+
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
-        //Assert
+
+        // Assert
+
         assertTrue(validRoomRepository.idExists(validRoom.getId()));
+
     }
 
     @Test
     void seeIfIdNotExists() {
+        // Arrange
+
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
         //Assert
+
         assertFalse(validRoomRepository.idExists("Hall"));
+
     }
 
     @Test
     void seeIfBuildRoomListStringWorksEmptyListDB() {
+        // Arrange
 
         List<Room> rooms = new ArrayList<>();
 
@@ -458,10 +499,13 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, validRoomRepository.buildRoomsAsString(rooms));
+
     }
 
     @Test
     void seeIfBuildRoomListStringWorksEmptyList() {
+        // Arrange
+
         List<Room> emptylist = new ArrayList<>();
 
         // Act
@@ -471,11 +515,13 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, validRoomRepository.buildselectRoomsAsString(emptylist));
+
     }
 
     @Test
     void seeIfBuildRoomListStringWorksList() {
         // Act
+
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
         String expectedResult = "---------------\n" +
@@ -485,11 +531,13 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, validRoomRepository.buildselectRoomsAsString(rooms));
+
     }
 
     @Test
     void seeIfBuildRoomListStringWorksListDB() {
         // Act
+
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
         String expectedResult = "---------------\n" +
@@ -499,13 +547,12 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, validRoomRepository.buildRoomsAsString(rooms));
+
     }
 
 
     @Test
     void seeIfEqualsWorksSameObject() {
-        // Arrange
-
         // Act
 
         boolean actualResult = validRoom.equals(validRoom); // Needed for Sonarqube testing purposes.
@@ -517,10 +564,15 @@ class RoomRepositoryTest {
 
     @Test
     void seeIfGetDeviceList() {
+        // Arrange
+
         DeviceList deviceList = new DeviceList();
         validRoom.setDeviceList(deviceList);
 
+        // Assert
+
         assertEquals(deviceList, validRoom.getDeviceList());
+
     }
 
     @Test
@@ -531,6 +583,7 @@ class RoomRepositoryTest {
         // Assert
 
         assertFalse(actualResult);
+
     }
 
     @Test
@@ -543,14 +596,16 @@ class RoomRepositoryTest {
 
         boolean actualResult = validRoom.equals(room2); // Necessary for Sonarqube testing purposes.
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
+
     }
 
     @Test
     void seeIfGetByIndexWorks() {
-        //Arrange
+        // Arrange
+
         List<Room> rooms = new ArrayList<>();
 
         Room room = new Room("room", "Double Bedroom", 2, 20, 20, 4, "Room1");
@@ -560,21 +615,20 @@ class RoomRepositoryTest {
         Mockito.when(roomCrudRepo.findAll()).thenReturn((rooms));
 
 
-        //Act
+        // Act
 
         Room actualResult1 = validRoomRepository.getRoom(0);
         Room actualResult2 = validRoomRepository.getRoom(1);
 
-        //Assert
+        // Assert
 
         assertEquals(validRoom, actualResult1);
         assertEquals(room, actualResult2);
+
     }
 
     @Test
     void getByIndexEmptyRoomList() {
-        //Arrange
-
         //Act
 
         Throwable exception = assertThrows(IndexOutOfBoundsException.class, () -> validRoomRepository.getRoom(0));
@@ -582,6 +636,7 @@ class RoomRepositoryTest {
         //Assert
 
         assertEquals("The room list is empty.", exception.getMessage());
+
     }
 
     @Test
@@ -597,17 +652,19 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
     void seeItGetDailyConsumptionByDevice() {
+        // Arrange
+
         List<Room> rooms = new ArrayList<>();
         rooms.add(validRoom);
         validRoom.addDevice(validDevice);
         double expectedResult = 6.0;
 
         // Act
-
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
@@ -616,6 +673,7 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult, 0.1);
+
     }
 
     @Test
@@ -623,6 +681,7 @@ class RoomRepositoryTest {
         //Arrange
 
         Room roomExpected = new Room("kitchen", "Ground Floor Kitchen", 0, 15, 10, 2, "Room1");
+
         ArrayList<Double> dimensions = new ArrayList<>();
         dimensions.add(15D);
         dimensions.add(10D);
@@ -632,20 +691,13 @@ class RoomRepositoryTest {
         //Act
 
         Room roomActual1 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1");
+        Room roomActual2 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1");
 
         //Assert
 
         assertEquals(roomExpected, roomActual1);
-
-        //Arrange to check if room is created when it already exists in list
-
-
-        //Act
-
-        Room roomActual2 = validRoomRepository.createRoom("kitchen", "Ground Floor Kitchen", 0, dimensions, "Room1");
-
-        //Assert
         assertEquals(roomExpected, roomActual2);
+
     }
 
 
@@ -662,19 +714,19 @@ class RoomRepositoryTest {
         // Assert
 
         Assertions.assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
     void seeIfEqualsWorks() {
-        // Arrange
-
-        //Act
+        // Act
 
         boolean actualResult = validRoomRepository.equals(validRoomRepository);
 
         // Assert
 
         assertTrue(actualResult);
+
     }
 
 
@@ -684,7 +736,7 @@ class RoomRepositoryTest {
 
         EnergyGridRepository testList = new EnergyGridRepository();
 
-        //Act
+        // Act
 
         boolean actualResult = validRoomRepository.equals(testList); // Needed for SonarQube testing purposes.
 
@@ -695,24 +747,26 @@ class RoomRepositoryTest {
 
     @Test
     void seeIfEqualsWorksOnSameObject() {
-        //Act
+        // Act
 
         boolean actualResult = validRoomRepository.equals(validRoomRepository); // Required for Sonarqube testing purposes.
 
-        //Assert
+        // Assert
 
         assertTrue(actualResult);
+
     }
 
     @Test
     void seeIfEqualsWorksOnDiffObject() {
-        //Act
+        // Act
 
         boolean actualResult = validRoomRepository.equals(20D); // Required for Sonarqube testing purposes.
 
-        //Assert
+        // Assert
 
         assertFalse(actualResult);
+
     }
 
     @Test
@@ -724,7 +778,7 @@ class RoomRepositoryTest {
         roomSensors.add(thirdValidRoomSensor);
         validRoom.setRoomSensors(roomSensors);
         String expectedResult = "---------------\n" +
-                "ID: T32876 | SensorTwo | Type: Temperature | Active\n" +
+                "ID: T32876 | SensorTwo | Type: temperature | Active\n" +
                 "ID: T32877 | SensorThree | Type: Rainfall | Active\n" +
                 "---------------\n";
 
@@ -735,11 +789,13 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
     void seeIfToStringWorksEmpty() {
         // Arrange
+
         String expectedResult = "Invalid List - List is Empty\n";
 
         // Act
@@ -749,12 +805,13 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
     }
 
 
     @Test
     void seeIfCreateRoomReturnsExistingRoom() {
-        //Arrange
+        // Arrange
 
         Room room2 = new Room("Kitchen3", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         Room room = new Room("Kitchen2", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
@@ -767,12 +824,12 @@ class RoomRepositoryTest {
         dimensions.add(5D);
         dimensions.add(3D);
 
-        //Act
+        // Act
 
         Room actualResult = validRoomRepository.createRoom("Kitchen", "1st Floor Kitchen", 1, dimensions, "Room1");
         Room actualResult1 = validRoomRepository.createRoom("Kitchen3", "1st Floor Kitchen", 1, dimensions, "Room1");
 
-        //Assert
+        // Assert
 
         assertEquals(validRoom, actualResult);
         assertEquals(room2, actualResult1);
@@ -781,15 +838,24 @@ class RoomRepositoryTest {
 
     @Test
     void seeIfEmptyRoomsWorks() {
+        // Arrange
+
         List<Room> roomList = new ArrayList<>();
+
         Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
+
+        // Act
+
         boolean actualResult = validRoomRepository.isEmptyRooms();
+
         assertTrue(actualResult);
+
     }
 
     @Test
     void seeIfGetDeviceListAppendNoDuplicatesWorks() {
-        //Arrange
+        // Arrange
+
         DeviceList deviceList = new DeviceList();
         deviceList.add(validDevice);
         DeviceList deviceList1 = new DeviceList();
@@ -802,68 +868,274 @@ class RoomRepositoryTest {
         roomList.add(room);
         roomList.add(room1);
         Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
-        //Act
+
+        // Act
+
         DeviceList actualResult = validRoomRepository.getDeviceList();
-        //Assert
+
+        // Assert
+
         assertEquals(deviceList, actualResult);
     }
 
     @Test
     void seeIfGetNominalPowerWorks() {
-        //Arrange
+        // Arrange
+
         List<Room> roomList = new ArrayList<>();
         DeviceList deviceList = new DeviceList();
         deviceList.add(validDevice);
         roomList.add(validRoom);
         validRoom.setDeviceList(deviceList);
         Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
-        //Act
+
+        // Act
+
         double actualResult = validRoomRepository.getNominalPower();
-        //Assert
+
+        // Assert
+
         assertEquals(21, actualResult, 0.1);
     }
 
     @Test
     void seeIfSaveRoomReturnsFalse() {
-        //Arrange
+
+        // Arrange
+
         Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
-        //Act
+
+        // Act
+
         boolean actualResult = validRoomRepository.saveRoom(validRoom);
-        //Assert
+        // Assert
+
         assertFalse(actualResult);
+
     }
 
     @Test
     void seeIfFindRoomByIdWorks() {
-        //Arrange
+        // Arrange
+
         Mockito.when(roomCrudRepo.findById("Kitchen")).thenReturn(Optional.of(validRoom));
-        //Act
+
+        // Act
+
         Optional<Room> actualResult = validRoomRepository.findRoomByID("Kitchen");
-        //Assert
+
+        // Assert
+
         assertEquals(Optional.of(validRoom), actualResult);
+
     }
 
 
     @Test
     void seeIfCreateRoomSensorWorks() {
         //Arrange
-        SensorType sensorType = new SensorType("Temperature", "C");
+
+        SensorType sensorType = new SensorType("temperature", "C");
+
         //Act
+
         RoomSensor roomSensor = validRoom.createRoomSensor("T32875", "SensorOne", sensorType.getName(), validDate1);
-        //Assert
+
+        // Assert
+
         assertEquals(firstValidRoomSensor, roomSensor);
+
     }
 
     @Test
     void seeIfUpdateHouseRoomWorks() {
+        // Arrange
+
         List<Room> rooms = new ArrayList<>();
+
         validRoom = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
         Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01");
         Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
         rooms.add(room1);
         rooms.add(room);
+
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
         Room actualResult = validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom));
+
+        // Assert
+
         assertEquals(room, actualResult);
+
     }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorsWork(){
+        // Arrange
+
+        int expectedResult = 2;
+
+        String logPath = "dumpFiles/dumpLogFile.html";
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setDate(validDate1);
+        readingDTO1.setUnit("C");
+        readingDTO1.setValue(45);
+        readingDTO1.setSensorId("T32875");
+
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setDate(validDate3);
+        readingDTO2.setUnit("C");
+        readingDTO2.setValue(32);
+        readingDTO2.setSensorId("T32875");
+
+        List<ReadingDTO> list = new ArrayList<>();
+        list.add(readingDTO1);
+        list.add(readingDTO2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
+
+        // Act
+
+        int actualResult = validRoomRepository.addReadingsToRoomSensors(list, logPath);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorsWithSameDateReadingsWork(){
+        // Arrange
+
+        int expectedResult = 1;
+
+        String logPath = "dumpFiles/dumpLogFile.html";
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setDate(validDate3);
+        readingDTO1.setUnit("C");
+        readingDTO1.setValue(45);
+        readingDTO1.setSensorId("T32875");
+
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setDate(validDate3);
+        readingDTO2.setUnit("C");
+        readingDTO2.setValue(32);
+        readingDTO2.setSensorId("T32875");
+
+        List<ReadingDTO> list = new ArrayList<>();
+        list.add(readingDTO1);
+        list.add(readingDTO2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
+
+        // Act
+
+        int actualResult = validRoomRepository.addReadingsToRoomSensors(list, logPath);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorsBeforeStartDateWork(){
+        // Arrange
+
+        int expectedResult = 0;
+
+        String logPath = "dumpFiles/dumpLogFile.html";
+
+        firstValidRoomSensor.setDateStartedFunctioning(validDate3);
+
+        ReadingDTO readingDTO1 = new ReadingDTO();
+        readingDTO1.setDate(validDate1);
+        readingDTO1.setUnit("C");
+        readingDTO1.setValue(45);
+        readingDTO1.setSensorId("T32875");
+
+        ReadingDTO readingDTO2 = new ReadingDTO();
+        readingDTO2.setDate(validDate1);
+        readingDTO2.setUnit("C");
+        readingDTO2.setValue(32);
+        readingDTO2.setSensorId("T32875");
+
+        List<ReadingDTO> list = new ArrayList<>();
+        list.add(readingDTO1);
+        list.add(readingDTO2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(roomList);
+
+        // Act
+
+        int actualResult = validRoomRepository.addReadingsToRoomSensors(list, logPath);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfAddReadingsToRoomSensorsWithoutReadingsWork(){
+        // Arrange
+
+        int expectedResult = 0;
+
+        String logPath = "dumpFiles/dumpLogFile.html";
+
+        firstValidRoomSensor.setDateStartedFunctioning(validDate3);
+
+        List<ReadingDTO> list = new ArrayList<>();
+
+        validRoom.addSensor(firstValidRoomSensor);
+
+        // Act
+
+        int actualResult = validRoomRepository.addReadingsToRoomSensors(list, logPath);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetTemperatureReadingsBetweenDatesWork(){
+        // Arrange
+
+        Reading reading1 = new Reading(45, validDate1, "C", "T32875");
+        Reading reading2 = new Reading(33, validDate1, "C", "T32875");
+
+        firstValidRoomSensor.addReading(reading1);
+        secondValidRoomSensor.addReading(reading2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+        validRoom.addSensor(secondValidRoomSensor);
+
+        List<Reading> expectedResult = new ArrayList<>();
+        expectedResult.add(reading1);
+        expectedResult.add(reading2);
+
+        // Act
+
+        List<Reading> actualResult = validRoomRepository.getTemperatureReadingsBetweenDates(validDate1, validDate4, validRoom);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
 }

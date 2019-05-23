@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
@@ -44,6 +45,7 @@ class GeographicAreaRepositoryTest {
     private List<GeographicArea> validList;
     private List<GeographicAreaDTO> validDTOList;
     private GeographicAreaDTO validDTO;
+    private GeographicAreaWebDTO validWebDTO;
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
@@ -97,6 +99,9 @@ class GeographicAreaRepositoryTest {
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         validList = new ArrayList<>();
+        validWebDTO = new GeographicAreaWebDTO();
+        validWebDTO.setTypeArea("country");
+        validWebDTO.setName("Oporto");
         validDTO = new GeographicAreaDTO();
         validDTO.setTypeArea("country");
         validDTO.setName("Oporto");
@@ -615,6 +620,19 @@ class GeographicAreaRepositoryTest {
 
         // Act
         List<GeographicAreaDTO> actualResult = geographicAreaRepository.getAllDTO();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetAllDTOWebInformationWorksEmpty() {
+        // Arrange
+        Mockito.when(geographicAreaRepository.getAllDTOWebInformation()).thenReturn(new ArrayList<>());
+        List<GeographicAreaWebDTO> expectedResult = new ArrayList<>();
+
+        // Act
+        List<GeographicAreaWebDTO> actualResult = geographicAreaRepository.getAllDTOWebInformation();
 
         // Assert
         assertEquals(expectedResult, actualResult);
