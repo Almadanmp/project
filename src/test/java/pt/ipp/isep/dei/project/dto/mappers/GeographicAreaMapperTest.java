@@ -124,6 +124,9 @@ class GeographicAreaMapperTest {
         // Arrange
 
         GeographicAreaDTO expectedResult = new GeographicAreaDTO();
+        List<GeographicAreaDTO> daughterAreaList = new ArrayList<>();
+        GeographicAreaDTO dto1 = new GeographicAreaDTO();
+        daughterAreaList.add(dto1);
         LocalDTO localDTO = new LocalDTO();
         localDTO.setLatitude(50D);
         localDTO.setLongitude(50D);
@@ -132,6 +135,7 @@ class GeographicAreaMapperTest {
         expectedResult.setTypeArea("Country");
         expectedResult.setLength(300);
         expectedResult.setWidth(200);
+        expectedResult.setDaughterAreaList(daughterAreaList);
         expectedResult.setId(6008L);
         expectedResult.setLocal(localDTO);
 
