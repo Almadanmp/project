@@ -209,20 +209,6 @@ public class GeographicAreaDTO {
         return false;
     }
 
-    /**
-     * deactivateSensor on sensor DTO list
-     * @param areaSensorDTO area sensor dto to be deactivated
-     * @return true if deactivated
-     */
-    public boolean deactivateSensorDTO(AreaSensorDTO areaSensorDTO) {
-        if (this.removeSensor(areaSensorDTO.getSensorId())) {
-            areaSensorDTO.setActive(false);
-            this.addSensor(areaSensorDTO);
-            return true;
-        }
-        return false;
-    }
-
 
     /**
      * method that returns a area sensor DTO found by id

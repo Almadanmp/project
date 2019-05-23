@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.model.Local;
 
 import javax.persistence.*;
@@ -339,6 +340,35 @@ public class GeographicArea implements Root {
 
     }
 
+    /**
+     * US011: Method for iterating through area sensor dto list, finding a sensor by ID and removing it.
+     *
+     * @param areaSensorID id of the sensor to be removed.X
+     * @return true if the sensor is found and removed, or false if not found.
+     */
+
+    public boolean removeSensor(String areaSensorID) {
+        for (AreaSensor s : areaSensors) {
+            if (s.getId().equals(areaSensorID)) {
+                this.areaSensors.remove(s);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**X
+     * deactivateSensor on sensor DTO list
+     * @param areaSensor area sensor dto to be deactivated
+     * @return true if deactivated
+     */
+    public boolean deactivateSensorDTO(AreaSensor areaSensor) {
+        if (this.removeSensor(areaSensor.getId())) {
+            areaSensor.setActive(false);
+            this.addSensor(areaSensor);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Method 'equals' is required so that each 'Geographic Area' can be added to a 'Geographic Area List'. Two
