@@ -4,20 +4,11 @@ package pt.ipp.isep.dei.project.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,34 +18,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ReadingUtilsTest {
 
-    private AreaSensor firstValidAreaSensor;
-    private RoomSensor firstValidRoomSensor;
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // 31/09/2018 23:59:59
-    private Date validDate4; // 07/10/2018 00:00:00
     private Date validDate5; // 08/10/2018 23:26:21
-    private Date validDate6; // 09/10/2018 08:21:22
     private Date validDate7; // 10/10/2018 18:14:03
-    private Date validDate8; // 23/10/2018 12:14:23
-    private Date validDate9; // 13/10/2018 12:12:12
-    private Date validDate10; // 30/10/2018 23:59:59
-    private Date validDate11; // 01/11/2018 00:00:00
     private Date validDate12; // 02/11/2015
-    private Date validDate16; // 13/10/2018 23:59:59
     private Date validDate13;
     private Date validDate14; // 02/10/2018 23:59:00
     private Date validDate15;
-    private Date validDate18; // same day and month as 9 ans 16 but different year
-    private Date validDate19; // same day and month as 9 ans 16 but different year, different hour
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
-    private SensorType validSensorTypeTemp;
-
-    @Mock
-    SensorTypeCrudRepo sensorTypeCrudRepo;
-
-    @Autowired
-    GeographicAreaRepository geographicAreaRepository;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -67,28 +39,12 @@ class ReadingUtilsTest {
             validDate13 = validSdfDay.parse("03/10/2018");
             validDate14 = validSdf.parse("02/10/2018 23:59:00");
             validDate15 = validSdf.parse("03/10/2018 00:00:00");
-            validDate4 = validSdf.parse("07/10/2018 00:00:00");
             validDate5 = validSdf.parse("08/10/2018 23:26:21");
-            validDate6 = validSdf.parse("09/10/2018 08:21:22");
             validDate7 = validSdf.parse("10/10/2018 18:14:03");
-            validDate9 = validSdf.parse("13/10/2018 12:12:12");
-            validDate16 = validSdf.parse("13/10/2018 23:59:59");
-            validDate8 = validSdf.parse("23/10/2018 12:14:23");
-            validDate10 = validSdf.parse("30/10/2018 23:59:59");
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
-            validDate11 = validSdf.parse("01/11/2018 00:00:00");
-            validDate18 = validSdf.parse("13/10/2019 12:12:12");
-            validDate19 = validSdf.parse("13/10/2019 23:59:59");
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        validSensorTypeTemp = new SensorType("Temperature", "Celsius");
-
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(
-                31, 1, 2), validDate1);
-        firstValidAreaSensor.setActive(true);
-        firstValidRoomSensor = new RoomSensor("SensorOne", "SensorOne", "Temperature", validDate1);
     }
 
     @Test
@@ -192,13 +148,9 @@ class ReadingUtilsTest {
 
     @Test
     void seeTotalFromEmptyList() {
-        // Arrange
-
-        List<Double> list = new ArrayList<>();
-
         // Act
 
-        double actualResult = ReadingUtils.getListSum(list);
+        double actualResult = ReadingUtils.getListSum(new ArrayList<>());
 
         // Assert
 
@@ -325,13 +277,11 @@ class ReadingUtilsTest {
     void seeIfGetsMostRecentReading() {
         // This test is particularly complex, but it tests several failure cases. The particular failure scenarios
         // are expanded on next to each assert.
-
         // Arrange
 
         List<Reading> readingService2 = new ArrayList<>();
         List<Reading> readingService3 = new ArrayList<>();
         List<Reading> readingService4 = new ArrayList<>();
-        List<Reading> readingService5 = new ArrayList<>();
         Reading secondMostRecentReading = new Reading(22, validDate14, "C", "Test");
         Reading mostRecentReading = new Reading(25, validDate15, "C", "Test");
         Reading oldestReading = new Reading(27, validDate3, "C", "Test");
@@ -344,19 +294,16 @@ class ReadingUtilsTest {
         readingService4.add(oldestReading);
         readingService4.add(secondMostRecentReading);
         readingService4.add(oldestReading);
-        // Reading error = new Reading(NaN, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "Test");
 
         // Act
         Reading actualResult2 = ReadingUtils.getMostRecentReading(readingService2);
         Reading actualResult3 = ReadingUtils.getMostRecentReading(readingService3);
         Reading actualResult4 = ReadingUtils.getMostRecentReading(readingService4);
-        // Reading actualResult5 = validReadingService.getMostRecentReading(readingService5);
 
         // Assert
         assertEquals(mostRecentReading, actualResult2); // Tests if method works when most recent reading is in the middle of the list.
         assertEquals(mostRecentReading, actualResult3); // Tests if method works when most recent reading is the last on the list.
         assertEquals(secondMostRecentReading, actualResult4); // Tests if method works when most recent reading happens more than once.
-        //   assertEquals(error, actualResult5); // Tests if method works when there are no readings.
     }
 
     @Test
@@ -493,183 +440,6 @@ class ReadingUtilsTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfGetHottestDayInGivenPeriodWorksNoReadings() {
-//        // Arrange
-//
-//        Reading outOfBoundsReading = new Reading(1, validDate1, "C", "SensorOne");
-//        validReadingService.addReading(outOfBoundsReading);
-//
-//        // Assert
-//
-//        assertThrows(IllegalArgumentException.class, () -> validReadingService.getFirstHottestDayInGivenPeriod(firstValidAreaSensor, validDate12, validDate2));
-//    }
-
-//    @Test
-//    void seeReadingExistsInRepositoryWorks() {
-//        // Arrange
-//
-//        String sensorId = "TT12";
-//        Reading reading = new Reading(2D, validDate1, "C", sensorId);
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((reading));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.readingExistsInRepository(sensorId, validDate1);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-
-//    @Test
-//    void seeReadingExistsInRepositoryWorksWhenReadingIsNotPresent() {
-//        // Arrange
-//
-//        String sensorId = "TT12";
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((null));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.readingExistsInRepository(sensorId, validDate1);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddAreaReadingToRepositoryWorksWhenSensorDoesNotExist() {
-//        // Arrange
-//
-//        String sensorId = firstValidAreaSensor.getSensorId();
-//        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
-//
-//        // Act
-//
-//        boolean actualResult = geographicAreaService.addAreaReadingToRepository(firstValidAreaSensor, 20D, validDate1, "C", logger, areaSensorService);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddAreaReadingToRepositoryWorksWhenSensorWasNotActiveDuringRead() {
-//        // Arrange
-//
-//        String sensorId = firstValidAreaSensor.getSensorId();
-//        Mockito.when(areaSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidAreaSensor));
-//
-//        // Act
-//
-//        boolean actualResult = geographicAreaService.addAreaReadingToRepository(firstValidAreaSensor, 20D, validDate2, "C", logger, areaSensorService);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddAreaReadingToRepositoryWorksWhenReadingAlreadyExists() {
-//        // Arrange
-//
-//        Reading reading = new Reading(2D, validDate1, "C", firstValidAreaSensor.getSensorId());
-//        Mockito.when(areaSensorRepository.findById(firstValidAreaSensor.getSensorId())).thenReturn(Optional.of(firstValidAreaSensor));
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, firstValidAreaSensor.getSensorId())).thenReturn((reading));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.addAreaReadingToRepository(firstValidAreaSensor, 2D, validDate1, "C", logger, areaSensorService);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-//
-//    @Test
-//    void seeIfAddAreaReadingToRepositoryWorks() {
-//        // Arrange
-//
-//        Mockito.when(areaSensorRepository.findById(firstValidAreaSensor.getSensorId())).thenReturn(Optional.of(firstValidAreaSensor));
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, firstValidAreaSensor.getSensorId())).thenReturn((null));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.addAreaReadingToRepository(firstValidAreaSensor, 2D, validDate1, "C", logger, areaSensorService);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddHouseReadingToRepositoryWorksWhenSensorDoesNotExist() {
-//        // Arrange
-//
-//        String sensorId = "SensorID";
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn((Optional.empty()));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 20D, validDate1, "C", logger, houseSensorService);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddHouseReadingToRepositoryWorksWhenSensorWasNotActiveDuringRead() {
-//        // Arrange
-//
-//        String sensorId = "SensorID";
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 20D, validDate2, "C", logger, houseSensorService);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddHouseReadingToRepositoryWorksWhenReadingAlreadyExists() {
-//        // Arrange
-//
-//        String sensorId = "SensorID";
-//        Reading reading = new Reading(2D, validDate1, "C", sensorId);
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((reading));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 2D, validDate1, "C", logger, houseSensorService);
-//
-//        // Assert
-//
-//        assertFalse(actualResult);
-//    }
-
-//    @Test
-//    void seeIfAddHouseReadingToRepositoryWorks() {
-//        // Arrange
-//
-//        String sensorId = "SensorID";
-//        Mockito.when(houseSensorRepository.findById(sensorId)).thenReturn(Optional.of(firstValidRoomSensor));
-//        Mockito.when(readingRepository.findReadingByDateEqualsAndSensorId(validDate1, sensorId)).thenReturn((null));
-//
-//        // Act
-//
-//        boolean actualResult = validReadingService.addHouseReadingToRepository(sensorId, 2D, validDate1, "C", logger, houseSensorService);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
-
     @Test
     void seeIfGetValueReadingThrowsException() {
         //Arrange
@@ -699,8 +469,8 @@ class ReadingUtilsTest {
 
     @Test
     void seeIfDetSensorReadingsBetweenDates() {
-        final Date date1 = new GregorianCalendar(2018, 1, 1).getTime();
-        final Date date2 = new GregorianCalendar(2019, 1, 1).getTime();
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1).getTime();
+        final Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime();
         Reading reading1 = new Reading(15, date1, "C", "Test");
         Reading reading2 = new Reading(30, date2, "C", "Test");
         Reading reading3 = new Reading(16, date1, "C", "Test");
@@ -716,4 +486,110 @@ class ReadingUtilsTest {
 
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void seeIfGetMostRecentReadingThrowsException() {
+
+        //Arrange
+        List<Reading> readingList = new ArrayList<>();
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> ReadingUtils.getMostRecentReading(readingList));
+    }
+
+    @Test
+    void getMostRecentReadingDateSuccess() {
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1, 15, 12).getTime();
+        final Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 22, 15).getTime();
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(30, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+        List<Reading> readings = new ArrayList<>();
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+        readings.add(reading4);
+        Date expectedResult = reading4.getDate();
+        Date actualResult = ReadingUtils.getMostRecentReadingDate(readings);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getFirstDayForGivenTemperatureSuccess() {
+        List<Date> dates = new ArrayList<>();
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1, 15, 12).getTime();
+        final Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 22, 15).getTime();
+        dates.add(date1);
+        dates.add(date2);
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(16, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+        List<Reading> readings = new ArrayList<>();
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+        readings.add(reading4);
+        Date expectedResult = reading1.getDate();
+        Date actualResult = ReadingUtils.getFirstDayForGivenTemperature(16, dates, readings);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getMaxValueSuccess() {
+        List<Date> dates = new ArrayList<>();
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1, 15, 12).getTime();
+        final Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 22, 15).getTime();
+        dates.add(date1);
+        dates.add(date2);
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(16, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+        List<Reading> readings = new ArrayList<>();
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+        readings.add(reading4);
+        double actualResult = ReadingUtils.getMaxValue(dates, readings);
+        assertEquals(30, actualResult);
+    }
+
+    @Test
+    void getMinValueInReadingListSuccess() {
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1, 15, 12).getTime();
+        final Date date2 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 22, 15).getTime();
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        Reading reading2 = new Reading(16, date2, "C", "Test");
+        Reading reading3 = new Reading(16, date1, "C", "Test");
+        Reading reading4 = new Reading(30, date2, "C", "Test");
+        List<Reading> readings = new ArrayList<>();
+        readings.add(reading1);
+        readings.add(reading2);
+        readings.add(reading3);
+        readings.add(reading4);
+        double actualResult = ReadingUtils.getMinValueInReadingList(readings);
+        assertEquals(15, actualResult);
+    }
+
+    @Test
+    void IsReadingBetweenToDatesFails(){
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1, 15, 12).getTime();
+        final Date date2 = new GregorianCalendar(2017, Calendar.JANUARY, 1, 22, 15).getTime();
+        final Date date3 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 22, 15).getTime();
+        Reading reading1 = new Reading(15, date2, "C", "Test");
+        assertFalse(ReadingUtils.isReadingDateBetweenTwoDates(reading1.getDate(),date1,date3));
+    }
+
+    @Test
+    void IsReadingBetweenToDatesSuccess(){
+        final Date date1 = new GregorianCalendar(2018, Calendar.JANUARY, 1, 15, 12).getTime();
+        final Date date2 = new GregorianCalendar(2017, Calendar.JANUARY, 1, 22, 15).getTime();
+        final Date date3 = new GregorianCalendar(2019, Calendar.JANUARY, 1, 22, 15).getTime();
+        Reading reading1 = new Reading(15, date1, "C", "Test");
+        assertTrue(ReadingUtils.isReadingDateBetweenTwoDates(reading1.getDate(),date2,date3));
+    }
+
+
 }

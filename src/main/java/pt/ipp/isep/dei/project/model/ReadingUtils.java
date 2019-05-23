@@ -93,9 +93,8 @@ public class ReadingUtils {
      * @author Carina (US600 e US605)
      **/
     public static Reading getMostRecentReading(List<Reading> readings) {
-        Reading error = new Reading(0, new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(), "C", "ERROR");
         if (readings.isEmpty()) {
-            return error;
+            throw new NoSuchElementException("ERROR: No readings available.");
         }
         Reading recentReading = readings.get(0);
         Date mostRecent = recentReading.getDate();
@@ -259,7 +258,7 @@ public class ReadingUtils {
      *
      * @return returns the average of all values contained within that List. If List is empty it will return 0.
      */
-    public static double getAvgFromList(List<Double> valueList) {
+    static double getAvgFromList(List<Double> valueList) {
         if (valueList.isEmpty()) {
             return 0;
         }

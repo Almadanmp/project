@@ -12,11 +12,11 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.io.ByteArrayOutputStream;
@@ -30,8 +30,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -53,10 +52,9 @@ class ReaderControllerTest {
     private Date validDate4 = new Date();
     private RoomSensor validRoomSensor1;
     @Mock
-    private RoomRepository roomRepository;
-    private SensorType validSensorTypeTemp;
-    @Mock
     private HouseCrudRepo houseCrudRepo;
+    @Mock
+    private RoomRepository roomRepository;
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
     @InjectMocks
@@ -72,8 +70,7 @@ class ReaderControllerTest {
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validSensorTypeTemp = new SensorType("Temperature", "C");
-        validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", validSensorTypeTemp.getName(), validDate1);
+        validRoomSensor1 = new RoomSensor("SensorID1", "SensorOne", "Temperature", validDate1);
     }
 
     @BeforeEach
@@ -94,11 +91,8 @@ class ReaderControllerTest {
         // Arrange
 
         List<ReadingDTO> readingDTOS = new ArrayList<>();
-        List<Room> rooms = new ArrayList<>();
         Room room = new Room("Room1", "Description", 1, 1, 1, 1, "House");
-        rooms.add(room);
         room.addSensor(validRoomSensor1);
-
         ReadingDTO readingDTO1 = new ReadingDTO();
         readingDTO1.setSensorId("SensorID1");
         readingDTO1.setValue(20D);
@@ -209,22 +203,20 @@ class ReaderControllerTest {
         assertEquals(2, actualResult);
     }
 
-//    @Test
-//    void seeIfReadJSONAndDefineHouseWorks() {
-//        //Arrange
-//
-//        List<String> deviceTypes = new ArrayList<>();
-//        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
-//        String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
-//        Address expectedResult = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-//
-//        //Assert
-//        Mockito.when(readerJSONHouse.readFile(filePath)).thenReturn(HouseMapper.objectToDTO(house));
-//      //  Mockito.when(readerJSONHouse.readGridsJSON()).thenReturn(ArgumentMatchers.any());
-//        Mockito.when(houseCrudeRepo.save(house)).thenReturn(house);
-//        assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudeRepo, roomRepository));
-//        assertEquals(expectedResult, house.getAddress());
-//    }
+    @Test
+    void seeIfReadJSONAndDefineHouseWorks() {
+        //Arrange
+        List<String> deviceTypes = new ArrayList<>();
+        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
+        String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
+        Address expectedResult = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
+
+        //Assert
+        //  Mockito.when(readerJSONHouse.readGridsJSON()).thenReturn(ArgumentMatchers.any());
+        Mockito.when(houseCrudRepo.save(house)).thenReturn(house);
+        assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
+        assertEquals(expectedResult, house.getAddress());
+    }
 
     @Test
     void seeIfReadJSONAndDefineHouseThrowsException() {
