@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -14,9 +15,15 @@ import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,12 +38,12 @@ class HouseConfigurationControllerTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
     private House validHouse;
+    private AreaType validAreaType;
+    private GeographicArea validGeographicArea;
     @Mock
     private RoomRepository roomRepository;
-    private AreaType validAreaType;
-
-    private GeographicArea validGeographicArea;
-
+    @Mock
+    private SensorTypeRepository sensorTypeRepository;
     @InjectMocks
     private HouseConfigurationController controller;
 
@@ -98,8 +105,8 @@ class HouseConfigurationControllerTest {
         dimensions.add(15D);
         dimensions.add(10D);
         Room room1 = new Room("Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1");
-        Room room2 = new Room("Room", "Double Bedroom", 1, dimensions, "Room1");
-        Room room3 = new Room("Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1");
+        //Room room2 = new Room("Room", "Double Bedroom", 1, dimensions, "Room1");
+        //Room room3 = new Room("Kitchen", "Fully Equipped Kitchen", 1, dimensions, "Room1");
         // Act
         Mockito.when(roomRepository.createRoom("Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1")).thenReturn(room1);
         Room actualResult1 = controller.createNewRoom("Kitchen", "Not equipped Kitchen", 1, dimensions, "Room1");
@@ -226,12 +233,35 @@ class HouseConfigurationControllerTest {
     void seeIfReadSensorsWorksEmptyDB() {
         // Arrange
 
-        String filePath = "houseSensorFiles/DataSet_sprint06_HouseSensors.json";
+        String filePath = "src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensors.json";
 
         int[] expectedResult = new int[2];
 
         // Act
         Mockito.when(roomRepository.isEmptyRooms()).thenReturn(true);
+        int[] actualResult = controller.readSensors(filePath);
+
+        // Assert
+
+        assertArrayEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfReadSensorsWorks() {
+        // Arrange
+
+        String filePath = "src/test/resources/houseSensorFiles/DataSet_sprint06_HouseSensors.json";
+
+        int[] expectedResult = new int[2];
+        expectedResult[1] = 4;
+
+        SensorType sensorType = new SensorType("temperature", "C");
+
+        // Act
+
+        Mockito.when(roomRepository.isEmptyRooms()).thenReturn(false);
+        Mockito.when(sensorTypeRepository.getTypeSensorByName("temperature", "C")).thenReturn(sensorType);
+
         int[] actualResult = controller.readSensors(filePath);
 
         // Assert
@@ -250,5 +280,66 @@ class HouseConfigurationControllerTest {
 
         assertThrows(IllegalArgumentException.class,
                 () -> controller.readSensors(filePath));
+    }
+
+    @Test
+    void seeIfAddSensorsToModelRoomsWorksWhenRoomDoesNotExist() {
+        // Arrange
+
+        List<RoomSensorDTO> sensorDTOS = new ArrayList<>();
+
+        RoomSensorDTO dto1 = new RoomSensorDTO();
+        dto1.setName("SensorDTO1");
+        dto1.setId("ID1");
+        dto1.setRoomID("Room1");
+
+        sensorDTOS.add(dto1);
+
+        Mockito.when(roomRepository.findRoomByID("Room1")).thenReturn(Optional.empty());
+
+        int[] expectedResult = new int[2];
+        expectedResult[1] = 1;
+
+        //Act
+
+        int[] actualResult = controller.addSensorsToModelRooms(sensorDTOS);
+
+        // Assert
+
+        assertArrayEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorsToModelRoomsWorks() {
+        // Arrange
+        List<RoomSensorDTO> sensorDTOS = new ArrayList<>();
+
+        RoomSensorDTO dto2 = new RoomSensorDTO();
+        dto2.setName("SensorDTO2");
+        dto2.setId("ID2");
+        dto2.setRoomID("Room2");
+        dto2.setTypeSensor("temperature");
+        dto2.setUnits("C");
+        dto2.setActive(true);
+        dto2.setReadingList(new ArrayList<>());
+        dto2.setDateStartedFunctioning("01/04/2018 00:00:00");
+
+        sensorDTOS.add(dto2);
+
+        Room validRoom = new Room("Room2", "",1, 2D,3D,5D, "HouseID");
+
+
+        Mockito.when(roomRepository.findRoomByID("Room2")).thenReturn(Optional.of(validRoom));
+
+        int[] expectedResult = new int[2];
+        expectedResult[0] = 1;
+
+        //Act
+
+        int[] actualResult = controller.addSensorsToModelRooms(sensorDTOS);
+
+        // Assert
+
+        assertArrayEquals(expectedResult, actualResult);
     }
 }
