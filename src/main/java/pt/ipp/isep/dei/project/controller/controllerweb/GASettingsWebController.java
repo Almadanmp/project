@@ -68,7 +68,7 @@ public class GASettingsWebController {
                 return new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
             }
         } catch (NoSuchElementException ok) {
-            return new ResponseEntity<>("There is no Geographic Area with that ID.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("There is no  Geographic Area with that ID.", HttpStatus.NOT_FOUND);
         }
     }
 
