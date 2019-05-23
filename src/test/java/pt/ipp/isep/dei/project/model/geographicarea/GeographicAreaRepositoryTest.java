@@ -641,6 +641,37 @@ class GeographicAreaRepositoryTest {
     }
 
     @Test
+    void seeIfGetAllDTOWebInformationWorks() {
+        // Arrange
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
+        GeographicAreaWebDTO geographicAreaWebDTO = GeographicAreaMapper.objectToWebDTO(firstValidArea);
+        List<GeographicAreaWebDTO> geographicAreaWebDTOS = new ArrayList<>();
+        geographicAreaWebDTOS.add(geographicAreaWebDTO);
+
+        // Act
+        List<GeographicAreaWebDTO> actualResult = geographicAreaRepository.getAllDTOWebInformation();
+
+        // Assert
+        assertEquals(geographicAreaWebDTOS, actualResult);
+    }
+
+    @Test
+    void seeIfGetDTOByIdWithMotherWorks() {
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
+        GeographicAreaDTO geographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOByIdWithMother(4L);
+        assertEquals(geographicAreaDTO,actualResult);
+    }
+
+    @Test
+    void seeIfGetDTOByIdWithMotherDoesNotWork() {
+        Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.empty());
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> geographicAreaRepository.getDTOByIdWithMother(4L));
+        assertEquals("Geographic Area not found - 404", exception.getMessage());
+
+    }
+
+    @Test
     void seeIfGetAreaDTObyIdWorks() {
 
         // Arrange
@@ -913,12 +944,5 @@ class GeographicAreaRepositoryTest {
         geographicAreaRepository.updateGeoArea(firstValidArea);
     }
 
-    @Test
-    void seeIfAddAndPersistGaWorks() {
-        //Arrange
-        Mockito.doReturn(validList).when(geographicAreaCrudRepo).findAll();
-        Mockito.doReturn(GeographicAreaMapper.dtoToObject(validDTO)).when(geographicAreaCrudRepo).save(GeographicAreaMapper.dtoToObject(validDTO));
-        boolean actualResult = geographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validDTO));
-        assertTrue(actualResult);
-    }
+
 }
