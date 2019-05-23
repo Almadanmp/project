@@ -9,12 +9,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
+import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
@@ -1017,4 +1015,16 @@ class GeographicAreaRepositoryTest {
         assertFalse(actualResult);
     }
 
+    @Test
+    void seeAddReadingsToGeographicAreaSensorsWorks() {
+        //Arrange
+        List<ReadingDTO> readingDTOS = new ArrayList<>();
+        for (Reading r : validReadingList) {
+            readingDTOS.add(ReadingMapper.objectToDTO(r));
+        }
+        //Act
+        int actualResult = geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, "dumpFiles/dumpLogFile.html");
+        //Assert
+        assertEquals(0, actualResult);
+    }
 }
