@@ -16,7 +16,7 @@ import java.util.List;
  * It contains a list with one or more weather readings.
  */
 @Entity
-public class AreaSensor {
+public class AreaSensor implements pt.ipp.isep.dei.project.dddplaceholders.Entity {
 
     @Id
     private String id;
