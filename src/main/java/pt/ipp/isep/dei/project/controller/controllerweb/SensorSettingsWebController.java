@@ -27,6 +27,9 @@ public class SensorSettingsWebController {
 
     // Part 0 - Main menu
 
+    /**
+     * Shows all the possible operations relatable to sensors and the respective link.
+     */
     @GetMapping("")
     public String intro() {
         return "Welcome to the Sensor Settings Menu: \nGET[/sensorsettings/areas] \nGET[/sensorsettings/areas/{id}] " +
@@ -36,12 +39,21 @@ public class SensorSettingsWebController {
 
     // Part 1 - Geographical Areas
 
+    /**
+     * Shows all the Geographical Areas present in the database.
+     * @return OK status and a list of Geographic Area DTO.
+     */
     @GetMapping(path = "/areas", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> retrieveAllGeographicAreas() {
         List<GeographicAreaWebDTO> geographicAreaDTOList = geographicAreaRepository.getAllDTOWebInformation();
         return new ResponseEntity<>(geographicAreaDTOList, HttpStatus.OK);
     }
 
+    /**
+     * Shows a Geographical Area selected by it's ID, given that it is present in the database.
+     * @param id is the geographical area id.
+     * @return OK status and a Geographic Area DTO.
+     */
     @GetMapping("/areas/{id}")
     public ResponseEntity<GeographicAreaDTO> retrieveGA(@PathVariable long id) {
         GeographicAreaDTO geographicAreaDTO = geographicAreaRepository.getDTOById(id);
@@ -50,6 +62,11 @@ public class SensorSettingsWebController {
 
     // Part 2 - Sensors
 
+    /**
+     * Shows the area sensors present in a given Geographical Area
+     * @param id is the geographical area id.
+     * @return OK status and a list of Area Sensor DTOs.
+     */
     @GetMapping("/areas/{id}/sensors")
     public ResponseEntity<List<AreaSensorDTO>> retrieveAllSensors(@PathVariable long id) {
         List<AreaSensorDTO> areaSensorDTOList = geographicAreaRepository.getDTOById(id).getSensors();
@@ -71,7 +88,8 @@ public class SensorSettingsWebController {
         try {
             geographicAreaDTO = geographicAreaRepository.getDTOById(id);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>( "That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);}
+            return new ResponseEntity<>("That ID does not belong to any Geographic Area", HttpStatus.NOT_FOUND);
+        }
         if (areaSensorDTO.getName() != null && areaSensorDTO.getSensorId() != null && areaSensorDTO.getType() != null && areaSensorDTO.getDateStartedFunctioning() != null) {
             if (areaSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
@@ -87,8 +105,6 @@ public class SensorSettingsWebController {
         return new ResponseEntity<>("There was a problem creating the Area Sensor, because one or more components are missing!",
                 HttpStatus.BAD_REQUEST);
     }
-
-    // US010 Deactivate Area Sensor
 
     /**
      * US010 WEB controller: deactivate area sensor with id sensor
@@ -140,19 +156,3 @@ public class SensorSettingsWebController {
     }
 
 }
-
-//test/
-// CODE TO TEST ON POSTMAN
-/*
-{
-        "sensorId": "macaco",
-        "name": "macaco",
-        "typeSensor": "temperature",
-        "units": "mm",
-        "latitude": 6,
-        "longitude": 6,
-        "altitude": 6,
-        "dateStartedFunctioning": "2018-10-11"
-        }
-*/
-

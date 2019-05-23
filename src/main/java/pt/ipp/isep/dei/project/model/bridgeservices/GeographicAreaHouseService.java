@@ -17,7 +17,7 @@ import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import java.util.*;
 
 @Service
-public class GeographicAreaHouseService {
+public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddplaceholders.Service {
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
