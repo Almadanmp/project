@@ -16,9 +16,6 @@ import java.util.List;
 
 public final class GeographicAreaMapper {
 
-    @Autowired
-    private GeographicAreaRepository geographicAreaRepository;
-
     /**
      * Don't let anyone instantiate this class.
      */

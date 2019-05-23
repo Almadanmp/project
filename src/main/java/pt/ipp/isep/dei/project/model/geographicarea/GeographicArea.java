@@ -177,7 +177,7 @@ public class GeographicArea implements Root {
      *
      * @param geoAreas is the Geographical Area that contains this Geographical Area.
      */
-    void setDaughterAreas(List<GeographicArea> geoAreas) {
+    public void setDaughterAreas(List<GeographicArea> geoAreas) {
         this.daughterAreas = new ArrayList<>(geoAreas);
     }
 
