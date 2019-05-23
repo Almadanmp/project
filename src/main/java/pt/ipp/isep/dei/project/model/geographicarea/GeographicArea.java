@@ -190,7 +190,7 @@ public class GeographicArea implements Root {
      *
      * @param geoArea geographic area to add
      * @return true in case it is added, false otherwise
-     * **/
+     **/
     public boolean addDaughterArea(GeographicArea geoArea) {
         if (!this.daughterAreas.contains(geoArea)) {
             this.daughterAreas.add(geoArea);
@@ -355,8 +355,11 @@ public class GeographicArea implements Root {
         }
         return false;
     }
-    /**X
+
+    /**
+     * X
      * deactivateSensor on sensor DTO list
+     *
      * @param areaSensor area sensor dto to be deactivated
      * @return true if deactivated
      */
