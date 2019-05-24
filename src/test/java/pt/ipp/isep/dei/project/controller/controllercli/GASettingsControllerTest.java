@@ -186,7 +186,7 @@ class GASettingsControllerTest {
         // Arrange
 
         List<AreaType> areaTypes = new ArrayList<>();
-       areaTypes.add(typeCountry);
+        areaTypes.add(typeCountry);
 
         String expectedResult = "---------------\n" +
                 "Name: Country \n" +
@@ -456,4 +456,29 @@ class GASettingsControllerTest {
 
         assertEquals(validAreaSensorDTO1, actualResult);
     }
+
+    @Test
+    void seeIfIsAreaContainedWorks() {
+        // Arrange
+
+        firstValidArea.addDaughterArea(secondValidArea);
+
+        // Act
+
+        boolean actualResult = controller.isAreaContained(firstValidArea, secondValidArea);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfIsAreaContainedFailsNoAreas() {
+        // Arrange
+
+        // Act
+        assertThrows(IllegalArgumentException.class,
+                () -> controller.isAreaContained(firstValidArea, secondValidArea));
+    }
+
 }
