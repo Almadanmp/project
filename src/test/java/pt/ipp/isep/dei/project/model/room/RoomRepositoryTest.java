@@ -969,6 +969,26 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfUpdateHouseRoomThrowsException() {
+        // Arrange
+
+        List<Room> rooms = new ArrayList<>();
+
+        validRoom = new Room("Room3", "1st Floor Room", 1, 3, 4, 4, "House 01");
+        Room room1 = new Room("Room2", "1st Floor Room", 1, 3, 4, 4, "House 01");
+        Room room = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
+        rooms.add(room1);
+        rooms.add(room);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Assert
+
+        assertThrows(RuntimeException.class,
+                () -> validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom)));
+    }
+
+    @Test
     void seeIfAddReadingsToRoomSensorsWork(){
         // Arrange
 
@@ -1132,26 +1152,6 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
-
-    }
-
-    @Test
-    void seeIfUpdateHouseRoomThrowsException() {
-        // Arrange
-
-        List<Room> rooms = new ArrayList<>();
-
-        validRoom = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
-
-
-        //Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
-
-        // Act
-
-        // Assert
-
-        assertThrows(RuntimeException.class,
-                () -> validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom)));
 
     }
 
