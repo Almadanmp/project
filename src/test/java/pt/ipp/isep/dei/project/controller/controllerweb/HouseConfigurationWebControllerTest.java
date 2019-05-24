@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith({MockitoExtension.class})
- class HouseConfigurationWebControllerTest {
+public class HouseConfigurationWebControllerTest {
 
     @Mock
     HouseRoomService houseRoomService;
@@ -52,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     private HouseConfigurationWebController webController;
 
     @BeforeEach
-     void insertData() {
+    public void insertData() {
         MockitoAnnotations.initMocks(this);
         roomDTOWeb = new RoomDTOWeb();
         roomDTOWeb.setName("Name");
@@ -85,7 +85,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfCreateRoomWorks() {
+    public void seeIfGetHouseRoomsWorks() {
+        //Arrange
+        List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
+        roomDTOWebs.add(roomDTOWeb);
+
+        Mockito.doReturn(roomDTOWebs).when(this.roomRepository).getAllRoomWebDTOs();
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOWebs, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.getHouseRooms();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfCreateRoomWorks() {
         //Arrange
         Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
@@ -99,7 +116,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfCreateRoomWorksIfRoomAlreadyExists() {
+    public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
         //Arrange
         Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
@@ -113,7 +130,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfCreateRoomWorksWithMvc() throws Exception {
+    public void seeIfCreateRoomWorksWithMvc() throws Exception {
         //Arrange
         Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
@@ -129,7 +146,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
+    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
         //Arrange
 
         Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
@@ -146,7 +163,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
+    public void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
         //Arrange
 
         RoomDTOWeb invalidDTO = new RoomDTOWeb();
@@ -170,7 +187,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
+    public void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
         //Arrange
 
         RoomDTOWeb invalidDTO = new RoomDTOWeb();
@@ -194,7 +211,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfGetHouseRoomsWorks() throws Exception {
+    public void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
         //Arrange
 
         RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
@@ -221,73 +238,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-     void seeIfIsRoomDTOWebValidWorksWhenDtoIsValid() {
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-     void seeIfIsRoomDTOWebValidWorksWhenNameIsNull() {
-        //Arrange
-
-        roomDTOWeb.setName(null);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-     void seeIfIsRoomDTOWebValidWorksWhenWidthIsInvalid(){
-        //Arrange
-
-        roomDTOWeb.setWidth(0.0);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-     void seeIfIsRoomDTOWebValidWorksWhenLengthIsInvalid() {
-        //Arrange
-
-        roomDTOWeb.setLength(0.0);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-     void seeIfIsRoomDTOWebValidWorksWhenHeightIsInvalid() {
-        //Arrange
-
-        roomDTOWeb.setHeight(0.0);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-     void seeIfConfigureHouseLocationWorks() throws Exception {
+    public void seeIfConfigureHouseLocationWorks() throws Exception {
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
                 "4200-072", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
@@ -313,8 +264,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(status().isOk());
     }
 
+//    @Test
+//    public void seeIfConfigureHouseLocationWorksFalse() throws Exception {
+//        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+//                "4200-072", "Porto", "Portugal"),
+//                new Local(20, 20, 20), 60,
+//                180, new ArrayList<>());
+//
+//        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
+//        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(false);
+//
+//        mockMvc.perform(put("/houseSettings/house")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{ \"addressNOT\": {\n" +
+//                        "        \"streetNOT\": \"rua carlos peixoto\",\n" +
+//                        "        \"number\": \"431\",\n" +
+//                        "        \"town\": \"Porto\",\n" +
+//                        "        \"country\": \"Portugal\"\n" +
+//                        "    }}"))
+//                .andExpect(status().isBadRequest());
+//    }
+
     @Test
-    void seeIfConfigureHouseLocalErrorWorks() {
+    public void seeIfConfigureHouseLocalErrorWorks() {
         //Arrange
 
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
@@ -335,7 +307,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
     @Test
-    void seeIfConfigureHouseLocalWorks() {
+    public void seeIfConfigureHouseLocalWorks() {
         //Arrange
 
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
@@ -350,28 +322,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
         //Act
         ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void seeIfConfigureHouseLocalFailsLocalNotSpecified() {
-        //Arrange
-
-        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
-                "4200-072", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-
-        AddressAndLocalDTO localDTO = new AddressAndLocalDTO();
-
-        Mockito.doReturn(HouseMapper.objectToWithoutGridsDTO(validHouse)).when(houseRepository).getHouseWithoutGridsDTO();
-
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
-
-        //Act
-        ResponseEntity<Object> actualResult = webController.configureHouseLocation(localDTO);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -396,5 +346,4 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
 }
