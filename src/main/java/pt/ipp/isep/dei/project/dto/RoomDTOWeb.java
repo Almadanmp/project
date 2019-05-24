@@ -90,10 +90,7 @@ public class RoomDTOWeb extends ResourceSupport {
         if (((Double.compare(this.width, 0.0)) == 0) || (Double.compare(this.length, 0.0) == 0)) {
             return false;
         }
-        if (Double.compare(this.height, 0.0) == 0) {
-            return false;
-        }
-        return true;
+        return Double.compare(this.height, 0.0) != 0;
     }
 
     /**

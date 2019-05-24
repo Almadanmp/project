@@ -168,6 +168,7 @@ public class GeographicAreaRepository {
             if (!mother.getDaughterAreas().contains(daughter)) {
                 mother.addDaughterArea(daughter);
                 geographicAreaCrudRepo.save(mother);
+                geographicAreaCrudRepo.save(daughter);
                 return true;
             }
         }
