@@ -213,6 +213,7 @@ class ReaderControllerTest {
         //Assert
 
         //  Mockito.when(readerJSONHouse.readGridsJSON()).thenReturn(ArgumentMatchers.any());
+
         Mockito.when(houseCrudRepo.save(house)).thenReturn(house);
         assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
     }
