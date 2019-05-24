@@ -82,10 +82,6 @@ public final class RoomMapper {
 
         String objectName = dtoToConvert.getName();
 
-        // Update the description
-
-        String objectDescription = dtoToConvert.getDescription();
-
         // Update the floor
 
         int objectFloor = dtoToConvert.getFloor();
@@ -97,6 +93,10 @@ public final class RoomMapper {
         // Update the length
 
         double objectLength = dtoToConvert.getLength();
+
+        // Update the description
+
+        String objectDescription = dtoToConvert.getDescription();
 
         // Update the height
 
