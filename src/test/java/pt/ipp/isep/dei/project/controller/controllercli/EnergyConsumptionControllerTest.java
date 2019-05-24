@@ -344,8 +344,6 @@ class EnergyConsumptionControllerTest {
     void seeIfGetHouseGridListWorks() {
         // Arrange
 
-        List<EnergyGrid> grids = new ArrayList<>();
-        grids.add(validGrid);
         List<EnergyGrid> expectedResult = new ArrayList<>();
         expectedResult.add(validGrid);
 
@@ -751,8 +749,6 @@ class EnergyConsumptionControllerTest {
     void seeIfGetRoomLogsInIntervalWorks() {
         // Arrange
 
-        List<Room> mockedRoomList = new ArrayList<>();
-        mockedRoomList.add(validRoom1);
         Date insideInterval = new GregorianCalendar(2016, Calendar.JULY, 1).getTime();
         LogList expectedResult = new LogList();
         Log log1 = new Log(11, insideInterval, insideInterval);
@@ -790,9 +786,6 @@ class EnergyConsumptionControllerTest {
     @Test
     void seeIfGetRoomLogsInIntervalWorksNoLogs() {
         // Arrange
-
-        List<Room> mockedRoomList = new ArrayList<>();
-        mockedRoomList.add(validRoom1);
         LogList expectedResult = new LogList();
 
         // Act

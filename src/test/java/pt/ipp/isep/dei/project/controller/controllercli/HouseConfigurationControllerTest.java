@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -18,10 +17,7 @@ import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +34,6 @@ class HouseConfigurationControllerTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
 
     private House validHouse;
-    private AreaType validAreaType;
     private GeographicArea validGeographicArea;
     @Mock
     private RoomRepository roomRepository;
@@ -54,8 +49,7 @@ class HouseConfigurationControllerTest {
         validHouse = new House("ISEP", address,
                 new Local(20, 20, 20), 60, 180,
                 deviceTypeList);
-        validAreaType = new AreaType("Cidade");
-        validGeographicArea = new GeographicArea("Porto", validAreaType.getName(),
+        validGeographicArea = new GeographicArea("Porto", "Cidade",
                 2, 3, new Local(4, 4, 100));
         validGeographicArea.setId(666L);
         validHouse.setMotherAreaID(validGeographicArea.getId());
@@ -326,7 +320,7 @@ class HouseConfigurationControllerTest {
 
         sensorDTOS.add(dto2);
 
-        Room validRoom = new Room("Room2", "",1, 2D,3D,5D, "HouseID");
+        Room validRoom = new Room("Room2", "", 1, 2D, 3D, 5D, "HouseID");
 
 
         Mockito.when(roomRepository.findRoomByID("Room2")).thenReturn(Optional.of(validRoom));
