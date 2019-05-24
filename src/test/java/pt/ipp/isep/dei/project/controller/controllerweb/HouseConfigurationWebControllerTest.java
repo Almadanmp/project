@@ -85,6 +85,23 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
+    public void seeIfGetHouseRoomsWorks() {
+        //Arrange
+        List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
+        roomDTOWebs.add(roomDTOWeb);
+
+        Mockito.doReturn(roomDTOWebs).when(this.roomRepository).getAllRoomWebDTOs();
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOWebs, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.getHouseRooms();
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void seeIfCreateRoomWorks() {
         //Arrange
         Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
@@ -194,7 +211,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfGetHouseRoomsWorks() throws Exception {
+    public void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
         //Arrange
 
         RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
@@ -218,72 +235,6 @@ public class HouseConfigurationWebControllerTest {
         //Act
 
         this.mockMvc.perform(get("/houseSettings/houseRooms").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andExpect(status().isOk()).andReturn();
-    }
-
-    @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenDtoIsValid() throws Exception {
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertTrue(actualResult);
-    }
-
-    @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenNameIsNull() throws Exception {
-        //Arrange
-
-        roomDTOWeb.setName(null);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenWidthIsInvalid() throws Exception {
-        //Arrange
-
-        roomDTOWeb.setWidth(0.0);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenLengthIsInvalid() throws Exception {
-        //Arrange
-
-        roomDTOWeb.setLength(0.0);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenHeightIsInvalid() throws Exception {
-        //Arrange
-
-        roomDTOWeb.setHeight(0.0);
-
-        //Act
-
-        boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
-
-        //Assert
-        assertFalse(actualResult);
     }
 
     @Test
@@ -395,5 +346,4 @@ public class HouseConfigurationWebControllerTest {
         //Assert
         assertEquals(expectedResult, actualResult);
     }
-
 }

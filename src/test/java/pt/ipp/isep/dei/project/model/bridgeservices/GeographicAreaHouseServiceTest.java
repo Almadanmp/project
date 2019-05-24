@@ -41,24 +41,16 @@ class GeographicAreaHouseServiceTest {
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private GeographicArea firstValidArea;
-    private List<GeographicArea> validList;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
-
-    private Date validDate3;
-    private Date validDate4;
     private Date initialTime;
     private Date endingTime;
     private Date sensorCreationTime;
     private Date validReadingDate;
-    private Date validReadingDate2;
-    private Date validReadingDate3;
     private Reading validReading;
     private Reading validReading2;
-    private Reading validReadingHotDay;
-    private Reading validReadingColdDay;
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
@@ -73,11 +65,7 @@ class GeographicAreaHouseServiceTest {
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
-            validDate3 = validSdf.parse("12/10/2018 00:00:00");
-            validDate4 = validSdf.parse("01/10/2018 00:00:00");
             validReadingDate = readingSD.parse("2018-10-03");
-            validReadingDate2 = readingSD.parse("2018-10-04");
-            validReadingDate3 = readingSD.parse("2018-10-05");
             initialTime = readingSD.parse("2017-10-03");
             endingTime = readingSD.parse("2019-10-03");
             sensorCreationTime = readingSD.parse("2016-10-03");
@@ -87,8 +75,6 @@ class GeographicAreaHouseServiceTest {
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
-        validList = new ArrayList<>();
-        validList.add(firstValidArea);
         validSensortypeTemp = new SensorType("Temperature", "Celsius");
         validSensortypeTemp2 = new SensorType("Rainfall", "Celsius");
 
@@ -103,16 +89,11 @@ class GeographicAreaHouseServiceTest {
 
         validReading = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
-        validReadingHotDay = new Reading(50, validReadingDate2, "C", "SensorThree");
-        validReadingColdDay = new Reading(0, validReadingDate3, "C", "SensorThree");
 
         validAreaSensor.addReading(validReading2);
-        //validAreaSensor.addReading(validReadingColdDay);
-        //validAreaSensor.addReading(validReadingHotDay);
         validReadingList = new ArrayList<>();
         validReadingList.add(validReading2);
-        validReadingList.add(validReadingColdDay);
-        validReadingList.add(validReadingHotDay);
+
 
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);

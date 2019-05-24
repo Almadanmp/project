@@ -26,10 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith({MockitoExtension.class})
 class HouseMonitoringWebControllerTest {
-
     @Mock
     GeographicAreaHouseService geographicAreaHouseService;
-
     @InjectMocks
     HouseMonitoringWebController houseMonitoringWebController;
     @Autowired
@@ -37,14 +35,8 @@ class HouseMonitoringWebControllerTest {
 
     private Date date1; // Date 01/01/2020
     private Date date2; // Date 01/01/2019
-    private Date date3; // Date 01/01/2018
-    private Date date4; // Date 01/01/2017
-    private Date date5; // Date 01/01/2016
-    private Date date6; // Date 01/01/1998
-    private Date date7; // Date 01/01/1985
 
     private static String SUCCESS = "Success";
-    private static String FAIL = "Fail";
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -53,12 +45,6 @@ class HouseMonitoringWebControllerTest {
         try {
             date1 = validSdf.parse("01/01/2020 00:00:00");
             date2 = validSdf.parse("01/01/2019 00:00:00");
-            date3 = validSdf.parse("01/01/2018 00:00:00");
-            date4 = validSdf.parse("01/01/2017 00:00:00");
-            date5 = validSdf.parse("01/01/2016 00:00:00");
-            date6 = validSdf.parse("12/10/1998 00:00:00");
-            date7 = validSdf.parse("01/10/1985 00:00:00");
-
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -7,13 +7,12 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static java.util.Calendar.JANUARY;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -25,13 +24,9 @@ class AreaSensorTest {
     // Common artifacts for testing in this class.
 
     private AreaSensor validAreaSensor;
-    private AreaSensor firstValidAreaSensor;
-    private AreaSensor secondValidAreaSensor;
     private Date validDate1;
     private Date validDate2;
     private Date validDate3;
-    private AreaType validAreaType;
-    private SensorType validSensorTypeTemperature;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -45,14 +40,8 @@ class AreaSensorTest {
                 ParseException c) {
             c.printStackTrace();
         }
-        validAreaType = new AreaType("Cidade");
         validAreaSensor = new AreaSensor("SensOne", "SensOne", "Temperature", new Local(10, 10, 10), validDate2);
         validAreaSensor.setActive(true);
-        validSensorTypeTemperature = new SensorType("Temperature", "Cº");
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemperature.getName(), new Local(2, 2, 2), validDate1);
-        firstValidAreaSensor.setActive(true);
-        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemperature.getName(), new Local(10, 10, 10),
-                validDate1);
     }
 
     @Test
@@ -290,12 +279,9 @@ class AreaSensorTest {
 
         Date date = new GregorianCalendar(2018, Calendar.FEBRUARY, 13).getTime();
         Reading firstValidReading = new Reading(31, date, "C", "Test");
-        List<Reading> readingList = new ArrayList<>();
-
         //Act
 
         validAreaSensor.addReading(firstValidReading);
-        readingList.add(firstValidReading);
 
         List<Reading> expectedResult = new ArrayList<>();
         expectedResult.add(firstValidReading);
@@ -724,8 +710,8 @@ class AreaSensorTest {
 
     @Test
     void getDateHighestAmplitudeBetweenDatesThrowsException() {
-        final Date validDate3 = new GregorianCalendar(2018, 1, 1).getTime();
-        final Date validDate4 = new GregorianCalendar(2019, 1, 1).getTime();
+        final Date validDate3 = new GregorianCalendar(2018, JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2019, JANUARY, 1).getTime();
         // Act
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getDateHighestAmplitudeBetweenDates(validDate3, validDate4));
@@ -738,8 +724,8 @@ class AreaSensorTest {
 
     @Test
     void seeIfGetAverageReadingsBetweenDates() {
-        final Date date1 = new GregorianCalendar(2018, 1, 1).getTime();
-        final Date date2 = new GregorianCalendar(2019, 1, 1).getTime();
+        final Date date1 = new GregorianCalendar(2018, JANUARY, 1).getTime();
+        final Date date2 = new GregorianCalendar(2019, JANUARY, 1).getTime();
         Reading reading1 = new Reading(15, date1, "C", "Test");
         Reading reading2 = new Reading(30, date2, "C", "Test");
         Reading reading3 = new Reading(16, date1, "C", "Test");
@@ -832,8 +818,8 @@ class AreaSensorTest {
 
     @Test
     void getLastColdestDayInGivenIntervalThrowsException() {
-        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
-        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate3 = new GregorianCalendar(2015, JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, JANUARY, 1).getTime();
         // Act
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getLastColdestDayInGivenInterval(validDate3, validDate4));
@@ -845,8 +831,8 @@ class AreaSensorTest {
 
     @Test
     void getFirstHottestDayInGivenPeriodThrowsException() {
-        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
-        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate3 = new GregorianCalendar(2015, JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, JANUARY, 1).getTime();
         // Act
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getFirstHottestDayInGivenPeriod(validDate3, validDate4));
@@ -879,7 +865,6 @@ class AreaSensorTest {
         validAreaSensor.addReading(laterReading);
         validAreaSensor.addReading(earlierReading2);
         validAreaSensor.addReading(laterReading2);
-        Date expectedResult = testDate;
 
         // Act
 
@@ -887,7 +872,7 @@ class AreaSensorTest {
 
         // Assert
 
-        assertEquals(expectedResult, result);
+        assertEquals(testDate, result);
 
     }
 
@@ -913,8 +898,8 @@ class AreaSensorTest {
         validAreaSensor.addReading(earlierReading2);
         validAreaSensor.addReading(laterReading2);
 
-        final Date validDate3 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
-        final Date validDate4 = new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime();
+        final Date validDate3 = new GregorianCalendar(2015, JANUARY, 1).getTime();
+        final Date validDate4 = new GregorianCalendar(2015, JANUARY, 1).getTime();
         // Act
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validAreaSensor.getFirstHottestDayInGivenPeriod(validDate3, validDate4));

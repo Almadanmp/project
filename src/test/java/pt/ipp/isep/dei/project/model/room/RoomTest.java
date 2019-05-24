@@ -5,19 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.*;
 import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.KettlerSpec;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.house.Address;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,17 +23,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoomTest {
     // Common testing artifacts for this class.
 
-    private House validHouse;
-    private GeographicArea validArea;
     private Room validRoom; // Room with a valid temperature sensor with valid readings, and a valid device.
     private RoomSensor firstValidSensor; // Valid temperature sensor with valid readings.
     private RoomSensor secondValidSensor; // Valid temperature sensor without readings.
     private Device validDevice; // Valid device, namely of WaterHeater type.
     private Reading validReading; // Valid temperature reading at February 2, 2018, 00:00:00.
-    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
-    private Date validDate1;
-    private Date validDate2;
-    private Date validDate3;
+
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -58,24 +47,6 @@ class RoomTest {
         validRoom.addDevice(validDevice);
         validReading = new Reading(21, new GregorianCalendar(2018, Calendar.FEBRUARY, 2).
                 getTime(), "C", "Test");
-        validSdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            // Datas desorganizadas, para testar noção de first/last
-            validDate1 = validSdf.parse("01/03/2018");
-            validDate2 = validSdf.parse("10/03/2018");
-            validDate3 = validSdf.parse("20/02/2018");
-
-        } catch (ParseException c) {
-            c.printStackTrace();
-        }
-        validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
-                new Local(20, 12, 33));
-        this.validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
-                "4455-125", "Porto", "Portugal"),
-                new Local(20, 20, 20), 60,
-                180, new ArrayList<>());
-        this.validHouse.setMotherAreaID(validArea.getId());
-
     }
 
     @Test

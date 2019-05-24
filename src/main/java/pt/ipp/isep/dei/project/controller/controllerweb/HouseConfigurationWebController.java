@@ -86,24 +86,6 @@ public class HouseConfigurationWebController {
         return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
     }
 
-    /**
-     * This method checks if a roomDTOWeb is valid by
-     * checking every attribute.
-     *
-     * @param roomDTOWeb to be validated
-     * @return true in case it is valid, false otherwise.
-     **/
-    public boolean isRoomDTOWebValid(RoomDTOWeb roomDTOWeb) {
-        String name = roomDTOWeb.getName();
-        Double width = roomDTOWeb.getWidth();
-        Double length = roomDTOWeb.getLength();
-        Double height = roomDTOWeb.getHeight();
-
-        if (name == null || Double.compare(width, 0.0) == 0) {
-            return false;
-        } else return Double.compare(length, 0.0) != 0 && Double.compare(height, 0.0) != 0;
-    }
-
     //US 108
 
     /**
