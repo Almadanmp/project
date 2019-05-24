@@ -25,4 +25,12 @@ class CommonDeviceAttributesTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    @Test
+    void seeIfSetActiveWorks() {
+        CommonDeviceAttributes commonDeviceAttributes = new CommonDeviceAttributes();
+        commonDeviceAttributes.setName("Fridge");
+        commonDeviceAttributes.setNominalPower(20D);
+        commonDeviceAttributes.setActive(commonDeviceAttributes.isActive());
+    }
+
 }
