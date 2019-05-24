@@ -9,8 +9,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.DateDTO;
@@ -24,7 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith({MockitoExtension.class})
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@WebMvcTest
+@ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 class HouseMonitoringWebControllerTest {
     @Mock
     GeographicAreaHouseService geographicAreaHouseService;
@@ -127,6 +133,20 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
+    void getHighestAmplitudeNoReadingsOnIntervalMVC() throws Exception {
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
+
+        mockMvc.perform(get("/houseMonitoring/highestAmplitude")
+                .content("\n" +
+                        " {\n" +
+                        "\"initialDate\": \"2010-01-01\",\n" +
+                        " }"))
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
     void getHighestAmplitudeSimulateServerErrorMockito() throws IllegalArgumentException {
 
         DateDTO dateDTO = new DateDTO();
@@ -140,5 +160,4 @@ class HouseMonitoringWebControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
 }

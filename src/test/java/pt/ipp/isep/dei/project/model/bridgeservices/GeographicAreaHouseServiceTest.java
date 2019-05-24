@@ -91,7 +91,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
-        validSensorTypeTemp = new SensorType("Temperature", "Celsius");
+        validSensorTypeTemp = new SensorType("temperature", "Celsius");
         validSensorTypeTemp2 = new SensorType("Rainfall", "Celsius");
 
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(2, 2, 2), validDate1);
@@ -340,7 +340,7 @@ class GeographicAreaHouseServiceTest {
         validAreaSensor.setActive(true);
         firstValidArea.addSensor(validAreaSensor);
         //Act
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -362,7 +362,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest2);
         firstValidArea.addSensor(validAreaSensorTest3);
 
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -388,7 +388,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest3);
         firstValidArea.addSensor(validAreaSensorTest4);
 
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -549,7 +549,7 @@ class GeographicAreaHouseServiceTest {
         List<Reading> expectedResult2 = new ArrayList<>();
         List<Reading> expectedResult3 = new ArrayList<>();
 
-        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "Temperature", new Local(2, 2, 2), validDate2);
+        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
         sensor.setActive(true);
         sensor.addReading(new Reading(19, validReadingDate1 , "Temperature", "SensorTen"));
         sensor.addReading(new Reading(19, validReadingDate2 , "Temperature", "SensorTen"));

@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/gridSettings")
 public class EnergyGridSettingsWebController {
 
-    private String NO_GRID = "There is no grid with that ID.";
+    private static final String NO_GRID = "There is no grid with that ID.";
 
     @Autowired
     private EnergyGridRepository energyGridRepository;

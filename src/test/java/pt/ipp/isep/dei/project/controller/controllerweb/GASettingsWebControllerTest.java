@@ -8,11 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -27,8 +24,6 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith({MockitoExtension.class})
 class GASettingsWebControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
     @InjectMocks
@@ -37,8 +32,6 @@ class GASettingsWebControllerTest {
     @Before
     public void insertData() {
         MockitoAnnotations.initMocks(this);
-
-        this.mvc = MockMvcBuilders.standaloneSetup(gaSettingsWebController).build();
 
     }
 
@@ -390,7 +383,7 @@ class GASettingsWebControllerTest {
     }
 
     @Test
-    void addDaughterAreaNotFound(){
+    void addDaughterAreaNotFound() {
 
         Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
 
@@ -426,7 +419,6 @@ class GASettingsWebControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
-
-    }
+}
 
 

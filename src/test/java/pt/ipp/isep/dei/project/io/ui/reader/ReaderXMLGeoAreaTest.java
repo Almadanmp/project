@@ -90,7 +90,7 @@ public class ReaderXMLGeoAreaTest {
         assertEquals(0, areasAdded);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void seeIfReadFileXMLGeoAreaWorksWrongPathNotXml() {
         // Arrange
         // Act
@@ -103,7 +103,7 @@ public class ReaderXMLGeoAreaTest {
         assertThrows(IllegalArgumentException.class, () -> validReaderXMLGeoArea.readFileXMLAndAddAreas(absolutePath, geographicAreaRepository, areaTypeRepository));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void seeIfReadFileXMLGeoAreaWorks() {
         // Arrange
 
