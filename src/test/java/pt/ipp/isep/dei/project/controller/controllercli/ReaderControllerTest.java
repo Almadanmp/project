@@ -209,13 +209,12 @@ class ReaderControllerTest {
         List<String> deviceTypes = new ArrayList<>();
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
-        Address expectedResult = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
 
         //Assert
+
         //  Mockito.when(readerJSONHouse.readGridsJSON()).thenReturn(ArgumentMatchers.any());
         Mockito.when(houseCrudRepo.save(house)).thenReturn(house);
         assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
-        assertEquals(expectedResult, house.getAddress());
     }
 
     @Test
