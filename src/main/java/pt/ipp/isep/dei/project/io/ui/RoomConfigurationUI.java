@@ -444,7 +444,6 @@ class RoomConfigurationUI {
         }
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
-        String idRoom = room.getId();
         Date mDate = DateUtils.createDate(dateYear, dateMonth, dateDay);
         updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, roomRepository);
 
