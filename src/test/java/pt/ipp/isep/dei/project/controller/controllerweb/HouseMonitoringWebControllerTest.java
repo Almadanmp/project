@@ -133,6 +133,20 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
+    void getHighestAmplitudeNoReadingsOnIntervalMVC() throws Exception {
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(houseMonitoringWebController).build();
+
+        mockMvc.perform(get("/houseMonitoring/highestAmplitude")
+                .content("\n" +
+                        " {\n" +
+                        "\"initialDate\": \"2010-01-01\",\n" +
+                        " }"))
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
     void getHighestAmplitudeSimulateServerErrorMockito() throws IllegalArgumentException {
 
         DateDTO dateDTO = new DateDTO();
@@ -146,5 +160,4 @@ class HouseMonitoringWebControllerTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
 }
