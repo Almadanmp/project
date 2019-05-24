@@ -14,10 +14,7 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -190,7 +187,7 @@ public class RoomRepository {
                 return r;
             }
         }
-        throw new RuntimeException();
+        throw new NoSuchElementException();
     }
 
     /**
