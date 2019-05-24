@@ -24,10 +24,7 @@ import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
@@ -1135,6 +1132,26 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfUpdateHouseRoomThrowsException() {
+        // Arrange
+
+        List<Room> rooms = new ArrayList<>();
+
+        validRoom = new Room("Room1", "1st Floor Room", 1, 3, 4, 4, "House 01");
+
+
+        //Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        // Assert
+
+        assertThrows(RuntimeException.class,
+                () -> validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom)));
 
     }
 
