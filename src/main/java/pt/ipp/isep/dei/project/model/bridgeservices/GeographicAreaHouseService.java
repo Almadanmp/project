@@ -50,7 +50,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         // gets and returns average readings on the closest AreaSensor to the house
         Long motherAreaID = house.getMotherAreaID();
         GeographicArea houseMotherArea = geographicAreaRepository.getByID(motherAreaID);
-        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("Temperature", house, houseMotherArea);
+        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("temperature", house, houseMotherArea);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
@@ -321,7 +321,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         if (geographicArea == null) {
             throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
         }
-        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("Temperature", house, geographicArea);
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature", house, geographicArea);
         Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateDTO.getInitialDate(), dateDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
         return (DateUtils.formatDateNoTime(date) + ", with " + value + "ºC");

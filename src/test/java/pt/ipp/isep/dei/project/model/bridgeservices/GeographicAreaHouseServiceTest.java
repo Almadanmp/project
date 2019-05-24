@@ -75,7 +75,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
-        validSensortypeTemp = new SensorType("Temperature", "Celsius");
+        validSensortypeTemp = new SensorType("temperature", "Celsius");
         validSensortypeTemp2 = new SensorType("Rainfall", "Celsius");
 
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensortypeTemp.getName(), new Local(2, 2, 2), validDate1);
@@ -324,7 +324,7 @@ class GeographicAreaHouseServiceTest {
         validAreaSensor.setActive(true);
         firstValidArea.addSensor(validAreaSensor);
         //Act
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -346,7 +346,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest2);
         firstValidArea.addSensor(validAreaSensorTest3);
 
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -372,7 +372,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest3);
         firstValidArea.addSensor(validAreaSensorTest4);
 
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
