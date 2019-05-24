@@ -30,7 +30,7 @@ public class GeographicArea implements Root {
 
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name = "daughterAreaId")
+    @JoinColumn(name = "geographicAreaId")
     private List<GeographicArea> daughterAreas;
 
     @OneToMany(cascade = CascadeType.ALL)
