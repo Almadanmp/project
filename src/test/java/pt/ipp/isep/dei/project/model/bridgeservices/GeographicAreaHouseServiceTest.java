@@ -40,6 +40,8 @@ class GeographicAreaHouseServiceTest {
 
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
+    private Date validDate3; // Date 12/10/2018
+    private Date validDate4; // Date 01/10/2018
     private GeographicArea firstValidArea;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
@@ -48,14 +50,20 @@ class GeographicAreaHouseServiceTest {
     private Date initialTime;
     private Date endingTime;
     private Date sensorCreationTime;
-    private Date validReadingDate;
-    private Reading validReading;
+    private Reading validReading1;
     private Reading validReading2;
+    private Date validReadingDate1;
+    private Date validReadingDate2;
+    private Date validReadingDate3;
+    private Date validReadingDate4;
+    private Date validReadingDate5;
+    private Date validReadingDate6;
+    private Date validReadingDate7;
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
-    private SensorType validSensortypeTemp;
-    private SensorType validSensortypeTemp2;
+    private SensorType validSensorTypeTemp;
+    private SensorType validSensorTypeTemp2;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -65,7 +73,15 @@ class GeographicAreaHouseServiceTest {
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
-            validReadingDate = readingSD.parse("2018-10-03");
+            validDate3 = validSdf.parse("12/10/2018 00:00:00");
+            validDate4 = validSdf.parse("01/10/2018 00:00:00");
+            validReadingDate1 = readingSD.parse("2018-10-03");
+            validReadingDate2 = readingSD.parse("2018-10-04");
+            validReadingDate3 = readingSD.parse("2018-10-05");
+            validReadingDate4 = readingSD.parse("2018-10-03");
+            validReadingDate5 = readingSD.parse("2018-11-05");
+            validReadingDate6 = readingSD.parse("2018-11-06");
+            validReadingDate7 = readingSD.parse("2018-11-07");
             initialTime = readingSD.parse("2017-10-03");
             endingTime = readingSD.parse("2019-10-03");
             sensorCreationTime = readingSD.parse("2016-10-03");
@@ -75,20 +91,20 @@ class GeographicAreaHouseServiceTest {
         firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
-        validSensortypeTemp = new SensorType("Temperature", "Celsius");
-        validSensortypeTemp2 = new SensorType("Rainfall", "Celsius");
+        validSensorTypeTemp = new SensorType("temperature", "Celsius");
+        validSensorTypeTemp2 = new SensorType("Rainfall", "Celsius");
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensortypeTemp.getName(), new Local(2, 2, 2), validDate1);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
-        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemp.getName(), new Local(10, 10, 10),
                 validDate1);
         secondValidAreaSensor.setActive(true);
-        validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensorTypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
 
-        validReading = new Reading(23, validDate2, "C", "sensorID");
-        validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
+        validReading1 = new Reading(23, validDate2, "C", "sensorID");
+        validReading2 = new Reading(23, validReadingDate1, "C", "SensorThree");
 
         validAreaSensor.addReading(validReading2);
         validReadingList = new ArrayList<>();
@@ -109,7 +125,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIIICalculusUS445Works() {
 
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading, 0);
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, 0);
         // Assert
         assertTrue(actualResult);
     }
@@ -118,10 +134,10 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIIICalculusUS445FailsBoundaryValue() {
 
         // Arrange
-        double result = (validReading.getValue() / 0.33) - 18.8 - 4;
+        double result = (validReading1.getValue() / 0.33) - 18.8 - 4;
 
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading, result);
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
 
         // Assert
         assertFalse(actualResult);
@@ -131,7 +147,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIIICalculusUS445Fails() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading, 20);
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, 20);
         // Assert
         assertFalse(actualResult);
     }
@@ -140,7 +156,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIICalculusUS445Works() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIICalculusAboveAverage(validReading, 0);
+        boolean actualResult = geographicAreaHouseService.categoryIICalculusAboveAverage(validReading1, 0);
         // Assert
         assertTrue(actualResult);
     }
@@ -149,7 +165,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIICalculusUS445Fails() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIICalculusAboveAverage(validReading, 20);
+        boolean actualResult = geographicAreaHouseService.categoryIICalculusAboveAverage(validReading1, 20);
         // Assert
         assertFalse(actualResult);
     }
@@ -158,7 +174,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryICalculusUS445Works() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryICalculusAboveAverage(validReading, 0);
+        boolean actualResult = geographicAreaHouseService.categoryICalculusAboveAverage(validReading1, 0);
         // Assert
         assertTrue(actualResult);
     }
@@ -167,7 +183,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryICalculusUS445Fails() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryICalculusAboveAverage(validReading, 20);
+        boolean actualResult = geographicAreaHouseService.categoryICalculusAboveAverage(validReading1, 20);
         // Assert
         assertFalse(actualResult);
     }
@@ -176,7 +192,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryICalculusUS440Works() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryICalculusTemperaturesLowerThanAverage(validReading, 0);
+        boolean actualResult = geographicAreaHouseService.categoryICalculusTemperaturesLowerThanAverage(validReading1, 0);
         // Assert
         assertFalse(actualResult);
     }
@@ -185,7 +201,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryICalculusUS440Fails() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryICalculusTemperaturesLowerThanAverage(validReading, 20);
+        boolean actualResult = geographicAreaHouseService.categoryICalculusTemperaturesLowerThanAverage(validReading1, 20);
         // Assert
         assertTrue(actualResult);
     }
@@ -194,7 +210,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIICalculusUS440Works() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIICalculusTemperaturesLowerThanAverage(validReading, 0);
+        boolean actualResult = geographicAreaHouseService.categoryIICalculusTemperaturesLowerThanAverage(validReading1, 0);
         // Assert
         assertFalse(actualResult);
     }
@@ -203,7 +219,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIICalculusUS440Fails() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIICalculusTemperaturesLowerThanAverage(validReading, 30);
+        boolean actualResult = geographicAreaHouseService.categoryIICalculusTemperaturesLowerThanAverage(validReading1, 30);
         // Assert
         assertTrue(actualResult);
     }
@@ -212,7 +228,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIIICalculusUS440Works() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusTemperaturesLowerThanAverage(validReading, 0);
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusTemperaturesLowerThanAverage(validReading1, 0);
         // Assert
         assertFalse(actualResult);
     }
@@ -221,7 +237,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIIICalculusUS440Fails() {
         // Arrange
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusTemperaturesLowerThanAverage(validReading, 40);
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusTemperaturesLowerThanAverage(validReading1, 40);
         // Assert
         assertTrue(actualResult);
     }
@@ -267,7 +283,7 @@ class GeographicAreaHouseServiceTest {
 
         // Arrange
         List<Reading> expectedResult = new ArrayList<>();
-        expectedResult.add(validReading);
+        expectedResult.add(validReading1);
 
         // Act
         List<Reading> actualResult = geographicAreaHouseService.getReadingListBetweenFormattedDates(initialTime, endingTime, validAreaSensor);
@@ -320,11 +336,11 @@ class GeographicAreaHouseServiceTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(2, 2, 2), new Date());
+        AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensorTypeTemp.getName(), new Local(2, 2, 2), new Date());
         validAreaSensor.setActive(true);
         firstValidArea.addSensor(validAreaSensor);
         //Act
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -336,9 +352,9 @@ class GeographicAreaHouseServiceTest {
 
         //Arrange
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 50), new Date());
-        AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 54), new Date());
-        AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 55), new Date());
+        AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 50), new Date());
+        AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 54), new Date());
+        AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 55), new Date());
         validAreaSensorTest1.setActive(true);
         validAreaSensorTest2.setActive(true);
         validAreaSensorTest3.setActive(true);
@@ -346,7 +362,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest2);
         firstValidArea.addSensor(validAreaSensorTest3);
 
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -357,12 +373,12 @@ class GeographicAreaHouseServiceTest {
 
         //Arrange
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
-        AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 50), new Date());
-        AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 54), new Date());
-        AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensortypeTemp.getName(), new Local(50, 50, 55), new Date());
-        AreaSensor validAreaSensorTest4 = new AreaSensor("test", "Stest", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 50), new Date());
+        AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 54), new Date());
+        AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 55), new Date());
+        AreaSensor validAreaSensorTest4 = new AreaSensor("test", "Stest", validSensorTypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
-        validAreaSensorTest4.addReading(validReading);
+        validAreaSensorTest4.addReading(validReading1);
         validAreaSensorTest1.setActive(true);
         validAreaSensorTest2.setActive(true);
         validAreaSensorTest3.setActive(true);
@@ -372,7 +388,7 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest3);
         firstValidArea.addSensor(validAreaSensorTest4);
 
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature", house, firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -510,7 +526,7 @@ class GeographicAreaHouseServiceTest {
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(areaNoSensors);
-        areaNoSensors.addSensor(new AreaSensor("test", "test", validSensortypeTemp2.getName(), new Local(2, 2, 2), validDate1));
+        areaNoSensors.addSensor(new AreaSensor("test", "test", validSensorTypeTemp2.getName(), new Local(2, 2, 2), validDate1));
         assertThrows(NoSuchElementException.class,
                 () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
     }
@@ -524,5 +540,71 @@ class GeographicAreaHouseServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
     }
+
+    @Test
+    void seeIfGetReadingsAboveCategoryLimit(){
+        // Arrange
+
+        List<Reading> expectedResult1 = new ArrayList<>();
+        List<Reading> expectedResult2 = new ArrayList<>();
+        List<Reading> expectedResult3 = new ArrayList<>();
+
+        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
+        sensor.setActive(true);
+        sensor.addReading(new Reading(19, validReadingDate1 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate2 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate3 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate4 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate5 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate6 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate7 , "Temperature", "SensorTen"));
+
+
+        firstValidArea.addSensor(sensor);
+        firstValidArea.removeSensor(validAreaSensor);
+        validHouse.setMotherAreaID(firstValidArea.getId());
+
+        Reading reading1 = new Reading(5, validReadingDate1 , "temperature", "SensorTen");
+        Reading reading2 = new Reading(15, validReadingDate2 , "temperature", "SensorTen");
+        Reading reading3 = new Reading(25, validReadingDate3 , "temperature", "SensorTen");
+        Reading reading4 = new Reading(27, validReadingDate4 , "temperature", "SensorTen");
+        Reading reading5 = new Reading(28, validReadingDate5 , "temperature", "SensorTen");
+        Reading reading6 = new Reading(29, validReadingDate6 , "temperature", "SensorTen");
+        Reading reading7 = new Reading(33, validReadingDate7 , "temperature", "SensorTen");
+
+        expectedResult1.add(reading5);
+        expectedResult1.add(reading6);
+        expectedResult1.add(reading7);
+
+        expectedResult2.add(reading6);
+        expectedResult2.add(reading7);
+
+        expectedResult3.add(reading7);
+
+        List <Reading> list = new ArrayList<>();
+        list.add(reading1);
+        list.add(reading2);
+        list.add(reading3);
+        list.add(reading4);
+        list.add(reading5);
+        list.add(reading6);
+        list.add(reading7);
+
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+
+        // Act
+
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list, validHouse);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list, validHouse);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list, validHouse);
+
+        // Assert
+
+        assertEquals(expectedResult1, actualResult1);
+        assertEquals(expectedResult2, actualResult2);
+        assertEquals(expectedResult3, actualResult3);
+
+    }
+
 }
 
