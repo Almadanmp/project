@@ -39,10 +39,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//@ExtendWith({SpringExtension.class, MockitoExtension.class})
-//@WebMvcTest
-//@ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
-@ExtendWith({MockitoExtension.class})
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@WebMvcTest
+@ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 public class HouseConfigurationWebControllerTest {
 
     @Mock
@@ -53,8 +52,8 @@ public class HouseConfigurationWebControllerTest {
     RoomRepository roomRepository;
     private RoomDTOWeb roomDTOWeb;
     private AddressAndLocalDTO addressAndLocalDTO;
-//    @Autowired
-//    private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
     @InjectMocks
     private HouseConfigurationWebController webController;
 
@@ -87,7 +86,7 @@ public class HouseConfigurationWebControllerTest {
         addressAndLocalDTO.setLocal(localDTO);
         addressAndLocalDTO.setAddress(addressDTO);
 
-        //this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
 
     }
 
@@ -136,140 +135,140 @@ public class HouseConfigurationWebControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    public void seeIfCreateRoomWorksWithMvc() throws Exception {
-//        //Arrange
-//        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(roomDTOWeb);
-//
-//        //Act
-//
-//        this.mockMvc.perform(post("/houseSettings/room")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestJson))
-//                .andExpect(status().isCreated());
-//    }
+    @Test
+    public void seeIfCreateRoomWorksWithMvc() throws Exception {
+        //Arrange
+        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
-//    @Test
-//    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
-//        //Arrange
-//
-//        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(roomDTOWeb);
-//
-//        //Act
-//
-//        this.mockMvc.perform(post("/houseSettings/room")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestJson))
-//                .andExpect(status().isConflict());
-//    }
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(roomDTOWeb);
 
-//    @Test
-//    public void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
-//        //Arrange
-//
-//        RoomDTOWeb invalidDTO = new RoomDTOWeb();
-//        invalidDTO.setHeight(2D);
-//        invalidDTO.setLength(0.0D);
-//        invalidDTO.setWidth(4D);
-//        invalidDTO.setName("InvalidDimensionsRoom");
-//        invalidDTO.setFloor(1);
-//
-//        //Arrange
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(invalidDTO);
-//
-//        //Act
-//
-//        this.mockMvc.perform(post("/houseSettings/room")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestJson))
-//                .andExpect(status().isUnprocessableEntity());
-//    }
-//
-//    @Test
-//    public void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
-//        //Arrange
-//
-//        RoomDTOWeb invalidDTO = new RoomDTOWeb();
-//        invalidDTO.setHeight(2D);
-//        invalidDTO.setLength(5D);
-//        invalidDTO.setWidth(4D);
-//        invalidDTO.setName(null);
-//        invalidDTO.setFloor(1);
-//
-//        //Arrange
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(invalidDTO);
-//
-//        //Act
-//
-//        this.mockMvc.perform(post("/houseSettings/room")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestJson))
-//                .andExpect(status().isBadRequest());
-//    }
+        //Act
 
-//    @Test
-//    public void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
-//        //Arrange
-//
-//        RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
-//        roomDTOWeb2.setHeight(2D);
-//        roomDTOWeb2.setLength(4D);
-//        roomDTOWeb2.setWidth(4D);
-//        roomDTOWeb2.setName("roomDTOWeb2");
-//        roomDTOWeb2.setFloor(1);
-//
-//        List<RoomDTOWeb> expectedResult = new ArrayList<>();
-//        expectedResult.add(roomDTOWeb);
-//        expectedResult.add(roomDTOWeb2);
-//
-//        Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomWebDTOs();
-//
-//        //Arrange
-//
-//        Gson gson = new Gson();
-//        String requestJson = gson.toJson(expectedResult);
-//
-//        //Act
-//
-//        this.mockMvc.perform(get("/houseSettings/houseRooms").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andExpect(status().isOk()).andReturn();
-//    }
+        this.mockMvc.perform(post("/houseSettings/room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isCreated());
+    }
 
-//    @Test
-//    public void seeIfConfigureHouseLocationWorks() throws Exception {
-//        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
-//                "4200-072", "Porto", "Portugal"),
-//                new Local(20, 20, 20), 60,
-//                180, new ArrayList<>());
-//
-//        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
-//        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(true);
-//
-//        mockMvc.perform(put("/houseSettings/house")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{ \"address\": {\n" +
-//                        "        \"street\": \"rua carlos peixoto\",\n" +
-//                        "        \"number\": \"431\",\n" +
-//                        "        \"zip\": \"4200-072\",\n" +
-//                        "        \"town\": \"Porto\",\n" +
-//                        "        \"country\": \"Portugal\"\n" +
-//                        "    },\n" +
-//                        "    \"local\": {\n" +
-//                        "        \"latitude\": 20,\n" +
-//                        "        \"longitude\": 20,\n" +
-//                        "        \"altitude\": 20\n" +
-//                        "    }}"))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
+        //Arrange
+
+        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(roomDTOWeb);
+
+        //Act
+
+        this.mockMvc.perform(post("/houseSettings/room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
+        //Arrange
+
+        RoomDTOWeb invalidDTO = new RoomDTOWeb();
+        invalidDTO.setHeight(2D);
+        invalidDTO.setLength(0.0D);
+        invalidDTO.setWidth(4D);
+        invalidDTO.setName("InvalidDimensionsRoom");
+        invalidDTO.setFloor(1);
+
+        //Arrange
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(invalidDTO);
+
+        //Act
+
+        this.mockMvc.perform(post("/houseSettings/room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
+        //Arrange
+
+        RoomDTOWeb invalidDTO = new RoomDTOWeb();
+        invalidDTO.setHeight(2D);
+        invalidDTO.setLength(5D);
+        invalidDTO.setWidth(4D);
+        invalidDTO.setName(null);
+        invalidDTO.setFloor(1);
+
+        //Arrange
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(invalidDTO);
+
+        //Act
+
+        this.mockMvc.perform(post("/houseSettings/room")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
+        //Arrange
+
+        RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
+        roomDTOWeb2.setHeight(2D);
+        roomDTOWeb2.setLength(4D);
+        roomDTOWeb2.setWidth(4D);
+        roomDTOWeb2.setName("roomDTOWeb2");
+        roomDTOWeb2.setFloor(1);
+
+        List<RoomDTOWeb> expectedResult = new ArrayList<>();
+        expectedResult.add(roomDTOWeb);
+        expectedResult.add(roomDTOWeb2);
+
+        Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomWebDTOs();
+
+        //Arrange
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(expectedResult);
+
+        //Act
+
+        this.mockMvc.perform(get("/houseSettings/houseRooms").contentType(MediaType.APPLICATION_JSON).content(requestJson)).andExpect(status().isOk()).andReturn();
+    }
+
+    @Test
+    public void seeIfConfigureHouseLocationWorks() throws Exception {
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(true);
+
+        mockMvc.perform(put("/houseSettings/house")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"address\": {\n" +
+                        "        \"street\": \"rua carlos peixoto\",\n" +
+                        "        \"number\": \"431\",\n" +
+                        "        \"zip\": \"4200-072\",\n" +
+                        "        \"town\": \"Porto\",\n" +
+                        "        \"country\": \"Portugal\"\n" +
+                        "    },\n" +
+                        "    \"local\": {\n" +
+                        "        \"latitude\": 20,\n" +
+                        "        \"longitude\": 20,\n" +
+                        "        \"altitude\": 20\n" +
+                        "    }}"))
+                .andExpect(status().isOk());
+    }
 
 //    @Test
 //    public void seeIfConfigureHouseLocationWorksFalse() throws Exception {
