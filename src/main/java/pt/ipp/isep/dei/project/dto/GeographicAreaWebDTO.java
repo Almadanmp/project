@@ -88,4 +88,5 @@ public class GeographicAreaWebDTO {
         }
         return false;
     }
+
 }
