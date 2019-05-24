@@ -113,7 +113,7 @@ public class SensorTypeRepository {
             return null;
         } else {
             LogUtils.closeHandlers(logger);
-            return value.orElseGet(() -> new SensorType(name, unit));
+            return value.get();
         }
     }
 
