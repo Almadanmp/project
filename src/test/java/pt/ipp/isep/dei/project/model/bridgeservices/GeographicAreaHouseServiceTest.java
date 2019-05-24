@@ -549,7 +549,7 @@ class GeographicAreaHouseServiceTest {
         List<Reading> expectedResult2 = new ArrayList<>();
         List<Reading> expectedResult3 = new ArrayList<>();
 
-        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "Temperature", new Local(2, 2, 2), validDate2);
+        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
         sensor.setActive(true);
         sensor.addReading(new Reading(19, validReadingDate1 , "Temperature", "SensorTen"));
         sensor.addReading(new Reading(19, validReadingDate2 , "Temperature", "SensorTen"));
