@@ -984,7 +984,7 @@ class RoomRepositoryTest {
 
         // Assert
 
-        assertThrows(NoSuchElementException.class,
+        assertThrows(RuntimeException.class,
                 () -> validRoomRepository.updateHouseRoom(RoomMapper.objectToDTO(validRoom)));
     }
 

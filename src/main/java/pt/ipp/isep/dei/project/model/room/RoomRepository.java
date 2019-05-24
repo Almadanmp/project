@@ -187,7 +187,7 @@ public class RoomRepository {
                 return r;
             }
         }
-        throw new NoSuchElementException();
+        throw new RuntimeException();
     }
 
     /**
