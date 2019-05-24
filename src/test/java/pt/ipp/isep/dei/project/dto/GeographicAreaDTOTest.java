@@ -369,4 +369,20 @@ class GeographicAreaDTOTest {
         assertTrue(actualResult);
         assertFalse(actualResult2);
     }
+
+    @Test
+    void seeIfGetsAreaSensorByID2ndCondition() {
+
+        // Act
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+        areaSensorDTO.setActive(true);
+        areaSensorDTO.setName("sensor");
+        areaSensorDTO.setId("sensor1");
+        validDTO.setId(3L);
+        validDTO.addSensor(areaSensorDTO);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validDTO.getAreaSensorByID(""));
+    }
+
 }
