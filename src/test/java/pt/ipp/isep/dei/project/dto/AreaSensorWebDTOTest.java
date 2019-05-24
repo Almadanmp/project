@@ -57,6 +57,16 @@ class AreaSensorWebDTOTest {
         diffDTO.setId("T123");
         diffDTO.setTypeSensor("Rainfall");
 
+        AreaSensorWebDTO diffIdDTO = new AreaSensorWebDTO();
+        diffIdDTO.setName("Sensor 1");
+        diffIdDTO.setId("T123456");
+        diffIdDTO.setTypeSensor("Rainfall");
+
+        AreaSensorWebDTO diffNameDTO = new AreaSensorWebDTO();
+        diffNameDTO.setName("Sensor 3");
+        diffNameDTO.setId("T1234");
+        diffNameDTO.setTypeSensor("Rainfall");
+
         //Act
 
         boolean actualResult1 = sameDTO.equals(sameDTO);
@@ -64,6 +74,8 @@ class AreaSensorWebDTOTest {
         boolean actualResult2 = sameDTO.equals(diffDTO);
         boolean actualResult4 = sameDTO.equals(2);
         boolean actualResult5 = sameDTO.equals(null);
+        boolean actualResult6 = sameDTO.equals(diffIdDTO);
+        boolean actualResult7 = sameDTO.equals(diffNameDTO);
 
         //Assert
 
@@ -72,6 +84,8 @@ class AreaSensorWebDTOTest {
         assertFalse(actualResult2);
         assertFalse(actualResult4);
         assertFalse(actualResult5);
+        assertFalse(actualResult6);
+        assertFalse(actualResult7);
     }
     @Test
     void seeIfHashcodeWorks() {
