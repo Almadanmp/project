@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith({MockitoExtension.class})
-public class HouseConfigurationWebControllerTest {
+ class HouseConfigurationWebControllerTest {
 
     @Mock
     HouseRoomService houseRoomService;
@@ -52,7 +52,7 @@ public class HouseConfigurationWebControllerTest {
     private HouseConfigurationWebController webController;
 
     @BeforeEach
-    public void insertData() {
+     void insertData() {
         MockitoAnnotations.initMocks(this);
         roomDTOWeb = new RoomDTOWeb();
         roomDTOWeb.setName("Name");
@@ -85,7 +85,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorks() {
+     void seeIfCreateRoomWorks() {
         //Arrange
         Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
@@ -99,7 +99,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
+     void seeIfCreateRoomWorksIfRoomAlreadyExists() {
         //Arrange
         Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
@@ -113,7 +113,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvc() throws Exception {
+     void seeIfCreateRoomWorksWithMvc() throws Exception {
         //Arrange
         Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
 
@@ -129,7 +129,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
+     void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
         //Arrange
 
         Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
@@ -146,7 +146,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
+     void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
         //Arrange
 
         RoomDTOWeb invalidDTO = new RoomDTOWeb();
@@ -170,7 +170,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
+     void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
         //Arrange
 
         RoomDTOWeb invalidDTO = new RoomDTOWeb();
@@ -194,7 +194,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfGetHouseRoomsWorks() throws Exception {
+     void seeIfGetHouseRoomsWorks() throws Exception {
         //Arrange
 
         RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
@@ -221,7 +221,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenDtoIsValid() throws Exception {
+     void seeIfIsRoomDTOWebValidWorksWhenDtoIsValid() {
         //Act
 
         boolean actualResult = webController.isRoomDTOWebValid(roomDTOWeb);
@@ -231,7 +231,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenNameIsNull() throws Exception {
+     void seeIfIsRoomDTOWebValidWorksWhenNameIsNull() {
         //Arrange
 
         roomDTOWeb.setName(null);
@@ -245,7 +245,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenWidthIsInvalid() throws Exception {
+     void seeIfIsRoomDTOWebValidWorksWhenWidthIsInvalid(){
         //Arrange
 
         roomDTOWeb.setWidth(0.0);
@@ -259,7 +259,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenLengthIsInvalid() throws Exception {
+     void seeIfIsRoomDTOWebValidWorksWhenLengthIsInvalid() {
         //Arrange
 
         roomDTOWeb.setLength(0.0);
@@ -273,7 +273,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfIsRoomDTOWebValidWorksWhenHeightIsInvalid() throws Exception {
+     void seeIfIsRoomDTOWebValidWorksWhenHeightIsInvalid() {
         //Arrange
 
         roomDTOWeb.setHeight(0.0);
@@ -287,7 +287,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfConfigureHouseLocationWorks() throws Exception {
+     void seeIfConfigureHouseLocationWorks() throws Exception {
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
                 "4200-072", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
@@ -313,29 +313,8 @@ public class HouseConfigurationWebControllerTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    public void seeIfConfigureHouseLocationWorksFalse() throws Exception {
-//        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
-//                "4200-072", "Porto", "Portugal"),
-//                new Local(20, 20, 20), 60,
-//                180, new ArrayList<>());
-//
-//        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
-//        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(false);
-//
-//        mockMvc.perform(put("/houseSettings/house")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{ \"addressNOT\": {\n" +
-//                        "        \"streetNOT\": \"rua carlos peixoto\",\n" +
-//                        "        \"number\": \"431\",\n" +
-//                        "        \"town\": \"Porto\",\n" +
-//                        "        \"country\": \"Portugal\"\n" +
-//                        "    }}"))
-//                .andExpect(status().isBadRequest());
-//    }
-
     @Test
-    public void seeIfConfigureHouseLocalErrorWorks() {
+    void seeIfConfigureHouseLocalErrorWorks() {
         //Arrange
 
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
@@ -356,7 +335,7 @@ public class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfConfigureHouseLocalWorks() {
+    void seeIfConfigureHouseLocalWorks() {
         //Arrange
 
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
@@ -371,6 +350,28 @@ public class HouseConfigurationWebControllerTest {
 
         //Act
         ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfConfigureHouseLocalFailsLocalNotSpecified() {
+        //Arrange
+
+        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
+                "4200-072", "Porto", "Portugal"),
+                new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        AddressAndLocalDTO localDTO = new AddressAndLocalDTO();
+
+        Mockito.doReturn(HouseMapper.objectToWithoutGridsDTO(validHouse)).when(houseRepository).getHouseWithoutGridsDTO();
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureHouseLocation(localDTO);
 
         //Assert
         assertEquals(expectedResult, actualResult);
