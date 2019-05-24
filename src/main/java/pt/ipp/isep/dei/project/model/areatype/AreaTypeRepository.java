@@ -109,8 +109,9 @@ public class AreaTypeRepository {
         Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
         Optional<AreaType> value = repository.findByName(name);
         if (!(value.isPresent())) {
-            logger.fine("The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
-                    "Type first.");
+            String message = "The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
+                    "Type first.";
+            logger.fine(message);
             LogUtils.closeHandlers(logger);
             return null;
         } else {
