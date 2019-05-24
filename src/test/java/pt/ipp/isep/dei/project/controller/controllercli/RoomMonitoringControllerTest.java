@@ -12,8 +12,6 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
@@ -35,31 +33,22 @@ class RoomMonitoringControllerTest {
     // Common artifacts for testing in this class.
 
     private House validHouse;
-    private List<String> deviceTypeString;
 
-    private SimpleDateFormat validSdf; // SimpleDateFormat dd/MM/yyyy HH:mm:ss
-    private SimpleDateFormat validSdf2;
     @Mock
     private RoomRepository roomRepository;
     @Mock
     private GeographicAreaHouseService geographicAreaHouseService;
     private Room validRoom1;
     private RoomDTO validRoomDTO;
-    private List<Room> rooms;
-    private GeographicArea validArea;
-    private AreaSensor validAreaSensor;
+
     private Date validDate1;
     private Date validDate2;
     private Date validDate3;
-    private Date validDateSensor;
     private Date validStartDate;
     private Date validEndingDate;
     private Date roomReadingDate1;
     private Date roomReadingDate2;
     private Date roomReadingDate3;
-    private Date areaReadingDate1;
-    private Date areaReadingDate2;
-    private Date areaReadingDate3;
     private RoomSensor firstValidRoomSensor;
 
     @InjectMocks
@@ -67,9 +56,10 @@ class RoomMonitoringControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        validSdf = new SimpleDateFormat("dd/MM/yyyy");
+        // SimpleDateFormat dd/MM/yyyy HH:mm:ss
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy");
         validSdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         validSdf2.setTimeZone(TimeZone.getTimeZone("GMT"));
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
         readingSD.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -82,43 +72,18 @@ class RoomMonitoringControllerTest {
             roomReadingDate1 = validSdf.parse("01/12/2018");
             roomReadingDate2 = validSdf.parse("10/12/2018");
             roomReadingDate3 = validSdf.parse("20/12/2018");
-            areaReadingDate1 = readingSD2.parse("2018-12-01T04:00:00+00:00");
-            areaReadingDate2 = readingSD2.parse("2018-12-10T04:00:00+00:00");
-            areaReadingDate3 = readingSD2.parse("2018-12-20T04:00:00+00:00");
-            validDateSensor = validSdf2.parse("21/11/2018 00:00:00");
             validStartDate = readingSD.parse("2017-10-03");
             validEndingDate = readingSD.parse("2019-10-03");
         } catch (ParseException c) {
             c.printStackTrace();
         }
-        validAreaSensor = new AreaSensor("sensorID", "SensOne", "temperature", new Local(10, 10, 10), validDate1);
-        validAreaSensor.setActive(true);
-        Reading areaReading1 = new Reading(20, validDate1, "C", "sensorID");
-        Reading areaReading2 = new Reading(20, validDate2, "C", "sensorID");
-        Reading areaReading3 = new Reading(20, validDate3, "C", "sensorID");
-        Reading areaReading4 = new Reading(0, areaReadingDate1, "C", "sensorID");
-        Reading areaReading5 = new Reading(500, areaReadingDate2, "C", "sensorID");
-        Reading areaReading6 = new Reading(0, areaReadingDate3, "C", "sensorID");
-        validAreaSensor.addReading(areaReading1);
-        validAreaSensor.addReading(areaReading2);
-        validAreaSensor.addReading(areaReading3);
-        validAreaSensor.addReading(areaReading4);
-        validAreaSensor.addReading(areaReading5);
-        validAreaSensor.addReading(areaReading6);
-
-        validArea = new GeographicArea("Europe", "Continent", 3500, 3000,
-                new Local(20, 12, 33));
-        validArea.setId(111L);
-        validArea.addSensor(validAreaSensor);
-        deviceTypeString = new ArrayList<>();
+        List<String> deviceTypeString = new ArrayList<>();
         this.validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
-        this.validHouse.setMotherAreaID(validArea.getId());
+        this.validHouse.setMotherAreaID(111L);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1");
-        this.rooms = new ArrayList<>();
-        rooms.add(validRoom1);
         validRoomDTO = RoomMapper.objectToDTO(validRoom1);
         validRoomDTO.setHouseId(validHouse.getId());
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
@@ -152,8 +117,6 @@ class RoomMonitoringControllerTest {
                 "C", "S001");
         Reading thirdTestReading = new Reading(11, validDate3,
                 "C", "S001");
-        List<Room> mockRepositoryRooms = new ArrayList<>();
-        mockRepositoryRooms.add(testRoom);
         List<Reading> testReadingList = new ArrayList<>();
         testReadingList.add(testReading);
         testReadingList.add(secondTestReading);
@@ -194,8 +157,6 @@ class RoomMonitoringControllerTest {
     void seeIfGetCurrentRoomTemperatureWorks() {
         //Arrange
 
-        List<Room> mockList = new ArrayList<>();
-        mockList.add(validRoom1);
         RoomSensor roomSensor = new RoomSensor("S1", "Room Temperature Sensor", "temperature", new GregorianCalendar(2019, Calendar.JANUARY, 1).getTime());
         validRoom1.addSensor(roomSensor);
         Reading reading = new Reading(21, Calendar.getInstance().getTime(), "C", roomSensor.getId());

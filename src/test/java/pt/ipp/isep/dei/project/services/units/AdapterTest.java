@@ -10,9 +10,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AdapterTest {
 
@@ -163,7 +166,6 @@ class AdapterTest {
 
         //Dtos
 
-        Unit celsius = new Fahrenheit();
         ReadingDTO dtoCelsius1 = new ReadingDTO();
         dtoCelsius1.setValue(20D);
         dtoCelsius1.setDate(validDate1);

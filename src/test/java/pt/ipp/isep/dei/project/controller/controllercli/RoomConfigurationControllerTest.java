@@ -66,10 +66,7 @@ class RoomConfigurationControllerTest {
     void seeIfGetDeviceByIndexWorks() {
         // Arrange
 
-        List<Room> roomList = new ArrayList<>();
-        roomList.add(validRoomWithDevices);
-
-        DeviceList deviceList = new DeviceList();
+           DeviceList deviceList = new DeviceList();
         deviceList.add(validDeviceFridge);
 
         RoomDTO roomDTO = new RoomDTO();
@@ -96,9 +93,6 @@ class RoomConfigurationControllerTest {
     @Test
     void seeIfGetDeviceListSizeWorks() {
         // Arrange
-
-        List<Room> roomList = new ArrayList<>();
-        roomList.add(validRoomWithDevices);
 
         DeviceList deviceList = new DeviceList();
         deviceList.add(validDeviceFridge);

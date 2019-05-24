@@ -37,14 +37,11 @@ class EnergyGridSettingsControllerTest {
     // Common artifacts for testing in this class.
 
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-    private House validHouse;
     private EnergyGrid validGrid;
     private Room validRoom;
     @Mock
     private EnergyGridRepository energyGridRepository;
-    private AreaType validAreaType;
     private GeographicArea validGeographicArea;
-    private List<Room> rooms;
     @Mock
     private RoomRepository roomRepository;
     @InjectMocks
@@ -52,16 +49,11 @@ class EnergyGridSettingsControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        this.rooms = new ArrayList<>();
-        this.validAreaType = new AreaType("Cidade");
-        Address address = new Address("Rua Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal");
-        validHouse = new House("ISEP", address, new Local(20, 20, 20),
-                60, 180, new ArrayList<>());
-        validGeographicArea = new GeographicArea("Porto", validAreaType.getName(), 2, 3, new Local(4, 4, 100));
-        validHouse.setMotherAreaID(validGeographicArea.getId());
+         validGeographicArea = new GeographicArea("Porto", "Cidade", 2, 3, new Local(4, 4, 100));
+
         validGrid = new EnergyGrid("validGrid", 300D, "34576");
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1");
-        rooms.add(validRoom);
+
     }
 
     //US145
@@ -227,10 +219,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfBuildGridListStringWorks() {
         //Arrange
 
-        List<EnergyGrid> returnList = new ArrayList<>();
-        returnList.add(validGrid);
-
-        String expectedResult = "---------------\n" +
+         String expectedResult = "---------------\n" +
                 "Designation: validGrid | Max Power: 300.0\n" +
                 "---------------\n";
 
@@ -246,9 +235,6 @@ class EnergyGridSettingsControllerTest {
     @Test
     void seeIfAddRoomDTOToGridWorks() {
         // Arrange
-
-        List<Room> mockedList = new ArrayList<>();
-        mockedList.add(validRoom);
         RoomDTO testDTO = RoomMapper.objectToDTO(validRoom);
 
         // Act
