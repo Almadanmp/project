@@ -29,7 +29,7 @@ public class EnergyGrid implements Metered, Root {
     @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-    @LazyCollection(LazyCollectionOption.TRUE) // LazyCollection fixes MultipleBag fetch Problem without having to
+    @LazyCollection(LazyCollectionOption.FALSE) // LazyCollection fixes MultipleBag fetch Problem without having to
     // change fetch type from EAGER to LAZY
     @JoinColumn(name = "energyGridId")
     private List<PowerSource> powerSourceList;
