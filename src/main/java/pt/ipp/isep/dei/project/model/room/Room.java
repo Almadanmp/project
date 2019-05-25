@@ -32,7 +32,7 @@ public class Room implements Metered, Root {
     private String houseID;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name = "roomId")
     private List<RoomSensor> roomSensors;
 

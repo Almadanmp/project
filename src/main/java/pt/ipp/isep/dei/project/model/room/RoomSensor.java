@@ -27,7 +27,7 @@ public class RoomSensor implements pt.ipp.isep.dei.project.dddplaceholders.Entit
 
     private boolean active;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "RoomReading")
     private List<Reading> readings;
 

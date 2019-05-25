@@ -31,7 +31,7 @@ public class AreaSensor implements pt.ipp.isep.dei.project.dddplaceholders.Entit
     @Temporal(TemporalType.DATE)
     private Date dateStartedFunctioning;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "AreaReading")
     private List<Reading> areaReadings;
 
