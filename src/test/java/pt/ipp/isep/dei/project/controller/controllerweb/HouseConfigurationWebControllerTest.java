@@ -3,12 +3,10 @@ package pt.ipp.isep.dei.project.controller.controllerweb;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
@@ -34,15 +31,14 @@ import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
-public class HouseConfigurationWebControllerTest {
+class HouseConfigurationWebControllerTest {
 
     @Mock
     HouseRoomService houseRoomService;
@@ -58,7 +54,7 @@ public class HouseConfigurationWebControllerTest {
     private HouseConfigurationWebController webController;
 
     @BeforeEach
-    public void insertData() {
+    void insertData() {
         MockitoAnnotations.initMocks(this);
         roomDTOWeb = new RoomDTOWeb();
         roomDTOWeb.setName("Name");

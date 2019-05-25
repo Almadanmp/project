@@ -11,4 +11,5 @@ public interface GeographicAreaCrudRepo extends CrudRepository<GeographicArea, L
     List<GeographicArea> findAll();
 
     List<GeographicArea> findAllByAreaTypeID(String areaTypeID);
+
 }

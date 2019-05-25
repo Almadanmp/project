@@ -3,12 +3,10 @@ package pt.ipp.isep.dei.project.controller.controllerweb;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
@@ -28,15 +25,19 @@ import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
+
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 class SensorSettingsWebControllerTest {
@@ -50,16 +51,25 @@ class SensorSettingsWebControllerTest {
     @InjectMocks
     SensorSettingsWebController sensorSettingsWebController;
 
+    private long id;
+    private AreaSensor validAreaSensor;
+    private GeographicArea validGeographicArea;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
+        id = 1;
+        validAreaSensor = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
+        validGeographicArea = new GeographicArea("ISEP", "urban area", 300, 200,
+                new Local(45, 45, 45));
+        validGeographicArea.setId(id);
+        System.out.println(Runtime.getRuntime().freeMemory());
     }
 
     @Test
     void seeIfIntroWorks() {
         //Arrange
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
 
         String expectedResult = "Welcome to the Sensor Settings Menu: \nGET[/sensorsettings/areas] \nGET[/sensorsettings/areas/{id}] " +
                 "\nGET[/sensorsettings/areas/{id}/sensors] \nPOST[/areas/{id}/sensors] \nPUT[/sensorsettings/areas/{id}/sensors/{id2}] " +
@@ -75,52 +85,51 @@ class SensorSettingsWebControllerTest {
     }
 
     @Test
+    void seeIfIntroFails() {
+        //Arrange
+
+        String expectedResult = "Welcome to the Sensor Settings Menu:";
+
+        //Act
+
+        String actualResult = sensorSettingsWebController.intro();
+
+        //Assert
+
+        assertNotEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfRemoveAreaSensorWorks() throws Exception {
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        GeographicArea geo1 = new GeographicArea();
-        long id = 1;
-        geo1.setId(id);
-        geo1.setDescription("Campus do ISEP");
-        geo1.setName("ISEP");
-        geo1.setAreaTypeID("urban area");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         ArrayList<AreaSensor> areaSensorArrayList = new ArrayList<>();
-        areaSensorArrayList.add(sensor1);
-        geo1.setAreaSensors(areaSensorArrayList);
-        geo1.setLocation(new Local(45, 45, 45));
+        areaSensorArrayList.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(areaSensorArrayList);
+        validGeographicArea.setLocation(new Local(45, 45, 45));
 
         String id2 = "RF12345";
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(geo1)).when(this.geographicAreaRepository).getDTOById(id);
-        Mockito.doReturn(true).when(this.geographicAreaRepository).removeSensorDTO(GeographicAreaMapper.objectToDTO(geo1), id2);
-        Mockito.doNothing().when(this.geographicAreaRepository).updateAreaDTO(GeographicAreaMapper.objectToDTO(geo1));
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(true).when(this.geographicAreaRepository).removeSensorDTO(GeographicAreaMapper.objectToDTO(validGeographicArea), id2);
+        Mockito.doNothing().when(this.geographicAreaRepository).updateAreaDTO(GeographicAreaMapper.objectToDTO(validGeographicArea));
 
         // Act & Assert
-        this.mockMvc.perform(delete("/sensorsettings/areas/1/sensors/RF12345", sensor1))
+        this.mockMvc.perform(delete("/sensorsettings/areas/1/sensors/RF12345", validAreaSensor))
                 .andExpect(status().isOk());
     }
 
     @Test
     void seeIfRemoveAreaSensorWorksForNotFound() throws Exception {
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        GeographicArea geo1 = new GeographicArea();
-        long id = 1;
-        geo1.setId(id);
-        geo1.setDescription("Campus do ISEP");
-        geo1.setName("ISEP");
-        geo1.setAreaTypeID("urban area");
 
-        AreaSensor sensor1 = new AreaSensor("RF1234", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         ArrayList<AreaSensor> areaSensorArrayList = new ArrayList<>();
-        areaSensorArrayList.add(sensor1);
-        geo1.setAreaSensors(areaSensorArrayList);
-        geo1.setLocation(new Local(45, 45, 45));
+        areaSensorArrayList.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(areaSensorArrayList);
+        validGeographicArea.setLocation(new Local(45, 45, 45));
 
         String id2 = "RF12345";
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(geo1)).when(this.geographicAreaRepository).getDTOById(id);
-        Mockito.doReturn(false).when(this.geographicAreaRepository).removeSensorDTO(GeographicAreaMapper.objectToDTO(geo1), id2);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(false).when(this.geographicAreaRepository).removeSensorDTO(GeographicAreaMapper.objectToDTO(validGeographicArea), id2);
 
         // Act & Assert
         this.mockMvc.perform(delete("/sensorsettings/areas/1/sensors/RF12345"))
@@ -131,29 +140,21 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorWorks() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         AreaSensor sensor2 = new AreaSensor("test", "test", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = AreaSensorMapper.objectToDTO(sensor2);
 
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
-        Mockito.doReturn(true).when(this.geographicAreaRepository).addSensorDTO(GeographicAreaMapper.objectToDTO(firstValidArea), areaSensorDTO);
-        Mockito.doNothing().when(this.geographicAreaRepository).updateAreaDTO(GeographicAreaMapper.objectToDTO(firstValidArea));
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(true).when(this.geographicAreaRepository).addSensorDTO(GeographicAreaMapper.objectToDTO(validGeographicArea), areaSensorDTO);
 
         // Perform
 
-
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
+
+        // Assert
 
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
     }
@@ -162,16 +163,10 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsBadRequest() throws Exception {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
         // Perform
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         this.mockMvc.perform(post("/sensorsettings/areas/1/sensors").contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"sensorId\": \"RF12345\",\n" +
@@ -185,15 +180,8 @@ class SensorSettingsWebControllerTest {
     void seeIfRetrieveGAWorks() throws Exception {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
 
@@ -205,15 +193,8 @@ class SensorSettingsWebControllerTest {
     void seeIfRetrieveAllSensorsWorks() throws Exception {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
 
@@ -225,12 +206,6 @@ class SensorSettingsWebControllerTest {
     void seeIfRetrieveAllGeographicAreasWorks() throws Exception {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
         // Perform
 
@@ -241,8 +216,6 @@ class SensorSettingsWebControllerTest {
     @Test
     void seeIfGetAreaSensorWorks() {
         //Arrange
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
 
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
 
@@ -305,9 +278,8 @@ class SensorSettingsWebControllerTest {
 
     @Test
     void seeIfCreateAreaSensorFailsWithConflict() {
-        Date validDate = new GregorianCalendar(23, Calendar.APRIL, 13).getTime();
-        AreaSensor sensor1 = new AreaSensor("RF666", "RF666", "temperature", new Local(45, 45, 45), validDate);
-        AreaSensorDTO areaSensorDTO2 = AreaSensorMapper.objectToDTO(sensor1);
+
+        AreaSensorDTO areaSensorDTO2 = AreaSensorMapper.objectToDTO(validAreaSensor);
 
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO2, 12L);
 
@@ -318,17 +290,10 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsEmptyName() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
         areaSensorDTO.setName("");
         areaSensorDTO.setId("RF1234");
@@ -336,10 +301,9 @@ class SensorSettingsWebControllerTest {
         areaSensorDTO.setTypeSensor("temperature");
         areaSensorDTO.setDateStartedFunctioning("2018-10-12");
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
-
 
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
 
@@ -350,23 +314,11 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsWrongGA() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
-        areaSensorDTO.setName("");
-        areaSensorDTO.setId("RF1234");
-        areaSensorDTO.setUnits("mm");
-        areaSensorDTO.setTypeSensor("temperature");
-        areaSensorDTO.setDateStartedFunctioning("2018-10-12");
 
         // Perform
         assertThrows(IllegalArgumentException.class,
@@ -378,22 +330,15 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFails2() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 891;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        //firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         AreaSensor sensor2 = new AreaSensor("test", "test", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = AreaSensorMapper.objectToDTO(sensor2);
 
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
         Mockito.when(this.geographicAreaRepository.getDTOById(id)).thenThrow(new IllegalArgumentException());
 
         // Perform
@@ -407,17 +352,10 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsNullName() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
         areaSensorDTO.setName(null);
         areaSensorDTO.setId("RF1234");
@@ -425,7 +363,7 @@ class SensorSettingsWebControllerTest {
         areaSensorDTO.setTypeSensor("temperature");
         areaSensorDTO.setDateStartedFunctioning("2018-10-12");
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
 
@@ -439,17 +377,10 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsNullId() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
         areaSensorDTO.setName("RF1234");
         areaSensorDTO.setId(null);
@@ -457,7 +388,7 @@ class SensorSettingsWebControllerTest {
         areaSensorDTO.setTypeSensor("temperature");
         areaSensorDTO.setDateStartedFunctioning("2018-10-12");
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
 
@@ -471,17 +402,10 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsNullDate() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
         areaSensorDTO.setName("RF1234");
         areaSensorDTO.setId("RF1234");
@@ -489,7 +413,7 @@ class SensorSettingsWebControllerTest {
         areaSensorDTO.setTypeSensor("temperature");
         areaSensorDTO.setDateStartedFunctioning(null);
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
 
@@ -503,17 +427,10 @@ class SensorSettingsWebControllerTest {
     void seeIfCreateAreaSensorFailsNullType() {
 
         // Arrange
-        this.mockMvc = MockMvcBuilders.standaloneSetup(sensorSettingsWebController).build();
-        long id = 1;
-        GeographicArea firstValidArea = new GeographicArea("ISEP", "urban area", 300, 200,
-                new Local(45, 45, 45));
-        firstValidArea.setId(id);
-        firstValidArea.setDescription("Campus do ISEP");
 
-        AreaSensor sensor1 = new AreaSensor("RF12345", "Meteo station ISEP - rainfall", "rainfall", new Local(45, 45, 45), new Date());
         List<AreaSensor> sensors = new ArrayList<>();
-        sensors.add(sensor1);
-        firstValidArea.setAreaSensors(sensors);
+        sensors.add(validAreaSensor);
+        validGeographicArea.setAreaSensors(sensors);
         AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
         areaSensorDTO.setName("RF1234");
         areaSensorDTO.setId("RF1234");
@@ -521,10 +438,9 @@ class SensorSettingsWebControllerTest {
         areaSensorDTO.setTypeSensor(null);
         areaSensorDTO.setDateStartedFunctioning("2018-10-12");
 
-        Mockito.doReturn(GeographicAreaMapper.objectToDTO(firstValidArea)).when(this.geographicAreaRepository).getDTOById(id);
+        Mockito.doReturn(GeographicAreaMapper.objectToDTO(validGeographicArea)).when(this.geographicAreaRepository).getDTOById(id);
 
         // Perform
-
 
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
 
