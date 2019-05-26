@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -24,7 +25,10 @@ import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
@@ -989,7 +993,7 @@ class RoomRepositoryTest {
     }
 
     @Test
-    void seeIfAddReadingsToRoomSensorsWork(){
+    void seeIfAddReadingsToRoomSensorsWork() {
         // Arrange
 
         int expectedResult = 2;
@@ -1027,7 +1031,7 @@ class RoomRepositoryTest {
     }
 
     @Test
-    void seeIfAddReadingsToRoomSensorsWithSameDateReadingsWork(){
+    void seeIfAddReadingsToRoomSensorsWithSameDateReadingsWork() {
         // Arrange
 
         int expectedResult = 1;
@@ -1065,7 +1069,7 @@ class RoomRepositoryTest {
     }
 
     @Test
-    void seeIfAddReadingsToRoomSensorsBeforeStartDateWork(){
+    void seeIfAddReadingsToRoomSensorsBeforeStartDateWork() {
         // Arrange
 
         int expectedResult = 0;
@@ -1105,7 +1109,7 @@ class RoomRepositoryTest {
     }
 
     @Test
-    void seeIfAddReadingsToRoomSensorsWithoutReadingsWork(){
+    void seeIfAddReadingsToRoomSensorsWithoutReadingsWork() {
         // Arrange
 
         int expectedResult = 0;
@@ -1129,7 +1133,7 @@ class RoomRepositoryTest {
     }
 
     @Test
-    void seeIfGetTemperatureReadingsBetweenDatesWork(){
+    void seeIfGetTemperatureReadingsBetweenDatesWork() {
         // Arrange
 
         Reading reading1 = new Reading(45, validDate1, "C", "T32875");
@@ -1144,10 +1148,11 @@ class RoomRepositoryTest {
         List<Reading> expectedResult = new ArrayList<>();
         expectedResult.add(reading1);
         expectedResult.add(reading2);
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom);
 
         // Act
 
-        List<Reading> actualResult = validRoomRepository.getTemperatureReadingsBetweenDates(validDate1, validDate4, validRoom);
+        List<Reading> actualResult = validRoomRepository.getTemperatureReadingsBetweenDates(validDate1, validDate4, roomDTO);
 
         // Assert
 

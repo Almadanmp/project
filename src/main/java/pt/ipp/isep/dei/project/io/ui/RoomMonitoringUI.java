@@ -20,6 +20,7 @@ import static java.lang.System.out;
 
 @Service
 class RoomMonitoringUI {
+
     @Autowired
     private RoomMonitoringController roomMonitoringController;
     @Autowired
@@ -85,12 +86,9 @@ class RoomMonitoringUI {
     }
 
     private void updateAndDisplayUS440(House house) {
-        System.out.println("Please select a room:");
-        RoomDTO roomDTO = InputHelperUI.getRoomDTOByList(roomRepository);
-        System.out.println("Please enter the starting date.");
-        Date startDate = DateUtils.getInputYearMonthDayHourMin();
-        System.out.println("Please enter the ending date.");
-        Date endDate = DateUtils.getInputYearMonthDayHourMin();
+        RoomDTO roomDTO = us440and445RoomSetup();
+        Date startDate = us440and445StartDateSetup();
+        Date endDate = us440and445SEndingDateSetup();
         int category = UtilsUI.selectCategory();
         String result = roomMonitoringController.getInstantsBelowComfortInterval(house, category, roomDTO, startDate, endDate);
         System.out.println(result);
@@ -106,12 +104,9 @@ class RoomMonitoringUI {
         if (!roomMonitoringController.isMotherAreaValid(house)) {
             return;
         }
-        System.out.println("Please select a room:");
-        RoomDTO roomDTO = InputHelperUI.getRoomDTOByList(roomRepository);
-        System.out.println("Please enter the starting date.");
-        Date startDate = DateUtils.getInputYearMonthDayHourMin();
-        System.out.println("Please enter the ending date.");
-        Date endDate = DateUtils.getInputYearMonthDayHourMin();
+        RoomDTO roomDTO = us440and445RoomSetup();
+        Date startDate = us440and445StartDateSetup();
+        Date endDate = us440and445SEndingDateSetup();
         int category = UtilsUI.selectCategory();
         String result = roomMonitoringController.getInstantsAboveComfortInterval(house, category, roomDTO, startDate, endDate);
         System.out.println(result);
@@ -176,4 +171,20 @@ class RoomMonitoringUI {
     }
 
     // Auxiliary methods
+
+    private RoomDTO us440and445RoomSetup() {
+        System.out.println("Please select a room:");
+        return InputHelperUI.getRoomDTOByList(roomRepository);
+    }
+
+    private Date us440and445StartDateSetup() {
+        System.out.println("Please enter the starting date.");
+        return DateUtils.getInputYearMonthDayHourMin();
+    }
+
+    private Date us440and445SEndingDateSetup() {
+        System.out.println("Please enter the ending date.");
+        return DateUtils.getInputYearMonthDayHourMin();
+    }
+
 }
