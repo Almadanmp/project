@@ -431,60 +431,14 @@ class GeographicAreaHouseServiceTest {
     }
 
     @Test
-    void idDateDTOValidSuccess() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate2);
-        dateIntervalDTO.setEndDate(validDate1);
-        assertTrue(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidNoEndDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidNoDates() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidNoInitialDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setEndDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidInvertedDates() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate1);
-        dateIntervalDTO.setEndDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidValidSameDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate1);
-        dateIntervalDTO.setEndDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
     void getHighestAmplitudeSuccessMockito() {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate2);
-        dateIntervalDTO.setEndDate(validDate1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
-        DateValueDTO expectedResult =  new DateValueDTO(validReadingDate4, 0.0);
+        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 0.0);
 
         DateValueDTO actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
 
@@ -496,9 +450,7 @@ class GeographicAreaHouseServiceTest {
     @Test
     void getHighestAmplitudeInvertedDates() {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate1);
-        dateIntervalDTO.setEndDate(validDate2);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate2);
         assertThrows(IllegalArgumentException.class,
                 () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO));
     }
@@ -506,9 +458,7 @@ class GeographicAreaHouseServiceTest {
     @Test
     void getHighestAmplitudeNoGeographicAreaInDBl() {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate2);
-        dateIntervalDTO.setEndDate(validDate1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
@@ -524,9 +474,7 @@ class GeographicAreaHouseServiceTest {
                 new Local(50, 50, 10));
         areaNoSensors.setId(12L);
         validHouse.setMotherAreaID(areaNoSensors.getId());
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate2);
-        dateIntervalDTO.setEndDate(validDate1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
@@ -540,8 +488,7 @@ class GeographicAreaHouseServiceTest {
     @Test
     void getHighestAmplitudeIncompleteDatesMockito() throws IllegalArgumentException {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(validDate2);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, null);
         assertThrows(IllegalArgumentException.class,
                 () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO));
     }
@@ -761,7 +708,7 @@ class GeographicAreaHouseServiceTest {
     void seeIfcategoryIIICalculusUS445FailsBoundaryValue() {
 
         // Arrange
-         double result = (validReading1.getValue() - 18.8 - 4) / 0.33;
+        double result = (validReading1.getValue() - 18.8 - 4) / 0.33;
 
         // Act
         boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);

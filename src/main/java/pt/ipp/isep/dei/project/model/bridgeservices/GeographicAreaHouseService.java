@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -312,7 +313,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @return string with date and amplitude value
      */
     public DateValueDTO getHighestTemperatureAmplitude(DateIntervalDTO dateIntervalDTO) {
-        if (!isDateDTOValid(dateIntervalDTO)) {
+        if (!DateUtils.isDateDTOValid(dateIntervalDTO)) {
             throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
                     "required (Initial date must be before End date).");
         }
@@ -328,16 +329,5 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return new DateValueDTO(date, value);
     }
 
-    /**
-     * Method to validate if a interval of dates is valid
-     * Date is valid if - Both input are valid inputs
-     * If end date is after initial date
-     *
-     * @param dateIntervalDTO - interval of dates
-     * @return true if date valid
-     */
-    boolean isDateDTOValid(DateIntervalDTO dateIntervalDTO) {
-        return dateIntervalDTO.getInitialDate() != null && dateIntervalDTO.getEndDate() != null
-                && dateIntervalDTO.getEndDate().after(dateIntervalDTO.getInitialDate());
-    }
+
 }

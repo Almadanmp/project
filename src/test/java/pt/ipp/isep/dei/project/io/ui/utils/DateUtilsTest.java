@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
+import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DateUtilsTest {
     private Date validDate1;
+    private Date validDate2;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -23,6 +24,7 @@ class DateUtilsTest {
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             validDate1 = validSdf.parse("01/04/2018 00:00:00");
+            validDate2 = validSdf.parse("01/04/2019 00:00:00");
 
         } catch (
                 ParseException c) {
@@ -31,14 +33,14 @@ class DateUtilsTest {
     }
 
     @Test
-    void formatDateNoTime(){
-        GregorianCalendar cal = new GregorianCalendar(2018, Calendar.JANUARY,12);
+    void formatDateNoTime() {
+        GregorianCalendar cal = new GregorianCalendar(2018, Calendar.JANUARY, 12);
         Date date = cal.getTime();
         String expectedResult = "12/01/2018";
 
         String result = DateUtils.formatDateNoTime(date);
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -82,5 +84,41 @@ class DateUtilsTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void idDateDTOValidSuccess() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate2);
+        assertTrue(DateUtils.isDateDTOValid(dateIntervalDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoEndDate() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, null);
+        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoDates() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, null);
+        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoInitialDate() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, validDate1);
+        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
+    }
+
+    @Test
+    void idDateDTOValidInvalidInvertedDates() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
+    }
+
+    @Test
+    void idDateDTOValidValidSameDate() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate1);
+        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
     }
 }

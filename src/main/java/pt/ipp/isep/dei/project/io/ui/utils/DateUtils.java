@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui.utils;
 
+import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
+
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -285,5 +287,18 @@ public class DateUtils {
      */
     public static Date createDate(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
+    }
+
+    /**
+     * Method to validate if a interval of dates is valid
+     * Date is valid if - Both input are valid inputs
+     * If end date is after initial date
+     *
+     * @param dateIntervalDTO - interval of dates
+     * @return true if date valid
+     */
+    public static boolean isDateDTOValid(DateIntervalDTO dateIntervalDTO) {
+        return dateIntervalDTO.getInitialDate() != null && dateIntervalDTO.getEndDate() != null
+                && dateIntervalDTO.getEndDate().after(dateIntervalDTO.getInitialDate());
     }
 }

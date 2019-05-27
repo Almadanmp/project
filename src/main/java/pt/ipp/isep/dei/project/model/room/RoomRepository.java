@@ -14,10 +14,7 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -129,7 +126,6 @@ public class RoomRepository {
      * It is also adding to the local list while the project is being refactored an lists removed
      *
      * @param room is the room we want to saveSensor.
-     * @return true if the room was successfully saved to the repository, false otherwise.
      */
     public void updateRoom(Room room) {
         roomCrudRepo.save(room);
@@ -144,7 +140,7 @@ public class RoomRepository {
     public boolean removeRoom(Room room) {
         Optional<Room> aux = roomCrudRepo.findById(room.getId());
         if (aux.isPresent()) {
-            roomCrudRepo.delete(room);
+            roomCrudRepo.delete(aux.get());
             return true;
         }
         return false;
@@ -190,7 +186,7 @@ public class RoomRepository {
                 return r;
             }
         }
-        throw new RuntimeException();
+        throw new NoSuchElementException("ERROR: There is no Room with that ID.");
     }
 
     /**
@@ -211,8 +207,6 @@ public class RoomRepository {
         this.roomCrudRepo.save(room);
         return true;
     }
-
-//TODO OLD METHODS
 
     /**
      * String Builder of the RoomList.
@@ -295,7 +289,7 @@ public class RoomRepository {
      * @param index the index of the room
      * @return returns room that corresponds to index.
      */
-    public Room getRoom(int index) {
+    Room getRoom(int index) {
         if (this.getAllRooms().isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }

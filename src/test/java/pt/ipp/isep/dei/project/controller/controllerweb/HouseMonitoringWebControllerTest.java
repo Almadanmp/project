@@ -50,9 +50,7 @@ class HouseMonitoringWebControllerTest {
     @Test
     void getHighestAmplitudeSuccessMockito() {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(date2);
-        dateIntervalDTO.setEndDate(date1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date2, date1);
         DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
         Link link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(dateIntervalDTO)).withRel("Retry with a different period.");
         dateValueDTO.add(link);
@@ -69,9 +67,7 @@ class HouseMonitoringWebControllerTest {
     @Test
     void getHighestAmplitudeInvertedDatesMockito() {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(date1);
-        dateIntervalDTO.setEndDate(date2);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
 
         Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO)).thenThrow(IllegalArgumentException.class);
 
@@ -85,8 +81,7 @@ class HouseMonitoringWebControllerTest {
     @Test
     void getHighestAmplitudeIncompleteDatesMockito() throws IllegalArgumentException {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(date1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
 
         Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO)).thenThrow(IllegalArgumentException.class);
 
@@ -100,8 +95,7 @@ class HouseMonitoringWebControllerTest {
     @Test
     void getHighestAmplitudeSimulateServerErrorMockito() throws IllegalArgumentException {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(date1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
 
         Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO)).thenThrow(RuntimeException.class);
 
