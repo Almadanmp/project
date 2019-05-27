@@ -33,7 +33,7 @@ public final class GeographicAreaMapper {
         Long objectId = null;
 
         try {
-            objectId = dtoToConvert.getId();
+            objectId = dtoToConvert.getGeographicAreaId();
             if (objectId == null) {
                 throw new NullPointerException();
             }

@@ -226,7 +226,7 @@ class SensorSettingsWebControllerTest {
 
         geographicAreaDTO.addSensor(areaSensorDTO);
 
-        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getId())).thenReturn(geographicAreaDTO);
+        Mockito.when(geographicAreaRepository.getDTOById(geographicAreaDTO.getGeographicAreaId())).thenReturn(geographicAreaDTO);
 
         //Act
 

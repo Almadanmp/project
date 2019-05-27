@@ -65,7 +65,7 @@ class HouseMapperTest {
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);
         geographicAreaDTO.setLength(100);
-        houseDTO.setMotherAreaID(geographicAreaDTO.getId());
+        houseDTO.setMotherAreaID(geographicAreaDTO.getGeographicAreaId());
         houseDTO.setEnergyGridList(energyGridDTOList);
         houseDTO.setRoomList(list);
         houseDTO.setAddress(addressDTO);
@@ -124,7 +124,7 @@ class HouseMapperTest {
         geographicAreaDTO.setTypeArea("City");
         geographicAreaDTO.setWidth(90);
         geographicAreaDTO.setLength(100);
-        houseDTO.setMotherAreaID(geographicAreaDTO.getId());
+        houseDTO.setMotherAreaID(geographicAreaDTO.getGeographicAreaId());
         houseDTO.setEnergyGridList(energyGridDTOList);
         houseDTO.setRoomList(list);
         houseDTO.setAddress(addressDTO);

@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
-import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
+import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -312,7 +312,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @param dateIntervalDTO date interval
      * @return string with date and amplitude value
      */
-    public String getHighestTemperatureAmplitude(DateIntervalDTO dateIntervalDTO) {
+    public DateValueDTO getHighestTemperatureAmplitude(DateIntervalDTO dateIntervalDTO) {
         if (!isDateDTOValid(dateIntervalDTO)) {
             throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
                     "required (Initial date must be before End date).");
@@ -326,7 +326,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature", house, geographicArea);
         Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
-        return (DateUtils.formatDateNoTime(date) + ", with " + value + "ºC");
+        return new DateValueDTO(date, value);
     }
 
     /**

@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
+import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -20,6 +21,7 @@ import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import sun.util.calendar.LocalGregorianCalendar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -494,11 +496,12 @@ class GeographicAreaHouseServiceTest {
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
-        String expectedResult = "03/10/2018, with 0.0ºC";
+        DateValueDTO expectedResult =  new DateValueDTO(validReadingDate4, 0.0);
 
-        String actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
+        DateValueDTO actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
 
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult.getDate(), actualResult.getDate());
+        assertEquals(expectedResult.getValue(), actualResult.getValue());
     }
 
 
