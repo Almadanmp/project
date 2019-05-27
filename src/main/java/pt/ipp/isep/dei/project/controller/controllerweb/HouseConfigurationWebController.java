@@ -35,7 +35,7 @@ public class HouseConfigurationWebController {
 
     // USER STORY 101
 
-    /**
+     /**
      * This is a PUT method for US101 - change the location of the house
      *
      * @param addressAndLocalDTO is a DTO with the location of the house we want to get changed.

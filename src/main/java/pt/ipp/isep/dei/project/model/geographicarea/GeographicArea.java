@@ -266,7 +266,7 @@ public class GeographicArea implements Root {
     }
 
 
-    public GeographicArea getDaughterAreaByID(Long daughterID) {
+    GeographicArea getDaughterAreaByID(Long daughterID) {
         for (GeographicArea geoArea : this.daughterAreas) {
             Long daughterAreaID = geoArea.getId();
             if (daughterID.equals(daughterAreaID)) {
@@ -276,6 +276,13 @@ public class GeographicArea implements Root {
         throw new IllegalArgumentException();
     }
 
+    public boolean isAreaContained(Long daughterID) {
+        for (GeographicArea geoArea : this.daughterAreas) {
+            Long daughterAreaID = geoArea.getId();
+            return daughterID.equals(daughterAreaID);
+        }
+        return false;
+    }
     //SENSOR RELATED METHODS
 
     public boolean removeSensor(AreaSensor areaSensor) {
