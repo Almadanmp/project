@@ -15,6 +15,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ class EnergyGridRepositoryTest {
 
     @Mock
     private EnergyGridCrudRepo energyGridCrudRepository;
+    @Mock
+    RoomCrudRepo roomCrudRepo;
     @InjectMocks
     private EnergyGridRepository validGridRepo;
 
@@ -387,10 +390,12 @@ class EnergyGridRepositoryTest {
         roomDTO.setWidth(3);
         roomDTO.setFloor(1);
         roomDTO.setDescription("Classroom");
+        Room room = RoomMapper.dtoToObject(roomDTO);
         EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
         Mockito.when(energyGridCrudRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
+        Mockito.when(roomCrudRepo.findById("B109")).thenReturn(Optional.of(room));
         //Act
-        boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
+        boolean actualResult = validGridRepo.attachRoomToGrid("B109", "Main Grid");
         //Assert
         assertTrue(actualResult);
 
@@ -407,11 +412,14 @@ class EnergyGridRepositoryTest {
         roomDTO.setWidth(3);
         roomDTO.setFloor(1);
         roomDTO.setDescription("Classroom");
+        Room room = RoomMapper.dtoToObject(roomDTO);
         EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findById("Main Grid")).thenReturn(Optional.of(energyGrid));
+        Mockito.when(roomCrudRepo.findById("B109")).thenReturn(Optional.of(room));
+
         //Act
-        boolean actualResult = validGridRepo.attachRoomToGrid(roomDTO, "Main Grid");
+        boolean actualResult = validGridRepo.attachRoomToGrid("B109", "Main Grid");
         //Assert
         assertFalse(actualResult);
 
