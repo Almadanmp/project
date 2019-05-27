@@ -1,9 +1,5 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class HouseWithoutGridsDTO {
@@ -51,10 +47,6 @@ public class HouseWithoutGridsDTO {
 
     public void setDeviceMeteringPeriod(int deviceMeteringPeriod) {
         this.deviceMeteringPeriod = deviceMeteringPeriod;
-    }
-
-    public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
-        List<DeviceType> deviceTypeList1 = new ArrayList<>(deviceTypeList);
     }
 
     public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO){

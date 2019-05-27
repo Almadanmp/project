@@ -142,9 +142,6 @@ public final class HouseMapper {
 
         int dtoDeviceMeteringPeriod = objectToConvert.getDeviceMeteringPeriod();
 
-        //empty list
-        List<DeviceType> objectDeviceTypeConfigList = new ArrayList<>();
-
 
         // Create, update and return new object
 
@@ -154,7 +151,6 @@ public final class HouseMapper {
         resultObject.setLocation(dtoLocal);
         resultObject.setGridMeteringPeriod(dtoGridMeteringPeriod);
         resultObject.setDeviceMeteringPeriod(dtoDeviceMeteringPeriod);
-        resultObject.setDeviceTypeList(objectDeviceTypeConfigList);
 
         return resultObject;
     }
