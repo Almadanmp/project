@@ -23,7 +23,7 @@ import java.util.Scanner;
 class SensorSettingsUI {
     @Autowired
     private SensorSettingsController controller;
-    private List<String> menuOptions = createMenu();
+    private final List<String> menuOptions = createMenu();
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
     @Autowired
