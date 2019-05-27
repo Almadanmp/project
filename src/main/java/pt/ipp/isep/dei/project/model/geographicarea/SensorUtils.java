@@ -67,6 +67,12 @@ public class SensorUtils {
         return finalList;
     }
 
+    /**
+     * Method that returns the sensors in a given list that are of a given type.
+     * @param areaSensors is the list we want to check for sensors of a given type.
+     * @param sensorType is the type of sensor we want to check for.
+     * @return is the list of sensors in the list that are of the given type.
+     */
     public static List<AreaSensor> getAreaSensorsOfGivenType(List<AreaSensor> areaSensors, String sensorType) {
         List<AreaSensor> sensorsOfGivenType = new ArrayList<>();
         for (AreaSensor aS : areaSensors) {

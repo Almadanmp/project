@@ -21,32 +21,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class SensorUtilsTest {
+class SensorUtilsTest {
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
-    private GeographicArea firstValidArea;
-    private List<GeographicArea> validList;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
-    private AreaSensor thirdValidAreaSensor;
-    private AreaSensor validAreaSensor;
     private Date validDate3; // Date 12/10/201
     private Date validDate4;
-    private Date validDate5;
     private Date sensorCreationTime;
     private Date validReadingDate;
-    private Date validReadingDate2;
-    private Date validReadingDate3;
-    private Date validReadingDate4;
-    private Date validReadingDate5;
-    private Reading validReading2;
-    private Reading validReadingHotDay;
-    private Reading validReadingColdDay;
-    private List<Reading> validReadingList;
-    private House validHouse;
-    private List<String> deviceTypeString;
-    private SensorType validSensortypeTemp;
 
     @BeforeEach
     void arrangeArtifacts() {
@@ -58,47 +42,32 @@ public class SensorUtilsTest {
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
             validDate3 = validSdf.parse("12/10/2018 00:00:00");
             validDate4 = validSdf.parse("01/09/2018 00:00:00");
-            validDate5 = validSdf.parse("01/12/2018 00:00:00");
             validReadingDate = readingSD.parse("2018-10-03");
-            validReadingDate2 = readingSD.parse("2018-10-04");
-            validReadingDate3 = readingSD.parse("2018-10-05");
-            validReadingDate4 = readingSD.parse("2018-09-01");
-            validReadingDate5 = readingSD.parse("2018-12-01");
             sensorCreationTime = readingSD.parse("2016-10-03");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
+        GeographicArea firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
-        validList = new ArrayList<>();
-        validList.add(firstValidArea);
-        validSensortypeTemp = new SensorType("Temperature", "Celsius");
+        SensorType validSensortypeTemp = new SensorType("Temperature", "Celsius");
 
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensortypeTemp.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
         secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 validDate1);
         secondValidAreaSensor.setActive(true);
-        thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        AreaSensor thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 validDate1);
         thirdValidAreaSensor.setActive(true);
-        validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        AreaSensor validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
-        validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
-        validReadingHotDay = new Reading(50, validReadingDate2, "C", "SensorThree");
-        validReadingColdDay = new Reading(0, validReadingDate3, "C", "SensorThree");
-
+        Reading validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
         validAreaSensor.addReading(validReading2);
-        validReadingList = new ArrayList<>();
-        validReadingList.add(validReading2);
-        validReadingList.add(validReadingColdDay);
-        validReadingList.add(validReadingHotDay);
-
-        deviceTypeString = new ArrayList<>();
+        List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
-        validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
+        House validHouse = new House("ISEP", new Address("Rua Dr. António Bernardino de Almeida", "431",
                 "4455-125", "Porto", "Portugal"),
                 new Local(20, 20, 20), 60,
                 180, deviceTypeString);
