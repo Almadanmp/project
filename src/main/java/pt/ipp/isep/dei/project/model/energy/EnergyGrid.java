@@ -25,7 +25,7 @@ public class EnergyGrid implements Metered, Root {
     @Id
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
