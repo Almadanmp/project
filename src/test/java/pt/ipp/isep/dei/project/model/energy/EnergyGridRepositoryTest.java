@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
@@ -164,6 +165,17 @@ class EnergyGridRepositoryTest {
         Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getById(mockId));
 
         assertEquals("ERROR: There is no Energy Grid with the selected ID.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetRoomByIdRepositoryNull() {
+        String mockId = "1234";
+
+        Mockito.when(roomCrudRepo.findById(mockId)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getRoomById(mockId));
+
+        assertEquals("ERROR: There is no Room with the selected ID.", exception.getMessage());
     }
 
     @Test
