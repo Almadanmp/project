@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import pt.ipp.isep.dei.project.io.ui.utils.AutoImporter;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
@@ -52,6 +53,8 @@ public class MainUI {
     private GASettingsUI gaSettingsUI;
     @Autowired
     private SensorSettingsUI sensorSettingsUI;
+    @Autowired
+    private AutoImporter autoImporter;
 
     public static void main(String[] args) {
         SpringApplication.run(MainUI.class, args);
@@ -111,6 +114,7 @@ public class MainUI {
                 mainMenuOptions.add("Room Monitoring.");
                 mainMenuOptions.add("House Monitoring.");
                 mainMenuOptions.add("Energy Consumption Management.");
+                mainMenuOptions.add("Delete all data. (Re-Import still under construction)");
                 mainMenuOptions.add("Exit Application");
 
                 MenuFormatter.showMenu("Main Menu", mainMenuOptions);
@@ -158,6 +162,11 @@ public class MainUI {
                             break;
                         case 8:
                             energyConsumptionUI.run();
+                            returnToMenu(enterToReturnToConsole);
+                            activeInput = false;
+                            break;
+                        case 9:
+                            autoImporter.deleteDB();
                             returnToMenu(enterToReturnToConsole);
                             activeInput = false;
                             break;
