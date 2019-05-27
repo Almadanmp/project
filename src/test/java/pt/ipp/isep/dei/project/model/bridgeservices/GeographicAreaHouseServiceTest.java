@@ -59,6 +59,7 @@ class GeographicAreaHouseServiceTest {
     private Date validReadingDate5;
     private Date validReadingDate6;
     private Date validReadingDate7;
+    private Date invalidReadingDate;
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
@@ -90,6 +91,7 @@ class GeographicAreaHouseServiceTest {
             validReadingDate5 = readingSD.parse("2018-11-05");
             validReadingDate6 = readingSD.parse("2018-11-06");
             validReadingDate7 = readingSD.parse("2018-11-07");
+            invalidReadingDate = readingSD.parse("2050-11-07");
             initialTime = readingSD.parse("2017-10-03");
             endingTime = readingSD.parse("2019-10-03");
             sensorCreationTime = readingSD.parse("2016-10-03");
@@ -775,7 +777,7 @@ class GeographicAreaHouseServiceTest {
         double result = (validReading1.getValue() - 18.8 - 3) / 0.33;
 
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
+        boolean actualResult = geographicAreaHouseService.categoryIICalculusAboveAverage(validReading1, result);
 
         // Assert
         assertFalse(actualResult);
@@ -788,7 +790,7 @@ class GeographicAreaHouseServiceTest {
         double result = (validReading1.getValue() - 18.8 - 2) / 0.33;
 
         // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
+        boolean actualResult = geographicAreaHouseService.categoryICalculusAboveAverage(validReading1, result);
 
         // Assert
         assertFalse(actualResult);
@@ -831,6 +833,72 @@ class GeographicAreaHouseServiceTest {
 
         // Assert
         assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfGetReadingsAboveCategoryLimitNaNTemperatureList() {
+
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+
+        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
+        sensor.setActive(true);
+        sensor.addReading(new Reading(19, validReadingDate1, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate2, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate3, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate4, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate5, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate6, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate7, "Temperature", "SensorTen"));
+
+
+        firstValidArea.addSensor(sensor);
+        firstValidArea.removeSensor(validAreaSensor);
+        validHouse.setMotherAreaID(firstValidArea.getId());
+
+        Reading reading1 = new Reading(5, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading2 = new Reading(15, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading3 = new Reading(25, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading4 = new Reading(27, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading5 = new Reading(28, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading6 = new Reading(29, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading7 = new Reading(33, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading8 = new Reading(0, invalidReadingDate, "temperature", "SensorTen");
+        Reading reading9 = new Reading(100, invalidReadingDate, "temperature", "SensorTen");
+
+        List<Reading> list = new ArrayList<>();
+        list.add(reading1);
+        list.add(reading2);
+        list.add(reading3);
+        list.add(reading4);
+        list.add(reading5);
+        list.add(reading6);
+        list.add(reading7);
+        list.add(reading8);
+        list.add(reading9);
+
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+
+        // Act
+
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list, validHouse);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list, validHouse);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list, validHouse);
+
+        List<Reading> actualResult4 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list, validHouse);
+        List<Reading> actualResult5 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list, validHouse);
+        List<Reading> actualResult6 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list, validHouse);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult1);
+        assertEquals(expectedResult, actualResult2);
+        assertEquals(expectedResult, actualResult3);
+
+        assertEquals(expectedResult, actualResult4);
+        assertEquals(expectedResult, actualResult5);
+        assertEquals(expectedResult, actualResult6);
     }
 }
 

@@ -32,7 +32,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @param date is used to determine the day in which we want to calculate the average.
      * @return the average temperature value for the 24 hours of the given date.
      */
-    private double getGeographicAreaAverageTemperature(Date date, House house) {
+    double getGeographicAreaAverageTemperature(Date date, House house) {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -83,7 +83,6 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         }
         return allReadings;
     }
-
 
 
     public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house) {
