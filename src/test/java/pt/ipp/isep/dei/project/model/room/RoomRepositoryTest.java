@@ -916,6 +916,22 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfSaveRoomReturnsWorks() {
+
+        // Arrange
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.empty());
+
+        // Act
+
+        boolean actualResult = validRoomRepository.saveRoom(validRoom);
+        // Assert
+
+        assertTrue(actualResult);
+
+    }
+
+    @Test
     void seeIfFindRoomByIdWorks() {
         // Arrange
 
@@ -1153,6 +1169,32 @@ class RoomRepositoryTest {
         // Act
 
         List<Reading> actualResult = validRoomRepository.getTemperatureReadingsBetweenDates(validDate1, validDate4, roomDTO);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetTemperatureReadingsBetweenDatesNotBetweenDates() {
+        // Arrange
+
+        Reading reading1 = new Reading(45, validDate1, "C", "T32875");
+        Reading reading2 = new Reading(33, validDate1, "C", "T32875");
+
+        firstValidRoomSensor.addReading(reading1);
+        secondValidRoomSensor.addReading(reading2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+        validRoom.addSensor(secondValidRoomSensor);
+
+        List<Reading> expectedResult = new ArrayList<>();
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom);
+
+        // Act
+
+        List<Reading> actualResult = validRoomRepository.getTemperatureReadingsBetweenDates(validDate4, validDate4, roomDTO);
 
         // Assert
 
