@@ -585,15 +585,21 @@ class GeographicAreaHouseServiceTest {
         Reading reading5 = new Reading(28, validReadingDate5, "temperature", "SensorTen");
         Reading reading6 = new Reading(29, validReadingDate6, "temperature", "SensorTen");
         Reading reading7 = new Reading(33, validReadingDate7, "temperature", "SensorTen");
+        Reading reading8 = new Reading(0, validReadingDate7, "temperature", "SensorTen");
+        Reading reading9 = new Reading(100, validReadingDate7, "temperature", "SensorTen");
+
 
         expectedResult1.add(reading5);
         expectedResult1.add(reading6);
         expectedResult1.add(reading7);
+        expectedResult1.add(reading9);
 
         expectedResult2.add(reading6);
         expectedResult2.add(reading7);
+        expectedResult2.add(reading9);
 
         expectedResult3.add(reading7);
+        expectedResult3.add(reading9);
 
         List<Reading> list = new ArrayList<>();
         list.add(reading1);
@@ -603,6 +609,8 @@ class GeographicAreaHouseServiceTest {
         list.add(reading5);
         list.add(reading6);
         list.add(reading7);
+        list.add(reading8);
+        list.add(reading9);
 
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
 
@@ -671,15 +679,21 @@ class GeographicAreaHouseServiceTest {
         Reading reading5 = new Reading(28, validReadingDate5, "temperature", "SensorTen");
         Reading reading6 = new Reading(29, validReadingDate6, "temperature", "SensorTen");
         Reading reading7 = new Reading(33, validReadingDate7, "temperature", "SensorTen");
+        Reading reading8 = new Reading(0, validReadingDate1, "temperature", "SensorTen");
+        Reading reading9 = new Reading(100, validReadingDate7, "temperature", "SensorTen");
+
 
         expectedResult1.add(reading1);
         expectedResult1.add(reading2);
+        expectedResult1.add(reading8);
 
         expectedResult2.add(reading1);
         expectedResult2.add(reading2);
+        expectedResult2.add(reading8);
 
         expectedResult3.add(reading1);
         expectedResult3.add(reading2);
+        expectedResult3.add(reading8);
 
         List<Reading> list = new ArrayList<>();
         list.add(reading1);
@@ -689,6 +703,8 @@ class GeographicAreaHouseServiceTest {
         list.add(reading5);
         list.add(reading6);
         list.add(reading7);
+        list.add(reading8);
+        list.add(reading9);
 
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
 
@@ -704,6 +720,50 @@ class GeographicAreaHouseServiceTest {
         assertEquals(expectedResult2, actualResult2);
         assertEquals(expectedResult3, actualResult3);
 
+    }
+
+    @Test
+    void seeIfGetReadingsAboveCategoryLimitNaNCondition() {
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+
+        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
+        sensor.setActive(true);
+        sensor.addReading(new Reading(19, validReadingDate1, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate2, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate3, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate4, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate5, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate6, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate7, "Temperature", "SensorTen"));
+
+
+        firstValidArea.addSensor(sensor);
+        firstValidArea.removeSensor(validAreaSensor);
+        validHouse.setMotherAreaID(firstValidArea.getId());
+
+        List<Reading> list = new ArrayList<>();
+
+        // Act
+
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list, validHouse);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list, validHouse);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list, validHouse);
+
+        List<Reading> actualResult4 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list, validHouse);
+        List<Reading> actualResult5 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list, validHouse);
+        List<Reading> actualResult6 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list, validHouse);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult1);
+        assertEquals(expectedResult, actualResult2);
+        assertEquals(expectedResult, actualResult3);
+
+        assertEquals(expectedResult, actualResult4);
+        assertEquals(expectedResult, actualResult5);
+        assertEquals(expectedResult, actualResult6);
     }
 
 }
