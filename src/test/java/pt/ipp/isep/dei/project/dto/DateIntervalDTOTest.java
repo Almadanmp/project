@@ -30,8 +30,7 @@ class DateIntervalDTOTest {
     @Test
     void getInitialDate() {
 
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setInitialDate(initialDate);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, endDate);
         Date expectedResult = initialDate;
         Date actualResult = dateIntervalDTO.getInitialDate();
         assertEquals(expectedResult, actualResult);
@@ -39,8 +38,7 @@ class DateIntervalDTOTest {
 
     @Test
     void getEndDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
-        dateIntervalDTO.setEndDate(endDate);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, endDate);
         Date expectedResult = endDate;
         Date actualResult = dateIntervalDTO.getEndDate();
         assertEquals(expectedResult, actualResult);
