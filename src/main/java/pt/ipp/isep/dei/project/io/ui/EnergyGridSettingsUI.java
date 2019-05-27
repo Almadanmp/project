@@ -26,7 +26,7 @@ class EnergyGridSettingsUI {
     EnergyGridRepository energyGridRepository;
     @Autowired
     RoomRepository roomRepository;
-    private List<String> menuOptions = createMenu();
+    private final List<String> menuOptions = createMenu();
 
     private List<String> createMenu() {
         List<String> menu = new ArrayList<>();
@@ -182,19 +182,22 @@ class EnergyGridSettingsUI {
     private void updateGridUS147(EnergyGrid grid, RoomDTO room) {
         try {
             if (controller.addRoomDTOToGrid(grid, room)) {
-                try {
-                    controller.addEnergyGridToHouse(grid);
-                    System.out.println("Room successfully added to the grid!");
-                } catch (RuntimeException ok) {
-                    System.out.println("Something went wrong with the Energy Grid. Please try again.");
-                }
+                tryAddEnergyGridToHouse(grid);
             } else {
                 System.out.println("It wasn't possible to add the room. Please try again.");
             }
         } catch (RuntimeException ok) {
             System.out.println("The room you are trying to access doesn't exist in the database. Please try again.");
         }
+    }
 
+    private void tryAddEnergyGridToHouse(EnergyGrid energyGrid) {
+        try {
+            controller.addEnergyGridToHouse(energyGrid);
+            System.out.println("Room successfully added to the grid!");
+        } catch (RuntimeException ok) {
+            System.out.println("Something went wrong with the Energy Grid. Please try again.");
+        }
     }
 
     // USER STORY 149 -  an Administrator, I want to detach a room from a house grid, so that the room’s power  and

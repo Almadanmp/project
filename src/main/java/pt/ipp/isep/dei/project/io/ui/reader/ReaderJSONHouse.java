@@ -18,7 +18,6 @@ public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
     private JSONArray roomList;
     private JSONArray gridList;
-    private String gridName;
     public static final String ROOMS = "rooms";
 
     /**
@@ -103,7 +102,7 @@ public class ReaderJSONHouse implements Reader {
         List<EnergyGridDTO> energyGridDTOList = new ArrayList<>();
         for (int i = 0; i < this.gridList.length(); i++) {
             JSONObject grid = this.gridList.getJSONObject(i);
-            this.gridName = grid.getString("name");
+            String gridName = grid.getString("name");
             EnergyGridDTO energyGridObject = new EnergyGridDTO();
             energyGridObject.setName(gridName);
             List<RoomDTO> roomsInGrid = new ArrayList<>();
