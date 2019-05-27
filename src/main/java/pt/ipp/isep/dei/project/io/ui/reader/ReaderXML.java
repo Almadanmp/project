@@ -5,7 +5,6 @@ import org.w3c.dom.Document;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.stream.XMLInputFactory;
 import java.io.File;
 
 

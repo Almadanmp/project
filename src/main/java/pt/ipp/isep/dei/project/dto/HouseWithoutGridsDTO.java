@@ -1,19 +1,17 @@
 package pt.ipp.isep.dei.project.dto;
 
-import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
+import org.springframework.hateoas.ResourceSupport;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class HouseWithoutGridsDTO {
+public class HouseWithoutGridsDTO extends ResourceSupport {
     private String id;
     private AddressDTO address;
     private LocalDTO location;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
 
-    public String getId() {
+    public String getHouseId() {
         return id;
     }
 
@@ -51,10 +49,6 @@ public class HouseWithoutGridsDTO {
 
     public void setDeviceMeteringPeriod(int deviceMeteringPeriod) {
         this.deviceMeteringPeriod = deviceMeteringPeriod;
-    }
-
-    public void setDeviceTypeList(List<DeviceType> deviceTypeList) {
-        List<DeviceType> deviceTypeList1 = new ArrayList<>(deviceTypeList);
     }
 
     public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO){

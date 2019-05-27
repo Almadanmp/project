@@ -162,7 +162,7 @@ public class GASettingsController {
      */
 
     public boolean isAreaContained(GeographicArea motherGA, GeographicArea daughterGA) {
-        return  (motherGA.getDaughterAreaByID(daughterGA.getId()) != null);
+        return (motherGA.isAreaContained(daughterGA.getId()));
     }
 
     /**

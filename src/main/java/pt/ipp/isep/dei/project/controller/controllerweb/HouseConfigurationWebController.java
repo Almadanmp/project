@@ -35,7 +35,7 @@ public class HouseConfigurationWebController {
 
     // USER STORY 101
 
-    /**
+     /**
      * This is a PUT method for US101 - change the location of the house
      *
      * @param addressAndLocalDTO is a DTO with the location of the house we want to get changed.
@@ -46,7 +46,8 @@ public class HouseConfigurationWebController {
         house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
         if (houseRepository.updateHouseDTOWithoutGrids(house)) {
             Link link = linkTo(methodOn(HouseConfigurationWebController.class).retrieveHouse()).withRel("Click here to see the House updated");
-            return new ResponseEntity<>("The house has been altered. " + link, HttpStatus.OK);
+            house.add(link);
+            return new ResponseEntity<>(house, HttpStatus.OK);
         }
         return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
     }

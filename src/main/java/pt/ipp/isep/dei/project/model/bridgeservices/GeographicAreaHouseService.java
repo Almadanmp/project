@@ -84,6 +84,8 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return allReadings;
     }
 
+
+
     public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {

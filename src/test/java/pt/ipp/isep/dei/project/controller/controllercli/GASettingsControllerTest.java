@@ -471,14 +471,16 @@ class GASettingsControllerTest {
 
         assertTrue(actualResult);
     }
-
     @Test
-    void seeIfIsAreaContainedFailsNoAreas() {
-        // Arrange
-
+    void seeIfIsAreaContainedFalseWorks() {
         // Act
-        assertThrows(IllegalArgumentException.class,
-                () -> controller.isAreaContained(firstValidArea, secondValidArea));
+
+        boolean actualResult = controller.isAreaContained(firstValidArea, secondValidArea);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
+
 
 }

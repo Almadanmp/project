@@ -108,7 +108,7 @@ class GeographicAreaMapperTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
-        assertEquals(actualResult.getId(), validAreaObject.getId());
+        assertEquals(actualResult.getGeographicAreaId(), validAreaObject.getId());
     }
 
     @Test
@@ -162,7 +162,7 @@ class GeographicAreaMapperTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
-        assertEquals(actualResult.getId(), validAreaObjectWithDaughters.getId());
+        assertEquals(actualResult.getGeographicAreaId(), validAreaObjectWithDaughters.getId());
     }
 
     @Test

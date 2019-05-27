@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,6 +22,8 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @WebMvcTest
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
@@ -56,14 +59,15 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setTypeArea("urban area");
 
         Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+        Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area has been created. To see all areas click : </geographic_area_settings/areas>;rel=\"See all geographic areas\"", HttpStatus.CREATED);
+        validGeographicAreaDTO.add(link);
 
         //Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
     }
 
 
@@ -377,7 +381,7 @@ class GASettingsWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
 
         //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, validGeographicAreaDTO.getId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, validGeographicAreaDTO.getGeographicAreaId());
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -414,7 +418,7 @@ class GASettingsWebControllerTest {
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.OK);
 
         //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.getGeographicArea(validGeographicAreaDTO.getId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.getGeographicArea(validGeographicAreaDTO.getGeographicAreaId());
 
         //Assert
         assertEquals(expectedResult, actualResult);

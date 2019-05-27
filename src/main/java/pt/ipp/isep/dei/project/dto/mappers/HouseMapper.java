@@ -66,7 +66,7 @@ public final class HouseMapper {
     public static House dtoWithoutGridsToObject(HouseWithoutGridsDTO dtoToConvert) {
         // Update parameters
 
-        String objectId = dtoToConvert.getId();
+        String objectId = dtoToConvert.getHouseId();
 
         Address objectAddress = AddressMapper.dtoToObject(dtoToConvert.getAddress());
 
@@ -81,9 +81,7 @@ public final class HouseMapper {
 
         // Create, update and return new object
 
-        House resultObject = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
-
-        return resultObject;
+        return new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
     }
 
     /**
@@ -136,14 +134,9 @@ public final class HouseMapper {
 
         LocalDTO dtoLocal = LocalMapper.objectToDTO(objectToConvert.getLocation());
 
-        Long dtoGeoArea = objectToConvert.getMotherAreaID();
-
         int dtoGridMeteringPeriod = objectToConvert.getGridMeteringPeriod();
 
         int dtoDeviceMeteringPeriod = objectToConvert.getDeviceMeteringPeriod();
-
-        //empty list
-        List<DeviceType> objectDeviceTypeConfigList = new ArrayList<>();
 
 
         // Create, update and return new object
@@ -154,7 +147,6 @@ public final class HouseMapper {
         resultObject.setLocation(dtoLocal);
         resultObject.setGridMeteringPeriod(dtoGridMeteringPeriod);
         resultObject.setDeviceMeteringPeriod(dtoDeviceMeteringPeriod);
-        resultObject.setDeviceTypeList(objectDeviceTypeConfigList);
 
         return resultObject;
     }
