@@ -21,10 +21,15 @@ public class SensorUtils {
         if (startList.isEmpty()) {
             throw new IllegalArgumentException("The sensor list is empty.");
         }
+
+        // Gets the list of sensors with readings
+
         List<AreaSensor> areaSensorsWithReadings = getAreaSensorsWithReadings(startList);
         if (areaSensorsWithReadings.isEmpty()) {
             throw new IllegalArgumentException("The sensor list has no readings available.");
         }
+
+        // Gets the most recent reading of the first sensor with readings
 
         AreaSensor areaSensor = areaSensorsWithReadings.get(0);
         List<Reading> readings = areaSensor.getReadings();
@@ -32,6 +37,7 @@ public class SensorUtils {
         Reading recentReading = ReadingUtils.getMostRecentReading(readings);
         Date mostRecentDate = recentReading.getDate();
 
+        // Compares the most recent reading of the first sensor with readings with the most recent reading of other sensors.
 
         for (AreaSensor s : areaSensorsWithReadings) {
             List<Reading> sensorReadings = s.getReadings();
