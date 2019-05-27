@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.dto.DateDTO;
+import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
@@ -307,11 +307,11 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     /**
      * Method for US633 - Web Controller Version
      *
-     * @param dateDTO date interval
+     * @param dateIntervalDTO date interval
      * @return string with date and amplitude value
      */
-    public String getHighestTemperatureAmplitude(DateDTO dateDTO) {
-        if (!isDateDTOValid(dateDTO)) {
+    public String getHighestTemperatureAmplitude(DateIntervalDTO dateIntervalDTO) {
+        if (!isDateDTOValid(dateIntervalDTO)) {
             throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
                     "required (Initial date must be before End date).");
         }
@@ -322,7 +322,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
         }
         AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature", house, geographicArea);
-        Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateDTO.getInitialDate(), dateDTO.getEndDate());
+        Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
         return (DateUtils.formatDateNoTime(date) + ", with " + value + "ºC");
     }
@@ -332,11 +332,11 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * Date is valid if - Both input are valid inputs
      * If end date is after initial date
      *
-     * @param dateDTO - interval of dates
+     * @param dateIntervalDTO - interval of dates
      * @return true if date valid
      */
-    boolean isDateDTOValid(DateDTO dateDTO) {
-        return dateDTO.getInitialDate() != null && dateDTO.getEndDate() != null
-                && dateDTO.getEndDate().after(dateDTO.getInitialDate());
+    boolean isDateDTOValid(DateIntervalDTO dateIntervalDTO) {
+        return dateIntervalDTO.getInitialDate() != null && dateIntervalDTO.getEndDate() != null
+                && dateIntervalDTO.getEndDate().after(dateIntervalDTO.getInitialDate());
     }
 }
