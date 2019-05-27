@@ -12,8 +12,6 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnitHelperTest {
-    private String configFileFilePath = "resources/unit.properties";
-
     @Test
     void testConstructorIsPrivate() throws IllegalStateException {
         try {
@@ -21,21 +19,22 @@ class UnitHelperTest {
             assertTrue(Modifier.isPrivate(constructor.getModifiers()));
             constructor.setAccessible(true);
             constructor.newInstance();
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException i) {
-        } catch (InvocationTargetException a) {
-        } catch (NoSuchMethodException ns) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
         }
     }
 
     @Test
     void seeIfGetUserTemperatureDefaultWorks() throws IOException {
+
         Properties props = new Properties();
         String propFileName = "resources/units.properties";
         String expectedResult = "Celsius";
         FileInputStream input = new FileInputStream(propFileName);
         props.load(input);
-        //ACT
+
+        // Act
+
         String actualResult = UnitHelper.getUserTemperatureDefault(propFileName);
         //ASSERT
         assertEquals(expectedResult, actualResult);
@@ -53,7 +52,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetApplicationTemperatureConfigWorks() throws IOException {
+    void seeIfGetApplicationTemperatureConfigWorks() {
         // Arrange
 
         String expectedResult = "Celsius";
@@ -83,7 +82,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetApplicationRainfallConfigWorks() throws IOException {
+    void seeIfGetApplicationRainfallConfigWorks() {
         // Arrange
 
         String expectedResult = "Millimeter";
@@ -111,22 +110,6 @@ class UnitHelperTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-//    @Test
-//    void seeIfGetApplicationRainfallDefaultWorks(){
-//        // Arrange
-//
-//        String propFileName = "invalid_path";
-//
-//        // Act
-//
-//        Throwable exception = assertThrows(IOException.class, () -> UnitHelper.getApplicationRainfallDefault(propFileName));
-//
-//        // Assert
-//
-//        assertEquals("ERROR: Unable to process configuration file.", exception.getMessage());
-//
-//    }
 
     @Test
     void seeIfGetUserRainfallDefaultWorks() {
@@ -270,21 +253,6 @@ class UnitHelperTest {
 
         assertEquals(expectedResult, actualResult);
     }
-
-//    @Test
-//    void seeIfConvertStringToUnitWorksWithWrongString() {
-//        // Arrange
-//
-//        String givenUnitString = "WrongString";
-//
-//        // Act
-//
-//        Unit actualResult = UnitHelper.convertStringToUnit(givenUnitString);
-//
-//        // Assert
-//
-//        assertNull(actualResult);
-//    }
 
     @Test
     void seeIfGetReaderClassToInstanceWorks() throws IOException {
