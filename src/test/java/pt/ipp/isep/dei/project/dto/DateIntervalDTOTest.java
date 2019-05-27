@@ -9,7 +9,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-class DateDTOTest {
+class DateIntervalDTOTest {
     private Date initialDate;
     private Date endDate;
 
@@ -30,19 +30,19 @@ class DateDTOTest {
     @Test
     void getInitialDate() {
 
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(initialDate);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(initialDate);
         Date expectedResult = initialDate;
-        Date actualResult = dateDTO.getInitialDate();
+        Date actualResult = dateIntervalDTO.getInitialDate();
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void getEndDate() {
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setEndDate(endDate);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setEndDate(endDate);
         Date expectedResult = endDate;
-        Date actualResult = dateDTO.getEndDate();
+        Date actualResult = dateIntervalDTO.getEndDate();
         assertEquals(expectedResult, actualResult);
     }
 }

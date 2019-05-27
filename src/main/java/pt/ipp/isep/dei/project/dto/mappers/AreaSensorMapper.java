@@ -40,9 +40,6 @@ public final class AreaSensorMapper {
 
         String objectType = dtoToConvert.getType();
 
-        // Update units
-
-        String objectUnit = dtoToConvert.getUnits();
 
         // Update latitude
 

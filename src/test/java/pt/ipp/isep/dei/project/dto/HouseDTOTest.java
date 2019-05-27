@@ -28,7 +28,7 @@ class HouseDTOTest {
         localDTO.setLatitude(41.178553);
         localDTO.setLongitude(-8.608035);
         validHouseDTO.setLocation(localDTO);
-        validHouseDTO.setMotherAreaID(new GeographicAreaDTO().getId());
+        validHouseDTO.setMotherAreaID(new GeographicAreaDTO().getGeographicAreaId());
         List<DeviceType> deviceTypeList = new ArrayList<>();
         validHouseDTO.setDeviceTypeList(deviceTypeList);
         validHouseDTO.setGridMeteringPeriod(8);
@@ -104,11 +104,11 @@ class HouseDTOTest {
         //Arrange
         GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
         geographicAreaDTO.setId(111L);
-        validHouseDTO.setMotherAreaID(geographicAreaDTO.getId());
+        validHouseDTO.setMotherAreaID(geographicAreaDTO.getGeographicAreaId());
         //Act
         Long actualResult = validHouseDTO.getMotherAreaID();
         //Assert
-        assertEquals(geographicAreaDTO.getId(), actualResult);
+        assertEquals(geographicAreaDTO.getGeographicAreaId(), actualResult);
     }
 
     @Test

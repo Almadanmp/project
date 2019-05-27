@@ -157,7 +157,7 @@ class GeographicAreaDTOTest {
 
         // Act
 
-        Long actualResult = dto.getId();
+        Long actualResult = dto.getGeographicAreaId();
 
         // Assert
 

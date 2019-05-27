@@ -29,7 +29,6 @@ class HouseWithoutGridsDTOTest {
         localDTO.setLongitude(-8.608035);
         validHouseDTO.setLocation(localDTO);
         List<DeviceType> deviceTypeList = new ArrayList<>();
-        validHouseDTO.setDeviceTypeList(deviceTypeList);
         validHouseDTO.setGridMeteringPeriod(8);
     }
 
@@ -47,7 +46,6 @@ class HouseWithoutGridsDTOTest {
         addressDTO2.setZip("Zip2");
 
         List<DeviceType> deviceTypeList = new ArrayList<>();
-        validHouseDTO.setDeviceTypeList(deviceTypeList);
         validHouseDTO.setAddress(addressDTO1);
 
         HouseWithoutGridsDTO validHouseDTO2 = new HouseWithoutGridsDTO();
@@ -79,11 +77,6 @@ class HouseWithoutGridsDTOTest {
 
     @Test
     void seeIfHashCodeWorks() {
-        //Arrange
-
-        List<DeviceType> deviceTypeList = new ArrayList<>();
-        validHouseDTO.setDeviceTypeList(deviceTypeList);
-
         //Assert
 
         assertEquals(1, validHouseDTO.hashCode());

@@ -43,14 +43,6 @@ public final class RoomSensorMapper {
 
         String objectType = dtoToConvert.getType();
 
-        // Update units
-
-        String objectUnit = dtoToConvert.getUnits();
-
-        // Update roomID
-
-        String objectRoomID = dtoToConvert.getRoomID();
-
         // Update readings
 
         List<Reading> objectReadingList = new ArrayList<>();

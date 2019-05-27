@@ -189,7 +189,7 @@ public class EnergyGridRepository {
      *                                the given ID.
      */
 
-    public boolean removeRoomFromGrid(String roomID, String gridID) throws NoSuchElementException {
+    public boolean removeRoomFromGrid(String roomID, String gridID) {
         Optional<EnergyGrid> value = energyGridCrudRepository.findById(gridID);
         if (value.isPresent()) {
             EnergyGrid grid = value.get();
