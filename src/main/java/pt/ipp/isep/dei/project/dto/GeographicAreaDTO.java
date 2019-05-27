@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeographicAreaDTO {
+public class GeographicAreaDTO extends ResourceSupport {
 
     private Long id;
     private String name;
@@ -16,7 +18,7 @@ public class GeographicAreaDTO {
     private String description;
 
 
-    public Long getId() {
+    public Long getGeographicAreaId() {
         return id;
     }
 
