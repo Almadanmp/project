@@ -145,19 +145,6 @@ class GeographicAreaHouseServiceTest {
     }
 
     @Test
-    void seeIfcategoryIIICalculusUS445FailsBoundaryValue() {
-
-        // Arrange
-        double result = (validReading1.getValue() / 0.33) - 18.8 - 4;
-
-        // Act
-        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
-
-        // Assert
-        assertFalse(actualResult);
-    }
-
-    @Test
     void seeIfcategoryIIICalculusUS445Fails() {
         // Arrange
         // Act
@@ -766,5 +753,82 @@ class GeographicAreaHouseServiceTest {
         assertEquals(expectedResult, actualResult6);
     }
 
+    @Test
+    void seeIfcategoryIIICalculusUS445FailsBoundaryValue() {
+
+        // Arrange
+         double result = (validReading1.getValue() - 18.8 - 4) / 0.33;
+
+        // Act
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
+
+        // Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfcategoryIICalculusUS445FailsBoundaryValue() {
+
+        // Arrange
+        double result = (validReading1.getValue() - 18.8 - 3) / 0.33;
+
+        // Act
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
+
+        // Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfcategoryICalculusUS445FailsBoundaryValue() {
+
+        // Arrange
+        double result = (validReading1.getValue() - 18.8 - 2) / 0.33;
+
+        // Act
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusAboveAverage(validReading1, result);
+
+        // Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfcategoryICalculusUS440FailsBoundaryValue() {
+
+        // Arrange
+        double result = (validReading1.getValue() - 18.8 + 2) / 0.33;
+
+        // Act
+        boolean actualResult = geographicAreaHouseService.categoryICalculusTemperaturesLowerThanAverage(validReading1, result);
+
+        // Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfcategoryIICalculusUS440FailsBoundaryValue() {
+
+        // Arrange
+        double result = (validReading1.getValue() - 18.8 + 3) / 0.33;
+
+        // Act
+        boolean actualResult = geographicAreaHouseService.categoryIICalculusTemperaturesLowerThanAverage(validReading1, result);
+
+        // Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfcategoryIIICalculusUS440FailsBoundaryValue() {
+
+        // Arrange
+        double result = (validReading1.getValue() - 18.8 + 4) / 0.33;
+
+        // Act
+        boolean actualResult = geographicAreaHouseService.categoryIIICalculusTemperaturesLowerThanAverage(validReading1, result);
+
+        // Assert
+        assertFalse(actualResult);
+    }
 }
 
