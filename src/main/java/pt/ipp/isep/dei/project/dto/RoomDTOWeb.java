@@ -5,7 +5,6 @@ import org.springframework.hateoas.ResourceSupport;
 import java.util.Objects;
 
 public class RoomDTOWeb extends ResourceSupport {
-    //TODO javadocs
     private String name;
     private int floor;
     private double width;
@@ -13,61 +12,71 @@ public class RoomDTOWeb extends ResourceSupport {
     private double height;
 
     /**
-     * Name getter**/
+     * Name getter
+     **/
     public String getName() {
         return name;
     }
 
     /**
-     * Name setter**/
+     * Name setter
+     **/
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Floor getter**/
+     * Floor getter
+     **/
     public int getFloor() {
         return floor;
     }
 
     /**
-     * Floor setter**/
+     * Floor setter
+     **/
     public void setFloor(int floor) {
         this.floor = floor;
     }
 
     /**
-     * Height getter**/
+     * Height getter
+     **/
     public double getHeight() {
         return height;
     }
 
     /**
-     * Height setter**/
+     * Height setter
+     **/
     public void setHeight(double height) {
         this.height = height;
     }
 
     /**
-     * Length getter**/
+     * Length getter
+     **/
     public double getLength() {
         return length;
     }
 
     /**
-     * Length setter**/
+     * Length setter
+     **/
     public void setLength(double length) {
         this.length = length;
     }
 
     /**
-     * Width getter**/
+     * Width getter
+     **/
     public double getWidth() {
         return width;
     }
 
     /**
-     * Width setter**/
+     * Width setter
+     **/
     public void setWidth(double width) {
         this.width = width;
     }
@@ -76,7 +85,7 @@ public class RoomDTOWeb extends ResourceSupport {
      * Checks if the Dto Name is Valid
      *
      * @return true in case is valid, false otherwise
-     * **/
+     **/
     public boolean isNameValid() {
         return this.name != null;
     }
@@ -85,7 +94,7 @@ public class RoomDTOWeb extends ResourceSupport {
      * Checks if the Dto dimension is valid
      *
      * @return true in case is valid, false otherwise
-     * **/
+     **/
     public boolean areDimensionsValid() {
         if (((Double.compare(this.width, 0.0)) == 0) || (Double.compare(this.length, 0.0) == 0)) {
             return false;
@@ -97,7 +106,8 @@ public class RoomDTOWeb extends ResourceSupport {
      * RoomDTOWeb Equals
      *
      * @return true in case the object is equal, false otherwise
-     * * **/
+     * *
+     **/
     @Override
     public boolean equals(Object o) {
         if (this == o) {

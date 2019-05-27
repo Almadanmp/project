@@ -33,7 +33,7 @@ public class AreaSensor implements pt.ipp.isep.dei.project.dddplaceholders.Entit
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "AreaReading")
-    private List<Reading> areaReadings;
+    private final List<Reading> areaReadings;
 
     private boolean active;
 
@@ -324,7 +324,7 @@ public class AreaSensor implements pt.ipp.isep.dei.project.dddplaceholders.Entit
      * @author Daniela - US623 & US633
      */
 
-    List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
+    private List<Date> getDaysWithReadingsBetweenDates(Date dayMin, Date dayMax) {
         List<Date> daysWithReadings = new ArrayList<>();
         Date startDate = ReadingUtils.getFirstSecondOfDay(dayMin);
         Date endDate = ReadingUtils.getLastSecondOfDay(dayMax);
