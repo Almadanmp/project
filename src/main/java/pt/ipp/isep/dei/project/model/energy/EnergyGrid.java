@@ -25,10 +25,10 @@ public class EnergyGrid implements Metered, Root {
     @Id
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "energyGridId")
     private List<Room> rooms;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
     @LazyCollection(LazyCollectionOption.FALSE) // LazyCollection fixes MultipleBag fetch Problem without having to
     // change fetch type from EAGER to LAZY
     @JoinColumn(name = "energyGridId")

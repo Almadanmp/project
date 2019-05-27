@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 import java.util.Date;
 
-public class DateDTO {
+public class DateIntervalDTO {
     Date initialDate;
     Date endDate;
 

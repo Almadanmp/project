@@ -33,7 +33,7 @@ public class GeographicArea implements Root {
     @JoinColumn(name = "geographicAreaId")
     private List<GeographicArea> daughterAreas;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "geographicAreaId")
     private List<AreaSensor> areaSensors;

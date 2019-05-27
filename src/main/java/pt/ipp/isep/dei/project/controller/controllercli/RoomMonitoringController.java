@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.controller.controllercli;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
@@ -23,6 +22,7 @@ import java.util.List;
 public class RoomMonitoringController {
     private static final String COMFORT_BELOW_LEVEL = "Instants in which the readings are below the comfort temperature:\n";
     private static final String COMFORT_ABOVE_LEVEL = "Instants in which the readings are above comfort temperature:\n";
+
     @Autowired
     RoomRepository roomRepository;
     @Autowired
@@ -74,8 +74,7 @@ public class RoomMonitoringController {
      * @return a String with the requested information for the User Story 445
      */
     public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate) {
-        Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, room);
+        List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, roomDTO);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
@@ -117,8 +116,7 @@ public class RoomMonitoringController {
     //US 440
 
     public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate) {
-        Room room = RoomMapper.dtoToObject(roomDTO);
-        List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, room);
+        List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, roomDTO);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {

@@ -42,7 +42,7 @@ class GASettingsUI {
     private static final String IMPORT_TIME = "Import time: ";
     private static final String MILLISECONDS = " millisecond(s).";
 
-    private List<String> menuOptions = createMenu();
+    private final List<String> menuOptions = createMenu();
 
     private List<String> createMenu() {
         List<String> menu = new ArrayList<>();
@@ -288,7 +288,7 @@ class GASettingsUI {
         }
         GeographicArea motherGA = getInputMotherGeographicArea();
         GeographicArea daughterGA = getInputDaughterGeographicArea();
-        updateStateUS07(daughterGA, motherGA);
+        updateStateUS07(motherGA, daughterGA);
         displayStateUS07(motherGA, daughterGA);
     }
 

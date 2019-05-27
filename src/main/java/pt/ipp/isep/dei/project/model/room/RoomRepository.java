@@ -14,7 +14,10 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -408,7 +411,8 @@ public class RoomRepository {
         return addedReadings;
     }
 
-    public List<Reading> getTemperatureReadingsBetweenDates(Date initialDate, Date finalDate, Room room) {
+    public List<Reading> getTemperatureReadingsBetweenDates(Date initialDate, Date finalDate, RoomDTO roomDTO) {
+        Room room = RoomMapper.dtoToObject(roomDTO);
         List<RoomSensor> temperatureSensors = room.getRoomSensorsOfGivenType("temperature");
         List<Reading> allReadings = new ArrayList<>();
         for (RoomSensor roomSensor : temperatureSensors) {

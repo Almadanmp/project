@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.dto.DateDTO;
+import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
@@ -17,14 +17,13 @@ import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,12 +63,20 @@ class GeographicAreaHouseServiceTest {
     private List<String> deviceTypeString;
     private SensorType validSensorTypeTemp;
     private SensorType validSensorTypeTemp2;
+    private RoomSensor firstValidRoomSensor;
+    private Date validRoomDate1;
+    private Room validRoom1;
+    private Date roomReadingDate1;
+    private Date roomReadingDate2;
+    private Date roomReadingDate3;
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         SimpleDateFormat readingSD = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat validSdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        validSdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
@@ -85,6 +92,10 @@ class GeographicAreaHouseServiceTest {
             initialTime = readingSD.parse("2017-10-03");
             endingTime = readingSD.parse("2019-10-03");
             sensorCreationTime = readingSD.parse("2016-10-03");
+            validRoomDate1 = validSdf2.parse("01/02/2018");
+            roomReadingDate1 = validSdf2.parse("01/12/2018");
+            roomReadingDate2 = validSdf2.parse("10/12/2018");
+            roomReadingDate3 = validSdf2.parse("20/12/2018");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -119,6 +130,9 @@ class GeographicAreaHouseServiceTest {
                 180, deviceTypeString);
         validHouse.setMotherAreaID(firstValidArea.getId());
         firstValidArea.addSensor(validAreaSensor);
+        firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validRoomDate1);
+        firstValidRoomSensor.setActive(true);
+        validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1");
     }
 
     @Test
@@ -428,61 +442,61 @@ class GeographicAreaHouseServiceTest {
 
     @Test
     void idDateDTOValidSuccess() {
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate2);
-        dateDTO.setEndDate(validDate1);
-        assertTrue(geographicAreaHouseService.isDateDTOValid(dateDTO));
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate2);
+        dateIntervalDTO.setEndDate(validDate1);
+        assertTrue(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
     }
 
     @Test
     void idDateDTOValidInvalidNoEndDate() {
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
     }
 
     @Test
     void idDateDTOValidInvalidNoDates() {
-        DateDTO dateDTO = new DateDTO();
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
     }
 
     @Test
     void idDateDTOValidInvalidNoInitialDate() {
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setEndDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setEndDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
     }
 
     @Test
     void idDateDTOValidInvalidInvertedDates() {
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate1);
-        dateDTO.setEndDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate1);
+        dateIntervalDTO.setEndDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
     }
 
     @Test
     void idDateDTOValidValidSameDate() {
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate1);
-        dateDTO.setEndDate(validDate1);
-        assertFalse(geographicAreaHouseService.isDateDTOValid(dateDTO));
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate1);
+        dateIntervalDTO.setEndDate(validDate1);
+        assertFalse(geographicAreaHouseService.isDateDTOValid(dateIntervalDTO));
     }
 
     @Test
     void getHighestAmplitudeSuccessMockito() {
 
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate2);
-        dateDTO.setEndDate(validDate1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate2);
+        dateIntervalDTO.setEndDate(validDate1);
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
         String expectedResult = "03/10/2018, with 0.0ºC";
 
-        String actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO);
+        String actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -491,26 +505,26 @@ class GeographicAreaHouseServiceTest {
     @Test
     void getHighestAmplitudeInvertedDates() {
 
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate1);
-        dateDTO.setEndDate(validDate2);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate1);
+        dateIntervalDTO.setEndDate(validDate2);
         assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO));
     }
 
     @Test
     void getHighestAmplitudeNoGeographicAreaInDBl() {
 
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate2);
-        dateDTO.setEndDate(validDate1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate2);
+        dateIntervalDTO.setEndDate(validDate1);
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(null);
 
         assertThrows(NoSuchElementException.class,
-                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO));
     }
 
     @Test
@@ -519,30 +533,30 @@ class GeographicAreaHouseServiceTest {
                 new Local(50, 50, 10));
         areaNoSensors.setId(12L);
         validHouse.setMotherAreaID(areaNoSensors.getId());
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate2);
-        dateDTO.setEndDate(validDate1);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate2);
+        dateIntervalDTO.setEndDate(validDate1);
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(areaNoSensors);
         areaNoSensors.addSensor(new AreaSensor("test", "test", validSensorTypeTemp2.getName(), new Local(2, 2, 2), validDate1));
         assertThrows(NoSuchElementException.class,
-                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO));
     }
 
 
     @Test
     void getHighestAmplitudeIncompleteDatesMockito() throws IllegalArgumentException {
 
-        DateDTO dateDTO = new DateDTO();
-        dateDTO.setInitialDate(validDate2);
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+        dateIntervalDTO.setInitialDate(validDate2);
         assertThrows(IllegalArgumentException.class,
-                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateDTO));
+                () -> geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO));
     }
 
     @Test
-    void seeIfGetReadingsAboveCategoryLimit(){
+    void seeIfGetReadingsAboveCategoryLimit() {
         // Arrange
 
         List<Reading> expectedResult1 = new ArrayList<>();
@@ -551,26 +565,26 @@ class GeographicAreaHouseServiceTest {
 
         AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
         sensor.setActive(true);
-        sensor.addReading(new Reading(19, validReadingDate1 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(19, validReadingDate2 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(19, validReadingDate3 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(19, validReadingDate4 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(19, validReadingDate5 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(19, validReadingDate6 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(19, validReadingDate7 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate1, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate2, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate3, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate4, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate5, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate6, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate7, "Temperature", "SensorTen"));
 
 
         firstValidArea.addSensor(sensor);
         firstValidArea.removeSensor(validAreaSensor);
         validHouse.setMotherAreaID(firstValidArea.getId());
 
-        Reading reading1 = new Reading(5, validReadingDate1 , "temperature", "SensorTen");
-        Reading reading2 = new Reading(15, validReadingDate2 , "temperature", "SensorTen");
-        Reading reading3 = new Reading(25, validReadingDate3 , "temperature", "SensorTen");
-        Reading reading4 = new Reading(27, validReadingDate4 , "temperature", "SensorTen");
-        Reading reading5 = new Reading(28, validReadingDate5 , "temperature", "SensorTen");
-        Reading reading6 = new Reading(29, validReadingDate6 , "temperature", "SensorTen");
-        Reading reading7 = new Reading(33, validReadingDate7 , "temperature", "SensorTen");
+        Reading reading1 = new Reading(5, validReadingDate1, "temperature", "SensorTen");
+        Reading reading2 = new Reading(15, validReadingDate2, "temperature", "SensorTen");
+        Reading reading3 = new Reading(25, validReadingDate3, "temperature", "SensorTen");
+        Reading reading4 = new Reading(27, validReadingDate4, "temperature", "SensorTen");
+        Reading reading5 = new Reading(28, validReadingDate5, "temperature", "SensorTen");
+        Reading reading6 = new Reading(29, validReadingDate6, "temperature", "SensorTen");
+        Reading reading7 = new Reading(33, validReadingDate7, "temperature", "SensorTen");
 
         expectedResult1.add(reading5);
         expectedResult1.add(reading6);
@@ -581,7 +595,7 @@ class GeographicAreaHouseServiceTest {
 
         expectedResult3.add(reading7);
 
-        List <Reading> list = new ArrayList<>();
+        List<Reading> list = new ArrayList<>();
         list.add(reading1);
         list.add(reading2);
         list.add(reading3);
@@ -607,46 +621,67 @@ class GeographicAreaHouseServiceTest {
     }
 
     @Test
-    void seeIfGetReadingsBelowCategoryLimit(){
+    void seeIfGetReadingsBelowCategoryILimitWorksNoReadings() {
+        // Arrange
+
+        List<Reading> expectedResult = new ArrayList<>();
+        List<Reading> readings = new ArrayList<>();
+        firstValidRoomSensor.setReadings(readings);
+        List<RoomSensor> roomSensors = new ArrayList<>();
+        roomSensors.add(firstValidRoomSensor);
+        validRoom1.setRoomSensors(roomSensors);
+
+        // Act
+
+        List<Reading> actualResult = geographicAreaHouseService.getReadingsBelowCategoryILimit(readings, validHouse);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetReadingsBelowCategoryLimit() {
         // Arrange
 
         List<Reading> expectedResult1 = new ArrayList<>();
         List<Reading> expectedResult2 = new ArrayList<>();
         List<Reading> expectedResult3 = new ArrayList<>();
 
-        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "Temperature", new Local(2, 2, 2), validDate2);
+        AreaSensor sensor = new AreaSensor("SensorTen", "SensorTen", "temperature", new Local(2, 2, 2), validDate2);
         sensor.setActive(true);
-        sensor.addReading(new Reading(20, validReadingDate1 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(20, validReadingDate2 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(20, validReadingDate3 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(20, validReadingDate4 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(20, validReadingDate5 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(20, validReadingDate6 , "Temperature", "SensorTen"));
-        sensor.addReading(new Reading(20, validReadingDate7 , "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate1, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate2, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate3, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate4, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate5, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate6, "Temperature", "SensorTen"));
+        sensor.addReading(new Reading(19, validReadingDate7, "Temperature", "SensorTen"));
 
 
         firstValidArea.addSensor(sensor);
         firstValidArea.removeSensor(validAreaSensor);
         validHouse.setMotherAreaID(firstValidArea.getId());
 
-        Reading reading1 = new Reading(16, validReadingDate1 , "temperature", "SensorTen");
-        Reading reading2 = new Reading(22, validReadingDate2 , "temperature", "SensorTen");
-        Reading reading3 = new Reading(23, validReadingDate3 , "temperature", "SensorTen");
-        Reading reading4 = new Reading(24, validReadingDate4 , "temperature", "SensorTen");
-        Reading reading5 = new Reading(28, validReadingDate5 , "temperature", "SensorTen");
-        Reading reading6 = new Reading(30, validReadingDate6 , "temperature", "SensorTen");
-        Reading reading7 = new Reading(32, validReadingDate7 , "temperature", "SensorTen");
+        Reading reading1 = new Reading(5, validReadingDate1, "temperature", "SensorTen");
+        Reading reading2 = new Reading(15, validReadingDate2, "temperature", "SensorTen");
+        Reading reading3 = new Reading(25, validReadingDate3, "temperature", "SensorTen");
+        Reading reading4 = new Reading(27, validReadingDate4, "temperature", "SensorTen");
+        Reading reading5 = new Reading(28, validReadingDate5, "temperature", "SensorTen");
+        Reading reading6 = new Reading(29, validReadingDate6, "temperature", "SensorTen");
+        Reading reading7 = new Reading(33, validReadingDate7, "temperature", "SensorTen");
 
         expectedResult1.add(reading1);
         expectedResult1.add(reading2);
-        expectedResult1.add(reading3);
 
         expectedResult2.add(reading1);
         expectedResult2.add(reading2);
 
         expectedResult3.add(reading1);
+        expectedResult3.add(reading2);
 
-        List <Reading> list = new ArrayList<>();
+        List<Reading> list = new ArrayList<>();
         list.add(reading1);
         list.add(reading2);
         list.add(reading3);
