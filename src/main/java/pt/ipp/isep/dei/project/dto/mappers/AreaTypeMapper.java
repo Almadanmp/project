@@ -26,15 +26,10 @@ public final class AreaTypeMapper {
 
         String objectName = dtoToConvert.getName();
 
-        long objectID = dtoToConvert.getID();
-
         // Create, update and return the converted object.
 
 
-        AreaType resultObject = new AreaType(objectName);
-
-
-        return resultObject;
+        return new AreaType(objectName);
     }
 
     /**
