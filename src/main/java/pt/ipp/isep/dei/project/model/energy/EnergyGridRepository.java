@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class EnergyGridRepository {
 
     @Autowired
     EnergyGridCrudRepo energyGridCrudRepository;
+    @Autowired
+    RoomCrudRepo roomCrudRepo;
 
     public List<EnergyGrid> getAllGrids() {
         List<EnergyGrid> grids = energyGridCrudRepository.findAll();
@@ -59,13 +62,13 @@ public class EnergyGridRepository {
      * energy consumption is included in that grid.
      * This method adds a room to the grid and persists in the database.
      *
-     * @param roomDTO  is the roomDTO we want to add to the grid
+     * @param roomId  is the roomId we want to add to the grid
      * @param gridName is the name of the grid we want to add the room to
      * @return true if the room was successfully added, false otherwise
      */
-    public boolean attachRoomToGrid(RoomDTO roomDTO, String gridName) {
+    public boolean attachRoomToGrid(String roomId, String gridName) {
         EnergyGrid energyGrid = getById(gridName);
-        Room room = RoomMapper.dtoToObject(roomDTO);
+        Room room = getRoomById(roomId);
         if (energyGrid.addRoom(room)) {
             energyGridCrudRepository.save(energyGrid);
             return true;
@@ -149,6 +152,14 @@ public class EnergyGridRepository {
             return value.get();
         }
         throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
+    }
+
+    public Room getRoomById(String id) {
+        Optional<Room> value = roomCrudRepo.findById(id);
+        if(value.isPresent()){
+            return value.get();
+        }
+        throw new NoSuchElementException("ERROR: There is no Room with the selected ID.");
     }
 
     //POWER SOURCE METHODS
