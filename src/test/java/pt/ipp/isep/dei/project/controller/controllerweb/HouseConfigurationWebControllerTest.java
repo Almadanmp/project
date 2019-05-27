@@ -309,7 +309,7 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfConfigureHouseLocalWorks() {
+     void seeIfConfigureHouseLocalWorks() {
         //Arrange
 
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",
@@ -320,13 +320,11 @@ class HouseConfigurationWebControllerTest {
         Mockito.doReturn(HouseMapper.objectToWithoutGridsDTO(validHouse)).when(houseRepository).getHouseWithoutGridsDTO();
         Mockito.doReturn(true).when(houseRepository).updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse));
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The house has been altered. </houseSettings/house>;rel=\"Click here to see the House updated\"", HttpStatus.OK);
-
         //Act
         ResponseEntity<Object> actualResult = webController.configureHouseLocation(addressAndLocalDTO);
 
         //Assert
-        assertEquals(expectedResult, actualResult);
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
     }
 
     @Test

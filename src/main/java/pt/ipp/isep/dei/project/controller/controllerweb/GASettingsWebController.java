@@ -29,13 +29,15 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
-        if (dto.getId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
-            if(geographicAreaRepo.addAndPersistDTO(dto)){
+        if (dto.getGeographicAreaId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
+            if (geographicAreaRepo.addAndPersistDTO(dto)) {
                 Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
-            return new ResponseEntity<>("The Geographic Area has been created. To see all areas click : "+link, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
-        }}
+                dto.add(link);
+                return new ResponseEntity<>(dto, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
+            }
+        }
         return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
                 " invalid Area.", HttpStatus.BAD_REQUEST);
     }
@@ -63,7 +65,7 @@ public class GASettingsWebController {
         try {
             if (geographicAreaRepo.addDaughterArea(idAreaDaughter, idAreaMother)) {
                 Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaDaughter)).withRel("See geographic area");
-                return new ResponseEntity<>("The Geographic Area has been added."+link, HttpStatus.OK);
+                return new ResponseEntity<>("The Geographic Area has been added." + link, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
             }
@@ -74,6 +76,7 @@ public class GASettingsWebController {
 
     /**
      * Get daughter areas from an geo area
+     *
      * @param id mother area id
      * @return list of daughter areas on a mother area
      */

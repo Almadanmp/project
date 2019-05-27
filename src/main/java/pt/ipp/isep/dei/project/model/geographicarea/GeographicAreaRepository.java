@@ -95,7 +95,7 @@ public class GeographicAreaRepository {
     }
 
     void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
-        geographicAreaCrudRepo.deleteById(geographicAreaDTO.getId());
+        geographicAreaCrudRepo.deleteById(geographicAreaDTO.getGeographicAreaId());
     }
 
     public void updateAreaDTO(GeographicAreaDTO areaDTO) {
