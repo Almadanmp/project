@@ -60,28 +60,10 @@ public class MainUI {
     @Bean
     public CommandLineRunner mainRun() {
         return args -> {
-            List<String> deviceTypeConfig;
             FileInputUtils fileUtils = new FileInputUtils();
+            List<String> deviceTypeConfig = new ArrayList<>();
 
-            int gridMeteringPeriod;
-            String fixConfigFile = "Please fix Configuration File before continuing.";
-            try {
-                if (fileUtils.gridMeteringPeriodIsValid()) {
-                    gridMeteringPeriod = fileUtils.gridMeteringPeriod;
-                } else {
-                    System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
-                            fixConfigFile);
-                    return;
-                }
-            } catch (IOException ioe) {
-                System.out.println("ERROR: Unable to process configuration file.\n" +
-                        fixConfigFile);
-                return;
-            } catch (NumberFormatException nfe) {
-                System.out.println("ERROR: Configuration File value is not a numeric value.\n" +
-                        fixConfigFile);
-                return;
-            }
+            int gridMeteringPeriod = configGridMeteringPeriod(fileUtils);
 
             int deviceMeteringPeriod;
             try {
@@ -93,38 +75,10 @@ public class MainUI {
             }
 
             //DeviceTypeConfiguration - US70
-            try {
-                DeviceTypeConfig devTConfig = new DeviceTypeConfig();
-                deviceTypeConfig = devTConfig.getDeviceTypeConfig();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                return;
-            }
+            deviceTypeConfig = deviceTypeConfiguration(deviceTypeConfig);
 
-            //Sensor Types
-            try {
-                fileUtils.getSensorTypeConfig();
-                fileUtils.addSensorTypesToRepository(sensorTypeRepository);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                return;
-            }
-
-            //Area Types
-            try {
-                fileUtils.getAreaTypeConfig();
-                fileUtils.addAreatypesToRepository(areaTypeRepository);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                return;
-            }
-
-
-            //FixedTimeProgram Variables
-
-            // *************************
-            // ******* < MOCK DATA FOR TESTING PURPOSES >*******
-            // *************************
+            //Add Sensor and Area Types to Program
+            addSensorAndAreaTypes(fileUtils);
 
 
             House house = mainHouse(houseCrudRepo, gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
@@ -238,5 +192,66 @@ public class MainUI {
         }
         house = new House("01", new Local(0, 0, 0), gridMeteringPeriod, deviceMeteringPeriod, deviceTypeConfig);
         return houseCrudRepo.save(house);
+    }
+
+    private void addSensorAndAreaTypes(FileInputUtils fileUtils) {
+        //Sensor Types
+        try {
+            fileUtils.getSensorTypeConfig();
+            fileUtils.addSensorTypesToRepository(sensorTypeRepository);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+
+        }
+        //Area Types
+        try {
+            fileUtils.getAreaTypeConfig();
+            fileUtils.addAreatypesToRepository(areaTypeRepository);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    /**
+     * Method to create all devices types available
+     *
+     * @param deviceTypeConfig
+     * @return string list representing all device types available
+     */
+    private List<String> deviceTypeConfiguration(List<String> deviceTypeConfig) {
+        try {
+            DeviceTypeConfig devTConfig = new DeviceTypeConfig();
+            deviceTypeConfig = devTConfig.getDeviceTypeConfig();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+        return deviceTypeConfig;
+    }
+
+
+    private int configGridMeteringPeriod(FileInputUtils fileUtils) {
+        int gridMeteringPeriod = 0;
+        String fixConfigFile = "Please fix Configuration File before continuing.";
+        try {
+            if (fileUtils.gridMeteringPeriodIsValid()) {
+                gridMeteringPeriod = fileUtils.gridMeteringPeriod;
+            } else {
+                System.out.println("ERROR: Configuration File values are incorrect. Energy Grids cannot be created.\n" +
+                        fixConfigFile);
+                System.exit(0);
+            }
+        } catch (IOException ioe) {
+            System.out.println("ERROR: Unable to process configuration file.\n" +
+                    fixConfigFile);
+            System.exit(0);
+        } catch (NumberFormatException nfe) {
+            System.out.println("ERROR: Configuration File value is not a numeric value.\n" +
+                    fixConfigFile);
+            System.exit(0);
+        }
+        return gridMeteringPeriod;
     }
 }
