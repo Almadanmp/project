@@ -1,15 +1,17 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.Objects;
 
-public class HouseWithoutGridsDTO {
+public class HouseWithoutGridsDTO extends ResourceSupport {
     private String id;
     private AddressDTO address;
     private LocalDTO location;
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
 
-    public String getId() {
+    public String getHouseId() {
         return id;
     }
 
