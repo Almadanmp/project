@@ -154,7 +154,7 @@ public class EnergyGridRepository {
         throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 
-    public Room getRoomById(String id) {
+    Room getRoomById(String id) {
         Optional<Room> value = roomCrudRepo.findById(id);
         if(value.isPresent()){
             return value.get();
