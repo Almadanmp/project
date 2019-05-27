@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.project.services.units;
 
 import javassist.Modifier;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -10,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static pt.ipp.isep.dei.project.services.units.UnitHelper.getApplicationTemperatureConfig;
 
 class UnitHelperTest {
     @Test
@@ -59,7 +61,7 @@ class UnitHelperTest {
 
         // Act
 
-        String actualResult = UnitHelper.getApplicationTemperatureConfig();
+        String actualResult = getApplicationTemperatureConfig();
 
         // Assert
 
@@ -352,5 +354,16 @@ class UnitHelperTest {
             String message = "ERROR: Unable to process configuration file.";
             assertEquals(message, ok.getMessage());
         }
+    }
+
+    @Test()
+    void seeIfGetApplicationTemperatureDefaultCatchesException() {
+        try {
+            UnitHelper.getApplicationTemperatureDefault();
+        }
+        catch (Exception e) {
+            Assert.fail("Exception " + e);
+        }
+
     }
 }

@@ -7,7 +7,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SensorUtils {
+public final class SensorUtils {
+
+    /**
+     * Don't let anyone instantiate this class.
+     */
+
+    private SensorUtils() {
+    }
 
     /**
      * This method receives an Area Sensor list and checks every sensor in the

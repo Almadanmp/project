@@ -92,7 +92,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfGetRoomsWebDtoInGridWorks() {
+     void seeIfGetRoomsWebDtoInGridWorks() {
         //Arrange
         List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
         RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
@@ -110,7 +110,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfGetRoomsWebDtoInGridNotFoundGridId() {
+     void seeIfGetRoomsWebDtoInGridNotFoundGridId() {
         //Arrange
         List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
         RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
@@ -128,7 +128,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfAttachRoomToGridPostHttpStatusNotFoundGridId() {
+     void seeIfAttachRoomToGridPostHttpStatusNotFoundGridId() {
         //Arrange
         RoomDTO roomDto = new RoomDTO();
         roomDto.setDescription("Test");
@@ -148,7 +148,7 @@ class EnergyGridSettingsWebControllerTest {
 
 
     @Test
-    public void seeIfAttachRoomToGridPostWorks() {
+     void seeIfAttachRoomToGridPostWorks() {
         //Arrange
         RoomDTO roomDto = new RoomDTO();
         roomDto.setDescription("Test");
@@ -167,7 +167,7 @@ class EnergyGridSettingsWebControllerTest {
     }
 
     @Test
-    public void seeIfAttachRoomToGridPostHTTPStatusConflict() {
+     void seeIfAttachRoomToGridPostHTTPStatusConflict() {
         //Arrange
         RoomDTO roomDto = new RoomDTO();
         roomDto.setDescription("Test");
@@ -187,7 +187,7 @@ class EnergyGridSettingsWebControllerTest {
 
 
     @Test
-    public void seeIfAttachRoomToGridPostHttpStatusNotFoundRoomId() {
+     void seeIfAttachRoomToGridPostHttpStatusNotFoundRoomId() {
         //Arrange
         RoomDTO roomDto = new RoomDTO();
         roomDto.setDescription("Test");

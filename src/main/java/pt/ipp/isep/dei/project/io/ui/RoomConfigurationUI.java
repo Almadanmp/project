@@ -157,10 +157,10 @@ class RoomConfigurationUI {
         Device device = controller.createDevice(deviceType);
         controller.setDeviceName(deviceName, device);
         List<String> deviceAttributes = controller.getAttributeNames(device);
-        for (int i = 0; i < deviceAttributes.size(); i++) {
-            System.out.println("Please insert value for: " + deviceAttributes.get(i));
+        for (String deviceAttribute : deviceAttributes) {
+            System.out.println("Please insert value for: " + deviceAttribute);
             Double value = InputHelperUI.getInputAsDoubleZeroOrPositive();
-            controller.setAttributeValue(device, deviceAttributes.get(i), value);
+            controller.setAttributeValue(device, deviceAttribute, value);
         }
         System.out.println("Please insert nominal power: ");
         controller.setNominalPowerDevice(device, InputHelperUI.getInputAsDoubleZeroOrPositive());
@@ -445,11 +445,11 @@ class RoomConfigurationUI {
         int dateDay = input.nextInt();
         System.out.println("You entered the date successfully!");
         Date mDate = DateUtils.createDate(dateYear, dateMonth, dateDay);
-        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName, roomRepository);
+        updateAndDisplay253(sensorID, sensorType, room, mDate, sensorName);
 
     }
 
-    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName, RoomRepository roomRepository) {
+    private void updateAndDisplay253(String sensorID, SensorType sensorType, Room room, Date date, String sensorName) {
         RoomSensor mRoomSensor = controller.createRoomSensor(room, sensorID, sensorName, sensorType, date);
         if (controller.addSensorToRoom(mRoomSensor, room)) {
             System.out.println("\nSensor successfully added to the Room " + room.getId());

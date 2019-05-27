@@ -12,7 +12,7 @@ public class UnitHelper {
         throw new IllegalStateException("Utility class");
     }
 
-    private static final String UNITS_PROPERTIES = "resources/units.properties";
+    static final String UNITS_PROPERTIES = "resources/units.properties";
 
     /**
      * This method converts the temperature value into the default one.
@@ -30,8 +30,9 @@ public class UnitHelper {
                 return unit.toFahrenheit(valueToConvert);
             case "Kelvin":
                 return unit.toKelvin(valueToConvert);
+            default:
+                return valueToConvert;
         }
-        return valueToConvert;
     }
 
     /**
@@ -54,14 +55,14 @@ public class UnitHelper {
      *
      * @return temperature unit as a String.
      */
-    static String getApplicationTemperatureDefault(String propFileName) {
+    static String getApplicationTemperatureDefault() {
         String temperatureDefault = "Celsius";
         Properties prop = new Properties();
-        try (FileInputStream input = new FileInputStream(propFileName)) {
+        try (FileInputStream input = new FileInputStream(UnitHelper.UNITS_PROPERTIES)) {
             prop.load(input);
             temperatureDefault = prop.getProperty("defaultApplicationTemperatureUnit");
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            ioe.getMessage();
         }
         return temperatureDefault;
     }
@@ -73,7 +74,7 @@ public class UnitHelper {
      * @return String with ApplicationTemperatureDefault path
      */
     static String getApplicationTemperatureConfig() {
-        return getApplicationTemperatureDefault(UNITS_PROPERTIES);
+        return getApplicationTemperatureDefault();
     }
 
     /**
