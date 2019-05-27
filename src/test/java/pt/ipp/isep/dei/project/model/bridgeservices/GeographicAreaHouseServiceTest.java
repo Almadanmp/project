@@ -21,7 +21,6 @@ import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import sun.util.calendar.LocalGregorianCalendar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
