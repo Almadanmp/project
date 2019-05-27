@@ -40,7 +40,7 @@ public class GeographicAreaRepository {
     }
 
     //WEB CONTROLLER//
-    //TODO: Replace previous getAll()
+
     public List<GeographicAreaDTO> getAllDTO() {
         List<GeographicArea> list = geographicAreaCrudRepo.findAll();
         List<GeographicAreaDTO> finalList = new ArrayList<>();
@@ -144,12 +144,14 @@ public class GeographicAreaRepository {
 
     public boolean deactivateAreaSensor(long idArea, String idSensor) {
         Optional<GeographicArea> geographicArea = geographicAreaCrudRepo.findById(idArea);
-        GeographicArea geoArea = geographicArea.get();
-        AreaSensor areaSensor = geoArea.getAreaSensorByID(idSensor);
-        if (areaSensor.isActive()) {
-            geoArea.deactivateSensor(areaSensor);
-            geographicAreaCrudRepo.save(geoArea);
-            return true;
+        if (geographicArea.isPresent()) {
+            GeographicArea geoArea = geographicArea.get();
+            AreaSensor areaSensor = geoArea.getAreaSensorByID(idSensor);
+            if (areaSensor.isActive()) {
+                geoArea.deactivateSensor(areaSensor);
+                geographicAreaCrudRepo.save(geoArea);
+                return true;
+            }
         }
         return false;
     }

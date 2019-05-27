@@ -307,7 +307,52 @@ class GeographicAreaRepositoryTest {
     }
 
     @Test
+    void seeIfGetGeographicAreaContainingSensorWithGivenIdWorksWhenSensorIdIsNull() {
+        // Arrange
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(secondValidAreaSensor);
+
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getGeographicAreaContainingSensorWithGivenId(null));
+    }
+
+    @Test
     void seeIfGetGeographicAreaContainingSensorWithGivenIdWorksWhenSensorIdDoesNotExist() {
+        // Arrange
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(secondValidAreaSensor);
+
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getGeographicAreaContainingSensorWithGivenId("invalidSensorID"));
+    }
+
+    @Test
+    void seeIfGetGeographicAreaContainingSensorWithGivenIdWorksWhenSensorIdIsEmpty() {
+        // Arrange
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+        firstValidArea.addSensor(secondValidAreaSensor);
+
+        Mockito.when(geographicAreaCrudRepo.findAll()).thenReturn(validList);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getGeographicAreaContainingSensorWithGivenId(""));
+    }
+
+    @Test
+    void seeIfGetGeographicAreaContainingSensorWithGivenIdWorksWhenSensorIdDoesNotExistEmptyList() {
         // Arrange
 
         List<GeographicArea> emptyList = new ArrayList<>();
@@ -848,18 +893,16 @@ class GeographicAreaRepositoryTest {
 
         GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
         area.setId(25L);
-        Optional<GeographicArea> opt = Optional.of(area);
-        Mockito.when(geographicAreaCrudRepo.findById(25L)).thenReturn(opt);
         GeographicAreaDTO expectedResult = validDTO;
 
         // Act
 
         geographicAreaRepository.deleteFromDatabase(validDTO);
-        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
 
         // Assert
 
-        assertEquals(expectedResult, actualResult);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaRepository.getDTOById(25L));
 
     }
 
