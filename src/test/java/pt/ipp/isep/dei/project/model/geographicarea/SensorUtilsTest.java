@@ -27,8 +27,9 @@ class SensorUtilsTest {
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
-    private Date validDate3; // Date 12/10/201
+    private Date validDate3; // Date 12/12/2018
     private Date validDate4;
+    private Date validDate5;
     private Date sensorCreationTime;
     private Date validReadingDate;
 
@@ -40,8 +41,9 @@ class SensorUtilsTest {
         try {
             validDate1 = validSdf.parse("21/11/2018 00:00:00");
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
-            validDate3 = validSdf.parse("12/10/2018 00:00:00");
+            validDate3 = validSdf.parse("12/12/2018 00:00:00");
             validDate4 = validSdf.parse("01/09/2018 00:00:00");
+            validDate5 = validSdf.parse("1/1/2017 00:00:00");
             validReadingDate = readingSD.parse("2018-10-03");
             sensorCreationTime = readingSD.parse("2016-10-03");
         } catch (ParseException e) {
@@ -50,17 +52,17 @@ class SensorUtilsTest {
         GeographicArea firstValidArea = new GeographicArea("Portugal", "Country", 300, 200,
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
-        SensorType validSensortypeTemp = new SensorType("Temperature", "Celsius");
+        SensorType validSensorTypeTemp = new SensorType("Temperature", "Celsius");
 
-        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensortypeTemp.getName(), new Local(2, 2, 2), validDate1);
+        firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
-        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
-                validDate1);
+        secondValidAreaSensor = new AreaSensor("SensorTwo", "SensorTwo", validSensorTypeTemp.getName(), new Local(10, 10, 10),
+                validDate5);
         secondValidAreaSensor.setActive(true);
-        AreaSensor thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorTwo", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        AreaSensor thirdValidAreaSensor = new AreaSensor("SensorThree", "SensorTwo", validSensorTypeTemp.getName(), new Local(10, 10, 10),
                 validDate1);
         thirdValidAreaSensor.setActive(true);
-        AreaSensor validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensortypeTemp.getName(), new Local(10, 10, 10),
+        AreaSensor validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensorTypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
         Reading validReading2 = new Reading(23, validReadingDate, "C", "SensorThree");
@@ -97,7 +99,7 @@ class SensorUtilsTest {
 
         //Assert
 
-        assertEquals(firstValidAreaSensor, actualResult);
+        assertEquals(secondValidAreaSensor, actualResult);
     }
 
     @Test
@@ -153,7 +155,7 @@ class SensorUtilsTest {
 
         // Assert
 
-        assertEquals(firstValidAreaSensor, actualResult);
+        assertEquals(secondValidAreaSensor, actualResult);
     }
 
     @Test
@@ -212,5 +214,24 @@ class SensorUtilsTest {
         assertEquals(areaSensors, actualResult);
     }
 
+    @Test
+    void seeIfGetMostRecentlyUsedAreaSensorsWorks(){
+        // Arrange
 
+        Reading firstValidReading = new Reading(31, validDate3, "C", "SensorOne");
+        Reading secondValidReading = new Reading(11, validDate1, "C", "SensorTwo");
+        firstValidAreaSensor.addReading(firstValidReading);
+        secondValidAreaSensor.addReading(secondValidReading);
+        List<AreaSensor> listAreaSensor = new ArrayList<>();
+        listAreaSensor.add(secondValidAreaSensor);
+        listAreaSensor.add(firstValidAreaSensor);
+
+        // Act
+
+        AreaSensor actualResult = SensorUtils.getMostRecentlyUsedAreaSensor(listAreaSensor);
+
+        // Assert
+
+        assertEquals(firstValidAreaSensor, actualResult);
+    }
 }
