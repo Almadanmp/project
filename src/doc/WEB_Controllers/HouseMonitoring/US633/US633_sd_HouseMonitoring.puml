@@ -32,54 +32,57 @@ autonumber
 actor "HTTP Client"
 
 
-"HTTP Client" -> ":SpringResolver":  GET ".../houseMonitoring/highestAmplitude" \n getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
+"HTTP Client" ->> ":SpringResolver":  GET ".../houseMonitoring/highestAmplitude" \n getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
 activate "HTTP Client"
-":SpringResolver" -> ":HouseMonitoringControllerWeb": getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
+":SpringResolver" ->> ":HouseMonitoringControllerWeb": getHighestTemperatureAmplitudeDate \n                              (DateIntervalDTO)
 activate ":SpringResolver"
 activate ":HouseMonitoringControllerWeb"
 deactivate ":SpringResolver"
-":HouseMonitoringControllerWeb" -> ":GeographicAreaHouseService": getHighestTemperatureAmplitude \n                            (DateIntervalDTO)
+":HouseMonitoringControllerWeb" ->> ":GeographicAreaHouseService": getHighestTemperatureAmplitude \n                            (DateIntervalDTO)
 activate ":GeographicAreaHouseService"
-":GeographicAreaHouseService" -> ":HouseRepository": getHouseByID(id)
+":GeographicAreaHouseService" ->> ":HouseRepository": getHouseByID(id)
 create ":House"
 activate ":HouseRepository"
 
-":HouseRepository" -> ":House" : create ":House"
-":HouseRepository" --> ":GeographicAreaHouseService": return house
+":HouseRepository" ->> ":House" : create ":House"
+":HouseRepository" -->> ":GeographicAreaHouseService": return house
 deactivate ":HouseRepository"
 activate ":House"
-":GeographicAreaHouseService" --> ":House": getMotherAreaID(Long)
-":House" --> ":GeographicAreaHouseService": return geographicAreaID
+":GeographicAreaHouseService" -->> ":House": getMotherAreaID(Long)
+":House" -->> ":GeographicAreaHouseService": return geographicAreaID
 deactivate ":House"
 activate ":GeographicAreaRepository"
-":GeographicAreaHouseService" -> ":GeographicAreaRepository": get(id)
+":GeographicAreaHouseService" ->> ":GeographicAreaRepository": get(id)
 create ":GeographicArea"
-":GeographicAreaRepository" -> ":GeographicArea": create GeographicArea
-":GeographicArea" --> ":GeographicAreaRepository": return GeographicArea
-":GeographicAreaRepository" --> ":GeographicAreaHouseService": return GeographicArea
+":GeographicAreaRepository" ->> ":GeographicArea": create GeographicArea
+":GeographicArea" -->> ":GeographicAreaRepository": return GeographicArea
+":GeographicAreaRepository" -->> ":GeographicAreaHouseService": return GeographicArea
 deactivate ":GeographicAreaRepository"
 ref over ":GeographicAreaHouseService"
 get getClosestSensorOfGivenType
 end ref
 activate ":Sensor"
-":GeographicAreaHouseService" -> ":Sensor": getDateHighestAmplitudeBetweenDates (Date, Date)
-":Sensor"->":Sensor": getDaysWithReadingsBetweenDates(Date, Date)
-":Sensor"-->":Sensor": return days with readings
-":Sensor"->":Sensor": getAmplitudeValueFromDate(Date)
-":Sensor" --> ":GeographicAreaHouseService": return date
+":GeographicAreaHouseService" ->> ":Sensor": getDateHighestAmplitudeBetweenDates (Date, Date)
+":Sensor"->>":Sensor": getDaysWithReadingsBetweenDates(Date, Date)
+":Sensor"-->>":Sensor": return days with readings
+":Sensor"->>":Sensor": getAmplitudeValueFromDate(Date)
+":Sensor" -->> ":GeographicAreaHouseService": return date
 deactivate ":Sensor"
 ref over ":GeographicAreaHouseService"
 get highest amplitude value
 end ref
-":GeographicAreaHouseService" --> ":HouseMonitoringControllerWeb": return result string
+
+alt AreaSensor with Readings (SUCCESS)
+":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return DateValueDTO
+":HouseMonitoringControllerWeb" -->> "HTTP Client": return  new ResponseEntity<>(DateValueDTO, HttpStatus.SUCCESS)
+else if AreaSensor with no Readings on period
+":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return throw Exception
+":HouseMonitoringControllerWeb" -->> "HTTP Client": return  new ResponseEntity<>(failed message, HttpStatus.BADREQUEST)
+else if Malformed date input
+":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return throw Exception
 deactivate ":GeographicAreaHouseService"
+":HouseMonitoringControllerWeb" -->> "HTTP Client": return  new ResponseEntity<>(failed message, HttpStatus.BADREQUEST)
 
-":HouseMonitoringControllerWeb" -> ":HouseMonitoringControllerWeb": build result string
-
-":HouseMonitoringControllerWeb" --> "HTTP Client": Show result string
 deactivate ":HouseMonitoringControllerWeb"
-
 deactivate "HTTP Client"
-
-
 @enduml
