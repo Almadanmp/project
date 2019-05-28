@@ -23,8 +23,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -580,6 +579,47 @@ class EnergyGridRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomDtoWebByIdWorks() {
+        //Arrange
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("B109");
+        roomDTO.setHouseId("ISEP");
+        roomDTO.setHeight(3);
+        roomDTO.setLength(3);
+        roomDTO.setWidth(3);
+        roomDTO.setFloor(1);
+        roomDTO.setDescription("Classroom");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
+        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+        //Act
+        RoomDTOWeb expectedResult = RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
+        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid","B109");
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomDtoWebByIdReturnsNull() {
+        //Arrange
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName("B109");
+        roomDTO.setHouseId("ISEP");
+        roomDTO.setHeight(3);
+        roomDTO.setLength(3);
+        roomDTO.setWidth(3);
+        roomDTO.setFloor(1);
+        roomDTO.setDescription("Classroom");
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
+        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+        //Act
+        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid","B108");
+        //Assert
+        assertNull(actualResult);
     }
 
 }
