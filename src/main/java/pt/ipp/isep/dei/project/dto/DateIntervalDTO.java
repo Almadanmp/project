@@ -12,11 +12,17 @@ public class DateIntervalDTO {
     }
 
     public Date getInitialDate() {
-        return initialDate;
+        if(this.initialDate == null) {
+            return null;
+        }
+        return new Date(this.initialDate.getTime());
     }
 
     public Date getEndDate() {
-        return endDate;
+        if(this.endDate == null) {
+            return null;
+        }
+        return new Date(this.endDate.getTime());
     }
 
 }
