@@ -23,6 +23,7 @@ public class EnergyGridRepository {
 
     @Autowired
     EnergyGridCrudRepo energyGridCrudRepository;
+
     @Autowired
     RoomCrudRepo roomCrudRepo;
 
@@ -54,39 +55,6 @@ public class EnergyGridRepository {
         }
         return false;
     }
-
-    /**
-     * Method for US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and
-     * energy consumption is included in that grid.
-     * This method adds a room to the grid and persists in the database.
-     *
-     * @param roomId   is the roomId we want to add to the grid
-     * @param gridName is the name of the grid we want to add the room to
-     * @return true if the room was successfully added, false otherwise
-     */
-    public boolean attachRoomToGrid(String roomId, String gridName) {
-        EnergyGrid energyGrid = getById(gridName);
-        Room room = getRoomById(roomId);
-        if (energyGrid.addRoom(room)) {
-            energyGridCrudRepository.save(energyGrid);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
-     * that I can attach/detach rooms from it.
-     * This method returns a List of Rooms Dto Web from a grid.
-     *
-     * @param gridId is the name of the grid.
-     * @return a List of Rooms Dto Web from a grid.
-     */
-    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
-        List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
-        return RoomWebMapper.objectsToDtosWeb(roomList);
-    }
-
 
     /**
      * This method creates a new EnergyGrid using its constructor.
@@ -152,14 +120,6 @@ public class EnergyGridRepository {
         throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 
-    Room getRoomById(String id) {
-        Optional<Room> value = roomCrudRepo.findById(id);
-        if (value.isPresent()) {
-            return value.get();
-        }
-        throw new NoSuchElementException("ERROR: There is no Room with the selected ID.");
-    }
-
     //POWER SOURCE METHODS
 
     /**
@@ -172,29 +132,5 @@ public class EnergyGridRepository {
      **/
     public PowerSource createPowerSource(String name, double maxPowerOutput, double maxEnergyStorage) {
         return new PowerSource(name, maxPowerOutput, maxEnergyStorage);
-    }
-
-
-    /**
-     * This method detaches a Room assigned to an Energy Grid from that Grid; it preserves all of the room's
-     * characteristics, and the room is maintained in the repository.
-     *
-     * @param roomID is the ID of the room we want to remove from the Grid, as it exists in the database.
-     * @param gridID is the ID of the grid that contains the room we want to remove.
-     * @return is true if the room was successfully removed; is false if the grid didn't contain a room with the given
-     * ID.
-     * @throws NoSuchElementException this exception is thrown if the database doesn't contain an Energy Grid with
-     *                                the given ID.
-     */
-
-    public boolean removeRoomFromGrid(String roomID, String gridID) {
-        Optional<EnergyGrid> value = energyGridCrudRepository.findById(gridID);
-        if (value.isPresent()) {
-            EnergyGrid grid = value.get();
-            boolean result = grid.removeRoomById(roomID);
-            energyGridCrudRepository.save(grid);
-            return result;
-        }
-        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
     }
 }
