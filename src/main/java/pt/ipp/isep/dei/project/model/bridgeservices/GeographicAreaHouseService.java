@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
-import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -26,6 +25,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     @Autowired
     private HouseRepository houseRepository;
 
+    private static final String TEMPERATURE = "temperature";
 
     /**
      * This method calculates the average temperature in a given date.
@@ -49,7 +49,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         Date d2 = calendar.getTime(); // gets date at 23:59:59
 
         // gets and returns average readings on the closest AreaSensor to the house
-        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("temperature");
+        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
@@ -263,7 +263,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @param minDist the distance to the sensor
      * @return AreaSensorList with sensors closest to house.
      **/
-    public List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
+    List<AreaSensor> getAreaSensorsByDistanceToHouse(List<AreaSensor> areaSensors, House house, double minDist) {
         List<AreaSensor> finalList = new ArrayList<>();
         for (AreaSensor s : areaSensors) {
             if (Double.compare(minDist, getDistanceToHouse(s, house)) == 0) {
@@ -317,16 +317,12 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @return date and value with highest temperature
      */
     public DateValueDTO getLastColdestDay(DateIntervalDTO dateIntervalDTO) {
-        if (!DateUtils.isDateDTOValid(dateIntervalDTO)) {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
-        }
-        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature");
+        validateDateIntervalDTO(dateIntervalDTO);
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         Date date = areaSensor.getLastColdestDayInGivenInterval(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
         return new DateValueDTO(date, value);
     }
-
 
     /**
      * Method for US631 - Web Controller Version
@@ -335,16 +331,12 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @return date and value with highest temperature
      */
     public DateValueDTO getHottestDay(DateIntervalDTO dateIntervalDTO) {
-        if (!DateUtils.isDateDTOValid(dateIntervalDTO)) {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
-        }
-        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature");
+        validateDateIntervalDTO(dateIntervalDTO);
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         Date date = areaSensor.getFirstHottestDayInGivenPeriod(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
         return new DateValueDTO(date, value);
     }
-
 
     /**
      * Method for US633 - Web Controller Version
@@ -353,13 +345,17 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @return string with date and amplitude value
      */
     public DateValueDTO getHighestTemperatureAmplitude(DateIntervalDTO dateIntervalDTO) {
-        if (!DateUtils.isDateDTOValid(dateIntervalDTO)) {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
-        }
-        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature");
+        validateDateIntervalDTO(dateIntervalDTO);
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
         return new DateValueDTO(date, value);
+    }
+
+    private void validateDateIntervalDTO(DateIntervalDTO dateIntervalDTO) {
+        if (!dateIntervalDTO.isValid()) {
+            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
+                    "required (Initial date must be before End date).");
+        }
     }
 }

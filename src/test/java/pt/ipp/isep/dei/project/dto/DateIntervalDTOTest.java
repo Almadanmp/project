@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DateIntervalDTOTest {
     private Date initialDate;
@@ -43,4 +45,41 @@ class DateIntervalDTOTest {
         Date actualResult = dateIntervalDTO.getEndDate();
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void idDateDTOValidSuccess() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, endDate);
+        assertTrue(dateIntervalDTO.isValid());
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoEndDate() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, null);
+        assertFalse(dateIntervalDTO.isValid());
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoDates() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, null);
+        assertFalse(dateIntervalDTO.isValid());
+    }
+
+    @Test
+    void idDateDTOValidInvalidNoInitialDate() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, endDate);
+        assertFalse(dateIntervalDTO.isValid());
+    }
+
+    @Test
+    void idDateDTOValidInvalidInvertedDates() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(endDate, initialDate);
+        assertFalse(dateIntervalDTO.isValid());
+    }
+
+    @Test
+    void idDateDTOValidValidSameDate() {
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, initialDate);
+        assertFalse(dateIntervalDTO.isValid());
+    }
 }
+

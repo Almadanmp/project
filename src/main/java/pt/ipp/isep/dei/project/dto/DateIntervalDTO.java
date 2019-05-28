@@ -29,4 +29,16 @@ public class DateIntervalDTO {
         return new Date(this.endDate.getTime());
     }
 
+    /**
+     * Method to validate if a interval of dates is valid
+     * Date is valid if - Both input are valid inputs
+     * If end date is after initial date
+     *
+     * @return true if date valid
+     */
+    public boolean isValid() {
+        return initialDate != null && endDate != null
+                && endDate.after(initialDate);
+    }
+
 }
