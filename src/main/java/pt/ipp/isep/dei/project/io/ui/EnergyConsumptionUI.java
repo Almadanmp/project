@@ -34,7 +34,7 @@ class EnergyConsumptionUI {
     private final Scanner returnToConsole = new Scanner(System.in);
     private static final String INSERT_START_DATE = "PLEASE INSERT THE START OF THE INTERVAL:";
     private static final String INSERT_END_DATE = "PLEASE INSERT THE END OF THE INTERVAL:";
-    private List<String> menuOptions = createMenu();
+    private final List<String> menuOptions = createMenu();
 
     private List<String> createMenu() {
         List<String> menuList = new ArrayList<>();
