@@ -92,13 +92,13 @@ public class HouseMonitoringUI {
         if (!houseMonitoringController.isMotherAreaValid(house)) {
             return;
         }
-        updateModel600(house);
+        updateModel600();
     }
 
-    private void updateModel600(House house) {
+    private void updateModel600() {
         AreaSensor closestSensorToHouse;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(TEMPERATURE);
             double currentTemp = houseMonitoringController.getHouseAreaTemperature(closestSensorToHouse);
             System.out.println("The current temperature in the house area is: " + currentTemp + "°C.");
         } catch (IllegalArgumentException illegal) {
@@ -116,14 +116,14 @@ public class HouseMonitoringUI {
         }
         System.out.println("Please enter the desired date.");
         Date date = DateUtils.getInputYearMonthDay();
-        updateAndDisplayModelUS620(house, date);
+        updateAndDisplayModelUS620(date);
     }
 
-    private void updateAndDisplayModelUS620(House house, Date date) {
+    private void updateAndDisplayModelUS620(Date date) {
         double result;
         AreaSensor areaSensor;
         try {
-            areaSensor = houseMonitoringController.getClosestSensorToHouseByType(house, RAINFALL);
+            areaSensor = houseMonitoringController.getClosestSensorToHouseByType(RAINFALL);
             result = houseMonitoringController.getTotalRainfallOnGivenDay(date, areaSensor);
         } catch (IllegalStateException ex) {
             System.out.println(ex.getMessage());
@@ -149,7 +149,7 @@ public class HouseMonitoringUI {
         Date startDate = DateUtils.getInputYearMonthDay();
         Date endDate = DateUtils.getInputYearMonthDay();
         System.out.println("Please enter the end date.");
-        updateAndDisplayUS623(house, startDate, endDate);
+        updateAndDisplayUS623(startDate, endDate);
     }
 
     /**
@@ -172,11 +172,11 @@ public class HouseMonitoringUI {
         return DateUtils.getInputYearMonthDay();
     }
 
-    private void updateAndDisplayUS623(House house, Date startDate, Date endDate) {
+    private void updateAndDisplayUS623(Date startDate, Date endDate) {
         double result623;
         AreaSensor closestAreaSensor;
         try {
-            closestAreaSensor = houseMonitoringController.getClosestSensorToHouseByType(house, RAINFALL);
+            closestAreaSensor = houseMonitoringController.getClosestSensorToHouseByType(RAINFALL);
             result623 = houseMonitoringController.getAverageRainfallInterval(closestAreaSensor, startDate, endDate);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -199,15 +199,15 @@ public class HouseMonitoringUI {
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS630(house, startDate, endDate);
+        updateAndDisplayUS630(startDate, endDate);
     }
 
-    private void updateAndDisplayUS630(House house, Date startDate, Date endDate) {
+    private void updateAndDisplayUS630(Date startDate, Date endDate) {
         Date dateResult630;
         AreaSensor closestSensorToHouse;
         Double temperatureValue;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(TEMPERATURE);
             dateResult630 = houseMonitoringController.getLastColdestDayInInterval(closestSensorToHouse, startDate, endDate);
             temperatureValue = houseMonitoringController.getReadingValueOnGivenDay(closestSensorToHouse, dateResult630);
         } catch (IllegalArgumentException e) {
@@ -232,15 +232,15 @@ public class HouseMonitoringUI {
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS631(house, startDate, endDate);
+        updateAndDisplayUS631(startDate, endDate);
     }
 
-    private void updateAndDisplayUS631(House house, Date startDate, Date endDate) {
+    private void updateAndDisplayUS631(Date startDate, Date endDate) {
         Date dateUS631;
         AreaSensor closestSensorToHouse;
         Double temperatureValue;
         try {
-            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(TEMPERATURE);
             dateUS631 = houseMonitoringController.getFirstHottestDayInPeriod(closestSensorToHouse, startDate, endDate);
             temperatureValue = houseMonitoringController.getReadingValueOnGivenDay(closestSensorToHouse, dateUS631);
         } catch (IllegalArgumentException e) {
@@ -261,16 +261,16 @@ public class HouseMonitoringUI {
         }
         Date startDate = getStartDate();
         Date endDate = getEndDate();
-        updateAndDisplayUS633(house, startDate, endDate);
+        updateAndDisplayUS633(startDate, endDate);
     }
 
-    private void updateAndDisplayUS633(House house, Date startDate, Date endDate) {
+    private void updateAndDisplayUS633(Date startDate, Date endDate) {
         Date resultDate633;
         double resultValue633;
         AreaSensor closestSensorToHouse;
 
         try {
-            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(house, TEMPERATURE);
+            closestSensorToHouse = houseMonitoringController.getClosestSensorToHouseByType(TEMPERATURE);
             resultDate633 = houseMonitoringController.getHighestTempAmplitudeDate(closestSensorToHouse, startDate, endDate);
             resultValue633 = houseMonitoringController.getTempAmplitudeValueByDate(closestSensorToHouse, resultDate633);
         } catch (IllegalArgumentException e) {

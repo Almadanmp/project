@@ -11,15 +11,19 @@ public class DateIntervalDTO {
         this.endDate = endDate;
     }
 
+
+    public DateIntervalDTO() {
+    }
+
     public Date getInitialDate() {
-        if(this.initialDate == null) {
+        if (this.initialDate == null) {
             return null;
         }
         return new Date(this.initialDate.getTime());
     }
 
     public Date getEndDate() {
-        if(this.endDate == null) {
+        if (this.endDate == null) {
             return null;
         }
         return new Date(this.endDate.getTime());

@@ -49,9 +49,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         Date d2 = calendar.getTime(); // gets date at 23:59:59
 
         // gets and returns average readings on the closest AreaSensor to the house
-        Long motherAreaID = house.getMotherAreaID();
-        GeographicArea houseMotherArea = geographicAreaRepository.getByID(motherAreaID);
-        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("temperature", house, houseMotherArea);
+        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType("temperature");
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
@@ -220,7 +218,13 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @param sensorType the type of sensor to check
      * @return the closest sensor.
      */
-    public AreaSensor getClosestAreaSensorOfGivenType(String sensorType, House house, GeographicArea geographicArea) {
+    public AreaSensor getClosestAreaSensorOfGivenType(String sensorType) {
+        House house = houseRepository.getHouses().get(0);
+        Long geographicAreaID = house.getMotherAreaID();
+        GeographicArea geographicArea = geographicAreaRepository.getByID(geographicAreaID);
+        if (geographicArea == null) {
+            throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
+        }
 
         AreaSensor areaSensor;
 
@@ -306,6 +310,25 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return arrayList;
     }
 
+
+    /**
+     * Method for US630 - Web Controller Version
+     *
+     * @param dateIntervalDTO date interval
+     * @return date and value with highest temperature
+     */
+    public DateValueDTO getHottestDay(DateIntervalDTO dateIntervalDTO) {
+        if (!DateUtils.isDateDTOValid(dateIntervalDTO)) {
+            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
+                    "required (Initial date must be before End date).");
+        }
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature");
+        Date date = areaSensor.getFirstHottestDayInGivenPeriod(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
+        double value = areaSensor.getAmplitudeValueFromDate(date);
+        return new DateValueDTO(date, value);
+    }
+
+
     /**
      * Method for US633 - Web Controller Version
      *
@@ -317,17 +340,9 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
                     "required (Initial date must be before End date).");
         }
-        House house = houseRepository.getHouses().get(0);
-        Long geographicAreaID = house.getMotherAreaID();
-        GeographicArea geographicArea = geographicAreaRepository.getByID(geographicAreaID);
-        if (geographicArea == null) {
-            throw new NoSuchElementException("ERROR: There is no Geographic Area with the selected ID.");
-        }
-        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature", house, geographicArea);
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature");
         Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
         double value = areaSensor.getAmplitudeValueFromDate(date);
         return new DateValueDTO(date, value);
     }
-
-
 }
