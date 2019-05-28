@@ -55,6 +55,7 @@ getMinDistanceToSensorOfGivenType(List<AreaSensor, House)
 getAreaSensorsByDistanceToHouse(List<AreaSensor>, House, double)
 getAreaSensorsDistanceToHouse(List<AreaSensor>, double)
 calculateDistanceToSensor(AreaSensor, House)
+validateIntervalDTO(DateIntervalDTO)
 }
 
 class House{
