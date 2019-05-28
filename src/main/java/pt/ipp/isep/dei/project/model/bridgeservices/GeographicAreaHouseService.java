@@ -308,7 +308,23 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             arrayList.add(calculateDistanceToSensor(areaSensor, house));
         }
         return arrayList;
+
+
     }
+
+    /**
+     * Method for US620 - Web Controller Version
+     *
+     * @param date date
+     * @return total rainfall on given day
+     */
+    public double getTotalRainfallOnGivenDay(Date date){
+        AreaSensor closestSensor = getClosestAreaSensorOfGivenType("rainfall");
+        List<Reading> sensorReadings = closestSensor.getReadings();
+        return ReadingUtils.getValueReadingsInDay(date, sensorReadings);
+    }
+
+
 
     /**
      * Method for US630 - Web Controller Version
