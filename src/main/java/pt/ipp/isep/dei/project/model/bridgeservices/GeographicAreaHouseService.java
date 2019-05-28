@@ -310,9 +310,26 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return arrayList;
     }
 
-
     /**
      * Method for US630 - Web Controller Version
+     *
+     * @param dateIntervalDTO date interval
+     * @return date and value with highest temperature
+     */
+    public DateValueDTO getLastColdestDay(DateIntervalDTO dateIntervalDTO) {
+        if (!DateUtils.isDateDTOValid(dateIntervalDTO)) {
+            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
+                    "required (Initial date must be before End date).");
+        }
+        AreaSensor areaSensor = getClosestAreaSensorOfGivenType("temperature");
+        Date date = areaSensor.getLastColdestDayInGivenInterval(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
+        double value = areaSensor.getAmplitudeValueFromDate(date);
+        return new DateValueDTO(date, value);
+    }
+
+
+    /**
+     * Method for US631 - Web Controller Version
      *
      * @param dateIntervalDTO date interval
      * @return date and value with highest temperature

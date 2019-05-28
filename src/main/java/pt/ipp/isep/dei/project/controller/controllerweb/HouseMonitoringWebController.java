@@ -26,6 +26,24 @@ public class HouseMonitoringWebController {
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
 
+    /* US 630 - WEB Controller Methods
+ As a Regular User, I want to get the last coldest day (lower maximum temperature) in the house area in a given period. */
+    @PostMapping("/coldestDay")
+    public ResponseEntity<Object> getLastColdestDay(@RequestBody DateIntervalDTO dateIntervalDTO) {
+        DateValueDTO result;
+        Link link;
+        try {
+            result = geographicAreaHouseService.getLastColdestDay(dateIntervalDTO);
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+            result.add(link);
+
+        } catch (NoSuchElementException | IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     /* US 631 - WEB Controller Methods
  As a Regular User, I want to get the first hottest day (higher maximum temperature) in the house area in a given period.  */

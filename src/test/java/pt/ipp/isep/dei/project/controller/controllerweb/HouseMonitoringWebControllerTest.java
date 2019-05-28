@@ -46,6 +46,124 @@ class HouseMonitoringWebControllerTest {
         }
     }
 
+    @Test
+    void getColdestDaySuccessMockito() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date2, date1);
+        DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
+        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+        dateValueDTO.add(link);
+        Mockito.when(geographicAreaHouseService.getLastColdestDay(dateIntervalDTO)).thenReturn(dateValueDTO);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(dateValueDTO, HttpStatus.OK);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getLastColdestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void getColdestDayInvertedDatesMockito() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
+
+        Mockito.when(geographicAreaHouseService.getLastColdestDay(dateIntervalDTO)).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getLastColdestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getColdestDayIncompleteDatesMockito() throws IllegalArgumentException {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
+
+        Mockito.when(geographicAreaHouseService.getLastColdestDay(dateIntervalDTO)).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getLastColdestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getColdestDaySimulateServerErrorMockito() throws IllegalArgumentException {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
+
+        Mockito.when(geographicAreaHouseService.getLastColdestDay(dateIntervalDTO)).thenThrow(RuntimeException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getLastColdestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getHottestDaySuccessMockito() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date2, date1);
+        DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
+        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+        dateValueDTO.add(link);
+        Mockito.when(geographicAreaHouseService.getHottestDay(dateIntervalDTO)).thenReturn(dateValueDTO);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(dateValueDTO, HttpStatus.OK);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getHottestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+
+    @Test
+    void getHottestDayInvertedDatesMockito() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
+
+        Mockito.when(geographicAreaHouseService.getHottestDay(dateIntervalDTO)).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getHottestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getHottestDayIncompleteDatesMockito() throws IllegalArgumentException {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
+
+        Mockito.when(geographicAreaHouseService.getHottestDay(dateIntervalDTO)).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getHottestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getHottestDaySimulateServerErrorMockito() throws IllegalArgumentException {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(date1, date2);
+
+        Mockito.when(geographicAreaHouseService.getHottestDay(dateIntervalDTO)).thenThrow(RuntimeException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getHottestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     void getHighestAmplitudeSuccessMockito() {
