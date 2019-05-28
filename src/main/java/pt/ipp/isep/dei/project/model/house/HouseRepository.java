@@ -32,7 +32,6 @@ public class HouseRepository {
      *
      * @return a list with all the houses found on the db
      */
-    //TODO unit test - Daniela
     public List<House> getHouses() {
         return houseCrudRepo.findAll();
     }
@@ -42,7 +41,6 @@ public class HouseRepository {
      *
      * @return the House of the application as a DTO
      */
-    //TODO unit test - Daniela
     public HouseDTO getApplicationHouse() {
         House house = houseCrudRepo.findAll().get(0);
         return HouseMapper.objectToDTO(house);
