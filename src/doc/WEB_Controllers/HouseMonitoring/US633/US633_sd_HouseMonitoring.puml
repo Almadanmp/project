@@ -40,6 +40,10 @@ activate ":HouseMonitoringControllerWeb"
 deactivate ":SpringResolver"
 ":HouseMonitoringControllerWeb" ->> ":GeographicAreaHouseService": getHighestTemperatureAmplitude \n                            (DateIntervalDTO)
 activate ":GeographicAreaHouseService"
+alt if Invalid DateIntervalDTO
+":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return throw Exception
+":HouseMonitoringControllerWeb" -->> "HTTP Client": return  new ResponseEntity<>(failed message, HttpStatus.BADREQUEST)
+end
 ":GeographicAreaHouseService" ->> ":HouseRepository": getHouseByID(id)
 create ":House"
 activate ":HouseRepository"
@@ -66,11 +70,8 @@ activate ":Sensor"
 ":Sensor"->>":Sensor": getDaysWithReadingsBetweenDates(Date, Date)
 ":Sensor"-->>":Sensor": return days with readings
 ":Sensor"->>":Sensor": getAmplitudeValueFromDate(Date)
-":Sensor" -->> ":GeographicAreaHouseService": return date
+":Sensor" -->> ":GeographicAreaHouseService": return double
 deactivate ":Sensor"
-ref over ":GeographicAreaHouseService"
-get highest amplitude value
-end ref
 
 alt AreaSensor with Readings (SUCCESS)
 ":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return DateValueDTO
@@ -78,11 +79,8 @@ alt AreaSensor with Readings (SUCCESS)
 else if AreaSensor with no Readings on period
 ":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return throw Exception
 ":HouseMonitoringControllerWeb" -->> "HTTP Client": return  new ResponseEntity<>(failed message, HttpStatus.BADREQUEST)
-else if Malformed date input
-":GeographicAreaHouseService" -->> ":HouseMonitoringControllerWeb": return throw Exception
+end
 deactivate ":GeographicAreaHouseService"
-":HouseMonitoringControllerWeb" -->> "HTTP Client": return  new ResponseEntity<>(failed message, HttpStatus.BADREQUEST)
-
 deactivate ":HouseMonitoringControllerWeb"
 deactivate "HTTP Client"
 @enduml
