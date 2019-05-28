@@ -3,10 +3,8 @@ package pt.ipp.isep.dei.project.model.energy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
@@ -62,7 +60,7 @@ public class EnergyGridRepository {
      * energy consumption is included in that grid.
      * This method adds a room to the grid and persists in the database.
      *
-     * @param roomId  is the roomId we want to add to the grid
+     * @param roomId   is the roomId we want to add to the grid
      * @param gridName is the name of the grid we want to add the room to
      * @return true if the room was successfully added, false otherwise
      */
@@ -156,7 +154,7 @@ public class EnergyGridRepository {
 
     Room getRoomById(String id) {
         Optional<Room> value = roomCrudRepo.findById(id);
-        if(value.isPresent()){
+        if (value.isPresent()) {
             return value.get();
         }
         throw new NoSuchElementException("ERROR: There is no Room with the selected ID.");
