@@ -75,6 +75,24 @@ public class EnergyGridRepository {
     }
 
     /**
+     * US 147
+     * Method that returns a RoomDtoWeb from a given id, with a given Grid Id also.
+     *
+     * @param gridId is the grid where the room is at.
+     * @param roomId is the room id.
+     * @return a RoomDtoWeb from a given id, with a given Grid Id also.
+     */
+    public RoomDTOWeb getRoomDtoWebById(String gridId, String roomId) {
+        List<RoomDTOWeb> list = getRoomsDtoWebInGrid(gridId);
+        for (RoomDTOWeb r : list) {
+            if (r.getName().equals(roomId)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
      * that I can attach/detach rooms from it.
      * This method returns a List of Rooms Dto Web from a grid.
@@ -86,7 +104,6 @@ public class EnergyGridRepository {
         List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
         return RoomWebMapper.objectsToDtosWeb(roomList);
     }
-
 
     /**
      * This method creates a new EnergyGrid using its constructor.

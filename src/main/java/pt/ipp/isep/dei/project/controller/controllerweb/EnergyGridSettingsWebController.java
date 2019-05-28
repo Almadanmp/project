@@ -48,11 +48,12 @@ public class EnergyGridSettingsWebController {
      * consumption is included in that grid.
      */
     @PostMapping(value = "/grids/{energyGridId}")
-    public ResponseEntity<String> attachRoomToGrid(@RequestBody String roomID, @PathVariable("energyGridId") String gridId) {
+    public ResponseEntity<Object> attachRoomToGrid(@RequestBody String roomID, @PathVariable("energyGridId") String gridId) {
         if (roomRepository.findRoomByID(roomID).isPresent()) {
             try {
                 if (energyGridRepository.attachRoomToGrid(roomID, gridId)) {
-                    return new ResponseEntity<>("Room successfully added to the grid!",
+                    RoomDTOWeb roomDTOWeb = energyGridRepository.getRoomDtoWebById(gridId, roomID);
+                    return new ResponseEntity<>(roomDTOWeb,
                             HttpStatus.OK);
                 }
                 return new ResponseEntity<>("It wasn't possible to add the room. Please try again.", HttpStatus.CONFLICT);
