@@ -350,7 +350,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         validateDateIntervalDTO(dateIntervalDTO);
         AreaSensor areaSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         Date date = areaSensor.getFirstHottestDayInGivenPeriod(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
-        double value = areaSensor.getAmplitudeValueFromDate(date);
+        double value = areaSensor.getReadingValueOnGivenDay(date);
         return new DateValueDTO(date, value);
     }
 
@@ -364,7 +364,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         validateDateIntervalDTO(dateIntervalDTO);
         AreaSensor areaSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         Date date = areaSensor.getDateHighestAmplitudeBetweenDates(dateIntervalDTO.getInitialDate(), dateIntervalDTO.getEndDate());
-        double value = areaSensor.getAmplitudeValueFromDate(date);
+        double value = areaSensor.getReadingValueOnGivenDay(date);
         return new DateValueDTO(date, value);
     }
 
