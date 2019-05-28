@@ -434,7 +434,7 @@ class GASettingsUI {
         System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
     }
 
-    private void importReadingsFromJSON(String filePath) {
+    void importReadingsFromJSON(String filePath) {
         int result = 0;
         ReadingsReaderJSON readerJSON = new ReadingsReaderJSON();
         long startTime = System.currentTimeMillis();
