@@ -18,6 +18,7 @@ import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -44,6 +45,86 @@ class HouseMonitoringWebControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void seeIfGetTotalRainfallDaySuccessMockito(){
+        // Act
+
+        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenReturn(45D);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(45D, HttpStatus.OK);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetTotalRainfallDayNoSuchElement(){
+        // Act
+
+        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(NoSuchElementException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetTotalRainfallDayRunTimeException(){
+        // Act
+
+        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(RuntimeException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetTotalRainfallDayIllegalStateException(){
+        // Arrange
+
+        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallDay(date1)).withRel("Retry with a different date.");
+
+        // Act
+
+        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(IllegalStateException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetTotalRainfallDayException(){
+        // Act
+
+        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(RuntimeException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
