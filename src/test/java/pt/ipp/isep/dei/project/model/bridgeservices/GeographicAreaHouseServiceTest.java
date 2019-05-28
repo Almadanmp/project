@@ -456,7 +456,7 @@ class GeographicAreaHouseServiceTest {
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
-        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 0.0);
+        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 23.0);
 
         DateValueDTO actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
 
@@ -878,7 +878,7 @@ class GeographicAreaHouseServiceTest {
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
-        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 0.0);
+        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 23.0);
 
         DateValueDTO actualResult = geographicAreaHouseService.getHottestDay(dateIntervalDTO);
 
