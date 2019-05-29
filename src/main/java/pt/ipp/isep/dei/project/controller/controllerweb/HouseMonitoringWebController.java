@@ -35,9 +35,9 @@ public class HouseMonitoringWebController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalStateException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).
-                    getTotalRainfallDay(date)).withRel("Retry with a different date.");
+                    getTotalRainfallDay(date)).withRel("No readings available for this date.");
             return new ResponseEntity<>(link, HttpStatus.OK);
-        } catch (NoSuchElementException | IllegalArgumentException e) {
+        } catch (NoSuchElementException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
