@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.AddressDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
@@ -43,7 +43,7 @@ class HouseConfigurationWebControllerTest {
     HouseRepository houseRepository;
     @Mock
     RoomRepository roomRepository;
-    private RoomDTOWeb roomDTOWeb;
+    private RoomDTOMinimal roomDTOMinimal;
     private AddressAndLocalDTO addressAndLocalDTO;
     @Autowired
     private MockMvc mockMvc;
@@ -53,12 +53,12 @@ class HouseConfigurationWebControllerTest {
     @BeforeEach
     void insertData() {
         MockitoAnnotations.initMocks(this);
-        roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setName("Name");
-        roomDTOWeb.setWidth(2D);
-        roomDTOWeb.setLength(4D);
-        roomDTOWeb.setHeight(1D);
-        roomDTOWeb.setFloor(1);
+        roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setName("Name");
+        roomDTOMinimal.setWidth(2D);
+        roomDTOMinimal.setLength(4D);
+        roomDTOMinimal.setHeight(1D);
+        roomDTOMinimal.setFloor(1);
 
         LocalDTO localDTO = new LocalDTO();
 
@@ -86,12 +86,12 @@ class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfGetHouseRoomsWorks() {
         //Arrange
-        List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
-        roomDTOWebs.add(roomDTOWeb);
+        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
+        roomDTOBarebones.add(this.roomDTOMinimal);
 
-        Mockito.doReturn(roomDTOWebs).when(this.roomRepository).getAllRoomWebDTOs();
+        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomWebDTOs();
 
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOWebs, HttpStatus.OK);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
 
         //Act
         ResponseEntity<Object> actualResult = webController.getHouseRooms();
@@ -103,12 +103,12 @@ class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorks() {
         //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
+        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The room was successfully added.", HttpStatus.CREATED);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.CREATED);
 
         //Act
-        ResponseEntity<String> actualResult = webController.createRoom(roomDTOWeb);
+        ResponseEntity<Object> actualResult = webController.createRoom(roomDTOMinimal);
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -117,24 +117,52 @@ class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
         //Arrange
-        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
+        Mockito.doReturn(false).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
 
         //Act
-        ResponseEntity<String> actualResult = webController.createRoom(roomDTOWeb);
+        ResponseEntity<Object> actualResult = webController.createRoom(roomDTOMinimal);
 
         //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvc() throws Exception {
+    void seeIfDeleteRoomWorks() {
         //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
+        Mockito.when(this.roomRepository.deleteRoom(roomDTOMinimal)).thenReturn(true);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.deleteRoom(roomDTOMinimal);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfDeleteRoomWorksIfRoomAlreadyExists() {
+        //Arrange
+        Mockito.when(this.roomRepository.deleteRoom(roomDTOMinimal)).thenReturn(false);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you are trying to delete does not exist in the database.", HttpStatus.NOT_FOUND);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.deleteRoom(roomDTOMinimal);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateRoomWorksWithMvc() throws Exception {
+        //Arrange
+        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         Gson gson = new Gson();
-        String requestJson = gson.toJson(roomDTOWeb);
+        String requestJson = gson.toJson(roomDTOMinimal);
 
         //Act
 
@@ -145,13 +173,13 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
+    void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
         //Arrange
 
-        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOWeb);
+        Mockito.doReturn(false).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         Gson gson = new Gson();
-        String requestJson = gson.toJson(roomDTOWeb);
+        String requestJson = gson.toJson(roomDTOMinimal);
 
         //Act
 
@@ -162,10 +190,10 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
+    void seeIfCreateRoomWorksWithMvcWhenRoomDTODimensionsAreInvalid() throws Exception {
         //Arrange
 
-        RoomDTOWeb invalidDTO = new RoomDTOWeb();
+        RoomDTOMinimal invalidDTO = new RoomDTOMinimal();
         invalidDTO.setHeight(2D);
         invalidDTO.setLength(0.0D);
         invalidDTO.setWidth(4D);
@@ -186,10 +214,10 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
+    void seeIfCreateRoomWorksWithMvcWhenRoomNameIsInvalid() throws Exception {
         //Arrange
 
-        RoomDTOWeb invalidDTO = new RoomDTOWeb();
+        RoomDTOMinimal invalidDTO = new RoomDTOMinimal();
         invalidDTO.setHeight(2D);
         invalidDTO.setLength(5D);
         invalidDTO.setWidth(4D);
@@ -210,19 +238,19 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
-    public void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
+    void seeIfGetHouseRoomsWorksWithMvc() throws Exception {
         //Arrange
 
-        RoomDTOWeb roomDTOWeb2 = new RoomDTOWeb();
-        roomDTOWeb2.setHeight(2D);
-        roomDTOWeb2.setLength(4D);
-        roomDTOWeb2.setWidth(4D);
-        roomDTOWeb2.setName("roomDTOWeb2");
-        roomDTOWeb2.setFloor(1);
+        RoomDTOMinimal roomDTOMinimal2 = new RoomDTOMinimal();
+        roomDTOMinimal2.setHeight(2D);
+        roomDTOMinimal2.setLength(4D);
+        roomDTOMinimal2.setWidth(4D);
+        roomDTOMinimal2.setName("roomDTOMinimal2");
+        roomDTOMinimal2.setFloor(1);
 
-        List<RoomDTOWeb> expectedResult = new ArrayList<>();
-        expectedResult.add(roomDTOWeb);
-        expectedResult.add(roomDTOWeb2);
+        List<RoomDTOMinimal> expectedResult = new ArrayList<>();
+        expectedResult.add(roomDTOMinimal);
+        expectedResult.add(roomDTOMinimal2);
 
         Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomWebDTOs();
 

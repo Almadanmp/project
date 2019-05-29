@@ -4,7 +4,11 @@ import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Objects;
 
-public class RoomDTOWeb extends ResourceSupport {
+/**
+ * This DTO contains only the essential attributes to create a Room model object, that is, the minimum attributes
+ * required for its constructor.
+ */
+public class RoomDTOMinimal extends ResourceSupport {
     private String name;
     private int floor;
     private double width;
@@ -103,7 +107,7 @@ public class RoomDTOWeb extends ResourceSupport {
     }
 
     /**
-     * RoomDTOWeb Equals
+     * RoomDTOMinimal Equals
      *
      * @return true in case the object is equal, false otherwise
      * *
@@ -116,7 +120,7 @@ public class RoomDTOWeb extends ResourceSupport {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RoomDTOWeb roomDTO = (RoomDTOWeb) o;
+        RoomDTOMinimal roomDTO = (RoomDTOMinimal) o;
         return Objects.equals(name, roomDTO.getName());
     }
 

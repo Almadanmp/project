@@ -9,6 +9,8 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
+import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -23,6 +25,31 @@ public class HouseMonitoringWebController {
 
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
+
+    /**
+     * US600
+     * As a Regular User, I want to get the current temperature in the house area. If, in the
+     * first element with temperature sensors of the hierarchy of geographical areas that
+     * includes the house, there is more than one temperature sensor, the nearest one
+     * should be used.
+     *
+     * @return current house temperature from closest area sensor to house.
+     */
+
+    @GetMapping("/currentHouseAreaTemp")
+    public ResponseEntity<Object> getCurrentHouseAreaTemperature() {
+        double currentHouseAreaTemp;
+        AreaSensor closestSensor;
+        try {
+            closestSensor = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature");
+            currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature(closestSensor);
+        } catch (NoSuchElementException | IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(currentHouseAreaTemp, HttpStatus.OK);
+    }
 
     /* US620 - WEB Controller Methods
      As a Regular User, I want to get the total rainfall in the house area for a given day.*/

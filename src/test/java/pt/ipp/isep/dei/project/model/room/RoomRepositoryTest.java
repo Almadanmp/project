@@ -12,8 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -86,6 +87,42 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfDeleteRoomWorks() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(validRoom);
+
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+
+        // Act
+
+        boolean actualResult = validRoomRepository.deleteRoom(roomDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeleteRoomWorksWhenRoomExistsInRepository() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(validRoom);
+
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.empty());
+
+        // Act
+
+        boolean actualResult = validRoomRepository.deleteRoom(roomDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfAddRoomDTOToCrudRepositoryWorks() {
         // Arrange
 
@@ -143,16 +180,16 @@ class RoomRepositoryTest {
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
 
-        List<RoomDTOWeb> expectedResult = new ArrayList<>();
+        List<RoomDTOMinimal> expectedResult = new ArrayList<>();
 
-        RoomDTOWeb validDTO1 = new RoomDTOWeb();
+        RoomDTOMinimal validDTO1 = new RoomDTOMinimal();
         validDTO1.setName("Kitchen");
         validDTO1.setFloor(1);
         validDTO1.setWidth(4D);
         validDTO1.setLength(5D);
         validDTO1.setHeight(3D);
 
-        RoomDTOWeb validDTO2 = new RoomDTOWeb();
+        RoomDTOMinimal validDTO2 = new RoomDTOMinimal();
         validDTO2.setName("Living Room");
         validDTO2.setFloor(1);
         validDTO2.setWidth(56D);
@@ -164,7 +201,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOWeb> actualResult = validRoomRepository.getAllRoomWebDTOs();
+        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomWebDTOs();
 
         // Assert
 
@@ -178,11 +215,11 @@ class RoomRepositoryTest {
 
         Mockito.when(roomCrudRepo.findAll()).thenReturn(null);
 
-        List<RoomDTOWeb> expectedResult = new ArrayList<>();
+        List<RoomDTOMinimal> expectedResult = new ArrayList<>();
 
         // Act
 
-        List<RoomDTOWeb> actualResult = validRoomRepository.getAllRoomWebDTOs();
+        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomWebDTOs();
 
         // Assert
 

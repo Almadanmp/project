@@ -13,4 +13,5 @@ public interface RoomCrudRepo extends CrudRepository<Room, String> {
 
     Optional<Room> findByRoomName(String name);
 
+    void delete(Room room);
 }

@@ -1,18 +1,18 @@
 package pt.ipp.isep.dei.project.dto.mappers;
 
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.model.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomWebMapper {
+public class RoomMinimalMapper {
 
     /**
      * Don't let anyone instantiate this class.
      */
 
-    private RoomWebMapper() {
+    private RoomMinimalMapper() {
     }
 
     /**
@@ -21,7 +21,7 @@ public class RoomWebMapper {
      * @param dtoWeb is the DTO we want to convert.
      * @return is the converted object.
      */
-    public static Room dtoToObject(RoomDTOWeb dtoWeb) {
+    public static Room dtoToObject(RoomDTOMinimal dtoWeb) {
         // Update the name
 
         String objectName = dtoWeb.getName();
@@ -56,12 +56,12 @@ public class RoomWebMapper {
     }
 
     /**
-     * This is the method that converts model objects into RoomDtoWeb.
+     * This is the method that converts model objects into roomDTOMinimal.
      *
      * @param room is the room we want to convert.
      * @return is the converted object.
      */
-    public static RoomDTOWeb objectToDtoWeb(Room room) {
+    public static RoomDTOMinimal objectToDtoWeb(Room room) {
         //Update the name
         String dtoWebName = room.getId();
         //Update the floor
@@ -73,25 +73,25 @@ public class RoomWebMapper {
         //Update the height
         double dtoWebHeight = room.getHeight();
         // Create, update and return the converted object.
-        RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setName(dtoWebName);
-        roomDTOWeb.setFloor(dtoWebFloor);
-        roomDTOWeb.setWidth(dtoWebWidth);
-        roomDTOWeb.setLength(dtoWebLength);
-        roomDTOWeb.setHeight(dtoWebHeight);
-        return roomDTOWeb;
+        RoomDTOMinimal roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setName(dtoWebName);
+        roomDTOMinimal.setFloor(dtoWebFloor);
+        roomDTOMinimal.setWidth(dtoWebWidth);
+        roomDTOMinimal.setLength(dtoWebLength);
+        roomDTOMinimal.setHeight(dtoWebHeight);
+        return roomDTOMinimal;
     }
 
     /**
-     * This method returns a list of Rooms Dto Web from a RoomList.
+     * This method returns a list of Rooms Dto Minimal from a RoomList.
      * @param rooms is the list of rooms we want to convert.
-     * @return a list of Rooms Dto Web.
+     * @return a list of Rooms Dto Minimal.
      */
-    public static List<RoomDTOWeb> objectsToDtosWeb(List<Room> rooms){
-        List<RoomDTOWeb> roomDTOWebList = new ArrayList<>();
+    public static List<RoomDTOMinimal> objectsToDtosWeb(List<Room> rooms){
+        List<RoomDTOMinimal> roomDTOMinimalList = new ArrayList<>();
         for (Room room : rooms) {
-            roomDTOWebList.add(RoomWebMapper.objectToDtoWeb(room));
+            roomDTOMinimalList.add(RoomMinimalMapper.objectToDtoWeb(room));
         }
-        return roomDTOWebList;
+        return roomDTOMinimalList;
     }
 }

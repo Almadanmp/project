@@ -6,7 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
 
 class HouseRoomServiceTest {
 
-    private RoomDTOWeb roomDTOWeb;
+    private RoomDTOMinimal roomDTOMinimal;
     private Room room;
 
     @Mock
@@ -27,34 +28,36 @@ class HouseRoomServiceTest {
 
     @BeforeEach
     void insertData() {
-        roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setName("Name");
-        roomDTOWeb.setWidth(2D);
-        roomDTOWeb.setLength(4D);
-        roomDTOWeb.setHeight(1D);
-        roomDTOWeb.setFloor(1);
+        roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setName("Name");
+        roomDTOMinimal.setWidth(2D);
+        roomDTOMinimal.setLength(4D);
+        roomDTOMinimal.setHeight(1D);
+        roomDTOMinimal.setFloor(1);
 
         room = new Room("Name", "", 1, 2D, 4D, 1D, "01");
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void seeIfAddRoomDTOWebToHouseWorks() {
+    void seeIfAddRoomDTOMinimalToHouseWorks() {
         //Arrange
 
         Mockito.doReturn("01").when(this.houseRepository).getHouseId();
         Mockito.doReturn(true).when(this.roomRepository).addRoomToCrudRepository(room);
+        Room convertedRoom = RoomMinimalMapper.dtoToObject(roomDTOMinimal);
+        assertNull(convertedRoom.getHouseID());
 
         //Act
 
-        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOWeb);
+        boolean actualResult = service.addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         //Assert
         assertTrue(actualResult);
     }
 
     @Test
-    void seeIfAddRoomDTOWebToHouseWorksWhenRoomExists() {
+    void seeIfAddRoomDTOMinimalToHouseWorksWhenRoomExists() {
         //Arrange
 
         Mockito.doReturn("01").when(this.houseRepository).getHouseId();
@@ -62,9 +65,26 @@ class HouseRoomServiceTest {
 
         //Act
 
-        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOWeb);
+        boolean actualResult = service.addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         //Assert
         assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfUpdateHouseIDWorks(){
+        //Arrange
+
+        Mockito.doReturn("01").when(this.houseRepository).getHouseId();
+        Room roomToUpdate = RoomMinimalMapper.dtoToObject(roomDTOMinimal);
+
+        // Act
+
+        Room updatedRoom = service.updateHouseID(roomToUpdate);
+        String actualResult = updatedRoom.getHouseID();
+
+        // Assert
+
+        assertEquals("01", actualResult);
     }
 }

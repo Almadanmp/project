@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -45,18 +45,35 @@ public class RoomRepository {
     }
 
     /**
+     * This method receives a roomDTOWeb and tries to the corresponding room
+     * from repository (by using its ID).
+     *
+     * @param roomDTO to be deleted
+     * @return true in case the corresponding room was deleted, false otherwise.
+     **/
+    public boolean deleteRoom(RoomDTOMinimal roomDTO) {
+        String roomDTOName = roomDTO.getName();
+        Optional<Room> room = roomCrudRepo.findByRoomName(roomDTOName);
+        if (room.isPresent()) {
+            roomCrudRepo.delete(room.get());
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This method gets every room from the Room Crud Repository
      * and returns as an ArrayList.
      *
      * @return a list containing all rooms contained in repository
      **/
-    public List<RoomDTOWeb> getAllRoomWebDTOs() {
-        List<RoomDTOWeb> finalList = new ArrayList<>();
+    public List<RoomDTOMinimal> getAllRoomWebDTOs() {
+        List<RoomDTOMinimal> finalList = new ArrayList<>();
         List<Room> roomList = roomCrudRepo.findAll();
         if (roomList != null) {
             for (Room room : roomList) {
-                RoomDTOWeb roomDTOWeb = RoomWebMapper.objectToDtoWeb(room);
-                finalList.add(roomDTOWeb);
+                RoomDTOMinimal roomDTOMinimal = RoomMinimalMapper.objectToDtoWeb(room);
+                finalList.add(roomDTOMinimal);
             }
         }
         return finalList;
@@ -197,8 +214,8 @@ public class RoomRepository {
      * @return true in case the room is added to repository, false otherwise.
      **/
     public boolean addRoomToCrudRepository(Room room) {
-        String roomID = room.getId();
         List<Room> rooms = this.getAllRooms();
+        String roomID = room.getId();
         for (Room r : rooms) {
             if (roomID.equals(r.getId())) {
                 return false;
