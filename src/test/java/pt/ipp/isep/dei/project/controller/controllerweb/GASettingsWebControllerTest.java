@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -59,6 +59,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setTypeArea("urban area");
 
         Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
         Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
 
         validGeographicAreaDTO.add(link);
@@ -344,30 +345,31 @@ class GASettingsWebControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
-//
-//    @Test
-//    void addDaughterArea() {
-//        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-//
-//        validGeographicAreaDTO.setDescription("3rd biggest city");
-//        validGeographicAreaDTO.setId(2L);
-//        validGeographicAreaDTO.setWidth(100);
-//        validGeographicAreaDTO.setLength(500);
-//        validGeographicAreaDTO.setTypeArea("urban area");
-//
-//        Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(validGeographicAreaDTO.getGeographicAreaId())).withRel("See geographic area");
-//        validGeographicAreaDTO.add(link);
-//
-//        Mockito.doReturn(true).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
-//
-//        ResponseEntity<Object> expectedResult = new ResponseEntity<>(validGeographicAreaDTO, HttpStatus.OK);
-//
-//        //Act
-//        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(1L, 3L);
-//
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
+
+    @Test
+    void addChildArea() {
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        List<GeographicAreaDTO> childAreas = new ArrayList<>();
+
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+        validGeographicAreaDTO.setDaughterAreaList(childAreas);
+
+        Mockito.doReturn(true).when(geographicAreaRepository).addChildArea(any(long.class), any(long.class));
+        Mockito.doReturn(validGeographicAreaDTO).when(geographicAreaRepository).getDTOByIdWithParent(validGeographicAreaDTO.getGeographicAreaId());
+
+        Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(validGeographicAreaDTO.getGeographicAreaId())).withRel("See geographic area");
+        validGeographicAreaDTO.add(link);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addChildArea(validGeographicAreaDTO.getGeographicAreaId(),validGeographicAreaDTO.getGeographicAreaId());
+
+        //Assert
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+    }
 
     @Test
     void addDaughterAreaContainsDaughter() {
@@ -379,12 +381,12 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("urban area");
 
-        Mockito.doReturn(false).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
+        Mockito.doReturn(false).when(geographicAreaRepository).addChildArea(any(long.class), any(long.class));
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
 
         //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, validGeographicAreaDTO.getGeographicAreaId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addChildArea(6L, validGeographicAreaDTO.getGeographicAreaId());
 
         //Assert
         assertEquals(expectedResult, actualResult);
@@ -393,9 +395,9 @@ class GASettingsWebControllerTest {
     @Test
     void addDaughterAreaNotFound() {
 
-        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).addDaughterArea(any(long.class), any(long.class));
+        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).addChildArea(any(long.class), any(long.class));
 
-        ResponseEntity<Object> actualResult = gaSettingsWebController.addDaughterArea(6L, 3L);
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addChildArea(6L, 3L);
 
         assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
     }
@@ -427,6 +429,64 @@ class GASettingsWebControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
+
+
+    @Test
+    void removeChildArea() {
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        List<GeographicAreaDTO> childAreas = new ArrayList<>();
+
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+        validGeographicAreaDTO.setDaughterAreaList(childAreas);
+
+        Mockito.doReturn(true).when(geographicAreaRepository).removeChildArea(any(long.class), any(long.class));
+        Mockito.doReturn(validGeographicAreaDTO).when(geographicAreaRepository).getDTOByIdWithParent(validGeographicAreaDTO.getGeographicAreaId());
+
+        Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(validGeographicAreaDTO.getGeographicAreaId())).withRel("See geographic area");
+        validGeographicAreaDTO.add(link);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(validGeographicAreaDTO.getGeographicAreaId(),validGeographicAreaDTO.getGeographicAreaId());
+
+        //Assert
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+    }
+
+    @Test
+    void removeDaughterAreaContainsDaughter() {
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        Mockito.doReturn(false).when(geographicAreaRepository).removeChildArea(any(long.class), any(long.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been removed. The daughter area is already not contained in the mother area.", HttpStatus.CONFLICT);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(6L, validGeographicAreaDTO.getGeographicAreaId());
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void removeDaughterAreaNotFound() {
+
+        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).removeChildArea(any(long.class), any(long.class));
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(6L, 3L);
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+    }
+
 }
 
 

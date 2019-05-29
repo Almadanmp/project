@@ -18,42 +18,21 @@ public class RoomSensorDTO {
         readingList = new ArrayList<>();
     }
 
-    /**
-     * Method that retrieves the units the Sensor stores readings in, as a String.
-     *
-     * @return is the unit the Sensor stores readings in.
-     */
-
-    public String getUnits() {
-        return units;
-    }
-
-    /**
-     * Method that stores a String as the DTO's unit.
-     *
-     * @param units is string we want to store.
-     */
-
-    public void setUnits(String units) {
-        this.units = units;
-    }
-
-    /**
-     * Method that retrieves the DTO's name as a string.
-     *
-     * @return is the DTO's name.
-     */
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
-        return id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
     }
 
     public String getRoomID() {
@@ -64,21 +43,21 @@ public class RoomSensorDTO {
         this.roomID = roomID;
     }
 
-    /**
-     * Method that stores a String as the DTO's name.
-     *
-     * @param name is the string we want to store.
-     */
-
-    public void setName(String name) {
-        this.name = name;
+    public String getId() {
+        return id;
     }
 
-    /**
-     * Method that retrieves the DTO's type's name as a string.
-     *
-     * @return is a string that corresponds to the name of the type of the DTO.
-     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean getActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public String getType() {
         return typeSensor;
@@ -93,13 +72,6 @@ public class RoomSensorDTO {
         this.typeSensor = typeSensor;
     }
 
-    public boolean getActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     /**
      * Method that retrieves the date at which the sensorDTO started functioning, as a string.

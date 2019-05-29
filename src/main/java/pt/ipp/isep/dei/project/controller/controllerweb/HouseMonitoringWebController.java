@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -36,19 +35,19 @@ public class HouseMonitoringWebController {
      * @return current house temperature from closest area sensor to house.
      */
 
-    @GetMapping("/currentHouseAreaTemp")
+    @GetMapping("/currentHouseAreaTemperature")
     public ResponseEntity<Object> getCurrentHouseAreaTemperature() {
         double currentHouseAreaTemp;
         AreaSensor closestSensor;
         try {
             closestSensor = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature");
             currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature(closestSensor);
+            return new ResponseEntity<>(currentHouseAreaTemp, HttpStatus.OK);
         } catch (NoSuchElementException | IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(currentHouseAreaTemp, HttpStatus.OK);
     }
 
     /* US620 - WEB Controller Methods
@@ -60,7 +59,7 @@ public class HouseMonitoringWebController {
         try {
             result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date);
             return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).
                     getTotalRainfallInGivenDay(date)).withRel("No readings available for this date.");
             return new ResponseEntity<>(link, HttpStatus.OK);

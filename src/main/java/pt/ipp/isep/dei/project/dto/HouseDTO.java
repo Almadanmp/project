@@ -17,13 +17,6 @@ public class HouseDTO {
     private int deviceMeteringPeriod;
     private List<DeviceType> deviceTypeList;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public AddressDTO getAddress() {
         return address;
@@ -39,6 +32,14 @@ public class HouseDTO {
 
     public void setLocation(LocalDTO location) {
         this.location = location;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public List<EnergyGridDTO> getEnergyGridList() {

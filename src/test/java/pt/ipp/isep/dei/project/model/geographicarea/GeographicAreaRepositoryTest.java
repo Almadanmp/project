@@ -8,8 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
@@ -30,9 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 /**
  * GeographicAreaService tests class.
@@ -42,13 +38,15 @@ class GeographicAreaRepositoryTest {
 
     // Common testing artifacts for this class.
 
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+    @Mock
+    GeographicAreaCrudRepo geographicAreaCrudRepo;
     private GeographicArea firstValidArea;
     private List<GeographicArea> validList;
     private List<GeographicAreaDTO> validDTOList;
     private GeographicAreaDTO validDTO;
     private GeographicAreaWebDTO validWebDTO;
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
@@ -67,14 +65,9 @@ class GeographicAreaRepositoryTest {
     private Reading validReading2;
     private Reading validReadingHotDay;
     private Reading validReadingColdDay;
-
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
-
-    @Mock
-    GeographicAreaCrudRepo geographicAreaCrudRepo;
-
     @InjectMocks
     private GeographicAreaRepository geographicAreaRepository;
 
@@ -707,7 +700,7 @@ class GeographicAreaRepositoryTest {
         Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.of(firstValidArea));
         GeographicAreaDTO geographicAreaDTO = GeographicAreaMapper.objectToDTO(firstValidArea);
         //Act
-        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOByIdWithMother(4L);
+        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOByIdWithParent(4L);
         //Assert
         assertEquals(geographicAreaDTO, actualResult);
     }
@@ -717,7 +710,7 @@ class GeographicAreaRepositoryTest {
         //Arrange
         Mockito.when(geographicAreaCrudRepo.findById(4L)).thenReturn(Optional.empty());
         //Act
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> geographicAreaRepository.getDTOByIdWithMother(4L));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> geographicAreaRepository.getDTOByIdWithParent(4L));
         //Assert
         assertEquals("Geographic Area not found - 404", exception.getMessage());
 
@@ -867,7 +860,7 @@ class GeographicAreaRepositoryTest {
 //
 //        GeographicArea area = GeographicAreaMapper.dtoToObject(validDTO);
 //        area.setId(25L);
-//        area.setDaughterAreas(firstValidArea.getSensorId());
+//        area.setChildAreas(firstValidArea.getSensorId());
 //        firstValidArea.setId(23L);
 //        GeographicAreaDTO geographicAreaDTO =GeographicAreaMapper.objectToDTO(firstValidArea);
 //        Optional<GeographicArea> opt = Optional.of(area);
@@ -877,7 +870,7 @@ class GeographicAreaRepositoryTest {
 //
 //        // Act
 //
-//        geographicAreaRepository.addDaughterArea(validDTO, geographicAreaDTO);
+//        geographicAreaRepository.addChildArea(validDTO, geographicAreaDTO);
 //        GeographicAreaDTO actualResult = geographicAreaRepository.getDTOById(25L);
 //
 //        // Assert
@@ -1022,7 +1015,7 @@ class GeographicAreaRepositoryTest {
         Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
         Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
         //Act
-        boolean actualResult = geographicAreaRepository.addDaughterArea(3L, 4L);
+        boolean actualResult = geographicAreaRepository.addChildArea(3L, 4L);
         //Assert
         assertTrue(actualResult);
     }
@@ -1035,7 +1028,7 @@ class GeographicAreaRepositoryTest {
         Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
         //Assert
         assertThrows(NoSuchElementException.class,
-                () -> geographicAreaRepository.addDaughterArea(3L, 4L));
+                () -> geographicAreaRepository.addChildArea(3L, 4L));
     }
 
     @Test
@@ -1045,7 +1038,7 @@ class GeographicAreaRepositoryTest {
         Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(3L);
         //Assert
         assertThrows(NoSuchElementException.class,
-                () -> geographicAreaRepository.addDaughterArea(3L, 4L));
+                () -> geographicAreaRepository.addChildArea(3L, 4L));
     }
 
     @Test
@@ -1054,9 +1047,9 @@ class GeographicAreaRepositoryTest {
         GeographicArea geographicArea = new GeographicArea();
         Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
         Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
-        geographicAreaRepository.addDaughterArea(3L, 4L);
+        geographicAreaRepository.addChildArea(3L, 4L);
         //Act
-        boolean actualResult = geographicAreaRepository.addDaughterArea(3L, 4L);
+        boolean actualResult = geographicAreaRepository.addChildArea(3L, 4L);
         //Assert
         assertFalse(actualResult);
     }
@@ -1072,5 +1065,51 @@ class GeographicAreaRepositoryTest {
         int actualResult = geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, "dumpFiles/dumpLogFile.html");
         //Assert
         assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfRemoveDaughterAreaWorks() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        //Act
+        boolean actualResult = geographicAreaRepository.removeChildArea(3L, 4L);
+        //Assert
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfRemoveDaughterAreaThrowsException1() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaRepository.removeChildArea(3L, 4L));
+    }
+
+    @Test
+    void seeIfRemoveDaughterAreaThrowsException2() {
+        //Arrange
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.empty()).when(geographicAreaCrudRepo).findById(3L);
+        //Assert
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaRepository.removeChildArea(3L, 4L));
+    }
+
+    @Test
+    void seeIfRemoveDaughterAreaDoesntWork() {
+        //Arrange
+        GeographicArea geographicArea = new GeographicArea();
+        Mockito.doReturn(Optional.of(firstValidArea)).when(geographicAreaCrudRepo).findById(4L);
+        Mockito.doReturn(Optional.of(geographicArea)).when(geographicAreaCrudRepo).findById(3L);
+        geographicAreaRepository.addChildArea(3L, 4L);
+        //Act
+        boolean actualResult = geographicAreaRepository.removeChildArea(3L, 4L);
+        //Assert
+        assertTrue(actualResult);
     }
 }
