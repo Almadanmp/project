@@ -39,7 +39,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath) {
+    public void readJSONAndDefineHouse(House house, String filePath) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
 
         //House
@@ -60,7 +60,6 @@ public class ReaderController {
 
         List<RoomDTO> roomDTOS = readerJSONHouse.readRoomsJSON();
         addRoomsToRepository(roomDTOS, house.getId());
-        return true;
     }
 
     /**

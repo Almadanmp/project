@@ -420,10 +420,7 @@
 //
 //        //Act
 //
-//        boolean actualResult = readerController.readJSONAndDefineHouse(house, filePath);
-//        //Assert
-//
-//        assertTrue(actualResult);
+//        readerController.readJSONAndDefineHouse(house, filePath);
 //    }
 //
 //    @Test

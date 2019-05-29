@@ -199,6 +199,12 @@ public class GeographicArea implements Root {
         return false;
     }
 
+    public void removeDaughterArea(GeographicArea geoArea) {
+        if (this.daughterAreas.contains(geoArea)) {
+            this.daughterAreas.remove(geoArea);
+        }
+    }
+
     /**
      * This method will get the list of Area Sensors.
      **/

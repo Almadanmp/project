@@ -60,14 +60,36 @@ public class GASettingsWebController {
      * @param idAreaMother   of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
-    @PutMapping("areas/{idMother}")
+    @PutMapping("areas/list/{idMother}")
     public ResponseEntity<Object> addDaughterArea(@RequestBody long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
+        GeographicAreaDTO result;
+        Link link;
         try {
             if (geographicAreaRepo.addDaughterArea(idAreaDaughter, idAreaMother)) {
-                Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaDaughter)).withRel("See geographic area");
-                return new ResponseEntity<>("The Geographic Area has been added." + link, HttpStatus.OK);
+                result = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
+                link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaDaughter)).withRel("See geographic area");
+                result.add(link);
+                return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
+            }
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no  Geographic Area with that ID.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("areas/list/{idMother}/{idDaughter}")
+    public ResponseEntity<Object> removeDaughterArea(@PathVariable("idDaughter") long idAreaDaughter, @PathVariable("idMother") long idAreaMother) {
+        GeographicAreaDTO result;
+        Link link;
+        try {
+            if (geographicAreaRepo.removeDaughterArea(idAreaDaughter, idAreaMother)) {
+                result = geographicAreaRepo.getDTOByIdWithMother(idAreaMother);
+                link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(idAreaDaughter)).withRel("See geographic area");
+                result.add(link);
+                return new ResponseEntity<>(geographicAreaRepo.getDTOByIdWithMother(idAreaMother), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("The Geographic Area hasn't been removed. The daughter area is already not contained in the mother area.", HttpStatus.CONFLICT);
             }
         } catch (NoSuchElementException ok) {
             return new ResponseEntity<>("There is no  Geographic Area with that ID.", HttpStatus.NOT_FOUND);

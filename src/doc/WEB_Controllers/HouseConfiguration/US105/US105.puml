@@ -33,7 +33,7 @@ activate "HouseConfigurationWebController"
 "HouseConfigurationWebController" -> "RoomDTOMinimal": roomDTO.areDimensionsValid()
 
 alt if room DTO is valid
-"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
+"HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(RoomDTO, HttpStatus.CREATED)
 else if room name is NOT valid
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.BAD_REQUEST)
 else if room size is NOT valid

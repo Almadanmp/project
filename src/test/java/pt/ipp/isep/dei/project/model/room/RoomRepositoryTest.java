@@ -14,6 +14,7 @@ import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -83,6 +84,42 @@ class RoomRepositoryTest {
         secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "temperature", validDate1);
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", "Rainfall", new Date());
+    }
+
+    @Test
+    void seeIfDeleteRoomWorks() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(validRoom);
+
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+
+        // Act
+
+        boolean actualResult = validRoomRepository.deleteRoom(roomDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfDeleteRoomWorksWhenRoomExistsInRepository() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(validRoom);
+
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.empty());
+
+        // Act
+
+        boolean actualResult = validRoomRepository.deleteRoom(roomDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test

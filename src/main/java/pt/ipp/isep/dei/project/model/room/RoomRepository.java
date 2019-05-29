@@ -45,6 +45,23 @@ public class RoomRepository {
     }
 
     /**
+     * This method receives a roomDTOWeb and tries to the corresponding room
+     * from repository (by using its ID).
+     *
+     * @param roomDTO to be deleted
+     * @return true in case the corresponding room was deleted, false otherwise.
+     **/
+    public boolean deleteRoom(RoomDTOMinimal roomDTO) {
+        String roomDTOName = roomDTO.getName();
+        Optional<Room> room = roomCrudRepo.findByRoomName(roomDTOName);
+        if (room.isPresent()) {
+            roomCrudRepo.delete(room.get());
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This method gets every room from the Room Crud Repository
      * and returns as an ArrayList.
      *
@@ -441,13 +458,30 @@ public class RoomRepository {
         return finalList;
     }
 
-    public double getRoomMaxTempById(String roomId, Date date){
+    public double getRoomMaxTempById(String roomId, Date date) {
         Room validRoom;
         Optional<Room> room = roomCrudRepo.findByRoomName(roomId);
-        if(room.isPresent()){
-            validRoom  = room.get();
+        if (room.isPresent()) {
+            validRoom = room.get();
             return validRoom.getMaxTemperatureOnGivenDay(date);
-        } else{
+        } else {
+            throw new IllegalArgumentException("There is no room with the given Id");
+        }
+    }
+
+    /**
+     * Method that gets current room temperature for US605
+     * @param roomId for identifying room.
+     * @return the current room temperature as a double.
+     */
+
+    public double getCurrentRoomTempByRoomId(String roomId) {
+        Room validRoom;
+        Optional<Room> room = roomCrudRepo.findByRoomName(roomId);
+        if (room.isPresent()) {
+            validRoom = room.get();
+            return validRoom.getCurrentRoomTemperature();
+        } else {
             throw new IllegalArgumentException("There is no room with the given Id");
         }
     }

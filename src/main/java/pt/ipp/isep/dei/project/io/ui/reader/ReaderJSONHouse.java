@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import pt.ipp.isep.dei.project.dto.*;
-import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +17,7 @@ public class ReaderJSONHouse implements Reader {
     private List<RoomDTO> roomDTOS;
     private JSONArray roomList;
     private JSONArray gridList;
-    public static final String ROOMS = "rooms";
+    private static final String ROOMS = "rooms";
 
     /**
      * Method that Reads a .json file and returns a House DTO.
@@ -34,7 +33,7 @@ public class ReaderJSONHouse implements Reader {
             JSONObject object = new JSONObject(tokener);
             return readHouseJSON(object);
         } catch (FileNotFoundException | JSONException | IllegalArgumentException e) {
-            throw new IllegalArgumentException(UtilsUI.printMessage("The JSON file is invalid."));
+            throw new IllegalArgumentException();
         }
     }
 
