@@ -461,7 +461,7 @@ class GASettingsControllerTest {
     void seeIfIsAreaContainedWorks() {
         // Arrange
 
-        firstValidArea.addDaughterArea(secondValidArea);
+        firstValidArea.addChildArea(secondValidArea);
 
         // Act
 

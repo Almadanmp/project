@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.hateoas.Link;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -419,7 +419,7 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
-     void seeIfConfigureHouseLocalWorks() {
+    void seeIfConfigureHouseLocalWorks() {
         //Arrange
 
         House validHouse = new House("01", new Address("rua carlos peixoto", "431",

@@ -149,7 +149,7 @@ public class GASettingsController {
      * @return true if the area was successfully added.
      */
     public boolean addDaughterArea(GeographicArea daughterArea, GeographicArea motherArea) {
-        return motherArea.addDaughterArea(daughterArea);
+        return motherArea.addChildArea(daughterArea);
     }
 
     /*USER STORY 08 - As an Administrator, I want to find out if a geographical area is included, directly

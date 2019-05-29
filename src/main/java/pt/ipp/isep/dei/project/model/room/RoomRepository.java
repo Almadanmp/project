@@ -233,7 +233,7 @@ public class RoomRepository {
      * @return true in case the room is added to repository, false otherwise.
      **/
     public boolean addRoomDTOWithoutSensorsAndDevicesToCrudRepository(RoomDTO roomDTO) {
-        Room room = RoomMapper.dtoToObjectWithoutSensorsAndDevices(roomDTO);
+        Room room = RoomMapper.dtoToObject(roomDTO);
         String roomID = room.getId();
         List<Room> rooms = this.getAllRooms();
         for (Room r : rooms) {

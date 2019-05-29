@@ -31,7 +31,7 @@ public class GeographicArea implements Root {
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "geographicAreaId")
-    private List<GeographicArea> daughterAreas;
+    private List<GeographicArea> childAreas;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -70,7 +70,7 @@ public class GeographicArea implements Root {
         this.width = width;
         this.location = location;
         this.areaSensors = new ArrayList<>();
-        this.daughterAreas = new ArrayList<>();
+        this.childAreas = new ArrayList<>();
     }
 
     /**
@@ -176,12 +176,12 @@ public class GeographicArea implements Root {
      *
      * @param geoAreas is the Geographical Area that contains this Geographical Area.
      */
-    public void setDaughterAreas(List<GeographicArea> geoAreas) {
-        this.daughterAreas = new ArrayList<>(geoAreas);
+    public void setChildAreas(List<GeographicArea> geoAreas) {
+        this.childAreas = new ArrayList<>(geoAreas);
     }
 
-    public List<GeographicArea> getDaughterAreas() {
-        return new ArrayList<>(this.daughterAreas);
+    public List<GeographicArea> getChildAreas() {
+        return new ArrayList<>(this.childAreas);
     }
 
     /**
@@ -191,17 +191,17 @@ public class GeographicArea implements Root {
      * @param geoArea geographic area to add
      * @return true in case it is added, false otherwise
      **/
-    public boolean addDaughterArea(GeographicArea geoArea) {
-        if (!this.daughterAreas.contains(geoArea)) {
-            this.daughterAreas.add(geoArea);
+    public boolean addChildArea(GeographicArea geoArea) {
+        if (!this.childAreas.contains(geoArea)) {
+            this.childAreas.add(geoArea);
             return true;
         }
         return false;
     }
 
-    public void removeDaughterArea(GeographicArea geoArea) {
-        if (this.daughterAreas.contains(geoArea)) {
-            this.daughterAreas.remove(geoArea);
+    public void removeChildArea(GeographicArea geoArea) {
+        if (this.childAreas.contains(geoArea)) {
+            this.childAreas.remove(geoArea);
         }
     }
 
@@ -272,20 +272,20 @@ public class GeographicArea implements Root {
     }
 
 
-    GeographicArea getDaughterAreaByID(Long daughterID) {
-        for (GeographicArea geoArea : this.daughterAreas) {
+    GeographicArea getDaughterAreaByID(Long childID) {
+        for (GeographicArea geoArea : this.childAreas) {
             Long daughterAreaID = geoArea.getId();
-            if (daughterID.equals(daughterAreaID)) {
+            if (childID.equals(daughterAreaID)) {
                 return geoArea;
             }
         }
         throw new IllegalArgumentException();
     }
 
-    public boolean isAreaContained(Long daughterID) {
-        for (GeographicArea geoArea : this.daughterAreas) {
-            Long daughterAreaID = geoArea.getId();
-            return daughterID.equals(daughterAreaID);
+    public boolean isAreaContained(Long childID) {
+        for (GeographicArea geoArea : this.childAreas) {
+            Long childAreaID = geoArea.getId();
+            return childID.equals(childAreaID);
         }
         return false;
     }

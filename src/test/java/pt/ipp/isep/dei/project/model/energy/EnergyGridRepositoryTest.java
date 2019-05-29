@@ -1,135 +1,210 @@
-//package pt.ipp.isep.dei.project.model.energy;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.Mockito;
-//import org.mockito.MockitoAnnotations;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-//import pt.ipp.isep.dei.project.dto.RoomDTO;
-//import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-//import pt.ipp.isep.dei.project.model.room.Room;
-//import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
-//import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.NoSuchElementException;
-//import java.util.Optional;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//
-//@ExtendWith(MockitoExtension.class)
-//class EnergyGridRepositoryTest {
-//    // Common testing artifacts for testing class.
-//
-//    @Mock
-//    RoomCrudRepo roomCrudRepo;
-//    private EnergyGrid firstValidGrid;
-//    @Mock
-//    private EnergyGridCrudRepo energyGridCrudRepository;
-//    @InjectMocks
-//    private EnergyGridRepository validGridRepo;
-//
-//    @BeforeEach
-//    void arrangeArtifacts() {
-//        MockitoAnnotations.initMocks(this);
-//        firstValidGrid = new EnergyGrid("Primary Grid", 500D, "CasaUm");
-//    }
-//
-//    @Test
-//    void seeIfGetAllGridsWorks() {
-//        // Arrange
-//        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(null);
-//
-//        List<EnergyGrid> expectedResult = new ArrayList<>();
-//
-//        // Act
-//        List<EnergyGrid> actualResult = validGridRepo.getAllGrids();
-//
-//        // Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfAddGridWorks() {
-//        // Arrange
-//
-//        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
-//
-//        EnergyGrid expectedResult = firstValidGrid;
-//
-//        // Act
-//
-//        EnergyGrid actualResult = validGridRepo.addGrid(firstValidGrid);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfAddGridWorksNull() {
-//        // Arrange
-//
-//        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
-//
-//        EnergyGrid expectedResult = firstValidGrid;
-//
-//        // Act
-//
-//        EnergyGrid actualResult = validGridRepo.addGrid(firstValidGrid);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    /**
-//     * This test tries to have a Grid with powersources and one equal but without them.
-//     * Then it saves the grid with powersources in the mockito repository.
-//     * Then it saves the grid without PS, to see if by substituting the grid it still keeps the powersources.
-//     * The test is positive, meaning it keeps the powersources. We are still not sure if this is
-//     * the wanted behaviour, but if it is, it works.
-//     */
-//
-//    @Test
-//    void seeIfAddGridWorksAndKeepsPowerSourceList() {
-//
-//        // Arrange
-//        PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
-//                15);
-//
-//        List<PowerSource> expectedResult = new ArrayList<>();
-//        expectedResult.add(firstPowerSource);
-//
-//        EnergyGrid firstValidGridWithNoPSList = firstValidGrid;
-//
-//        firstValidGrid.addPowerSource(firstPowerSource);
-//
-//        String mockId = "Primary Grid";
-//
-//        Mockito.when(energyGridCrudRepository.findByName(mockId)).thenReturn(firstValidGrid);
-//
-//        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
-//
-//        // Act
-//        validGridRepo.addGrid(firstValidGrid);
-//        validGridRepo.addGrid(firstValidGridWithNoPSList);
-//        EnergyGrid copiedGridWithoutPS = energyGridCrudRepository.findByName("Primary Grid");
-//
-//        List<PowerSource> actualResult = copiedGridWithoutPS.getPowerSourceList();
-//
-//        // Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
+package pt.ipp.isep.dei.project.model.energy;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
+import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
+import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@ExtendWith(MockitoExtension.class)
+class EnergyGridRepositoryTest {
+    // Common testing artifacts for testing class.
+
+    @Mock
+    RoomCrudRepo roomCrudRepo;
+    private EnergyGrid firstValidGrid;
+    @Mock
+    private EnergyGridCrudRepo energyGridCrudRepository;
+    @InjectMocks
+    private EnergyGridRepository validGridRepo;
+
+    @BeforeEach
+    void arrangeArtifacts() {
+        MockitoAnnotations.initMocks(this);
+        firstValidGrid = new EnergyGrid("Primary Grid", 500D, "CasaUm");
+    }
+
+    @Test
+    void seeIfGetAllGridsWorks() {
+        // Arrange
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(null);
+
+        List<EnergyGrid> expectedResult = new ArrayList<>();
+
+        // Act
+        List<EnergyGrid> actualResult = validGridRepo.getAllGrids();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddGridWorks() {
+        // Arrange
+
+        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+
+        EnergyGrid expectedResult = firstValidGrid;
+
+        // Act
+
+        EnergyGrid actualResult = validGridRepo.addGrid(firstValidGrid);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddGridWorksNull() {
+        // Arrange
+
+        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+
+        EnergyGrid expectedResult = firstValidGrid;
+
+        // Act
+
+        EnergyGrid actualResult = validGridRepo.addGrid(firstValidGrid);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    /**
+     * This test tries to have a Grid with powersources and one equal but without them.
+     * Then it saves the grid with powersources in the mockito repository.
+     * Then it saves the grid without PS, to see if by substituting the grid it still keeps the powersources.
+     * The test is positive, meaning it keeps the powersources. We are still not sure if this is
+     * the wanted behaviour, but if it is, it works.
+     */
+
+    @Test
+    void seeIfAddGridWorksAndKeepsPowerSourceList() {
+
+        // Arrange
+        PowerSource firstPowerSource = new PowerSource("Top Floor", 25,
+                15);
+
+        List<PowerSource> expectedResult = new ArrayList<>();
+        expectedResult.add(firstPowerSource);
+
+        EnergyGrid firstValidGridWithNoPSList = firstValidGrid;
+
+        firstValidGrid.addPowerSource(firstPowerSource);
+
+        String mockId = "Primary Grid";
+
+        Mockito.when(energyGridCrudRepository.findByName(mockId)).thenReturn(firstValidGrid);
+
+        Mockito.when(energyGridCrudRepository.save(firstValidGrid)).thenReturn(firstValidGrid);
+
+        // Act
+        validGridRepo.addGrid(firstValidGrid);
+        validGridRepo.addGrid(firstValidGridWithNoPSList);
+        EnergyGrid copiedGridWithoutPS = energyGridCrudRepository.findByName("Primary Grid");
+
+        List<PowerSource> actualResult = copiedGridWithoutPS.getPowerSourceList();
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfCreateEnergyGrid() {
+        EnergyGrid expectedResult = new EnergyGrid("Primary Grid", 500D, "CasaUm");
+
+        EnergyGrid result = validGridRepo.createEnergyGrid("Primary Grid", 500, "CasaUm");
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetEnergyGridByIdRepository() {
+
+        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56D, "CasaUm");
+        validGridRepo.addGrid(energyGrid);
+
+        Mockito.when(energyGridCrudRepository.findById(energyGrid.getName())).thenReturn(Optional.of(energyGrid));
+
+        EnergyGrid result = validGridRepo.getById(energyGrid.getName());
+
+        assertEquals(result.getName(), energyGrid.getName());
+    }
+
+    @Test
+    void seeIfGetEnergyGridByIdRepositoryNull() {
+        String mockId = "1234";
+
+        Mockito.when(energyGridCrudRepository.findById(mockId)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getById(mockId));
+
+        assertEquals("ERROR: There is no Energy Grid with the selected ID.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfGetRoomByIdRepositoryNull() {
+        String mockId = "1234";
+
+        Mockito.when(roomCrudRepo.findById(mockId)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getRoomById(mockId));
+
+        assertEquals("ERROR: There is no Room with the selected ID.", exception.getMessage());
+    }
+
+    @Test
+    void seeIfSizeRepository() {
+
+        EnergyGrid energyGrid = new EnergyGrid("Third Grid", 56D, "CasaUm");
+
+        List<EnergyGrid> energyGrids = new ArrayList<>();
+        energyGrids.add(energyGrid);
+        int expectedResult = 1;
+
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(energyGrids);
+
+        int result = validGridRepo.size();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfSizeRepositoryDoNotChange() {
+
+        List<EnergyGrid> energyGrids = new ArrayList<>();
+        energyGrids.add(null);
+        int expectedResult = 1;
+
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(energyGrids);
+
+        int result = validGridRepo.size();
+
+        assertEquals(expectedResult, result);
+    }
+
 //    @Test
 //    void seeIfCreateEnergyGrid() {
 //        EnergyGrid expectedResult = new EnergyGrid("Primary Grid", 500D, "CasaUm");

@@ -77,41 +77,6 @@ public final class RoomMapper {
         return resultObject;
     }
 
-    public static Room dtoToObjectWithoutSensorsAndDevices(RoomDTO dtoToConvert) {
-        // Update the name
-
-        String objectName = dtoToConvert.getName();
-
-        // Update the floor
-
-        int objectFloor = dtoToConvert.getFloor();
-
-        // Update the width
-
-        double objectWidth = dtoToConvert.getWidth();
-
-        // Update the length
-
-        double objectLength = dtoToConvert.getLength();
-
-        // Update the description
-
-        String objectDescription = dtoToConvert.getDescription();
-
-        // Update the height
-
-        double objectHeight = dtoToConvert.getHeight();
-
-        // Update the houseID
-
-        String objectHouseID = dtoToConvert.getHouseId();
-
-        // Create, update and return the converted object.
-
-        return new Room(objectName, objectDescription, objectFloor, objectWidth, objectLength, objectHeight,
-                objectHouseID);
-    }
-
     /**
      * This is the method that converts Room model objects into DTOs with the same data.
      *

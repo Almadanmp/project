@@ -84,7 +84,7 @@ public final class GeographicAreaMapper {
         GeographicAreaDTO resultDTO = updateParameters(objectToConvert);
 
         List<GeographicAreaDTO> dtoDaughterList = new ArrayList<>();
-        for (GeographicArea s : objectToConvert.getDaughterAreas()) {
+        for (GeographicArea s : objectToConvert.getChildAreas()) {
             GeographicAreaDTO tempDTO = GeographicAreaMapper.objectToDTO(s);
             dtoDaughterList.add(tempDTO);
         }

@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class GeographicAreaHouseServiceTest {
@@ -42,6 +43,7 @@ class GeographicAreaHouseServiceTest {
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // Date 12/10/2018
     private Date validDate4; // Date 01/10/2018
+    private Date validDate5;
     private GeographicArea firstValidArea;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
@@ -84,6 +86,7 @@ class GeographicAreaHouseServiceTest {
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
             validDate3 = validSdf.parse("12/10/2018 00:00:00");
             validDate4 = validSdf.parse("01/10/2018 00:00:00");
+            validDate5 = validSdf.parse("04/10/2018 00:00:00");
             validReadingDate1 = readingSD.parse("2018-10-03");
             validReadingDate2 = readingSD.parse("2018-10-04");
             validReadingDate3 = readingSD.parse("2018-10-05");
@@ -995,5 +998,38 @@ class GeographicAreaHouseServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> geographicAreaHouseService.getLastColdestDay(dateIntervalDTO));
     }
+
+    @Test
+    void seeIfGetTotalRainfallOnGivenDay(){
+        // Arrange
+
+        AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);
+        firstValidArea.addSensor(areaSensor);
+        areaSensor.setActive(true);
+
+        Reading reading1 = new Reading(20D, validReadingDate2, "Millimeter", areaSensor.getId());
+        Reading reading2 = new Reading(2D, validDate5, "Millimeter", areaSensor.getId());
+
+        areaSensor.addReading(reading1);
+        areaSensor.addReading(reading2);
+
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+
+        double expectedResult = 22;
+
+        // Act
+
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(any(Long.class))).thenReturn(firstValidArea);
+
+        double actualResult = geographicAreaHouseService.getTotalRainfallOnGivenDay(validReadingDate2);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
 }
 

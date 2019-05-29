@@ -62,7 +62,7 @@ class GeographicAreaMapperTest {
         validAreaObjectWithDaughters = new GeographicArea("Porto", "City", 300, 200,
                 new Local(50, 50, 10));
         validAreaObjectWithDaughters.setId(10L);
-        validAreaObjectWithDaughters.setDaughterAreas(daughterList);
+        validAreaObjectWithDaughters.setChildAreas(daughterList);
 
         validAreaSensorDTO = new AreaSensorDTO();
         validAreaSensorDTO.setActive(true);

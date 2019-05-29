@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -25,6 +24,8 @@ public class HouseMonitoringWebController {
 
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
+
+    private String periodRetry = "Retry with a different period.";
 
     /**
      * US600
@@ -60,7 +61,7 @@ public class HouseMonitoringWebController {
         try {
             result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date);
             return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).
                     getTotalRainfallInGivenDay(date)).withRel("No readings available for this date.");
             return new ResponseEntity<>(link, HttpStatus.OK);
@@ -79,7 +80,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getLastColdestDay(dateIntervalDTO);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(dateIntervalDTO)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -98,7 +99,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getHottestDay(dateIntervalDTO);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(dateIntervalDTO)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -118,7 +119,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(dateIntervalDTO)).withRel("Retry with a different period.");
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(dateIntervalDTO)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
