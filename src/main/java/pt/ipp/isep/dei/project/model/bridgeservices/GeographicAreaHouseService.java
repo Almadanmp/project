@@ -374,4 +374,9 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
                     "required (Initial date must be before End date).");
         }
     }
+
+    public double getHouseAreaTemperature(AreaSensor closestAreaSensor) {
+        List<Reading> sensorReadings = closestAreaSensor.getReadings();
+        return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
+    }
 }
