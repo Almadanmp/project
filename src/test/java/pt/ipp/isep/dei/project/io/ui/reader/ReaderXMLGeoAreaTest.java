@@ -14,7 +14,6 @@ import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
-import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @ExtendWith(MockitoExtension.class)
-public class ReaderXMLGeoAreaTest {
+class ReaderXMLGeoAreaTest {
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
     @Mock
