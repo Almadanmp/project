@@ -161,7 +161,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     }
 
 
-    public boolean removeRoomById(EnergyGrid energyGrid, String roomID) {
+    boolean removeRoomById(EnergyGrid energyGrid, String roomID) {
         List<Room> finalRooms = getRoomList(energyGrid);
         for (Room r : finalRooms) {
             if (r.getId().equals(roomID)) {

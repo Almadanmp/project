@@ -312,7 +312,7 @@ class GeographicAreaHouseServiceTest {
         // Act
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
-        List<Reading> actualResult = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(validReadingList, validHouse);
+        List<Reading> actualResult = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(validReadingList);
         // Assert
 
         assertEquals(expectedResult, actualResult);
@@ -577,9 +577,9 @@ class GeographicAreaHouseServiceTest {
 
         // Act
 
-        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list, validHouse);
-        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list, validHouse);
-        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list, validHouse);
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list);
 
         // Assert
 
@@ -602,7 +602,7 @@ class GeographicAreaHouseServiceTest {
 
         // Act
 
-        List<Reading> actualResult = geographicAreaHouseService.getReadingsBelowCategoryILimit(readings, validHouse);
+        List<Reading> actualResult = geographicAreaHouseService.getReadingsBelowCategoryILimit(readings);
 
         // Assert
 
@@ -672,9 +672,9 @@ class GeographicAreaHouseServiceTest {
 
         // Act
 
-        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list, validHouse);
-        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list, validHouse);
-        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list, validHouse);
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list);
 
         // Assert
 
@@ -709,13 +709,13 @@ class GeographicAreaHouseServiceTest {
 
         // Act
 
-        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list, validHouse);
-        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list, validHouse);
-        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list, validHouse);
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list);
 
-        List<Reading> actualResult4 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list, validHouse);
-        List<Reading> actualResult5 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list, validHouse);
-        List<Reading> actualResult6 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list, validHouse);
+        List<Reading> actualResult4 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list);
+        List<Reading> actualResult5 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list);
+        List<Reading> actualResult6 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list);
 
         // Assert
 
@@ -854,13 +854,13 @@ class GeographicAreaHouseServiceTest {
 
         // Act
 
-        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list, validHouse);
-        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list, validHouse);
-        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list, validHouse);
+        List<Reading> actualResult1 = geographicAreaHouseService.getReadingsBelowCategoryILimit(list);
+        List<Reading> actualResult2 = geographicAreaHouseService.getReadingsBelowCategoryIILimit(list);
+        List<Reading> actualResult3 = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(list);
 
-        List<Reading> actualResult4 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list, validHouse);
-        List<Reading> actualResult5 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list, validHouse);
-        List<Reading> actualResult6 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list, validHouse);
+        List<Reading> actualResult4 = geographicAreaHouseService.getReadingsAboveCategoryILimit(list);
+        List<Reading> actualResult5 = geographicAreaHouseService.getReadingsAboveCategoryIILimit(list);
+        List<Reading> actualResult6 = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(list);
 
         // Assert
 

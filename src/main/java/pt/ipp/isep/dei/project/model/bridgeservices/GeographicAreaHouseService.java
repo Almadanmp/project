@@ -33,7 +33,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @param date is used to determine the day in which we want to calculate the average.
      * @return the average temperature value for the 24 hours of the given date.
      */
-    double getGeographicAreaAverageTemperature(Date date) {
+    private double getGeographicAreaAverageTemperature(Date date) {
         Date d1 = getFirstHourDay(date).getTime();
         Date d2 = getLastHourDay(date).getTime();
 
@@ -42,7 +42,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
     }
 
-    GregorianCalendar getFirstHourDay (Date date) { // gets date at 00:00:00
+    private GregorianCalendar getFirstHourDay (Date date) { // gets date at 00:00:00
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -52,7 +52,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return calendar;
     }
 
-    GregorianCalendar getLastHourDay (Date date) { // gets date at 23:59:59
+    private GregorianCalendar getLastHourDay (Date date) { // gets date at 23:59:59
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -81,7 +81,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return finalList;
     }
 
-    public List<Reading> getReadingsBelowCategoryILimit(List<Reading> readingValues, House house) {
+    public List<Reading> getReadingsBelowCategoryILimit(List<Reading> readingValues) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = getGeographicAreaAverageTemperature(r.getDate());
@@ -93,7 +93,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     }
 
 
-    public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house) {
+    public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = getGeographicAreaAverageTemperature(r.getDate());
@@ -104,7 +104,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return allReadings;
     }
 
-    public List<Reading> getReadingsBelowCategoryIIILimit(List<Reading> readingValues, House house) {
+    public List<Reading> getReadingsBelowCategoryIIILimit(List<Reading> readingValues) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = getGeographicAreaAverageTemperature(r.getDate());
@@ -151,7 +151,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return reading.getValue() < minT;
     }
 
-    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house) {
+    public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = getGeographicAreaAverageTemperature(r.getDate());
@@ -162,7 +162,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return allReadings;
     }
 
-    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house) {
+    public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = getGeographicAreaAverageTemperature(r.getDate());
@@ -173,7 +173,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         return allReadings;
     }
 
-    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house) {
+    public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
             double temperature = getGeographicAreaAverageTemperature(r.getDate());

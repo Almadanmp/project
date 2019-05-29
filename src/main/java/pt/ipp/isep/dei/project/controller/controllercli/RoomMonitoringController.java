@@ -68,25 +68,23 @@ public class RoomMonitoringController {
      * above the maximum comfort temperature for the respective day and category.
      *
      * @param roomDTO  is the room which the user selected.
-     * @param house    is used to fetch the mother area from it and to calculate the outside average
-     *                 temperature.
      * @param category is selected by the user.
      * @return a String with the requested information for the User Story 445
      */
-    public String getInstantsAboveComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate) {
+    public String getInstantsAboveComfortInterval(int category, RoomDTO roomDTO, Date startDate, Date endDate) {
         List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, roomDTO);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings above the max comfort temperature.";
         if (category == 0) {
-            allReadings = geographicAreaHouseService.getReadingsAboveCategoryILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsAboveCategoryILimit(readingValues);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 1) {
-            allReadings = geographicAreaHouseService.getReadingsAboveCategoryIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsAboveCategoryIILimit(readingValues);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         if (category == 2) {
-            allReadings = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(readingValues);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_ABOVE_LEVEL);
         }
         return result;
@@ -115,22 +113,22 @@ public class RoomMonitoringController {
 
     //US 440
 
-    public String getInstantsBelowComfortInterval(House house, int category, RoomDTO roomDTO, Date startDate, Date endDate) {
+    public String getInstantsBelowComfortInterval(int category, RoomDTO roomDTO, Date startDate, Date endDate) {
         List<Reading> readingValues = roomRepository.getTemperatureReadingsBetweenDates(startDate, endDate, roomDTO);
         List<Reading> allReadings;
         String result = "For the given category, in the given interval, there were no temperature readings below the min comfort temperature.";
         if (category == 0) {
-            allReadings = geographicAreaHouseService.getReadingsBelowCategoryILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsBelowCategoryILimit(readingValues);
 
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 1) {
-            allReadings = geographicAreaHouseService.getReadingsBelowCategoryIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsBelowCategoryIILimit(readingValues);
 
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         if (category == 2) {
-            allReadings = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(readingValues, house);
+            allReadings = geographicAreaHouseService.getReadingsBelowCategoryIIILimit(readingValues);
             if (!allReadings.isEmpty()) result = buildReadingsOutput(allReadings, COMFORT_BELOW_LEVEL);
         }
         return result;

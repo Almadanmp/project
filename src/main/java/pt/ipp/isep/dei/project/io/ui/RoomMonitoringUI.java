@@ -82,15 +82,15 @@ class RoomMonitoringUI {
         if (!roomMonitoringController.isMotherAreaValid(house)) {
             return;
         }
-        updateAndDisplayUS440(house);
+        updateAndDisplayUS440();
     }
 
-    private void updateAndDisplayUS440(House house) {
+    private void updateAndDisplayUS440() {
         RoomDTO roomDTO = us440and445RoomSetup();
         Date startDate = us440and445StartDateSetup();
         Date endDate = us440and445SEndingDateSetup();
         int category = UtilsUI.selectCategory();
-        String result = roomMonitoringController.getInstantsBelowComfortInterval(house, category, roomDTO, startDate, endDate);
+        String result = roomMonitoringController.getInstantsBelowComfortInterval(category, roomDTO, startDate, endDate);
         System.out.println(result);
     }
 
@@ -108,7 +108,7 @@ class RoomMonitoringUI {
         Date startDate = us440and445StartDateSetup();
         Date endDate = us440and445SEndingDateSetup();
         int category = UtilsUI.selectCategory();
-        String result = roomMonitoringController.getInstantsAboveComfortInterval(house, category, roomDTO, startDate, endDate);
+        String result = roomMonitoringController.getInstantsAboveComfortInterval(category, roomDTO, startDate, endDate);
         System.out.println(result);
     }
 

@@ -503,4 +503,49 @@ class EnergyGridRoomServiceTest {
         assertTrue(actualResult);
     }
 
+    @Test
+    void seeIfRemoveRoomByIdFails() {
+        // Arrange
+
+        Room room = new Room("Toilet", "bucket", 2, 2, 2, 2, "7");
+        energyGridRoomService.addRoom(validGrid, room);
+
+        rooms.add(validRoom);
+        rooms.add(room);
+        validGrid.addRoomId(validRoom.getId());
+        validGrid.addRoomId(room.getId());
+
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(rooms);
+        energyGridRoomService.removeRoomById(validGrid, room.getId());
+
+        // Act
+
+        boolean actualResult = energyGridRoomService.removeRoomById(validGrid, room.getId());
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfRemoveRoomByIdWorks() {
+        // Arrange
+
+        Room room = new Room("Toilet", "bucket", 2, 2, 2, 2, "7");
+        energyGridRoomService.addRoom(validGrid, room);
+
+        rooms.add(room);
+        validGrid.addRoomId(room.getId());
+
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(rooms);
+
+        // Act
+
+        boolean actualResult = energyGridRoomService.removeRoomById(validGrid, room.getId());
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
 }
