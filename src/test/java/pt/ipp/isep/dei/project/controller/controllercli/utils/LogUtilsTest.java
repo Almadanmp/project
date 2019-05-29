@@ -20,7 +20,7 @@ class LogUtilsTest {
     void seeIfGetLoggerWorks(){
         // Act
 
-        Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingsHtml.html", Level.FINE);
+        Logger l1 = LogUtils.getLogger("MyLogger", "src/test/resources/dumpFiles/dumpLogFile.html", Level.FINE);
         LogUtils.closeHandlers(l1);
         Level expectedResult1 = Level.FINE;
         String expectedResult2 ="MyLogger";
@@ -51,7 +51,7 @@ class LogUtilsTest {
     void seeIfCloseHandlersWorks(){
         // Arrange
 
-        Logger l1 = LogUtils.getLogger("MyLogger", "resources/logs/houseReadingsHtml.html", Level.FINE);
+        Logger l1 = LogUtils.getLogger("MyLogger", "src/test/resources/dumpFiles/dumpLogFile.html", Level.FINE);
         LogRecord recordToLog = new LogRecord(Level.FINE, "testLog");
 
 

@@ -99,7 +99,7 @@ public final class EnergyGridMapper {
 
         List<Room> objectRoomService = new ArrayList<>();
         for (RoomDTO y : dtoToConvert.getRoomDTOS()) {
-            Room tempRoom = RoomMapper.dtoToObjectWithoutSensorsAndDevices(y);
+            Room tempRoom = RoomMapper.dtoToObject(y);
             objectRoomService.add(tempRoom);
         }
 

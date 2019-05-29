@@ -8,10 +8,6 @@ import java.util.Properties;
 
 public class UnitHelper {
 
-    private UnitHelper() {
-        throw new IllegalStateException("Utility class");
-    }
-
     private static final String UNITS_PROPERTIES;
 
     static {

@@ -18,6 +18,7 @@ public class RoomDTO {
     private DeviceList deviceList;
     private String houseID;
 
+
     /**
      * Method that retrieves the DTO's sensor list.
      *
