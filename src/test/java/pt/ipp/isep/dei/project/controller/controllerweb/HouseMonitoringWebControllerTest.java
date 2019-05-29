@@ -55,7 +55,7 @@ class HouseMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(45D, HttpStatus.OK);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
 
         // Assert
 
@@ -71,7 +71,7 @@ class HouseMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
 
         // Assert
 
@@ -86,7 +86,7 @@ class HouseMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
 
         // Assert
 
@@ -97,7 +97,7 @@ class HouseMonitoringWebControllerTest {
     void seeIfGetTotalRainfallDayIllegalStateException(){
         // Arrange
 
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallDay(date1)).withRel("No readings available for this date.");
+        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallInGivenDay(date1)).withRel("No readings available for this date.");
 
         // Act
 
@@ -105,7 +105,7 @@ class HouseMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
 
         // Assert
 
@@ -120,7 +120,7 @@ class HouseMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
 
         // Assert
 
