@@ -10,9 +10,7 @@
 //import org.mockito.junit.jupiter.MockitoExtension;
 //import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 //import pt.ipp.isep.dei.project.dto.RoomDTO;
-//import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 //import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-//import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 //import pt.ipp.isep.dei.project.model.room.Room;
 //import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 //import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
@@ -22,7 +20,8 @@
 //import java.util.NoSuchElementException;
 //import java.util.Optional;
 //
-//import static org.junit.Assert.*;
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //
@@ -624,60 +623,60 @@
 //    }
 //
 //    @Test
-//    void seeIfCreatePowerSourceWorks() {
-//        // Arrange
-//
-//        PowerSource expectedResult = new PowerSource("Expected", 45, 5);
-//
-//        // Act
-//
-//        PowerSource actualResult = validGridRepo.createPowerSource("Expected", 45, 5);
-//
-//        // Assert
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfGetRoomDtoWebByIdWorks() {
-//        //Arrange
-//        RoomDTO roomDTO = new RoomDTO();
-//        roomDTO.setName("B109");
-//        roomDTO.setHouseId("ISEP");
-//        roomDTO.setHeight(3);
-//        roomDTO.setLength(3);
-//        roomDTO.setWidth(3);
-//        roomDTO.setFloor(1);
-//        roomDTO.setDescription("Classroom");
-//        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
-//        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
-//        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
-//        //Act
-//        RoomDTOWeb expectedResult = RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
-//        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B109");
-//        //Assert
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-//    @Test
-//    void seeIfGetRoomDtoWebByIdReturnsNull() {
-//        //Arrange
-//        RoomDTO roomDTO = new RoomDTO();
-//        roomDTO.setName("B109");
-//        roomDTO.setHouseId("ISEP");
-//        roomDTO.setHeight(3);
-//        roomDTO.setLength(3);
-//        roomDTO.setWidth(3);
-//        roomDTO.setFloor(1);
-//        roomDTO.setDescription("Classroom");
-//        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
-//        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
-//        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
-//        //Act
-//        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B108");
-//        //Assert
-//        assertNull(actualResult);
-//    }
-//
-//}
-//
+////    void seeIfCreatePowerSourceWorks() {
+////        // Arrange
+////
+////        PowerSource expectedResult = new PowerSource("Expected", 45, 5);
+////
+////        // Act
+////
+////        PowerSource actualResult = validGridRepo.createPowerSource("Expected", 45, 5);
+////
+////        // Assert
+////
+////        assertEquals(expectedResult, actualResult);
+////    }
+////
+////    @Test
+////    void seeIfGetRoomDtoWebByIdWorks() {
+////        //Arrange
+////        RoomDTO roomDTO = new RoomDTO();
+////        roomDTO.setName("B109");
+////        roomDTO.setHouseId("ISEP");
+////        roomDTO.setHeight(3);
+////        roomDTO.setLength(3);
+////        roomDTO.setWidth(3);
+////        roomDTO.setFloor(1);
+////        roomDTO.setDescription("Classroom");
+////        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
+////        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
+////        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+////        //Act
+////        RoomDTOWeb expectedResult = RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
+////        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B109");
+////        //Assert
+////        assertEquals(expectedResult, actualResult);
+////    }
+////
+////    @Test
+////    void seeIfGetRoomDtoWebByIdReturnsNull() {
+////        //Arrange
+////        RoomDTO roomDTO = new RoomDTO();
+////        roomDTO.setName("B109");
+////        roomDTO.setHouseId("ISEP");
+////        roomDTO.setHeight(3);
+////        roomDTO.setLength(3);
+////        roomDTO.setWidth(3);
+////        roomDTO.setFloor(1);
+////        roomDTO.setDescription("Classroom");
+////        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 200D, "ISEP");
+////        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
+////        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+////        //Act
+////        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B108");
+////        //Assert
+////        assertNull(actualResult);
+////    }
+////
+////}
+////

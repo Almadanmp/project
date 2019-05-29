@@ -11,8 +11,6 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
-import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.util.*;
 
@@ -24,12 +22,6 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
 
     @Autowired
     RoomRepository roomRepository;
-
-    @Autowired
-    EnergyGridCrudRepo energyGridCrudRepository;
-
-    @Autowired
-    RoomCrudRepo roomCrudRepo;
 
     private static final String BUILDER = "---------------\n";
 
@@ -174,7 +166,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         return false;
     }
 
-    boolean removeRoomById(EnergyGrid energyGrid, String roomID) {
+    public boolean removeRoomById(EnergyGrid energyGrid, String roomID) {
         List<Room> finalRooms = getRoomList(energyGrid);
         for (Room r : finalRooms) {
             if (r.getId().equals(roomID)) {
@@ -277,14 +269,14 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         EnergyGrid energyGrid = energyGridRepository.getById(gridName);
         Room room = getRoomById(roomId);
         if (addRoom(energyGrid, room)) {
-            energyGridCrudRepository.save(energyGrid);
+            energyGridRepository.addGrid(energyGrid);
             return true;
         }
         return false;
     }
 
     public Room getRoomById(String id) {
-        Optional<Room> value = roomCrudRepo.findById(id);
+        Optional<Room> value = roomRepository.findRoomByID(id);
         if (value.isPresent()) {
             return value.get();
         }
@@ -304,11 +296,10 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      */
 
     public boolean removeRoomFromGrid(String roomID, String gridID) {
-        Optional<EnergyGrid> value = energyGridCrudRepository.findById(gridID);
-        if (value.isPresent()) {
-            EnergyGrid grid = value.get();
+        EnergyGrid grid = energyGridRepository.getById(gridID);
+        if (grid!=null) {
             boolean result = removeRoomById(grid, roomID);
-            energyGridCrudRepository.save(grid);
+            energyGridRepository.addGrid(grid);
             return result;
         }
         throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
@@ -323,7 +314,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return a List of Rooms Dto Web from a grid.
      */
     public List<RoomDTOMinimal> getRoomsDtoWebInGrid(String gridId) {
-        EnergyGrid energyGrid = energyGridCrudRepository.findByName(gridId);
+        EnergyGrid energyGrid = energyGridRepository.getById(gridId);
         List<Room> roomList = getRoomList(energyGrid);
         return RoomMinimalMapper.objectsToDtosWeb(roomList);
     }
