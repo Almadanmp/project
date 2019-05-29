@@ -74,7 +74,7 @@ public class GeographicAreaRepository {
      * @param id of the geoAreaDTO
      * @return geoAreaDTO with the id
      */
-    public GeographicAreaDTO getDTOByIdWithMother(long id) {
+    public GeographicAreaDTO getDTOByIdWithParent(long id) {
         Optional<GeographicArea> aux = geographicAreaCrudRepo.findById(id);
         if (!aux.isPresent()) {
             throw new IllegalArgumentException("Geographic Area not found - 404");
@@ -156,18 +156,18 @@ public class GeographicAreaRepository {
     }
 
 
-    public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) {
-        Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
-        Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
-        if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()) {
+    public boolean addChildArea(long idAreaChild, long idAreaParent) {
+        Optional<GeographicArea> geographicAreaParent = geographicAreaCrudRepo.findById(idAreaParent);
+        Optional<GeographicArea> geographicAreaChild = geographicAreaCrudRepo.findById(idAreaChild);
+        if (!geographicAreaChild.isPresent() || !geographicAreaParent.isPresent()) {
             throw new NoSuchElementException();
         } else {
-            GeographicArea mother = geographicAreaMother.get();
-            GeographicArea daughter = geographicAreaDaughter.get();
-            if (!mother.getDaughterAreas().contains(daughter)) {
-                mother.addDaughterArea(daughter);
-                geographicAreaCrudRepo.save(mother);
-                geographicAreaCrudRepo.save(daughter);
+            GeographicArea parent = geographicAreaParent.get();
+            GeographicArea child = geographicAreaChild.get();
+            if (!parent.getChildAreas().contains(child)) {
+                parent.addChildArea(child);
+                geographicAreaCrudRepo.save(parent);
+                geographicAreaCrudRepo.save(child);
                 return true;
             }
         }
@@ -175,16 +175,16 @@ public class GeographicAreaRepository {
     }
 
 
-    public boolean removeDaughterArea(long idAreaDaughter, long idAreaMother) {
-        Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaMother);
-        Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaDaughter);
+    public boolean removeChildArea(long idAreaChild, long idAreaParent) {
+        Optional<GeographicArea> geographicAreaMother = geographicAreaCrudRepo.findById(idAreaParent);
+        Optional<GeographicArea> geographicAreaDaughter = geographicAreaCrudRepo.findById(idAreaChild);
         if (!geographicAreaDaughter.isPresent() || !geographicAreaMother.isPresent()) {
             throw new NoSuchElementException();
         } else {
             GeographicArea mother = geographicAreaMother.get();
             GeographicArea daughter = geographicAreaDaughter.get();
-            if (mother.getDaughterAreas().contains(daughter)) {
-                mother.removeDaughterArea(daughter);
+            if (mother.getChildAreas().contains(daughter)) {
+                mother.removeChildArea(daughter);
                 geographicAreaCrudRepo.save(mother);
                 geographicAreaCrudRepo.save(daughter);
                 return true;

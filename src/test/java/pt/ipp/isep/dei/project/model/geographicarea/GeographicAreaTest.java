@@ -59,7 +59,7 @@ class GeographicAreaTest {
     void seeIfAddDaughterAreaWorks() {
         //Act
 
-        boolean actualResult = firstValidArea.addDaughterArea(secondValidArea);
+        boolean actualResult = firstValidArea.addChildArea(secondValidArea);
 
         //Assert
 
@@ -70,11 +70,11 @@ class GeographicAreaTest {
     void seeIfAddDaughterAreaWorksIfAlreadyAdded() {
         //Arrange
 
-        firstValidArea.addDaughterArea(secondValidArea);
+        firstValidArea.addChildArea(secondValidArea);
 
         //Act
 
-        boolean actualResult = firstValidArea.addDaughterArea(secondValidArea);
+        boolean actualResult = firstValidArea.addChildArea(secondValidArea);
 
         //Assert
 
@@ -156,11 +156,11 @@ class GeographicAreaTest {
         List<GeographicArea> expectedResult = new ArrayList<>();
         expectedResult.add(secondValidArea);
 
-        firstValidArea.setDaughterAreas(geographicAreas);
+        firstValidArea.setChildAreas(geographicAreas);
 
         //Act
 
-        List<GeographicArea> actualResult = firstValidArea.getDaughterAreas();
+        List<GeographicArea> actualResult = firstValidArea.getChildAreas();
 
         //Assert
 
@@ -174,11 +174,11 @@ class GeographicAreaTest {
         List<GeographicArea> geographicAreas = new ArrayList<>();
         List<GeographicArea> expectedResult = new ArrayList<>();
 
-        firstValidArea.setDaughterAreas(geographicAreas);
+        firstValidArea.setChildAreas(geographicAreas);
 
         //Act
 
-        List<GeographicArea> actualResult = firstValidArea.getDaughterAreas();
+        List<GeographicArea> actualResult = firstValidArea.getChildAreas();
 
         //Assert
 
@@ -702,7 +702,7 @@ class GeographicAreaTest {
         //Arrange
         List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(secondValidArea);
-        firstValidArea.setDaughterAreas(geographicAreas);
+        firstValidArea.setChildAreas(geographicAreas);
 
         //Act
 
@@ -719,7 +719,7 @@ class GeographicAreaTest {
 
         List<GeographicArea> geographicAreas = new ArrayList<>();
         geographicAreas.add(secondValidArea);
-        firstValidArea.setDaughterAreas(geographicAreas);
+        firstValidArea.setChildAreas(geographicAreas);
 
         // Assert
 
