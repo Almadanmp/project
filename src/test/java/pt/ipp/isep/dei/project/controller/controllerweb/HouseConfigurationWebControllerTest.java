@@ -103,7 +103,7 @@ class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorks() {
         //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOMinimal);
+        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The room was successfully added.", HttpStatus.CREATED);
 
@@ -117,7 +117,7 @@ class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorksIfRoomAlreadyExists() {
         //Arrange
-        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOMinimal);
+        Mockito.doReturn(false).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
 
@@ -131,7 +131,7 @@ class HouseConfigurationWebControllerTest {
     @Test
     public void seeIfCreateRoomWorksWithMvc() throws Exception {
         //Arrange
-        Mockito.doReturn(true).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOMinimal);
+        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(roomDTOMinimal);
@@ -148,7 +148,7 @@ class HouseConfigurationWebControllerTest {
     public void seeIfCreateRoomWorksWhenRoomExistsWithMvc() throws Exception {
         //Arrange
 
-        Mockito.doReturn(false).when(this.houseRoomService).addRoomDTOWebToHouse(roomDTOMinimal);
+        Mockito.doReturn(false).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(roomDTOMinimal);

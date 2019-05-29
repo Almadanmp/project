@@ -81,7 +81,7 @@ public class HouseConfigurationWebController {
         if(!roomDTOMinimal.areDimensionsValid()){
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        if (houseRoomService.addRoomDTOWebToHouse(roomDTOMinimal)) {
+        if (houseRoomService.addMinimalRoomDTOToHouse(roomDTOMinimal)) {
             return new ResponseEntity<>("The room was successfully added.", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);

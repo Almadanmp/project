@@ -47,7 +47,7 @@ class HouseRoomServiceTest {
 
         //Act
 
-        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOMinimal);
+        boolean actualResult = service.addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         //Assert
         assertTrue(actualResult);
@@ -62,7 +62,7 @@ class HouseRoomServiceTest {
 
         //Act
 
-        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOMinimal);
+        boolean actualResult = service.addMinimalRoomDTOToHouse(roomDTOMinimal);
 
         //Assert
         assertFalse(actualResult);

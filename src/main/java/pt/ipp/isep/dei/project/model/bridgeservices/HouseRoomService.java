@@ -24,7 +24,7 @@ public class HouseRoomService implements pt.ipp.isep.dei.project.dddplaceholders
      * @param roomDTOMinimal dto to be added to repository
      * @return true in case the room is added to the repository, false otherwise.
      **/
-    public boolean addRoomDTOWebToHouse(RoomDTOMinimal roomDTOMinimal) {
+    public boolean addMinimalRoomDTOToHouse(RoomDTOMinimal roomDTOMinimal) {
         Room room = RoomWebMapper.dtoToObject(roomDTOMinimal);
         String houseID = houseRepository.getHouseId();
         room.setHouseID(houseID);
