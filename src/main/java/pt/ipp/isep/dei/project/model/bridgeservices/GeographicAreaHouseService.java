@@ -33,24 +33,33 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @param date is used to determine the day in which we want to calculate the average.
      * @return the average temperature value for the 24 hours of the given date.
      */
-    double getGeographicAreaAverageTemperature(Date date, House house) {
+    double getGeographicAreaAverageTemperature(Date date) {
+        Date d1 = getFirstHourDay(date).getTime();
+        Date d2 = getLastHourDay(date).getTime();
+
+        // gets and returns average readings on the closest AreaSensor to the house
+        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
+        return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
+    }
+
+    GregorianCalendar getFirstHourDay (Date date) { // gets date at 00:00:00
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date d1 = calendar.getTime(); // gets date at 00:00:00
+        return calendar;
+    }
 
+    GregorianCalendar getLastHourDay (Date date) { // gets date at 23:59:59
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
-        Date d2 = calendar.getTime(); // gets date at 23:59:59
-
-        // gets and returns average readings on the closest AreaSensor to the house
-        AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
-        return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
+        return calendar;
     }
 
     Double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
@@ -75,7 +84,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     public List<Reading> getReadingsBelowCategoryILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            double temperature = getGeographicAreaAverageTemperature(r.getDate());
             if (!Double.isNaN(temperature) && categoryICalculusTemperaturesLowerThanAverage(r, temperature)) {
                 allReadings.add(r);
             }
@@ -87,7 +96,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     public List<Reading> getReadingsBelowCategoryIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            double temperature = getGeographicAreaAverageTemperature(r.getDate());
             if (!Double.isNaN(temperature) && categoryIICalculusTemperaturesLowerThanAverage(r, temperature)) {
                 allReadings.add(r);
             }
@@ -98,7 +107,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     public List<Reading> getReadingsBelowCategoryIIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            double temperature = getGeographicAreaAverageTemperature(r.getDate());
             if (!Double.isNaN(temperature) && categoryIIICalculusTemperaturesLowerThanAverage(r, temperature)) {
                 allReadings.add(r);
             }
@@ -145,7 +154,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     public List<Reading> getReadingsAboveCategoryILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            double temperature = getGeographicAreaAverageTemperature(r.getDate());
             if (!Double.isNaN(temperature) && categoryICalculusAboveAverage(r, temperature)) {
                 allReadings.add(r);
             }
@@ -156,7 +165,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     public List<Reading> getReadingsAboveCategoryIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            double temperature = getGeographicAreaAverageTemperature(r.getDate());
             if (!Double.isNaN(temperature) && categoryIICalculusAboveAverage(r, temperature)) {
                 allReadings.add(r);
             }
@@ -167,7 +176,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     public List<Reading> getReadingsAboveCategoryIIILimit(List<Reading> readingValues, House house) {
         List<Reading> allReadings = new ArrayList<>();
         for (Reading r : readingValues) {
-            double temperature = getGeographicAreaAverageTemperature(r.getDate(), house);
+            double temperature = getGeographicAreaAverageTemperature(r.getDate());
             if (!Double.isNaN(temperature) && categoryIIICalculusAboveAverage(r, temperature)) {
                 allReadings.add(r);
             }
