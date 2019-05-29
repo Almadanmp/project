@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RoomWebMapperTest {
+class RoomMinimalMapperTest {
 
     @Test
     void seeIfDTOToObjectWorks() {
@@ -24,7 +24,7 @@ class RoomWebMapperTest {
 
         //Act
 
-        Room actualResult = RoomWebMapper.dtoToObject(roomDTOMinimal);
+        Room actualResult = RoomMinimalMapper.dtoToObject(roomDTOMinimal);
 
         //Assert
         assertEquals(expectedResult, actualResult);

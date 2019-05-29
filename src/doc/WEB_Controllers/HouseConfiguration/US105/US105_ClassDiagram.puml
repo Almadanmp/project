@@ -31,7 +31,7 @@ class HouseCrudRepository
 class RoomCrudRepository
 
 HouseSettingsWebController -- HouseRoomService: >
-HouseSettingsWebController -- RoomDTOWeb: >
+HouseSettingsWebController -- RoomDTOMinimal: >
 HouseRoomService -- RoomMapper : >
 HouseRoomService -- HouseRepository : >
 HouseRoomService -- RoomRepository : >
@@ -48,13 +48,13 @@ class HouseSettingsWebController {
 createRoom(@RequestBody RoomWebDTO)
 }
 
-class RoomDTOWeb {
+class RoomDTOMinimal {
 isNameValid()
 areDimensionsValid()
 }
 
 class HouseRoomService {
-addRoomDTOWebToHouse(RoomDTOWeb)
+addRoomDTOMinimalToHouse(RoomDTOMinimal)
 }
 
 class Room{

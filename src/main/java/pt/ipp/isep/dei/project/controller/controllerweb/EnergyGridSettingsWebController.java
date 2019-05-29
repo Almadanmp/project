@@ -32,12 +32,12 @@ public class EnergyGridSettingsWebController {
     @GetMapping(value = "/grids/{energyGridId}")
     public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
         try {
-            List<RoomDTOMinimal> roomsDTOWeb = energyGridRepository.getRoomsDtoWebInGrid(gridId);
-            for (RoomDTOMinimal roomDTOMinimal : roomsDTOWeb) {
+            List<RoomDTOMinimal> minimalRoomDTOs = energyGridRepository.getRoomsDtoWebInGrid(gridId);
+            for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
                 Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
                 roomDTOMinimal.add(link);
             }
-            return new ResponseEntity<>(roomsDTOWeb, HttpStatus.OK);
+            return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
         } catch (NullPointerException ok) {
             return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
         }
@@ -51,7 +51,7 @@ public class EnergyGridSettingsWebController {
         if (roomRepository.findRoomByID(roomID).isPresent()) {
             try {
                 if (energyGridRepository.attachRoomToGrid(roomID, gridId)) {
-                    RoomDTOMinimal roomDTOMinimal = energyGridRepository.getRoomDtoWebById(gridId, roomID);
+                    RoomDTOMinimal roomDTOMinimal = energyGridRepository.getMinimalRoomDTOById(gridId, roomID);
                     return new ResponseEntity<>(roomDTOMinimal,
                             HttpStatus.OK);
                 }

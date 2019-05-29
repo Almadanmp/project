@@ -6,13 +6,13 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomWebMapper {
+public class RoomMinimalMapper {
 
     /**
      * Don't let anyone instantiate this class.
      */
 
-    private RoomWebMapper() {
+    private RoomMinimalMapper() {
     }
 
     /**
@@ -56,7 +56,7 @@ public class RoomWebMapper {
     }
 
     /**
-     * This is the method that converts model objects into RoomDtoWeb.
+     * This is the method that converts model objects into roomDTOMinimal.
      *
      * @param room is the room we want to convert.
      * @return is the converted object.
@@ -83,14 +83,14 @@ public class RoomWebMapper {
     }
 
     /**
-     * This method returns a list of Rooms Dto Web from a RoomList.
+     * This method returns a list of Rooms Dto Minimal from a RoomList.
      * @param rooms is the list of rooms we want to convert.
-     * @return a list of Rooms Dto Web.
+     * @return a list of Rooms Dto Minimal.
      */
     public static List<RoomDTOMinimal> objectsToDtosWeb(List<Room> rooms){
         List<RoomDTOMinimal> roomDTOMinimalList = new ArrayList<>();
         for (Room room : rooms) {
-            roomDTOMinimalList.add(RoomWebMapper.objectToDtoWeb(room));
+            roomDTOMinimalList.add(RoomMinimalMapper.objectToDtoWeb(room));
         }
         return roomDTOMinimalList;
     }

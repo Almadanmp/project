@@ -39,7 +39,7 @@ class HouseRoomServiceTest {
     }
 
     @Test
-    void seeIfAddRoomDTOWebToHouseWorks() {
+    void seeIfAddRoomDTOMinimalToHouseWorks() {
         //Arrange
 
         Mockito.doReturn("01").when(this.houseRepository).getHouseId();
@@ -54,7 +54,7 @@ class HouseRoomServiceTest {
     }
 
     @Test
-    void seeIfAddRoomDTOWebToHouseWorksWhenRoomExists() {
+    void seeIfAddRoomDTOMinimalToHouseWorksWhenRoomExists() {
         //Arrange
 
         Mockito.doReturn("01").when(this.houseRepository).getHouseId();

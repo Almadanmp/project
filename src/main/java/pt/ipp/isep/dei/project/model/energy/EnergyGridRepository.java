@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
@@ -94,13 +94,13 @@ public class EnergyGridRepository {
 
     /**
      * US 147
-     * Method that returns a RoomDtoWeb from a given id, with a given Grid Id also.
+     * Method that returns a minimal RoomDTO from a given id, with a given Grid Id also.
      *
      * @param gridId is the grid where the room is at.
      * @param roomId is the room id.
-     * @return a RoomDtoWeb from a given id, with a given Grid Id also.
+     * @return a minimal RoomDTO from a given id, with a given Grid Id also.
      */
-    public RoomDTOMinimal getRoomDtoWebById(String gridId, String roomId) {
+    public RoomDTOMinimal getMinimalRoomDTOById(String gridId, String roomId) {
         List<RoomDTOMinimal> list = getRoomsDtoWebInGrid(gridId);
         for (RoomDTOMinimal r : list) {
             if (r.getName().equals(roomId)) {
@@ -120,7 +120,7 @@ public class EnergyGridRepository {
      */
     public List<RoomDTOMinimal> getRoomsDtoWebInGrid(String gridId) {
         List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
-        return RoomWebMapper.objectsToDtosWeb(roomList);
+        return RoomMinimalMapper.objectsToDtosWeb(roomList);
     }
 
     /**

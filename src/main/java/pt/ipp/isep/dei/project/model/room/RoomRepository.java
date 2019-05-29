@@ -8,7 +8,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -55,7 +55,7 @@ public class RoomRepository {
         List<Room> roomList = roomCrudRepo.findAll();
         if (roomList != null) {
             for (Room room : roomList) {
-                RoomDTOMinimal roomDTOMinimal = RoomWebMapper.objectToDtoWeb(room);
+                RoomDTOMinimal roomDTOMinimal = RoomMinimalMapper.objectToDtoWeb(room);
                 finalList.add(roomDTOMinimal);
             }
         }

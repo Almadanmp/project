@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -25,7 +25,7 @@ public class HouseRoomService implements pt.ipp.isep.dei.project.dddplaceholders
      * @return true in case the room is added to the repository, false otherwise.
      **/
     public boolean addMinimalRoomDTOToHouse(RoomDTOMinimal roomDTOMinimal) {
-        Room room = RoomWebMapper.dtoToObject(roomDTOMinimal);
+        Room room = RoomMinimalMapper.dtoToObject(roomDTOMinimal);
         String houseID = houseRepository.getHouseId();
         room.setHouseID(houseID);
         return roomRepository.addRoomToCrudRepository(room);

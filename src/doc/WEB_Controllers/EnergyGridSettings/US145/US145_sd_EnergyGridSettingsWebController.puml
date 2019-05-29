@@ -42,9 +42,9 @@ activate ":EnergyGrid"
 deactivate ":EnergyGrid"
 ":EnergyGridRepository" -> ":RoomWebMapper": objectsToDtosWeb(roomList)
 activate ":RoomWebMapper"
-":RoomWebMapper" --> ":EnergyGridRepository" : return roomDtoWebList
+":RoomWebMapper" --> ":EnergyGridRepository" : return roomDtoMinimalList
 deactivate ":RoomWebMapper"
-":EnergyGridRepository" -> ":EnergyGridSettingsWebController" : return roomDtoWebList
+":EnergyGridRepository" -> ":EnergyGridSettingsWebController" : return roomDtoMinimalList
 deactivate ":EnergyGridRepository"
 create ":ResponseEntity"
 ":EnergyGridSettingsWebController" -> ":ResponseEntity": create(String body, HttpStatus.OK);

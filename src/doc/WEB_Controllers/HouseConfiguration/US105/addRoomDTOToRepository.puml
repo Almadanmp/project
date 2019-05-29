@@ -26,7 +26,7 @@ title US 105 - As an Administrator I want to add a new room to the house\n Add R
 
 "HouseConfigurationWebController" -> "RoomHouseService":  addRoomToCrudRepository(Room roomToAdd)
 activate "RoomHouseService"
-"RoomHouseService" -> "RoomWebMapper": Room room = dtoToObject(RoomDTOWeb)
+"RoomHouseService" -> "RoomWebMapper": Room room = dtoToObject(RoomDTOMinimal)
 "RoomHouseService" -> "HouseRepository": String houseID = getHouseID()
 "RoomHouseService" -> ":Room": room.setHouseID(houseID)
 
