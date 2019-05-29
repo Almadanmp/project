@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.io.ui.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

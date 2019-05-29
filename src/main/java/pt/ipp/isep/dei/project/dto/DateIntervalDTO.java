@@ -7,8 +7,8 @@ public class DateIntervalDTO {
     private Date endDate;
 
     public DateIntervalDTO(Date initialDate, Date endDate) {
-        this.initialDate = initialDate;
-        this.endDate = endDate;
+        setInitialDate(initialDate);
+        setEndDate(endDate);
     }
 
 
@@ -18,15 +18,33 @@ public class DateIntervalDTO {
     public Date getInitialDate() {
         if (this.initialDate == null) {
             return null;
+        } else {
+            return new Date(this.initialDate.getTime());
         }
-        return new Date(this.initialDate.getTime());
+    }
+
+    public void setInitialDate(Date initialDate) {
+        if (initialDate == null) {
+            this.initialDate = null;
+        } else {
+            this.initialDate = new Date(initialDate.getTime());
+        }
     }
 
     public Date getEndDate() {
         if (this.endDate == null) {
             return null;
+        } else {
+            return new Date(this.endDate.getTime());
         }
-        return new Date(this.endDate.getTime());
+    }
+
+    public void setEndDate(Date endDate) {
+        if (endDate == null) {
+            this.endDate = null;
+        } else {
+            this.endDate = new Date(endDate.getTime());
+        }
     }
 
     /**
