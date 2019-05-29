@@ -102,7 +102,7 @@ class EnergyGridSettingsWebControllerTest {
         roomDTOMinimal.setName("B107");
         roomDTOMinimal.setHeight(3);
         roomDTOMinimals.add(roomDTOMinimal);
-        Mockito.doReturn(roomDTOMinimal).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
+        Mockito.doReturn(roomDTOMinimals).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
         //Act
         ResponseEntity<Object> actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building");
         //Assert
