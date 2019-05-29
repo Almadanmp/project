@@ -19,7 +19,7 @@ public class HouseRoomService implements pt.ipp.isep.dei.project.dddplaceholders
 
     /**
      * This method receives a Room DTO and tries to add the equivalent
-     * room to the room DTO repository.
+     * room to the room repository.
      *
      * @param roomDTOWeb dto to be added to repository
      * @return true in case the room is added to the repository, false otherwise.
