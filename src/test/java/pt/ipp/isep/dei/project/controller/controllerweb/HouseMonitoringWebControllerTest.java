@@ -97,7 +97,7 @@ class HouseMonitoringWebControllerTest {
     void seeIfGetTotalRainfallDayIllegalStateException(){
         // Arrange
 
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallDay(date1)).withRel("Retry with a different date.");
+        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallDay(date1)).withRel("No readings available for this date.");
 
         // Act
 
