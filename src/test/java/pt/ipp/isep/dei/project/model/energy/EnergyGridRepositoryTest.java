@@ -10,9 +10,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
@@ -503,9 +503,9 @@ class EnergyGridRepositoryTest {
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
         //Act
-        List<RoomDTOWeb> expectedResult = new ArrayList<>();
-        expectedResult.add(RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO)));
-        List<RoomDTOWeb> actualResult = validGridRepo.getRoomsDtoWebInGrid("Main Grid");
+        List<RoomDTOMinimal> expectedResult = new ArrayList<>();
+        expectedResult.add(RoomMinimalMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO)));
+        List<RoomDTOMinimal> actualResult = validGridRepo.getRoomsDtoWebInGrid("Main Grid");
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -639,7 +639,7 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
-    void seeIfGetRoomDtoWebByIdWorks() {
+    void seeIfGetRoomDtoMinimalByIdWorks() {
         //Arrange
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setName("B109");
@@ -653,14 +653,14 @@ class EnergyGridRepositoryTest {
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
         //Act
-        RoomDTOWeb expectedResult = RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
-        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B109");
+        RoomDTOMinimal expectedResult = RoomMinimalMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
+        RoomDTOMinimal actualResult = validGridRepo.getMinimalRoomDTOById("Main Grid", "B109");
         //Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void seeIfGetRoomDtoWebByIdReturnsNull() {
+    void seeIfGetRoomDtoMinimalByIdReturnsNull() {
         //Arrange
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setName("B109");
@@ -674,7 +674,7 @@ class EnergyGridRepositoryTest {
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
         //Act
-        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B108");
+        RoomDTOMinimal actualResult = validGridRepo.getMinimalRoomDTOById("Main Grid", "B108");
         //Assert
         assertNull(actualResult);
     }
