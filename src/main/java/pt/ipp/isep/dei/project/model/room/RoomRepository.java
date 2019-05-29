@@ -440,5 +440,16 @@ public class RoomRepository {
         }
         return finalList;
     }
+
+    public double getRoomMaxTempById(String roomId, Date date){
+        Room validRoom;
+        Optional<Room> room = roomCrudRepo.findByRoomName(roomId);
+        if(room.isPresent()){
+            validRoom  = room.get();
+            return validRoom.getMaxTemperatureOnGivenDay(date);
+        } else{
+            throw new IllegalArgumentException("There is no room with the given Id");
+        }
+    }
 }
 
