@@ -8,12 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
-import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
@@ -22,9 +16,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class EnergyGridRepositoryTest {
@@ -168,11 +161,9 @@ class EnergyGridRepositoryTest {
     void seeIfGetRoomByIdRepositoryNull() {
         String mockId = "1234";
 
-        Mockito.when(roomCrudRepo.findById(mockId)).thenReturn(Optional.empty());
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getById(mockId));
 
-        Throwable exception = assertThrows(NoSuchElementException.class, () -> validGridRepo.getRoomById(mockId));
-
-        assertEquals("ERROR: There is no Room with the selected ID.", exception.getMessage());
+        assertEquals("ERROR: There is no Energy Grid with the selected ID.", exception.getMessage());
     }
 
     @Test
@@ -204,6 +195,7 @@ class EnergyGridRepositoryTest {
 
         assertEquals(expectedResult, result);
     }
+}
 
 //    @Test
 //    void seeIfCreateEnergyGrid() {

@@ -201,10 +201,10 @@
 //        house.setMotherAreaID(validGeographicArea.getId());
 //        Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1");
 //        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333D, "34576");
-//        List<Room> rl = new ArrayList<>();
+//        List<String> rl = new ArrayList<>();
 //        Device fridge = new Fridge(new FridgeSpec());
 //        room1EdC.addDevice(fridge);
-//        rl.add(room1EdC);
+//        rl.add(room1EdC.getId());
 //        eg.setRooms(rl);
 //        //Act
 //        String expectedResult = "---------------\n" +
