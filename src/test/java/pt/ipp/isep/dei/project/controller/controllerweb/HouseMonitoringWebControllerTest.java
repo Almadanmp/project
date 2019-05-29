@@ -94,14 +94,14 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
-    void seeIfGetTotalRainfallDayIllegalStateException(){
+    void seeIfGetTotalRainfallDayIllegalArgumentException(){
         // Arrange
 
         Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallInGivenDay(date1)).withRel("No readings available for this date.");
 
         // Act
 
-        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(IllegalStateException.class);
+        Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(IllegalArgumentException.class);
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
 

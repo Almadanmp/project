@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.sensortype.SensorType;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -60,7 +59,7 @@ public class HouseMonitoringWebController {
         try {
             result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date);
             return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).
                     getTotalRainfallInGivenDay(date)).withRel("No readings available for this date.");
             return new ResponseEntity<>(link, HttpStatus.OK);
