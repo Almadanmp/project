@@ -8,16 +8,25 @@
 //import org.mockito.Mock;
 //import org.mockito.Mockito;
 //import org.mockito.junit.jupiter.MockitoExtension;
+//import org.w3c.dom.Document;
+//import org.w3c.dom.NodeList;
+//import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+//import pt.ipp.isep.dei.project.dto.HouseDTO;
 //import pt.ipp.isep.dei.project.dto.ReadingDTO;
+//import pt.ipp.isep.dei.project.dto.RoomDTO;
+//import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+//import pt.ipp.isep.dei.project.io.ui.reader.ReaderXML;
 //import pt.ipp.isep.dei.project.model.Local;
+//import pt.ipp.isep.dei.project.model.areatype.AreaType;
+//import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 //import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
+//import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 //import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
-//import pt.ipp.isep.dei.project.model.house.Address;
 //import pt.ipp.isep.dei.project.model.house.House;
+//import pt.ipp.isep.dei.project.model.house.HouseRepository;
 //import pt.ipp.isep.dei.project.model.room.Room;
 //import pt.ipp.isep.dei.project.model.room.RoomRepository;
 //import pt.ipp.isep.dei.project.model.room.RoomSensor;
-//import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 //
 //import java.io.ByteArrayOutputStream;
 //import java.io.InputStream;
@@ -44,6 +53,7 @@
 //    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
 //    private final InputStream systemIn = System.in;
 //    private final PrintStream systemOut = System.out;
+//
 //    // Common artifacts for testing in this class.
 //    @Mock
 //    private EnergyGridRepository energyGridRepository;
@@ -51,10 +61,13 @@
 //    private Date validDate3 = new Date();
 //    private Date validDate4 = new Date();
 //    private RoomSensor validRoomSensor1;
+//
 //    @Mock
-//    private HouseCrudRepo houseCrudRepo;
+//    private HouseRepository houseRepository;
 //    @Mock
 //    private RoomRepository roomRepository;
+//    @Mock
+//    private AreaTypeRepository areaTypeRepository;
 //    @Mock
 //    private GeographicAreaRepository geographicAreaRepository;
 //    @InjectMocks
@@ -87,6 +100,80 @@
 //    }
 //
 //    @Test
+//    void seeIfAddGeoAreaNodeListToListWorks() {
+//        // Arrange
+//
+//        AreaType areaType = new AreaType("urban area");
+//        GeographicArea geographicArea = new GeographicArea("ISEP", "urban area", 0.249, 0.261,
+//                new Local(41.178553, -8.608035, 111.0));
+//        geographicArea.setDescription("Campus do ISEP");
+//        Local local = new Local(41.178553, -8.608035, 111.0);
+//
+//        ReaderXML reader = new ReaderXML();
+//        Document doc = reader.readFile("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
+//        doc.getDocumentElement().normalize();
+//        NodeList nodeListToTest = doc.getElementsByTagName("geographical_area");
+//
+//        Mockito.when(areaTypeRepository.getAreaTypeByName("urban area")).thenReturn(areaType);
+//        Mockito.when(geographicAreaRepository.createGA("ISEP", "urban area", 0.261, 0.249, local)).thenReturn(geographicArea);
+//        Mockito.when(geographicAreaRepository.addAndPersistGA(geographicArea)).thenReturn(true);
+//
+//        // Act
+//
+//        int actualResult = readerController.addGeoAreaNodeListToList(nodeListToTest, geographicAreaRepository, areaTypeRepository);
+//
+//        // Assert
+//
+//        assertEquals(1, actualResult);
+//    }
+//
+//    @Test
+//    void seeIfAddGeoAreaNodeListToListWorksWhenFileIsWrong() {
+//        // Arrange
+//
+//        ReaderXML reader = new ReaderXML();
+//        Document doc = reader.readFile("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
+//        doc.getDocumentElement().normalize();
+//        NodeList nodeListToTest = doc.getElementsByTagName("geographical_area");
+//
+//        // Act
+//
+//        int actualResult = readerController.addGeoAreaNodeListToList(nodeListToTest, geographicAreaRepository, areaTypeRepository);
+//
+//        // Assert
+//
+//        assertEquals(0, actualResult);
+//    }
+//
+//    @Test
+//    void seeIfAddGeoAreaNodeListToListWorksWhenHasWrongParameters() {
+//        // Arrange
+//
+//        AreaType areaType = new AreaType("urban area");
+//        GeographicArea geographicArea = new GeographicArea("ISEP", "urban area", 0.249, 0.261,
+//                new Local(41.178553, -8.608035, 111.0));
+//        geographicArea.setDescription("Campus do ISEP");
+//        Local local = new Local(41.178553, -8.608035, 111.0);
+//
+//        ReaderXML reader = new ReaderXML();
+//        Document doc = reader.readFile("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
+//        doc.getDocumentElement().normalize();
+//        NodeList nodeListToTest = doc.getElementsByTagName("geographical_area");
+//
+//        Mockito.when(areaTypeRepository.getAreaTypeByName("urban area")).thenReturn(areaType);
+//        Mockito.when(geographicAreaRepository.createGA("ISEP", "urban area", 0.261, 0.249, local)).thenReturn(geographicArea);
+//        Mockito.when(geographicAreaRepository.addAndPersistGA(geographicArea)).thenReturn(false);
+//
+//        // Act
+//
+//        int actualResult = readerController.addGeoAreaNodeListToList(nodeListToTest, geographicAreaRepository, areaTypeRepository);
+//
+//        // Assert
+//
+//        assertEquals(0, actualResult);
+//    }
+//
+//    @Test
 //    void seeIfAddReadingsToRoomSensorsWorks() {
 //        // Arrange
 //
@@ -115,6 +202,123 @@
 //
 //        assertEquals(2, actualResult);
 //    }
+//
+//    @Test
+//    void seeIfAddRoomsToRepositoryWorks() {
+//        // Arrange
+//
+//        Room room = new Room("room1", "Single Bedroom", 19, 23456789, 5, 3, "HouseID");
+//        RoomDTO roomDTO1 = RoomMapper.objectToDTO(room);
+//
+//        List<RoomDTO> roomDTOS = new ArrayList<>();
+//        roomDTOS.add(roomDTO1);
+//
+//        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+//
+//        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+//        energyGridDTO1.setHouseID("HouseID");
+//        energyGridDTO1.setName("ValidGrid1");
+//        energyGridDTO1.setMaxContractedPower(20D);
+//        energyGridDTO1.setRoomDTOS(roomDTOS);
+//        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+//
+//        energyGridDTOS.add(energyGridDTO1);
+//
+//        Mockito.when(roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO1)).thenReturn(true);
+//
+//        // Act
+//
+//        readerController.addRoomsToRepository(energyGridDTOS, "NewHouseID");
+//
+//        // Assert
+//
+//        assertEquals("NewHouseID", roomDTO1.getHouseId());
+//    }
+//
+//    @Test
+//    void seeIfAddRoomsToRepositoryWorksWhenNotAdded() {
+//        // Arrange
+//
+//        Room room = new Room("room1", "Single Bedroom", 19, 23456789, 5, 3, "HouseID");
+//        RoomDTO roomDTO1 = RoomMapper.objectToDTO(room);
+//
+//        List<RoomDTO> roomDTOS = new ArrayList<>();
+//        roomDTOS.add(roomDTO1);
+//
+//        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+//
+//        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+//        energyGridDTO1.setHouseID("HouseID");
+//        energyGridDTO1.setName("ValidGrid1");
+//        energyGridDTO1.setMaxContractedPower(20D);
+//        energyGridDTO1.setRoomDTOS(roomDTOS);
+//        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+//
+//        energyGridDTOS.add(energyGridDTO1);
+//
+//        Mockito.when(roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO1)).thenReturn(false);
+//
+//        // Act
+//
+//        readerController.addRoomsToRepository(energyGridDTOS, "NewHouseID");
+//
+//        // Assert
+//
+//        assertEquals("NewHouseID", roomDTO1.getHouseId());
+//    }
+//
+//    @Test
+//    void seeIfAddGridsToRepositoryWorks() {
+//        // Arrange
+//
+//        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+//
+//        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+//        energyGridDTO1.setHouseID("HouseID");
+//        energyGridDTO1.setName("ValidGrid1");
+//        energyGridDTO1.setMaxContractedPower(20D);
+//        energyGridDTO1.setRoomDTOS(new ArrayList<>());
+//        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+//
+//        energyGridDTOS.add(energyGridDTO1);
+//
+//        Mockito.when(energyGridRepository.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO1)).thenReturn(true);
+//
+//        // Act
+//
+//        readerController.addGridsToRepository(energyGridDTOS, "NewHouseID");
+//
+//        // Assert
+//
+//        assertEquals("NewHouseID", energyGridDTO1.getHouseID());
+//    }
+//
+//    @Test
+//    void seeIfAddGridsToRepositoryWorksWhenIsNotAdded() {
+//        // Arrange
+//
+//        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+//
+//        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+//        energyGridDTO1.setHouseID("HouseID");
+//        energyGridDTO1.setName("ValidGrid1");
+//        energyGridDTO1.setMaxContractedPower(20D);
+//        energyGridDTO1.setRoomDTOS(new ArrayList<>());
+//        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+//
+//        energyGridDTOS.add(energyGridDTO1);
+//
+//        Mockito.when(energyGridRepository.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO1)).thenReturn(false);
+//
+//        // Act
+//
+//        readerController.addGridsToRepository(energyGridDTOS, "NewHouseID");
+//
+//        // Assert
+//
+//        assertEquals("NewHouseID", energyGridDTO1.getHouseID());
+//    }
+//
 //
 //    @Test
 //    void seeIfAddReadingsToGeographicAreaSensorsWorks() {
@@ -210,12 +414,16 @@
 //        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
 //        String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
 //
+//        HouseDTO houseDTO = new HouseDTO();
+//
+//        houseRepository.updateHouse(houseDTO);
+//
+//        //Act
+//
+//        boolean actualResult = readerController.readJSONAndDefineHouse(house, filePath);
 //        //Assert
 //
-//        //  Mockito.when(readerJSONHouse.readGridsJSON()).thenReturn(ArgumentMatchers.any());
-//
-//        Mockito.when(houseCrudRepo.save(house)).thenReturn(house);
-//        assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
+//        assertTrue(actualResult);
 //    }
 //
 //    @Test
@@ -224,7 +432,7 @@
 //        House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
 //        String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
 //        assertThrows(IllegalArgumentException.class,
-//                () -> readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
+//                () -> readerController.readJSONAndDefineHouse(house, filePath));
 //
 //    }
 //}

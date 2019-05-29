@@ -25,10 +25,10 @@ import java.util.Scanner;
 
 @Service
 class GASettingsUI {
-    @Autowired
-    private GASettingsController gaController;
-    @Autowired
-    private ReaderController readerController;
+    private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
+    private static final String IMPORT_TIME = "Import time: ";
+    private static final String MILLISECONDS = " millisecond(s).";
+    private final List<String> menuOptions = createMenu();
     @Autowired
     GeographicAreaRepository geographicAreaRepository;
     @Autowired
@@ -37,12 +37,10 @@ class GASettingsUI {
     AreaTypeRepository areaTypeRepository;
     @Autowired
     InputHelperUI inputHelperUI;
-
-    private static final String READINGS_IMPORTED = " reading(s) successfully imported.";
-    private static final String IMPORT_TIME = "Import time: ";
-    private static final String MILLISECONDS = " millisecond(s).";
-
-    private final List<String> menuOptions = createMenu();
+    @Autowired
+    private GASettingsController gaController;
+    @Autowired
+    private ReaderController readerController;
 
     private List<String> createMenu() {
         List<String> menu = new ArrayList<>();

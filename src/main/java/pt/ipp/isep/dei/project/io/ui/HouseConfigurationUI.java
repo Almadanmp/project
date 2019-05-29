@@ -128,7 +128,7 @@ class HouseConfigurationUI {
         String filePath = InputHelperUI.getInputPath(input);
         long startTime = System.currentTimeMillis();
         try {
-            if (readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository, energyGridRoomService)) {
+            if (readerController.readJSONAndDefineHouse(house, filePath)) {
                 System.out.println("House Data Successfully imported.");
                 long stopTime = System.currentTimeMillis();
                 System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);

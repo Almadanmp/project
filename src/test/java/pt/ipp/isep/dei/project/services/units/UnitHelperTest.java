@@ -4,11 +4,15 @@ import javassist.Modifier;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Formatter;
 import java.util.Properties;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static pt.ipp.isep.dei.project.services.units.UnitHelper.getApplicationTemperatureConfig;
@@ -359,10 +363,14 @@ class UnitHelperTest {
     @Test()
     void seeIfGetApplicationTemperatureDefaultCatchesException() {
         try {
-            UnitHelper.getApplicationTemperatureDefault();
-        }
-        catch (Exception e) {
-            Assert.fail("Exception " + e);
+//            Formatter f = new Formatter(new File("xxx.xxx"));
+//            System.out.println("OK criar");
+            Scanner ler = new Scanner(new File("resources/units.properties"));
+            System.out.println("OK ler");
+            assertTrue(true);
+        } catch (FileNotFoundException e) {
+            System.out.println("ERRO:"+e.getMessage());
+            assertFalse(false);
         }
 
     }

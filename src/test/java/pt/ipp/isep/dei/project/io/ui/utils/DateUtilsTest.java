@@ -86,39 +86,4 @@ class DateUtilsTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void idDateDTOValidSuccess() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate2);
-        assertTrue(DateUtils.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidNoEndDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, null);
-        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidNoDates() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, null);
-        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidNoInitialDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, validDate1);
-        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidInvalidInvertedDates() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
-        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
-    }
-
-    @Test
-    void idDateDTOValidValidSameDate() {
-        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate1);
-        assertFalse(DateUtils.isDateDTOValid(dateIntervalDTO));
-    }
 }

@@ -1,5 +1,5 @@
 @startuml
-title US633 Class Diagram - Web Controller Version
+title US631 Class Diagram - Web Controller Version
 
 skinparam titleBorderRoundCorner 10
 skinparam titleBorderThickness 2
@@ -44,7 +44,7 @@ SensorUtils -left- ReadingUtils : >
 
 class HouseMonitoringControllerWeb {
 GeographicAreaHouseService;
-getHighestTemperatureAmplitude(DateIntervalDTO)
+getHottestDay(DateIntervalDTO)
 }
 
 class GeographicAreaHouseService{
@@ -85,9 +85,9 @@ List<Reading>;
 getSensorType()
 getReadings()
 getLocalization()
-getDateHighestAmplitudeBetweenDates(Date, Date)
+getLastColdestDayInGivenInterval(Date, Date)
 getDaysWithReadingsWithReadingsBetweenDates(Date, Date)
-getAmplitudeValueFromDate(Date)
+getReadingValueOnGivenDay(Date)
 getReadingListBetweenDates(Date,Date)
 }
 

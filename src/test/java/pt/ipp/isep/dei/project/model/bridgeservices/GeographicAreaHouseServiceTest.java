@@ -300,9 +300,14 @@ class GeographicAreaHouseServiceTest {
     void seeIfGetReadingsAboveCategoryIIILimitFailsEmptyList() {
 
         // Arrange
+        House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        house.setMotherAreaID(firstValidArea.getId());
+        List<House> houses = new ArrayList<>();
+        houses.add(house);
         List<Reading> expectedResult = new ArrayList<>();
 
         // Act
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
         List<Reading> actualResult = geographicAreaHouseService.getReadingsAboveCategoryIIILimit(validReadingList, validHouse);
         // Assert
@@ -340,11 +345,16 @@ class GeographicAreaHouseServiceTest {
         List<String> deviceTypeString = new ArrayList<>();
         deviceTypeString.add("pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType");
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        house.setMotherAreaID(firstValidArea.getId());
+        List<House> houses = new ArrayList<>();
+        houses.add(house);
         AreaSensor validAreaSensor = new AreaSensor("SensOne", "SensOne", validSensorTypeTemp.getName(), new Local(2, 2, 2), new Date());
         validAreaSensor.setActive(true);
         firstValidArea.addSensor(validAreaSensor);
         //Act
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature");
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -356,6 +366,9 @@ class GeographicAreaHouseServiceTest {
 
         //Arrange
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        house.setMotherAreaID(firstValidArea.getId());
+        List<House> houses = new ArrayList<>();
+        houses.add(house);
         AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 50), new Date());
         AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 54), new Date());
         AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 55), new Date());
@@ -365,8 +378,9 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest1);
         firstValidArea.addSensor(validAreaSensorTest2);
         firstValidArea.addSensor(validAreaSensorTest3);
-
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature");
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -377,6 +391,9 @@ class GeographicAreaHouseServiceTest {
 
         //Arrange
         House house = new House("12", new Local(2, 2, 2), 2, 2, deviceTypeString);
+        house.setMotherAreaID(firstValidArea.getId());
+        List<House> houses = new ArrayList<>();
+        houses.add(house);
         AreaSensor validAreaSensorTest1 = new AreaSensor("SensOne", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 50), new Date());
         AreaSensor validAreaSensorTest2 = new AreaSensor("SensTwo", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 54), new Date());
         AreaSensor validAreaSensorTest3 = new AreaSensor("SensThree", "SensOne", validSensorTypeTemp.getName(), new Local(50, 50, 55), new Date());
@@ -391,8 +408,9 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(validAreaSensorTest2);
         firstValidArea.addSensor(validAreaSensorTest3);
         firstValidArea.addSensor(validAreaSensorTest4);
-
-        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", house, firstValidArea);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        AreaSensor actualResult = geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature");
 
         //Assert
         assertEquals(validAreaSensor, actualResult);
@@ -438,7 +456,7 @@ class GeographicAreaHouseServiceTest {
         houses.add(validHouse);
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
-        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 0.0);
+        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 23.0);
 
         DateValueDTO actualResult = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
 
@@ -515,6 +533,8 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(sensor);
         firstValidArea.removeSensor(validAreaSensor);
         validHouse.setMotherAreaID(firstValidArea.getId());
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
 
         Reading reading1 = new Reading(5, validReadingDate1, "temperature", "SensorTen");
         Reading reading2 = new Reading(15, validReadingDate2, "temperature", "SensorTen");
@@ -549,7 +569,7 @@ class GeographicAreaHouseServiceTest {
         list.add(reading7);
         list.add(reading8);
         list.add(reading9);
-
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
 
         // Act
@@ -609,7 +629,8 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(sensor);
         firstValidArea.removeSensor(validAreaSensor);
         validHouse.setMotherAreaID(firstValidArea.getId());
-
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
         Reading reading1 = new Reading(5, validReadingDate1, "temperature", "SensorTen");
         Reading reading2 = new Reading(15, validReadingDate2, "temperature", "SensorTen");
         Reading reading3 = new Reading(25, validReadingDate3, "temperature", "SensorTen");
@@ -619,7 +640,6 @@ class GeographicAreaHouseServiceTest {
         Reading reading7 = new Reading(33, validReadingDate7, "temperature", "SensorTen");
         Reading reading8 = new Reading(0, validReadingDate1, "temperature", "SensorTen");
         Reading reading9 = new Reading(100, validReadingDate7, "temperature", "SensorTen");
-
 
         expectedResult1.add(reading1);
         expectedResult1.add(reading2);
@@ -644,6 +664,7 @@ class GeographicAreaHouseServiceTest {
         list.add(reading8);
         list.add(reading9);
 
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
 
         // Act
@@ -803,7 +824,8 @@ class GeographicAreaHouseServiceTest {
         firstValidArea.addSensor(sensor);
         firstValidArea.removeSensor(validAreaSensor);
         validHouse.setMotherAreaID(firstValidArea.getId());
-
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
         Reading reading1 = new Reading(5, invalidReadingDate, "temperature", "SensorTen");
         Reading reading2 = new Reading(15, invalidReadingDate, "temperature", "SensorTen");
         Reading reading3 = new Reading(25, invalidReadingDate, "temperature", "SensorTen");
@@ -824,7 +846,7 @@ class GeographicAreaHouseServiceTest {
         list.add(reading7);
         list.add(reading8);
         list.add(reading9);
-
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
 
         // Act
@@ -846,6 +868,132 @@ class GeographicAreaHouseServiceTest {
         assertEquals(expectedResult, actualResult4);
         assertEquals(expectedResult, actualResult5);
         assertEquals(expectedResult, actualResult6);
+    }
+
+    @Test
+    void getHottestDaySuccessMockito() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 23.0);
+
+        DateValueDTO actualResult = geographicAreaHouseService.getHottestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult.getDate(), actualResult.getDate());
+        assertEquals(expectedResult.getValue(), actualResult.getValue());
+    }
+
+
+    @Test
+    void getHottestDayInvertedDates() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate2);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getHottestDay(dateIntervalDTO));
+    }
+
+    @Test
+    void getHottestDayNoGeographicAreaInDBl() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(null);
+
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getHottestDay(dateIntervalDTO));
+    }
+
+    @Test
+    void getHottestDayEmptySensor() {
+        GeographicArea areaNoSensors = new GeographicArea("Portugal", "Country", 300, 200,
+                new Local(50, 50, 10));
+        areaNoSensors.setId(12L);
+        validHouse.setMotherAreaID(areaNoSensors.getId());
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(areaNoSensors);
+        areaNoSensors.addSensor(new AreaSensor("test", "test", validSensorTypeTemp2.getName(), new Local(2, 2, 2), validDate1));
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getHottestDay(dateIntervalDTO));
+    }
+
+
+    @Test
+    void getHottestDayIncompleteDatesMockito() throws IllegalArgumentException {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, null);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getHottestDay(dateIntervalDTO));
+    }
+
+    @Test
+    void getLastColdestDaySuccessMockito() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        DateValueDTO expectedResult = new DateValueDTO(validReadingDate4, 0.0);
+
+        DateValueDTO actualResult = geographicAreaHouseService.getLastColdestDay(dateIntervalDTO);
+
+        assertEquals(expectedResult.getDate(), actualResult.getDate());
+        assertEquals(expectedResult.getValue(), actualResult.getValue());
+    }
+
+
+    @Test
+    void getLastColdestDayInvertedDates() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate1, validDate2);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getLastColdestDay(dateIntervalDTO));
+    }
+
+    @Test
+    void getLastColdestDayNoGeographicAreaInDBl() {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(null);
+
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getLastColdestDay(dateIntervalDTO));
+    }
+
+    @Test
+    void getLastColdestDayEmptySensor() {
+        GeographicArea areaNoSensors = new GeographicArea("Portugal", "Country", 300, 200,
+                new Local(50, 50, 10));
+        areaNoSensors.setId(12L);
+        validHouse.setMotherAreaID(areaNoSensors.getId());
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, validDate1);
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(areaNoSensors);
+        areaNoSensors.addSensor(new AreaSensor("test", "test", validSensorTypeTemp2.getName(), new Local(2, 2, 2), validDate1));
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getLastColdestDay(dateIntervalDTO));
+    }
+
+
+    @Test
+    void getLastColdestDayIncompleteDatesMockito() throws IllegalArgumentException {
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(validDate2, null);
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getLastColdestDay(dateIntervalDTO));
     }
 }
 

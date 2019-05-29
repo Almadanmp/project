@@ -18,7 +18,10 @@ import pt.ipp.isep.dei.project.model.house.House;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -510,23 +513,16 @@ class HouseMonitoringControllerTest {
     }
 
     @Test
-    void seeIfGetClosestSensorToHouseByTypeWorks(){
+    void seeIfGetClosestSensorToHouseByTypeWorks() {
         // Arrange
-
+        validHouse.setMotherAreaID(validHouseArea.getId());
         AreaSensor expectedResult = validTemperatureAreaSensor;
-
-        List<AreaSensor> mockedList = new ArrayList<>();
-        mockedList.add(validTemperatureAreaSensor);
-        Mockito.when(geographicAreaRepository.getByID(111L)).thenReturn(validHouseArea);
         validHouseArea.addSensor(validTemperatureAreaSensor);
-        Mockito.when(geographicAreaHouseService.getClosestAreaSensorOfGivenType("temperature", validHouse,
-                validHouseArea)).thenCallRealMethod();
-        Mockito.when(geographicAreaHouseService.getAreaSensorsByDistanceToHouse(mockedList, validHouse, 0)).
-                thenCallRealMethod();
 
         // Act
+        Mockito.when(controller.getClosestSensorToHouseByType("temperature")).thenReturn(validTemperatureAreaSensor);
 
-        AreaSensor actualResult = controller.getClosestSensorToHouseByType(validHouse, "temperature");
+        AreaSensor actualResult = controller.getClosestSensorToHouseByType("temperature");
 
         // Assert
 

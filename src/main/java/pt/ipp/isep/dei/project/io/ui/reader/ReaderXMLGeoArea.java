@@ -19,12 +19,13 @@ import java.util.Date;
 
 
 public class ReaderXMLGeoArea {
-    @Autowired
-    ReaderController readerController;
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private static final String ALTITUDE = "altitude";
     private static final String VALID_DATE_FORMAT = "yyyy-MM-dd";
+
+    @Autowired
+    ReaderController readerController;
 
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file
@@ -70,7 +71,8 @@ public class ReaderXMLGeoArea {
                         geographicAreaRepository.updateGeoArea(areaObject);
                     }
                 }
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException ok) {
+                ok.getMessage();
             }
 
         }
@@ -90,7 +92,6 @@ public class ReaderXMLGeoArea {
             String name = getTagValue("name", element);
             String sensorDate = getTagValue("start_date", element);
             String sensorTypeName = getTagValue("type", element);
-            String sensorTypeUnit = getTagValue("units", element);
             SimpleDateFormat validDateFormat = new SimpleDateFormat(VALID_DATE_FORMAT);
             Local local = new Local(Double.parseDouble(getTagValue(LATITUDE, element)),
                     Double.parseDouble(getTagValue(LONGITUDE, element)),
@@ -104,7 +105,8 @@ public class ReaderXMLGeoArea {
             try {
                 areaSensor = geographicArea.createAreaSensor(id, name, sensorTypeName, local, date);
                 geographicArea.addSensor(areaSensor);
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException ok) {
+                ok.getMessage();
             }
         }
     }

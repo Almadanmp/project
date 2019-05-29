@@ -12,7 +12,11 @@ public class UnitHelper {
         throw new IllegalStateException("Utility class");
     }
 
-    static final String UNITS_PROPERTIES = "resources/units.properties";
+    private static final String UNITS_PROPERTIES;
+
+    static {
+        UNITS_PROPERTIES = "resources/units.properties";
+    }
 
     /**
      * This method converts the temperature value into the default one.
@@ -56,13 +60,13 @@ public class UnitHelper {
      * @return temperature unit as a String.
      */
     static String getApplicationTemperatureDefault() {
-        String temperatureDefault = "Celsius";
+        String temperatureDefault;
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(UnitHelper.UNITS_PROPERTIES)) {
             prop.load(input);
             temperatureDefault = prop.getProperty("defaultApplicationTemperatureUnit");
         } catch (IOException ioe) {
-            ioe.getMessage();
+            return ioe.getMessage();
         }
         return temperatureDefault;
     }

@@ -7,7 +7,6 @@ import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 
@@ -85,10 +84,8 @@ public class HouseMonitoringController {
        As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given
        period. */
 
-    public AreaSensor getClosestSensorToHouseByType(House house, String sensorType) {
-        Long houseGaID = house.getMotherAreaID();
-        GeographicArea houseGA = geographicAreaRepository.getByID(houseGaID);
-        return geographicAreaHouseService.getClosestAreaSensorOfGivenType(sensorType, house, houseGA);
+    public AreaSensor getClosestSensorToHouseByType(String sensorType) {
+        return geographicAreaHouseService.getClosestAreaSensorOfGivenType(sensorType);
     }
 
     /**

@@ -86,6 +86,52 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfAddRoomDTOToCrudRepositoryWorks() {
+        // Arrange
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom);
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom2);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        boolean actualResult = validRoomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDTOToCrudRepositoryWorksWhenRoomExistsInRepository() {
+        // Arrange
+
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom);
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        rooms.add(validRoom2);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        boolean actualResult = validRoomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+
+    }
+
+    @Test
     void seeIfGetAllRoomWebDTOsWorks() {
         // Arrange
 
@@ -182,7 +228,48 @@ class RoomRepositoryTest {
         // Assert
 
         assertFalse(actualResult);
+    }
 
+    @Test
+    void seeIfAddRoomDTOWithoutSensorsAndDevicesToCrudRepositoryWorks() {
+        // Arrange
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom);
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom2);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        boolean actualResult = validRoomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomDTOWithoutSensorsAndDevicesToCrudRepositoryWorksWhenRoomExistsInRepository() {
+        // Arrange
+
+        Room validRoom2 = new Room("Living Room", "1st Floor Living Room", 1, 56, 55, 3, "Room1");
+        RoomDTO roomDTO = RoomMapper.objectToDTO(validRoom2);
+
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(validRoom);
+        rooms.add(validRoom2);
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        boolean actualResult = validRoomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
     }
 
     @Test

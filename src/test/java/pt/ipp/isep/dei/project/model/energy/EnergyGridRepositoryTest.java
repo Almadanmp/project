@@ -14,7 +14,6 @@
 //import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 //import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 //import pt.ipp.isep.dei.project.model.room.Room;
-//import pt.ipp.isep.dei.project.model.room.RoomRepository;
 //import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 //import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 //
@@ -31,12 +30,11 @@
 //class EnergyGridRepositoryTest {
 //    // Common testing artifacts for testing class.
 //
-//    private EnergyGrid firstValidGrid;
-//
-//    @Mock
-//    private EnergyGridCrudRepo energyGridCrudRepository;
 //    @Mock
 //    RoomCrudRepo roomCrudRepo;
+//    private EnergyGrid firstValidGrid;
+//    @Mock
+//    private EnergyGridCrudRepo energyGridCrudRepository;
 //    @InjectMocks
 //    private EnergyGridRepository validGridRepo;
 //
