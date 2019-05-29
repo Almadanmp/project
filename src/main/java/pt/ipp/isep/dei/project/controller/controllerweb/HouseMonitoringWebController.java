@@ -54,7 +54,7 @@ public class HouseMonitoringWebController {
     /* US620 - WEB Controller Methods
      As a Regular User, I want to get the total rainfall in the house area for a given day.*/
     @GetMapping("/totalRainfall")
-    public ResponseEntity<Object> getTotalRainfallDay(@RequestBody Date date) {
+    public ResponseEntity<Object> getTotalRainfallInGivenDay(@RequestBody Date date) {
         double result;
         Link link;
         try {
@@ -62,7 +62,7 @@ public class HouseMonitoringWebController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalStateException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).
-                    getTotalRainfallDay(date)).withRel("No readings available for this date.");
+                    getTotalRainfallInGivenDay(date)).withRel("No readings available for this date.");
             return new ResponseEntity<>(link, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
