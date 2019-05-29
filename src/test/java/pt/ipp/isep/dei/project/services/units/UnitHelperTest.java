@@ -13,17 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static pt.ipp.isep.dei.project.services.units.UnitHelper.getApplicationTemperatureConfig;
 
 class UnitHelperTest {
-//    @Test
-//    void testConstructorIsPrivate() throws IllegalStateException {
-//        try {
-//            Constructor<UnitHelper> constructor = UnitHelper.class.getDeclaredConstructor();
-//            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
-//            constructor.setAccessible(true);
-//            constructor.newInstance();
-//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Test
     void seeIfGetUserTemperatureDefaultWorks() throws IOException {
