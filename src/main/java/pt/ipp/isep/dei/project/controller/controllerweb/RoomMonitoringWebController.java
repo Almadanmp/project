@@ -25,6 +25,32 @@ public class RoomMonitoringWebController {
     @Autowired
     RoomRepository roomRepository;
 
+    /**
+     * US605 As a Regular User, I want to get the current temperature in a room, in order to check
+     * if it meets my personal comfort requirements.
+     *
+     * @param roomId string so we can identify the room.
+     * @return the current room temperature from its most recent temperature reading.
+     */
+
+    @GetMapping("/currentRoomTemperature")
+    public ResponseEntity<Object> getCurrentRoomTemperature(@RequestBody String roomId) {
+        Link link;
+        double currentRoomTemperature;
+        try {
+            currentRoomTemperature = roomRepository.getCurrentRoomTempByRoomId(roomId);
+            return new ResponseEntity<>(currentRoomTemperature, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            link = linkTo(methodOn(RoomMonitoringWebController.class).
+                    getCurrentRoomTemperature(roomId)).withRel("This room does not exist.");
+            return new ResponseEntity<>(link, HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("There are no temperature readings for that room", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /* US610 - WEB Controller Methods
      Get Max Temperature in a room in a specific day.*/
     @GetMapping("/dayMaxTemperature")
