@@ -197,8 +197,8 @@ public class RoomRepository {
      * @return true in case the room is added to repository, false otherwise.
      **/
     public boolean addRoomToCrudRepository(Room room) {
-        String roomID = room.getId();
         List<Room> rooms = this.getAllRooms();
+        String roomID = room.getId();
         for (Room r : rooms) {
             if (roomID.equals(r.getId())) {
                 return false;

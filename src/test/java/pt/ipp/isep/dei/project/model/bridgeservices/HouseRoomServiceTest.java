@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -44,6 +45,8 @@ class HouseRoomServiceTest {
 
         Mockito.doReturn("01").when(this.houseRepository).getHouseId();
         Mockito.doReturn(true).when(this.roomRepository).addRoomToCrudRepository(room);
+        Room convertedRoom = RoomMinimalMapper.dtoToObject(roomDTOMinimal);
+        assertNull(convertedRoom.getHouseID());
 
         //Act
 
@@ -66,5 +69,22 @@ class HouseRoomServiceTest {
 
         //Assert
         assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfUpdateHouseIDWorks(){
+        //Arrange
+
+        Mockito.doReturn("01").when(this.houseRepository).getHouseId();
+        Room roomToUpdate = RoomMinimalMapper.dtoToObject(roomDTOMinimal);
+
+        // Act
+
+        Room updatedRoom = service.updateHouseID(roomToUpdate);
+        String actualResult = updatedRoom.getHouseID();
+
+        // Assert
+
+        assertEquals("01", actualResult);
     }
 }
