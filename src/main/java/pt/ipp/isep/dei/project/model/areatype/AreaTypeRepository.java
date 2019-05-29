@@ -116,7 +116,7 @@ public class AreaTypeRepository {
             return null;
         } else {
             LogUtils.closeHandlers(logger);
-            return value.orElseGet(() -> new AreaType(name));
+            return value.get();
         }
     }
 }
