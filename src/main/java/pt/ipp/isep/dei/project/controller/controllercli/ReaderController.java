@@ -66,9 +66,8 @@ public class ReaderController {
      * This method receives a list of energy grid dtos and a String of a house ID,
      * sets the house ID on every energy grid dto and tries to add the corresponding
      * energy grid to the repository.
-     *
-     * **/
-    void addGridsToRepository(List<EnergyGridDTO> gridDTOS, String houseID){
+     **/
+    void addGridsToRepository(List<EnergyGridDTO> gridDTOS, String houseID) {
         for (EnergyGridDTO eg : gridDTOS) {
             eg.setHouseID(houseID);
             energyGridRepository.createEnergyGridWithNameRoomsAndPowerSources(eg);
@@ -79,9 +78,8 @@ public class ReaderController {
      * This method receives a list of energy grid dtos and a String of a house ID,
      * sets the house ID on every room DTO contained in every energy grid DTO and tries
      * to add the corresponding room to the repository.
-     *
-     * **/
-    void addRoomsToRepository(List<EnergyGridDTO> gridDTOS, String houseID){
+     **/
+    void addRoomsToRepository(List<EnergyGridDTO> gridDTOS, String houseID) {
         for (EnergyGridDTO eg : gridDTOS) {
             List<RoomDTO> roomDTOS = eg.getRoomDTOS();
             for (RoomDTO rt : roomDTOS) {
@@ -109,9 +107,6 @@ public class ReaderController {
         }
         return result;
     }
-
-
-
 
 
     /**

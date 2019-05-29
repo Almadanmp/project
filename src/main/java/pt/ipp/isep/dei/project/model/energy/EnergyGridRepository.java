@@ -60,9 +60,8 @@ public class EnergyGridRepository {
      * to the repository.
      *
      * @param energyGridDTO to be added
-     *
      * @return true in case the corresponding Energy Grid was successfully added, false otherwise.
-     * **/
+     **/
     public boolean createEnergyGridWithNameRoomsAndPowerSources(EnergyGridDTO energyGridDTO) {
         EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectWithNameRoomsAndPowerSources(energyGridDTO);
         List<EnergyGrid> grids = energyGridCrudRepository.findAll();

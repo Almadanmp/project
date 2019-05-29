@@ -19,12 +19,12 @@ import java.util.Date;
 
 
 public class ReaderXMLGeoArea {
-    @Autowired
-    ReaderController readerController;
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private static final String ALTITUDE = "altitude";
     private static final String VALID_DATE_FORMAT = "yyyy-MM-dd";
+    @Autowired
+    ReaderController readerController;
 
     /**
      * reads a XML file from a certain path and imports geographic areas and sensors from the file

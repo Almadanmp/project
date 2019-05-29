@@ -60,8 +60,7 @@ public class HouseRepository {
     /**
      * This method receives a house DTO and updates the House that is saved
      * in the database.
-     *
-     * **/
+     **/
     public void updateHouse(HouseDTO houseDTO) {
         Address address = AddressMapper.dtoToObject(houseDTO.getAddress());
         House house = houseCrudRepo.findAll().get(0);

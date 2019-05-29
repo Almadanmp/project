@@ -8,20 +8,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.io.ui.reader.ReaderXML;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
-import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -48,6 +53,7 @@ class ReaderControllerTest {
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
+
     // Common artifacts for testing in this class.
     @Mock
     private EnergyGridRepository energyGridRepository;
@@ -55,14 +61,13 @@ class ReaderControllerTest {
     private Date validDate3 = new Date();
     private Date validDate4 = new Date();
     private RoomSensor validRoomSensor1;
-    @Mock
-    private HouseCrudRepo houseCrudRepo;
 
     @Mock
     private HouseRepository houseRepository;
-
     @Mock
     private RoomRepository roomRepository;
+    @Mock
+    private AreaTypeRepository areaTypeRepository;
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
     @InjectMocks
@@ -92,6 +97,80 @@ class ReaderControllerTest {
     void restoreSystemInputOutput() {
         System.setIn(systemIn);
         System.setOut(systemOut);
+    }
+
+    @Test
+    void seeIfAddGeoAreaNodeListToListWorks() {
+        // Arrange
+
+        AreaType areaType = new AreaType("urban area");
+        GeographicArea geographicArea = new GeographicArea("ISEP", "urban area", 0.249, 0.261,
+                new Local(41.178553, -8.608035, 111.0));
+        geographicArea.setDescription("Campus do ISEP");
+        Local local = new Local(41.178553, -8.608035, 111.0);
+
+        ReaderXML reader = new ReaderXML();
+        Document doc = reader.readFile("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
+        doc.getDocumentElement().normalize();
+        NodeList nodeListToTest = doc.getElementsByTagName("geographical_area");
+
+        Mockito.when(areaTypeRepository.getAreaTypeByName("urban area")).thenReturn(areaType);
+        Mockito.when(geographicAreaRepository.createGA("ISEP", "urban area", 0.261, 0.249, local)).thenReturn(geographicArea);
+        Mockito.when(geographicAreaRepository.addAndPersistGA(geographicArea)).thenReturn(true);
+
+        // Act
+
+        int actualResult = readerController.addGeoAreaNodeListToList(nodeListToTest, geographicAreaRepository, areaTypeRepository);
+
+        // Assert
+
+        assertEquals(1, actualResult);
+    }
+
+    @Test
+    void seeIfAddGeoAreaNodeListToListWorksWhenFileIsWrong() {
+        // Arrange
+
+        ReaderXML reader = new ReaderXML();
+        Document doc = reader.readFile("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_no_GAs.xml");
+        doc.getDocumentElement().normalize();
+        NodeList nodeListToTest = doc.getElementsByTagName("geographical_area");
+
+        // Act
+
+        int actualResult = readerController.addGeoAreaNodeListToList(nodeListToTest, geographicAreaRepository, areaTypeRepository);
+
+        // Assert
+
+        assertEquals(0, actualResult);
+    }
+
+    @Test
+    void seeIfAddGeoAreaNodeListToListWorksWhenHasWrongParameters() {
+        // Arrange
+
+        AreaType areaType = new AreaType("urban area");
+        GeographicArea geographicArea = new GeographicArea("ISEP", "urban area", 0.249, 0.261,
+                new Local(41.178553, -8.608035, 111.0));
+        geographicArea.setDescription("Campus do ISEP");
+        Local local = new Local(41.178553, -8.608035, 111.0);
+
+        ReaderXML reader = new ReaderXML();
+        Document doc = reader.readFile("src/test/resources/geoAreaFiles/DataSet_sprint05_GA_test_one_GA.xml");
+        doc.getDocumentElement().normalize();
+        NodeList nodeListToTest = doc.getElementsByTagName("geographical_area");
+
+        Mockito.when(areaTypeRepository.getAreaTypeByName("urban area")).thenReturn(areaType);
+        Mockito.when(geographicAreaRepository.createGA("ISEP", "urban area", 0.261, 0.249, local)).thenReturn(geographicArea);
+        Mockito.when(geographicAreaRepository.addAndPersistGA(geographicArea)).thenReturn(false);
+
+        // Act
+
+        int actualResult = readerController.addGeoAreaNodeListToList(nodeListToTest, geographicAreaRepository, areaTypeRepository);
+
+        // Assert
+
+        assertEquals(0, actualResult);
     }
 
     @Test

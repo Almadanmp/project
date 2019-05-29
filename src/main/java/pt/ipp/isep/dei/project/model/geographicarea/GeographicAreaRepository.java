@@ -23,12 +23,11 @@ import java.util.logging.Logger;
  */
 @Service
 public class GeographicAreaRepository {
-    @Autowired
-    private GeographicAreaCrudRepo geographicAreaCrudRepo;
-
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
+    @Autowired
+    private GeographicAreaCrudRepo geographicAreaCrudRepo;
 
     /**
      * Method to return a list with all the Geographical Areas contained on the geographicAreaRepository
@@ -155,8 +154,6 @@ public class GeographicAreaRepository {
         }
         return false;
     }
-
-
 
 
     public boolean addDaughterArea(long idAreaDaughter, long idAreaMother) {

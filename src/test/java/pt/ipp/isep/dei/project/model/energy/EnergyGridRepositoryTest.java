@@ -14,7 +14,6 @@ import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
 import pt.ipp.isep.dei.project.model.room.Room;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
@@ -31,12 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EnergyGridRepositoryTest {
     // Common testing artifacts for testing class.
 
-    private EnergyGrid firstValidGrid;
-
-    @Mock
-    private EnergyGridCrudRepo energyGridCrudRepository;
     @Mock
     RoomCrudRepo roomCrudRepo;
+    private EnergyGrid firstValidGrid;
+    @Mock
+    private EnergyGridCrudRepo energyGridCrudRepository;
     @InjectMocks
     private EnergyGridRepository validGridRepo;
 
@@ -626,7 +624,7 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
-    void seeIfCreatePowerSourceWorks(){
+    void seeIfCreatePowerSourceWorks() {
         // Arrange
 
         PowerSource expectedResult = new PowerSource("Expected", 45, 5);
@@ -656,7 +654,7 @@ class EnergyGridRepositoryTest {
         Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
         //Act
         RoomDTOWeb expectedResult = RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
-        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid","B109");
+        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B109");
         //Assert
         assertEquals(expectedResult, actualResult);
     }
@@ -676,7 +674,7 @@ class EnergyGridRepositoryTest {
         energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
         Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
         //Act
-        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid","B108");
+        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B108");
         //Assert
         assertNull(actualResult);
     }
