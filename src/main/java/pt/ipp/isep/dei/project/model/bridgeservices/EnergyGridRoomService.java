@@ -58,20 +58,14 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @param roomToAdd Room to be added to the list of rooms in the energy grid.
      * @return returns true if the room is actually added to the energy grid.
      */
+
     public boolean addRoom(EnergyGrid energyGrid, Room roomToAdd) {
-        List<String> roomIds = new ArrayList<>();
-        for (String id : energyGrid.getRoomIdList()) {
-            List<Room> rooms = roomRepository.getAllRooms();
-            for (Room room : rooms) {
-                if (id.equals(room.getId())) {
-                    roomIds.add(room.getId());
-                }
-            }
-        }
+        List<String> roomIds = energyGrid.getRoomIdList();
         if (roomIds.contains(roomToAdd.getId())) {
             return false;
         }
-        return roomIds.add(roomToAdd.getId());
+        energyGrid.addRoomId(roomToAdd.getId());
+        return true;
     }
 
     /**
@@ -158,20 +152,21 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return returns true if the room is successfully removed from the energy grid.
      */
     public boolean removeRoom(EnergyGrid energyGrid, Room room) {
-        List<Room> finalRooms = getRoomList(energyGrid);
-        if (finalRooms.contains(room)) {
-            finalRooms.remove(room);
-            energyGridRepository.addGrid(energyGrid);
+        List<String> roomIds = energyGrid.getRoomIdList();
+        if (roomIds.contains(room.getId())) {
+            energyGrid.removeRoomId(room.getId());
             return true;
         }
         return false;
     }
+
 
     public boolean removeRoomById(EnergyGrid energyGrid, String roomID) {
         List<Room> finalRooms = getRoomList(energyGrid);
         for (Room r : finalRooms) {
             if (r.getId().equals(roomID)) {
                 finalRooms.remove(r);
+                energyGrid.removeRoomId(r.getId());
                 return true;
             }
         }
@@ -276,7 +271,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         return false;
     }
 
-    public Room getRoomById(String id) {
+    Room getRoomById(String id) {
         Optional<Room> value = roomRepository.findRoomByID(id);
         if (value.isPresent()) {
             return value.get();

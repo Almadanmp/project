@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
-import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -19,8 +18,6 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
-import pt.ipp.isep.dei.project.model.house.Address;
-import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
@@ -37,26 +34,40 @@ class EnergyGridSettingsControllerTest {
 
     // Common artifacts for testing in this class.
 
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
-    private EnergyGrid validGrid;
-    private Room validRoom;
     @Mock
     private EnergyGridRepository energyGridRepository;
-    private GeographicArea validGeographicArea;
+
     @Mock
     private RoomRepository roomRepository;
+
     @Mock
     private EnergyGridRoomService energyGridRoomService;
+
     @InjectMocks
     private EnergyGridSettingsController controller;
 
+    private List<Room> rooms = new ArrayList<>();
+    private Device validFridge;
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+    private EnergyGrid validGrid;
+    private Room validRoom;
+    private Room validRoom2;
+    private GeographicArea validGeographicArea;
+
     @BeforeEach
     void arrangeArtifacts() {
-         validGeographicArea = new GeographicArea("Porto", "Cidade", 2, 3, new Local(4, 4, 100));
+        validGeographicArea = new GeographicArea("Porto", "Cidade", 2, 3, new Local(4, 4, 100));
 
         validGrid = new EnergyGrid("validGrid", 300D, "34576");
         validRoom = new Room("Room", "Double Bedroom", 1, 20, 2, 2, "Room1");
-
+        validRoom2 = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
+        validFridge = new Fridge(new FridgeSpec());
+        validFridge.setNominalPower(20);
+        validFridge.setAttributeValue(FridgeSpec.FREEZER_CAPACITY, 200D);
+        validFridge.setAttributeValue(FridgeSpec.REFRIGERATOR_CAPACITY, 200D);
+        validFridge.setAttributeValue(FridgeSpec.ANNUAL_CONSUMPTION, 200D);
+        validRoom.addDevice(validFridge);
+        energyGridRoomService.addRoom(validGrid, validRoom2);
     }
 
     //US145
@@ -193,13 +204,21 @@ class EnergyGridSettingsControllerTest {
 //    @Test
 //    void testBuildListOfDevicesOrderedByTypeStringEmptyString() {
 //        //Arrange
+//
+////        rooms.add(validRoom);
+////        validGrid.addRoomId(validRoom.getId());
+//    //    Mockito.when(roomRepository.getAllRooms()).thenReturn(new ArrayList<>());
+//
+//        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100D, "34576");
+//
 //        //Act
 //        String expectedResult = "---------------\n" +
 //                "---------------\n";
-//        String actualResult = controller.buildListOfDevicesOrderedByTypeString(validGrid);
+//        String actualResult = controller.buildListOfDevicesOrderedByTypeString(testGrid);
 //        //Arrange
 //        assertEquals(expectedResult, actualResult);
 //    }
+
 
 //    @Test
 //    void testBuildListOfDevicesOrderedByTypeStringWithDevices() {
@@ -229,7 +248,7 @@ class EnergyGridSettingsControllerTest {
     void seeIfBuildGridListStringWorks() {
         //Arrange
 
-         String expectedResult = "---------------\n" +
+        String expectedResult = "---------------\n" +
                 "Designation: validGrid | Max Power: 300.0\n" +
                 "---------------\n";
 

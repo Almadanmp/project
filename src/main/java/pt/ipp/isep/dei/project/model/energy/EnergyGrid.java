@@ -61,6 +61,14 @@ public class EnergyGrid implements Root {
         return false;
     }
 
+    public boolean removeRoomId(String roomToDelete) {
+        if (rooms.contains(roomToDelete)){
+            rooms.remove(roomToDelete);
+            return true;
+        }
+        return false;
+    }
+
     public void setRooms(List<String> rooms) {
         this.rooms = rooms;
     }

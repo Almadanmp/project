@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class EnergyGridRoomServiceTest {
+
     @Mock
     RoomRepository roomRepository;
     @Mock
@@ -83,7 +84,7 @@ class EnergyGridRoomServiceTest {
         // Act
         validGrid.addRoomId(validRoom.getId());
         rooms.add(validRoom);
-        Mockito.when(roomRepository.getAllRooms()).thenReturn(rooms);
+
         boolean actualResult = energyGridRoomService.removeRoom(validGrid, validRoom);
 
         // Assert
@@ -96,8 +97,6 @@ class EnergyGridRoomServiceTest {
         // Arrange
 
         validGrid.addRoomId(validRoom.getId());
-
-        Mockito.when(roomRepository.getAllRooms()).thenReturn(rooms);
 
         energyGridRoomService.removeRoom(validGrid, validRoom);
 
@@ -136,8 +135,6 @@ class EnergyGridRoomServiceTest {
 
         validGrid.addRoomId(testRoom.getId());
         rooms.add(testRoom);
-
-        Mockito.when(roomRepository.getAllRooms()).thenReturn(rooms);
 
         energyGridRoomService.addRoom(validGrid, testRoom);
         boolean actualResult = energyGridRoomService.addRoom(validGrid, testRoom);
@@ -390,13 +387,15 @@ class EnergyGridRoomServiceTest {
         //Arrange
         rooms.add(validRoom);
         validGrid.addRoomId(validRoom.getId());
+        energyGridRoomService.addRoom(validGrid, validRoom);
 
         Mockito.when(roomRepository.getAllRooms()).thenReturn(rooms);
 
         EnergyGrid nullList = new EnergyGrid("noDevices", 200D, "34576");
         EnergyGrid emptyList = new EnergyGrid("noDevices", 200D, "34576");
         Room emptyRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
-        energyGridRoomService.addRoom(emptyList, emptyRoom);
+
+
         //Act
 
         boolean actualResult1 = energyGridRoomService.isDeviceListEmpty(nullList);
