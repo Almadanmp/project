@@ -107,8 +107,9 @@ public final class EnergyGridMapper {
 
         List<PowerSource> objectPowerSourceList = new ArrayList<>();
 
-        // Update the maximum contracted power.
+        // Update House ID
 
+        String houseID = dtoToConvert.getHouseID();
 
         // Create, update and return the new model object.
 
@@ -116,6 +117,7 @@ public final class EnergyGridMapper {
         resultObject.setName(objectName);
         resultObject.setRooms(objectRoomService);
         resultObject.setPowerSourceList(objectPowerSourceList);
+        resultObject.setHouseId(houseID);
 
         return resultObject;
     }

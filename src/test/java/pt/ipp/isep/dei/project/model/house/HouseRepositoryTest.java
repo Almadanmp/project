@@ -35,6 +35,31 @@ class HouseRepositoryTest {
     }
 
     @Test
+    void seeIfUpdateHouseWorks() {
+        //Arrange
+        HouseDTO houseDTO = HouseMapper.objectToDTO(validHouse);
+
+        House houseFromRepo = new House("ISEP", new Address("Rua X", "2",
+                "4225-111", "Lisboa", "Portugal"), new Local(20, 20, 20), 60,
+                180, new ArrayList<>());
+
+        List<House> houseList = new ArrayList<>();
+        houseList.add(houseFromRepo);
+
+        Mockito.when(houseCrudRepo.findAll()).thenReturn(houseList);
+
+        Mockito.when(houseCrudRepo.save(validHouse)).thenReturn(validHouse);
+
+        //Act
+
+        houseRepository.updateHouse(houseDTO);
+
+        //Assert
+
+        assertEquals(houseFromRepo.getAddress(), validHouse.getAddress());
+    }
+
+    @Test
     void seeIfUpdateHouseDTOWithoutGridsWorks() {
         //Arrange
 

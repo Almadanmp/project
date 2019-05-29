@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.*;
 
 /**

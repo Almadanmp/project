@@ -8,12 +8,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.room.RoomSensor;
@@ -53,6 +57,10 @@ class ReaderControllerTest {
     private RoomSensor validRoomSensor1;
     @Mock
     private HouseCrudRepo houseCrudRepo;
+
+    @Mock
+    private HouseRepository houseRepository;
+
     @Mock
     private RoomRepository roomRepository;
     @Mock
@@ -115,6 +123,123 @@ class ReaderControllerTest {
 
         assertEquals(2, actualResult);
     }
+
+    @Test
+    void seeIfAddRoomsToRepositoryWorks() {
+        // Arrange
+
+        Room room = new Room("room1", "Single Bedroom", 19, 23456789, 5, 3, "HouseID");
+        RoomDTO roomDTO1 = RoomMapper.objectToDTO(room);
+
+        List<RoomDTO> roomDTOS = new ArrayList<>();
+        roomDTOS.add(roomDTO1);
+
+        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+
+        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+        energyGridDTO1.setHouseID("HouseID");
+        energyGridDTO1.setName("ValidGrid1");
+        energyGridDTO1.setMaxContractedPower(20D);
+        energyGridDTO1.setRoomDTOS(roomDTOS);
+        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+
+        energyGridDTOS.add(energyGridDTO1);
+
+        Mockito.when(roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO1)).thenReturn(true);
+
+        // Act
+
+        readerController.addRoomsToRepository(energyGridDTOS, "NewHouseID");
+
+        // Assert
+
+        assertEquals("NewHouseID", roomDTO1.getHouseId());
+    }
+
+    @Test
+    void seeIfAddRoomsToRepositoryWorksWhenNotAdded() {
+        // Arrange
+
+        Room room = new Room("room1", "Single Bedroom", 19, 23456789, 5, 3, "HouseID");
+        RoomDTO roomDTO1 = RoomMapper.objectToDTO(room);
+
+        List<RoomDTO> roomDTOS = new ArrayList<>();
+        roomDTOS.add(roomDTO1);
+
+        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+
+        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+        energyGridDTO1.setHouseID("HouseID");
+        energyGridDTO1.setName("ValidGrid1");
+        energyGridDTO1.setMaxContractedPower(20D);
+        energyGridDTO1.setRoomDTOS(roomDTOS);
+        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+
+        energyGridDTOS.add(energyGridDTO1);
+
+        Mockito.when(roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(roomDTO1)).thenReturn(false);
+
+        // Act
+
+        readerController.addRoomsToRepository(energyGridDTOS, "NewHouseID");
+
+        // Assert
+
+        assertEquals("NewHouseID", roomDTO1.getHouseId());
+    }
+
+    @Test
+    void seeIfAddGridsToRepositoryWorks() {
+        // Arrange
+
+        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+
+        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+        energyGridDTO1.setHouseID("HouseID");
+        energyGridDTO1.setName("ValidGrid1");
+        energyGridDTO1.setMaxContractedPower(20D);
+        energyGridDTO1.setRoomDTOS(new ArrayList<>());
+        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+
+        energyGridDTOS.add(energyGridDTO1);
+
+        Mockito.when(energyGridRepository.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO1)).thenReturn(true);
+
+        // Act
+
+        readerController.addGridsToRepository(energyGridDTOS, "NewHouseID");
+
+        // Assert
+
+        assertEquals("NewHouseID", energyGridDTO1.getHouseID());
+    }
+
+    @Test
+    void seeIfAddGridsToRepositoryWorksWhenIsNotAdded() {
+        // Arrange
+
+        List<EnergyGridDTO> energyGridDTOS = new ArrayList<>();
+
+        EnergyGridDTO energyGridDTO1 = new EnergyGridDTO();
+        energyGridDTO1.setHouseID("HouseID");
+        energyGridDTO1.setName("ValidGrid1");
+        energyGridDTO1.setMaxContractedPower(20D);
+        energyGridDTO1.setRoomDTOS(new ArrayList<>());
+        energyGridDTO1.setPowerSourceDTOS(new ArrayList<>());
+
+        energyGridDTOS.add(energyGridDTO1);
+
+        Mockito.when(energyGridRepository.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO1)).thenReturn(false);
+
+        // Act
+
+        readerController.addGridsToRepository(energyGridDTOS, "NewHouseID");
+
+        // Assert
+
+        assertEquals("NewHouseID", energyGridDTO1.getHouseID());
+    }
+
 
     @Test
     void seeIfAddReadingsToGeographicAreaSensorsWorks() {
@@ -210,12 +335,16 @@ class ReaderControllerTest {
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/houseFiles/DataSet_sprint06_House.json";
 
+        HouseDTO houseDTO = new HouseDTO();
+
+        houseRepository.updateHouse(houseDTO);
+
+        //Act
+
+        boolean actualResult = readerController.readJSONAndDefineHouse(house, filePath);
         //Assert
 
-        //  Mockito.when(readerJSONHouse.readGridsJSON()).thenReturn(ArgumentMatchers.any());
-
-        Mockito.when(houseCrudRepo.save(house)).thenReturn(house);
-        assertTrue(readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
+        assertTrue(actualResult);
     }
 
     @Test
@@ -224,7 +353,7 @@ class ReaderControllerTest {
         House house = new House("01", new Local(0, 0, 0), 15, 15, deviceTypes);
         String filePath = "src/test/resources/readingsFiles/DataSet_sprint05_SensorData.json";
         assertThrows(IllegalArgumentException.class,
-                () -> readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository));
+                () -> readerController.readJSONAndDefineHouse(house, filePath));
 
     }
 }

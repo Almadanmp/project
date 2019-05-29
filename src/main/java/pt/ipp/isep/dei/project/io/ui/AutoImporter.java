@@ -7,10 +7,8 @@ import pt.ipp.isep.dei.project.controller.controllercli.HouseConfigurationContro
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.repository.*;
 
@@ -19,8 +17,6 @@ import java.io.IOException;
 @Service
 public class AutoImporter {
 
-    @Autowired
-    private HouseCrudRepo houseCrudRepo;
     @Autowired
     private SensorTypeCrudRepo sensorTypeCrudRepo;
     @Autowired
@@ -38,11 +34,6 @@ public class AutoImporter {
     SensorTypeRepository sensorTypeRepository;
     @Autowired
     AreaTypeRepository areaTypeRepository;
-    @Autowired
-    private RoomRepository roomRepository;
-    @Autowired
-    private EnergyGridRepository energyGridRepository;
-
 
     @Autowired
     InputHelperUI inputHelperUI;
@@ -57,7 +48,6 @@ public class AutoImporter {
 
     void importData(House house) {
         System.out.println("Clearing data...");
-        houseCrudRepo.deleteAll();
         sensorTypeCrudRepo.deleteAll();
         areaTypeCrudRepo.deleteAll();
         geographicAreaCrudRepo.deleteAll();
@@ -82,7 +72,7 @@ public class AutoImporter {
         }
         inputHelperUI.acceptPathJSONorXMLAndReadFile("src/test/resources/geoAreaFiles/DataSet_sprint07_GA.json", geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
         gaSettingsUI.importReadingsFromJSON("src/test/resources/readingsFiles/DataSet_sprint07_GAData.json");
-        readerController.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_HouseData.json", energyGridRepository, houseCrudRepo, roomRepository);
+        readerController.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_HouseData.json");
         houseConfigurationController.readSensors("src/test/resources/houseSensorFiles/DataSet_sprint07_HouseSensors.json");
         houseConfigurationUI.importReadingsFromJSON("src/test/resources/readingsFiles/DataSet_sprint07_HouseSensorData.json");
         System.out.println("...");

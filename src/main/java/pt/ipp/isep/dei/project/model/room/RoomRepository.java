@@ -209,6 +209,26 @@ public class RoomRepository {
     }
 
     /**
+     * This method will receive a room DTO Without any sensors or devices and try to add the
+     * corresponding room to the repository in case it does not already exist.
+     *
+     * @param roomDTO to add to repository
+     * @return true in case the room is added to repository, false otherwise.
+     **/
+    public boolean addRoomDTOWithoutSensorsAndDevicesToCrudRepository(RoomDTO roomDTO) {
+        Room room = RoomMapper.dtoToObjectWithoutSensorsAndDevices(roomDTO);
+        String roomID = room.getId();
+        List<Room> rooms = this.getAllRooms();
+        for (Room r : rooms) {
+            if (roomID.equals(r.getId())) {
+                return false;
+            }
+        }
+        this.roomCrudRepo.save(room);
+        return true;
+    }
+
+    /**
      * String Builder of the RoomList.
      *
      * @return a String of the Rooms in the RoomList.

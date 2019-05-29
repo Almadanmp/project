@@ -56,6 +56,25 @@ public class EnergyGridRepository {
     }
 
     /**
+     * This method receives a Energy Grid DTO and tries to add the corresponding Energy Grid
+     * to the repository.
+     *
+     * @param energyGridDTO to be added
+     *
+     * @return true in case the corresponding Energy Grid was successfully added, false otherwise.
+     * **/
+    public boolean createEnergyGridWithNameRoomsAndPowerSources(EnergyGridDTO energyGridDTO) {
+        EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectWithNameRoomsAndPowerSources(energyGridDTO);
+        List<EnergyGrid> grids = energyGridCrudRepository.findAll();
+        EnergyGrid energyGridRepo = energyGridCrudRepository.findByName(energyGrid.getName());
+        if (!grids.contains(energyGridRepo)) {
+            energyGridCrudRepository.save(energyGrid);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Method for US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and
      * energy consumption is included in that grid.
      * This method adds a room to the grid and persists in the database.

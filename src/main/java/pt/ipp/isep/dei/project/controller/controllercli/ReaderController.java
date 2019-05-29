@@ -1,33 +1,34 @@
 package pt.ipp.isep.dei.project.controller.controllercli;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.NodeList;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.mappers.AddressMapper;
-import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
-import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
-import pt.ipp.isep.dei.project.model.room.Room;
+import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.List;
 
 @Service
 public class ReaderController {
 
-    //
-    // USER STORY 15v2 - As an Administrator, I want to import geographical areas and sensors from a JSON or XML file.
+    @Autowired
+    HouseRepository houseRepository;
+
+    @Autowired
+    EnergyGridRepository energyGridRepository;
+
+    @Autowired
+    RoomRepository roomRepository;
 
     /**
      * This method reads a JSON file that represents the class House() and sets House attributes(US100 Attributes)
@@ -38,38 +39,56 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudRepo houseCrudRepo, RoomRepository roomRepository) {
+    public boolean readJSONAndDefineHouse(House house, String filePath) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
+
         //House
+
         HouseDTO houseDTO;
         try {
             houseDTO = readerJSONHouse.readFile(filePath);
-            Address address = AddressMapper.dtoToObject(houseDTO.getAddress());
-            house.setAddress(address);
+            houseRepository.updateHouse(houseDTO);
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new IllegalArgumentException();
         }
 
         //EnergyGrid
-
         List<EnergyGridDTO> gridDTOS = readerJSONHouse.readGridsJSON();
-        for (EnergyGridDTO eg : gridDTOS) {
-            EnergyGrid energyGrid = EnergyGridMapper.dtoToObjectWithNameRoomsAndPowerSources(eg);
-            energyGrid.setHouseId(house.getId());
-            energyGridRepository.addGrid(energyGrid);
-        }
+        addGridsToRepository(gridDTOS, house.getId());
 
-        //ROOMS
+        //Rooms
+
+        addRoomsToRepository(gridDTOS, house.getId());
+        return true;
+    }
+
+    /**
+     * This method receives a list of energy grid dtos and a String of a house ID,
+     * sets the house ID on every energy grid dto and tries to add the corresponding
+     * energy grid to the repository.
+     *
+     * **/
+    void addGridsToRepository(List<EnergyGridDTO> gridDTOS, String houseID){
+        for (EnergyGridDTO eg : gridDTOS) {
+            eg.setHouseID(houseID);
+            energyGridRepository.createEnergyGridWithNameRoomsAndPowerSources(eg);
+        }
+    }
+
+    /**
+     * This method receives a list of energy grid dtos and a String of a house ID,
+     * sets the house ID on every room DTO contained in every energy grid DTO and tries
+     * to add the corresponding room to the repository.
+     *
+     * **/
+    void addRoomsToRepository(List<EnergyGridDTO> gridDTOS, String houseID){
         for (EnergyGridDTO eg : gridDTOS) {
             List<RoomDTO> roomDTOS = eg.getRoomDTOS();
             for (RoomDTO rt : roomDTOS) {
-                rt.setHouseId(house.getId());
-                Room aux = RoomMapper.dtoToObjectWithoutSensorsAndDevices(rt);
-                roomRepository.saveRoom(aux);
+                rt.setHouseId(houseID);
+                roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(rt);
             }
         }
-        houseCrudRepo.save(house);
-        return true;
     }
 
     /**
@@ -90,6 +109,9 @@ public class ReaderController {
         }
         return result;
     }
+
+
+
 
 
     /**

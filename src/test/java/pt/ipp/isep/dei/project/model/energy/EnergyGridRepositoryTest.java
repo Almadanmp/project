@@ -567,6 +567,65 @@ class EnergyGridRepositoryTest {
     }
 
     @Test
+    void seeIfCreateEnergyGridWithNameRoomsAndPowerSourcesWorksTrue() {
+        // Arrange
+
+        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+        energyGridDTO.setName("Main Grid");
+        energyGridDTO.setHouseID("7");
+        energyGridDTO.setMaxContractedPower(45D);
+        energyGridDTO.setRoomDTOS(new ArrayList<>());
+        energyGridDTO.setPowerSourceDTOS(new ArrayList<>());
+
+
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 45D, "7");
+
+        List<EnergyGrid> list = new ArrayList<>();
+
+        // Act
+
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+        Mockito.when(energyGridCrudRepository.save(energyGrid)).thenReturn(energyGrid);
+
+        boolean actualResult = validGridRepo.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+
+    }
+
+    @Test
+    void seeIfCreateEnergyGridWithNameRoomsAndPowerSourcesWorksFalse() {
+        // Arrange
+
+        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+        energyGridDTO.setName("Main Grid");
+        energyGridDTO.setHouseID("7");
+        energyGridDTO.setMaxContractedPower(45D);
+        energyGridDTO.setRoomDTOS(new ArrayList<>());
+        energyGridDTO.setPowerSourceDTOS(new ArrayList<>());
+
+        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 45D, "7");
+
+        List<EnergyGrid> list = new ArrayList<>();
+        list.add(energyGrid);
+
+        // Act
+
+        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+
+        boolean actualResult = validGridRepo.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+
+    }
+
+    @Test
     void seeIfCreatePowerSourceWorks(){
         // Arrange
 
