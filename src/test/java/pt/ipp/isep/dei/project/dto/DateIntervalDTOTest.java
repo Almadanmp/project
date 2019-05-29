@@ -31,6 +31,18 @@ class DateIntervalDTOTest {
     }
 
     @Test
+    void seeIfEmptyConstructorWorks() {
+        //Act
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+
+        //Assert
+
+        assertNull(dateIntervalDTO.getInitialDate());
+        assertNull(dateIntervalDTO.getEndDate());
+    }
+
+    @Test
     void seeIfSetInitalDateWorks() {
         //Arrange
 
