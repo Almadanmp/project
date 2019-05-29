@@ -8,8 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
@@ -30,9 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 /**
  * GeographicAreaService tests class.
@@ -42,13 +38,15 @@ class GeographicAreaRepositoryTest {
 
     // Common testing artifacts for this class.
 
+    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+    @Mock
+    GeographicAreaCrudRepo geographicAreaCrudRepo;
     private GeographicArea firstValidArea;
     private List<GeographicArea> validList;
     private List<GeographicAreaDTO> validDTOList;
     private GeographicAreaDTO validDTO;
     private GeographicAreaWebDTO validWebDTO;
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
@@ -67,14 +65,9 @@ class GeographicAreaRepositoryTest {
     private Reading validReading2;
     private Reading validReadingHotDay;
     private Reading validReadingColdDay;
-
     private List<Reading> validReadingList;
     private House validHouse;
     private List<String> deviceTypeString;
-
-    @Mock
-    GeographicAreaCrudRepo geographicAreaCrudRepo;
-
     @InjectMocks
     private GeographicAreaRepository geographicAreaRepository;
 

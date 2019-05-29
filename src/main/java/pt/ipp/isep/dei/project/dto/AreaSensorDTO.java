@@ -23,24 +23,12 @@ public class AreaSensorDTO extends ResourceSupport {
         readingDTOS = new ArrayList<>();
     }
 
-    /**
-     * Method that retrieves the DTO's id.
-     *
-     * @return is the DTO's id.
-     */
+    public void setId(String id) {
+        this.sensorId = id;
+    }
 
     public String getSensorId() {
         return sensorId;
-    }
-
-    /**
-     * Method that stores a String as the DTO's id.
-     *
-     * @param id is the string we want to store.
-     */
-
-    public void setId(String id) {
-        this.sensorId = id;
     }
 
     public LocalDTO getLocalDTO() {
@@ -51,44 +39,8 @@ public class AreaSensorDTO extends ResourceSupport {
         this.localDTO = localDTO;
     }
 
-    /**
-     * Method that retrieves the units the Sensor stores readings in, as a String.
-     *
-     * @return is the unit the Sensor stores readings in.
-     */
-
-    public String getUnits() {
-        return units;
-    }
-
-    /**
-     * Method that retrieves the DTO's altitude as a double.
-     *
-     * @return is the DTO's altitude.
-     */
-
     public double getAltitude() {
         return altitude;
-    }
-
-    /**
-     * Method that retrieves the DTO's latitude as a double.
-     *
-     * @return is the DTO's latitude.
-     */
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    /**
-     * Method that retrieves the DTO's longitude as a double.
-     *
-     * @return is the DTO's longitude.
-     */
-
-    public double getLongitude() {
-        return longitude;
     }
 
     /**
@@ -96,9 +48,12 @@ public class AreaSensorDTO extends ResourceSupport {
      *
      * @param altitude is the value we want to store.
      */
-
     public void setAltitude(double altitude) {
         this.altitude = altitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
     }
 
     /**
@@ -106,19 +61,12 @@ public class AreaSensorDTO extends ResourceSupport {
      *
      * @param latitude is the value we want to store.
      */
-
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    /**
-     * Method that stores a double as the DTO's longitude.
-     *
-     * @param longitude is the value we want to store.
-     */
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public String getUnits() {
+        return units;
     }
 
     /**
@@ -126,7 +74,6 @@ public class AreaSensorDTO extends ResourceSupport {
      *
      * @param units is string we want to store.
      */
-
     public void setUnits(String units) {
         this.units = units;
     }
@@ -151,14 +98,17 @@ public class AreaSensorDTO extends ResourceSupport {
         this.name = name;
     }
 
-    /**
-     * Method that retrieves the DTO's type's name as a string.
-     *
-     * @return is a string that corresponds to the name of the type of the DTO.
-     */
+    public double getLongitude() {
+        return longitude;
+    }
 
-    public String getType() {
-        return typeSensor;
+    /**
+     * Method that stores a double as the DTO's longitude.
+     *
+     * @param longitude is the value we want to store.
+     */
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     /**
@@ -168,6 +118,16 @@ public class AreaSensorDTO extends ResourceSupport {
      */
     public void setTypeSensor(String typeSensor) {
         this.typeSensor = typeSensor;
+    }
+
+    /**
+     * Method that retrieves the DTO's type's name as a string.
+     *
+     * @return is a string that corresponds to the name of the type of the DTO.
+     */
+
+    public String getType() {
+        return typeSensor;
     }
 
     public boolean getActive() {

@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.project.dto;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -209,7 +207,7 @@ class GeographicAreaDTOTest {
 
         // Assert
 
-        Assert.assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -224,7 +222,7 @@ class GeographicAreaDTOTest {
 
         // Assert
 
-        Assert.assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test

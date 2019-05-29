@@ -11,12 +11,12 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
     private int gridMeteringPeriod;
     private int deviceMeteringPeriod;
 
-    public String getHouseId() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getHouseId() {
+        return id;
     }
 
     public AddressDTO getAddress() {
@@ -43,17 +43,17 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
         this.gridMeteringPeriod = gridMeteringPeriod;
     }
 
+    public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO) {
+        setAddress(addressAndLocalDTO.getAddress());
+        setLocation(addressAndLocalDTO.getLocal());
+    }
+
     public int getDeviceMeteringPeriod() {
         return deviceMeteringPeriod;
     }
 
     public void setDeviceMeteringPeriod(int deviceMeteringPeriod) {
         this.deviceMeteringPeriod = deviceMeteringPeriod;
-    }
-
-    public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO){
-        setAddress(addressAndLocalDTO.getAddress());
-        setLocation(addressAndLocalDTO.getLocal());
     }
 
     @Override

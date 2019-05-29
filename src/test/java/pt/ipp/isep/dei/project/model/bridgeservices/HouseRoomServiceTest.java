@@ -12,17 +12,16 @@ import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HouseRoomServiceTest {
-
-    private RoomDTOMinimal roomDTOMinimal;
-    private Room room;
 
     @Mock
     HouseRepository houseRepository;
     @Mock
     RoomRepository roomRepository;
+    private RoomDTOMinimal roomDTOMinimal;
+    private Room room;
     @InjectMocks
     private HouseRoomService service;
 
@@ -72,7 +71,7 @@ class HouseRoomServiceTest {
     }
 
     @Test
-    void seeIfUpdateHouseIDWorks(){
+    void seeIfUpdateHouseIDWorks() {
         //Arrange
 
         Mockito.doReturn("01").when(this.houseRepository).getHouseId();
