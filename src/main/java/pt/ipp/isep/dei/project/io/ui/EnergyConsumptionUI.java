@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -29,6 +30,8 @@ class EnergyConsumptionUI {
     private EnergyConsumptionController controller;
     @Autowired
     EnergyGridRepository energyGridRepository;
+    @Autowired
+    EnergyGridRoomService energyGridRoomService;
     @Autowired
     RoomRepository roomRepository;
     private final Scanner returnToConsole = new Scanner(System.in);
@@ -206,7 +209,7 @@ class EnergyConsumptionUI {
      */
 
     private void selectRooms(EnergyGrid grid, List<Room> selectedRooms, DeviceList selectedDevices) {
-        Room r1 = InputHelperUI.getGridRoomByList(grid);
+        Room r1 = InputHelperUI.getGridRoomByList(grid, energyGridRoomService);
         if (selectedRooms.contains(r1)) {
             String duplicateRoom = "That room is already selected. Would you like to removeGeographicArea it from the list? (Y/N)\n";
             System.out.println(duplicateRoom);
@@ -230,7 +233,7 @@ class EnergyConsumptionUI {
      */
 
     private void selectDevices(EnergyGrid grid, DeviceList selectedDevices) {
-        Device d1 = InputHelperUI.getGridDevicesByList(grid);
+        Device d1 = InputHelperUI.getGridDevicesByList(grid, energyGridRoomService);
         if (selectedDevices.containsDevice(d1)) {
             String duplicateDevice = "That device is already on the list. Would you like to deselect the device? (Y/N)\n";
             System.out.println(duplicateDevice);

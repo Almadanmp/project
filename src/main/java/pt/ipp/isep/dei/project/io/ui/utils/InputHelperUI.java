@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONGeographicAreas;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.devicetypes.DeviceType;
 import pt.ipp.isep.dei.project.model.device.program.FixedTimeProgram;
@@ -132,13 +133,13 @@ public class InputHelperUI {
      * @param grid is the grid we want to choose rooms from.
      * @return is the chosen room.
      */
-    public static Room getGridRoomByList(EnergyGrid grid) {
+    public static Room getGridRoomByList(EnergyGrid grid, EnergyGridRoomService energyGridRoomService) {
         while (true) {
             System.out.println("Please select one of the existing rooms in the house: ");
-            System.out.println(grid.buildEnergyGridRoomsAsString());
+            System.out.println(energyGridRoomService.buildEnergyGridRoomsAsString(grid));
             int aux = getInputAsInt();
             if (aux >= 0 && aux < grid.roomListSize()) {
-                Room result = grid.getRoom(aux);
+                Room result = energyGridRoomService.getRoom(grid, aux);
                 System.out.println(SELECT_ROOMS);
                 System.out.println(result.buildString() + "\n");
                 return result;
@@ -155,13 +156,13 @@ public class InputHelperUI {
      * @param grid is the grid we want to choose a device from.
      * @return is the chosen device.
      */
-    public static Device getGridDevicesByList(EnergyGrid grid) {
+    public static Device getGridDevicesByList(EnergyGrid grid, EnergyGridRoomService energyGridRoomService) {
         while (true) {
             System.out.println(SELECT_DEVICES);
-            System.out.println(grid.buildDeviceListString());
+            System.out.println(energyGridRoomService.buildDeviceListString(grid));
             int aux = getInputAsInt();
-            if (aux >= 0 && aux < grid.getNumberOfDevices()) {
-                Device result = grid.getDeviceByIndex(aux);
+            if (aux >= 0 && aux < energyGridRoomService.getNumberOfDevices(grid)) {
+                Device result = energyGridRoomService.getDeviceByIndex(aux, grid);
                 System.out.println("You have chosen the following device: ");
                 System.out.println(result.buildString() + "\n");
                 return result;

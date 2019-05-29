@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -38,7 +39,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudRepo houseCrudRepo, RoomRepository roomRepository) {
+    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudRepo houseCrudRepo, RoomRepository roomRepository, EnergyGridRoomService energyGridRoomService) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
         //House
         HouseDTO houseDTO;
@@ -60,14 +61,12 @@ public class ReaderController {
         }
 
         //ROOMS
-        for (EnergyGridDTO eg : gridDTOS) {
-            List<RoomDTO> roomDTOS = eg.getRoomDTOS();
-            for (RoomDTO rt : roomDTOS) {
-                rt.setHouseId(house.getId());
-                Room aux = RoomMapper.dtoToObjectWithoutSensorsAndDevices(rt);
+        List<RoomDTO> roomDTOS = readerJSONHouse.readRoomsJSON();
+        for (RoomDTO rto : roomDTOS) {
+                rto.setHouseId(house.getId());
+                Room aux = RoomMapper.dtoToObjectWithoutSensorsAndDevices(rto);
                 roomRepository.saveRoom(aux);
             }
-        }
         houseCrudRepo.save(house);
         return true;
     }

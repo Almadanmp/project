@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller.controllercli;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
@@ -19,6 +20,8 @@ import java.util.List;
 public class EnergyGridSettingsController {
     @Autowired
     RoomRepository roomRepository;
+    @Autowired
+    EnergyGridRoomService energyGridRoomService;
     @Autowired
     EnergyGridRepository energyGridRepository;
     //SHARED METHODS THROUGH DIFFERENT UIS
@@ -103,7 +106,7 @@ public class EnergyGridSettingsController {
     public boolean addRoomDTOToGrid(EnergyGrid grid, RoomDTO roomDTO) {
         try {
             Room room = roomRepository.updateHouseRoom(roomDTO);
-            return grid.addRoom(room);
+            return energyGridRoomService.addRoom(grid,room);
         } catch (RuntimeException ok) {
             throw new RuntimeException();
         }
@@ -119,7 +122,7 @@ public class EnergyGridSettingsController {
      */
 
     public boolean removeRoomFromGrid(EnergyGrid grid, Room room) {
-        return grid.removeRoom(room);
+        return energyGridRoomService.removeRoom(grid, room);
     }
 
     /*USER STORY 160 - As a Power User (or Administrator),
@@ -135,6 +138,6 @@ public class EnergyGridSettingsController {
      */
 
     public String buildListOfDevicesOrderedByTypeString(EnergyGrid energyGrid) {
-        return energyGrid.buildDeviceListWithTypeString();
+        return energyGridRoomService.buildDeviceListWithTypeString(energyGrid);
     }
 }

@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
@@ -26,6 +27,9 @@ class EnergyGridSettingsUI {
     EnergyGridRepository energyGridRepository;
     @Autowired
     RoomRepository roomRepository;
+    @Autowired
+    EnergyGridRoomService energyGridRoomService;
+
     private final List<String> menuOptions = createMenu();
 
     private List<String> createMenu() {
@@ -153,9 +157,8 @@ class EnergyGridSettingsUI {
             return;
         }
         EnergyGrid energyGrid = InputHelperUI.getInputGridByList(energyGridRepository);
-        List<Room> roomsOnGrid = energyGrid.getRoomList();
+        List<Room> roomsOnGrid = energyGridRoomService.getRoomList(energyGrid);
         displayRoomList(roomsOnGrid);
-
     }
 
     private void displayRoomList(List<Room> roomsOnGrid) {
@@ -212,7 +215,7 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        Room room = InputHelperUI.getGridRoomByList(energyGrid);
+        Room room = InputHelperUI.getGridRoomByList(energyGrid,energyGridRoomService);
         updateGridUS149(energyGrid, room);
     }
 
@@ -242,7 +245,7 @@ class EnergyGridSettingsUI {
             System.out.println(UtilsUI.INVALID_ROOM_LIST);
             return;
         }
-        if (energyGrid.isDeviceListEmpty()) {
+        if (energyGridRoomService.isDeviceListEmpty(energyGrid)) {
             System.out.println(UtilsUI.INVALID_DEVICE_LIST);
             return;
         }

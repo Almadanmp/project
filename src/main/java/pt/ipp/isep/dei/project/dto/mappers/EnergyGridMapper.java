@@ -2,10 +2,8 @@ package pt.ipp.isep.dei.project.dto.mappers;
 
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
-import pt.ipp.isep.dei.project.model.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +61,9 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        List<Room> objectRoomService = new ArrayList<>();
-        for (RoomDTO y : dtoToConvert.getRoomDTOS()) {
-            Room tempRoom = RoomMapper.dtoToObject(y);
-            objectRoomService.add(tempRoom);
+        List<String> objectRoomService = new ArrayList<>();
+        for (String y : dtoToConvert.getRoomIds()) {
+            objectRoomService.add(y);
         }
 
         // Update the PowerSourceList
@@ -97,10 +94,9 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        List<Room> objectRoomService = new ArrayList<>();
-        for (RoomDTO y : dtoToConvert.getRoomDTOS()) {
-            Room tempRoom = RoomMapper.dtoToObjectWithoutSensorsAndDevices(y);
-            objectRoomService.add(tempRoom);
+        List<String> objectRoomService = new ArrayList<>();
+        for (String y : dtoToConvert.getRoomIds()) {
+            objectRoomService.add(y);
         }
 
         // Update the PowerSourceList
@@ -142,11 +138,10 @@ public final class EnergyGridMapper {
 
         // Update the RoomList
 
-        List<RoomDTO> dtoRoomList = new ArrayList<>();
-        for (Room y : objectToConvert.getRoomList()) {
-            RoomDTO tempRoomDTO = RoomMapper.objectToDTO(y);
-            if (!(dtoRoomList.contains(tempRoomDTO))) {
-                dtoRoomList.add(tempRoomDTO);
+        List<String> dtoRoomList = new ArrayList<>();
+        for (String y : objectToConvert.getRoomIdList()) {
+            if (!(dtoRoomList.contains(y))) {
+                dtoRoomList.add(y);
             }
         }
 
@@ -166,7 +161,7 @@ public final class EnergyGridMapper {
         resultDTO.setMaxContractedPower(dtoMaxContractedPower);
         resultDTO.setName(dtoName);
         resultDTO.setPowerSourceDTOS(dtoPowerSourceList);
-        resultDTO.setRoomDTOS(dtoRoomList);
+        resultDTO.setRoomIds(dtoRoomList);
         resultDTO.setHouseID(dtoHouseID);
 
         return resultDTO;

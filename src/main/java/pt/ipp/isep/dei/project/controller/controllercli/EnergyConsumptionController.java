@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.controller.controllercli;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
@@ -25,6 +26,8 @@ public class EnergyConsumptionController {
     RoomRepository roomRepository;
     @Autowired
     EnergyGridRepository energyGridRepository;
+    @Autowired
+    EnergyGridRoomService energyGridRoomService;
 
     /*
      * US705
@@ -164,7 +167,8 @@ public class EnergyConsumptionController {
     interval.*/
 
     public double getGridConsumptionInInterval(EnergyGrid eGrid, Date initialDate, Date finalDate) {
-        return eGrid.getGridConsumptionInInterval(initialDate, finalDate);
+
+        return energyGridRoomService.getGridConsumptionInInterval(eGrid, initialDate,finalDate);
     }
 
     /* US730 As a Power User [or Administrator], I want to have the data series necessary to design an energy
@@ -180,7 +184,7 @@ public class EnergyConsumptionController {
      * @return a List of Logs with the wanted logs.
      */
     public LogList getGridLogsInInterval(EnergyGrid grid, Date startDate, Date endDate) {
-        return grid.getLogsInInterval(startDate, endDate);
+        return energyGridRoomService.getLogsInInterval(grid,startDate,endDate);
     }
 
     /**
@@ -282,7 +286,7 @@ public class EnergyConsumptionController {
      * @return the value of the nominal power of all the devices in this grid
      */
     public double getTotalPowerFromGrid(EnergyGrid grid) {
-        return grid.getNominalPower();
+        return energyGridRoomService.getNominalPower(grid);
     }
 
 }

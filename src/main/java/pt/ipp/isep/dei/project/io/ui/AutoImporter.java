@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.project.controller.controllercli.HouseConfigurationContro
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -42,6 +43,8 @@ public class AutoImporter {
     private RoomRepository roomRepository;
     @Autowired
     private EnergyGridRepository energyGridRepository;
+    @Autowired
+    EnergyGridRoomService energyGridRoomService;
 
 
     @Autowired
@@ -82,7 +85,7 @@ public class AutoImporter {
         }
         inputHelperUI.acceptPathJSONorXMLAndReadFile("src/test/resources/geoAreaFiles/DataSet_sprint07_GA.json", geographicAreaRepository, sensorTypeRepository, areaTypeRepository);
         gaSettingsUI.importReadingsFromJSON("src/test/resources/readingsFiles/DataSet_sprint07_GAData.json");
-        readerController.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_HouseData.json", energyGridRepository, houseCrudRepo, roomRepository);
+        readerController.readJSONAndDefineHouse(house, "src/test/resources/houseFiles/DataSet_sprint06_HouseData.json", energyGridRepository, houseCrudRepo, roomRepository, energyGridRoomService);
         houseConfigurationController.readSensors("src/test/resources/houseSensorFiles/DataSet_sprint07_HouseSensors.json");
         houseConfigurationUI.importReadingsFromJSON("src/test/resources/readingsFiles/DataSet_sprint07_HouseSensorData.json");
         System.out.println("...");

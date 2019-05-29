@@ -33,7 +33,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
 
     private static final String BUILDER = "---------------\n";
 
-    private List<Room> baseMethod(EnergyGrid energyGrid){
+    public List<Room> getRoomList(EnergyGrid energyGrid) {
         List<Room> gridRooms = new ArrayList<>();
         for (String id : energyGrid.getRoomIdList()){
             List<Room> rooms = roomRepository.getAllRooms();
@@ -45,6 +45,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         }
         return gridRooms;
     }
+
     /**
      * Method accesses the sum of nominal powers of all rooms and devices connected to a grid..
      *
@@ -52,7 +53,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      */
     public double getNominalPower(EnergyGrid energyGrid) {
         double result = 0;
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         for (Room r : finalRooms) {
             result += r.getNominalPower();
         }
@@ -88,7 +89,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return returns room that corresponds to index.
      */
     public Room getRoom(EnergyGrid energyGrid, int index) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         if (finalRooms.isEmpty()) {
             throw new IndexOutOfBoundsException("The room list is empty.");
         }
@@ -101,7 +102,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return a String of the Rooms in the RoomList.
      */
     public String buildEnergyGridRoomsAsString(EnergyGrid energyGrid) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         StringBuilder result = new StringBuilder(BUILDER);
         if (finalRooms.isEmpty()) {
             return "Invalid List - List is Empty\n";
@@ -121,7 +122,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return energy grid's entire DeviceList
      */
     public DeviceList getDeviceList(EnergyGrid energyGrid) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         DeviceList devices = new DeviceList();
         for (Room r : finalRooms) {
             devices.addDevicesToThisDeviceList(r.getDeviceList());
@@ -136,7 +137,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return energy grid's associated devices as int
      */
     public int getNumberOfDevices(EnergyGrid energyGrid) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         int sum = 0;
         for (Room r : finalRooms) {
             sum += r.getNumberOfDevices();
@@ -165,7 +166,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return returns true if the room is successfully removed from the energy grid.
      */
     public boolean removeRoom(EnergyGrid energyGrid,Room room) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         if (finalRooms.contains(room)) {
             finalRooms.remove(room);
             return true;
@@ -174,7 +175,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     }
 
     boolean removeRoomById(EnergyGrid energyGrid, String roomID) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         for (Room r : finalRooms) {
             if (r.getId().equals(roomID)) {
                 finalRooms.remove(r);
@@ -199,7 +200,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return a String with the device index, device type, device name and the room in which the device is contained.
      */
     public String buildDeviceListWithTypeString(EnergyGrid energyGrid) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         StringBuilder result = new StringBuilder(BUILDER);
         for (Room r : finalRooms) {
             DeviceList devices = r.getDeviceList();
@@ -222,7 +223,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return total metered energy consumption of a grid in a given time interval.
      */
     public double getGridConsumptionInInterval(EnergyGrid energyGrid, Date initialDate, Date finalDate) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         double consumption = 0;
         for (Room r : finalRooms) {
             consumption += r.getConsumptionInInterval(initialDate, finalDate);
@@ -239,7 +240,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return log list with every log contained in interval given.
      */
     public LogList getLogsInInterval(EnergyGrid energyGrid, Date startDate, Date endDate) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         LogList logsInInterval = new LogList();
         for (Room r : finalRooms) {
             logsInInterval.addLogList(r.getLogsInInterval(startDate, endDate));
@@ -253,7 +254,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @return true if energy grid's DeviceList is empty, false otherwise.
      **/
     public boolean isDeviceListEmpty(EnergyGrid energyGrid) {
-        List<Room> finalRooms = baseMethod(energyGrid);
+        List<Room> finalRooms = getRoomList(energyGrid);
         int sum = 0;
         for (Room r : finalRooms) {
             if (r.getDeviceListSize() != 0) {
@@ -282,7 +283,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         return false;
     }
 
-    Room getRoomById(String id) {
+    public Room getRoomById(String id) {
         Optional<Room> value = roomCrudRepo.findById(id);
         if (value.isPresent()) {
             return value.get();
@@ -323,8 +324,26 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      */
     public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
         EnergyGrid energyGrid = energyGridCrudRepository.findByName(gridId);
-        List<Room> roomList = baseMethod(energyGrid);
+        List<Room> roomList = getRoomList(energyGrid);
         return RoomWebMapper.objectsToDtosWeb(roomList);
+    }
+
+    /**
+     * US 147
+     * Method that returns a RoomDtoWeb from a given id, with a given Grid Id also.
+     *
+     * @param gridId is the grid where the room is at.
+     * @param roomId is the room id.
+     * @return a RoomDtoWeb from a given id, with a given Grid Id also.
+     */
+    public RoomDTOWeb getRoomDtoWebById(String gridId, String roomId) {
+        List<RoomDTOWeb> list = getRoomsDtoWebInGrid(gridId);
+        for (RoomDTOWeb r : list) {
+            if (r.getName().equals(roomId)) {
+                return r;
+            }
+        }
+        return null;
     }
 
 }

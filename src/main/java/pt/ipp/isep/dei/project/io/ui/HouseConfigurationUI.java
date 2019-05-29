@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -36,6 +37,8 @@ class HouseConfigurationUI {
     private RoomRepository roomRepository;
     @Autowired
     private EnergyGridRepository energyGridRepository;
+    @Autowired
+    private EnergyGridRoomService energyGridRoomService;
     @Autowired
     private SensorTypeRepository sensorTypeRepository;
     @Autowired
@@ -125,7 +128,7 @@ class HouseConfigurationUI {
         String filePath = InputHelperUI.getInputPath(input);
         long startTime = System.currentTimeMillis();
         try {
-            if (readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository)) {
+            if (readerController.readJSONAndDefineHouse(house, filePath, energyGridRepository, houseCrudRepo, roomRepository, energyGridRoomService)) {
                 System.out.println("House Data Successfully imported.");
                 long stopTime = System.currentTimeMillis();
                 System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);

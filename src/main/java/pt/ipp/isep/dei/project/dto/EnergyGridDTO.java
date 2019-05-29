@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EnergyGridDTO {
 
-    private List<RoomDTO> roomDTOS;
+    private List<String> roomIds;
     private String name;
     private List<PowerSourceDTO> powerSourceDTOS;
     private Double maxContractedPower;
@@ -35,12 +35,12 @@ public class EnergyGridDTO {
         return new ArrayList<>(powerSourceDTOS);
     }
 
-    public void setRoomDTOS(List<RoomDTO> roomDTOS) {
-        this.roomDTOS = new ArrayList<>(roomDTOS);
+    public void setRoomIds(List<String> roomIds) {
+        this.roomIds = new ArrayList<>(roomIds);
     }
 
-    public List<RoomDTO> getRoomDTOS() {
-        return new ArrayList<>(roomDTOS);
+    public List<String> getRoomIds() {
+        return new ArrayList<>(roomIds);
     }
 
     public void setHouseID(String houseID) {

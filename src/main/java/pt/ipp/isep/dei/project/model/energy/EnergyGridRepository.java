@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.model.energy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
-import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
@@ -54,56 +51,6 @@ public class EnergyGridRepository {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Method for US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and
-     * energy consumption is included in that grid.
-     * This method adds a room to the grid and persists in the database.
-     *
-     * @param roomId   is the roomId we want to add to the grid
-     * @param gridName is the name of the grid we want to add the room to
-     * @return true if the room was successfully added, false otherwise
-     */
-    public boolean attachRoomToGrid(String roomId, String gridName) {
-        EnergyGrid energyGrid = getById(gridName);
-        Room room = getRoomById(roomId);
-        if (energyGrid.addRoom(room)) {
-            energyGridCrudRepository.save(energyGrid);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * US 147
-     * Method that returns a RoomDtoWeb from a given id, with a given Grid Id also.
-     *
-     * @param gridId is the grid where the room is at.
-     * @param roomId is the room id.
-     * @return a RoomDtoWeb from a given id, with a given Grid Id also.
-     */
-    public RoomDTOWeb getRoomDtoWebById(String gridId, String roomId) {
-        List<RoomDTOWeb> list = getRoomsDtoWebInGrid(gridId);
-        for (RoomDTOWeb r : list) {
-            if (r.getName().equals(roomId)) {
-                return r;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
-     * that I can attach/detach rooms from it.
-     * This method returns a List of Rooms Dto Web from a grid.
-     *
-     * @param gridId is the name of the grid.
-     * @return a List of Rooms Dto Web from a grid.
-     */
-    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
-        List<Room> roomList = energyGridCrudRepository.findByName(gridId).getRoomList();
-        return RoomWebMapper.objectsToDtosWeb(roomList);
     }
 
     /**
