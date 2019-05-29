@@ -1,16 +1,11 @@
 package pt.ipp.isep.dei.project.services.units;
 
-import javassist.Modifier;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Formatter;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -18,17 +13,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static pt.ipp.isep.dei.project.services.units.UnitHelper.getApplicationTemperatureConfig;
 
 class UnitHelperTest {
-    @Test
-    void testConstructorIsPrivate() throws IllegalStateException {
-        try {
-            Constructor<UnitHelper> constructor = UnitHelper.class.getDeclaredConstructor();
-            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testConstructorIsPrivate() throws IllegalStateException {
+//        try {
+//            Constructor<UnitHelper> constructor = UnitHelper.class.getDeclaredConstructor();
+//            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+//            constructor.setAccessible(true);
+//            constructor.newInstance();
+//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Test
     void seeIfGetUserTemperatureDefaultWorks() throws IOException {
@@ -369,7 +364,7 @@ class UnitHelperTest {
             System.out.println("OK ler");
             assertTrue(true);
         } catch (FileNotFoundException e) {
-            System.out.println("ERRO:"+e.getMessage());
+            System.out.println("ERRO:" + e.getMessage());
             assertFalse(false);
         }
 

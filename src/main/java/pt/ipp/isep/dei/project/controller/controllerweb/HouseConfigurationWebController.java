@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +41,12 @@ public class HouseConfigurationWebController {
      */
     @PutMapping(value = "/house")
     public ResponseEntity<Object> configureHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
-        HouseWithoutGridsDTO house = houseRepository.getHouseWithoutGridsDTO();
-        house.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
-        if (houseRepository.updateHouseDTOWithoutGrids(house)) {
+        HouseWithoutGridsDTO houseWithoutGridsDTO = houseRepository.getHouseWithoutGridsDTO();
+        houseWithoutGridsDTO.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
+        if (houseRepository.updateHouseDTOWithoutGrids(houseWithoutGridsDTO)) {
             Link link = linkTo(methodOn(HouseConfigurationWebController.class).retrieveHouse()).withRel("Click here to see the House updated");
-            house.add(link);
-            return new ResponseEntity<>(house, HttpStatus.OK);
+            houseWithoutGridsDTO.add(link);
+            return new ResponseEntity<>(houseWithoutGridsDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>("The house hasn't been altered. Please try again", HttpStatus.BAD_REQUEST);
     }
@@ -83,6 +82,8 @@ public class HouseConfigurationWebController {
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         if (houseRoomService.addMinimalRoomDTOToHouse(roomDTOMinimal)) {
+            Link link = linkTo(methodOn(HouseConfigurationWebController.class).deleteRoom(roomDTOMinimal)).withRel("Click here to delete room.");
+            roomDTOMinimal.add(link);
             return new ResponseEntity<>(roomDTOMinimal, HttpStatus.CREATED);
         }
         return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
@@ -99,7 +100,7 @@ public class HouseConfigurationWebController {
     public ResponseEntity<Object> getHouseRooms() {
         List<RoomDTOMinimal> roomDTOBarebones = roomRepository.getAllRoomWebDTOs();
         for (RoomDTOMinimal roomDTO : roomDTOBarebones) {
-            Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTO.getName()).withRel("roomName");
+            Link link = linkTo(methodOn(HouseConfigurationWebController.class).deleteRoom(roomDTO)).withRel("Click here to delete room.");
             roomDTO.add(link);
         }
         return new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);

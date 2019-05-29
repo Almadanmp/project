@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,9 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,15 +39,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = HibernateJpaAutoConfiguration.class)
 class SensorSettingsWebControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @Mock
     GeographicAreaRepository geographicAreaRepository;
-
     @InjectMocks
     SensorSettingsWebController sensorSettingsWebController;
-
+    @Autowired
+    private MockMvc mockMvc;
     private long id;
     private AreaSensor validAreaSensor;
     private GeographicArea validGeographicArea;
@@ -283,7 +277,7 @@ class SensorSettingsWebControllerTest {
 
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO2, 12L);
 
-        Assertions.assertEquals(HttpStatus.CONFLICT, actualResult.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, actualResult.getStatusCode());
     }
 
     @Test

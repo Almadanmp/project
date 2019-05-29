@@ -11,13 +11,11 @@ import pt.ipp.isep.dei.project.io.ui.reader.ReadingsReaderXML;
 import pt.ipp.isep.dei.project.io.ui.utils.InputHelperUI;
 import pt.ipp.isep.dei.project.io.ui.utils.MenuFormatter;
 import pt.ipp.isep.dei.project.io.ui.utils.UtilsUI;
-import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
-import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
 
 import java.util.ArrayList;
@@ -35,13 +33,7 @@ class HouseConfigurationUI {
     @Autowired
     private RoomRepository roomRepository;
     @Autowired
-    private EnergyGridRepository energyGridRepository;
-    @Autowired
-    private SensorTypeRepository sensorTypeRepository;
-    @Autowired
     private HouseCrudRepo houseCrudRepo;
-    @Autowired
-    private InputHelperUI inputHelperUI;
 
     private String roomName;
     private String roomDescription;
@@ -125,15 +117,13 @@ class HouseConfigurationUI {
         String filePath = InputHelperUI.getInputPath(input);
         long startTime = System.currentTimeMillis();
         try {
-            if (readerController.readJSONAndDefineHouse(house, filePath)) {
-                System.out.println("House Data Successfully imported.");
-                long stopTime = System.currentTimeMillis();
-                System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
-            } else {
-                System.out.println("The JSON file is invalid.");
-            }
+            readerController.readJSONAndDefineHouse(house, filePath);
+            System.out.println("House Data Successfully imported.");
+            long stopTime = System.currentTimeMillis();
+            System.out.println(IMPORT_TIME + (stopTime - startTime) + MILLISECONDS);
         } catch (IllegalArgumentException ill) {
             ill.getMessage();
+            System.out.println("The JSON file is invalid.");
         }
     }
 

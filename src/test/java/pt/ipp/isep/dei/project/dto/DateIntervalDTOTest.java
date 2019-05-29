@@ -7,9 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DateIntervalDTOTest {
     private Date initialDate;
@@ -28,6 +26,104 @@ class DateIntervalDTOTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void seeIfEmptyConstructorWorks() {
+        //Act
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO();
+
+        //Assert
+
+        assertNull(dateIntervalDTO.getInitialDate());
+        assertNull(dateIntervalDTO.getEndDate());
+    }
+
+    @Test
+    void seeIfSetInitalDateWorks() {
+        //Arrange
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, endDate);
+
+        //Act
+
+        dateIntervalDTO.setInitialDate(initialDate);
+
+        //Assert
+
+        assertEquals(initialDate, dateIntervalDTO.getInitialDate());
+    }
+
+    @Test
+    void seeIfSetInitalDateWorksWhenNull() {
+        //Arrange
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, endDate);
+
+        //Act
+
+        dateIntervalDTO.setInitialDate(null);
+
+        //Assert
+
+        assertNull(dateIntervalDTO.getInitialDate());
+    }
+
+    @Test
+    void seeIfSetEndDateWorks() {
+        //Arrange
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, null);
+
+        //Act
+
+        dateIntervalDTO.setEndDate(endDate);
+
+        //Assert
+
+        assertEquals(endDate, dateIntervalDTO.getEndDate());
+    }
+
+    @Test
+    void seeIfSetEndDateWorksWhenNull() {
+        //Arrange
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, endDate);
+
+        //Act
+
+        dateIntervalDTO.setEndDate(null);
+
+        //Assert
+
+        assertNull(dateIntervalDTO.getEndDate());
+    }
+
+
+    @Test
+    void seeIfConstructorWorks() {
+        //Act
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(initialDate, endDate);
+
+        //Assert
+
+        assertEquals(initialDate, dateIntervalDTO.getInitialDate());
+        assertEquals(endDate, dateIntervalDTO.getEndDate());
+    }
+
+    @Test
+    void seeIfConstructorWorksWhenNull() {
+        //Act
+
+        DateIntervalDTO dateIntervalDTO = new DateIntervalDTO(null, null);
+
+        //Assert
+
+        assertNull(dateIntervalDTO.getInitialDate());
+        assertNull(dateIntervalDTO.getEndDate());
+    }
+
 
     @Test
     void getInitialDate() {
