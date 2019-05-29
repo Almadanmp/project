@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
@@ -94,15 +94,15 @@ class EnergyGridSettingsWebControllerTest {
     @Test
      void seeIfGetRoomsWebDtoInGridWorks() {
         //Arrange
-        List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
-        RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setFloor(3);
-        roomDTOWeb.setLength(3);
-        roomDTOWeb.setWidth(3);
-        roomDTOWeb.setName("B107");
-        roomDTOWeb.setHeight(3);
-        roomDTOWebs.add(roomDTOWeb);
-        Mockito.doReturn(roomDTOWebs).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
+        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
+        RoomDTOMinimal roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setFloor(3);
+        roomDTOMinimal.setLength(3);
+        roomDTOMinimal.setWidth(3);
+        roomDTOMinimal.setName("B107");
+        roomDTOMinimal.setHeight(3);
+        roomDTOMinimal.add(roomDTOMinimal);
+        Mockito.doReturn(roomDTOMinimal).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
         //Act
         ResponseEntity<Object> actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building");
         //Assert
@@ -112,14 +112,14 @@ class EnergyGridSettingsWebControllerTest {
     @Test
      void seeIfGetRoomsWebDtoInGridNotFoundGridId() {
         //Arrange
-        List<RoomDTOWeb> roomDTOWebs = new ArrayList<>();
-        RoomDTOWeb roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setFloor(3);
-        roomDTOWeb.setLength(3);
-        roomDTOWeb.setWidth(3);
-        roomDTOWeb.setName("B107");
-        roomDTOWeb.setHeight(3);
-        roomDTOWebs.add(roomDTOWeb);
+        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
+        RoomDTOMinimal roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setFloor(3);
+        roomDTOMinimal.setLength(3);
+        roomDTOMinimal.setWidth(3);
+        roomDTOMinimal.setName("B107");
+        roomDTOMinimal.setHeight(3);
+        roomDTOMinimal.add(roomDTOMinimal);
         Mockito.doThrow(NullPointerException.class).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
         //Act
         ResponseEntity<Object> actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building");

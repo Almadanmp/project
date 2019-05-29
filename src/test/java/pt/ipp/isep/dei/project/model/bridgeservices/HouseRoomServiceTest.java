@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 class HouseRoomServiceTest {
 
-    private RoomDTOWeb roomDTOWeb;
+    private RoomDTOMinimal roomDTOMinimal;
     private Room room;
 
     @Mock
@@ -27,12 +27,12 @@ class HouseRoomServiceTest {
 
     @BeforeEach
     void insertData() {
-        roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setName("Name");
-        roomDTOWeb.setWidth(2D);
-        roomDTOWeb.setLength(4D);
-        roomDTOWeb.setHeight(1D);
-        roomDTOWeb.setFloor(1);
+        roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setName("Name");
+        roomDTOMinimal.setWidth(2D);
+        roomDTOMinimal.setLength(4D);
+        roomDTOMinimal.setHeight(1D);
+        roomDTOMinimal.setFloor(1);
 
         room = new Room("Name", "", 1, 2D, 4D, 1D, "01");
         MockitoAnnotations.initMocks(this);
@@ -47,7 +47,7 @@ class HouseRoomServiceTest {
 
         //Act
 
-        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOWeb);
+        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOMinimal);
 
         //Assert
         assertTrue(actualResult);
@@ -62,7 +62,7 @@ class HouseRoomServiceTest {
 
         //Act
 
-        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOWeb);
+        boolean actualResult = service.addRoomDTOWebToHouse(roomDTOMinimal);
 
         //Assert
         assertFalse(actualResult);

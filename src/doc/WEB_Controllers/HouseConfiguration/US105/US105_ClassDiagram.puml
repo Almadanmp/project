@@ -63,8 +63,8 @@ getId()
 }
 
 class RoomMapper{
-dtoToObject(roomDTOWeb)
-objectToDTO(roomDTOWeb)
+dtoToObject(roomDTOMinimal)
+objectToDTO(roomDTOMinimal)
 }
 
 

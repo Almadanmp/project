@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
 import pt.ipp.isep.dei.project.model.house.HouseRepository;
@@ -66,22 +66,22 @@ public class HouseConfigurationWebController {
     //US 105
 
     /**
-     * This method creates receives a roomDTOWeb and tries to add the corresponding
+     * This method creates receives a roomDTOMinimal and tries to add the corresponding
      * room to the repository. The method will return a success message in case the
      * room is added, and a failure message in case it is not.
      *
-     * @param roomDTOWeb roomDTOWeb to be added to repository
+     * @param roomDTOMinimal roomDTOMinimal to be added to repository
      * @return message that informs if room was added or not
      **/
     @PostMapping(value = "/room")
-    public ResponseEntity<String> createRoom(@RequestBody RoomDTOWeb roomDTOWeb) {
-        if (!roomDTOWeb.isNameValid()) {
+    public ResponseEntity<String> createRoom(@RequestBody RoomDTOMinimal roomDTOMinimal) {
+        if (!roomDTOMinimal.isNameValid()) {
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.BAD_REQUEST);
         }
-        if(!roomDTOWeb.areDimensionsValid()){
+        if(!roomDTOMinimal.areDimensionsValid()){
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        if (houseRoomService.addRoomDTOWebToHouse(roomDTOWeb)) {
+        if (houseRoomService.addRoomDTOWebToHouse(roomDTOMinimal)) {
             return new ResponseEntity<>("The room was successfully added.", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("The room you are trying to create already exists.", HttpStatus.CONFLICT);
@@ -96,12 +96,12 @@ public class HouseConfigurationWebController {
      **/
     @GetMapping(value = "/houseRooms")
     public ResponseEntity<Object> getHouseRooms() {
-        List<RoomDTOWeb> roomDTOWebs = roomRepository.getAllRoomWebDTOs();
-        for (RoomDTOWeb roomDTO : roomDTOWebs) {
+        List<RoomDTOMinimal> roomDTOBarebones = roomRepository.getAllRoomWebDTOs();
+        for (RoomDTOMinimal roomDTO : roomDTOBarebones) {
             Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTO.getName()).withRel("roomName");
             roomDTO.add(link);
         }
-        return new ResponseEntity<>(roomDTOWebs, HttpStatus.OK);
+        return new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
     }
 
 }
