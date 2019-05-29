@@ -999,37 +999,37 @@ class GeographicAreaHouseServiceTest {
                 () -> geographicAreaHouseService.getLastColdestDay(dateIntervalDTO));
     }
 
-    @Test
-    void seeIfGetTotalRainfallOnGivenDay(){
-        // Arrange
-
-        AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);
-        firstValidArea.addSensor(areaSensor);
-        areaSensor.setActive(true);
-
-        Reading reading1 = new Reading(20D, validReadingDate2, "Millimeter", areaSensor.getId());
-        Reading reading2 = new Reading(2D, validDate5, "Millimeter", areaSensor.getId());
-
-        areaSensor.addReading(reading1);
-        areaSensor.addReading(reading2);
-
-        List<House> houses = new ArrayList<>();
-        houses.add(validHouse);
-
-        double expectedResult = 22;
-
-        // Act
-
-        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
-        Mockito.when(geographicAreaRepository.getByID(any(Long.class))).thenReturn(firstValidArea);
-
-        double actualResult = geographicAreaHouseService.getTotalRainfallOnGivenDay(validReadingDate2);
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-
-    }
+//    @Test
+//    void seeIfGetTotalRainfallOnGivenDay(){
+//        // Arrange
+//
+//        AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);
+//        firstValidArea.addSensor(areaSensor);
+//        areaSensor.setActive(true);
+//
+//        Reading reading1 = new Reading(20D, validReadingDate2, "Millimeter", areaSensor.getId());
+//        Reading reading2 = new Reading(2D, validDate5, "Millimeter", areaSensor.getId());
+//
+//        areaSensor.addReading(reading1);
+//        areaSensor.addReading(reading2);
+//
+//        List<House> houses = new ArrayList<>();
+//        houses.add(validHouse);
+//
+//        double expectedResult = 22;
+//
+//        // Act
+//
+//        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+//        Mockito.when(geographicAreaRepository.getByID(any(Long.class))).thenReturn(firstValidArea);
+//
+//        double actualResult = geographicAreaHouseService.getTotalRainfallOnGivenDay(validReadingDate2);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//
+//    }
 
 }
 

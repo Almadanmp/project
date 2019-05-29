@@ -16,6 +16,7 @@ import pt.ipp.isep.dei.project.model.device.devicespecs.FridgeSpec;
 import pt.ipp.isep.dei.project.model.device.log.Log;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
+import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.house.Address;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -30,9 +31,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class EnergyGridRoomServiceTest {
-
     @Mock
     RoomRepository roomRepository;
+    @Mock
+    EnergyGridRepository energyGridRepository;
 
     @InjectMocks
     private EnergyGridRoomService energyGridRoomService;
