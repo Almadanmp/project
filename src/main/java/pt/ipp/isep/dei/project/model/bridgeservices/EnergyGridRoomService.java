@@ -161,6 +161,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         List<Room> finalRooms = getRoomList(energyGrid);
         if (finalRooms.contains(room)) {
             finalRooms.remove(room);
+            energyGridRepository.addGrid(energyGrid);
             return true;
         }
         return false;
