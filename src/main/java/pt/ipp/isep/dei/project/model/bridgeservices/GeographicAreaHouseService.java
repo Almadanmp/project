@@ -374,4 +374,15 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
                     "required (Initial date must be before End date).");
         }
     }
+
+    /**
+     * Assuming we give it the closest area sensor, this method returns the most recent temperature reading.
+     * @param closestAreaSensor closest area sensor to house
+     * @return current house temperature from most recent reading and closest sensor.
+     */
+
+    public double getHouseAreaTemperature(AreaSensor closestAreaSensor) {
+        List<Reading> sensorReadings = closestAreaSensor.getReadings();
+        return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
+    }
 }

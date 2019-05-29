@@ -5,29 +5,29 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RoomDTOWebTest {
+class RoomDTOMinimalTest {
 
-    private RoomDTOWeb roomDTOWeb;
+    private RoomDTOMinimal roomDTOMinimal;
 
     @BeforeEach
     void arrangeArtifacts() {
-        roomDTOWeb = new RoomDTOWeb();
-        roomDTOWeb.setName("RoomName");
-        roomDTOWeb.setFloor(1);
-        roomDTOWeb.setHeight(20);
-        roomDTOWeb.setLength(21);
-        roomDTOWeb.setWidth(22);
+        roomDTOMinimal = new RoomDTOMinimal();
+        roomDTOMinimal.setName("RoomName");
+        roomDTOMinimal.setFloor(1);
+        roomDTOMinimal.setHeight(20);
+        roomDTOMinimal.setLength(21);
+        roomDTOMinimal.setWidth(22);
     }
 
     @Test
     void seeIfIsNameValidWorksInCaseOfInvalid() {
         //Arrange
 
-        roomDTOWeb.setName(null);
+        roomDTOMinimal.setName(null);
 
         //Act
 
-        boolean actualResult = roomDTOWeb.isNameValid();
+        boolean actualResult = roomDTOMinimal.isNameValid();
 
         //Assert
 
@@ -38,7 +38,7 @@ class RoomDTOWebTest {
     void seeIfIsNameValidWorks() {
         //Act
 
-        boolean actualResult = roomDTOWeb.isNameValid();
+        boolean actualResult = roomDTOMinimal.isNameValid();
 
         //Assert
 
@@ -49,7 +49,7 @@ class RoomDTOWebTest {
     void seeIfAreDimensionAreValidWorks() {
         //Act
 
-        boolean actualResult = roomDTOWeb.areDimensionsValid();
+        boolean actualResult = roomDTOMinimal.areDimensionsValid();
 
         //Assert
 
@@ -60,11 +60,11 @@ class RoomDTOWebTest {
     void seeIfAreDimensionAreValidWorksWhenHeightIsNot() {
         //Arrange
 
-        roomDTOWeb.setHeight(0D);
+        roomDTOMinimal.setHeight(0D);
 
         //Act
 
-        boolean actualResult = roomDTOWeb.areDimensionsValid();
+        boolean actualResult = roomDTOMinimal.areDimensionsValid();
 
         //Assert
 
@@ -75,11 +75,11 @@ class RoomDTOWebTest {
     void seeIfAreDimensionAreValidWorksWhenLengthIsNot() {
         //Arrange
 
-        roomDTOWeb.setLength(0D);
+        roomDTOMinimal.setLength(0D);
 
         //Act
 
-        boolean actualResult = roomDTOWeb.areDimensionsValid();
+        boolean actualResult = roomDTOMinimal.areDimensionsValid();
 
         //Assert
 
@@ -90,11 +90,11 @@ class RoomDTOWebTest {
     void seeIfAreDimensionAreValidWorksWhenWidthIsNot() {
         //Arrange
 
-        roomDTOWeb.setWidth(0D);
+        roomDTOMinimal.setWidth(0D);
 
         //Act
 
-        boolean actualResult = roomDTOWeb.areDimensionsValid();
+        boolean actualResult = roomDTOMinimal.areDimensionsValid();
 
         //Assert
 
@@ -105,7 +105,7 @@ class RoomDTOWebTest {
     void seeIfGetNameWorks() {
         //Act
 
-        String actualResult = roomDTOWeb.getName();
+        String actualResult = roomDTOMinimal.getName();
 
         //Assert
 
@@ -116,7 +116,7 @@ class RoomDTOWebTest {
     void seeIfGetFloorWorks() {
         //Act
 
-        int actualResult = roomDTOWeb.getFloor();
+        int actualResult = roomDTOMinimal.getFloor();
 
         //Assert
 
@@ -127,7 +127,7 @@ class RoomDTOWebTest {
     void seeIfGetHeightWorks() {
         //Act
 
-        double actualResult = roomDTOWeb.getHeight();
+        double actualResult = roomDTOMinimal.getHeight();
 
         //Assert
 
@@ -138,7 +138,7 @@ class RoomDTOWebTest {
     void seeIfGetLengthWorks() {
         //Act
 
-        double actualResult = roomDTOWeb.getLength();
+        double actualResult = roomDTOMinimal.getLength();
 
         //Assert
 
@@ -149,7 +149,7 @@ class RoomDTOWebTest {
     void seeIfGetWidthWorks() {
         //Act
 
-        double actualResult = roomDTOWeb.getWidth();
+        double actualResult = roomDTOMinimal.getWidth();
 
         //Assert
 
@@ -160,19 +160,19 @@ class RoomDTOWebTest {
     void seeIfEqualsWorks() {
         //Arrange
 
-        RoomDTOWeb sameDTO = new RoomDTOWeb();
+        RoomDTOMinimal sameDTO = new RoomDTOMinimal();
         sameDTO.setName("RoomName");
 
-        RoomDTOWeb diffDTO = new RoomDTOWeb();
+        RoomDTOMinimal diffDTO = new RoomDTOMinimal();
         diffDTO.setName("DiffName");
 
         //Act
 
-        boolean actualResult1 = roomDTOWeb.equals(sameDTO);
-        boolean actualResult2 = roomDTOWeb.equals(roomDTOWeb);
-        boolean actualResult3 = roomDTOWeb.equals(diffDTO);
-        boolean actualResult4 = roomDTOWeb.equals(2);
-        boolean actualResult5 = roomDTOWeb.equals(null);
+        boolean actualResult1 = roomDTOMinimal.equals(sameDTO);
+        boolean actualResult2 = roomDTOMinimal.equals(roomDTOMinimal);
+        boolean actualResult3 = roomDTOMinimal.equals(diffDTO);
+        boolean actualResult4 = roomDTOMinimal.equals(2);
+        boolean actualResult5 = roomDTOMinimal.equals(null);
 
         //Assert
 
@@ -186,6 +186,6 @@ class RoomDTOWebTest {
     @Test
     void seeIfHashCodeWorks() {
         //Assert
-        assertEquals(1, roomDTOWeb.hashCode());
+        assertEquals(1, roomDTOMinimal.hashCode());
     }
 }

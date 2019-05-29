@@ -29,8 +29,8 @@ actor "Http Client"
 activate "Http Client"
 "Http Client" -> "HouseConfigurationWebController":  Post ".../houseSettings/room": createRoom(@RequestBody RoomDTO roomDTO)
 activate "HouseConfigurationWebController"
-"HouseConfigurationWebController" -> "RoomDTOWeb": roomDTO.isNameValid()
-"HouseConfigurationWebController" -> "RoomDTOWeb": roomDTO.areDimensionsValid()
+"HouseConfigurationWebController" -> "RoomDTOMinimal": roomDTO.isNameValid()
+"HouseConfigurationWebController" -> "RoomDTOMinimal": roomDTO.areDimensionsValid()
 
 alt if room DTO is valid
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)
@@ -40,7 +40,7 @@ else if room size is NOT valid
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.UNPROCESSABLE_ENTITY)
 end
 
-"HouseConfigurationWebController" -> "HouseRoomService": addRoomDTOWebToHouse(RoomDTOWeb)
+"HouseConfigurationWebController" -> "HouseRoomService": addRoomDTOMinimalToHouse(RoomDTOMinimal)
 
 alt if room is Added
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(success message, HttpStatus.CREATED)

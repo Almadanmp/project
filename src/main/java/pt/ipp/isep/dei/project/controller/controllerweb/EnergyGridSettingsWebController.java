@@ -7,8 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -37,12 +36,12 @@ public class EnergyGridSettingsWebController {
     @GetMapping(value = "/grids/{energyGridId}")
     public ResponseEntity<Object> getRoomsWebDtoInGrid(@PathVariable("energyGridId") String gridId) {
         try {
-            List<RoomDTOWeb> roomsDTOWeb = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
-            for (RoomDTOWeb roomDTOWeb : roomsDTOWeb) {
-                Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOWeb.getName()).withRel("roomName");
-                roomDTOWeb.add(link);
+            List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
+            for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
+                Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
+                roomDTOMinimal.add(link);
             }
-            return new ResponseEntity<>(roomsDTOWeb, HttpStatus.OK);
+            return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
         } catch (NullPointerException ok) {
             return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
         }
@@ -56,8 +55,8 @@ public class EnergyGridSettingsWebController {
         if (roomRepository.findRoomByID(roomID).isPresent()) {
             try {
                 if (energyGridRoomService.attachRoomToGrid(roomID, gridId)) {
-                    RoomDTOWeb roomDTOWeb = energyGridRoomService.getRoomDtoWebById(gridId, roomID);
-                    return new ResponseEntity<>(roomDTOWeb,
+                    RoomDTOMinimal roomDTOMinimal = energyGridRoomService.getMinimalRoomDTOById(gridId, roomID);
+                    return new ResponseEntity<>(roomDTOMinimal,
                             HttpStatus.OK);
                 }
                 return new ResponseEntity<>("It wasn't possible to add the room. Please try again.", HttpStatus.CONFLICT);

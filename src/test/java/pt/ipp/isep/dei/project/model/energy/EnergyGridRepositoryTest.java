@@ -10,9 +10,9 @@
 //import org.mockito.junit.jupiter.MockitoExtension;
 //import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
 //import pt.ipp.isep.dei.project.dto.RoomDTO;
-//import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
+//import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 //import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
-//import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+//import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 //import pt.ipp.isep.dei.project.model.room.Room;
 //import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 //import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
@@ -565,7 +565,66 @@
 //    }
 //
 //    @Test
-//    void seeIfCreatePowerSourceWorks(){
+//    void seeIfCreateEnergyGridWithNameRoomsAndPowerSourcesWorksTrue() {
+//        // Arrange
+//
+//        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+//        energyGridDTO.setName("Main Grid");
+//        energyGridDTO.setHouseID("7");
+//        energyGridDTO.setMaxContractedPower(45D);
+//        energyGridDTO.setRoomDTOS(new ArrayList<>());
+//        energyGridDTO.setPowerSourceDTOS(new ArrayList<>());
+//
+//
+//        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 45D, "7");
+//
+//        List<EnergyGrid> list = new ArrayList<>();
+//
+//        // Act
+//
+//        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+//        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+//        Mockito.when(energyGridCrudRepository.save(energyGrid)).thenReturn(energyGrid);
+//
+//        boolean actualResult = validGridRepo.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO);
+//
+//        // Assert
+//
+//        assertTrue(actualResult);
+//
+//    }
+//
+//    @Test
+//    void seeIfCreateEnergyGridWithNameRoomsAndPowerSourcesWorksFalse() {
+//        // Arrange
+//
+//        EnergyGridDTO energyGridDTO = new EnergyGridDTO();
+//        energyGridDTO.setName("Main Grid");
+//        energyGridDTO.setHouseID("7");
+//        energyGridDTO.setMaxContractedPower(45D);
+//        energyGridDTO.setRoomDTOS(new ArrayList<>());
+//        energyGridDTO.setPowerSourceDTOS(new ArrayList<>());
+//
+//        EnergyGrid energyGrid = new EnergyGrid("Main Grid", 45D, "7");
+//
+//        List<EnergyGrid> list = new ArrayList<>();
+//        list.add(energyGrid);
+//
+//        // Act
+//
+//        Mockito.when(energyGridCrudRepository.findAll()).thenReturn(list);
+//        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
+//
+//        boolean actualResult = validGridRepo.createEnergyGridWithNameRoomsAndPowerSources(energyGridDTO);
+//
+//        // Assert
+//
+//        assertFalse(actualResult);
+//
+//    }
+//
+//    @Test
+//    void seeIfCreatePowerSourceWorks() {
 //        // Arrange
 //
 //        PowerSource expectedResult = new PowerSource("Expected", 45, 5);
@@ -595,7 +654,7 @@
 //        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
 //        //Act
 //        RoomDTOWeb expectedResult = RoomWebMapper.objectToDtoWeb(RoomMapper.dtoToObject(roomDTO));
-//        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid","B109");
+//        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B109");
 //        //Assert
 //        assertEquals(expectedResult, actualResult);
 //    }
@@ -615,7 +674,7 @@
 //        energyGrid.addRoom(RoomMapper.dtoToObject(roomDTO));
 //        Mockito.when(energyGridCrudRepository.findByName("Main Grid")).thenReturn(energyGrid);
 //        //Act
-//        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid","B108");
+//        RoomDTOWeb actualResult = validGridRepo.getRoomDtoWebById("Main Grid", "B108");
 //        //Assert
 //        assertNull(actualResult);
 //    }
