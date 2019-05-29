@@ -458,13 +458,30 @@ public class RoomRepository {
         return finalList;
     }
 
-    public double getRoomMaxTempById(String roomId, Date date){
+    public double getRoomMaxTempById(String roomId, Date date) {
         Room validRoom;
         Optional<Room> room = roomCrudRepo.findByRoomName(roomId);
-        if(room.isPresent()){
-            validRoom  = room.get();
+        if (room.isPresent()) {
+            validRoom = room.get();
             return validRoom.getMaxTemperatureOnGivenDay(date);
-        } else{
+        } else {
+            throw new IllegalArgumentException("There is no room with the given Id");
+        }
+    }
+
+    /**
+     * Method that gets current room temperature for US605
+     * @param roomId for identifying room.
+     * @return the current room temperature as a double.
+     */
+
+    public double getCurrentRoomTempByRoomId(String roomId) {
+        Room validRoom;
+        Optional<Room> room = roomCrudRepo.findByRoomName(roomId);
+        if (room.isPresent()) {
+            validRoom = room.get();
+            return validRoom.getCurrentRoomTemperature();
+        } else {
             throw new IllegalArgumentException("There is no room with the given Id");
         }
     }
