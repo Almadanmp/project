@@ -94,14 +94,14 @@ class EnergyGridSettingsWebControllerTest {
     @Test
      void seeIfGetRoomsWebDtoInGridWorks() {
         //Arrange
-        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
+        List<RoomDTOMinimal> roomDTOMinimals = new ArrayList<>();
         RoomDTOMinimal roomDTOMinimal = new RoomDTOMinimal();
         roomDTOMinimal.setFloor(3);
         roomDTOMinimal.setLength(3);
         roomDTOMinimal.setWidth(3);
         roomDTOMinimal.setName("B107");
         roomDTOMinimal.setHeight(3);
-        roomDTOMinimal.add(roomDTOMinimal);
+        roomDTOMinimals.add(roomDTOMinimal);
         Mockito.doReturn(roomDTOMinimal).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
         //Act
         ResponseEntity<Object> actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building");
@@ -112,14 +112,14 @@ class EnergyGridSettingsWebControllerTest {
     @Test
      void seeIfGetRoomsWebDtoInGridNotFoundGridId() {
         //Arrange
-        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
+        List<RoomDTOMinimal> roomDTOMinimals = new ArrayList<>();
         RoomDTOMinimal roomDTOMinimal = new RoomDTOMinimal();
         roomDTOMinimal.setFloor(3);
         roomDTOMinimal.setLength(3);
         roomDTOMinimal.setWidth(3);
         roomDTOMinimal.setName("B107");
         roomDTOMinimal.setHeight(3);
-        roomDTOMinimal.add(roomDTOMinimal);
+        roomDTOMinimals.add(roomDTOMinimal);
         Mockito.doThrow(NullPointerException.class).when(energyGridRepository).getRoomsDtoWebInGrid("B building");
         //Act
         ResponseEntity<Object> actualResult = energyGridSettingsWebController.getRoomsWebDtoInGrid("B building");
