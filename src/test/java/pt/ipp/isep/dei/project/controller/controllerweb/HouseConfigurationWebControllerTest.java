@@ -15,10 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
-import pt.ipp.isep.dei.project.dto.AddressDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.bridgeservices.HouseRoomService;
@@ -29,8 +26,10 @@ import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.hateoas.Link;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -84,8 +83,77 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
+    void seeIfConfigureHouseLocalChangesAddress() {
+        //Arrange
+
+        House validHouse = new House("01", new Address("rua jose peixoto", "431",
+                "4245-072", "Lisboa", "Portugal"),
+                new Local(21, 25, 65), 60,
+                180, new ArrayList<>());
+
+        HouseWithoutGridsDTO validDTO = HouseMapper.objectToWithoutGridsDTO(validHouse);
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(validDTO);
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(validDTO)).thenReturn(true);
+
+
+        //Act
+        webController.configureHouseLocation(addressAndLocalDTO);
+
+        //Assert
+        assertEquals(validDTO.getAddress(), addressAndLocalDTO.getAddress());
+    }
+
+    @Test
+    void seeIfConfigureHouseLocalChangesLocal() {
+        //Arrange
+
+        House validHouse = new House("01", new Address("rua jose peixoto", "431",
+                "4245-072", "Lisboa", "Portugal"),
+                new Local(21, 25, 65), 60,
+                180, new ArrayList<>());
+
+        HouseWithoutGridsDTO validDTO = HouseMapper.objectToWithoutGridsDTO(validHouse);
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(validDTO);
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(validDTO)).thenReturn(true);
+
+        //Act
+        webController.configureHouseLocation(addressAndLocalDTO);
+
+        //Assert
+        assertEquals(validDTO.getLocation(), addressAndLocalDTO.getLocal());
+    }
+
+    @Test
+    void seeIfConfigureHouseLocalAddsLinkToDTO() {
+        //Arrange
+
+        House validHouse = new House("01", new Address("rua jose peixoto", "431",
+                "4245-072", "Lisboa", "Portugal"),
+                new Local(21, 25, 65), 60,
+                180, new ArrayList<>());
+
+        HouseWithoutGridsDTO validDTO = HouseMapper.objectToWithoutGridsDTO(validHouse);
+
+        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(validDTO);
+        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(validDTO)).thenReturn(true);
+
+        //Act
+
+        webController.configureHouseLocation(addressAndLocalDTO);
+        Link link = validDTO.getLink("Click here to see the House updated");
+
+        //Assert
+
+        assertNotNull(link);
+    }
+
+
+    @Test
     public void seeIfGetHouseRoomsWorks() {
         //Arrange
+
         List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
         roomDTOBarebones.add(this.roomDTOMinimal);
 
@@ -94,10 +162,33 @@ class HouseConfigurationWebControllerTest {
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
 
         //Act
+
         ResponseEntity<Object> actualResult = webController.getHouseRooms();
 
         //Assert
+
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfGetHouseRoomsAddsLink() {
+        //Arrange
+
+        List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
+        roomDTOBarebones.add(this.roomDTOMinimal);
+
+        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomWebDTOs();
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
+
+        //Act
+
+        webController.getHouseRooms();
+        Link link = roomDTOMinimal.getLink("Click here to delete room.");
+
+        //Assert
+
+        assertNotNull(link);
     }
 
     @Test
@@ -112,6 +203,21 @@ class HouseConfigurationWebControllerTest {
 
         //Assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfCreateRoomAddsLink() {
+        //Arrange
+        Mockito.doReturn(true).when(this.houseRoomService).addMinimalRoomDTOToHouse(roomDTOMinimal);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.CREATED);
+
+        //Act
+        webController.createRoom(roomDTOMinimal);
+        Link link = roomDTOMinimal.getLink("Click here to delete room.");
+
+        //Assert
+        assertNotNull(link);
     }
 
     @Test
@@ -290,27 +396,6 @@ class HouseConfigurationWebControllerTest {
                         "    }}"))
                 .andExpect(status().isOk());
     }
-
-//    @Test
-//    public void seeIfConfigureHouseLocationWorksFalse() throws Exception {
-//        House validHouse = new House("01", new Address("rua carlos peixoto", "431",
-//                "4200-072", "Porto", "Portugal"),
-//                new Local(20, 20, 20), 60,
-//                180, new ArrayList<>());
-//
-//        Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
-//        Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(false);
-//
-//        mockMvc.perform(put("/houseSettings/house")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{ \"addressNOT\": {\n" +
-//                        "        \"streetNOT\": \"rua carlos peixoto\",\n" +
-//                        "        \"number\": \"431\",\n" +
-//                        "        \"town\": \"Porto\",\n" +
-//                        "        \"country\": \"Portugal\"\n" +
-//                        "    }}"))
-//                .andExpect(status().isBadRequest());
-//    }
 
     @Test
     public void seeIfConfigureHouseLocalErrorWorks() {
