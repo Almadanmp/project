@@ -45,6 +45,23 @@ public class RoomRepository {
     }
 
     /**
+     * This method receives a roomDTOWeb and tries to the corresponding room
+     * from repository (by using its ID).
+     *
+     * @param roomDTO to be deleted
+     * @return true in case the corresponding room was deleted, false otherwise.
+     **/
+    public boolean deleteRoom(RoomDTOMinimal roomDTO) {
+        String roomDTOName = roomDTO.getName();
+        Optional<Room> room = roomCrudRepo.findByRoomName(roomDTOName);
+        if (room.isPresent()) {
+            roomCrudRepo.delete(room.get());
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This method gets every room from the Room Crud Repository
      * and returns as an ArrayList.
      *
