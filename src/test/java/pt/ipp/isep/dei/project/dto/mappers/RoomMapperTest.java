@@ -93,7 +93,7 @@ class RoomMapperTest {
     void seeIfDTOToObjectWithoutSensorsAndDevicesWorks() {
         // Act
 
-        Room actualResult = RoomMapper.dtoToObjectWithoutSensorsAndDevices(validDTO);
+        Room actualResult = RoomMapper.dtoToObject(validDTO);
 
         // Assert
 

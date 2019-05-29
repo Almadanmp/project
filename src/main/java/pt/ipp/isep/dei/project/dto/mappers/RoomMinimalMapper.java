@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.model.room.Room;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomMinimalMapper {
+public final class RoomMinimalMapper {
 
     /**
      * Don't let anyone instantiate this class.
