@@ -25,6 +25,8 @@ public class HouseMonitoringWebController {
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
 
+    private String periodRetry = "Retry with a different period.";
+
     /**
      * US600
      * As a Regular User, I want to get the current temperature in the house area. If, in the
@@ -78,7 +80,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getLastColdestDay(dateIntervalDTO);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(dateIntervalDTO)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -97,7 +99,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getHottestDay(dateIntervalDTO);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(dateIntervalDTO)).withRel("Retry with a different period.");
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(dateIntervalDTO)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -117,7 +119,7 @@ public class HouseMonitoringWebController {
         Link link;
         try {
             result = geographicAreaHouseService.getHighestTemperatureAmplitude(dateIntervalDTO);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(dateIntervalDTO)).withRel("Retry with a different period.");
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(dateIntervalDTO)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
