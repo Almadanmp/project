@@ -10,8 +10,6 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderJSONHouse;
 import pt.ipp.isep.dei.project.io.ui.reader.ReaderXMLGeoArea;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
-import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
-import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
@@ -41,7 +39,7 @@ public class ReaderController {
      *                 gridMeteringPeriod, deviceMeteringPeriod and deviceTypeConfig.
      * @return true if the House was successfully saved in the repository, false otherwise.
      */
-    public boolean readJSONAndDefineHouse(House house, String filePath, EnergyGridRepository energyGridRepository, HouseCrudRepo houseCrudRepo, RoomRepository roomRepository, EnergyGridRoomService energyGridRoomService) {
+    public boolean readJSONAndDefineHouse(House house, String filePath) {
         ReaderJSONHouse readerJSONHouse = new ReaderJSONHouse();
 
         //House
@@ -60,7 +58,8 @@ public class ReaderController {
 
         //Rooms
 
-        addRoomsToRepository(gridDTOS, house.getId());
+        List<RoomDTO> roomDTOS = readerJSONHouse.readRoomsJSON();
+        addRoomsToRepository(roomDTOS, house.getId());
         return true;
     }
 
@@ -81,12 +80,11 @@ public class ReaderController {
      * sets the house ID on every room DTO contained in every energy grid DTO and tries
      * to add the corresponding room to the repository.
      **/
-    void addRoomsToRepository(List<EnergyGridDTO> gridDTOS, String houseID) {
-        List<RoomDTO> roomDTOS = readerJSONHouse.readRoomsJSON();
+    void addRoomsToRepository(List<RoomDTO> roomDTOS, String houseID) {
         for (RoomDTO rto : roomDTOS) {
-                rto.setHouseId(houseID);
-                roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(rto);
-            }
+            rto.setHouseId(houseID);
+            roomRepository.addRoomDTOWithoutSensorsAndDevicesToCrudRepository(rto);
+        }
 
     }
 

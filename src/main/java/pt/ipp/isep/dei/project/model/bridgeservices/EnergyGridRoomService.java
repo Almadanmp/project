@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.dto.RoomDTOWeb;
-import pt.ipp.isep.dei.project.dto.mappers.RoomWebMapper;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
@@ -23,7 +23,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     EnergyGridRepository energyGridRepository;
 
     @Autowired
-    RoomRepository  roomRepository;
+    RoomRepository roomRepository;
 
     @Autowired
     EnergyGridCrudRepo energyGridCrudRepository;
@@ -35,10 +35,10 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
 
     public List<Room> getRoomList(EnergyGrid energyGrid) {
         List<Room> gridRooms = new ArrayList<>();
-        for (String id : energyGrid.getRoomIdList()){
+        for (String id : energyGrid.getRoomIdList()) {
             List<Room> rooms = roomRepository.getAllRooms();
-            for (Room room : rooms){
-                if (id.equals(room.getId())){
+            for (Room room : rooms) {
+                if (id.equals(room.getId())) {
                     gridRooms.add(room);
                 }
             }
@@ -68,10 +68,10 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      */
     public boolean addRoom(EnergyGrid energyGrid, Room roomToAdd) {
         List<String> roomIds = new ArrayList<>();
-        for (String id : energyGrid.getRoomIdList()){
+        for (String id : energyGrid.getRoomIdList()) {
             List<Room> rooms = roomRepository.getAllRooms();
-            for (Room room : rooms){
-                if (id.equals(room.getId())){
+            for (Room room : rooms) {
+                if (id.equals(room.getId())) {
                     roomIds.add(room.getId());
                 }
             }
@@ -165,7 +165,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @param room the room we want to removeGeographicArea from the energy grid.
      * @return returns true if the room is successfully removed from the energy grid.
      */
-    public boolean removeRoom(EnergyGrid energyGrid,Room room) {
+    public boolean removeRoom(EnergyGrid energyGrid, Room room) {
         List<Room> finalRooms = getRoomList(energyGrid);
         if (finalRooms.contains(room)) {
             finalRooms.remove(room);
@@ -276,7 +276,7 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     public boolean attachRoomToGrid(String roomId, String gridName) {
         EnergyGrid energyGrid = energyGridRepository.getById(gridName);
         Room room = getRoomById(roomId);
-        if (addRoom(energyGrid,room)) {
+        if (addRoom(energyGrid, room)) {
             energyGridCrudRepository.save(energyGrid);
             return true;
         }
@@ -322,11 +322,12 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @param gridId is the name of the grid.
      * @return a List of Rooms Dto Web from a grid.
      */
-    public List<RoomDTOWeb> getRoomsDtoWebInGrid(String gridId) {
+    public List<RoomDTOMinimal> getRoomsDtoWebInGrid(String gridId) {
         EnergyGrid energyGrid = energyGridCrudRepository.findByName(gridId);
         List<Room> roomList = getRoomList(energyGrid);
-        return RoomWebMapper.objectsToDtosWeb(roomList);
+        return RoomMinimalMapper.objectsToDtosWeb(roomList);
     }
+
 
     /**
      * US 147
@@ -336,9 +337,9 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
      * @param roomId is the room id.
      * @return a RoomDtoWeb from a given id, with a given Grid Id also.
      */
-    public RoomDTOWeb getRoomDtoWebById(String gridId, String roomId) {
-        List<RoomDTOWeb> list = getRoomsDtoWebInGrid(gridId);
-        for (RoomDTOWeb r : list) {
+    public RoomDTOMinimal getMinimalRoomDTOById(String gridId, String roomId) {
+        List<RoomDTOMinimal> list = getRoomsDtoWebInGrid(gridId);
+        for (RoomDTOMinimal r : list) {
             if (r.getName().equals(roomId)) {
                 return r;
             }

@@ -11,6 +11,7 @@ import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 import pt.ipp.isep.dei.project.model.house.House;
+import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.repository.*;
 
@@ -36,10 +37,6 @@ public class AutoImporter {
     SensorTypeRepository sensorTypeRepository;
     @Autowired
     AreaTypeRepository areaTypeRepository;
-    @Autowired
-    private RoomRepository roomRepository;
-    @Autowired
-    private EnergyGridRepository energyGridRepository;
     @Autowired
     EnergyGridRoomService energyGridRoomService;
 
