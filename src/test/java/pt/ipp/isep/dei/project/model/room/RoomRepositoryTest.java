@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
@@ -58,7 +57,7 @@ class RoomRepositoryTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-        MockitoAnnotations.initMocks(this);
+    //    MockitoAnnotations.initMocks(this);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -200,7 +199,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomWebDTOs();
+        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomDTOMinimal();
 
         // Assert
 
@@ -218,7 +217,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomWebDTOs();
+        List<RoomDTOMinimal> actualResult = validRoomRepository.getAllRoomDTOMinimal();
 
         // Assert
 

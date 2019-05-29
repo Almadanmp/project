@@ -98,7 +98,7 @@ public class HouseConfigurationWebController {
      **/
     @GetMapping(value = "/houseRooms")
     public ResponseEntity<Object> getHouseRooms() {
-        List<RoomDTOMinimal> roomDTOBarebones = roomRepository.getAllRoomWebDTOs();
+        List<RoomDTOMinimal> roomDTOBarebones = roomRepository.getAllRoomDTOMinimal();
         for (RoomDTOMinimal roomDTO : roomDTOBarebones) {
             Link link = linkTo(methodOn(HouseConfigurationWebController.class).deleteRoom(roomDTO)).withRel("Click here to delete room.");
             roomDTO.add(link);

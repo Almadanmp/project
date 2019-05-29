@@ -67,7 +67,7 @@ public class RoomRepository {
      *
      * @return a list containing all rooms contained in repository
      **/
-    public List<RoomDTOMinimal> getAllRoomWebDTOs() {
+    public List<RoomDTOMinimal> getAllRoomDTOMinimal() {
         List<RoomDTOMinimal> finalList = new ArrayList<>();
         List<Room> roomList = roomCrudRepo.findAll();
         if (roomList != null) {

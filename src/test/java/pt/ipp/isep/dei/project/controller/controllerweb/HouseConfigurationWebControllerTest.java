@@ -157,7 +157,7 @@ class HouseConfigurationWebControllerTest {
         List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
         roomDTOBarebones.add(this.roomDTOMinimal);
 
-        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomWebDTOs();
+        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomDTOMinimal();
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
 
@@ -177,7 +177,7 @@ class HouseConfigurationWebControllerTest {
         List<RoomDTOMinimal> roomDTOBarebones = new ArrayList<>();
         roomDTOBarebones.add(this.roomDTOMinimal);
 
-        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomWebDTOs();
+        Mockito.doReturn(roomDTOBarebones).when(this.roomRepository).getAllRoomDTOMinimal();
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
 
@@ -358,7 +358,7 @@ class HouseConfigurationWebControllerTest {
         expectedResult.add(roomDTOMinimal);
         expectedResult.add(roomDTOMinimal2);
 
-        Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomWebDTOs();
+        Mockito.doReturn(expectedResult).when(this.roomRepository).getAllRoomDTOMinimal();
 
         //Arrange
 
