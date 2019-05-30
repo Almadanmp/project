@@ -34,7 +34,7 @@ public class HouseConfigurationWebController {
 
     // USER STORY 101
 
-     /**
+    /**
      * This is a PUT method for US101 - change the location of the house
      *
      * @param addressAndLocalDTO is a DTO with the location of the house we want to get changed.
@@ -78,7 +78,7 @@ public class HouseConfigurationWebController {
         if (!roomDTOMinimal.isNameValid()) {
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.BAD_REQUEST);
         }
-        if(!roomDTOMinimal.areDimensionsValid()){
+        if (!roomDTOMinimal.areDimensionsValid()) {
             return new ResponseEntity<>("The room you introduced is invalid.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         if (houseRoomService.addMinimalRoomDTOToHouse(roomDTOMinimal)) {
@@ -104,6 +104,28 @@ public class HouseConfigurationWebController {
             roomDTO.add(link);
         }
         return new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
+    }
+
+    //US 109 - As an Administrator, I want to edit the configuration of an existing room, so that I can reconfigure it
+
+    /**
+     * This method receives a room DTO and tries to edit the room with the corresponding ID in the repository
+     * with the information provided in the DTO.
+     *
+     * @param roomDTOMinimal with the room ID and the information to be altered
+     * @return the room DTO and Http Status OK in case the room is edited in the repository,
+     * an error message and Http Status NOT FOUND in case the room does not exist
+     * *
+     **/
+    @PutMapping(value = "/room")
+    public ResponseEntity<Object> configureRoom(@RequestBody RoomDTOMinimal roomDTOMinimal) {
+        if (!roomDTOMinimal.areDimensionsValid()) {
+            return new ResponseEntity<>("The room you has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (roomRepository.configureRoom(roomDTOMinimal)) {
+            return new ResponseEntity<>(roomDTOMinimal, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("The room you are trying to edit does not exist in the database.", HttpStatus.NOT_FOUND);
     }
 
     //DELETE ROOM FROM HOUSE - To be used in Postman tests. NOT a User Story

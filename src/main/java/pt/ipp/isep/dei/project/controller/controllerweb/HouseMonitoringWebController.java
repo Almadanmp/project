@@ -6,12 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
+import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
-import java.util.Date;
 import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -40,13 +40,11 @@ public class HouseMonitoringWebController {
     @GetMapping("/currentHouseAreaTemperature")
     public ResponseEntity<Object> getCurrentHouseAreaTemperature() {
         double currentHouseAreaTemp;
-        AreaSensor closestSensor;
         try {
-            closestSensor = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature");
-            currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature(closestSensor);
+            currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature();
             return new ResponseEntity<>(currentHouseAreaTemp, HttpStatus.OK);
         } catch (NoSuchElementException | IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -55,11 +53,11 @@ public class HouseMonitoringWebController {
     /* US620 - WEB Controller Methods
      As a Regular User, I want to get the total rainfall in the house area for a given day.*/
     @GetMapping("/totalRainfall")
-    public ResponseEntity<Object> getTotalRainfallInGivenDay(@RequestBody Date date) {
+    public ResponseEntity<Object> getTotalRainfallInGivenDay(@RequestBody DateDTO date) {
         double result;
         Link link;
         try {
-            result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date);
+            result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date.getDate());
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).

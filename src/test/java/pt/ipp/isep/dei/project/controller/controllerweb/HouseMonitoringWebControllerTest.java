@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
@@ -48,14 +49,32 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
+    void seeIfGetCurrentHouseAreaTemperatureWorks() {
+        // Act
+        double tempResult = 15.3;
+
+        Mockito.when(geographicAreaHouseService.getHouseAreaTemperature()).thenReturn(tempResult);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(tempResult, HttpStatus.OK);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getCurrentHouseAreaTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetTotalRainfallDaySuccessMockito(){
         // Act
 
         Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenReturn(45D);
 
+        DateDTO dateDTO = new DateDTO(date1);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(45D, HttpStatus.OK);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(dateDTO);
 
         // Assert
 
@@ -69,9 +88,11 @@ class HouseMonitoringWebControllerTest {
 
         Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(NoSuchElementException.class);
 
+        DateDTO dateDTO = new DateDTO(date1);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(dateDTO);
 
         // Assert
 
@@ -84,9 +105,11 @@ class HouseMonitoringWebControllerTest {
 
         Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(RuntimeException.class);
 
+        DateDTO dateDTO = new DateDTO(date1);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(dateDTO);
 
         // Assert
 
@@ -97,7 +120,9 @@ class HouseMonitoringWebControllerTest {
     void seeIfGetTotalRainfallDayIllegalArgumentException(){
         // Arrange
 
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallInGivenDay(date1)).withRel("No readings available for this date.");
+        DateDTO dateDTO = new DateDTO(date1);
+
+        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getTotalRainfallInGivenDay(dateDTO)).withRel("No readings available for this date.");
 
         // Act
 
@@ -105,7 +130,7 @@ class HouseMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(dateDTO);
 
         // Assert
 
@@ -118,9 +143,11 @@ class HouseMonitoringWebControllerTest {
 
         Mockito.when(geographicAreaHouseService.getTotalRainfallOnGivenDay(date1)).thenThrow(RuntimeException.class);
 
+        DateDTO dateDTO = new DateDTO(date1);
+
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(date1);
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getTotalRainfallInGivenDay(dateDTO);
 
         // Assert
 

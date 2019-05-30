@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.ApplicationScope;
+import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
-import java.util.Date;
 import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -54,11 +54,11 @@ public class RoomMonitoringWebController {
     /* US610 - WEB Controller Methods
      Get Max Temperature in a room in a specific day.*/
     @GetMapping("/dayMaxTemperature")
-    public ResponseEntity<Object> getRoomMaxTempInDay(@RequestBody String roomId, @RequestBody Date date) {
+    public ResponseEntity<Object> getRoomMaxTempInDay(@RequestBody String roomId, @RequestBody DateDTO date) {
         Link link;
         double result;
         try {
-            result = roomRepository.getRoomMaxTempById(roomId, date);
+            result = roomRepository.getRoomMaxTempById(roomId, date.getDate());
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(RoomMonitoringWebController.class).

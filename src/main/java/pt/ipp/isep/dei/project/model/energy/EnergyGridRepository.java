@@ -3,10 +3,7 @@ package pt.ipp.isep.dei.project.model.energy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
-import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
-import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
