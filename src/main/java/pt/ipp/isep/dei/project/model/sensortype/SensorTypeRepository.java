@@ -3,8 +3,11 @@ package pt.ipp.isep.dei.project.model.sensortype;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
+import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -115,6 +118,18 @@ public class SensorTypeRepository {
             LogUtils.closeHandlers(logger);
             return value.get();
         }
+    }
+
+    public List<SensorTypeDTO> getAllSensorTypeDTO() {
+        List<SensorType> typeAux = repository.findAll();
+        List<SensorTypeDTO> finalList = new ArrayList<>();
+        if (typeAux != null) {
+            for (SensorType st : typeAux) {
+                finalList.add(SensorTypeMapper.objectToDTO(st));
+            }
+            return finalList;
+        }
+        return new ArrayList<>();
     }
 
 }

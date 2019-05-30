@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.List;
 
@@ -23,16 +24,19 @@ public class RoomConfigurationWebController {
     @Autowired
     RoomRepository roomRepository;
 
-//    /**
-//     * Shows all the Sensor Types present in the database.
-//     *
-//     * @return OK status and a list of sensor Types.
-//     */
-//    @GetMapping(path = "/types", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Object> retrieveAllsensorRtpes() {
-//        List<RoomDTOMinimal> roomDTOList = roomRepository.getAllDTOWebInformation();
-//        return new ResponseEntity<>(roomDTOList, HttpStatus.OK);
-//    }
+    @Autowired
+    SensorTypeRepository sensorTypeRepository;
+
+    /**
+     * Shows all the Sensor Types present in the database.
+     *
+     * @return OK status and a list of sensor Types.
+     */
+    @GetMapping(path = "/types", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> retrieveAllSensorTypes() {
+        List<SensorTypeDTO> sensorTypeDTOS = sensorTypeRepository.getAllSensorTypeDTO();
+        return new ResponseEntity<>(sensorTypeDTOS, HttpStatus.OK);
+    }
 
     /**
      * Shows all the Rooms present in the database.
