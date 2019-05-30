@@ -56,6 +56,30 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfIsAreaContainedWorksFalse() {
+        // Arrange
+        Long childID = 0L;
+
+        // Act
+        boolean actualResult = secondValidArea.isAreaContained(childID);
+
+        // Assert
+        assertFalse(actualResult);
+    }
+
+//    @Test
+//    void seeIfIsAreaContainedWorksTrue() {
+//        // Arrange
+//        Long childID = 2L;
+//
+//        // Act
+//        boolean actualResult = secondValidArea.isAreaContained(childID);
+//
+//        // Assert
+//        assertTrue(actualResult);
+//    }
+
+    @Test
     void seeIfAddDaughterAreaWorks() {
         //Act
 
@@ -487,7 +511,6 @@ class GeographicAreaTest {
 
         assertFalse(actualResult);
     }
-
 
     @Test
     void seeIfGetSetDescription() {
