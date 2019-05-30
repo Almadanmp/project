@@ -285,7 +285,9 @@ public class GeographicArea implements Root {
     public boolean isAreaContained(Long childID) {
         for (GeographicArea geoArea : this.childAreas) {
             Long childAreaID = geoArea.getId();
-            return childID.equals(childAreaID);
+            if(childID.equals(childAreaID)) {
+                return true;
+            }
         }
         return false;
     }
