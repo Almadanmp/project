@@ -32,12 +32,14 @@ class RoomMonitoringWebControllerTest {
     @InjectMocks
     RoomMonitoringWebController roomMonitoringWebController;
 
+    private Room room1;
     private Date date1; // Date 01/01/2020
     private Date date2; // Date 01/01/2019
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
+        room1 = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             date1 = validSdf.parse("01/01/2020 00:00:00");
@@ -48,10 +50,27 @@ class RoomMonitoringWebControllerTest {
     }
 
     @Test
-    void seeIfGetRoomMaxTempInDaySuccessMockito() {
+    void seeIfGetCurrentRoomTemperatureWorks() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
+        Room room = room1;
+        double resultTemp = 15;
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(resultTemp, HttpStatus.OK);
+
+        // Act
+
+        Mockito.when(roomRepository.getCurrentRoomTempByRoomId(room.getId())).thenReturn(resultTemp);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getCurrentRoomTemperature(room.getId());
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeIfGetRoomMaxTempInDaySuccessMockito() {
+        // Arrange
+        Room room = room1;
+
         DateDTO dateDTO = new DateDTO(date1);
 
         // Act
@@ -72,7 +91,7 @@ class RoomMonitoringWebControllerTest {
     void seeIfGetRoomMaxTempInDayIllegalArgumentException() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
+        Room room = room1;
         DateDTO dateDTO = new DateDTO(date1);
         Link link = linkTo(methodOn(RoomMonitoringWebController.class).
                 getRoomMaxTempInDay(room.getId(), dateDTO)).withRel("This room does not exist.");
@@ -95,7 +114,7 @@ class RoomMonitoringWebControllerTest {
     void seeIfGetRoomMaxTempInDayRuntimeException() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
+        Room room = room1;
         DateDTO dateDTO = new DateDTO(date1);
 
         // Act
@@ -116,7 +135,7 @@ class RoomMonitoringWebControllerTest {
     void seeIfGetRoomMaxTempInDayNoSuchElementException() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
+        Room room = room1;
         DateDTO dateDTO = new DateDTO(date1);
 
         // Act

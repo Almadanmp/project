@@ -49,7 +49,7 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
-    void seeIfGetCurrentHouseAreaTemperature() {
+    void seeIfGetCurrentHouseAreaTemperatureWorks() {
         // Act
         double tempResult = 15.3;
 
