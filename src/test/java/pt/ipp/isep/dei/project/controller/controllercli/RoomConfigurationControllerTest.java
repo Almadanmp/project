@@ -273,24 +273,24 @@ class RoomConfigurationControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void seeIfSensorIsAddedToRoom() {
-        // Arrange
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = validSdf.parse("04/14/2017 10:02:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", "Rain", date);
-        Mockito.when(roomRepository.saveRoom(validRoomNoDevices)).thenReturn(true);
-        boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomNoDevices);
-
-        // Assert
-
-        assertTrue(actualResult);
-    }
+//    @Test
+//    void seeIfSensorIsAddedToRoom() {
+//        // Arrange
+//        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        Date date = new Date();
+//        try {
+//            date = validSdf.parse("04/14/2017 10:02:00");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        RoomSensor testAreaSensor = new RoomSensor("T4328745", "SensorOne", "Rain", date);
+//        Mockito.when(roomRepository.saveRoom(validRoomNoDevices)).thenReturn(true);
+//        boolean actualResult = controller.addSensorToRoom(testAreaSensor, validRoomNoDevices);
+//
+//        // Assert
+//
+//        assertTrue(actualResult);
+//    }
 
     @Test
     void setNominalPowerDevice() {
