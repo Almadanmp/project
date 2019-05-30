@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
 import java.util.NoSuchElementException;
 
