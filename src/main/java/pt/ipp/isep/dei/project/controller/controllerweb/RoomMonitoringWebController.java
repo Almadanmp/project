@@ -43,7 +43,7 @@ public class RoomMonitoringWebController {
         } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(RoomMonitoringWebController.class).
                     getCurrentRoomTemperature(roomId)).withRel("This room does not exist.");
-            return new ResponseEntity<>(link, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(link, HttpStatus.BAD_REQUEST);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>("There are no temperature readings for that room", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
