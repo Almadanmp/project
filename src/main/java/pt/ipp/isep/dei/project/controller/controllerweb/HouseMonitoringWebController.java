@@ -40,13 +40,11 @@ public class HouseMonitoringWebController {
     @GetMapping("/currentHouseAreaTemperature")
     public ResponseEntity<Object> getCurrentHouseAreaTemperature() {
         double currentHouseAreaTemp;
-        AreaSensor closestSensor;
         try {
-            closestSensor = geographicAreaHouseService.getClosestAreaSensorOfGivenType("Temperature");
-            currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature(closestSensor);
+            currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature();
             return new ResponseEntity<>(currentHouseAreaTemp, HttpStatus.OK);
         } catch (NoSuchElementException | IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
