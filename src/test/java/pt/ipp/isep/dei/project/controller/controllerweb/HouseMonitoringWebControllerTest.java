@@ -65,6 +65,20 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
+    void seeIfGetCurrentHouseAreaTemperatureNoSuchElement() {
+        // Act
+        Mockito.when(geographicAreaHouseService.getHouseAreaTemperature()).thenThrow(NoSuchElementException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getCurrentHouseAreaTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetTotalRainfallDaySuccessMockito(){
         // Act
 
