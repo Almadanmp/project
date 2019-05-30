@@ -85,6 +85,20 @@ class RoomMonitoringWebControllerTest {
     }
 
     @Test
+    void seeIfGetCurrentRoomTemperatureNoSuchElement() {
+        // Arrange
+        Room room = room1;
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("There are no temperature readings for that room", HttpStatus.BAD_REQUEST);
+
+        // Act
+        Mockito.when(roomRepository.getCurrentRoomTempByRoomId(room.getId())).thenThrow(NoSuchElementException.class);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getCurrentRoomTemperature(room.getId());
+
+        // Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetCurrentRoomTemperatureRuntimeException() {
         // Arrange
         Room room = room1;
