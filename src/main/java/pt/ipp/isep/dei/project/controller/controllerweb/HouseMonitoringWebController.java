@@ -6,12 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
+import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
-import java.util.Date;
 import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -55,11 +55,11 @@ public class HouseMonitoringWebController {
     /* US620 - WEB Controller Methods
      As a Regular User, I want to get the total rainfall in the house area for a given day.*/
     @GetMapping("/totalRainfall")
-    public ResponseEntity<Object> getTotalRainfallInGivenDay(@RequestBody Date date) {
+    public ResponseEntity<Object> getTotalRainfallInGivenDay(@RequestBody DateDTO date) {
         double result;
         Link link;
         try {
-            result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date);
+            result = geographicAreaHouseService.getTotalRainfallOnGivenDay(date.getDate());
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(HouseMonitoringWebController.class).
