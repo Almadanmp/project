@@ -67,17 +67,20 @@ class GeographicAreaTest {
         assertFalse(actualResult);
     }
 
-//    @Test
-//    void seeIfIsAreaContainedWorksTrue() {
-//        // Arrange
-//        Long childID = 2L;
-//
-//        // Act
-//        boolean actualResult = secondValidArea.isAreaContained(childID);
-//
-//        // Assert
-//        assertTrue(actualResult);
-//    }
+    @Test
+    void seeIfIsAreaContainedWorksTrue() {
+        // Arrange
+        Long childID = 2L;
+        List<GeographicArea> childAreas = new ArrayList<>();
+        childAreas.add(secondValidArea);
+        firstValidArea.setChildAreas(childAreas);
+
+        // Act
+        boolean actualResult = firstValidArea.isAreaContained(childID);
+
+        // Assert
+        assertTrue(actualResult);
+    }
 
     @Test
     void seeIfAddDaughterAreaWorks() {
