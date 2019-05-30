@@ -71,19 +71,30 @@ class RoomMonitoringWebControllerTest {
     @Test
     void seeIfGetCurrentRoomTemperatureIllegalArgument() {
         // Arrange
-
         Room room = room1;
         Link link = linkTo(methodOn(RoomMonitoringWebController.class).
                 getCurrentRoomTemperature(room.getId())).withRel("This room does not exist.");
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.BAD_REQUEST);
 
         // Act
-
         Mockito.when(roomRepository.getCurrentRoomTempByRoomId(room.getId())).thenThrow(IllegalArgumentException.class);
         ResponseEntity<Object> actualResult = roomMonitoringWebController.getCurrentRoomTemperature(room.getId());
 
         // Assert
+        assertEquals(expectedResult, actualResult);
+    }
 
+    @Test
+    void seeIfGetCurrentRoomTemperatureRuntimeException() {
+        // Arrange
+        Room room = room1;
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        // Act
+        Mockito.when(roomRepository.getCurrentRoomTempByRoomId(room.getId())).thenThrow(RuntimeException.class);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getCurrentRoomTemperature(room.getId());
+
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 

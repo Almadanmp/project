@@ -45,7 +45,7 @@ public class RoomMonitoringWebController {
                     getCurrentRoomTemperature(roomId)).withRel("This room does not exist.");
             return new ResponseEntity<>(link, HttpStatus.BAD_REQUEST);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<>("There are no temperature readings for that room", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("There are no temperature readings for that room", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
