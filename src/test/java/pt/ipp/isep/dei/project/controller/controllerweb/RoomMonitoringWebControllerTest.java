@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import pt.ipp.isep.dei.project.dto.DateWithRoomIdDTO;
+import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
@@ -32,12 +32,14 @@ class RoomMonitoringWebControllerTest {
     @InjectMocks
     RoomMonitoringWebController roomMonitoringWebController;
 
+    private Room room1;
     private Date date1; // Date 01/01/2020
     private Date date2; // Date 01/01/2019
 
     @BeforeEach
     void arrangeArtifacts() {
         MockitoAnnotations.initMocks(this);
+        room1 = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
         SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             date1 = validSdf.parse("01/01/2020 00:00:00");
@@ -48,11 +50,28 @@ class RoomMonitoringWebControllerTest {
     }
 
     @Test
-    void seeIfGetRoomMaxTempInDaySuccessMockito() {
+    void seeIfGetCurrentRoomTemperatureWorks() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
-        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, "Bedroom");
+        Room room = room1;
+        double resultTemp = 15;
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(resultTemp, HttpStatus.OK);
+
+        // Act
+
+        Mockito.when(roomRepository.getCurrentRoomTempByRoomId(room.getId())).thenReturn(resultTemp);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getCurrentRoomTemperature(room.getId());
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+    @Test
+    void seeIfGetRoomMaxTempInDaySuccessMockito() {
+        // Arrange
+        Room room = room1;
+
+        DateDTO dateDTO = new DateDTO(date1);
 
         // Act
 
@@ -60,7 +79,7 @@ class RoomMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(30D, HttpStatus.OK);
 
-        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay(dateWithRoomIdDTO);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay("Bedroom", dateDTO);
 
         // Assert
 
@@ -72,10 +91,10 @@ class RoomMonitoringWebControllerTest {
     void seeIfGetRoomMaxTempInDayIllegalArgumentException() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
-        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, "Bedroom");
+        Room room = room1;
+        DateDTO dateDTO = new DateDTO(date1);
         Link link = linkTo(methodOn(RoomMonitoringWebController.class).
-                getRoomMaxTempInDay(dateWithRoomIdDTO)).withRel("This room does not exist.");
+                getRoomMaxTempInDay(room.getId(), dateDTO)).withRel("This room does not exist.");
 
         // Act
 
@@ -83,7 +102,7 @@ class RoomMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
 
-        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay(dateWithRoomIdDTO);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay("Bedroom", dateDTO);
 
         // Assert
 
@@ -95,8 +114,8 @@ class RoomMonitoringWebControllerTest {
     void seeIfGetRoomMaxTempInDayRuntimeException() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
-        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, "Bedroom");
+        Room room = room1;
+        DateDTO dateDTO = new DateDTO(date1);
 
         // Act
 
@@ -104,7 +123,7 @@ class RoomMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay(dateWithRoomIdDTO);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay("Bedroom", dateDTO);
 
         // Assert
 
@@ -116,8 +135,8 @@ class RoomMonitoringWebControllerTest {
     void seeIfGetRoomMaxTempInDayNoSuchElementException() {
         // Arrange
 
-        Room room = new Room("Bedroom", "Cosy", 3, 2, 1, 5, "7");
-        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, "Bedroom");
+        Room room = room1;
+        DateDTO dateDTO = new DateDTO(date1);
 
         // Act
 
@@ -125,7 +144,7 @@ class RoomMonitoringWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>("There are no readings for the given date.", HttpStatus.BAD_REQUEST);
 
-        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay(dateWithRoomIdDTO);
+        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay("Bedroom", dateDTO);
 
         // Assert
 
