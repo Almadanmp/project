@@ -57,6 +57,11 @@ public class RoomMonitoringWebController {
     public ResponseEntity<Object> getRoomMaxTempInDay(@RequestBody DateWithRoomIdDTO dateWithRoomIdDTO) {
         Link link;
         double result;
+        if(!dateWithRoomIdDTO.isDateValid()){
+            link = linkTo(methodOn(RoomMonitoringWebController.class).
+                    getRoomMaxTempInDay(dateWithRoomIdDTO)).withRel("This date is not valid.");
+            return new ResponseEntity<>(link, HttpStatus.OK);
+        }
         try {
             result = roomRepository.getRoomMaxTempById(dateWithRoomIdDTO.getRoomId(), dateWithRoomIdDTO.getDate());
             return new ResponseEntity<>(result, HttpStatus.OK);

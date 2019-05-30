@@ -11,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateWithRoomIdDTO;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
@@ -119,8 +118,6 @@ class RoomMonitoringWebControllerTest {
 
         DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, "Bedroom");
 
-        DateDTO dateDTO = new DateDTO(date1);
-
         // Act
 
         Mockito.when(roomRepository.getRoomMaxTempById(room.getId(), date1)).thenReturn(30D);
@@ -136,17 +133,14 @@ class RoomMonitoringWebControllerTest {
     }
 
     @Test
-    void seeIfGetRoomMaxTempInDayIllegalArgumentException() {
+    void seeIfGetRoomMaxTempInDayInvalidDate() {
         // Arrange
 
-        Room room = room1;
-        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, "Bedroom");
+        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(null, "Bedroom");
         Link link = linkTo(methodOn(RoomMonitoringWebController.class).
-                getRoomMaxTempInDay(dateWithRoomIdDTO)).withRel("This room does not exist.");
+                getRoomMaxTempInDay(dateWithRoomIdDTO)).withRel("This date is not valid.");
 
         // Act
-
-        Mockito.when(roomRepository.getRoomMaxTempById(room.getId(), date1)).thenThrow(IllegalArgumentException.class);
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
 
@@ -157,6 +151,28 @@ class RoomMonitoringWebControllerTest {
         assertEquals(expectedResult, actualResult);
 
     }
+
+//    @Test
+//    void seeIfGetRoomMaxTempInDayInvalidRoom() {
+//        // Arrange
+//
+//        DateWithRoomIdDTO dateWithRoomIdDTO = new DateWithRoomIdDTO(date1, null);
+//        Link link = linkTo(methodOn(RoomMonitoringWebController.class).
+//                getRoomMaxTempInDay(dateWithRoomIdDTO)).withRel("This date is not valid.");
+//
+//        // Act
+//
+//        Mockito.when()
+//
+//        ResponseEntity<Object> expectedResult = new ResponseEntity<>(link, HttpStatus.OK);
+//
+//        ResponseEntity<Object> actualResult = roomMonitoringWebController.getRoomMaxTempInDay(dateWithRoomIdDTO);
+//
+//        // Assert
+//
+//        assertEquals(expectedResult, actualResult);
+//
+//    }
 
     @Test
     void seeIfGetRoomMaxTempInDayRuntimeException() {

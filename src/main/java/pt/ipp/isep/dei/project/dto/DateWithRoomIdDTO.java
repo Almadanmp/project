@@ -42,4 +42,16 @@ public class DateWithRoomIdDTO {
     private void setRoomId(String roomId) {
         this.roomId = roomId;
     }
+
+    /**
+     * Method to validate if a interval of dates is valid
+     * Date is valid if - Both input are valid inputs
+     * If end date is after initial date
+     *
+     * @return true if date valid
+     */
+    public boolean isDateValid() {
+        return date != null;
+    }
+
 }
