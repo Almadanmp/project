@@ -49,6 +49,22 @@ class HouseMonitoringWebControllerTest {
     }
 
     @Test
+    void seeIfGetCurrentHouseAreaTemperature() {
+        // Act
+        double tempResult = 15.3;
+
+        Mockito.when(geographicAreaHouseService.getHouseAreaTemperature()).thenReturn(tempResult);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(tempResult, HttpStatus.OK);
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getCurrentHouseAreaTemperature();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfGetTotalRainfallDaySuccessMockito(){
         // Act
 
