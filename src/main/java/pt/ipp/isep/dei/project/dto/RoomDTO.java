@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.project.dto;
 
+import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMinimalMapper;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
+import pt.ipp.isep.dei.project.model.room.RoomSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,20 @@ public class RoomDTO {
 
     public List<RoomSensorDTO> getSensorList() {
         return new ArrayList<>(sensorList);
+    }
+
+    public List<RoomSensorDTOMinimal> getSensorDTOMinimalistList() {
+        List<RoomSensor> objectSensorList = new ArrayList<>();
+        List<RoomSensorDTOMinimal> objectSensorListDto = new ArrayList<>();
+        for (RoomSensorDTO d : sensorList) {
+            RoomSensor tempObject = RoomSensorMapper.dtoToObject(d);
+            objectSensorList.add(tempObject);
+        }
+        for (RoomSensor rs : objectSensorList) {
+            RoomSensorDTOMinimal tempObject2 = RoomSensorMinimalMapper.objectToDTO(rs);
+            objectSensorListDto.add(tempObject2);
+        }
+        return objectSensorListDto;
     }
 
     /**

@@ -123,6 +123,17 @@ public class RoomRepository {
         return false;
     }
 
+
+    public List<RoomDTOMinimal> getAllDTOWebInformation() {
+        List<Room> list = roomCrudRepo.findAll();
+        List<RoomDTOMinimal> finalList = new ArrayList<>();
+        for (Room room : list) {
+            RoomDTOMinimal gaDTO = RoomMinimalMapper.objectToDtoWeb(room);
+            finalList.add(gaDTO);
+        }
+        return finalList;
+    }
+
     /**
      * String Builder of the RoomList.
      *
@@ -213,6 +224,16 @@ public class RoomRepository {
         if (aux.isPresent()) {
             room = aux.get();
             return room;
+        }
+        throw new IndexOutOfBoundsException("ERROR: No Room was file with the following name: " + name + " .");
+    }
+
+    public RoomDTO getRoomDTOByName(String name) {
+        Room room;
+        Optional<Room> aux = roomCrudRepo.findById(name);
+        if (aux.isPresent()) {
+            room = aux.get();
+            return RoomMapper.objectToDTO(room);
         }
         throw new IndexOutOfBoundsException("ERROR: No Room was file with the following name: " + name + " .");
     }
