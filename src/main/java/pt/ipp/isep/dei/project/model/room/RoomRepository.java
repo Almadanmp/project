@@ -31,6 +31,34 @@ public class RoomRepository {
     private RoomCrudRepo roomCrudRepo;
 
     /**
+     * This method receives a Room DTO and tries to edit the corresponding
+     * room in repository with the given parameters.
+     *
+     * @param roomDTOMinimal that provides the parameters and room ID
+     * @return true in case the room is edited, false in case a room with the given
+     * ID does not exist in repository
+     **/
+    public boolean configureRoom(RoomDTOMinimal roomDTOMinimal) {
+        String roomName = roomDTOMinimal.getName();
+        int roomFloor = roomDTOMinimal.getFloor();
+        double roomWidth = roomDTOMinimal.getWidth();
+        double roomLength = roomDTOMinimal.getLength();
+        double roomHeight = roomDTOMinimal.getHeight();
+
+        Optional<Room> optionalRoom = roomCrudRepo.findByRoomName(roomName);
+        if (optionalRoom.isPresent()) {
+            Room room = optionalRoom.get();
+            room.setHouseFloor(roomFloor);
+            room.setRoomWidth(roomWidth);
+            room.setRoomLength(roomLength);
+            room.setRoomHeight(roomHeight);
+            roomCrudRepo.save(room);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This method gets every room from the Room Crud Repository
      * and returns as an ArrayList.
      *
@@ -471,6 +499,7 @@ public class RoomRepository {
 
     /**
      * Method that gets current room temperature for US605
+     *
      * @param roomId for identifying room.
      * @return the current room temperature as a double.
      */

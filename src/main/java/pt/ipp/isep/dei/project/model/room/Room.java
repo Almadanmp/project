@@ -12,7 +12,6 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.log.LogList;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.util.*;
 
 /**
@@ -86,6 +85,51 @@ public class Room implements Metered, Root {
     protected Room() {
         this.deviceList = new DeviceList();
         this.roomSensors = new ArrayList<>();
+    }
+
+    /**
+     * This method sets the description.
+     *
+     * @param description as a string
+     **/
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * This method sets the house floor.
+     *
+     * @param floor as a int
+     **/
+    public void setHouseFloor(int floor) {
+        this.houseFloor = floor;
+    }
+
+    /**
+     * This method sets the room width.
+     *
+     * @param width as a double
+     **/
+    public void setRoomWidth(double width) {
+        this.roomWidth = width;
+    }
+
+    /**
+     * This method sets the room Length.
+     *
+     * @param roomLength as a double
+     **/
+    public void setRoomLength(double roomLength) {
+        this.roomLength = roomLength;
+    }
+
+    /**
+     * This method sets the room height.
+     *
+     * @param roomHeight as a double
+     **/
+    public void setRoomHeight(double roomHeight) {
+        this.roomHeight = roomHeight;
     }
 
     /**

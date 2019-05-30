@@ -50,6 +50,91 @@ class RoomTest {
     }
 
     @Test
+    void seeIfSetHeightWorks() {
+        //Arrange
+
+        validRoom.setRoomHeight(2D);
+        double expectedResult = 1D;
+        validRoom.setRoomHeight(1D);
+
+        //Act
+
+        double actualResult = validRoom.getHeight();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetLengthWorks() {
+        //Arrange
+
+        validRoom.setRoomLength(2D);
+        double expectedResult = 1D;
+        validRoom.setRoomLength(1D);
+
+        //Act
+
+        double actualResult = validRoom.getLength();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetWidthWorks() {
+        //Arrange
+
+        validRoom.setRoomWidth(2D);
+        double expectedResult = 1D;
+        validRoom.setRoomWidth(1D);
+
+        //Act
+
+        double actualResult = validRoom.getWidth();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetFloorWorks() {
+        //Arrange
+
+        validRoom.setHouseFloor(2);
+        int expectedResult = 1;
+        validRoom.setHouseFloor(1);
+
+        //Act
+
+        int actualResult = validRoom.getFloor();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfSetDescriptionWorks() {
+        //Arrange
+
+        validRoom.setDescription("");
+        String expectedResult = "Description";
+        validRoom.setDescription("Description");
+
+        //Act
+
+        String actualResult = validRoom.getDescription();
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfSetHouseIDWorks() {
         //Arrange
 

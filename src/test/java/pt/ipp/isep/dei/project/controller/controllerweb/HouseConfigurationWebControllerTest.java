@@ -235,6 +235,49 @@ class HouseConfigurationWebControllerTest {
     }
 
     @Test
+    public void seeIfConfigureRoomWorks() {
+        //Arrange
+        Mockito.doReturn(true).when(this.roomRepository).configureRoom(roomDTOMinimal);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(roomDTOMinimal, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfConfigureRoomWorksWhenItDoestNotExist() {
+        //Arrange
+        Mockito.doReturn(false).when(this.roomRepository).configureRoom(roomDTOMinimal);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you are trying to edit does not exist in the database.", HttpStatus.NOT_FOUND);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void seeIfConfigureRoomWorksWhenDimensionAreInvalid() {
+        //Arrange
+
+        roomDTOMinimal.setLength(0D);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
+
+        //Act
+        ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void seeIfDeleteRoomWorks() {
         //Arrange
         Mockito.when(this.roomRepository.deleteRoom(roomDTOMinimal)).thenReturn(true);

@@ -57,7 +57,7 @@ class RoomRepositoryTest {
 
     @BeforeEach
     void arrangeArtifacts() {
-    //    MockitoAnnotations.initMocks(this);
+        //    MockitoAnnotations.initMocks(this);
         validRoom = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
         this.roomList = new ArrayList<>();
         roomList.add(validRoom);
@@ -85,11 +85,79 @@ class RoomRepositoryTest {
     }
 
     @Test
+    void seeIfConfigureRoom() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = new RoomDTOMinimal();
+        roomDTO.setName("Kitchen");
+        roomDTO.setLength(222D);
+        roomDTO.setHeight(111D);
+        roomDTO.setHeight(666D);
+        roomDTO.setFloor(22);
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+
+        // Act
+
+        boolean actualResult = validRoomRepository.configureRoom(roomDTO);
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfConfigureRoomChangesParameters() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = new RoomDTOMinimal();
+        roomDTO.setName("Kitchen");
+        roomDTO.setLength(222D);
+        roomDTO.setWidth(111D);
+        roomDTO.setHeight(666D);
+        roomDTO.setFloor(22);
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+
+        // Act
+
+        boolean actualResult = validRoomRepository.configureRoom(roomDTO);
+
+        // Assert
+
+        assertEquals(222D, validRoom.getLength(), 0.01);
+        assertEquals(111D, validRoom.getWidth(), 0.01);
+        assertEquals(666D, validRoom.getHeight(), 0.01);
+        assertEquals(22, validRoom.getFloor(), 0.01);
+    }
+
+    @Test
+    void seeIfConfigureRoomWorksWhenRoomIsNotInRepository() {
+        // Arrange
+
+        RoomDTOMinimal roomDTO = new RoomDTOMinimal();
+        roomDTO.setName("Kitchen");
+        roomDTO.setLength(222D);
+        roomDTO.setHeight(111D);
+        roomDTO.setHeight(666D);
+        roomDTO.setFloor(22);
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.empty());
+
+        // Act
+
+        boolean actualResult = validRoomRepository.configureRoom(roomDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
     void seeIfDeleteRoomWorks() {
         // Arrange
 
         RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(validRoom);
-
 
         Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
 
