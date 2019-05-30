@@ -392,7 +392,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
 
     public double getHouseAreaTemperature() {
         AreaSensor closestSensor;
-        closestSensor = getClosestAreaSensorOfGivenType("temperature");
+        closestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         List<Reading> sensorReadings = closestSensor.getReadings();
         return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }

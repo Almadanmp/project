@@ -10,7 +10,6 @@ import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
-import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 
 import java.util.NoSuchElementException;
 
@@ -44,7 +43,7 @@ public class HouseMonitoringWebController {
             currentHouseAreaTemp = geographicAreaHouseService.getHouseAreaTemperature();
             return new ResponseEntity<>(currentHouseAreaTemp, HttpStatus.OK);
         } catch (NoSuchElementException | IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
