@@ -312,6 +312,6 @@ public class RoomConfigurationController {
      */
     public boolean addSensorToRoom(RoomSensor roomSensor, Room room) {
         room.addSensor(roomSensor);
-        return roomRepository.saveRoom(room);
+        return roomRepository.updateRoom(room);
     }
 }

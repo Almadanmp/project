@@ -144,8 +144,9 @@ public class RoomRepository {
      *
      * @param room is the room we want to saveSensor.
      */
-    public void updateRoom(Room room) {
+    public boolean updateRoom(Room room) {
         roomCrudRepo.save(room);
+        return true;
     }
 
     /**
