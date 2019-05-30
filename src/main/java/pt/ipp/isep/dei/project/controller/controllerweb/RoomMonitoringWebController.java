@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.ApplicationScope;
-import pt.ipp.isep.dei.project.dto.DateDTO;
+import pt.ipp.isep.dei.project.dto.DateWithRoomIdDTO;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.NoSuchElementException;
@@ -54,15 +54,15 @@ public class RoomMonitoringWebController {
     /* US610 - WEB Controller Methods
      Get Max Temperature in a room in a specific day.*/
     @GetMapping("/dayMaxTemperature")
-    public ResponseEntity<Object> getRoomMaxTempInDay(@RequestBody String roomId, @RequestBody DateDTO date) {
+    public ResponseEntity<Object> getRoomMaxTempInDay(@RequestBody DateWithRoomIdDTO dateWithRoomIdDTO) {
         Link link;
         double result;
         try {
-            result = roomRepository.getRoomMaxTempById(roomId, date.getDate());
+            result = roomRepository.getRoomMaxTempById(dateWithRoomIdDTO.getRoomId(), dateWithRoomIdDTO.getDate());
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(RoomMonitoringWebController.class).
-                    getRoomMaxTempInDay(roomId, date)).withRel("This room does not exist.");
+                    getRoomMaxTempInDay(dateWithRoomIdDTO)).withRel("This room does not exist.");
             return new ResponseEntity<>(link, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>("There are no readings for the given date.", HttpStatus.BAD_REQUEST);
