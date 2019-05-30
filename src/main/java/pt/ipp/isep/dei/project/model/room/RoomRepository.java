@@ -3,9 +3,7 @@ package pt.ipp.isep.dei.project.model.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTO;
-import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
@@ -186,6 +184,15 @@ public class RoomRepository {
     public boolean updateRoom(Room room) {
         roomCrudRepo.save(room);
         return true;
+    }
+
+    public boolean updateDTORoom(RoomDTO roomDTO) {
+        roomCrudRepo.save(RoomMapper.dtoToObject(roomDTO));
+        return true;
+    }
+
+    public boolean removeSensorDTO(RoomDTO roomDTO, String roomSensorID) {
+        return roomDTO.removeSensor(roomSensorID);
     }
 
     /**

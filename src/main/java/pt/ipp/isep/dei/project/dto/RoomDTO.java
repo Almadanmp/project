@@ -76,6 +76,24 @@ public class RoomDTO {
         this.deviceList = deviceList;
     }
 
+    public boolean addSensor(RoomSensorDTO roomSensorDTO) {
+        if (!this.sensorList.contains(roomSensorDTO)) {
+            this.sensorList.add(roomSensorDTO);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeSensor(String roomSensorID) {
+        for (RoomSensorDTO s : sensorList) {
+            if (s.getId().equals(roomSensorID)) {
+                sensorList.remove(s);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Method that retrieves the DTO's name.
      *
