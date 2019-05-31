@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.project.controller.controllerweb;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,10 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @ApplicationScope
@@ -48,6 +51,7 @@ public class RoomConfigurationWebController {
     }
 
     /**
+     * US250 Web Controller:
      * Shows the Room Sensors present in a given Room
      *
      * @param id is the geographical area id.
@@ -70,28 +74,24 @@ public class RoomConfigurationWebController {
     public ResponseEntity<Object> createRoomSensor(@RequestBody RoomSensorDTO roomSensorDTO,
                                                    @PathVariable String idRoom) {
         RoomDTO roomDTO;
-        List<SensorTypeDTO> sensorTypeDTOS = sensorTypeRepository.getAllSensorTypeDTO();
+        List<SensorTypeDTO> sensorTypes = sensorTypeRepository.getAllSensorTypeDTO();
+        List<String> typeNames = sensorTypeRepository.getTypeNames(sensorTypes);
         try {
             roomDTO = roomRepository.getRoomDTOByName(idRoom);
         } catch (IndexOutOfBoundsException e) {
             return new ResponseEntity<>("That ID does not belong to any Room", HttpStatus.NOT_FOUND);
         }
-
-        if (roomSensorDTO.getName() != null && roomSensorDTO.getId() != null && roomSensorDTO.getType() != null && roomSensorDTO.getDateStartedFunctioning() != null) {
+        if (roomRepository.isRoomSensorDTOValid(roomSensorDTO)) {
             if (roomSensorDTO.getName().equals("")) {
                 return new ResponseEntity<>("The sensor name is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            List<String> types = new ArrayList<>();
-            for (SensorTypeDTO st : sensorTypeDTOS) {
-                types.add(st.getName());
-            }
-            if (!types.contains(roomSensorDTO.getType())) {
+            if (!typeNames.contains(roomSensorDTO.getType())) {
                 return new ResponseEntity<>("The sensor type is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
             if (roomDTO.addSensor(roomSensorDTO)) {
                 roomRepository.updateDTORoom(roomDTO);
-                //  Link link = linkTo(methodOn(SensorSettingsWebController.class).removeAreaSensor(id, areaSensorDTO.getSensorId())).withRel("Delete the created sensor");
-                //  roomSensorDTO.add(link);
+                Link link = linkTo(methodOn(RoomConfigurationWebController.class).removeRoomSensor(idRoom, roomSensorDTO.getSensorId())).withRel("Delete the created sensor");
+                roomSensorDTO.add(link);
                 return new ResponseEntity<>(roomSensorDTO, HttpStatus.CREATED);
             }
             return new ResponseEntity<>("The sensor already exists in the database", HttpStatus.CONFLICT);

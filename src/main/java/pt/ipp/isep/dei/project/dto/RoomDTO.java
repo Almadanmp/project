@@ -86,7 +86,7 @@ public class RoomDTO {
 
     public boolean removeSensor(String roomSensorID) {
         for (RoomSensorDTO s : sensorList) {
-            if (s.getId().equals(roomSensorID)) {
+            if (s.getSensorId().equals(roomSensorID)) {
                 sensorList.remove(s);
                 return true;
             }

@@ -32,11 +32,11 @@ class RoomSensorDTOTest {
         //Arrange
 
         RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
-        houseSensorDTO1.setId("Id");
+        houseSensorDTO1.setSensorId("Id");
 
         //Act
 
-        String actualResult1 = houseSensorDTO1.getId();
+        String actualResult1 = houseSensorDTO1.getSensorId();
 
         //Assert
         assertEquals("Id", actualResult1);

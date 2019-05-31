@@ -33,7 +33,7 @@ public final class RoomSensorMapper {
      */
     public static RoomSensor dtoToObject(RoomSensorDTO dtoToConvert) {
 
-        String objectID = dtoToConvert.getId();
+        String objectID = dtoToConvert.getSensorId();
 
         // Update name
 
@@ -128,7 +128,7 @@ public final class RoomSensorMapper {
         resultDTO.setName(dtoName);
         resultDTO.setDateStartedFunctioning(dtoActivationDate);
         resultDTO.setReadingList(dtoReadingList);
-        resultDTO.setId(dtoID);
+        resultDTO.setSensorId(dtoID);
 
         return resultDTO;
     }
