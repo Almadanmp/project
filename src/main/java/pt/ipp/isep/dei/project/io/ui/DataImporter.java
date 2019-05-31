@@ -42,9 +42,6 @@ public class DataImporter {
     AreaTypeRepository areaTypeRepository;
     @Autowired
     EnergyGridRoomService energyGridRoomService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
 
     @Autowired
     InputHelperUI inputHelperUI;
@@ -58,6 +55,9 @@ public class DataImporter {
     private HouseConfigurationController houseConfigurationController;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     void importData(House house) {
         System.out.println("Clearing data...");
@@ -93,19 +93,19 @@ public class DataImporter {
 
     }
 
-    public void createUsers() {
+    private void createUsers() {
 
         // Delete all
         this.userRepository.deleteAll();
 
         // Crete users
-        User admin = new User("admin", passwordEncoder.encode("admin123"), "ADMIN", "ACCESS_TEST1,ACCESS_TEST2");
+        User admin = new User("admin", passwordEncoder.encode("admin123"), "ADMIN", "");
 
-        User powerUser = new User("power user", passwordEncoder.encode("power123"), "Power", "");
+        User powerUser = new User("powerUser", passwordEncoder.encode("power123"), "POWER", "");
 
-        User roomOwner = new User("room owner", passwordEncoder.encode("room123"), "ROOMOWNER", "ACCESS_TEST1");
+        User roomOwner = new User("roomOwner", passwordEncoder.encode("room123"), "ROOMOWNER", "");
 
-        User regular = new User("regular user", passwordEncoder.encode("regular123"), "REGULAR", "ACCESS_TEST1");
+        User regular = new User("regularUser", passwordEncoder.encode("regular123"), "REGULAR", "House Monitoring");
 
         List<User> users = Arrays.asList(admin, powerUser, roomOwner, regular);
 
