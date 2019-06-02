@@ -482,7 +482,7 @@ class RoomConfigurationWebControllerTest {
 
         assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
     }
-    
+
     @Test
     void seeIfCreateRoomSensorFailsWrongRoom() {
 
