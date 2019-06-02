@@ -1,11 +1,11 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
@@ -17,8 +17,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@ApplicationScope
 @RequestMapping("/houseMonitoring")
+@CrossOrigin
+@Scope("request")
 public class HouseMonitoringWebController {
 
     @Autowired
@@ -126,4 +127,6 @@ public class HouseMonitoringWebController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
 }

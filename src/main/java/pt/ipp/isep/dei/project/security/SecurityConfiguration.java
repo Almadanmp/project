@@ -18,6 +18,8 @@ import pt.ipp.isep.dei.project.model.user.UserRepository;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserPrincipalDetailsService userPrincipalDetailsService;
     private UserRepository userRepository;
+    private static final String REGULAR_USER = "REGULAR";
+    private static final String ADMIN = "ADMIN";
 
     public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
@@ -34,6 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 // remove csrf and state in session because in jwt we do not need them
                 .csrf().disable()
+                // next line was for enabling h2 console
+                .headers().frameOptions().disable().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 // add jwt filters (1. authentication, 2. authorization)
@@ -43,10 +47,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // configure access rules
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers("/houseMonitoring").hasRole("REGULAR")
-                .anyRequest().authenticated()
-                .antMatchers("/h2-console/**").permitAll().anyRequest().permitAll().and().formLogin().and().csrf().ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin();
+                .antMatchers("/h2-console/**").permitAll()
+                //ADMIN User Access
+                .antMatchers("/houseSettings/**").hasRole(ADMIN)
+                .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
+                .antMatchers("/gridSettings/**").hasRole(ADMIN)
+                //Regular User Access - US600, US605, US610, US620, US630, US631, US633
+                .antMatchers("/houseMonitoring/**").hasRole(REGULAR_USER)
+                .antMatchers("/roomMonitoring/**").hasRole(REGULAR_USER)
+                .anyRequest().authenticated();
     }
+
 
     @Bean
     DaoAuthenticationProvider authenticationProvider() {
@@ -61,4 +72,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
