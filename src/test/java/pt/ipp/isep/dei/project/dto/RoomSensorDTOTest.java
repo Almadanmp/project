@@ -174,4 +174,19 @@ class RoomSensorDTOTest {
         //Assert
         assertEquals(1, houseSensorDTO1.hashCode());
     }
+
+    @Test
+    void seeIfSetDateWorks() {
+        //Arrange
+
+        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        houseSensorDTO1.setDateStartedFunctioning("2/2/2018");
+
+        //Act
+
+        String actualResult1 = houseSensorDTO1.getDateStartedFunctioning();
+
+        //Assert
+        assertEquals("2/2/2018", actualResult1);
+    }
 }
