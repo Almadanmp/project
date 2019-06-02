@@ -239,13 +239,11 @@ public class RoomRepository {
     }
 
     public RoomDTO getRoomDTOByName(String name) {
-        Room room;
         Optional<Room> aux = roomCrudRepo.findById(name);
-        if (aux.isPresent()) {
-            room = aux.get();
-            return RoomMapper.objectToDTO(room);
+        if (!aux.isPresent()) {
+            throw new IllegalArgumentException("ERROR: No Room was file with the following name: " + name + " .");
         }
-        throw new IndexOutOfBoundsException("ERROR: No Room was file with the following name: " + name + " .");
+        return RoomMapper.objectToDTO(aux.get());
     }
 
     /**
@@ -545,6 +543,10 @@ public class RoomRepository {
         } else {
             throw new IllegalArgumentException("There is no room with the given Id");
         }
+    }
+
+    public boolean addSensorDTO(RoomDTO roomDTO, RoomSensorDTO roomSensorDTO) {
+        return roomDTO.addSensor(roomSensorDTO);
     }
 
     public boolean isRoomSensorDTOValid(RoomSensorDTO roomSensorDTO) {

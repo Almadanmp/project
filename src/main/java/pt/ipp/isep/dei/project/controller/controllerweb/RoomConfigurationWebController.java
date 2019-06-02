@@ -78,7 +78,7 @@ public class RoomConfigurationWebController {
         List<String> typeNames = sensorTypeRepository.getTypeNames(sensorTypes);
         try {
             roomDTO = roomRepository.getRoomDTOByName(idRoom);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("That ID does not belong to any Room", HttpStatus.NOT_FOUND);
         }
         if (roomRepository.isRoomSensorDTOValid(roomSensorDTO)) {
@@ -88,7 +88,7 @@ public class RoomConfigurationWebController {
             if (!typeNames.contains(roomSensorDTO.getType())) {
                 return new ResponseEntity<>("The sensor type is not valid.", HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            if (roomDTO.addSensor(roomSensorDTO)) {
+            if (roomRepository.addSensorDTO(roomDTO, roomSensorDTO)) {
                 roomRepository.updateDTORoom(roomDTO);
                 Link link = linkTo(methodOn(RoomConfigurationWebController.class).removeRoomSensor(idRoom, roomSensorDTO.getSensorId())).withRel("Delete the created sensor");
                 roomSensorDTO.add(link);
