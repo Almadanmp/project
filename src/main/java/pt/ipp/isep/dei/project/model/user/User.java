@@ -24,7 +24,7 @@ public class User {
 
     private String permissions = "";
 
-    public User(String username, String password, String roles, String permissions){
+    public User(String username, String password, String roles, String permissions) {
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -32,7 +32,8 @@ public class User {
         this.active = 1;
     }
 
-    protected User(){}
+    protected User() {
+    }
 
     public long getId() {
         return id;
@@ -50,23 +51,23 @@ public class User {
         return active;
     }
 
-    public String getRoles() {
+    String getRoles() {
         return roles;
     }
 
-    public String getPermissions() {
+    String getPermissions() {
         return permissions;
     }
 
-    public List<String> getRoleList(){
-        if(this.roles.length() > 0){
+    public List<String> getRoleList() {
+        if (this.roles.length() > 0) {
             return Arrays.asList(this.roles.split(","));
         }
         return new ArrayList<>();
     }
 
-    public List<String> getPermissionList(){
-        if(this.permissions.length() > 0){
+    public List<String> getPermissionList() {
+        if (this.permissions.length() > 0) {
             return Arrays.asList(this.permissions.split(","));
         }
         return new ArrayList<>();
