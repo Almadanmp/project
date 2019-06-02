@@ -99,11 +99,11 @@ public class DataImporter {
         this.userRepository.deleteAll();
 
         // Crete users
-        User admin = new User("admin", passwordEncoder.encode("admin123"), "ADMIN", "");
+        User admin = new User("admin", passwordEncoder.encode("admin123"), "ADMIN", "None");
 
-        User powerUser = new User("powerUser", passwordEncoder.encode("power123"), "POWER", "");
+        User powerUser = new User("powerUser", passwordEncoder.encode("power123"), "POWER", "None");
 
-        User roomOwner = new User("roomOwner", passwordEncoder.encode("room123"), "ROOMOWNER", "");
+        User roomOwner = new User("roomOwner", passwordEncoder.encode("room123"), "ROOMOWNER", "None");
 
         User regular = new User("regularUser", passwordEncoder.encode("regular123"), "REGULAR", "House Monitoring");
 
