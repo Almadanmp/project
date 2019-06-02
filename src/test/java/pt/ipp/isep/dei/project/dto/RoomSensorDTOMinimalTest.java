@@ -1,22 +1,23 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RoomSensorDTOTest {
+class RoomSensorDTOMinimalTest {
 
     @Test
     void seeIfSetUnitWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setUnits("Unit");
 
         //Act
@@ -28,58 +29,10 @@ class RoomSensorDTOTest {
     }
 
     @Test
-    void seeIfSetIdWorks() {
-        //Arrange
-
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
-        houseSensorDTO1.setSensorId("Id");
-
-        //Act
-
-        String actualResult1 = houseSensorDTO1.getSensorId();
-
-        //Assert
-        assertEquals("Id", actualResult1);
-    }
-
-    @Test
-    void seeIfSetReadingList() {
-        //Arrange
-
-        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-
-        try {
-            date = validSdf.parse("10/01/2018 09:59:59");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        List<ReadingDTO> readingDTOList = new ArrayList<>();
-        ReadingDTO readingDTO = new ReadingDTO();
-        readingDTO.setDate(date);
-        readingDTO.setSensorId("Id");
-        readingDTOList.add(readingDTO);
-
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
-        houseSensorDTO1.setReadingList(readingDTOList);
-
-        List<ReadingDTO> expectedResult = new ArrayList<>();
-        expectedResult.add(readingDTO);
-
-        //Act
-
-        List<ReadingDTO> actualResult1 = houseSensorDTO1.getReadingList();
-
-        //Assert
-        assertEquals(expectedResult, actualResult1);
-    }
-
-    @Test
     void seeIfSetRoomIdWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setRoomID("Id");
 
         //Act
@@ -94,7 +47,7 @@ class RoomSensorDTOTest {
     void seeIfSetTypeSensorWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setTypeSensor("Type");
 
         //Act
@@ -109,7 +62,7 @@ class RoomSensorDTOTest {
     void seeIfSetActiveWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setActive(true);
 
         //Act
@@ -125,7 +78,7 @@ class RoomSensorDTOTest {
     void seeIfSetInactiveWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setActive(false);
 
         //Act
@@ -142,13 +95,13 @@ class RoomSensorDTOTest {
     void seeIfEqualsWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setName("Name1");
 
-        RoomSensorDTO houseSensorDTO2 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO2 = new RoomSensorDTOMinimal();
         houseSensorDTO2.setName("Name1");
 
-        RoomSensorDTO houseSensorDTO3 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO3 = new RoomSensorDTOMinimal();
         houseSensorDTO3.setName("Name2");
 
         //Act
@@ -169,17 +122,32 @@ class RoomSensorDTOTest {
     void seeIfHashCodeWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
 
         //Assert
         assertEquals(1, houseSensorDTO1.hashCode());
     }
 
     @Test
+    void seeIfSetIdWorks() {
+        //Arrange
+
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
+        houseSensorDTO1.setId("Id");
+
+        //Act
+
+        String actualResult1 = houseSensorDTO1.getId();
+
+        //Assert
+        assertEquals("Id", actualResult1);
+    }
+
+    @Test
     void seeIfSetDateWorks() {
         //Arrange
 
-        RoomSensorDTO houseSensorDTO1 = new RoomSensorDTO();
+        RoomSensorDTOMinimal houseSensorDTO1 = new RoomSensorDTOMinimal();
         houseSensorDTO1.setDateStartedFunctioning("2/2/2018");
 
         //Act

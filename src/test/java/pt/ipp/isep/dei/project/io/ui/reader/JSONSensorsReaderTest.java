@@ -39,7 +39,7 @@ class JSONSensorsReaderTest {
         List<RoomSensorDTO> expectedResult = new ArrayList<>();
 
         RoomSensorDTO rejectedFirstSensor = new RoomSensorDTO();
-        rejectedFirstSensor.setId("TT12345OA");
+        rejectedFirstSensor.setSensorId("TT12345OA");
         rejectedFirstSensor.setRoomID("B405");
         rejectedFirstSensor.setName("Temperature B405");
         rejectedFirstSensor.setDateStartedFunctioning("2016-11-15");
@@ -47,7 +47,7 @@ class JSONSensorsReaderTest {
         rejectedFirstSensor.setUnits("C");
 
         RoomSensorDTO firstDTO = new RoomSensorDTO();
-        firstDTO.setId("TT12346OB");
+        firstDTO.setSensorId("TT12346OB");
         firstDTO.setRoomID("B106");
         firstDTO.setName("Temperature B106");
         firstDTO.setDateStartedFunctioning("2016-11-15");
@@ -55,7 +55,7 @@ class JSONSensorsReaderTest {
         firstDTO.setUnits("C");
 
         RoomSensorDTO secondDTO = new RoomSensorDTO();
-        secondDTO.setId("TT12334OA");
+        secondDTO.setSensorId("TT12334OA");
         secondDTO.setRoomID("B107");
         secondDTO.setName("Temperature B107");
         secondDTO.setDateStartedFunctioning("2017-11-15");
@@ -63,7 +63,7 @@ class JSONSensorsReaderTest {
         secondDTO.setUnits("C");
 
         RoomSensorDTO thirdDTO = new RoomSensorDTO();
-        thirdDTO.setId("TT1236AC");
+        thirdDTO.setSensorId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
         thirdDTO.setDateStartedFunctioning("2017-11-16");
@@ -94,7 +94,7 @@ class JSONSensorsReaderTest {
         List<RoomSensorDTO> expectedResult = new ArrayList<>();
 
         RoomSensorDTO rejectedFirstSensor = new RoomSensorDTO();
-        rejectedFirstSensor.setId("TT12345OA");
+        rejectedFirstSensor.setSensorId("TT12345OA");
         rejectedFirstSensor.setRoomID("B405");
         rejectedFirstSensor.setName("Temperature B405");
         rejectedFirstSensor.setDateStartedFunctioning("2016-11-15");
@@ -102,7 +102,7 @@ class JSONSensorsReaderTest {
         rejectedFirstSensor.setUnits("C");
 
         RoomSensorDTO firstDTO = new RoomSensorDTO();
-        firstDTO.setId("TT12346OB");
+        firstDTO.setSensorId("TT12346OB");
         firstDTO.setRoomID(null);
         firstDTO.setName("Temperature B106");
         firstDTO.setDateStartedFunctioning("2016-11-15");
@@ -110,7 +110,7 @@ class JSONSensorsReaderTest {
         firstDTO.setUnits("C");
 
         RoomSensorDTO secondDTO = new RoomSensorDTO();
-        secondDTO.setId("TT12334OA");
+        secondDTO.setSensorId("TT12334OA");
         secondDTO.setRoomID("B107");
         secondDTO.setName("Temperature B107");
         secondDTO.setDateStartedFunctioning("2017-11-15");
@@ -118,7 +118,7 @@ class JSONSensorsReaderTest {
         secondDTO.setUnits("C");
 
         RoomSensorDTO thirdDTO = new RoomSensorDTO();
-        thirdDTO.setId("TT1236AC");
+        thirdDTO.setSensorId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
         thirdDTO.setDateStartedFunctioning("2017-11-16");
@@ -146,7 +146,7 @@ class JSONSensorsReaderTest {
         List<RoomSensorDTO> expectedResult = new ArrayList<>();
 
         RoomSensorDTO rejectedFirstSensor = new RoomSensorDTO();
-        rejectedFirstSensor.setId("TT12345OA");
+        rejectedFirstSensor.setSensorId("TT12345OA");
         rejectedFirstSensor.setRoomID("B405");
         rejectedFirstSensor.setName("Temperature B405");
         rejectedFirstSensor.setDateStartedFunctioning("2016-11-15");
@@ -154,7 +154,7 @@ class JSONSensorsReaderTest {
         rejectedFirstSensor.setUnits("C");
 
         RoomSensorDTO firstDTO = new RoomSensorDTO();
-        firstDTO.setId("TT12346OB");
+        firstDTO.setSensorId("TT12346OB");
         firstDTO.setRoomID("B106");
         firstDTO.setName(null);
         firstDTO.setDateStartedFunctioning("2016-11-15");
@@ -163,7 +163,7 @@ class JSONSensorsReaderTest {
 
 
         RoomSensorDTO secondDTO = new RoomSensorDTO();
-        secondDTO.setId(null);
+        secondDTO.setSensorId(null);
         secondDTO.setRoomID("B107");
         secondDTO.setName("Temperature B107");
         secondDTO.setDateStartedFunctioning("2017-11-15");
@@ -171,7 +171,7 @@ class JSONSensorsReaderTest {
         secondDTO.setUnits("C");
 
         RoomSensorDTO thirdDTO = new RoomSensorDTO();
-        thirdDTO.setId("TT1236AC");
+        thirdDTO.setSensorId("TT1236AC");
         thirdDTO.setRoomID("B109");
         thirdDTO.setName("Temperature B109");
         thirdDTO.setDateStartedFunctioning("2017-11-16");

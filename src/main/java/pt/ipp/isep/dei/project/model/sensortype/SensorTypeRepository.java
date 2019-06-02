@@ -132,4 +132,11 @@ public class SensorTypeRepository {
         return new ArrayList<>();
     }
 
+    public List<String> getTypeNames(List<SensorTypeDTO> typeDTOList) {
+        List<String> typeNames = new ArrayList<>();
+        for (SensorTypeDTO st : typeDTOList) {
+            typeNames.add(st.getName());
+        }
+        return typeNames;
+    }
 }

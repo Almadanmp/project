@@ -43,7 +43,7 @@ public class JSONSensorsReader implements Reader {
                 sensorTypeRepository.getTypeSensorByName(sensorType, sensorUnit);
                 importedSensor.setTypeSensor(sensorType);
                 importedSensor.setRoomID(roomID);
-                importedSensor.setId(sensorID);
+                importedSensor.setSensorId(sensorID);
                 importedSensor.setActive(true);
                 result.add(importedSensor);
             } catch (JSONException ok) {

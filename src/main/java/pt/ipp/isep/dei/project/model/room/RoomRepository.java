@@ -3,7 +3,10 @@ package pt.ipp.isep.dei.project.model.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
-import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
@@ -236,13 +239,11 @@ public class RoomRepository {
     }
 
     public RoomDTO getRoomDTOByName(String name) {
-        Room room;
         Optional<Room> aux = roomCrudRepo.findById(name);
-        if (aux.isPresent()) {
-            room = aux.get();
-            return RoomMapper.objectToDTO(room);
+        if (!aux.isPresent()) {
+            throw new IllegalArgumentException("ERROR: No Room was file with the following name: " + name + " .");
         }
-        throw new IndexOutOfBoundsException("ERROR: No Room was file with the following name: " + name + " .");
+        return RoomMapper.objectToDTO(aux.get());
     }
 
     /**
@@ -543,5 +544,14 @@ public class RoomRepository {
             throw new IllegalArgumentException("There is no room with the given Id");
         }
     }
+
+    public boolean addSensorDTO(RoomDTO roomDTO, RoomSensorDTO roomSensorDTO) {
+        return roomDTO.addSensor(roomSensorDTO);
+    }
+
+    public boolean isRoomSensorDTOValid(RoomSensorDTO roomSensorDTO) {
+        return (roomSensorDTO.getName() != null && roomSensorDTO.getSensorId() != null && roomSensorDTO.getType() != null && roomSensorDTO.getDateStartedFunctioning() != null);
+    }
 }
+
 

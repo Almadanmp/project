@@ -1,11 +1,13 @@
 package pt.ipp.isep.dei.project.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomSensorDTO {
+public class RoomSensorDTO extends ResourceSupport {
 
-    private String id;
+    private String sensorId;
     private String name;
     private String typeSensor;
     private String units;
@@ -43,12 +45,12 @@ public class RoomSensorDTO {
         this.roomID = roomID;
     }
 
-    public String getId() {
-        return id;
+    public String getSensorId() {
+        return sensorId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSensorId(String id) {
+        this.sensorId = id;
     }
 
     public boolean getActive() {

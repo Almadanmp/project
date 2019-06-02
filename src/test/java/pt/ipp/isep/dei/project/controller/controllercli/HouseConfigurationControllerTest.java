@@ -284,7 +284,7 @@ class HouseConfigurationControllerTest {
 
         RoomSensorDTO dto1 = new RoomSensorDTO();
         dto1.setName("SensorDTO1");
-        dto1.setId("ID1");
+        dto1.setSensorId("ID1");
         dto1.setRoomID("Room1");
 
         sensorDTOS.add(dto1);
@@ -310,7 +310,7 @@ class HouseConfigurationControllerTest {
 
         RoomSensorDTO dto2 = new RoomSensorDTO();
         dto2.setName("SensorDTO2");
-        dto2.setId("ID2");
+        dto2.setSensorId("ID2");
         dto2.setRoomID("Room2");
         dto2.setTypeSensor("temperature");
         dto2.setUnits("C");

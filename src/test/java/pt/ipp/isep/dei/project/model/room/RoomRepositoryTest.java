@@ -12,8 +12,10 @@ import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
@@ -1389,6 +1391,206 @@ class RoomRepositoryTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetAllDTOWebInformationWorksEmptyList() {
+        // Arrange
+
+        List<Room> rooms = new ArrayList<>();
+        List<RoomDTOMinimal> roomDTOMinimals = new ArrayList<>();
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        List<RoomDTOMinimal> result = validRoomRepository.getAllDTOWebInformation();
+
+        // Assert
+
+        assertEquals(result, roomDTOMinimals);
+    }
+
+    @Test
+    void seeIfGetAllDTOWebInformationWorks() {
+        // Arrange
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+        List<RoomDTOMinimal> roomDTOMinimals = new ArrayList<>();
+        roomDTOMinimals.add(RoomMinimalMapper.objectToDtoWeb(room));
+
+        Mockito.when(roomCrudRepo.findAll()).thenReturn(rooms);
+
+        // Act
+
+        List<RoomDTOMinimal> result = validRoomRepository.getAllDTOWebInformation();
+
+        // Assert
+
+        assertEquals(result, roomDTOMinimals);
+
+    }
+
+    @Test
+    void seeIfDoNotRemoveRoomDTO() {
+        // Arrange
+
+        validRoomRepository.updateDTORoom(RoomMapper.objectToDTO(validRoom));
+
+        // Assert
+
+        assertFalse(validRoomRepository.removeRoom(validRoom));
+
+    }
+
+    @Test
+    void seeIfRemoveSensorDTOWorks() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        validRoom.addSensor(roomSensor);
+
+        // Assert
+
+        assertTrue(validRoomRepository.removeSensorDTO(RoomMapper.objectToDTO(validRoom), "test"));
+
+    }
+
+    @Test
+    void seeIfRemoveSensorDTOFails() {
+        // Arrange
+
+
+        // Assert
+
+        assertFalse(validRoomRepository.removeSensorDTO(RoomMapper.objectToDTO(validRoom), "test"));
+
+    }
+
+    @Test
+    void seeIfGetRoomDTOByNameWorks() {
+        // Arrange
+
+        String mockId = "SensorOne";
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
+
+        Mockito.when(roomCrudRepo.findById(mockId)).thenReturn(Optional.of(room));
+
+        // Act
+
+        RoomDTO result = validRoomRepository.getRoomDTOByName(mockId);
+
+        // Assert
+
+        assertEquals(result.getName(), room.getId());
+    }
+
+    @Test
+    void seeIfGetRoomDTOByNameFails() {
+        // Arrange
+
+        String mockId = "SensorOne";
+
+        // Assert
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> validRoomRepository.getRoomDTOByName(mockId));
+
+    }
+
+    @Test
+    void seeIfAddSensorDTOWorks() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+
+        // Assert
+
+        assertTrue(validRoomRepository.addSensorDTO(RoomMapper.objectToDTO(validRoom), RoomSensorMapper.objectToDTO(roomSensor)));
+
+    }
+
+    @Test
+    void seeIfAddSensorDTOFails() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        validRoom.addSensor(roomSensor);
+
+        // Assert
+
+        assertFalse(validRoomRepository.addSensorDTO(RoomMapper.objectToDTO(validRoom), RoomSensorMapper.objectToDTO(roomSensor)));
+
+    }
+
+    @Test
+    void seeIfIsRoomSensorDTOValidWorks() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+
+        // Assert
+
+        assertTrue(validRoomRepository.isRoomSensorDTOValid(RoomSensorMapper.objectToDTO(roomSensor)));
+
+    }
+
+    @Test
+    void seeIfIsRoomSensorDTOValidFailsNullName() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        RoomSensorDTO roomSensorDTO = RoomSensorMapper.objectToDTO(roomSensor);
+        roomSensorDTO.setName(null);
+
+        // Assert
+
+        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+
+    }
+
+    @Test
+    void seeIfIsRoomSensorDTOValidFailsNullSensorId() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        RoomSensorDTO roomSensorDTO = RoomSensorMapper.objectToDTO(roomSensor);
+        roomSensorDTO.setSensorId(null);
+
+        // Assert
+
+        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+
+    }
+
+    @Test
+    void seeIfIsRoomSensorDTOValidFailsNullDate() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        RoomSensorDTO roomSensorDTO = RoomSensorMapper.objectToDTO(roomSensor);
+        roomSensorDTO.setDateStartedFunctioning(null);
+
+        // Assert
+
+        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
+
+    }
+
+    @Test
+    void seeIfIsRoomSensorDTOValidFailsNullSensorType() {
+        // Arrange
+
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        RoomSensorDTO roomSensorDTO = RoomSensorMapper.objectToDTO(roomSensor);
+        roomSensorDTO.setTypeSensor(null);
+
+        // Assert
+
+        assertFalse(validRoomRepository.isRoomSensorDTOValid(roomSensorDTO));
 
     }
 
