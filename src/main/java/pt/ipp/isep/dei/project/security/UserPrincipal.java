@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class UserPrincipal implements UserDetails {
     private User user;
-    private static final long serialVersionUID = 1L;
 
-    public UserPrincipal(User user){
+    public UserPrincipal(User user) {
         this.user = user;
     }
 
