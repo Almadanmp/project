@@ -9,7 +9,6 @@ skinparam FontName quicksand
 skinparam titleFontSize 10
 skinparam roundcorner 10
 
-
 skinparam class {
  BorderColor indianred
  BackgroundColor indianred
@@ -20,8 +19,6 @@ skinparam class {
   ArrowFontColor darkslategrey
   FontSize 12
 }
-
-
 
 HTTPClient -- RoomMonitoringWebController : >
 RoomMonitoringWebController -- RoomRepository : >
