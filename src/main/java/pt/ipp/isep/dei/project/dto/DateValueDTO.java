@@ -14,16 +14,16 @@ public class DateValueDTO  extends ResourceSupport {
 
 
     public DateValueDTO(Date date, double value) {
-        this.date = date;
+        setDate(date);
         this.value = value;
     }
 
     public Date getDate() {
-        return date;
+        return new Date(date.getTime());
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Date(date.getTime());
     }
 
     public double getValue() {
