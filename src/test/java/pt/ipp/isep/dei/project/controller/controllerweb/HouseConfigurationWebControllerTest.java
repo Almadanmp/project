@@ -268,7 +268,7 @@ class HouseConfigurationWebControllerTest {
 
         roomDTOMinimal.setLength(0D);
 
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The room you entered has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
 
         //Act
         ResponseEntity<Object> actualResult = webController.configureRoom(roomDTOMinimal);
