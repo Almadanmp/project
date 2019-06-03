@@ -8,6 +8,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
+import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
+import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -269,4 +274,46 @@ class SensorTypeRepositoryTest {
         assertNull(actualResult);
     }
 
+    @Test
+    void seeIfGetTypeNamesWorks() {
+        List<SensorTypeDTO> sensorTypeDTOS = new ArrayList<>();
+        sensorTypeDTOS.add(SensorTypeMapper.objectToDTO(secondValidType));
+        sensorTypeDTOS.add(SensorTypeMapper.objectToDTO(firstValidType));
+
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("Rainfall");
+        expectedResult.add("Temperature");
+
+        List<String> result = sensorTypeRepository.getTypeNames(sensorTypeDTOS);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void seeIfGetAllSensorTypeDTOWorks() {
+        List<SensorTypeDTO> expectedResult = new ArrayList<>();
+        expectedResult.add(SensorTypeMapper.objectToDTO(secondValidType));
+        expectedResult.add(SensorTypeMapper.objectToDTO(firstValidType));
+
+        List<SensorType> sensorTypes = new ArrayList<>();
+        sensorTypes.add(firstValidType);
+        sensorTypes.add(secondValidType);
+
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(sensorTypes);
+
+        List<SensorTypeDTO> result = sensorTypeRepository.getAllSensorTypeDTO();
+
+        assertEquals(expectedResult.size(), result.size());
+    }
+    @Test
+    void seeIfGetAllSensorTypeDTOWorksEmptyList() {
+        List<SensorTypeDTO> expectedResult = new ArrayList<>();
+
+
+        Mockito.when(sensorTypeCrudRepo.findAll()).thenReturn(null);
+
+        List<SensorTypeDTO> result = sensorTypeRepository.getAllSensorTypeDTO();
+
+        assertEquals(expectedResult, result);
+    }
 }
