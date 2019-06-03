@@ -28,7 +28,7 @@ GeographicAreaHouseService -- ReadingUtils : >
 
 class HouseMonitoringWebController {
 GeographicAreaHouseService;
-getCurrentHouseAreaTemperature
+getCurrentHouseAreaTemperature()
 }
 
 class GeographicAreaHouseService{
