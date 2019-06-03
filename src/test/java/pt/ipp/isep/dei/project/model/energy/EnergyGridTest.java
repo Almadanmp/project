@@ -334,4 +334,74 @@ class EnergyGridTest {
         assertEquals(powerSourceList, actualResult);
     }
 
+    @Test
+    void seeIfRemoveRoomIdWorks() {
+        //Arrange
+
+        List<String> roomList = new ArrayList<>();
+        roomList.add(validRoom.getId());
+        validGrid.setRooms(roomList);
+
+        //Act
+
+        boolean actualResult = validGrid.removeRoomId(validRoom.getId());
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfRemoveRoomIdFails() {
+        //Arrange
+
+        List<String> roomList = new ArrayList<>();
+        roomList.add(validRoom.getId());
+        validGrid.setRooms(roomList);
+
+        //Act
+
+        validGrid.removeRoomId(validRoom.getId());
+        boolean actualResult = validGrid.removeRoomId(validRoom.getId());
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomIdFails() {
+        //Arrange
+
+        List<String> roomList = new ArrayList<>();
+        roomList.add(validRoom.getId());
+        validGrid.setRooms(roomList);
+
+        //Act
+
+        boolean actualResult = validGrid.addRoomId(validRoom.getId());
+
+        //Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAddRoomIdWorks() {
+        //Arrange
+
+        List<String> roomList = new ArrayList<>();
+        roomList.add(validRoom.getId());
+        validGrid.setRooms(roomList);
+
+        //Act
+
+        validGrid.removeRoomId(validRoom.getId());
+        boolean actualResult = validGrid.addRoomId(validRoom.getId());
+
+        //Assert
+
+        assertTrue(actualResult);
+    }
+
 }
