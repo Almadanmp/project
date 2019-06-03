@@ -88,6 +88,7 @@ public class ReaderJSONGeographicAreas implements Reader {
                     geographicAreaRepository.updateGeoArea(areaObject);
                 }
             } catch (IllegalArgumentException ignored) {
+                ignored.getMessage();
             }
         }
         return result;
@@ -131,6 +132,7 @@ public class ReaderJSONGeographicAreas implements Reader {
                 entriesChecked++;
 
             } catch (IllegalArgumentException ignored) {
+                ignored.getMessage();
             }
         }
     }
