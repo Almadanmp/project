@@ -91,9 +91,9 @@ public class EnergyGridSettingsWebController {
     // USER STORY 149 -  As an Administrator, I want to detach a room from a house grid, so that the room’s power  and
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
-    @DeleteMapping(value = "/grids/{energyGridId}")
-    public ResponseEntity<String> detachRoomFromGrid(@RequestBody String roomID, @PathVariable("energyGridId") String
-            gridID) {
+    @DeleteMapping(value = "/grids/{energyGridId}/{roomID}")
+    public ResponseEntity<String> detachRoomFromGrid(@PathVariable("energyGridId") String
+            gridID, @PathVariable("roomID") String roomID) {
         try {
             if (energyGridRoomService.removeRoomFromGrid(roomID, gridID)) {
                 return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);

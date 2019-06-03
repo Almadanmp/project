@@ -292,10 +292,7 @@ class EnergyGridSettingsWebControllerTest {
 
         Mockito.doReturn(true).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
 
-        this.mockMvc.perform(delete("/gridSettings/grids/B building")
-                .contentType(MediaType.TEXT_PLAIN)
-                .content("B106"))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(delete("/gridSettings/grids/B building/B106")).andExpect(status().isOk());
     }
 
     @Test
@@ -308,7 +305,7 @@ class EnergyGridSettingsWebControllerTest {
         this.mockMvc.perform(delete("/gridSettings/grids/invalid")
                 .contentType(MediaType.TEXT_PLAIN)
                 .content("invalid"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isMethodNotAllowed());
     }
 
     @Test
@@ -321,6 +318,6 @@ class EnergyGridSettingsWebControllerTest {
         this.mockMvc.perform(delete("/gridSettings/grids/invalid")
                 .contentType(MediaType.TEXT_PLAIN)
                 .content("invalid"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isMethodNotAllowed());
     }
 }

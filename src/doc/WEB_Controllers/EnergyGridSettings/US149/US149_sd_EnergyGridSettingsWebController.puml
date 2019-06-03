@@ -29,7 +29,7 @@ skinparam component {
 actor "Administrator"
 
 Administrator->HTTPClient: Detach Room from Grid
-HTTPClient -> SpringResolver: delete("gridSettings/grids/{energyGridId}")
+HTTPClient -> SpringResolver: delete("gridSettings/grids/{energyGridId}/{roomID}")
 SpringResolver -> EnergyGridSettingsWebController: detachRoomFromGrid\n(String roomID, String gridID)
 EnergyGridSettingsWebController->EnergyGridRepository: removeRoomFromGrid\n(String roomID, String gridID)
 EnergyGridRepository->EnergyGridRepository: findById(gridID)
