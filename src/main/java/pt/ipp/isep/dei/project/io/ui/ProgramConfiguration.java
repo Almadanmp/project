@@ -103,7 +103,7 @@ public class ProgramConfiguration implements CommandLineRunner {
             mainMenuOptions.add("Re-import all data.");
             mainMenuOptions.add("Exit Application");
 
-            MenuFormatter.showMenu("Main Menu", mainMenuOptions);
+            MenuFormatter.showMenu("Main Menu ", mainMenuOptions);
 
 
             boolean activeInput = true;
