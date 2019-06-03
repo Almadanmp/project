@@ -29,26 +29,32 @@ RoomRepository -- RoomCrudRepo : >
 RoomRepository -- Room : >
 Room -- ReadingUtils : >
 
-class RoomMonitoringWebController {
-getCurrentRoomTemperature
+class RoomMonitoringWebController{
+RoomRepository;
+getCurrentRoomTemperature(String)
 }
 
 class RoomRepository{
-getCurrentRoomTempByRoomId
+RoomCrudRepo;
+String;
+getCurrentRoomTempByRoomId(String)
 }
 
 class RoomCrudRepo{
-findByRoomName
+String;
+findByRoomName(String)
 }
 
 class Room{
-getCurrentRoomTemperature
-getRoomSensorsOfGivenType
-getReadings(tempSensors)
+getCurrentRoomTemperature()
+getRoomSensorsOfGivenType(String)
+getReadings(List<RoomSensor>)
 }
 
 class ReadingUtils{
-getMostRecentValue
+List<Reading>;
+getMostRecentValue(List<Reading>)
+getMostRecentReading(List<Reading>)
 }
 
 @enduml
