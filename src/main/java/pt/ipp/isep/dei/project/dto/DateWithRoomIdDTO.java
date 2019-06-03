@@ -39,7 +39,7 @@ public class DateWithRoomIdDTO {
         }
     }
 
-    private void setRoomId(String roomId) {
+    void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
