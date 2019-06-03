@@ -21,8 +21,6 @@ skinparam class {
   FontSize 12
 }
 
-
-
 HTTPClient -- HouseMonitoringWebController : >
 HouseMonitoringWebController -- GeographicAreaHouseService : >
 GeographicAreaHouseService -- AreaSensor : >
@@ -34,7 +32,9 @@ getCurrentHouseAreaTemperature
 }
 
 class GeographicAreaHouseService{
-getHouseAreaTemperature
+GeographicAreaRepository;
+HouseRepository;
+getHouseAreaTemperature()
 getClosestAreaSensorOfGivenType(String)
 }
 
@@ -44,14 +44,11 @@ getSensors()
 }
 
 class AreaSensor{
-List<Reading> areaReadings;
-String sensorType;
 getReadings()
 }
 
 class ReadingUtils{
 getMostRecentReading(List<Reading>)
-
 }
 
 @enduml
