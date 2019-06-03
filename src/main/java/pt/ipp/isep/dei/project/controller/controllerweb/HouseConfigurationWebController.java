@@ -120,7 +120,7 @@ public class HouseConfigurationWebController {
     @PutMapping(value = "/room")
     public ResponseEntity<Object> configureRoom(@RequestBody RoomDTOMinimal roomDTOMinimal) {
         if (!roomDTOMinimal.areDimensionsValid()) {
-            return new ResponseEntity<>("The room you has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>("The room you entered has invalid parameters.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         if (roomRepository.configureRoom(roomDTOMinimal)) {
             return new ResponseEntity<>(roomDTOMinimal, HttpStatus.OK);

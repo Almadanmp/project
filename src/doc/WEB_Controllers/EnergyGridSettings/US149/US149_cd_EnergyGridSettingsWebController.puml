@@ -31,7 +31,7 @@ EnergyGridRepository -- EnergyGrid : >
 EnergyGridRepository -- EnergyGridCrudeRepo : >
 
 class EnergyGridSettingsWebController {
-detachRoomFromGrid(@RequestBody String roomID, @PathVariable("energyGridId") String gridId)
+detachRoomFromGrid(@PathVariable String roomID, @PathVariable("energyGridId") String gridId)
 }
 
 class EnergyGridRepository{
