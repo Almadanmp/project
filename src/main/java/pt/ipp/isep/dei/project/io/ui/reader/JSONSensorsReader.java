@@ -47,7 +47,7 @@ public class JSONSensorsReader implements Reader {
                 importedSensor.setActive(true);
                 result.add(importedSensor);
             } catch (JSONException ok) {
-                continue;
+                ok.getMessage();
             }
         }
         return result;
