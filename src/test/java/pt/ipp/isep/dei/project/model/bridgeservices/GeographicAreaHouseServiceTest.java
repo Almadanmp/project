@@ -1060,13 +1060,14 @@ class GeographicAreaHouseServiceTest {
 
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
+        long areaId = 12L;
 
         double expectedResult = 22;
 
         // Act
 
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
-        Mockito.when(geographicAreaRepository.getByID(any(Long.class))).thenReturn(firstValidArea);
+        Mockito.when(geographicAreaRepository.getByID(areaId)).thenReturn(firstValidArea);
 
         double actualResult = geographicAreaHouseService.getTotalRainfallOnGivenDay(validReadingDate2);
 
