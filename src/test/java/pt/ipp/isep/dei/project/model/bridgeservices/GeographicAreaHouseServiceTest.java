@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class GeographicAreaHouseServiceTest {
@@ -41,7 +42,7 @@ class GeographicAreaHouseServiceTest {
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // Date 12/10/2018
     private Date validDate4; // Date 01/10/2018
-    private Date validDate5;
+    private Date validDate5; // Date 04/10/2018
     private GeographicArea firstValidArea;
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
@@ -53,7 +54,7 @@ class GeographicAreaHouseServiceTest {
     private Reading validReading1;
     private Reading validReading2;
     private Date validReadingDate1;
-    private Date validReadingDate2;
+    private Date validReadingDate2; // 04-10-2018
     private Date validReadingDate3;
     private Date validReadingDate4;
     private Date validReadingDate5;
@@ -1047,14 +1048,15 @@ class GeographicAreaHouseServiceTest {
         // Arrange
 
         AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);
-        firstValidArea.addSensor(areaSensor);
-        areaSensor.setActive(true);
 
         Reading reading1 = new Reading(20D, validReadingDate2, "Millimeter", areaSensor.getId());
         Reading reading2 = new Reading(2D, validDate5, "Millimeter", areaSensor.getId());
 
         areaSensor.addReading(reading1);
         areaSensor.addReading(reading2);
+
+        firstValidArea.addSensor(areaSensor);
+        areaSensor.setActive(true);
 
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
