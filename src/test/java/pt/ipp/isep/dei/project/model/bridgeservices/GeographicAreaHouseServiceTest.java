@@ -1050,10 +1050,8 @@ class GeographicAreaHouseServiceTest {
         AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);
 
         Reading reading1 = new Reading(20D, validReadingDate2, "Millimeter", areaSensor.getId());
-        Reading reading2 = new Reading(2D, validDate5, "Millimeter", areaSensor.getId());
 
         areaSensor.addReading(reading1);
-        areaSensor.addReading(reading2);
 
         firstValidArea.addSensor(areaSensor);
         areaSensor.setActive(true);
@@ -1062,7 +1060,7 @@ class GeographicAreaHouseServiceTest {
         houses.add(validHouse);
         long areaId = 12L;
 
-        double expectedResult = 22;
+        double expectedResult = 20;
 
         // Act
 
