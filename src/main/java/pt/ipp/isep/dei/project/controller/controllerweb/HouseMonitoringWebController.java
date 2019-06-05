@@ -1,12 +1,12 @@
 package pt.ipp.isep.dei.project.controller.controllerweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.DateDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
@@ -18,8 +18,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
+@ApplicationScope
 @RequestMapping("/houseMonitoring")
-@Scope("request")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 public class HouseMonitoringWebController {
 
     @Autowired
@@ -73,13 +74,13 @@ public class HouseMonitoringWebController {
     /* US 630 - WEB Controller Methods
     As a Regular User, I want to get the last coldest day (lower maximum temperature) in the house area in a given period. */
     @GetMapping("/coldestDay")
-    public ResponseEntity<Object> getLastColdestDay(@RequestParam("initialDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date initialDate,
-                                                    @RequestParam("finalDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date finalDate) {
+    public ResponseEntity<Object> getLastColdestDay(@RequestParam ("initialDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date initialDate,
+                                                    @RequestParam ("finalDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date finalDate) {
         DateValueDTO result;
         Link link;
         try {
-            result = geographicAreaHouseService.getLastColdestDay(initialDate, finalDate);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(initialDate, finalDate)).withRel(periodRetry);
+            result = geographicAreaHouseService.getLastColdestDay(initialDate,finalDate);
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(initialDate,finalDate)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -93,13 +94,13 @@ public class HouseMonitoringWebController {
     /* US 631 - WEB Controller Methods
  As a Regular User, I want to get the first hottest day (higher maximum temperature) in the house area in a given period.  */
     @GetMapping("/hottestDay")
-    public ResponseEntity<Object> getHottestDay(@RequestParam("initialDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date initialDate,
-                                                @RequestParam("finalDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date finalDate) {
+    public ResponseEntity<Object> getHottestDay(@RequestParam ("initialDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date initialDate,
+                                                @RequestParam ("finalDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date finalDate) {
         DateValueDTO result;
         Link link;
         try {
             result = geographicAreaHouseService.getHottestDay(initialDate, finalDate);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(initialDate, finalDate)).withRel(periodRetry);
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(initialDate,finalDate)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -114,13 +115,13 @@ public class HouseMonitoringWebController {
     /* US 633 - WEB Controller Methods
     As Regular User, I want to get the day with the highest temperature amplitude in the house area in a given period. */
     @GetMapping("/highestAmplitude")
-    public ResponseEntity<Object> getHighestTemperatureAmplitudeDate(@RequestParam("initialDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date initialDate,
-                                                                     @RequestParam("finalDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date finalDate) {
+    public ResponseEntity<Object> getHighestTemperatureAmplitudeDate(@RequestParam ("initialDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date initialDate,
+                                                                     @RequestParam ("finalDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date finalDate) {
         DateValueDTO result;
         Link link;
         try {
-            result = geographicAreaHouseService.getHighestTemperatureAmplitude(initialDate, finalDate);
-            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(initialDate, finalDate)).withRel(periodRetry);
+            result = geographicAreaHouseService.getHighestTemperatureAmplitude(initialDate,finalDate);
+            link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(initialDate,finalDate)).withRel(periodRetry);
             result.add(link);
 
         } catch (NoSuchElementException | IllegalArgumentException e) {
@@ -130,5 +131,4 @@ public class HouseMonitoringWebController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
 }
