@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
+import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
@@ -34,32 +35,12 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @return the average temperature value for the 24 hours of the given date.
      */
     private double getGeographicAreaAverageTemperature(Date date) {
-        Date d1 = getFirstHourDay(date).getTime();
-        Date d2 = getLastHourDay(date).getTime();
+        Date d1 = DateUtils.getFirstHourDay(date).getTime();
+        Date d2 = DateUtils.getLastHourDay(date).getTime();
 
         // gets and returns average readings on the closest AreaSensor to the house
         AreaSensor houseClosestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         return getAverageReadingsBetweenFormattedDates(d1, d2, houseClosestSensor);
-    }
-
-    private GregorianCalendar getFirstHourDay(Date date) { // gets date at 00:00:00
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar;
-    }
-
-    private GregorianCalendar getLastHourDay(Date date) { // gets date at 23:59:59
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-        return calendar;
     }
 
     Double getAverageReadingsBetweenFormattedDates(Date minDate, Date maxDate, AreaSensor areaSensor) {
