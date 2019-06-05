@@ -66,7 +66,7 @@ public class DataImporter {
         geographicAreaCrudRepo.deleteAll();
         energyGridCrudRepo.deleteAll();
         roomCrudRepo.deleteAll();
-        System.out.println("Data sucessefully cleared.");
+        System.out.println("Data successfully cleared.");
         System.out.println("Importing files...");
         System.out.println("Loading...");
         FileInputUtils fileUtils = new FileInputUtils();
