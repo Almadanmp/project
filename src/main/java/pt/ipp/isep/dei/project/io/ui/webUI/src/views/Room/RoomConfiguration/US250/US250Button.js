@@ -17,7 +17,7 @@ class US250Button extends Component {
   render(){
     return(
       <div>
-     <Button onClick={this.toggleHidden}>Get the Room Sensors</Button>
+     <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Get the Room Sensors</Button>
         {!this.state.isHidden && <US250GetSensors roomID = {this.props.roomID}/>}
       </div>
     )

@@ -43,7 +43,7 @@ class US620 extends Component {
       const{totalRainfall} = this.props;
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
+          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
             in the house area for a given day. (US620)</Button>
           <Collapse isOpen={this.state.collapse}>
           <Card>

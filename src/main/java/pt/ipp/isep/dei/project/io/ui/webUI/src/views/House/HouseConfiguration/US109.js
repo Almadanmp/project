@@ -47,13 +47,9 @@ class US109 extends Component {
       return (
         <div>
           <div>
-            <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get a list of
-              existing rooms. (US109)</Button>
+            <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the configuration of an existing room. (US109)</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
-                <CardHeader>
-                  <i className="fa fa-align-justify"></i><strong>List of Rooms</strong>
-                </CardHeader>
                 <CardBody>
                   <Form action="" method="post">
                     <FormGroup>

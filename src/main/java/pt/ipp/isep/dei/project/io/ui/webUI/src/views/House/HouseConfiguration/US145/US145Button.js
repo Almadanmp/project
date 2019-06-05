@@ -17,7 +17,7 @@ class US145Button extends Component {
   render(){
     return(
       <div>
-     <Button onClick={this.toggleHidden}>Get the Rooms</Button>
+     <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Get the Rooms</Button>
         {!this.state.isHidden && <US145GetRooms gridID = {this.props.gridID}/>}
       </div>
     )

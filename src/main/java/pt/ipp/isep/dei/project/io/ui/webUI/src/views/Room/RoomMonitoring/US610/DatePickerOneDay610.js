@@ -28,9 +28,10 @@ export default class MyForm extends React.Component {
     return (
       <div>
         {selectedDay && <p>Day: {selectedDay.toLocaleDateString()}</p>}
-        {!selectedDay && <p>Choose a day</p>}
+        {!selectedDay && <h6>Choose a day</h6>}
         <DayPickerInput onDayChange={this.handleDayChange} />
-        <Button style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
+        <p></p>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
           Submit date
         </Button>
       </div>
