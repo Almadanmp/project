@@ -11,15 +11,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pt.ipp.isep.dei.project.model.user.UserRepository;
 
 @Configuration
+@CrossOrigin(allowCredentials = "true")
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private UserPrincipalDetailsService userPrincipalDetailsService;
-    private UserRepository userRepository;
     private static final String REGULAR_USER = "REGULAR";
     private static final String ADMIN = "ADMIN";
+    private UserPrincipalDetailsService userPrincipalDetailsService;
+    private UserRepository userRepository;
 
     public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
@@ -34,8 +39,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 // remove csrf and state in session because in jwt we do not need them
                 .csrf().disable()
+
                 // next line was for enabling h2 console
                 .headers().frameOptions().disable().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -68,6 +75,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return daoAuthenticationProvider;
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
+
+
 
     @Bean
     PasswordEncoder passwordEncoder() {

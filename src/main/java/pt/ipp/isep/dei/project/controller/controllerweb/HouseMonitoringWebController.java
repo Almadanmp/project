@@ -18,7 +18,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/houseMonitoring")
-@CrossOrigin
 @Scope("request")
 public class HouseMonitoringWebController {
 
