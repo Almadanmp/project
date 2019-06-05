@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class US250GetSensors extends Component {
+class US250Post extends Component {
 
   constructor(props) {
     super(props);
@@ -34,4 +34,4 @@ class US250GetSensors extends Component {
 
 }}
 
-export default US250GetSensors;
+export default US250Post;

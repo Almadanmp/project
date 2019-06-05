@@ -6,36 +6,36 @@ export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
 
-export const fetchRoomFromGrid = ({roomId, gridId}) => {
+export const fetchRoomFromGrid = ({roomID, gridID}) => {
   return dispatch => {
-    dispatch(fetchRoomInfo(roomId, gridId)); // antes de fazer o get, coloca o loading a true
+    dispatch(fetchRoomFromGridInfo(roomID, gridID)); // antes de fazer o get, coloca o loading a true
     axios
-      .delete('http://localhost:9898/gridSettings/grids'+gridId, //falta autorização
+      .delete('http://localhost:9898/gridSettings/grids/'+gridID+'/'+roomID, //falta autorização
         {
           headers: {'Content-Type': 'application/json'},
-          body: {roomId}
+          body: {roomID}
         })
       .then(res => {
-        dispatch(fetchRoomInfoSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
+        dispatch(fetchRoomFromGridInfoSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        dispatch(fetchRoomInfoFailure(err.message));
+        dispatch(fetchRoomFromGridInfoFailure(err.message));
       });
   };
 };
 
 
-export function fetchRoomInfo(roomId, gridId) {
+export function fetchRoomFromGridInfo(roomID, gridID) {
   return {
     type: REMOVE_GRID_ROOM_INFO_STARTED,
     payload: {
-      roomId: roomId,
-      gridId: gridId,
+      roomID: roomID,
+      gridID: gridID,
     }
   }
 }
 
-export function fetchRoomInfoSuccess(data) { // cria uma açao
+export function fetchRoomFromGridInfoSuccess(data) { // cria uma açao
   return {
     type: REMOVE_GRID_ROOM_INFO_SUCCESS,
     payload: {
@@ -44,7 +44,7 @@ export function fetchRoomInfoSuccess(data) { // cria uma açao
   }
 }
 
-export function fetchRoomInfoFailure(message) {
+export function fetchRoomFromGridInfoFailure(message) {
   return {
     type: REMOVE_GRID_ROOM_INFO_FAILURE,
     payload: {

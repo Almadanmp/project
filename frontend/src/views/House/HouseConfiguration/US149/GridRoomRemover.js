@@ -10,9 +10,8 @@ class GridRoomRemover extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      isHidden: true,
-      roomId: '...',
-      gridId: '...',
+      roomID: '...',
+      gridID: '...',
     };
 
     this.handleInputChange = attribute => event => {
@@ -26,26 +25,21 @@ class GridRoomRemover extends React.Component {
     this.props.onfetchRoomFromGrid(this.state);
   }
 
-  toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}))
-
 
   render() {
-    const {roomId, gridId} = this.state;
+    const {roomID, gridID} = this.state;
     return (
       <>
 
-        <label> RoomID:
-          <input value={this.state.roomId} type="text" name="roomId" onChange={this.handleInputChange('roomId')}/>
+        <label> roomID:
+          <input value={this.state.roomID} type="text" name="roomID" onChange={this.handleInputChange('roomID')}/>
         </label>
 
-        <label> GridID:
-          <input value={this.state.gridId} type="text" name="gridId" onChange={this.handleInputChange('gridId')}/>
+        <label> gridID:
+          <input value={this.state.gridID} type="text" name="gridID" onChange={this.handleInputChange('gridID')}/>
         </label>
-        {' '}
-        <Button onClick={this.handleSubmit && this.toggleHidden}>Remove Room {roomId} from Grid {gridId}'</Button>
-        {!this.state.isHidden && <p>The room {roomId} has been successfully removed from the following grid {gridId}</p>
-        }
-
+        <p>The room {roomID} has been successfully removed from the following grid {gridID}</p>
+        <Button onClick={this.handleSubmit}>Remove Room from Grid'</Button>
       </>
     )
   }
@@ -53,8 +47,8 @@ class GridRoomRemover extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onfetchRoomFromGrid: ({roomId, gridId}) => {
-      dispatch(fetchRoomFromGrid({roomId, gridId}))
+    onfetchRoomFromGrid: ({roomID, gridID}) => {
+      dispatch(fetchRoomFromGrid({roomID, gridID}))
     }
   }
 };
