@@ -26,7 +26,6 @@ class US253 extends Component {
                 <US108Select/>
               </span>
               <span>
-                 <Button onClick={this.toggleHidden}>Choose</Button>
               </span>
             </CardBody>
           </Card>

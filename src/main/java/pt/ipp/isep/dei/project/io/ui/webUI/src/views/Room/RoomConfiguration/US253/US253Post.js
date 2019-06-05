@@ -11,6 +11,7 @@ class US250Post extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     fetch('http://localhost:9898/roomConfiguration/rooms/'+this.props.roomID+'/sensors',{
       method: 'post',
         headers: {'Content-Type':'application/json'},
@@ -18,7 +19,7 @@ class US250Post extends Component {
         sensorId: this.props.sensorId,
         name: this.props.name,
         dateStartedFunctioning: this.props.dateStartedFunctioning,
-        typeSensor: this.state.typeSensor
+        typeSensor: this.props.typeSensor
       }
     });
   };
@@ -27,7 +28,7 @@ class US250Post extends Component {
   render() {
     return (
       <div>
-
+        <p>The created sensor has the following configuration: {this.props.roomID}, {this.props.sensorId}, { this.props.name},{this.props.dateStartedFunctioning}, {this.props.typeSensor} </p>
       </div>
     );
 

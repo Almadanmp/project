@@ -9,6 +9,7 @@ class SensorTypesSelect extends Component {
     this.state = {
       item: [],
       isLoaded: false,
+      roomID: '',
       value: ''
     };
     this.handleChange = this.handleChange.bind(this);
