@@ -56,12 +56,15 @@ class DateValueDTOTest {
         DateValueDTO dateValueDTO2 = new DateValueDTO(validDate2, 30);
         DateValueDTO dateValueDTO3 = new DateValueDTO(validDate1, 30);
 
+
         // Act
 
         boolean actualResult1 = dateValueDTO1.equals(dateValueDTO1);
         boolean actualResult2 = dateValueDTO1.equals(dateValueDTO2);
         boolean actualResult3 = dateValueDTO1.equals(dateValueDTO3);
         boolean actualResult4 = dateValueDTO1.equals(3D);
+        boolean actualResult5 = dateValueDTO1.equals(null);
+
 
 
         // Assert
@@ -70,5 +73,6 @@ class DateValueDTOTest {
         assertFalse(actualResult2);
         assertTrue(actualResult3);
         assertFalse(actualResult4);
+        assertFalse(actualResult5);
     }
 }
