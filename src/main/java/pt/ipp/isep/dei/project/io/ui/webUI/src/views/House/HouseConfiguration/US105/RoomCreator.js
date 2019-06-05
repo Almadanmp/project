@@ -52,7 +52,7 @@ class RoomCreator extends React.Component {
           <input value={this.state.height} type="number" name="height" onChange={this.handleInputChange('height')}/>
         </label>
         <p>The room to be created has the following details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
-        <Button onClick={this.handleSubmit}>Save new room configuration</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new room configuration</Button>
       </>
     )
   }

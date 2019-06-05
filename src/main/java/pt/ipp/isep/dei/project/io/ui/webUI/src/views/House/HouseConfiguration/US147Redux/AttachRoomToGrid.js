@@ -32,7 +32,7 @@ class AttachRoomToGrid extends React.Component {
       <>
         RoomID:<input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
         GridID:<input value={this.state.grid} type="text" name="grid" onChange={this.handleInputChange('grid')}/>
-        <Button onClick={this.handleSubmit}>Attach Room {name} to {grid} Energy Grid</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Attach Room {name} to {grid} Energy Grid</Button>
       </>
     )
   }

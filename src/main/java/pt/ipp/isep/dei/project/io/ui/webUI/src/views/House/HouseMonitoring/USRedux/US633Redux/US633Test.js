@@ -45,7 +45,7 @@ class US633Test extends Component {
       const{amplitude} = this.props;
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
+          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
             highest temperature amplitude in the house area in a given period. (US633)</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>

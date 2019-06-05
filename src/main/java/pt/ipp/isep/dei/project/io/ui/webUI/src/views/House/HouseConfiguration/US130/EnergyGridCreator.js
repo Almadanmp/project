@@ -38,7 +38,7 @@ class EnergyGridCreator extends React.Component {
         </label>
 
         <p>The energy grid to be created has the following details: {name + ', ' + maxContractedPower + '.'}</p>
-        <Button onClick={this.handleSubmit}>Save new energy grid</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new energy grid</Button>
       </>
     )
   }

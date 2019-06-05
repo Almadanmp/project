@@ -45,7 +45,7 @@ class US631 extends Component {
       const{hottestDay} = this.props;
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
+          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
             day (higher maximum temperature) in the house area in a given period. (US631)</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>

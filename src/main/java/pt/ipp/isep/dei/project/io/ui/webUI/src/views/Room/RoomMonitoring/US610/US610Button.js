@@ -21,7 +21,7 @@ class US610Button extends Component {
   render(){
     return(
       <div>
-        <Button onClick={this.toggleHidden}>Get the Maximum temperature in the day {this.props.day} in the room {this.props.roomID}</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Get the Maximum temperature in the day {this.props.day} in the room {this.props.roomID}</Button>
         {!this.state.isHidden && <US610GetTemperature day={this.props.day} roomID={this.props.roomID}/>}
       </div>
     )

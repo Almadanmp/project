@@ -31,7 +31,7 @@ export default class MyForm extends React.Component {
         {!selectedDay && <p>Choose a day</p>}
         <DayPickerInput onDayChange={this.handleDayChange} />
         <br></br>
-        <Button style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
           Submit date
         </Button>
       </div>

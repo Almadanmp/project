@@ -17,7 +17,7 @@ class US605Button extends Component {
   render(){
     return(
       <div>
-     <Button onClick={this.toggleHidden}>Get Current Temperature</Button>
+     <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Get Current Temperature</Button>
         {!this.state.isHidden && <US605GetCurrentTemperature roomID = {this.props.roomID}/>}
       </div>
     )

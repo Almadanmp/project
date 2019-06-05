@@ -39,7 +39,7 @@ class GridRoomRemover extends React.Component {
           <input value={this.state.gridID} type="text" name="gridID" onChange={this.handleInputChange('gridID')}/>
         </label>
         <p>The room {roomID} has been successfully removed from the following grid {gridID}</p>
-        <Button onClick={this.handleSubmit}>Remove Room from Grid'</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove Room from Grid'</Button>
       </>
     )
   }
