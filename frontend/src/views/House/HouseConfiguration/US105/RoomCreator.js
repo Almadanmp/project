@@ -11,7 +11,7 @@ class RoomCreator extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       name: '...',
-      floor: '...',
+      floor: 0,
       width: 0,
       length: 0,
       height: 0,
@@ -28,17 +28,30 @@ class RoomCreator extends React.Component {
     this.props.onFetchRoom(this.state);
   }
 
-
   render() {
     const {name, floor, width, length, height} = this.state;
     return (
       <>
-        <input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
-        <input value={this.state.floor} type="text" name="floor" onChange={this.handleInputChange('floor')}/>
-        <input value={this.state.width} type="number" name="width" onChange={this.handleInputChange('width')}/>
-        <input value={this.state.length} type="number" name="length" onChange={this.handleInputChange('length')}/>
-        <input value={this.state.height} type="number" name="height" onChange={this.handleInputChange('height')}/>
-        <p>The room has the following details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
+        <label> Name:
+          <input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+        </label>
+
+        <label> Floor:
+          <input value={this.state.floor} type="number" name="floor" onChange={this.handleInputChange('floor')}/>
+        </label>
+
+        <label> Width:
+          <input value={this.state.width} type="number" name="width" onChange={this.handleInputChange('width')}/>
+        </label>
+
+        <label> Length:
+          <input value={this.state.length} type="number" name="length" onChange={this.handleInputChange('length')}/>
+        </label>
+
+        <label> Height:
+          <input value={this.state.height} type="number" name="height" onChange={this.handleInputChange('height')}/>
+        </label>
+        <p>The room to be created has the following details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
         <Button onClick={this.handleSubmit}>Save new room configuration</Button>
       </>
     )

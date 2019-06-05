@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
+import EnergyGridCreator from "./US130/EnergyGridCreator";
 import {
   Collapse,
   Button,
   CardBody,
   Card,
   CardHeader,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  CardFooter
 } from 'reactstrap';
 
 class US130 extends Component {
@@ -35,21 +30,8 @@ class US130 extends Component {
               <strong>US 130</strong>
             </CardHeader>
             <CardBody>
-              <Form action="" method="post">
-                <FormGroup>
-                  <Label htmlFor="nf-email">Designation of the new Energy Grid</Label>
-                  <Input type="text" placeholder="Enter Designation.."/>
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="nf-password">Insert the maximum contracted power</Label>
-                  <Input type="number" placeholder="Enter Maximum Contracted Power.."/>
-                </FormGroup>
-              </Form>
+              <EnergyGridCreator/>
             </CardBody>
-            <CardFooter>
-              <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-              <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
-            </CardFooter>
           </Card>
         </Collapse>
       </div>

@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import RoomCreator from "./US105Redux/RoomCreator"
+import RoomCreator from "./US105/RoomCreator"
 import {
   Collapse,
   Button,
   CardBody,
   Card,
   CardHeader,
-  CardFooter
 } from 'reactstrap';
 
 class US105 extends Component {
@@ -33,10 +32,6 @@ class US105 extends Component {
             <CardBody>
               <RoomCreator/>
             </CardBody>
-            <CardFooter>
-              <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-              <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
-            </CardFooter>
           </Card>
         </Collapse>
       </div>

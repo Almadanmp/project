@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card, Col, Row} from 'reactstrap';
+import {Collapse, Button, CardBody, Card} from 'reactstrap';
 import US108Select from "./US108Select";
 import SensorTypesSelect from "./SensorTypesSelect";
 
@@ -24,12 +24,9 @@ class US253 extends Component {
             <CardBody>
               <span>
                 <US108Select/>
-                <SensorTypesSelect/>
               </span>
               <span>
-              <p>
-                <input style={{display: "inline-block"}} type="button" value="Submit"/>
-              </p>
+                 <Button onClick={this.toggleHidden}>Choose</Button>
               </span>
             </CardBody>
           </Card>

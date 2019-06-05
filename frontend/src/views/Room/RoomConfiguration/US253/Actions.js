@@ -5,15 +5,15 @@ export const FETCH_SENSOR_INFO_SUCCESS = 'FETCH_SENSOR_INFO_SUCCESS';
 export const FETCH_SENSOR_INFO_FAILURE = 'FETCH_SENSOR_INFO_FAILURE';
 
 
-export const fetchSensor = ({name, floor, width, length, height}) => {
+export const fetchSensor = ({roomID, typeSensor,name,sensorId,dateStartedFunctioning}) => {
   return dispatch => {
-    dispatch(fetchSensorInfo(name, floor, width, length, height)); // antes de fazer o get, coloca o loading a true
-    const data = {name, floor, width, length, height};
+    dispatch(fetchSensorInfo(roomID, typeSensor, name, sensorId, dateStartedFunctioning)); // antes de fazer o get, coloca o loading a true
+    const data = {roomID, typeSensor, name, sensorId, dateStartedFunctioning};
     axios
-      .post('http://localhost:9898/houseSettings/room', data, //falta autorização
+      .post('http://localhost:9898/roomConfiguration/rooms/'+roomID+'/sensors', data, //falta autorização
         {
           headers: {'Content-Type': 'application/json'},
-          body: {name, floor, width, length, height}
+          body: { sensorId,name, dateStartedFunctioning, typeSensor}
         })
       .then(res => {
         dispatch(fetchSensorInfoSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
@@ -25,15 +25,15 @@ export const fetchSensor = ({name, floor, width, length, height}) => {
 };
 
 
-export function fetchSensorInfo(name, floor, width, length, height) {
+export function fetchSensorInfo(roomID, typeSensor,name,sensorId,dateStartedFunctioning) {
   return {
     type: FETCH_SENSOR_INFO_STARTED,
     payload: {
+      roomID : roomID,
+      typeSensor:typeSensor,
       name: name,
-      floor: floor,
-      width: width,
-      length: length,
-      height: height
+      sensorId: sensorId,
+      dateStartedFunctioning: dateStartedFunctioning,
     }
   }
 }

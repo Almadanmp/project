@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
+import RoomSensorCreator from "./RoomSensorCreator";
 
 class SensorTypesSelect extends Component {
 
@@ -9,7 +10,7 @@ class SensorTypesSelect extends Component {
       item: [],
       isLoaded: false,
       value: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -51,7 +52,7 @@ class SensorTypesSelect extends Component {
               </Input>
             </FormGroup>
           </Form>
-
+          <RoomSensorCreator roomID = {this.props.roomID} typeSensor = {this.state.value} />
         </div>
       );
     }

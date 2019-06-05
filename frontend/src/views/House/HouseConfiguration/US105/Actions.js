@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const FETCH_ROOM_INFO_STARTED = 'FETCH_ROOM_INFO_STARTED';
-export const FETCH_ROOM_INFO_SUCCESS = 'FETCH_ROOM_INFO_SUCCESS';
-export const FETCH_ROOM_INFO_FAILURE = 'FETCH_ROOM_INFO_FAILURE';
+export const REMOVE_GRID_ROOM_INFO_STARTED = 'REMOVE_GRID_ROOM_INFO_STARTED';
+export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
+export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
 export const fetchRoom = ({name, floor, width, length, height}) => {
@@ -27,7 +27,7 @@ export const fetchRoom = ({name, floor, width, length, height}) => {
 
 export function fetchRoomInfo(name, floor, width, length, height) {
   return {
-    type: FETCH_ROOM_INFO_STARTED,
+    type: REMOVE_GRID_ROOM_INFO_STARTED,
     payload: {
       name: name,
       floor: floor,
@@ -40,7 +40,7 @@ export function fetchRoomInfo(name, floor, width, length, height) {
 
 export function fetchRoomInfoSuccess(data) { // cria uma açao
   return {
-    type: FETCH_ROOM_INFO_SUCCESS,
+    type: REMOVE_GRID_ROOM_INFO_SUCCESS,
     payload: {
       room: data //passa o array com os dados
     }
@@ -49,12 +49,9 @@ export function fetchRoomInfoSuccess(data) { // cria uma açao
 
 export function fetchRoomInfoFailure(message) {
   return {
-    type: FETCH_ROOM_INFO_FAILURE,
+    type: REMOVE_GRID_ROOM_INFO_FAILURE,
     payload: {
       error: message
     }
   }
 }
-
-
-

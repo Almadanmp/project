@@ -4,13 +4,7 @@ import {
   Button,
   CardBody,
   Card,
-  CardHeader,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  CardFooter, ListGroup, ListGroupItem, Badge
+  CardHeader, ListGroup,
 } from 'reactstrap';
 import US108Redux from "./US108Redux/US108Redux.js";
 

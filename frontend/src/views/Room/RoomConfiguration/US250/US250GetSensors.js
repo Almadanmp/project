@@ -16,21 +16,14 @@ class US250GetSensors extends Component {
       .then(res => res.json())
       .then((json) => {
         this.setState({
-          sensors: true,
           item: json,
         })
       })
       .catch(console.log)
   }
 
-  getSensorsInARoom() {
-    var {item} = this.state;
-    this.setState(state => ({sensors: !state.sensors}));
-
-  }
-
   render() {
-    var {id, item} = this.state;
+    var {item} = this.state;
     return (
       <div>
           <ul>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
+import SensorTypesSelect from "./SensorTypesSelect";
 
 class US108Select extends Component {
 
@@ -51,6 +52,7 @@ class US108Select extends Component {
               </Input>
             </FormGroup>
           </Form>
+          <SensorTypesSelect roomID = {this.state.value}/>
 
         </div>
       );

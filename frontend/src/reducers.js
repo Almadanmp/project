@@ -5,8 +5,10 @@ import Reducer108 from './views/House/HouseConfiguration/US108Redux/Reducers.js'
 import Reducers633 from './views/House/HouseMonitoring/USRedux/US633Redux/Reducers633.js';
 import Reducers630 from './views/House/HouseMonitoring/USRedux/US630Redux/Reducers630.js';
 import Reducers631 from './views/House/HouseMonitoring/USRedux/US631Redux/Reducers631.js';
+import Reducers109 from './views/House/HouseConfiguration/US109Redux/Reducers.js';
 
 export default combineReducers({
+  Reducers109,
   Reducers630,
   Reducers631,
   Reducers633,

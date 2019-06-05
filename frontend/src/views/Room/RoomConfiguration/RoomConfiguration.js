@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import US250 from "./US250/US250";
 import US253 from "./US253/US253";
 
-class RoomMonitoring extends Component {
+class RoomConfiguration extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -26,4 +26,4 @@ class RoomMonitoring extends Component {
   }
 }
 
-export default RoomMonitoring;
+export default RoomConfiguration;
