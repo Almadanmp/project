@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.io.ui;
+package pt.ipp.isep.dei.project.io.ui.commandLineUI;
 
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-class FileInputUtils {
+public class FileInputUtils {
 
     int deviceMeteringPeriod;
     int gridMeteringPeriod;
@@ -31,7 +31,7 @@ class FileInputUtils {
      *
      * @return it will return true in case the value is valid and false if not
      **/
-    boolean gridMeteringPeriodIsValid() throws IOException {
+    public boolean gridMeteringPeriodIsValid() throws IOException {
         int gridMetPeriod = readGridMeteringPeriod();
         if (gridMeteringPeriodValidation(gridMetPeriod)) {
             this.gridMeteringPeriod = gridMetPeriod;
