@@ -34,10 +34,18 @@ class RoomSensorCreator extends React.Component {
     const {sensorId, name, dateStartedFunctioning} = this.state;
     return (
       <div>
+        <label>Sensor ID:
         <input value={sensorId} type="text" name="sensorId" onChange={this.handleInputChange('sensorId')}/>
-        <input value={name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+        </label>
+        <p></p>
+        <label>Sensor name:
+          <input value={name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+        </label>
+          <p></p>
+        <label>Date it started functioning:
         <input value={dateStartedFunctioning} type="text" name="dateStartedFunctioning" onChange={this.handleInputChange('dateStartedFunctioning')}/>
-        <US253Button roomID={this.props.roomID} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}/>
+        </label>
+          <US253Button roomID={this.props.roomID} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}/>
       </div>
     )
   }
