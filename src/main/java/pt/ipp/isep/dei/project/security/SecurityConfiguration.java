@@ -56,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 //ADMIN User Access
+                .antMatchers("/LoginWebController/getUsers").permitAll()
                 .antMatchers("/houseSettings/**").hasRole(ADMIN)
                 .antMatchers("/houseSettings/houseRooms").hasRole(ADMIN)
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
