@@ -6,14 +6,20 @@ export const FETCH_ENERGYGRID_INFO_FAILURE = 'FETCH_ENERGYGRID_INFO_FAILURE';
 
 
 export const fetchEnergyGrid = ({name, maxContractedPower}) => {
+  const token = localStorage.getItem('loginToken')
   return dispatch => {
     dispatch(fetchEnergyGridInfo(name, maxContractedPower)); // antes de fazer o get, coloca o loading a true
     const houseID = "01";
     const data = {name, houseID, maxContractedPower};
     axios
-      .post('http://localhost:9898/gridSettings/grids', data, //falta autorização
+      .post('https://localhost:8443/gridSettings/grids', data, //falta autorização
         {
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Authorization': token,
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          },
           body: {name, houseID, maxContractedPower}
         })
       .then(res => {
