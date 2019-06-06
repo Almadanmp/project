@@ -13,14 +13,15 @@ class US145GetRooms extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
-    var myInit = {headers: {
+    const token = localStorage.getItem('loginToken');
+    fetch('https://localhost:8443/gridSettings/grids/' + this.props.gridID, {
+      headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"}};
-
-    fetch('https://localhost:8443/gridSettings/grids/' + this.props.gridID + myInit)
+        "Content-Type": "application/json"
+      }
+    })
       .then(res => res.json())
       .then((json) => {
         this.setState({

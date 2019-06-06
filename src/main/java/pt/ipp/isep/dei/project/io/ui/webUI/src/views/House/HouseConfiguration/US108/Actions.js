@@ -6,18 +6,20 @@ export const FETCH_GAS_FAILURE = 'FETCH_GAS_FAILURE';
 
 
 export function fetchGAs() {
-  const token = localStorage.getItem('loginToken')
+  const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchGAsStarted()); // antes de fazer o get, coloca o loading a true
+    dispatch(fetchGAsStarted());
     axios
       .get(`https://localhost:8443/houseSettings/houseRooms`, {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"}})
+          "Content-Type": "application/json"
+        }
+      })
       .then(res => {
-        dispatch(fetchGAsSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
+        dispatch(fetchGAsSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchGAsFailure(err.message));
@@ -32,11 +34,11 @@ export function fetchGAsStarted() {
   }
 }
 
-export function fetchGAsSuccess(data) { // cria uma açao
+export function fetchGAsSuccess(data) {
   return {
     type: FETCH_GAS_SUCCESS,
     payload: {
-      data: [...data] //passa o array com os dados
+      data: [...data]
     }
   }
 }

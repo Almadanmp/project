@@ -5,13 +5,11 @@ import {
 
 } from './Actions'
 
-
 const initialstate = {
   loading: false,
   error: null,
   data: []
 };
-
 
 export default function Reducer108(state = initialstate, action) {
   switch (action.type) {

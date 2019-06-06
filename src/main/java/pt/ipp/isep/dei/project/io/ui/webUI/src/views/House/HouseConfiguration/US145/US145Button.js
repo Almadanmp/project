@@ -13,7 +13,8 @@ class US145Button extends Component {
     }
   }
 
-  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}))
+  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}));
+
   render(){
     return(
       <div>

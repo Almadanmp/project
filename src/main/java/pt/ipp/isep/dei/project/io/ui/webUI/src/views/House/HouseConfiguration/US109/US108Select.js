@@ -10,13 +10,13 @@ class US108Select extends Component {
       item: [],
       isLoaded: false,
       value: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
-    fetch('https://localhost:8443/houseSettings/houseRooms',{
+    const token = localStorage.getItem('loginToken');
+    fetch('https://localhost:8443/houseSettings/houseRooms', {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
@@ -42,27 +42,26 @@ class US108Select extends Component {
 
   render() {
 
-    var {isLoaded, item} = this.state;
+    const {isLoaded, item} = this.state;
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
       return (
         <div>
-          <Form action="" method="post" >
+          <Form action="" method="post">
             <FormGroup>
               <Label>Select Room</Label>
               <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                 <option value="0" onChange={this.handleChange}>Please select</option>
                 {item.map(items => (
-                  <option value={items.name}  key={items.name}>
+                  <option value={items.name} key={items.name}>
                     Name: {items.name}
                   </option>
                 ))}
               </Input>
             </FormGroup>
           </Form>
-          <RoomEditor name = {this.state.value}/>
-
+          <RoomEditor name={this.state.value}/>
         </div>
       );
     }
