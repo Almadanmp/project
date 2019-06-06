@@ -80,6 +80,115 @@ class EnergyGridRoomServiceTest {
     }
 
     @Test
+    void seeIfRemoveRoomFromGridWorksWhenRoomIsNotInGrid() {
+        // Act
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+
+        List<Room> list = new ArrayList<>();
+        list.add(validRoom2);
+
+        Mockito.when(energyGridRepository.getById("Primary Grid")).thenReturn(validGrid);
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list);
+
+        //Act
+
+        boolean actualResult = energyGridRoomService.removeRoomFromGrid("validRoom2", "Primary Grid");
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfRemoveRoomFromGridWorks() {
+        // Act
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+
+        List<Room> list = new ArrayList<>();
+        list.add(validRoom2);
+
+        validGrid.addRoomId("validRoom2");
+
+        Mockito.when(energyGridRepository.getById("Primary Grid")).thenReturn(validGrid);
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list);
+
+        //Act
+
+        boolean actualResult = energyGridRoomService.removeRoomFromGrid("validRoom2", "Primary Grid");
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomByIdWorks() {
+        // Act
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+        Mockito.when(roomRepository.findRoomByID("validRoom2")).thenReturn(Optional.of(validRoom2));
+
+        //Act
+
+        Room actualResult = energyGridRoomService.getRoomById("validRoom2");
+
+        // Assert
+
+        assertEquals(validRoom2, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomByIdReturnsException() {
+        // Act
+
+        Mockito.when(roomRepository.findRoomByID("validRoom2")).thenReturn(Optional.empty());
+
+        //Act & Assert
+
+        assertThrows(NoSuchElementException.class,
+                () -> energyGridRoomService.getRoomById("validRoom2"));
+    }
+
+    @Test
+    void seeIfAttachRoomToGridWorksWhenRoomExistsAlready() {
+        // Act
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+        validGrid.addRoomId("validRoom2");
+        Mockito.when(energyGridRepository.getById("FirstGrid")).thenReturn(validGrid);
+        Mockito.when(roomRepository.findRoomByID("Office")).thenReturn(Optional.of(validRoom2));
+
+        //Act
+
+        boolean actualResult = energyGridRoomService.attachRoomToGrid("Office", "FirstGrid");
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
+
+    @Test
+    void seeIfAttachRoomToGridWorks() {
+        // Act
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+
+        Mockito.when(energyGridRepository.getById("FirstGrid")).thenReturn(validGrid);
+        Mockito.when(roomRepository.findRoomByID("Office")).thenReturn(Optional.of(validRoom2));
+        Mockito.when(energyGridRepository.addGrid(validGrid)).thenReturn(validGrid);
+
+        //Act
+
+        boolean actualResult = energyGridRoomService.attachRoomToGrid("Office", "FirstGrid");
+
+        // Assert
+
+        assertTrue(actualResult);
+    }
+
+    @Test
     void seeIfRemovesRoom() {
         // Act
         validGrid.addRoomId(validRoom.getId());

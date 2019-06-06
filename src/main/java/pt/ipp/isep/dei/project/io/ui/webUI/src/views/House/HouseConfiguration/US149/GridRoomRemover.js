@@ -10,8 +10,8 @@ class GridRoomRemover extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      roomID: '...',
-      gridID: '...',
+      roomID: '',
+      gridID: '',
     };
 
     this.handleInputChange = attribute => event => {
@@ -30,16 +30,9 @@ class GridRoomRemover extends React.Component {
     const {roomID, gridID} = this.state;
     return (
       <>
-
-        <label> roomID:
-          <input value={this.state.roomID} type="text" name="roomID" onChange={this.handleInputChange('roomID')}/>
-        </label>
-
-        <label> gridID:
-          <input value={this.state.gridID} type="text" name="gridID" onChange={this.handleInputChange('gridID')}/>
-        </label>
-        <p>The room {roomID} has been successfully removed from the following grid {gridID}</p>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove Room from Grid'</Button>
+        RoomID:<input value={this.state.roomID} type="text" name="roomID" onChange={this.handleInputChange('roomID')}/>
+        GridID:<input value={this.state.gridID} type="text" name="grid" onChange={this.handleInputChange('gridID')}/>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove Room {roomID} from {gridID} Energy Grid</Button>
       </>
     )
   }

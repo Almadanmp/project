@@ -5,39 +5,8 @@ import US108Select from "./US109/US108Select";
 class US109 extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      item: [],
-      isLoaded: false,
-      value: ''
-    }
-    this.handleChange = this.handleChange.bind(this);
     this.toggle = this.toggle.bind(this);
     this.state = {collapse: false};
-  }
-
-  componentDidMount() {
-    const token = localStorage.getItem('loginToken')
-    fetch('https://localhost:8443/houseSettings/houseRooms',{
-        headers: {
-          'Authorization': token,
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          item: json,
-        })
-      })
-      .catch(console.log)
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
   }
 
   toggle() {
@@ -46,10 +15,6 @@ class US109 extends Component {
 
   render() {
 
-    var {isLoaded} = this.state;
-    if (!isLoaded) {
-      return <div>Loading...</div>
-    } else {
       return (
         <div>
           <div>
@@ -71,6 +36,6 @@ class US109 extends Component {
       );
     }
   }
-}
+
 
 export default US109;

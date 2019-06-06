@@ -17,13 +17,11 @@ import java.util.*;
 @Service
 public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceholders.Service {
 
+    private static final String BUILDER = "---------------\n";
     @Autowired
     EnergyGridRepository energyGridRepository;
-
     @Autowired
     RoomRepository roomRepository;
-
-    private static final String BUILDER = "---------------\n";
 
     public List<Room> getRoomList(EnergyGrid energyGrid) {
         List<Room> gridRooms = new ArrayList<>();
@@ -293,12 +291,9 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
 
     public boolean removeRoomFromGrid(String roomID, String gridID) {
         EnergyGrid grid = energyGridRepository.getById(gridID);
-        if (grid!=null) {
-            boolean result = removeRoomById(grid, roomID);
-            energyGridRepository.addGrid(grid);
-            return result;
-        }
-        throw new NoSuchElementException("ERROR: There is no Energy Grid with the selected ID.");
+        boolean result = removeRoomById(grid, roomID);
+        energyGridRepository.addGrid(grid);
+        return result;
     }
 
     /**

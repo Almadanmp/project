@@ -2,19 +2,18 @@ package pt.ipp.isep.dei.project.model.areatype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.repository.AreaTypeCrudRepo;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Types of Geographical Areas.
  */
 @Service
 public class AreaTypeRepository {
+
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(AreaTypeRepository.class);
 
     @Autowired
     AreaTypeCrudRepo repository;
@@ -106,16 +105,13 @@ public class AreaTypeRepository {
      * @return Type Area corresponding to the given id
      */
     public AreaType getAreaTypeByName(String name) {
-        Logger logger = LogUtils.getLogger("areaTypeLogger", "resources/logs/areaTypeLogHtml.html", Level.FINE);
         Optional<AreaType> value = repository.findByName(name);
         if (!(value.isPresent())) {
             String message = "The area Type " + name + " does not yet exist in the Data Base. Please create the Area" +
                     "Type first.";
-            logger.fine(message);
-            LogUtils.closeHandlers(logger);
+            logger.debug(message);
             return null;
         } else {
-            LogUtils.closeHandlers(logger);
             return value.get();
         }
     }

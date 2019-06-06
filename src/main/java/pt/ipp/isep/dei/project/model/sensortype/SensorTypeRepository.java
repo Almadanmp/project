@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.sensortype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
@@ -11,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class represents a collection of Sensor Types
@@ -23,6 +20,8 @@ import java.util.logging.Logger;
 public class SensorTypeRepository {
 
     private static final String STRING_BUILDER = "---------------\n";
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(SensorTypeRepository.class);
+
 
     @Autowired
     SensorTypeCrudRepo repository;
@@ -106,16 +105,13 @@ public class SensorTypeRepository {
      * @return Type Area corresponding to the given id
      */
     public SensorType getTypeSensorByName(String name, String unit) {
-        Logger logger = LogUtils.getLogger("SensorTypeLogger", "resources/logs/sensorTypeLogHtml.html", Level.FINE);
         Optional<SensorType> value = repository.findByName(name);
         if (!(value.isPresent())) {
             String message = "The Sensor Type " + name + "with the unit " + unit + " does not yet exist in the Data Base. Please create the Sensor" +
                     "Type first.";
-            logger.fine(message);
-            LogUtils.closeHandlers(logger);
+            logger.debug(message);
             return null;
         } else {
-            LogUtils.closeHandlers(logger);
             return value.get();
         }
     }

@@ -46,4 +46,9 @@ public class DateValueDTO  extends ResourceSupport {
         DateValueDTO dateValueDTO = (DateValueDTO) o;
         return Objects.equals(dateValueDTO.getDate(), this.date);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
