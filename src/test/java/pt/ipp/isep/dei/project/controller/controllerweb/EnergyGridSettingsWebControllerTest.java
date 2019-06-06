@@ -348,4 +348,16 @@
 //
 //    }
 //
+//@Test
+//    void seeIfGetAllGridsWorks() {
+//            EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
+//            EnergyGrid validGrid2 = new EnergyGrid("Valid Grid 2", 20D, "7");
+//            List<EnergyGrid> energyGrids = new ArrayList<>();
+//        energyGrids.add(validGrid);
+//        energyGrids.add(validGrid2);
+//        Mockito.when(energyGridRepository.getAllGrids()).thenReturn(energyGrids);
+//        List<EnergyGrid> actualResult = energyGridSettingsWebController.getAllGrids();
+//        assertEquals(energyGrids,actualResult);
+//
+//        }
 //}
