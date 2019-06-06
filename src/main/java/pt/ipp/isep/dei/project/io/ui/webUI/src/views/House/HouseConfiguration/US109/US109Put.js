@@ -12,15 +12,21 @@ class US109Put extends Component {
 
 
   componentDidMount() {
+    const token = localStorage.getItem('loginToken')
     const name = this.props.name;
     const floor = this.props.floor;
     const width = this.props.width;
     const length = this.props.length;
     const height = this.props.height;
     console.log(this.props);
-    fetch('http://localhost:9898/houseSettings/room', {
+    fetch('https://localhost:8443/houseSettings/room', {
       method: 'put',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Authorization': token,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({name, floor, width, length, height})
     })
       .then(res => res.json())

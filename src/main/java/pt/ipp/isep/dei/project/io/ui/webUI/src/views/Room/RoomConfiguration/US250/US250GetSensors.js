@@ -12,7 +12,16 @@ class US250GetSensors extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:9898/roomConfiguration/rooms/'+this.props.roomID+'/sensors')
+    const token = localStorage.getItem('loginToken')
+    fetch('https://localhost:8443/roomConfiguration/rooms/'+this.props.roomID+'/sensors',{
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
+      }
+    )
       .then(res => res.json())
       .then((json) => {
         this.setState({
