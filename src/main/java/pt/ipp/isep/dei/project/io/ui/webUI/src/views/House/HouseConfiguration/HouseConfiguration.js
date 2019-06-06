@@ -24,7 +24,7 @@ class HouseConfiguration extends Component {
     return (
       <div>
         <h2>Welcome to the House Configuration Menu.</h2>
-        <h4>Please select the dick you want to run.</h4>
+        <h4>Please select the US you want to run.</h4>
         <US105/>
         <US108/>
         <US109/>
