@@ -152,6 +152,26 @@ class EnergyGridSettingsWebControllerTest {
 //    }
 
     @Test
+    void seeIfDetachRoomFromGridThrowsException() {
+        //Arrange
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
+        Room room = new Room("name", "description", 1, 10, 4, 3, "01");
+        validGrid.addRoomId(room.getId());
+        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+
+        Mockito.when(energyGridRoomService.removeRoomFromGrid(any(String.class), any(String.class))).thenThrow(new NoSuchElementException());
+
+        //Act
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO,validGrid.getName());
+
+        //Assert
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+    }
+
+    @Test
     void seeIfDetachRoomFromGridFails() {
 
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");

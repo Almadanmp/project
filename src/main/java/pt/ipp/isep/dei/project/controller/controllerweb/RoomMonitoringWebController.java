@@ -55,20 +55,19 @@ public class RoomMonitoringWebController {
     /* US610 - WEB Controller Methods
      Get Max Temperature in a room in a specific day.*/
     @GetMapping("/dayMaxTemperature/{roomId}")
-    public ResponseEntity<Object> getRoomMaxTempInDay(@PathVariable String roomId, @RequestParam ("initialDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) String day) {
+    public ResponseEntity<Object> getRoomMaxTempInDay(@PathVariable String roomId, @RequestParam("initialDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String day) {
         Link link;
         double result;
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
             date = df.parse(day);
-        }
-        catch (ParseException c) {
+        } catch (ParseException c) {
             c.printStackTrace();
         }
-        if(date==null){
+        if (date == null) {
             link = linkTo(methodOn(RoomMonitoringWebController.class).
-                    getRoomMaxTempInDay(roomId,day)).withRel("This date is not valid.");
+                    getRoomMaxTempInDay(roomId, day)).withRel("This date is not valid.");
             return new ResponseEntity<>(link, HttpStatus.OK);
         }
         try {
@@ -76,7 +75,7 @@ public class RoomMonitoringWebController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             link = linkTo(methodOn(RoomMonitoringWebController.class).
-                    getRoomMaxTempInDay(roomId,day)).withRel("This room does not exist.");
+                    getRoomMaxTempInDay(roomId, day)).withRel("This room does not exist.");
             return new ResponseEntity<>(link, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>("There are no readings for the given date.", HttpStatus.BAD_REQUEST);
