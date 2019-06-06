@@ -42,7 +42,7 @@ else if room is NOT configured
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(RoomDTO, HttpStatus.NOT_FOUND)
 end
 
-else if room name is NOT valid
+else if room dimensions are NOT valid
 "HouseConfigurationWebController" -> "Http Client": new ResponseEntity<>(failed message, HttpStatus.UNPROCESSABLE_ENTITY)
 deactivate "HouseConfigurationWebController"
 deactivate "Http Client"
