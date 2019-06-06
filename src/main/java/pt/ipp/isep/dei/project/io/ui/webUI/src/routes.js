@@ -7,7 +7,7 @@ const LogInPage = React.lazy(()=> import('./login/LogInPage'));
 const HouseMonitoring = React.lazy(()=> import('./views/House/HouseMonitoring/HouseMonitoring'))
 const RoomMonitoring = React.lazy(()=> import('./views/Room/RoomMonitoring/RoomMonitoring'))
 const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration/RoomConfiguration'))
-const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/Example'))
+const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/HouseConfiguration'))
 
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
