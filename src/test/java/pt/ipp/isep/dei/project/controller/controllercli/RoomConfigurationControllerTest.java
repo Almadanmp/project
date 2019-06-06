@@ -66,7 +66,7 @@ class RoomConfigurationControllerTest {
     void seeIfGetDeviceByIndexWorks() {
         // Arrange
 
-           DeviceList deviceList = new DeviceList();
+        DeviceList deviceList = new DeviceList();
         deviceList.add(validDeviceFridge);
 
         RoomDTO roomDTO = new RoomDTO();
@@ -580,4 +580,34 @@ class RoomConfigurationControllerTest {
 //
 //        assertEquals(validDevice, actualResult);
 //    }
+
+    @Test
+    void seeIfAddSensorToRoomFails() {
+        // Arrange
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+
+        room.addSensor(roomSensor);
+        roomRepository.updateRoom(room);
+
+        // Assert
+
+        assertFalse(controller.addSensorToRoom(roomSensor, room));
+
+    }
+
+    @Test
+    void seeIfAddSensorToRoomWorks() {
+        // Arrange
+
+        Room room = new Room("Kitchen", "1st Floor Kitchen", 1, 4, 5, 3, "Room1");
+        RoomSensor roomSensor = new RoomSensor("test", "test", "test", new Date());
+        Mockito.when(roomRepository.updateRoom(room)).thenReturn(true);
+
+        // Assert
+
+        assertTrue(controller.addSensorToRoom(roomSensor, room));
+
+    }
 }

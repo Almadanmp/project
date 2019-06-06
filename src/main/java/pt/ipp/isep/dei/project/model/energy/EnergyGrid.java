@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import pt.ipp.isep.dei.project.dddplaceholders.Root;
-import pt.ipp.isep.dei.project.model.room.Room;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class EnergyGrid implements Root {
     }
 
     public void setRooms(List<String> rooms) {
-        this.rooms = rooms;
+        this.rooms = new ArrayList<>(rooms);
     }
 
     /**
@@ -92,7 +91,7 @@ public class EnergyGrid implements Root {
      * @return returns a list with all the rooms contained in this energy grid.
      */
     public List<String> getRoomIdList() {
-        return rooms;
+        return new ArrayList<>(rooms);
     }
 
     /**

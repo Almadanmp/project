@@ -305,7 +305,8 @@ class EnergyGridSettingsWebControllerTest {
         this.mockMvc.perform(delete("/gridSettings/grids/invalid")
                 .contentType(MediaType.TEXT_PLAIN)
                 .content("invalid"))
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isMethodNotAllowed()
+                );
     }
 
     @Test

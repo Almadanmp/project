@@ -1,0 +1,100 @@
+// Here you can add other styles
+.sidebar .nav-title {
+  padding: 0.75rem 1rem;
+  font-size: 80%;
+  font-weight: 700;
+  color: #323232;
+  text-transform: uppercase;
+}
+
+.sidebar .nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #000000;
+  text-decoration: none;
+  background: transparent;
+}
+
+.sidebar .nav-dropdown.open .nav-link {
+  color: #000000;
+  border-left: 0;
+}
+
+.badge-info {
+  color: #23282c;
+  background-color: #b8dead;
+}
+
+.sidebar {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0;
+  color: #323232;
+  background: #d8c2a5;
+}
+
+.sidebar .sidebar-close {
+  position: absolute;
+  right: 0;
+  display: none;
+  padding: 0 1rem;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 55px;
+  color: #323232;
+  background: 0;
+  border: 0;
+  opacity: .8;
+}
+
+.sidebar .sidebar-close:hover {
+  opacity: 1;
+}
+
+.sidebar .sidebar-header {
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .sidebar-form .form-control {
+  color: #323232;
+  background: #d8c2a5;
+  border: 0;
+}
+
+.sidebar .nav-link.active {
+  color: #000000;
+  background: #d8cbc1;
+}
+
+.sidebar .nav-link:hover {
+  color: #fff;
+  background: #d8b975;
+}
+
+.sidebar .nav-link.active .nav-icon {
+  color: #187a29;
+}
+
+.sidebar-minimized .sidebar .nav-item:hover > .nav-link {
+  background: #d8b975;
+}
+
+.d-md-down-none {
+  text-align: left;
+  justify-content: left;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+}

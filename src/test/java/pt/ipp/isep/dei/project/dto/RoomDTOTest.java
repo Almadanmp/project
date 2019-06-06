@@ -190,4 +190,159 @@ class RoomDTOTest {
 
     }
 
+    @Test
+    void seeIfGetHouseIdWorks() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        String expectedResult = "test";
+
+        // Act
+
+        String result = validDTO.getHouseId();
+
+        // Assert
+
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void seeIfAddSensorWorks() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
+        List<RoomSensorDTO> expectedResult = new ArrayList<>();
+        expectedResult.add(roomSensorDTO);
+
+
+        // Act
+
+        validDTO.addSensor(roomSensorDTO);
+        List<RoomSensorDTO> result = validDTO.getSensorList();
+
+        // Assert
+
+        assertEquals(result, expectedResult);
+    }
+
+    @Test
+    void seeIfAddSensorFails() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
+
+        // Act
+
+        validDTO.addSensor(roomSensorDTO);
+
+        Boolean result = validDTO.addSensor(roomSensorDTO);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfRemoveSensorWorks() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
+        roomSensorDTO.setSensorId("test");
+
+        // Act
+
+        validDTO.addSensor(roomSensorDTO);
+
+        Boolean result = validDTO.removeSensor("test");
+
+        // Assert
+
+        assertTrue(result);
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsEmptyList() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
+        roomSensorDTO.setSensorId("test");
+
+        // Act
+
+        Boolean result = validDTO.removeSensor("test");
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsWrongId() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
+        roomSensorDTO.setSensorId("test");
+
+        // Act
+
+        validDTO.addSensor(roomSensorDTO);
+        Boolean result = validDTO.removeSensor("test2");
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsNullId() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO = new RoomSensorDTO();
+        roomSensorDTO.setSensorId("test");
+
+        // Act
+
+        validDTO.addSensor(roomSensorDTO);
+        Boolean result = validDTO.removeSensor(null);
+
+        // Assert
+
+        assertFalse(result);
+    }
+
+    @Test
+    void seeIfGetSensorDTOMinimalistListWorks() {
+        // Arrange
+
+        validDTO.setHouseId("test");
+        RoomSensorDTO roomSensorDTO2 = new RoomSensorDTO();
+        roomSensorDTO2.setSensorId("test");
+        roomSensorDTO2.setName("test");
+        roomSensorDTO2.setTypeSensor("test");
+        roomSensorDTO2.setDateStartedFunctioning("2/2/2018");
+        RoomSensorDTOMinimal roomSensorDTO = new RoomSensorDTOMinimal();
+        roomSensorDTO.setId("test");
+        roomSensorDTO.setName("test");
+        roomSensorDTO.setTypeSensor("test");
+        roomSensorDTO.setDateStartedFunctioning("2/2/2018");
+        List<RoomSensorDTOMinimal> expectedResult = new ArrayList<>();
+        expectedResult.add(roomSensorDTO);
+
+
+        // Act
+
+        validDTO.addSensor(roomSensorDTO2);
+        List<RoomSensorDTOMinimal> result = validDTO.getSensorDTOMinimalistList();
+
+        // Assert
+
+        assertEquals(result, expectedResult);
+    }
+
 }

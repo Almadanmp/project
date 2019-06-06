@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.project.dto;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Class that is responsible to return a value and a date.
@@ -14,16 +15,16 @@ public class DateValueDTO  extends ResourceSupport {
 
 
     public DateValueDTO(Date date, double value) {
-        this.date = date;
+        setDate(date);
         this.value = value;
     }
 
     public Date getDate() {
-        return date;
+        return new Date(date.getTime());
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Date(date.getTime());
     }
 
     public double getValue() {
@@ -32,5 +33,17 @@ public class DateValueDTO  extends ResourceSupport {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DateValueDTO dateValueDTO = (DateValueDTO) o;
+        return Objects.equals(dateValueDTO.getDate(), this.date);
     }
 }

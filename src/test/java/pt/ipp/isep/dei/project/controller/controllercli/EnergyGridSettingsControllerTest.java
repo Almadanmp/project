@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
@@ -18,6 +19,8 @@ import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.energy.PowerSource;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
+import pt.ipp.isep.dei.project.model.house.Address;
+import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
@@ -56,6 +59,7 @@ class EnergyGridSettingsControllerTest {
 
     @BeforeEach
     void arrangeArtifacts() {
+        MockitoAnnotations.initMocks(this);
         validGeographicArea = new GeographicArea("Porto", "Cidade", 2, 3, new Local(4, 4, 100));
 
         validGrid = new EnergyGrid("validGrid", 300D, "34576");
@@ -201,48 +205,23 @@ class EnergyGridSettingsControllerTest {
         assertEquals(actualResult2, powerSource2);
     }
 
-//    @Test
-//    void testBuildListOfDevicesOrderedByTypeStringEmptyString() {
-//        //Arrange
-//
-////        rooms.add(validRoom);
-////        validGrid.addRoomId(validRoom.getId());
-//    //    Mockito.when(roomRepository.getAllRooms()).thenReturn(new ArrayList<>());
-//
-//        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100D, "34576");
-//
-//        //Act
-//        String expectedResult = "---------------\n" +
-//                "---------------\n";
-//        String actualResult = controller.buildListOfDevicesOrderedByTypeString(testGrid);
-//        //Arrange
-//        assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    void testBuildListOfDevicesOrderedByTypeStringEmptyString() {
+        //Arrange
 
 
-//    @Test
-//    void testBuildListOfDevicesOrderedByTypeStringWithDevices() {
-//        //Arrange
-//        List<String> deviceTypeString = new ArrayList<>();
-//        deviceTypeString.add(PATH_TO_FRIDGE);
-//        Address address = new Address("Rua das Flores", "431", "4512", "Porto", "Portugal");
-//        House house = new House("casa de praia", address, new Local(4, 5, 4), 60, 180, deviceTypeString);
-//        house.setMotherAreaID(validGeographicArea.getId());
-//        Room room1EdC = new Room("B107", "Classroom", 1, 7, 11, 3.5, "Room1");
-//        EnergyGrid eg = new EnergyGrid("Main Energy Grid Edificio C", 333D, "34576");
-//        List<String> rl = new ArrayList<>();
-//        Device fridge = new Fridge(new FridgeSpec());
-//        room1EdC.addDevice(fridge);
-//        rl.add(room1EdC.getId());
-//        eg.setRooms(rl);
-//        //Act
-//        String expectedResult = "---------------\n" +
-//                "Device type: Fridge | Device name: null | Nominal power: 0.0 | Room: B107 | \n" +
-//                "---------------\n";
-//        String actualResult = controller.buildListOfDevicesOrderedByTypeString(eg);
-//        //Arrange
-//        assertEquals(expectedResult, actualResult);
-//    }
+        EnergyGrid testGrid = new EnergyGrid("EmptyGrid", 100D, "34576");
+        Mockito.when(controller.buildListOfDevicesOrderedByTypeString(testGrid)).thenCallRealMethod();
+
+        //Act
+        String expectedResult = "---------------\n" +
+                "---------------\n";
+        String actualResult = controller.buildListOfDevicesOrderedByTypeString(testGrid);
+        //Arrange
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     void seeIfBuildGridListStringWorks() {
@@ -261,19 +240,19 @@ class EnergyGridSettingsControllerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    @Test
-//    void seeIfAddRoomDTOToGridWorks() {
-//        // Arrange
-//        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom);
-//
-//        // Act
-//        Mockito.when(roomRepository.updateHouseRoom(testDTO)).thenReturn(RoomMapper.dtoToObject(testDTO));
-//        boolean actualResult = controller.addRoomDTOToGrid(validGrid, testDTO);
-//
-//        // Assert
-//
-//        assertTrue(actualResult);
-//    }
+    @Test
+    void seeIfAddRoomDTOToGridWorks() {
+        // Arrange
+        RoomDTO testDTO = RoomMapper.objectToDTO(validRoom);
+
+        // Act
+        Mockito.when(roomRepository.updateHouseRoom(testDTO)).thenReturn(RoomMapper.dtoToObject(testDTO));
+        boolean actualResult = controller.addRoomDTOToGrid(validGrid, testDTO);
+
+        // Assert
+
+        assertFalse(actualResult);
+    }
 
     @Test
     void seeIfAddGridToHouseWorks() {
