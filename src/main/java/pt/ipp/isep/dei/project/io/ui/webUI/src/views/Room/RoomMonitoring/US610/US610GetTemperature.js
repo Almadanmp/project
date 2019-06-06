@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 
 class US610GetTemperature extends Component {
@@ -9,9 +9,19 @@ class US610GetTemperature extends Component {
       item: 0,
     }
   }
+
   componentDidMount() {
+    const token = localStorage.getItem('loginToken')
     console.log(this.props);
-    fetch("http://localhost:9898/roomMonitoring/dayMaxTemperature/"+this.props.roomID+"?initialDate="+this.props.day)
+    fetch("https://localhost:8443/roomMonitoring/dayMaxTemperature/" + this.props.roomID + "?initialDate=" + this.props.day, {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
+      }
+    )
       .then(res => res.json())
       .then((json) => {
         this.setState({
@@ -26,7 +36,7 @@ class US610GetTemperature extends Component {
     return (
       <div>
         <h6 key={this.state.item}>The maximum temperature
-         was {this.state.item}ºC</h6>
+          was {this.state.item}ºC</h6>
       </div>
     );
   }
