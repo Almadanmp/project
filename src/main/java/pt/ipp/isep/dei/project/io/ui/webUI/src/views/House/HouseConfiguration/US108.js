@@ -6,7 +6,7 @@ import {
   Card,
   CardHeader, ListGroup,
 } from 'reactstrap';
-import US108Redux from "./US108Redux/US108Redux.js";
+import US108Redux from "./US108/US108Redux.js";
 
 class US108 extends Component {
   constructor(props) {

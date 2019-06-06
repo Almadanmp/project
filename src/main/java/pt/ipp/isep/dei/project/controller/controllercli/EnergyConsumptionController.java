@@ -167,7 +167,6 @@ public class EnergyConsumptionController {
     interval.*/
 
     public double getGridConsumptionInInterval(EnergyGrid eGrid, Date initialDate, Date finalDate) {
-
         return energyGridRoomService.getGridConsumptionInInterval(eGrid, initialDate,finalDate);
     }
 

@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.Local;
+import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -58,6 +59,10 @@ class EnergyConsumptionControllerTest {
     private List<Room> roomList;
     @Mock
     EnergyGridRepository energyGridRepository;
+
+    @Mock
+    EnergyGridRoomService energyGridRoomService;
+
     @InjectMocks
     private EnergyConsumptionController controller;
 
@@ -95,7 +100,78 @@ class EnergyConsumptionControllerTest {
         validArea = new GeographicArea("Porto", "Cidade", 2, 3, new Local(4, 4, 100));
     }
 
-    //US705 TESTS
+    @Test
+    void seeIfGetGridConsumptionInIntervalWorks() {
+
+        validGrid.addRoomId(validRoom1.getId());
+
+        Mockito.when(energyGridRoomService.getGridConsumptionInInterval(validGrid, validDate1, validDate2)).thenReturn(200D);
+
+        //Act
+
+        double actualResult = controller.getGridConsumptionInInterval(validGrid, validDate1, validDate2);
+
+        //Assert
+
+        assertEquals(200D, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetsLogInIntervalWorks() {
+        // Arrange
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date initialTime = new Date();
+        try {
+            initialTime = validSdf.parse("11/01/2018 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalTime = new Date();
+        try {
+            finalTime = validSdf.parse("11/03/2018 10:30:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date logDate = new Date();
+        try {
+            logDate = validSdf.parse("20/02/2018 10:30:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log validLog = new Log(300, logDate, new GregorianCalendar
+                (2018, Calendar.FEBRUARY, 20, 10, 30).getTime());
+        LogList logList = new LogList();
+        logList.addLog(validLog);
+        LogList expectedResult = new LogList();
+        expectedResult.addLog(validLog);
+
+        Mockito.when(energyGridRoomService.getLogsInInterval(validGrid, initialTime, finalTime)).thenReturn(logList);
+
+        // Act
+
+        LogList actualResult = controller.getGridLogsInInterval(validGrid, initialTime, finalTime);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetNominalPowerWorksMultipleRooms() {
+        //Arrange
+
+        double expectedResult = 40;
+
+        Mockito.when(energyGridRoomService.getNominalPower(validGrid)).thenReturn(40.0);
+        //Act
+
+        double actualResult = controller.getTotalPowerFromGrid(validGrid);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
     @Test
     void seeIfRoomDevicesGetRemovedFromDeviceList() {

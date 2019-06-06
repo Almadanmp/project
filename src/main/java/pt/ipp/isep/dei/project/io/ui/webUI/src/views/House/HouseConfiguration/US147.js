@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Collapse, Button, CardBody, Card, CardHeader, Form, FormGroup, Label, Input, CardFooter} from 'reactstrap';
-import AttachRoomToGrid from "./US147Redux/AttachRoomToGrid";
+import AttachRoomToGrid from "./US147/AttachRoomToGrid";
 
 class US147 extends Component {
   constructor(props) {
