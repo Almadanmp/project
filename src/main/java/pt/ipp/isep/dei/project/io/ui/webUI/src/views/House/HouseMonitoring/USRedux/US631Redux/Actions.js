@@ -6,11 +6,17 @@ export const FETCH_HOT_FAILURE = 'FETCH_HOT_FAILURE';
 
 
 export const fetchHottestDay = ({ from, to }) => {
+  const token = localStorage.getItem('loginToken')
   return dispatch => {
     dispatch(fetchHottestDayStarted(from, to)); // antes de fazer o get, coloca o loading a true
     axios
-      .get(`http://localhost:9898/houseMonitoring/hottestDay?initialDate=`+from+`&finalDate=`+to, {
-      })
+      .get(`https://localhost:8443/houseMonitoring/hottestDay?initialDate=`+from+`&finalDate=`+to, {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"}}
+      )
       .then(res => {
         dispatch(fetchHottestDaySuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
