@@ -6,13 +6,19 @@ export const FETCH_ROOM_GRID_INFO_FAILURE = 'FETCH_ROOM_GRID_INFO_FAILURE';
 
 
 export const fetchRoomGrid = ({name, grid}) => {
+  const token = localStorage.getItem('loginToken')
   return dispatch => {
     dispatch(fetchRoomGridInfo(name, grid)); // antes de fazer o get, coloca o loading a true
     const data = {name, grid};
     axios
-      .post('http://localhost:9898/gridSettings/grids/'+grid, data, //falta autorização
+      .post('https://localhost:8443/gridSettings/grids/'+grid, data, //falta autorização
         {
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Authorization': token,
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          },
           body: {name}
         })
       .then(res => {
