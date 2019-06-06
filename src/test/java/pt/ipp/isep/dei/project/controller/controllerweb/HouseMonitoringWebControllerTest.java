@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -187,8 +188,6 @@ class HouseMonitoringWebControllerTest {
 
         DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
         Mockito.when(geographicAreaHouseService.getLastColdestDay(date2, date1)).thenReturn(dateValueDTO);
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getLastColdestDay(date2, date1)).withRel("Retry with a different period.");
-        dateValueDTO.add(link);
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(dateValueDTO, HttpStatus.OK);
 
         // Act
@@ -198,6 +197,22 @@ class HouseMonitoringWebControllerTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfGetColdestDayAddsLink() {
+        // Arrange
+
+        DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
+        Mockito.when(geographicAreaHouseService.getLastColdestDay(date2, date1)).thenReturn(dateValueDTO);
+
+        // Act
+
+        houseMonitoringWebController.getLastColdestDay(date2, date1);
+
+        // Assert
+
+        assertNotNull(dateValueDTO.getLink("Retry with a different period."));
     }
 
 
@@ -261,8 +276,6 @@ class HouseMonitoringWebControllerTest {
 
         DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
         Mockito.when(geographicAreaHouseService.getHottestDay(date2, date1)).thenReturn(dateValueDTO);
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getHottestDay(date2, date1)).withRel("Retry with a different period.");
-        dateValueDTO.add(link);
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(dateValueDTO, HttpStatus.OK);
 
         // Act
@@ -272,7 +285,23 @@ class HouseMonitoringWebControllerTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
 
+    @Test
+    void seeIfGetHottestDayAddsLink() {
+
+        // Arrange
+
+        DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
+        Mockito.when(geographicAreaHouseService.getHottestDay(date2, date1)).thenReturn(dateValueDTO);
+
+        // Act
+
+        houseMonitoringWebController.getHottestDay(date2, date1);
+
+        // Assert
+
+        assertNotNull(dateValueDTO.getLink("Retry with a different period."));
     }
 
 
@@ -339,9 +368,6 @@ class HouseMonitoringWebControllerTest {
 
         Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(date2, date1)).thenReturn(dateValueDTO);
 
-        Link link = linkTo(methodOn(HouseMonitoringWebController.class).getHighestTemperatureAmplitudeDate(date2, date1)).withRel("Retry with a different period.");
-        dateValueDTO.add(link);
-
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(dateValueDTO, HttpStatus.OK);
 
         // Act
@@ -351,6 +377,24 @@ class HouseMonitoringWebControllerTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfGetHighestAmplitudeAddsLink() {
+        // Arrange
+
+        DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
+
+        Mockito.when(geographicAreaHouseService.getHighestTemperatureAmplitude(date2, date1)).thenReturn(dateValueDTO);
+
+        // Act
+
+        houseMonitoringWebController.getHighestTemperatureAmplitudeDate(date2, date1);
+
+        // Assert
+
+        assertNotNull(dateValueDTO.getLink("Retry with a different period."));
 
     }
 
