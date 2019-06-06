@@ -10,7 +10,7 @@ class US109Put extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
+    const token = localStorage.getItem('loginToken');
     const name = this.props.name;
     const floor = this.props.floor;
     const width = this.props.width;

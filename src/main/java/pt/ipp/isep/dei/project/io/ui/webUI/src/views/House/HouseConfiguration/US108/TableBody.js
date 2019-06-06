@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {Table} from "reactstrap";
 
 class TableBody extends Component {
   constructor(props) {
     super(props);
   }
-
 
   render() {
     const {data} = this.props; // data = this.props.data;
@@ -28,7 +26,6 @@ class TableBody extends Component {
       return (<h1>No data ....</h1>);
     }
   }
-
 }
 
 export default TableBody;

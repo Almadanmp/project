@@ -6,12 +6,12 @@ export const FETCH_ROOM_GRID_INFO_FAILURE = 'FETCH_ROOM_GRID_INFO_FAILURE';
 
 
 export const fetchRoomGrid = ({name, grid}) => {
-  const token = localStorage.getItem('loginToken')
+  const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchRoomGridInfo(name, grid)); // antes de fazer o get, coloca o loading a true
+    dispatch(fetchRoomGridInfo(name, grid));
     const data = {name, grid};
     axios
-      .post('https://localhost:8443/gridSettings/grids/'+grid, data, //falta autorização
+      .post('https://localhost:8443/gridSettings/grids/' + grid, data,
         {
           headers: {
             'Authorization': token,
@@ -22,7 +22,7 @@ export const fetchRoomGrid = ({name, grid}) => {
           body: {name}
         })
       .then(res => {
-        dispatch(fetchRoomGridInfoSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
+        dispatch(fetchRoomGridInfoSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchRoomGridInfoFailure(err.message));
@@ -41,11 +41,11 @@ export function fetchRoomGridInfo(name, grid) {
   }
 }
 
-export function fetchRoomGridInfoSuccess(data) { // cria uma açao
+export function fetchRoomGridInfoSuccess(data) {
   return {
     type: FETCH_ROOM_GRID_INFO_SUCCESS,
     payload: {
-      room: data //passa o array com os dados
+      room: data
     }
   }
 }

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Button} from 'reactstrap';
 import US109Put from "./US109Put";
 
-
 class US109Button extends Component {
 
   constructor(props) {
@@ -17,8 +16,7 @@ class US109Button extends Component {
     }
   }
 
-
-  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}))
+  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}));
 
   render(){
     return(

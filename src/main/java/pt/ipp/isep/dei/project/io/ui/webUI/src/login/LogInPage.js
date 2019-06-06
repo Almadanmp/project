@@ -3,7 +3,6 @@ import TextInput from './TextInput';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {logInUser} from './sessionActions';
-import {Card} from 'reactstrap';
 
 export class LogInPage extends Component {
   constructor(props) {
