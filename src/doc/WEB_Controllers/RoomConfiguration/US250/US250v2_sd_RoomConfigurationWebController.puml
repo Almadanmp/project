@@ -27,37 +27,19 @@ skinparam component {
 title US250 - As an Administrator, I want to get a list of all sensors in a room, so that I can configure them.
 autonumber
 actor "HTTP Client"
-"HTTP Client"  -> ":SpringResolver":  Request Post at ".../areas/{id}/sensors"
-":SpringResolver" -> ":SensorSettingsWebController": createAreaSensor\n(@RequestBody AreaSensorDTO areaSensorDTO, \n@PathVariable long id)
+"HTTP Client"  -> ":SpringResolver":  Request GET at ".../rooms/{id}/sensors"
+":SpringResolver" -> ":RoomConfigurationWebController": retrieveAllSensors\n(@PathVariable String id)
 activate ":SpringResolver"
-activate ":SensorSettingsWebController"
-alt Try
-":SensorSettingsWebController" -> ":GeographicAreaRepository": GeographicAreaDTO geographicAreaDTO = getDTOById(id)
-activate ":GeographicAreaRepository"
-":GeographicAreaRepository" ->> "GeographicAreaCrudRepository": GeographicArea geographicArea = getById(id)
-activate "GeographicAreaCrudRepository"
-deactivate "GeographicAreaCrudRepository"
-deactivate ":GeographicAreaRepository"
-else Fail
-":SensorSettingsWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.NOT_FOUND)
-":SpringResolver" -->> "HTTP Client": Http Status: 404 - Not Found
-end
-alt Try
-":SensorSettingsWebController" -> ":GeographicAreaRepository": addSensorDTO(geographicAreaDTO, areaSensorDTO)
-activate ":GeographicAreaRepository"
-deactivate ":GeographicAreaRepository"
-else Sucess
-":SensorSettingsWebController" -> ":GeographicAreaRepository": updateAreaDTO(geographicAreaDTO)
-activate ":GeographicAreaRepository"
-":GeographicAreaRepository" -> "GeographicAreaCrudRepository": save(GeographicArea)
-activate "GeographicAreaCrudRepository"
-deactivate "GeographicAreaCrudRepository"
-deactivate ":GeographicAreaRepository"
-":SensorSettingsWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.CREATED)
-":SpringResolver" -->> "HTTP Client": Http Status: 201 - Created
-else  Failure
-":SensorSettingsWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.CONFLICT)
-":SpringResolver" -->> "HTTP Client": Http Status: 409 - Conflict
-deactivate ":SensorSettingsWebController"
-end
+activate ":RoomConfigurationWebController"
+":RoomConfigurationWebController" -> ":RoomRepository": RoomDTO roomDTO = getRoomDTOByName(String name)
+activate ":RoomRepository"
+":RoomRepository" ->> "RoomCrudRepository": Room room = findById(id)
+activate "RoomCrudRepository"
+deactivate "RoomCrudRepository"
+deactivate ":RoomRepository"
+":RoomConfigurationWebController" -> ":RoomRepository": List<RoomSensorDTOMinimal> roomSensorDTOList = getSensorDTOMinimalistList()
+":RoomConfigurationWebController" --> ":SpringResolver": ResponseEntity<>(HttpStatus.OK)
+":SpringResolver" -->> "HTTP Client": Http Status: 200 - O.K
+deactivate ":RoomConfigurationWebController"
+
 @enduml
