@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.project.io.ui;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.boot.SpringApplication;
