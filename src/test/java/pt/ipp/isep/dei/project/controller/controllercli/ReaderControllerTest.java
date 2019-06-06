@@ -344,9 +344,9 @@ class ReaderControllerTest {
         readingDTO2.setDate(validDate3);
         readingDTOS.add(readingDTO2);
 
-        Mockito.when(geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath)).thenReturn(2);
+        Mockito.when(geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS)).thenReturn(2);
         // Act
-        int actualResult = readerController.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath, geographicAreaRepository);
+        int actualResult = readerController.addReadingsToGeographicAreaSensors(readingDTOS, geographicAreaRepository);
 
         // Assert
 
@@ -374,8 +374,8 @@ class ReaderControllerTest {
         readingDTOS.add(readingDTO2);
 
         //Act
-        Mockito.when(geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath)).thenReturn(2);
-        int actualResult = readerController.addReadingsToGeographicAreaSensors(readingDTOS, validLogPath, geographicAreaRepository);
+        Mockito.when(geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS)).thenReturn(2);
+        int actualResult = readerController.addReadingsToGeographicAreaSensors(readingDTOS, geographicAreaRepository);
 
         //Assert
 

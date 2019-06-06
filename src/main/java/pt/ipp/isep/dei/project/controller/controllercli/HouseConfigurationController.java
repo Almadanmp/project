@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.controller.controllercli;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.RoomSensorDTO;
 import pt.ipp.isep.dei.project.dto.mappers.RoomSensorMapper;
 import pt.ipp.isep.dei.project.io.ui.reader.JSONSensorsReader;
@@ -15,17 +14,16 @@ import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
- * Controller class for House Configuration UI
+ * Controller class for House Configuration
  */
 
 @Service
 public class HouseConfigurationController {
-    private static final String VALID_LOG_PATH = "resources/logs/sensorsImportHtml.html";
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HouseConfigurationController.class);
+
     @Autowired
     RoomRepository roomRepository;
     @Autowired
@@ -150,7 +148,6 @@ public class HouseConfigurationController {
      */
 
     int[] addSensorsToModelRooms(List<RoomSensorDTO> importedSensors) {
-        Logger logger = LogUtils.getLogger("sensorsImportLogger", VALID_LOG_PATH, Level.FINE); // Creates the logger for when things go wrong.
         int addedSensors = 0;
         int rejectedSensors = 0;
         for (RoomSensorDTO importedSensor : importedSensors) {
@@ -161,16 +158,14 @@ public class HouseConfigurationController {
                 roomRepository.updateRoom(aux);
                 addedSensors++;
             } else {
-                logger.fine("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
+                logger.debug("The sensor " + importedSensor.getId() + " wasn't added to room " + importedSensor.getRoomID()
                         + " - there is no room with that ID.");
-                LogUtils.closeHandlers(logger);
                 rejectedSensors++;
             }
         }
         int[] result = new int[2];
         result[0] = addedSensors;
         result[1] = rejectedSensors;
-        LogUtils.closeHandlers(logger);
         return result;
     }
 }

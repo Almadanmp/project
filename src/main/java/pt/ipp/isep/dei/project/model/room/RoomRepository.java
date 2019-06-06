@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
@@ -16,8 +15,6 @@ import pt.ipp.isep.dei.project.model.device.DeviceList;
 import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Rooms in a House.
@@ -25,6 +22,7 @@ import java.util.logging.Logger;
 @Service
 public class RoomRepository {
 
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(RoomRepository.class);
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
@@ -413,12 +411,11 @@ public class RoomRepository {
      **/
     public int addReadingsToRoomSensors(List<ReadingDTO> readingDTOS, String logPath) {
         List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
-        Logger logger = LogUtils.getLogger("houseReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         List<String> sensorIds = ReadingUtils.getSensorIDs(readings);
         for (String sensorID : sensorIds) {
             List<Reading> subArray = ReadingUtils.getReadingsBySensorID(sensorID, readings);
-            addedReadings += addRoomReadings(sensorID, subArray, logger);
+            addedReadings += addRoomReadings(sensorID, subArray);
         }
         return addedReadings;
     }
@@ -430,20 +427,18 @@ public class RoomRepository {
      *
      * @param sensorID a string of the sensor ID
      * @param readings a list of readings to be added to the given sensor
-     * @param logger   logger
      * @return the number of readings added
      **/
-    int addRoomReadings(String sensorID, List<Reading> readings, Logger logger) {
+    int addRoomReadings(String sensorID, List<Reading> readings) {
         int addedReadings = 0;
         try {
             Room room = getRoomContainingSensorWithGivenId(sensorID);
             RoomSensor roomSensor = room.getRoomSensorByID(sensorID);
-            addedReadings = addReadingsToRoomSensor(roomSensor, readings, logger);
+            addedReadings = addReadingsToRoomSensor(roomSensor, readings);
             roomCrudRepo.save(room);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
-                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
-                LogUtils.closeHandlers(logger);
+                logger.debug(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.");
             }
         }
         return addedReadings;
@@ -477,21 +472,18 @@ public class RoomRepository {
      *
      * @param roomSensor given Room Sensor
      * @param readings   list of readings to be added to the given Room Sensor
-     * @param logger     logger
      * @return number of readings added to the Room Sensor
      **/
-    int addReadingsToRoomSensor(RoomSensor roomSensor, List<Reading> readings, Logger logger) {
+    int addReadingsToRoomSensor(RoomSensor roomSensor, List<Reading> readings) {
         int addedReadings = 0;
         for (Reading r : readings) {
             Date readingDate = r.getDate();
             if (roomSensor.readingWithGivenDateExists(readingDate)) {
-                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
+                logger.debug(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because it already exists.");
-                LogUtils.closeHandlers(logger);
             } else if (!roomSensor.activeDuringDate(readingDate)) {
-                logger.fine(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
+                logger.debug(THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + roomSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.");
-                LogUtils.closeHandlers(logger);
             } else {
                 roomSensor.addReading(r);
                 addedReadings++;
