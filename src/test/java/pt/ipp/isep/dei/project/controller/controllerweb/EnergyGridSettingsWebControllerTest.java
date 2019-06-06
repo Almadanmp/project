@@ -287,43 +287,6 @@ class EnergyGridSettingsWebControllerTest {
 //    }
 
     @Test
-    void seeIfDeleteRoomFromGridWorks() throws Exception {
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
-
-        Mockito.doReturn(true).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
-
-        this.mockMvc.perform(delete("/gridSettings/grids/B building/B106")).andExpect(status().isOk());
-    }
-
-    @Test
-    void seeIfDeleteRoomFromGridWorksInvalidGrid() throws Exception {
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
-
-        Mockito.doThrow(NoSuchElementException.class).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
-
-        this.mockMvc.perform(delete("/gridSettings/grids/invalid")
-                .contentType(MediaType.TEXT_PLAIN)
-                .content("invalid"))
-                .andExpect(status().isMethodNotAllowed()
-                );
-    }
-
-    @Test
-    void seeIfDeleteRoomFromGridWorksInvalidRoom() throws Exception {
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(energyGridSettingsWebController).build();
-
-        Mockito.doReturn(false).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
-
-        this.mockMvc.perform(delete("/gridSettings/grids/invalid")
-                .contentType(MediaType.TEXT_PLAIN)
-                .content("invalid"))
-                .andExpect(status().isMethodNotAllowed());
-    }
-
-    @Test
     void seeIfDetachRoomFromGrid() {
 
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
