@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;

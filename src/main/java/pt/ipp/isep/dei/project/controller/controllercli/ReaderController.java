@@ -113,12 +113,11 @@ public class ReaderController {
      * in the given geographic area from the repository.
      *
      * @param readingDTOS              a list of reading DTOs
-     * @param logPath                  M  string of a log file path
      * @param geographicAreaRepository service
      * @return the number of readings added
      **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath, GeographicAreaRepository geographicAreaRepository) {
-        return geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, logPath);
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, GeographicAreaRepository geographicAreaRepository) {
+        return geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS);
     }
 
     /**

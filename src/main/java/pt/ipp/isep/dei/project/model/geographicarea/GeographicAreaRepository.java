@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.controller.controllercli.utils.LogUtils;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
@@ -15,8 +14,6 @@ import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.repository.GeographicAreaCrudRepo;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class that groups a number of Geographical Areas.
@@ -26,6 +23,8 @@ public class GeographicAreaRepository {
     private static final String BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(GeographicAreaRepository.class);
+
     @Autowired
     private GeographicAreaCrudRepo geographicAreaCrudRepo;
 
@@ -283,17 +282,15 @@ public class GeographicAreaRepository {
      * in the given geographic area from the repository.
      *
      * @param readingDTOS a list of readings
-     * @param logPath     string of a log file path
      * @return the number of readings added
      **/
-    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS, String logPath) {
+    public int addReadingsToGeographicAreaSensors(List<ReadingDTO> readingDTOS) {
         List<Reading> readings = ReadingMapper.readingDTOsToReadings(readingDTOS);
-        Logger logger = LogUtils.getLogger("areaReadingsLogger", logPath, Level.FINE);
         int addedReadings = 0;
         List<String> sensorIds = ReadingUtils.getSensorIDs(readings);
         for (String sensorID : sensorIds) {
             List<Reading> subArray = ReadingUtils.getReadingsBySensorID(sensorID, readings);
-            addedReadings += addAreaReadings(sensorID, subArray, logger);
+            addedReadings += addAreaReadings(sensorID, subArray);
         }
         return addedReadings;
     }
@@ -305,21 +302,19 @@ public class GeographicAreaRepository {
      *
      * @param sensorID a string of the sensor ID
      * @param readings a list of readings to be added to the given sensor
-     * @param logger   logger
      * @return the number of readings added
      **/
-    int addAreaReadings(String sensorID, List<Reading> readings, Logger logger) {
+    int addAreaReadings(String sensorID, List<Reading> readings) {
         int addedReadings = 0;
         try {
             GeographicArea geographicArea = getGeographicAreaContainingSensorWithGivenId(sensorID);
             AreaSensor areaSensor = geographicArea.getAreaSensorByID(sensorID);
-            addedReadings = addReadingsToAreaSensor(areaSensor, readings, logger);
+            addedReadings = addReadingsToAreaSensor(areaSensor, readings);
             geographicAreaCrudRepo.save(geographicArea);
         } catch (IllegalArgumentException ill) {
             for (Reading r : readings) {
                 String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " wasn't added because a sensor with the ID " + r.getSensorID() + " wasn't found.";
-                logger.fine(message);
-                LogUtils.closeHandlers(logger);
+                logger.debug(message);
             }
         }
         return addedReadings;
@@ -353,23 +348,20 @@ public class GeographicAreaRepository {
      *
      * @param areaSensor given Area Sensor
      * @param readings   list of readings to be added to the given Area Sensor
-     * @param logger     logger
      * @return number of readings added to the Area Sensor
      **/
-    int addReadingsToAreaSensor(AreaSensor areaSensor, List<Reading> readings, Logger logger) {
+    int addReadingsToAreaSensor(AreaSensor areaSensor, List<Reading> readings) {
         int addedReadings = 0;
         for (Reading r : readings) {
             Date readingDate = r.getDate();
             if (areaSensor.readingWithGivenDateExists(readingDate)) {
                 String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + areaSensor.getId() + " wasn't added because it already exists.";
-                logger.fine(message);
-                LogUtils.closeHandlers(logger);
+                logger.debug(message);
             } else if (!areaSensor.activeDuringDate(readingDate)) {
                 String message = THE_READING + r.getValue() + " " + r.getUnit() + FROM + r.getDate() + " with a sensor ID "
                         + areaSensor.getId() + " wasn't added because the reading is from before the sensor's starting date.";
-                logger.fine(message);
-                LogUtils.closeHandlers(logger);
+                logger.debug(message);
             } else {
                 areaSensor.addReading(r);
                 addedReadings++;

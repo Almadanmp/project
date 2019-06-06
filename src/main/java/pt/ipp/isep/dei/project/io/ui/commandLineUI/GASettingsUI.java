@@ -463,7 +463,7 @@ class GASettingsUI {
     }
 
     private int addReadingsToAreaSensors(List<ReadingDTO> readings) {
-        return readerController.addReadingsToGeographicAreaSensors(readings, "resources/logs/areaReadingsHtml.html", geographicAreaRepository);
+        return readerController.addReadingsToGeographicAreaSensors(readings, geographicAreaRepository);
     }
 
 

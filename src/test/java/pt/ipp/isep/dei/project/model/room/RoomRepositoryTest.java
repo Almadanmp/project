@@ -396,7 +396,7 @@ class RoomRepositoryTest {
         //
         // Act
 
-        int actualResult = validRoomRepository.addRoomReadings("invalidSensor", readings, logger);
+        int actualResult = validRoomRepository.addRoomReadings("invalidSensor", readings);
 
         // Assert
 
@@ -422,7 +422,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        int actualResult = validRoomRepository.addRoomReadings("T32875", readings, logger);
+        int actualResult = validRoomRepository.addRoomReadings("T32875", readings);
 
         // Assert
 
@@ -442,7 +442,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings);
 
         // Assert
 
@@ -462,7 +462,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings);
 
         // Assert
 
@@ -484,7 +484,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings);
 
         // Assert
 
@@ -502,7 +502,7 @@ class RoomRepositoryTest {
 
         // Act
 
-        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings, logger);
+        int actualResult = validRoomRepository.addReadingsToRoomSensor(firstValidRoomSensor, readings);
 
         // Assert
 

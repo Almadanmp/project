@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
@@ -26,7 +25,6 @@ import pt.ipp.isep.dei.project.repository.GeographicAreaCrudRepo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +36,6 @@ class GeographicAreaRepositoryTest {
 
     // Common testing artifacts for this class.
 
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     @Mock
     GeographicAreaCrudRepo geographicAreaCrudRepo;
@@ -173,7 +170,7 @@ class GeographicAreaRepositoryTest {
 
         //Act
 
-        int actualResult = geographicAreaRepository.addAreaReadings("invalidSensor", readings, logger);
+        int actualResult = geographicAreaRepository.addAreaReadings("invalidSensor", readings);
 
         // Assert
 
@@ -198,7 +195,7 @@ class GeographicAreaRepositoryTest {
 
         //Act
 
-        int actualResult = geographicAreaRepository.addAreaReadings("SensorOne", readings, logger);
+        int actualResult = geographicAreaRepository.addAreaReadings("SensorOne", readings);
 
         // Assert
 
@@ -217,7 +214,7 @@ class GeographicAreaRepositoryTest {
 
         //Act
 
-        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings);
 
         // Assert
 
@@ -236,7 +233,7 @@ class GeographicAreaRepositoryTest {
 
         //Act
 
-        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings);
 
         // Assert
 
@@ -257,7 +254,7 @@ class GeographicAreaRepositoryTest {
 
         //Act
 
-        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings);
 
         // Assert
 
@@ -274,7 +271,7 @@ class GeographicAreaRepositoryTest {
 
         //Act
 
-        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings, logger);
+        int actualResult = geographicAreaRepository.addReadingsToAreaSensor(firstValidAreaSensor, readings);
 
         // Assert
 
@@ -1062,7 +1059,7 @@ class GeographicAreaRepositoryTest {
             readingDTOS.add(ReadingMapper.objectToDTO(r));
         }
         //Act
-        int actualResult = geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS, "dumpFiles/dumpLogFile.html");
+        int actualResult = geographicAreaRepository.addReadingsToGeographicAreaSensors(readingDTOS);
         //Assert
         assertEquals(0, actualResult);
     }
