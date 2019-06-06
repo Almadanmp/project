@@ -140,6 +140,31 @@ class GeographicAreaHouseServiceTest {
     }
 
     @Test
+    void seeIfGetHouseAreaTemperatureWorks() {
+        //Arrange
+
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+
+        Reading mostRecent = new Reading(45D, validDate5, "C", "SensorThree");
+
+        validAreaSensor.addReading(mostRecent);
+        validAreaSensor.addReading(validReading1);
+
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+
+        // Act
+
+        double actualResult = geographicAreaHouseService.getHouseAreaTemperature();
+
+        // Assert
+
+        assertEquals(45D, actualResult, 0.01);
+    }
+
+
+    @Test
     void seeIfcategoryIIICalculusUS445Works() {
 
         // Act

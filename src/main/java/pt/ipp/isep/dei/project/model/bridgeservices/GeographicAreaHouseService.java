@@ -369,13 +369,6 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         }
     }
 
-    private void validateDateIntervalDTO(DateIntervalDTO dateIntervalDTO) {
-        if (!dateIntervalDTO.isValid()) {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
-        }
-    }
-
     /**
      * Assuming we give it the closest area sensor, this method returns the most recent temperature reading.
      *
@@ -383,8 +376,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      */
 
     public double getHouseAreaTemperature() {
-        AreaSensor closestSensor;
-        closestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
+        AreaSensor closestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         List<Reading> sensorReadings = closestSensor.getReadings();
         return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }
