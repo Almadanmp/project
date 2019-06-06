@@ -2,7 +2,6 @@ package pt.ipp.isep.dei.project.model.bridgeservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.io.ui.utils.DateUtils;
 import pt.ipp.isep.dei.project.model.Local;
@@ -369,13 +368,6 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
         }
     }
 
-    private void validateDateIntervalDTO(DateIntervalDTO dateIntervalDTO) {
-        if (!dateIntervalDTO.isValid()) {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
-        }
-    }
-
     /**
      * Assuming we give it the closest area sensor, this method returns the most recent temperature reading.
      *
@@ -383,8 +375,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      */
 
     public double getHouseAreaTemperature() {
-        AreaSensor closestSensor;
-        closestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
+        AreaSensor closestSensor = getClosestAreaSensorOfGivenType(TEMPERATURE);
         List<Reading> sensorReadings = closestSensor.getReadings();
         return ReadingUtils.getMostRecentReading(sensorReadings).getValue();
     }
