@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
+import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
@@ -31,6 +33,12 @@ public class EnergyGridSettingsWebController {
     @Autowired
     private EnergyGridRoomService energyGridRoomService;
 
+    @GetMapping(value = "/grids")
+    public @ResponseBody
+    List<EnergyGrid> getAllGrids() {
+        return energyGridRepository.getAllGrids();
+    }
+
     /* US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so that I can
      * attach/detach rooms from it.
      */
@@ -52,11 +60,11 @@ public class EnergyGridSettingsWebController {
      * consumption is included in that grid.
      */
     @PostMapping(value = "/grids/{energyGridId}")
-    public ResponseEntity<Object> attachRoomToGrid(@RequestBody String roomID, @PathVariable("energyGridId") String gridId) {
-        if (roomRepository.findRoomByID(roomID).isPresent()) {
+    public ResponseEntity<Object> attachRoomToGrid(@RequestBody RoomDTO roomDTO, @PathVariable("energyGridId") String gridId) {
+        if (roomRepository.findRoomByID(roomDTO.getName()).isPresent()) {
             try {
-                if (energyGridRoomService.attachRoomToGrid(roomID, gridId)) {
-                    RoomDTOMinimal roomDTOMinimal = energyGridRoomService.getMinimalRoomDTOById(gridId, roomID);
+                if (energyGridRoomService.attachRoomToGrid(roomDTO.getName(), gridId)) {
+                    RoomDTOMinimal roomDTOMinimal = energyGridRoomService.getMinimalRoomDTOById(gridId, roomDTO.getName());
                     return new ResponseEntity<>(roomDTOMinimal,
                             HttpStatus.OK);
                 }
@@ -94,7 +102,7 @@ public class EnergyGridSettingsWebController {
 
     @DeleteMapping(value = "/grids/{energyGridId}/{roomID}")
     public ResponseEntity<String> detachRoomFromGrid(@PathVariable("energyGridId") String
-            gridID, @PathVariable("roomID") String roomID) {
+                                                             gridID, @PathVariable("roomID") String roomID) {
         try {
             if (energyGridRoomService.removeRoomFromGrid(roomID, gridID)) {
                 return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);

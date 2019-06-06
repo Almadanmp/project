@@ -56,7 +56,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 //ADMIN User Access
-                .antMatchers("/LoginWebController/getUsers").permitAll()
                 .antMatchers("/houseSettings/**").hasRole(ADMIN)
                 .antMatchers("/houseSettings/houseRooms").hasRole(ADMIN)
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
@@ -78,13 +77,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    //    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", new CorsConfiguration().setAllowedHeaders(Arrays.asList("*");
-//        ).applyPermitDefaultValues());
-//        return source;
-//    }
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
