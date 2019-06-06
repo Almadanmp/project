@@ -12,14 +12,20 @@ class US253Post extends Component {
 
 
   componentDidMount() {
+    const token = localStorage.getItem('loginToken')
     const sensorId = this.props.sensorId;
     const name = this.props.name;
     const dateStartedFunctioning = this.props.dateStartedFunctioning;
     const typeSensor = this.props.typeSensor;
     console.log(this.props);
-    fetch('http://localhost:9898/roomConfiguration/rooms/' + this.props.roomID + '/sensors', {
+    fetch('https://localhost:8443/roomConfiguration/rooms/' + this.props.roomID + '/sensors', {
       method: 'post',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Authorization': token,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({sensorId, name, dateStartedFunctioning, typeSensor})
     })
       .then(res => res.json())
