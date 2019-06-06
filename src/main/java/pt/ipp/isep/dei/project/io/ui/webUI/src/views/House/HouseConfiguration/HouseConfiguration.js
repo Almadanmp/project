@@ -9,7 +9,7 @@ import US105 from "./US105";
 
 
 
-class Example extends Component {
+class HouseConfiguration extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -37,4 +37,4 @@ class Example extends Component {
   }
 }
 
-export default Example;
+export default HouseConfiguration;

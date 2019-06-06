@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Collapse, Button, CardBody, Card, Form, FormGroup, Label, Input} from 'reactstrap';
-import US108Select from "./US109Redux/US108Select";
+import US108Select from "./US109/US108Select";
 
 class US109 extends Component {
   constructor(props) {
