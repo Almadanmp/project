@@ -8,14 +8,20 @@ class US145Select extends Component {
     super(props);
     this.state = {
       item: [],
-      isLoaded: false,
+      isLoaded: true,
       value: ''
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    fetch('http://localhost:9898/gridSettings/grids')
+    const token = localStorage.getItem('loginToken')
+    var myInit = {headers: {
+        'Authorization': token,
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"}};
+    fetch('https://localhost:8443/gridSettings/grids', myInit)
       .then(res => res.json())
       .then((json) => {
         this.setState({
