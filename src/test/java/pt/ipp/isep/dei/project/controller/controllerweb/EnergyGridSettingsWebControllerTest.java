@@ -23,6 +23,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
+import pt.ipp.isep.dei.project.model.room.Room;
 import pt.ipp.isep.dei.project.model.room.RoomRepository;
 
 import java.util.ArrayList;
@@ -321,4 +322,30 @@ class EnergyGridSettingsWebControllerTest {
                 .content("invalid"))
                 .andExpect(status().isMethodNotAllowed());
     }
+
+    @Test
+    void seeIfDetachRoomFromGrid() {
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
+        Room room = new Room("name", "description", 1, 10, 4, 3, "01");
+        validGrid.addRoomId(room.getId());
+
+        Mockito.doReturn(false).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
+
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(validGrid.getName(),room.getId());
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+
+
+
+
+
+
+
+
+
+    }
+
 }
