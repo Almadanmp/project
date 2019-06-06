@@ -29,9 +29,6 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-md-down-none"  />
 
         <Nav align-items="left" className="d-md-down-none" navbar>
-          <NavItem className="px-3">
-            <NavLink to="/dashboard" className="nav-link" >Home Page</NavLink>
-          </NavItem>
         </Nav>
 
 
