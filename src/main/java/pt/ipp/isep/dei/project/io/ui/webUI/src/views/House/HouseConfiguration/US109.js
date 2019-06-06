@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card, Form, FormGroup, Label, Input, CardHeader, ListGroup} from 'reactstrap';
-import US109Redux from "./US109Redux/US109Redux";
-import US108Select from "../../Room/RoomConfiguration/US250/US108Select";
-import US250Button from "../../Room/RoomConfiguration/US250/US250Button";
-import US108Redux from "./US108Redux/US108Redux";
+import {Collapse, Button, CardBody, Card, Form, FormGroup, Label, Input} from 'reactstrap';
+import US108Select from "./US109Redux/US108Select";
 
 class US109 extends Component {
   constructor(props) {
@@ -35,37 +32,28 @@ class US109 extends Component {
   }
 
   toggle() {
-    this.setState(state => ({ collapse: !state.collapse }));
+    this.setState(state => ({collapse: !state.collapse}));
   }
 
   render() {
 
-    var {isLoaded, item} = this.state;
+    var {isLoaded} = this.state;
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
       return (
         <div>
           <div>
-            <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the configuration of an existing room. (US109)</Button>
+            <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the
+              configuration of an existing room. (US109)</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>
                   <Form action="" method="post">
                     <FormGroup>
-                      <Label>Select Room</Label>
-                      <Input type="select" name="select" id="select" value={this.state.value}
-                             onChange={this.handleChange}>
-                        <option value="0" onChange={this.handleChange}>Please select</option>
-                        {item.map(items => (
-                          <option value={items.name} key={items.name}>
-                            Name: {items.name}
-                          </option>
-                        ))}
-                      </Input>
+                      <US108Select/>
                     </FormGroup>
                   </Form>
-                  <US109Redux roomID={this.state.value}/>
                 </CardBody>
               </Card>
             </Collapse>
