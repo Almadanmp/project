@@ -1,9 +1,10 @@
 import React from 'react';
 
 
+
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
-const About  = React.lazy(() => import('./views/Pages/About'));
-const LogInPage = React.lazy(()=> import('./login/LogInPage'));
+
+
 const HouseMonitoring = React.lazy(()=> import('./views/House/HouseMonitoring/HouseMonitoring'))
 const RoomMonitoring = React.lazy(()=> import('./views/Room/RoomMonitoring/RoomMonitoring'))
 const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration/RoomConfiguration'))
@@ -16,7 +17,6 @@ const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'House' },
-  { path: '/login/LogInPage', name: 'Login', component: LogInPage },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/house/monitoring', name: 'House Monitoring', component: HouseMonitoring },
   { path: '/room/monitoring', name: 'Room Monitoring', component: RoomMonitoring },
@@ -25,9 +25,6 @@ const routes = [
   { path: '/maintenance', name: 'UnderMaintenance', component: UnderMaintenance },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
-
-  //Pages
-  { path: '/about', name: 'About', component: About },
 ];
 
 export default routes;
