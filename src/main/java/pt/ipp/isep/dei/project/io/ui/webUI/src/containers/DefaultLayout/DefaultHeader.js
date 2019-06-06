@@ -24,11 +24,11 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-lg-none" display="inline-block" mobile />
         <AppSidebarToggler className="d-md-down-none"  />
         <AppNavbarBrand
-          full={{ src: logo, width: 100, height: 100, alt: 'SmartHome Logo' }}
-          minimized={{ src: sygnet, width: 60, height: 60, alt: 'SmartHome Logo' }}
+          full={{ src:'https://imgur.com/rf2xy6y.png', width: 130, height: 50, alt: 'SmartHome Logo' }}
+          minimized={{ src: 'https://imgur.com/rf2xy6y.png', width: 60, height: 60, alt: 'SmartHome Logo' }}
         />
-        <img src="https://imgur.com/ppSoEr1.png" align="right" width={100} height={20}/>
-        <Nav align-items="left" className="d-md-down-none" navbar>
+
+        <Nav className="d-md-down-none" >
         </Nav>
 
 
