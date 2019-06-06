@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.device.Device;
 import pt.ipp.isep.dei.project.model.device.Fridge;
@@ -77,6 +79,105 @@ class EnergyGridRoomServiceTest {
         EnergyGrid validGrid2 = new EnergyGrid("FirstGrid", 400D, "34576");
         Room validRoom2 = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
         energyGridRoomService.addRoom(validGrid2, validRoom2);
+    }
+
+    @Test
+    void seeIfGetRoomDTOMinimalByIdWorksWhenRoomDoesNotExitInGrid() {
+        // Act
+
+        validGrid.addRoomId("validRoom2");
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+        RoomDTOMinimal validDTO1 = RoomMinimalMapper.objectToDtoWeb(validRoom);
+        RoomDTOMinimal validDTO2 = RoomMinimalMapper.objectToDtoWeb(validRoom2);
+
+        List<RoomDTOMinimal> list = new ArrayList<>();
+        list.add(validDTO1);
+        list.add(validDTO2);
+
+        List<Room> list2 = new ArrayList<>();
+        list2.add(validRoom);
+        list2.add(validRoom2);
+
+
+        Mockito.when(energyGridRepository.getById("Primary Grid")).thenReturn(validGrid);
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list2);
+
+
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list2);
+
+        //Act
+
+        RoomDTOMinimal actualResult = energyGridRoomService.getMinimalRoomDTOById("Primary Grid", "invalid Room");
+
+        // Assert
+
+        assertNull(actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomDTOMinimalByIdWorks() {
+        // Act
+
+        validGrid.addRoomId("validRoom2");
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+        RoomDTOMinimal validDTO1 = RoomMinimalMapper.objectToDtoWeb(validRoom);
+        RoomDTOMinimal validDTO2 = RoomMinimalMapper.objectToDtoWeb(validRoom2);
+
+        List<RoomDTOMinimal> list = new ArrayList<>();
+        list.add(validDTO1);
+        list.add(validDTO2);
+
+        List<Room> list2 = new ArrayList<>();
+        list2.add(validRoom);
+        list2.add(validRoom2);
+
+
+        Mockito.when(energyGridRepository.getById("Primary Grid")).thenReturn(validGrid);
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list2);
+
+
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list2);
+
+        //Act
+
+        RoomDTOMinimal actualResult = energyGridRoomService.getMinimalRoomDTOById("Primary Grid", "validRoom2");
+
+        // Assert
+
+        assertEquals(validDTO2, actualResult);
+    }
+
+    @Test
+    void seeIfGetRoomDTOMinimalInGridWorks() {
+        // Act
+
+        Room validRoom2 = new Room("validRoom2", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+        RoomDTOMinimal validDTO1 = RoomMinimalMapper.objectToDtoWeb(validRoom);
+        RoomDTOMinimal validDTO2 = RoomMinimalMapper.objectToDtoWeb(validRoom2);
+
+        List<RoomDTOMinimal> list = new ArrayList<>();
+        list.add(validDTO1);
+        list.add(validDTO2);
+
+        List<Room> list2 = new ArrayList<>();
+        list2.add(validRoom);
+        list2.add(validRoom2);
+
+
+        Mockito.when(energyGridRepository.getById("Primary Grid")).thenReturn(validGrid);
+        validGrid.addRoomId("validRoom2");
+
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list2);
+
+        //Act
+
+        List<RoomDTOMinimal> actualResult = energyGridRoomService.getRoomsDtoWebInGrid("Primary Grid");
+
+        // Assert
+
+        assertEquals(list, actualResult);
     }
 
     @Test
@@ -502,8 +603,6 @@ class EnergyGridRoomServiceTest {
 
         EnergyGrid nullList = new EnergyGrid("noDevices", 200D, "34576");
         EnergyGrid emptyList = new EnergyGrid("noDevices", 200D, "34576");
-        Room emptyRoom = new Room("Office", "2nd Floor Office", 2, 30, 30, 10, "Room1");
-
 
         //Act
 
@@ -517,6 +616,27 @@ class EnergyGridRoomServiceTest {
         assertTrue(actualResult1);
         assertFalse(actualResult2);
         assertTrue(actualResult3);
+    }
+
+    @Test
+    void seeIfIsDeviceListEmptyWorksWhenListIsEmpty() {
+        //Arrange
+
+        Room room1 = new Room("room1", "Single Bedroom", 19, 23456789, 5, 3, "Room1");
+
+        List<Room> list = new ArrayList<>();
+        list.add(room1);
+
+        Mockito.when(roomRepository.getAllRooms()).thenReturn(list);
+        validGrid.addRoomId("Office");
+
+        //Act
+
+        boolean actualResult = energyGridRoomService.isDeviceListEmpty(validGrid);
+
+        //Assert
+
+        assertTrue(actualResult);
     }
 
     @Test
