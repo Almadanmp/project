@@ -6,12 +6,17 @@ export const FETCH_RAINFALL_FAILURE = 'FETCH_RAINFALL_FAILURE';
 
 
 export const fetchTotalRainfallDay = ({ selectedDay }) => {
+  const token = localStorage.getItem('loginToken')
   return dispatch => {
     dispatch(fetchTotalRainfallStarted(selectedDay)); // antes de fazer o get, coloca o loading a true
     axios
-      .get(`http://localhost:9898/houseMonitoring/totalRainfall?date=`+selectedDay, {
-      })
-
+      .get(`https://localhost:8443/houseMonitoring/totalRainfall?date=`+selectedDay,  {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"}}
+      )
       .then(res => {
         dispatch(fetchTotalRainfallSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
