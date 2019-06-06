@@ -14,7 +14,7 @@ const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/', exact: true, name: 'House' },
+  { path: '/', exact: true, name: 'House'},
   { path: '/login', name: 'Login', component: LogInPage },
   { path: '/house/monitoring', name: 'House Monitoring', component: HouseMonitoring },
   { path: '/room/monitoring', name: 'Room Monitoring', component: RoomMonitoring },

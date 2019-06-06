@@ -107,4 +107,80 @@
    background-color: #d8cbc1;
  }
 
+.btn-primary {
+  color: #fff;
+  background-color: #d8c2a5;
+  border-color: #d8c2a5;
+}
 
+.btn-primary:hover {
+  color: #fff;
+  background-color: #d8b975;
+  border-color: #d8b975
+}
+
+primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #d8cbc1;
+  border-color: #d8cbc1;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+  box-shadow: 0 0 0 .2rem rgba(216, 203, 193, 0.5)
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #d8b975;
+  border-color: #d8b975
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #d8cbc1;
+  border-color: #d8cbc1
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem rgba(216, 185, 117, 0.5)
+}
+
+.flex-item{
+  display: inline-block;
+  flex-grow: 1;
+}
+
+.flex-logo{
+  position: absolute;
+  top: 18%;
+  height: 12%;
+  width: 11%;
+  left: 25%;
+ }
+
+.div {
+  position: absolute;
+  height: 200px;
+  width: 400px;
+  top: 38%;
+  right: 50%;
+  margin-right: 50px;
+}
+
+.second_div {
+   position: absolute;
+   top: 20%;
+   left: 50%;
+ }
+
+.first {
+  width: 800px;
+  float: left;
+  height: 200px;
+}
+
+.second {
+  width: 10px;
+  float: left;
+  height: 10px;
+}

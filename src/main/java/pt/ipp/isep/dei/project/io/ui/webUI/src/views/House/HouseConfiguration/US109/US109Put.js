@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class US109Put extends Component {
 
   constructor(props) {
@@ -9,7 +8,6 @@ class US109Put extends Component {
       item: [],
     }
   }
-
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken')
@@ -38,7 +36,6 @@ class US109Put extends Component {
       .catch(console.log);
   };
 
-
   render() {
     return (
       <div>
@@ -51,19 +48,17 @@ class US109Put extends Component {
             Floor: {this.props.floor}
             </li>
             <li>
-            Width: {this.props.width}
+            Width: {this.props.width} m
             </li>
             <li>
-            Length: {this.props.length}
+            Length: {this.props.length} m
             </li>
             <li>
-            Height: {this.props.height}
+            Height: {this.props.height} m
             </li>
           </ul>
       </div>
     );
-
-
   }
 }
 
