@@ -81,8 +81,8 @@ export default {
       icon: 'icon-star',
       children: [
         {
-          name: 'Login',
-          url: '/login',
+          name: 'About',
+          url: '/about',
           icon: 'icon-star',
         },
         {

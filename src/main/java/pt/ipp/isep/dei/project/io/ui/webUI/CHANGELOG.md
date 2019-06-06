@@ -159,7 +159,7 @@ It's important to use the same instance of the `react-router-dom v5` library wit
 - refactor(routes.js): code splitting with `React.lazy`, remove `react-loadable`
 - refactor(DefaultLayout): code splitting with `React.lazy` Aside, Footer, Header, routes 
 - refactor(Dashboard): tweak lazy and Suspense for Widget03 
-- refactor(Login): add router link to `Register` button 
+- refactor(About): add router link to `Register` button 
 - refactor(Register): add margins to social-media buttons  
 - chore: disable eslint warning for href="#" attribute
 - chore: update `@coreui/coreui` to `^2.1.1`
@@ -278,7 +278,7 @@ In most cases bumping the `react-scripts` version in `package.json` and running 
 
 ##### `v2.0.8`
 - fix(User): add missing unique key prop
-- fix(Login): add missing form and autoComplete
+- fix(About): add missing form and autoComplete
 - fix(Register): add missing form and autoComplete
 - chore: update `@coreui/react` to `2.0.5`
 - chore: update `bootstrap` to `4.1.3`

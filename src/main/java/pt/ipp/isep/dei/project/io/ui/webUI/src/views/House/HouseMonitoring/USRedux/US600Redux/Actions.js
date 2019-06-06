@@ -5,11 +5,18 @@ export const FETCH_T_SUCCESS = 'FETCH_T_SUCCESS';
 export const FETCH_T_FAILURE = 'FETCH_T_FAILURE';
 
 
-export function fetchTemp () {
+export function fetchTemp() {
+  const token = localStorage.getItem('loginToken')
   return dispatch => {
     dispatch(fetchTempStarted()); // antes de fazer o get, coloca o loading a true
     axios
-      .get(`http://localhost:9898/houseMonitoring/currentHouseAreaTemperature`)
+      .get(`https://localhost:8443/houseMonitoring/currentHouseAreaTemperature`, {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"}}
+      )
       .then(res => {
         dispatch(fetchTempSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
