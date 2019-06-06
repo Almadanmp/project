@@ -1,7 +1,5 @@
-import Page404 from './Page404';
-import Page500 from './Page500';
-import Register from './Register';
+
 import About from './About';
 export {
-  About, Page404, Page500, Register
+  About
 };

@@ -11,10 +11,10 @@ class About extends Component {
     return (
       <div className="app flex-row align-items-center">
         <Container>
-          <Row className="justify-content-center">
-            <Col md="6">
+          <Row className="justify-content-between">
+            <Col md="9">
               <div className="clearfix">
-                <h1 className="float-right display-3 mr-4">SmartHome      </h1>
+                <h1 className="float-left display-3 mr-4">SmartHome      </h1>
                 <h2 className="pt-3">       ABOUT</h2>
                 <p className="text-muted float-left"> People’s awareness about global warming and pure economic sense are powerful drivers for the current change
                   from a centralized electrical grid to the so-called Smart Grid.</p>
@@ -38,6 +38,7 @@ class About extends Component {
 
                 <p className="text-muted float-left">The system will gather information about energy consumption/production of devices with energy metering
                   and of the home as a whole. </p>
+                <img src="https://imgur.com/eG31t7B.png" width="900" height="400"/>
               </div>
             </Col>
           </Row>

@@ -54,7 +54,7 @@ class DefaultLayout extends Component {
                 <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar" alt="admin@bootstrapmaster.com" />
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
-                <DropdownItem><i className="fa fa-shield"></i> User: Admin</DropdownItem>
+                <DropdownItem><i className="fa fa-shield"></i> User: Regular User</DropdownItem>
                 <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
             </AppHeaderDropdown>
@@ -79,7 +79,7 @@ class DefaultLayout extends Component {
                         )} />
                     ) : (null);
                   })}
-                  <Redirect from="/" to="/dashboard" />
+                  <Redirect from="/" to="/about" />
                 </Switch>
               </Suspense>
             </Container>
