@@ -16,9 +16,9 @@ class TableBody extends Component {
           <tr key={todo.name}>
             <td>{todo.name}</td>
             <td>{todo.floor}</td>
-            <td>{todo.height}m</td>
-            <td>{todo.length}m</td>
-            <td>{todo.width}m</td>
+            <td>{todo.height}</td>
+            <td>{todo.length}</td>
+            <td>{todo.width}</td>
           </tr>
         ))}
         </tbody>

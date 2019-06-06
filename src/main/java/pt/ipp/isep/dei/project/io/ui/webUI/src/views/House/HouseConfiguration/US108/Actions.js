@@ -6,10 +6,16 @@ export const FETCH_GAS_FAILURE = 'FETCH_GAS_FAILURE';
 
 
 export function fetchGAs() {
+  const token = localStorage.getItem('loginToken')
   return dispatch => {
     dispatch(fetchGAsStarted()); // antes de fazer o get, coloca o loading a true
     axios
-      .get(`http://localhost:9898/houseSettings/houseRooms`)
+      .get(`https://localhost:8443/houseSettings/houseRooms`, {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"}})
       .then(res => {
         dispatch(fetchGAsSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
