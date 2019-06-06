@@ -4,10 +4,10 @@ import React from 'react';
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const About  = React.lazy(() => import('./views/Pages/About'));
 const LogInPage = React.lazy(()=> import('./login/LogInPage'));
-const HouseMonitoring = React.lazy(()=> import('./views/House/HouseMonitoring/HouseMonitoring'))
-const RoomMonitoring = React.lazy(()=> import('./views/Room/RoomMonitoring/RoomMonitoring'))
-const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration/RoomConfiguration'))
-const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/HouseConfiguration'))
+const HouseMonitoring = React.lazy(()=> import('./views/House/HouseMonitoring/HouseMonitoring'));
+const RoomMonitoring = React.lazy(()=> import('./views/Room/RoomMonitoring/RoomMonitoring'));
+const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration/RoomConfiguration'));
+const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/HouseConfiguration'));
 
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
@@ -16,7 +16,7 @@ const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'House' },
-  { path: '/login/LogInPage', name: 'Login', component: LogInPage },
+  { path: '/login', name: 'Login', component: LogInPage },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/house/monitoring', name: 'House Monitoring', component: HouseMonitoring },
   { path: '/room/monitoring', name: 'Room Monitoring', component: RoomMonitoring },

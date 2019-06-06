@@ -19,6 +19,7 @@ import {
 import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
+import {logout} from "../../logOut/logoutActions";
 
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
@@ -27,10 +28,11 @@ class DefaultLayout extends Component {
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
-  signOut(e) {
-    e.preventDefault()
-    this.props.history.push('/login')
-  }
+ signOut(e) {
+  e.preventDefault()
+  logout(e)
+   this.props.history.push('/login')
+ }
 
   render() {
     return (
@@ -53,7 +55,7 @@ class DefaultLayout extends Component {
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
                 <DropdownItem><i className="fa fa-shield"></i> User: Admin</DropdownItem>
-                <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
+                <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
             </AppHeaderDropdown>
             <AppSidebarFooter />
