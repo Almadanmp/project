@@ -287,7 +287,7 @@ class EnergyGridSettingsWebControllerTest {
 //    }
 
     @Test
-    void seeIfDetachRoomFromGrid() {
+    void seeIfDetachRoomFromGridFails() {
 
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
         Room room = new Room("name", "description", 1, 10, 4, 3, "01");
@@ -296,6 +296,51 @@ class EnergyGridSettingsWebControllerTest {
 
         Mockito.doReturn(false).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
 
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO,validGrid.getName());
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfDetachRoomFromGridWorks() {
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
+        Room room = new Room("name", "description", 1, 10, 4, 3, "01");
+        validGrid.addRoomId(room.getId());
+        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+
+        Mockito.doReturn(true).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
+
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO,validGrid.getName());
+
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfDetachRoomFromGridThrowsNoSuchElementException1() {
+
+        EnergyGrid validGrid = new EnergyGrid(null, 45D, "01");
+        Room room = new Room("name", "description", 1, 10, 4, 3, "01");
+        validGrid.addRoomId(room.getId());
+        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+
+        ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO,validGrid.getName());
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfDetachRoomFromGridThrowsNoSuchElementException2() {
+
+        EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
+        Room room = new Room(null, "description", 1, 10, 4, 3, "01");
+        validGrid.addRoomId(room.getId());
+        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
 
         ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO,validGrid.getName());
 
