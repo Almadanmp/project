@@ -12,7 +12,16 @@ class US605GetCurrentTemperature extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:9898/roomMonitoring/currentRoomTemperature/' + this.props.roomID)
+    const token = localStorage.getItem('loginToken')
+    fetch('https://localhost:8443/roomMonitoring/currentRoomTemperature/' + this.props.roomID, {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
+      }
+    )
       .then(res => res.json())
       .then((json) => {
         this.setState({
