@@ -32,7 +32,7 @@ export class LogInPage extends Component {
         //If the loggin is sucessfull the user gets redirected to its home page
         if (res.status === 200) {
 
-      this.props.history.replace('/home');
+      this.props.history.replace('/about');
 
         }
 
