@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_T_STARTED = 'FETCH_T_STARTED';
 export const FETCH_T_SUCCESS = 'FETCH_T_SUCCESS';
 export const FETCH_T_FAILURE = 'FETCH_T_FAILURE';
+export const FETCH_NON_AUTHORIZED = 'FETCH_NON_AUTHORIZED';
 
 
 export function fetchTemp() {
@@ -11,44 +12,59 @@ export function fetchTemp() {
     dispatch(fetchTempStarted()); // antes de fazer o get, coloca o loading a true
     axios
       .get(`https://localhost:8443/houseMonitoring/currentHouseAreaTemperature`, {
-        headers: {
-          'Authorization': token,
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"}}
+          headers: {
+            'Authorization': token,
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
+        }
       )
       .then(res => {
         dispatch(fetchTempSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        dispatch(fetchTempFailure(err.message));
+        if (err.response.status === 403) {
+          dispatch(fetchNonAuthorized(err.message))
+        }
+        else{
+        dispatch(fetchTempFailure(err.message));}
       });
 
   };
 }
 
-export function fetchTempStarted () {
+export function fetchTempStarted() {
   return {
     type: FETCH_T_STARTED
   }
 }
 
-export function fetchTempSuccess (data) { // cria uma açao
+export function fetchTempSuccess(data) { // cria uma açao
   return {
     type: FETCH_T_SUCCESS,
     payload: {
-     temp: data //passa o array com os dados
+      temp: data //passa o array com os dados
     }
   }
 }
 
-export function fetchTempFailure (message) {
-return {
-  type: FETCH_T_FAILURE,
-  payload: {
-    error: message
+export function fetchTempFailure(message) {
+  return {
+    type: FETCH_T_FAILURE,
+    payload: {
+      error: message
+    }
   }
 }
+
+export function fetchNonAuthorized() {
+  return {
+    type: FETCH_NON_AUTHORIZED,
+    payload: {
+      error: "Non-authorized user."
+    }
+  }
 }
 
 

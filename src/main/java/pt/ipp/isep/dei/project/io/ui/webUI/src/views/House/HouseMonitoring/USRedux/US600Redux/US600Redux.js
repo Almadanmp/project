@@ -27,6 +27,14 @@ class US600Redux extends Component {
            )
          }
          else{
+           if((temp.toString()).indexOf("ERROR") != -1){
+             return(
+               <div>
+                 <h4> {temp}
+                 </h4>
+               </div>
+             )
+           }
             return (
               <div>
                 <h4 key={temp}>
@@ -38,8 +46,6 @@ class US600Redux extends Component {
       }
       }
   }
-
-
 }
 
 const mapStateToProps = (state) => {

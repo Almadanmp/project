@@ -2,6 +2,7 @@ import {
   FETCH_T_STARTED,
   FETCH_T_SUCCESS,
   FETCH_T_FAILURE,
+  FETCH_NON_AUTHORIZED,
 
 } from './Actions'
 
@@ -34,9 +35,15 @@ export default function Reducers600 (state = initialstate, action) {
         ...state,
           loading: false,
           error: action.payload.error,
-          temp: 0
+          temp: "Default1"
       };
-
+    case FETCH_NON_AUTHORIZED:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+        temp: "ERROR: " + action.payload.error
+      };
     default:
       return state;
   }
