@@ -6,7 +6,7 @@ export const FETCH_RAINFALL_FAILURE = 'FETCH_RAINFALL_FAILURE';
 
 
 export const fetchTotalRainfallDay = ({ selectedDay }) => {
-  const token = localStorage.getItem('loginToken')
+  const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(fetchTotalRainfallStarted(selectedDay)); // antes de fazer o get, coloca o loading a true
     axios

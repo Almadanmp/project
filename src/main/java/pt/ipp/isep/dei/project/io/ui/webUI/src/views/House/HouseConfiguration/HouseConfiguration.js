@@ -7,8 +7,6 @@ import US147 from './US147'
 import US149 from './US149'
 import US105 from "./US105";
 
-
-
 class HouseConfiguration extends Component {
   constructor(props) {
     super(props);

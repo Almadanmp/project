@@ -15,27 +15,26 @@ class US109 extends Component {
 
   render() {
 
-      return (
+    return (
+      <div>
         <div>
-          <div>
-            <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the
-              configuration of an existing room. (US109)</Button>
-            <Collapse isOpen={this.state.collapse}>
-              <Card>
-                <CardBody>
-                  <Form action="" method="post">
-                    <FormGroup>
-                      <US108Select/>
-                    </FormGroup>
-                  </Form>
-                </CardBody>
-              </Card>
-            </Collapse>
-          </div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the
+            configuration of an existing room. (US109)</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
+                <Form action="" method="post">
+                  <FormGroup>
+                    <US108Select/>
+                  </FormGroup>
+                </Form>
+              </CardBody>
+            </Card>
+          </Collapse>
         </div>
-      );
-    }
+      </div>
+    );
   }
-
+}
 
 export default US109;

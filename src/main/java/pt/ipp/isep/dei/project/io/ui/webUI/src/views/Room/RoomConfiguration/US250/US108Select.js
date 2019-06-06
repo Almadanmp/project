@@ -15,7 +15,7 @@ class US108Select extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
+    const token = localStorage.getItem('loginToken');
     fetch('https://localhost:8443/houseSettings/houseRooms',{
         headers: {
           'Authorization': token,

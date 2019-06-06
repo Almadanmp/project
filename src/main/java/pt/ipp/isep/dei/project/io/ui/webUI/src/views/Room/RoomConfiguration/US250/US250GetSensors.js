@@ -12,7 +12,7 @@ class US250GetSensors extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
+    const token = localStorage.getItem('loginToken');
     fetch('https://localhost:8443/roomConfiguration/rooms/'+this.props.roomID+'/sensors',{
         headers: {
           'Authorization': token,

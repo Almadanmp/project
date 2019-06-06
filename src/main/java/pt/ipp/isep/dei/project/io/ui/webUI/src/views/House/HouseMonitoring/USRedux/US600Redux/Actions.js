@@ -7,7 +7,7 @@ export const FETCH_NON_AUTHORIZED = 'FETCH_NON_AUTHORIZED';
 
 
 export function fetchTemp() {
-  const token = localStorage.getItem('loginToken')
+  const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(fetchTempStarted()); // antes de fazer o get, coloca o loading a true
     axios

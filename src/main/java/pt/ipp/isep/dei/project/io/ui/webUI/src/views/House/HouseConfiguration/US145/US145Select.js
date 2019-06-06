@@ -10,18 +10,20 @@ class US145Select extends Component {
       item: [],
       isLoaded: true,
       value: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('loginToken')
-    var myInit = {headers: {
+    const token = localStorage.getItem('loginToken');
+    fetch('https://localhost:8443/gridSettings/grids', {
+      headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"}};
-    fetch('https://localhost:8443/gridSettings/grids', myInit)
+        "Content-Type": "application/json"
+      }
+    })
       .then(res => res.json())
       .then((json) => {
         this.setState({
@@ -45,13 +47,13 @@ class US145Select extends Component {
     } else {
       return (
         <div>
-          <Form action="" method="post" >
+          <Form action="" method="post">
             <FormGroup>
               <Label>Select Grid</Label>
               <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                 <option value="0" onChange={this.handleChange}>Please select</option>
                 {item.map(items => (
-                  <option value={items.name}  key={items.name}>
+                  <option value={items.name} key={items.name}>
                     Name: {items.name}
                   </option>
                 ))}

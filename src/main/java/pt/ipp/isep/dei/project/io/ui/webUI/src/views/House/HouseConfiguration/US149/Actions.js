@@ -6,11 +6,11 @@ export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
 export const fetchRoomFromGrid = ({roomID, gridID}) => {
-  const token = localStorage.getItem('loginToken')
+  const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchRoomFromGridInfo(roomID, gridID)); // antes de fazer o get, coloca o loading a true
+    dispatch(fetchRoomFromGridInfo(roomID, gridID));
     axios
-      .delete('https://localhost:8443/gridSettings/grids/'+gridID, //falta autorização
+      .delete('https://localhost:8443/gridSettings/grids/' + gridID,
         {
           headers: {
             'Authorization': token,
@@ -21,7 +21,7 @@ export const fetchRoomFromGrid = ({roomID, gridID}) => {
           data: {name: roomID}
         })
       .then(res => {
-        dispatch(fetchRoomFromGridInfoSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
+        dispatch(fetchRoomFromGridInfoSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchRoomFromGridInfoFailure(err.message));
@@ -40,7 +40,7 @@ export function fetchRoomFromGridInfo(roomID, gridID) {
   }
 }
 
-export function fetchRoomFromGridInfoSuccess(data) { // cria uma açao
+export function fetchRoomFromGridInfoSuccess(data) {
   return {
     type: REMOVE_GRID_ROOM_INFO_SUCCESS,
     payload: {

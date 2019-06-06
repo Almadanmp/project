@@ -18,11 +18,11 @@ export default class MyForm extends React.Component {
   getOneDay = () => {
     console.log("getInterval: " + JSON.stringify(this.props))
     this.props.getDays(this.state.selectedDay)
-  }
+  };
 
   handleDaysClick = () => {
     this.getOneDay();
-  }
+  };
   render() {
     const { selectedDay } = this.state;
     return (

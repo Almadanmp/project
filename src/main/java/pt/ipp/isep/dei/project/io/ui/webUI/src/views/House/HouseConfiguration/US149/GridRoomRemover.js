@@ -32,7 +32,8 @@ class GridRoomRemover extends React.Component {
       <>
         RoomID:<input value={this.state.roomID} type="text" name="roomID" onChange={this.handleInputChange('roomID')}/>
         GridID:<input value={this.state.gridID} type="text" name="grid" onChange={this.handleInputChange('gridID')}/>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove Room {roomID} from {gridID} Energy Grid</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove
+          Room {roomID} from {gridID} Energy Grid</Button>
       </>
     )
   }
