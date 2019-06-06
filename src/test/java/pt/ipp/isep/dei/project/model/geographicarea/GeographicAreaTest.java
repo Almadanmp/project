@@ -56,6 +56,38 @@ class GeographicAreaTest {
     }
 
     @Test
+    void seeIfRemoveChildAreaWorks() {
+        // Arrange
+
+        int listSize = 0;
+
+        firstValidArea.addChildArea(secondValidArea);
+
+        // Act
+
+        firstValidArea.removeChildArea(secondValidArea);
+
+        // Assert
+
+        assertEquals(listSize, firstValidArea.getChildAreas().size());
+    }
+
+    @Test
+    void seeIfRemoveChildAreaWorksWhenListIsEmpty() {
+        // Arrange
+
+        int listSize = 0;
+
+        // Act
+
+        firstValidArea.removeChildArea(secondValidArea);
+
+        // Assert
+
+        assertEquals(listSize, firstValidArea.getChildAreas().size());
+    }
+
+    @Test
     void seeIfIsAreaContainedWorksFalse() {
         // Arrange
         Long childID = 0L;
@@ -84,6 +116,7 @@ class GeographicAreaTest {
         // Arrange
         Long childID = 2L;
         List<GeographicArea> childAreas = new ArrayList<>();
+        childAreas.add(firstValidArea);
         childAreas.add(secondValidArea);
         firstValidArea.setChildAreas(childAreas);
 
@@ -768,6 +801,7 @@ class GeographicAreaTest {
     @Test
     void seeIfRemoveSensorWithId(){
 
+        firstValidArea.addSensor(secondValidAreaSensor);
         firstValidArea.addSensor(firstValidAreaSensor);
         firstValidAreaSensor.setId("id");
 
@@ -776,14 +810,6 @@ class GeographicAreaTest {
 
     @Test
     void seeIfRemoveSensorWithIdNoSensor(){
-
-        firstValidAreaSensor.setId("id");
-
-        assertFalse(firstValidArea.removeSensorWithID("id"));
-    }
-
-    @Test
-    void seeIfRemoveSensorWithIdDoNotContainSensor(){
 
         firstValidAreaSensor.setId("id");
 
@@ -809,6 +835,22 @@ class GeographicAreaTest {
         firstValidArea.addSensor(firstValidAreaSensor);
         firstValidAreaSensor.setActive(false);
         assertTrue(firstValidArea.deactivateSensor(firstValidAreaSensor));
+    }
+
+    @Test
+    void seeIfDeactivateSensorMakesItInactive(){
+        //Arrange
+
+        firstValidArea.addSensor(firstValidAreaSensor);
+
+        //Act
+
+        firstValidArea.deactivateSensor(firstValidAreaSensor);
+        boolean actualResult = firstValidAreaSensor.isActive();
+
+        //Assert
+
+        assertFalse(actualResult);
     }
 }
 
