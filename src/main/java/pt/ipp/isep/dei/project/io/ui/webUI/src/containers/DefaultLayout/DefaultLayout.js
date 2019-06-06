@@ -20,11 +20,13 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 import {logout} from "../../logOut/logoutActions";
+import {logInUser} from '../../login/sessionActions';
 
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
+
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -54,7 +56,6 @@ class DefaultLayout extends Component {
                 <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar" alt="admin@bootstrapmaster.com" />
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
-                <DropdownItem><i className="fa fa-shield"></i> User: Regular User</DropdownItem>
                 <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
             </AppHeaderDropdown>

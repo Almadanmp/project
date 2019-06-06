@@ -109,8 +109,8 @@
 
 .btn-primary {
   color: #fff;
-  background-color: #d8c2a5;
-  border-color: #d8c2a5;
+  background-color: #d8cbc1;
+  border-color: #d8cbc1
 }
 
 .btn-primary:hover {
@@ -145,6 +145,16 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
   box-shadow: 0 0 0 .2rem rgba(216, 185, 117, 0.5)
 }
 
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #d8cbc1;
+  border-color: #d8cbc1
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem rgba(216, 185, 117, 0.5)
+}
+
 .flex-item{
   display: inline-block;
   flex-grow: 1;
@@ -153,7 +163,7 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
 .flex-logo{
   position: absolute;
   top: 18%;
-  height: 12%;
+  height: 8%;
   width: 11%;
   left: 25%;
  }

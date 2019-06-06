@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {logInUser} from './sessionActions';
 import {Card} from 'reactstrap';
 
-
 export class LogInPage extends Component {
   constructor(props) {
     super(props);
@@ -45,13 +44,16 @@ export class LogInPage extends Component {
     const {credentials} = this.state;
     return (
       <>
-        <img src="https://i.imgur.com/WR4v97o.png" className="flex-logo"/>
-
+        <style>{'body { background-color: white; }'}</style>
+        <header>
+        <img src="https://imgur.com/rf2xy6y.png" className="flex-logo"/>
+        </header>
         <div className="first">
           <div className="div">
 
             <form>
               <TextInput
+                color="#e4e7ea"
                 name="username"
                 label="username"
                 type="text"
@@ -60,6 +62,7 @@ export class LogInPage extends Component {
                 onChange={this.onChange}/>
 
               <TextInput
+                background-color="#00000000"
                 name="password"
                 label="password"
                 type="password"
