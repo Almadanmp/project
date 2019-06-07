@@ -21,7 +21,7 @@ class HouseMonitoring extends Component {
 
       <div>
         <h2>Welcome to the House Monitoring Menu.</h2>
-        <h4>Please select the US you want to run.</h4>
+        <h4>Please select the option you want to run.</h4>
         <US600/>
         <US620/>
         <US630/>

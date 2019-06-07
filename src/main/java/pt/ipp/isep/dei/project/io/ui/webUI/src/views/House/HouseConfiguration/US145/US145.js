@@ -25,7 +25,7 @@ class US145 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}> Get a list of existing
-          rooms attached to a house grid. (US145)</Button>
+          rooms attached to a house grid.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
@@ -39,7 +39,7 @@ class US145 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}> Get a list of existing
-            rooms attached to a house grid. (US145)</Button>
+            rooms attached to a house grid.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

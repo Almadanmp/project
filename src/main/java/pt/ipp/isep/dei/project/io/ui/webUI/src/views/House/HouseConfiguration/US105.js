@@ -24,12 +24,9 @@ class US105 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new room to the
-          house. (US105)</Button>
+          house.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
-            <CardHeader>
-              <strong>US 105</strong>
-            </CardHeader>
             <CardBody>
               <RoomCreator/>
             </CardBody>
@@ -41,7 +38,7 @@ class US105 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new room to the
-            house. (US105)</Button>
+            house.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

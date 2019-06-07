@@ -23,7 +23,7 @@ class US605 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get Current Temperature
-          in a room. (US605)</Button>
+          in a room.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
@@ -37,7 +37,7 @@ class US605 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get Current Temperature
-            in a room. (US605)</Button>
+            in a room.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

@@ -18,7 +18,7 @@ class RoomConfiguration extends Component {
     return (
       <div>
         <h2>Welcome to the Room Configuration Menu.</h2>
-        <h4>Please select the US you want to run.</h4>
+        <h4>Please select the option you want to run.</h4>
         <US250/>
         <US253/>
       </div>

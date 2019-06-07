@@ -47,7 +47,7 @@ class US630 extends Component {
           <div>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                     style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
-              day (lower maximum temperature) in the house area in a given period. (US630)</Button>
+              day (lower maximum temperature) in the house area in a given period.</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>
@@ -62,7 +62,7 @@ class US630 extends Component {
           <div>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                     style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
-              day (lower maximum temperature) in the house area in a given period. (US630)</Button>
+              day (lower maximum temperature) in the house area in a given period.</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>

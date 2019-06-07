@@ -33,7 +33,7 @@ class US250 extends Component {
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to get a list
             of
-            all sensors in a room, so that I can configure them. (US250)</Button>
+            all sensors in a room, so that I can configure them. </Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
@@ -48,7 +48,7 @@ class US250 extends Component {
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to get a list
             of
-            all sensors in a room, so that I can configure them. (US250)</Button>
+            all sensors in a room, so that I can configure them. </Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

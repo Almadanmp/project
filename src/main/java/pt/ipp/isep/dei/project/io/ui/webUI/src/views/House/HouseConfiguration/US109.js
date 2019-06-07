@@ -19,7 +19,7 @@ if(localStorage.getItem("user").includes("admin"))
       <div>
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the
-            configuration of an existing room. (US109)</Button>
+            configuration of an existing room.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
@@ -39,7 +39,7 @@ else{
     <div>
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the
-          configuration of an existing room. (US109)</Button>
+          configuration of an existing room.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

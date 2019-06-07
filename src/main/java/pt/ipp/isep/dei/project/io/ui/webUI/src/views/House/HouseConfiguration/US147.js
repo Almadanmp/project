@@ -18,12 +18,9 @@ class US147 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Attach a room to a
-          house grid. (US147)</Button>
+          house grid.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
-            <CardHeader>
-              <strong>US 147</strong>
-            </CardHeader>
             <CardBody>
               <AttachRoomToGrid/>
             </CardBody>
@@ -35,7 +32,7 @@ class US147 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Attach a room to a
-            house grid. (US147)</Button>
+            house grid. </Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

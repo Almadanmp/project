@@ -44,7 +44,7 @@ class US620 extends Component {
           <div>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                     style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-              in the house area for a given day. (US620)</Button>
+              in the house area for a given day.</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>
@@ -60,7 +60,7 @@ class US620 extends Component {
             <div>
               <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                       style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-                in the house area for a given day. (US620)</Button>
+                in the house area for a given day.</Button>
               <Collapse isOpen={this.state.collapse}>
                 <Card>
                   <CardBody>
@@ -76,7 +76,7 @@ class US620 extends Component {
             <div>
               <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                       style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-                in the house area for a given day. (US620)</Button>
+                in the house area for a given day.</Button>
               <Collapse isOpen={this.state.collapse}>
                 <Card>
                   <CardBody>

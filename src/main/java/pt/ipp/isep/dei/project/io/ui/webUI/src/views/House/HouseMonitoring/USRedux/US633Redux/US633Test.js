@@ -47,7 +47,7 @@ class US633Test extends Component {
       return (
         <div>
           <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
-            highest temperature amplitude in the house area in a given period. (US633)</Button>
+            highest temperature amplitude in the house area in a given period.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
@@ -61,7 +61,7 @@ class US633Test extends Component {
         return (
           <div>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
-              highest temperature amplitude in the house area in a given period. (US633)</Button>
+              highest temperature amplitude in the house area in a given period.</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>

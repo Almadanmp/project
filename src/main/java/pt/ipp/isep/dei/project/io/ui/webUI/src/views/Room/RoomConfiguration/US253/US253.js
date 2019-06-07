@@ -18,7 +18,7 @@ class US253 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
-            sensor to a room from the list of available sensor types, in order to configure it. (US253)</Button>
+            sensor to a room from the list of available sensor types, in order to configure it.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
@@ -36,7 +36,7 @@ class US253 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
-            sensor to a room from the list of available sensor types, in order to configure it. (US253)</Button>
+            sensor to a room from the list of available sensor types, in order to configure it.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

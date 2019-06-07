@@ -24,7 +24,7 @@ class US108 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get a list of existing
-          rooms. (US108)</Button>
+          rooms.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardHeader>
@@ -43,7 +43,7 @@ class US108 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get a list of existing
-            rooms. (US108)</Button>
+            rooms.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

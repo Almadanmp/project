@@ -31,7 +31,7 @@ class US610 extends Component {
     const numberOfMonths = 1;
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the maximum temperature in a room in a given day. (US610)</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the maximum temperature in a room in a given day.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
@@ -47,7 +47,7 @@ class US610 extends Component {
     else{
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the maximum temperature in a room in a given day. (US610)</Button>
+          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the maximum temperature in a room in a given day.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

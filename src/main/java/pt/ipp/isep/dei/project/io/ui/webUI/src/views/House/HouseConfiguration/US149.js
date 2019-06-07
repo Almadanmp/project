@@ -24,12 +24,9 @@ class US149 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Remove a room from a
-          grid. (US149)</Button>
+          grid.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
-            <CardHeader>
-              <strong>US 149</strong>
-            </CardHeader>
             <CardBody>
               <GridRoomRemover/>
             </CardBody>
@@ -41,7 +38,7 @@ class US149 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Remove a room from a
-            grid. (US149)</Button>
+            grid.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

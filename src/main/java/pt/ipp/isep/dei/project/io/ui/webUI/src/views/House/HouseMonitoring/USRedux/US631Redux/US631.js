@@ -47,7 +47,7 @@ class US631 extends Component {
       return (
         <div>
           <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
-            day (higher maximum temperature) in the house area in a given period. (US631)</Button>
+            day (higher maximum temperature) in the house area in a given period.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
@@ -61,7 +61,7 @@ class US631 extends Component {
         return (
           <div>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
-              day (higher maximum temperature) in the house area in a given period. (US631)</Button>
+              day (higher maximum temperature) in the house area in a given period.</Button>
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>

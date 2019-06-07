@@ -18,7 +18,7 @@ class US600 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the current
-          temperature in the house area. (US600)</Button>
+          temperature in the house area.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

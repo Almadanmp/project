@@ -24,12 +24,9 @@ class US130 extends Component {
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Create a new house
-          grid. (US130)</Button>
+          grid.</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
-            <CardHeader>
-              <strong>US 130</strong>
-            </CardHeader>
             <CardBody>
               <EnergyGridCreator/>
             </CardBody>
@@ -41,7 +38,7 @@ class US130 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Create a new house
-            grid. (US130)</Button>
+            grid.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
