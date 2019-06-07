@@ -56,6 +56,7 @@ class DefaultLayout extends Component {
                 <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar" alt="admin@bootstrapmaster.com" />
               </DropdownToggle>
               <DropdownMenu right style={{ right: 'auto' }}>
+                <DropdownItem> User: {localStorage.getItem("user")}</DropdownItem>
                 <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
               </DropdownMenu>
             </AppHeaderDropdown>
