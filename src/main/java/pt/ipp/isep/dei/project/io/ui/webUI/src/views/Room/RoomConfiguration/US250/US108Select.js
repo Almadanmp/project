@@ -46,6 +46,7 @@ class US108Select extends Component {
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
+      if (!item.error) {
       return (
         <div>
           <Form action="" method="post" >
@@ -64,6 +65,9 @@ class US108Select extends Component {
           <US250Button roomID={this.state.value}/>
         </div>
       );
+      } else {
+        return "ERROR: Non-authorized user."
+      }
     }
   }
 }

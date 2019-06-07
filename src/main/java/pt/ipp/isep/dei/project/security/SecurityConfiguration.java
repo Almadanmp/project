@@ -55,9 +55,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                //get all rooms needs to be accessed by ADMIN and REGULAR so made it a permit all
+                .antMatchers("/houseSettings/houseRooms").permitAll()
                 //ADMIN User Access
-                .antMatchers("/houseSettings/**").hasRole(ADMIN)
-                .antMatchers("/houseSettings/houseRooms").hasRole(ADMIN)
+
+                .antMatchers("/houseSettings/house").hasRole(ADMIN)
+                .antMatchers("/houseSettings/room").hasRole(ADMIN)
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
                 .antMatchers("/gridSettings/**").hasRole(ADMIN)
                 //Regular User Access - US600, US605, US610, US620, US630, US631, US633

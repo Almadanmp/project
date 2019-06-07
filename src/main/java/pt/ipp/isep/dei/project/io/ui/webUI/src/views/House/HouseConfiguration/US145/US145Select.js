@@ -43,26 +43,31 @@ class US145Select extends Component {
 
     var {isLoaded, item} = this.state;
     if (!isLoaded) {
-      return <div>Loading...</div>
+      return <div>Loading
+      ...</div>
     } else {
-      return (
-        <div>
-          <Form action="" method="post">
-            <FormGroup>
-              <Label>Select Grid</Label>
-              <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                <option value="0" onChange={this.handleChange}>Please select</option>
-                {item.map(items => (
-                  <option value={items.name} key={items.name}>
-                    Name: {items.name}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <US145Button gridID={this.state.value}/>
-        </div>
-      );
+      if (!item.error) {
+        return (
+          <div>
+            <Form action="" method="post">
+              <FormGroup>
+                <Label>Select Grid</Label>
+                <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
+                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  {item.map(items => (
+                    <option value={items.name} key={items.name}>
+                      Name: {items.name}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Form>
+            <US145Button gridID={this.state.value}/>
+          </div>
+        );
+      } else {
+        return null
+      }
     }
   }
 }

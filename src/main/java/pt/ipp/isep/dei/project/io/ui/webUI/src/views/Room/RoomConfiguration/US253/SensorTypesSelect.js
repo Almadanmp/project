@@ -47,6 +47,7 @@ class SensorTypesSelect extends Component {
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
+      if (!item.error) {
       return (
         <div>
           <Form action="" method="post" >
@@ -65,6 +66,9 @@ class SensorTypesSelect extends Component {
           <RoomSensorCreator roomID = {this.props.roomID} typeSensor = {this.state.value} />
         </div>
       );
+      } else {
+        return "ERROR: Non-authorized user."
+      }
     }
   }
 }

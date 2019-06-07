@@ -53,6 +53,7 @@ class SelectRoom extends Component {
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
+      if (!item.error) {
       return (
         <div>
           <Form action="" method="post" >
@@ -71,7 +72,9 @@ class SelectRoom extends Component {
 
           <US610Button day={this.props.day} roomID={this.state.value}/>
         </div>
-      );
+      );} else {
+        return "ERROR: Non-authorized user."
+      }
     }
   }
 }

@@ -46,6 +46,7 @@ class US605SelectRoom extends Component {
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
+      if (!item.error) {
       return (
         <div>
           <Form action="" method="post" >
@@ -64,6 +65,9 @@ class US605SelectRoom extends Component {
           <US605Button roomID={this.state.value}/>
         </div>
       );
+    } else {
+      return "ERROR: Non-authorized user."
+    }
     }
   }
 }

@@ -43,27 +43,34 @@ class US108Select extends Component {
   render() {
 
     const {isLoaded, item} = this.state;
+    this.state.item = Array.from(this.state.item);
     if (!isLoaded) {
-      return <div>Loading...</div>
+      return <div>Loading
+        ...</div>
     } else {
-      return (
-        <div>
-          <Form action="" method="post">
-            <FormGroup>
-              <Label>Select Room</Label>
-              <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                <option value="0" onChange={this.handleChange}>Please select</option>
-                {item.map(items => (
-                  <option value={items.name} key={items.name}>
-                    Name: {items.name}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <RoomEditor name={this.state.value}/>
-        </div>
-      );
+
+      if (!item.error) {
+        return (
+          <div>
+            <Form action="" method="post">
+              <FormGroup>
+                <Label>Select Room</Label>
+                <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
+                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  {item.map(items => (
+                    <option value={items.name} key={items.name}>
+                      Name: {items.name}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Form>
+            <RoomEditor name={this.state.value}/>
+          </div>
+        );
+      } else {
+        return "ERROR: Non-authorized user."
+      }
     }
   }
 }
