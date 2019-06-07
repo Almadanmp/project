@@ -26,11 +26,10 @@ export function fetchTemp() {
       .catch(err => {
         if (err.response.status === 403) {
           dispatch(fetchNonAuthorized(err.message))
+        } else {
+          dispatch(fetchTempFailure(err.message));
         }
-        else{
-        dispatch(fetchTempFailure(err.message));}
       });
-
   };
 }
 

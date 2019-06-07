@@ -12,5 +12,5 @@ export function logInUser(username, password) {
       localStorage.setItem('loginToken', res.headers.authorization)
       localStorage.setItem('user', username)
       return Promise.resolve(res);
-    });
+    })
 }
