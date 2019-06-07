@@ -49,6 +49,6 @@ public class DateValueDTO  extends ResourceSupport {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return 1;
     }
 }

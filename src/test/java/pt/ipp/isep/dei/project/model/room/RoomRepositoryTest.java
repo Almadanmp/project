@@ -44,6 +44,9 @@ class RoomRepositoryTest {
     private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private Room validRoom;
     private Device validDevice;
+    private Reading validReading1;
+    private Reading validReading2;
+
     private RoomSensor firstValidRoomSensor;
     private RoomSensor secondValidRoomSensor;
     private RoomSensor thirdValidRoomSensor;
@@ -51,6 +54,7 @@ class RoomRepositoryTest {
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // Date 30/12/2018
     private Date validDate4; // Date 10/01/2019
+    private Date validDate5; // Date 03/09/2018
     @Mock
     private RoomCrudRepo roomCrudRepo;
     @InjectMocks
@@ -76,14 +80,86 @@ class RoomRepositoryTest {
             validDate2 = validSdf.parse("03/09/2018 00:00:00");
             validDate3 = validSdf.parse("30/12/2018 00:00:00");
             validDate4 = validSdf.parse("10/01/2019 00:00:00");
+            validDate5 = validSdf.parse("30/12/2018 01:10:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        validReading1 = new Reading(20D, validDate1, "C", "SensorOne");
+        validReading2 = new Reading(26D, validDate3, "C", "SensorOne");
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validDate1);
         firstValidRoomSensor.setActive(true);
         secondValidRoomSensor = new RoomSensor("T32876", "SensorTwo", "temperature", validDate1);
         secondValidRoomSensor.setActive(true);
         thirdValidRoomSensor = new RoomSensor("T32877", "SensorThree", "Rainfall", new Date());
+    }
+
+    @Test
+    void seeIfGetRoomMaxTempByIDWorks() {
+        // Arrange
+
+        Reading validReading3 = new Reading(34D, validDate5, "C", "SensorOne");
+
+        firstValidRoomSensor.addReading(validReading1);
+        firstValidRoomSensor.addReading(validReading2);
+        firstValidRoomSensor.addReading(validReading3);
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+
+        // Act
+
+        double actualResult = validRoomRepository.getRoomMaxTempById("Kitchen", validDate3);
+
+        // Assert
+
+        assertEquals(34D, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetRoomMaxTempByIDThrowsException() {
+        // Arrange
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.empty());
+
+        // Act && Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validRoomRepository.getRoomMaxTempById("Kitchen", validDate3));
+
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTempByRoomIDWorks() {
+        // Arrange
+
+        firstValidRoomSensor.addReading(validReading1);
+        firstValidRoomSensor.addReading(validReading2);
+
+        validRoom.addSensor(firstValidRoomSensor);
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.of(validRoom));
+
+        // Act
+
+        double actualResult = validRoomRepository.getCurrentRoomTempByRoomId("Kitchen");
+
+        // Assert
+
+        assertEquals(26D, actualResult, 0.01);
+    }
+
+    @Test
+    void seeIfGetCurrentRoomTempByRoomIDThrowsException() {
+        // Arrange
+
+        Mockito.when(roomCrudRepo.findByRoomName("Kitchen")).thenReturn(Optional.empty());
+
+        // Act && Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> validRoomRepository.getCurrentRoomTempByRoomId("Kitchen"));
+
     }
 
     @Test

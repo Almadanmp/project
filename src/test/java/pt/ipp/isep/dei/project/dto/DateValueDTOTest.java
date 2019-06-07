@@ -11,6 +11,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class DateValueDTOTest {
 
     @Test
+    void seeIfHashCodeWorks() {
+        // Arrange
+
+        Date validDate = new Date();
+        SimpleDateFormat validSdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            validDate = validSdf.parse("01/04/2018 00:00:00");
+
+        } catch (
+                ParseException c) {
+            c.printStackTrace();
+        }
+
+        DateValueDTO dateValueDTO = new DateValueDTO(validDate, 30);
+
+        // Act
+
+        int actualResult = dateValueDTO.hashCode();
+
+        // Assert
+
+        assertEquals(1, actualResult);
+    }
+    @Test
     void seeIfSetValueWorks() {
         // Arrange
 
