@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.project.security;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -64,8 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
                 .antMatchers("/gridSettings/**").hasRole(ADMIN)
                 //Regular User Access - US600, US605, US610, US620, US630, US631, US633
-                .antMatchers("/houseMonitoring/**").hasRole(ADMIN)
-                .antMatchers("/roomMonitoring/**").hasRole(ADMIN)
+                .antMatchers("/houseMonitoring/**").hasRole(REGULAR_USER)
+                .antMatchers("/roomMonitoring/**").hasRole(REGULAR_USER)
                 .anyRequest().authenticated();
     }
 
