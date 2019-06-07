@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {fetchNonAuthorized} from "../US600Redux/Actions";
 
 export const FETCH_RAINFALL_STARTED = 'FETCH_RAINFALL_STARTED';
 export const FETCH_RAINFALL_SUCCESS = 'FETCH_RAINFALL_SUCCESS';
@@ -21,8 +22,12 @@ export const fetchTotalRainfallDay = ({ selectedDay }) => {
         dispatch(fetchTotalRainfallSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
+        if (err.response.status === 403) {
+          dispatch(fetchNonAuthorized(err.message))
+        }
+        else{
         dispatch(fetchTotalRainfallFailure(err.message));
-      });
+      }});
 
   };
 }

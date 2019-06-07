@@ -20,7 +20,7 @@ class US620 extends Component {
 
   handleDayPicker = (selectedDay) => {
 
-    console.log("handleDayPicker:"+ JSON.stringify(selectedDay))
+    console.log("handleDayPicker:" + JSON.stringify(selectedDay))
     if (selectedDay !== undefined) {
       const initialDay = selectedDay.toISOString().substring(0, 10);
       this.setState({selectedDay: selectedDay});
@@ -38,23 +38,57 @@ class US620 extends Component {
     const {loading} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
-    }
-    else {
-      const{totalRainfall} = this.props;
-      return (
-        <div>
-          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-            in the house area for a given day. (US620)</Button>
-          <Collapse isOpen={this.state.collapse}>
-          <Card>
-              <CardBody>
-                <DatePickerOneDay620 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
-                <h5 key={totalRainfall}>The total rainfall was {totalRainfall} </h5>
+    } else {
+      if (localStorage.getItem("user").includes("admin")) {
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
+              in the house area for a given day. (US620)</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                 ERROR: Non-authorized user.
                 </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      );
+              </Card>
+            </Collapse>
+          </div>
+        )
+      } else {
+        if ((this.props.totalRainfall.toString()).indexOf("ERROR") != -1) {
+          return (
+            <div>
+              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                      style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
+                in the house area for a given day. (US620)</Button>
+              <Collapse isOpen={this.state.collapse}>
+                <Card>
+                  <CardBody>
+                    ERROR: No Data Available.
+                  </CardBody>
+                </Card>
+              </Collapse>
+            </div>
+          )
+        } else {
+          const {totalRainfall} = this.props;
+          return (
+            <div>
+              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                      style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
+                in the house area for a given day. (US620)</Button>
+              <Collapse isOpen={this.state.collapse}>
+                <Card>
+                  <CardBody>
+                    <DatePickerOneDay620 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
+                    <h5 key={totalRainfall}>The total rainfall was {totalRainfall} </h5>
+                  </CardBody>
+                </Card>
+              </Collapse>
+            </div>
+          );
+        }
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import {
   FETCH_RAINFALL_FAILURE,
 
 } from './Actions'
+import {FETCH_NON_AUTHORIZED} from "../US600Redux/Actions";
 
 
 const initialstate = {
@@ -36,7 +37,13 @@ export default function Reducers620(state = initialstate, action) {
         error: action.payload.error,
         totalRainfall: 0
       };
-
+    case FETCH_NON_AUTHORIZED:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+        totalRainfall: "ERROR: " + action.payload.error
+      };
     default:
       return state;
   }
