@@ -20,6 +20,7 @@ class US130 extends Component {
   }
 
   render() {
+    if(localStorage.getItem("user").includes("admin")){
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Create a new house
@@ -35,7 +36,22 @@ class US130 extends Component {
           </Card>
         </Collapse>
       </div>
-    );
+    );}
+    else{
+      return (
+        <div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Create a new house
+            grid. (US130)</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
+                <p>ERROR: Non-authorized user.</p>
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      )
+    }
   }
 }
 
