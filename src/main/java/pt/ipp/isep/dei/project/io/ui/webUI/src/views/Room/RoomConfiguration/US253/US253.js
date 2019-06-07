@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card} from 'reactstrap';
+import {Button, Card, CardBody, Collapse} from 'reactstrap';
 import US108Select from "./US108Select";
-import SensorTypesSelect from "./SensorTypesSelect";
 
 class US253 extends Component {
   constructor(props) {
@@ -15,23 +14,39 @@ class US253 extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
-          sensor to a room from the list of available sensor types, in order to configure it. (US253)</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardBody>
+    if (localStorage.getItem("user").includes("admin")) {
+      return (
+        <div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
+            sensor to a room from the list of available sensor types, in order to configure it. (US253)</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
               <span>
                 <US108Select/>
               </span>
-              <span>
+                <span>
               </span>
-            </CardBody>
-          </Card>
-        </Collapse>
-      </div>
-    );
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
+            sensor to a room from the list of available sensor types, in order to configure it. (US253)</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
+                <p>ERROR: Non-authorized user. </p>
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      )
+    }
   }
 }
 

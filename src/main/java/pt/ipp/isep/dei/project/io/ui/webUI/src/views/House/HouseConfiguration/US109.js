@@ -14,7 +14,7 @@ class US109 extends Component {
   }
 
   render() {
-
+if(localStorage.getItem("user").includes("admin"))
     return (
       <div>
         <div>
@@ -34,6 +34,23 @@ class US109 extends Component {
         </div>
       </div>
     );
+else{
+  return (
+    <div>
+      <div>
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Edit the
+          configuration of an existing room. (US109)</Button>
+        <Collapse isOpen={this.state.collapse}>
+          <Card>
+            <CardBody>
+           <p>ERROR: Non-authorized user.</p>
+            </CardBody>
+          </Card>
+        </Collapse>
+      </div>
+    </div>
+  );
+}
   }
 }
 
