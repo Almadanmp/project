@@ -38,11 +38,12 @@ class US631 extends Component {
   render() {
     const numberOfMonths = 2;
     const {loading} = this.props;
+    const{hottestDay} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
     else {
-      const{hottestDay} = this.props;
+      if (localStorage.getItem("user").includes("admin")) {
       return (
         <div>
           <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
@@ -50,13 +51,28 @@ class US631 extends Component {
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-                <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
-                <h5 key={hottestDay.value}>The hottest day was {hottestDay.date} and the temperature was {hottestDay.value} ºC</h5>
-                </CardBody>
+               ERROR: Non-authorized user
+              </CardBody>
             </Card>
           </Collapse>
         </div>
-      );
+      );}
+      else{
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
+              day (higher maximum temperature) in the house area in a given period. (US631)</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                  <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
+                  <h5 key={hottestDay.value}>The hottest day was {hottestDay.date} and the temperature was {hottestDay.value} ºC</h5>
+                </CardBody>
+              </Card>
+            </Collapse>
+          </div>
+        )
+      }
     }
   }
 }

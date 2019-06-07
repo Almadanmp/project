@@ -20,7 +20,7 @@ class US600Redux extends Component {
       if(localStorage.getItem("user").includes("admin")){
            return(
              <div>
-               <h4>{temp}
+               <h4>ERROR: Non-authorized user.
                </h4>
              </div>
            )

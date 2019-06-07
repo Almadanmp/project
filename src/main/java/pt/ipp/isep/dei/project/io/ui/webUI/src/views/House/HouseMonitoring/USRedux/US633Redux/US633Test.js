@@ -38,11 +38,12 @@ class US633Test extends Component {
   render() {
     const numberOfMonths = 2;
     const {loading} = this.props;
+    const{amplitude} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
     else {
-      const{amplitude} = this.props;
+      if (localStorage.getItem("user").includes("admin")) {
       return (
         <div>
           <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
@@ -50,13 +51,28 @@ class US633Test extends Component {
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-                <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
-                <h5 key={amplitude.value}>The highest amplitude was {amplitude.value} on the date {amplitude.date}</h5>
+              ERROR: Non-authorized user.
                 </CardBody>
             </Card>
           </Collapse>
         </div>
-      );
+      );}
+      else{
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
+              highest temperature amplitude in the house area in a given period. (US633)</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                  <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
+                  <h5 key={amplitude.value}>The highest amplitude was {amplitude.value} on the date {amplitude.date}</h5>
+                </CardBody>
+              </Card>
+            </Collapse>
+          </div>
+        )
+      }
     }
   }
 }

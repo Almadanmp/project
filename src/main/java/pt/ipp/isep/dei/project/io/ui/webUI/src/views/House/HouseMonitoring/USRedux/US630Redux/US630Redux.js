@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {fetchColdDay} from './Actions';
 import {Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerWithTwoDates from "../../DatePickerWithTwoDates";
+import connect from "react-redux/es/connect/connect";
 
 class US630 extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class US630 extends Component {
     this.state = {
       collapse: false,
       from: undefined,
-      to:undefined
+      to: undefined
     };
   }
 
@@ -21,7 +21,7 @@ class US630 extends Component {
 
   handleIntervalPicker = (from, to) => {
 
-    console.log("handleIntervalPicker: from"+ JSON.stringify(from)+ "to: "+ JSON.stringify(to))
+    console.log("handleIntervalPicker: from" + JSON.stringify(from) + "to: " + JSON.stringify(to))
     if (from !== undefined && to !== undefined) {
       const initialDay = from.toISOString().substring(0, 10);
       const finalDay = to.toISOString().substring(0, 10);
@@ -38,25 +38,42 @@ class US630 extends Component {
   render() {
     const numberOfMonths = 2;
     const {loading} = this.props;
+    const {cold} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
-    }
-    else {
-      const{cold} = this.props;
-      return (
-        <div>
-          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
-            day (lower maximum temperature) in the house area in a given period. (US630)</Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-                <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
-                <h5 key={cold.value}>The coldest day was {cold.date} and the temperature was {cold.value} ºC </h5>
+    } else {
+      if (localStorage.getItem("user").includes("admin")) {
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
+              day (lower maximum temperature) in the house area in a given period. (US630)</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                ERROR: Non-authorized user.
                 </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      );
+              </Card>
+            </Collapse>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
+              day (lower maximum temperature) in the house area in a given period. (US630)</Button>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                  <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
+                  <h5 key={cold.value}>The coldest day was {cold.date} and the temperature was {cold.value} ºC </h5>
+                </CardBody>
+              </Card>
+            </Collapse>
+          </div>
+        );
+      }
     }
   }
 }
