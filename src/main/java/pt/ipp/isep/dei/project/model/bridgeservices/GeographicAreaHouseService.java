@@ -26,6 +26,8 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     private HouseRepository houseRepository;
 
     private static final String TEMPERATURE = "temperature";
+    private String malformedDatesError = "ERROR: Malformed Dates: Initial and End dates are both " +
+            "required (Initial date must be before End date).";
 
     /**
      * This method calculates the average temperature in a given date.
@@ -327,8 +329,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             double value = areaSensor.getAmplitudeValueFromDate(date);
             return new DateValueDTO(date, value);
         } else {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
+            throw new IllegalArgumentException(malformedDatesError);
         }
     }
 
@@ -345,8 +346,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             double value = areaSensor.getReadingValueOnGivenDay(date);
             return new DateValueDTO(date, value);
         } else {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
+            throw new IllegalArgumentException(malformedDatesError);
         }
     }
 
@@ -363,8 +363,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             double value = areaSensor.getReadingValueOnGivenDay(date);
             return new DateValueDTO(date, value);
         } else {
-            throw new IllegalArgumentException("ERROR: Malformed Dates: Initial and End dates are both " +
-                    "required (Initial date must be before End date).");
+            throw new IllegalArgumentException(malformedDatesError);
         }
     }
 
