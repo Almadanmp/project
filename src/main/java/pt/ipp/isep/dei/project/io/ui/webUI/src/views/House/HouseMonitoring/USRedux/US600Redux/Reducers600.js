@@ -35,7 +35,7 @@ export default function Reducers600 (state = initialstate, action) {
         ...state,
           loading: false,
           error: action.payload.error,
-          temp: "Default1"
+          temp: " ERROR: NO DATA Available"
       };
     case FETCH_NON_AUTHORIZED:
       return {

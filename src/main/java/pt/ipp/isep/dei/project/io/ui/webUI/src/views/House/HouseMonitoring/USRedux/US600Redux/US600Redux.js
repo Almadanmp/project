@@ -12,16 +12,15 @@ class US600Redux extends Component {
   }
 
   render() {
-
     const { loading,temp } = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
        else {
-         if ({temp}===0) {
+      if(localStorage.getItem("user").includes("admin")){
            return(
              <div>
-               <h4>There are no data.
+               <h4>{temp}
                </h4>
              </div>
            )
@@ -30,7 +29,7 @@ class US600Redux extends Component {
            if((temp.toString()).indexOf("ERROR") != -1){
              return(
                <div>
-                 <h4> {temp}
+                 <h4> There is no data available
                  </h4>
                </div>
              )

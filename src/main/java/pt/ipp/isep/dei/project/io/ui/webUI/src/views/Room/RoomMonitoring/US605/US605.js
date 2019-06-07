@@ -18,6 +18,7 @@ class US605 extends Component {
   }
 
   render() {
+    if(localStorage.getItem("user").includes("regular")){
     var {id, item} = this.state;
     return (
       <div>
@@ -31,7 +32,22 @@ class US605 extends Component {
           </Card>
         </Collapse>
       </div>
-    );
+    );}
+    else{
+      return (
+        <div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get Current Temperature
+            in a room. (US605)</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
+                <p>ERROR: Non-authorized user.</p>
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      )
+    }
 
   }
 }
