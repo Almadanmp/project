@@ -51,7 +51,7 @@ class US630 extends Component {
             <Card>
               <CardBody>
                 <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
-                <h5 key={cold.value}>The coldest day was {cold.value} on the date {cold.date}</h5>
+                <h5 key={cold.value}>The coldest day was {cold.date} and the temperature was {cold.value} ºC </h5>
                 </CardBody>
             </Card>
           </Collapse>
