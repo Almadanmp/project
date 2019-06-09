@@ -3,6 +3,7 @@ import TextInput from './TextInput';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {logInUser} from './sessionActions';
+import { Alert, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
 export class LogInPage extends Component {
   constructor(props) {
@@ -127,7 +128,7 @@ export class LogInPage extends Component {
                 {" "}
               </form>
               <br/>
-              <div className="help-block" {...alert('Wrong Password or Username')} />
+              <div className="help-block"><Alert color="danger">Wrong Password or Username</Alert></div>
             </div>
           </div>
 

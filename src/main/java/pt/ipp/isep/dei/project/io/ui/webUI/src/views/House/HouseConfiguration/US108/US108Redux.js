@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchGAs} from './Actions';
-import {Card, CardBody, Col, Row, Table} from "reactstrap";
+import {Alert, Card, CardBody, Col, Row, Table} from "reactstrap";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody"
 
@@ -26,7 +26,8 @@ class US108Redux extends Component {
     const {loading, data} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
-    } else {
+    }
+    if (data.length >0) {{
       return (
         <div className="animated fadeIn">
           <Row>
@@ -43,6 +44,11 @@ class US108Redux extends Component {
           </Row>
         </div>
       );
+    }}
+     else {
+       return(
+         <div className="help-block"><Alert color="warning">No rooms on the house</Alert></div>
+       )
 
     }
   }
