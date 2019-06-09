@@ -20,7 +20,6 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 import {logout} from "../../logOut/logoutActions";
-import {logInUser} from '../../login/sessionActions';
 
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
@@ -34,6 +33,9 @@ class DefaultLayout extends Component {
   e.preventDefault()
   logout(e)
    this.props.history.push('/')
+   this.state = {
+     showPopup: false
+   };
  }
 
   render() {

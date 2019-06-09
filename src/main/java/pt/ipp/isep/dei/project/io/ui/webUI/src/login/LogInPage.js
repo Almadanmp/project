@@ -36,7 +36,6 @@ export class LogInPage extends Component {
         }
       })
       .catch(err=>{
-        console.log("CATCH PAGINA LOGIN")
         this.setState({loggedIn: 'wrongPass'})
         return console.log(err);
       }
@@ -46,8 +45,6 @@ export class LogInPage extends Component {
 
   render() {
     const {credentials} = this.state;
-    console.log(this.state.loggedIn)
-    console.log("Devia estar a NOT")
     if ((this.state.loggedIn.indexOf("not") != -1)) {
       return (
         <>
@@ -130,7 +127,7 @@ export class LogInPage extends Component {
                 {" "}
               </form>
               <br/>
-              <div className="help-block">Wrong Password or Username</div>
+              <div className="help-block" {...alert('Wrong Password or Username')} />
             </div>
           </div>
 
