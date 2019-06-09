@@ -49,7 +49,7 @@ export function fetchAmplitudeFailure (message) {
 return {
   type: FETCH_AMP_FAILURE,
   payload: {
-    error: message
+    errorAmplitude: message
   }
 }
 }

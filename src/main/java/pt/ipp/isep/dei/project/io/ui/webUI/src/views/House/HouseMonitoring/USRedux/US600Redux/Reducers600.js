@@ -4,7 +4,7 @@ import {
   FETCH_T_FAILURE,
   FETCH_NON_AUTHORIZED,
 
-} from './Actions'
+} from './Actions600'
 
 
 const initialstate = {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchAmplitude} from './Actions';
+import {fetchAmplitude} from './Actions633';
 import {Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerWithTwoDates from "../../DatePickerWithTwoDates";
 

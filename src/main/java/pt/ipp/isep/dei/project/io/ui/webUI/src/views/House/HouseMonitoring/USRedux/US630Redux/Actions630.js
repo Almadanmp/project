@@ -50,7 +50,7 @@ export function fetchColdDayFailure (message) {
 return {
   type: FETCH_COLD_FAILURE,
   payload: {
-    error: message
+    errorCold: message
   }
 }
 }

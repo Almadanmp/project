@@ -3,7 +3,7 @@ import {
   FETCH_AMP_SUCCESS,
   FETCH_AMP_FAILURE,
 
-} from './Actions'
+} from './Actions633'
 
 
 const initialstate = {
@@ -19,22 +19,22 @@ export default function Reducers633(state = initialstate, action) {
       return {
         ...state,
         loading: true,
-        error: null,
+        errorAmplitude: null,
         amplitude: {}
       };
     case FETCH_AMP_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: null,
+        errorAmplitude: null,
         amplitude: {...action.payload.amplitude}
       };
     case FETCH_AMP_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
-        amplitude: {}
+        errorAmplitude: action.payload.error,
+        amplitude: " ERROR: NO DATA Available"
       };
 
     default:

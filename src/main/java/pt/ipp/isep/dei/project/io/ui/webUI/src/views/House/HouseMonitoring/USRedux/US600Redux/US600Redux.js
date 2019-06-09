@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTemp } from './Actions';
+import { fetchTemp } from './Actions600';
 
 class US600Redux extends Component {
   constructor(props) {

@@ -32,7 +32,7 @@ export default class MyForm extends React.Component {
         <DayPickerInput onDayChange={this.handleDayChange} />
         <br></br>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
-          Submit date
+          Select date
         </Button>
       </div>
     );

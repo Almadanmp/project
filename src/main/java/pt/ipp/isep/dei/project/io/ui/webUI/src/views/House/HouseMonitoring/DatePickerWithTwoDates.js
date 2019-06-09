@@ -62,11 +62,9 @@ class DatePickerWithTwoDates extends Component {
           selectedDays={[from, {from, to}]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
+          dateFormat="yyyy/MM/dd"
         />
 
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
-          Submit
-        </Button>
         <Helmet>
           <style>{`
   .Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
@@ -86,6 +84,11 @@ class DatePickerWithTwoDates extends Component {
   }
 `}</style>
         </Helmet>
+        <br>
+      </br>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
+          Get Results
+        </Button>
       </div>
     );
   }

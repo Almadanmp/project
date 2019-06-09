@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {fetchColdDay} from './Actions';
+import {fetchColdDay} from './Actions630';
 import {Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerWithTwoDates from "../../DatePickerWithTwoDates";
 import connect from "react-redux/es/connect/connect";
@@ -44,7 +44,7 @@ class US630 extends Component {
     } else {
       if (localStorage.getItem("user").includes("admin")) {
         return (
-          <div>
+          <>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                     style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
               day (lower maximum temperature) in the house area in a given period.</Button>
@@ -55,11 +55,11 @@ class US630 extends Component {
                 </CardBody>
               </Card>
             </Collapse>
-          </div>
+          </>
         );
       } else {
         return (
-          <div>
+          <>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
                     style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
               day (lower maximum temperature) in the house area in a given period.</Button>
@@ -71,7 +71,7 @@ class US630 extends Component {
                 </CardBody>
               </Card>
             </Collapse>
-          </div>
+          </>
         );
       }
     }

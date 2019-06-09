@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {fetchNonAuthorized} from "../US600Redux/Actions";
+import {fetchNonAuthorized} from "../US600Redux/Actions600";
 
 export const FETCH_RAINFALL_STARTED = 'FETCH_RAINFALL_STARTED';
 export const FETCH_RAINFALL_SUCCESS = 'FETCH_RAINFALL_SUCCESS';

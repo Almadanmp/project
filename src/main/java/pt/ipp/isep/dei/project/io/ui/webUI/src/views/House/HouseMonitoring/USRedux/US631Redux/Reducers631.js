@@ -3,12 +3,12 @@ import {
   FETCH_HOT_SUCCESS,
   FETCH_HOT_FAILURE,
 
-} from './Actions'
+} from './Actions631'
 
 
 const initialstate = {
   loading: false,
-  error: null,
+  errorHot: null,
   hottestDay: {}
 };
 
@@ -19,22 +19,22 @@ export default function Reducers631(state = initialstate, action) {
       return {
         ...state,
         loading: true,
-        error: null,
+        errorHot: null,
         hottestDay: {}
       };
     case FETCH_HOT_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: null,
+        errorHot: null,
         hottestDay: {...action.payload.hottestDay}
       };
     case FETCH_HOT_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
-        hottestDay: {}
+        errorHot: action.payload.error,
+        hottestDay: " ERROR: NO DATA Available"
       };
 
     default:

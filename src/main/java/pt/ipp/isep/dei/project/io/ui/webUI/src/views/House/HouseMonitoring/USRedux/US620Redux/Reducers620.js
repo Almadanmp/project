@@ -3,8 +3,8 @@ import {
   FETCH_RAINFALL_SUCCESS,
   FETCH_RAINFALL_FAILURE,
 
-} from './Actions'
-import {FETCH_NON_AUTHORIZED} from "../US600Redux/Actions";
+} from './Actions620'
+import {FETCH_NON_AUTHORIZED} from "../US600Redux/Actions600";
 
 
 const initialstate = {

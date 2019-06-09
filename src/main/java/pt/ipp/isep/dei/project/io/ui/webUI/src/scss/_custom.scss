@@ -194,3 +194,8 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
   float: left;
   height: 10px;
 }
+
+.card-accent-warning {
+  border-top-color: #ebdcb3;
+  border-top-width: 2px
+}

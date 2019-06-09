@@ -3,12 +3,12 @@ import {
   FETCH_COLD_SUCCESS,
   FETCH_COLD_FAILURE,
 
-} from './Actions'
+} from './Actions630'
 
 
 const initialstate = {
   loading: false,
-  error: null,
+  errorCold: null,
   cold: {}
 };
 
@@ -19,22 +19,22 @@ export default function Reducers630(state = initialstate, action) {
       return {
         ...state,
         loading: true,
-        error: null,
+        errorCold: null,
         cold: {}
       };
     case FETCH_COLD_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: null,
+        errorCold: null,
         cold: {...action.payload.cold}
       };
     case FETCH_COLD_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
-        cold: {}
+        errorCold: action.payload.error,
+        cold: " ERROR: NO DATA Available"
       };
 
     default:

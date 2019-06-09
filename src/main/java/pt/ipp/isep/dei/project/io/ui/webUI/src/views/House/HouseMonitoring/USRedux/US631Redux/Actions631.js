@@ -50,7 +50,7 @@ export function fetchHottestDayFailure (message) {
 return {
   type: FETCH_HOT_FAILURE,
   payload: {
-    error: message
+    errorHot: message
   }
 }
 }
