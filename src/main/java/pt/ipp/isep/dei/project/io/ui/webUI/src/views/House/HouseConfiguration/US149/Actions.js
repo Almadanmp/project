@@ -5,7 +5,7 @@ export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
 export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
-export const fetchRoomFromGrid = ({roomID, gridID}) => {
+export const deleteRoomFromGrid = ({roomID, gridID}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(fetchRoomFromGridInfo(roomID, gridID));

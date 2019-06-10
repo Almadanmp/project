@@ -5,7 +5,7 @@ import {
   Button,
   CardBody,
   Card,
-  CardHeader,
+  CardHeader, Alert,
 } from 'reactstrap';
 
 class US105 extends Component {
@@ -42,7 +42,7 @@ class US105 extends Component {
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-                <p>ERROR: Non-authorized user.</p>
+                <p><Alert color="danger">ERROR: Non-authorized user.</Alert></p>
               </CardBody>
             </Card>
           </Collapse>

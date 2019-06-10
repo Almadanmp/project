@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchGAs} from './Actions';
+import {fetchGAs} from './Actions108';
 import {Alert, Card, CardBody, Col, Row, Table} from "reactstrap";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody"

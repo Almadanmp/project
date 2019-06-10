@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchHottestDay} from './USRedux/US631Redux/Actions631';
-import {Button, Card, CardBody, Collapse} from "reactstrap";
+import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerWithTwoDates from "./DatePickerWithTwoDates";
 import {fetchColdDay} from "./USRedux/US630Redux/Actions630";
 import {fetchAmplitude} from './USRedux/US633Redux/Actions633';
@@ -25,17 +25,16 @@ class US631 extends Component {
 
   handleIntervalPicker = (from, to) => {
 
-    console.log("handleIntervalPicker: from" + JSON.stringify(from) + "to: " + JSON.stringify(to))
+    console.log("handleIntervalPicker: from" + JSON.stringify(from) + "to: " + JSON.stringify(to));
     if (from !== undefined && to !== undefined) {
       const initialDay = from.toISOString().substring(0, 10);
       const finalDay = to.toISOString().substring(0, 10);
       this.setState({from: from, to: to});
-      this.props.onFetchHottestDay(initialDay, finalDay)
-      this.props.onFetchColdDay(initialDay, finalDay)
+      this.props.onFetchHottestDay(initialDay, finalDay);
+      this.props.onFetchColdDay(initialDay, finalDay);
       this.props.onFetchAmplitude(initialDay, finalDay)
-
     }
-  }
+  };
 
   toggle() {
     this.setState(state => ({collapse: !state.collapse}));
@@ -53,7 +52,7 @@ class US631 extends Component {
           <div>
             <Card>
               <CardBody>
-                ERROR: Non-authorized user
+                <Alert color="danger"> ERROR: Non-authorized user </Alert>
               </CardBody>
             </Card>
           </div>
@@ -70,7 +69,7 @@ class US631 extends Component {
           was {hottestDay.value} ºC</h5>
             </p>
               <p>
-            <h5 key={cold.value}>The coldest day was <mark>{cold.date}</mark> and the temperature was {cold.value} ºC </h5>
+            <h5 key={cold.value}>The coldest day was <mark >{cold.date }</mark> and the temperature was {cold.value} ºC </h5>
               </p>
                 <p>
             <h5 key={amplitude.value}>The highest amplitude was <mark>{amplitude.value}</mark> on the date {amplitude.date}</h5>
@@ -101,7 +100,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchHottestDay: (from, to) => {
-      dispatch(fetchHottestDay({from, to}))
+      dispatch(fetchHottestDay({from, to}) )
     },
     onFetchColdDay: (from, to) => {
       dispatch(fetchColdDay({from, to}))

@@ -5,7 +5,7 @@ export const FETCH_ROOM_GRID_INFO_SUCCESS = 'FETCH_ROOM_GRID_INFO_SUCCESS';
 export const FETCH_ROOM_GRID_INFO_FAILURE = 'FETCH_ROOM_GRID_INFO_FAILURE';
 
 
-export const fetchRoomGrid = ({name, grid}) => {
+export const attachRoomGrid = ({name, grid}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(fetchRoomGridInfo(name, grid));

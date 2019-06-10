@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTemp } from './Actions600';
+import {Alert} from "reactstrap";
 
 class US600Redux extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class US600Redux extends Component {
       if(localStorage.getItem("user").includes("admin")){
            return(
              <div>
-               <h4>ERROR: Non-authorized user.
+               <h4><Alert color="danger">ERROR: Non-authorized user.</Alert>
                </h4>
              </div>
            )

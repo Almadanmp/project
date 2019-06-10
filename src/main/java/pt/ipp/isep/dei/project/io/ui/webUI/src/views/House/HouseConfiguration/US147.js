@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card, CardHeader, Form, FormGroup, Label, Input, CardFooter} from 'reactstrap';
+import {
+  Collapse,
+  Button,
+  CardBody,
+  Card,
+  CardHeader,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  CardFooter,
+  Alert
+} from 'reactstrap';
 import AttachRoomToGrid from "./US147/AttachRoomToGrid";
 
 class US147 extends Component {
@@ -36,7 +48,7 @@ class US147 extends Component {
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-                <p>ERROR: Non-authorized user.</p>
+                <p><Alert color="danger">ERROR: Non-authorized user.</Alert></p>
               </CardBody>
             </Card>
           </Collapse>

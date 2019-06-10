@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Collapse, Button, CardBody, Card, Form, FormGroup, Label, Input, Alert} from 'reactstrap';
 import US108Select from "./US109/US108Select";
 
 class US109 extends Component {
@@ -43,7 +43,7 @@ else{
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
-           <p>ERROR: Non-authorized user.</p>
+           <p><Alert color="danger">ERROR: Non-authorized user.</Alert></p>
             </CardBody>
           </Card>
         </Collapse>

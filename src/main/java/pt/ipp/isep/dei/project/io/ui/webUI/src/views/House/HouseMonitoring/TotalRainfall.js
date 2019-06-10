@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchTotalRainfallDay} from './USRedux/US620Redux/Actions620';
-import {Button, Card, CardBody, Collapse} from "reactstrap";
+import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerOneDay620 from "./USRedux/US620Redux/DatePickerOneDay620.js";
 
 class US620 extends Component {
@@ -39,7 +39,7 @@ class US620 extends Component {
         return (
           <>
                 <CardBody>
-                 ERROR: Non-authorized user.
+                  <Alert color="danger">ERROR: Non-authorized user.</Alert>
                 </CardBody>
           </>
         )
@@ -49,7 +49,7 @@ class US620 extends Component {
             <>
                 <Card>
                   <CardBody>
-                    ERROR: No Data Available.
+                    <Alert color="danger"> ERROR: No Data Available.</Alert>
                   </CardBody>
                 </Card>
             </>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchHottestDay} from './Actions631';
-import {Button, Card, CardBody, Collapse} from "reactstrap";
+import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerWithTwoDates from "../../DatePickerWithTwoDates";
 
 class US631 extends Component {
@@ -51,7 +51,7 @@ class US631 extends Component {
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-               ERROR: Non-authorized user
+                <Alert color="danger">ERROR: Non-authorized user.</Alert>
               </CardBody>
             </Card>
           </Collapse>

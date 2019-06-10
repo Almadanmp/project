@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
-import {fetchRoomGrid} from "./Actions";
+import {attachRoomGrid} from "./Actions";
 import {connect} from 'react-redux';
 
 class AttachRoomToGrid extends React.Component {
@@ -22,7 +22,7 @@ class AttachRoomToGrid extends React.Component {
   }
 
   handleSubmit() {
-    this.props.onFetchRoomGrid(this.state);
+    this.props.onAttachRoomGrid(this.state);
   }
 
 
@@ -41,8 +41,8 @@ class AttachRoomToGrid extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchRoomGrid: ({name, grid}) => {
-      dispatch(fetchRoomGrid({name, grid}))
+    onAttachRoomGrid: ({name, grid}) => {
+      dispatch(attachRoomGrid({name, grid}))
     }
   }
 };
