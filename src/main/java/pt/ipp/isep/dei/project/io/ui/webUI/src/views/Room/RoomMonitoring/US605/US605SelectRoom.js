@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import {Form, FormGroup, Input, Label} from "reactstrap";
+import {Card, CardBody, Col, Form, FormGroup, Input, Label, Table, Row, CardHeader} from "reactstrap";
 import US605Button from "./US605Button";
+import US605GetCurrentTemperature from "./US605GetCurrentTemperature";
 
 class US605SelectRoom extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      item: [],
+      item: 0,
       isLoaded: false,
-      value: ''
+      value: '',
+      link: ''
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -48,22 +50,38 @@ class US605SelectRoom extends Component {
     } else {
       if (!item.error) {
       return (
-        <div>
-          <Form action="" method="post" >
-            <FormGroup>
-              <Label>Select Room</Label>
-              <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                <option value="0" onChange={this.handleChange}>Please select</option>
-                {item.map(items => (
-                  <option value={items.name}  key={items.name}>
-                    Room ID: {items.name}
-                  </option>
-                ))}
-              </Input>
-            </FormGroup>
-          </Form>
-          <US605Button roomID={this.state.value}/>
-        </div>
+        <>
+          <Row>
+            <Col >
+              <Card className="card-accent-warning">
+                <CardHeader>
+                  Current Temperature
+                </CardHeader>
+                <CardBody>
+                  <Table responsive>
+                      <CardBody>
+
+
+                        <tr>
+                          <th>Room</th>
+                          <th>Temperature</th>
+                        </tr>
+
+                        {item.map(items => (
+                        <tr>
+                            <td value={items.name} key={items.name}> {items.name} </td>
+                            <td> <US605GetCurrentTemperature roomID={items.name}/> </td>
+                        </tr>
+                        ))}
+
+                      </CardBody>
+                  </Table>
+                </CardBody>
+                    </Card>
+                  </Col>
+          </Row>
+
+        </>
       );
     } else {
       return "ERROR: Non-authorized user."

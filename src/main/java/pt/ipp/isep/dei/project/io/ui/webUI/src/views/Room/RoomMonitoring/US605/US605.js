@@ -22,29 +22,21 @@ class US605 extends Component {
     var {id, item} = this.state;
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get Current Temperature
-          in a room.</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardBody>
+
               <US605SelectRoom/>
-            </CardBody>
-          </Card>
-        </Collapse>
+
       </div>
     );}
     else{
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get Current Temperature
-            in a room.</Button>
-          <Collapse isOpen={this.state.collapse}>
+
             <Card>
               <CardBody>
                 <p>ERROR: Non-authorized user.</p>
               </CardBody>
             </Card>
-          </Collapse>
+
         </div>
       )
     }

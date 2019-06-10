@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card, Col, Row} from 'reactstrap';
+import {Collapse, Button, CardBody, Card, Col, Row, CardHeader, Table} from 'reactstrap';
 import DatePickerOneDay610 from "./DatePickerOneDay610";
 import SelectRoom from "./SelectRoom"
 
@@ -30,31 +30,37 @@ class US610 extends Component {
     if(localStorage.getItem("user").includes("regular")){
     const numberOfMonths = 1;
     return (
-      <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the maximum temperature in a room in a given day.</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
+      <Row>
+        <Col >
+          <Card className="card-accent-warning">
+            <CardHeader>
+              Temperature on a selected day
+            </CardHeader>
             <CardBody>
+              <Table responsive>
+                <CardBody>
               <span>
               <DatePickerOneDay610 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
               </span>
               <SelectRoom day={this.state.selectedDay}/>
             </CardBody>
+              </Table>
+            </CardBody>
           </Card>
-        </Collapse>
-      </div>
+        </Col>
+      </Row>
+
     );}
     else{
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the maximum temperature in a room in a given day.</Button>
-          <Collapse isOpen={this.state.collapse}>
+
             <Card>
               <CardBody>
                 <p>ERROR: Non-authorized user.</p>
               </CardBody>
             </Card>
-          </Collapse>
+
         </div>
       )
     }
