@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TableHeader from "../../../House/HouseConfiguration/SmartGrid/TableHeader";
 
 
 class US250GetSensors extends Component {
@@ -32,18 +33,23 @@ class US250GetSensors extends Component {
   }
 
   render() {
+    const headers = {
+      name: "Sensors",
+      id: "ID",
+      type: "Type",
+    };
     var {item} = this.state;
     return (
-      <div>
-          <ul>
+      <>
+        <TableHeader headers={headers}/>
             {item.map(item => (
-              <li key={item.name}>
-                ID: {item.id} | Name: {item.name} | Type: {item.type}
-              </li>
+              <tr key={item.name}>
+                <td>{item.name} </td>
+                <td>{item.id} </td>
+                <td>{item.type} </td>
+              </tr>
             ))}
-          </ul>
-
-      </div>
+      </>
     );
   }
 

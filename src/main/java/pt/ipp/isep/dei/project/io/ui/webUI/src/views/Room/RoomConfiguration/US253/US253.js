@@ -17,8 +17,8 @@ class US253 extends Component {
     if (localStorage.getItem("user").includes("admin")) {
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
-            sensor to a room from the list of available sensor types, in order to configure it.</Button>
+          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}>Add a new
+            sensor to a room.</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

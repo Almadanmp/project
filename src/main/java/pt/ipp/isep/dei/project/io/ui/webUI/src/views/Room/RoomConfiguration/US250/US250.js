@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, Collapse} from 'reactstrap';
 import US108Select from "./US108Select";
+import ListRooms from "../listRooms"
 
 
 class US250 extends Component {
@@ -31,31 +32,20 @@ class US250 extends Component {
     if (localStorage.getItem("user").includes("admin")) {
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to get a list
-            of
-            all sensors in a room, so that I can configure them. </Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-                <US108Select/>
-              </CardBody>
-            </Card>
-          </Collapse>
+
+                <ListRooms/>
+
+
         </div>
       );
     } else {
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to get a list
-            of
-            all sensors in a room, so that I can configure them. </Button>
-          <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
                 <p>ERROR: Non-authorized user. </p>
               </CardBody>
             </Card>
-          </Collapse>
         </div>)
     }
   }

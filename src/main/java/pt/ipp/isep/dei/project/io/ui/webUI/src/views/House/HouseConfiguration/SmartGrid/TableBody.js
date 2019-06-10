@@ -39,7 +39,7 @@ class TableBody extends Component {
 
   render() {
     const headers = {
-      name: "Name",
+      name: "Rooms",
       floor: "Floor",
       height: "Height (m)",
       length: "Length (m)",
@@ -48,28 +48,23 @@ class TableBody extends Component {
       edit: "Edit Room"
     };
     var {id, item} = this.state;
-
-
     return (
-      <div>
-
+      <>
         <TableHeader headers={headers}/>
-
-
-          {item.map(item => (
-            <tr key={item.name}>
-              <td> {item.name}</td>
-              <td>{item.floor} </td>
-              <td> {item.height}</td>
-              <td> {item.length} </td>
-              <td> {item.width} </td>
-              <td> <removeFromGrid gridID={this.props.gridID} roomID={item.name}/>  </td>
-              <td> {item.edit} </td>
-            </tr>
-          ))}
-
-
-      </div>
+        {item.map(item => (
+          <tr key={item.name}>
+            <td> {item.name}</td>
+            <td>{item.floor} </td>
+            <td> {item.height}</td>
+            <td> {item.length} </td>
+            <td> {item.width} </td>
+            <td>
+              <removeFromGrid gridID={this.props.gridID} roomID={item.name}/>
+            </td>
+            <td> {item.edit} </td>
+          </tr>
+        ))}
+      </>
     );
   }
 
