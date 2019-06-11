@@ -18,7 +18,7 @@ class App extends Component {
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route exact path="/about" name="Home" render={props => <DefaultLayout {...props}/>} />
-              <Route exact path="/login" name="Login" render={props => <Login {...props}/>} />
+             / <Route exact path="/login" name="Login" render={props => <Login {...props}/>} />
               <Route exact path="/" name="Login" render={props => <Login {...props}/>} />
               <Route path="/" component={DefaultLayout} />
             </Switch>

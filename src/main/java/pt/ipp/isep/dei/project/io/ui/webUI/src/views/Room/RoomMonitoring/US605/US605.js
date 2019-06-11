@@ -18,7 +18,6 @@ class US605 extends Component {
   }
 
   render() {
-    if(localStorage.getItem("user").includes("regular")){
     var {id, item} = this.state;
     return (
       <div>
@@ -26,20 +25,7 @@ class US605 extends Component {
               <US605SelectRoom/>
 
       </div>
-    );}
-    else{
-      return (
-        <div>
-
-            <Card>
-              <CardBody>
-                <p>ERROR: Non-authorized user.</p>
-              </CardBody>
-            </Card>
-
-        </div>
-      )
-    }
+    );
 
   }
 }

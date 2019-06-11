@@ -42,22 +42,6 @@ class US630 extends Component {
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     } else {
-      if (localStorage.getItem("user").includes("admin")) {
-        return (
-          <>
-            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
-                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the last coldest
-              day (lower maximum temperature) in the house area in a given period.</Button>
-            <Collapse isOpen={this.state.collapse}>
-              <Card>
-                <CardBody>
-                  <Alert color="danger">ERROR: Non-authorized user.</Alert>
-                </CardBody>
-              </Card>
-            </Collapse>
-          </>
-        );
-      } else {
         return (
           <>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
@@ -74,7 +58,6 @@ class US630 extends Component {
           </>
         );
       }
-    }
   }
 }
 

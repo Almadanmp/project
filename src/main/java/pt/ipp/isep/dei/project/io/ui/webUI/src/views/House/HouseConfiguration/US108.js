@@ -20,26 +20,6 @@ class US108 extends Component {
   }
 
   render() {
-    if(localStorage.getItem("user").includes("admin")){
-    return (
-      <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get a list of existing
-          rooms.</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardHeader>
-              <i className="fa fa-align-justify"></i><strong>List of Rooms</strong>
-            </CardHeader>
-            <CardBody>
-              <ListGroup>
-                <US108Redux/>
-              </ListGroup>
-            </CardBody>
-          </Card>
-        </Collapse>
-      </div>
-    );}
-    else{
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get a list of existing
@@ -54,7 +34,6 @@ class US108 extends Component {
         </div>)
 
     }
-  }
 }
 
 export default US108;

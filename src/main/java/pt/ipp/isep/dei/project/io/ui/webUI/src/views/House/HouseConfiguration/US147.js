@@ -26,7 +26,6 @@ class US147 extends Component {
   }
 
   render() {
-    if(localStorage.getItem("user").includes("admin")){
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Attach a room to a
@@ -39,23 +38,7 @@ class US147 extends Component {
           </Card>
         </Collapse>
       </div>
-    );}
-    else{
-      return (
-        <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Attach a room to a
-            house grid. </Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-                <p><Alert color="danger">ERROR: Non-authorized user.</Alert></p>
-              </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      )
-
-    }
+    );
   }
 }
 

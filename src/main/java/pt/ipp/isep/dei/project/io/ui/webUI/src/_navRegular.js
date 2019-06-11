@@ -30,11 +30,6 @@ export default {
           url: '/house/monitoring',
           icon: 'cui-sun icons',
           },
-        {
-          name: 'House Configuration',
-          url: '/house/configuration',
-          icon: 'fa fa-wrench fa-lg',
-        },
       ],
     },
     {
@@ -46,11 +41,6 @@ export default {
           name: 'Room Monitoring',
           url: '/room/monitoring',
           icon: 'fa fa-thermometer fa-lg',
-        },
-        {
-          name: 'Room Configuration',
-          url: '/room/configuration',
-          icon: 'fa fa-wrench fa-lg',
         },
       ],
     },

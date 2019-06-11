@@ -29,7 +29,6 @@ class US250 extends Component {
 
   render() {
     var {id, item} = this.state;
-    if (localStorage.getItem("user").includes("admin")) {
       return (
         <div>
 
@@ -38,16 +37,6 @@ class US250 extends Component {
 
         </div>
       );
-    } else {
-      return (
-        <div>
-            <Card>
-              <CardBody>
-                <p>ERROR: Non-authorized user. </p>
-              </CardBody>
-            </Card>
-        </div>)
-    }
   }
 
 }

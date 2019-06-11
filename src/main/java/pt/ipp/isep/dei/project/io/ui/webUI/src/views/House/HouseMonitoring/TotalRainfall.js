@@ -35,15 +35,6 @@ class US620 extends Component {
 
   render() {
     const numberOfMonths = 1;
-      if (localStorage.getItem("user").includes("admin")) {
-        return (
-          <>
-                <CardBody>
-                  <Alert color="danger">ERROR: Non-authorized user.</Alert>
-                </CardBody>
-          </>
-        )
-      } else {
         if ((this.props.totalRainfall.toString()).indexOf("ERROR") != -1) {
           return (
             <>
@@ -65,7 +56,6 @@ class US620 extends Component {
             </>
           );
         }
-      }
     }
 }
 

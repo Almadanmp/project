@@ -17,15 +17,6 @@ class US600Redux extends Component {
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
-       else {
-      if(localStorage.getItem("user").includes("admin")){
-           return(
-             <div>
-               <h4><Alert color="danger">ERROR: Non-authorized user.</Alert>
-               </h4>
-             </div>
-           )
-         }
          else{
            if((temp.toString()).indexOf("ERROR") != -1){
              return(
@@ -43,7 +34,6 @@ class US600Redux extends Component {
               </div>
           );
 
-      }
       }
   }
 }

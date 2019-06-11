@@ -20,21 +20,6 @@ class US105 extends Component {
   }
 
   render() {
-    if(localStorage.getItem("user").includes("admin")){
-    return (
-      <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new room to the
-          house.</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
-            <CardBody>
-              <RoomCreator/>
-            </CardBody>
-          </Card>
-        </Collapse>
-      </div>
-    );}
-    else{
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new room to the
@@ -49,7 +34,6 @@ class US105 extends Component {
         </div>
       )
     }
-  }
 }
 
 export default US105;

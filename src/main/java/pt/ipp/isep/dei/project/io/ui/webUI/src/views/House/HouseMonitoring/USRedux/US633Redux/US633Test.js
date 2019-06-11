@@ -42,22 +42,6 @@ class US633Test extends Component {
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
-    else {
-      if (localStorage.getItem("user").includes("admin")) {
-      return (
-        <div>
-          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
-            highest temperature amplitude in the house area in a given period.</Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-                <Alert color="danger">ERROR: Non-authorized user.</Alert>
-                </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      );}
-      else{
         return (
           <div>
             <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
@@ -73,8 +57,6 @@ class US633Test extends Component {
           </div>
         )
       }
-    }
-  }
 }
 
 const mapStateToProps = (state) => {

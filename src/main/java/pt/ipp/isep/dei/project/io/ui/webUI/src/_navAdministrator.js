@@ -26,11 +26,6 @@ export default {
       icon: 'icon-home',
       children: [
         {
-          name: 'House Monitoring',
-          url: '/house/monitoring',
-          icon: 'cui-sun icons',
-          },
-        {
           name: 'House Configuration',
           url: '/house/configuration',
           icon: 'fa fa-wrench fa-lg',
@@ -42,11 +37,6 @@ export default {
       url: '/theme/room',
       icon: 'fa fa-bed fa-lg',
       children: [
-        {
-          name: 'Room Monitoring',
-          url: '/room/monitoring',
-          icon: 'fa fa-thermometer fa-lg',
-        },
         {
           name: 'Room Configuration',
           url: '/room/configuration',

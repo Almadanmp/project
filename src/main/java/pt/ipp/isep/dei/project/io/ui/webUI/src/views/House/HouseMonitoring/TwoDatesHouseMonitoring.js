@@ -47,18 +47,6 @@ class US631 extends Component {
       return (<h1>Loading ....</h1>);
     }
     else {
-      if (localStorage.getItem("user").includes("admin")) {
-        return (
-          <div>
-            <Card>
-              <CardBody>
-                <Alert color="danger"> ERROR: Non-authorized user </Alert>
-              </CardBody>
-            </Card>
-          </div>
-        )
-      }
-      else{
         return(
           <>
 
@@ -79,7 +67,6 @@ class US631 extends Component {
       </>
 
         );
-      }
     }
 }
 }

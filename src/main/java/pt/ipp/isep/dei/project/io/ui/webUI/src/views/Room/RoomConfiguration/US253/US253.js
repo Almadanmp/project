@@ -14,7 +14,6 @@ class US253 extends Component {
   }
 
   render() {
-    if (localStorage.getItem("user").includes("admin")) {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}>Add a new
@@ -32,21 +31,6 @@ class US253 extends Component {
           </Collapse>
         </div>
       );
-    } else {
-      return (
-        <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>I want to add a new
-            sensor to a room from the list of available sensor types, in order to configure it.</Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-                <p>ERROR: Non-authorized user. </p>
-              </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      )
-    }
   }
 }
 

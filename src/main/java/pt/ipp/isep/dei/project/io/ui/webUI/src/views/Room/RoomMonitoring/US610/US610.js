@@ -27,7 +27,6 @@ class US610 extends Component {
   }
 
   render() {
-    if(localStorage.getItem("user").includes("regular")){
     const numberOfMonths = 1;
     return (
       <Row>
@@ -50,20 +49,7 @@ class US610 extends Component {
         </Col>
       </Row>
 
-    );}
-    else{
-      return (
-        <div>
-
-            <Card>
-              <CardBody>
-                <p>ERROR: Non-authorized user.</p>
-              </CardBody>
-            </Card>
-
-        </div>
-      )
-    }
+    );
   }
 }
 

@@ -38,22 +38,6 @@ class US620 extends Component {
     const {loading} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
-    } else {
-      if (localStorage.getItem("user").includes("admin")) {
-        return (
-          <div>
-            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
-                    style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the total rainfall
-              in the house area for a given day.</Button>
-            <Collapse isOpen={this.state.collapse}>
-              <Card>
-                <CardBody>
-                  <Alert color="danger">ERROR: Non-authorized user.</Alert>
-                </CardBody>
-              </Card>
-            </Collapse>
-          </div>
-        )
       } else {
         if ((this.props.totalRainfall.toString()).indexOf("ERROR") != -1) {
           return (
@@ -89,7 +73,6 @@ class US620 extends Component {
           );
         }
       }
-    }
   }
 }
 

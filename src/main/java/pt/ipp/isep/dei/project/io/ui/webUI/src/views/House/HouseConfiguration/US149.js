@@ -20,7 +20,6 @@ class US149 extends Component {
   }
 
   render() {
-    if(localStorage.getItem("user").includes("admin")){
     return (
       <div>
         <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Remove a room from a
@@ -33,23 +32,7 @@ class US149 extends Component {
           </Card>
         </Collapse>
       </div>
-    );}
-    else{
-      return (
-        <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Remove a room from a
-            grid.</Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody>
-                <p><Alert color="danger">ERROR: Non-authorized user.</Alert></p>
-              </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-      )
-    }
-
+    );
   }
 }
 

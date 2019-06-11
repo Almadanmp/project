@@ -1,22 +1,24 @@
-import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, {Component, Suspense} from 'react';
 import * as router from 'react-router-dom';
-import {Badge, Container, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import {Redirect, Route, Switch} from 'react-router-dom';
+import {Container, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 
 import {
-  AppAside,
+  AppBreadcrumb2 as AppBreadcrumb,
   AppFooter,
   AppHeader,
+  AppHeaderDropdown,
   AppSidebar,
   AppSidebarFooter,
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer,
-  AppBreadcrumb2 as AppBreadcrumb,
-  AppSidebarNav2 as AppSidebarNav, AppHeaderDropdown,
+  AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigationAdmin from '../../_navAdministrator';
+import navigationRegular from '../../_navRegular';
+import navigationBasic from '../../_navBasic';
 // routes config
 import routes from '../../routes';
 import {logout} from "../../logOut/logoutActions";
@@ -26,77 +28,205 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
 
+  loading = () => <div className="animated fadeIn pt-1 text-center">Loading
+    ...</div>
 
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
-
- signOut(e) {
-  e.preventDefault()
-  logout(e)
-   this.props.history.push('/')
-   this.state = {
-     showPopup: false
-   };
- }
+  signOut(e) {
+    e.preventDefault()
+    logout(e)
+    this.props.history.push('/')
+    this.state = {
+      showPopup: false
+    };
+  }
 
   render() {
-    return (
-      <div className="app">
-        <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
-          </Suspense>
-        </AppHeader>
-        <div className="app-body">
-          <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+    if (localStorage.getItem("user") === null) {
+      return (
+        <div className="app">
+          <AppHeader fixed>
+            <Suspense fallback={this.loading()}>
+              <DefaultHeader onLogout={e => this.signOut(e)}/>
             </Suspense>
-            <AppHeaderDropdown direction="left">
-              <DropdownToggle nav>
-                <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-              </DropdownToggle>
-              <DropdownMenu right style={{ right: 'auto' }}>
-                <DropdownItem> User: {localStorage.getItem("user")}</DropdownItem>
-                <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
-              </DropdownMenu>
-            </AppHeaderDropdown>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
-
-          </AppSidebar>
-          <main className="main">
-            <AppBreadcrumb appRoutes={routes} router={router}/>
-            <Container fluid>
-              <Suspense fallback={this.loading()}>
-                <Switch>
-                  {routes.map((route, idx) => {
-                    return route.component ? (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={props => (
-                          <route.component {...props} />
-                        )} />
-                    ) : (null);
-                  })}
-                  <Redirect from="/" to="/about" />
-                </Switch>
+          </AppHeader>
+          <div className="app-body">
+            <AppSidebar fixed display="lg">
+              <AppSidebarHeader/>
+              <AppSidebarForm/>
+              <Suspense>
+                <AppSidebarNav navConfig={navigationBasic} {...this.props} router={router}/>
               </Suspense>
-            </Container>
-          </main>
-        </div>
-        <AppFooter>
-          <Suspense fallback={this.loading()}>
-            <DefaultFooter />
-          </Suspense>
-        </AppFooter>
-      </div>
-    );
-  }
-}
+              <AppHeaderDropdown direction="left">
+                <DropdownToggle navigationAdmin>
+                  <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar" alt="admin@bootstrapmaster.com"/>
+                </DropdownToggle>
+                <DropdownMenu right style={{right: 'auto'}}>
+                  <DropdownItem> User: {localStorage.getItem("user")}</DropdownItem>
+                  <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
+                </DropdownMenu>
+              </AppHeaderDropdown>
+              <AppSidebarFooter/>
+              <AppSidebarMinimizer/>
 
-export default DefaultLayout;
+            </AppSidebar>
+            <main className="main">
+              <AppBreadcrumb appRoutes={routes} router={router}/>
+              <Container fluid>
+                <Suspense fallback={this.loading()}>
+                  <Switch>
+                    {routes.map((route, idx) => {
+                      return route.component ? (
+                        <Route
+                          key={idx}
+                          path={route.path}
+                          exact={route.exact}
+                          name={route.name}
+                          render={props => (
+                            <route.component {...props} />
+                          )}/>
+                      ) : (null);
+                    })}
+                    <Redirect from="/" to="/about"/>
+                  </Switch>
+                </Suspense>
+              </Container>
+            </main>
+          </div>
+          <AppFooter>
+            <Suspense fallback={this.loading()}>
+              <DefaultFooter/>
+            </Suspense>
+          </AppFooter>
+        </div>
+      );
+    } else {
+      if (localStorage.getItem("user").includes("admin")) {
+        return (
+          <div className="app">
+            <AppHeader fixed>
+              <Suspense fallback={this.loading()}>
+                <DefaultHeader onLogout={e => this.signOut(e)}/>
+              </Suspense>
+            </AppHeader>
+            <div className="app-body">
+              <AppSidebar fixed display="lg">
+                <AppSidebarHeader/>
+                <AppSidebarForm/>
+                <Suspense>
+                  <AppSidebarNav navConfig={navigationAdmin} {...this.props} router={router}/>
+                </Suspense>
+                <AppHeaderDropdown direction="left">
+                  <DropdownToggle navigationAdmin>
+                    <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar" alt="admin@bootstrapmaster.com"/>
+                  </DropdownToggle>
+                  <DropdownMenu right style={{right: 'auto'}}>
+                    <DropdownItem> User: {localStorage.getItem("user")}</DropdownItem>
+                    <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
+                  </DropdownMenu>
+                </AppHeaderDropdown>
+                <AppSidebarFooter/>
+                <AppSidebarMinimizer/>
+
+              </AppSidebar>
+              <main className="main">
+                <AppBreadcrumb appRoutes={routes} router={router}/>
+                <Container fluid>
+                  <Suspense fallback={this.loading()}>
+                    <Switch>
+                      {routes.map((route, idx) => {
+                        return route.component ? (
+                          <Route
+                            key={idx}
+                            path={route.path}
+                            exact={route.exact}
+                            name={route.name}
+                            render={props => (
+                              <route.component {...props} />
+                            )}/>
+                        ) : (null);
+                      })}
+                      <Redirect from="/" to="/about"/>
+                    </Switch>
+                  </Suspense>
+                </Container>
+              </main>
+            </div>
+            <AppFooter>
+              <Suspense fallback={this.loading()}>
+                <DefaultFooter/>
+              </Suspense>
+            </AppFooter>
+          </div>
+        );
+      } else {
+        if (localStorage.getItem("user").includes("regular")) {
+          return (
+            <div className="app">
+              <AppHeader fixed>
+                <Suspense fallback={this.loading()}>
+                  <DefaultHeader onLogout={e => this.signOut(e)}/>
+                </Suspense>
+              </AppHeader>
+              <div className="app-body">
+                <AppSidebar fixed display="lg">
+                  <AppSidebarHeader/>
+                  <AppSidebarForm/>
+                  <Suspense>
+                    <AppSidebarNav navConfig={navigationRegular} {...this.props} router={router}/>
+                  </Suspense>
+                  <AppHeaderDropdown direction="left">
+                    <DropdownToggle navigationRegular>
+                      <img src={'https://imgur.com/4YjW6pf.png'} className="img-avatar"
+                           alt="admin@bootstrapmaster.com"/>
+                    </DropdownToggle>
+                    <DropdownMenu right style={{right: 'auto'}}>
+                      <DropdownItem> User: {localStorage.getItem("user")}</DropdownItem>
+                      <DropdownItem onClick={e => this.signOut(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
+                    </DropdownMenu>
+                  </AppHeaderDropdown>
+                  <AppSidebarFooter/>
+                  <AppSidebarMinimizer/>
+
+                </AppSidebar>
+                <main className="main">
+                  <AppBreadcrumb appRoutes={routes} router={router}/>
+                  <Container fluid>
+                    <Suspense fallback={this.loading()}>
+                      <Switch>
+                        {routes.map((route, idx) => {
+                          return route.component ? (
+                            <Route
+                              key={idx}
+                              path={route.path}
+                              exact={route.exact}
+                              name={route.name}
+                              render={props => (
+                                <route.component {...props} />
+                              )}/>
+                          ) : (null);
+                        })}
+                        <Redirect from="/" to="/about"/>
+                      </Switch>
+                    </Suspense>
+                  </Container>
+                </main>
+              </div>
+              <AppFooter>
+                <Suspense fallback={this.loading()}>
+                  <DefaultFooter/>
+                </Suspense>
+              </AppFooter>
+            </div>
+          );
+
+        } else {
+          return this.props.history.replace('/');
+        }
+      }
+
+    }
+  }}
+
+  export
+  default
+  DefaultLayout;
