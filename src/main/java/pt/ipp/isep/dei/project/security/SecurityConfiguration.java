@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.project.security;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
