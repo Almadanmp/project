@@ -12,14 +12,12 @@ import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.SensorTypeCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 

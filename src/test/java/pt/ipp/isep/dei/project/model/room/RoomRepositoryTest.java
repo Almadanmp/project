@@ -23,7 +23,7 @@ import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
 import pt.ipp.isep.dei.project.model.sensortype.SensorType;
-import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.RoomCrudRepo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -12,7 +12,7 @@ import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
 import pt.ipp.isep.dei.project.model.device.DeviceList;
-import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.RoomCrudRepo;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.repository;
+package pt.ipp.isep.dei.project.model.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -9,8 +9,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
-import pt.ipp.isep.dei.project.repository.EnergyGridCrudRepo;
-import pt.ipp.isep.dei.project.repository.RoomCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.EnergyGridCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.RoomCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;

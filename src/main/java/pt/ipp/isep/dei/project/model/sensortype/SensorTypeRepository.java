@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
-import pt.ipp.isep.dei.project.repository.SensorTypeCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.SensorTypeCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;

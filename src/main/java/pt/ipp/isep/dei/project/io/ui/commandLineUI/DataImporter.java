@@ -14,7 +14,7 @@ import pt.ipp.isep.dei.project.model.house.House;
 import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 import pt.ipp.isep.dei.project.model.user.User;
 import pt.ipp.isep.dei.project.model.user.UserRepository;
-import pt.ipp.isep.dei.project.repository.*;
+import pt.ipp.isep.dei.project.model.repository.*;
 
 import java.io.IOException;
 import java.util.Arrays;

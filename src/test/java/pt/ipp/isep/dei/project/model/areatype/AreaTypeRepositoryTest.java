@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ipp.isep.dei.project.model.device.WaterHeater;
 import pt.ipp.isep.dei.project.model.device.devicespecs.WaterHeaterSpec;
-import pt.ipp.isep.dei.project.repository.AreaTypeCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.AreaTypeCrudRepo;
 
 import java.util.ArrayList;
 import java.util.List;

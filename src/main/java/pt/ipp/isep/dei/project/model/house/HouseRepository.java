@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.project.dto.HouseDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AddressMapper;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
-import pt.ipp.isep.dei.project.repository.HouseCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.HouseCrudRepo;
 
 import java.util.List;
 

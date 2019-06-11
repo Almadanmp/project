@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
-import pt.ipp.isep.dei.project.repository.GeographicAreaCrudRepo;
+import pt.ipp.isep.dei.project.model.repository.GeographicAreaCrudRepo;
 
 import java.util.*;
 
