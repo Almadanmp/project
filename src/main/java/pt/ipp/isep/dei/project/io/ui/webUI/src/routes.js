@@ -8,6 +8,7 @@ const RoomMonitoring = React.lazy(()=> import('./views/Room/RoomMonitoring/RoomM
 const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration/RoomConfiguration'));
 const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/HouseConfiguration'));
 const EnergyGrid = React.lazy(()=> import('./views/EnergyGrid/EnergyGrid'));
+const Area = React.lazy(()=> import('./views/GeographicArea/Area'));
 
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
@@ -17,6 +18,7 @@ const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 const routes = [
   { path: '/', exact: true, name: 'House'},
   { path: '/login', name: 'Login', component: LogInPage },
+  { path: '/area', name: 'Area', component: Area },
   { path: '/house/monitoring', name: 'House Monitoring', component: HouseMonitoring },
   { path: '/room/monitoring', name: 'Room Monitoring', component: RoomMonitoring },
   { path: '/room/configuration', name: 'Room Configuration', component: RoomConfiguration },

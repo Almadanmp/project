@@ -29,7 +29,7 @@ class US630 extends Component {
       this.props.onFetchColdDay(initialDay, finalDay)
 
     }
-  }
+  };
 
   toggle() {
     this.setState(state => ({collapse: !state.collapse}));
