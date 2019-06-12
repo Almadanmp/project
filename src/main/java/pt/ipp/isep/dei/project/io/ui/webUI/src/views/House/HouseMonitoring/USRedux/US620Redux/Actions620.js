@@ -1,10 +1,9 @@
 import axios from 'axios';
-import {fetchNonAuthorized} from "../US600Redux/Actions600";
+import {FETCH_NO_DATA, fetchNoData} from "../US600Redux/Actions600";
 
 export const FETCH_RAINFALL_STARTED = 'FETCH_RAINFALL_STARTED';
 export const FETCH_RAINFALL_SUCCESS = 'FETCH_RAINFALL_SUCCESS';
 export const FETCH_RAINFALL_FAILURE = 'FETCH_RAINFALL_FAILURE';
-
 
 export const fetchTotalRainfallDay = ({ selectedDay }) => {
   const token = localStorage.getItem('loginToken');
@@ -22,8 +21,8 @@ export const fetchTotalRainfallDay = ({ selectedDay }) => {
         dispatch(fetchTotalRainfallSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        if (err.response.status === 403) {
-          dispatch(fetchNonAuthorized(err.message))
+        if (err.response === 500) {
+          dispatch(fetchNoData(err.message))
         }
         else{
         dispatch(fetchTotalRainfallFailure(err.message));
@@ -58,6 +57,7 @@ return {
   }
 }
 }
+
 
 
 
