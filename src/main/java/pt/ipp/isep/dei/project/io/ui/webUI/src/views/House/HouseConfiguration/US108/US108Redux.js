@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchGAs} from './Actions108';
 import {Alert, Card, CardBody, Col, Row, Table} from "reactstrap";
-import TableHeader from "./TableHeader";
-import TableBody from "./TableBody"
+import TableHeaderUS108 from "./TableHeaderUS108";
+import TableBodyUS108 from "./TableBodyUS108"
 
 class US108Redux extends Component {
   constructor(props) {
@@ -20,7 +20,8 @@ class US108Redux extends Component {
       floor: "Floor",
       height: "Height (m)",
       length: "Length (m)",
-      width: "Width (m)"
+      width: "Width (m)",
+      edit: "Edit"
     };
 
     const {loading, data} = this.props;
@@ -35,8 +36,8 @@ class US108Redux extends Component {
               <Card>
                 <CardBody>
                   <Table responsive>
-                    <TableHeader headers={headers}/>
-                    <TableBody data={data}/>
+                    <TableHeaderUS108 headers={headers}/>
+                    <TableBodyUS108 data={data}/>
                   </Table>
                 </CardBody>
               </Card>
