@@ -21,6 +21,7 @@ class RemoveFromGrid extends React.Component {
   }
 
   render() {
+    console.log(this.props.name,this.props.grid)
     const {name, grid} = this.state;
     return (
       <>
