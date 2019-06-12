@@ -56,7 +56,7 @@ export default {
     },
     {
       name: 'Energy',
-      url: '/maintenance',
+      url: '/energy',
       icon: 'icon-energy\n',
     },
     {

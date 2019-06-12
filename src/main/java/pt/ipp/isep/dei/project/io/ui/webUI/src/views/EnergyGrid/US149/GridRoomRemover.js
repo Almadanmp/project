@@ -1,11 +1,10 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
-import {deleteRoomFromGrid} from "../../US149/Actions";
+import {deleteRoomFromGrid} from "./Actions";
 import {connect} from 'react-redux';
-import TableBody from "../TableBody";
 
-class removeFromGrid extends React.Component {
+class GridRoomRemover extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,17 +13,25 @@ class removeFromGrid extends React.Component {
       roomID: '',
       gridID: '',
     };
-  }
 
+    this.handleInputChange = attribute => event => {
+      this.setState({
+        [attribute]: event.target.value
+      });
+    };
+  }
 
   handleSubmit() {
-    this.props.onDeleteRoomFromGrid(this.state);
+    this.props.deleteRoomFromGrid(this.state);
   }
+
 
   render() {
     const {roomID, gridID} = this.state;
     return (
       <>
+        RoomID:<input value={this.state.roomID} type="text" name="roomID" onChange={this.handleInputChange('roomID')}/>
+        GridID:<input value={this.state.gridID} type="text" name="grid" onChange={this.handleInputChange('gridID')}/>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove
           Room {roomID} from {gridID} Energy Grid</Button>
       </>
@@ -34,10 +41,11 @@ class removeFromGrid extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeleteRoomFromGrid: ({roomID, gridID}) => {
+    deleteRoomFromGrid: ({roomID, gridID}) => {
       dispatch(deleteRoomFromGrid({roomID, gridID}))
     }
   }
 };
 
-export default connect(null, mapDispatchToProps)(removeFromGrid);
+export default connect(null, mapDispatchToProps)(GridRoomRemover);
+

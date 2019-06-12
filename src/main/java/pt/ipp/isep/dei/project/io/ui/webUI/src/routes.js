@@ -7,6 +7,7 @@ const HouseMonitoring = React.lazy(()=> import('./views/House/HouseMonitoring/Ho
 const RoomMonitoring = React.lazy(()=> import('./views/Room/RoomMonitoring/RoomMonitoring'));
 const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration/RoomConfiguration'));
 const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/HouseConfiguration'));
+const EnergyGrid = React.lazy(()=> import('./views/EnergyGrid/EnergyGrid'));
 
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
@@ -20,6 +21,7 @@ const routes = [
   { path: '/room/monitoring', name: 'Room Monitoring', component: RoomMonitoring },
   { path: '/room/configuration', name: 'Room Configuration', component: RoomConfiguration },
   { path: '/house/configuration', name: 'House Configuration', component: HouseConfiguration },
+  { path: '/energy', name: 'Energy', component: EnergyGrid },
   { path: '/maintenance', name: 'UnderMaintenance', component: UnderMaintenance },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
