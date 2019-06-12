@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
 import {Button} from "reactstrap";
-import removeFromGrid from "./gridRedux/removeFromGrid"
+import RemoveFromGrid from "./gridRedux/RemoveFromGrid"
+import {deleteRoomFromGrid} from "../US149/Actions";
+import connect from "react-redux/es/connect/connect";
 
 class TableBody extends Component {
 
@@ -9,14 +11,13 @@ class TableBody extends Component {
     super(props);
     this.state = {
       item: [],
-      sensors: false,
-      gridID: ''
+      grid: '',
     }
   }
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/gridSettings/grids/' + this.props.gridID, {
+    fetch('https://localhost:8443/gridSettings/grids/' + this.props.grid, {
       headers: {
         'Authorization': token,
         "Access-Control-Allow-Credentials": true,
@@ -27,11 +28,14 @@ class TableBody extends Component {
       .then(res => res.json())
       .then((json) => {
         this.setState({
-          sensors: true,
           item: json,
         })
       })
       .catch(console.log)
+  }
+
+  handleSubmit(name, grid) {
+    this.props.onDeleteRoomFromGrid(name, grid)
   }
 
   render() {
@@ -67,9 +71,8 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-              <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}}><i
-                class="fa fa-minus-square-o fa-lg"></i> </Button>
-              {<removeFromGrid gridID={this.props.gridID} roomID={item.name}/>}
+
+              <RemoveFromGrid grid={this.props.grid} name={item.name}/>
             </td>
           </tr>
         ))}
@@ -80,4 +83,12 @@ class TableBody extends Component {
 }
 
 
-export default TableBody;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDeleteRoomFromGrid: (name, grid) => {
+      dispatch(deleteRoomFromGrid({name, grid}))
+    }
+  }
+};
+
+export default connect(null, mapDispatchToProps)(TableBody);

@@ -5,12 +5,13 @@ export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
 export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
-export const deleteRoomFromGrid = ({roomID, gridID}) => {
+export const deleteRoomFromGrid = ({name, grid}) => {
+  console.log({name, grid});
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchRoomFromGridInfo(roomID, gridID));
+    dispatch(fetchRoomFromGridInfo(name, grid));
     axios
-      .delete('https://localhost:8443/gridSettings/grids/' + gridID,
+      .delete('https://localhost:8443/gridSettings/grids/' + grid,
         {
           headers: {
             'Authorization': token,
@@ -18,7 +19,7 @@ export const deleteRoomFromGrid = ({roomID, gridID}) => {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json"
           },
-          data: {name: roomID}
+          data: {name: name}
         })
       .then(res => {
         dispatch(fetchRoomFromGridInfoSuccess(res.data));
@@ -30,12 +31,12 @@ export const deleteRoomFromGrid = ({roomID, gridID}) => {
 };
 
 
-export function fetchRoomFromGridInfo(roomID, gridID) {
+export function fetchRoomFromGridInfo(name, grid) {
   return {
     type: REMOVE_GRID_ROOM_INFO_STARTED,
     payload: {
-      roomID: roomID,
-      gridID: gridID,
+      name: name,
+      grid: grid,
     }
   }
 }

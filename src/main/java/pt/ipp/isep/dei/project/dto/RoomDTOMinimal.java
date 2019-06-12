@@ -14,6 +14,7 @@ public class RoomDTOMinimal extends ResourceSupport {
     private double width;
     private double length;
     private double height;
+    private String gridID;
 
     /**
      * Name getter
@@ -27,6 +28,19 @@ public class RoomDTOMinimal extends ResourceSupport {
      **/
     public void setName(String name) {
         this.name = name;
+    }
+    /**
+     * Name getter
+     **/
+    public String getGridID() {
+        return gridID;
+    }
+
+    /**
+     * Name setter
+     **/
+    public void setGridID(String gridID) {
+        this.gridID = gridID;
     }
 
     /**

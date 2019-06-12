@@ -61,7 +61,7 @@ class RoomGrid extends Component {
                     textAlign: "right"
                   }}>
                     <Table responsive>
-                      <TableBody gridID={items.name} roomID={item.value}/>
+                      <TableBody grid={items.name}/>
 
                     </Table>
                     <US147 grid={items.name}/>
