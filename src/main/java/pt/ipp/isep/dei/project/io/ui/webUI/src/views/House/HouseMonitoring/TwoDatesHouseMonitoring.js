@@ -5,8 +5,11 @@ import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
 import DatePickerWithTwoDates from "./DatePickerWithTwoDates";
 import {fetchColdDay} from "./USRedux/US630Redux/Actions630";
 import {fetchAmplitude} from './USRedux/US633Redux/Actions633';
+import US630 from "./USRedux/US630Redux/US630Redux";
+import US631 from "./USRedux/US631Redux/US631Redux";
+import US633Test from "./USRedux/US633Redux/US633Redux";
 
-class US631 extends Component {
+class TwoDatesHouseMonitoring extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -17,11 +20,6 @@ class US631 extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.onFetchHottestDay(this.state.from, this.state.to);
-    this.props.onFetchColdDay(this.state.from, this.state.to);
-    this.props.onFetchAmplitude(this.state.from, this.state.to);
-  }
 
   handleIntervalPicker = (from, to) => {
 
@@ -42,25 +40,20 @@ class US631 extends Component {
 
   render() {
     const numberOfMonths = 2;
-    const {loading, cold, hottestDay, amplitude, error} = this.props;
-    if (loading === true) {
-      return (<h1>Loading ....</h1>);
-    }
-    else {
+
         return(
           <>
 
           <CardBody>
           <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
             <p>
-            <h5 key={hottestDay.value}>The hottest day was  <mark>{hottestDay.date}</mark> and the temperature
-          was {hottestDay.value} ºC</h5>
+              <US630/>
             </p>
               <p>
-            <h5 key={cold.value}>The coldest day was <mark >{cold.date }</mark> and the temperature was {cold.value} ºC </h5>
+               <US631/>
               </p>
                 <p>
-            <h5 key={amplitude.value}>The highest amplitude was <mark>{amplitude.value}</mark> on the date {amplitude.date}</h5>
+                <US633Test/>
                 </p>
         </CardBody>
 
@@ -68,7 +61,7 @@ class US631 extends Component {
 
         );
     }
-}
+
 }
 
 
@@ -102,4 +95,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(US631);
+)(TwoDatesHouseMonitoring);

@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchAmplitude} from './Actions633';
 import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
-import DatePickerWithTwoDates from "../../DatePickerWithTwoDates";
 
-class US633Test extends Component {
+class US633Redux extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -19,24 +18,11 @@ class US633Test extends Component {
     this.props.onFetchAmplitude(this.state.from, this.state.to);
   }
 
-  handleIntervalPicker = (from, to) => {
-
-    console.log("handleIntervalPicker: from"+ JSON.stringify(from)+ "to: "+ JSON.stringify(to))
-    if (from !== undefined && to !== undefined) {
-      const initialDay = from.toISOString().substring(0, 10);
-      const finalDay = to.toISOString().substring(0, 10);
-      this.setState({from: from, to: to});
-      this.props.onFetchAmplitude(initialDay, finalDay)
-
-    }
-  }
-
   toggle() {
     this.setState(state => ({collapse: !state.collapse}));
   }
 
   render() {
-    const numberOfMonths = 2;
     const {loading} = this.props;
     const{amplitude} = this.props;
     if (loading === true) {
@@ -44,15 +30,13 @@ class US633Test extends Component {
     }
         return (
           <div>
-            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the day with the
-              highest temperature amplitude in the house area in a given period.</Button>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>The
+              highest temperature amplitude: </Button>
             <Collapse isOpen={this.state.collapse}>
-              <Card>
-                <CardBody>
-                  <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
+
+
                   <h5 key={amplitude.value}>The highest amplitude was {amplitude.value} on the date {amplitude.date}</h5>
-                </CardBody>
-              </Card>
+
             </Collapse>
           </div>
         )
@@ -79,4 +63,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(US633Test);
+)(US633Redux);
