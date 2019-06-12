@@ -184,11 +184,13 @@ class GASettingsWebControllerTest {
     }
 
     @Test
-    void seeIfCreateGeoAreaDoesntWorkLocalNull() {
+    void seeIfCreateGeoAreaDoesntWorkLatitudeNull() {
         //Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setName("Porto");
@@ -200,10 +202,69 @@ class GASettingsWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
         //Act
+
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
         //Assert
+
         assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfCreateGeoAreaDoesntWorkLongetidudeNull() {
+        //Arrange
+
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
+
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setAltitude(100D);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setName("Porto");
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+//        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+
+        //Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void seeIfCreateGeoAreaDoesntWorkAltitudeNull() {
+        //Arrange
+
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
+
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setId(2L);
+        validGeographicAreaDTO.setName("Porto");
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+//        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+
+        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
+
+        //Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
