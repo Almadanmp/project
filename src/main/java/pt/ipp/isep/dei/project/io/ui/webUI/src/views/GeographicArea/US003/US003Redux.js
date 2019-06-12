@@ -11,9 +11,12 @@ class US003Redux extends Component {
       id: 0,
       name: '',
       typeArea: '',
+      length: 0,
+      width: 0,
       latitude: 0,
       longitude: 0,
-      altitude: 0
+      altitude: 0,
+      description: ''
     };
 
     this.handleInputChange = attribute => event => {
@@ -29,11 +32,10 @@ class US003Redux extends Component {
   }
 
   render() {
-    const {id, name, typeArea, latitude, longitude, altitude} = this.props;
     return (
       <>
         <label> Id:
-          <input value={id} type="number" name="id" onChange={this.handleInputChange('id')}/>
+          <input value={this.state.id} type="number" name="id" onChange={this.handleInputChange('id')}/>
         </label>
 
         <label> Name:
@@ -42,6 +44,14 @@ class US003Redux extends Component {
 
         <label> Type area:
           <input value={this.state.typeArea} type="text" name="typeArea" onChange={this.handleInputChange('typeArea')}/>
+        </label>
+
+        <label> Length:
+          <input value={this.state.length} type="number" name="length" onChange={this.handleInputChange('length')}/>
+        </label>
+
+        <label> Width:
+          <input value={this.state.width} type="number" name="width" onChange={this.handleInputChange('width')}/>
         </label>
 
         <label> Latitude:
@@ -56,8 +66,13 @@ class US003Redux extends Component {
           <input value={this.state.altitude} type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
         </label>
 
+        <label> Description:
+          <input value={this.state.description} type="text" name="description" onChange={this.handleInputChange('description')}/>
+        </label>
+
         <p>The geographic area to be created has the following
-          details: {this.state.id + ', ' + this.state.name + ', ' + this.state.typeArea + ', ' + this.state.latitude + ', ' + this.state.longitude + ', ' + this.state.altitude + '.'}</p>
+          details: {this.state.id + ', ' + this.state.name + ', ' + this.state.typeArea + this.state.length + this.state.width + ', '
+          + this.state.latitude + ', ' + this.state.longitude + ', ' + this.state.altitude + this.state.description + '.'}</p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
           geographic area</Button>
       </>
@@ -73,8 +88,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchArea: (id, name, typeArea, latitude, longitude, altitude) => {
-      dispatch(fetchGA({id, name, typeArea, latitude, longitude, altitude}))
+    onFetchArea: (id, name, typeArea, length, width, latitude, longitude, altitude, description) => {
+      dispatch(fetchGA({id, name, typeArea, length, width, latitude, longitude, altitude, description}))
     }
 
   }

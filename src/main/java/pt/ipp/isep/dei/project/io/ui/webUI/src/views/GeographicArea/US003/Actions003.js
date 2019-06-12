@@ -5,12 +5,11 @@ export const FETCH_GA_SUCCESS = 'FETCH_GA_SUCCESS';
 export const FETCH_GA_FAILURE = 'FETCH_GA_FAILURE';
 
 
-export function fetchGA({id, name, typeArea, latitude, longitude, altitude}) {
+export function fetchGA({id, name, typeArea, length, width, latitude, longitude, altitude, description}) {
   const token = localStorage.getItem('loginToken');
-  console.log(id, name, typeArea, latitude, longitude, altitude);
   return dispatch => {
-    dispatch(fetchGAStarted(id, name, typeArea, latitude, longitude, altitude));
-    const data = {id, name, typeArea, latitude, longitude, altitude};
+    dispatch(fetchGAStarted(id, name, typeArea, length, width, latitude, longitude, altitude, description));
+    const data = {id, name, typeArea, length, width, latitude, longitude, altitude, description};
     axios
       .post(`https://localhost:8443/geographic_area_settings/areas`, data, {
           headers: {
@@ -19,7 +18,19 @@ export function fetchGA({id, name, typeArea, latitude, longitude, altitude}) {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json"
           },
-          body: {id, name, typeArea, local:{latitude, longitude, altitude}}
+          body: {
+            "id": {id},
+            "name": {name},
+            "typeArea": {typeArea},
+            "length": {length},
+            "width": {width},
+            "local": {
+              "latitude": {latitude},
+              "longitude": {longitude},
+              "altitude": {altitude},
+            },
+            "description": {description}
+          }
         }
       )
       .then(res => {
@@ -32,16 +43,21 @@ export function fetchGA({id, name, typeArea, latitude, longitude, altitude}) {
   };
 }
 
-export function fetchGAStarted(id, name, typeArea, latitude, longitude, altitude) {
+export function fetchGAStarted(id, name, typeArea, length, width, latitude, longitude, altitude, description) {
   return {
     type: FETCH_GA_STARTED,
     payload: {
       id: id,
       name: name,
       typeArea: typeArea,
-      latitude: latitude,
-      longitude: longitude,
-      altitude: altitude
+      length: length,
+      width: width,
+      local: {
+        latitude: latitude,
+        longitude: longitude,
+        altitude: altitude
+      },
+      description: description
     }
   }
 }
