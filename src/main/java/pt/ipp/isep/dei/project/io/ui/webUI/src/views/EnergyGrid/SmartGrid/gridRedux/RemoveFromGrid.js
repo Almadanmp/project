@@ -17,16 +17,15 @@ class RemoveFromGrid extends React.Component {
 
 
   handleSubmit() {
-    this.props.onDeleteRoomFromGrid(this.state);
+    this.props.onDeleteRoomFromGrid(this.state.name, this.state.grid);
   }
 
   render() {
     console.log(this.props.name,this.props.grid)
-    const {name, grid} = this.state;
     return (
       <>
-        <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}} onClick={this.handleSubmit()}><i
-          class="fa fa-minus-square-o fa-lg"></i> </Button>
+        <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}} onClick={this.handleSubmit}><i
+          className="fa fa-minus-square-o fa-lg"></i> </Button>
       </>
     )
   }
@@ -34,7 +33,7 @@ class RemoveFromGrid extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDeleteRoomFromGrid: ({name, grid}) => {
+    onDeleteRoomFromGrid: (name, grid) => {
       dispatch(deleteRoomFromGrid({name, grid}))
     }
   }
