@@ -74,10 +74,11 @@ public class HouseMonitoringWebController {
 
     /* 623 - I want to get the average daily rainfall in the house area for a given period (days) */
     @GetMapping("/averageRainfall")
-    public ResponseEntity<Object> getAverageDailyRainfall(@RequestBody DateIntervalDTO dateInterval) {
+    public ResponseEntity<Object> getAverageDailyRainfall(@RequestParam("initialDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date initialDate,
+                                                          @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         double result;
         try {
-            result = geographicAreaHouseService.getAverageDailyRainfall(dateInterval.getInitialDate(), dateInterval.getEndDate());
+            result = geographicAreaHouseService.getAverageDailyRainfall(initialDate, endDate);
         } catch (NoSuchElementException | IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
