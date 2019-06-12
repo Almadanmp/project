@@ -56,13 +56,12 @@ public class UnitHelper {
      * @return temperature unit as a String.
      */
     static String getApplicationTemperatureDefault() {
-        String temperatureDefault;
+        String temperatureDefault = "Celsius";
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream(UnitHelper.UNITS_PROPERTIES)) {
             prop.load(input);
             temperatureDefault = prop.getProperty("defaultApplicationTemperatureUnit");
-        } catch (IOException ioe) {
-            return ioe.getMessage();
+        } catch (IOException ignored) {
         }
         return temperatureDefault;
     }
@@ -73,7 +72,7 @@ public class UnitHelper {
      *
      * @return String with ApplicationTemperatureDefault path
      */
-    static String getApplicationTemperatureConfig() {
+    static String getApplicationTemperatureConfig() throws IOException {
         return getApplicationTemperatureDefault();
     }
 
@@ -116,8 +115,7 @@ public class UnitHelper {
         try (FileInputStream input = new FileInputStream(propFileName)) {
             prop.load(input);
             rainfallDefault = prop.getProperty("defaultApplicationRainfallUnit");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (IOException ignored) {
         }
         return rainfallDefault;
     }
@@ -206,7 +204,7 @@ public class UnitHelper {
      * @param unit Unit object to convert.
      * @return Unit object defined as System Default
      */
-    static Unit convertUnitToSystemDefault(Unit unit) {
+    static Unit convertUnitToSystemDefault(Unit unit) throws IOException {
         if (unit instanceof TemperatureUnit) {
             String defaultTemperatureString = getApplicationTemperatureConfig();
             return convertStringToUnit(defaultTemperatureString);
@@ -230,8 +228,6 @@ public class UnitHelper {
 
             Class<?> unitClass = Class.forName("pt.ipp.isep.dei.project.services.units." + classToInstance);
             return (Unit) unitClass.newInstance(); // invokes empty constructor
-        } catch (IOException io) {
-            throw new IllegalArgumentException(io.getMessage());
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -245,15 +241,13 @@ public class UnitHelper {
      * @param unit String that corresponds to a given Unit.
      * @return String of the Class that corresponds to the given Unit.
      */
-    static String getReaderClassToInstance(String unit) throws IOException {
-        String classToInstance;
+    static String getReaderClassToInstance(String unit) {
+        String classToInstance = null;
         Properties props = new Properties();
         try (InputStream input = new FileInputStream("resources/unit.properties")) {
             props.load(input);
             classToInstance = props.getProperty(unit);
-
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
+        } catch (IOException ignored) {
         }
         return classToInstance;
     }

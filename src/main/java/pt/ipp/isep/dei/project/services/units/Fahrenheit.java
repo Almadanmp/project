@@ -13,7 +13,7 @@ public class Fahrenheit implements TemperatureUnit {
      * @param valueToConvert refers to the temperature value.
      * @return value converted into the default Unit.
      */
-    public double toApplicationDefault(double valueToConvert) {
+    public double toApplicationDefault(double valueToConvert) throws IOException {
         String defaultUnit = getApplicationTemperatureConfig();
         return toDefaultTemperatureUnit(defaultUnit, valueToConvert, this);
     }

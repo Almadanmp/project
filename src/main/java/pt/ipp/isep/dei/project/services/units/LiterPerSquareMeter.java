@@ -14,7 +14,7 @@ public class LiterPerSquareMeter implements RainfallUnit {
      * @return value converted into the default Unit.
      * @throws IOException in case the properties file is missing or doesn't have the property.
      */
-    public double toApplicationDefault(double valueToConvert) {
+    public double toApplicationDefault(double valueToConvert) throws IOException {
         String defaultUnit = getApplicationRainfallConfig();
         return toDefaultRainfallUnit(defaultUnit, valueToConvert, this);
     }

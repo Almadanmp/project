@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static pt.ipp.isep.dei.project.services.units.UnitHelper.getApplicationTemperatureConfig;
+import static pt.ipp.isep.dei.project.services.units.UnitHelper.*;
 
 class UnitHelperTest {
 
@@ -42,7 +42,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetApplicationTemperatureConfigWorks() {
+    void seeIfGetApplicationTemperatureConfigWorks() throws IOException {
         // Arrange
 
         String expectedResult = "Celsius";
@@ -72,7 +72,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetApplicationRainfallConfigWorks() {
+    void seeIfGetApplicationRainfallConfigWorks() throws IOException {
         // Arrange
 
         String expectedResult = "Millimeter";
@@ -186,7 +186,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfConvertUnitToSystemDefaultWorks() {
+    void seeIfConvertUnitToSystemDefaultWorks() throws IOException {
         // Arrange
 
         Unit expectedResult = new Celsius();
@@ -202,7 +202,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfConvertUnitToSystemDefaultWorksIfReceivesNull() {
+    void seeIfConvertUnitToSystemDefaultWorksIfReceivesNull() throws IOException {
         // Act
 
         Unit actualResult = UnitHelper.convertUnitToSystemDefault(null);
@@ -213,7 +213,7 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfConvertUnitToSystemDefaultRainfallWorks() {
+    void seeIfConvertUnitToSystemDefaultRainfallWorks() throws IOException {
         // Arrange
 
         Unit expectedResult = new Millimeter();
@@ -237,7 +237,7 @@ class UnitHelperTest {
 
         // Act
 
-        Unit actualResult = UnitHelper.convertStringToUnit(givenUnitString);
+        Unit actualResult = convertStringToUnit(givenUnitString);
 
         // Assert
 
@@ -245,7 +245,22 @@ class UnitHelperTest {
     }
 
     @Test
-    void seeIfGetReaderClassToInstanceWorks() throws IOException {
+    void seeIfConvertStringToUnitReturnsNull() {
+        // Arrange
+
+        String givenUnitString = "Invalid";
+
+        // Act
+
+        Unit actualResult = convertStringToUnit(givenUnitString);
+
+        // Assert
+
+        assertNull(actualResult);
+    }
+
+    @Test
+    void seeIfGetReaderClassToInstanceWorks() {
         // Arrange
 
         String expectedResult = "Fahrenheit";
@@ -253,7 +268,7 @@ class UnitHelperTest {
 
         // Act
 
-        String actualResult = UnitHelper.getReaderClassToInstance(givenUnitString);
+        String actualResult = getReaderClassToInstance(givenUnitString);
 
         // Assert
 
@@ -358,4 +373,5 @@ class UnitHelperTest {
         }
 
     }
+
 }
