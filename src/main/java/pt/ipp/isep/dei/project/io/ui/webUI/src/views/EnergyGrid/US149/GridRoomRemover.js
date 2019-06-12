@@ -10,8 +10,8 @@ class GridRoomRemover extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      roomID: '',
-      gridID: '',
+      name: '',
+      grid: '',
     };
 
     this.handleInputChange = attribute => event => {
@@ -27,13 +27,13 @@ class GridRoomRemover extends React.Component {
 
 
   render() {
-    const {roomID, gridID} = this.state;
+    const {name, grid} = this.state;
     return (
       <>
-        RoomID:<input value={this.state.roomID} type="text" name="roomID" onChange={this.handleInputChange('roomID')}/>
-        GridID:<input value={this.state.gridID} type="text" name="grid" onChange={this.handleInputChange('gridID')}/>
+        RoomID:<input value={this.state.name} type="text" name="room" onChange={this.handleInputChange('name')}/>
+        GridID:<input value={this.state.grid} type="text" name="grid" onChange={this.handleInputChange('grid')}/>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Remove
-          Room {roomID} from {gridID} Energy Grid</Button>
+          Room {name} from {grid} Energy Grid</Button>
       </>
     )
   }
@@ -41,8 +41,8 @@ class GridRoomRemover extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteRoomFromGrid: ({roomID, gridID}) => {
-      dispatch(deleteRoomFromGrid({roomID, gridID}))
+    deleteRoomFromGrid: ({name, grid}) => {
+      dispatch(deleteRoomFromGrid({name, grid}))
     }
   }
 };
