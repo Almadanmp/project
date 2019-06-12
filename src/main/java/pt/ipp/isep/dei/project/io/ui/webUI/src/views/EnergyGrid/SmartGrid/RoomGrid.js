@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, CardBody, Col, Form, FormGroup, Input, Label, Table} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Table} from "reactstrap";
 import US145GetRooms from "../US145/US145GetRooms";
 import TableBody from "./TableBody";
 
@@ -53,17 +53,19 @@ class RoomGrid extends Component {
           <>
             {item.map(items => (
             <Col xs="12" lg="6">
-              <Card>
-                <CardBody>
+              <Card value={items.name} key={items.name}>
+                <CardHeader>
+                  <h5>Grid: {items.name}</h5>
+                </CardHeader>
+                <CardBody style={{
+                  textAlign:"right"
+                }}>
                   <Table responsive>
-
-
-                  <tr value={items.name} key={items.name}>
-                    <h5>Grid: {items.name}</h5>
-                    <TableBody gridID={items.name} roomID={item.value}/>
-                  </tr>
+                    <TableBody gridID={items.name} roomID={item.value}  />
 
                   </Table>
+                  <Button className={"btn-pill"} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}><i className="fa fa-plus-square-o fa-lg"/></Button>
+
                 </CardBody>
               </Card>
             </Col>

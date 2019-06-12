@@ -16,7 +16,6 @@ class TableHeader extends Component {
         <th>{headers.length}</th>
         <th>{headers.width}</th>
         <th>{headers.remove}</th>
-        <th>{headers.edit}</th>
       </tr>
       </thead>
     );
