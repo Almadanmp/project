@@ -34,10 +34,6 @@ class TableBody extends Component {
       .catch(console.log)
   }
 
-  handleSubmit(name, grid) {
-    this.props.onDeleteRoomFromGrid(name, grid)
-  }
-
   render() {
     const headers = {
       name: "Rooms",
@@ -47,7 +43,7 @@ class TableBody extends Component {
       width: "Width (m)",
       remove: "Remove from grid",
     };
-    var {id, item} = this.state;
+    var {item} = this.state;
     return (
       <>
         <TableHeader headers={headers}/>
@@ -71,7 +67,6 @@ class TableBody extends Component {
             <td style={{
               textAlign: "center"
             }}>
-
               <RemoveFromGrid grid={this.props.grid} name={item.name}/>
             </td>
           </tr>
