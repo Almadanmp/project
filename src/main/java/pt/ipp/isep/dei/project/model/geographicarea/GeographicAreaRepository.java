@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.project.model.geographicarea;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
-import pt.ipp.isep.dei.project.dto.ReadingDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
@@ -84,6 +81,32 @@ public class GeographicAreaRepository {
     public boolean addAndPersistDTO(GeographicAreaDTO geographicAreaToAddDTO) {
         List<GeographicArea> geographicAreas = getAll();
         GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaToAddDTO);
+        if (!(geographicAreas.contains(geographicAreaToAdd))) {
+            geographicAreas.add(geographicAreaToAdd);
+            geographicAreaCrudRepo.save(geographicAreaToAdd);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addAndPersistPlainDTO(GeographicAreaPlainLocalDTO geographicAreaPlainLocalDTO) {
+
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setLatitude(geographicAreaPlainLocalDTO.getLatitude());
+        localDTO.setLongitude(geographicAreaPlainLocalDTO.getLongitude());
+        localDTO.setAltitude(geographicAreaPlainLocalDTO.getAltitude());
+
+        GeographicAreaDTO geographicAreaDTO = new GeographicAreaDTO();
+        geographicAreaDTO.setLocal(localDTO);
+        geographicAreaDTO.setTypeArea(geographicAreaPlainLocalDTO.getTypeArea());
+        geographicAreaDTO.setName(geographicAreaPlainLocalDTO.getName());
+        geographicAreaDTO.setDescription(geographicAreaPlainLocalDTO.getDescription());
+        geographicAreaDTO.setLength(geographicAreaPlainLocalDTO.getLength());
+        geographicAreaDTO.setWidth(geographicAreaPlainLocalDTO.getWidth());
+        geographicAreaDTO.setId(geographicAreaPlainLocalDTO.getGeographicAreaId());
+
+        List<GeographicArea> geographicAreas = getAll();
+        GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
             geographicAreas.add(geographicAreaToAdd);
             geographicAreaCrudRepo.save(geographicAreaToAdd);

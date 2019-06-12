@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
@@ -47,32 +49,32 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaWorks() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
-
-        validGeographicAreaDTO.setLocal(localDTO);
-        validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setLatitude(60D);
+        validGeographicAreaDTO.setLongitude(-50D);
+        validGeographicAreaDTO.setAltitude(100D);
+        validGeographicAreaDTO.setDescription("4rd biggest city");
+        validGeographicAreaDTO.setName("Santa Maria de Lamas");
         validGeographicAreaDTO.setId(66L);
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
-        validGeographicAreaDTO.setTypeArea("urban area");
+        validGeographicAreaDTO.setTypeArea("Urban Area");
 
-        Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
+        Mockito.doReturn(true).when(geographicAreaRepository).addAndPersistPlainDTO(any(GeographicAreaPlainLocalDTO.class));
 
         Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
 
         validGeographicAreaDTO.add(link);
 
         //Act
+
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
         //Assert
+
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
+
     }
 
 
@@ -80,14 +82,11 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaDoesntWorkIsRepeated() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
-
-        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setName("Gaia");
         validGeographicAreaDTO.setId(66L);
@@ -95,7 +94,7 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("urban area");
 
-        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(validGeographicAreaDTO);
+        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistPlainDTO(validGeographicAreaDTO);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
 
@@ -110,14 +109,11 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaDoesntWorkIDNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
-
-        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setName("Gaia");
         validGeographicAreaDTO.setWidth(100);
@@ -139,14 +135,11 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaDoesntWorkNameNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
-
-        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setWidth(100);
@@ -168,14 +161,11 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaDoesntWorkTypeNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
-
-        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setName("Porto");
@@ -197,7 +187,7 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaDoesntWorkLocalNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setId(2L);
@@ -220,7 +210,7 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaWorksAllNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setWidth(100);
@@ -239,7 +229,7 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaIDNotNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
         validGeographicAreaDTO.setId(66L);
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -257,17 +247,19 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaNameNotNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
         validGeographicAreaDTO.setName("Gaia");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
+
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
         //Assert
+
         assertEquals(expectedResult, actualResult);
     }
 
@@ -275,7 +267,7 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaTypeNotNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
         validGeographicAreaDTO.setTypeArea("urban");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -293,14 +285,11 @@ class GASettingsWebControllerTest {
     void seeIfCreateGeoAreaDoesntWorkLocalNotNull() {
         //Arrange
 
-        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
-        LocalDTO localDTO = new LocalDTO();
+        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
-
-        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setLatitude(41D);
+        validGeographicAreaDTO.setLongitude(-8D);
+        validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -321,11 +310,12 @@ class GASettingsWebControllerTest {
     void getAllGeoAreasDTO() {
         //Arrange
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
         LocalDTO localDTO = new LocalDTO();
 
-        localDTO.setLatitude(41);
-        localDTO.setLongitude(-8);
-        localDTO.setAltitude(100);
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
 
         validGeographicAreaDTO.setLocal(localDTO);
         validGeographicAreaDTO.setDescription("3rd biggest city");

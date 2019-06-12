@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
@@ -45,9 +46,9 @@ public class GASettingsWebController {
      * @return ResponseEntity
      */
     @PostMapping(value = "/areas")
-    public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaDTO dto) {
-        if (dto.getGeographicAreaId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLocal() != null) {
-            if (geographicAreaRepo.addAndPersistDTO(dto)) {
+    public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
+        if (dto.getGeographicAreaId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
+            if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
                 Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
                 dto.add(link);
                 return new ResponseEntity<>(dto, HttpStatus.CREATED);
