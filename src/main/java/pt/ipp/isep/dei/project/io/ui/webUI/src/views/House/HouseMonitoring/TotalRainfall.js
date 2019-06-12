@@ -44,7 +44,7 @@ class US620 extends Component {
                     <DatePickerOneDay620 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
 
                     <h5 key={totalRainfall}>
-                    {totalRainfall.toString().indexOf("ERROR") != 0 ? 'There is no data available' : 'The total rainfall was' + totalRainfall} </h5>
+                    {totalRainfall.toString().indexOf("ERROR") != 0 ? 'There is no data available, please select another day' : 'The total rainfall was' + totalRainfall} </h5>
 
                   </CardBody>
             </>
