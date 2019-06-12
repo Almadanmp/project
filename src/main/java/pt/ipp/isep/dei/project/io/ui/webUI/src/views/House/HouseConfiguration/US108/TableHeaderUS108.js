@@ -15,6 +15,7 @@ class TableHeaderUS108 extends Component {
         <th>{headers.height}</th>
         <th>{headers.length}</th>
         <th>{headers.width}</th>
+        <th>{headers.edit}</th>
       </tr>
       </thead>
     );

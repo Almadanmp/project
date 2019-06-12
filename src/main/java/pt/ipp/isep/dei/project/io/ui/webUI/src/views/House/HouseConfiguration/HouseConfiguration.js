@@ -21,7 +21,6 @@ class HouseConfiguration extends Component {
         <h2>Welcome to the House Configuration Menu.</h2>
         <h4>Please select the option you want to run.</h4>
         <US108Redux/>
-        <US105/>
         <US109/>
       </div>
     );

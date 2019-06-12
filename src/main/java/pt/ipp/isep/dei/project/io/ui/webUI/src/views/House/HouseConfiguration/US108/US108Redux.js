@@ -21,7 +21,7 @@ class US108Redux extends Component {
       height: "Height (m)",
       length: "Length (m)",
       width: "Width (m)",
-      edit: "Edit"
+      edit: "Configure"
     };
 
     const {loading, data} = this.props;
