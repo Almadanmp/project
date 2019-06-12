@@ -22,6 +22,7 @@ class RoomCreator extends React.Component {
         [attribute]: event.target.value
       });
     };
+
   }
 
   handleSubmit(){

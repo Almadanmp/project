@@ -6,7 +6,7 @@ export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
 
 
 export const fetchRoom = ({name, floor, width, length, height}) => {
-  const token = localStorage.getItem('loginToken')
+  const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(fetchRoomInfo(name, floor, width, length, height));
     const data = {name, floor, width, length, height};

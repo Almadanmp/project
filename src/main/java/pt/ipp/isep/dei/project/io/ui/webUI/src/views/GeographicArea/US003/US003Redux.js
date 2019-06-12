@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {fetchGA} from './Actions003';
 import {Button} from "reactstrap";
 
-class US003Redux extends Component {
+class US003Redux extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +32,7 @@ class US003Redux extends Component {
   }
 
   render() {
+    const {id, name, typeArea, length, width, latitude, longitude, altitude, description} = this.state;
     return (
       <>
         <label> Id:
@@ -71,8 +72,8 @@ class US003Redux extends Component {
         </label>
 
         <p>The geographic area to be created has the following
-          details: {this.state.id + ', ' + this.state.name + ', ' + this.state.typeArea + this.state.length + this.state.width + ', '
-          + this.state.latitude + ', ' + this.state.longitude + ', ' + this.state.altitude + this.state.description + '.'}</p>
+          details: {id + ', ' + name + ', ' + typeArea + length + width + ', '
+          + latitude + ', ' + longitude + ', ' + altitude + description + '.'}</p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
           geographic area</Button>
       </>
@@ -80,22 +81,16 @@ class US003Redux extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    geographicAreaInfo: state.Reducer003.geographicAreaInfo
-  }
-};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchArea: (id, name, typeArea, length, width, latitude, longitude, altitude, description) => {
+    onFetchArea: ({id, name, typeArea, length, width, latitude, longitude, altitude, description}) => {
       dispatch(fetchGA({id, name, typeArea, length, width, latitude, longitude, altitude, description}))
     }
-
   }
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(US003Redux);

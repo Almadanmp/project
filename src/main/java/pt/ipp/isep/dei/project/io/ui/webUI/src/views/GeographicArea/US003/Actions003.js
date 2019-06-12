@@ -5,7 +5,7 @@ export const FETCH_GA_SUCCESS = 'FETCH_GA_SUCCESS';
 export const FETCH_GA_FAILURE = 'FETCH_GA_FAILURE';
 
 
-export function fetchGA({id, name, typeArea, length, width, latitude, longitude, altitude, description}) {
+export const fetchGA = ({id, name, typeArea, length, width, latitude, longitude, altitude, description}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(fetchGAStarted(id, name, typeArea, length, width, latitude, longitude, altitude, description));
@@ -19,17 +19,7 @@ export function fetchGA({id, name, typeArea, length, width, latitude, longitude,
             "Content-Type": "application/json"
           },
           body: {
-            "id": {id},
-            "name": {name},
-            "typeArea": {typeArea},
-            "length": {length},
-            "width": {width},
-            "local": {
-              "latitude": {latitude},
-              "longitude": {longitude},
-              "altitude": {altitude},
-            },
-            "description": {description}
+            id, name, typeArea, length, width, latitude, longitude, altitude, description
           }
         }
       )
@@ -41,7 +31,7 @@ export function fetchGA({id, name, typeArea, length, width, latitude, longitude,
       });
 
   };
-}
+};
 
 export function fetchGAStarted(id, name, typeArea, length, width, latitude, longitude, altitude, description) {
   return {
