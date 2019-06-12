@@ -27,7 +27,6 @@ class RoomCreator extends React.Component {
   handleSubmit(){
     this.props.onFetchRoom(this.state);
   }
-
   render() {
     const {name, floor, width, length, height} = this.state;
     return (
