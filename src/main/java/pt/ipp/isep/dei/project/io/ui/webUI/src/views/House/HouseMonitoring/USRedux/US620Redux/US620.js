@@ -35,11 +35,11 @@ class US620 extends Component {
 
   render() {
     const numberOfMonths = 1;
-    const {loading} = this.props;
+    const {loading, totalRainfall} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
       } else {
-        if ((this.props.totalRainfall.toString()).indexOf("ERROR") != -1) {
+        if ((totalRainfall.toString()).indexOf("ERROR") != -1) {
           return (
             <div>
               <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}

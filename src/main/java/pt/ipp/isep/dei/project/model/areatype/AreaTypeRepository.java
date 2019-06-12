@@ -2,8 +2,11 @@ package pt.ipp.isep.dei.project.model.areatype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.model.repository.AreaTypeCrudRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,5 +117,17 @@ public class AreaTypeRepository {
         } else {
             return value.get();
         }
+    }
+
+    //WEB CONTROLLER//
+
+    public List<AreaTypeDTO> getAllTypesDTO() {
+        List<AreaType> list = repository.findAll();
+        List<AreaTypeDTO> finalList = new ArrayList<>();
+        for (AreaType aT : list) {
+            AreaTypeDTO aTDTO = AreaTypeMapper.objectToDTO(aT);
+            finalList.add(aTDTO);
+        }
+        return finalList;
     }
 }

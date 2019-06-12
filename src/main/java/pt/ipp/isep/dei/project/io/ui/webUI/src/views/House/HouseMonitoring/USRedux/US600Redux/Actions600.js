@@ -3,7 +3,7 @@ import axios from 'axios';
 export const FETCH_T_STARTED = 'FETCH_T_STARTED';
 export const FETCH_T_SUCCESS = 'FETCH_T_SUCCESS';
 export const FETCH_T_FAILURE = 'FETCH_T_FAILURE';
-export const FETCH_NON_AUTHORIZED = 'FETCH_NON_AUTHORIZED';
+export const FETCH_NO_DATA = 'FETCH_NO_DATA';
 
 
 export function fetchTemp() {
@@ -24,8 +24,8 @@ export function fetchTemp() {
         dispatch(fetchTempSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        if (err.response.status === 403) {
-          dispatch(fetchNonAuthorized(err.message))
+        if (err.response === 500) {
+          dispatch(fetchNoData(err.message))
         } else {
           dispatch(fetchTempFailure(err.message));
         }
@@ -57,11 +57,11 @@ export function fetchTempFailure(message) {
   }
 }
 
-export function fetchNonAuthorized() {
+export function fetchNoData(response) {
   return {
-    type: FETCH_NON_AUTHORIZED,
+    type: FETCH_NO_DATA,
     payload: {
-      error: "Non-authorized user."
+      error: response
     }
   }
 }

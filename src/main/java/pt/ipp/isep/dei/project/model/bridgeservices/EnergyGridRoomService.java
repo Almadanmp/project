@@ -36,6 +36,19 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         return gridRooms;
     }
 
+    public List<Room> getRoomListNotInGrid(EnergyGrid energyGrid) {
+        List<Room> gridRooms = new ArrayList<>();
+        for (String id : energyGrid.getRoomIdList()) {
+            List<Room> rooms = roomRepository.getAllRooms();
+            for (Room room : rooms) {
+                if (!(id.equals(room.getId()))) {
+                    gridRooms.add(room);
+                }
+            }
+        }
+        return gridRooms;
+    }
+
     /**
      * Method accesses the sum of nominal powers of all rooms and devices connected to a grid..
      *
@@ -307,6 +320,20 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     public List<RoomDTOMinimal> getRoomsDtoWebInGrid(String gridId) {
         EnergyGrid energyGrid = energyGridRepository.getById(gridId);
         List<Room> roomList = getRoomList(energyGrid);
+        return RoomMinimalMapper.objectsToDtosWeb(roomList);
+    }
+
+    /**
+     * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
+     * that I can attach/detach rooms from it.
+     * This method returns a List of Rooms Dto Web from a grid.
+     *
+     * @param gridId is the name of the grid.
+     * @return a List of Rooms Dto Web from a grid.
+     */
+    public List<RoomDTOMinimal> getRoomsDtoWebNotInGrid(String gridId) {
+        EnergyGrid energyGrid = energyGridRepository.getById(gridId);
+        List<Room> roomList = getRoomListNotInGrid(energyGrid);
         return RoomMinimalMapper.objectsToDtosWeb(roomList);
     }
 

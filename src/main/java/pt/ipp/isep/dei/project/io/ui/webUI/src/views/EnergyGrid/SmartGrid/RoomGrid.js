@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Card, CardBody, Col, Form, FormGroup, Input, Label, Table} from "reactstrap";
-import US145GetRooms from "../US145/US145GetRooms";
+import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Table} from "reactstrap";
+import US147 from "./AttachRoom/US147";
 import TableBody from "./TableBody";
 
 class RoomGrid extends Component {
@@ -52,21 +52,22 @@ class RoomGrid extends Component {
 
           <>
             {item.map(items => (
-            <Col xs="12" lg="6">
-              <Card>
-                <CardBody>
-                  <Table responsive>
-
-
-                  <tr value={items.name} key={items.name}>
+              <Col xs="12" lg="6">
+                <Card value={items.name} key={items.name}>
+                  <CardHeader>
                     <h5>Grid: {items.name}</h5>
-                    <TableBody gridID={items.name} roomID={item.value}/>
-                  </tr>
+                  </CardHeader>
+                  <CardBody style={{
+                    textAlign: "right"
+                  }}>
+                    <Table responsive>
+                      <TableBody gridID={items.name} roomID={item.value}/>
 
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
+                    </Table>
+                    <US147 grid={items.name}/>
+                  </CardBody>
+                </Card>
+              </Col>
             ))}
           </>
         );

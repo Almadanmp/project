@@ -10,7 +10,8 @@ class EnergyGridCreator extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      name: '...',
+      isHidden: true,
+      name: '',
       maxContractedPower: 0
     };
 
@@ -20,6 +21,8 @@ class EnergyGridCreator extends React.Component {
       });
     };
   }
+  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}))
+
 
   handleSubmit(){
     this.props.onFetchEnergyGrid(this.state);
@@ -30,15 +33,16 @@ class EnergyGridCreator extends React.Component {
     return (
       <>
         <label> Name:
-          <input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+          <input placeholder={"Name"} value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
         </label>
 
         <label> maxContractedPower:
-          <input value={this.state.maxContractedPower} type="number" name="maxContractedPower" onChange={this.handleInputChange('maxContractedPower')}/>
+          <input placeholder={"Maximum Power"} value={this.state.maxContractedPower} type="number" name="maxContractedPower" onChange={this.handleInputChange('maxContractedPower')}/>
         </label>
-
-        <p>The energy grid to be created has the following details: {name + ', ' + maxContractedPower + '.'}</p>
+        <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new energy grid</Button>
+        {!this.state.isHidden && <p>The energy grid to be created has the following details: {name + ', ' + maxContractedPower + '.'}</p>}
+
       </>
     )
   }

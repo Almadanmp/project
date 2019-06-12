@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class TableHeader extends Component {
+class TableHeaderUS108 extends Component {
   constructor(props) {
     super(props);
   }
@@ -15,11 +15,11 @@ class TableHeader extends Component {
         <th>{headers.height}</th>
         <th>{headers.length}</th>
         <th>{headers.width}</th>
-        <th>{headers.remove}</th>
+        <th>{headers.edit}</th>
       </tr>
       </thead>
     );
   }
 }
 
-export default TableHeader;
+export default TableHeaderUS108;

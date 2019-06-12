@@ -87,7 +87,7 @@ class DatePickerWithTwoDates extends Component {
         <br>
       </br>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleDaysClick}>
-          Get Results
+          Select Date
         </Button>
       </div>
     );

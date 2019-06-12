@@ -2,10 +2,9 @@ import {
   FETCH_T_STARTED,
   FETCH_T_SUCCESS,
   FETCH_T_FAILURE,
-  FETCH_NON_AUTHORIZED,
 
 } from './Actions600'
-
+import {FETCH_NO_DATA} from "../US600Redux/Actions600";
 
 const initialstate = {
     loading: false,
@@ -35,9 +34,9 @@ export default function Reducers600 (state = initialstate, action) {
         ...state,
           loading: false,
           error: action.payload.error,
-          temp: " ERROR: NO DATA Available"
+          temp: "ERROR: NO DATA Available"
       };
-    case FETCH_NON_AUTHORIZED:
+    case FETCH_NO_DATA:
       return {
         ...state,
         loading: false,

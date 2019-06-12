@@ -34,29 +34,23 @@ class US620 extends Component {
   }
 
   render() {
+    const {totalRainfall} = this.props;
     const numberOfMonths = 1;
-        if ((this.props.totalRainfall.toString()).indexOf("ERROR") != -1) {
-          return (
-            <>
-                <Card>
-                  <CardBody>
-                    <Alert color="danger"> ERROR: No Data Available.</Alert>
-                  </CardBody>
-                </Card>
-            </>
-          )
-        } else {
-          const {totalRainfall} = this.props;
+
+
           return (
             <>
                   <CardBody>
                     <DatePickerOneDay620 getDays={this.handleDayPicker} numberOfMonths={numberOfMonths}/>
-                    <h5 key={totalRainfall}>The total rainfall was {totalRainfall} </h5>
+
+                    <h5 key={totalRainfall}>
+                    {totalRainfall.toString().indexOf("ERROR") != 0 ? 'There is no data available' : 'The total rainfall was' + totalRainfall} </h5>
+
                   </CardBody>
             </>
           );
         }
-    }
+
 }
 
 const mapStateToProps = (state) => {

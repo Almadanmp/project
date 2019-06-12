@@ -11,7 +11,7 @@ class AttachRoomToGrid extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       name: '',
-      grid: ''
+      grid: this.props.grid,
     };
 
     this.handleInputChange = attribute => event => {
@@ -27,13 +27,13 @@ class AttachRoomToGrid extends React.Component {
 
 
   render() {
-    const {name, grid} = this.state;
+    const {name} = this.state;
     return (
       <>
         RoomID:<input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
-        GridID:<input value={this.state.grid} type="text" name="grid" onChange={this.handleInputChange('grid')}/>
+        <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Attach
-          Room {name} to {grid} Energy Grid</Button>
+          Room {name} to {this.props.grid}</Button>
       </>
     )
   }

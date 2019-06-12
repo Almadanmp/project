@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
 import {Button} from "reactstrap";
-import {deleteRoomFromGrid} from "../US149/Actions";
-import {connect} from 'react-redux';
 import removeFromGrid from "./gridRedux/removeFromGrid"
-
 
 class TableBody extends Component {
 
@@ -45,7 +42,6 @@ class TableBody extends Component {
       length: "Length (m)",
       width: "Width (m)",
       remove: "Remove from grid",
-      edit: "Edit Room"
     };
     var {id, item} = this.state;
     return (
@@ -53,15 +49,28 @@ class TableBody extends Component {
         <TableHeader headers={headers}/>
         {item.map(item => (
           <tr key={item.name}>
-            <td> {item.name}</td>
-            <td>{item.floor} </td>
-            <td> {item.height}</td>
-            <td> {item.length} </td>
-            <td> {item.width} </td>
-            <td>
-              <removeFromGrid gridID={this.props.gridID} roomID={item.name}/>
+            <td style={{
+              textAlign: "center"
+            }}> {item.name}</td>
+            <td style={{
+              textAlign: "center"
+            }}>{item.floor} </td>
+            <td style={{
+              textAlign: "center"
+            }}> {item.height}</td>
+            <td style={{
+              textAlign: "center"
+            }}> {item.length} </td>
+            <td style={{
+              textAlign: "center"
+            }}> {item.width} </td>
+            <td style={{
+              textAlign: "center"
+            }}>
+              <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}}><i
+                class="fa fa-minus-square-o fa-lg"></i> </Button>
+              {<removeFromGrid gridID={this.props.gridID} roomID={item.name}/>}
             </td>
-            <td> {item.edit} </td>
           </tr>
         ))}
       </>

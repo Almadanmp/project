@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import US108 from './US108'
-import US109 from './US109'
-import US105 from "./US105";
-import US108Redux from "./US108/US108Redux";
+import US002 from './US002';
 
-class HouseConfiguration extends Component {
+class Area extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -18,13 +15,12 @@ class HouseConfiguration extends Component {
   render() {
     return (
       <div>
-        <h2>Welcome to the House Configuration Menu.</h2>
+        <h2>Welcome to the Geographic Area Menu.</h2>
         <h4>Please select the option you want to run.</h4>
-        <US108Redux/>
-        <US109/>
+        <US002/>
       </div>
     );
   }
 }
 
-export default HouseConfiguration;
+export default Area;

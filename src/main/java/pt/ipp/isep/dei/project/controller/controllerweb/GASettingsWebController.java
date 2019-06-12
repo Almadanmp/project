@@ -34,7 +34,7 @@ public class GASettingsWebController {
      */
     @GetMapping(value = "/areaTypes")
     public ResponseEntity<Object> getAreaTypes() {
-        return new ResponseEntity<>(areaTypeRepository.getAllAsString(), HttpStatus.OK);
+        return new ResponseEntity<>(areaTypeRepository.getAllTypesDTO(), HttpStatus.OK);
     }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */

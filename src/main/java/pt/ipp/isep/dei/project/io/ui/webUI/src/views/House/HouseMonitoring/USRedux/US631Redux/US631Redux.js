@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchHottestDay} from './Actions631';
 import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
-import DatePickerWithTwoDates from "../../DatePickerWithTwoDates";
 
-class US631 extends Component {
+
+class US631Redux extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -19,24 +19,11 @@ class US631 extends Component {
     this.props.onFetchHottestDay(this.state.from, this.state.to);
   }
 
-  handleIntervalPicker = (from, to) => {
-
-    console.log("handleIntervalPicker: from"+ JSON.stringify(from)+ "to: "+ JSON.stringify(to))
-    if (from !== undefined && to !== undefined) {
-      const initialDay = from.toISOString().substring(0, 10);
-      const finalDay = to.toISOString().substring(0, 10);
-      this.setState({from: from, to: to});
-      this.props.onFetchHottestDay(initialDay, finalDay)
-
-    }
-  }
-
   toggle() {
     this.setState(state => ({collapse: !state.collapse}));
   }
 
   render() {
-    const numberOfMonths = 2;
     const {loading} = this.props;
     const{hottestDay} = this.props;
     if (loading === true) {
@@ -45,15 +32,11 @@ class US631 extends Component {
     else {
         return (
           <div>
-            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get the first hottest
-              day (higher maximum temperature) in the house area in a given period.</Button>
+            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Hottest
+              day (higher maximum temperature): </Button>
             <Collapse isOpen={this.state.collapse}>
-              <Card>
-                <CardBody>
-                  <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
-                  <h5 key={hottestDay.value}>The hottest day was {hottestDay.date} and the temperature was {hottestDay.value} ºC</h5>
-                </CardBody>
-              </Card>
+                  <h5 key={hottestDay.value}>{hottestDay.toString().indexOf("ERROR") != 0 ? 'There is no data available' : 'The hottest day was' + hottestDay.date +'and the temperature was'+ hottestDay.value+ 'ºC'}</h5>
+
             </Collapse>
           </div>
         )
@@ -81,4 +64,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(US631);
+)(US631Redux);
