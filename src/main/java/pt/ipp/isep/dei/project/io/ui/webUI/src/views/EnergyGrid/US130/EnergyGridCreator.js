@@ -12,7 +12,7 @@ class EnergyGridCreator extends React.Component {
     this.state = {
       isHidden: true,
       name: '',
-      maxContractedPower: 0
+      maxContractedPower: ''
     };
 
     this.handleInputChange = attribute => event => {
@@ -35,8 +35,8 @@ class EnergyGridCreator extends React.Component {
         <label> Name:
           <input placeholder={"Name"} value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
         </label>
-
-        <label> maxContractedPower:
+        <p></p>
+        <label> Maximum Power:
           <input placeholder={"Maximum Power"} value={this.state.maxContractedPower} type="number" name="maxContractedPower" onChange={this.handleInputChange('maxContractedPower')}/>
         </label>
         <p></p>
