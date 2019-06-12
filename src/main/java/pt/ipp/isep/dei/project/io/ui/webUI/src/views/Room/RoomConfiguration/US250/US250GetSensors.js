@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TableHeader from "../../../House/HouseConfiguration/SmartGrid/TableHeader";
+import TableHeader from "../../../House/HouseConfiguration/TableHeader";
 
 
 class US250GetSensors extends Component {

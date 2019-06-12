@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
 import US108 from './US108'
 import US109 from './US109'
-import US130 from './US130'
-import US145 from './US145/US145'
-import US147 from './US147'
-import US149 from './US149'
 import US105 from "./US105";
-import RoomGrid from "./SmartGrid/RoomGrid"
 
 class HouseConfiguration extends Component {
   constructor(props) {
@@ -24,14 +19,9 @@ class HouseConfiguration extends Component {
       <div>
         <h2>Welcome to the House Configuration Menu.</h2>
         <h4>Please select the option you want to run.</h4>
-        <RoomGrid/>
         <US105/>
         <US108/>
         <US109/>
-        <US130/>
-        <US145/>
-        <US147/>
-        <US149/>
       </div>
     );
   }

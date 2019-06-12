@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Card, CardBody, Col, Form, FormGroup, Input, Label, Table, Row} from "reactstrap";
-import TableBody from "../../House/HouseConfiguration/SmartGrid/TableBody";
 import US250GetSensors from "./US250/US250GetSensors";
 
 

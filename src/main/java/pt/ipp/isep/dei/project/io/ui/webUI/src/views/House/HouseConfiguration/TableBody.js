@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import TableHeader from "./TableHeader";
 
 
-class US145GetRooms extends Component {
+class TableBody extends Component {
 
   constructor(props) {
     super(props);
@@ -33,23 +34,36 @@ class US145GetRooms extends Component {
   }
 
   render() {
+    const headers = {
+      name: "Rooms",
+      floor: "Floor",
+      height: "Height (m)",
+      length: "Length (m)",
+      width: "Width (m)",
+      remove: "Remove from grid",
+      edit: "Edit Room"
+    };
     var {id, item} = this.state;
     return (
-      <div>
-        <p></p>
-        <ul>
-          {item.map(item => (
-            <li key={item.name}>
-              Name: {item.name} | Floor: {item.floor} | Height: {item.height} | Length: {item.length} |
-              Width: {item.width}
-            </li>
-          ))}
-        </ul>
-
-      </div>
+      <>
+        <TableHeader headers={headers}/>
+        {item.map(item => (
+          <tr key={item.name}>
+            <td> {item.name}</td>
+            <td>{item.floor} </td>
+            <td> {item.height}</td>
+            <td> {item.length} </td>
+            <td> {item.width} </td>
+            <td>
+            </td>
+            <td> {item.edit} </td>
+          </tr>
+        ))}
+      </>
     );
   }
 
 }
 
-export default US145GetRooms;
+
+export default TableBody;
