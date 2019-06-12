@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import US108Collapse from "./US108Collapse";
+import US108Select from "../US109/US108Select";
 
 
 class TableBodyUS108 extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      check: false
+    };
   };
 
 
   render() {
     const {data} = this.props; // data = this.props.data;
-    if (data.length > 0) {
+    if (data.length > 0 && this.state.check === false) {
       return (
         <tbody>
         {data.map((todo) => (
@@ -20,11 +23,18 @@ class TableBodyUS108 extends Component {
             <td>{todo.height}</td>
             <td>{todo.length}</td>
             <td>{todo.width}</td>
-            <td><US108Collapse/></td>
+            <td>
+              <button onClick={(e) => this.setState(prevState => ({
+                check: !prevState.check
+              }))}> Edit
+              </button>
+            </td>
           </tr>
         ))}
         </tbody>
       );
+    } else if (data.length > 0 && this.state.check === true) {
+      return (<><US108Select/></>);
     } else {
       return (<h1>No data ....</h1>);
     }
