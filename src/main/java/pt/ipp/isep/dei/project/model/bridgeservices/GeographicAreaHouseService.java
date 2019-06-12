@@ -26,6 +26,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
     private HouseRepository houseRepository;
 
     private static final String TEMPERATURE = "temperature";
+    private static final String RAINFALL = "rainfall";
     private String malformedDatesError = "ERROR: Malformed Dates: Initial and End dates are both " +
             "required (Initial date must be before End date).";
 
@@ -362,6 +363,21 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             Date date = areaSensor.getDateHighestAmplitudeBetweenDates(initialDate, finalDate);
             double value = areaSensor.getReadingValueOnGivenDay(date);
             return new DateValueDTO(date, value);
+        } else {
+            throw new IllegalArgumentException(malformedDatesError);
+        }
+    }
+
+    /**
+     * Method for US633 - Web Controller Version
+     *
+     * @param initialDate and finalDate correspond to the date interval
+     * @return string with date and amplitude value
+     */
+    public double getAverageDailyRainfall(Date initialDate, Date finalDate) {
+        if (initialDate != null && finalDate != null && finalDate.after(initialDate)) {
+            AreaSensor areaSensor = getClosestAreaSensorOfGivenType(RAINFALL);
+            return areaSensor.getAverageReadingsBetweenDates(initialDate, finalDate);
         } else {
             throw new IllegalArgumentException(malformedDatesError);
         }
