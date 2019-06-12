@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.NoSuchElementException;
@@ -20,6 +21,21 @@ public class GASettingsWebController {
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepo;
+
+    @Autowired
+    private AreaTypeRepository areaTypeRepository;
+
+    /* User Story 02 - As a System Administrator I want to receive a list of all the previously stated Types of area. */
+
+    /**
+     * This method displays all Geographical Area Types
+     *
+     * @return ResponseEntity with all the geographic area types.
+     */
+    @GetMapping(value = "/areaTypes")
+    public ResponseEntity<Object> getAreaTypes() {
+        return new ResponseEntity<>(areaTypeRepository.getAllAsString(), HttpStatus.OK);
+    }
 
     /* User Story - 03 As a System Administrator I want to Create a new Geographic Area */
 
@@ -57,8 +73,8 @@ public class GASettingsWebController {
     /**
      * Add daughter area to a mother area
      *
-     * @param idAreaChild of the geoArea to be added
-     * @param idAreaParent   of the geoArea with the daughter area
+     * @param idAreaChild  of the geoArea to be added
+     * @param idAreaParent of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
     @PutMapping("areas/list/{idParent}")

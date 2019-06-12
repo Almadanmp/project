@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ class GASettingsWebControllerTest {
 
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
+    @Mock
+    private AreaTypeRepository areaTypeRepository;
     @InjectMocks
     private GASettingsWebController gaSettingsWebController;
 
@@ -458,6 +462,8 @@ class GASettingsWebControllerTest {
 
     @Test
     void removeDaughterAreaContainsDaughter() {
+        // Arrange
+
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
 
         validGeographicAreaDTO.setDescription("3rd biggest city");
@@ -471,20 +477,47 @@ class GASettingsWebControllerTest {
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been removed. The daughter area is already not contained in the mother area.", HttpStatus.CONFLICT);
 
         //Act
+
         ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(6L, validGeographicAreaDTO.getGeographicAreaId());
 
         //Assert
+
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
-    void removeDaughterAreaNotFound() {
+    void seeIfRemoveDaughterAreaNotFound() {
+        // Arrange
 
         Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).removeChildArea(any(long.class), any(long.class));
 
+        // Act
+
         ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(6L, 3L);
 
+        // Assert
+
         assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfGetAreaTypesWorks(){
+        // Arrange
+
+        AreaType areaType = new AreaType("City");
+
+        areaTypeRepository.add(areaType);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.getAreaTypes();
+
+        // Assert
+
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+
     }
 
 }
