@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Form, FormGroup, Input, Label} from "reactstrap";
 import RoomEditor from "./RoomEditor";
 
 class US108Select extends Component {
@@ -52,20 +51,7 @@ class US108Select extends Component {
       if (!item.error) {
         return (
           <div>
-            <Form action="" method="post">
-              <FormGroup>
-                <Label>Select Room</Label>
-                <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
-                  <option value="0" onChange={this.handleChange}>Please select</option>
-                  {item.map(items => (
-                    <option value={items.name} key={items.name}>
-                      Name: {items.name}
-                    </option>
-                  ))}
-                </Input>
-              </FormGroup>
-            </Form>
-            <RoomEditor name={this.state.value}/>
+            <RoomEditor name={this.props.name}/>
           </div>
         );
       } else {
