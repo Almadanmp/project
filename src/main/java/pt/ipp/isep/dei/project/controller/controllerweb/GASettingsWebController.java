@@ -47,7 +47,7 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
-        if (dto.getGeographicAreaId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
+        if (dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
             if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
                 Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
                 dto.add(link);
@@ -58,6 +58,18 @@ public class GASettingsWebController {
         }
         return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
                 " invalid Area.", HttpStatus.BAD_REQUEST);
+    }
+
+    /* User Story 04 - I want to list all geo areas of given Type. */
+
+    /**
+     * This method displays all Geographical Area of a given Type
+     *
+     * @return ResponseEntity with all the geographic areas of a given type.
+     */
+    @GetMapping(value = "/areas")
+    public ResponseEntity<Object> getAllAreasOfGivenType(@RequestBody String typeAreaName) {
+        return new ResponseEntity<>(geographicAreaRepo.getGeoAreasByType(typeAreaName), HttpStatus.OK);
     }
 
     /**

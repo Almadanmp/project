@@ -8,7 +8,6 @@ class US003Redux extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      id: 0,
       name: '',
       typeArea: '',
       length: 0,
@@ -32,13 +31,9 @@ class US003Redux extends React.Component {
   }
 
   render() {
-    const {id, name, typeArea, length, width, latitude, longitude, altitude, description} = this.state;
+    const {name, typeArea, length, width, latitude, longitude, altitude, description} = this.state;
     return (
       <>
-        <label> Id:
-          <input value={this.state.id} type="number" name="id" onChange={this.handleInputChange('id')}/>
-        </label>
-
         <label> Name:
           <input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
         </label>
@@ -72,7 +67,7 @@ class US003Redux extends React.Component {
         </label>
 
         <p>The geographic area to be created has the following
-          details: {id + ', ' + name + ', ' + typeArea + length + width + ', '
+          details: {name + ', ' + typeArea + length + width + ', '
           + latitude + ', ' + longitude + ', ' + altitude + description + '.'}</p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
           geographic area</Button>
@@ -84,8 +79,8 @@ class US003Redux extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchArea: ({id, name, typeArea, length, width, latitude, longitude, altitude, description}) => {
-      dispatch(fetchGA({id, name, typeArea, length, width, latitude, longitude, altitude, description}))
+    onFetchArea: ({name, typeArea, length, width, latitude, longitude, altitude, description}) => {
+      dispatch(fetchGA({name, typeArea, length, width, latitude, longitude, altitude, description}))
     }
   }
 };

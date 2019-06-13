@@ -7,7 +7,6 @@ import java.util.List;
 
 public class GeographicAreaPlainLocalDTO extends ResourceSupport {
 
-    private Long id;
     private String name;
     private String typeArea;
     private double length;
@@ -21,10 +20,6 @@ public class GeographicAreaPlainLocalDTO extends ResourceSupport {
 
     public Double getLatitude() {
         return latitude;
-    }
-
-    public Long getGeographicAreaId() {
-        return id;
     }
 
     public void setLatitude(Double latitude) {
@@ -45,10 +40,6 @@ public class GeographicAreaPlainLocalDTO extends ResourceSupport {
 
     public void setAltitude(Double altitude) {
         this.altitude = altitude;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**
