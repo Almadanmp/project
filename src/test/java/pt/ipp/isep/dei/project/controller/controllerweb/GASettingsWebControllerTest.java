@@ -12,9 +12,11 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
@@ -539,14 +541,157 @@ class GASettingsWebControllerTest {
 
     }
 
+    @Test
+    void seeIfRemoveSensorWorks(){
+        // Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        validGeographicAreaDTO.addSensor(areaSensorDTO);
+
+        geographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
+
+        // Act
+
+        Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
+                .thenReturn(true);
+
+        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+
+        // Assert
+
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsWithoutSensor(){
+        // Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        geographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
+
+        // Act
+
+        Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
+                .thenReturn(false);
+
+        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+
+        // Assert
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsWithoutGeographicArea(){
+        // Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        validGeographicAreaDTO.addSensor(areaSensorDTO);
+
+        // Act
+
+        Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
+                .thenThrow(NoSuchElementException.class);
+
+        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+
+        // Assert
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
     /**
      * Method tests for US004 - WebController
      */
 
     @Test
     void seeIfGetAllAreasOfGivenType() {
-        // ARRANGE
-            //GeoArea List
+        // Arrange
+
         List<GeographicArea> geoAreasOfGivenType = new ArrayList<>();
         GeographicArea validGeographicArea = new GeographicArea();
         validGeographicArea.setDescription("4rd biggest city");
@@ -555,20 +700,23 @@ class GASettingsWebControllerTest {
         validGeographicArea.setLength(500);
         validGeographicArea.setAreaTypeID("Urban Area");
         geoAreasOfGivenType.add(validGeographicArea);
-            //Mockito
+
         String areaType = "Urban Area";
         Mockito.doReturn(geoAreasOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
-            //Expected Result
+
         HttpStatus expectedResult = HttpStatus.OK;
 
-        // ACT
-            //Actual Result
+        // Act
+
         ResponseEntity<Object> controllerMethodCall = gaSettingsWebController.getAllAreasOfGivenType(areaType);
         HttpStatus actualResult = controllerMethodCall.getStatusCode();
 
-        // ASSERT
+        // Assert
+
         assertEquals(expectedResult, actualResult);
+
     }
+
 }
 
 

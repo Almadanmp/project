@@ -131,6 +131,17 @@ public class GeographicAreaRepository {
         return geographicAreaDTO.removeSensor(areaSensorID);
     }
 
+    public boolean removeSensorById(Long geographicAreaId, String areaSensorId) {
+        Optional<GeographicArea> geographicArea = geographicAreaCrudRepo.findById(geographicAreaId);
+        if (geographicArea.isPresent()) {
+            GeographicArea validGeographicArea = geographicArea.get();
+            validGeographicArea.removeSensorWithID(areaSensorId);
+            updateGeoArea(validGeographicArea);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //WEB CONTROLLER END //
 
