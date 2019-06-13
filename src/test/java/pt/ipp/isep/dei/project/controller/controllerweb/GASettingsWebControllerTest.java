@@ -17,6 +17,7 @@ import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -538,6 +539,36 @@ class GASettingsWebControllerTest {
 
     }
 
+    /**
+     * Method tests for US004 - WebController
+     */
+
+    @Test
+    void seeIfGetAllAreasOfGivenType() {
+        // ARRANGE
+            //GeoArea List
+        List<GeographicArea> geoAreasOfGivenType = new ArrayList<>();
+        GeographicArea validGeographicArea = new GeographicArea();
+        validGeographicArea.setDescription("4rd biggest city");
+        validGeographicArea.setName("Santa Maria de Lamas");
+        validGeographicArea.setWidth(100);
+        validGeographicArea.setLength(500);
+        validGeographicArea.setAreaTypeID("Urban Area");
+        geoAreasOfGivenType.add(validGeographicArea);
+            //Mockito
+        String areaType = "Urban Area";
+        Mockito.doReturn(geoAreasOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
+            //Expected Result
+        HttpStatus expectedResult = HttpStatus.OK;
+
+        // ACT
+            //Actual Result
+        ResponseEntity<Object> controllerMethodCall = gaSettingsWebController.getAllAreasOfGivenType(areaType);
+        HttpStatus actualResult = controllerMethodCall.getStatusCode();
+
+        // ASSERT
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
 
