@@ -12,8 +12,10 @@ import {
   ListGroupItemText,
   Row,
   TabContent,
-  TabPane, Table
+  TabPane, Table, Button, Collapse
 } from 'reactstrap';
+import US253 from "../US253/US253";
+import SensorTypesSelect from "../US253/SensorTypesSelect";
 
 
 class US250GetSensors extends Component {
@@ -25,7 +27,13 @@ class US250GetSensors extends Component {
       sensors: false,
       activeTab: 1,
       roomId: 0,
+      collapse: false
     }
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState(state => ({collapse: !state.collapse}));
   }
 
   componentDidMount() {
@@ -72,12 +80,28 @@ class US250GetSensors extends Component {
             <td> {item.id}</td>
             <td>{item.type}</td>
             <td>{item.dateStartedFunctioning}</td>
-            <td>{item.active == true ? <Badge color="success"> Active </Badge> : <Badge color="danger"> Deactive </Badge>}</td>
+            <td>{item.active == true ? <Badge color="success"> Active </Badge> : <Badge color="danger"> Inactive </Badge>}</td>
+
           </tr>
         ))}
 
+
           </tbody>
           </Table> : "No sensors on this room."}
+        <div>
+          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}} class="fa fa-plus-square-o fa-lg mt-4">Add Sensor</Button>
+          <Collapse isOpen={this.state.collapse}>
+            <Card>
+              <CardBody>
+              <span>
+                <SensorTypesSelect roomID = {this.props.roomID}/>
+              </span>
+                <span>
+              </span>
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
       </>
     );
   }
