@@ -194,9 +194,8 @@ public class RoomRepository {
         return true;
     }
 
-    public boolean updateDTORoom(RoomDTO roomDTO) {
+    public void updateDTORoom(RoomDTO roomDTO) {
         roomCrudRepo.save(RoomMapper.dtoToObject(roomDTO));
-        return true;
     }
 
     public boolean removeSensorDTO(RoomDTO roomDTO, String roomSensorID) {

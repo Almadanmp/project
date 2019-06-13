@@ -29,21 +29,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class GeographicAreaHouseServiceTest {
+    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
+    @InjectMocks
+    GeographicAreaHouseService geographicAreaHouseService;
     @Mock
     private GeographicAreaRepository geographicAreaRepository;
     @Mock
     private HouseRepository houseRepository;
-
-    @InjectMocks
-    GeographicAreaHouseService geographicAreaHouseService;
-
     private Date validDate1; // Date 21/11/2018
     private Date validDate2; // Date 03/09/2018
     private Date validDate3; // Date 12/10/2018
     private Date validDate4; // Date 01/10/2018
     private Date validDate5; // Date 04/10/2018
     private GeographicArea firstValidArea;
-    private static final String PATH_TO_FRIDGE = "pt.ipp.isep.dei.project.model.device.devicetypes.FridgeType";
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
     private AreaSensor validAreaSensor;
@@ -1068,7 +1066,7 @@ class GeographicAreaHouseServiceTest {
     }
 
     @Test
-    void seeIfGetTotalRainfallOnGivenDay(){
+    void seeIfGetTotalRainfallOnGivenDay() {
         // Arrange
 
         AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);

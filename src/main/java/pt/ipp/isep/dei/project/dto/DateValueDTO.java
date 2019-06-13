@@ -9,7 +9,7 @@ import java.util.Objects;
  * Class that is responsible to return a value and a date.
  * Used on House Monitoring US's
  */
-public class DateValueDTO  extends ResourceSupport {
+public class DateValueDTO extends ResourceSupport {
     private Date date;
     private double value;
 

@@ -34,6 +34,7 @@ class DateValueDTOTest {
 
         assertEquals(1, actualResult);
     }
+
     @Test
     void seeIfSetValueWorks() {
         // Arrange
@@ -88,7 +89,6 @@ class DateValueDTOTest {
         boolean actualResult3 = dateValueDTO1.equals(dateValueDTO3);
         boolean actualResult4 = dateValueDTO1.equals(3D);
         boolean actualResult5 = dateValueDTO1.equals(null);
-
 
 
         // Assert
