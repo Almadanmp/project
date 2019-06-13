@@ -35,7 +35,7 @@ class US633Redux extends Component {
             <Collapse isOpen={this.state.collapse}>
 
 
-                  <h5 key={amplitude.value}> {amplitude.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The highest amplitude was' + amplitude.value +'on the date'+ amplitude.date + 'ºC'}</h5>
+                  <h5 key={amplitude.value}> {amplitude.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The highest amplitude was ' + amplitude.value +' on the date '+ amplitude.date + 'ºC'}</h5>
 
             </Collapse>
           </div>

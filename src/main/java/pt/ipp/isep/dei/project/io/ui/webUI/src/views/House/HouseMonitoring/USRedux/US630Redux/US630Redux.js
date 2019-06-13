@@ -35,7 +35,7 @@ class US630 extends Component {
                     style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Last coldest
               day (lower maximum temperature):</Button>
             <Collapse isOpen={this.state.collapse}>
-                  <h5 key={cold.value}> {cold.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The coldest day was' + cold.date +'and the temperature was'+ cold.value+ 'ºC'} </h5>
+                  <h5 key={cold.value}> {cold.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The coldest day was ' + cold.date +' and the temperature was '+ cold.value+ 'ºC'} </h5>
             </Collapse>
           </>
         );
