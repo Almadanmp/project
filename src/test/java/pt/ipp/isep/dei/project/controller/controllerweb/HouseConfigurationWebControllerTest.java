@@ -71,6 +71,7 @@ class HouseConfigurationWebControllerTest {
         addressAndLocalDTO.setLongitude(20);
         addressAndLocalDTO.setLatitude(20);
 
+        addressAndLocalDTO.setGeographicAreaId(2L);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
 

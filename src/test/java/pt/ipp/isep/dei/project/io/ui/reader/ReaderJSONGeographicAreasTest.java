@@ -61,8 +61,9 @@ class ReaderJSONGeographicAreasTest {
         firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
         firstAreaFirstSensor.setTypeSensor("rainfall");
         firstAreaFirstSensor.setUnits("l/m2");
-        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
-
+        firstAreaFirstSensor.setLatitude(41.179230);
+        firstAreaFirstSensor.setLongitude(-8.606409);
+        firstAreaFirstSensor.setAltitude(125);
 
         // Second sensor in First Area
 
@@ -72,7 +73,10 @@ class ReaderJSONGeographicAreasTest {
         firstAreaSecondSensor.setDateStartedFunctioning("2016-11-15");
         firstAreaSecondSensor.setTypeSensor("temperature");
         firstAreaSecondSensor.setUnits("C");
-        firstAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
+        firstAreaSecondSensor.setLatitude(41.179230);
+        firstAreaSecondSensor.setLongitude(-8.606409);
+        firstAreaSecondSensor.setAltitude(125);
+
 
         // Second Area
 
@@ -92,7 +96,9 @@ class ReaderJSONGeographicAreasTest {
         secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
         secondAreaFirstSensor.setTypeSensor("rainfall");
         secondAreaFirstSensor.setUnits("l/m2");
-        secondAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+        secondAreaFirstSensor.setLatitude(41.179230);
+        secondAreaFirstSensor.setLongitude(-8.606409);
+        secondAreaFirstSensor.setAltitude(125);
 
 
         // Second Sensor in Second Area
@@ -103,7 +109,9 @@ class ReaderJSONGeographicAreasTest {
         secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
         secondAreaSecondSensor.setTypeSensor("temperature");
         secondAreaSecondSensor.setUnits("C");
-        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+        secondAreaSecondSensor.setLatitude(41.179230);
+        secondAreaSecondSensor.setLongitude(-8.606409);
+        secondAreaSecondSensor.setAltitude(125);
 
 
         // Populate expectedResult array
@@ -172,7 +180,9 @@ class ReaderJSONGeographicAreasTest {
         firstAreaFirstSensor.setDateStartedFunctioning("2016-11-15");
         firstAreaFirstSensor.setTypeSensor("temperature");
         firstAreaFirstSensor.setUnits("C");
-        firstAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 125));
+        firstAreaFirstSensor.setLatitude(41.179230);
+        firstAreaFirstSensor.setLongitude(-8.606409);
+        firstAreaFirstSensor.setAltitude(125);
 
         // Second Area
 
@@ -193,7 +203,9 @@ class ReaderJSONGeographicAreasTest {
         secondAreaFirstSensor.setDateStartedFunctioning("2017-11-15");
         secondAreaFirstSensor.setTypeSensor("rainfall");
         secondAreaFirstSensor.setUnits("l/m2");
-        secondAreaFirstSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+        secondAreaFirstSensor.setLatitude(41.179230);
+        secondAreaFirstSensor.setLongitude(-8.606409);
+        secondAreaFirstSensor.setAltitude(125);
 
 
         // Second Sensor in Second Area
@@ -204,7 +216,9 @@ class ReaderJSONGeographicAreasTest {
         secondAreaSecondSensor.setDateStartedFunctioning("2017-11-16");
         secondAreaSecondSensor.setTypeSensor("temperature");
         secondAreaSecondSensor.setUnits("C");
-        secondAreaSecondSensor.setLocalDTO(new LocalDTO(41.179230, -8.606409, 139));
+        secondAreaSecondSensor.setLatitude(41.179230);
+        secondAreaSecondSensor.setLongitude(-8.606409);
+        secondAreaSecondSensor.setAltitude(125);
 
         // Populate expectedResult array
 

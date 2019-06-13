@@ -17,7 +17,7 @@ class US253 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}>Add a new
-            sensor to a room.</Button>
+            sensor to a room</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.project.dto;
 
 public class AddressLocalGeographicAreaIdDTO {
 
-    private Long motherAreaID;
+    private Long geographicAreaId;
     private String street;
     private String number;
     private String zip;
@@ -28,8 +28,8 @@ public class AddressLocalGeographicAreaIdDTO {
         return country;
     }
 
-    public Long getMotherAreaID() {
-        return motherAreaID;
+    public Long getGeographicAreaId() {
+        return geographicAreaId;
     }
 
     public String getNumber() {
@@ -64,8 +64,8 @@ public class AddressLocalGeographicAreaIdDTO {
         this.longitude = longitude;
     }
 
-    public void setMotherAreaID(Long motherAreaID) {
-        this.motherAreaID = motherAreaID;
+    public void setGeographicAreaId(Long geographicAreaId) {
+        this.geographicAreaId = geographicAreaId;
     }
 
     public void setNumber(String number) {
@@ -94,7 +94,7 @@ public class AddressLocalGeographicAreaIdDTO {
         }
         AddressLocalGeographicAreaIdDTO localVariable = (AddressLocalGeographicAreaIdDTO) obj;
         return (this.street.equals(localVariable.street) && this.town.equals(localVariable.town) &&
-                this.zip.equals(localVariable.zip));
+                this.zip.equals(localVariable.zip) && (this.geographicAreaId.equals(localVariable.geographicAreaId)));
     }
 
     @Override

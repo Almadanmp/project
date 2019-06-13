@@ -70,7 +70,6 @@ class GeographicAreaMapperTest {
         validAreaSensorDTO.setName("SensorDTO1");
         validAreaSensorDTO.setTypeSensor("Temperature");
         validAreaSensorDTO.setUnits("Celsius");
-        validAreaSensorDTO.setLocalDTO(new LocalDTO(2, 4, 5));
         validAreaSensorDTO.setLatitude(2);
         validAreaSensorDTO.setLongitude(4);
         validAreaSensorDTO.setAltitude(5);

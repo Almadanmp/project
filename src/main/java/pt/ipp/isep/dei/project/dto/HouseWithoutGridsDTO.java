@@ -61,7 +61,7 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
         this.location.setLatitude(dto.getLatitude());
         this.location.setLongitude(dto.getLongitude());
         this.location.setAltitude(dto.getAltitude());
-        setMotherAreaId(dto.getMotherAreaID());
+        setMotherAreaId(dto.getGeographicAreaId());
     }
 
     public int getDeviceMeteringPeriod() {
