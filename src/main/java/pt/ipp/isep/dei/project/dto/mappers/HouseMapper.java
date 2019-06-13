@@ -81,7 +81,11 @@ public final class HouseMapper {
 
         // Create, update and return new object
 
-        return new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
+        House house = new House(objectId, objectAddress, objectLocal, objectGridMeteringPeriod, objectDeviceMeteringPeriod, objectDeviceTypeConfigList);
+
+        house.setMotherAreaID(dtoToConvert.getMotherAreaId());
+
+        return  house;
     }
 
     /**

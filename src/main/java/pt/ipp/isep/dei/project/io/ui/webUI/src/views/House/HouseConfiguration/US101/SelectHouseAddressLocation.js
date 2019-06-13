@@ -8,7 +8,7 @@ class SelectHouseAddressLocation extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      name: this.props.name,
+      geographicAreaId: this.props.geographicAreaId,
       street: '',
       number: '',
       zip: '',
@@ -79,7 +79,7 @@ class SelectHouseAddressLocation extends React.Component {
                  onChange={this.handleInputChange('altitude')}/>
         </label>
         <p></p>
-        <US101Button name={this.props.name} street={this.state.street} number={this.state.number} zip={this.state.zip}
+        <US101Button geographicAreaId={this.props.geographicAreaId} street={this.state.street} number={this.state.number} zip={this.state.zip}
                      town={this.state.town} country={this.state.country} latitude={this.state.latitude}
                      longitude={this.state.longitude} altitude={this.state.altitude}/>
       </div>

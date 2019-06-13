@@ -43,7 +43,7 @@ class HouseConfigurationWebControllerTest {
     @Mock
     RoomRepository roomRepository;
     private RoomDTOMinimal roomDTOMinimal;
-    private AddressAndLocalDTO addressAndLocalDTO;
+    private AddressLocalGeographicAreaIdDTO addressAndLocalDTO;
     @Autowired
     private MockMvc mockMvc;
     @InjectMocks
@@ -59,24 +59,18 @@ class HouseConfigurationWebControllerTest {
         roomDTOMinimal.setHeight(1D);
         roomDTOMinimal.setFloor(1);
 
-        LocalDTO localDTO = new LocalDTO();
+        addressAndLocalDTO = new AddressLocalGeographicAreaIdDTO();
 
-        localDTO = new LocalDTO();
-        localDTO.setAltitude(20);
-        localDTO.setLongitude(20);
-        localDTO.setLatitude(20);
+        addressAndLocalDTO.setNumber("431");
+        addressAndLocalDTO.setCountry("Portugal");
+        addressAndLocalDTO.setZip("4200-072");
+        addressAndLocalDTO.setTown("Porto");
+        addressAndLocalDTO.setStreet("rua carlos peixoto");
 
-        AddressDTO addressDTO = new AddressDTO();
+        addressAndLocalDTO.setAltitude(20);
+        addressAndLocalDTO.setLongitude(20);
+        addressAndLocalDTO.setLatitude(20);
 
-        addressDTO.setNumber("431");
-        addressDTO.setCountry("Portugal");
-        addressDTO.setZip("4200-072");
-        addressDTO.setTown("Porto");
-        addressDTO.setStreet("rua carlos peixoto");
-
-        addressAndLocalDTO = new AddressAndLocalDTO();
-        addressAndLocalDTO.setLocal(localDTO);
-        addressAndLocalDTO.setAddress(addressDTO);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(webController).build();
 
@@ -101,7 +95,7 @@ class HouseConfigurationWebControllerTest {
         webController.configureHouseLocation(addressAndLocalDTO);
 
         //Assert
-        assertEquals(validDTO.getAddress(), addressAndLocalDTO.getAddress());
+        assertEquals(validDTO.getAddress().getStreet(), addressAndLocalDTO.getStreet());
     }
 
     @Test
@@ -122,7 +116,7 @@ class HouseConfigurationWebControllerTest {
         webController.configureHouseLocation(addressAndLocalDTO);
 
         //Assert
-        assertEquals(validDTO.getLocation(), addressAndLocalDTO.getLocal());
+        assertEquals(validDTO.getAddress().getStreet(), addressAndLocalDTO.getStreet());
     }
 
     @Test
@@ -420,23 +414,15 @@ class HouseConfigurationWebControllerTest {
                 new Local(20, 20, 20), 60,
                 180, new ArrayList<>());
 
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(addressAndLocalDTO);
+
         Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
         Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(true);
 
         mockMvc.perform(put("/houseSettings/house")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"address\": {\n" +
-                        "        \"street\": \"rua carlos peixoto\",\n" +
-                        "        \"number\": \"431\",\n" +
-                        "        \"zip\": \"4200-072\",\n" +
-                        "        \"town\": \"Porto\",\n" +
-                        "        \"country\": \"Portugal\"\n" +
-                        "    },\n" +
-                        "    \"local\": {\n" +
-                        "        \"latitude\": 20,\n" +
-                        "        \"longitude\": 20,\n" +
-                        "        \"altitude\": 20\n" +
-                        "    }}"))
+                .content(requestJson))
                 .andExpect(status().isOk());
     }
 

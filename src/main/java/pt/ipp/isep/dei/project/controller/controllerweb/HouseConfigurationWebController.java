@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pt.ipp.isep.dei.project.dto.AddressAndLocalDTO;
+import pt.ipp.isep.dei.project.dto.AddressLocalGeographicAreaIdDTO;
 import pt.ipp.isep.dei.project.dto.HouseWithoutGridsDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.HouseMapper;
@@ -38,12 +38,12 @@ public class HouseConfigurationWebController {
     /**
      * This is a PUT method for US101 - change the location of the house
      *
-     * @param addressAndLocalDTO is a DTO with the location of the house we want to get changed.
+     * @param dto is a DTO with the location of the house we want to get changed.
      */
     @PutMapping(value = "/house")
-    public ResponseEntity<Object> configureHouseLocation(@RequestBody AddressAndLocalDTO addressAndLocalDTO) {
+    public ResponseEntity<Object> configureHouseLocation(@RequestBody AddressLocalGeographicAreaIdDTO dto) {
         HouseWithoutGridsDTO houseWithoutGridsDTO = houseRepository.getHouseWithoutGridsDTO();
-        houseWithoutGridsDTO.setAddressAndLocalToDTOWithoutGrids(addressAndLocalDTO);
+        houseWithoutGridsDTO.setAddressAndLocalToDTOWithoutGrids(dto);
         if (houseRepository.updateHouseDTOWithoutGrids(houseWithoutGridsDTO)) {
             Link link = linkTo(methodOn(HouseConfigurationWebController.class).retrieveHouse()).withRel("Click here to see the House updated");
             houseWithoutGridsDTO.add(link);

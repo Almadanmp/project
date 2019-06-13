@@ -17,7 +17,6 @@ public class GeographicAreaDTO extends ResourceSupport {
     private List<GeographicAreaDTO> daughterAreaDTOList = new ArrayList<>();
     private String description;
 
-
     public Long getGeographicAreaId() {
         return id;
     }
@@ -25,6 +24,7 @@ public class GeographicAreaDTO extends ResourceSupport {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     /**
      * Method to determine the ID of the object.
