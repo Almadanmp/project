@@ -43,6 +43,7 @@ class SelectHouseGA extends Component {
   render() {
 
     const {isLoaded, item} = this.state;
+    console.log(item);
     this.state.item = Array.from(this.state.item);
     if (!isLoaded) {
       return <div>Loading
@@ -58,14 +59,14 @@ class SelectHouseGA extends Component {
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                   <option value="0" onChange={this.handleChange}>Please select</option>
                   {item.map(items => (
-                    <option value={items.name} key={items.name}>
+                    <option value={items.geographicAreaId} key={items.geographicAreaId}>
                       Name: {items.name}
                     </option>
                   ))}
                 </Input>
               </FormGroup>
             </Form>
-            <SelectHouseAddressLocation name={this.state.value}/>
+            <SelectHouseAddressLocation geographicAreaId={this.state.value}/>
           </div>
         );
       } else {

@@ -8,7 +8,7 @@ class US101Button extends Component {
     super(props);
     this.state = {
       isHidden: true,
-      name:this.props.name,
+      geographicAreaId:this.props.geographicAreaId,
       street:this.props.street,
       number: this.props.number,
       zip: this.props.zip,
@@ -26,7 +26,7 @@ class US101Button extends Component {
     return(
       <div>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Save House Location{this.props.name}</Button>
-        {!this.state.isHidden && <SaveHouseLocation name={this.props.name} street={this.props.street} number={this.props.number} zip={this.props.zip}
+        {!this.state.isHidden && <SaveHouseLocation geographicAreaId={this.props.geographicAreaId} street={this.props.street} number={this.props.number} zip={this.props.zip}
                                                     town={this.props.town} country={this.props.country} latitude={this.props.latitude}
                                                     longitude={this.props.longitude} altitude={this.props.altitude}/>}
       </div>

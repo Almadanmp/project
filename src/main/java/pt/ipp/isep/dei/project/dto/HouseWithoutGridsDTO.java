@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class HouseWithoutGridsDTO extends ResourceSupport {
     private String id;
+    private Long motherAreaId;
     private AddressDTO address;
     private LocalDTO location;
     private int gridMeteringPeriod;
@@ -17,6 +18,14 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
 
     public String getHouseId() {
         return id;
+    }
+
+    public void setMotherAreaId(Long motherAreaId) {
+        this.motherAreaId = motherAreaId;
+    }
+
+    public Long getMotherAreaId() {
+        return motherAreaId;
     }
 
     public AddressDTO getAddress() {
@@ -43,9 +52,16 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
         this.gridMeteringPeriod = gridMeteringPeriod;
     }
 
-    public void setAddressAndLocalToDTOWithoutGrids(AddressAndLocalDTO addressAndLocalDTO) {
-        setAddress(addressAndLocalDTO.getAddress());
-        setLocation(addressAndLocalDTO.getLocal());
+    public void setAddressAndLocalToDTOWithoutGrids(AddressLocalGeographicAreaIdDTO dto) {
+        this.address.setStreet(dto.getStreet());
+        this.address.setNumber(dto.getNumber());
+        this.address.setZip(dto.getZip());
+        this.address.setTown(dto.getTown());
+        this.address.setCountry(dto.getCountry());
+        this.location.setLatitude(dto.getLatitude());
+        this.location.setLongitude(dto.getLongitude());
+        this.location.setAltitude(dto.getAltitude());
+        setMotherAreaId(dto.getMotherAreaID());
     }
 
     public int getDeviceMeteringPeriod() {

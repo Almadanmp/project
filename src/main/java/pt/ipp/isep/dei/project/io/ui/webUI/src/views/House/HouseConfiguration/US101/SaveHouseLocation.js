@@ -11,7 +11,7 @@ class SaveHouseLocation extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    const name = this.props.name;
+    const geographicAreaId = this.props.geographicAreaId;
     const street = this.props.street;
     const number = this.props.number;
     const zip = this.props.zip;
@@ -30,7 +30,7 @@ class SaveHouseLocation extends Component {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({name, street, number, zip, town, country, latitude, longitude, altitude})
+      body: JSON.stringify({geographicAreaId, street, number, zip, town, country, latitude, longitude, altitude})
     })
       .then(res => res.json())
       .then((json) => {
@@ -47,7 +47,7 @@ class SaveHouseLocation extends Component {
         <p>The house location has been altered with the following parameters:</p>
         <ul>
           <li>
-            Geographic Area: {this.props.name}
+            Geographic Area Id: {this.props.geographicAreaId}
           </li>
           <li>
             Street: {this.props.street}
