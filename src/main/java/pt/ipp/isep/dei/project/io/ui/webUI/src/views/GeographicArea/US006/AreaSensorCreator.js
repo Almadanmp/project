@@ -1,14 +1,11 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
-import {fetchSensor} from "./Actions";
-import {connect} from 'react-redux';
 import US006Button from './US006Button';
 
 class AreaSensorCreator extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       geographicAreaId:this.props.geographicAreaId,
       typeSensor:this.props.typeSensor,
@@ -26,12 +23,6 @@ class AreaSensorCreator extends React.Component {
       [attribute]: event.target.value
     });
   };
-
-
-  handleSubmit(){
-    this.props.onFetchSensor(this.state);
-  }
-
 
   render() {
     const {sensorId, name, dateStartedFunctioning, latitude, longitude, altitude} = this.state;
@@ -62,19 +53,11 @@ class AreaSensorCreator extends React.Component {
           <input value={altitude} placeholder="Altitude" type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
         </label>
         <US006Button geographicAreaId={this.props.geographicAreaId} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}
-        latitude={this.props.latitude} longitude={this.props.longitude} altitude={this.props.altitude}/>
+        latitude={this.state.latitude} longitude={this.state.longitude} altitude={this.state.altitude}/>
       </div>
     )
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFetchSensor: ({geographicAreaId, typeSensor,name,sensorId,dateStartedFunctioning}) => {
-      dispatch(fetchSensor({geographicAreaId, typeSensor,name,sensorId,dateStartedFunctioning}))
-    }
-  }
-};
-
-export default connect(null,mapDispatchToProps)(AreaSensorCreator);
+export default AreaSensorCreator;
 
