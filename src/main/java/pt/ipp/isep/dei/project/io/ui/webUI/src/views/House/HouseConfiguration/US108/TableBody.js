@@ -6,11 +6,11 @@ class TableBody extends Component {
   }
 
   render() {
-    const {data} = this.props; // data = this.props.data;
-    if (data.length > 0) {
+    const {rooms} = this.props; // data = this.props.data;
+    if (rooms.length > 0) {
       return (
         <tbody>
-        {data.map((todo) => (
+        {rooms.map((todo) => (
           <tr key={todo.name}>
             <td>{todo.name}</td>
             <td>{todo.floor}</td>

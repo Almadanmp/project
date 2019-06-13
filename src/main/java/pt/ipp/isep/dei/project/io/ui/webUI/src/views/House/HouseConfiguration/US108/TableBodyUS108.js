@@ -12,11 +12,11 @@ class TableBodyUS108 extends Component {
 
 
   render() {
-    const {data} = this.props; // data = this.props.data;
-    if (data.length > 0 && this.state.check === false) {
+    const {rooms} = this.props; // data = this.props.data;
+    if (rooms.length > 0 && this.state.check === false) {
       return (
         <tbody>
-        {data.map((todo) => (
+        {rooms.map((todo) => (
           <tr key={todo.name}>
             <td>{todo.name}</td>
             <td>{todo.floor}</td>
@@ -33,7 +33,7 @@ class TableBodyUS108 extends Component {
         ))}
         </tbody>
       );
-    } else if (data.length > 0 && this.state.check === true) {
+    } else if (rooms.length > 0 && this.state.check === true) {
       return (<><US108Select/></>);
     } else {
       return (<h1>No data ....</h1>);
