@@ -1,38 +1,38 @@
 import {
-  FETCH_GAS_STARTED,
-  FETCH_GAS_SUCCESS,
-  FETCH_GAS_FAILURE,
+  FETCH_ROOMS_STARTED,
+  FETCH_ROOMS_SUCCESS,
+  FETCH_ROOMS_FAILURE,
 
 } from './Actions108'
 
 const initialstate = {
   loading: false,
   error: null,
-  data: []
+  rooms: []
 };
 
 export default function Reducer108(state = initialstate, action) {
   switch (action.type) {
-    case FETCH_GAS_STARTED:
+    case FETCH_ROOMS_STARTED:
       return {
         ...state,
         loading: true,
         error: null,
-        data: []
+        rooms: []
       };
-    case FETCH_GAS_SUCCESS:
+    case FETCH_ROOMS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        data: [...action.payload.data]
+        rooms: [...action.payload.rooms]
       };
-    case FETCH_GAS_FAILURE:
+    case FETCH_ROOMS_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        data: []
+        rooms: []
       };
 
     default:

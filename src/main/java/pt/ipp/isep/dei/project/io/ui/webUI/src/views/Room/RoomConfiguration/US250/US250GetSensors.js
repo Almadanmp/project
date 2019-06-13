@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TableHeader from "../../../House/HouseConfiguration/TableHeader";
+import { Badge, Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, TabContent, TabPane } from 'reactstrap';
 
 
 class US250GetSensors extends Component {
@@ -9,6 +10,7 @@ class US250GetSensors extends Component {
     this.state = {
       item: [],
       sensors:false,
+      activeTab: 1
     }
   }
 
@@ -41,14 +43,13 @@ class US250GetSensors extends Component {
     var {item} = this.state;
     return (
       <>
-        <TableHeader headers={headers}/>
+
             {item.map(item => (
-              <tr key={item.name}>
-                <td>{item.name} </td>
-                <td>{item.id} </td>
-                <td>{item.type} </td>
-              </tr>
+
+                <p>{item.name} {item.id} {item.type}</p>
+
             ))}
+
       </>
     );
   }

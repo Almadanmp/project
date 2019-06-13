@@ -19,7 +19,7 @@ class US002Redux extends Component {
           Existing geographic area types:
           <p></p>
           {listGATypes.map(listGATypes => (
-          <h5 key={listGATypes.id}>Area type: {listGATypes.name}</h5>
+          <h5 key={listGATypes.id}>{listGATypes.name}</h5>
         ))}
         </h4>
       </>

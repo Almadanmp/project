@@ -126,6 +126,24 @@ public class GASettingsWebController {
         }
     }
 
+    /* USER STORY US011 - As an Administrator, I want to removeSensor a sensor from a geographical area, so that it will no
+    longer be used.*/
+
+    /**
+     * This method removes a sensor selected from a list of sensors of a previously selected geographic area
+     */
+    @DeleteMapping("areas/{id}")
+    public ResponseEntity<String> removeSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
+        try {
+            if (geographicAreaRepo.removeSensorById(id, sensorId)) {
+                return new ResponseEntity<>("The sensor was successfully removed from the selected geographic area.", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("There is no sensor with that ID in this geographic area.", HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no geographic area", HttpStatus.NOT_FOUND);
+        }
+    }
+
     /**
      * Get daughter areas from an geo area
      *

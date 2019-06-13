@@ -1,5 +1,22 @@
 import React, {Component} from 'react';
-import {Card, CardBody, Col, Form, FormGroup, Input, Label, Table, Row} from "reactstrap";
+import {
+  Card,
+  CardBody,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Table,
+  Row,
+  ListGroup,
+  ListGroupItem,
+  ListGroupItemHeading,
+  ListGroupItemText,
+  CardHeader,
+  Badge,
+  TabContent, TabPane
+} from "reactstrap";
 import US250GetSensors from "./US250/US250GetSensors";
 
 
@@ -10,7 +27,8 @@ class ListRooms extends Component {
     this.state = {
       item: [],
       isLoaded: false,
-      value: ''
+      value: '',
+      activeTab: 1
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -40,6 +58,13 @@ class ListRooms extends Component {
     this.setState({value: event.target.value});
   }
 
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
 
   render() {
 
@@ -50,21 +75,35 @@ class ListRooms extends Component {
       if (!item.error) {
         return (
           <>
-            <Row>
-            {item.map(items => (
-              <Col xs="6" lg="4">
+
+
+              <Col>
                 <Card>
-                  <CardBody>
-                    <Table responsive>
-                      <tr value={items.name} key={items.name}>
-                        <h5>Room: {items.name}</h5>
-                        <US250GetSensors roomID={items.name}/> </tr>
-                    </Table>
-                  </CardBody>
-                </Card>
+                  <CardHeader>
+                    <i className="fa fa-align-justify"></i><strong>Room Sensors</strong> <small>by room</small>
+                    <div className="card-header-actions">
+                    </div>
+                  </CardHeader>
+              <CardBody>
+                <Row>
+                  <Col xs="4">
+                    {item.map(items => (
+                    <ListGroup id="list-tab" role="tablist">
+                        <ListGroupItem onClick={() => this.toggle(items.name)} action active={this.state.activeTab === items.name} >{items.name}</ListGroupItem>
+                      <TabContent activeTab={this.state.activeTab}>
+                        <TabPane tabId={items.name} >
+                        <US250GetSensors roomID={items.name}/>
+                        </TabPane>
+                      </TabContent>
+                    </ListGroup>
+                    ))}
+                  </Col>
+                </Row>
+              </CardBody>
+              </Card>
               </Col>
-            ))}
-            </Row>
+
+
           </>
         );
       } else {

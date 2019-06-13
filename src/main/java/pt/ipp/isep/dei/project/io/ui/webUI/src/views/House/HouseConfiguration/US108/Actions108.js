@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export const FETCH_GAS_STARTED = 'FETCH_GAS_STARTED';
-export const FETCH_GAS_SUCCESS = 'FETCH_GAS_SUCCESS';
-export const FETCH_GAS_FAILURE = 'FETCH_GAS_FAILURE';
+export const FETCH_ROOMS_STARTED = 'FETCH_ROOMS_STARTED';
+export const FETCH_ROOMS_SUCCESS = 'FETCH_ROOMS_SUCCESS';
+export const FETCH_ROOMS_FAILURE = 'FETCH_ROOMS_FAILURE';
 
 
-export function fetchGAs() {
+export function fetchRooms() {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchGAsStarted());
+    dispatch(fetchRoomsStarted());
     axios
       .get(`https://localhost:8443/houseSettings/houseRooms`, {
         headers: {
@@ -19,33 +19,33 @@ export function fetchGAs() {
         }
       })
       .then(res => {
-        dispatch(fetchGAsSuccess(res.data));
+        dispatch(fetchRoomsSuccess(res.data));
       })
       .catch(err => {
-        dispatch(fetchGAsFailure(err.message));
+        dispatch(fetchRoomsFailure(err.message));
       });
 
   };
 }
 
-export function fetchGAsStarted() {
+export function fetchRoomsStarted() {
   return {
-    type: FETCH_GAS_STARTED
+    type: FETCH_ROOMS_STARTED
   }
 }
 
-export function fetchGAsSuccess(data) {
+export function fetchRoomsSuccess(data) {
   return {
-    type: FETCH_GAS_SUCCESS,
+    type: FETCH_ROOMS_SUCCESS,
     payload: {
-      data: [...data]
+      rooms: [...data]
     }
   }
 }
 
-export function fetchGAsFailure(message) {
+export function fetchRoomsFailure(message) {
   return {
-    type: FETCH_GAS_FAILURE,
+    type: FETCH_ROOMS_FAILURE,
     payload: {
       error: message
     }

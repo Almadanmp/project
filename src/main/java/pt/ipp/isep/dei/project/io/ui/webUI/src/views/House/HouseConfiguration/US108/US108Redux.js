@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchGAs} from './Actions108';
+import {fetchRooms} from './Actions108';
 import {Alert, Card, CardBody, Col, Row, Table} from "reactstrap";
 import TableHeaderUS108 from "./TableHeaderUS108";
 import TableBodyUS108 from "./TableBodyUS108"
@@ -24,11 +24,11 @@ class US108Redux extends Component {
       edit: "Configure"
     };
 
-    const {loading, data} = this.props;
+    const {loading, rooms} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
-    if (data.length >0) {{
+    if (rooms.length >0) {{
       return (
         <div className="animated fadeIn">
           <Row>
@@ -37,7 +37,7 @@ class US108Redux extends Component {
                 <CardBody>
                   <Table responsive>
                     <TableHeaderUS108 headers={headers}/>
-                    <TableBodyUS108 data={data}/>
+                    <TableBodyUS108 rooms={rooms}/>
                   </Table>
                 </CardBody>
               </Card>
@@ -58,7 +58,7 @@ class US108Redux extends Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.Reducer108.loading,
-    data: state.Reducer108.data,
+    rooms: state.Reducer108.rooms,
     error: state.Reducer108.error
   }
 };
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchUsers: () => {
-      dispatch(fetchGAs())
+      dispatch(fetchRooms())
     }
 
   }
