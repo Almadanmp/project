@@ -5,7 +5,6 @@ import {
   Button,
   CardBody,
   Card,
-  CardHeader, Alert,
 } from 'reactstrap';
 
 class US011 extends Component {
@@ -22,8 +21,7 @@ class US011 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Remove an area sensor from a
-          geographic area.</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}> Remove a sensor from area</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

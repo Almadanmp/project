@@ -16,7 +16,7 @@ class US002 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get Geographic Area Types</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get geographic area types</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

@@ -67,8 +67,8 @@ class US003Redux extends React.Component {
         </label>
 
         <p>The geographic area to be created has the following
-          details: {name + ', ' + typeArea + length + width + ', '
-          + latitude + ', ' + longitude + ', ' + altitude + description + '.'}</p>
+          details: {name + ', ' + typeArea + ', ' + length + ', ' + width + ', '
+          + latitude + ', ' + longitude + ', ' + altitude + ', ' + description + '.'}</p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
           geographic area</Button>
       </>
