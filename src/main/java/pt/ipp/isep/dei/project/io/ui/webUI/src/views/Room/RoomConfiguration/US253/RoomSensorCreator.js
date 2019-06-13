@@ -14,7 +14,7 @@ class RoomSensorCreator extends React.Component {
       typeSensor:this.props.typeSensor,
       name: '',
       sensorId: '',
-      dateStartedFunctioning: "YYYY-MM-DD",
+      dateStartedFunctioning: '',
     };
   }
 
@@ -35,15 +35,15 @@ class RoomSensorCreator extends React.Component {
     return (
       <div>
         <label>Sensor ID:
-        <input value={sensorId} type="text" name="sensorId" onChange={this.handleInputChange('sensorId')}/>
+        <input value={sensorId} placeholder="Sensor00" type="text" name="sensorId" onChange={this.handleInputChange('sensorId')}/>
         </label>
         <p></p>
         <label>Sensor name:
-          <input value={name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+          <input value={name} placeholder="Sensor name" type="text" name="name" onChange={this.handleInputChange('name')}/>
         </label>
           <p></p>
         <label>Date it started functioning:
-        <input value={dateStartedFunctioning} type="text" name="dateStartedFunctioning" onChange={this.handleInputChange('dateStartedFunctioning')}/>
+        <input value={dateStartedFunctioning} placeholder="YYYY-MM-DD" type="text" name="dateStartedFunctioning" onChange={this.handleInputChange('dateStartedFunctioning')}/>
         </label>
           <US253Button roomID={this.props.roomID} typeSensor={this.props.typeSensor} sensorId={this.state.sensorId} name={this.state.name} dateStartedFunctioning={this.state.dateStartedFunctioning}/>
       </div>
