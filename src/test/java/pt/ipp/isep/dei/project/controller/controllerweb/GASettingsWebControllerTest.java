@@ -12,10 +12,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
-import pt.ipp.isep.dei.project.dto.LocalDTO;
+import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
@@ -691,28 +688,24 @@ class GASettingsWebControllerTest {
     @Test
     void seeIfGetAllAreasOfGivenType() {
         // Arrange
-
-        List<GeographicArea> geoAreasOfGivenType = new ArrayList<>();
-        GeographicArea validGeographicArea = new GeographicArea();
-        validGeographicArea.setDescription("4rd biggest city");
-        validGeographicArea.setName("Santa Maria de Lamas");
-        validGeographicArea.setWidth(100);
-        validGeographicArea.setLength(500);
-        validGeographicArea.setAreaTypeID("Urban Area");
-        geoAreasOfGivenType.add(validGeographicArea);
-
+            //GeoAreaDTO List for mocking
+        List<GeographicAreaWebDTO> geoAreasDTOOfGivenType = new ArrayList<>();
+        GeographicAreaWebDTO validGeographicAreaWebDTO = new GeographicAreaWebDTO();
+        validGeographicAreaWebDTO.setDescription("4rd biggest city");
+        validGeographicAreaWebDTO.setName("Santa Maria de Lamas");
+        validGeographicAreaWebDTO.setTypeArea("Urban Area");
+        geoAreasDTOOfGivenType.add(validGeographicAreaWebDTO);
+            //Mockito
         String areaType = "Urban Area";
-        Mockito.doReturn(geoAreasOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
-
+        Mockito.doReturn(geoAreasDTOOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
+            //Expected Result
         HttpStatus expectedResult = HttpStatus.OK;
 
         // Act
-
         ResponseEntity<Object> controllerMethodCall = gaSettingsWebController.getAllAreasOfGivenType(areaType);
         HttpStatus actualResult = controllerMethodCall.getStatusCode();
 
         // Assert
-
         assertEquals(expectedResult, actualResult);
 
     }

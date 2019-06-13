@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pt.ipp.isep.dei.project.controller.controllercli.ReaderController;
 import pt.ipp.isep.dei.project.dto.ReadingDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class RoomRepositoryTest {
 
-    private static final Logger logger = Logger.getLogger(ReaderController.class.getName());
     private Room validRoom;
     private Device validDevice;
     private Reading validReading1;
@@ -203,6 +200,7 @@ class RoomRepositoryTest {
 
         // Assert
 
+        assertTrue(actualResult);
         assertEquals(222D, validRoom.getLength(), 0.01);
         assertEquals(111D, validRoom.getWidth(), 0.01);
         assertEquals(666D, validRoom.getHeight(), 0.01);

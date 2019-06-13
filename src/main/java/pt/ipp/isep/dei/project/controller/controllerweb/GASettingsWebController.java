@@ -67,9 +67,9 @@ public class GASettingsWebController {
      *
      * @return ResponseEntity with all the geographic areas of a given type.
      */
-    @GetMapping(value = "/areasOfType")
-    public ResponseEntity<Object> getAllAreasOfGivenType(@RequestBody String typeAreaName) {
-        return new ResponseEntity<>(geographicAreaRepo.getGeoAreasByType(typeAreaName), HttpStatus.OK);
+    @GetMapping(value = "/areasOfType/{typeAreaId}")
+    public ResponseEntity<Object> getAllAreasOfGivenType(@PathVariable String typeAreaId) {
+        return new ResponseEntity<>(geographicAreaRepo.getGeoAreasDTOByType(typeAreaId), HttpStatus.OK);
     }
 
     /**

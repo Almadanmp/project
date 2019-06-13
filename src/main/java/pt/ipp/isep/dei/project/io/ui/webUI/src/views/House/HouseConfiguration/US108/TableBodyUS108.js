@@ -7,9 +7,10 @@ class TableBodyUS108 extends Component {
     super(props);
     this.state = {
       check: false,
-      name:''
+      name: ''
     };
   };
+
 
   handleEdit = () => {
     this.setState(
@@ -32,7 +33,7 @@ class TableBodyUS108 extends Component {
             <td>{todo.length}</td>
             <td>{todo.width}</td>
             <td>
-              <button onClick={this.handleEdit}> Edit {todo.name}
+              <button onClick={(event) => { this.handleEdit(); this.state.name = todo.name ;}}> Edit {todo.name}
               </button>
             </td>
           </tr>
@@ -40,7 +41,7 @@ class TableBodyUS108 extends Component {
         </tbody>
       );
     } else if (rooms.length > 0 && this.state.check === true) {
-      return (<><US108Select/></>);
+      return (<><US108Select name = {this.state.name} /></>);
     } else {
       return (<h1>No data ....</h1>);
     }

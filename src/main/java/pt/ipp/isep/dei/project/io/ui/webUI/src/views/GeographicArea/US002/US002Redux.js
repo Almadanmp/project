@@ -15,13 +15,13 @@ class US002Redux extends Component {
     const {listGATypes} = this.props;
     return (
       <>
-        <h4>
-          Existing geographic area types:
+        <label>
+          <h5>Existing geographic area types:</h5>
           <p></p>
           {listGATypes.map(listGATypes => (
-          <h5 key={listGATypes.id}>Area type: {listGATypes.name}</h5>
+          <p key={listGATypes.id}>{'- ' + listGATypes.name}</p>
         ))}
-        </h4>
+        </label>
       </>
     );
   }

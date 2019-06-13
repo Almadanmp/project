@@ -35,11 +35,11 @@ class US003Redux extends React.Component {
     return (
       <>
         <label> Name:
-          <input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+          <input value={this.state.name} type="text" name="name" placeholder="Geographic area name" onChange={this.handleInputChange('name')}/>
         </label>
 
         <label> Type area:
-          <input value={this.state.typeArea} type="text" name="typeArea" onChange={this.handleInputChange('typeArea')}/>
+          <input value={this.state.typeArea} type="text" name="typeArea" placeholder="Area type" onChange={this.handleInputChange('typeArea')}/>
         </label>
 
         <label> Length:
@@ -63,12 +63,12 @@ class US003Redux extends React.Component {
         </label>
 
         <label> Description:
-          <input value={this.state.description} type="text" name="description" onChange={this.handleInputChange('description')}/>
+          <input value={this.state.description} type="text" name="description" placeholder="Area details" onChange={this.handleInputChange('description')}/>
         </label>
 
         <p>The geographic area to be created has the following
-          details: {name + ', ' + typeArea + length + width + ', '
-          + latitude + ', ' + longitude + ', ' + altitude + description + '.'}</p>
+          details: {name + ', ' + typeArea + ', ' + length + ', ' + width + ', '
+          + latitude + ', ' + longitude + ', ' + altitude + ', ' + description + '.'}</p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new
           geographic area</Button>
       </>

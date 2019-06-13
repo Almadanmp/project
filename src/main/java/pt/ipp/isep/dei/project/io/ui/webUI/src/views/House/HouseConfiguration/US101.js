@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import AreaSensorRemover from "./US011/AreaSensorRemover"
+import SelectHouseGA from './US101/SelectHouseGA';
 import {
   Collapse,
-  Button,
-  CardBody,
-  Card,
+  Button, Card, CardBody,
 } from 'reactstrap';
 
-class US011 extends Component {
+class US101 extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -21,17 +19,17 @@ class US011 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}> Remove a sensor from area</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Configure the house location</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
-              <AreaSensorRemover/>
+              <SelectHouseGA/>
             </CardBody>
           </Card>
         </Collapse>
       </div>
-    );
+    )
   }
 }
 
-export default US011;
+export default US101;

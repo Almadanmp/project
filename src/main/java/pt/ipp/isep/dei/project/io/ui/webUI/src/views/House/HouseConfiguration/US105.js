@@ -23,7 +23,7 @@ class US105 extends Component {
       return (
         <div>
           <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Add a new room to the
-            house.</Button>
+            house</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import RoomEditor from "./RoomEditor";
+import {Form, FormGroup, Input, Label} from "reactstrap";
+import SelectHouseAddressLocation from './SelectHouseAddressLocation';
 
-class US108Select extends Component {
+class SelectHouseGA extends Component {
 
   constructor(props) {
     super(props);
@@ -15,7 +16,7 @@ class US108Select extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/houseSettings/houseRooms', {
+    fetch('https://localhost:8443/geographic_area_settings/areas', {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
@@ -51,7 +52,20 @@ class US108Select extends Component {
       if (!item.error) {
         return (
           <div>
-            <RoomEditor name={this.props.name}/>
+            <Form action="" method="post">
+              <FormGroup>
+                <Label>Select Geographic Area</Label>
+                <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
+                  <option value="0" onChange={this.handleChange}>Please select</option>
+                  {item.map(items => (
+                    <option value={items.name} key={items.name}>
+                      Name: {items.name}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Form>
+            <SelectHouseAddressLocation name={this.state.value}/>
           </div>
         );
       } else {
@@ -61,4 +75,4 @@ class US108Select extends Component {
   }
 }
 
-export default US108Select;
+export default SelectHouseGA;
