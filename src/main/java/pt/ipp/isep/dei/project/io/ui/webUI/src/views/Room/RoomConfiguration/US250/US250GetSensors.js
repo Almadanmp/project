@@ -1,6 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import TableHeader from "../../../House/HouseConfiguration/TableHeader";
-import { Badge, Card, CardBody, CardHeader, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, TabContent, TabPane } from 'reactstrap';
+import {
+  Badge,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  ListGroupItemHeading,
+  ListGroupItemText,
+  Row,
+  TabContent,
+  TabPane, Table
+} from 'reactstrap';
 
 
 class US250GetSensors extends Component {
@@ -9,14 +22,15 @@ class US250GetSensors extends Component {
     super(props);
     this.state = {
       item: [],
-      sensors:false,
-      activeTab: 1
+      sensors: false,
+      activeTab: 1,
+      roomId: 0,
     }
   }
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    fetch('https://localhost:8443/roomConfiguration/rooms/'+this.props.roomID+'/sensors',{
+    fetch('https://localhost:8443/roomConfiguration/rooms/' + this.props.roomID + '/sensors', {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
@@ -35,21 +49,35 @@ class US250GetSensors extends Component {
   }
 
   render() {
-    const headers = {
-      name: "Sensors",
-      id: "ID",
-      type: "Type",
-    };
     var {item} = this.state;
     return (
       <>
+        {item.length > 0  ?
+        <Table responsive>
 
-            {item.map(item => (
+          <thead>
+          <tr>
+            <th>Sensor</th>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Activation</th>
+            <th>State</th>
+          </tr>
+          </thead>
+          <tbody>
 
-                <p>{item.name} {item.id} {item.type}</p>
+        {item.map(item => (
+          <tr key={item.name}>
+            <td>{item.name}</td>
+            <td> {item.id}</td>
+            <td>{item.type}</td>
+            <td>{item.dateStartedFunctioning}</td>
+            <td>{item.active == true ? <Badge color="success"> Active </Badge> : <Badge color="danger"> Deactive </Badge>}</td>
+          </tr>
+        ))}
 
-            ))}
-
+          </tbody>
+          </Table> : "No sensors on this room."}
       </>
     );
   }
