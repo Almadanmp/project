@@ -56,7 +56,7 @@ class AreaSensorRemover extends React.Component {
         </label>
 
         <label> Area Sensor Id:
-          <input value={this.state.sensorId} type="text" name="sensorId" onChange={this.handleInputChange('sensorId')}/>
+          <input value={this.state.sensorId} type="text" name="sensorId" placeholder="Sensor id" onChange={this.handleInputChange('sensorId')}/>
         </label>
 
         <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}} onClick={this.submit}>remove </Button>
