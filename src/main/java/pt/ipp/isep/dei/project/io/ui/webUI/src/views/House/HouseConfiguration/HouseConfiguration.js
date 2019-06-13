@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import US108 from './US108'
-import US109 from './US109'
-import US105 from "./US105";
+import US105 from './US105'
 import US108Redux from "./US108/US108Redux";
 
 class HouseConfiguration extends Component {
@@ -21,7 +19,7 @@ class HouseConfiguration extends Component {
         <h2>Welcome to the House Configuration Menu.</h2>
         <h4>Please select the option you want to run.</h4>
         <US108Redux/>
-        <US109/>
+        <US105/>
       </div>
     );
   }
