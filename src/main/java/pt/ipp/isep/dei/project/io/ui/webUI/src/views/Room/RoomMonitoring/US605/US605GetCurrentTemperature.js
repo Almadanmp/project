@@ -32,11 +32,12 @@ class US605GetCurrentTemperature extends Component {
   }
 
   render() {
-    var {item} = this.state;
+    var {item,roomID, } = this.state;
+
     return (
       <div>
         <p></p>
-        {item.toString()} Cº
+        {item.rel == "This room does not exist." ? 'No data available': item.toString() + 'Cº'}
       </div>
     );
   }
