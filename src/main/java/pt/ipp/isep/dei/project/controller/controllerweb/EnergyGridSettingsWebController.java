@@ -63,7 +63,6 @@ public class EnergyGridSettingsWebController {
         try {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebNotInGrid(gridId);
             for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
-                //roomDTOMinimal.setGridID(gridId);
                 Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
                 roomDTOMinimal.add(link);
             }

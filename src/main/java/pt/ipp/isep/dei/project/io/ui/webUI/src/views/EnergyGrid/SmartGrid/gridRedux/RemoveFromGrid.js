@@ -40,7 +40,6 @@ class RemoveFromGrid extends React.Component {
   }
 
   render() {
-    console.log(this.props.name,this.props.grid)
     return (
       <>
         <Button style={{backgroundColor: '#ffffff', marginBottom: '1rem'}} onClick={this.submit}><i
