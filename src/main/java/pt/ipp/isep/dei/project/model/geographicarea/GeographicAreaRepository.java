@@ -266,6 +266,26 @@ public class GeographicAreaRepository {
     }
 
     /**
+     * Method that does the same as getGeoAreasByType but does so as DTO so that minimal necessary information is passed
+     * for US004 WebController
+     * @param typeAreaName type of area that we want to list the Geographical Areas for
+     * @return a list of all the Geographical Areas of the given type.
+     */
+
+    public List<GeographicAreaWebDTO> getGeoAreasDTOByType(String typeAreaName) {
+        List<GeographicAreaWebDTO> geoAreasDTOByType = new ArrayList<>();
+        List<GeographicArea> geoAreasByType = geographicAreaCrudRepo.findAllByAreaTypeID(typeAreaName);
+        for (GeographicArea g : geoAreasByType) {
+            GeographicAreaWebDTO x = new GeographicAreaWebDTO();
+            x.setName(g.getName());
+            x.setTypeArea(g.getAreaTypeID());
+            x.setDescription(g.getDescription());
+            geoAreasDTOByType.add(x);
+        }
+        return geoAreasDTOByType;
+    }
+
+    /**
      * Checks the geographic area list size and returns the size as int.\
      *
      * @return GeographicAreaList size as int
