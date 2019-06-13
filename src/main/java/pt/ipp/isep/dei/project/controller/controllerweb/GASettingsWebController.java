@@ -60,6 +60,18 @@ public class GASettingsWebController {
                 " invalid Area.", HttpStatus.BAD_REQUEST);
     }
 
+    /* User Story 04 - I want to list all geo areas of given Type. */
+
+    /**
+     * This method displays all Geographical Area of a given Type
+     *
+     * @return ResponseEntity with all the geographic areas of a given type.
+     */
+    @GetMapping(value = "/areas")
+    public ResponseEntity<Object> getAllAreasOfGivenType(@RequestBody String typeAreaName) {
+        return new ResponseEntity<>(geographicAreaRepo.getGeoAreasByType(typeAreaName), HttpStatus.OK);
+    }
+
     /**
      * this method displays all the information of the Geographic Areas DTOs
      *
