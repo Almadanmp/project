@@ -6,10 +6,18 @@ class TableBodyUS108 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      check: false
+      check: false,
+      name:''
     };
   };
 
+  handleEdit = () => {
+    this.setState(
+      prevState => ({
+        check: !prevState.check
+      })
+    );
+  };
 
   render() {
     const {rooms} = this.props; // data = this.props.data;
@@ -24,9 +32,7 @@ class TableBodyUS108 extends Component {
             <td>{todo.length}</td>
             <td>{todo.width}</td>
             <td>
-              <button onClick={(e) => this.setState(prevState => ({
-                check: !prevState.check
-              }))}> Edit
+              <button onClick={this.handleEdit}> Edit {todo.name}
               </button>
             </td>
           </tr>
