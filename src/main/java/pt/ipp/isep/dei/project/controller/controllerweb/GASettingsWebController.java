@@ -47,7 +47,7 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
-        if (dto.getGeographicAreaId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
+        if (dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
             if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
                 Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
                 dto.add(link);

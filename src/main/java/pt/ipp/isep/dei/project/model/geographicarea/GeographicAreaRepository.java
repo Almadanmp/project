@@ -78,7 +78,7 @@ public class GeographicAreaRepository {
         return GeographicAreaMapper.objectToDTOWithMother(aux.get());
     }
 
-    public boolean addAndPersistDTO(GeographicAreaDTO geographicAreaToAddDTO) {
+    boolean addAndPersistDTO(GeographicAreaDTO geographicAreaToAddDTO) {
         List<GeographicArea> geographicAreas = getAll();
         GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaToAddDTO);
         if (!(geographicAreas.contains(geographicAreaToAdd))) {
@@ -103,16 +103,8 @@ public class GeographicAreaRepository {
         geographicAreaDTO.setDescription(geographicAreaPlainLocalDTO.getDescription());
         geographicAreaDTO.setLength(geographicAreaPlainLocalDTO.getLength());
         geographicAreaDTO.setWidth(geographicAreaPlainLocalDTO.getWidth());
-        geographicAreaDTO.setId(geographicAreaPlainLocalDTO.getGeographicAreaId());
 
-        List<GeographicArea> geographicAreas = getAll();
-        GeographicArea geographicAreaToAdd = GeographicAreaMapper.dtoToObject(geographicAreaDTO);
-        if (!(geographicAreas.contains(geographicAreaToAdd))) {
-            geographicAreas.add(geographicAreaToAdd);
-            geographicAreaCrudRepo.save(geographicAreaToAdd);
-            return true;
-        }
-        return false;
+        return addAndPersistDTO(geographicAreaDTO);
     }
 
     void deleteFromDatabase(GeographicAreaDTO geographicAreaDTO) {
