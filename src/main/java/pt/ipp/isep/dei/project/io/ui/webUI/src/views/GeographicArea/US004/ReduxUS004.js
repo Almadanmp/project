@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchGeoAreasByType} from './ActionsUS004';
+import {fetchGAByT} from './ActionsUS004';
 
 class ReduxUS004 extends Component {
   constructor(props) {

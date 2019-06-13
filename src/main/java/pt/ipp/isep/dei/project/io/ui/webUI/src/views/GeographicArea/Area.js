@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import US002 from './US002';
 import US003 from './US003';
+import US004 from './US004';
 import US011 from './US011';
 
 
@@ -23,6 +24,7 @@ class Area extends Component {
         <h4>Please select the option you want to run.</h4>
         <US002/>
         <US003/>
+        <US004/>
         <US011/>
       </div>
     );
