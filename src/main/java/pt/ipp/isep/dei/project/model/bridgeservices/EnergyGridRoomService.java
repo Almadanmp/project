@@ -37,16 +37,13 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     }
 
     public List<Room> getRoomListNotInGrid(EnergyGrid energyGrid) {
-        List<Room> gridRooms = new ArrayList<>();
-        for (String id : energyGrid.getRoomIdList()) {
-            List<Room> rooms = roomRepository.getAllRooms();
-            for (Room room : rooms) {
-                if (!(id.equals(room.getId()))) {
-                    gridRooms.add(room);
-                }
-            }
+        List<Room> rooms = roomRepository.getAllRooms(); //todos
+        List<String> unWantedRooms = energyGrid.getRoomIdList();
+        for (String s : unWantedRooms) {
+            Optional<Room> room = roomRepository.findRoomByID(s);
+            room.ifPresent(rooms::remove);
         }
-        return gridRooms;
+        return rooms;
     }
 
     /**
