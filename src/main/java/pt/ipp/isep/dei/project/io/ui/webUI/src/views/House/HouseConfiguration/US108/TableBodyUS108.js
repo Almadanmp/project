@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import US108Select from "../US109/US108Select";
+import US108Select from "./US108Select";
 
 
 class TableBodyUS108 extends Component {
