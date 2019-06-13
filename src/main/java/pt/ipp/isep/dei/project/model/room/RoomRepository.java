@@ -26,6 +26,7 @@ public class RoomRepository {
     private static final String STRING_BUILDER = "---------------\n";
     private static final String THE_READING = "The reading ";
     private static final String FROM = " from ";
+
     @Autowired
     private RoomCrudRepo roomCrudRepo;
 
@@ -82,7 +83,13 @@ public class RoomRepository {
         String roomDTOName = roomDTO.getName();
         Optional<Room> room = roomCrudRepo.findByRoomName(roomDTOName);
         if (room.isPresent()) {
+            // Manually reset the sensor list first, so the database doesn't have to delete all sensors.
+            // Having the database be responsible for deleting sensors is extremely costly for performance.
+
+            List<RoomSensor> emptyList = new ArrayList<>();
+            room.get().setRoomSensors(emptyList);
             roomCrudRepo.delete(room.get());
+
             return true;
         }
         return false;
