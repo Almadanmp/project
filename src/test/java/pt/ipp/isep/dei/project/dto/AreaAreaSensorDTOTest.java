@@ -30,26 +30,10 @@ class AreaAreaSensorDTOTest {
         validAreaSensorDTO.setName("SensorDTO1");
         validAreaSensorDTO.setTypeSensor("Temperature");
         validAreaSensorDTO.setUnits("Celsius");
-        validAreaSensorDTO.setLocalDTO(new LocalDTO(2, 4, 5));
         validAreaSensorDTO.setLatitude(2);
         validAreaSensorDTO.setLongitude(4);
         validAreaSensorDTO.setAltitude(5);
         validAreaSensorDTO.setDateStartedFunctioning("21/03/2018 10:02:00");
-    }
-
-    @Test
-    void seeIfGetLocalDTOWorks() {
-        //Arrange
-
-        LocalDTO expectedResult = new LocalDTO(2, 4, 5);
-
-        //Act
-
-        LocalDTO actualResult = validAreaSensorDTO.getLocalDTO();
-
-        //Assert
-
-        assertEquals(expectedResult, actualResult);
     }
 
     @Test

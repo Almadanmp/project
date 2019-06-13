@@ -20,7 +20,8 @@ class US253 extends Component {
   render() {
       return (
         <div>
-          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}} class="fa fa-plus-square-o fa-lg mt-4">Add Sensor</Button>
+          <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '2rem'}}>Add a new
+            sensor</Button>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>

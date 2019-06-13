@@ -14,7 +14,6 @@ public class AreaSensorDTO extends ResourceSupport {
     private double latitude;
     private double longitude;
     private double altitude;
-    private LocalDTO localDTO = new LocalDTO(latitude, longitude, altitude);
     private String dateStartedFunctioning;
     private boolean active;
     private List<ReadingDTO> readingDTOS;
@@ -29,14 +28,6 @@ public class AreaSensorDTO extends ResourceSupport {
 
     public String getSensorId() {
         return sensorId;
-    }
-
-    public LocalDTO getLocalDTO() {
-        return localDTO;
-    }
-
-    public void setLocalDTO(LocalDTO localDTO) {
-        this.localDTO = localDTO;
     }
 
     public double getAltitude() {
