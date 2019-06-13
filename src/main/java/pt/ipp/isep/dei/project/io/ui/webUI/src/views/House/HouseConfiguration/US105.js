@@ -27,7 +27,7 @@ class US105 extends Component {
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
-                <p><Alert color="danger">ERROR: Non-authorized user.</Alert></p>
+                <RoomCreator/>
               </CardBody>
             </Card>
           </Collapse>

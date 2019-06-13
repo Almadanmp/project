@@ -10,11 +10,11 @@ class RoomCreator extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      name: '...',
-      floor: 0,
-      width: 0,
-      length: 0,
-      height: 0,
+      name: '',
+      floor: '',
+      width: '',
+      length: '',
+      height: '',
     };
 
     this.handleInputChange = attribute => event => {
@@ -25,34 +25,47 @@ class RoomCreator extends React.Component {
 
   }
 
-  handleSubmit(){
+  handleSubmit() {
     this.props.onFetchRoom(this.state);
   }
+
   render() {
     const {name, floor, width, length, height} = this.state;
     return (
       <>
         <label> Name:
-          <input value={this.state.name} type="text" name="name" onChange={this.handleInputChange('name')}/>
+          <input value={this.state.name} placeholder={"Room name"} type="text" name="name"
+                 onChange={this.handleInputChange('name')}/>
         </label>
-
+        <p></p>
         <label> Floor:
-          <input value={this.state.floor} type="number" name="floor" onChange={this.handleInputChange('floor')}/>
+          <input value={this.state.floor} placeholder={"0"} type="number" name="floor"
+                 onChange={this.handleInputChange('floor')}/>
         </label>
-
+        <p></p>
         <label> Width:
-          <input value={this.state.width} type="number" name="width" onChange={this.handleInputChange('width')}/>
+          <input value={this.state.width} placeholder={"0"} type="number" name="width"
+                 onChange={this.handleInputChange('width')}/>
         </label>
-
+        <p></p>
         <label> Length:
-          <input value={this.state.length} type="number" name="length" onChange={this.handleInputChange('length')}/>
+          <input value={this.state.length} placeholder={"0"} type="number" name="length"
+                 onChange={this.handleInputChange('length')}/>
         </label>
+        <p></p>
 
         <label> Height:
-          <input value={this.state.height} type="number" name="height" onChange={this.handleInputChange('height')}/>
+          <input value={this.state.height} placeholder={"0"} type="number" name="height"
+                 onChange={this.handleInputChange('height')}/>
         </label>
-        <p>The room to be created has the following details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new room configuration</Button>
+        <p></p>
+
+        <p>The room to be created has the following
+          details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
+        <p></p>
+
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new room
+          configuration</Button>
       </>
     )
   }
@@ -66,5 +79,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(null,mapDispatchToProps)(RoomCreator);
+export default connect(null, mapDispatchToProps)(RoomCreator);
 

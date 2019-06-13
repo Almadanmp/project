@@ -33,6 +33,7 @@
     "react-anime": "^2.2.0",
     "react-app-polyfill": "^1.0.1",
     "react-chartjs-2": "^2.7.6",
+    "react-confirm-alert": "^2.4.1",
     "react-day-picker": "^7.3.0",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",

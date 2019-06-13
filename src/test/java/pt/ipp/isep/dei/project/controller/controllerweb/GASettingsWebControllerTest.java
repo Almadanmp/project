@@ -12,12 +12,14 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
 import pt.ipp.isep.dei.project.dto.LocalDTO;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
+import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ class GASettingsWebControllerTest {
 
     @Test
     void seeIfCreateGeoAreaWorks() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
@@ -56,7 +58,6 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("4rd biggest city");
         validGeographicAreaDTO.setName("Santa Maria de Lamas");
-        validGeographicAreaDTO.setId(66L);
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("Urban Area");
@@ -67,11 +68,11 @@ class GASettingsWebControllerTest {
 
         validGeographicAreaDTO.add(link);
 
-        //Act
+        // Act
 
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
 
         assertEquals(HttpStatus.CREATED, actualResult.getStatusCode());
 
@@ -80,7 +81,7 @@ class GASettingsWebControllerTest {
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkIsRepeated() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
@@ -89,7 +90,6 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
         validGeographicAreaDTO.setName("Gaia");
-        validGeographicAreaDTO.setId(66L);
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("urban area");
@@ -98,42 +98,18 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. That Area already exists.", HttpStatus.CONFLICT);
 
-        //Act
+        // Act
+        
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
+        
         assertEquals(expectedResult, actualResult);
     }
-
-    @Test
-    void seeIfCreateGeoAreaDoesntWorkIDNull() {
-        //Arrange
-
-        GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
-
-        validGeographicAreaDTO.setLatitude(41D);
-        validGeographicAreaDTO.setLongitude(-8D);
-        validGeographicAreaDTO.setAltitude(100D);
-        validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setName("Gaia");
-        validGeographicAreaDTO.setWidth(100);
-        validGeographicAreaDTO.setLength(500);
-        validGeographicAreaDTO.setTypeArea("urban area");
-
-//        Mockito.doReturn(false).when(geographicAreaRepository).addAndPersistDTO(any(GeographicAreaDTO.class));
-
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
-
-        //Act
-        ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
+    
     @Test
     void seeIfCreateGeoAreaDoesntWorkNameNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
@@ -141,7 +117,6 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setLongitude(-8D);
         validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
         validGeographicAreaDTO.setTypeArea("urban area");
@@ -150,16 +125,16 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkTypeNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
@@ -167,7 +142,6 @@ class GASettingsWebControllerTest {
         validGeographicAreaDTO.setLongitude(-8D);
         validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setName("Porto");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -176,23 +150,22 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkLatitudeNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setLongitude(-8D);
         validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setName("Porto");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -201,26 +174,25 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
 
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
 
     }
 
     @Test
-    void seeIfCreateGeoAreaDoesntWorkLongetidudeNull() {
-        //Arrange
+    void seeIfCreateGeoAreaDoesntWorkLongitudeNull() {
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setLatitude(41D);
         validGeographicAreaDTO.setAltitude(100D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setName("Porto");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -229,11 +201,11 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
 
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
 
@@ -241,14 +213,13 @@ class GASettingsWebControllerTest {
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkAltitudeNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
         validGeographicAreaDTO.setLatitude(41D);
         validGeographicAreaDTO.setLongitude(-8D);
         validGeographicAreaDTO.setDescription("3rd biggest city");
-        validGeographicAreaDTO.setId(2L);
         validGeographicAreaDTO.setName("Porto");
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
@@ -257,11 +228,11 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
 
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
 
@@ -269,7 +240,7 @@ class GASettingsWebControllerTest {
 
     @Test
     void seeIfCreateGeoAreaWorksAllNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
@@ -279,34 +250,33 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfCreateGeoAreaIDNotNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
-        validGeographicAreaDTO.setId(66L);
         validGeographicAreaDTO.setWidth(100);
         validGeographicAreaDTO.setLength(500);
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfCreateGeoAreaNameNotNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
         validGeographicAreaDTO.setName("Gaia");
@@ -319,14 +289,14 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfCreateGeoAreaTypeNotNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
         validGeographicAreaDTO.setTypeArea("urban");
@@ -335,16 +305,16 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     void seeIfCreateGeoAreaDoesntWorkLocalNotNull() {
-        //Arrange
+        // Arrange
 
         GeographicAreaPlainLocalDTO validGeographicAreaDTO = new GeographicAreaPlainLocalDTO();
 
@@ -359,17 +329,17 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an invalid Area.", HttpStatus.BAD_REQUEST);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.createGeoArea(validGeographicAreaDTO);
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
 
     @Test
     void getAllGeoAreasDTO() {
-        //Arrange
+        // Arrange
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
 
         LocalDTO localDTO = new LocalDTO();
@@ -393,10 +363,10 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(geographicAreas, HttpStatus.OK);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.getAllGeographicAreas();
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
 
     }
@@ -419,10 +389,10 @@ class GASettingsWebControllerTest {
         Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(validGeographicAreaDTO.getGeographicAreaId())).withRel("See geographic area");
         validGeographicAreaDTO.add(link);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.addChildArea(validGeographicAreaDTO.getGeographicAreaId(),validGeographicAreaDTO.getGeographicAreaId());
 
-        //Assert
+        // Assert
         assertEquals(HttpStatus.OK, actualResult.getStatusCode());
     }
 
@@ -440,10 +410,10 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been added. The daughter area is already contained in the mother area.", HttpStatus.CONFLICT);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.addChildArea(6L, validGeographicAreaDTO.getGeographicAreaId());
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
     }
 
@@ -459,7 +429,7 @@ class GASettingsWebControllerTest {
 
     @Test
     void getGeoAreaDTO() {
-        //Arrange
+        // Arrange
         GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
         LocalDTO localDTO = new LocalDTO();
 
@@ -477,10 +447,10 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.OK);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.getGeographicArea(validGeographicAreaDTO.getGeographicAreaId());
 
-        //Assert
+        // Assert
         assertEquals(expectedResult, actualResult);
 
     }
@@ -504,10 +474,10 @@ class GASettingsWebControllerTest {
         Link link = linkTo(methodOn(GASettingsWebController.class).getGeographicArea(validGeographicAreaDTO.getGeographicAreaId())).withRel("See geographic area");
         validGeographicAreaDTO.add(link);
 
-        //Act
+        // Act
         ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(validGeographicAreaDTO.getGeographicAreaId(),validGeographicAreaDTO.getGeographicAreaId());
 
-        //Assert
+        // Assert
         assertEquals(HttpStatus.OK, actualResult.getStatusCode());
     }
 
@@ -527,11 +497,11 @@ class GASettingsWebControllerTest {
 
         ResponseEntity<String> expectedResult = new ResponseEntity<>("The Geographic Area hasn't been removed. The daughter area is already not contained in the mother area.", HttpStatus.CONFLICT);
 
-        //Act
+        // Act
 
         ResponseEntity<Object> actualResult = gaSettingsWebController.removeChildArea(6L, validGeographicAreaDTO.getGeographicAreaId());
 
-        //Assert
+        // Assert
 
         assertEquals(expectedResult, actualResult);
 
@@ -568,6 +538,182 @@ class GASettingsWebControllerTest {
         // Assert
 
         assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfRemoveSensorWorks(){
+        // Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        validGeographicAreaDTO.addSensor(areaSensorDTO);
+
+        geographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
+
+        // Act
+
+        Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
+                .thenReturn(true);
+
+        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+
+        // Assert
+
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsWithoutSensor(){
+        // Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        geographicAreaRepository.addAndPersistGA(GeographicAreaMapper.dtoToObject(validGeographicAreaDTO));
+
+        // Act
+
+        Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
+                .thenReturn(false);
+
+        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+
+        // Assert
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfRemoveSensorFailsWithoutGeographicArea(){
+        // Arrange
+
+        GeographicAreaDTO validGeographicAreaDTO = new GeographicAreaDTO();
+
+        LocalDTO localDTO = new LocalDTO();
+
+        localDTO.setLatitude(41D);
+        localDTO.setLongitude(-8D);
+        localDTO.setAltitude(100D);
+
+        validGeographicAreaDTO.setLocal(localDTO);
+        validGeographicAreaDTO.setDescription("3rd biggest city");
+        validGeographicAreaDTO.setName("Gaia");
+        validGeographicAreaDTO.setId(66L);
+        validGeographicAreaDTO.setWidth(100);
+        validGeographicAreaDTO.setLength(500);
+        validGeographicAreaDTO.setTypeArea("urban area");
+
+        AreaSensorDTO areaSensorDTO = new AreaSensorDTO();
+
+        areaSensorDTO.setId("area sensor");
+        areaSensorDTO.setName("sensor 1");
+        areaSensorDTO.setTypeSensor("Temperature");
+        areaSensorDTO.setUnits("Celsius");
+        areaSensorDTO.setLatitude(10D);
+        areaSensorDTO.setLongitude(10D);
+        areaSensorDTO.setAltitude(10D);
+        areaSensorDTO.setDateStartedFunctioning("10-12-2018");
+        areaSensorDTO.setActive(true);
+
+        validGeographicAreaDTO.addSensor(areaSensorDTO);
+
+        // Act
+
+        Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
+                .thenThrow(NoSuchElementException.class);
+
+        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+
+        // Assert
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
+
+    }
+
+    /**
+     * Method tests for US004 - WebController
+     */
+
+    @Test
+    void seeIfGetAllAreasOfGivenType() {
+        // Arrange
+
+        List<GeographicArea> geoAreasOfGivenType = new ArrayList<>();
+        GeographicArea validGeographicArea = new GeographicArea();
+        validGeographicArea.setDescription("4rd biggest city");
+        validGeographicArea.setName("Santa Maria de Lamas");
+        validGeographicArea.setWidth(100);
+        validGeographicArea.setLength(500);
+        validGeographicArea.setAreaTypeID("Urban Area");
+        geoAreasOfGivenType.add(validGeographicArea);
+
+        String areaType = "Urban Area";
+        Mockito.doReturn(geoAreasOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
+
+        HttpStatus expectedResult = HttpStatus.OK;
+
+        // Act
+
+        ResponseEntity<Object> controllerMethodCall = gaSettingsWebController.getAllAreasOfGivenType(areaType);
+        HttpStatus actualResult = controllerMethodCall.getStatusCode();
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
 
     }
 

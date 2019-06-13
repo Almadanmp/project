@@ -37,7 +37,7 @@ class EnergyGridCreator extends React.Component {
         </label>
         <p></p>
         <label> Maximum Power:
-          <input placeholder={"Maximum Power"} value={this.state.maxContractedPower} type="number" name="maxContractedPower" onChange={this.handleInputChange('maxContractedPower')}/>
+          <input placeholder={"00"} value={this.state.maxContractedPower} type="number" name="maxContractedPower" onChange={this.handleInputChange('maxContractedPower')}/>
         </label>
         <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new energy grid</Button>

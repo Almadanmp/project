@@ -5,11 +5,11 @@ export const FETCH_GA_SUCCESS = 'FETCH_GA_SUCCESS';
 export const FETCH_GA_FAILURE = 'FETCH_GA_FAILURE';
 
 
-export const fetchGA = ({id, name, typeArea, length, width, latitude, longitude, altitude, description}) => {
+export const fetchGA = ({name, typeArea, length, width, latitude, longitude, altitude, description}) => {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchGAStarted(id, name, typeArea, length, width, latitude, longitude, altitude, description));
-    const data = {id, name, typeArea, length, width, latitude, longitude, altitude, description};
+    dispatch(fetchGAStarted(name, typeArea, length, width, latitude, longitude, altitude, description));
+    const data = {name, typeArea, length, width, latitude, longitude, altitude, description};
     axios
       .post(`https://localhost:8443/geographic_area_settings/areas`, data, {
           headers: {
@@ -19,7 +19,7 @@ export const fetchGA = ({id, name, typeArea, length, width, latitude, longitude,
             "Content-Type": "application/json"
           },
           body: {
-            id, name, typeArea, length, width, latitude, longitude, altitude, description
+            name, typeArea, length, width, latitude, longitude, altitude, description
           }
         }
       )
@@ -33,11 +33,10 @@ export const fetchGA = ({id, name, typeArea, length, width, latitude, longitude,
   };
 };
 
-export function fetchGAStarted(id, name, typeArea, length, width, latitude, longitude, altitude, description) {
+export function fetchGAStarted(name, typeArea, length, width, latitude, longitude, altitude, description) {
   return {
     type: FETCH_GA_STARTED,
     payload: {
-      id: id,
       name: name,
       typeArea: typeArea,
       length: length,

@@ -47,7 +47,7 @@ public class GASettingsWebController {
      */
     @PostMapping(value = "/areas")
     public ResponseEntity<Object> createGeoArea(@RequestBody GeographicAreaPlainLocalDTO dto) {
-        if (dto.getGeographicAreaId() != null && dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
+        if (dto.getName() != null && dto.getTypeArea() != null && dto.getLatitude() != null && dto.getLongitude() != null && dto.getAltitude() != null) {
             if (geographicAreaRepo.addAndPersistPlainDTO(dto)) {
                 Link link = linkTo(methodOn(GASettingsWebController.class).getAllGeographicAreas()).withRel("See all geographic areas");
                 dto.add(link);
@@ -58,6 +58,18 @@ public class GASettingsWebController {
         }
         return new ResponseEntity<>("The Geographic Area hasn't been created. You have entered an" +
                 " invalid Area.", HttpStatus.BAD_REQUEST);
+    }
+
+    /* User Story 04 - I want to list all geo areas of given Type. */
+
+    /**
+     * This method displays all Geographical Area of a given Type
+     *
+     * @return ResponseEntity with all the geographic areas of a given type.
+     */
+    @GetMapping(value = "/areasOfType")
+    public ResponseEntity<Object> getAllAreasOfGivenType(@RequestBody String typeAreaName) {
+        return new ResponseEntity<>(geographicAreaRepo.getGeoAreasByType(typeAreaName), HttpStatus.OK);
     }
 
     /**
@@ -111,6 +123,24 @@ public class GASettingsWebController {
             }
         } catch (NoSuchElementException ok) {
             return new ResponseEntity<>("There is no  Geographic Area with that ID.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /* USER STORY US011 - As an Administrator, I want to removeSensor a sensor from a geographical area, so that it will no
+    longer be used.*/
+
+    /**
+     * This method removes a sensor selected from a list of sensors of a previously selected geographic area
+     */
+    @DeleteMapping("areas/{id}")
+    public ResponseEntity<String> removeSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
+        try {
+            if (geographicAreaRepo.removeSensorById(id, sensorId)) {
+                return new ResponseEntity<>("The sensor was successfully removed from the selected geographic area.", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("There is no sensor with that ID in this geographic area.", HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no geographic area", HttpStatus.NOT_FOUND);
         }
     }
 
