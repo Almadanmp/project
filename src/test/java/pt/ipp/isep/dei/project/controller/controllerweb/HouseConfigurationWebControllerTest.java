@@ -417,6 +417,7 @@ class HouseConfigurationWebControllerTest {
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(addressAndLocalDTO);
+        System.out.println(requestJson);
 
         Mockito.when(houseRepository.getHouseWithoutGridsDTO()).thenReturn(HouseMapper.objectToWithoutGridsDTO(validHouse));
         Mockito.when(houseRepository.updateHouseDTOWithoutGrids(HouseMapper.objectToWithoutGridsDTO(validHouse))).thenReturn(true);

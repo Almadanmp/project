@@ -30,8 +30,7 @@ class AttachRoomToGrid extends React.Component {
   }
 
   componentDidMount() {
-    const grid = this.props;
-    this.props.onGetRoomsNotInGrid(grid)
+    this.props.onGetRoomsNotInGrid(this.props.grid)
   }
 
   handleChange(event) {
@@ -53,16 +52,16 @@ class AttachRoomToGrid extends React.Component {
               <option value="0" onChange={this.handleChange}>Please select</option>
               {roomsNotInGrid.map(items => (
                 <option value={items.name}  key={items.name}>
-                  Name: {items.name}
+                  Name: {items.name} Grid: {items.gridID}
                 </option>
               ))}
             </Input>
           </FormGroup>
         </Form>
-        {/*RoomID:<input value={this.state.name} type="text" name="name"*/}
-                      {/*onChange={this.handleInputChange('name')}*/}
-                      {/*/>*/}
-        {/*Former Grid:<input value={this.state.formerGrid} type="text" name="formerGrid" onChange={this.handleInputChange('formerGrid')}/>*/}
+        RoomID:<input value={this.state.name} type="text" name="name"
+                      onChange={this.handleInputChange('name')}
+                      />
+        Former Grid:<input value={this.state.formerGrid} type="text" name="formerGrid" onChange={this.handleInputChange('formerGrid')}/>
         <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Attach
           Room {name} to {this.props.grid}</Button>

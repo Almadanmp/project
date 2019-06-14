@@ -46,6 +46,20 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         return rooms;
     }
 
+    public List<String> getEnergyGridIdAccordingToRoomPosition(EnergyGrid energyGrid, List<Room> rooms) {
+        List<EnergyGrid> grids = energyGridRepository.getAllGrids();
+        grids.remove(energyGrid);
+        List<String> gridIds = new ArrayList<>();
+        for (int i = 0; i < rooms.size(); i++) {
+            for (EnergyGrid e : grids) {
+                if (e.getRoomIdList().contains(rooms.get(i).getId())) {
+                    gridIds.add(e.getName());
+                }
+            }
+        }
+        return gridIds;
+    }
+
     /**
      * Method accesses the sum of nominal powers of all rooms and devices connected to a grid..
      *
@@ -331,7 +345,12 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
     public List<RoomDTOMinimal> getRoomsDtoWebNotInGrid(String gridId) {
         EnergyGrid energyGrid = energyGridRepository.getById(gridId);
         List<Room> roomList = getRoomListNotInGrid(energyGrid);
-        return RoomMinimalMapper.objectsToDtosWeb(roomList);
+        List<String> gridIds = getEnergyGridIdAccordingToRoomPosition(energyGrid, roomList);
+        List<RoomDTOMinimal> result = RoomMinimalMapper.objectsToDtosWeb(roomList);
+        for (int i = 0; i < result.size(); i++){
+            result.get(i).setGridID(gridIds.get(i));
+        }
+        return result;
     }
 
 
