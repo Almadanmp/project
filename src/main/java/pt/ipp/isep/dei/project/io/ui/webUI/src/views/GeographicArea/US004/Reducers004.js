@@ -11,7 +11,7 @@ const initialstate = {
   listGABTypes: []
 };
 
-export default function Reducer002(state = initialstate, action) {
+export default function Reducer004(state = initialstate, action) {
   switch (action.type) {
     case FETCH_GABTS_STARTED:
       return {

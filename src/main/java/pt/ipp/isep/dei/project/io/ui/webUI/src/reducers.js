@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import ReducerUS004 from "./views/GeographicArea/US004/ReducersUS004";
+import Reducers004 from "./views/GeographicArea/US004/Reducers004";
 import Reducer108 from './views/House/HouseConfiguration/US108/Reducers108.js';
 import Reducers600 from './views/House/HouseMonitoring/USRedux/US600Redux/Reducers600.js';
 import Reducers620 from './views/House/HouseMonitoring/USRedux/US620Redux/Reducers620.js';
@@ -14,7 +14,7 @@ import Reducers633 from './views/House/HouseMonitoring/USRedux/US633Redux/Reduce
 
 export default combineReducers({
   Reducer002,
-  ReducerUS004,
+  Reducers004,
   Reducer108,
   Reducers600,
   Reducers620,
