@@ -200,5 +200,19 @@ primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.d
   border-top-width: 2px
 }
 
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #d8b975;
+  border-color: #d8b975;
+}
 
+.badge-success {
+  color: #fff6f9;
+  background-color: #649671;
+}
 
+.badge-danger {
+  color: #fff9f8;
+  background-color: #cd817f;
+}

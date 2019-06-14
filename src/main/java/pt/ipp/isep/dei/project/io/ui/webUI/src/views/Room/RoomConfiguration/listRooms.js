@@ -55,11 +55,11 @@ class ListRooms extends Component {
 
 
           <Row>
-            <Col>
-              <Card>
+            <Col xs="12" sm="10" md="10">
+              <Card className="card-accent-warning">
                 <CardHeader>
-                  <i className="fa fa-align-justify"></i><strong>Room Sensors</strong>
-                  <small>by room</small>
+                  <i className="fa fa-align-justify"></i><strong>Room Sensors by Room</strong>
+                  <br></br><small>Please select the room</small>
                   <div className="card-header-actions">
                   </div>
                 </CardHeader>
