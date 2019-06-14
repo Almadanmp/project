@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Collapse, Button, CardBody, Card} from 'reactstrap';
-import ReduxUS004 from "./US004/ReduxUS004";
+import US004Redux from "./US004/US004Redux";
 
 class US004 extends Component {
   constructor(props) {
@@ -16,11 +16,11 @@ class US004 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get geographic areas of _ type</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Get geographic area by type</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
-              <ReduxUS004/>
+              <US004Redux/>
             </CardBody>
           </Card>
         </Collapse>
