@@ -8,6 +8,7 @@ import Reducers631 from './views/House/HouseMonitoring/USRedux/US631Redux/Reduce
 import Reducer002 from "./views/GeographicArea/US002/Reducers002";
 import Reducers623 from './views/House/HouseMonitoring/USRedux/US623Redux/Reducers623.js';
 import Reducer003 from "./views/GeographicArea/US003/Reducers003";
+import Reducer001 from "./views/GeographicArea/US001/Reducers001";
 import ReducersGetRoomsNotInGrid from './views/EnergyGrid/US147/ReducersGetRoomsNotInGrid'
 
 import Reducers633 from './views/House/HouseMonitoring/USRedux/US633Redux/Reducers633.js';
@@ -21,6 +22,7 @@ export default combineReducers({
   Reducers623,
   ReducersGetRoomsNotInGrid,
   Reducer003,
+  Reducer001,
   Reducers630,
   Reducers631,
   Reducers633
