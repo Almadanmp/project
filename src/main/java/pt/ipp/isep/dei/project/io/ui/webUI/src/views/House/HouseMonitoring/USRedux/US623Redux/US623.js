@@ -18,18 +18,6 @@ class US623 extends Component {
     this.props.onFetchAverageRainfall(this.state.from, this.state.to);
   }
 
-  handleIntervalPicker = (from, to) => {
-
-    console.log("handleIntervalPicker: from" + JSON.stringify(from) + "to: " + JSON.stringify(to))
-    if (from !== undefined && to !== undefined) {
-      const initialDay = from.toISOString().substring(0, 10);
-      const finalDay = to.toISOString().substring(0, 10);
-      this.setState({from: from, to: to});
-      this.props.onFetchAverageRainfall(initialDay, finalDay)
-
-    }
-  }
-
   toggle() {
     this.setState(state => ({collapse: !state.collapse}));
   }
