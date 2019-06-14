@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import US108Select from "./US108Select";
+import {Button} from 'reactstrap';
 
 
 class TableBodyUS108 extends Component {
@@ -33,8 +34,8 @@ class TableBodyUS108 extends Component {
             <td>{todo.length}</td>
             <td>{todo.width}</td>
             <td>
-              <button onClick={(event) => { this.handleEdit(); this.state.name = todo.name ;}}> Edit {todo.name}
-              </button>
+              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => { this.handleEdit(); this.state.name = todo.name ;}}> Edit {todo.name}
+              </Button>
             </td>
           </tr>
         ))}

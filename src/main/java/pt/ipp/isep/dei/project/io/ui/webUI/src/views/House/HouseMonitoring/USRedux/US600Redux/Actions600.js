@@ -24,9 +24,10 @@ export function fetchTemp() {
         dispatch(fetchTempSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        if (err.response === 500) {
+        if (err.response === 400) {
           dispatch(fetchNoData(err.message))
-        } else {
+        }
+          else{
           dispatch(fetchTempFailure(err.message));
         }
       });
@@ -61,10 +62,11 @@ export function fetchNoData(response) {
   return {
     type: FETCH_NO_DATA,
     payload: {
-      error: response
+      errorData: response
     }
   }
 }
+
 
 
 

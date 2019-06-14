@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Button} from 'reactstrap';
-import US109Put from "./US109Put";
+import US108Put from "./US108Put";
 import US108BackButton from "./US108BackButton";
 
-class US109Button extends Component {
+class US108Button extends Component {
 
   constructor(props) {
     super(props);
@@ -25,11 +25,11 @@ class US109Button extends Component {
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggleHidden}>Edit the
           room {this.props.name}</Button><US108BackButton/>
         {!this.state.isHidden &&
-        <US109Put name={this.props.name} floor={this.props.floor} width={this.props.width} length={this.props.length}
+        <US108Put name={this.props.name} floor={this.props.floor} width={this.props.width} length={this.props.length}
                   height={this.props.height}/>}
       </div>
     )
   }
 }
 
-export default US109Button;
+export default US108Button;

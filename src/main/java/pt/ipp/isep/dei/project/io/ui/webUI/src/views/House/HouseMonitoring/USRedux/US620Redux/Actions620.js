@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {FETCH_NO_DATA, fetchNoData} from "../US600Redux/Actions600";
 
 export const FETCH_RAINFALL_STARTED = 'FETCH_RAINFALL_STARTED';
 export const FETCH_RAINFALL_SUCCESS = 'FETCH_RAINFALL_SUCCESS';
 export const FETCH_RAINFALL_FAILURE = 'FETCH_RAINFALL_FAILURE';
+export const FETCH_NO_DATA = 'FETCH_NO_DATA';
 
 export const fetchTotalRainfallDay = ({ selectedDay }) => {
   const token = localStorage.getItem('loginToken');
@@ -21,9 +21,10 @@ export const fetchTotalRainfallDay = ({ selectedDay }) => {
         dispatch(fetchTotalRainfallSuccess(res.data)); // chegaram os resultados (dados) , loading fica a falso
       })
       .catch(err => {
-        if (err.response === 500) {
+        if (err.response === 400) {
           dispatch(fetchNoData(err.message))
         }
+
         else{
         dispatch(fetchTotalRainfallFailure(err.message));
       }});
@@ -50,14 +51,19 @@ export function fetchTotalRainfallSuccess (data) { // cria uma açao
 }
 
 export function fetchTotalRainfallFailure (message) {
-return {
-  type: FETCH_RAINFALL_FAILURE,
-  payload: {
-    error: message
+  return {
+    type: FETCH_RAINFALL_FAILURE,
+    payload: {
+      error: message
+    }
   }
 }
+
+  export function fetchNoData(response) {
+    return {
+      type: FETCH_NO_DATA,
+      payload: {
+        error: response
+      }
+    }
 }
-
-
-
-

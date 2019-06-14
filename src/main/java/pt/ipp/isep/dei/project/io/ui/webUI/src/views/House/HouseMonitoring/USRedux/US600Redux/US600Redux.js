@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTemp } from './Actions600';
-import {Alert} from "reactstrap";
+import {CardBody} from "reactstrap";
 
 class US600Redux extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class US600Redux extends Component {
            if((temp.toString()).indexOf("ERROR") != -1){
              return(
                <div>
-                 <h4> There is no data available
+                 <h4> ERROR: No Data Available.
                  </h4>
                </div>
              )

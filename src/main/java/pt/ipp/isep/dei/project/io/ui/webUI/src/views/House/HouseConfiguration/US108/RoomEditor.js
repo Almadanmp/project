@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
-import US109Button from './US109Button';
+import US108Button from './US108Button';
 
 class RoomEditor extends React.Component {
 
@@ -51,7 +51,7 @@ class RoomEditor extends React.Component {
           <input value={height} type="number" name="height" placeholder="Height"
                  onChange={this.handleInputChange('height')}/>
         </label>
-        <US109Button name={this.props.name} floor={this.state.floor} width={this.state.width} length={this.state.length}
+        <US108Button name={this.props.name} floor={this.state.floor} width={this.state.width} length={this.state.length}
                      height={this.state.height}/>
       </div>
     )

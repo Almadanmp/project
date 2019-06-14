@@ -1,7 +1,7 @@
 import {
   FETCH_T_STARTED,
   FETCH_T_SUCCESS,
-  FETCH_T_FAILURE,
+  FETCH_T_FAILURE, FETCH_INTERNAL_ERROR,
 
 } from './Actions600'
 import {FETCH_NO_DATA} from "../US600Redux/Actions600";
@@ -40,7 +40,7 @@ export default function Reducers600 (state = initialstate, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        errorData: action.payload.error,
         temp: "ERROR: " + action.payload.error
       };
     default:
