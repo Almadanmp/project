@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import US108Select from "./US108Select";
-import Button from "reactstrap/es/Button";
+import {Button} from 'reactstrap';
 
 
 class TableBodyUS108 extends Component {
