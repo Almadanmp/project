@@ -8,7 +8,7 @@ import {fetchAmplitude} from './USRedux/US633Redux/Actions633';
 import US623 from "./USRedux/US623Redux/US623";
 import US630 from "./USRedux/US630Redux/US630Redux";
 import US631 from "./USRedux/US631Redux/US631Redux";
-import US633Test from "./USRedux/US633Redux/US633Redux";
+import US633 from "./USRedux/US633Redux/US633Redux";
 import {fetchRainfall} from "./USRedux/US623Redux/Actions623";
 
 class TwoDatesHouseMonitoring extends Component {
@@ -43,12 +43,13 @@ class TwoDatesHouseMonitoring extends Component {
 
   render() {
     const numberOfMonths = 2;
-
     return (
       <>
-
         <CardBody>
           <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
+          <p>
+            <US623/>
+          </p>
           <p>
             <US630/>
           </p>
@@ -56,15 +57,10 @@ class TwoDatesHouseMonitoring extends Component {
             <US631/>
           </p>
           <p>
-            <US633Test/>
-          </p>
-          <p>
-            <US623/>
+            <US633/>
           </p>
         </CardBody>
-
       </>
-
     );
   }
 
