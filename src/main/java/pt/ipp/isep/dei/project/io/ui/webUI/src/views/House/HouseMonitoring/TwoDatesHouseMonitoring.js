@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchHottestDay} from './USRedux/US631Redux/Actions631';
-import {Alert, Button, Card, CardBody, Collapse} from "reactstrap";
+import {CardBody} from "reactstrap";
 import DatePickerWithTwoDates from "./DatePickerWithTwoDates";
 import {fetchColdDay} from "./USRedux/US630Redux/Actions630";
 import {fetchAmplitude} from './USRedux/US633Redux/Actions633';
@@ -44,29 +44,29 @@ class TwoDatesHouseMonitoring extends Component {
   render() {
     const numberOfMonths = 2;
 
-        return(
-          <>
+    return (
+      <>
 
-          <CardBody>
+        <CardBody>
           <DatePickerWithTwoDates getDates={this.handleIntervalPicker} numberOfMonths={numberOfMonths}/>
-            <p>
-              <US623/>
-            </p>
-            <p>
-              <US630/>
-            </p>
-              <p>
-               <US631/>
-              </p>
-                <p>
-                <US633Test/>
-                </p>
+          <p>
+            <US630/>
+          </p>
+          <p>
+            <US631/>
+          </p>
+          <p>
+            <US633Test/>
+          </p>
+          <p>
+            <US623/>
+          </p>
         </CardBody>
 
       </>
 
-        );
-    }
+    );
+  }
 
 }
 
@@ -88,10 +88,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchAverageRainfall: (from, to) => {
-      dispatch(fetchRainfall({from, to}) )
+      dispatch(fetchRainfall({from, to}))
     },
     onFetchHottestDay: (from, to) => {
-      dispatch(fetchHottestDay({from, to}) )
+      dispatch(fetchHottestDay({from, to}))
     },
     onFetchColdDay: (from, to) => {
       dispatch(fetchColdDay({from, to}))
