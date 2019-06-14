@@ -5,11 +5,14 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.ipp.isep.dei.project.dto.AreaTypeDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaPlainLocalDTO;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -25,6 +28,23 @@ public class GASettingsWebController {
 
     @Autowired
     private AreaTypeRepository areaTypeRepository;
+
+    // USER STORY 01 - As an Administrator, I want to add a new type of Geographic Area.
+
+    @PostMapping(value = "/areaTypes")
+    public ResponseEntity<Object> addAreaType(@RequestBody AreaTypeDTO typeToAdd) {
+        if (typeToAdd.getName() == null || typeToAdd.getName().equals("")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        List<AreaTypeDTO> repoTypes = areaTypeRepository.getAllTypesDTO();
+        for (AreaTypeDTO a : repoTypes) {
+            if (a.getName().equals(typeToAdd.getName())) {
+                return new ResponseEntity<>(a, HttpStatus.CONFLICT); // The .add line already checks for duplicates, but we want to be able to return the original object in case there's a duplicate.
+            }
+        }
+        areaTypeRepository.add(AreaTypeMapper.dtoToObject(typeToAdd));
+        return new ResponseEntity<>(typeToAdd, HttpStatus.OK);
+    }
 
     /* User Story 02 - As a System Administrator I want to receive a list of all the previously stated Types of area. */
 

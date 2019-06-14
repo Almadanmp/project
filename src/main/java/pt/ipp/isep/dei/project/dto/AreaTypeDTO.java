@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.project.dto;
 public class AreaTypeDTO {
 
     private String name;
-    private Long id;
 
     public String getName() {
         return name;
@@ -13,13 +12,6 @@ public class AreaTypeDTO {
         this.name = name;
     }
 
-    public Long getID() {
-        return id;
-    }
-
-    public void setID(Long id) {
-        this.id = id;
-    }
 
     /**
      * Method 'equals' is required so that each 'Area Type' can be added to a 'Geographic Area'.

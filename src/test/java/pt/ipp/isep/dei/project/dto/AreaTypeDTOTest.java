@@ -34,7 +34,7 @@ public class AreaTypeDTOTest {
     }
 
     @Test
-    public void seeIfHashCodeWorks() {
+    void seeIfHashCodeWorks() {
         //Arrange
 
         AreaTypeDTO typeAreaDTO1 = new AreaTypeDTO();
@@ -46,20 +46,5 @@ public class AreaTypeDTOTest {
         //Assert
 
         assertEquals(1, actualResult);
-    }
-
-    @Test
-    void setID() {
-        //Arrange
-
-        AreaTypeDTO typeAreaDTO = new AreaTypeDTO();
-        typeAreaDTO.setID(2L);
-
-        //Act
-
-        Long actualResult = typeAreaDTO.getID();
-
-        //Assert
-        assertEquals(2L, actualResult, 0.01);
     }
 }

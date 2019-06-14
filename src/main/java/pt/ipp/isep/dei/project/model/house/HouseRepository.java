@@ -42,7 +42,7 @@ public class HouseRepository {
      *
      * @return the House of the application as a DTO
      */
-    public HouseDTO getApplicationHouse() {
+    HouseDTO getApplicationHouse() {
         House house = houseCrudRepo.findAll().get(0);
         return HouseMapper.objectToDTO(house);
     }

@@ -11,7 +11,6 @@ class AreaTypeMapperTest {
     void seeIfObjectToDtoWorks() {
         AreaTypeDTO typeAreaDTO = new AreaTypeDTO();
         typeAreaDTO.setName("City");
-        typeAreaDTO.setID(15L);
         AreaType areaType = new AreaType("City");
         assertEquals(typeAreaDTO, AreaTypeMapper.objectToDTO(areaType));
     }
@@ -20,7 +19,6 @@ class AreaTypeMapperTest {
     void seeIfDtoToObjectWorks() {
         AreaTypeDTO typeAreaDTO = new AreaTypeDTO();
         typeAreaDTO.setName("City");
-        typeAreaDTO.setID(15L);
         AreaType areaType = new AreaType("City");
         assertEquals(areaType, AreaTypeMapper.dtoToObject(typeAreaDTO));
     }

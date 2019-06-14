@@ -16,7 +16,6 @@ import pt.ipp.isep.dei.project.dto.*;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;
-import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
 
 import java.util.ArrayList;
@@ -686,30 +685,116 @@ class GASettingsWebControllerTest {
      */
 
     @Test
-    void seeIfGetAllAreasOfGivenType() {
+    void seeIfGetAllAreasOfGivenTypeWorks() {
         // Arrange
-            //GeoAreaDTO List for mocking
+
+        //GeoAreaDTO List for mocking
+
         List<GeographicAreaWebDTO> geoAreasDTOOfGivenType = new ArrayList<>();
         GeographicAreaWebDTO validGeographicAreaWebDTO = new GeographicAreaWebDTO();
         validGeographicAreaWebDTO.setDescription("4rd biggest city");
         validGeographicAreaWebDTO.setName("Santa Maria de Lamas");
         validGeographicAreaWebDTO.setTypeArea("Urban Area");
         geoAreasDTOOfGivenType.add(validGeographicAreaWebDTO);
-            //Mockito
+
+        //Mockito
+
         String areaType = "Urban Area";
         Mockito.doReturn(geoAreasDTOOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
-            //Expected Result
+
+        //Expected Result
+
         HttpStatus expectedResult = HttpStatus.OK;
 
         // Act
+
         ResponseEntity<Object> controllerMethodCall = gaSettingsWebController.getAllAreasOfGivenType(areaType);
         HttpStatus actualResult = controllerMethodCall.getStatusCode();
 
         // Assert
+
         assertEquals(expectedResult, actualResult);
 
     }
 
+    @Test
+    void seeIfAddAreaTypeWorks(){
+        // Arrange
+
+        List<AreaTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("Area");
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeToAdd, HttpStatus.OK);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaTypeWorksDuplicate(){
+        // Arrange
+
+        List<AreaTypeDTO> repoList = new ArrayList<>();
+        AreaTypeDTO typeInRepo = new AreaTypeDTO();
+        typeInRepo.setName("Area");
+        repoList.add(typeInRepo);
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(repoList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("Area");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaTypeWorksInvalidInputEmpty(){
+        // Arrange
+
+        List<AreaTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddAreaTypeWorksInvalidInputNull(){
+        // Arrange
+
+        List<AreaTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(areaTypeRepository.getAllTypesDTO()).thenReturn(emptyList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        AreaTypeDTO typeToAdd = new AreaTypeDTO();
+        typeToAdd.setName("");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.addAreaType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
 }
 
 

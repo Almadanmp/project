@@ -20,7 +20,7 @@ public class HouseWithoutGridsDTO extends ResourceSupport {
         return id;
     }
 
-    public void setMotherAreaId(Long motherAreaId) {
+    private void setMotherAreaId(Long motherAreaId) {
         this.motherAreaId = motherAreaId;
     }
 
