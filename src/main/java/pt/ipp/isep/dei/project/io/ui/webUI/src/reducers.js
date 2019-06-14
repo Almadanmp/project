@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import ReducerUS004 from "./views/GeographicArea/US004/ReducersUS004";
-import Reducer108 from './views/House/HouseConfiguration/US108/Reducers.js';
+import Reducer108 from './views/House/HouseConfiguration/US108/Reducers108.js';
 import Reducers600 from './views/House/HouseMonitoring/USRedux/US600Redux/Reducers600.js';
 import Reducers620 from './views/House/HouseMonitoring/USRedux/US620Redux/Reducers620.js';
 import Reducers630 from './views/House/HouseMonitoring/USRedux/US630Redux/Reducers630.js';

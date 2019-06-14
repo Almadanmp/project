@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class US109Put extends Component {
+class US108Put extends Component {
 
   constructor(props) {
     super(props);
@@ -62,4 +62,4 @@ class US109Put extends Component {
   }
 }
 
-export default US109Put;
+export default US108Put;
