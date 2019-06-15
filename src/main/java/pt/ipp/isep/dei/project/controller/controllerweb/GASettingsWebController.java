@@ -85,11 +85,16 @@ public class GASettingsWebController {
     /**
      * This webController method displays all the information of the Geographic Areas DTOs
      * So that the FrontEnd UI can then list them according to type.
+     *
      * @return ResponseEntity with all the geographic areas and their type information.
      */
     @GetMapping("/areas")
     public ResponseEntity<Object> getAllGeographicAreas() {
-        return new ResponseEntity<>(geographicAreaRepo.getAllDTO(), HttpStatus.OK);
+        List<GeographicAreaDTO> allDTO = geographicAreaRepo.getAllDTO();
+        if (allDTO == null || allDTO.isEmpty()) {
+            return new ResponseEntity<>("No Geographical Areas available", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(allDTO, HttpStatus.OK);
     }
 
 
