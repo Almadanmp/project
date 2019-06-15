@@ -9,13 +9,14 @@ export function inactivateSensorFromArea({id, sensorId}) {
   const token = localStorage.getItem('loginToken');
   return dispatch => {
     dispatch(inactivateSensorStarted());
+    const data = {id, sensorId};
     axios
-      .put('https://localhost:8443/geographic_area_settings/areas/' + id + '/sensors/'+ sensorId, {
+      .put('https://localhost:8443/geographic_area_settings/areas/' + id + '/sensors/'+ sensorId, data, {
         headers: {
           'Authorization': token,
-          'Access-Control-Allow-Credentials': true,
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
         }
       }
       )
