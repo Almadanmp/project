@@ -5,25 +5,37 @@ import {fetchGABTs} from './Actions004';
 class US004Redux extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      typeArea: ''
-    }
   }
 
   componentDidMount() {
-    this.props.onFetchByType();
+    this.props.onFetchByTypes();
+  }
+
+  organizeByType(areas) {
+    var areasByType = {};
+    for (let area of areas) {
+      const areaType = Object.keys(areasByType).find(x => x === area.typeArea);
+      if (areaType) {
+        areasByType[area.typeArea].push(area);
+      } else {
+        areasByType[area.typeArea] = [area];
+      }
+    }
+    return areasByType;
   }
 
   render() {
-    const {listGABTypes} = this.props;
+    const {areas} = this.props;
+    var areasByType = this.organizeByType(areas);
     return (
       <>
         <label>
-          <h5>Existing geographic area by type:</h5>
-          <p></p>
-          {listGABTypes.map(listGABTypes => (
-          <p key={listGABTypes.id}>{'- ' + listGABTypes.name}</p>
-        ))}
+          {Object.keys(areasByType).map(type => (
+            <div>
+              <h5>{'Areas from type ' + type + ': '}</h5>
+              {areasByType[type].map(area => (<p>{'- ' + area.name + ' - description: ' + area.description}</p>))}
+            </div>
+          ))}
         </label>
       </>
     );
@@ -32,13 +44,13 @@ class US004Redux extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listGABTypes: state.Reducers004.listGABTypes
+    areas: state.Reducers004.areas
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchByType: () => {
+    onFetchByTypes: () => {
       dispatch(fetchGABTs())
     }
 

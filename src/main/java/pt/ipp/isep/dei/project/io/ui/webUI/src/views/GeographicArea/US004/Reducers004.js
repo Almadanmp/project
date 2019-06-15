@@ -8,7 +8,7 @@ import {
 const initialstate = {
   loading: false,
   error: null,
-  listGABTypes: []
+  areas: []
 };
 
 export default function Reducer004(state = initialstate, action) {
@@ -18,21 +18,21 @@ export default function Reducer004(state = initialstate, action) {
         ...state,
         loading: true,
         error: null,
-        listGABTypes: []
+        areas: []
       };
     case FETCH_GABTS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        listGABTypes: [...action.payload.listGABTypes]
+        areas: [...action.payload.areas]
       };
     case FETCH_GABTS_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        listGABTypes: " ERROR: NO DATA Available"
+        areas: " ERROR: NO DATA Available"
       };
 
     default:

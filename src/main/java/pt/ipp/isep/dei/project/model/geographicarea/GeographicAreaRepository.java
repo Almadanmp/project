@@ -8,6 +8,8 @@ import pt.ipp.isep.dei.project.dto.mappers.ReadingMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.Reading;
 import pt.ipp.isep.dei.project.model.ReadingUtils;
+import pt.ipp.isep.dei.project.model.areatype.AreaType;
+import pt.ipp.isep.dei.project.model.repository.AreaTypeCrudRepo;
 import pt.ipp.isep.dei.project.model.repository.GeographicAreaCrudRepo;
 
 import java.util.*;
@@ -24,6 +26,9 @@ public class GeographicAreaRepository {
 
     @Autowired
     private GeographicAreaCrudRepo geographicAreaCrudRepo;
+
+    @Autowired
+    private AreaTypeCrudRepo areaTypeCrudRepo;
 
     /**
      * Method to return a list with all the Geographical Areas contained on the geographicAreaRepository
@@ -263,26 +268,6 @@ public class GeographicAreaRepository {
      */
     public List<GeographicArea> getGeoAreasByType(String typeAreaName) {
         return geographicAreaCrudRepo.findAllByAreaTypeID(typeAreaName);
-    }
-
-    /**
-     * Method that does the same as getGeoAreasByType but does so as DTO so that minimal necessary information is passed
-     * for US004 WebController
-     * @param typeAreaName type of area that we want to list the Geographical Areas for
-     * @return a list of all the Geographical Areas of the given type.
-     */
-
-    public List<GeographicAreaWebDTO> getGeoAreasDTOByType(String typeAreaName) {
-        List<GeographicAreaWebDTO> geoAreasDTOByType = new ArrayList<>();
-        List<GeographicArea> geoAreasByType = geographicAreaCrudRepo.findAllByAreaTypeID(typeAreaName);
-        for (GeographicArea g : geoAreasByType) {
-            GeographicAreaWebDTO x = new GeographicAreaWebDTO();
-            x.setName(g.getName());
-            x.setTypeArea(g.getAreaTypeID());
-            x.setDescription(g.getDescription());
-            geoAreasDTOByType.add(x);
-        }
-        return geoAreasDTOByType;
     }
 
     /**

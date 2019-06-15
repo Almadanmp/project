@@ -4,6 +4,7 @@ import {addAreaType} from './Actions001';
 import {Button} from "reactstrap";
 
 class US001Redux extends React.Component {
+
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,12 +29,12 @@ class US001Redux extends React.Component {
     return (
       <>
         <label> Name:<span>  </span>
-          <input value={this.state.name} type="text" name="name" placeholder="Name of the Type of Area"
+          <input value={this.state.name} type="text" name="name" placeholder="Name of the area type"
                  onChange={this.handleInputChange('name')}/>
         </label>
         <p>After creating this type, you'll be able to have areas that are - {name} -.</p>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Add Area
-          Type</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Add area
+          type</Button>
       </>
     );
   }

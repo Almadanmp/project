@@ -83,16 +83,6 @@ public class GASettingsWebController {
     /* User Story 04 - I want to list all geo areas of given Type. */
 
     /**
-     * This method displays all Geographical Area of a given Type
-     *
-     * @return ResponseEntity with all the geographic areas of a given type.
-     */
-    @GetMapping(value = "/areasOfType/{typeAreaId}")
-    public ResponseEntity<Object> getAllAreasOfGivenType(@PathVariable String typeAreaId) {
-        return new ResponseEntity<>(geographicAreaRepo.getGeoAreasDTOByType(typeAreaId), HttpStatus.OK);
-    }
-
-    /**
      * this method displays all the information of the Geographic Areas DTOs
      *
      * @return ResponseEntity with all the geographic areas

@@ -10,14 +10,14 @@ export function fetchGABTs() {
   return dispatch => {
     dispatch(fetchGABTsStarted());
     axios
-      .get(`https://localhost:8443/geographic_area_settings/areasOfType/` + 'city', {
-          headers: {
-            'Authorization': token,
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json"
-          }
+      .get(`https://localhost:8443/geographic_area_settings/areas`, {
+        headers: {
+          'Authorization': token,
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
         }
+      }
       )
       .then(res => {
         dispatch(fetchGABTsSuccess(res.data));
@@ -39,7 +39,7 @@ export function fetchGABTsSuccess(data) {
   return {
     type: FETCH_GABTS_SUCCESS,
     payload: {
-      listGABTypes: data
+      areas: data
     }
   }
 }

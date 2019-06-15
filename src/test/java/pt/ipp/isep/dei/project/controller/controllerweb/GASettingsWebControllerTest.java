@@ -684,38 +684,6 @@ class GASettingsWebControllerTest {
      * Method tests for US004 - WebController
      */
 
-    @Test
-    void seeIfGetAllAreasOfGivenTypeWorks() {
-        // Arrange
-
-        //GeoAreaDTO List for mocking
-
-        List<GeographicAreaWebDTO> geoAreasDTOOfGivenType = new ArrayList<>();
-        GeographicAreaWebDTO validGeographicAreaWebDTO = new GeographicAreaWebDTO();
-        validGeographicAreaWebDTO.setDescription("4rd biggest city");
-        validGeographicAreaWebDTO.setName("Santa Maria de Lamas");
-        validGeographicAreaWebDTO.setTypeArea("Urban Area");
-        geoAreasDTOOfGivenType.add(validGeographicAreaWebDTO);
-
-        //Mockito
-
-        String areaType = "Urban Area";
-        Mockito.doReturn(geoAreasDTOOfGivenType).when(geographicAreaRepository).getGeoAreasByType(areaType);
-
-        //Expected Result
-
-        HttpStatus expectedResult = HttpStatus.OK;
-
-        // Act
-
-        ResponseEntity<Object> controllerMethodCall = gaSettingsWebController.getAllAreasOfGivenType(areaType);
-        HttpStatus actualResult = controllerMethodCall.getStatusCode();
-
-        // Assert
-
-        assertEquals(expectedResult, actualResult);
-
-    }
 
     @Test
     void seeIfAddAreaTypeWorks(){
