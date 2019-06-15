@@ -8,8 +8,6 @@ import US010 from './US010';
 import US011 from './US011';
 
 
-
-
 class Area extends Component {
   constructor(props) {
     super(props);

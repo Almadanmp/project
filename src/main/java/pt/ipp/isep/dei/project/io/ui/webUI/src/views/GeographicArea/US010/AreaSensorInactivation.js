@@ -56,12 +56,14 @@ class AreaSensorInactivation extends React.Component {
         </label>
 
         <label> Area Sensor Id:
-          <input value={this.state.sensorId} type="text" name="sensorId" placeholder="Sensor id" onChange={this.handleInputChange('sensorId')}/>
+          <input value={this.state.sensorId} type="text" name="sensorId" placeholder="Sensor id"
+                 onChange={this.handleInputChange('sensorId')}/>
         </label>
 
         <p>{''}</p>
 
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.submit}> Sensor inactivation</Button>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.submit}> Sensor
+          inactivation</Button>
       </>
     )
   }

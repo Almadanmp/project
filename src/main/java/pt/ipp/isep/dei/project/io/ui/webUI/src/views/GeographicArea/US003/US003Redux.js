@@ -35,11 +35,13 @@ class US003Redux extends React.Component {
     return (
       <>
         <label> Name:
-          <input value={this.state.name} type="text" name="name" placeholder="Geographic area name" onChange={this.handleInputChange('name')}/>
+          <input value={this.state.name} type="text" name="name" placeholder="Geographic area name"
+                 onChange={this.handleInputChange('name')}/>
         </label>
 
         <label> Type area:
-          <input value={this.state.typeArea} type="text" name="typeArea" placeholder="Area type" onChange={this.handleInputChange('typeArea')}/>
+          <input value={this.state.typeArea} type="text" name="typeArea" placeholder="Area type"
+                 onChange={this.handleInputChange('typeArea')}/>
         </label>
 
         <label> Length:
@@ -51,19 +53,23 @@ class US003Redux extends React.Component {
         </label>
 
         <label> Latitude:
-          <input value={this.state.latitude} type="number" name="latitude" onChange={this.handleInputChange('latitude')}/>
+          <input value={this.state.latitude} type="number" name="latitude"
+                 onChange={this.handleInputChange('latitude')}/>
         </label>
 
         <label> Longitude:
-          <input value={this.state.longitude} type="number" name="longitude" onChange={this.handleInputChange('longitude')}/>
+          <input value={this.state.longitude} type="number" name="longitude"
+                 onChange={this.handleInputChange('longitude')}/>
         </label>
 
         <label> Altitude:
-          <input value={this.state.altitude} type="number" name="altitude" onChange={this.handleInputChange('altitude')}/>
+          <input value={this.state.altitude} type="number" name="altitude"
+                 onChange={this.handleInputChange('altitude')}/>
         </label>
 
         <label> Description:
-          <input value={this.state.description} type="text" name="description" placeholder="Area details" onChange={this.handleInputChange('description')}/>
+          <input value={this.state.description} type="text" name="description" placeholder="Area details"
+                 onChange={this.handleInputChange('description')}/>
         </label>
 
         <p>The geographic area to be created has the following

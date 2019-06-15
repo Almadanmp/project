@@ -11,13 +11,13 @@ export function fetchGABTs() {
     dispatch(fetchGABTsStarted());
     axios
       .get(`https://localhost:8443/geographic_area_settings/areas`, {
-        headers: {
-          'Authorization': token,
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
+          headers: {
+            'Authorization': token,
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
         }
-      }
       )
       .then(res => {
         dispatch(fetchGABTsSuccess(res.data));
