@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import US001 from "./US001";
 import US002 from './US002';
 import US003 from './US003';
-import US011 from './US011';
-import US006 from './US006';
-import US001 from "./US001";
 import US004 from './US004';
+import US006 from './US006';
+import US010 from './US010';
+import US011 from './US011';
 
 
 
@@ -29,8 +30,9 @@ class Area extends Component {
         <US002/>
         <US003/>
         <US004/>
-        <US011/>
         <US006/>
+        <US010/>
+        <US011/>
       </div>
     );
   }

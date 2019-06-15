@@ -141,8 +141,8 @@ public class GASettingsWebController {
     /**
      * This method deactivates a sensor selected from a list of sensors of a previously selected geographic area
      */
-    @PutMapping("areas/{id}")
-    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
+    @PutMapping("areas/{id}/sensors/{id2}")
+    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id, @PathVariable("id2") String sensorId) {
         try {
             if (geographicAreaRepo.deactivateAreaSensor(id, sensorId)) {
                 return new ResponseEntity<>("The sensor was successfully deactivated from the selected geographic area.", HttpStatus.OK);
