@@ -101,7 +101,8 @@ public class HouseConfigurationWebController {
     public ResponseEntity<Object> getHouseRooms() {
         List<RoomDTOMinimal> roomDTOBarebones = roomRepository.getAllRoomDTOMinimal();
         for (RoomDTOMinimal roomDTO : roomDTOBarebones) {
-            Link link = linkTo(methodOn(HouseConfigurationWebController.class).deleteRoom(roomDTO)).withRel("Click here to delete room.");
+            String roomID = roomDTO.getName();
+            Link link = linkTo(methodOn(RoomMonitoringWebController.class).getCurrentRoomTemperature(roomID)).withRel("Click here to get current temperature.");
             roomDTO.add(link);
         }
         return new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
