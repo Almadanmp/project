@@ -83,8 +83,8 @@ public class GASettingsWebController {
     /* User Story 04 - I want to list all geo areas of given Type. */
 
     /**
-     * this method displays all the information of the Geographic Areas DTOs
-     *
+     * This webController method displays all the information of the Geographic Areas DTOs
+     * So that the FrontEnd UI can then list them according to type.
      * @return ResponseEntity with all the geographic areas
      */
     @GetMapping("/areas")
