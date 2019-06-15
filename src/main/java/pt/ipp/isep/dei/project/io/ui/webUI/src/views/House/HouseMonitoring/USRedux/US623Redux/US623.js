@@ -47,7 +47,7 @@ class US623 extends Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.Reducers623.loading,
-    amplitude: state.Reducers623.rainfall,
+    rainfall: state.Reducers623.rainfall,
     error: state.Reducers623.error
   }
 };

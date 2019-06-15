@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-
-import US250 from "./US250/US250";
-import US253 from "./US253/US253";
 import ListRooms from "./listRooms";
 
 class RoomConfiguration extends Component {

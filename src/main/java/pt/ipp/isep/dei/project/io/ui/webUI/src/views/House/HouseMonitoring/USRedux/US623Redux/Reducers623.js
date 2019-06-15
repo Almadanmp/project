@@ -9,7 +9,7 @@ import {
 const initialstate = {
   loading: false,
   error: null,
-  rainfall: null
+  rainfall: {}
 };
 
 
@@ -20,7 +20,7 @@ export default function Reducers623(state = initialstate, action) {
         ...state,
         loading: true,
         errorRainfall: null,
-        rainfall: null
+        rainfall: {}
       };
     case FETCH_RAINFALL_SUCCESS:
       return {

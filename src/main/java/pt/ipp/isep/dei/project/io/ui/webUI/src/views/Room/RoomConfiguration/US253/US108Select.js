@@ -1,52 +1,33 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
 import SensorTypesSelect from "./SensorTypesSelect";
+import {fetchRooms} from "../../../House/HouseConfiguration/US108/Actions108";
+import connect from "react-redux/es/connect/connect";
 
 class US108Select extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      item: [],
-      isLoaded: false,
-      value: ''
-    }
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    const token = localStorage.getItem('loginToken')
-    fetch('https://localhost:8443/houseSettings/houseRooms',{
-        headers: {
-          'Authorization': token,
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          item: json,
-        })
-      })
-      .catch(console.log)
-  }
 
   handleChange(event) {
     this.setState({value: event.target.value});
   }
 
+  componentDidMount() {
+    this.props.onFetchUsers();
+  }
+
 
   render() {
 
-    var {isLoaded, item} = this.state;
-    if (!isLoaded) {
-      return <div>Loading...</div>
-    } else {
-      if (!item.error) {
+    const {loading, rooms} = this.props;
+    if (loading === true) {
+      return (<h1>Loading ....</h1>);
+    }
+    if (rooms.length >0) {{
       return (
         <div>
           <Form action="" method="post" >
@@ -54,7 +35,7 @@ class US108Select extends Component {
               <Label>Select Room</Label>
               <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                 <option value="0" onChange={this.handleChange}>Please select</option>
-                {item.map(items => (
+                {rooms.map(items => (
                   <option value={items.name}  key={items.name}>
                     Name: {items.name}
                   </option>
@@ -66,11 +47,30 @@ class US108Select extends Component {
 
         </div>
       );
-    } else {
-      return "ERROR: Non-authorized user."
     }
     }
   }
 }
 
-export default US108Select;
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.Reducer108.loading,
+    rooms: state.Reducer108.rooms,
+    error: state.Reducer108.error
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchUsers: () => {
+      dispatch(fetchRooms())
+    }
+
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)( US108Select);

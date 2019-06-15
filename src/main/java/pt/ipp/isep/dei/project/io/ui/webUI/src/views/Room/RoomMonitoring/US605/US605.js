@@ -1,35 +1,83 @@
 import React, {Component} from 'react';
-import {Collapse, Button, CardBody, Card} from 'reactstrap';
-import US605SelectRoom from "./US605SelectRoom";
+import {Card, CardBody, Col, Form, FormGroup, Input, Label, Table, Row, CardHeader, Alert} from "reactstrap";
+import US605GetCurrentTemperature from "./US605GetCurrentTemperature";
+import {fetchRooms} from "../../../House/HouseConfiguration/US108/Actions108";
+import connect from "react-redux/es/connect/connect";
 
 class US605 extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      item: [],
-      showResults: false,
-      isLoaded: false,
-    }
   }
 
-  toggle() {
-    this.setState(state => ({collapse: !state.collapse}));
+  componentDidMount() {
+    this.props.onFetchUsers();
   }
 
   render() {
-    var {id, item} = this.state;
-    return (
-      <div>
 
-              <US605SelectRoom/>
+    const {loading, rooms} = this.props;
+    if (loading === true) {
+      return (<h1>Loading ....</h1>);
+    }
+    if (rooms.length > 0) {
 
-      </div>
-    );
 
+      return (
+        <>
+          <Row>
+            <Col>
+              <Card className="card-accent-warning">
+                <CardHeader>
+                  Current Temperature
+                </CardHeader>
+                <CardBody>
+                  <Table responsive>
+                    <CardBody>
+                      <tr>
+                        <th>Room</th>
+                        <th>Temperature</th>
+                      </tr>
+                      {rooms.map(items => (
+
+                        <tr>
+                          <td value={items.name} key={items.name}> {items.name} </td>
+                          <td ><US605GetCurrentTemperature href={items.links.map(hrefs =>(hrefs.href))} /></td>
+                        </tr>
+                      ))}
+                    </CardBody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      );
+    }
+    else {
+      return (
+        <div className="help-block"><Alert color="warning">No rooms on the house</Alert></div>
+      )
+    }
   }
 }
 
-export default US605;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.Reducer108.loading,
+    rooms: state.Reducer108.rooms,
+    error: state.Reducer108.error
+  }
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchUsers: () => {
+      dispatch(fetchRooms())
+    }
 
+  }
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(US605);
