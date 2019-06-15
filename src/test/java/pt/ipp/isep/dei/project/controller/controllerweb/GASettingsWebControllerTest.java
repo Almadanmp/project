@@ -578,7 +578,7 @@ class GASettingsWebControllerTest {
         Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
                 .thenReturn(true);
 
-        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
 
         // Assert
 
@@ -625,7 +625,7 @@ class GASettingsWebControllerTest {
         Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
                 .thenReturn(false);
 
-        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
 
         // Assert
 
@@ -672,7 +672,7 @@ class GASettingsWebControllerTest {
         Mockito.when(geographicAreaRepository.removeSensorById(any(Long.class), any(String.class)))
                 .thenThrow(NoSuchElementException.class);
 
-        ResponseEntity<String> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
+        ResponseEntity<Object> actualResult = gaSettingsWebController.removeSensor(validGeographicAreaDTO.getGeographicAreaId(), areaSensorDTO.getSensorId());
 
         // Assert
 
@@ -762,6 +762,47 @@ class GASettingsWebControllerTest {
         // Assert
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateAreaSensorWorks() {
+
+        Mockito.doReturn(true).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("The sensor was successfully deactivated from the selected geographic area.", HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> actualResult = gaSettingsWebController.deactivateSensor(1L, "id");
+
+        //Assert
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateAreaSensorNotFoundOrNonExistent() {
+        // Arrange
+
+        Mockito.doReturn(false).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>("There is no sensor with that ID in this geographic area.", HttpStatus.NOT_FOUND);
+
+        //Act
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.deactivateSensor(6L, "ID");
+
+        //Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfDeactivateAreaSensorNotFound() {
+
+        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
+
+        ResponseEntity<Object> actualResult = gaSettingsWebController.deactivateSensor(6L, "id");
+
+        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
     }
 }
 

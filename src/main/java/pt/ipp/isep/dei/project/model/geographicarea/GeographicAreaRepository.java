@@ -27,9 +27,6 @@ public class GeographicAreaRepository {
     @Autowired
     private GeographicAreaCrudRepo geographicAreaCrudRepo;
 
-    @Autowired
-    private AreaTypeCrudRepo areaTypeCrudRepo;
-
     /**
      * Method to return a list with all the Geographical Areas contained on the geographicAreaRepository
      *

@@ -231,44 +231,6 @@ class SensorSettingsWebControllerTest {
         assertEquals(areaSensorDTO, actualResult);
     }
 
-    @Test
-    void deactivateAreaSensor() {
-
-        Mockito.doReturn(true).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
-
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Area Sensor has been deactivated.", HttpStatus.OK);
-
-        //Act
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(1L, "id");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void addDaughterAreaContainsDaughter() {
-
-        Mockito.doReturn(false).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
-
-        ResponseEntity<String> expectedResult = new ResponseEntity<>("The Area Sensor is already deactivated", HttpStatus.CONFLICT);
-
-        //Act
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(6L, "ID");
-
-        //Assert
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void addDaughterAreaNotFound() {
-
-        Mockito.doThrow(NoSuchElementException.class).when(geographicAreaRepository).deactivateAreaSensor(any(long.class), any(String.class));
-
-        ResponseEntity<Object> actualResult = sensorSettingsWebController.deactivateAreaSensor(6L, "id");
-
-        assertEquals(HttpStatus.NOT_FOUND, actualResult.getStatusCode());
-    }
-
 
     @Test
     void seeIfCreateAreaSensorFailsWithConflict() {

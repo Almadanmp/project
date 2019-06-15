@@ -33,7 +33,7 @@ public class GASettingsWebController {
 
     @PostMapping(value = "/areaTypes")
     public ResponseEntity<Object> addAreaType(@RequestBody AreaTypeDTO typeToAdd) {
-        if (typeToAdd.getName() == null || typeToAdd.getName().equals("")){
+        if (typeToAdd.getName() == null || typeToAdd.getName().equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<AreaTypeDTO> repoTypes = areaTypeRepository.getAllTypesDTO();
@@ -136,6 +136,23 @@ public class GASettingsWebController {
         }
     }
 
+    /* USER STORY US010 - As an Administrator, I want to deactivate a sensor in a geographical area, so that it will no longer be used. It can be reactivated later.*/
+
+    /**
+     * This method deactivates a sensor selected from a list of sensors of a previously selected geographic area
+     */
+    @PutMapping("areas/{id}")
+    public ResponseEntity<Object> deactivateSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
+        try {
+            if (geographicAreaRepo.deactivateAreaSensor(id, sensorId)) {
+                return new ResponseEntity<>("The sensor was successfully deactivated from the selected geographic area.", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("There is no sensor with that ID in this geographic area.", HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>("There is no geographic area", HttpStatus.NOT_FOUND);
+        }
+    }
+
     /* USER STORY US011 - As an Administrator, I want to removeSensor a sensor from a geographical area, so that it will no
     longer be used.*/
 
@@ -143,7 +160,7 @@ public class GASettingsWebController {
      * This method removes a sensor selected from a list of sensors of a previously selected geographic area
      */
     @DeleteMapping("areas/{id}")
-    public ResponseEntity<String> removeSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
+    public ResponseEntity<Object> removeSensor(@PathVariable("id") long id, @RequestBody String sensorId) {
         try {
             if (geographicAreaRepo.removeSensorById(id, sensorId)) {
                 return new ResponseEntity<>("The sensor was successfully removed from the selected geographic area.", HttpStatus.OK);
