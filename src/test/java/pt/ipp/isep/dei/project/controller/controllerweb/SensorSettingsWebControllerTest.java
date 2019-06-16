@@ -17,20 +17,21 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
 import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
+import pt.ipp.isep.dei.project.dto.SensorTypeDTO;
 import pt.ipp.isep.dei.project.dto.mappers.AreaSensorMapper;
 import pt.ipp.isep.dei.project.dto.mappers.GeographicAreaMapper;
 import pt.ipp.isep.dei.project.model.Local;
 import pt.ipp.isep.dei.project.model.geographicarea.AreaSensor;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicArea;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorType;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,10 +42,16 @@ class SensorSettingsWebControllerTest {
 
     @Mock
     GeographicAreaRepository geographicAreaRepository;
+
+    @Mock
+    SensorTypeRepository sensorTypeRepository;
+
     @InjectMocks
     SensorSettingsWebController sensorSettingsWebController;
+
     @Autowired
     private MockMvc mockMvc;
+
     private long id;
     private AreaSensor validAreaSensor;
     private GeographicArea validGeographicArea;
@@ -401,5 +408,128 @@ class SensorSettingsWebControllerTest {
         ResponseEntity<Object> actualResult = sensorSettingsWebController.createAreaSensor(areaSensorDTO, id);
 
         assertEquals(HttpStatus.BAD_REQUEST, actualResult.getStatusCode());
+    }
+
+    @Test
+    void seeIfGetSensorTypesWorks() {
+        // Arrange
+
+        SensorType sensorType = new SensorType("rain", "mm");
+
+        sensorTypeRepository.add(sensorType);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.getSensorTypes();
+
+        // Assert
+
+        assertEquals(HttpStatus.OK, actualResult.getStatusCode());
+
+    }
+
+    @Test
+    void seeIfAddSensorTypeWorks() {
+        // Arrange
+
+        List<SensorTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeToAdd, HttpStatus.OK);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorTypeWorksDuplicate() {
+        // Arrange
+
+        List<SensorTypeDTO> repoList = new ArrayList<>();
+        SensorTypeDTO typeInRepo = new SensorTypeDTO();
+        typeInRepo.setName("rain");
+        typeInRepo.setUnits("mm");
+        repoList.add(typeInRepo);
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.CONFLICT);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        typeToAdd.setUnits("mm");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorTypeWorksAlmostDuplicate() {
+        // Arrange
+
+        List<SensorTypeDTO> repoList = new ArrayList<>();
+        SensorTypeDTO typeInRepo = new SensorTypeDTO();
+        typeInRepo.setName("rain");
+        typeInRepo.setUnits("mm");
+        repoList.add(typeInRepo);
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(repoList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(typeInRepo, HttpStatus.OK);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("rain");
+        typeToAdd.setUnits("mm2");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorTypeWorksInvalidInputEmpty() {
+        // Arrange
+
+        List<SensorTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void seeIfAddSensorTypeWorksInvalidInputNull() {
+        // Arrange
+
+        List<SensorTypeDTO> emptyList = new ArrayList<>();
+        Mockito.when(sensorTypeRepository.getAllSensorTypeDTO()).thenReturn(emptyList);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        SensorTypeDTO typeToAdd = new SensorTypeDTO();
+        typeToAdd.setName("");
+
+        // Act
+
+        ResponseEntity<Object> actualResult = sensorSettingsWebController.addSensorType(typeToAdd);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
     }
 }
