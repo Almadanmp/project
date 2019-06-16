@@ -56,7 +56,7 @@ class LoginWebControllerTest {
         Mockito.when(userService.getUsernameFromToken()).thenReturn("John");
         Mockito.when(userService.findByUsername("John")).thenThrow(NoSuchElementException.class);
 
-        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         ResponseEntity<Object> actualResult = loginWebController.getUserRole();
 
