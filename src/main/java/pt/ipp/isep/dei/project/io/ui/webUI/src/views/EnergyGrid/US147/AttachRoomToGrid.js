@@ -72,7 +72,7 @@ class AttachRoomToGrid extends React.Component {
         <p></p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit && this.toggleHidden}>Attach
           Room {name} to {this.props.grid}</Button>
-        {!this.state.isHidden && <h6>The room has been attached!</h6>}
+        {!this.state.isHidden && <h6> <i className="fa fa-check-square-o fa-lg"/> The room has been attached!</h6>}
       </>
     )
 

@@ -55,7 +55,7 @@ class RoomGrid extends Component {
               <Col xs="12" lg="6">
                 <Card value={items.name} key={items.name}>
                   <CardHeader>
-                    <h5>Grid: {items.name}</h5>
+                      <i className="fa fa-align-justify"></i><strong>Rooms in Grid: {items.name}</strong>
                   </CardHeader>
                   <CardBody style={{
                     textAlign: "right"
