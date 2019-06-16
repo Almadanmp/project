@@ -1,5 +1,4 @@
 import React from 'react';
-import SensorMenu from "./views/Sensor/SensorMenu";
 
 
 const About  = React.lazy(() => import('./views/Pages/About'));

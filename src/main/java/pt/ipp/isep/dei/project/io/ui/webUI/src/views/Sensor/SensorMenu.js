@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import US005extra from "./US005extra";
+import US005 from "./US005";
 
 class SensorMenu extends Component {
   constructor(props) {
@@ -16,6 +18,8 @@ class SensorMenu extends Component {
       <div>
         <h2>Welcome to the Sensor Menu</h2>
         <h4>Please select the option you want to run</h4>
+        <US005/>
+        <US005extra/>
       </div>
     );
   }
