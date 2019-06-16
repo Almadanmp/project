@@ -47,5 +47,3 @@ export default function Reducers600 (state = initialstate, action) {
       return state;
   }
 }
-
-
