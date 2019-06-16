@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //get all rooms needs to be accessed by ADMIN and REGULAR so made it a permit all
                 .antMatchers("/houseSettings/houseRooms").permitAll()
                 //login related methods
-                .antMatchers("/loginWeb/getUserRole").permitAll()
+                .antMatchers("/loginWeb/**").permitAll()
                 //ADMIN User Access
                 .antMatchers("/houseSettings/house").hasRole(ADMIN)
                 .antMatchers("/houseSettings/room").hasRole(ADMIN)

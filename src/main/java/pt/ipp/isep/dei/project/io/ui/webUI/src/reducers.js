@@ -13,13 +13,12 @@ import Reducers623 from './views/House/HouseMonitoring/USRedux/US623Redux/Reduce
 import Reducers147 from './views/EnergyGrid/US147/Reducers147';
 import Reducers633 from './views/House/HouseMonitoring/USRedux/US633Redux/Reducers633.js';
 import Reducer005extra from './views/Sensor/US005Extra/Reducers005extra'
-
+import ReducersUserRole from "./user/ReducersUserRole";
 import ReducersGetRoomsNotInGrid from './views/EnergyGrid/US147/ReducersGetRoomsNotInGrid'
 
 export default combineReducers({
 
   Reducer002,
-
   Reducers004,
   Reducer108,
   Reducers600,
@@ -31,6 +30,7 @@ export default combineReducers({
   Reducers631,
   Reducers633,
   Reducer005extra,
+  ReducersUserRole,
 
   ReducersGetRoomsNotInGrid,
 })

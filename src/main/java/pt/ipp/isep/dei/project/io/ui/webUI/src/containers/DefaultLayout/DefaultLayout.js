@@ -22,6 +22,8 @@ import navigationBasic from '../../_navBasic';
 // routes config
 import routes from '../../routes';
 import {logout} from "../../logOut/logoutActions";
+import {connect} from "react-redux";
+import {fetchUserRole} from "../../user/ActionsUserRole";
 
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
@@ -40,8 +42,14 @@ class DefaultLayout extends Component {
     };
   }
 
+  getUserRole() {
+    fetchUserRole()
+  }
+
   render() {
-    if (localStorage.getItem("user") === null) {
+    this.getUserRole()
+    console.log(localStorage.getItem("userRole"))
+    if (localStorage.getItem("userRole") === null) {
       return (
         <div className="app">
           <AppHeader fixed>
@@ -100,7 +108,7 @@ class DefaultLayout extends Component {
         </div>
       );
     } else {
-      if (localStorage.getItem("user").includes("admin")) {
+      if (localStorage.getItem("userRole") === "ADMIN") {
         return (
           <div className="app">
             <AppHeader fixed>
@@ -159,7 +167,7 @@ class DefaultLayout extends Component {
           </div>
         );
       } else {
-        if (localStorage.getItem("user").includes("regular")) {
+        if (localStorage.getItem("userRole") === "REGULAR"||"POWER"||"ROOM") {
           return (
             <div className="app">
               <AppHeader fixed>
@@ -225,8 +233,17 @@ class DefaultLayout extends Component {
       }
 
     }
-  }}
+  }
+}
 
-  export
-  default
-  DefaultLayout;
+const mapStateToProps = (state) => {
+  return {
+    userRole: state.ReducersUserRole.userRole,
+  }
+};
+
+
+export default connect(
+  mapStateToProps,
+)(DefaultLayout);
+

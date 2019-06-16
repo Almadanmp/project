@@ -3,6 +3,7 @@ import TextInput from './TextInput';
 import {connect} from 'react-redux';
 import {logInUser} from './sessionActions';
 import {Alert} from 'reactstrap';
+import {fetchUserRole} from "../user/ActionsUserRole";
 
 export class LogInPage extends Component {
   constructor(props) {
@@ -24,11 +25,10 @@ export class LogInPage extends Component {
     this.setState({credentials: credentials})
   }
 
-  isLoggedIn(){
-    if(this.state.loggedIn===true){
+  isLoggedIn() {
+    if (this.state.loggedIn === true) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
@@ -41,6 +41,7 @@ export class LogInPage extends Component {
         if (res.status === 200) {
           this.setState({loggedIn: true});
           this.props.history.replace('/about');
+          this.props.onFetchUserRole()
         }
       })
       .catch(err => {
@@ -149,15 +150,26 @@ export class LogInPage extends Component {
   }
 }
 
-
-
-function mapDispatchToProps() {
+const mapStateToProps = (state) => {
   return {
-    actions: (logInUser)
-  };
-}
+    userRole: state.ReducersUserRole.userRole,
+  }
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchUserRole: () => {
+      dispatch(fetchUserRole())
+    },
+    actions:(logInUser)
+
+  }
+};
+
 
 export default connect(
+  mapStateToProps,
   mapDispatchToProps
 )(LogInPage);
 
