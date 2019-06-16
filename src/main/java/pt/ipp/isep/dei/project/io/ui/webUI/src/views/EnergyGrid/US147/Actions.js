@@ -1,8 +1,10 @@
 import axios from 'axios';
+import {FETCH_NO_DATA} from "../../House/HouseMonitoring/USRedux/US600Redux/Actions600";
 
 export const FETCH_ROOM_GRID_INFO_STARTED = 'FETCH_ROOM_GRID_INFO_STARTED';
 export const FETCH_ROOM_GRID_INFO_SUCCESS = 'FETCH_ROOM_GRID_INFO_SUCCESS';
 export const FETCH_ROOM_GRID_INFO_FAILURE = 'FETCH_ROOM_GRID_INFO_FAILURE';
+export const FETCH_NO_ROOM_GRID_DATA = 'FETCH_NO_ROOM_GRID_DATA';
 
 
 export const attachRoomGrid = ({name, grid}) => {
@@ -26,7 +28,12 @@ export const attachRoomGrid = ({name, grid}) => {
         dispatch(fetchRoomGridInfoSuccess(res.data));
       })
       .catch(err => {
-        dispatch(fetchRoomGridInfoFailure(err.message));
+        if (err.response === 400) {
+          dispatch(fetchNoData(err.message))
+        }
+        else {
+          dispatch(fetchRoomGridInfoFailure(err.message));
+        }
       });
   };
 };
@@ -60,5 +67,13 @@ export function fetchRoomGridInfoFailure(message) {
   }
 }
 
+export function fetchNoData(response) {
+  return {
+    type: FETCH_NO_ROOM_GRID_DATA,
+    payload: {
+      errorData: response
+    }
+  }
+}
 
 

@@ -7,10 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
-import pt.ipp.isep.dei.project.dto.AreaSensorDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaDTO;
-import pt.ipp.isep.dei.project.dto.GeographicAreaWebDTO;
+import pt.ipp.isep.dei.project.dto.*;
+import pt.ipp.isep.dei.project.dto.mappers.AreaTypeMapper;
+import pt.ipp.isep.dei.project.dto.mappers.SensorTypeMapper;
 import pt.ipp.isep.dei.project.model.geographicarea.GeographicAreaRepository;
+import pt.ipp.isep.dei.project.model.sensortype.SensorTypeRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -26,6 +27,9 @@ public class SensorSettingsWebController {
 
     @Autowired
     private GeographicAreaRepository geographicAreaRepository;
+
+    @Autowired
+    private SensorTypeRepository sensorTypeRepository;
 
     // Part 0 - Main menu
 
@@ -159,6 +163,36 @@ public class SensorSettingsWebController {
     public AreaSensorDTO getAreaSensor(@PathVariable("id") long idArea, @PathVariable("id2") String idSensor) {
         GeographicAreaDTO geographicArea = geographicAreaRepository.getDTOById(idArea);
         return geographicArea.getAreaSensorByID(idSensor);
+    }
+
+
+    // USER STORY 05 - As an Administrator, I want to define the sensor types.
+
+    @PostMapping(value = "/sensorTypes")
+    public ResponseEntity<Object> addSensorType(@RequestBody SensorTypeDTO sensorTypeDTO) {
+        if (sensorTypeDTO.getName().equals("") || sensorTypeDTO.getName() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        List<SensorTypeDTO> repoTypes = sensorTypeRepository.getAllSensorTypeDTO();
+        for (SensorTypeDTO a : repoTypes) {
+            if ( (a.getName().equals(sensorTypeDTO.getName())) && (a.getUnits().equals(sensorTypeDTO.getUnits())) ) {
+                return new ResponseEntity<>(a, HttpStatus.CONFLICT);
+            }
+        }
+        sensorTypeRepository.add(SensorTypeMapper.dtoToObject(sensorTypeDTO));
+        return new ResponseEntity<>(sensorTypeDTO, HttpStatus.OK);
+    }
+
+    // USER STORY 05 - EXTRA - Display the already defined sensor types
+
+    /**
+     * This method displays all Sensor Types
+     *
+     * @return ResponseEntity with all the sensor types.
+     */
+    @GetMapping(value = "/sensorTypes")
+    public ResponseEntity<Object> getSensorTypes() {
+        return new ResponseEntity<>(sensorTypeRepository.getAllSensorTypeDTO(), HttpStatus.OK);
     }
 
 }

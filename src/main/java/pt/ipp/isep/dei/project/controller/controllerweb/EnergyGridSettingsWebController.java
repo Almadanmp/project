@@ -58,19 +58,19 @@ public class EnergyGridSettingsWebController {
 
     /* Get a list of the rooms NOT attached to the grid
      */
-    @GetMapping(value = "/grids/{energyGridId}/notAttached")
-    public ResponseEntity<Object> getRoomsWebDtoNotInGrid(@PathVariable("energyGridId") String gridId) {
-        try {
-            List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebNotInGrid(gridId);
-            for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
-                Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
-                roomDTOMinimal.add(link);
-            }
-            return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
-        } catch (NullPointerException ok) {
-            return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
-        }
-    }
+//    @GetMapping(value = "/grids/{energyGridId}/notAttached")
+//    public ResponseEntity<Object> getRoomsWebDtoNotInGrid(@PathVariable("energyGridId") String gridId) {
+//        try {
+//            List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebNotInGrid(gridId);
+//            for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
+//                Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
+//                roomDTOMinimal.add(link);
+//            }
+//            return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
+//        } catch (NullPointerException ok) {
+//            return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     /* US 147 - As an Administrator, I want to attach a room to a house grid, so that the room’s power and energy
      * consumption is included in that grid.
