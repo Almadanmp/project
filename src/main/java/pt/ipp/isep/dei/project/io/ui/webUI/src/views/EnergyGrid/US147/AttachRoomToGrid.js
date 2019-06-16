@@ -5,6 +5,7 @@ import {attachRoomGrid} from "./Actions";
 import {connect} from 'react-redux';
 import {deleteRoomFromGrid} from "../US149/Actions";
 import {fetchRoomsNotInGrid} from "../US147/ActionsGetRoomsNotInGrid"
+import US253Post from "../../Room/RoomConfiguration/US253/US253Post";
 
 class AttachRoomToGrid extends React.Component {
 
@@ -13,6 +14,7 @@ class AttachRoomToGrid extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.handleChange = this.handleChange.bind(this);
     this.state = {
+      isHidden: true,
       formerGrid: '',
       name: '',
     };
@@ -23,6 +25,8 @@ class AttachRoomToGrid extends React.Component {
       });
     };
   }
+
+  toggleHidden = ()=>this.setState((prevState)=>({isHidden: !prevState.isHidden}))
 
   handleSubmit() {
     this.props.onDeleteRoomFromGrid(this.state.name, this.state.formerGrid);
@@ -66,8 +70,9 @@ class AttachRoomToGrid extends React.Component {
         Former Grid:<input value={this.state.formerGrid} placeholder="Ex: B building" type="text" name="formerGrid"
                            onChange={this.handleInputChange('formerGrid')}/>
         <p></p>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Attach
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit && this.toggleHidden}>Attach
           Room {name} to {this.props.grid}</Button>
+        {!this.state.isHidden && <h6>The room has been attached!</h6>}
       </>
     )
 

@@ -36,29 +36,29 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         return gridRooms;
     }
 
-    public List<Room> getRoomListNotInGrid(EnergyGrid energyGrid) {
-        List<Room> rooms = roomRepository.getAllRooms(); //todos
-        List<String> unWantedRooms = energyGrid.getRoomIdList();
-        for (String s : unWantedRooms) {
-            Optional<Room> room = roomRepository.findRoomByID(s);
-            room.ifPresent(rooms::remove);
-        }
-        return rooms;
-    }
-
-    public List<String> getEnergyGridIdAccordingToRoomPosition(EnergyGrid energyGrid, List<Room> rooms) {
-        List<EnergyGrid> grids = energyGridRepository.getAllGrids();
-        grids.remove(energyGrid);
-        List<String> gridIds = new ArrayList<>();
-        for (int i = 0; i < rooms.size(); i++) {
-            for (EnergyGrid e : grids) {
-                if (e.getRoomIdList().contains(rooms.get(i).getId())) {
-                    gridIds.add(e.getName());
-                }
-            }
-        }
-        return gridIds;
-    }
+//    public List<Room> getRoomListNotInGrid(EnergyGrid energyGrid) {
+//        List<Room> rooms = roomRepository.getAllRooms(); //todos
+//        List<String> unWantedRooms = energyGrid.getRoomIdList();
+//        for (String s : unWantedRooms) {
+//            Optional<Room> room = roomRepository.findRoomByID(s);
+//            room.ifPresent(rooms::remove);
+//        }
+//        return rooms;
+//    }
+//
+//    public List<String> getEnergyGridIdAccordingToRoomPosition(EnergyGrid energyGrid, List<Room> rooms) {
+//        List<EnergyGrid> grids = energyGridRepository.getAllGrids();
+//        grids.remove(energyGrid);
+//        List<String> gridIds = new ArrayList<>();
+//        for (int i = 0; i < rooms.size(); i++) {
+//            for (EnergyGrid e : grids) {
+//                if (e.getRoomIdList().contains(rooms.get(i).getId())) {
+//                    gridIds.add(e.getName());
+//                }
+//            }
+//        }
+//        return gridIds;
+//    }
 
     /**
      * Method accesses the sum of nominal powers of all rooms and devices connected to a grid..
@@ -333,25 +333,25 @@ public class EnergyGridRoomService implements pt.ipp.isep.dei.project.dddplaceho
         List<Room> roomList = getRoomList(energyGrid);
         return RoomMinimalMapper.objectsToDtosWeb(roomList);
     }
-
-    /**
-     * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
-     * that I can attach/detach rooms from it.
-     * This method returns a List of Rooms Dto Web from a grid.
-     *
-     * @param gridId is the name of the grid.
-     * @return a List of Rooms Dto Web from a grid.
-     */
-    public List<RoomDTOMinimal> getRoomsDtoWebNotInGrid(String gridId) {
-        EnergyGrid energyGrid = energyGridRepository.getById(gridId);
-        List<Room> roomList = getRoomListNotInGrid(energyGrid);
-        List<String> gridIds = getEnergyGridIdAccordingToRoomPosition(energyGrid, roomList);
-        List<RoomDTOMinimal> result = RoomMinimalMapper.objectsToDtosWeb(roomList);
-        for (int i = 0; i < result.size(); i++){
-            result.get(i).setGridID(gridIds.get(i));
-        }
-        return result;
-    }
+//
+//    /**
+//     * Method for US 145 - As an Administrator, I want to have a list of existing rooms attached to a house grid, so
+//     * that I can attach/detach rooms from it.
+//     * This method returns a List of Rooms Dto Web from a grid.
+//     *
+//     * @param gridId is the name of the grid.
+//     * @return a List of Rooms Dto Web from a grid.
+//     */
+//    public List<RoomDTOMinimal> getRoomsDtoWebNotInGrid(String gridId) {
+//        EnergyGrid energyGrid = energyGridRepository.getById(gridId);
+//        List<Room> roomList = getRoomListNotInGrid(energyGrid);
+//        List<String> gridIds = getEnergyGridIdAccordingToRoomPosition(energyGrid, roomList);
+//        List<RoomDTOMinimal> result = RoomMinimalMapper.objectsToDtosWeb(roomList);
+//        for (int i = 0; i < result.size(); i++){
+//            result.get(i).setGridID(gridIds.get(i));
+//        }
+//        return result;
+//    }
 
 
     /**
