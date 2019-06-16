@@ -13,4 +13,7 @@ export function logInUser(username, password) {
       localStorage.setItem('user', username)
       return Promise.resolve(res);
     })
+    .catch(err => {
+      return Promise.resolve(err.statusCode);
+    })
 }

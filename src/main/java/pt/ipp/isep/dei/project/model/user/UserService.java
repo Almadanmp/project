@@ -1,20 +1,28 @@
 package pt.ipp.isep.dei.project.model.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-   public User findByUsername(String username){
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public String getUsernameFromToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return authentication.getName();
+        } else {
+            throw new NoSuchElementException("ERROR: No User found");
+        }
     }
 }

@@ -23,6 +23,8 @@ import java.util.Arrays;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String REGULAR_USER = "REGULAR";
     private static final String ADMIN = "ADMIN";
+    private static final String POWER_USER = "POWER";
+    private static final String ROOM_OWNER = "ROOMOWNER";
     private UserPrincipalDetailsService userPrincipalDetailsService;
     private UserRepository userRepository;
 
@@ -57,16 +59,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 //get all rooms needs to be accessed by ADMIN and REGULAR so made it a permit all
                 .antMatchers("/houseSettings/houseRooms").permitAll()
+                //login related methods
+                .antMatchers("/loginWeb/getUserRole").permitAll()
                 //ADMIN User Access
-
                 .antMatchers("/houseSettings/house").hasRole(ADMIN)
                 .antMatchers("/houseSettings/room").hasRole(ADMIN)
                 .antMatchers("/roomConfiguration/**").hasRole(ADMIN)
                 .antMatchers("/gridSettings/**").hasRole(ADMIN)
                 .antMatchers("/geographic_area_settings/**").hasRole(ADMIN)
                 //Regular User Access - US600, US605, US610, US620, US630, US631, US633
-                .antMatchers("/houseMonitoring/**").hasRole(REGULAR_USER)
-                .antMatchers("/roomMonitoring/**").hasRole(REGULAR_USER)
+                .antMatchers("/houseMonitoring/**").hasAnyRole(REGULAR_USER, POWER_USER, ROOM_OWNER)
+                .antMatchers("/roomMonitoring/**").hasAnyRole(REGULAR_USER, POWER_USER)
                 .anyRequest().authenticated();
     }
 

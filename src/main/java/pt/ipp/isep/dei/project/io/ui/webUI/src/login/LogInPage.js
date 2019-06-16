@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import TextInput from './TextInput';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {logInUser} from './sessionActions';
-import { Alert, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import {Alert} from 'reactstrap';
 
 export class LogInPage extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.state = {credentials: {username: '', password: ''}, collapse: false, loggedIn: 'not logged'}
+    this.state = {credentials: {username: '', password: ''}, collapse: false, loggedIn: false}
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
@@ -25,28 +24,35 @@ export class LogInPage extends Component {
     this.setState({credentials: credentials})
   }
 
+  isLoggedIn(){
+    if(this.state.loggedIn===true){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
   onSave = async event => {
     event.preventDefault();
     logInUser(this.state.credentials.username, this.state.credentials.password)
       .then(res => {
-        //If the loggin is sucessfull the user gets redirected to its home page
+        //If the login is successful the user gets redirected to its home page
         if (res.status === 200) {
-          this.setState({loggedIn: 'loggedIn'})
+          this.setState({loggedIn: true});
           this.props.history.replace('/about');
         }
       })
-      .catch(err=>{
-        this.setState({loggedIn: 'wrongPass'})
-        return console.log(err);
-      }
-
-  )
+      .catch(err => {
+          this.setState({loggedIn: null})
+          return console.log(err);
+        }
+      )
   };
 
   render() {
     const {credentials} = this.state;
-    if ((this.state.loggedIn.indexOf("not") != -1)) {
+    if ((this.state.loggedIn === false)) {
       return (
         <>
           <style>{'body { background-color: white; }'}</style>
@@ -143,10 +149,15 @@ export class LogInPage extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+
+
+function mapDispatchToProps() {
   return {
-    actions: bindActionCreators(logInUser, dispatch)
+    actions: (logInUser)
   };
 }
 
-export default connect(null, mapDispatchToProps)(LogInPage);
+export default connect(
+  mapDispatchToProps
+)(LogInPage);
+
