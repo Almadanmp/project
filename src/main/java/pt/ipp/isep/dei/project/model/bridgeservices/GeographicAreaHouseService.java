@@ -27,7 +27,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
 
     private static final String TEMPERATURE = "temperature";
     private static final String RAINFALL = "rainfall";
-    private String malformedDatesError = "ERROR: Malformed Dates: Initial and End dates are both " +
+    private static final String MALFORMED_DATES_ERROR = "ERROR: Malformed Dates: Initial and End dates are both " +
             "required (Initial date must be before End date).";
 
     /**
@@ -311,7 +311,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
      * @return total rainfall on given day
      */
     public double getTotalRainfallOnGivenDay(Date date) {
-        AreaSensor closestSensor = getClosestAreaSensorOfGivenType("rainfall");
+        AreaSensor closestSensor = getClosestAreaSensorOfGivenType(RAINFALL);
         List<Reading> sensorReadings = closestSensor.getReadings();
         return ReadingUtils.getValueReadingsInDay(date, sensorReadings);
     }
@@ -330,7 +330,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             double value = areaSensor.getAmplitudeValueFromDate(date);
             return new DateValueDTO(date, value);
         } else {
-            throw new IllegalArgumentException(malformedDatesError);
+            throw new IllegalArgumentException(MALFORMED_DATES_ERROR);
         }
     }
 
@@ -347,7 +347,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             double value = areaSensor.getReadingValueOnGivenDay(date);
             return new DateValueDTO(date, value);
         } else {
-            throw new IllegalArgumentException(malformedDatesError);
+            throw new IllegalArgumentException(MALFORMED_DATES_ERROR);
         }
     }
 
@@ -364,7 +364,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             double value = areaSensor.getReadingValueOnGivenDay(date);
             return new DateValueDTO(date, value);
         } else {
-            throw new IllegalArgumentException(malformedDatesError);
+            throw new IllegalArgumentException(MALFORMED_DATES_ERROR);
         }
     }
 
@@ -379,7 +379,7 @@ public class GeographicAreaHouseService implements pt.ipp.isep.dei.project.dddpl
             AreaSensor areaSensor = getClosestAreaSensorOfGivenType(RAINFALL);
             return areaSensor.getAverageReadingsBetweenDates(initialDate, finalDate);
         } else {
-            throw new IllegalArgumentException(malformedDatesError);
+            throw new IllegalArgumentException(MALFORMED_DATES_ERROR);
         }
     }
 

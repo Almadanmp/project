@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
 import pt.ipp.isep.dei.project.dto.DateDTO;
-import pt.ipp.isep.dei.project.dto.DateIntervalDTO;
 import pt.ipp.isep.dei.project.dto.DateValueDTO;
 import pt.ipp.isep.dei.project.model.bridgeservices.GeographicAreaHouseService;
 
@@ -27,7 +26,7 @@ public class HouseMonitoringWebController {
     @Autowired
     GeographicAreaHouseService geographicAreaHouseService;
 
-    private String periodRetry = "Retry with a different period.";
+    private final String periodRetry = "Retry with a different period.";
 
     /**
      * US600

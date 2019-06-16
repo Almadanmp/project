@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.io.ui.commandLineUI;
+package pt.ipp.isep.dei.project.io.ui.commandline;
 
 import pt.ipp.isep.dei.project.model.areatype.AreaType;
 import pt.ipp.isep.dei.project.model.areatype.AreaTypeRepository;

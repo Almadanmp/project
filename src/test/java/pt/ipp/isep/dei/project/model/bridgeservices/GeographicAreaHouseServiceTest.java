@@ -44,12 +44,15 @@ class GeographicAreaHouseServiceTest {
     private GeographicArea firstValidArea;
     private AreaSensor firstValidAreaSensor;
     private AreaSensor secondValidAreaSensor;
+    private AreaSensor firstRainfallAreaSensor;
     private AreaSensor validAreaSensor;
     private Date initialTime;
     private Date endingTime;
     private Date sensorCreationTime;
     private Reading validReading1;
     private Reading validReading2;
+    private Reading validRainfallReading1;
+    private Reading validRainfallReading2;
     private Date validReadingDate1;
     private Date validReadingDate2; // 04-10-2018
     private Date validReadingDate3;
@@ -105,7 +108,7 @@ class GeographicAreaHouseServiceTest {
                 new Local(50, 50, 10));
         firstValidArea.setId(12L);
         validSensorTypeTemp = new SensorType("temperature", "Celsius");
-        validSensorTypeTemp2 = new SensorType("Rainfall", "Celsius");
+        validSensorTypeTemp2 = new SensorType("rainfall", "%");
 
         firstValidAreaSensor = new AreaSensor("SensorOne", "SensorOne", validSensorTypeTemp.getName(), new Local(2, 2, 2), validDate1);
         firstValidAreaSensor.setActive(true);
@@ -115,14 +118,22 @@ class GeographicAreaHouseServiceTest {
         validAreaSensor = new AreaSensor("SensorThree", "SensorThree", validSensorTypeTemp.getName(), new Local(10, 10, 10),
                 sensorCreationTime);
         validAreaSensor.setActive(true);
+        firstRainfallAreaSensor = new AreaSensor("SensorRainfall", "SensorRainfall", validSensorTypeTemp2.getName(), new Local(10, 10, 10),
+                sensorCreationTime);
+        firstRainfallAreaSensor.setActive(true);
 
         validReading1 = new Reading(23, validDate2, "C", "sensorID");
         validReading2 = new Reading(23, validReadingDate1, "C", "SensorThree");
+
+        validRainfallReading1 = new Reading(12, validDate2, "rainfall", "SensorThree");
+        validRainfallReading2 = new Reading(23, validReadingDate1, "rainfall", "SensorThree");
 
         validAreaSensor.addReading(validReading2);
         validReadingList = new ArrayList<>();
         validReadingList.add(validReading2);
 
+        firstRainfallAreaSensor.addReading(validRainfallReading1);
+        firstRainfallAreaSensor.addReading(validRainfallReading2);
 
         deviceTypeString = new ArrayList<>();
         deviceTypeString.add(PATH_TO_FRIDGE);
@@ -132,6 +143,7 @@ class GeographicAreaHouseServiceTest {
                 180, deviceTypeString);
         validHouse.setMotherAreaID(firstValidArea.getId());
         firstValidArea.addSensor(validAreaSensor);
+        firstValidArea.addSensor(firstRainfallAreaSensor);
         firstValidRoomSensor = new RoomSensor("T32875", "SensorOne", "temperature", validRoomDate1);
         firstValidRoomSensor.setActive(true);
         validRoom1 = new Room("Bedroom", "Double Bedroom", 2, 15, 15, 10, "Room1");
@@ -1069,31 +1081,100 @@ class GeographicAreaHouseServiceTest {
     void seeIfGetTotalRainfallOnGivenDay() {
         // Arrange
 
-        AreaSensor areaSensor = new AreaSensor("SensorRain", "SensorRain", "rainfall", new Local(2, 2, 2), validDate2);
-
-        Reading reading1 = new Reading(20D, validReadingDate2, "Millimeter", areaSensor.getId());
-
-        areaSensor.addReading(reading1);
-
-        firstValidArea.addSensor(areaSensor);
-        areaSensor.setActive(true);
-
         List<House> houses = new ArrayList<>();
         houses.add(validHouse);
-        long areaId = 12L;
+        long areaId = firstValidArea.getId();
 
-        double expectedResult = 20;
+        double expectedResult = 23.0;
 
         // Act
 
         Mockito.when(houseRepository.getHouses()).thenReturn(houses);
         Mockito.when(geographicAreaRepository.getByID(areaId)).thenReturn(firstValidArea);
 
-        double actualResult = geographicAreaHouseService.getTotalRainfallOnGivenDay(validReadingDate2);
+        double actualResult = geographicAreaHouseService.getTotalRainfallOnGivenDay(validReadingDate1);
 
         // Assert
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void getAverageRainfallSuccessMockito() {
+        // Arrange
+
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(firstValidArea.getId())).thenReturn(firstValidArea);
+        double expectedResult = 17.5;
+
+        // Act
+
+        double actualResult = geographicAreaHouseService.getAverageDailyRainfall(validDate2, validDate1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+
+    @Test
+    void getAverageRainfallInvertedDates() {
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getAverageDailyRainfall(validDate1, validDate2));
+
+    }
+
+    @Test
+    void getAverageRainfallNoGeographicAreaInDBl() {
+        // Arrange
+
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(null);
+
+        // Assert
+
+        assertThrows(NoSuchElementException.class,
+                () -> geographicAreaHouseService.getAverageDailyRainfall(validDate2, validDate1));
+
+    }
+
+    @Test
+    void getAverageRainfallEmptySensor() {
+        // Arrange
+
+        GeographicArea areaNoSensors = new GeographicArea("Portugal", "Country", 300, 200,
+                new Local(50, 50, 10));
+        areaNoSensors.setId(12L);
+        validHouse.setMotherAreaID(areaNoSensors.getId());
+        areaNoSensors.addSensor(new AreaSensor("test", "test", "rainfall", new Local(2, 2, 2), validDate1));
+        List<House> houses = new ArrayList<>();
+        houses.add(validHouse);
+        Mockito.when(houseRepository.getHouses()).thenReturn(houses);
+        Mockito.when(geographicAreaRepository.getByID(validHouse.getMotherAreaID())).thenReturn(areaNoSensors);
+
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getAverageDailyRainfall(validDate2, validDate1));
+
+    }
+
+
+    @Test
+    void getAverageRainfallIncompleteDatesMockito() throws IllegalArgumentException {
+        // Assert
+
+        assertThrows(IllegalArgumentException.class,
+                () -> geographicAreaHouseService.getAverageDailyRainfall(validDate2, null));
+
+    }
+
 }
 

@@ -10,8 +10,6 @@ const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfigurat
 const EnergyGrid = React.lazy(()=> import('./views/EnergyGrid/EnergyGrid'));
 const Area = React.lazy(()=> import('./views/GeographicArea/Area'));
 
-const Users = React.lazy(() => import('./views/Users/Users'));
-const User = React.lazy(() => import('./views/Users/User'));
 const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -25,9 +23,6 @@ const routes = [
   { path: '/house/configuration', name: 'House Configuration', component: HouseConfiguration },
   { path: '/energy', name: 'Energy', component: EnergyGrid },
   { path: '/maintenance', name: 'UnderMaintenance', component: UnderMaintenance },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
-
   //Pages
   { path: '/about', name: 'About', component: About },
 ];

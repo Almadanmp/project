@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @Service
 public class HouseConfigurationController {
-    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HouseConfigurationController.class);
+    private final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HouseConfigurationController.class);
 
     @Autowired
     RoomRepository roomRepository;

@@ -453,4 +453,80 @@ class HouseMonitoringWebControllerTest {
 
     }
 
+
+    @Test
+    void getAverageRainfallSuccess() {
+        // Arrange
+
+       // DateValueDTO dateValueDTO = new DateValueDTO(date2, 12);
+
+        Mockito.when(geographicAreaHouseService.getAverageDailyRainfall(date2, date1)).thenReturn(12.0);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(12.0, HttpStatus.OK);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getAverageDailyRainfall(date2, date1);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+
+    @Test
+    void getaverageRainfallDatesMockito() {
+        // Arrange
+
+        Mockito.when(geographicAreaHouseService.getAverageDailyRainfall(date1, date2)).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getAverageDailyRainfall(date1, date2);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void getAverageRainfallIncompleteDatesMockito() throws IllegalArgumentException {
+        // Arrange
+
+        Mockito.when(geographicAreaHouseService.getAverageDailyRainfall(date1, date2)).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getAverageDailyRainfall(date1, date2);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
+    void getAverageRainfallSimulateServerErrorMockito() throws IllegalArgumentException {
+        // Arrange
+
+        Mockito.when(geographicAreaHouseService.getAverageDailyRainfall(date1, date2)).thenThrow(RuntimeException.class);
+
+        ResponseEntity<Object> expectedResult = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        // Act
+
+        ResponseEntity<Object> actualResult = houseMonitoringWebController.getAverageDailyRainfall(date1, date2);
+
+        // Assert
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+
 }
