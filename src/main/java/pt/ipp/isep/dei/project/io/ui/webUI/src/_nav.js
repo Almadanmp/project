@@ -61,7 +61,7 @@ export default {
     },
     {
       name: 'Sensor',
-      url: '/maintenance',
+      url: '/sensor',
       icon: 'icon-speedometer\n',
     },
 

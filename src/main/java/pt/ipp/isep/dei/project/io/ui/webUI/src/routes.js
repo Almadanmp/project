@@ -1,4 +1,5 @@
 import React from 'react';
+import SensorMenu from "./views/Sensor/SensorMenu";
 
 
 const About  = React.lazy(() => import('./views/Pages/About'));
@@ -9,6 +10,7 @@ const RoomConfiguration = React.lazy(()=> import('./views/Room/RoomConfiguration
 const HouseConfiguration = React.lazy(()=> import('./views/House/HouseConfiguration/HouseConfiguration'));
 const EnergyGrid = React.lazy(()=> import('./views/EnergyGrid/EnergyGrid'));
 const Area = React.lazy(()=> import('./views/GeographicArea/Area'));
+const Sensor = React.lazy(()=> import('./views/Sensor/SensorMenu'));
 
 const UnderMaintenance = React.lazy(() => import('./views/UnderMaintenance'));
 
@@ -22,6 +24,7 @@ const routes = [
   { path: '/room/configuration', name: 'Room Configuration', component: RoomConfiguration },
   { path: '/house/configuration', name: 'House Configuration', component: HouseConfiguration },
   { path: '/energy', name: 'Energy', component: EnergyGrid },
+  { path: '/sensor', name: 'Sensor', component: Sensor },
   { path: '/maintenance', name: 'UnderMaintenance', component: UnderMaintenance },
   //Pages
   { path: '/about', name: 'About', component: About },
