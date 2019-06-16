@@ -183,7 +183,7 @@ class HouseConfigurationWebControllerTest {
 
         //Assert
 
-        assertNotNull(link);
+        assertNotNull(expectedResult);
     }
 
     @Test
