@@ -20,6 +20,7 @@ import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.dto.mappers.EnergyGridMapper;
 import pt.ipp.isep.dei.project.dto.mappers.RoomMapper;
+import pt.ipp.isep.dei.project.dto.mappers.RoomMinimalMapper;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
 import pt.ipp.isep.dei.project.model.energy.EnergyGrid;
 import pt.ipp.isep.dei.project.model.energy.EnergyGridRepository;
@@ -158,7 +159,7 @@ class EnergyGridSettingsWebControllerTest {
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
         Room room = new Room("name", "description", 1, 10, 4, 3, "01");
         validGrid.addRoomId(room.getId());
-        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(room);
 
         Mockito.when(energyGridRoomService.removeRoomFromGrid(any(String.class), any(String.class))).thenThrow(new NoSuchElementException());
 
@@ -177,7 +178,7 @@ class EnergyGridSettingsWebControllerTest {
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
         Room room = new Room("name", "description", 1, 10, 4, 3, "01");
         validGrid.addRoomId(room.getId());
-        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(room);
 
         Mockito.doReturn(false).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
 
@@ -194,7 +195,7 @@ class EnergyGridSettingsWebControllerTest {
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
         Room room = new Room("name", "description", 1, 10, 4, 3, "01");
         validGrid.addRoomId(room.getId());
-        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(room);
 
         Mockito.doReturn(true).when(energyGridRoomService).removeRoomFromGrid(any(String.class), any(String.class));
 
@@ -211,7 +212,7 @@ class EnergyGridSettingsWebControllerTest {
         EnergyGrid validGrid = new EnergyGrid(null, 45D, "01");
         Room room = new Room("name", "description", 1, 10, 4, 3, "01");
         validGrid.addRoomId(room.getId());
-        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(room);
 
         ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO, validGrid.getName());
 
@@ -225,7 +226,7 @@ class EnergyGridSettingsWebControllerTest {
         EnergyGrid validGrid = new EnergyGrid("Valid Grid", 45D, "01");
         Room room = new Room(null, "description", 1, 10, 4, 3, "01");
         validGrid.addRoomId(room.getId());
-        RoomDTO roomDTO = RoomMapper.objectToDTO(room);
+        RoomDTOMinimal roomDTO = RoomMinimalMapper.objectToDtoWeb(room);
 
         ResponseEntity<String> actualResult = energyGridSettingsWebController.detachRoomFromGrid(roomDTO, validGrid.getName());
 

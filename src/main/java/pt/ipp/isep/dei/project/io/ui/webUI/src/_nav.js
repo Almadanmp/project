@@ -77,5 +77,11 @@ export default {
           url: '/about',
           icon: 'icon-star',
         },
+
+        {
+          name: 'PleaseLogin',
+          url: '/pleaseLogIn',
+          icon: 'icon-star',
+        },
   ],
 };
