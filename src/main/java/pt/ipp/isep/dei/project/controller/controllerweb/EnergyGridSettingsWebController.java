@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.ipp.isep.dei.project.dto.EnergyGridDTO;
+import pt.ipp.isep.dei.project.dto.PowerSourceDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTO;
 import pt.ipp.isep.dei.project.dto.RoomDTOMinimal;
 import pt.ipp.isep.dei.project.model.bridgeservices.EnergyGridRoomService;
@@ -123,6 +124,19 @@ public class EnergyGridSettingsWebController {
                 return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);
             }
             return new ResponseEntity<>("There is no room with that ID in this grid.", HttpStatus.NOT_FOUND);
+        } catch (NoSuchElementException ok) {
+            return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // USER STORY 165 - As an Administrator, I want to add a power source to a house grid, so that the produced energy
+    // may be used by all devices in that grid.
+
+    @PostMapping(value = "/grids/{energyGridId}")
+    public ResponseEntity<Object> addPowerSourceToGrid(@RequestBody PowerSourceDTO powerSourceDTO, @PathVariable("energyGridId") String gridId) {
+        try {
+            PowerSourceDTO addedSource = energyGridRepository.addPowerSource(powerSourceDTO, gridId);
+            return new ResponseEntity<>(addedSource, HttpStatus.OK);
         } catch (NoSuchElementException ok) {
             return new ResponseEntity<>(NO_GRID, HttpStatus.NOT_FOUND);
         }
