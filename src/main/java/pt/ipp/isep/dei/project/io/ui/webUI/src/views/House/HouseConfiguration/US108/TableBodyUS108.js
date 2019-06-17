@@ -34,7 +34,7 @@ class TableBodyUS108 extends Component {
             <td>{todo.length}</td>
             <td>{todo.width}</td>
             <td>
-              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => { this.handleEdit(); this.state.name = todo.name ;}}> Edit {todo.name}
+              <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => { this.handleEdit(); this.state.name = todo.name ;}}> Edit
               </Button>
             </td>
           </tr>
