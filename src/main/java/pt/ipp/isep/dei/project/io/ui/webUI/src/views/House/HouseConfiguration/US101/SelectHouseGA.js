@@ -46,8 +46,11 @@ class SelectHouseGA extends Component {
     console.log(item);
     this.state.item = Array.from(this.state.item);
     if (!isLoaded) {
-      return <div>Loading
-        ...</div>
+      return (
+        <div className = "spinner-border" role = "status" >
+        <span className = "sr-only" > Loading...</span>
+      </div>
+      )
     } else {
 
       if (!item.error) {

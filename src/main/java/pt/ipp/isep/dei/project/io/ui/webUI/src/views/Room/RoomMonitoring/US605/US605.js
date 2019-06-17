@@ -16,7 +16,11 @@ class US605 extends Component {
   render() {
     const {loading, rooms} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      );
     }
     if (rooms.length > 0) {
       return (
@@ -37,7 +41,9 @@ class US605 extends Component {
                       {rooms.map(items => (
                         <tr>
                           <td value={items.name} key={items.name}> {items.name} </td>
-                          <td><US605GetCurrentTemperature href={items.links.map(hrefs => (hrefs.rel.indexOf("1.") != -1 ? hrefs.href : "No link available"))}/></td>
+                          <td><US605GetCurrentTemperature
+                            href={items.links.map(hrefs => (hrefs.rel.indexOf("1.") != -1 ? hrefs.href : "No link available"))}/>
+                          </td>
                         </tr>
                       ))}
                     </CardBody>

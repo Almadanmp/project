@@ -11,7 +11,7 @@ class US631Redux extends Component {
     this.state = {
       collapse: false,
       from: undefined,
-      to:undefined
+      to: undefined
     };
   }
 
@@ -25,21 +25,27 @@ class US631Redux extends Component {
 
   render() {
     const {loading} = this.props;
-    const{hottestDay} = this.props;
+    const {hottestDay} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      );
     }
     else {
-        return (
-          <div>
-            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Hottest
-              day (higher maximum temperature): </Button>
-            <Collapse isOpen={this.state.collapse}>
-                  <h5 key={hottestDay.value}>{hottestDay.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The hottest day was ' + hottestDay.date +' and the temperature was '+ hottestDay.value+ 'ºC'}</h5>
+      return (
+        <div>
+          <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                  style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Hottest
+            day (higher maximum temperature): </Button>
+          <Collapse isOpen={this.state.collapse}>
+            <h5
+              key={hottestDay.value}>{hottestDay.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The hottest day was ' + hottestDay.date + ' and the temperature was ' + hottestDay.value + 'ºC'}</h5>
 
-            </Collapse>
-          </div>
-        )
+          </Collapse>
+        </div>
+      )
     }
   }
 }

@@ -10,7 +10,7 @@ class US633Redux extends Component {
     this.state = {
       collapse: false,
       from: undefined,
-      to:undefined
+      to: undefined
     };
   }
 
@@ -24,23 +24,29 @@ class US633Redux extends Component {
 
   render() {
     const {loading} = this.props;
-    const{amplitude} = this.props;
+    const {amplitude} = this.props;
     if (loading === true) {
-      return (<h1>Loading ....</h1>);
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      );
     }
-        return (
-          <div>
-            <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle} style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>The
-              highest temperature amplitude: </Button>
-            <Collapse isOpen={this.state.collapse}>
+    return (
+      <div>
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.toggle}
+                style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>The
+          highest temperature amplitude: </Button>
+        <Collapse isOpen={this.state.collapse}>
 
 
-                  <h5 key={amplitude.value}> {amplitude.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The highest amplitude was ' + amplitude.value +' on the date '+ amplitude.date + 'ºC'}</h5>
+          <h5
+            key={amplitude.value}> {amplitude.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The highest amplitude was ' + amplitude.value + ' on the date ' + amplitude.date + 'ºC'}</h5>
 
-            </Collapse>
-          </div>
-        )
-      }
+        </Collapse>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

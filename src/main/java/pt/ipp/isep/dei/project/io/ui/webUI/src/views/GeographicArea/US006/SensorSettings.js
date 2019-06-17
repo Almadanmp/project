@@ -17,7 +17,7 @@ class SensorSettings extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('loginToken')
-    fetch('https://localhost:8443/roomConfiguration/types',{
+    fetch('https://localhost:8443/roomConfiguration/types', {
         headers: {
           'Authorization': token,
           "Access-Control-Allow-Credentials": true,
@@ -45,25 +45,29 @@ class SensorSettings extends Component {
 
     var {isLoaded, item} = this.state;
     if (!isLoaded) {
-      return <div>Loading...</div>
+      return (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> Loading...</span>
+        </div>
+      )
     } else {
       if (!item.error) {
         return (
           <div>
-            <Form action="" method="post" >
+            <Form action="" method="post">
               <FormGroup>
                 <Label>Select Sensor Type</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                   <option value="0" onChange={this.handleChange}>Please select</option>
                   {item.map(items => (
-                    <option value={items.name}  key={items.name}>
+                    <option value={items.name} key={items.name}>
                       Type: {items.name}
                     </option>
                   ))}
                 </Input>
               </FormGroup>
             </Form>
-            <AreaSensorCreator geographicAreaId = {this.props.geographicAreaId} typeSensor = {this.state.value} />
+            <AreaSensorCreator geographicAreaId={this.props.geographicAreaId} typeSensor={this.state.value}/>
           </div>
         );
       } else {
