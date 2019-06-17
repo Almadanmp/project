@@ -6,13 +6,12 @@ export const FETCH_ROOM_T_FAILURE = 'FETCH_ROOM_T_FAILURE';
 export const FETCH_NO_DATA = 'FETCH_NO_DATA';
 
 
-export function fetchRoomTemp(roomID) {
+export function fetchRoomTemp(href) {
   const token = localStorage.getItem('loginToken');
-  const room = roomID
   return dispatch => {
-    dispatch(fetchRoomTempStarted(room)); // antes de fazer o get, coloca o loading a true
+    dispatch(fetchRoomTempStarted(href)); // antes de fazer o get, coloca o loading a true
     axios
-      .get('https://localhost:8443/roomMonitoring/currentRoomTemperature/' + room, {
+      .get(href, {
           headers: {
             'Authorization': token,
             "Access-Control-Allow-Credentials": true,
@@ -35,11 +34,11 @@ export function fetchRoomTemp(roomID) {
   };
 }
 
-export function fetchRoomTempStarted(room) {
+export function fetchRoomTempStarted(href) {
   return {
     type: FETCH_ROOM_T_STARTED,
     payload: {
-      room : room,
+      href: href,
     }
   }
 }

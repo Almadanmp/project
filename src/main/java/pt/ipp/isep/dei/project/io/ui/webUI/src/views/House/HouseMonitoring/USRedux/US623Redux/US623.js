@@ -32,8 +32,7 @@ class US623 extends Component {
         <>
           <Button style={{direction: 'right'}} style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}}
                   onClick={this.toggle}
-                  style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}>Last coldest
-            day (average rainfall):</Button>
+                  style={{backgroundColor: '#FFFFFF', marginBottom: '1rem'}}> Average rainfall:</Button>
           <Collapse isOpen={this.state.collapse}>
             <h5
               key={rainfall}> {rainfall.toString().indexOf("ERROR") != -1 ? 'There is no data available' : 'The average rainfall was ' + rainfall + '%'} </h5>

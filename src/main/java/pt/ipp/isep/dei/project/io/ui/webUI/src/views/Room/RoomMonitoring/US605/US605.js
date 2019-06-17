@@ -14,14 +14,11 @@ class US605 extends Component {
   }
 
   render() {
-
     const {loading, rooms} = this.props;
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
     if (rooms.length > 0) {
-
-
       return (
         <>
           <Row>
@@ -38,10 +35,9 @@ class US605 extends Component {
                         <th>Temperature</th>
                       </tr>
                       {rooms.map(items => (
-
                         <tr>
                           <td value={items.name} key={items.name}> {items.name} </td>
-                          <td ><US605GetCurrentTemperature href={items.links.map(hrefs =>(hrefs.href))} /></td>
+                          <td><US605GetCurrentTemperature href={items.links.map(hrefs => (hrefs.rel.indexOf("1.") != -1 ? hrefs.href : "No data available"))}/></td>
                         </tr>
                       ))}
                     </CardBody>

@@ -22,10 +22,10 @@ class RoomMonitoring extends Component {
         <h4>Please select the option you want to run</h4>
         <br></br>
         <Row>
-<Col  xs="6" sm="4" md="4">
+<Col  xs="8" sm="4" md="3">
         <US605/>
 </Col>
-          <Col  xs="6" sm="4" md="4">
+          <Col  xs="10" sm="10" md="4">
         <US610/>
           </Col>
         </Row>

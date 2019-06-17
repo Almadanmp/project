@@ -102,7 +102,7 @@ public class HouseConfigurationWebController {
         List<RoomDTOMinimal> roomDTOBarebones = roomRepository.getAllRoomDTOMinimal();
         for (RoomDTOMinimal roomDTO : roomDTOBarebones) {
             String roomID = roomDTO.getName();
-            Link link = linkTo(methodOn(RoomMonitoringWebController.class).getCurrentRoomTemperature(roomID)).withRel("Click here to get current temperature.");
+            Link link = linkTo(methodOn(RoomMonitoringWebController.class).getCurrentRoomTemperature(roomID)).withRel("1.Click here to get current temperature.");
             roomDTO.add(link);
         }
         return new ResponseEntity<>(roomDTOBarebones, HttpStatus.OK);
