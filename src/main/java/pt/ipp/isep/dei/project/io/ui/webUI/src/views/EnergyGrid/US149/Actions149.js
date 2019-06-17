@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-export const REMOVE_GRID_ROOM_INFO_STARTED = 'REMOVE_GRID_ROOM_INFO_STARTED';
-export const REMOVE_GRID_ROOM_INFO_SUCCESS = 'REMOVE_GRID_ROOM_INFO_SUCCESS';
-export const REMOVE_GRID_ROOM_INFO_FAILURE = 'REMOVE_GRID_ROOM_INFO_FAILURE';
+export const DETACH_GRID_ROOM_INFO_STARTED = 'DETACH_GRID_ROOM_INFO_STARTED';
+export const DETACH_GRID_ROOM_INFO_SUCCESS = 'DETACH_GRID_ROOM_INFO_SUCCESS';
+export const DETACH_GRID_ROOM_INFO_FAILURE = 'DETACH_GRID_ROOM_INFO_FAILURE';
 
 
-export const deleteRoomFromGrid = ({name, link}) => {
-  console.log({name});
+export const detachRoomFromGrid = ({name, grid}) => {
+  console.log({name, grid});
   const token = localStorage.getItem('loginToken');
   return dispatch => {
-    dispatch(fetchRoomFromGridInfo(name, link));
+    dispatch(fetchRoomFromGridInfo(name, grid));
     axios
-      .delete(link,
+      .delete('https://localhost:8443/gridSettings/grids/' + grid,
         {
           headers: {
             'Authorization': token,
@@ -33,7 +33,7 @@ export const deleteRoomFromGrid = ({name, link}) => {
 
 export function fetchRoomFromGridInfo(name, grid) {
   return {
-    type: REMOVE_GRID_ROOM_INFO_STARTED,
+    type: DETACH_GRID_ROOM_INFO_STARTED,
     payload: {
       name: name,
       grid: grid,
@@ -43,7 +43,7 @@ export function fetchRoomFromGridInfo(name, grid) {
 
 export function fetchRoomFromGridInfoSuccess(data) {
   return {
-    type: REMOVE_GRID_ROOM_INFO_SUCCESS,
+    type: DETACH_GRID_ROOM_INFO_SUCCESS,
     payload: {
       message: data,
     }
@@ -52,7 +52,7 @@ export function fetchRoomFromGridInfoSuccess(data) {
 
 export function fetchRoomFromGridInfoFailure(message) {
   return {
-    type: REMOVE_GRID_ROOM_INFO_FAILURE,
+    type: DETACH_GRID_ROOM_INFO_FAILURE,
     payload: {
       error: message
     }

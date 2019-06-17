@@ -1,9 +1,9 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
-import {Button} from "reactstrap";
+import {Alert, Button} from "reactstrap";
 import {attachRoomGrid} from "./Actions";
 import {connect} from 'react-redux';
-import {deleteRoomFromGrid} from "../US149/Actions";
+import {detachRoomFromGrid} from "../US149/Actions149";
 
 class AttachRoom extends React.Component {
 
@@ -17,7 +17,7 @@ class AttachRoom extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onDeleteRoomFromGrid(this.props.name, this.props.formerGrid);
+    this.props.onDetachRoomFromGrid(this.props.name, this.props.formerGrid);
     this.props.onAttachRoomGrid(this.props.name, this.props.grid);
   }
 
@@ -27,8 +27,8 @@ class AttachRoom extends React.Component {
     if ((room.toString()).indexOf("ERROR") != -1) {
       return (
         <div>
-            <h6> ERROR: {error}.
-            </h6>
+          <div className="help-block"><Alert color="danger">ERROR: {error}</Alert></div>
+
           </div>
         )}
         else
@@ -57,8 +57,8 @@ const mapDispatchToProps = (dispatch) => {
     onAttachRoomGrid: (name, grid) => {
       dispatch(attachRoomGrid({name, grid}))
     },
-    onDeleteRoomFromGrid: (name, grid) => {
-      dispatch(deleteRoomFromGrid({name, grid}))
+    onDetachRoomFromGrid: (name, grid) => {
+      dispatch(detachRoomFromGrid({name, grid}))
     },
   }
 };

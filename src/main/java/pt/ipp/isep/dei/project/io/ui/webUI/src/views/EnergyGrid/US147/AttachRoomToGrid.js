@@ -4,7 +4,7 @@ import {Button} from "reactstrap";
 import AttachRoom from "./AttachRoom"
 import {attachRoomGrid} from "./Actions";
 import {connect} from 'react-redux';
-import {deleteRoomFromGrid} from "../US149/Actions";
+import {deleteRoomFromGrid} from "../US149/Actions149Hateoas";
 
 class AttachRoomToGrid extends React.Component {
 

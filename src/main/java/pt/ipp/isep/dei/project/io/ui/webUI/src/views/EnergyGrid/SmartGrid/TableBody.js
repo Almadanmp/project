@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import TableHeader from "./TableHeader";
 import {Button} from "reactstrap";
 import RemoveFromGrid from "./gridRedux/RemoveFromGrid"
-import {deleteRoomFromGrid} from "../US149/Actions";
+import {deleteRoomFromGrid} from "../US149/Actions149Hateoas";
 import connect from "react-redux/es/connect/connect";
 
 class TableBody extends Component {

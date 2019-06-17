@@ -32,7 +32,8 @@ export const attachRoomGrid = ({name, grid}) => {
           dispatch(fetchNoData(err.message))
         }
         else {
-          dispatch(fetchRoomGridInfoFailure(err.message));
+          if(err.response !== undefined){
+          dispatch(fetchRoomGridInfoFailure(err.response.data));}
         }
       });
   };
@@ -58,11 +59,11 @@ export function fetchRoomGridInfoSuccess(data) {
   }
 }
 
-export function fetchRoomGridInfoFailure(message) {
+export function fetchRoomGridInfoFailure(response) {
   return {
     type: FETCH_ROOM_GRID_INFO_FAILURE,
     payload: {
-      error: message
+      error: response
     }
   }
 }
