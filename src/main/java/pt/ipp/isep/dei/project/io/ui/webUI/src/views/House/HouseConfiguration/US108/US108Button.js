@@ -22,7 +22,7 @@ class US108Button extends Component {
   submit = () => {
     confirmAlert({
       title: 'Confirm your room configuration',
-      message: 'The room has the following new configuration: Floor: '+this.props.floor+'. | Width: '+this.props.width+'m. | Length: '+this.props.length+'m. | Height: '+this.props.height+'m. Do you want to proceed?',
+      message: 'The room has the following new configuration: Floor: ' + this.props.floor + '. | Width: ' + this.props.width + 'm. | Length: ' + this.props.length + 'm. | Height: ' + this.props.height + 'm. Do you want to proceed?',
       buttons: [
         {
           label: 'Yes',
@@ -30,7 +30,8 @@ class US108Button extends Component {
         },
         {
           label: 'No',
-          onClick: () => {}
+          onClick: () => {
+          }
         }
       ]
     });
@@ -41,7 +42,9 @@ class US108Button extends Component {
   render() {
     return (
       <div>
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => {this.submit();}}>Edit the
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={(event) => {
+          this.submit();
+        }}>Edit the
           room {this.props.name}</Button><US108BackButton/>
         {!this.state.isHidden &&
         <US108Put name={this.props.name} floor={this.props.floor} width={this.props.width} length={this.props.length}
