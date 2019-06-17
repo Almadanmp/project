@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
+import AttachRoom from "./AttachRoom"
 import {attachRoomGrid} from "./Actions";
 import {connect} from 'react-redux';
 import {deleteRoomFromGrid} from "../US149/Actions";
@@ -9,7 +10,7 @@ class AttachRoomToGrid extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  //  this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       isHidden: true,
       formerGrid: '',
@@ -25,14 +26,13 @@ class AttachRoomToGrid extends React.Component {
 
   toggleHidden = () => this.setState((prevState) => ({isHidden: !prevState.isHidden}))
 
-  handleSubmit() {
-    this.props.onDeleteRoomFromGrid(this.state.name, this.state.formerGrid);
-    this.props.onAttachRoomGrid(this.state.name, this.props.grid);
-  }
+  // handleSubmit() {
+  //   this.props.onDeleteRoomFromGrid(this.state.name, this.state.formerGrid);
+  //   this.props.onAttachRoomGrid(this.state.name, this.props.grid);
+  // }
 
   render() {
     const {name} = this.state;
-    const {room, error} = this.props;
     return (
       <>
         RoomID:<input value={this.state.name} placeholder="Ex: B107" type="text" name="name"
@@ -41,21 +41,17 @@ class AttachRoomToGrid extends React.Component {
         Former Grid:<input value={this.state.formerGrid} placeholder="Ex: B building" type="text" name="formerGrid"
                            onChange={this.handleInputChange('formerGrid')}/>
         <p></p>
-        <p><small>(Please type the name of the room and its previous grid. If the room does not belong to a grid, just write its name.)</small></p>
+        <p>
+          <small>(Please type the name of the room and its previous grid. If the room does not belong to a grid, just
+            write its name.)
+          </small>
+        </p>
         <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}}
-                onClick={this.handleSubmit && this.toggleHidden}>Attach
+                onClick={this.toggleHidden}>Attach
           Room {name} to {this.props.grid}</Button>
-        {!this.state.isHidden && <h6><i className="fa fa-check-square-o fa-lg"/> The room has been attached!</h6>}
+        {!this.state.isHidden && <AttachRoom name={ this.state.name} grid={this.props.grid} formerGrid={this.state.formerGrid}/>}
       </>
-    );
-
-    if ((room.toString()).indexOf("ERROR") != -1) {
-      return (<div>
-          <h6> ERROR: {error}.
-          </h6>
-        </div>
-      )
-    }
+    )
   }
 }
 
