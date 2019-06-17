@@ -33,7 +33,7 @@ class US108Redux extends Component {
         return (
           <div className="animated fadeIn">
             <Row>
-              <Col xs="12" lg="6">
+              <Col xs="12" lg="5">
                 <Card>
                   <CardBody>
                     <Table responsive>
