@@ -3,6 +3,7 @@ import 'react-day-picker/lib/style.css';
 import {Button} from "reactstrap";
 import {fetchRoom} from "./Actions";
 import {connect} from 'react-redux';
+import {confirmAlert} from "react-confirm-alert";
 
 class RoomCreator extends React.Component {
 
@@ -28,6 +29,24 @@ class RoomCreator extends React.Component {
   handleSubmit() {
     this.props.onFetchRoom(this.state);
   }
+
+  submit = () => {
+    confirmAlert({
+      title: 'Confirm your room configuration',
+      message: 'The new room has the following new configuration: Name: ' + this.state.name + '. | Floor: ' + this.state.floor + '. | Width: ' + this.state.width + 'm. | Length: ' + this.state.length + 'm. | Height: ' + this.state.height + 'm. Do you want to proceed?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.handleSubmit()
+        },
+        {
+          label: 'No',
+          onClick: () => {
+          }
+        }
+      ]
+    });
+  };
 
   render() {
     const {name, floor, width, length, height} = this.state;
@@ -64,7 +83,7 @@ class RoomCreator extends React.Component {
           details: {name + ', ' + floor + ', ' + width + ', ' + length + ', ' + height + '.'}</p>
         <p></p>
 
-        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.handleSubmit}>Save new room
+        <Button style={{backgroundColor: '#e4e5e6', marginBottom: '1rem'}} onClick={this.submit}>Save new room
           configuration</Button>
       </>
     )

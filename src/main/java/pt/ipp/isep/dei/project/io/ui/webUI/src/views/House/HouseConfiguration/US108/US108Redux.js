@@ -28,28 +28,29 @@ class US108Redux extends Component {
     if (loading === true) {
       return (<h1>Loading ....</h1>);
     }
-    if (rooms.length >0) {{
+    if (rooms.length > 0) {
+      {
+        return (
+          <div className="animated fadeIn">
+            <Row>
+              <Col xs="12" lg="6">
+                <Card>
+                  <CardBody>
+                    <Table responsive>
+                      <TableHeaderUS108 headers={headers}/>
+                      <TableBodyUS108 rooms={rooms}/>
+                    </Table>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </div>
+        );
+      }
+    } else {
       return (
-        <div className="animated fadeIn">
-          <Row>
-            <Col xs="12" lg="6">
-              <Card>
-                <CardBody>
-                  <Table responsive>
-                    <TableHeaderUS108 headers={headers}/>
-                    <TableBodyUS108 rooms={rooms}/>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      );
-    }}
-     else {
-       return(
-         <div className="help-block"><Alert color="warning">No rooms on the house</Alert></div>
-       )
+        <div className="help-block"><Alert color="warning">No rooms on the house</Alert></div>
+      )
 
     }
   }
