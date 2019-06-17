@@ -17,6 +17,9 @@ import pt.ipp.isep.dei.project.model.room.RoomRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/gridSettings")
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
@@ -47,8 +50,10 @@ public class EnergyGridSettingsWebController {
         try {
             List<RoomDTOMinimal> minimalRoomDTOs = energyGridRoomService.getRoomsDtoWebInGrid(gridId);
             for (RoomDTOMinimal roomDTOMinimal : minimalRoomDTOs) {
+                Link linkDelete = linkTo(methodOn(EnergyGridSettingsWebController.class).detachRoomFromGrid(roomDTOMinimal,gridId)).withRel("1. Detach the room from the grid.");
                 Link link = ControllerLinkBuilder.linkTo(HouseConfigurationWebController.class).slash(roomDTOMinimal.getName()).withRel("roomName");
                 roomDTOMinimal.add(link);
+                roomDTOMinimal.add(linkDelete);
             }
             return new ResponseEntity<>(minimalRoomDTOs, HttpStatus.OK);
         } catch (NullPointerException ok) {
@@ -117,7 +122,7 @@ public class EnergyGridSettingsWebController {
     // energy  consumption  is  not  included  in  that  grid.  The  room’s characteristics are not changed.
 
     @DeleteMapping(value = "/grids/{energyGridId}")
-    public ResponseEntity<String> detachRoomFromGrid(@RequestBody RoomDTO roomID, @PathVariable("energyGridId") String gridID) {
+    public ResponseEntity<String> detachRoomFromGrid(@RequestBody RoomDTOMinimal roomID, @PathVariable("energyGridId") String gridID) {
         try {
             if (energyGridRoomService.removeRoomFromGrid(roomID.getName(), gridID)) {
                 return new ResponseEntity<>("The room was successfully detached from the grid.", HttpStatus.OK);
