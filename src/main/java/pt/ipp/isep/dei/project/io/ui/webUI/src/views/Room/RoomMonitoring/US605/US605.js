@@ -37,7 +37,7 @@ class US605 extends Component {
                       {rooms.map(items => (
                         <tr>
                           <td value={items.name} key={items.name}> {items.name} </td>
-                          <td><US605GetCurrentTemperature href={items.links.map(hrefs => (hrefs.rel.indexOf("1.") != -1 ? hrefs.href : "No data available"))}/></td>
+                          <td><US605GetCurrentTemperature href={items.links.map(hrefs => (hrefs.rel.indexOf("1.") != -1 ? hrefs.href : "No link available"))}/></td>
                         </tr>
                       ))}
                     </CardBody>
