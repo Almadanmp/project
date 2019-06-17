@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchRooms} from './Actions108';
 import {Alert, Card, CardBody, Col, Row, Table} from "reactstrap";
-import TableHeaderUS108 from "./TableHeaderUS108";
+
 import TableBodyUS108 from "./TableBodyUS108"
 
 class US108Redux extends Component {
@@ -37,8 +37,7 @@ class US108Redux extends Component {
                 <Card>
                   <CardBody>
                     <Table responsive>
-                      <TableHeaderUS108 headers={headers}/>
-                      <TableBodyUS108 rooms={rooms}/>
+                      <TableBodyUS108 headers={headers} rooms={rooms}/>
                     </Table>
                   </CardBody>
                 </Card>

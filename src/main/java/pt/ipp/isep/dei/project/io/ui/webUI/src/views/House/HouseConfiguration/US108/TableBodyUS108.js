@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import US108Select from "./US108Select";
 import {Button} from 'reactstrap';
+import TableHeaderUS108 from "./TableHeaderUS108";
 
 
 class TableBodyUS108 extends Component {
@@ -22,9 +23,18 @@ class TableBodyUS108 extends Component {
   };
 
   render() {
+    const headers = {
+      name: "Name",
+      floor: "Floor",
+      height: "Height (m)",
+      length: "Length (m)",
+      width: "Width (m)",
+      edit: "Configure"
+    };
     const {rooms} = this.props; // data = this.props.data;
     if (rooms.length > 0 && this.state.check === false) {
-      return (
+      return (<tbody>
+        <TableHeaderUS108 headers={headers}/>
         <tbody>
         {rooms.map((todo) => (
           <tr key={todo.name}>
@@ -42,6 +52,7 @@ class TableBodyUS108 extends Component {
             </td>
           </tr>
         ))}
+        </tbody>
         </tbody>
       );
     } else if (rooms.length > 0 && this.state.check === true) {
