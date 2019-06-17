@@ -48,6 +48,8 @@ class SelectSensor extends Component {
       return <div>Loading...</div>
     } else {
       if (!item.error) {
+        const tasks = item.filter(task => task.geographicAreaId != this.props.geographicAreaId);
+
         return (
           <div>
             <Form action="" method="post" >
@@ -55,7 +57,7 @@ class SelectSensor extends Component {
                 <Label>Select the child Geographic Area</Label>
                 <Input type="select" name="select" id="select" value={this.state.value} onChange={this.handleChange}>
                   <option value="0" onChange={this.handleChange}>Please select</option>
-                  {item.map(items => (
+                  {tasks.map(items => (
                     <option value={items.geographicAreaId}  key={items.name}>
                       Name: {items.name}
                     </option>
