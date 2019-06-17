@@ -38,17 +38,17 @@ class RoomEditor extends React.Component {
         </label>
         <p></p>
         <label>Width:
-          <input value={width} type="number" name="width" placeholder="Width"
+          <input value={width} type="number" min="0" name="width" placeholder="Width"
                  onChange={this.handleInputChange('width')}/>
         </label>
         <p></p>
         <label>Length:
-          <input value={length} type="number" name="length" placeholder="Length"
+          <input value={length} type="number" min="0" name="length" placeholder="Length"
                  onChange={this.handleInputChange('length')}/>
         </label>
         <p></p>
         <label>Height:
-          <input value={height} type="number" name="height" placeholder="Height"
+          <input value={height} type="number" min="0" name="height" placeholder="Height"
                  onChange={this.handleInputChange('height')}/>
         </label>
         <US108Button name={this.props.name} floor={this.state.floor} width={this.state.width} length={this.state.length}
