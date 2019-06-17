@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, Collapse} from 'reactstrap';
-import SelectSensor from "./US006/SelectSensor";
+import SelectMotherArea from "./US007/SelectMotherArea";
 
-class US006 extends Component {
+class US007 extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -16,13 +16,13 @@ class US006 extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}>Add a new
-          sensor to a Geographic Area</Button>
+        <Button onClick={this.toggle} style={{backgroundColor: '#93c4c4', marginBottom: '1rem'}}>Add Geographic Area
+        into another Geographic Area</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>
               <span>
-                <SelectSensor/>
+                <SelectMotherArea/>
               </span>
               <span>
               </span>
@@ -34,4 +34,4 @@ class US006 extends Component {
   }
 }
 
-export default US006;
+export default US007;

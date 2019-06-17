@@ -4,9 +4,9 @@ import US002 from './US002';
 import US003 from './US003';
 import US004 from './US004';
 import US006 from './US006';
+import US007 from './US007';
 import US010 from './US010';
 import US011 from './US011';
-
 
 class Area extends Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class Area extends Component {
         <US003/>
         <US004/>
         <US006/>
+        <US007/>
         <US010/>
         <US011/>
       </div>

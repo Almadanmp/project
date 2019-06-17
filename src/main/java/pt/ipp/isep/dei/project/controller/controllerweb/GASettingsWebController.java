@@ -104,8 +104,8 @@ public class GASettingsWebController {
      * @param idAreaParent of the geoArea with the daughter area
      * @return string with info if geoArea was added or not
      */
-    @PutMapping("areas/list/{idParent}")
-    public ResponseEntity<Object> addChildArea(@RequestBody long idAreaChild, @PathVariable("idParent") long idAreaParent) {
+    @PutMapping("areas/{idParent}/{idChild}")
+    public ResponseEntity<Object> addChildArea(@PathVariable("idChild") long idAreaChild, @PathVariable("idParent") long idAreaParent) {
         GeographicAreaDTO result;
         Link link;
         try {
