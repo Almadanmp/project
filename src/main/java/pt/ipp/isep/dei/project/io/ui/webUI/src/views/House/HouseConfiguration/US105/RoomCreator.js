@@ -44,18 +44,18 @@ class RoomCreator extends React.Component {
         </label>
         <p></p>
         <label> Width:
-          <input value={this.state.width} placeholder={"0"} type="number" name="width"
+          <input value={this.state.width} placeholder={"0"} type="number" min="0" name="width"
                  onChange={this.handleInputChange('width')}/>
         </label>
         <p></p>
         <label> Length:
-          <input value={this.state.length} placeholder={"0"} type="number" name="length"
+          <input value={this.state.length} placeholder={"0"} type="number" min="0" name="length"
                  onChange={this.handleInputChange('length')}/>
         </label>
         <p></p>
 
         <label> Height:
-          <input value={this.state.height} placeholder={"0"} type="number" name="height"
+          <input value={this.state.height} placeholder={"0"} type="number" min="0" name="height"
                  onChange={this.handleInputChange('height')}/>
         </label>
         <p></p>
